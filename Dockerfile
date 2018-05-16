@@ -11,8 +11,8 @@ RUN apk update && apk upgrade && apk add --no-cache rsync git python make gcc g+
 
 RUN npm install
 
-COPY . /opt/app
 RUN npm run setup
+COPY . /opt/app
 
 HEALTHCHECK --interval=10s --timeout=10s --retries=10 CMD http_proxy= curl -k --silent --fail https://localhost:3000/health
 
