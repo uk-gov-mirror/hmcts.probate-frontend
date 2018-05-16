@@ -22,7 +22,7 @@ module.exports = {
         terms: process.env.TERMS_AND_CONDITIONS,
         survey: process.env.SURVEY,
         surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION,
-        privacy: '/privacy-policy',        
+        privacy: '/privacy-policy',
         contact: '/contact-us',
         callCharges: 'https://www.gov.uk/call-charges',
         howToManageCookies: 'https://www.aboutcookies.org',
@@ -40,5 +40,4 @@ module.exports = {
         number: '0300 303 0648',
         hours: 'Monday to Friday, 9am to 5pm'
     }
-
 };
