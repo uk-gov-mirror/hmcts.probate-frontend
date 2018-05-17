@@ -16,3 +16,4 @@
 !app/**
 !config/**
 !test
+!git.properties.json
