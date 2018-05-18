@@ -1,21 +1,28 @@
-
 module.exports = {
-    environment: 'development',
+    environment: process.env.REFORM_ENVIRONMENT,
+    nodeEnvironment: process.env.NODE_ENV,
+    gitRevision: process.env.GIT_REVISION,
     service: {
         name: 'Apply for probate',
         version: ''
     },
-    port: process.env.PORT || '3000',
-    useAuth: 'false',
-    useIDAM: 'false',
-    useHttps: 'false',
-    useCSRFProtection: 'true',
-    cookieText: 'GOV.UK uses cookies to make the site simpler. <a href="http://gov.uk/help/cookies" title="Find out more about cookies">Find out more about cookies</a>',
+    app: {
+        username: process.env.USERNAME,
+        password: process.env.PASSWORD,
+        useAuth: process.env.USE_AUTH || 'false',
+        useHttps: process.env.USE_HTTPS || 'false',
+        useIDAM: process.env.USE_IDAM || 'false',
+        port: process.env.PORT || '3000',
+        useCSRFProtection: 'true',
+        cookieText: 'GOV.UK uses cookies to make the site simpler. <a href="http://gov.uk/help/cookies" title="Find out more about cookies">Find out more about cookies</a>'
+    },
     services: {
         postcode: {
-            url: process.env.POSTCODE_SERVICE_URL,
+            url: process.env.POSTCODE_SERVICE_URL || 'http://localhost:8585/find-address',
             token: process.env.POSTCODE_SERVICE_TOKEN,
-            proxy: process.env.http_proxy
+            proxy: process.env.http_proxy,
+            port: 8585,
+            path: '/find-address'
         },
         validation: {
             url: process.env.VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
@@ -51,22 +58,55 @@ module.exports = {
     },
     redis: {
         host: process.env.REDIS_HOST || 'localhost',
-        port: process.env.REDIS_PORT || 6379
+        port: process.env.REDIS_PORT || 6379,
+
+        password: process.env.REDIS_PASSWORD || 'dummy_password',
+        useTLS: process.env.REDIS_USE_TLS || 'false',
+        enabled: process.env.USE_REDIS || 'false',
+        secret: process.env.REDIS_SECRET || 'OVERWRITE_THIS',
+        proxy: true,
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            secure: false,
+            httpOnly: true,
+            sameSite: 'lax'
+        }
+
     },
     dateFormat: 'DD/MM/YYYY',
-
-    payloadVersion: '3.0.0',
-
+    payloadVersion: '4.1.0',
     hostname: process.env.FRONTEND_HOSTNAME || 'localhost:3000',
     gaTrackingId: process.env.GA_TRACKING_ID || '',
     enableTracking: process.env.ENABLE_TRACKING || 'true',
     links: {
-        cookies: 'http://gov.uk/help/cookies',
+        cookies: '/cookies',
+        privacy: '/privacy-policy',
         terms: '/terms-conditions',
-        survey: process.env.SURVEY || 'http://www.smartsurvey.co.uk/',
-        surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION || 'http://www.smartsurvey.co.uk/',
+        contact: '/contact-us',
+        callCharges: 'https://www.gov.uk/call-charges',
+        howToManageCookies: 'https://www.aboutcookies.org',
+        googlePrivacyPolicy: 'https://www.google.com/policies/privacy/partners/',
+        googleAnalyticsOptOut: 'https://tools.google.com/dlpage/gaoptout/',
+        mojPersonalInformationCharter: 'https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter',
+        goodThingsFoundation: 'https://www.goodthingsfoundation.org',
+        subjectAccessRequest: 'https://www.gov.uk/government/publications/request-your-personal-data-from-moj',
+        complaintsProcedure: 'https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure',
+        informationCommissionersOffice: 'https://ico.org.uk/global/contact-us',
+        survey: process.env.SURVEY || 'https://www.smartsurvey.co.uk/',
+        surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION || 'https://www.smartsurvey.co.uk/',
         ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value',
         renunciationForm: 'public/pdf/renunciation.pdf'
+    },
+    helpline: {
+        number: '0300 303 0648',
+        hours: 'Monday to Friday, 9am to 5pm'
+    },
+    utils: {
+        api: {
+            retries: process.env.RETRIES_NUMBER || 10,
+            retryDelay: process.env.RETRY_DELAY || 1000
+        }
     },
     payment: {
         applicationFee: 215,
@@ -89,5 +129,9 @@ module.exports = {
     whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou'],
     whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou'],
     hardStopParams: ['will.left', 'will.original', 'iht.completed', 'applicant.executor'],
-    nonCachedPages: ['summary', 'tasklist']
+    nonCachedPages: ['summary', 'tasklist'],
+    healthEndpoint: '/health',
+    appInsights: {
+        instrumentationKey: process.env.APPINSIGHTS_INSTRUMENTATION_KEY
+    }
 };

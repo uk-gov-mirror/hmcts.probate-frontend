@@ -2,10 +2,9 @@ const {mapValues, get} = require('lodash'),
       steps = require('app/core/initSteps').steps;
 const ExecutorsWrapper = require('app/wrappers/Executors');
 
-
 const submitData = function (ctx, data) {
 
-    const mappedData = mapValues(dataMap,  path => get(data, path));
+    const mappedData = mapValues(dataMap, path => get(data, path));
 
     mappedData.copiesUK = get(data, 'copies.uk', 0);
 
@@ -26,9 +25,7 @@ const submitData = function (ctx, data) {
     mappedData.noOfApplicants = executorsWrapper.executorsApplying().length;
     mappedData.executorsApplying = executorsWrapper.executorsApplying(true);
     mappedData.executorsNotApplying = executorsWrapper.executorsNotApplying(true);
-    if (get(mappedData, 'legalStatement.deceasedEstateValue')) {
-        mappedData.legalStatement.deceasedEstateValue = mappedData.legalStatement.deceasedEstateValue.replace(/&pound;/g, '£');
-    }
+
     return mappedData;
 };
 

@@ -13,6 +13,7 @@ RUN npm install
 
 COPY . /opt/app
 RUN npm run setup
+COPY git.properties.json /opt/app
 
 HEALTHCHECK --interval=10s --timeout=10s --retries=10 CMD http_proxy= curl -k --silent --fail https://localhost:3000/health
 

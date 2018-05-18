@@ -1,4 +1,5 @@
 const TestWrapper = require('test/util/TestWrapper');
+const config = require('app/config');
 
 describe('terms-conditions', () => {
     let testWrapper;
@@ -16,7 +17,15 @@ describe('terms-conditions', () => {
         it('test right content loaded on the page', (done) => {
             const excludeKeys = [];
 
-            testWrapper.testContent(done, excludeKeys);
+            const contentData = {
+                privacyLink: config.links.privacy,
+                cookiesLink: config.links.cookies,
+                helpLineNumber: config.helpline.number,
+                helpLineHours: config.helpline.hours,
+                callChargesLink: config.links.callCharges
+            };
+
+            testWrapper.testContent(done, excludeKeys, contentData);
         });
     });
 });

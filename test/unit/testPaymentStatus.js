@@ -1,10 +1,35 @@
-const initSteps = require('app/core/initSteps'),
-    assert = require('chai').assert,
-    co = require('co');
+const initSteps = require('app/core/initSteps');
+const assert = require('chai').assert;
+const config = require('test/config');
+const co = require('co');
 
 describe('PaymentStatus', function () {
 
     const steps = initSteps([__dirname + '/../../app/steps/ui/']);
+
+    describe('runnerOptions', function () {
+        it('Should set paymentPending to unknown if an authorise failure', function (done) {
+
+            config.s2sStubErrorSequence = '1';
+            require('test/service-stubs/idam');
+
+            const PaymentStatus = steps.PaymentStatus;
+            const ctx = {total: 1};
+            const formdata = {paymentPending: 'true'};
+            let options = {};
+
+            co(function* () {
+                options = yield PaymentStatus.runnerOptions(ctx, formdata);
+                assert.equal(options.redirect, true);
+                assert.equal(options.url, '/payment-breakdown?status=failure');
+                assert.equal(formdata.paymentPending, 'unknown');
+                done();
+            })
+                .catch((err) => {
+                done(err);
+            });
+        });
+    });
 
     describe('sendApplication', function () {
         it('Should create an error if the sendApplication fails', function (done) {
@@ -21,7 +46,7 @@ describe('PaymentStatus', function () {
             });
         });
 
-        it('Should not crete an error if sendApplication succeeds', function (done) {
+        it('Should not create an error if sendApplication succeeds', function (done) {
 
             require('test/service-stubs/submit');
 

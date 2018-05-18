@@ -1,11 +1,7 @@
-const scenario = 'End-to-end journey - Multiple Executors';
 const taskListContent = require('app/resources/en/translation/tasklist.json');
-//const executorsContent = require('app/resources/en/translation/executors/otherexecutors.json');
-const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))(scenario);
-const {forEach} = require('lodash');
+const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 
-
-Feature('Multiple Executor flow');
+Feature('Single Executor flow');
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
@@ -19,13 +15,10 @@ After(() => {
     TestConfigurator.getAfter();
 });
 
-
-Scenario(TestConfigurator.getScenarioName(), function* (I) {
-
+Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I) {
 
     // IDAM
     I.authenticateWithIdamIfAvailable();
-
 
     // EligibilityTask
 
@@ -48,7 +41,6 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
 
     I.selectApplicantIsExecutor();
 
-
     // ExecutorsTask
     //
     I.selectATask(taskListContent.taskNotStarted);
@@ -57,40 +49,8 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
     I.enterApplicantPhone();
     I.enterAddressManually();
 
-    const totalExecutors = '5';
+    const totalExecutors = '1';
     I.enterTotalExecutors(totalExecutors);
-    I.selectExecutorIsApplying();
-    I.enterExecutorNames(totalExecutors);
-
-    I.selectExecutorsAllAlive('No');
-
-    const executorsWhoDiedList = ['2', '5'];
-    let diedBefore = true;
-    I.selectExecutorsWhoDied(executorsWhoDiedList);
-
-    forEach(executorsWhoDiedList, executorNumber => {
-        I.selectExecutorsWhenDied(executorNumber, diedBefore);
-
-        if (diedBefore) {
-            diedBefore = false;
-        } else {
-            diedBefore = true;
-        }
-    });
-
-    const executorsAliveList = ['3', '4'];
-    let powerReserved = true;
-    forEach(executorsAliveList, executorNumber => {
-        I.selectExecutorRoles(executorNumber, powerReserved);
-
-        if (powerReserved) {
-            I.selectHasExecutorBeenNotified('Yes', executorNumber);
-            powerReserved = false;
-        } else {
-            powerReserved = true;
-        }
-    });
-
 
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
     I.selectDeceasedAlias('Yes');
@@ -100,7 +60,6 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
     I.enterDeceasedDateOfBirth('01', '01', '1950');
     I.selectDeceasedDomicile();
     I.enterDeceasedAddress();
-
     I.seeSummaryPage();
 
     // Review and confirm Task
