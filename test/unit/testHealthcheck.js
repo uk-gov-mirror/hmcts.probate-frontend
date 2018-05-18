@@ -1,5 +1,5 @@
 const {expect} = require('chai');
-const server = require('app').init();
+const app = require('app');
 const request = require('supertest');
 const config = require('app/config');
 const healthcheck = require('app/healthcheck');
@@ -23,6 +23,7 @@ describe('healthcheck.js', () => {
 
     describe('/health endpoint', () => {
         it('should return the correct params', (done) => {
+            const server = app.init();
             const agent = request.agent(server.app);
             agent.get('/health')
             .expect(200)
