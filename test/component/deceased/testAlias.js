@@ -1,16 +1,19 @@
 const TestWrapper = require('test/util/TestWrapper'),
+    {set} = require('lodash'),
     DeceasedOtherNames = require('app/steps/ui/deceased/otherNames/index'),
     DeceasedMarried = require('app/steps/ui/deceased/married/index'),
     DeceasedDod = require('app/steps/ui/deceased/dod/index');
 
+
 describe('deceased-alias', () => {
-    let testWrapper;
+    let testWrapper, sessionData;
     const expectedNextUrlForDeceasedOtherNames = DeceasedOtherNames.getUrl();
     const expectedNextUrlForDeceasedMarried = DeceasedMarried.getUrl();
     const expectedNextUrlForDeceasedDod = DeceasedDod.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedAlias');
+        sessionData = {};
     });
 
     afterEach(() => {
@@ -20,7 +23,18 @@ describe('deceased-alias', () => {
     describe('Verify Content, Errors and Redirection', () => {
 
         it('test right content loaded on the page', (done) => {
-            testWrapper.testContent(done, []);
+            set(sessionData, 'deceased.firstName', 'John');
+            set(sessionData, 'deceased.lastName', 'Doe');
+
+            testWrapper.agent.post('/prepare-session/form')
+                    .send(sessionData)
+                    .end(() => {
+
+                const contentData = {deceasedName: 'John Doe'};
+
+                testWrapper.testContent(done, [], contentData);
+
+            });
         });
 
         it('test alias schema validation when no data is entered', (done) => {
