@@ -119,11 +119,13 @@ if (['dev', 'test', 'demo'].includes(config.environment)) {
     router.get('/inviteIdList', (req, res) => {
         const formdata = req.session.form;
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        res.setHeader('Content-Type', 'text/plain');
         res.send({'ids': executorsWrapper.executorsInvited().map(e => e.inviteId)});
     });
 
     router.get('/pin', (req, res) => {
         const pin = get(req, 'session.pin', 0);
+        res.setHeader('Content-Type', 'text/plain');
         res.send({'pin': pin});
     });
 }
