@@ -14,7 +14,7 @@ module.exports = {
         useIDAM: process.env.USE_IDAM || 'false',
         port: process.env.PORT || '3000',
         useCSRFProtection: 'true',
-        cookieText: 'GOV.UK uses cookies to make the site simpler. <a href="http://gov.uk/help/cookies" title="Find out more about cookies">Find out more about cookies</a>'
+        cookieText: 'GOV.UK uses cookies to make the site simpler. <a href="/cookies" rel="noopener" title="Find out more about cookies">Find out more about cookies</a>'
     },
     services: {
         postcode: {

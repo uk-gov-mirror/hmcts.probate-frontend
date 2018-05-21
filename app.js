@@ -162,7 +162,7 @@ exports.init = function() {
     app.use(function (req, res, next) {
         res.locals.serviceName = config.service.name;
         res.locals.serviceVersion = config.service.version;
-        res.locals.cookieText = config.cookieText;
+        res.locals.cookieText = config.app.cookieText;
         res.locals.releaseVersion = 'v' + releaseVersion;
         next();
     });
