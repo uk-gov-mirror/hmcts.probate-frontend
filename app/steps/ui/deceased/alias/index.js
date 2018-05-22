@@ -27,7 +27,7 @@ module.exports = class DeceasedAlias extends ValidationStep {
         const isCodicilDated = willWrapper.hasCodicilsDate();
         const codicils = willWrapper.hasCodicils();
         ctx.deceasedMarriedAfterDateOnCodicilOrWill = isCodicilDated || (!codicils && isWillDated);
-        ctx.deceasedFullName = FormatName.format(formdata.deceased);
+        ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
 
