@@ -5,7 +5,8 @@
     "properties": {
         "executorsApplying": {
             "type": "array",
-            "maxItems": 3
+            "maxItems": 3,
+            "minItems": 0
         }
     },
     "required": [
