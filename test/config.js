@@ -18,7 +18,7 @@ module.exports = {
     TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER,
     s2sStubErrorSequence: '000',
     links: {
-        cookies: 'https://www.gov.uk/help/cookies',
+        cookies: '/cookies',
         terms: process.env.TERMS_AND_CONDITIONS,
         survey: process.env.SURVEY,
         surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION,

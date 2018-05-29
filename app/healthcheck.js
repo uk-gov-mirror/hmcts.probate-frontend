@@ -10,6 +10,7 @@ const gitProperties = require('git.properties');
 const gitRevision = process.env.GIT_REVISION;
 const osHostname = os.hostname();
 const gitCommitId = gitProperties.git.commit.id;
+const commonContent = require('app/resources/en/translation/common');
 
 const getServiceHealthUrl = (serviceUrl) => {
     serviceUrl = url.parse(serviceUrl);
@@ -36,7 +37,7 @@ router.get('/', (req, res) => {
     const healthPromises = createPromisesList(services);
     Promise.all(healthPromises).then(downstream => {
         res.json({
-            'name': config.service.name,
+            'name': commonContent.serviceName,
             'status': 'UP',
             'uptime': process.uptime(),
             'host': osHostname,
