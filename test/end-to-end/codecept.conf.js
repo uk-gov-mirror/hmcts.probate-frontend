@@ -4,23 +4,22 @@ exports.config = {
     'tests': './paths/**/*.js',
     'output': './output',
     'helpers': {
-        'Nightmare': {
+        'Puppeteer': {
             'url': testConfig.TestFrontendUrl || 'https://localhost:3000',
             'waitForTimeout': 10000,
-            'show': false,
+            'show': true,
             waitForAction: 2000,
             'switches': {
                 'ignore-certificate-errors': true
             }
         },
-        'NightmareHelper': {
-            'require': './helpers/NightmareHelper.js'
+        'PuppeteerHelper': {
+            'require': './helpers/PuppeteerHelper.js'
         }
     },
     'include': {
         'I': './pages/steps.js'
     },
-    'bootstrap': 'test/service-stubs/persistence',
     'mocha': {
         'reporterOptions': {
             'reportDir': process.env.E2E_OUTPUT_DIR || './output',
