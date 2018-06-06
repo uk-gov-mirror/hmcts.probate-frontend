@@ -32,7 +32,7 @@ router.get('/', (req, res) => {
     const healthPromises = createPromisesList(services);
     Promise.all(healthPromises).then(downstream => {
         res.json({
-            'name': commonContent.serviceName,
+            'name': config.service.name,
             'status': 'UP',
             'uptime': process.uptime(),
             'host': osHostname,
