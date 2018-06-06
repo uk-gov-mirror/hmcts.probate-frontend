@@ -1,7 +1,6 @@
 const {expect} = require('chai');
 const app = require('app');
 const request = require('supertest');
-const config = require('app/config');
 const healthcheck = require('app/healthcheck');
 const commonContent = require('app/resources/en/translation/common');
 
