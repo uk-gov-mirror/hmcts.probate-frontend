@@ -57,7 +57,8 @@ exports.init = function() {
         'gaTrackingId': config.gaTrackingId,
         'enableTracking': config.enableTracking,
         'links': config.links,
-        'helpline': config.helpline
+        'helpline': config.helpline,
+        'idam': config.services.idam
     };
 
     const njk = nunjucks(app, {
