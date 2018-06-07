@@ -8,8 +8,6 @@ const pa11yRun = pa11y({
 });
 
 module.exports = (testPage, title) => {
-    console.log(`Test testPage being tested = ${testPage}`);
-    console.log(`Test title being tested = ${title}`);
     return new Promise((resolve, reject) => {
         pa11yRun.run(testPage, {
             verifyPage: [
