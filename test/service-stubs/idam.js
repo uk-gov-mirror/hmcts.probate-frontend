@@ -37,6 +37,15 @@ router.post('/lease', function (req, res) {
 
 });
 
+router.get('/health', function (req, res) {
+    console.log(req.headers);
+    console.log(req.body);
+    
+	res.status(200);
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({ status: 'OK' }));
+})
+	
 app.use(router);
 
 // start the app
