@@ -43,7 +43,7 @@ router.get('/health', function (req, res) {
     
 	res.status(200);
     res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({ status: 'OK' }));
+    res.send(JSON.stringify({ status: 'UP' }));
 })
 	
 app.use(router);
