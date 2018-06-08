@@ -42,7 +42,7 @@ router.get('/health', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.send({'status': 'UP'});
 });
-	
+
 app.use(router);
 
 // start the app
