@@ -63,14 +63,8 @@ locals {
   vaultUri = "${(var.env == "preview" || var.env == "spreview")? local.previewVaultUri : local.nonPreviewVaultUri}"
   
 
-  previewRedisName = "${var.product}-${var.microservice}-redis-cache"
-  nonPreviewRedisName = "${var.product}-${var.microservice}-redis-cache-${var.env}"
-  redisName = "${(var.env == "preview" || var.env == "spreview") ? local.previewRedisName : local.nonPreviewRedisName}"
+  redisEnv = "${(var.env == "preview" || var.env == "spreview") ? "aat" : var.env}"
 
-  nonPreviewRedisUri = "${module.probate-frontend-redis.key_redis_uri}"
-  previewRedisUri = "https://probate-frontend-redis-cache-aat.redis.cache.windows.net/"
-  redisUri = "${(var.env == "preview" || var.env == "spreview")? local.previewRedisUri : local.nonPreviewRedisUri}"
-  
   //once Backend is up in CNP need to get the 
   //localBusinessServiceUrl = "http://probate-business-service-${var.env}.service.${local.aseName}.internal"
   //businessServiceUrl = "${var.env == "preview" ? "http://probate-business-service-aat.service.core-compute-aat.internal" : local.localClaimStoreUrl}"
@@ -80,9 +74,9 @@ locals {
 
 module "probate-frontend-redis-cache" {
   source   = "git@github.com:hmcts/moj-module-redis?ref=master"
-  product  = "${local.redisName}"
+  product  = "${var.product}-${var.microservice}-redis-cache"
   location = "${var.location}"
-  env      = "${var.env}"
+  env      = "${var.redisEnv}"
   subnetid = "${data.terraform_remote_state.core_apps_infrastructure.subnet_ids[1]}"
 }
 
