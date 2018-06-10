@@ -57,11 +57,19 @@ locals {
 
   previewVaultName = "${var.product}-fe"  // max 24 char else used fronend
   nonPreviewVaultName = "${var.product}-fe-${var.env}"
-  vaultName = "${var.env == "preview" ? local.previewVaultName : local.nonPreviewVaultName}"
-
+  vaultName = "${(var.env == "preview" || var.env == "spreview") ? local.previewVaultName : local.nonPreviewVaultName}"
   nonPreviewVaultUri = "${module.probate-frontend-vault.key_vault_uri}"
   previewVaultUri = "https://probate-frontend-aat.vault.azure.net/"
-  vaultUri = "${var.env == "preview"? local.previewVaultUri : local.nonPreviewVaultUri}"
+  vaultUri = "${(var.env == "preview" || var.env == "spreview")? local.previewVaultUri : local.nonPreviewVaultUri}"
+  
+
+  previewRedisName = "${var.product}-${var.microservice}-redis-cache"
+  nonPreviewRedisName = "${var.product}-${var.microservice}-redis-cache-${var.env}"
+  redisName = "${(var.env == "preview" || var.env == "spreview") ? local.previewRedisName : local.nonPreviewRedisName}"
+
+  nonPreviewRedisUri = "${module.probate-frontend-redis.key_redis_uri}"
+  previewRedisUri = "https://probate-frontend-redis-cache-aat.redis.cache.windows.net/"
+  redisUri = "${(var.env == "preview" || var.env == "spreview")? local.previewRedisUri : local.nonPreviewRedisUri}"
   
   //once Backend is up in CNP need to get the 
   //localBusinessServiceUrl = "http://probate-business-service-${var.env}.service.${local.aseName}.internal"
@@ -69,9 +77,10 @@ locals {
   // add other services
 }
 
+
 module "probate-frontend-redis-cache" {
   source   = "git@github.com:hmcts/moj-module-redis?ref=master"
-  product  = "${var.product}-${var.microservice}-redis-cache"
+  product  = "${local.redisName}"
   location = "${var.location}"
   env      = "${var.env}"
   subnetid = "${data.terraform_remote_state.core_apps_infrastructure.subnet_ids[1]}"
