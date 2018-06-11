@@ -6,7 +6,7 @@
     <label class="form-label" for="{{id}}">{{text | safe}}</label>
 
     {% if hint %}
-    <p class="form-hint">{{hint | safe}}</p>
+    <p class="form-hint no-link">{{hint | safe}}</p>
     {% endif %}
 
     {{ fieldError(field) }}
@@ -21,7 +21,7 @@
     <label class="form-label" for="{{id}}">{{text | safe}}</label>
 
     {% if hint %}
-    <p class="form-hint">{{hint | safe}}</p>
+    <p class="form-hint no-link">{{hint | safe}}</p>
     {% endif %}
 
     {{ fieldError(field) }}
@@ -33,7 +33,7 @@
 {% macro textFieldInArray(id=name, text, hint, name, fieldArray, size, index, errors) %}
 <div class="form-group {{ 'form-group-error' if errors.value[index] }}">
 
-    <label class="form-label" for="{{id}}">{{text | safe}}</label>
+    <label class="form-label no-link" for="{{id}}">{{text | safe}}</label>
 
     {% if hint %}
     <div class="form-hint">{{hint | safe}}</div>
@@ -49,7 +49,7 @@
 
     <label class="visually-hidden" for="{{name}}">{{text}}</label>
     {% if hint %}
-    <p class="form-hint">{{hint}}</p>
+    <p class="form-hint no-link">{{hint}}</p>
     {% endif %}
 
     {{ fieldError(field) }}
