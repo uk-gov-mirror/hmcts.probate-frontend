@@ -1,7 +1,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const config = require('app/config');
 
-describe.only('sign-out', () => {
+describe('sign-out', () => {
     let testWrapper;
 
     beforeEach(() => {

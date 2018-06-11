@@ -20,7 +20,7 @@
                 <input type="hidden" name="_csrf" value="{{csrfToken}}">
                 {% block form_content %}{% endblock %}
             </form>
-            <a href="/sign-out">Save and close</a>
+            {% block sign_out %}<a href="/sign-out">Save and close</a>{% endblock %}
             {% block executor_summary %}{% endblock %}
         </div>
     </div>

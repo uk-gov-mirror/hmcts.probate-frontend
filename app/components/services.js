@@ -205,6 +205,15 @@ const updatePhoneNumber = (inviteId, data) => {
     return utils.fetchJson(findInviteUrl, fetchOptions);
 };
 
+const signOut = (access_token) => {
+    logger.info('signing out of IDAM');
+    const headers = {
+        'authorization': access_token,
+    };
+    const fetchOptions = utils.fetchOptions({}, 'DELETE', headers);
+    return utils.fetchJson(`${IDAM_SERVICE_URL}/session/${access_token}`, fetchOptions);
+};
+
 module.exports = {
     getUserDetails,
     findAddress,
@@ -221,5 +230,6 @@ module.exports = {
     sendPin,
     sendInvite,
     updatePhoneNumber,
-    checkAllAgreed
+    checkAllAgreed,
+    signOut
 };
