@@ -28,7 +28,6 @@
         <div class="panel panel-border-narrow js-hidden" id="yes-details">
             <h2 class="form-title heading-medium">{{content.codicilsDateQuestion}}</h2>
             <p>{{content.codicilsDateExplanation}}</p>
-            <p class="form-hint no-link">{{content.codicilsDateHint}}</p>
             {{date(
                 name = 'codicilsDate',
                 day = fields.codicilsDate_day,
@@ -36,7 +35,8 @@
                 year = fields.codicilsDate_year,
                 date = fields.codicilsDate_date,
                 maxyear= currentYear,
-                legend = content.codicilsDateLegend | safe
+                legend = content.codicilsDateLegend | safe,
+                hint = content.codicilsDateHint
             )}}
         </div>
     </fieldset>
