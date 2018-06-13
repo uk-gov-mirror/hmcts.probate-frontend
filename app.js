@@ -134,12 +134,16 @@ exports.init = function() {
         saveUninitialized: config.redis.saveUninitialized,
         secret: config.redis.secret,
         cookie: {
-            secure: config.redis.cookie.secure,
             httpOnly: config.redis.cookie.httpOnly,
             sameSite: config.redis.cookie.sameSite
         },
         store: utils.getStore(config.redis, session)
     }));
+
+    app.use((req, res, next) => {
+        req.session.cookie.secure = req.protocol === 'https';
+        next();
+    });
 
     app.use((req, res, next) => {
         if (!req.session) {
