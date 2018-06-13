@@ -23,24 +23,39 @@
 
 // Tasklist page start
 li.task-item {
-    border-top: 1px solid $grey-2;
-    line-height: 1.5;
-    padding: 20px 0 10px 0;
-    position: relative;
+  border-top: 1px solid $grey-2;
+  line-height: 1.5;
+  padding: 20px 0 10px 0;
+  position: relative;
+
+
+    .heading-medium {
+      float: left;
+      width: 66.6%;
+      margin-top: 0;
+    }
 
     .progress-status-tag {
-      background-color: $black;
+      background-color: $govuk-blue;
       color: $white;
-      padding: 0 8px;
-      position: absolute;
-      right: 0;
-      top: 0;
+      float: right;
+      font-weight: bold;
+      font-size: 16px;
+      line-height: 1.25;
+      padding: 2px 5px 0;
     }
 
     .task-unavailable {
-      background-color: $govuk-blue;
-      color: $white;
-      padding: 0 5px;
+      background-color: $grey-2;
+      color: $black;
+      float: right;
+      font-weight: bold;
+      font-size: 16px;
+      line-height: 1.25;
+      padding: 2px 5px 1px;
+    }
+    p {
+      clear: both;
     }
 }
 // Tasklist page end
