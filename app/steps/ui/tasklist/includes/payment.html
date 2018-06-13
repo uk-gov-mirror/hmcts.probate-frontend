@@ -3,8 +3,9 @@
 <li class="task-item">
     <span class="heading-medium">{{content.paymentTask | safe}}</span>
     {% if fields.PaymentTask.value.status === 'complete' and previousTaskStatus !== 'started' %}
-        <span class="progress-status-tag">{{content.taskCompleteTag | upper | safe}}</span>
+        <span class="progress-status-tag">{{content.taskCompleteTag | safe}}</span>
     {% else %}
+        <span class="task-unavailable">{{content.taskUnavailable | safe}}</span>
         <p>{{content.paymentTaskParagraph1 | safe}}</p>
         <p>{{content.paymentTaskParagraph2 | safe}}</p>
     {% endif %}
