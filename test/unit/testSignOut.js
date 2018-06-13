@@ -1,20 +1,22 @@
-const initSteps = require('app/core/initSteps'),
-    assert = require('chai').assert,
-    {isNil} = require('lodash');
+const initSteps = require('app/core/initSteps');
+const assert = require('chai').assert;
+const sinon = require('sinon');
+const when = require('when');
+const co = require('co');
+const services = require('app/components/services');
 
 describe('Sign-Out', function () {
 
-    const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']);
+    const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 
     it('test authToken, cookies and session data have been removed from the session', () => {
         const signOut = steps.SignOut;
+        const signOutStub = sinon.stub(services, 'signOut');
+        signOutStub.returns(when(200));
+
         const req = {
-            authToken: 'dummy_token',
             cookies: {
                 _ga: 'dummy_ga',
-                seen_cookie_message: 'yes',
-                'Idea-9cb023e2': 'dummy_data',
-                'connect.sid': 'dummy_sid',
                 _gid: 'dummy_gid',
                 _gat: '1'
             },
@@ -22,13 +24,17 @@ describe('Sign-Out', function () {
                 form: {
                     payloadVersion: '4.1.0',
                     applicantEmail: 'test@email.com'
+                },
+                destroy: () => {
+                    delete this.session;
                 }
-            }
+            },
         };
 
-        signOut.getContextData(req);
-        assert.isTrue(isNil(req.cookies));
-        assert.isTrue(isNil(req.session));
+        co(function* () {
+            yield signOut.getContextData(req);
+            assert.isNull(req.cookies);
+            assert.isNull(req.session);
+        });
     });
-
 });

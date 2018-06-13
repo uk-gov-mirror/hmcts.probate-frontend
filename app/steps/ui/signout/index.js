@@ -1,5 +1,6 @@
 const Step = require('app/core/steps/Step');
 const config = require('app/config');
+const logger = require('app/components/logger')('Init');
 const services = require('app/components/services');
 const SECURITY_COOKIE = '__auth-token-' + config.payloadVersion;
 
@@ -12,11 +13,17 @@ module.exports = class SignOut extends Step {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const access_token = req.cookies[SECURITY_COOKIE];
-        if (access_token) {
-            services.signOut(access_token);
-        }
-        delete req.cookies;
-        delete req.session;
-        return ctx;
+        const errorCodes = [400, 401, 403];
+        return services.signOut(access_token).then(result => {
+            if (errorCodes.includes(result)) {
+                throw new Error('Error while attempting to sign out of IDAM.');
+            }
+            delete req.cookies;
+            req.session.destroy();
+            return ctx;
+        })
+        .catch(err => {
+            logger.error(`Error while calling IDAM: ${err}`);
+        });
     }
 };
