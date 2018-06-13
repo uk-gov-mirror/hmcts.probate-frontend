@@ -6,11 +6,11 @@
 
 <fieldset class="form-group {{ 'form-group-error' if hasError }}" id ="{{name}}_date">
 
-    {% if hint %}
-        <p class="form-hint no-link">{{hint}}</p>
-    {% endif %}
-
     <legend class="visually-hidden">{{legend}}</legend>
+
+    {% if hint %}
+    <p class="form-hint no-link">{{hint}}</p>
+    {% endif %}
 
     {{ fieldError(date) }}
     {{ fieldError(day) }}
