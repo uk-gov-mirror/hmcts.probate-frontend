@@ -3,10 +3,12 @@
 <li class="task-item">
     <span class="heading-medium">{{content.copiesTask}}</span>
     {% if fields.CopiesTask.value.status == 'complete' and previousTaskStatus !== 'started' %}
-        <span class="progress-status-tag">{{content.taskCompleteTag | upper}}</span>
+        <span class="progress-status-tag">{{content.taskCompleteTag}}</span>
     {% else %}
+        <span class="task-unavailable">{{content.taskUnavailable | safe}}</span>
         <p>{{content.copiesTaskParagraph1}}</p>
     {% endif %}
+
     {{taskAction(
         prevTaskStatus = previousTaskStatus,
         status = fields.CopiesTask.value.status,
