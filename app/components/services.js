@@ -207,8 +207,9 @@ const updatePhoneNumber = (inviteId, data) => {
 
 const signOut = (access_token) => {
     logger.info('signing out of IDAM');
+    const clientName = config.services.idam.probate_oauth2_client;
     const headers = {
-        'authorization': access_token,
+        'Authorization': `Basic ${new Buffer(`${clientName}:${secret}`).toString('base64')}`,
     };
     const fetchOptions = utils.fetchOptions({}, 'DELETE', headers);
     return utils.fetchJson(`${IDAM_SERVICE_URL}/session/${access_token}`, fetchOptions);
