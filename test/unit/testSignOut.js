@@ -1,15 +1,15 @@
 const initSteps = require('app/core/initSteps');
+const expect = require('chai').expect;
 const assert = require('chai').assert;
 const sinon = require('sinon');
 const when = require('when');
-const co = require('co');
 const services = require('app/components/services');
 
-describe('Sign-Out', function () {
+describe.only('Sign-Out', function () {
 
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 
-    it('test authToken, cookies and session data have been removed from the session', () => {
+    it.only('test authToken, cookies and session data have been removed from the session', (done) => {
         const signOut = steps.SignOut;
         const signOutStub = sinon.stub(services, 'signOut');
         signOutStub.returns(when(200));
@@ -24,17 +24,17 @@ describe('Sign-Out', function () {
                 form: {
                     payloadVersion: '4.1.0',
                     applicantEmail: 'test@email.com'
-                },
-                destroy: () => {
-                    delete this.session;
                 }
             },
         };
 
-        co(function* () {
-            yield signOut.getContextData(req);
-            assert.isNull(req.cookies);
-            assert.isNull(req.session);
+        req.session.destroy = sinon.spy();
+        req.cookies = sinon.spy();
+
+        signOut.getContextData(req).then(() => {
+            assert.isUndefined(req.cookies);
+            expect(req.session.destroy).to.have.been.calledOn(req.session);
+            done();
         });
     });
 });
