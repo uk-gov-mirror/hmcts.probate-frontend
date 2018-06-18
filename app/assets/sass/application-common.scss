@@ -35,16 +35,6 @@ li.task-item {
       margin-top: 0;
     }
 
-    .progress-status-tag {
-      background-color: $govuk-blue;
-      color: $white;
-      float: right;
-      font-weight: bold;
-      font-size: 16px;
-      line-height: 1.25;
-      padding: 2px 5px 0;
-    }
-
     .task-unavailable {
       background-color: $grey-2;
       color: $black;
@@ -52,9 +42,9 @@ li.task-item {
       font-weight: bold;
       font-size: 16px;
       line-height: 1.25;
-      padding: 2px 5px 1px;
+      padding: 3px 5px 0;
     }
-    p {
+    .task-item-content {
       clear: both;
     }
 }

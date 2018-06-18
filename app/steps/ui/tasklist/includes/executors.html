@@ -2,25 +2,35 @@
 
 <li class="task-item">
     <span class="heading-medium">{{content.executorsTask}}</span>
+
     {% if fields.ExecutorsTask.value.status === 'complete' and previousTaskStatus !== 'started' %}
-        <span class="progress-status-tag">{{content.taskCompleteTag }}</span>
-        <p>{{content.executorsTaskCompleteParagraph1}}</p>
-    {% else %}
-        <span class="task-unavailable">{{content.taskUnavailable | safe}}</span>
-        <p>{{content.executorsTaskChecklistHeader}}</p>
 
-        {{unorderedList([
-            content["executorsTaskChecklist-item1"] | safe,
-            content["executorsTaskChecklist-item2"] | safe,
-            content["executorsTaskChecklist-item3"] | safe
-        ])}}
+        <span class="task-completed">{{content.taskCompleteTag | safe }}</span>
+        <div class="task-item-content">
+            <p>{{content.executorsTaskCompleteParagraph1}}</p>
+        </div>
 
-        <p>{{content.executorsMultipleTaskChecklistHeader | safe}}</p>
-        {{unorderedList([
-            content["executorsMultipleTaskChecklist-item1"] | safe,
-            content["executorsMultipleTaskChecklist-item2"] | safe
-        ])}}
+        {% else %}
+            {% if (previousTaskStatus === 'notStarted') %}
+                <span class="task-unavailable">{{content.taskUnavailable | safe }}</span>
+            {% endif %}
+
+            <div class="task-item-content">
+                <p>{{content.executorsTaskChecklistHeader}}</p>
+                {{unorderedList([
+                    content["executorsTaskChecklist-item1"] | safe,
+                    content["executorsTaskChecklist-item2"] | safe,
+                    content["executorsTaskChecklist-item3"] | safe
+                ])}}
+
+                <p>{{content.executorsMultipleTaskChecklistHeader | safe}}</p>
+                {{unorderedList([
+                    content["executorsMultipleTaskChecklist-item1"] | safe,
+                    content["executorsMultipleTaskChecklist-item2"] | safe
+                ])}}
+            </div>
     {% endif %}
+
     {{taskAction(
         prevTaskStatus = previousTaskStatus,
         status = fields.ExecutorsTask.value.status,
