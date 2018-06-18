@@ -74,8 +74,31 @@ li.task-item {
   padding-top: em(35);
   }
 
-  div.declaration-header {
+div.declaration-header {
   text-align: center;
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+#global-header .header-proposition #sign-out-header {
+  font-family: "nta", Arial, sans-serif;
+  text-transform: none;
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: bold;
+  float: right;
+  margin-right: 40px;
+  color: white;
+  text-decoration: none; }
+  @media (min-width: 641px) {
+    #global-header .header-proposition #sign-out-header {
+      font-size: 18px;
+      line-height: 1.25; } }
+
+#global-header .header-proposition a#sign-out-header:hover {
+  text-decoration: underline;
+}
+
+#global-header .header-proposition a#sign-out-header:focus {
+  color: #0b0c0c;
 }

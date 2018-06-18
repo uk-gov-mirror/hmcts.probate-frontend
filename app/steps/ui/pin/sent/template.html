@@ -1,6 +1,10 @@
 {% extends "includes/layout.html" %}
 {% block page_title %}
-{{ content.title}}
+    {{ content.title}}
+{% endblock %}
+
+{% block proposition_header %}
+    {% include "includes/no_sign_out_navigation.html" %}
 {% endblock %}
 
 {% from "widgets/lists.html" import unorderedList %}

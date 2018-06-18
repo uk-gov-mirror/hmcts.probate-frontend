@@ -2,9 +2,12 @@
 {% from "widgets/textfields.html" import passwordField %}
 
 {% block page_title %}
-{{ content.title| safe }}
+    {{ content.title| safe }}
 {% endblock %}
 
+{% block proposition_header %}
+    {% include "includes/no_sign_out_navigation.html" %}
+{% endblock %}
 
 {% block form_content %}
     <h1 class="form-title heading-large pin-main-header">{{content.header | safe}}</h1>

@@ -1,7 +1,12 @@
 {% extends "includes/two_thirds_form.html" %}
 {% block page_title %}
-{{ content.title}}
+    {{ content.title}}
 {% endblock %}
+
+{% block proposition_header %}
+    {% include "includes/no_sign_out_navigation.html" %}
+{% endblock %}
+
 {% block question %}
     <h1 class="heading-large">{{content.header1 | replace('{phoneNumber}', fields.phoneNumber.value) | safe}}</h1>
     <p>{{content.subHeader1 | safe}}</p>
