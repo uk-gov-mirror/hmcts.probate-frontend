@@ -10,9 +10,9 @@
         {% elif status == 'complete' %}
             <!-- Check your answers -->
             {% if alreadyDeclared === 'false' %}
-                <p><a href="{{checkYourAnswersURL}}">{{content.taskComplete}}</a></p>
+                <p class="task-item-content"><a href="{{checkYourAnswersURL}}">{{content.taskComplete}}</a></p>
             {% else %}
-                <p>{{content.alreadyDeclared}}</p>
+                <p class="task-item-content">{{content.alreadyDeclared}}</p>
             {% endif %}
         {% endif %}
     {% endif %}
