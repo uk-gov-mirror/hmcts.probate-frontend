@@ -2,6 +2,9 @@
   <div class="content">
     <nav id="proposition-menu">
       <a href="/" id="proposition-name">{% if serviceName %} {{ serviceName }} {% endif %}</a>
+      {% if parameters.sign_out_link === 'true' %}
+        <a href="/sign-out" id="sign-out-header">Sign out</a>
+      {% endif %}
     </nav>
   </div>
 </div>

@@ -9,13 +9,10 @@
 {% endblock %}
 
 {% block proposition_header %}
-  <div class="header-proposition">
-    {% include "includes/propositional_navigation.html" %}
-
-    {% block sign_out_link %}
-      <a href="/sign-out" id="sign-out-header">Sign out</a>
-    {% endblock %}
-  </div>
+  {% if not parameters %}
+    {% set parameters = {'sign_out_link': 'true'} %}
+  {% endif %}
+  {% include "includes/propositional_navigation.html" %}
 {% endblock %}
 
 {% block header_class %}
