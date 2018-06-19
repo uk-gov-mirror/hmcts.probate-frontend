@@ -40,7 +40,7 @@ describe('deceased-married', () => {
                     'firstName': 'Mana', 'lastName': 'Manah'
                  },
                  will: {
-                     isCodicilsDate: 'Yes'
+                     codicils: 'Yes'
                  }
             };
 
