@@ -1,12 +1,15 @@
 const TestWrapper = require('test/util/TestWrapper'),
       {set} = require('lodash'),
-      DeceasedDod = require('app/steps/ui/deceased/dod/index');
+      DeceasedDod = require('app/steps/ui/deceased/dod/index'),
+      DeceasedMarried = require('app/steps/ui/deceased/married/index');
 
-describe('deceased-otherNames', () => {
+    describe('deceased-otherNames', () => {
     let testWrapper, sessionData;
     const expectedNextUrlForDeceasedDod = DeceasedDod.getUrl();
+    const expectedNextUrlForDeceasedMarried = DeceasedMarried.getUrl();
 
-    beforeEach(() => {
+
+        beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedOtherNames');
         sessionData = {};
     });
@@ -99,7 +102,7 @@ describe('deceased-otherNames', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDod);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedMarried);
                 });
         });
 
