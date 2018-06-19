@@ -1,3 +1,4 @@
+'use strict';
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const assert = require('chai').assert;
@@ -5,12 +6,12 @@ const sinon = require('sinon');
 const when = require('when');
 const services = require('app/components/services');
 
-describe.only('Sign-Out', function () {
+describe('Sign-Out', function () {
 
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
+    const signOut = steps.SignOut;
 
-    it.only('test authToken, cookies and session data have been removed from the session', (done) => {
-        const signOut = steps.SignOut;
+    it('test authToken, cookies and session data have been removed from the session', (done) => {
         const signOutStub = sinon.stub(services, 'signOut');
         signOutStub.returns(when(200));
 
@@ -36,5 +37,9 @@ describe.only('Sign-Out', function () {
             expect(req.session.destroy).to.have.been.calledOn(req.session);
             done();
         });
+    });
+
+    it('test correct url is returned from getUrl function', () => {
+        assert.equal(signOut.constructor.getUrl(), '/sign-out');
     });
 });

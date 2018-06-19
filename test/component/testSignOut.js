@@ -1,5 +1,5 @@
+'use strict';
 const TestWrapper = require('test/util/TestWrapper');
-const config = require('app/config');
 
 describe('sign-out', () => {
     let testWrapper;
@@ -16,11 +16,8 @@ describe('sign-out', () => {
 
         it('test right content loaded on the page', (done) => {
             const excludeKeys = [];
-            const contentData = {
-                idamLoginLink: config.services.idam.loginUrl
-            };
 
-            testWrapper.testContent(done, excludeKeys, contentData);
+            testWrapper.testContent(done, excludeKeys, {});
         });
     });
 });
