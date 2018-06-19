@@ -81,24 +81,19 @@ div.declaration-header {
 }
 
 #global-header .header-proposition #sign-out-header {
-  font-family: "nta", Arial, sans-serif;
-  text-transform: none;
-  font-size: 18px;
-  line-height: 1.2;
+  @include bold-16;
   font-weight: bold;
   float: right;
-  margin-right: 40px;
-  color: white;
+  color: $white;
   text-decoration: none; }
   @media (min-width: 641px) {
     #global-header .header-proposition #sign-out-header {
-      font-size: 18px;
-      line-height: 1.25; } }
+      @include bold-24; } }
 
 #global-header .header-proposition a#sign-out-header:hover {
   text-decoration: underline;
 }
 
 #global-header .header-proposition a#sign-out-header:focus {
-  color: #0b0c0c;
+  color: $black;
 }

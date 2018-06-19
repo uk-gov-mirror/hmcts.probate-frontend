@@ -9,8 +9,8 @@
 {% endblock %}
 
 {% block proposition_header %}
-  {% if not parameters %}
-    {% set parameters = {'sign_out_link': 'true'} %}
+  {% if not displaySignOutLink %}
+    {% set displaySignOutLink = 'true' %}
   {% endif %}
   {% include "includes/propositional_navigation.html" %}
 {% endblock %}
