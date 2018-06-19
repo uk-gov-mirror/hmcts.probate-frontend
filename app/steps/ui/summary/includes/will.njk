@@ -22,25 +22,6 @@
 }}
 
 {{checkanswer(
-    items = [
-        {
-            question: content.WillDate.question,
-            answer: fields.will.isWillDate.value,
-            visible: fields.will.original.value == content.WillOriginal.optionYes
-        },
-        {
-            question: content.WillDate.willDateQuestion,
-            answer: fields.will.willDate_formattedDate.value,
-            visible: fields.will.isWillDate.value == content.WillDate.optionYes
-        }
-    ],
-    url = content.WillDate.url,
-    common = common,
-    alreadyDeclared = fields.summary.alreadyDeclared.value
-)
-}}
-
-{{checkanswer(
     items = [{
         question: content.WillCodicils.question,
         answer: fields.will.codicils.value,

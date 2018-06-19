@@ -39,8 +39,6 @@ describe('summary-will-section', () => {
                     const playbackData = {};
                     playbackData.willLeft = willContent.left.question;
                     playbackData.willOriginal = willContent.original.question;
-                    playbackData.date = willContent.date.question;
-                    playbackData.dateQuestion = willContent.date.willDateQuestion;
                     playbackData.willCodicils = willContent.codicils.question;
                     playbackData.applicantExecutor = applicantContent.executor.question;
 
@@ -59,12 +57,10 @@ describe('summary-will-section', () => {
                     const playbackData = {};
                     playbackData.willLeft = willContent.left.question;
                     playbackData.willOriginal = willContent.original.question;
-                    playbackData.date = willContent.date.question;
-                    playbackData.dateQuestion = willContent.date.willDateQuestion;
                     playbackData.willCodicils = willContent.codicils.question;
                     playbackData.applicantExecutor = applicantContent.executor.question;
 
-                    Object.assign(playbackData, willData.will, willData.applicant);
+                    Object.assign(playbackData, willData.applicant);
 
                     testWrapper.testDataPlayback(done, playbackData);
                 });
