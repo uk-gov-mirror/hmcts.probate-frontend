@@ -55,7 +55,7 @@ data "vault_generic_secret" "idam_frontend_idam_key" {
 locals {
   aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
 
-  previewVaultName = "${var.product}-fe"  // max 24 char else used fronend
+  previewVaultName = "${var.product}-fe-aat"  // max 24 char else used fronend
   nonPreviewVaultName = "${var.product}-fe-${var.env}"
   vaultName = "${(var.env == "preview" || var.env == "spreview") ? local.previewVaultName : local.nonPreviewVaultName}"
 
