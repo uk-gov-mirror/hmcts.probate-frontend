@@ -86,7 +86,7 @@ div.declaration-header {
   float: right;
   color: $white;
   text-decoration: none; }
-  @media (tablet) {
+  @include media(tablet) {
     #global-header .header-proposition #sign-out-header {
       @include bold-19;
       margin-top: 2px; } }
