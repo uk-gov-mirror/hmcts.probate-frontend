@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
         healthcheck.getDownstream(healthcheck.info, infoDownstream => {
             return res.json({
                 name: commonContent.serviceName,
-                status: 'UP',
+                status: healthcheck.status(healthDownstream),
                 uptime: process.uptime(),
                 host: osHostname,
                 version: gitRevision,
