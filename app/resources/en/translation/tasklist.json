@@ -37,6 +37,6 @@
   "taskStarted": "Continue",
   "taskComplete": "Check your answers",
   "taskUnavailable": "Can&rsquo;t start yet",
-  "taskCompleteTag": "Completed",
+  "checkYourAnswers": "Completed",
   "alreadyDeclared": "Already declared"
 }
