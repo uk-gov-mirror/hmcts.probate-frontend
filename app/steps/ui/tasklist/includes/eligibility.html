@@ -1,7 +1,7 @@
 {% set previousTaskStatus = fields.previousTaskStatus.value.EligibilityTask %}
 
 <li class="task-item">
-    <span class="heading-medium">{{content.eligibilityTask}}</span>
+    <h3 class="heading-medium">{{content.eligibilityTask}}</h3>
 
     {% if fields.EligibilityTask.value.status == 'complete' and previousTaskStatus !== 'started' %}
 
