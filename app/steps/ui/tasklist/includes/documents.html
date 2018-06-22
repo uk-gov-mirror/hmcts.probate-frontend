@@ -1,13 +1,13 @@
 {% set previousTaskStatus = fields.previousTaskStatus.value.DocumentsTask %}
 
 <li class="task-item">
-    <span class="heading-medium">{{content.documentTask}}</span>
 
-    {% if fields.DocumentsTask.value.status == 'complete' and previousTaskStatus !== 'started' %}
-        <span class="progress-status-tag">{{content.taskCompleteTag | upper}}</span>
-    {% else %}
-        <span class="task-unavailable">{{content.taskUnavailable | safe}}</span>
-    {% endif %}
+    {{taskStatus(
+        content = content,
+        title = content.documentTask,
+        status = fields.DocumentsTask.value.status,
+        previousTaskStatus = previousTaskStatus
+    )}}
 
     <div class="task-item-content">
         <p>{{content.documentTaskChecklistHeader}}</p>

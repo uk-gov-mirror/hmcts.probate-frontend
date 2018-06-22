@@ -1,34 +1,34 @@
 {% set previousTaskStatus = fields.previousTaskStatus.value.ExecutorsTask %}
 
 <li class="task-item">
-    <span class="heading-medium">{{content.executorsTask}}</span>
 
-    {% if fields.ExecutorsTask.value.status === 'complete' and previousTaskStatus !== 'started' %}
+    {{taskStatus(
+        content = content,
+        title = content.executorsTask,
+        status = fields.ExecutorsTask.value.status,
+        previousTaskStatus = previousTaskStatus
+    )}}
 
-        <span class="task-completed">{{content.taskCompleteTag | safe }}</span>
+    {% if fields.ExecutorsTask.value.status === 'complete' %}
         <div class="task-item-content">
             <p>{{content.executorsTaskCompleteParagraph1}}</p>
         </div>
 
-        {% else %}
-            {% if (previousTaskStatus === 'notStarted') %}
-                <span class="task-unavailable">{{content.taskUnavailable | safe }}</span>
-            {% endif %}
+    {% else %}
+        <div class="task-item-content">
+            <p>{{content.executorsTaskChecklistHeader}}</p>
+            {{unorderedList([
+                content["executorsTaskChecklist-item1"] | safe,
+                content["executorsTaskChecklist-item2"] | safe,
+                content["executorsTaskChecklist-item3"] | safe
+            ])}}
 
-            <div class="task-item-content">
-                <p>{{content.executorsTaskChecklistHeader}}</p>
-                {{unorderedList([
-                    content["executorsTaskChecklist-item1"] | safe,
-                    content["executorsTaskChecklist-item2"] | safe,
-                    content["executorsTaskChecklist-item3"] | safe
-                ])}}
-
-                <p>{{content.executorsMultipleTaskChecklistHeader | safe}}</p>
-                {{unorderedList([
-                    content["executorsMultipleTaskChecklist-item1"] | safe,
-                    content["executorsMultipleTaskChecklist-item2"] | safe
-                ])}}
-            </div>
+            <p>{{content.executorsMultipleTaskChecklistHeader | safe}}</p>
+            {{unorderedList([
+                content["executorsMultipleTaskChecklist-item1"] | safe,
+                content["executorsMultipleTaskChecklist-item2"] | safe
+            ])}}
+        </div>
     {% endif %}
 
     {{taskAction(
