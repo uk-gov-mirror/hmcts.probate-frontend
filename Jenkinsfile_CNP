@@ -41,7 +41,7 @@ withPipeline("nodejs", product, component) {
     sh 'yarn setup'
   }
   
-  after('functionalTest:aat') {
+  before('buildinfra:prod') {
     error('Halting pipeline before prod stages')
   }
 
