@@ -16,7 +16,7 @@ class TestConfigurator {
         this.role = testConfig.TestIdamRole;
         this.testIdamUserGroup = testConfig.TestIdamUserGroup;
         this.paymentEnvironments = testConfig.paymentEnvironments;
-        this.TestFrontendUrl = testConfig.TestFrontendUrl;
+        this.TestE2EFrontendUrl = testConfig.TestE2EFrontendUrl;
         this.useGovPay = testConfig.TestUseGovPay;
         this.userDetails = '';
         this.useSidam = testConfig.TestUseSidam;
@@ -59,15 +59,15 @@ class TestConfigurator {
     }
 
     getAfter() {
-        if (this.useIdam === 'true') {
-            request({
-                    url: this.getTestDeleteUserURL() + process.env.testCitizenEmail,
-                    method: 'DELETE'
-                }
-            );
+        // if (this.useIdam === 'true') {
+        //     request({
+        //             url: this.getTestDeleteUserURL() + process.env.testCitizenEmail,
+        //             method: 'DELETE'
+        //         }
+        //     );
 
-            this.resetEnvVars();
-        }
+        //     this.resetEnvVars();
+        // }
     }
 
     setTestCitizenName() {
