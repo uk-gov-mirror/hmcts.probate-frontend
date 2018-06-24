@@ -7,7 +7,7 @@ exports.config = {
         'Puppeteer': {
             'url': testConfig.TestE2EFrontendUrl || 'http://localhost:3000',
             'waitForTimeout': 60000,
-            waitForAction: 10000,
+            waitForAction: 7000,
             'show': false,
             'chrome': {
                 'ignoreHTTPSErrors': true,
