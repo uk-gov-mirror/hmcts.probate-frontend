@@ -41,10 +41,6 @@ withPipeline("nodejs", product, component) {
     sh 'yarn setup'
   }
   
-  before('buildinfra:prod') {
-    error('Halting pipeline before prod stages')
-  }
-
   loadVaultSecrets(secrets)
   //enableSlackNotifications('#probate-jenkins')
 }
