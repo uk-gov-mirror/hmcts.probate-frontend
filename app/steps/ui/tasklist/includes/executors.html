@@ -2,20 +2,17 @@
 
 <li class="task-item">
 
-    {{taskStatus(
+    {{taskHeader(
         content = content,
         title = content.executorsTask,
         status = fields.ExecutorsTask.value.status,
         previousTaskStatus = previousTaskStatus
     )}}
 
-    {% if fields.ExecutorsTask.value.status === 'complete' %}
-        <div class="task-item-content">
+    <div class="task-item-content">
+        {% if fields.ExecutorsTask.value.status === 'complete' %}
             <p>{{content.executorsTaskCompleteParagraph1}}</p>
-        </div>
-
-    {% else %}
-        <div class="task-item-content">
+        {% else %}
             <p>{{content.executorsTaskChecklistHeader}}</p>
             {{unorderedList([
                 content["executorsTaskChecklist-item1"] | safe,
@@ -28,9 +25,8 @@
                 content["executorsMultipleTaskChecklist-item1"] | safe,
                 content["executorsMultipleTaskChecklist-item2"] | safe
             ])}}
-        </div>
-    {% endif %}
-
+        {% endif %}
+    </div>
     {{taskAction(
         prevTaskStatus = previousTaskStatus,
         status = fields.ExecutorsTask.value.status,

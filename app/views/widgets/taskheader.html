@@ -1,7 +1,7 @@
-{% macro taskStatus(content, title, status, previousTaskStatus) %}
+{% macro taskHeader(content, title, status, previousTaskStatus) %}
 
 <div class="task-item-header">
-    <span class="heading-medium">{{title}}</span>
+    <h2 class="heading-medium">{{title}}</h2>
     {% if status == 'complete' %}
         <span class="task-completed">{{content.taskComplete}}</span>
     {% else %}
