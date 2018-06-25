@@ -8,14 +8,14 @@ packages_version = "3.0.0"
 
 probate_google_track_id = "UA-93598808-2"
 reform_envirionment_for_test = "prod"
-probate_frontend_hostname = "https://www.probate.reform.hmcts.net"
-external_host_name = "www.probate.reform.hmcts.net"
+probate_frontend_hostname = "https://www.apply-for-probate.platform.hmcts.net"
+external_host_name = "www.apply-for-probate.platform.hmcts.net"
 
 
 probate_frontend_https = "false"
 probate_frontend_use_auth = "false"
 
-payment_return_url = "https://www.probate.reform.hmcts.net/payment-status"
+payment_return_url = "https://www.apply-for-probate.platform.hmcts.net/payment-status"
 
 payment_create_url = "https://payments.reform.hmcts.net:4401/users/userId/payments"
 
