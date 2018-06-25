@@ -9,20 +9,19 @@
         previousTaskStatus = 'complete'
     )}}
 
-    {% if fields.EligibilityTask.value.status == 'complete' %}
-        <div class="task-item-content">
-            <p>{{content.eligibilityTaskCompleteParagraph1 }}</p>
-        </div>
-    {% else %}
-        <div class="task-item-content">
-            <p>{{content.eligibilityTaskHeader}}</p>
-            {{unorderedList([
-                content["eligibilityTaskList-item1"] | safe,
-                content["eligibilityTaskList-item2"] | safe,
-                content["eligibilityTaskList-item3"] | safe
-            ])}}
-        </div>
-    {% endif %}
+    <div class="task-item-content">
+        {% if fields.EligibilityTask.value.status == 'complete' %}
+                <p>{{content.eligibilityTaskCompleteParagraph1 }}</p>
+        {% else %}
+                <p>{{content.eligibilityTaskHeader}}</p>
+
+                {{unorderedList([
+                    content["eligibilityTaskList-item1"] | safe,
+                    content["eligibilityTaskList-item2"] | safe,
+                    content["eligibilityTaskList-item3"] | safe
+                ])}}
+        {% endif %}
+    </div>
 
     {{taskAction(
         prevTaskStatus = 'complete',

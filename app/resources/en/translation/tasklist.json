@@ -35,8 +35,8 @@
   "documentTaskParagraph1": "We will check these supporting documents and issue your grant.",
   "taskNotStarted": "Start",
   "taskStarted": "Continue",
-  "taskComplete": "Check your answers",
+  "checkYourAnswers": "Check your answers",
   "taskUnavailable": "Can&rsquo;t start yet",
-  "checkYourAnswers": "Completed",
+  "taskComplete": "Completed",
   "alreadyDeclared": "Already declared"
 }
