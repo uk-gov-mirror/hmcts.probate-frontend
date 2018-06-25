@@ -8,7 +8,6 @@ const TestWrapper = require('test/util/TestWrapper'),
     const expectedNextUrlForDeceasedDod = DeceasedDod.getUrl();
     const expectedNextUrlForDeceasedMarried = DeceasedMarried.getUrl();
 
-
         beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedOtherNames');
         sessionData = {};
