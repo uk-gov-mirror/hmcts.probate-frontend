@@ -49,7 +49,7 @@ module.exports = {
             authorization: process.env.PAYMENT_AUTHORIZATION || 'dummy_token',
             serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'dummy_token',
             userId: process.env.PAYMENT_USER_ID || 999999999,
-            returnUrl: process.env.PAYMENT_RETURN_URL || 'https://localhost:3000/payment-status'
+            returnUrlPath: '/payment-status'
         }
     },
     redis: {
@@ -72,7 +72,6 @@ module.exports = {
     },
     dateFormat: 'DD/MM/YYYY',
     payloadVersion: '4.1.0',
-    hostname: process.env.FRONTEND_HOSTNAME || 'localhost:3000',
     gaTrackingId: process.env.GA_TRACKING_ID || '',
     enableTracking: process.env.ENABLE_TRACKING || 'true',
     links: {

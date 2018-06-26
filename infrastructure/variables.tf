@@ -91,11 +91,6 @@ variable "probate_frontend_service_name" {
   default = "probate-frontend"
 }
 
-
-variable "probate_frontend_hostname" {
-  type = "string"
-}
-
 variable "probate_frontend_public_port" {
   default = "443"
 }
@@ -188,10 +183,6 @@ variable "idam_service_api" {
 }
 
 variable "payment_create_url" {
-  type = "string"
-}
-
-variable "payment_return_url" {
   type = "string"
 }
 

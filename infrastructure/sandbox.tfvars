@@ -5,8 +5,6 @@ vault_section = "test"
 
 packages_environment = "test"
 packages_version = "3.0.0"
-
-probate_frontend_hostname = "probate-frontend-sandbox.service.core-compute-sandbox.internal"
 external_host_name = "probate.sandbox.platform.hmcts.net"
 
 probate_google_track_id = "UA-93598808-1"
@@ -15,8 +13,6 @@ probate_frontend_https = "false"
 probate_frontend_use_auth = "false"
 
 reform_envirionment_for_test = "sandbox"
-
-payment_return_url = "https://probate-frontend-sandbox.service.core-compute-sandbox.internal/payment-status"
 
 payment_create_url = "https://test.payments.reform.hmcts.net:4421/users/userId/payments"
 
