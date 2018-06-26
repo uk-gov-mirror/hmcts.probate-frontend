@@ -49,7 +49,7 @@ module.exports = {
             authorization: process.env.PAYMENT_AUTHORIZATION || 'dummy_token',
             serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'dummy_token',
             userId: process.env.PAYMENT_USER_ID || 999999999,
-            returnUrl: process.env.PAYMENT_RETURN_URL || 'https://localhost:3000/payment-status'
+            returnUrlPath: '/payment-status'
         }
     },
     redis: {
