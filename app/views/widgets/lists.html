@@ -1,24 +1,20 @@
 {% macro taskAction(prevTaskStatus, status, nextURL, checkYourAnswersURL, content, alreadyDeclared) %}
-
     {% if prevTaskStatus === 'complete' %}
-        <div class="task-item-content">
-                {% if status == 'notStarted' %}
-                    <!-- Start link -->
-                    <p><a href="{{nextURL}}" class="button button-start">{{content.taskNotStarted}}</a></p>
-                {% elif status == 'started' %}
-                    <!-- Continue link -->
-                    <p><a href="{{nextURL}}" class="button">{{content.taskStarted}}</a></p>
-                {% elif status == 'complete' %}
-                    <!-- Check your answers -->
-                    {% if alreadyDeclared === 'false' %}
-                        <p><a href="{{checkYourAnswersURL}}">{{content.checkYourAnswers}}</a></p>
-                    {% else %}
-                        <p>{{content.alreadyDeclared}}</p>
-                    {% endif %}
-                {% endif %}
-        </div>
+        {% if status == 'notStarted' %}
+            <!-- Start link -->
+            <p><a href="{{nextURL}}" class="button button-start">{{content.taskNotStarted}}</a></p>
+        {% elif status == 'started' %}
+            <!-- Continue link -->
+            <p><a href="{{nextURL}}" class="button">{{content.taskStarted}}</a></p>
+        {% elif status == 'complete' %}
+            <!-- Check your answers -->
+            {% if alreadyDeclared === 'false' %}
+                <p><a href="{{checkYourAnswersURL}}">{{content.checkYourAnswers}}</a></p>
+            {% else %}
+                <p>{{content.alreadyDeclared}}</p>
+            {% endif %}
+        {% endif %}
     {% endif %}
-
 {% endmacro %}
 
 {% macro unorderedList(items) %}
