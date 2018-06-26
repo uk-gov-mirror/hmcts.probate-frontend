@@ -111,7 +111,6 @@ module "probate-frontend" {
     DEPLOYMENT_ENV="${var.deployment_env}"
 
 	  // Frontend web details
-    FRONTEND_HOSTNAME ="${var.probate_frontend_hostname}"
     PUBLIC_PROTOCOL ="${var.probate_frontend_protocol}"
 
     // Service name
@@ -141,7 +140,6 @@ module "probate-frontend" {
 
     //  PAYMENT
     PAYMENT_CREATE_URL = "${var.payment_create_url }"
-    PAYMENT_RETURN_URL = "${var.payment_return_url }"
 
     // POSTCODE
     POSTCODE_SERVICE_URL = "${data.vault_generic_secret.probate_postcode_service_url.data["value"]}"

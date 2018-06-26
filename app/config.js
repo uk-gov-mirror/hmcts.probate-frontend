@@ -72,7 +72,6 @@ module.exports = {
     },
     dateFormat: 'DD/MM/YYYY',
     payloadVersion: '4.1.0',
-    hostname: process.env.FRONTEND_HOSTNAME || 'localhost:3000',
     gaTrackingId: process.env.GA_TRACKING_ID || '',
     enableTracking: process.env.ENABLE_TRACKING || 'true',
     links: {
