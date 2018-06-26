@@ -64,7 +64,11 @@ const stepList = {
     IhtValue: 'ApplicantExecutor',
 
     ApplicantExecutor: {
-        isExecutor: 'TaskList',
+        isExecutor: 'MentalCapacity',
+        otherwise: 'StopPage'
+    },
+    MentalCapacity: {
+        isCapable: 'TaskList',
         otherwise: 'StopPage'
     },
     ApplicantName: 'ApplicantNameAsOnWill',
