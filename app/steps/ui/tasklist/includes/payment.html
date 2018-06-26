@@ -8,20 +8,21 @@
         status = fields.PaymentTask.value.status,
         previousTaskStatus = previousTaskStatus
     )}}
+    <div class="task-item-content">
+        {% if fields.PaymentTask.value.status !== 'complete' %}
 
-    {% if fields.PaymentTask.value.status !== 'complete' %}
-        <div class="task-item-content">
-            <p>{{content.paymentTaskParagraph1 | safe}}</p>
-            <p>{{content.paymentTaskParagraph2 | safe}}</p>
-        </div>
-    {% endif %}
+                <p>{{content.paymentTaskParagraph1 | safe}}</p>
+                <p>{{content.paymentTaskParagraph2 | safe}}</p>
 
-    {{taskAction(
-        prevTaskStatus = previousTaskStatus,
-        status = fields.PaymentTask.value.status,
-        nextURL = fields.PaymentTask.value.nextURL,
-        checkYourAnswersURL = fields.PaymentTask.value.checkYourAnswersLink,
-        content = content
-    )}}
+        {% endif %}
+
+        {{taskAction(
+            prevTaskStatus = previousTaskStatus,
+            status = fields.PaymentTask.value.status,
+            nextURL = fields.PaymentTask.value.nextURL,
+            checkYourAnswersURL = fields.PaymentTask.value.checkYourAnswersLink,
+            content = content
+        )}}
+    </div>
 </li>
 

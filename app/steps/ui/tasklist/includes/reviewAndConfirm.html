@@ -24,14 +24,15 @@
         {% else %}
                 <p>{{content.reviewAndConfirmTaskParagraph1}}</p>
         {% endif %}
-    </div>
 
-    {{taskAction(
-        prevTaskStatus = previousTaskStatus,
-        status = fields.ReviewAndConfirmTask.value.status,
-        nextURL = 'summary/declaration',
-        checkYourAnswersURL = fields.ReviewAndConfirmTask.value.checkYourAnswersLink,
-        content = content,
-        alreadyDeclared = fields.alreadyDeclared.value
-    )}}
+        {{taskAction(
+            prevTaskStatus = previousTaskStatus,
+            status = fields.ReviewAndConfirmTask.value.status,
+            nextURL = 'summary/declaration',
+            checkYourAnswersURL = fields.ReviewAndConfirmTask.value.checkYourAnswersLink,
+            content = content,
+            alreadyDeclared = fields.alreadyDeclared.value
+        )}}
+
+    </div>
 </li>

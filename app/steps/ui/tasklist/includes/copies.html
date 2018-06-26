@@ -9,18 +9,18 @@
         previousTaskStatus = previousTaskStatus
     )}}
 
-    {% if fields.CopiesTask.value.status !== 'complete' %}
-        <div class="task-item-content">
-            <p>{{content.copiesTaskParagraph1}}</p>
-        </div>
-    {% endif %}
+    <div class="task-item-content">
+        {% if fields.CopiesTask.value.status !== 'complete' %}
+                <p>{{content.copiesTaskParagraph1}}</p>
+        {% endif %}
 
-    {{taskAction(
-        prevTaskStatus = previousTaskStatus,
-        status = fields.CopiesTask.value.status,
-        nextURL = fields.CopiesTask.value.nextURL,
-        checkYourAnswersURL = fields.CopiesTask.value.checkYourAnswersLink,
-        content = content
-    )}}
+        {{taskAction(
+            prevTaskStatus = previousTaskStatus,
+            status = fields.CopiesTask.value.status,
+            nextURL = fields.CopiesTask.value.nextURL,
+            checkYourAnswersURL = fields.CopiesTask.value.checkYourAnswersLink,
+            content = content
+        )}}
+    </div>
 </li>
 

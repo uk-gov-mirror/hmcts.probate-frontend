@@ -15,13 +15,13 @@
             content["documentTaskChecklist-item1"] | safe
         ])}}
         <p>{{content.documentTaskParagraph1}}</p>
-    </div>
 
-    {{taskAction(
-        prevTaskStatus = previousTaskStatus,
-        status = fields.DocumentsTask.value.status,
-        nextURL = fields.DocumentsTask.value.nextURL,
-        checkYourAnswersURL = fields.DocumentsTask.value.checkYourAnswersLink,
-        content = content
-    )}}
+        {{taskAction(
+            prevTaskStatus = previousTaskStatus,
+            status = fields.DocumentsTask.value.status,
+            nextURL = fields.DocumentsTask.value.nextURL,
+            checkYourAnswersURL = fields.DocumentsTask.value.checkYourAnswersLink,
+            content = content
+        )}}
+    </div>
 </li>
