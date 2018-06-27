@@ -2,34 +2,33 @@
 
 <li class="task-item">
 
-    {{taskStatus(
-        content = content,
-        title = content.eligibilityTask,
-        status = fields.EligibilityTask.value.status,
-        previousTaskStatus = 'complete'
+    {{taskHeader(
+    content = content,
+    title = content.eligibilityTask,
+    status = fields.EligibilityTask.value.status,
+    previousTaskStatus = 'complete'
     )}}
 
-    {% if fields.EligibilityTask.value.status == 'complete' %}
-        <div class="task-item-content">
-            <p>{{content.eligibilityTaskCompleteParagraph1 }}</p>
-        </div>
-    {% else %}
-        <div class="task-item-content">
-            <p>{{content.eligibilityTaskHeader}}</p>
-            {{unorderedList([
-                content["eligibilityTaskList-item1"] | safe,
-                content["eligibilityTaskList-item2"] | safe,
-                content["eligibilityTaskList-item3"] | safe
-            ])}}
-        </div>
-    {% endif %}
+    <div class="task-item-content">
+        {% if fields.EligibilityTask.value.status == 'complete' %}
+        <p>{{content.eligibilityTaskCompleteParagraph1 }}</p>
+        {% else %}
+        <p>{{content.eligibilityTaskHeader}}</p>
 
-    {{taskAction(
+        {{unorderedList([
+        content["eligibilityTaskList-item1"] | safe,
+        content["eligibilityTaskList-item2"] | safe,
+        content["eligibilityTaskList-item3"] | safe
+        ])}}
+        {% endif %}
+
+        {{taskAction(
         prevTaskStatus = 'complete',
         status = fields.EligibilityTask.value.status,
         nextURL = fields.EligibilityTask.value.nextURL,
         checkYourAnswersURL = fields.EligibilityTask.value.checkYourAnswersLink,
         content = content,
         alreadyDeclared = fields.alreadyDeclared.value
-    )}}
+        )}}
+    </div>
 </li>

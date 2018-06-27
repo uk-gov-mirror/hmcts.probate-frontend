@@ -2,26 +2,26 @@
 
 <li class="task-item">
 
-    {{taskStatus(
-        content = content,
-        title = content.documentTask,
-        status = fields.DocumentsTask.value.status,
-        previousTaskStatus = previousTaskStatus
+    {{taskHeader(
+    content = content,
+    title = content.documentTask,
+    status = fields.DocumentsTask.value.status,
+    previousTaskStatus = previousTaskStatus
     )}}
 
     <div class="task-item-content">
         <p>{{content.documentTaskChecklistHeader}}</p>
         {{unorderedList([
-            content["documentTaskChecklist-item1"] | safe
+        content["documentTaskChecklist-item1"] | safe
         ])}}
         <p>{{content.documentTaskParagraph1}}</p>
-    </div>
 
-    {{taskAction(
+        {{taskAction(
         prevTaskStatus = previousTaskStatus,
         status = fields.DocumentsTask.value.status,
         nextURL = fields.DocumentsTask.value.nextURL,
         checkYourAnswersURL = fields.DocumentsTask.value.checkYourAnswersLink,
         content = content
-    )}}
+        )}}
+    </div>
 </li>
