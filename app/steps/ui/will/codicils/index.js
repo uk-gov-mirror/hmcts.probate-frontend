@@ -23,7 +23,6 @@ module.exports = class WillCodicils extends ValidationStep {
     action(ctx, formdata) {
         if (ctx.codicils === this.generateContent(ctx, formdata).optionNo) {
             delete ctx.codicilsNumber;
-            delete ctx.isCodicilsDate;
         }
         super.action(ctx, formdata);
         return [ctx, formdata];
