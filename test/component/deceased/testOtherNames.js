@@ -18,8 +18,11 @@ describe('deceased-otherNames', () => {
     describe('Verify Content, Errors and Redirection', () => {
 
         it('test right content loaded on the page', (done) => {
+
             set(sessionData, 'deceased.firstName', 'John');
             set(sessionData, 'deceased.lastName', 'Doe');
+
+            const excludeKeys = ['otherName', 'removeName'];
 
             testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
@@ -27,7 +30,7 @@ describe('deceased-otherNames', () => {
 
                         const contentData = {deceasedName: 'John Doe'};
 
-                testWrapper.testContent(done, [], contentData);
+                testWrapper.testContent(done, excludeKeys, contentData);
             });
         });
 
@@ -36,6 +39,8 @@ describe('deceased-otherNames', () => {
             set(sessionData, 'deceased.lastName', 'Doe');
             set(sessionData, 'deceased.otherNames.name_0.firstName', 'James');
             set(sessionData, 'deceased.otherNames.name_0.lastName', 'Miller');
+
+            const excludeKeys = ['otherName', 'removeName'];
 
             testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
@@ -46,7 +51,7 @@ describe('deceased-otherNames', () => {
                             aliasLastName: 'James Miller',
                         };
 
-                testWrapper.testContent(done, [], contentData);
+                testWrapper.testContent(done, excludeKeys, contentData);
             });
         });
 
