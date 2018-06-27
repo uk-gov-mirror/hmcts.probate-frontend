@@ -30,12 +30,7 @@ class DeceasedOtherNames extends ValidationStep {
             set(ctx, 'otherNames.name_0.lastName', '');
         }
         const formdata = req.session.form;
-        const willWrapper = new WillWrapper(formdata.will);
-        const isWillDated = willWrapper.hasWillDate();
-        const isCodicilDated = willWrapper.hasCodicilsDate();
-        const codicils = willWrapper.hasCodicils();
         ctx.deceasedFullName = FormatName.format(formdata.deceased);
-        ctx.deceasedMarriedAfterDateOnCodicilOrWill = isCodicilDated || (!codicils && isWillDated);
         return ctx;
     }
 
@@ -94,7 +89,6 @@ class DeceasedOtherNames extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.deceasedFullName;
-        delete ctx.deceasedMarriedAfterDateOnCodicilOrWill;
         return [ctx, formdata];
     }
 }

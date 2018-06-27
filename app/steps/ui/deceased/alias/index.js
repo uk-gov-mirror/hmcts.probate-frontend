@@ -13,7 +13,6 @@ module.exports = class DeceasedAlias extends ValidationStep {
         const nextStepOptions = {
             options: [
                 {key: 'alias', value: this.content.optionYes, choice: 'assetsInOtherNames'},
-                {key: 'deceasedMarriedAfterDateOnCodicilOrWill', value: true, choice: 'deceasedMarriedAfterDateOnCodicilOrWill'},
             ]
         };
         return nextStepOptions;
@@ -22,11 +21,6 @@ module.exports = class DeceasedAlias extends ValidationStep {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        const willWrapper = new WillWrapper(formdata.will);
-        const isWillDated = willWrapper.hasWillDate();
-        const isCodicilDated = willWrapper.hasCodicilsDate();
-        const codicils = willWrapper.hasCodicils();
-        ctx.deceasedMarriedAfterDateOnCodicilOrWill = isCodicilDated || (!codicils && isWillDated);
         ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
@@ -41,7 +35,6 @@ module.exports = class DeceasedAlias extends ValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
-        delete ctx.deceasedMarriedAfterDateOnCodicilOrWill;
         return [ctx, formdata];
     }
 
