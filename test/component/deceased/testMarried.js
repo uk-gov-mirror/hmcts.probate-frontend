@@ -34,7 +34,7 @@ describe('deceased-married', () => {
 
         });
 
-        it('test correct content is loaded on the page when there is a dated codicil', (done) => {
+        it('test correct content is loaded on the page when there are codicils', (done) => {
             const sessionData = {
                 'deceased': {
                     'firstName': 'Mana', 'lastName': 'Manah'
