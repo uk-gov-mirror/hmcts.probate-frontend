@@ -60,7 +60,7 @@ describe('summary-will-section', () => {
                     playbackData.willCodicils = willContent.codicils.question;
                     playbackData.applicantExecutor = applicantContent.executor.question;
 
-                    Object.assign(playbackData, willData.applicant);
+                    Object.assign(playbackData, willData.will, willData.applicant);
 
                     testWrapper.testDataPlayback(done, playbackData);
                 });
