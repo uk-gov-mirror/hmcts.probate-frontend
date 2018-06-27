@@ -19,9 +19,6 @@ describe('thank-you', () => {
                 applicant: {
                     nameAsOnTheWill: 'Yes'
                 },
-                will: {
-                    isCodicilsDate: 'Yes'
-                }
             };
             testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
