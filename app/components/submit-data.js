@@ -25,7 +25,6 @@ const dataMap = {
     dealingWithEstate: 'executors.otherExecutorsApplying',
     willLeft: 'will.left',
     willOriginal: 'will.original',
-    willWithDate: 'will.isWillDate',
     willWithCodicils: 'will.codicils',
     willCodicilsNumber: 'will.codicilsNumber',
     ihtCompleted: 'iht.completed',
