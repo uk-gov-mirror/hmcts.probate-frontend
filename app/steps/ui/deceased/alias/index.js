@@ -1,5 +1,4 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
-const WillWrapper = require('app/wrappers/Will');
 const DeceasedWrapper = require('app/wrappers/Deceased');
 const FormatName = require('app/utils/FormatName');
 

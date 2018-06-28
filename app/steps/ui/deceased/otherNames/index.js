@@ -3,7 +3,6 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FieldError = require('app/components/error');
 const {get, set, isEmpty} = require('lodash');
-const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
 
 class DeceasedOtherNames extends ValidationStep {
