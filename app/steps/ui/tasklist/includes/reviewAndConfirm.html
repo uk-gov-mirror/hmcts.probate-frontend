@@ -3,13 +3,14 @@
 <li class="task-item">
 
     {{taskHeader(
+        number = "3.",
         content = content,
         title = content.reviewAndConfirmTask,
         status = fields.ReviewAndConfirmTask.value.status,
         previousTaskStatus = fields.previousTaskStatus.value.ReviewAndConfirmTask
     )}}
 
-    <div class="task-item-content">
+    <div class="task-list-items">
         {% if fields.ReviewAndConfirmTask.value.status == 'complete' %}
             {% if fields.hasMultipleApplicants.value == 'true' and fields.alreadyDeclared.value == 'false'  %}
                 <p>{{content.reviewAndConfirmTaskMultiplesParagraph1 | safe}}</p>

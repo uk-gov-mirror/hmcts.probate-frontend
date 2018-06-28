@@ -17,49 +17,45 @@
 }
 
 // Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you
- .button-secondary{
-   @include button($grey-3);
+.button-secondary{
+  @include button($grey-3);
 }
 
 // Tasklist page start
-  li.task-item {
-    list-style: decimal inside none;
-    border-top: 1px solid $grey-2;
-    line-height: 1.5;
-    padding: 20px 0 10px 0;
-    font-weight: bold;
+li.task-item {
+  border-top: 1px solid $grey-2;
+  line-height: 1.5;
+  padding: 20px 0 10px 0;
 
-    @include media(tablet) {
-      font-size: 22px;
-      list-style-position: outside;
-    }
+  .task-item-header {
+    overflow: hidden;
 
-    .task-item-header {
-      display: inline;
-
-      .heading-medium {
-        display: inline;
-
-        @include media(tablet) {
-          display: inline-table;
-          width: 66.6%;
-          margin-top: 0;
-        }
-      }
-      .task-unavailable {
-        background-color: $grey-2;
-        color: $black;
-        float: right;
-      }
-    }
-    .task-item-content {
-      font-weight: normal;
+    .heading-medium {
+      margin-bottom: 0;
 
       @include media(tablet) {
-        font-size: 19px;
+        float: left;
+        width: 66.6%;
+        margin-top: 0;
+      }
+      .task-list-section-number{
+        float: left;
+        overflow: hidden;
+        padding-bottom: 1px;
+
       }
     }
+    .task-unavailable {
+      background-color: $grey-2;
+      color: $black;
+      float: right;
+    }
   }
+  .task-list-items {
+    margin-bottom: 0;
+  }
+
+}
 // Tasklist page end
 
 .word-wrap {
@@ -67,19 +63,19 @@
 }
 
 .notice {
-    clear: left;
+  clear: left;
 
-    p {
-      padding-left: 50px;
-    }
+  p {
+    padding-left: 50px;
+  }
 
-    strong {
-      padding-left: 15px;
-    }
+  strong {
+    padding-left: 15px;
+  }
 
-    &.co-applicant {
-      margin-top: 50px;
-    }
+  &.co-applicant {
+    margin-top: 50px;
+  }
 }
 
 .inset-page {border-width: em(3);
@@ -89,9 +85,9 @@
   margin: 0 0 30px 0;
   padding: em(50);
   padding-top: em(35);
-  }
+}
 
-  div.declaration-header {
+div.declaration-header {
   text-align: center;
   margin-top: 5px;
   margin-bottom: 5px;

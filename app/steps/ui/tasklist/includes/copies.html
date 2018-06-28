@@ -3,13 +3,14 @@
 <li class="task-item">
 
     {{taskHeader(
+    number = "4.",
     content = content,
     title = content.copiesTask,
     status = fields.CopiesTask.value.status,
     previousTaskStatus = previousTaskStatus
     )}}
 
-    <div class="task-item-content">
+    <div class="task-list-items">
         {% if fields.CopiesTask.value.status !== 'complete' %}
         <p>{{content.copiesTaskParagraph1}}</p>
         {% endif %}

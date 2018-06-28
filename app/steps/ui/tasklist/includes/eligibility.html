@@ -3,13 +3,14 @@
 <li class="task-item">
 
     {{taskHeader(
+    number = "1.",
     content = content,
     title = content.eligibilityTask,
     status = fields.EligibilityTask.value.status,
     previousTaskStatus = 'complete'
     )}}
 
-    <div class="task-item-content">
+    <div class="task-list-items">
         {% if fields.EligibilityTask.value.status == 'complete' %}
         <p>{{content.eligibilityTaskCompleteParagraph1 }}</p>
         {% else %}
