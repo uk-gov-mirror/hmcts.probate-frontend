@@ -1,7 +1,6 @@
 {% set previousTaskStatus = fields.previousTaskStatus.value.CopiesTask %}
 
 <li class="task-item">
-
     {{taskHeader(
     number = "4.",
     content = content,
@@ -9,12 +8,7 @@
     status = fields.CopiesTask.value.status,
     previousTaskStatus = previousTaskStatus
     )}}
-
     <div class="task-list-items">
-        {% if fields.CopiesTask.value.status !== 'complete' %}
-        <p>{{content.copiesTaskParagraph1}}</p>
-        {% endif %}
-
         {{taskAction(
         prevTaskStatus = previousTaskStatus,
         status = fields.CopiesTask.value.status,

@@ -1,7 +1,6 @@
 {% set previousTaskStatus = fields.previousTaskStatus.value.PaymentTask %}
 
 <li class="task-item">
-
     {{taskHeader(
     number = "5.",
     content = content,
@@ -10,11 +9,6 @@
     previousTaskStatus = previousTaskStatus
     )}}
     <div class="task-list-items">
-        {% if fields.PaymentTask.value.status !== 'complete' %}
-        <p>{{content.paymentTaskParagraph1 | safe}}</p>
-        <p>{{content.paymentTaskParagraph2 | safe}}</p>
-        {% endif %}
-
         {{taskAction(
         prevTaskStatus = previousTaskStatus,
         status = fields.PaymentTask.value.status,

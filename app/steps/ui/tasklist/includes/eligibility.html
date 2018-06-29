@@ -1,7 +1,6 @@
 {% set previousTaskStatus = fields.previousTaskStatus.value.EligibilityTask %}
 
 <li class="task-item">
-
     {{taskHeader(
     number = "1.",
     content = content,
@@ -9,20 +8,7 @@
     status = fields.EligibilityTask.value.status,
     previousTaskStatus = 'complete'
     )}}
-
     <div class="task-list-items">
-        {% if fields.EligibilityTask.value.status == 'complete' %}
-        <p>{{content.eligibilityTaskCompleteParagraph1 }}</p>
-        {% else %}
-        <p>{{content.eligibilityTaskHeader}}</p>
-
-        {{unorderedList([
-        content["eligibilityTaskList-item1"] | safe,
-        content["eligibilityTaskList-item2"] | safe,
-        content["eligibilityTaskList-item3"] | safe
-        ])}}
-        {% endif %}
-
         {{taskAction(
         prevTaskStatus = 'complete',
         status = fields.EligibilityTask.value.status,

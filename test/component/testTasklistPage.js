@@ -18,13 +18,10 @@ describe('task-list', () => {
         it('test right content loaded on the page', (done) => {
 
             const excludeKeys = [
-                'eligibilityTaskCompleteParagraph1',
-                'executorsTaskCompleteParagraph1',
-                'reviewAndConfirmTaskCompleteParagraph',
+                'introduction',
+                'saveAndReturn',
                 'reviewAndConfirmTaskMultiplesParagraph1',
                 'reviewAndConfirmTaskMultiplesParagraph2',
-                'reviewAndConfirmTaskMultiplesParagraph3',
-                'reviewAndConfirmTaskMultiplesParagraph4',
                 'taskNotStarted',
                 'taskStarted',
                 'taskComplete',
@@ -40,26 +37,12 @@ describe('task-list', () => {
         it('test right content loaded in Review and Confirm section (Multiple Applicants)', (done) => {
 
             const excludeKeys = [
-                'eligibilityTaskHeader',
-                'eligibilityTaskList-item2',
-                'eligibilityTaskList-item3',
-                'executorsTaskChecklistHeader',
-                'executorsTaskChecklist-item2',
-                'executorsMultipleTaskChecklistHeader',
-                'executorsMultipleTaskChecklist-item1',
-                'executorsMultipleTaskChecklist-item2',
-                'eligibilityTaskCompleteParagraph1',
-                'executorsTaskCompleteParagraph1',
-                'reviewAndConfirmTaskParagraph1',
-                'reviewAndConfirmTaskCompleteParagraph',
-                'copiesTaskParagraph1',
                 'taskNotStarted',
                 'taskStarted',
                 'taskComplete',
                 'taskUnavailable',
                 'checkYourAnswers',
                 'alreadyDeclared',
-
             ];
 
             testWrapper.agent.post('/prepare-session/form')
@@ -79,22 +62,8 @@ describe('task-list', () => {
                 declaration: sessionData.declaration
             };
             const excludeKeys = [
-                'eligibilityTaskHeader',
-                'eligibilityTaskList-item2',
-                'eligibilityTaskList-item3',
-                'executorsTaskChecklistHeader',
-                'executorsTaskChecklist-item2',
-                'executorsMultipleTaskChecklistHeader',
-                'executorsMultipleTaskChecklist-item1',
-                'executorsMultipleTaskChecklist-item2',
-                'eligibilityTaskCompleteParagraph1',
-                'executorsTaskCompleteParagraph1',
-                'reviewAndConfirmTaskParagraph1',
                 'reviewAndConfirmTaskMultiplesParagraph1',
                 'reviewAndConfirmTaskMultiplesParagraph2',
-                'reviewAndConfirmTaskMultiplesParagraph3',
-                'reviewAndConfirmTaskMultiplesParagraph4',
-                'copiesTaskParagraph1',
                 'taskNotStarted',
                 'taskStarted',
                 'taskComplete',
