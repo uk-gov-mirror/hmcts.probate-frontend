@@ -22,7 +22,7 @@ describe('applicant-nameasonwill', () => {
                  }
             };
 
-            const excludeKeys = ['questionWithCodicil', 'legendWithCodicil'];
+            const excludeKeys = ['questionWithoutName', 'questionWithCodicil', 'legendWithCodicil'];
 
             testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
@@ -45,7 +45,7 @@ describe('applicant-nameasonwill', () => {
                  }
             };
 
-            const excludeKeys = ['question', 'legend'];
+            const excludeKeys = ['question', 'questionWithoutName', 'legend'];
 
             testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
