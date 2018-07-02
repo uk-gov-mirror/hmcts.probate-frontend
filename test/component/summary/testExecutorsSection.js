@@ -2,6 +2,7 @@ const requireDir = require('require-directory');
 const TestWrapper = require('test/util/TestWrapper');
 const executorsData = require('test/data/summary-executors');
 const applicantContent = requireDir(module, '../../../app/resources/en/translation/applicant');
+const FormatName = require('app/utils/FormatName');
 
 describe('summary-executor-section', () => {
     let testWrapper, sessionData;
@@ -24,6 +25,7 @@ describe('summary-executor-section', () => {
             playbackData.lastName = applicantContent.name.lastName;
             playbackData.phoneNumber = applicantContent.phone.phoneNumber;
             playbackData.applicantAddress = applicantContent.address.question;
+            playbackData.applicantNameAsOnWill = applicantContent.nameasonwill.questionWithoutName;
 
             testWrapper.testDataPlayback(done, playbackData);
         });
@@ -42,6 +44,7 @@ describe('summary-executor-section', () => {
                     playbackData.lastName = applicantContent.name.lastName;
                     playbackData.phoneNumber = applicantContent.phone.phoneNumber;
                     playbackData.applicantAddress = applicantContent.address.question;
+                    playbackData.applicantNameAsOnWill = applicantContent.nameasonwill.question.replace('{applicantName}', FormatName.format(sessionData.applicant));
 
                     testWrapper.testDataPlayback(done, playbackData);
                 });
