@@ -32,8 +32,7 @@ li.task-item {
 
     .heading-medium {
       margin: 10px 0;
-      text-align: left;
-      margin-right: auto;
+      display: flex;
 
       @include media(tablet) {
         float: left;
@@ -48,10 +47,6 @@ li.task-item {
 
       .task-list-section-number {
         float: left;
-        overflow: hidden;
-        padding-bottom: 1px;
-        text-align: left;
-        margin-right: auto;
       }
     }
     .task-unavailable {
