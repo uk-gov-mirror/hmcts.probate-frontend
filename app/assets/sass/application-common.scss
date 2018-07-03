@@ -58,17 +58,28 @@ li.task-item {
       background-color: $grey-2;
       color: $black;
       float: left;
+      margin-bottom: 10px;
 
       @include media(tablet) {
         margin-left: 35px;
         margin-bottom: 15px;
+      }
+      @include media(desktop) {
+        float: right;
+      }
+    }
+    .task-completed {
+      float: left;
+      margin-bottom: 10px;
+
+      @include media(desktop) {
+        float: right;
       }
     }
   }
   .task-list-items {
     margin-bottom: 0;
   }
-
 }
 // Tasklist page end
 
