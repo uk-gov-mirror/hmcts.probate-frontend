@@ -34,6 +34,8 @@ const taskList = {
 };
 
 const stepList = {
+    LandingPage1: 'LandingPage2',
+    LandingPage2: 'StartPage',
     StartPage: 'TaskList',
 
     WillLeft: {
