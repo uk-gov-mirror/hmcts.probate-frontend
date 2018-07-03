@@ -63,14 +63,21 @@ li.task-item {
       @include media(tablet) {
         margin-left: 35px;
         margin-bottom: 15px;
+        float:left;
       }
       @include media(desktop) {
         float: right;
+        margin-left: 0;
       }
     }
     .task-completed {
       float: left;
       margin-bottom: 10px;
+
+      @include media(tablet) {
+        float:left;
+        margin-left: 35px;
+      }
 
       @include media(desktop) {
         float: right;
