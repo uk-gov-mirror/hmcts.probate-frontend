@@ -11,7 +11,7 @@
         <ul class="error-summary-list">
         {% for index, otherNameErros in errors %}
             {% for error in otherNameErros %}
-                <li><a href="#otherNames[{{index}}][{{error.param}}]">{{error.msg.summary | safe}}</a></li>
+                <li><a href="#otherNames_{{index}}_{{error.param}}">{{error.msg.summary | safe}}</a></li>
             {% endfor %}
         {% endfor %}
         </ul>
