@@ -64,7 +64,6 @@ module.exports = {
         resave: false,
         saveUninitialized: false,
         cookie: {
-            secure: false,
             httpOnly: true,
             sameSite: 'lax'
         }
