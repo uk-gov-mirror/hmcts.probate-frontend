@@ -2,15 +2,11 @@
   "title": "Apply for probate",
   "header": "You are invited to apply online",
   "introduction": "Use this service to apply for probate (also known as a 'grant of probate' or a 'grant of representation') in England and Wales ",
-  "paragraph1": "It's not yet possible for everyone to make an application online.",
-  "paragraph2": "We will invite you to try this new service if you can confirm that you have:",
-  "checklist-item1": "the original will of the person who died",
-  "checklist-item2": "a death certificate (this must be the original or an <a rel=\"external noopener\" href=\"https://www.gov.uk/after-a-death/when-a-death-is-reported-to-a-coroner\">interim death certificate</a> from the coroner)",
-  "checklist-item3": "completed an <a rel=\"external noopener\" href=\"https://www.gov.uk/valuing-estate-of-someone-who-died/forms\">inheritance tax form</a>",
-  "checklist-item4": "been named as an executor on the will, or an update to the will (&lsquo;codicil&rsquo;)",
-  "checklist-item5": "tried to contact all the other executors named in the will, to tell them you&rsquo;re applying for probate and to find out if they want to apply",
-  "checklist-item6": "the mobile number and email of every executor who&rsquo;s applying for probate, so that they can confirm that the information you provide is correct",
-  "checklist-item7": "determined that all the executors are able to make their own decisions - if one of them is considered to be lacking in <a rel=\"external noopener\" href=\"https://www.gov.uk/make-decisions-for-someone/assessing-mental-capacity\">mental capacity</a> you won't be able to apply online",
-  "paragraph6": "The person who died must also have regarded England or Wales as their permanent home.",
-  "feesHeader": "Fees"
+  "paragraph1": "Fill in the application online, then send the will and death certificate to the probate registry by post.",
+  "feesHeader": "Fees",
+  "paragraph2": "It costs £215 to apply for probate if the value of the estate is more than £5,000. It’s free if the value is less.",
+  "paragraph3": "Extra copies of the grant of probate cost 50p each.",
+  "paragraph4": "You’ll need to pay online by debit or credit card.",
+  "feedbackHeader": "If you have feedback",
+  "paragraph5": "We’re currently building this service. If you notice things that don’t work as well as they should, you can use the ‘feedback’ link at the top of the page."
 }
