@@ -34,9 +34,8 @@ const taskList = {
 };
 
 const stepList = {
-    LandingPage1: 'LandingPage2',
-    LandingPage2: 'StartPage',
-    StartPage: 'TaskList',
+    StartEligibility: 'StartApply',
+    StartApply: 'TaskList',
 
     WillLeft: {
         withWill: 'WillOriginal',

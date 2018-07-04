@@ -2,9 +2,9 @@
 
 const Step = require('app/core/steps/Step');
 
-module.exports = class LandingPage1 extends Step {
+module.exports = class StartEligibility extends Step {
 
     static getUrl() {
-        return '/landingPage1';
+        return '/startEligibility';
     }
 };

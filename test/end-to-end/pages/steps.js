@@ -7,6 +7,8 @@ module.exports = function () {
 
     return actor({
 
+    //landingPages
+
     //Sign In to IDAM
     authenticateWithIdamIfAvailable: steps.IDAM.signIn,
 
