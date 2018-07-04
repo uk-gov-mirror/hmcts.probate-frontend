@@ -6,12 +6,20 @@ const co = require('co');
 describe('PaymentStatus', function () {
 
     const steps = initSteps([__dirname + '/../../app/steps/ui/']);
+    let s2sStub;
+
+    before(() => {
+        config.s2sStubErrorSequence = '1';
+        s2sStub = require('test/service-stubs/idam');
+    });
+
+    after(() => {
+        s2sStub.close();
+        delete require.cache[require.resolve('test/service-stubs/idam')];
+    });
 
     describe('runnerOptions', function () {
         it('Should set paymentPending to unknown if an authorise failure', function (done) {
-
-            config.s2sStubErrorSequence = '1';
-            require('test/service-stubs/idam');
 
             const PaymentStatus = steps.PaymentStatus;
             const ctx = {total: 1};
