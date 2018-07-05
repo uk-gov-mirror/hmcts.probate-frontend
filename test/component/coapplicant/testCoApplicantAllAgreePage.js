@@ -49,6 +49,7 @@ describe('co-applicant-all-agreed-page', () => {
         it('test save and close link is not displayed on the page', (done) => {
             const playbackData = {};
             playbackData.saveAndClose = commonContent.saveAndClose;
+            playbackData.signOut = commonContent.signOut;
 
             testWrapper.testContentNotPresent(done, playbackData);
         });
