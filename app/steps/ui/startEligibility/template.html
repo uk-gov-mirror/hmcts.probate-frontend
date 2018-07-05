@@ -12,7 +12,7 @@
     <div class="grid-row">
         <div class="column-two-thirds">
             <h1 class="form-title heading-large">{{content.header}}</h1>
-            <p>{{content.introduction}}</p>
+            <p>{{content.introduction | safe}}</p>
             <p>{{content.paragraph1 | safe}}</p>
             <p>{{content.paragraph2 | safe}}</p>
             {{ unorderedList([content["checklist-item1"], content["checklist-item2"], content["checklist-item3"], content["checklist-item4"], content["checklist-item5"], content["checklist-item6"], content["checklist-item7"]])}}
