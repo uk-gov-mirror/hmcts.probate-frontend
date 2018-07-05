@@ -27,10 +27,10 @@ Scenario(TestConfigurator.idamInUseText('Save And Close Link Click Flow'), funct
     I.selectATask(taskListContent.taskNotStarted);
     I.selectPersonWhoDiedLeftAWill();
     I.selectOriginalWill();
-    I.click("Save and close");
+    I.click('Save and close');
     I.see('You’ve signed out');
-    I.seeCurrentUrlEquals(testConfig.TestE2EFrontendUrl+"/sign-out");
-    I.click("sign back in");
+    I.seeCurrentUrlEquals(testConfig.TestE2EFrontendUrl+'/sign-out');
+    I.click('sign back in');
     I.seeInCurrentUrl(testConfig.TestIdamLoginUrl);
 
 }).retry(TestConfigurator.getRetryScenarios());
