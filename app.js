@@ -162,7 +162,7 @@ exports.init = function() {
         res.locals.serviceName = commonContent.serviceName;
         res.locals.cookieText = commonContent.cookieText;
 
-        res.locals.releaseVersion = 'v' + releaseVersion;
+        res.locals.releaseVersion = `v${releaseVersion}`;
         next();
     });
 
@@ -176,7 +176,8 @@ exports.init = function() {
     app.use('/health', healthcheck);
 
     if (useIDAM === 'true') {
-        app.use(/\/((?!error)(?!sign-in)(?!pin-resend)(?!pin-sent)(?!co-applicant-*)(?!pin)(?!inviteIdList)(?!start-page).)*/, security.protect(config.services.idam.roles));
+        const idamPages = new RegExp(`/((?!${config.nonIdamPages.join('|')}).)*`);
+        app.use(idamPages, security.protect(config.services.idam.roles));
         app.use('/', routes);
     } else {
         app.use('/', (req, res, next) => {
@@ -185,7 +186,7 @@ exports.init = function() {
             }
             req.session.regId = req.query.id || req.session.regId || req.sessionID;
             req.authToken = config.services.payment.authorization;
-            req.userId= config.services.payment.userId;
+            req.userId = config.services.payment.userId;
             next();
         }, routes);
     }
