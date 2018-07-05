@@ -2,9 +2,9 @@
 
 const Step = require('app/core/steps/Step');
 
-module.exports = class StartApply extends Step {
+module.exports = class StartEligibility extends Step {
 
     static getUrl() {
-        return '/startApply';
+        return '/start-eligibility';
     }
 };

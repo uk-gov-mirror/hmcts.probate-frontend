@@ -1,7 +1,7 @@
 const TestWrapper = require('test/util/TestWrapper'),
     TaskList = require('app/steps/ui/tasklist/index');
 
-describe('startApply', () => {
+describe('start-apply', () => {
     let testWrapper;
     const expectedNextUrlForTaskList = TaskList.getUrl();
 
