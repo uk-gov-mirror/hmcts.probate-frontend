@@ -13,7 +13,7 @@ module.exports = function () {
     authenticateWithIdamIfAvailable: steps.IDAM.signIn,
 
     //Start application
-    startApplication: steps.startPage.startPage,
+    startApplication: steps.startEligibility.startEligibility,
     selectATask: steps.tasklist.tasklist,
 
     // Eligibility
