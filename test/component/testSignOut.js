@@ -1,5 +1,6 @@
 'use strict';
 const TestWrapper = require('test/util/TestWrapper');
+const commonContent = require('app/resources/en/translation/common');
 
 describe('sign-out', () => {
     let testWrapper;
@@ -18,6 +19,13 @@ describe('sign-out', () => {
             const excludeKeys = [];
 
             testWrapper.testContent(done, excludeKeys, {});
+        });
+
+        it('test save and close link is not displayed on the page', (done) => {
+            const playbackData = {};
+            playbackData.saveAndClose = commonContent.saveAndClose;
+
+            testWrapper.testContentNotPresent(done, playbackData);
         });
     });
 });

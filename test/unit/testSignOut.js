@@ -1,6 +1,5 @@
 'use strict';
 const initSteps = require('app/core/initSteps');
-const expect = require('chai').expect;
 const assert = require('chai').assert;
 const sinon = require('sinon');
 const when = require('when');
@@ -26,15 +25,12 @@ describe('Sign-Out', function () {
                     payloadVersion: '4.1.0',
                     applicantEmail: 'test@email.com'
                 }
-            },
+            }
         };
-
-        req.session.destroy = sinon.spy();
-        req.cookies = sinon.spy();
 
         signOut.getContextData(req).then(() => {
             assert.isUndefined(req.cookies);
-            expect(req.session.destroy).to.have.been.calledOn(req.session);
+            assert.isUndefined(req.session);
             done();
         });
     });
