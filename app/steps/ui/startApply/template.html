@@ -12,7 +12,7 @@
     <div class="grid-row">
         <div class="column-two-thirds">
             <h1 class="form-title heading-large">{{content.header}}</h1>
-            <p>{{content.introduction}}</p>
+            <p>{{content.introduction | safe}}</p>
             <p>{{content.paragraph1 | safe}}</p>
             <div class="heading-medium">
                 {{content.feesHeader}}
