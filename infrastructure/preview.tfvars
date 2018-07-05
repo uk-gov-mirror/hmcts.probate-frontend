@@ -21,7 +21,7 @@ idam_service_api = "http://betaPreProdccidamAppLB.reform.hmcts.net:4502"
 
 probate_private_beta_auth_url = "https://idam.preprod.ccidam.reform.hmcts.net/login"
 
-idam_user_host = "https://preprod-idamapi.reform.hmcts.net:3511"
+idam_user_host = "http://betaPreProdccidamAppLB.reform.hmcts.net:4501"
 
 probate_deployment_env = "test"
 
