@@ -7,13 +7,11 @@ module.exports = function () {
 
     return actor({
 
-    //landingPages
-
     //Sign In to IDAM
     authenticateWithIdamIfAvailable: steps.IDAM.signIn,
 
     //Start application
-    startApplication: steps.startEligibility.startEligibility,
+    startApplication: steps.starteligibility.starteligibility,
     selectATask: steps.tasklist.tasklist,
 
     // Eligibility
