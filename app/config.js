@@ -119,9 +119,9 @@ module.exports = {
         serviceId: process.env.SERVICE_ID || 'CODE4',
         siteId: process.env.SITE_ID || 'CODE5'
     },
-    whitelistedPagesAfterSubmission: ['/documents', '/thankyou'],
-    whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou'],
-    whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou'],
+    whitelistedPagesAfterSubmission: ['/documents', '/thankyou', '/sign-out'],
+    whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou', '/sign-out'],
+    whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou', '/sign-out'],
     hardStopParams: ['will.left', 'will.original', 'iht.completed', 'applicant.executor'],
     endpoints: {
         health: '/health',
