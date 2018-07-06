@@ -71,7 +71,7 @@ module.exports = {
     },
     dateFormat: 'DD/MM/YYYY',
     payloadVersion: '4.1.0',
-    gaTrackingId: process.env.GA_TRACKING_ID || '',
+    gaTrackingId: process.env.GA_TRACKING_ID || 'UA-93598808-3',
     enableTracking: process.env.ENABLE_TRACKING || 'true',
     links: {
         cookies: '/cookies',
