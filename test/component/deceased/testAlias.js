@@ -25,7 +25,6 @@ describe('deceased-alias', () => {
                     lastName: 'Doe'
                 }
             };
-            const excludeContent = ['theDeceased'];
 
             testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
@@ -33,7 +32,7 @@ describe('deceased-alias', () => {
 
                 const contentData = {deceasedName: 'John Doe'};
 
-                testWrapper.testContent(done, excludeContent, contentData);
+                testWrapper.testContent(done, [], contentData);
 
             });
         });
