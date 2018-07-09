@@ -4,7 +4,10 @@
   "firstName": "First name(s)",
   "firstNameHint": "Including middle names",
   "lastName": "Last name(s)",
-
+  "addAnotherName": "Add another name",
+  "otherName": "Other name",
+  "removeName": "Remove",
+  
   "errors": {
     "firstName": {
       "required": {
