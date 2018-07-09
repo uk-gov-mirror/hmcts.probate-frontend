@@ -1,31 +1,29 @@
 const initSteps = require('app/core/initSteps');
 const assert = require('chai').assert;
-const config = require('test/config');
 const co = require('co');
+const services = require('app/components/services');
+const sinon = require('sinon');
 
 describe('PaymentStatus', function () {
 
     const steps = initSteps([__dirname + '/../../app/steps/ui/']);
-    let s2sStub;
+    let s2sAuthoriseStub;
 
-    before(() => {
-        config.s2sStubErrorSequence = '1';
-        s2sStub = require('test/service-stubs/idam');
+    beforeEach(function () {
+        s2sAuthoriseStub = sinon.stub(services, 'authorise');
     });
 
-    after(() => {
-        s2sStub.close();
-        delete require.cache[require.resolve('test/service-stubs/idam')];
+    afterEach(function () {
+        s2sAuthoriseStub.restore();
     });
 
     describe('runnerOptions', function () {
         it('Should set paymentPending to unknown if an authorise failure', function (done) {
-
+            s2sAuthoriseStub.returns(Promise.resolve({name: 'Error'}));
             const PaymentStatus = steps.PaymentStatus;
             const ctx = {total: 1};
             const formdata = {paymentPending: 'true'};
             let options = {};
-
             co(function* () {
                 options = yield PaymentStatus.runnerOptions(ctx, formdata);
                 assert.equal(options.redirect, true);
@@ -41,7 +39,7 @@ describe('PaymentStatus', function () {
 
     describe('sendApplication', function () {
         it('Should create an error if the sendApplication fails', function (done) {
-
+            s2sAuthoriseStub.returns(Promise.resolve({name: 'Success'}));
             const PaymentStatus = steps.PaymentStatus;
             const ctx = {};
             const formdata = {};
@@ -55,9 +53,8 @@ describe('PaymentStatus', function () {
         });
 
         it('Should not create an error if sendApplication succeeds', function (done) {
-
+            s2sAuthoriseStub.returns(Promise.resolve({name: 'Success'}));
             require('test/service-stubs/submit');
-
             const PaymentStatus = steps.PaymentStatus;
             const ctx = {};
             const formdata = {};

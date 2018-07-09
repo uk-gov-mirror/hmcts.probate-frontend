@@ -2,24 +2,20 @@
 
 const initSteps = require('app/core/initSteps');
 const assert = require('chai').assert;
-const config = require('test/config');
 const co = require('co');
+const services = require('app/components/services');
+const sinon = require('sinon');
 
 describe('PaymentBreakdown', () => {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
-    let s2sStub, payStub;
+    let s2sAuthoriseStub;
 
-    before(() => {
-        config.s2sStubErrorSequence = '01';
-        s2sStub = require('test/service-stubs/idam');
-        payStub = require('test/service-stubs/payment');
+    beforeEach(function () {
+        s2sAuthoriseStub = sinon.stub(services, 'authorise');
     });
 
-    after(() => {
-        s2sStub.close();
-        payStub.close();
-        delete require.cache[require.resolve('test/service-stubs/idam')];
-        delete require.cache[require.resolve('test/service-stubs/payment')];
+    afterEach(function () {
+        s2sAuthoriseStub.restore();
     });
 
     describe('handleGet', () => {
@@ -68,6 +64,7 @@ describe('PaymentBreakdown', () => {
         });
 
         it('sets paymentPending to true if ctx.total > 0', (done) => {
+            s2sAuthoriseStub.returns(Promise.resolve({name: 'Success'}));
             const PaymentBreakdown = steps.PaymentBreakdown;
             const hostname = 'localhost';
             let ctx = {total: 215};
@@ -87,7 +84,8 @@ describe('PaymentBreakdown', () => {
             });
         });
 
-        it('sets paymentPending and createPayment to undefined if authorise fails before createPayment', (done) => {
+        it('sets paymentPending and createPayment to null if authorise fails before createPayment', (done) => {
+            s2sAuthoriseStub.returns(Promise.resolve({name: 'Error'}));
             const PaymentBreakdown = steps.PaymentBreakdown;
             const hostname = 'localhost';
             let ctx = {total: 215};
