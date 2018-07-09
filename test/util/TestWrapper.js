@@ -82,6 +82,17 @@ module.exports = class TestWrapper {
             .catch(done);
     }
 
+    testContentAfterError(data, contentToCheck, done) {
+        this.agent.post(this.pageUrl)
+            .send(data)
+            .expect('Content-type', 'text/html; charset=utf-8')
+            .then(res => {
+                this.assertContentIsPresent(res.text, contentToCheck);
+                done();
+            })
+            .catch(done);
+    }
+
     testRedirect(done, postData, expectedNextUrl) {
         this.agent.post(this.pageUrl)
             .type('form')
