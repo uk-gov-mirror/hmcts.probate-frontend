@@ -21,6 +21,7 @@ probate_private_beta_auth_url = "https://idam-test.dev.ccidam.reform.hmcts.net/l
 idam_user_host = "http://betaDevBccidamAppLB.reform.hmcts.net"
 #idam_user_host = "http://idam-api-idam-saat.service.core-compute-saat.internal/"
 
+
 probate_deployment_env = "test"
 
 

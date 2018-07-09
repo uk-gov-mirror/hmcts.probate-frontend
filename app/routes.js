@@ -78,13 +78,6 @@ router.use((req, res, next) => {
 });
 
 router.use((req, res, next) => {
-    if (config.nonCachedPages.some(page => req.originalUrl.includes(page))) {
-        res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
-    }
-    next();
-});
-
-router.use((req, res, next) => {
     const formdata = req.session.form;
     const hasMultipleApplicants = (new ExecutorsWrapper(formdata.executors)).hasMultipleApplicants();
 
@@ -115,7 +108,7 @@ router.get('/payment', (req, res) => {
     res.redirect(301, '/documents');
 });
 
-if (['dev', 'test', 'demo'].includes(config.environment)) {
+if (['sandbox', 'saat', 'preview', 'sprod', 'demo', 'aat'].includes(config.environment)) {
     router.get('/inviteIdList', (req, res) => {
         const formdata = req.session.form;
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);

@@ -4,23 +4,31 @@ exports.config = {
     'tests': './paths/**/*.js',
     'output': './output',
     'helpers': {
-        'Nightmare': {
-            'url': testConfig.TestFrontendUrl || 'https://localhost:3000',
-            'waitForTimeout': 10000,
+        'Puppeteer': {
+            'url': testConfig.TestE2EFrontendUrl || 'http://localhost:3000',
+            'waitForTimeout': 60000,
+            waitForAction: 7000,
             'show': false,
-            waitForAction: 2000,
-            'switches': {
-                'ignore-certificate-errors': true
-            }
+            'chrome': {
+                'ignoreHTTPSErrors': true,
+                'ignore-certificate-errors': true,
+                args: [
+                    '--no-sandbox',
+                    '--proxy-server=proxyout.reform.hmcts.net:8080',
+                    '--proxy-bypass-list=*beta*LB.reform.hmcts.net'
+                ]
+            },
         },
-        'NightmareHelper': {
-            'require': './helpers/NightmareHelper.js'
+        'PuppeteerHelper': {
+            'require': './helpers/PuppeteerHelper.js'
+        },
+        'JSWaitHelper': {
+            'require': './helpers/JSWaitHelper.js'
         }
     },
     'include': {
         'I': './pages/steps.js'
     },
-    'bootstrap': 'test/service-stubs/persistence',
     'mocha': {
         'reporterOptions': {
             'reportDir': process.env.E2E_OUTPUT_DIR || './output',

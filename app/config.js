@@ -1,11 +1,8 @@
 module.exports = {
-    environment: process.env.REFORM_ENVIRONMENT,
+
+    environment: process.env.REFORM_ENVIRONMENT || 'prod',
     nodeEnvironment: process.env.NODE_ENV,
     gitRevision: process.env.GIT_REVISION,
-    service: {
-        name: 'Apply for probate',
-        version: ''
-    },
     app: {
         username: process.env.USERNAME,
         password: process.env.PASSWORD,
@@ -13,8 +10,7 @@ module.exports = {
         useHttps: process.env.USE_HTTPS || 'false',
         useIDAM: process.env.USE_IDAM || 'false',
         port: process.env.PORT || '3000',
-        useCSRFProtection: 'true',
-        cookieText: 'GOV.UK uses cookies to make the site simpler. <a href="http://gov.uk/help/cookies" title="Find out more about cookies">Find out more about cookies</a>'
+        useCSRFProtection: 'true'
     },
     services: {
         postcode: {
@@ -53,7 +49,7 @@ module.exports = {
             authorization: process.env.PAYMENT_AUTHORIZATION || 'dummy_token',
             serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'dummy_token',
             userId: process.env.PAYMENT_USER_ID || 999999999,
-            returnUrl: process.env.PAYMENT_RETURN_URL || 'https://localhost:3000/payment-status'
+            returnUrlPath: '/payment-status'
         }
     },
     redis: {
@@ -68,7 +64,6 @@ module.exports = {
         resave: false,
         saveUninitialized: false,
         cookie: {
-            secure: false,
             httpOnly: true,
             sameSite: 'lax'
         }
@@ -76,8 +71,7 @@ module.exports = {
     },
     dateFormat: 'DD/MM/YYYY',
     payloadVersion: '4.1.0',
-    hostname: process.env.FRONTEND_HOSTNAME || 'localhost:3000',
-    gaTrackingId: process.env.GA_TRACKING_ID || '',
+    gaTrackingId: process.env.GA_TRACKING_ID || 'UA-93598808-3',
     enableTracking: process.env.ENABLE_TRACKING || 'true',
     links: {
         cookies: '/cookies',
@@ -125,13 +119,15 @@ module.exports = {
         serviceId: process.env.SERVICE_ID || 'CODE4',
         siteId: process.env.SITE_ID || 'CODE5'
     },
-    whitelistedPagesAfterSubmission: ['/documents', '/thankyou'],
-    whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou'],
-    whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou'],
+    whitelistedPagesAfterSubmission: ['/documents', '/thankyou', '/sign-out'],
+    whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou', '/sign-out'],
+    whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou', '/sign-out'],
     hardStopParams: ['will.left', 'will.original', 'iht.completed', 'applicant.executor'],
-    nonCachedPages: ['summary', 'tasklist'],
-    healthEndpoint: '/health',
+    endpoints: {
+        health: '/health',
+        info: '/info'
+    },
     appInsights: {
-        instrumentationKey: process.env.APPINSIGHTS_INSTRUMENTATION_KEY
+        instrumentationKey: process.env.APPINSIGHTS_INSTRUMENTATIONKEY
     }
 };

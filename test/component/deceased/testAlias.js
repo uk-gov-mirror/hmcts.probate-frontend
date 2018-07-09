@@ -1,7 +1,7 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    DeceasedOtherNames = require('app/steps/ui/deceased/otherNames/index'),
-    DeceasedMarried = require('app/steps/ui/deceased/married/index'),
-    DeceasedDod = require('app/steps/ui/deceased/dod/index');
+const TestWrapper = require('test/util/TestWrapper');
+const DeceasedOtherNames = require('app/steps/ui/deceased/otherNames/index');
+const DeceasedMarried = require('app/steps/ui/deceased/married/index');
+const DeceasedDod = require('app/steps/ui/deceased/dod/index');
 
 describe('deceased-alias', () => {
     let testWrapper;
@@ -18,7 +18,6 @@ describe('deceased-alias', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         it('test right content loaded on the page', (done) => {
             const sessionData = {
                 deceased: {
@@ -82,6 +81,5 @@ describe('deceased-alias', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDod);
             });
         });
-
     });
 });
