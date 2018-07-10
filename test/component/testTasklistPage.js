@@ -28,7 +28,6 @@ describe('task-list', () => {
                 'taskUnavailable',
                 'checkYourAnswers',
                 'alreadyDeclared',
-
             ];
 
             testWrapper.testContent(done, excludeKeys);
