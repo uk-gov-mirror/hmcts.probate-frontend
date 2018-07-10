@@ -65,9 +65,10 @@
     </div>
 
     {{ checkbox(
-        name='declarationCheckbox',
-        field= fields.declarationCheckbox,
-        text= fields.declaration.value.accept
+        name = 'declarationCheckbox',
+        field = fields.declarationCheckbox,
+        text = fields.declaration.value.accept,
+        legend = content.title
     ) }}
 
     <div class="notice">
