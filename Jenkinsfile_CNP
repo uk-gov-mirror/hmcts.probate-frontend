@@ -37,6 +37,7 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 }
 
 withPipeline("nodejs", product, component) {
+  env.RUN_E2E_TEST=false
   after('build') {
     sh 'yarn setup'
   }
