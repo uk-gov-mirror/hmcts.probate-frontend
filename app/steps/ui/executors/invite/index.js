@@ -8,6 +8,12 @@ module.exports = class ExecutorsInvite extends ValidationStep {
         return '/executors-invite';
     }
 
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        ctx.inviteSuffix = ctx.executorsNumber > 2 ? '-multiple' : '';
+        return ctx;
+    }
+
     nextStepUrl(ctx) {
         return this.next(ctx).constructor.getUrl();
     }
@@ -43,5 +49,11 @@ module.exports = class ExecutorsInvite extends ValidationStep {
 
     isComplete(ctx) {
         return [ctx.invitesSent, 'inProgress'];
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.inviteSuffix;
+        return [ctx, formdata];
     }
 };
