@@ -1,5 +1,13 @@
 {% extends "govuk_template.html" %}
 
+{% if title === undefined %}
+	{% set title = content.title %}
+{% endif %}
+
+{% block page_title %}
+  {{title | safe}}{%if serviceName %}{{ ' - ' + serviceName }}{% endif %}
+{% endblock %}
+
 {% block head %}
   {% include "includes/head.html" %}
 {% endblock %}

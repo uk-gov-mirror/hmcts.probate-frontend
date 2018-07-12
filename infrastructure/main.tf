@@ -76,6 +76,7 @@ module "probate-frontend-redis-cache" {
   location = "${var.location}"
   env      = "${var.env}"
   subnetid = "${data.terraform_remote_state.core_apps_infrastructure.subnet_ids[1]}"
+  common_tags  = "${var.common_tags}"
 }
 
 module "probate-frontend" {
@@ -89,6 +90,7 @@ module "probate-frontend" {
   asp_name     = "${var.product}-${var.env}-asp"
   additional_host_name = "${var.external_host_name}"  // need to give proper url
   capacity     = "${var.capacity}"
+  common_tags  = "${var.common_tags}"
 
   app_settings = {
     
@@ -111,7 +113,6 @@ module "probate-frontend" {
     DEPLOYMENT_ENV="${var.deployment_env}"
 
 	  // Frontend web details
-    FRONTEND_HOSTNAME ="${var.probate_frontend_hostname}"
     PUBLIC_PROTOCOL ="${var.probate_frontend_protocol}"
 
     // Service name
@@ -141,7 +142,6 @@ module "probate-frontend" {
 
     //  PAYMENT
     PAYMENT_CREATE_URL = "${var.payment_create_url }"
-    PAYMENT_RETURN_URL = "${var.payment_return_url }"
 
     // POSTCODE
     POSTCODE_SERVICE_URL = "${data.vault_generic_secret.probate_postcode_service_url.data["value"]}"
