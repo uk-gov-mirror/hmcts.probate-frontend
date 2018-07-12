@@ -1,21 +1,22 @@
-FROM node:8.1.4-alpine
+FROM node:8.9.4-alpine
 
 RUN mkdir -p /opt/app
 WORKDIR /opt/app
 
-
 COPY package.json /opt/app
 
 # Update & Install theses apps.
-RUN apk update && apk upgrade && apk add --no-cache rsync git python make gcc g++
+RUN apk add --no-cache git
 
-RUN npm install
+RUN yarn install --production  \
+        && yarn cache clean
 
 COPY . /opt/app
-RUN npm run setup
-COPY git.properties.json /opt/app
+RUN yarn setup
+
+RUN rm -rf /opt/app/.git
 
 HEALTHCHECK --interval=10s --timeout=10s --retries=10 CMD http_proxy= curl -k --silent --fail https://localhost:3000/health
 
 EXPOSE 3000
-CMD ["npm", "start" ]
+CMD ["yarn", "start" ]

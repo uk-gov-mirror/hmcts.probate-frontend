@@ -8,7 +8,7 @@
 
     <input type="text" class="form-control {{ 'form-control-error' if fields.postcode.error }} form-control-1-4" id="postcode" name="postcode" value="{{fields.postcode.value}}">
     <input type="hidden" id="referrer" name="referrer" value="{{step}}">
-    <input type="submit" class="button-secondary" formaction="/find-address" name="findaddress" value="{{content.findAddress}}">
+    <input {% if fields.addresses %}autofocus="autofocus"{% endif %} type="submit" class="button-secondary" formaction="/find-address" name="findaddress" value="{{content.findAddress}}">
 </div>
 
 <input type="hidden" id="addressFound" name="addressFound" value="{{ fields.addressFound.value if fields.addressFound else 'none' }}">

@@ -1,5 +1,5 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    ExecutorsAlias = require('app/steps/ui/executors/alias/index');
+const TestWrapper = require('test/util/TestWrapper');
+const ExecutorsAlias = require('app/steps/ui/executors/alias/index');
 
 describe('executors-dealing-with-estate', () => {
     let testWrapper, sessionData;
@@ -48,11 +48,24 @@ describe('executors-dealing-with-estate', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        executorsApplying: 'many clouds'
+                        executorsApplying: ['many clouds']
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl();
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecAlias);
                 });
         });
+
+        it('test errors message displayed for more than 4 applicants', (done) => {
+            const errorsToTest = ['executorsApplying'];
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        executorsApplying: ['many clouds', 'many clouds', 'many clouds', 'many clouds']
+                    };
+                    testWrapper.testErrors(done, data, 'invalid', errorsToTest);
+                });
+        });
+
     });
 });
