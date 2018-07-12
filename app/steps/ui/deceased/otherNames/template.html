@@ -9,9 +9,10 @@
             {{common.errorSummaryHeading | safe}}
         </h2>
         <ul class="error-summary-list">
-        {% for index, otherNameErrors in errors %}
-            {% for error in otherNameErrors %}
-                <li><a href="#otherNames[{{index}}][{{error.param}}]">{{error.msg.summary | safe}}</a></li>
+
+        {% for index, otherNameErros in errors %}
+            {% for error in otherNameErros %}
+                <li><a href="#otherNames_{{index}}_{{error.param}}">{{error.msg.summary | safe}}</a></li>
             {% endfor %}
         {% endfor %}
         </ul>

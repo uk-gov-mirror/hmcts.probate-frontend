@@ -1,11 +1,9 @@
 {% extends "includes/layout.html" %}
-{% block page_title %}
-{{ content.title }}
-{% endblock %}
 
 {% block content %}
 
 {% from "widgets/lists.html" import taskAction, unorderedList %}
+{% from "widgets/taskheader.html" import taskHeader %}
 
 <main id="content" role="main">
     {% include "includes/phase_banner_beta.html" %}

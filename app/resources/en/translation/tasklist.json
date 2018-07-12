@@ -1,5 +1,5 @@
 {
-  "title": "Apply for probate",
+  "title": "Task list",
   "header": "Apply for probate",
   "introduction": "Complete these steps to apply for probate.",
   "eligibilityTask": "About the will and inheritance tax",
@@ -35,8 +35,8 @@
   "documentTaskParagraph1": "We will check these supporting documents and issue your grant.",
   "taskNotStarted": "Start",
   "taskStarted": "Continue",
-  "taskComplete": "Check your answers",
-  "taskUnavailable": "You must complete the previous step before you can start this",
-  "taskCompleteTag": "Completed",
+  "checkYourAnswers": "Check your answers",
+  "taskUnavailable": "Can&rsquo;t start yet",
+  "taskComplete": "Completed",
   "alreadyDeclared": "Already declared"
 }

@@ -1,9 +1,5 @@
 {% extends "includes/layout.html" %}
 
-{% block page_title %}
-{{ content.title}}
-{% endblock %}
-
 {% block content %}
 
 {% from "widgets/lists.html" import unorderedList %}
@@ -17,7 +13,7 @@
     <p>{{content.paragraph2 | safe}}</p>
 
     <ul class="panel panel-border-wide">
-        {{content.otherServices | safe}}
+        <li>{{content.otherServices | safe}}</li>
     </ul>
 
     <p>{{content.paragraph3 | safe}}</p>

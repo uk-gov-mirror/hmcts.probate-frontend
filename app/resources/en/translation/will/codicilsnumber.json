@@ -1,6 +1,7 @@
 {
-  "title": "How many updates (&lsquo;codicils&rsquo;) were made to the will?",
+  "title": "How many updates (&lsquo;codicils&rsquo;) were made to the will",
   "question": "How many updates (&lsquo;codicils&rsquo;) were made to the will?",
+  "numberOfUpdates": "Number of updates",
 
   "errors": {
     "codicilsNumber": {
