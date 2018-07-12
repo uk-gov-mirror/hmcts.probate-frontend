@@ -22,8 +22,13 @@ variable "deployment_env" {
   type = "string"
 }
 
+variable "deployment_path" {
+  default = "/opt/probate/frontend"
+}
 
 variable "node_config_dir" {
+  // for Unix
+  // default = "/opt/probate/frontend/config"
   
   // for Windows
   default = "D:\\home\\site\\wwwroot\\config"
