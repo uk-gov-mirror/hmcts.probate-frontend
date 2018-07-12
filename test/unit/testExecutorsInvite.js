@@ -2,9 +2,8 @@
 
 const initSteps = require('app/core/initSteps');
 const assert = require('chai').assert;
-const {isNil} = require('lodash');
 
-describe('Executors-Invite', function () {
+describe('Executors-Invite', () => {
     let ctx;
     const ExecsInvite = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).ExecutorsInvite;
 
@@ -39,7 +38,7 @@ describe('Executors-Invite', function () {
                 inviteSuffix: '-multiple'
             };
             ExecsInvite.action(ctx);
-            assert.isTrue(isNil(ctx.inviteSuffix));
+            assert.isUndefined(ctx.inviteSuffix);
         });
     });
 });
