@@ -45,7 +45,7 @@ services:
       - IDAM_API_URL=http://idam-api:8080
       - IDAM_URL=http://idam-api:8080
       - IDAM_LOGIN_URL=https://localhost:8000/login
-      - FRONTEND_HOSTNAME=localhost:3000
+
       - IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE=123456
       - http_proxy=
       - https_proxy=

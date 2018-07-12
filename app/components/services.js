@@ -93,14 +93,14 @@ const saveFormData = (id, data, sessionID) => {
     return utils.fetchJson(`${PERSISTENCE_SERVICE_URL}`, fetchOptions);
 };
 
-const createPayment = (data) => {
+const createPayment = (data, hostname) => {
     logger.info('createPayment');
     const headers = {
         'Content-Type': 'application/json',
         'Authorization': data.authToken,
         'ServiceAuthorization': data.serviceAuthToken
     };
-    const body = paymentData.createPaymentData(data);
+    const body = paymentData.createPaymentData(data, hostname);
     const fetchOptions = utils.fetchOptions(body, 'POST', headers);
     const createPaymentUrl = CREATE_PAYMENT_SERVICE_URL.replace('userId', data.userId);
     return [utils.fetchJson(createPaymentUrl, fetchOptions), body.reference];
@@ -161,14 +161,14 @@ const sendPin = (phoneNumber, sessionID) => {
 const authorise = () => {
     logger.info('authorise');
     const headers = {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/json'
     };
-    const oneTimePassword = otp ({secret: secret}).totp();
-    const params = new URLSearchParams();
-    params.append('microservice', serviceName);
-    params.append('oneTimePassword', oneTimePassword);
+    const params = {
+        microservice: serviceName,
+        oneTimePassword: otp({secret: secret}).totp()
+    };
     const fetchOptions = utils.fetchOptions(params, 'POST', headers);
-    return utils.fetchText(`${SERVICE_AUTHORISATION_URL}`, {method: 'POST', body: params, headers: fetchOptions.headers});
+    return utils.fetchText(SERVICE_AUTHORISATION_URL, fetchOptions);
 };
 
 const getOauth2Token = (code, redirectUri) => {
@@ -205,6 +205,16 @@ const updatePhoneNumber = (inviteId, data) => {
     return utils.fetchJson(findInviteUrl, fetchOptions);
 };
 
+const signOut = (access_token) => {
+    logger.info('signing out of IDAM');
+    const clientName = config.services.idam.probate_oauth2_client;
+    const headers = {
+        'Authorization': `Basic ${new Buffer(`${clientName}:${secret}`).toString('base64')}`,
+    };
+    const fetchOptions = utils.fetchOptions({}, 'DELETE', headers);
+    return utils.fetchJson(`${IDAM_SERVICE_URL}/session/${access_token}`, fetchOptions);
+};
+
 module.exports = {
     getUserDetails,
     findAddress,
@@ -221,5 +231,6 @@ module.exports = {
     sendPin,
     sendInvite,
     updatePhoneNumber,
-    checkAllAgreed
+    checkAllAgreed,
+    signOut
 };

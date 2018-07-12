@@ -8,6 +8,7 @@ const utils = require('app/components/step-utils');
 const services = require('app/components/services');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
+const FormatName = require('app/utils/FormatName');
 
 class Summary extends Step {
 
@@ -77,12 +78,18 @@ class Summary extends Step {
         const willWrapper = new WillWrapper(formdata.will);
         const isWillDated = willWrapper.hasWillDate();
         const isCodicilDated = willWrapper.hasCodicilsDate();
+        const deceasedName = FormatName.format(formdata.deceased);
+        const content = this.generateContent(ctx, formdata);
+        const hasCodicils = willWrapper.hasCodicils();
 
-        ctx.codicilPresent = willWrapper.hasCodicils();
+        ctx.deceasedAliasQuestion = content.DeceasedAlias.question
+            .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedAlias.theDeceased);
+        ctx.deceasedMarriedQuestion = (hasCodicils ? content.DeceasedMarried.questionWithCodicil : content.DeceasedMarried.question)
+            .replace('{deceasedName}', deceasedName);
         ctx.softStop = this.anySoftStops(formdata, ctx);
         ctx.alreadyDeclared = this.alreadyDeclared(req.session);
         ctx.session = req.session;
-        ctx.deceasedMarriedAfterDateOnCodicilOrWill = isCodicilDated || (!ctx.codicilPresent && isWillDated);
+        ctx.deceasedMarriedAfterDateOnCodicilOrWill = isCodicilDated || (!hasCodicils && isWillDated);
         return ctx;
     }
 }

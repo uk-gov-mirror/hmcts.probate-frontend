@@ -57,17 +57,18 @@ locals {
 
   previewVaultName = "${var.product}-fe"  // max 24 char else used fronend
   nonPreviewVaultName = "${var.product}-fe-${var.env}"
-  vaultName = "${var.env == "preview" ? local.previewVaultName : local.nonPreviewVaultName}"
+  vaultName = "${(var.env == "preview" || var.env == "spreview") ? local.previewVaultName : local.nonPreviewVaultName}"
 
   nonPreviewVaultUri = "${module.probate-frontend-vault.key_vault_uri}"
-  previewVaultUri = "https://probate-frontend-aat.vault.azure.net/"
-  vaultUri = "${var.env == "preview"? local.previewVaultUri : local.nonPreviewVaultUri}"
-  
+  previewVaultUri = "https://probate-fe-aat.vault.azure.net/"
+  vaultUri = "${(var.env == "preview" || var.env == "spreview")? local.previewVaultUri : local.nonPreviewVaultUri}"
+
   //once Backend is up in CNP need to get the 
   //localBusinessServiceUrl = "http://probate-business-service-${var.env}.service.${local.aseName}.internal"
   //businessServiceUrl = "${var.env == "preview" ? "http://probate-business-service-aat.service.core-compute-aat.internal" : local.localClaimStoreUrl}"
   // add other services
 }
+
 
 module "probate-frontend-redis-cache" {
   source   = "git@github.com:hmcts/moj-module-redis?ref=master"
@@ -75,6 +76,7 @@ module "probate-frontend-redis-cache" {
   location = "${var.location}"
   env      = "${var.env}"
   subnetid = "${data.terraform_remote_state.core_apps_infrastructure.subnet_ids[1]}"
+  common_tags  = "${var.common_tags}"
 }
 
 module "probate-frontend" {
@@ -88,6 +90,7 @@ module "probate-frontend" {
   asp_name     = "${var.product}-${var.env}-asp"
   additional_host_name = "${var.external_host_name}"  // need to give proper url
   capacity     = "${var.capacity}"
+  common_tags  = "${var.common_tags}"
 
   app_settings = {
     
@@ -110,12 +113,7 @@ module "probate-frontend" {
     DEPLOYMENT_ENV="${var.deployment_env}"
 
 	  // Frontend web details
-    FRONTEND_HOSTNAME ="${var.probate_frontend_hostname}"
     PUBLIC_PROTOCOL ="${var.probate_frontend_protocol}"
-    //PUBLIC_PORT = "${var.probate_frontend_public_port}"
-  	//PORT = "${var.probate_frontend_port}"
-  	//PROBATE_HTTP_PROXY = "${var.outbound_proxy}"
-  	//no_proxy = "${var.no_proxy}"
 
     // Service name
     SERVICE_NAME = "${var.frontend_service_name}"
@@ -130,14 +128,9 @@ module "probate-frontend" {
     // REDIS
     USE_REDIS = "${var.probate_frontend_use_redis}"
     REDIS_USE_TLS = "${var.redis_use_tls}" 
-    //REDIS_HOST = "${var.probate_redis_url}"
-    //REDIS_PORT = "${var.f5_redis_listen_port}"
     REDIS_HOST      = "${module.probate-frontend-redis-cache.host_name}"
     REDIS_PORT      = "${module.probate-frontend-redis-cache.redis_port}"
     REDIS_PASSWORD  = "${module.probate-frontend-redis-cache.access_key}"
-    //REDIS_HOST                   = "${module.redis-cache.host_name}"
-    //REDIS_PORT                   = "${module.redis-cache.redis_port}"
-    //REDIS_PASSWORD               = "${module.redis-cache.access_key}"
 
     // IDAM
     USE_IDAM = "${var.probate_frontend_use_idam}"
@@ -149,7 +142,6 @@ module "probate-frontend" {
 
     //  PAYMENT
     PAYMENT_CREATE_URL = "${var.payment_create_url }"
-    PAYMENT_RETURN_URL = "${var.payment_return_url }"
 
     // POSTCODE
     POSTCODE_SERVICE_URL = "${data.vault_generic_secret.probate_postcode_service_url.data["value"]}"
@@ -164,9 +156,6 @@ module "probate-frontend" {
     SITE_ID = "${data.vault_generic_secret.probate_site_id.data["value"]}"
 
     REFORM_ENVIRONMENT = "${var.reform_envirionment_for_test}"
-    // Functional tests
-    //TEST_E2E_FRONTEND_URL = "${var.probate_frontend_hostname}"
-    //E2E_FRONTEND_URL = "${var.probate_frontend_hostname}"
   }
 }
 
