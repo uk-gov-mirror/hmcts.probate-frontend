@@ -174,12 +174,10 @@ exports.init = function() {
     app.get('/executors/invitation/:inviteId', inviteSecurity.verify());
     app.use('/co-applicant-*', inviteSecurity.checkCoApplicant(useIDAM));
     app.use('/health', healthcheck);
-    const idamPages = new RegExp(`/((?!${config.nonIdamPages.join('|')}).)*`);
-    app.use(idamPages, security.protect(config.services.idam.roles));
     if (useIDAM === 'true') {
-       // const idamPages = new RegExp(`/((?!${config.nonIdamPages.join('|')}).)*`);
-        //app.use(idamPages, security.protect(config.services.idam.roles));
-        app.use('/', routes);
+       const idamPages = new RegExp(`/((?!${config.nonIdamPages.join('|')}).)*`);
+       app.use(idamPages, security.protect(config.services.idam.roles));
+       app.use('/', routes);
     } else {
         app.use('/', (req, res, next) => {
             if (req.query.id && req.query.id !== req.session.regId) {
