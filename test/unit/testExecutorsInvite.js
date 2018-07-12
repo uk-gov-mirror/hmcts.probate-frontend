@@ -2,6 +2,7 @@
 
 const initSteps = require('app/core/initSteps');
 const assert = require('chai').assert;
+const {isNil} = require('lodash');
 
 describe('Executors-Invite', function () {
     let ctx;
@@ -28,6 +29,17 @@ describe('Executors-Invite', function () {
             req.session.form.executors.executorsNumber = 3;
             ctx = ExecsInvite.getContextData(req);
             assert.equal(ctx.inviteSuffix, '-multiple');
+        });
+    });
+
+    describe('action', () => {
+
+        it('test inviteSuffix is removed from the context', () => {
+            ctx = {
+                inviteSuffix: '-multiple'
+            };
+            ExecsInvite.action(ctx);
+            assert.isTrue(isNil(ctx.inviteSuffix));
         });
     });
 });
