@@ -3,26 +3,24 @@
 <li class="task-item">
 
     {{taskHeader(
-        content = content,
-        title = content.paymentTask,
-        status = fields.PaymentTask.value.status,
-        previousTaskStatus = previousTaskStatus
+    number = "5.",
+    content = content,
+    title = content.paymentTask,
+    status = fields.PaymentTask.value.status,
+    previousTaskStatus = previousTaskStatus
     )}}
-    <div class="task-item-content">
+    <div class="task-list-items">
         {% if fields.PaymentTask.value.status !== 'complete' %}
-
-                <p>{{content.paymentTaskParagraph1 | safe}}</p>
-                <p>{{content.paymentTaskParagraph2 | safe}}</p>
-
+        <p>{{content.paymentTaskParagraph1 | safe}}</p>
+        <p>{{content.paymentTaskParagraph2 | safe}}</p>
         {% endif %}
 
         {{taskAction(
-            prevTaskStatus = previousTaskStatus,
-            status = fields.PaymentTask.value.status,
-            nextURL = fields.PaymentTask.value.nextURL,
-            checkYourAnswersURL = fields.PaymentTask.value.checkYourAnswersLink,
-            content = content
+        prevTaskStatus = previousTaskStatus,
+        status = fields.PaymentTask.value.status,
+        nextURL = fields.PaymentTask.value.nextURL,
+        checkYourAnswersURL = fields.PaymentTask.value.checkYourAnswersLink,
+        content = content
         )}}
     </div>
 </li>
-

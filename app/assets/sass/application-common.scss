@@ -17,8 +17,8 @@
 }
 
 // Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you
- .button-secondary{
-   @include button($grey-3);
+.button-secondary {
+  @include button($grey-3);
 }
 
 // Tasklist page start
@@ -26,29 +26,62 @@ li.task-item {
   border-top: 1px solid $grey-2;
   line-height: 1.5;
   padding: 20px 0 10px 0;
-  position: relative;
 
   .task-item-header {
-      overflow: hidden;
+    overflow: hidden;
 
     .heading-medium {
-      margin-bottom: 0;
+      margin: 10px 0;
+      display: flex;
 
       @include media(tablet) {
         float: left;
-        width: 66.6%;
+        width: 100%;
+        margin-top: 0;
+      }
+      @include media(desktop) {
+        float: left;
+        width: 65%;
         margin-top: 0;
       }
 
+      .task-list-section-number {
+        float: left;
+      }
     }
     .task-unavailable {
       background-color: $grey-2;
       color: $black;
-      float: right;
+      float: left;
+      margin-bottom: 10px;
 
+      @include media(tablet) {
+        margin-left: 35px;
+        margin-bottom: 15px;
+        float:left;
+      }
+      @include media(desktop) {
+        float: right;
+        margin-left: 0;
+      }
+    }
+    .task-completed {
+      float: left;
+      margin-bottom: 10px;
+
+      @include media(tablet) {
+        float:left;
+        margin-left: 35px;
+      }
+
+      @include media(desktop) {
+        float: right;
+      }
     }
   }
-
+  .task-list-items {
+    margin-bottom: 0;
+  }
 }
 // Tasklist page end
 
@@ -67,28 +100,29 @@ li.task-item {
 // Helper CSS end
 
 .notice {
-    clear: left;
+  clear: left;
 
-    p {
-      padding-left: 50px;
-    }
+  p {
+    padding-left: 50px;
+  }
 
-    strong {
-      padding-left: 15px;
-    }
+  strong {
+    padding-left: 15px;
+  }
 
-    &.co-applicant {
-      margin-top: 50px;
-    }
+  &.co-applicant {
+    margin-top: 50px;
+  }
 }
 
 .inset-page {
-    border-width: 3px;
-    border-style: solid;
-    background-color: $grey-4;
-    border-color: $grey-2;
-    margin-bottom: 30px;
-    padding: 35px 50px;
+  border-width: em(3);
+  border-style: solid;
+  background-color: #f8f8f8;
+  border-color: #bfc1c3;
+  margin: 0 0 30px 0;
+  padding: em(50);
+  padding-top: em(35);
 }
 
 div.declaration-header {

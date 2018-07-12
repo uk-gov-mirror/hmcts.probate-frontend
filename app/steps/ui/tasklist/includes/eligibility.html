@@ -3,32 +3,33 @@
 <li class="task-item">
 
     {{taskHeader(
-        content = content,
-        title = content.eligibilityTask,
-        status = fields.EligibilityTask.value.status,
-        previousTaskStatus = 'complete'
+    number = "1.",
+    content = content,
+    title = content.eligibilityTask,
+    status = fields.EligibilityTask.value.status,
+    previousTaskStatus = 'complete'
     )}}
 
-    <div class="task-item-content">
+    <div class="task-list-items">
         {% if fields.EligibilityTask.value.status == 'complete' %}
-                <p>{{content.eligibilityTaskCompleteParagraph1 }}</p>
+        <p>{{content.eligibilityTaskCompleteParagraph1 }}</p>
         {% else %}
-                <p>{{content.eligibilityTaskHeader}}</p>
+        <p>{{content.eligibilityTaskHeader}}</p>
 
-                {{unorderedList([
-                    content["eligibilityTaskList-item1"] | safe,
-                    content["eligibilityTaskList-item2"] | safe,
-                    content["eligibilityTaskList-item3"] | safe
-                ])}}
+        {{unorderedList([
+        content["eligibilityTaskList-item1"] | safe,
+        content["eligibilityTaskList-item2"] | safe,
+        content["eligibilityTaskList-item3"] | safe
+        ])}}
         {% endif %}
 
-    {{taskAction(
+        {{taskAction(
         prevTaskStatus = 'complete',
         status = fields.EligibilityTask.value.status,
         nextURL = fields.EligibilityTask.value.nextURL,
         checkYourAnswersURL = fields.EligibilityTask.value.checkYourAnswersLink,
         content = content,
         alreadyDeclared = fields.alreadyDeclared.value
-    )}}
+        )}}
     </div>
 </li>

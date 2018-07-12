@@ -3,24 +3,24 @@
 <li class="task-item">
 
     {{taskHeader(
-        content = content,
-        title = content.copiesTask,
-        status = fields.CopiesTask.value.status,
-        previousTaskStatus = previousTaskStatus
+    number = "4.",
+    content = content,
+    title = content.copiesTask,
+    status = fields.CopiesTask.value.status,
+    previousTaskStatus = previousTaskStatus
     )}}
 
-    <div class="task-item-content">
+    <div class="task-list-items">
         {% if fields.CopiesTask.value.status !== 'complete' %}
-                <p>{{content.copiesTaskParagraph1}}</p>
+        <p>{{content.copiesTaskParagraph1}}</p>
         {% endif %}
 
         {{taskAction(
-            prevTaskStatus = previousTaskStatus,
-            status = fields.CopiesTask.value.status,
-            nextURL = fields.CopiesTask.value.nextURL,
-            checkYourAnswersURL = fields.CopiesTask.value.checkYourAnswersLink,
-            content = content
+        prevTaskStatus = previousTaskStatus,
+        status = fields.CopiesTask.value.status,
+        nextURL = fields.CopiesTask.value.nextURL,
+        checkYourAnswersURL = fields.CopiesTask.value.checkYourAnswersLink,
+        content = content
         )}}
     </div>
 </li>
-

@@ -15,3 +15,7 @@ $path: "/public/images/";
 .multiple-choice input {
 	filter: none;
 }
+
+li.task-item , li.task-item .heading-medium {
+	float: none;
+}

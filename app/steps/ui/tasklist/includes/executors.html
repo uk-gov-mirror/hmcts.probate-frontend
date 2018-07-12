@@ -3,37 +3,38 @@
 <li class="task-item">
 
     {{taskHeader(
-        content = content,
-        title = content.executorsTask,
-        status = fields.ExecutorsTask.value.status,
-        previousTaskStatus = previousTaskStatus
+    number = "2.",
+    content = content,
+    title = content.executorsTask,
+    status = fields.ExecutorsTask.value.status,
+    previousTaskStatus = previousTaskStatus
     )}}
 
-    <div class="task-item-content">
+    <div class="task-list-items">
         {% if fields.ExecutorsTask.value.status === 'complete' %}
-            <p>{{content.executorsTaskCompleteParagraph1}}</p>
+        <p>{{content.executorsTaskCompleteParagraph1}}</p>
         {% else %}
-            <p>{{content.executorsTaskChecklistHeader}}</p>
-            {{unorderedList([
-                content["executorsTaskChecklist-item1"] | safe,
-                content["executorsTaskChecklist-item2"] | safe,
-                content["executorsTaskChecklist-item3"] | safe
-            ])}}
+        <p>{{content.executorsTaskChecklistHeader}}</p>
+        {{unorderedList([
+        content["executorsTaskChecklist-item1"] | safe,
+        content["executorsTaskChecklist-item2"] | safe,
+        content["executorsTaskChecklist-item3"] | safe
+        ])}}
 
-            <p>{{content.executorsMultipleTaskChecklistHeader | safe}}</p>
-            {{unorderedList([
-                content["executorsMultipleTaskChecklist-item1"] | safe,
-                content["executorsMultipleTaskChecklist-item2"] | safe
-            ])}}
+        <p>{{content.executorsMultipleTaskChecklistHeader | safe}}</p>
+        {{unorderedList([
+        content["executorsMultipleTaskChecklist-item1"] | safe,
+        content["executorsMultipleTaskChecklist-item2"] | safe
+        ])}}
         {% endif %}
 
         {{taskAction(
-            prevTaskStatus = previousTaskStatus,
-            status = fields.ExecutorsTask.value.status,
-            nextURL = fields.ExecutorsTask.value.nextURL,
-            checkYourAnswersURL = fields.ExecutorsTask.value.checkYourAnswersLink,
-            content = content,
-            alreadyDeclared = fields.alreadyDeclared.value
+        prevTaskStatus = previousTaskStatus,
+        status = fields.ExecutorsTask.value.status,
+        nextURL = fields.ExecutorsTask.value.nextURL,
+        checkYourAnswersURL = fields.ExecutorsTask.value.checkYourAnswersLink,
+        content = content,
+        alreadyDeclared = fields.alreadyDeclared.value
         )}}
     </div>
 </li>

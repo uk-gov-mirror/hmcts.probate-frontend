@@ -3,26 +3,26 @@
 <li class="task-item">
 
     {{taskHeader(
+        number = "3.",
         content = content,
         title = content.reviewAndConfirmTask,
         status = fields.ReviewAndConfirmTask.value.status,
         previousTaskStatus = fields.previousTaskStatus.value.ReviewAndConfirmTask
     )}}
 
-    <div class="task-item-content">
+    <div class="task-list-items">
         {% if fields.ReviewAndConfirmTask.value.status == 'complete' %}
             {% if fields.hasMultipleApplicants.value == 'true' and fields.alreadyDeclared.value == 'false'  %}
-
                 <p>{{content.reviewAndConfirmTaskMultiplesParagraph1 | safe}}</p>
                 <p class="panel panel-border-wide">{{content.reviewAndConfirmTaskMultiplesParagraph2 | safe}}</p>
                 <p>{{content.reviewAndConfirmTaskMultiplesParagraph3 | safe}}</p>
                 <p>{{content.reviewAndConfirmTaskMultiplesParagraph4 | safe}}</p>
             {% else %}
-                    <p>{{content.reviewAndConfirmTaskCompleteParagraph}}</p>
-            {% endif %}
+                <p>{{content.reviewAndConfirmTaskCompleteParagraph}}</p>
+        {% endif %}
 
         {% else %}
-                <p>{{content.reviewAndConfirmTaskParagraph1}}</p>
+            <p>{{content.reviewAndConfirmTaskParagraph1}}</p>
         {% endif %}
 
         {{taskAction(
