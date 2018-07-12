@@ -1,8 +1,6 @@
-{% extends "includes/layout.html" %}
+{% set title = content.Summary.title %}
 
-{% block page_title %}
-{{ content.Summary.title }}
-{% endblock %}
+{% extends "includes/layout.html" %}
 
 {% block content %}
 

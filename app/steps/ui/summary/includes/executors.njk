@@ -67,9 +67,15 @@
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
 
+{% set applicantNameAsOnWillQuestion = content.ApplicantNameAsOnWill.questionWithoutName %}
+
+{% if fields.applicant.firstName.value and fields.applicant.lastName.value %}
+    {% set applicantNameAsOnWillQuestion = content.ApplicantNameAsOnWill.question | replace('{applicantName}', fields.applicant.firstName.value + ' ' + fields.applicant.lastName.value) %}
+{% endif %}
+
 {{checkanswer(
     items = [{
-        question: content.ApplicantNameAsOnWill.question | replace('{applicantName}', fields.applicant.firstName.value + ' ' + fields.applicant.lastName.value),
+        question: applicantNameAsOnWillQuestion,
         answer: fields.applicant.nameAsOnTheWill.value,
         visible: true
     }],

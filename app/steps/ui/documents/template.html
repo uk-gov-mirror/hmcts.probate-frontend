@@ -65,9 +65,10 @@
     <p>{{ fields.registryAddress.value | safe | nl2br }}</p>
 
     {{ checkbox(
-        name='sentDocuments',
-        field=fields.sentDocuments,
-        text=content["checkboxLabel" + codicilsSuffix]
+        name = 'sentDocuments',
+        field = fields.sentDocuments,
+        text = content["checkboxLabel" + codicilsSuffix],
+        legend = content.title
     ) }}
 
     <div class="form-group">
