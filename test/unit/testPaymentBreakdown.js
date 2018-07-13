@@ -8,14 +8,14 @@ const sinon = require('sinon');
 
 describe('PaymentBreakdown', () => {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
-    let s2sAuthoriseStub;
+    let authoriseStub;
 
     beforeEach(function () {
-        s2sAuthoriseStub = sinon.stub(services, 'authorise');
+        authoriseStub = sinon.stub(services, 'authorise');
     });
 
     afterEach(function () {
-        s2sAuthoriseStub.restore();
+        authoriseStub.restore();
     });
 
     describe('handleGet', () => {
@@ -64,19 +64,26 @@ describe('PaymentBreakdown', () => {
         });
 
         it('sets paymentPending to true if ctx.total > 0', (done) => {
-            s2sAuthoriseStub.returns(Promise.resolve({name: 'Success'}));
+            authoriseStub.returns(Promise.resolve({name: 'Success'}));
             const PaymentBreakdown = steps.PaymentBreakdown;
             const hostname = 'localhost';
-            let ctx = {total: 215};
-            let errors = [];
-            const formdata = {};
-            const session = {};
+            const ctxTestData = {total: 215};
+            const errorsTestData = [];
+            const formdata = {
+                creatingPayment: 'true'
+            };
+            const session = {
+                save: () => true
+            };
 
-            /*eslint no-empty-function: 0*/
-            session.save = () => {};
             co(function* () {
-                [ctx, errors] = yield PaymentBreakdown.handlePost(ctx, errors, formdata, session, hostname);
-                assert.deepEqual(formdata.paymentPending, 'true');
+                const [ctx, errors] = yield PaymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
+                assert.deepEqual(formdata, {
+                    creatingPayment: 'true',
+                    paymentPending: 'true'
+                });
+                assert.deepEqual(ctx, ctxTestData);
+                assert.equal(errors, errorsTestData);
                 done();
             })
             .catch((err) => {
@@ -85,21 +92,30 @@ describe('PaymentBreakdown', () => {
         });
 
         it('sets paymentPending and createPayment to null if authorise fails before createPayment', (done) => {
-            s2sAuthoriseStub.returns(Promise.resolve({name: 'Error'}));
+            authoriseStub.returns(Promise.resolve({name: 'Error'}));
             const PaymentBreakdown = steps.PaymentBreakdown;
             const hostname = 'localhost';
-            let ctx = {total: 215};
-            let errors = [];
+            const ctxTestData = {total: 215};
+            const errorsTestData = [];
             const formdata = {};
-            const session = {};
+            const session = {
+                save: () => true
+            };
 
-            /*eslint no-empty-function: 0*/
-            session.save = () => {};
             co(function* () {
-                [ctx, errors] = yield PaymentBreakdown.handlePost(ctx, errors, formdata, session, hostname);
-                assert.exists(errors[0].msg, 'error message not found');
-                assert.equal(formdata.paymentPending, null);
-                assert.equal(formdata.creatingPayment, null);
+                const [ctx, errors] = yield PaymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
+                assert.deepEqual(formdata, {
+                    creatingPayment: null,
+                    paymentPending: null
+                });
+                assert.deepEqual(ctx, ctxTestData);
+                assert.deepEqual(errors, [{
+                    param: 'authorisation',
+                    msg: {
+                        summary: 'payment.breakdown.errors.authorisation.failure.summary',
+                        message: 'payment.breakdown.errors.authorisation.failure.message'
+                    }
+                }]);
                 done();
             })
             .catch((err) => {
