@@ -1,7 +1,6 @@
 {% set previousTaskStatus = fields.previousTaskStatus.value.DocumentsTask %}
 
 <li class="task-item">
-
     {{taskHeader(
     number = "6.",
     content = content,
@@ -9,14 +8,7 @@
     status = fields.DocumentsTask.value.status,
     previousTaskStatus = previousTaskStatus
     )}}
-
     <div class="task-list-items">
-        <p>{{content.documentTaskChecklistHeader}}</p>
-        {{unorderedList([
-        content["documentTaskChecklist-item1"] | safe
-        ])}}
-        <p>{{content.documentTaskParagraph1}}</p>
-
         {{taskAction(
         prevTaskStatus = previousTaskStatus,
         status = fields.DocumentsTask.value.status,
