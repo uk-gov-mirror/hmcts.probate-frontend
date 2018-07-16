@@ -5,7 +5,8 @@ const {expect} = require('chai');
 const app = require('app');
 const initSteps = require('app/core/initSteps');
 const {endsWith} = require('lodash');
-const sinon = require('sinon'),
+const sinon = require('sinon');
+const commonContent = require('app/resources/en/translation/common.json'),
 services = require('app/components/services');
 
 const stepsToExclude = ['PinPage', 'PinSent', 'PinResend', 'AddressLookup', 'ExecutorAddress', 'ExecutorContactDetails', 'ExecutorName', 'ExecutorNotified', 'ExecutorNameAsOnWill', 'ExecutorApplying', 'DeleteExecutor', 'PaymentStatus', 'AddAlias', 'RemoveAlias', 'ExecutorRoles', 'ExecutorsWhenDied'];
@@ -32,8 +33,8 @@ for (const step in steps) {
 
             let server = null;
             let agent = null;
-            const title = step.content.title
-            .replace(/&lsquo;/g, '‘')
+            let title = step.content.title + ' - ' + commonContent.serviceName;
+            title = title.replace(/&lsquo;/g, '‘')
             .replace(/&rsquo;/g, '’')
             .replace(/\(/g, '\\(')
             .replace(/\)/g, '\\)');

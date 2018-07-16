@@ -36,6 +36,7 @@ describe('summary-will-section', () => {
                     if (err) {
                         throw err;
                     }
+
                     const playbackData = {
                         willLeft: willContent.left.question,
                         willOriginal: willContent.original.question,
@@ -45,6 +46,7 @@ describe('summary-will-section', () => {
                         applicantExecutor: applicantContent.executor.question,
                         mentalCapacity: mentalCapacityContent.question
                     };
+
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
@@ -56,6 +58,7 @@ describe('summary-will-section', () => {
                     if (err) {
                         throw err;
                     }
+
                     const playbackData = {
                         willLeft: willContent.left.question,
                         willOriginal: willContent.original.question,
@@ -66,6 +69,7 @@ describe('summary-will-section', () => {
                         mentalCapacity: mentalCapacityContent.question
                     };
                     Object.assign(playbackData, willData.will, willData.applicant, willData.executors);
+
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });

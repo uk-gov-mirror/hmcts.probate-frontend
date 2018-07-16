@@ -17,7 +17,7 @@ module.exports = class DeceasedMarried extends ValidationStep {
     }
 
     handleGet(ctx, formdata) {
-        ctx.codicilPresent = (new WillWrapper(formdata.will)).hasCodicilsDate();
+        ctx.codicilPresent = (new WillWrapper(formdata.will)).hasCodicils();
         return [ctx];
     }
 };

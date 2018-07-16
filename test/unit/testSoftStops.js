@@ -64,15 +64,6 @@ describe('Soft Stops', function () {
 
             assertSoftStop(result, step);
         });
-
-        it('Check soft stop for codicil date', function () {
-            const step = steps.CodicilsDate;
-            const formdata = {will: {isCodicilsDate: 'No'}};
-
-            const result = step.isSoftStop(formdata, ctx);
-
-            assertSoftStop(result, step);
-        });
     });
 
     function assertSoftStop(result, step) {

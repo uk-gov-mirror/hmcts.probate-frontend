@@ -4,7 +4,6 @@
 
 {% block question %}
     <h1 class="form-title heading-large">{{content.question}}</h1>
-    <p class="form-hint">{{content.questionHint}}</p>
 {% endblock %}
 
 {% block form_content %}
@@ -15,7 +14,8 @@
         year  = fields.dob_year,
         date = fields.dob_date,
         maxyear = currentYear,
-        legend = content.legend
+        legend = content.legend,
+        hint = content.questionHint
     )}}
     <div class="form-group">
         <input class="button" type="submit" value="{{common.continue}}">

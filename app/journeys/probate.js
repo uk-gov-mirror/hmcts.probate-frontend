@@ -41,16 +41,14 @@ const stepList = {
         otherwise: 'StopPage'
     },
     WillOriginal: {
-        isOriginal: 'WillDate',
+        isOriginal: 'WillCodicils',
         otherwise: 'StopPage'
     },
-    WillDate: 'WillCodicils',
     WillCodicils: {
         noCodicils: 'IhtCompleted',
         otherwise: 'CodicilsNumber'
     },
-    CodicilsNumber: 'CodicilsDate',
-    CodicilsDate: 'IhtCompleted',
+    CodicilsNumber: 'IhtCompleted',
     IhtCompleted: {
         completed: 'IhtMethod',
         otherwise: 'StopPage'
@@ -124,13 +122,9 @@ const stepList = {
     DeceasedName: 'DeceasedAlias',
     DeceasedAlias: {
         assetsInOtherNames: 'DeceasedOtherNames',
-        deceasedMarriedAfterDateOnCodicilOrWill: 'DeceasedMarried',
-        otherwise: 'DeceasedDod'
+        otherwise: 'DeceasedMarried'
     },
-    DeceasedOtherNames: {
-        deceasedMarriedAfterDateOnCodicilOrWill: 'DeceasedMarried',
-        otherwise: 'DeceasedDod'
-    },
+    DeceasedOtherNames: 'DeceasedMarried',
     AddAlias: 'DeceasedOtherNames',
     RemoveAlias: 'DeceasedOtherNames',
     DeceasedMarried: 'DeceasedDod',

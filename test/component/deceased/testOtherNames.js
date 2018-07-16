@@ -1,12 +1,12 @@
-const TestWrapper = require('test/util/TestWrapper'),
-      {set} = require('lodash'),
-      DeceasedDod = require('app/steps/ui/deceased/dod/index');
+const TestWrapper = require('test/util/TestWrapper');
+const {set} = require('lodash');
+const DeceasedMarried = require('app/steps/ui/deceased/married/index');
 
-describe('deceased-otherNames', () => {
+    describe('deceased-otherNames', () => {
     let testWrapper, sessionData;
-    const expectedNextUrlForDeceasedDod = DeceasedDod.getUrl();
+    const expectedNextUrlForDeceasedMarried = DeceasedMarried.getUrl();
 
-    beforeEach(() => {
+        beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedOtherNames');
         sessionData = {};
     });
@@ -18,8 +18,11 @@ describe('deceased-otherNames', () => {
     describe('Verify Content, Errors and Redirection', () => {
 
         it('test right content loaded on the page', (done) => {
+
             set(sessionData, 'deceased.firstName', 'John');
             set(sessionData, 'deceased.lastName', 'Doe');
+
+            const excludeKeys = ['otherName', 'removeName'];
 
             testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
@@ -27,23 +30,24 @@ describe('deceased-otherNames', () => {
 
                         const contentData = {deceasedName: 'John Doe'};
 
-                testWrapper.testContent(done, [], contentData);
+                testWrapper.testContent(done, excludeKeys, contentData);
             });
         });
 
-        it('test right content loaded on the page', (done) => {
+        it('test right content loaded on the page when deceased has other names', (done) => {
             set(sessionData, 'deceased.firstName', 'John');
             set(sessionData, 'deceased.lastName', 'Doe');
             set(sessionData, 'deceased.otherNames.name_0.firstName', 'James');
             set(sessionData, 'deceased.otherNames.name_0.lastName', 'Miller');
+            set(sessionData, 'deceased.otherNames.name_1.firstName', 'Henry');
+            set(sessionData, 'deceased.otherNames.name_1.lastName', 'Hat');
 
             testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
 
                         const contentData = {
-                            deceasedName: 'John Doe',
-                            aliasLastName: 'James Miller',
+                            deceasedName: 'John Doe'
                         };
 
                 testWrapper.testContent(done, [], contentData);
@@ -72,22 +76,7 @@ describe('deceased-otherNames', () => {
             testWrapper.testErrors(done, data, 'invalid', ['lastName']);
         });
 
-        it('test it redirects to deceased married page', (done) => {
-            const data = {};
-            set(sessionData, 'will.isWillDate', true);
-            set(data, 'otherNames.name_0.firstName', 'John');
-            set(data, 'otherNames.name_0.lastName', 'Doe');
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.nextPageUrl = testWrapper.nextStep(sessionData.will).constructor.getUrl();
-                    const expectedNextUrl = testWrapper.nextPageUrl;
-                    testWrapper.testRedirect(done, data, expectedNextUrl);
-                });
-        });
-
-        it(`test it redirects to deceased dod page: ${expectedNextUrlForDeceasedDod}`, (done) => {
+        it(`test it redirects to deceased married page: ${expectedNextUrlForDeceasedMarried}`, (done) => {
             const data = {};
             set(data, 'otherNames.name_0.firstName', 'John');
             set(data, 'otherNames.name_0.lastName', 'Doe');
@@ -95,7 +84,7 @@ describe('deceased-otherNames', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDod);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedMarried);
                 });
         });
 

@@ -22,13 +22,8 @@ variable "deployment_env" {
   type = "string"
 }
 
-variable "deployment_path" {
-  default = "/opt/probate/frontend"
-}
 
 variable "node_config_dir" {
-  // for Unix
-  // default = "/opt/probate/frontend/config"
   
   // for Windows
   default = "D:\\home\\site\\wwwroot\\config"
@@ -89,11 +84,6 @@ variable "version" {
 
 variable "probate_frontend_service_name" {
   default = "probate-frontend"
-}
-
-
-variable "probate_frontend_hostname" {
-  type = "string"
 }
 
 variable "probate_frontend_public_port" {
@@ -191,10 +181,10 @@ variable "payment_create_url" {
   type = "string"
 }
 
-variable "payment_return_url" {
-  type = "string"
-}
-
 variable "capacity" {
   default = "1"
+}
+
+variable "common_tags" {
+  type = "map"
 }

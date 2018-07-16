@@ -1,11 +1,16 @@
 {% from "widgets/fielderror.html" import fieldError %}
 
-{% macro date(day,month,year,date, name, maxyear, legend) %}
+{% macro date(day,month,year,date, name, maxyear, legend, hint) %}
 
 {% set hasError = day.error or month.error or year.error or date.error %}
 
 <fieldset class="form-group {{ 'form-group-error' if hasError }}" id ="{{name}}_date">
+
     <legend class="visually-hidden">{{legend}}</legend>
+
+    {% if hint %}
+    <p class="form-hint no-link">{{hint}}</p>
+    {% endif %}
 
     {{ fieldError(date) }}
     {{ fieldError(day) }}
