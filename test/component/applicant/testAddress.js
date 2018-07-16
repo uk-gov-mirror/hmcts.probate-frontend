@@ -1,5 +1,7 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    ExecutorsNumber = require('app/steps/ui/executors/number/index');
+const TestWrapper = require('test/util/TestWrapper');
+const ExecutorsNumber = require('app/steps/ui/executors/number/index');
+const testAddressData = require('test/data/find-address');
+const formatAddress = address => address.replace(/\n/g, ' ');
 
 describe('applicant-address', () => {
     let testWrapper;
@@ -83,5 +85,22 @@ describe('applicant-address', () => {
             testWrapper.testContentAfterError(data, contentToCheck, done);
         });
 
+        it('test the address dropdown box displays all addresses when the user returns to the page', (done) => {
+            const sessionData = {
+                postcode: testAddressData[1].postcode,
+                postcodeAddress: formatAddress(testAddressData[1].formatted_address),
+                addresses: testAddressData
+            };
+            testWrapper.agent
+                .post(testWrapper.pageUrl)
+                .send(sessionData)
+                .end(() => {
+                    const contentToCheck = testAddressData.map(address => {
+                        const formattedAddress = formatAddress(address.formatted_address);
+                        return `<option ${formattedAddress === sessionData.postcodeAddress ? 'selected' : ''}>${formattedAddress}</option>`;
+                    });
+                    testWrapper.testDataPlayback(done, contentToCheck);
+                });
+        });
     });
 });
