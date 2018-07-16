@@ -1,6 +1,6 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    WillCodicils = require('app/steps/ui/will/codicils/index'),
-    StopPage = require('app/steps/ui/stoppage/index');
+const TestWrapper = require('test/util/TestWrapper');
+const WillCodicils = require('app/steps/ui/will/codicils/index');
+const StopPage = require('app/steps/ui/stoppage/index');
 
 describe('will-original', () => {
     let testWrapper;
