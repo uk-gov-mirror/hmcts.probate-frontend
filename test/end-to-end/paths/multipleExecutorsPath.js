@@ -29,12 +29,9 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     I.selectATask(taskListContent.taskNotStarted);
     I.selectPersonWhoDiedLeftAWill();
-
     I.selectOriginalWill();
-    I.selectAndEnterWillDate('01', '01', '1970');
     I.selectWillCodicils('Yes');
     I.selectWillNoOfCodicils('3');
-    I.selectAndEnterCodicilsDate('02', '02', '2010');
     I.selectIhtCompleted();
     I.selectInheritanceMethodPaper();
 

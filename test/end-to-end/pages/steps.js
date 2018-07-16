@@ -17,10 +17,8 @@ module.exports = function () {
     // Eligibility
     selectPersonWhoDiedLeftAWill: steps.will.left,
     selectOriginalWill: steps.will.original,
-    selectAndEnterWillDate: steps.will.date,
     selectWillCodicils: steps.will.codicils,
     selectWillNoOfCodicils: steps.will.codicilsnumber,
-    selectAndEnterCodicilsDate: steps.will.codicilsdate,
     selectIhtCompleted: steps.iht.completed,
     selectInheritanceMethodPaper: steps.iht.method,
     enterGrossAndNet: steps.iht.paper,
