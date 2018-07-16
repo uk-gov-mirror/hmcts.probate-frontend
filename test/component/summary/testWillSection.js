@@ -3,7 +3,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const willData = require('test/data/will');
 const willContent = requireDir(module, '../../../app/resources/en/translation/will');
 const applicantContent = requireDir(module, '../../../app/resources/en/translation/applicant');
-const mentalCapacityContent = require('app/resources/en/translation/executors/mentalCapacity');
+const mentalCapacityContent = require('app/resources/en/translation/executors/mentalcapacity');
 
 describe('summary-will-section', () => {
     let testWrapper;
@@ -40,8 +40,6 @@ describe('summary-will-section', () => {
                     const playbackData = {
                         willLeft: willContent.left.question,
                         willOriginal: willContent.original.question,
-                        date: willContent.date.question,
-                        dateQuestion: willContent.date.willDateQuestion,
                         willCodicils: willContent.codicils.question,
                         applicantExecutor: applicantContent.executor.question,
                         mentalCapacity: mentalCapacityContent.question
@@ -62,8 +60,6 @@ describe('summary-will-section', () => {
                     const playbackData = {
                         willLeft: willContent.left.question,
                         willOriginal: willContent.original.question,
-                        date: willContent.date.question,
-                        dateQuestion: willContent.date.willDateQuestion,
                         willCodicils: willContent.codicils.question,
                         applicantExecutor: applicantContent.executor.question,
                         mentalCapacity: mentalCapacityContent.question
