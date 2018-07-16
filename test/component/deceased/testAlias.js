@@ -1,6 +1,6 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    DeceasedOtherNames = require('app/steps/ui/deceased/otherNames/index'),
-    DeceasedMarried = require('app/steps/ui/deceased/married/index');
+const TestWrapper = require('test/util/TestWrapper');
+const DeceasedOtherNames = require('app/steps/ui/deceased/otherNames/index');
+const DeceasedMarried = require('app/steps/ui/deceased/married/index');
 
 describe('deceased-alias', () => {
     let testWrapper;
