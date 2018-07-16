@@ -1,11 +1,11 @@
 const TestWrapper = require('test/util/TestWrapper');
-const WillDate = require('app/steps/ui/will/date/index');
+const WillCodicils = require('app/steps/ui/will/codicils/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 
 describe('will-original', () => {
     let testWrapper;
-    const expectedNextUrlForWillDate = WillDate.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('notOriginal');
+    const expectedNextUrlForWillCodicils = WillCodicils.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('WillOriginal');
@@ -29,11 +29,11 @@ describe('will-original', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to will date: ${expectedNextUrlForWillDate}`, (done) => {
+        it(`test it redirects to will codicils: ${expectedNextUrlForWillCodicils}`, (done) => {
             const data = {
                 'original': 'Yes'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForWillDate);
+            testWrapper.testRedirect(done, data, expectedNextUrlForWillCodicils);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {

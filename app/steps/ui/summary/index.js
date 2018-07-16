@@ -76,8 +76,6 @@ class Summary extends Step {
         formdata.summary = {'readyToDeclare': includes(req.url, 'declaration')};
         const ctx = super.getContextData(req);
         const willWrapper = new WillWrapper(formdata.will);
-        const isWillDated = willWrapper.hasWillDate();
-        const isCodicilDated = willWrapper.hasCodicilsDate();
         const deceasedName = FormatName.format(formdata.deceased);
         const content = this.generateContent(ctx, formdata);
         const hasCodicils = willWrapper.hasCodicils();
@@ -89,7 +87,6 @@ class Summary extends Step {
         ctx.softStop = this.anySoftStops(formdata, ctx);
         ctx.alreadyDeclared = this.alreadyDeclared(req.session);
         ctx.session = req.session;
-        ctx.deceasedMarriedAfterDateOnCodicilOrWill = isCodicilDated || (!hasCodicils && isWillDated);
         return ctx;
     }
 }

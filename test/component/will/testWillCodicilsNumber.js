@@ -1,9 +1,9 @@
 const TestWrapper = require('test/util/TestWrapper');
-const CodicilsDate = require('app/steps/ui/will/codicilsdate/index');
+const IhtCompleted = require('app/steps/ui/iht/completed/index');
 
 describe('codicils-number', () => {
     let testWrapper;
-    const expectedNextUrlForCodicilsDate = CodicilsDate.getUrl();
+    const expectedNextUrlForIhtComplete = IhtCompleted.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('CodicilsNumber');
@@ -37,9 +37,9 @@ describe('codicils-number', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForCodicilsDate}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForIhtComplete}`, (done) => {
             const data = {codicilsNumber: '1'};
-            testWrapper.testRedirect(done, data, expectedNextUrlForCodicilsDate);
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtComplete);
         });
     });
 });

@@ -1,12 +1,12 @@
-const TestWrapper = require('test/util/TestWrapper'),
-      {set} = require('lodash'),
-      DeceasedDod = require('app/steps/ui/deceased/dod/index');
+const TestWrapper = require('test/util/TestWrapper');
+const {set} = require('lodash');
+const DeceasedMarried = require('app/steps/ui/deceased/married/index');
 
-describe('deceased-otherNames', () => {
+    describe('deceased-otherNames', () => {
     let testWrapper, sessionData;
-    const expectedNextUrlForDeceasedDod = DeceasedDod.getUrl();
+    const expectedNextUrlForDeceasedMarried = DeceasedMarried.getUrl();
 
-    beforeEach(() => {
+        beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedOtherNames');
         sessionData = {};
     });
@@ -76,22 +76,7 @@ describe('deceased-otherNames', () => {
             testWrapper.testErrors(done, data, 'invalid', ['lastName']);
         });
 
-        it('test it redirects to deceased married page', (done) => {
-            const data = {};
-            set(sessionData, 'will.isWillDate', true);
-            set(data, 'otherNames.name_0.firstName', 'John');
-            set(data, 'otherNames.name_0.lastName', 'Doe');
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.nextPageUrl = testWrapper.nextStep(sessionData.will).constructor.getUrl();
-                    const expectedNextUrl = testWrapper.nextPageUrl;
-                    testWrapper.testRedirect(done, data, expectedNextUrl);
-                });
-        });
-
-        it(`test it redirects to deceased dod page: ${expectedNextUrlForDeceasedDod}`, (done) => {
+        it(`test it redirects to deceased married page: ${expectedNextUrlForDeceasedMarried}`, (done) => {
             const data = {};
             set(data, 'otherNames.name_0.firstName', 'John');
             set(data, 'otherNames.name_0.lastName', 'Doe');
@@ -99,7 +84,7 @@ describe('deceased-otherNames', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDod);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedMarried);
                 });
         });
 

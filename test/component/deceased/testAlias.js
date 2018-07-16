@@ -1,13 +1,11 @@
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedOtherNames = require('app/steps/ui/deceased/otherNames/index');
 const DeceasedMarried = require('app/steps/ui/deceased/married/index');
-const DeceasedDod = require('app/steps/ui/deceased/dod/index');
 
 describe('deceased-alias', () => {
     let testWrapper;
     const expectedNextUrlForDeceasedOtherNames = DeceasedOtherNames.getUrl();
     const expectedNextUrlForDeceasedMarried = DeceasedMarried.getUrl();
-    const expectedNextUrlForDeceasedDod = DeceasedDod.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedAlias');
@@ -50,36 +48,13 @@ describe('deceased-alias', () => {
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedOtherNames);
         });
-
         it(`test it redirects to deceased married page: ${expectedNextUrlForDeceasedMarried}`, (done) => {
             const data = {
                 'alias': 'No'
             };
-            const sessionData = {
-                will: {
-                    isWillDate: 'Yes'
-                }
-            };
             testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
                     .end(() => {
-                testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedMarried);
-            });
-        });
-
-        it(`test it redirects to deceased dod page: ${expectedNextUrlForDeceasedDod}`, (done) => {
-            const data = {
-                'alias': 'No'
-            };
-            const sessionData = {
-                will: {
-                    isWillDate: 'No'
-                }
-            };
-            testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
-                    .end(() => {
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDod);
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedMarried);
             });
         });
     });

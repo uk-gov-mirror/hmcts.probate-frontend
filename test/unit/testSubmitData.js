@@ -115,12 +115,8 @@ describe('submit-data', () => {
         assert.nestedPropertyVal(mappedData, 'dealingWithEstate', 'Yes');
         assert.nestedPropertyVal(mappedData, 'willLeft', 'Yes');
         assert.nestedPropertyVal(mappedData, 'willOriginal', 'Yes');
-        assert.nestedPropertyVal(mappedData, 'willWithDate', 'Yes');
         assert.nestedPropertyVal(mappedData, 'willWithCodicils', 'Yes');
         assert.nestedPropertyVal(mappedData, 'willCodicilsNumber', 1);
-        assert.nestedPropertyVal(mappedData, 'willCodicilsWithDate', 'Yes');
-        assert.nestedPropertyVal(mappedData, 'willCodicilsDate', '1 February 2017');
-        assert.nestedPropertyVal(mappedData, 'willDate', '1 January 2017');
         assert.nestedPropertyVal(mappedData, 'ihtCompleted', 'Yes');
         assert.nestedPropertyVal(mappedData, 'ihtForm', 'online');
         assert.nestedPropertyVal(mappedData, 'ihtIdentifier', 'jkhfilwahpwi');
