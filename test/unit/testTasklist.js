@@ -12,7 +12,7 @@ describe('Tasklist', () => {
         query: {
         }
     };
-    const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui/']);
+    const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui/`]);
 
     describe('updateTaskStatus', () => {
         it('Updates the context: neither task is started', () => {
@@ -40,8 +40,13 @@ describe('Tasklist', () => {
         });
 
         it('Updates the context: EligibilityTask complete, ExecutorsTask not started', () => {
-            const formdata = {will: completedForm.will, iht: completedForm.iht, executors: {mentalCapacity: 'Yes'}};
-            formdata.applicant = {executor: completedForm.applicant.executor};
+            const formdata = {
+                will: completedForm.will,
+                iht: completedForm.iht,
+                executors: {mentalCapacity: 'Yes'},
+                applicant: {executor: completedForm.applicant.executor},
+                deceased: {deathCertificate: completedForm.deceased.deathCertificate}
+            };
             req.session.form = formdata;
             const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
@@ -53,11 +58,16 @@ describe('Tasklist', () => {
         });
 
         it('Updates the context: EligibilityTask complete, ExecutorsTask started', () => {
-            const formdata = {will: completedForm.will, iht: completedForm.iht, executors: {mentalCapacity: 'Yes'}};
-            formdata.applicant = {
-                executor: completedForm.applicant.executor,
-                firstName: completedForm.applicant.firstName,
-                lastName: completedForm.applicant.lastName,
+            const formdata = {
+                will: completedForm.will,
+                iht: completedForm.iht,
+                executors: {mentalCapacity: 'Yes'},
+                applicant: {
+                    executor: completedForm.applicant.executor,
+                    firstName: completedForm.applicant.firstName,
+                    lastName: completedForm.applicant.lastName,
+                },
+                deceased: {deathCertificate: completedForm.deceased.deathCertificate}
             };
             req.session.form = formdata;
             const taskList = steps.TaskList;
@@ -70,8 +80,12 @@ describe('Tasklist', () => {
         });
 
         it('Updates the context: EligibilityTask & ExecutorsTask started (ExecutorsTask blocked), ', () => {
-            const formdata = {will: completedForm.will, iht: {'completed': 'Yes'}};
-            formdata.applicant = completedForm.applicant;
+            const formdata = {
+                will: completedForm.will,
+                iht: {'completed': 'Yes'},
+                applicant: completedForm.applicant,
+                deceased: {deathCertificate: completedForm.deceased.deathCertificate}
+            };
             req.session.form = formdata;
             const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
@@ -83,10 +97,13 @@ describe('Tasklist', () => {
         });
 
         it('Updates the context: Review and confirm not started', () => {
-            const formdata = {will: completedForm.will, iht: completedForm.iht};
-            formdata.applicant = completedForm.applicant;
-            formdata.deceased = completedForm.deceased;
-            formdata.executors = completedForm.executors;
+            const formdata = {
+                will: completedForm.will,
+                iht: completedForm.iht,
+                applicant: completedForm.applicant,
+                deceased: completedForm.deceased,
+                executors: completedForm.executors
+            };
             req.session.form = formdata;
             const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);

@@ -10,7 +10,11 @@
 
         <p>{{content[fields.stopReason.value] | replace('{'+ fields.stopReason.value +'}', links[fields.stopReason.value]) | safe}}</p>
 
-        <p>{{content.contactProbateOffice | safe}}</p>
+        {% if fields.stopReason.value != 'deathCertificate' %}
+            <p>{{content.contactProbateOffice | safe}}</p>
+        {% else %}
+            <p>{{content.progress | safe}}</p>
+        {% endif %}
 
     </main>
 
