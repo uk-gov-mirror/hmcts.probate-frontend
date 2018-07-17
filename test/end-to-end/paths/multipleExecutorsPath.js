@@ -32,6 +32,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.selectOriginalWill();
     I.selectWillCodicils('Yes');
     I.selectWillNoOfCodicils('3');
+    I.selectDeathCertificate();
     I.selectIhtCompleted();
     I.selectInheritanceMethodPaper();
 
