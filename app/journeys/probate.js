@@ -45,10 +45,14 @@ const stepList = {
         otherwise: 'StopPage'
     },
     WillCodicils: {
-        noCodicils: 'IhtCompleted',
+        noCodicils: 'DeathCertificate',
         otherwise: 'CodicilsNumber'
     },
-    CodicilsNumber: 'IhtCompleted',
+    CodicilsNumber: 'DeathCertificate',
+    DeathCertificate: {
+        hasCertificate: 'IhtCompleted',
+        otherwise: 'StopPage'
+    },
     IhtCompleted: {
         completed: 'IhtMethod',
         otherwise: 'StopPage'
