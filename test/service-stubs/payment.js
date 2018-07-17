@@ -8,6 +8,7 @@ const express = require('express'),
     bodyParser = require('body-parser');
 let lastId;
 
+const UNDEFINED_PAY_ID = 'undefined';
 const FAILURE_NAME = 'Break';
 const FAILURE_PAY_ID = '999';
 const PAYMENT_STUB_PORT = 8383;
@@ -39,16 +40,20 @@ router.post('/users/:userId/payments', function (req, res) {
 
 router.get('/users/:userId/payments/:paymentId', function (req, res) {
     const data = require('test/data/payments/find.json');
-    if (req.params.paymentId === FAILURE_PAY_ID) {
+    if (req.params.paymentId === UNDEFINED_PAY_ID) {
+        res.status(500);
+        console.log(500);
+    } else if (req.params.paymentId === FAILURE_PAY_ID) {
         data.state.status = 'failed';
         res.status(200);
         res.send(data);
+        console.log(data);
     } else {
         res.status(200);
         res.send(data);
+        console.log(200);
+        console.log(data);
     }
-    console.log(200);
-    console.log(data);
     delete require.cache[require.resolve('test/data/payments/find.json')];
 });
 
