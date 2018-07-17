@@ -32,7 +32,7 @@
     "security": "NODE_PATH=. nsp check",
     "test:functional": "npm run test-contract && ./bin/run-functional-tests.sh",
     "test:codecov-upload": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha './test/**/test*.js' -- -R spec && codecov",
-    "test:coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha './test/**/test*.js'",
+    "test:coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha './test/unit/test*.js' './test/component/**/test*.js'",
     "test-coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha './test/**/test*.js'",
     "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner",
     "sonar-scan": "node_modules/sonar-scanner/bin/sonar-scanner -Dsonar.projectName='Probate :: frontend' -Dsonar.sources=app -Dsonar.tests=test -Dsonar.exclusions=app/components/submit-data.js -Dsonar.exclusions=app/steps/ui/summary/index.js -Dsonar.exclusions=app/routes.js -Dsonar.exclusions=app/utils/Healthcheck.js -Dsonar.exclusions=test/component/deceased/testAlias.js -Dsonar.exclusions=test/component/executors/testExecutorsWhenDied.js -Dsonar.exclusions=test/** -Dsonar.exclusions=app/assets/** -Dsonar.language=js -Dsonar.host.url=https://sonar.reform.hmcts.net -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info",

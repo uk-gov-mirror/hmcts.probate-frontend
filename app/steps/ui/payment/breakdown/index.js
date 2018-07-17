@@ -68,6 +68,8 @@ class PaymentBreakdown extends Step {
 
                     if (serviceAuthResult.name === 'Error') {
                         const keyword = 'failure';
+                        formdata.creatingPayment = null;
+                        formdata.paymentPending = null;
                         errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
                         return [ctx, errors];
                     }
