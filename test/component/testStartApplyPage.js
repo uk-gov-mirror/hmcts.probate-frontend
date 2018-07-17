@@ -1,5 +1,6 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    TaskList = require('app/steps/ui/tasklist/index');
+const TestWrapper = require('test/util/TestWrapper');
+const TaskList = require('app/steps/ui/tasklist/index');
+const commonContent = require('app/resources/en/translation/common');
 
 describe('start-apply', () => {
     let testWrapper;
@@ -25,5 +26,11 @@ describe('start-apply', () => {
             testWrapper.testRedirect(done, {}, expectedNextUrlForTaskList);
         });
 
+        it('test save and close link is not displayed on the page', (done) => {
+            const playbackData = {};
+            playbackData.saveAndClose = commonContent.saveAndClose;
+
+            testWrapper.testContentNotPresent(done, playbackData);
+        });
     });
 });

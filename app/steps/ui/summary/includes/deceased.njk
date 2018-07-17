@@ -18,7 +18,7 @@
 
 {{checkanswer(
     items = [{
-        question: content.DeceasedAlias.question,
+        question: fields.summary.deceasedAliasQuestion.value,
         answer: fields.deceased.alias.value,
         visible: true
     }],
@@ -49,13 +49,11 @@
 </tr>
 {% endif %}
 
-{% set deceasedName = [fields.deceased.firstName.value, fields.deceased.lastName.value] | join(" ") %}
-
 {{checkanswer(
     items = [{
-        question: (content.DeceasedMarried.questionWithCodicil if fields.summary.codicilPresent.value === "true" else content.DeceasedMarried.question) | replace('{deceasedName}', deceasedName),
+        question: fields.summary.deceasedMarriedQuestion.value,
         answer: fields.deceased.married.value,
-        visible: fields.summary.deceasedMarriedAfterDateOnCodicilOrWill.value == "true"
+        visible: true
     }],
     url = content.DeceasedMarried.url,
     common = common,

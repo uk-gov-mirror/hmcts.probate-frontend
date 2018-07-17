@@ -42,16 +42,18 @@ const stepList = {
         otherwise: 'StopPage'
     },
     WillOriginal: {
-        isOriginal: 'WillDate',
+        isOriginal: 'WillCodicils',
         otherwise: 'StopPage'
     },
-    WillDate: 'WillCodicils',
     WillCodicils: {
-        noCodicils: 'IhtCompleted',
+        noCodicils: 'DeathCertificate',
         otherwise: 'CodicilsNumber'
     },
-    CodicilsNumber: 'CodicilsDate',
-    CodicilsDate: 'IhtCompleted',
+    CodicilsNumber: 'DeathCertificate',
+    DeathCertificate: {
+        hasCertificate: 'IhtCompleted',
+        otherwise: 'StopPage'
+    },
     IhtCompleted: {
         completed: 'IhtMethod',
         otherwise: 'StopPage'
@@ -65,7 +67,11 @@ const stepList = {
     IhtValue: 'ApplicantExecutor',
 
     ApplicantExecutor: {
-        isExecutor: 'TaskList',
+        isExecutor: 'MentalCapacity',
+        otherwise: 'StopPage'
+    },
+    MentalCapacity: {
+        isCapable: 'TaskList',
         otherwise: 'StopPage'
     },
     ApplicantName: 'ApplicantNameAsOnWill',
@@ -121,13 +127,9 @@ const stepList = {
     DeceasedName: 'DeceasedAlias',
     DeceasedAlias: {
         assetsInOtherNames: 'DeceasedOtherNames',
-        deceasedMarriedAfterDateOnCodicilOrWill: 'DeceasedMarried',
-        otherwise: 'DeceasedDod'
+        otherwise: 'DeceasedMarried'
     },
-    DeceasedOtherNames: {
-        deceasedMarriedAfterDateOnCodicilOrWill: 'DeceasedMarried',
-        otherwise: 'DeceasedDod'
-    },
+    DeceasedOtherNames: 'DeceasedMarried',
     AddAlias: 'DeceasedOtherNames',
     RemoveAlias: 'DeceasedOtherNames',
     DeceasedMarried: 'DeceasedDod',

@@ -28,10 +28,9 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     I.selectATask(taskListContent.taskNotStarted);
     I.selectPersonWhoDiedLeftAWill();
     I.selectOriginalWill();
-    I.selectAndEnterWillDate('01', '01', '1970');
     I.selectWillCodicils('Yes');
     I.selectWillNoOfCodicils('3');
-    I.selectAndEnterCodicilsDate('02', '02', '2010');
+    I.selectDeathCertificate();
     I.selectIhtCompleted();
     I.selectInheritanceMethodPaper();
 
@@ -42,6 +41,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     }
 
     I.selectApplicantIsExecutor();
+    I.selectMentallyCapable();
 
     // ExecutorsTask
     //
@@ -100,4 +100,4 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
 
     // Thank You - Application Complete Task
     I.seeThankYouPage();
-});
+}).retry(TestConfigurator.getRetryScenarios());

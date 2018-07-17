@@ -4,12 +4,7 @@
     "will": {
       "left": "Yes",
       "codicils": "No",
-      "original": "Yes",
-      "isWillDate": "Yes",
-      "willDate_day": 1,
-      "willDate_date": "2000-02-01T00:00:00.000Z",
-      "willDate_year": 2000,
-      "willDate_month": 2
+      "original": "Yes"
     },
     "applicant": {
       "address": "Flat 1, Somewhere Rd, Nowhere.",
@@ -45,7 +40,8 @@
       "deceasedName": "Someone Else",
       "relationship": "grandparent",
       "married": "Yes",
-      "freeTextAddress": "21 Treelined Avenue,\r\nSussex."
+      "freeTextAddress": "21 Treelined Avenue,\r\nSussex.",
+      "deathCertificate": "Yes"
     },
     "iht": {
       "completed": "Yes",
@@ -63,7 +59,8 @@
       "invitesSent": "true",
       "allalive":"Yes",
       "otherExecutorsApplying":"Yes",
-      "alias":"No"
+      "alias":"No",
+      "mentalCapacity": "Yes"
     },
     "declaration": {
       "declarationCheckbox": true

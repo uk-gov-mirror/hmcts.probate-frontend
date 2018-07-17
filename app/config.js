@@ -64,7 +64,6 @@ module.exports = {
         resave: false,
         saveUninitialized: false,
         cookie: {
-            secure: false,
             httpOnly: true,
             sameSite: 'lax'
         }
@@ -72,7 +71,7 @@ module.exports = {
     },
     dateFormat: 'DD/MM/YYYY',
     payloadVersion: '4.1.0',
-    gaTrackingId: process.env.GA_TRACKING_ID || '',
+    gaTrackingId: process.env.GA_TRACKING_ID || 'UA-93598808-3',
     enableTracking: process.env.ENABLE_TRACKING || 'true',
     links: {
         cookies: '/cookies',
@@ -91,7 +90,8 @@ module.exports = {
         survey: process.env.SURVEY || 'https://www.smartsurvey.co.uk/',
         surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION || 'https://www.smartsurvey.co.uk/',
         ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value',
-        renunciationForm: 'public/pdf/renunciation.pdf'
+        renunciationForm: 'public/pdf/renunciation.pdf',
+        deathCertificate: 'https://www.gov.uk/order-copy-birth-death-marriage-certificate'
     },
     helpline: {
         number: '0300 303 0648',
@@ -120,11 +120,10 @@ module.exports = {
         serviceId: process.env.SERVICE_ID || 'CODE4',
         siteId: process.env.SITE_ID || 'CODE5'
     },
-    whitelistedPagesAfterSubmission: ['/documents', '/thankyou'],
-    whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou'],
-    whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou'],
+    whitelistedPagesAfterSubmission: ['/documents', '/thankyou', '/sign-out'],
+    whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou', '/sign-out'],
+    whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou', '/sign-out'],
     hardStopParams: ['will.left', 'will.original', 'iht.completed', 'applicant.executor'],
-    nonCachedPages: ['summary', 'tasklist'],
     nonIdamPages: ['error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'start-apply'],
     endpoints: {
         health: '/health',

@@ -32,12 +32,10 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     I.selectATask(taskListContent.taskNotStarted);
     I.selectPersonWhoDiedLeftAWill();
-
     I.selectOriginalWill();
-    I.selectAndEnterWillDate('01', '01', '1970');
     I.selectWillCodicils('Yes');
     I.selectWillNoOfCodicils('3');
-    I.selectAndEnterCodicilsDate('02', '02', '2010');
+    I.selectDeathCertificate();
     I.selectIhtCompleted();
     I.selectInheritanceMethodPaper();
 
@@ -48,6 +46,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     }
 
     I.selectApplicantIsExecutor();
+    I.selectMentallyCapable();
 
     // ExecutorsTask
     //
@@ -132,7 +131,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     //Retrieve the email urls for additional executors
     I.amOnPage(testConfig.TestInviteIdListUrl);
     grabIds = yield I.grabTextFrom('pre');
-});
+}).retry(TestConfigurator.getRetryScenarios());
 
 Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Statement of Truth'), function* (I) {
 
@@ -193,4 +192,4 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
 
     // Thank You - Application Complete Task
     I.seeThankYouPage();
-});
+}).retry(TestConfigurator.getRetryScenarios());

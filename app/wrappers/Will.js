@@ -10,15 +10,6 @@ class Will {
     hasCodicils() {
         return this.will.codicils === commonContent.yes;
     }
-
-    hasWillDate() {
-        return this.will.isWillDate === commonContent.yes;
-    }
-
-    hasCodicilsDate() {
-        return this.will.isCodicilsDate === commonContent.yes;
-    }
-
     codicilsNumber() {
         return this.will.codicilsNumber ? this.will.codicilsNumber : 0;
     }

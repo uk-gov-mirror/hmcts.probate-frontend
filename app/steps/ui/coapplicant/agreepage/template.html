@@ -1,11 +1,6 @@
 {% extends "includes/layout.html" %}
 
-{% block page_title %}
-    {{content.title | safe}}
-{% endblock %}
-
-{% block question %}
-{% endblock %}
+{% set displaySignOutLink = 'false' %}
 
 {% block content %}
 <main id="content" role="main">

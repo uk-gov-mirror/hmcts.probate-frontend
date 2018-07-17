@@ -3,20 +3,8 @@
   "will":{
     "left":"Yes",
     "original":"Yes",
-    "isWillDate":"Yes",
-    "willDate_day":1,
-    "willDate_month":1,
-    "willDate_year":2017,
-    "willDate_date":"2017-01-01T00:00:00.000Z",
-    "willDate_formattedDate":"1 January 2017",
     "codicils":"Yes",
-    "codicilsNumber":1,
-    "isCodicilsDate":"Yes",
-    "codicilsDate_day":1,
-    "codicilsDate_month":2,
-    "codicilsDate_year":2017,
-    "codicilsDate_date":"2017-02-01T00:00:00.000Z",
-    "codicilsDate_formattedDate":"1 February 2017"
+    "codicilsNumber":1
   },
   "iht":{
     "completed":"Yes",
