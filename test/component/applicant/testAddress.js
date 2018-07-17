@@ -28,7 +28,7 @@ describe('applicant-address', () => {
             testWrapper.testErrors(done, data, 'required', ['postcodeLookup']);
         });
 
-        it('test validation when address search is successful, but no address is selected/entered', (done) => {
+        it('test validation when address search is successful, but no address is selected or entered', (done) => {
             const data = {addressFound: 'true'};
 
             testWrapper.testErrors(done, data, 'oneOf', ['crossField']);
