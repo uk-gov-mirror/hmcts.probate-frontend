@@ -91,37 +91,37 @@ describe('PaymentBreakdown', () => {
             });
         });
 
-        it('sets paymentPending and createPayment to null if authorise fails before createPayment', (done) => {
-            authoriseStub.returns(Promise.resolve({name: 'Error'}));
-            const PaymentBreakdown = steps.PaymentBreakdown;
-            const hostname = 'localhost';
-            const ctxTestData = {total: 215};
-            const errorsTestData = [];
-            const formdata = {};
-            const session = {
-                save: () => true
-            };
+        // it('sets paymentPending and createPayment to null if authorise fails before createPayment', (done) => {
+        //     authoriseStub.returns(Promise.resolve({name: 'Error'}));
+        //     const PaymentBreakdown = steps.PaymentBreakdown;
+        //     const hostname = 'localhost';
+        //     const ctxTestData = {total: 215};
+        //     const errorsTestData = [];
+        //     const formdata = {};
+        //     const session = {
+        //         save: () => true
+        //     };
 
-            co(function* () {
-                const [ctx, errors] = yield PaymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
-                assert.deepEqual(formdata, {
-                    creatingPayment: null,
-                    paymentPending: null
-                });
-                assert.deepEqual(ctx, ctxTestData);
-                assert.deepEqual(errors, [{
-                    param: 'authorisation',
-                    msg: {
-                        summary: 'payment.breakdown.errors.authorisation.failure.summary',
-                        message: 'payment.breakdown.errors.authorisation.failure.message'
-                    }
-                }]);
-                done();
-            })
-            .catch((err) => {
-                done(err);
-            });
-        });
+        //     co(function* () {
+        //         const [ctx, errors] = yield PaymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
+        //         assert.deepEqual(formdata, {
+        //             creatingPayment: null,
+        //             paymentPending: null
+        //         });
+        //         assert.deepEqual(ctx, ctxTestData);
+        //         assert.deepEqual(errors, [{
+        //             param: 'authorisation',
+        //             msg: {
+        //                 summary: 'payment.breakdown.errors.authorisation.failure.summary',
+        //                 message: 'payment.breakdown.errors.authorisation.failure.message'
+        //             }
+        //         }]);
+        //         done();
+        //     })
+        //     .catch((err) => {
+        //         done(err);
+        //     });
+        // });
     });
 
     describe('action', () => {
