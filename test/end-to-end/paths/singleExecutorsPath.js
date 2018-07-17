@@ -28,6 +28,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     I.selectOriginalWill();
     I.selectWillCodicils('Yes');
     I.selectWillNoOfCodicils('3');
+    I.selectDeathCertificate();
     I.selectIhtCompleted();
     I.selectInheritanceMethodPaper();
 
