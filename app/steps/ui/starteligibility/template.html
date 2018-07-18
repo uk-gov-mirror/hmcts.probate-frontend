@@ -3,6 +3,9 @@
 {{ content.title }}
 {% endblock %}
 
+{% set displaySignOutLink = 'false' %}
+{% set serviceName = '' %}
+
 {% block content %}
 
 {% from "widgets/lists.html" import taskAction, unorderedList %}
