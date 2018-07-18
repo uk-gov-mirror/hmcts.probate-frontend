@@ -1,4 +1,4 @@
-const pageUnderTest = require('app/steps/ui/startpage/index');
+const pageUnderTest = require('app/steps/ui/startapply/index');
 const testConfig = require('test/config.js');
 
 const useIdam = testConfig.TestUseIdam;
