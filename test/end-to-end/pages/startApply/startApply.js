@@ -1,10 +1,10 @@
-const pageUnderTest = require('app/steps/ui/startpage/index');
+const pageUnderTest = require('app/steps/ui/startapply/index');
 const testConfig = require('test/config.js');
 
 module.exports = function () {
     const I = this;
 
-    if (testConfig.useIdam !== 'true') {
+    if (testConfig.useIdam !== 'false') {
         I.amOnPage(pageUnderTest.getUrl());
         I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     }
