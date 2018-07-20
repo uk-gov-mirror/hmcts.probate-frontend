@@ -6,14 +6,12 @@ steps = requireDirectory(module);
 module.exports = function () {
 
     return actor({
-    //PreIdam
-    startApplication: steps.startEligibility.startEligibility,
-    startApply: steps.startApply.startApply,
 
     //Sign In to IDAM
     authenticateWithIdamIfAvailable: steps.IDAM.signIn,
 
     //Start application
+    startApplication: steps.startPage.startPage,
     selectATask: steps.tasklist.tasklist,
 
     // Eligibility

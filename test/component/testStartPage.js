@@ -2,12 +2,12 @@ const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist/index');
 const commonContent = require('app/resources/en/translation/common');
 
-describe('start-apply', () => {
+describe('start-page', () => {
     let testWrapper;
     const expectedNextUrlForTaskList = TaskList.getUrl();
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('StartApply');
+        testWrapper = new TestWrapper('StartPage');
     });
 
     afterEach(() => {

@@ -8,7 +8,7 @@ packages_version = "3.0.0"
 
 probate_google_track_id = "UA-93598808-2"
 reform_envirionment_for_test = "prod"
-external_host_name = "www.apply-for-probate.service.gov.uk"
+external_host_name = "www.apply-for-probate.platform.hmcts.net"
 
 
 probate_frontend_https = "false"
@@ -18,7 +18,7 @@ payment_create_url = "https://payments.reform.hmcts.net:4401/users/userId/paymen
 
 idam_service_api = "http://rpe-service-auth-provider-prod.service.core-compute-prod.internal"
 
-probate_private_beta_auth_url = "https://hmcts-access.service.gov.uk/login"
+probate_private_beta_auth_url = "https://idam.reform.hmcts.net/login"
 
 idam_user_host = "https://prod-idamapi.reform.hmcts.net:3511"
 
