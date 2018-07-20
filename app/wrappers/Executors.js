@@ -67,6 +67,23 @@ class Executors {
     areAllAliveExecutorsApplying() {
         return this.aliveExecutors().every(executor => executor.isApplying);
     }
+
+    mainApplicant() {
+        return this.executorsList.filter(executor => executor.isApplicant);
+    }
+
+    executorsToRemove() {
+        return this.executorsList.filter(executor => !executor.isApplying && executor.inviteId);
+    }
+
+    removeExecutorsInviteId() {
+        this.executorsList.forEach(executor => {
+            if (!executor.isApplying && executor.inviteId) {
+                delete executor.inviteId;
+            }
+        });
+        return this.executorsList;
+    }
 }
 
 module.exports = Executors;

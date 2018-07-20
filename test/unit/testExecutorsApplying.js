@@ -1,33 +1,46 @@
+'use strict';
 const initSteps = require('app/core/initSteps');
-const when = require('when');
-const sinon = require('sinon');
-const services = require('app/components/services');
-const json = require('app/resources/en/translation/executors/applying.json');
+const assert = require('chai').assert;
 
-describe('ExecutorsApplying', () => {
+describe('Executors-Applying', function () {
     let ctx;
-    let removeExecutorStub;
-    const ExecApplying = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).ExecutorsApplying;
+    const ExecsApplying = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).ExecutorsApplying;
 
-    beforeEach(function () {
-        removeExecutorStub = sinon.stub(services, 'removeExecutor');
-        ctx = {
-            executorsInvitedList: [
-                {'fullName': 'other applicant', 'isApplying': true, 'isApplicant': false, 'inviteId': 'dummy_inviteId_1'},
-                {'fullName': 'harvey', 'isApplying': true, 'isApplicant': false, 'inviteId': 'dummy_inviteId_2'}
-            ],
-            executorsNumber: 3,
-            invitesSent: 'true'
-        };
-    });
+    describe('handlePost', () => {
 
-    afterEach(function () {
-        removeExecutorStub.restore();
-    });
+        beforeEach(() => {
+            ctx = {
+                'list': [
+                    {
+                        'lastName': 'the',
+                        'firstName': 'applicant',
+                        'isApplying': 'Yes',
+                        'isApplicant': true
+                    }, {
+                        isApplying: true,
+                        fullName: 'Ed Brown',
+                        address: '20 Green Street, London, L12 9LN'
+                    }, {
+                        isApplying: true,
+                        fullName: 'Dave Miller',
+                        address: '102 Petty Street, London, L12 9LN'
+                    }
+                ],
+            };
+        });
 
-    it('Removes executors from invitedata table when Executors applying is No (success)', () => {
-        removeExecutorStub.returns(when(Promise.resolve({name: 'success!'})));
-        [ctx] = ExecApplying.handlePost(ctx, json.optionNo);
-        sinon.assert.called(removeExecutorStub);
+        it('test executor isApplying flag is deleted when No option is selected', () => {
+            ctx.otherExecutorsApplying = 'No';
+            ExecsApplying.handlePost(ctx);
+            assert.isUndefined(ctx.list[1].isApplying);
+            assert.isUndefined(ctx.list[2].isApplying);
+        });
+
+        it('test executor isApplying flag is true when Yes option selected', () => {
+            ctx.otherExecutorsApplying = 'Yes';
+            ExecsApplying.handlePost(ctx);
+            assert.isTrue(ctx.list[1].isApplying);
+            assert.isTrue(ctx.list[2].isApplying);
+        });
     });
 });

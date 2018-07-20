@@ -1,33 +1,70 @@
+'use strict';
+
 const initSteps = require('app/core/initSteps');
-const when = require('when');
-const sinon = require('sinon');
-const services = require('app/components/services');
+const {expect, assert} = require('chai');
 
-describe('ExecutorsDealingWithEstate', () => {
+describe('Executors-Applying', function () {
     let ctx;
-    let removeExecutorStub;
-    const ExecDealing = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).ExecutorsDealingWithEstate;
+    const ExecsDealing = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']).ExecutorsDealingWithEstate;
+    describe('pruneFormData', () => {
 
-    beforeEach(function () {
-        removeExecutorStub = sinon.stub(services, 'removeExecutor');
-        ctx = {
-            list: [
-                {'fullName': 'john', 'isApplying': true, 'isApplicant': true},
-                {'fullName': 'other applicant', 'isApplying': true, 'isApplicant': false, 'inviteId': 'dummy_inviteId_1'},
-                {'fullName': 'harvey', 'isApplying': true, 'isApplicant': true, 'inviteId': 'dummy_inviteId_2'}
-            ],
-            executorsNumber: 3,
-            invitesSent: 'true'
-        };
+        it('test that isApplying flag is deleted when executor is not applying', () => {
+            ctx = {
+                fullName: 'Ed Brown',
+                isApplying: false
+            };
+            ExecsDealing.pruneFormData(ctx);
+            assert.isUndefined(ctx.isApplying);
+            expect(ctx).to.deep.equal({fullName: 'Ed Brown'});
+        });
+
+        it('test that notApplying data is pruned when executor is applying', () => {
+            ctx = {
+                fullName: 'Ed Brown',
+                isApplying: true,
+                isDead: 'not sure',
+                diedBefore: 'not sure',
+                notApplyingReason: 'not sure',
+                notApplyingKey: 'not sure'
+            };
+            ExecsDealing.pruneFormData(ctx);
+            expect(ctx).to.deep.equal({
+                fullName: 'Ed Brown',
+                isApplying: true
+            });
+        });
     });
 
-    afterEach(function () {
-        removeExecutorStub.restore();
-    });
+    describe('handlePost', () => {
+        beforeEach(() => {
+            ctx = {
+                list: [
+                    {
+                        'lastName': 'the',
+                        'firstName': 'applicant',
+                        'isApplying': 'Yes',
+                        'isApplicant': true
+                    }, {
+                        fullName: 'Ed Brown',
+                        address: '20 Green Street, London, L12 9LN'
+                    }, {
+                        fullName: 'Dave Miller',
+                        address: '102 Petty Street, London, L12 9LN'
+                    }
+                ],
+                executorsApplying: ['Dave Miller'],
+                executorsNumber: 3
+            };
+        });
 
-    it('Removes executors from invitedata table when they are no longer dealing with the estate', () => {
-        removeExecutorStub.returns(when(Promise.resolve({name: 'success!'})));
-        [ctx] = ExecDealing.handlePost(ctx);
-        sinon.assert.called(removeExecutorStub);
+        it('test executors (with checkbox unchecked) isApplying flag is deleted', () => {
+            ExecsDealing.handlePost(ctx);
+            assert.isUndefined(ctx.list[1].isApplying);
+        });
+
+        it('test executors (with checkbox checked) isApplying flag is set to true', () => {
+            ExecsDealing.handlePost(ctx);
+            assert.isTrue(ctx.list[2].isApplying);
+        });
     });
 });

@@ -2,6 +2,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const executorNotifiedContent = require('app/resources/en/translation/executors/notified');
 const executorContent = require('app/resources/en/translation/executors/executorcontent');
 const {get} = require('lodash');
+const logger = require('app/components/logger')('Init');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const services = require('app/components/services');
 const WillWrapper = require('app/wrappers/Will');
@@ -29,7 +30,25 @@ module.exports = class Declaration extends ValidationStep {
         ctx.softStop = this.anySoftStops(formdata, ctx);
         ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants(get(formdata, 'executors.list'));
         ctx.invitesSent = get(formdata, 'executors.invitesSent');
+        ctx.executorsRemoved = get(formdata, 'executors.executorsRemoved') || [];
+        ctx.executorsToRemoveFromInviteData = ctx.executorsRemoved.concat(ctx.executorsWrapper.executorsToRemove());
         return ctx;
+    }
+
+    * handlePost(ctx) {
+        if (ctx.executorsToRemoveFromInviteData.length > 0) {
+            yield ctx.executorsToRemoveFromInviteData
+                .map(exec => {
+                    return services.removeExecutor(exec.inviteId)
+                        .then(result => {
+                            if (result.name === 'Error') {
+                                logger.error(`Error while deleting executor from invitedata table: ${result.message}`);
+                            }
+                        });
+                });
+            ctx.executorsWrapper.removeExecutorsInviteId();
+        }
+        return [ctx];
     }
 
     prepareDataForTemplate(ctx, content, formdata) {
@@ -207,6 +226,8 @@ module.exports = class Declaration extends ValidationStep {
         delete ctx.hasDataChanged;
         delete ctx.hasDataChangedAfterEmailSent;
         delete ctx.invitesSent;
+        delete ctx.executorsRemoved;
+        delete ctx.executorsToRemoveFromInviteData;
         return [ctx, formdata];
     }
 };

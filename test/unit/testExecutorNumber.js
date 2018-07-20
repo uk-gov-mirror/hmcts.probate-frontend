@@ -1,35 +1,83 @@
+'use strict';
 const initSteps = require('app/core/initSteps');
-const when = require('when');
-const sinon = require('sinon');
-const services = require('app/components/services');
+const {expect, assert} = require('chai');
 
 describe('ExecutorNumber', () => {
     let ctx;
-    let removeExecutorStub;
+    let formdata;
     const ExecNumber = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).ExecutorsNumber;
 
-    beforeEach(function() {
-        removeExecutorStub = sinon.stub(services, 'removeExecutor');
-        ctx = {
-            executorsRemoved: [
-                {'fullName': 'other applicant', 'isApplying': true, 'isApplicant': false, 'inviteId': 'dummy_inviteId_1'},
-                {'fullName': 'harvey', 'isApplying': true, 'isApplicant': false, 'inviteId': 'dummy_inviteId_2'}
-            ],
-            list: [
-                {'fullName': 'john', 'isApplying': true, 'isApplicant': true}
-            ],
-            executorsNumber: 2,
-            invitesSent: 'true'
-        };
-    });
+    describe('createExecutorList', () => {
+        beforeEach(() => {
+            ctx = {};
+            formdata = {
+                applicant: {
+                    'firstName': 'Dave',
+                    'lastName': 'Bassett'
+                },
+                executors: {
+                    list: [
+                        {
+                            'firstName': 'Dave',
+                            'lastName': 'Bassett',
+                            'isApplying': 'Yes',
+                            'isApplicant': true
+                        }, {
+                            fullName: 'Ed Brown'
+                        }, {
+                            fullName: 'Dave Miller'
+                        }
+                    ]
+                }
+            };
+        });
 
-    afterEach(function() {
-        removeExecutorStub.restore();
-    });
+        it('test only the main applicant is in the executors list when executors number is reduced', () => {
+            ctx.executorsNumber = 2;
+            ctx = ExecNumber.createExecutorList(ctx, formdata);
+            assert.lengthOf(ctx.list, 1);
+            expect(ctx.list).to.deep.equal([{
+                'firstName': 'Dave',
+                'lastName': 'Bassett',
+                'isApplying': true,
+                'isApplicant': true
+            }]);
+        });
 
-    it('Removes executors from invitedata table when number of executors is reduced (success)', () => {
-        removeExecutorStub.returns(when(Promise.resolve()));
-        [ctx] = ExecNumber.handlePost(ctx);
-        sinon.assert.calledTwice(removeExecutorStub);
+        it('test only the executors list remains the same when executors number is not reduced', () => {
+            ctx.executorsNumber = 3;
+            ctx = ExecNumber.createExecutorList(ctx, formdata);
+            assert.lengthOf(ctx.list, 3);
+            expect(ctx.list).to.deep.equal([
+                {
+                    'firstName': 'Dave',
+                    'lastName': 'Bassett',
+                    'isApplying': true,
+                    'isApplicant': true
+                }, {
+                    fullName: 'Ed Brown'
+                }, {
+                    fullName: 'Dave Miller'
+                }
+            ]);
+        });
+
+        it('test only the executors list remains the same when executors number is increased', () => {
+            ctx.executorsNumber = 5;
+            ctx = ExecNumber.createExecutorList(ctx, formdata);
+            assert.lengthOf(ctx.list, 3);
+            expect(ctx.list).to.deep.equal([
+                {
+                    'firstName': 'Dave',
+                    'lastName': 'Bassett',
+                    'isApplying': true,
+                    'isApplicant': true
+                }, {
+                    fullName: 'Ed Brown'
+                }, {
+                    fullName: 'Dave Miller'
+                }
+            ]);
+        });
     });
 });
