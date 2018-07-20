@@ -21,14 +21,11 @@ After(() => {
 
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant: 1st stage of completing application'), function* (I) {
 
-    //PreIdam
-    I.startApplication();
-    I.startApply();
-
     // IDAM
     I.authenticateWithIdamIfAvailable();
 
     // EligibilityTask
+    I.startApplication();
 
     I.selectATask(taskListContent.taskNotStarted);
     I.selectPersonWhoDiedLeftAWill();
