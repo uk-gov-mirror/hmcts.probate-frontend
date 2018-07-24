@@ -17,7 +17,7 @@ reform_envirionment_for_test = "preview"
 
 payment_create_url = "https://preprod.payments.reform.hmcts.net:4401/users/userId/payments"
 
-idam_service_api = "http://betaPreProdccidamAppLB.reform.hmcts.net:4502"
+idam_service_api = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
 
 probate_private_beta_auth_url = "https://idam.preprod.ccidam.reform.hmcts.net/login"
 
@@ -32,8 +32,8 @@ probate_frontend_use_idam = "true"
 
 probate_frontend_use_redis = "true"
 
-probate_business_service_url = "http://betaPreProdprobateApp01.reform.hmcts.net:4101/validate"
+probate_business_service_url = "http://probate-business-service-aat.service.core-compute-aat.internal/validate"
 
-probate_submit_service_url = "http://betaPreProdprobateApp01.reform.hmcts.net:4102/submit"
+probate_submit_service_url = "http://probate-submit-service-aat.service.core-compute-aat.internal/submit"
 
-probate_persistence_service_url = "http://betaPreProdprobateApp01.reform.hmcts.net:4103/formdata"
+probate_persistence_service_url = "http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata"
