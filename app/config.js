@@ -92,6 +92,9 @@ module.exports = {
         surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION || 'https://www.smartsurvey.co.uk/',
         ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value',
         renunciationForm: 'public/pdf/renunciation.pdf',
+        applicationForm: 'public/pdf/probate-application-form-PA1P.pdf',
+        guidance: 'public/pdf/probate-guidance-PA2SOT.pdf',
+        registryInformation: 'public/pdf/probate-registries-PA4SOT.pdf',
         deathCertificate: 'https://www.gov.uk/order-copy-birth-death-marriage-certificate'
     },
     helpline: {
