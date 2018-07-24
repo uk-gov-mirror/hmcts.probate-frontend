@@ -1,4 +1,3 @@
-const pageUnderTest = require('app/steps/ui/startpage/index');
 const testConfig = require('test/config.js');
 
 const useIdam = testConfig.TestUseIdam;
@@ -6,8 +5,6 @@ const useIdam = testConfig.TestUseIdam;
 module.exports = function () {
     if (useIdam === 'true') {
         const I = this;
-
-        I.amOnPage(pageUnderTest.getUrl());
 
         I.see('Sign in');
 
