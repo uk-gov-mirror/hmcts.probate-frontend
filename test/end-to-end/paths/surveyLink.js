@@ -1,4 +1,4 @@
-const pageUnderTest = require('app/steps/ui/startpage/index');
+const pageUnderTest = require('app/steps/ui/starteligibility/index');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 
 Feature('Survey link');
