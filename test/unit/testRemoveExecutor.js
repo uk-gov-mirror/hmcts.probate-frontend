@@ -15,7 +15,7 @@ describe('RemoveExecutor', () => {
         removeExecutorStub.restore();
     });
 
-    it('Removes executors from invitedata table (failure)', (done) => {
+    it('Removes executors from invitedata table (success)', (done) => {
         removeExecutorStub.withArgs('invite_id').returns(Promise.resolve({name: 'success!'}));
 
         services.removeExecutor('invite_id').then(result => {
