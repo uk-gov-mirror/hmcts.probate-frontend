@@ -44,7 +44,7 @@ describe('Healthcheck.js', () => {
             const url = healthcheck.formatUrl(config.endpoints.health);
             const services = healthcheck.createServicesList(url, config.services);
             expect(services).to.deep.equal([
-                {name: 'Validation Service', url: 'http://localhost:8080/health'},
+                {name: 'Business Service', url: 'http://localhost:8080/health'},
                 {name: 'Submit Service', url: 'http://localhost:8181/health'},
                 {name: 'Persistence Service', url: 'http://localhost:8282/health'}
             ]);
@@ -64,7 +64,7 @@ describe('Healthcheck.js', () => {
                     const promises = healthcheck.createPromisesList(services, healthcheck.health);
                     Promise.all(promises).then((data) => {
                         expect(data).to.deep.equal([
-                            {name: 'Validation Service', status: 'UP'},
+                            {name: 'Business Service', status: 'UP'},
                             {name: 'Submit Service', status: 'UP'},
                             {name: 'Persistence Service', status: 'UP'}
                         ]);
@@ -97,7 +97,7 @@ describe('Healthcheck.js', () => {
                 const promises = healthcheck.createPromisesList(services, healthcheck.health);
                 Promise.all(promises).then((data) => {
                     expect(data).to.deep.equal([{
-                        name: 'Validation Service',
+                        name: 'Business Service',
                         status: 'DOWN',
                         error: 'Error: FetchError: request to http://localhost:8080/health failed, reason: connect ECONNREFUSED 127.0.0.1:8080'
                     }, {
@@ -118,7 +118,7 @@ describe('Healthcheck.js', () => {
     describe('health()', () => {
         it('should return the service name and status when there is no error', (done) => {
             const healthcheck = new Healthcheck();
-            const service = {name: 'Validation Service'};
+            const service = {name: 'Business Service'};
             const json = {status: 'UP'};
             const data = healthcheck.health({service: service, json: json});
             expect(data).to.deep.equal({name: service.name, status: json.status});
@@ -127,7 +127,7 @@ describe('Healthcheck.js', () => {
 
         it('should return the service name, status and error when there is an error', (done) => {
             const healthcheck = new Healthcheck();
-            const service = {name: 'Validation Service'};
+            const service = {name: 'Business Service'};
             const err = {error: 'An internal server error occurred'};
             const data = healthcheck.health({err: err, service: service});
             expect(data).to.deep.equal({name: service.name, status: 'DOWN', error: err.toString()});
@@ -160,7 +160,7 @@ describe('Healthcheck.js', () => {
             const healthcheck = new Healthcheck();
             healthcheck.getDownstream(healthcheck.health, downstream => {
                 expect(downstream).to.deep.equal([
-                    {name: 'Validation Service', status: 'UP'},
+                    {name: 'Business Service', status: 'UP'},
                     {name: 'Submit Service', status: 'UP'},
                     {name: 'Persistence Service', status: 'UP'}
                 ]);
@@ -191,7 +191,7 @@ describe('Healthcheck.js', () => {
         it('should return a list of merged health and info data', (done) => {
             const healthcheck = new Healthcheck();
             const healthDownstream = [
-                {name: 'Validation Service', status: 'UP'},
+                {name: 'Business Service', status: 'UP'},
                 {name: 'Submit Service', status: 'UP'},
                 {name: 'Persistence Service', status: 'UP'}
             ];
@@ -202,7 +202,7 @@ describe('Healthcheck.js', () => {
             ];
             const mergedData = healthcheck.mergeInfoAndHealthData(healthDownstream, infoDownstream);
             expect(mergedData).to.deep.equal([{
-                    name: 'Validation Service',
+                    name: 'Business Service',
                     status: 'UP',
                     gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e1'
                 }, {
