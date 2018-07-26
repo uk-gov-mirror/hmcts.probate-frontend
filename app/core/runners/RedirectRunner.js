@@ -1,12 +1,21 @@
-const UIStepRunner = require('app/core/runners/UIStepRunner'),
-    co = require('co');
-module.exports = class RedirectRunner extends UIStepRunner {
+'use strict';
+
+const UIStepRunner = require('app/core/runners/UIStepRunner');
+const co = require('co');
+
+class RedirectRunner extends UIStepRunner {
 
     handleGet(step, req, res) {
         const originalHandleGet = super.handleGet;
 
         return co(function* () {
             const ctx = step.getContextData(req);
+
+            if (!req.session.form.applicantEmail) {
+                req.log.error('req.session.form.applicantEmail does not exist');
+            }
+
+            req.session.form.applicantEmail = req.session.regId;
             const options = yield step.runnerOptions(ctx, req.session.form);
             if (options.redirect) {
                 res.redirect(options.url);
@@ -19,4 +28,6 @@ module.exports = class RedirectRunner extends UIStepRunner {
             res.status(500).render('errors/500');
         });
     }
-};
+}
+
+module.exports = RedirectRunner;
