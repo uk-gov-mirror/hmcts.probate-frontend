@@ -5,8 +5,8 @@
 const {Logger} = require('@hmcts/nodejs-logging');
 let logger;
 
-const log = () => {
-    return (logger) ? logger : Logger.getLogger('frontend');
+const log = (sessionId) => {
+    return (logger) ? logger : Logger.getLogger(`frontend, sessionId: ${sessionId}`);
 };
 
 module.exports = log;
