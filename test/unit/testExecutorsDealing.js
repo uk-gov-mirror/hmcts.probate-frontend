@@ -5,21 +5,24 @@ const {expect, assert} = require('chai');
 
 describe('Executors-Applying', function () {
     let ctx;
+    let ctxTest;
+    let data;
+    let errors;
     const ExecsDealing = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']).ExecutorsDealingWithEstate;
     describe('pruneFormData', () => {
 
         it('test that isApplying flag is deleted when executor is not applying', () => {
-            ctx = {
+            data = {
                 fullName: 'Ed Brown',
                 isApplying: false
             };
-            ExecsDealing.pruneFormData(ctx);
-            assert.isUndefined(ctx.isApplying);
-            expect(ctx).to.deep.equal({fullName: 'Ed Brown'});
+            ExecsDealing.pruneFormData(data);
+            assert.isUndefined(data.isApplying);
+            expect(data).to.deep.equal({fullName: 'Ed Brown'});
         });
 
         it('test that notApplying data is pruned when executor is applying', () => {
-            ctx = {
+            data = {
                 fullName: 'Ed Brown',
                 isApplying: true,
                 isDead: 'not sure',
@@ -27,8 +30,8 @@ describe('Executors-Applying', function () {
                 notApplyingReason: 'not sure',
                 notApplyingKey: 'not sure'
             };
-            ExecsDealing.pruneFormData(ctx);
-            expect(ctx).to.deep.equal({
+            ExecsDealing.pruneFormData(data);
+            expect(data).to.deep.equal({
                 fullName: 'Ed Brown',
                 isApplying: true
             });
@@ -37,7 +40,7 @@ describe('Executors-Applying', function () {
 
     describe('handlePost', () => {
         beforeEach(() => {
-            ctx = {
+            ctxTest = {
                 list: [
                     {
                         'lastName': 'the',
@@ -58,13 +61,15 @@ describe('Executors-Applying', function () {
         });
 
         it('test executors (with checkbox unchecked) isApplying flag is deleted', () => {
-            ExecsDealing.handlePost(ctx);
+            [ctx, errors] = ExecsDealing.handlePost(ctxTest);
             assert.isUndefined(ctx.list[1].isApplying);
+            assert.isUndefined(errors);
         });
 
         it('test executors (with checkbox checked) isApplying flag is set to true', () => {
-            ExecsDealing.handlePost(ctx);
+            [ctx, errors] = ExecsDealing.handlePost(ctxTest);
             assert.isTrue(ctx.list[2].isApplying);
+            assert.isUndefined(errors);
         });
     });
 });

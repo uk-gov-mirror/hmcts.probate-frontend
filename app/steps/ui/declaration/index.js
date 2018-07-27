@@ -30,24 +30,23 @@ module.exports = class Declaration extends ValidationStep {
         ctx.softStop = this.anySoftStops(formdata, ctx);
         ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants(get(formdata, 'executors.list'));
         ctx.invitesSent = get(formdata, 'executors.invitesSent');
-        ctx.executorsRemoved = get(formdata, 'executors.executorsRemoved') || [];
-        ctx.executorsToRemoveFromInviteData = ctx.executorsRemoved.concat(ctx.executorsWrapper.executorsToRemove());
+        ctx.executorsRemoved = ctx.executorsWrapper.executorsRemovedList();
         return ctx;
     }
 
     * handlePost(ctx) {
-        if (ctx.executorsToRemoveFromInviteData.length > 0) {
-            yield ctx.executorsToRemoveFromInviteData
-                .map(exec => {
-                    return services.removeExecutor(exec.inviteId)
-                        .then(result => {
-                            if (result.name === 'Error') {
-                                logger.error(`Error while deleting executor from invitedata table: ${result.message}`);
-                            }
-                        });
-                });
-            ctx.executorsWrapper.removeExecutorsInviteId();
+        const executorsToRemoveFromInviteData = ctx.executorsRemoved.concat(ctx.executorsWrapper.executorsToRemove());
+        if (executorsToRemoveFromInviteData.length === 0) {
+            return [ctx];
         }
+        const promises = executorsToRemoveFromInviteData.map(exec => services.removeExecutor(exec.inviteId));
+        Promise.all(promises).then(result => {
+            if (result.name === 'Error') {
+                logger.error(`Error while deleting executor from invitedata table: ${result.message}`);
+                throw new Error('Error while deleting executor from invitedata table.');
+            }
+            ctx.executorsWrapper.removeExecutorsInviteId();
+        });
         return [ctx];
     }
 
@@ -227,7 +226,6 @@ module.exports = class Declaration extends ValidationStep {
         delete ctx.hasDataChangedAfterEmailSent;
         delete ctx.invitesSent;
         delete ctx.executorsRemoved;
-        delete ctx.executorsToRemoveFromInviteData;
         return [ctx, formdata];
     }
 };

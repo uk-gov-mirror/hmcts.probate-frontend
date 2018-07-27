@@ -4,6 +4,7 @@ class Executors {
     constructor(executors) {
         executors = executors || {};
         this.executorsList = executors.list || [];
+        this.executorsRemoved = executors.executorsRemoved || [];
     }
 
     executors(excludeApplicant) {
@@ -77,12 +78,16 @@ class Executors {
     }
 
     removeExecutorsInviteId() {
-        this.executorsList.forEach(executor => {
+        return this.executorsList.map(executor => {
             if (!executor.isApplying && executor.inviteId) {
                 delete executor.inviteId;
             }
+            return executor;
         });
-        return this.executorsList;
+    }
+
+    executorsRemovedList() {
+        return this.executorsRemoved;
     }
 }
 
