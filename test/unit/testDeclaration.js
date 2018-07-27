@@ -1,6 +1,6 @@
 /*global describe, it, before, beforeEach, after, afterEach */
 'use strict';
-const {assert, expect} = require('chai');
+const {assert} = require('chai');
 const initSteps = require('app/core/initSteps');
 const services = require('app/components/services');
 const sinon = require('sinon');
@@ -9,7 +9,6 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 
 describe('invitedata tests', function () {
     let ctx;
-    let ctxTest;
     let updateInviteDataStub;
     let removeExecutorStub;
     const Declaration = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']).Declaration;
@@ -48,7 +47,7 @@ describe('invitedata tests', function () {
 
     describe('handlePost', () => {
         beforeEach(() => {
-            ctxTest = {
+            ctx = {
                 list: [
                     {'fullName': 'john', 'isApplying': true, 'isApplicant': true},
                     {'fullName': 'other applicant', 'isApplying': true, 'isApplicant': false, 'inviteId': 'dummy_inviteId_1'},
@@ -61,7 +60,7 @@ describe('invitedata tests', function () {
                 executorsToRemoveNotApplying: [],
                 invitesSent: 'true',
             };
-            ctxTest.executorsWrapper = new ExecutorsWrapper(ctxTest);
+            ctx.executorsWrapper = new ExecutorsWrapper(ctx);
             removeExecutorStub = sinon.stub(services, 'removeExecutor');
         });
 
@@ -71,9 +70,8 @@ describe('invitedata tests', function () {
 
         it('Removes executors from invitedata table when they are no longer dealing with the estate', () => {
             removeExecutorStub.returns(when(Promise.resolve({name: 'success!'})));
-            [ctx] = Declaration.handlePost(ctxTest);
+            [ctx] = Declaration.handlePost(ctx);
             sinon.assert.called(removeExecutorStub);
-            console.log(ctx);
         });
 
         it('Executors inviteIds are not removed if there is an error', (done) => {
