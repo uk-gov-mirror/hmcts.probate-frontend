@@ -61,5 +61,27 @@ describe('applicant-address', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForExecsNumber);
         });
 
+        it('should display the selected address option if an error is caused by completing both addresses', (done) => {
+            const data = {
+                postcode: 'SW1H 9AJ',
+                postcodeAddress: 'Ministry of Justice Seventh Floor 102 Petty France London SW1H 9AJ',
+                freeTextAddress: 'Some other random address',
+                addresses: [{
+                    building_number: '102',
+                    organisation_name: 'MINISTRY OF JUSTICE',
+                    post_town: 'LONDON',
+                    postcode: 'SW1H 9AJ',
+                    sub_building_name: 'SEVENTH FLOOR',
+                    thoroughfare_name: 'PETTY FRANCE',
+                    uprn: '10033604583',
+                    formatted_address: 'Ministry of Justice\nSeventh Floor\n102 Petty France\nLondon\nSW1H 9AJ'
+                }]
+            };
+            const contentToCheck = [
+                `<option selected>${data.postcodeAddress}</option>`
+            ];
+            testWrapper.testContentAfterError(data, contentToCheck, done);
+        });
+
     });
 });
