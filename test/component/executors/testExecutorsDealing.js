@@ -55,7 +55,7 @@ describe('executors-dealing-with-estate', () => {
                 });
         });
 
-        it('test errors message displayed for more than 4 applicants', (done) => {
+        it('test errors message displayed for more than 3 additional applicants', (done) => {
             const errorsToTest = ['executorsApplying'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
