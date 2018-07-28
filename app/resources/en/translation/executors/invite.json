@@ -16,11 +16,11 @@
 
   "paragraph6": "They can always see the most up to date version of the legal statement using the link we email them.",
 
-  "heading3": "The applying executors&rsquo; contact details",
+  "heading3": "The applying executor&rsquo;s contact details",
+  "heading3-multiple": "The applying executors&rsquo; contact details",
   "changeLink" : "Change",
 
   "sendInvites": "Notify the other executors who are applying",
-
 
   "errors": {
     "getUrl(index": {

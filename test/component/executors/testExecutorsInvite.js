@@ -14,7 +14,6 @@ describe('executors-invite', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsInvite');
         sendInvitesStub = sinon.stub(services, 'sendInvite');
-
     });
 
     afterEach(() => {
@@ -24,8 +23,21 @@ describe('executors-invite', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done);
+        it('test correct content loaded on the page when more than 1 other executor', (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, ['heading3']);
+                });
+        });
+
+        it('test correct content loaded on the page when only 1 other executor', (done) => {
+            sessionData.executors.executorsNumber = 2;
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, ['heading3-multiple']);
+                });
         });
 
         it('test content displays only the applying executors but not the main applicant', (done) => {

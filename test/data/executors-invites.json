@@ -17,7 +17,8 @@
         "notApplyingReason" : "This executor doesnt want to apply now but may do in the future",
         "executorNotified" : "Yes"
       }],
-    "otherExecutors" : "No"
+    "otherExecutors" : "No",
+    "executorsNumber": 3
   },
   "applicant": {
     "address": "Flat 1, Somewhere Rd, Nowhere.",
