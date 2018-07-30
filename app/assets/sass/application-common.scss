@@ -54,6 +54,8 @@ li.task-item {
       color: $black;
       float: left;
       margin-bottom: 10px;
+      text-transform: none;
+      letter-spacing: 0;
 
       @include media(tablet) {
         margin-left: 35px;
@@ -68,6 +70,7 @@ li.task-item {
     .task-completed {
       float: left;
       margin-bottom: 10px;
+      text-transform: none;
 
       @include media(tablet) {
         float:left;
