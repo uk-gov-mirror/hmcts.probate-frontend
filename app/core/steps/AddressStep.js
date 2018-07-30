@@ -19,9 +19,7 @@ class AddressStep extends ValidationStep {
     handlePost(ctx, errors) {
         ctx.address = ctx.postcodeAddress || ctx.freeTextAddress;
         ctx.postcode = ctx.postcode ? ctx.postcode.toUpperCase() : ctx.postcode;
-        if (ctx.postcodeAddress) {
-            ctx.addresses = [{formatted_address: ctx.postcodeAddress}];
-        } else {
+        if (!ctx.postcodeAddress) {
             delete ctx.addresses;
         }
         delete ctx.referrer;
