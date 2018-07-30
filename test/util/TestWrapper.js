@@ -27,7 +27,7 @@ module.exports = class TestWrapper {
             res.send('OK');
         });
 
-        config.useCSRFProtection = 'false';
+        config.app.useCSRFProtection = 'false';
         this.server = app.init();
         this.agent = request.agent(this.server.app);
     }
