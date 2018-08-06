@@ -96,6 +96,28 @@ router.use((req, res, next) => {
     }
 });
 
+router.post('/declaration', (req, res, next) => {
+    const executorsWrapper = new ExecutorsWrapper(req.session.form.executors);
+    const executorsRemoved = executorsWrapper.executorsRemoved();
+    const executorsToRemoveFromInviteData = executorsRemoved.concat(executorsWrapper.executorsToRemove());
+
+    if (executorsToRemoveFromInviteData.length > 0) {
+        const promises = executorsToRemoveFromInviteData.map(exec => services.removeExecutor(exec.inviteId));
+        Promise.all(promises).then(result => {
+            const isError = result.some(r => r !== '');
+            if (isError) {
+                logger.error(`Error while deleting executor from invitedata table: ${result}`);
+                throw new Error('Error while deleting executor from invitedata table.');
+            }
+            req.session.form.executors.list = executorsWrapper.removeExecutorsInviteId();
+            delete req.session.form.executors.executorsRemoved;
+            next();
+        });
+    } else {
+        next();
+    }
+});
+
 const steps = initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui/`]);
 
 Object.entries(steps).forEach(([, step]) => {

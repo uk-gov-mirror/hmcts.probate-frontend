@@ -1,14 +1,15 @@
+'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 const executorNotifiedContent = require('app/resources/en/translation/executors/notified');
 const executorContent = require('app/resources/en/translation/executors/executorcontent');
 const {get} = require('lodash');
-const logger = require('app/components/logger')('Init');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const services = require('app/components/services');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
 
-module.exports = class Declaration extends ValidationStep {
+class Declaration extends ValidationStep {
     static getUrl() {
         return '/declaration';
     }
@@ -30,24 +31,7 @@ module.exports = class Declaration extends ValidationStep {
         ctx.softStop = this.anySoftStops(formdata, ctx);
         ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants(get(formdata, 'executors.list'));
         ctx.invitesSent = get(formdata, 'executors.invitesSent');
-        ctx.executorsRemoved = ctx.executorsWrapper.executorsRemovedList();
         return ctx;
-    }
-
-    * handlePost(ctx) {
-        const executorsToRemoveFromInviteData = ctx.executorsRemoved.concat(ctx.executorsWrapper.executorsToRemove());
-        if (executorsToRemoveFromInviteData.length === 0) {
-            return [ctx];
-        }
-        const promises = executorsToRemoveFromInviteData.map(exec => services.removeExecutor(exec.inviteId));
-        Promise.all(promises).then(result => {
-            if (result.name === 'Error') {
-                logger.error(`Error while deleting executor from invitedata table: ${result.message}`);
-                throw new Error('Error while deleting executor from invitedata table.');
-            }
-            ctx.executorsWrapper.removeExecutorsInviteId();
-        });
-        return [ctx];
     }
 
     prepareDataForTemplate(ctx, content, formdata) {
@@ -225,7 +209,8 @@ module.exports = class Declaration extends ValidationStep {
         delete ctx.hasDataChanged;
         delete ctx.hasDataChangedAfterEmailSent;
         delete ctx.invitesSent;
-        delete ctx.executorsRemoved;
         return [ctx, formdata];
     }
-};
+}
+
+module.exports = Declaration;
