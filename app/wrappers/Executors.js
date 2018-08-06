@@ -1,10 +1,10 @@
 'use strict';
 
 class Executors {
-    constructor(executors) {
-        executors = executors || {};
-        this.executorsList = executors.list || [];
-        this.executorsRemoved = executors.executorsRemoved || [];
+    constructor(executorsData) {
+        this.executorsData = executorsData || {};
+        this.executorsList = this.executorsData.list || [];
+
     }
 
     executors(excludeApplicant) {
@@ -86,8 +86,8 @@ class Executors {
         });
     }
 
-    executorsRemovedList() {
-        return this.executorsRemoved;
+    executorsRemoved() {
+        return this.executorsData.executorsRemoved || [];
     }
 }
 

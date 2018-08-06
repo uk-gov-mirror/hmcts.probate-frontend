@@ -447,20 +447,15 @@ describe('Executors.js', () => {
     });
 
     describe('removeExecutorsInviteId()', () => {
-        beforeEach(() => {
-            data = {
+        it('should remove the inviteId of Executors who are not applying', (done) => {
+            const data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
                     {fullName: 'ed brown', isApplying: true, inviteId: 'invite_123'},
-                    {fullName: 'bob brown', isApplying: true, inviteId: 'invite_456'},
-                    {fullName: 'steve brown', isApplying: true, inviteId: 'invite_789'}
+                    {fullName: 'bob brown', isApplying: false, inviteId: 'invite_456'},
+                    {fullName: 'steve brown', isApplying: false, inviteId: 'invite_789'}
                 ]
             };
-        });
-
-        it('should remove the inviteId of Executors who are not applying', (done) => {
-            data.list[2].isApplying = false;
-            data.list[3].isApplying = false;
             const executorsWrapper = new ExecutorsWrapper(data);
             expect(executorsWrapper.removeExecutorsInviteId()).to.deep.equal([
                 {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
@@ -468,6 +463,27 @@ describe('Executors.js', () => {
                 {fullName: 'bob brown', isApplying: false},
                 {fullName: 'steve brown', isApplying: false}
             ]);
+            done();
+        });
+    });
+
+    describe('executorsRemoved()', () => {
+        it('should return a list of executors to be removed', (done) => {
+            const data = {
+                executorsRemoved: [
+                    {fullName: 'ed brown', isApplying: true, inviteId: 'invite_123'},
+                    {fullName: 'bob brown', isApplying: true, inviteId: 'invite_456'}
+                ]
+            };
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.executorsRemoved()).to.deep.equal(data.executorsRemoved);
+            done();
+        });
+
+        it('should return an empty list when there are no executors to be removed', (done) => {
+            const data = {};
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.executorsRemoved()).to.deep.equal([]);
             done();
         });
     });
