@@ -16,10 +16,29 @@
                 <input type="hidden" name="_csrf" value="{{csrfToken}}">
                 {% block form_content %}{% endblock %}
             </form>
-            {% block save_and_close %}<a href="/sign-out">{{common.saveAndClose}}</a>{% endblock %}
+            {% block save_and_close %}<p><a href="/sign-out">{{common.saveAndClose}}</a></p>{% endblock %}
+
+            {% block help_info %}
+                <br>
+                <br>
+                <details class="govuk-details" role="group">
+                        <summary class="govuk-details__summary">
+                          <span class="govuk-details__summary-text">
+                              {{common.help_title}}
+                          </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <p>{{common.help_text1}} You can call or email us if you're having problems with this service.</p>
+                            <p>{{common.help_text2}} Phone: 0300 303 0648 (Monday to Friday 9am to 5pm)</p>
+                            <p>Email: <a href="mailto:oxforddprenquiries@hmcts.gsi.gov.uk">oxforddprenquiries@hmcts.gsi.gov.uk</a></p>
+                        </div>
+                </details>
+
+            {% endblock %}
+
             {% block executor_summary %}{% endblock %}
+
         </div>
     </div>
 </main>
-
 {% endblock %}

@@ -32,5 +32,6 @@
   "second" : "Second",
   "third" : "Third",
   "fourth" : "Fourth",
-  "fifth" : "Fifth"
+  "fifth" : "Fifth",
+  "help_title" : "Do you need help?"
 }
