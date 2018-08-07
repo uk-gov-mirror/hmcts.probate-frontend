@@ -67,6 +67,10 @@ class Executors {
     areAllAliveExecutorsApplying() {
         return this.aliveExecutors().every(executor => executor.isApplying);
     }
+
+    executorsEmailChanged() {
+        return this.executorsList.some(executor => executor.emailChanged);
+    }
 }
 
 module.exports = Executors;

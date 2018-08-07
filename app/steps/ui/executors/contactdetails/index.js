@@ -22,6 +22,7 @@ class ExecutorContactDetails extends ValidationStep {
         }
         ctx.inviteId = ctx.list[ctx.index].inviteId;
         ctx.otherExecName = ctx.list[ctx.index].fullName;
+        ctx.emailChangedList = ctx.emailChangedList || [];
         return ctx;
     }
 
@@ -38,6 +39,10 @@ class ExecutorContactDetails extends ValidationStep {
 
         if (!this.validatePhoneNumber(ctx.mobile)) {
             errors.push(FieldError('mobile', 'invalid', this.resourcePath, this.generateContent()));
+        }
+
+        if (ctx.email !== ctx.list[ctx.index].email && ctx.invitesSent === 'true') {
+            ctx.list[ctx.index].emailChanged = true;
         }
 
         ctx.list[ctx.index].email = ctx.email;

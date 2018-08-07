@@ -373,4 +373,46 @@ describe('Executors.js', () => {
             });
         });
     });
+
+    describe.only('executorsEmailChanged()', () => {
+        beforeEach(() => {
+            data = {
+                list: [
+                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                    {fullname: 'ed brown', hasOtherName: true},
+                    {fullname: 'jake smith', emailChanged: true},
+                    {fullname: 'bob smith'}
+                ]
+            };
+        });
+
+        it('should return true when one executor email has changed', (done) => {
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.executorsEmailChanged()).to.deep.equal(true);
+            done();
+        });
+
+        it('should return true when multiple executor emails have changed', (done) => {
+            data.list[3].emailChanged = true;
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.executorsEmailChanged()).to.deep.equal(true);
+            done();
+        });
+
+        describe('should return false', () => {
+            it('when no executors emails have changed', (done) => {
+                data.list[2].emailChanged = false;
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorsEmailChanged()).to.deep.equal(false);
+                done();
+            });
+
+            it('when there is no executor data', (done) => {
+                const data = {};
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorsEmailChanged()).to.deep.equal(false);
+                done();
+            });
+        });
+    });
 });

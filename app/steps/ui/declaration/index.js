@@ -180,8 +180,10 @@ module.exports = class Declaration extends ValidationStep {
 
     nextStepOptions(ctx) {
         ctx.hasDataChangedAfterEmailSent = ctx.hasDataChanged && ctx.invitesSent === 'true';
+        ctx.hasEmailChanged = ctx.executorsWrapper.executorsEmailChanged() && ctx.invitesSent === 'true';
         const nextStepOptions = {
             options: [
+                {key: 'hasEmailChanged', value: true, choice: 'executorAddressDataChangedAfterEmailSent'},
                 {key: 'hasDataChangedAfterEmailSent', value: true, choice: 'dataChangedAfterEmailSent'},
                 {key: 'hasMultipleApplicants', value: true, choice: 'otherExecutorsApplying'}
             ]
@@ -205,6 +207,7 @@ module.exports = class Declaration extends ValidationStep {
 
         delete ctx.executorsWrapper;
         delete ctx.hasDataChanged;
+        delete ctx.hasEmailChanged;
         delete ctx.hasDataChangedAfterEmailSent;
         delete ctx.invitesSent;
         return [ctx, formdata];
