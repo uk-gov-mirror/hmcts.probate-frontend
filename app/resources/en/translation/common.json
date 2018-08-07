@@ -35,7 +35,8 @@
   "fifth" : "Fifth",
   "helpTitle" : "Do you need help?",
   "helpText" : "You can call or email us if you're having problems with this service.",
-  "contactTelNo" : "Phone: 0300 303 0648 (Monday to Friday 9am to 5pm)",
+  "contactTelLabel" : "Phone: {helpLineNumber}",
+  "contactOpeningTimes" : "({openingTimes})",
   "helpEmailLabel" : "Email: ",
   "contactEmailAddress" : "<a href=\"mailto:oxforddprenquiries@hmcts.gsi.gov.uk\">oxforddprenquiries@hmcts.gsi.gov.uk</a>"
 }

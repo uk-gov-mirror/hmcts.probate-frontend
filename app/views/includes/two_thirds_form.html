@@ -18,19 +18,7 @@
             </form>
             {% block save_and_close %}<p><a href="/sign-out">{{common.saveAndClose}}</a></p>{% endblock %}
 
-            {% block help_info %}
-                <br>
-                <br>
-                <details>
-                        <summary><span class="summary">{{common.helpTitle}}</span></summary>
-                        <div class="panel panel-border-narrow">
-                          <p>{{common.helpText}}</p>
-                          <p>{{common.contactTelNo}}</p>
-                          <p>{{common.helpEmailLabel}} {{common.contactEmailAddress | safe }}</p>
-                        </div>
-                </details>
-
-            {% endblock %}
+            {% include "includes/help_details.html" %}
 
             {% block executor_summary %}{% endblock %}
 
