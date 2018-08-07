@@ -3,10 +3,9 @@
 const {assert} = require('chai');
 const services = require('app/components/services');
 const sinon = require('sinon');
-const when = require('when');
 const TestWrapper = require('test/util/TestWrapper');
 
-describe('declaration.js', () => {
+describe.only('declaration.js', () => {
     let req;
     let testWrapper;
     let executorsToRemoveStub;
@@ -72,6 +71,7 @@ describe('declaration.js', () => {
         testWrapper.agent.post('/prepare-session/form')
             .send(req.session.form)
             .end(() => {
+                req = sinon.spy();
                 testWrapper.agent.post('/declaration')
                     .end((err, res) => {
                         if (err) {
@@ -79,10 +79,26 @@ describe('declaration.js', () => {
                         }
                         assert(res.status === 200);
                         assert.isTrue(executorsToRemoveStub.called);
+                        sinon.assert.called(req);
                         done();
                     });
             });
     });
+
+    // it('removeExecutor should throw an error', function (done) {
+    //     const expectedError = new Error('Error while deleting executor from invitedata table.');
+    //     executorsToRemoveStub.returns(when(expectedError));
+    //     testWrapper.agent.post('/prepare-session/form')
+    //         .send(req.session.form)
+    //         .end(() => {
+    //             testWrapper.agent.post('/declaration')
+    //                 .end(err => {
+    //                     assert.strictEqual(expectedError, err);
+    //                     done();
+    //                 })
+    //                 .catch(done);
+    //         });
+    // });
 
     it('executorsToRemove should not be called', (done) => {
         req.session.form.executors.list[1].isApplying = true;
