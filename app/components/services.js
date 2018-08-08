@@ -144,6 +144,14 @@ const sendInvite = (data, sessionID) => {
     return utils.fetchText(sendInviteUrl, fetchOptions);
 };
 
+const resendInvite = (data, sessionID, inviteId) => {
+    logger.info('send invite');
+    const sendInviteUrl = FormatUrl.format(VALIDATION_SERVICE_URL, `/resendInvite/${inviteId}`);
+    const headers = {'Content-Type': 'application/json', 'Session-Id': sessionID};
+    const fetchOptions = utils.fetchOptions(data, 'POST', headers);
+    return utils.fetchText(sendInviteUrl, fetchOptions);
+};
+
 const checkAllAgreed = (formdataId) => {
     logger.info('check all agreed');
     const allAgreedUrl = FormatUrl.format(VALIDATION_SERVICE_URL, `/invites/allAgreed/${formdataId}`);
@@ -195,8 +203,8 @@ const getOauth2Token = (code, redirectUri) => {
     });
 };
 
-const updatePhoneNumber = (inviteId, data) => {
-    logger.info('Update Phone Number');
+const updateContactDetails = (inviteId, data) => {
+    logger.info('Update Contact Details');
     const findInviteUrl = FormatUrl.format(PERSISTENCE_SERVICE_URL, `/invitedata/${inviteId}`);
     const headers = {
         'Content-Type': 'application/json'
@@ -230,7 +238,8 @@ module.exports = {
     getOauth2Token,
     sendPin,
     sendInvite,
-    updatePhoneNumber,
+    resendInvite,
+    updateContactDetails,
     checkAllAgreed,
     signOut
 };

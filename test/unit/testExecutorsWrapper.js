@@ -374,7 +374,7 @@ describe('Executors.js', () => {
         });
     });
 
-    describe.only('executorsEmailChanged()', () => {
+    describe('executorsEmailChanged()', () => {
         beforeEach(() => {
             data = {
                 list: [

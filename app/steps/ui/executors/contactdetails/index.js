@@ -49,8 +49,9 @@ class ExecutorContactDetails extends ValidationStep {
         ctx.list[ctx.index].mobile = ctx.mobile;
         if (ctx.list[ctx.index].emailSent) {
             const data = {};
+            data.email = ctx.list[ctx.index].email;
             data.phoneNumber = ctx.list[ctx.index].mobile;
-            yield services.updatePhoneNumber(ctx.inviteId, data)
+            yield services.updateContactDetails(ctx.inviteId, data)
                 .then(result => {
                     if (result.name === 'Error') {
                         throw new ReferenceError('Error updating executor\'s phone number');
