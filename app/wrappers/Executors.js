@@ -71,6 +71,10 @@ class Executors {
     executorsEmailChanged() {
         return this.executorsList.some(executor => executor.emailChanged);
     }
+
+    executorsEmailChangedList() {
+        return this.executorsList.filter(executor => executor.emailChanged);
+    }
 }
 
 module.exports = Executors;

@@ -144,7 +144,7 @@ const stepList = {
         otherExecutorsApplying: 'ExecutorsInvite',
         otherwise: 'TaskList'
     },
-    executorAddressDataChangedAfterEmailSent: 'ExecutorsUpdateInviteSent',
+    ExecutorsUpdateInvite: 'ExecutorsUpdateInviteSent',
     ExecutorsUpdateInviteSent: 'TaskList',
     ExecutorsInvite: 'ExecutorsInvitesSent',
     ExecutorsInvitesSent: 'TaskList',

@@ -1,6 +1,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const services = require('app/components/services');
 const FormatName = require('app/utils/FormatName');
+const ExecutorsWrapper = require('app/wrappers/Executors');
 
 module.exports = class ExecutorsUpdateInvite extends ValidationStep {
 
@@ -8,9 +9,17 @@ module.exports = class ExecutorsUpdateInvite extends ValidationStep {
         return '/executors-update-invite';
     }
 
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        const formdata = req.session.form;
+        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        ctx.executorsEmailChangedList = executorsWrapper.executorsEmailChangedList();
+        ctx.notifyExecutorsSuffix = ctx.executorsEmailChangedList.length > 1 ? '-multiple' : '';
+        return ctx;
+    }
+
     * handlePost(ctx, errors, formdata, session) {
-        yield ctx.list
-            .filter(exec => exec.emailChanged)
+        yield ctx.executorsEmailChangedList
             .map(exec => {
                 const data = {
                     invitation: {
@@ -26,14 +35,17 @@ module.exports = class ExecutorsUpdateInvite extends ValidationStep {
                 return services.resendInvite(data, session.id, exec.inviteId, exec).then(result => {
                     if (result.name === 'Error') {
                         throw new ReferenceError('Error while sending co-applicant invitation email.');
-                    } else {
-                        exec.inviteId = result;
-                        exec.emailSent = true;
-                        return exec;
                     }
+                    delete exec.emailChanged;
                 });
             });
-        ctx.invitesSent = 'true';
         return [ctx, errors];
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.executorsEmailChangedList;
+        delete ctx.notifyExecutorsSuffix;
+        return [ctx, formdata];
     }
 };

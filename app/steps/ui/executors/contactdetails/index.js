@@ -22,7 +22,6 @@ class ExecutorContactDetails extends ValidationStep {
         }
         ctx.inviteId = ctx.list[ctx.index].inviteId;
         ctx.otherExecName = ctx.list[ctx.index].fullName;
-        ctx.emailChangedList = ctx.emailChangedList || [];
         return ctx;
     }
 

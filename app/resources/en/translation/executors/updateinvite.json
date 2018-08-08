@@ -1,7 +1,8 @@
 {
   "title": "Notify the other executors who are applying for probate",
 
-  "header": "Notify the executors whose contact details you&rsquo;ve updated",
+  "header": "Notify the executor whose contact details you&rsquo;ve updated",
+  "header-multiple": "Notify the executors whose contact details you&rsquo;ve updated",
 
   "paragraph1": "The executors whose contact details you&rsquo;ve updated will be sent an email telling them the legal statement is ready to agree.",
 
@@ -10,7 +11,6 @@
   "header1": "Updated contact details",
 
   "sendInvites": "Notify these applying executors",
-
 
   "errors": {
     "getUrl(index": {

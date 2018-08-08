@@ -415,4 +415,51 @@ describe('Executors.js', () => {
             });
         });
     });
+
+    describe('executorsEmailChangedList()', () => {
+        beforeEach(() => {
+            data = {
+                list: [
+                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                    {fullname: 'ed brown', hasOtherName: true},
+                    {fullname: 'jake smith', emailChanged: true},
+                    {fullname: 'bob smith'}
+                ]
+            };
+        });
+
+        it('should return a list with a single executor when only one executor email has changed', (done) => {
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.executorsEmailChangedList()).to.deep.equal([
+                {fullname: 'jake smith', emailChanged: true}
+            ]);
+            done();
+        });
+
+        it('should return a list of multiple executors when multiple executor emails have changed', (done) => {
+            data.list[3].emailChanged = true;
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.executorsEmailChangedList()).to.deep.equal([
+                {fullname: 'jake smith', emailChanged: true},
+                {fullname: 'bob smith', emailChanged: true}
+            ]);
+            done();
+        });
+
+        describe('should return an empty list', () => {
+            it('when no executors emails have changed', (done) => {
+                data.list[2].emailChanged = false;
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorsEmailChangedList()).to.deep.equal([]);
+                done();
+            });
+
+            it('when there is no executor data', (done) => {
+                const data = {};
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorsEmailChangedList()).to.deep.equal([]);
+                done();
+            });
+        });
+    });
 });
