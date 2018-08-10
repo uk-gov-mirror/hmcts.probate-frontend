@@ -50,7 +50,7 @@ describe('executors-update-invite', () => {
                         .then(response => {
                             assert(response.text.includes('Andrew Wiles'));
                             assert(response.text.includes('Leonhard Euler'));
-                            assert(!response.text.includes('Pierre de Fermat'))
+                            assert(!response.text.includes('Pierre de Fermat'));
                             done();
                         });
                 });
