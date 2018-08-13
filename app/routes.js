@@ -43,7 +43,9 @@ router.get('/', (req, res) => {
 router.use((req, res, next) => {
     const formdata = req.session.form;
     const isHardStop = formdata => config.hardStopParams.some(param => get(formdata, param) === commonContent.no);
-    const hasMultipleApplicants = (new ExecutorsWrapper(formdata.executors)).hasMultipleApplicants();
+    const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+    const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
+    const executorsEmailChanged = executorsWrapper.executorsEmailChanged();
 
     if (get(formdata, 'submissionReference') &&
         !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
@@ -61,6 +63,11 @@ router.use((req, res, next) => {
     } else if (get(formdata, 'declaration.declarationCheckbox') &&
         (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent'))) &&
             isEqual('/executors-invite', req.originalUrl)
+    ) {
+        res.redirect('tasklist');
+    } else if (get(formdata, 'declaration.declarationCheckbox') &&
+        (!hasMultipleApplicants || !executorsEmailChanged) &&
+            isEqual('/executors-update-invite', req.originalUrl)
     ) {
         res.redirect('tasklist');
     } else if (req.originalUrl.includes('summary') && isHardStop(formdata)) {
