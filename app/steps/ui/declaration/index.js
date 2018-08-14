@@ -28,7 +28,7 @@ module.exports = class Declaration extends ValidationStep {
         Object.assign(ctx, templateData);
         ctx.softStop = this.anySoftStops(formdata, ctx);
         ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants(get(formdata, 'executors.list'));
-        ctx.executorsEmailChanged = ctx.executorsWrapper.executorsEmailChanged();
+        ctx.executorsEmailChanged = ctx.executorsWrapper.hasExecutorsEmailChanged();
         ctx.invitesSent = get(formdata, 'executors.invitesSent');
         return ctx;
     }

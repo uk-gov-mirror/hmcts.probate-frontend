@@ -53,7 +53,7 @@ class ExecutorContactDetails extends ValidationStep {
             yield services.updateContactDetails(ctx.inviteId, data)
                 .then(result => {
                     if (result.name === 'Error') {
-                        throw new ReferenceError('Error updating executor\'s phone number');
+                        throw new ReferenceError('Error updating executor\'s contact details');
                     }
                 });
         }

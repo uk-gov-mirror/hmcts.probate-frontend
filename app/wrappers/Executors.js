@@ -68,7 +68,7 @@ class Executors {
         return this.aliveExecutors().every(executor => executor.isApplying);
     }
 
-    executorsEmailChanged() {
+    hasExecutorsEmailChanged() {
         return this.executorsList.some(executor => executor.emailChanged);
     }
 

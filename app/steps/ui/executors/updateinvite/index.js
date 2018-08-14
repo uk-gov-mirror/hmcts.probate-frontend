@@ -1,9 +1,10 @@
+'use strict';
 const ValidationStep = require('app/core/steps/ValidationStep');
 const services = require('app/components/services');
 const FormatName = require('app/utils/FormatName');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 
-module.exports = class ExecutorsUpdateInvite extends ValidationStep {
+class ExecutorsUpdateInvite extends ValidationStep {
 
     static getUrl() {
         return '/executors-update-invite';
@@ -19,7 +20,7 @@ module.exports = class ExecutorsUpdateInvite extends ValidationStep {
     }
 
     * handlePost(ctx, errors, formdata, session) {
-        yield ctx.executorsEmailChangedList
+        const promises = ctx.executorsEmailChangedList
             .map(exec => {
                 const data = {
                     invitation: {
@@ -32,13 +33,14 @@ module.exports = class ExecutorsUpdateInvite extends ValidationStep {
                         leadExecutorName: FormatName.format(formdata.applicant)
                     }
                 };
-                return services.resendInvite(data, session.id, exec.inviteId, exec).then(result => {
-                    if (result.name === 'Error') {
-                        throw new ReferenceError('Error while sending co-applicant invitation email.');
-                    }
-                    delete exec.emailChanged;
-                });
+                return services.sendInvite(data, session.id, exec, exec.inviteId);
             });
+        Promise.all(promises).then(result => {
+            if (result.name === 'Error') {
+                throw new ReferenceError('Error while sending co-applicant invitation email.');
+            }
+        });
+        ctx.list.map(exec => delete exec.emailChanged);
         return [ctx, errors];
     }
 
@@ -48,4 +50,6 @@ module.exports = class ExecutorsUpdateInvite extends ValidationStep {
         delete ctx.notifyExecutorsSuffix;
         return [ctx, formdata];
     }
-};
+}
+
+module.exports = ExecutorsUpdateInvite;

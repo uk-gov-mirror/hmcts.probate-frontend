@@ -7,18 +7,19 @@ const ExecutorsUpdateInviteSent = require('app/steps/ui/executors/updateinvitese
 
 describe('executors-update-invite', () => {
     let testWrapper;
-    let resendInvitesStub;
-    const sessionData = require('test/data/executors-invites');
+    let sendInvitesStub;
+    let sessionData;
     const expectedNextUrlForExecutorsUpdateInviteSent = ExecutorsUpdateInviteSent.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsUpdateInvite');
-        resendInvitesStub = sinon.stub(services, 'resendInvite');
+        sessionData = require('test/data/executors-invites');
+        sendInvitesStub = sinon.stub(services, 'sendInvite');
     });
 
     afterEach(() => {
         testWrapper.destroy();
-        resendInvitesStub.restore();
+        sendInvitesStub.restore();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -33,6 +34,7 @@ describe('executors-update-invite', () => {
         });
 
         it('test correct content loaded on the page when more than 1 other executor has had their email changed', (done) => {
+            sessionData.executors.list[1].emailChanged = true;
             sessionData.executors.list[2].isApplying = true;
             sessionData.executors.list[2].emailChanged = true;
             testWrapper.agent.post('/prepare-session/form')
@@ -72,9 +74,28 @@ describe('executors-update-invite', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForExecutorsUpdateInviteSent}`, (done) => {
-            resendInvitesStub.returns(when(Promise.resolve({response: 'Make it pass!'})));
-            const data = {};
-            testWrapper.testRedirect(done, data, expectedNextUrlForExecutorsUpdateInviteSent);
+            sendInvitesStub.returns(when(Promise.resolve({response: 'Make it pass!'})));
+            const data = {
+                // list: [
+                //     {fullName: 'pierre de fermat',
+                //         isApplying: true,
+                //         isApplicant: true
+                //     },
+                //     {fullName: 'Andrew Wiles',
+                //         mobile: '07112234567',
+                //         email: 'email@test.com',
+                //         isApplying: true
+                //     },
+                //     {fullName: 'Leonhard Euler',
+                //         isApplying: false,
+                //         notApplyingReason: 'This executor doesnt want to apply now but may do in the future',
+                //         executorNotified: 'Yes'}]
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, data, expectedNextUrlForExecutorsUpdateInviteSent);
+                });
         });
     });
 });

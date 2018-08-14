@@ -7,8 +7,10 @@ describe('Update-Invite', function () {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
     const updateInvite = steps.ExecutorsUpdateInvite;
 
-    it('test correct url is returned from getUrl function', () => {
-        assert.equal(updateInvite.constructor.getUrl(), '/executors-update-invite');
+    describe('getContextData', () => {
+        it('test correct url is returned from getUrl function', () => {
+            assert.equal(updateInvite.constructor.getUrl(), '/executors-update-invite');
+        });
     });
 
     describe('getContextData', () => {

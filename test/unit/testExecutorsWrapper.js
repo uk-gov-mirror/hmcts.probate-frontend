@@ -374,7 +374,7 @@ describe('Executors.js', () => {
         });
     });
 
-    describe('executorsEmailChanged()', () => {
+    describe('hasExecutorsEmailChanged()', () => {
         beforeEach(() => {
             data = {
                 list: [
@@ -388,14 +388,14 @@ describe('Executors.js', () => {
 
         it('should return true when one executor email has changed', (done) => {
             const executorsWrapper = new ExecutorsWrapper(data);
-            expect(executorsWrapper.executorsEmailChanged()).to.deep.equal(true);
+            expect(executorsWrapper.hasExecutorsEmailChanged()).to.deep.equal(true);
             done();
         });
 
         it('should return true when multiple executor emails have changed', (done) => {
             data.list[3].emailChanged = true;
             const executorsWrapper = new ExecutorsWrapper(data);
-            expect(executorsWrapper.executorsEmailChanged()).to.deep.equal(true);
+            expect(executorsWrapper.hasExecutorsEmailChanged()).to.deep.equal(true);
             done();
         });
 
@@ -403,14 +403,14 @@ describe('Executors.js', () => {
             it('when no executors emails have changed', (done) => {
                 data.list[2].emailChanged = false;
                 const executorsWrapper = new ExecutorsWrapper(data);
-                expect(executorsWrapper.executorsEmailChanged()).to.deep.equal(false);
+                expect(executorsWrapper.hasExecutorsEmailChanged()).to.deep.equal(false);
                 done();
             });
 
             it('when there is no executor data', (done) => {
                 const data = {};
                 const executorsWrapper = new ExecutorsWrapper(data);
-                expect(executorsWrapper.executorsEmailChanged()).to.deep.equal(false);
+                expect(executorsWrapper.hasExecutorsEmailChanged()).to.deep.equal(false);
                 done();
             });
         });

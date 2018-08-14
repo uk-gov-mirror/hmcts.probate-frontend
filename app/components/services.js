@@ -136,17 +136,10 @@ const updateInviteData = (inviteId, data) => {
     return utils.fetchJson(findInviteLinkUrl, fetchOptions);
 };
 
-const sendInvite = (data, sessionID) => {
+const sendInvite = (data, sessionID, exec, inviteId) => {
     logger.info('send invite');
-    const sendInviteUrl = FormatUrl.format(VALIDATION_SERVICE_URL, '/invite');
-    const headers = {'Content-Type': 'application/json', 'Session-Id': sessionID};
-    const fetchOptions = utils.fetchOptions(data, 'POST', headers);
-    return utils.fetchText(sendInviteUrl, fetchOptions);
-};
-
-const resendInvite = (data, sessionID, inviteId) => {
-    logger.info('send invite');
-    const sendInviteUrl = FormatUrl.format(VALIDATION_SERVICE_URL, `/resendInvite/${inviteId}`);
+    const urlParameter = inviteId ? `/${inviteId}` : '';
+    const sendInviteUrl = FormatUrl.format(VALIDATION_SERVICE_URL, `/invite${urlParameter}`);
     const headers = {'Content-Type': 'application/json', 'Session-Id': sessionID};
     const fetchOptions = utils.fetchOptions(data, 'POST', headers);
     return utils.fetchText(sendInviteUrl, fetchOptions);
@@ -238,7 +231,6 @@ module.exports = {
     getOauth2Token,
     sendPin,
     sendInvite,
-    resendInvite,
     updateContactDetails,
     checkAllAgreed,
     signOut
