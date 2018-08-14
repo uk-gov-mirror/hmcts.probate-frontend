@@ -5,7 +5,7 @@ const when = require('when');
 const {assert} = require('chai');
 const ExecutorsUpdateInviteSent = require('app/steps/ui/executors/updateinvitesent/index');
 
-describe('executors-update-invite', () => {
+describe.only('executors-update-invite', () => {
     let testWrapper;
     let sendInvitesStub;
     let sessionData;
@@ -75,22 +75,7 @@ describe('executors-update-invite', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForExecutorsUpdateInviteSent}`, (done) => {
             sendInvitesStub.returns(when(Promise.resolve({response: 'Make it pass!'})));
-            const data = {
-                // list: [
-                //     {fullName: 'pierre de fermat',
-                //         isApplying: true,
-                //         isApplicant: true
-                //     },
-                //     {fullName: 'Andrew Wiles',
-                //         mobile: '07112234567',
-                //         email: 'email@test.com',
-                //         isApplying: true
-                //     },
-                //     {fullName: 'Leonhard Euler',
-                //         isApplying: false,
-                //         notApplyingReason: 'This executor doesnt want to apply now but may do in the future',
-                //         executorNotified: 'Yes'}]
-            };
+            const data = {};
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
