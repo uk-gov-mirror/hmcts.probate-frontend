@@ -156,3 +156,10 @@ div.declaration-header {
 .check-your-answers__question {
     font-weight: inherit;
 }
+
+.check-your-answers__answer {
+    .check-your-answers__row {
+        border-bottom: none;
+    }
+}
+
