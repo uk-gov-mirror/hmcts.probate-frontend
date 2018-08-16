@@ -84,6 +84,14 @@ class Executors {
     executorsEmailChangedList() {
         return this.executorsList.filter(executor => executor.emailChanged);
     }
+
+    executorsToNotify() {
+        return this.executorsList.some(executor => executor.isApplying && !executor.emailSent);
+    }
+
+    executorsToNotifyList() {
+        return this.executorsList.filter(executor => executor.isApplying && !executor.emailSent);
+    }
 }
 
 module.exports = Executors;

@@ -44,7 +44,7 @@ describe('Update-Invite', function () {
                     'isApplying': true
                 }
             ]);
-            expect(ctx.notifyExecutorsSuffix).to.deep.equal('-multiple');
+            expect(ctx.inviteSuffix).to.deep.equal('-multiple');
             done();
         });
 
@@ -73,7 +73,7 @@ describe('Update-Invite', function () {
                     'isApplying': true
                 }
             ]);
-            expect(ctx.notifyExecutorsSuffix).to.deep.equal('');
+            expect(ctx.inviteSuffix).to.deep.equal('');
             done();
         });
     });

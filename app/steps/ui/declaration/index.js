@@ -30,6 +30,7 @@ module.exports = class Declaration extends ValidationStep {
         ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants(get(formdata, 'executors.list'));
         ctx.executorsEmailChanged = ctx.executorsWrapper.hasExecutorsEmailChanged();
         ctx.invitesSent = get(formdata, 'executors.invitesSent');
+        ctx.executorsToNotify = ctx.invitesSent === 'true' && ctx.executorsWrapper.executorsToNotify();
         return ctx;
     }
 
