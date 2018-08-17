@@ -68,6 +68,15 @@ class Executors {
         return this.aliveExecutors().every(executor => executor.isApplying);
     }
 
+    removeExecutorsEmailChangedFlag() {
+        return this.executorsList.map(executor => {
+            if (executor.emailChanged) {
+                delete executor.emailChanged;
+            }
+            return executor;
+        });
+    }
+
     hasExecutorsEmailChanged() {
         return this.executorsList.some(executor => executor.emailChanged);
     }

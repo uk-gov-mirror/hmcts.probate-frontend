@@ -462,4 +462,61 @@ describe('Executors.js', () => {
             });
         });
     });
+
+    describe('removeExecutorsEmailChangedFlag()', () => {
+        beforeEach(() => {
+            data = {
+                list: [
+                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                    {fullname: 'ed brown', hasOtherName: true},
+                    {fullname: 'jake smith', emailChanged: true},
+                    {fullname: 'bob smith'}
+                ]
+            };
+        });
+
+        it('should return a list with emailChanged flag removed when only one executor has the flag set to true', (done) => {
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.removeExecutorsEmailChangedFlag()).to.deep.equal([
+                {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                {fullname: 'ed brown', hasOtherName: true},
+                {fullname: 'jake smith'},
+                {fullname: 'bob smith'}
+            ]);
+            done();
+        });
+
+        it('should return a list with emailChanged flag removed when more than one executor has the flag set to true', (done) => {
+            data.list[3].emailChanged = true;
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.removeExecutorsEmailChangedFlag()).to.deep.equal([
+                {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                {fullname: 'ed brown', hasOtherName: true},
+                {fullname: 'jake smith'},
+                {fullname: 'bob smith'}
+            ]);
+            done();
+        });
+
+        describe('should return an empty list', () => {
+            it('when no executors emails have changed', (done) => {
+                delete data.list[2].emailChanged;
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.removeExecutorsEmailChangedFlag()).to.deep.equal([
+                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                    {fullname: 'ed brown', hasOtherName: true},
+                    {fullname: 'jake smith'},
+                    {fullname: 'bob smith'}
+                ]);
+                done();
+            });
+
+            it('when there is no executor data', (done) => {
+                const data = {};
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.removeExecutorsEmailChangedFlag()).to.deep.equal([]);
+                done();
+            });
+        });
+    });
 });
