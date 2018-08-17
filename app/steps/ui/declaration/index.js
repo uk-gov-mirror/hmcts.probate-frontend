@@ -30,7 +30,7 @@ module.exports = class Declaration extends ValidationStep {
         ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants(get(formdata, 'executors.list'));
         ctx.executorsEmailChanged = ctx.executorsWrapper.hasExecutorsEmailChanged();
         ctx.invitesSent = get(formdata, 'executors.invitesSent');
-        ctx.executorsToNotify = ctx.invitesSent === 'true' && ctx.executorsWrapper.executorsToNotify();
+        ctx.executorsToNotify = ctx.executorsWrapper.executorsToNotify() && ctx.invitesSent === 'true';
         return ctx;
     }
 
@@ -185,6 +185,7 @@ module.exports = class Declaration extends ValidationStep {
         ctx.hasEmailChanged = ctx.executorsEmailChanged && ctx.invitesSent === 'true';
         const nextStepOptions = {
             options: [
+                {key: 'executorsToNotify', value: true, choice: 'sendAdditionalInvites'},
                 {key: 'hasEmailChanged', value: true, choice: 'executorEmailChanged'},
                 {key: 'hasDataChangedAfterEmailSent', value: true, choice: 'dataChangedAfterEmailSent'},
                 {key: 'hasMultipleApplicants', value: true, choice: 'otherExecutorsApplying'}
