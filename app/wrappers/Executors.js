@@ -86,11 +86,11 @@ class Executors {
     }
 
     executorsToNotify() {
-        return this.executorsList.some(executor => executor.isApplying && !executor.emailSent);
+        return this.executorsList.some(executor => executor.isApplying && !executor.isApplicant && !executor.emailSent);
     }
 
     executorsToNotifyList() {
-        return this.executorsList.filter(executor => executor.isApplying && !executor.emailSent);
+        return this.executorsList.filter(executor => executor.isApplying && !executor.isApplicant && !executor.emailSent);
     }
 }
 

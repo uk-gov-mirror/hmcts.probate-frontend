@@ -27,9 +27,9 @@ module.exports = class Declaration extends ValidationStep {
         const templateData = this.prepareDataForTemplate(ctx, this.generateContent(ctx, formdata), formdata);
         Object.assign(ctx, templateData);
         ctx.softStop = this.anySoftStops(formdata, ctx);
+        ctx.invitesSent = get(formdata, 'executors.invitesSent');
         ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants(get(formdata, 'executors.list'));
         ctx.executorsEmailChanged = ctx.executorsWrapper.hasExecutorsEmailChanged();
-        ctx.invitesSent = get(formdata, 'executors.invitesSent');
         ctx.executorsToNotify = ctx.executorsWrapper.executorsToNotify() && ctx.invitesSent === 'true';
         return ctx;
     }
@@ -210,6 +210,7 @@ module.exports = class Declaration extends ValidationStep {
 
         delete ctx.executorsWrapper;
         delete ctx.hasDataChanged;
+        delete ctx.executorsToNotify;
         delete ctx.hasEmailChanged;
         delete ctx.executorsEmailChanged;
         delete ctx.hasDataChangedAfterEmailSent;
