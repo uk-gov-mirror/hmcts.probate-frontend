@@ -6,6 +6,7 @@ const validator = require('validator');
 const FieldError = require('app/components/error');
 const services = require('app/components/services');
 const {findIndex, every, tail} = require('lodash');
+const ExecutorsWrapper = require('app/wrappers/Executors');
 
 class ExecutorContactDetails extends ValidationStep {
 
@@ -32,6 +33,7 @@ class ExecutorContactDetails extends ValidationStep {
     }
 
     * handlePost(ctx, errors) {
+        const executorsWrapper = new ExecutorsWrapper(ctx);
         if (!emailValidator.validate(ctx.email)) {
             errors.push(FieldError('email', 'invalid', this.resourcePath, this.generateContent()));
         }
@@ -45,6 +47,7 @@ class ExecutorContactDetails extends ValidationStep {
             ctx.executorsEmailChanged = true;
         }
 
+        ctx.executorsEmailChanged = executorsWrapper.hasExecutorsEmailChanged();
         ctx.list[ctx.index].email = ctx.email;
         ctx.list[ctx.index].mobile = ctx.mobile;
         if (ctx.list[ctx.index].emailSent) {
