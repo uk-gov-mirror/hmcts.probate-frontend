@@ -44,7 +44,6 @@ class ExecutorContactDetails extends ValidationStep {
 
         if (ctx.email !== ctx.list[ctx.index].email && ctx.invitesSent === 'true') {
             ctx.list[ctx.index].emailChanged = true;
-            ctx.executorsEmailChanged = true;
         }
 
         ctx.executorsEmailChanged = executorsWrapper.hasExecutorsEmailChanged();
