@@ -13,7 +13,7 @@ describe('Update-Invite', function () {
         });
     });
 
-    describe('getContextData', () => {
+    describe('getContextData()', () => {
         it('test ctx variables are correctly assigned when there are more than one executor with new email', (done) => {
             const req = {
                 session: {

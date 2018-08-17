@@ -45,7 +45,6 @@ router.use((req, res, next) => {
     const isHardStop = formdata => config.hardStopParams.some(param => get(formdata, param) === commonContent.no);
     const executorsWrapper = new ExecutorsWrapper(formdata.executors);
     const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
-    const executorsEmailChanged = executorsWrapper.hasExecutorsEmailChanged();
 
     if (get(formdata, 'submissionReference') &&
         !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
@@ -66,7 +65,7 @@ router.use((req, res, next) => {
     ) {
         res.redirect('tasklist');
     } else if (get(formdata, 'declaration.declarationCheckbox') &&
-        (!hasMultipleApplicants || !executorsEmailChanged) &&
+        (!hasMultipleApplicants || !(get(formdata, 'executors.executorsEmailChanged'))) &&
             isEqual('/executors-update-invite', req.originalUrl)
     ) {
         res.redirect('tasklist');

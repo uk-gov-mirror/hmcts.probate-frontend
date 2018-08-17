@@ -136,9 +136,9 @@ const updateInviteData = (inviteId, data) => {
     return utils.fetchJson(findInviteLinkUrl, fetchOptions);
 };
 
-const sendInvite = (data, sessionID, exec, inviteId) => {
+const sendInvite = (data, sessionID, exec) => {
     logger.info('send invite');
-    const urlParameter = inviteId ? `/${inviteId}` : '';
+    const urlParameter = exec.inviteId ? `/${exec.inviteId}` : '';
     const sendInviteUrl = FormatUrl.format(VALIDATION_SERVICE_URL, `/invite${urlParameter}`);
     const headers = {'Content-Type': 'application/json', 'Session-Id': sessionID};
     const fetchOptions = utils.fetchOptions(data, 'POST', headers);

@@ -19,6 +19,7 @@ class ExecutorsUpdateInvite extends ValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
+        delete ctx.executorsEmailChanged;
         delete ctx.executorsEmailChangedList;
         delete ctx.notifyExecutorsSuffix;
         return [ctx, formdata];

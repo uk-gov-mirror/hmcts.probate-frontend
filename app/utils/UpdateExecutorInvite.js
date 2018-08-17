@@ -24,7 +24,7 @@ class UpdateExecutorInvite {
                         leadExecutorName: FormatName.format(formdata.applicant)
                     }
                 };
-                return services.sendInvite(data, session.id, exec, exec.inviteId);
+                return services.sendInvite(data, session.id, exec);
             });
         return Promise.all(promises).then(result => {
             if (result.some(r => r.name === 'Error')) {

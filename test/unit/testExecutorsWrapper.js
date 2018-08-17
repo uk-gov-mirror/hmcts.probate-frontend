@@ -498,18 +498,19 @@ describe('Executors.js', () => {
             done();
         });
 
+        it('when no executors emails have changed', (done) => {
+            delete data.list[2].emailChanged;
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.removeExecutorsEmailChangedFlag()).to.deep.equal([
+                {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                {fullname: 'ed brown', hasOtherName: true},
+                {fullname: 'jake smith'},
+                {fullname: 'bob smith'}
+            ]);
+            done();
+        });
+
         describe('should return an empty list', () => {
-            it('when no executors emails have changed', (done) => {
-                delete data.list[2].emailChanged;
-                const executorsWrapper = new ExecutorsWrapper(data);
-                expect(executorsWrapper.removeExecutorsEmailChangedFlag()).to.deep.equal([
-                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullname: 'ed brown', hasOtherName: true},
-                    {fullname: 'jake smith'},
-                    {fullname: 'bob smith'}
-                ]);
-                done();
-            });
 
             it('when there is no executor data', (done) => {
                 const data = {};
