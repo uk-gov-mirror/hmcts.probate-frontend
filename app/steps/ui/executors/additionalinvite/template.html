@@ -6,7 +6,15 @@
 
 {% block form_content %}
 
-<p>{{content.paragraph1 | safe}}</p>
+<p>
+    {% for executor in fields.executorsToNotifyList.value %}
+    {% if fields.executorsToNotifyList.value.length > 1 and loop.last %}
+    {{content.and}}
+    {% endif %}
+    {{executor.fullName}}
+    {% endfor %}
+    {{content.paragraph1 | safe}}
+</p>
 <p class="panel panel-border-wide">{{content.paragraph2 | safe}}</p>
 
 <h2 class="heading-medium">{{content.heading1 | safe}}</h2>
