@@ -20,8 +20,8 @@ describe('will-left', () => {
         it('test right content loaded on the page', (done) => {
             const excludeKeys = [];
             const contentData = {
-                he1lpTitle: 'D1o you need help?',
-                contactTelNo: 'Phone: 0300 303 0648 (Monday to Friday 9am to 5pm)',
+                helpTitle: 'Do you need help?',
+                contactTelNo: 'Phone: 0300 303 0648 (Monday to Friday, 9am to 5pm)',
                 helpEmailLabel: 'Email:',
                 contactEmailAddress: 'oxforddprenquiries@hmcts.gsi.gov.uk'
             };
