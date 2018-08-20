@@ -37,6 +37,6 @@
   "helpText" : "You can call or email us if you're having problems with this service.",
   "contactTelLabel" : "Phone: {helpLineNumber}",
   "contactOpeningTimes" : "({openingTimes})",
-  "helpEmailLabel" : "Email: ",
+  "helpEmailLabel" : "Email:",
   "contactEmailAddress" : "<a href=\"mailto:oxforddprenquiries@hmcts.gsi.gov.uk\">oxforddprenquiries@hmcts.gsi.gov.uk</a>"
 }
