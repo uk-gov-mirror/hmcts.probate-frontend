@@ -57,6 +57,13 @@ class PaymentBreakdown extends Step {
 
     * handlePost(ctx, errors, formdata, session, hostname) {
         if (formdata.paymentPending !== 'unknown') {
+            // New code to create case
+            errors = yield this.createApplication(ctx, errors, formdata);
+            if (errors > 0) {
+                logger.error('Failed to create case in CCD.');
+                return [ctx, errors];
+            }
+
             if (ctx.total > 0) {
                 formdata.paymentPending = 'true';
 
@@ -115,11 +122,41 @@ class PaymentBreakdown extends Step {
         return [['true', 'false'].includes(formdata.paymentPending), 'inProgress'];
     }
 
+    * createApplication(ctx, errors, formdata) {
+        const createData = {};
+        const softStop = this.anySoftStops(formdata, ctx) ? 'softStop' : false;
+        Object.assign(createData, formdata);
+
+        const result = yield services.createApplication(createData, ctx, softStop);
+
+        if (result.name === 'Error' || result === 'DUPLICATE_SUBMISSION') {
+            const keyword = result === 'DUPLICATE_SUBMISSION' ? 'duplicate' : 'failure';
+            errors.push(FieldError('create', keyword, this.resourcePath, ctx));
+            return errors;
+        }
+
+        logger.info({tags: 'Analytics'}, 'Application Case Created');
+        formdata.submissionReference = result.submissionReference;
+        formdata.registry = result.registry;
+
+        const saveResult = yield this.persistFormData(ctx.regId, formdata, ctx.sessionId);
+
+        if (saveResult.name === 'Error') {
+            logger.error('Could not persist user data', saveResult.message);
+        } else {
+            logger.info('Successfully persisted user data');
+        }
+
+        return errors;
+    }
+
+
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.authToken;
         delete ctx.paymentError;
         delete ctx.deceasedLastName;
+        delete ctx.submissionReference;    
         return [ctx, formdata];
     }
 }

@@ -52,6 +52,21 @@ const validateFormData = (data, sessionID) => {
     return utils.fetchJson(`${VALIDATION_SERVICE_URL}`, fetchOptions);
 };
 
+const createApplication = (data, ctx, softStop) => {
+    logger.info('createApplication');
+    const headers = {
+        'Content-Type': 'application/json',
+        'Session-Id': ctx.sessionID,
+        'Authorization': ctx.authToken,
+        'UserId': ctx.userId
+    };
+    const body = submitData(ctx, data);
+    body.softStop = softStop;
+    body.applicantEmail = data.applicantEmail;
+    const fetchOptions = utils.fetchOptions({submitdata: body}, 'POST', headers);
+    return utils.fetchJson(`${SUBMIT_SERVICE_URL}`, fetchOptions);
+};
+
 const submitApplication = (data, ctx, softStop) => {
     logger.info('submitApplication');
     const headers = {
@@ -219,6 +234,7 @@ module.exports = {
     getUserDetails,
     findAddress,
     validateFormData,
+    createApplication,
     submitApplication,
     loadFormData,
     saveFormData,
