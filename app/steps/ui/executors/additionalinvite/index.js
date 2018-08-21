@@ -13,13 +13,12 @@ class ExecutorsAdditionalInvite extends ValidationStep {
         const formdata = req.session.form;
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         ctx.executorsToNotifyList = executorsWrapper.executorsToNotifyList();
-        ctx.inviteSuffix = ctx.executorsToNotifyList > 1 ? '-multiple' : '';
+        ctx.inviteSuffix = ctx.executorsToNotifyList.length > 1 ? '-multiple' : '';
         return ctx;
     }
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
-        delete ctx.executorsToNotifyList;
         delete ctx.inviteSuffix;
         return [ctx, formdata];
     }

@@ -520,4 +520,77 @@ describe('Executors.js', () => {
             });
         });
     });
+
+    describe('executorsToNotify()', () => {
+        beforeEach(() => {
+            data = {
+                list: [
+                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                    {fullname: 'ed brown', isApplying: true, emailSent: true},
+                    {fullname: 'jake smith', isApplying: true, emailSent: false},
+                    {fullname: 'bob smith', isApplying: true, emailSent: true}
+                ]
+            };
+        });
+
+        describe('should return true', () => {
+        });
+
+        describe('should return false', () => {
+        });
+    });
+
+    describe('executorsToNotifyList()', () => {
+        beforeEach(() => {
+            data = {
+                list: [
+                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                    {fullname: 'ed brown', isApplying: true, emailSent: true},
+                    {fullname: 'jake smith', isApplying: true, emailSent: false},
+                    {fullname: 'bob smith', isApplying: true, emailSent: true}
+                ]
+            };
+        });
+
+        it('should return a list with only a single executor', (done) => {
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.executorsToNotifyList()).to.deep.equal([
+                {fullname: 'jake smith', isApplying: true, emailSent: false}
+            ]);
+            done();
+        });
+
+        it('should return a list with two executors who have been added', (done) => {
+            data.list[3].emailSent = false;
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.executorsToNotifyList()).to.deep.equal([
+                {fullname: 'jake smith', isApplying: true, emailSent: false},
+                {fullname: 'bob smith', isApplying: true, emailSent: false}
+            ]);
+            done();
+        });
+
+        it('should return an empty list when no executors have been added and need to notified', (done) => {
+            data.list[2].emailSent = true;
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.executorsToNotifyList()).to.deep.equal([]);
+            done();
+        });
+
+        describe('should return an empty list', () => {
+            it('when there is no executor data', (done) => {
+                data.list[2].emailSent = true;
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorsToNotifyList()).to.deep.equal([]);
+                done();
+            });
+
+            it('when there is no executor data', (done) => {
+                const data = {};
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorsToNotifyList()).to.deep.equal([]);
+                done();
+            });
+        });
+    });
 });

@@ -4,7 +4,7 @@
     {% include "includes/phase_banner_beta.html" %}
     <div class="grid-row">
         <div class="column-two-thirds">
-            <h1 class="form-title heading-large">{{content.header | safe}}</h1>
+            <h1 class="form-title heading-large">{{content["header" + fields.inviteSuffix.value] | safe}}</h1>
             <p>{{content.paragraph1 | safe}}</p>
             <p>{{content.paragraph2 | safe}}</p>
             <h2 class="heading-medium">{{content.heading1  | safe}}</h2>
