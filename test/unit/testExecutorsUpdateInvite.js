@@ -7,7 +7,7 @@ describe('Update-Invite', function () {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
     const updateInvite = steps.ExecutorsUpdateInvite;
 
-    describe('getContextData', () => {
+    describe('getUrl()', () => {
         it('test correct url is returned from getUrl function', () => {
             assert.equal(updateInvite.constructor.getUrl(), '/executors-update-invite');
         });
@@ -75,6 +75,31 @@ describe('Update-Invite', function () {
             ]);
             expect(ctx.notifyExecutorsSuffix).to.deep.equal('');
             done();
+        });
+    });
+
+    describe('action()', () => {
+        it('test that context variables are removed and empty object returned', () => {
+            let formdata = {};
+            let ctx = {
+                executorsEmailChanged: true,
+                executorsEmailChangedList: true,
+                notifyExecutorsSuffix: '-multiple'
+            };
+            [ctx, formdata] = updateInvite.action(ctx, formdata);
+            expect(ctx).to.deep.equal({});
+        });
+
+        it('test that context variables are removed and object contains only appropriate variables', () => {
+            let formdata = {};
+            let ctx = {
+                executorsEmailChanged: true,
+                executorsEmailChangedList: true,
+                notifyExecutorsSuffix: '-multiple',
+                invitesSent: 'true'
+            };
+            [ctx, formdata] = updateInvite.action(ctx, formdata);
+            expect(ctx).to.deep.equal({invitesSent: 'true'});
         });
     });
 });
