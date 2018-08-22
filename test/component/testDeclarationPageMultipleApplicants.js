@@ -45,7 +45,7 @@ describe('declaration, multiple applicants', () => {
         testWrapper.destroy();
     });
 
-    describe.only('Verify Content, Errors and Redirection', () => {
+    describe('Verify Content, Errors and Redirection', () => {
         it('test right content loaded on the page with multiple applicants, deceased has three other names, no codicils', (done) => {
             const contentToExclude = [
                 'executorApplyingName-codicils',

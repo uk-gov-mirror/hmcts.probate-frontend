@@ -2,7 +2,7 @@
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
 
-describe.only('Executor-Additional-Invite', function () {
+describe('Executor-Additional-Invite', function () {
     let ctx;
     let req;
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
@@ -20,11 +20,9 @@ describe.only('Executor-Additional-Invite', function () {
             };
         });
 
-        it('test that context variables are removed and empty object returned', () => {
+        it('test that context variables are correctly populated for single executor to be notified', () => {
             req.session.form.executors = {
-                list: [
-                    {'fullName': 'john', 'isApplying': true, 'isApplicant': true},
-                    {'fullName': 'other applicant', 'isApplying': true, 'emailSent': true},
+                executorsToNotifyList: [
                     {'fullName': 'harvey', 'isApplying': true, 'emailSent': false}]
             };
             ctx = executorsAdditionalInvite.getContextData(req);
@@ -37,31 +35,13 @@ describe.only('Executor-Additional-Invite', function () {
                     }
                 ],
                 'inviteSuffix': '',
-                'list': [
-                    {
-                        'fullName': 'john',
-                        'isApplicant': true,
-                        'isApplying': true
-                    },
-                    {
-                        'emailSent': true,
-                        'fullName': 'other applicant',
-                        'isApplying': true
-                    },
-                    {
-                        'emailSent': false,
-                        'fullName': 'harvey',
-                        'isApplying': true
-                    }
-                ],
                 'sessionID': 'dummy_sessionId'
             });
         });
 
-        it('test that context variables are removed and object contains only appropriate variables', () => {
+        it('test that context variables are correctly populated for multiple executors to be notified', () => {
             req.session.form.executors = {
-                list: [
-                    {'fullName': 'john', 'isApplying': true, 'isApplicant': true},
+                executorsToNotifyList: [
                     {'fullName': 'other applicant', 'isApplying': true, 'emailSent': false},
                     {'fullName': 'harvey', 'isApplying': true, 'emailSent': false}
                 ]
@@ -81,23 +61,6 @@ describe.only('Executor-Additional-Invite', function () {
                     }
                 ],
                 'inviteSuffix': '-multiple',
-                'list': [
-                    {
-                        'fullName': 'john',
-                        'isApplicant': true,
-                        'isApplying': true
-                    },
-                    {
-                        'emailSent': false,
-                        'fullName': 'other applicant',
-                        'isApplying': true
-                    },
-                    {
-                        'emailSent': false,
-                        'fullName': 'harvey',
-                        'isApplying': true
-                    }
-                ],
                 'sessionID': 'dummy_sessionId'
             });
         });

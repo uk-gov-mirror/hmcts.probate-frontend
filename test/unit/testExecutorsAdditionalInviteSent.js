@@ -76,16 +76,32 @@ describe('Executor-Additional-Invite-Sent', function () {
         });
 
         it('test that context variables are removed and empty object returned', () => {
-            let formdata = {};
+            let formdata = {
+                executors: {
+                    executorsToNotifyList: [
+                        {'fullName': 'other applicant', 'isApplying': true},
+                        {'fullName': 'harvey', 'isApplying': true}
+                    ]
+                }
+            };
             [ctx, formdata] = executorsAdditionalInviteSent.action(ctx, formdata);
             expect(ctx).to.deep.equal({});
+            expect(formdata).to.deep.equal({'executors': {}});
         });
 
         it('test that context variables are removed and object contains only appropriate variables', () => {
-            let formdata = {};
+            let formdata = {
+                executors: {
+                    executorsToNotifyList: [
+                        {'fullName': 'other applicant', 'isApplying': true},
+                        {'fullName': 'harvey', 'isApplying': true}
+                    ]
+                }
+            };
             ctx.invitesSent = 'true';
             [ctx, formdata] = executorsAdditionalInviteSent.action(ctx, formdata);
             expect(ctx).to.deep.equal({invitesSent: 'true'});
+            expect(formdata).to.deep.equal({'executors': {}});
         });
     });
 });

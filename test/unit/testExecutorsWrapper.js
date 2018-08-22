@@ -534,9 +534,34 @@ describe('Executors.js', () => {
         });
 
         describe('should return true', () => {
+            it('when only a single executor needs to be notified', (done) => {
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorsToNotify()).to.deep.equal(true);
+                done();
+            });
+
+            it('when only two executors needs to be notified', (done) => {
+                data.list[3].emailSent = false;
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorsToNotify()).to.deep.equal(true);
+                done();
+            });
         });
 
         describe('should return false', () => {
+            it('when there is no executor data', (done) => {
+                const data = {};
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorsToNotify()).to.deep.equal(false);
+                done();
+            });
+
+            it('when no executors need to notified', (done) => {
+                data.list[2].emailSent = true;
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorsToNotify()).to.deep.equal(false);
+                done();
+            });
         });
     });
 

@@ -1,6 +1,5 @@
 'use strict';
 const ValidationStep = require('app/core/steps/ValidationStep');
-const ExecutorsWrapper = require('app/wrappers/Executors');
 
 class ExecutorsAdditionalInvite extends ValidationStep {
 
@@ -10,9 +9,8 @@ class ExecutorsAdditionalInvite extends ValidationStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
-        const formdata = req.session.form;
-        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
-        ctx.executorsToNotifyList = executorsWrapper.executorsToNotifyList();
+        const executors = req.session.form.executors;
+        ctx.executorsToNotifyList = executors.executorsToNotifyList;
         ctx.inviteSuffix = ctx.executorsToNotifyList.length > 1 ? '-multiple' : '';
         return ctx;
     }

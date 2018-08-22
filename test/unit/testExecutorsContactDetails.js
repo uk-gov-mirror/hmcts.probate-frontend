@@ -35,7 +35,8 @@ describe('Contact-Details', function () {
                         fullName: 'Billy Jean',
                         isApplying: true,
                         email: 'testemail@gmail.com',
-                        mobile: '07567567567'
+                        mobile: '07567567567',
+                        emailSent: true
                     }
                 ],
                 invitesSent: 'true',
@@ -55,9 +56,21 @@ describe('Contact-Details', function () {
 
         it('test emailChanged flag is correctly set and contact details updated', (done) => {
             co(function* () {
+                ctx.list[1].inviteId = 'dummy_inviteId';
+                ctx.list[1].emailChanged = true;
                 [ctx, errors] = yield contactDetails.handlePost(ctx, errors);
                 expect(ctx).to.deep.equal({
                     executorsNumber: 3,
+                    executorsToNotifyList: [
+                        {
+                            email: 'newtestemail@gmail.com',
+                            fullName: 'Bob Cratchett',
+                            inviteId: 'dummy_inviteId',
+                            emailChanged: true,
+                            isApplying: true,
+                            mobile: '07321321321'
+                        }
+                    ],
                     list: [
                         {
                             firstName: 'Lead',
@@ -70,13 +83,15 @@ describe('Contact-Details', function () {
                             isApplying: true,
                             email: 'newtestemail@gmail.com',
                             mobile: '07321321321',
-                            emailChanged: true
+                            emailChanged: true,
+                            inviteId: 'dummy_inviteId'
                         },
                         {
                             fullName: 'Billy Jean',
                             isApplying: true,
                             email: 'testemail@gmail.com',
-                            mobile: '07567567567'
+                            mobile: '07567567567',
+                            emailSent: true
                         }
                     ],
                     invitesSent: 'true',
@@ -94,6 +109,66 @@ describe('Contact-Details', function () {
             });
         });
 
+        it('test emailChanged flag is correctly set, executorToBeNotifiedList is populated and contact details updated', (done) => {
+            ctx.list[1].emailSent = false;
+            ctx.list[2].emailSent = false;
+            co(function* () {
+                [ctx, errors] = yield contactDetails.handlePost(ctx, errors);
+                expect(ctx).to.deep.equal({
+                    executorsNumber: 3,
+                    executorsToNotifyList: [
+                        {
+                            email: 'newtestemail@gmail.com',
+                            emailSent: false,
+                            fullName: 'Bob Cratchett',
+                            isApplying: true,
+                            mobile: '07321321321'
+                        },
+                        {
+                            email: 'testemail@gmail.com',
+                            emailSent: false,
+                            fullName: 'Billy Jean',
+                            isApplying: true,
+                            mobile: '07567567567'
+                        }
+                    ],
+                    list: [
+                        {
+                            firstName: 'Lead',
+                            lastName: 'Applicant',
+                            isApplying: true,
+                            isApplicant: true
+                        },
+                        {
+                            fullName: 'Bob Cratchett',
+                            isApplying: true,
+                            email: 'newtestemail@gmail.com',
+                            mobile: '07321321321',
+                            emailSent: false
+                        },
+                        {
+                            fullName: 'Billy Jean',
+                            isApplying: true,
+                            email: 'testemail@gmail.com',
+                            mobile: '07567567567',
+                            emailSent: false
+                        }
+                    ],
+                    invitesSent: 'true',
+                    otherExecutorsApplying: 'Yes',
+                    email: 'newtestemail@gmail.com',
+                    mobile: '07321321321',
+                    index: 1,
+                    otherExecName: 'Bob Cratchett',
+                    executorsEmailChanged: false
+                });
+                done();
+            })
+                .catch((err) => {
+                    done(err);
+                });
+        });
+
         it('test emailChanged flag is correctly set and contact details updated and the updateContactDetails service is called', (done) => {
             updateContactDetailsStub.returns(when(Promise.resolve({response: 'Make it pass!'})));
             ctx.list[1].inviteId = 'dummy_inviteId';
@@ -104,6 +179,7 @@ describe('Contact-Details', function () {
                 [ctx, errors] = yield contactDetails.handlePost(ctx, errors);
                 expect(ctx).to.deep.equal({
                 executorsNumber: 3,
+                executorsToNotifyList: [],
                 list: [
                     {
                         firstName: 'Lead',
@@ -124,7 +200,8 @@ describe('Contact-Details', function () {
                         fullName: 'Billy Jean',
                         isApplying: true,
                         email: 'testemail@gmail.com',
-                        mobile: '07567567567'
+                        mobile: '07567567567',
+                        emailSent: true
                     }
                 ],
                 invitesSent: 'true',

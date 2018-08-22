@@ -30,6 +30,9 @@ describe('executors-additional-invite', () => {
             sessionData.executors.list[1].emailSent = false;
             sessionData.executors.list[2].emailSent = true;
             sessionData.executors.list[2].isApplying = true;
+            sessionData.executors.executorsToNotifyList = [
+                {'fullName': 'Andrew Wiles', 'isApplying': true, 'emailSent': false},
+            ];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -41,6 +44,10 @@ describe('executors-additional-invite', () => {
             sessionData.executors.list[1].emailSent = false;
             sessionData.executors.list[2].emailSent = false;
             sessionData.executors.list[2].isApplying = true;
+            sessionData.executors.executorsToNotifyList = [
+                {'fullName': 'Andrew Wiles', 'isApplying': true, 'emailSent': false},
+                {'fullName': 'Leonhard Euler', 'isApplying': true, 'emailSent': false}
+            ];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -52,6 +59,10 @@ describe('executors-additional-invite', () => {
             sessionData.executors.list[1].emailSent = false;
             sessionData.executors.list[2].emailSent = false;
             sessionData.executors.list[2].isApplying = true;
+            sessionData.executors.executorsToNotifyList = [
+                {'fullName': 'Andrew Wiles', 'isApplying': true, 'emailSent': false},
+                {'fullName': 'Leonhard Euler', 'isApplying': true, 'emailSent': false}
+            ];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -69,6 +80,9 @@ describe('executors-additional-invite', () => {
             sessionData.executors.list[1].emailSent = false;
             sessionData.executors.list[2].emailSent = true;
             sessionData.executors.list[2].isApplying = true;
+            sessionData.executors.executorsToNotifyList = [
+                {'fullName': 'Andrew Wiles', 'isApplying': true, 'emailSent': false},
+            ];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -79,6 +93,37 @@ describe('executors-additional-invite', () => {
                             assert(!response.text.includes('Pierre de Fermat'));
                             done();
                         });
+                });
+        });
+
+        it('test an error page is rendered if there is an error calling invite service', (done) => {
+            sendInvitesStub.returns(when(Promise.resolve(new Error('ReferenceError'))));
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.agent.post(testWrapper.pageUrl)
+                        .then(response => {
+                            assert(response.status === 500);
+                            assert(response.text.includes('Sorry, we&rsquo;re having technical problems'));
+                            assert(sendInvitesStub.calledOnce, 'Send Invite function called');
+                            done();
+                        })
+                        .catch(err => {
+                            done(err);
+                        });
+                });
+        });
+
+        it(`test it redirects to next page: ${expectedNextUrlForExecutorsAdditionalInviteSent}`, (done) => {
+            sendInvitesStub.returns(when(Promise.resolve({response: 'Make it pass!'})));
+            const data = {};
+            sessionData.executors.executorsToNotifyList = [
+                {'fullName': 'Andrew Wiles', 'isApplying': true, 'emailSent': false},
+            ];
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, data, expectedNextUrlForExecutorsAdditionalInviteSent);
                 });
         });
     });

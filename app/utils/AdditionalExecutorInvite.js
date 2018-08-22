@@ -1,5 +1,4 @@
 'use strict';
-
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const services = require('app/components/services');
 const FormatName = require('app/utils/FormatName');

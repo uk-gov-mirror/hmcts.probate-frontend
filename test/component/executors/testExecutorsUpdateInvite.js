@@ -87,5 +87,24 @@ describe('executors-update-invite', () => {
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecutorsUpdateInviteSent);
                 });
         });
+
+        it('test an error page is rendered if there is an error calling invite service', (done) => {
+            sendInvitesStub.returns(when(Promise.resolve(new Error('ReferenceError'))));
+            sessionData.executors.list[1].emailChanged = true;
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.agent.post(testWrapper.pageUrl)
+                        .then(response => {
+                            assert(response.status === 500);
+                            assert(response.text.includes('Sorry, we&rsquo;re having technical problems'));
+                            assert(sendInvitesStub.calledOnce, 'Send Invite function called');
+                            done();
+                        })
+                        .catch(err => {
+                            done(err);
+                        });
+                });
+        });
     });
 });
