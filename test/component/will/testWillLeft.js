@@ -17,16 +17,8 @@ describe('will-left', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        it('test right content loaded on the page', (done) => {
-            const excludeKeys = [];
-            const contentData = {
-                helpTitle: 'Do you need help?',
-                contactTelNo: 'Phone: 0300 303 0648 (Monday to Friday, 9am to 5pm)',
-                helpEmailLabel: 'Email:',
-                contactEmailAddress: 'oxforddprenquiries@hmcts.gsi.gov.uk'
-            };
-
-            testWrapper.testContent(done, excludeKeys, contentData);
+        it('Test help block content is loaded on page', (done) => {
+            testWrapper.importTest('test/component/common/testHelpBlockContent.js', 'helpBlockContentTest', testWrapper, done);
         });
 
         it('test errors message displayed for missing data', (done) => {

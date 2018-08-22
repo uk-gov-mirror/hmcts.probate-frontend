@@ -9,7 +9,6 @@ describe('executors-alias', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsAlias');
-
     });
 
     afterEach(() => {
