@@ -57,13 +57,12 @@ class PaymentBreakdown extends Step {
 
     * handlePost(ctx, errors, formdata, session, hostname) {
         if (formdata.paymentPending !== 'unknown') {
-            // New code to create case
-            errors = yield this.createApplication(ctx, errors, formdata);
             if (errors > 0) {
                 logger.error('Failed to create case in CCD.');
                 return [ctx, errors];
             }
 
+            errors = yield this.createApplication(ctx, errors, formdata, ctx.total);
             if (ctx.total > 0) {
                 formdata.paymentPending = 'true';
 
@@ -122,11 +121,11 @@ class PaymentBreakdown extends Step {
         return [['true', 'false'].includes(formdata.paymentPending), 'inProgress'];
     }
 
-    * createApplication(ctx, errors, formdata) {
+    * createApplication(ctx, errors, formdata, total) {
         const createData = {};
         const softStop = this.anySoftStops(formdata, ctx) ? 'softStop' : false;
+        formdata.payment = {total : total};
         Object.assign(createData, formdata);
-
         const result = yield services.createApplication(createData, ctx, softStop);
 
         if (result.name === 'Error' || result === 'DUPLICATE_SUBMISSION') {

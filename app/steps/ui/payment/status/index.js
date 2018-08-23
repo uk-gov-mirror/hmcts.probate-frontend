@@ -73,11 +73,11 @@ module.exports = class PaymentStatus extends Step {
             } else {
                 options.redirect = false;
                 formdata.paymentPending = 'false';
-                options.errors = yield this.sendApplication(ctx, formdata);
+                //options.errors = yield this.sendApplication(ctx, formdata);
             }
         } else {
             options.redirect = false;
-            options.errors = yield this.sendApplication(ctx, formdata);
+            //options.errors = yield this.sendApplication(ctx, formdata);
         }
 
         return options;
