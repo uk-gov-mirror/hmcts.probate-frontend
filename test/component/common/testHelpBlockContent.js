@@ -4,7 +4,7 @@ const common = require('app/resources/en/translation/common.json');
 const config = require('app/config');
 
 class TestHelpBlockContent {
-    runTest(name, testWrapper, done) {
+    static runTest(name, testWrapper, done) {
         describe(name, () => {
             testWrapper.agent.get(testWrapper.pageUrl)
                 .then(() => {
@@ -25,6 +25,6 @@ class TestHelpBlockContent {
     }
 }
 
-module.exports = (name, testWrapper, done) => {
-    return new TestHelpBlockContent(name, testWrapper, done);
+module.exports = () => {
+    return TestHelpBlockContent;
 };
