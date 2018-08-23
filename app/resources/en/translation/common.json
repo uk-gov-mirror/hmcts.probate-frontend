@@ -34,7 +34,7 @@
   "fourth" : "Fourth",
   "fifth" : "Fifth",
   "helpTitle" : "Do you need help?",
-  "helpText" : "You can call or email us if you're having problems with this service.",
+  "helpText" : "You can call or email us if you&rsquo;re having problems with this service.",
   "contactTelLabel" : "Phone: {helpLineNumber}",
   "contactOpeningTimes" : "({openingTimes})",
   "helpEmailLabel" : "Email:",

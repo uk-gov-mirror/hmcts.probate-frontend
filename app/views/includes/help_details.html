@@ -2,7 +2,7 @@
     <details class="help-panel">
         <summary><span class="summary">{{common.helpTitle}}</span></summary>
         <div class="panel panel-border-narrow">
-            <p>{{common.helpText}}</p>
+            <p>{{common.helpText | safe}}</p>
             <p>{{common.contactTelLabel | replace('{helpLineNumber}', helpline.number)}} {{common.contactOpeningTimes | replace('{openingTimes}', helpline.hours)}}</p>
             <p>{{common.helpEmailLabel}} {{common.contactEmailAddress | safe }}</p>
         </div>
