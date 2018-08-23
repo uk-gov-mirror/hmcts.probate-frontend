@@ -1,5 +1,6 @@
 'use strict';
 const Step = require('app/core/steps/Step');
+const {size} = require('lodash');
 
 class ExecutorsAdditionalInviteSent extends Step {
 
@@ -9,9 +10,7 @@ class ExecutorsAdditionalInviteSent extends Step {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
-        const executors = req.session.form.executors;
-        ctx.executorsToNotifyList = executors.executorsToNotifyList;
-        ctx.inviteSuffix = ctx.executorsToNotifyList.length > 1 ? '-multiple' : '';
+        ctx.inviteSuffix = size(ctx.executorsToNotifyList) > 1 ? '-multiple' : '';
         return ctx;
     }
 

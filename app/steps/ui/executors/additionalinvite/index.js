@@ -1,5 +1,6 @@
 'use strict';
 const ValidationStep = require('app/core/steps/ValidationStep');
+const {size} = require('lodash');
 
 class ExecutorsAdditionalInvite extends ValidationStep {
 
@@ -9,9 +10,7 @@ class ExecutorsAdditionalInvite extends ValidationStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
-        const executors = req.session.form.executors;
-        ctx.executorsToNotifyList = executors.executorsToNotifyList;
-        ctx.inviteSuffix = ctx.executorsToNotifyList.length > 1 ? '-multiple' : '';
+        ctx.inviteSuffix = size(ctx.executorsToNotifyList) > 1 ? '-multiple' : '';
         return ctx;
     }
 

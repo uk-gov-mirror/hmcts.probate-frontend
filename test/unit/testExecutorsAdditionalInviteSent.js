@@ -20,7 +20,7 @@ describe('Executor-Additional-Invite-Sent', function () {
             };
         });
 
-        it('test that context variables are removed and empty object returned', () => {
+        it('test that inviteSuffix is correctly populated with empty string when only one executor is to be notified', () => {
             req.session.form.executors = {
                 executorsToNotifyList: [
                     {'fullName': 'other applicant', 'isApplying': true}
@@ -39,7 +39,7 @@ describe('Executor-Additional-Invite-Sent', function () {
             });
         });
 
-        it('test that context variables are removed and object contains only appropriate variables', () => {
+        it('test that inviteSuffix is correctly populated with -multiples when more than one executor is to be notified', () => {
             req.session.form.executors = {
                 executorsToNotifyList: [
                     {'fullName': 'other applicant', 'isApplying': true},

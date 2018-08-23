@@ -54,7 +54,7 @@ describe('Contact-Details', function () {
             updateContactDetailsStub.restore();
         });
 
-        it('test emailChanged flag is correctly set and contact details updated', (done) => {
+        it('test emailChanged flag is correctly set, executorToBeNotifiedList is correctly populated and contact details updated', (done) => {
             co(function* () {
                 ctx.list[1].inviteId = 'dummy_inviteId';
                 ctx.list[1].emailChanged = true;
@@ -169,7 +169,7 @@ describe('Contact-Details', function () {
                 });
         });
 
-        it('test emailChanged flag is correctly set and contact details updated and the updateContactDetails service is called', (done) => {
+        it('test emailChanged flag is correctly set, executorToBeNotifiedList is empty, contact details updated and the updateContactDetails service is called', (done) => {
             updateContactDetailsStub.returns(when(Promise.resolve({response: 'Make it pass!'})));
             ctx.list[1].inviteId = 'dummy_inviteId';
             ctx.list[1].emailSent = true;
