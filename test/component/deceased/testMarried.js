@@ -15,6 +15,10 @@ describe('deceased-married', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
+        it('test help block content is loaded on page', (done) => {
+            testWrapper.importTest('test/component/common/testHelpBlockContent.js', 'helpBlockContentTest', testWrapper, done);
+        });
+
         it('test correct content is loaded on the page', (done) => {
             const sessionData = {
                 'deceased': {

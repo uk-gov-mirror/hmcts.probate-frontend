@@ -41,6 +41,11 @@ describe('executor-roles', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        it('test help block content is loaded on page', (done) => {
+            testWrapper.importTest('test/component/common/testHelpBlockContent.js', 'helpBlockContentTest', testWrapper, done);
+        });
+
         it('test correct content is loaded on executor applying page', (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

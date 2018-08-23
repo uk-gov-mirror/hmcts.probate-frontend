@@ -17,7 +17,7 @@ describe('will-left', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        it('Test help block content is loaded on page', (done) => {
+        it('test help block content is loaded on page', (done) => {
             testWrapper.importTest('test/component/common/testHelpBlockContent.js', 'helpBlockContentTest', testWrapper, done);
         });
 

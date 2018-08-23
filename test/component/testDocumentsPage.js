@@ -16,6 +16,11 @@ describe('documents-page', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        it('test help block content is loaded on page', (done) => {
+            testWrapper.importTest('test/component/common/testHelpBlockContent.js', 'helpBlockContentTest', testWrapper, done);
+        });
+
         it('test correct content loaded on the page, no codicils, single executor', (done) => {
             const sessionData = {
                 executors: {}

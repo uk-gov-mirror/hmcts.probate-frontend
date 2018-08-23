@@ -42,6 +42,11 @@ describe('declaration, multiple applicants', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        it('test help block content is loaded on page', (done) => {
+            testWrapper.importTest('test/component/common/testHelpBlockContent.js', 'helpBlockContentTest', testWrapper, done);
+        });
+
         it('test right content loaded on the page with multiple applicants, deceased has three other names, no codicils', (done) => {
             const contentToExclude = [
                 'executorApplyingName-codicils',

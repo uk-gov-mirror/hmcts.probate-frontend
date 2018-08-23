@@ -16,6 +16,10 @@ describe('iht-identifier', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
+        it('test help block content is loaded on page', (done) => {
+            testWrapper.importTest('test/component/common/testHelpBlockContent.js', 'helpBlockContentTest', testWrapper, done);
+        });
+
         it('test correct iht identifier page content is loaded', (done) => {
             const contentToExclude = [];
             testWrapper.testContent(done, contentToExclude);
