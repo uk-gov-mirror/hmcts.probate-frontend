@@ -1,7 +1,9 @@
+'use strict';
+
 const common = require('app/config');
 const {assert} = require('chai');
 
-class importedTest {
+class TestHelpBlockContent {
     runTest(name, testWrapper, done) {
         describe(name, () => {
             testWrapper.agent.get(testWrapper.pageUrl)
@@ -22,5 +24,5 @@ class importedTest {
 }
 
 module.exports = (name, testWrapper, done) => {
-    return new importedTest(name, testWrapper, done);
+    return new TestHelpBlockContent(name, testWrapper, done);
 };
