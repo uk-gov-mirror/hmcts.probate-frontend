@@ -2,20 +2,21 @@
 
 const common = require('app/resources/en/translation/common.json');
 const config = require('app/config');
-const {assert} = require('chai');
 
 class TestHelpBlockContent {
     runTest(name, testWrapper, done) {
         describe(name, () => {
             testWrapper.agent.get(testWrapper.pageUrl)
-                .then(response => {
-                    assert(response.text.includes(common.helpTitle));
-                    assert(response.text.includes(common.helpText));
-                    assert(response.text.includes(common.contactTelLabel.replace('{helpLineNumber}', config.helpline.number)));
-                    assert(response.text.includes(common.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours)));
-                    assert(response.text.includes(common.helpEmailLabel));
-                    assert(response.text.includes(common.contactEmailAddress));
-                    done();
+                .then(() => {
+                    const playbackData = {};
+                    playbackData.helpTitle = common.helpTitle;
+                    playbackData.helpText = common.helpText;
+                    playbackData.contactTelLabel = common.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
+                    playbackData.contactOpeningTimes = common.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
+                    playbackData.helpEmailLabel = common.helpEmailLabel;
+                    playbackData.contactEmailAddress = common.contactEmailAddress;
+
+                    testWrapper.testDataPlayback(done, playbackData);
                 })
                 .catch(err => {
                     done(err);
