@@ -77,10 +77,11 @@ class Executors {
         return this.executorsList.filter(executor => !executor.isApplying && executor.inviteId);
     }
 
-    removeExecutorsInviteId() {
+    removeExecutorsInviteData() {
         return this.executorsList.map(executor => {
             if (!executor.isApplying && executor.inviteId) {
                 delete executor.inviteId;
+                delete executor.emailSent;
             }
             return executor;
         });

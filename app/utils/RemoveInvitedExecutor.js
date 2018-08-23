@@ -21,7 +21,7 @@ class RemoveInvitedExecutor {
                 logger.error(`Error while deleting executor from invitedata table: ${result}`);
                 throw new Error('Error while deleting executor from invitedata table.');
             }
-            executors.list = executorsWrapper.removeExecutorsInviteId();
+            executors.list = executorsWrapper.removeExecutorsInviteData();
             delete executors.executorsRemoved;
             return executors;
         });

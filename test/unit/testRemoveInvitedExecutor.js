@@ -30,6 +30,7 @@ describe('RemoveInvitedExecutor.js', () => {
                     isApplying: false,
                     hasOtherName: false,
                     inviteId: 'dummy_inviteId_1',
+                    emailSent: true
                 }, {
                     fullName: 'executor_3_name',
                     isApplying: true,
@@ -40,6 +41,7 @@ describe('RemoveInvitedExecutor.js', () => {
                     address: 'exec_3_address\r\n',
                     freeTextAddress: 'exec_3_address\r\n',
                     inviteId: 'dummy_inviteId_2',
+                    emailSent: true
                 }, {
                     fullName: 'executor_4_name',
                     isDead: false,
@@ -48,6 +50,7 @@ describe('RemoveInvitedExecutor.js', () => {
                     notApplyingReason: 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)',
                     notApplyingKey: 'optionRenunciated',
                     inviteId: 'dummy_inviteId_3',
+                    emailSent: true
                 }],
                 allalive: 'No',
                 otherExecutorsApplying: 'Yes',
@@ -62,6 +65,7 @@ describe('RemoveInvitedExecutor.js', () => {
                     isApplying: false,
                     hasOtherName: false,
                     inviteId: 'dummy_inviteId_1',
+                    emailSent: true
                 }, {
                     fullName: 'executor_4_name',
                     isDead: false,
@@ -70,6 +74,7 @@ describe('RemoveInvitedExecutor.js', () => {
                     notApplyingReason: 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)',
                     notApplyingKey: 'optionRenunciated',
                     inviteId: 'dummy_inviteId_3',
+                    emailSent: true
                 }]
             };
         });
@@ -79,11 +84,52 @@ describe('RemoveInvitedExecutor.js', () => {
         });
 
         describe('when there are executors to remove', () => {
-            it('should delete executorsRemoved and inviteId for the non-applying executors', (done) => {
-                delete executors.list[1].inviteId;
-                delete executors.list[3].inviteId;
+            it('should delete executorsRemoved list as well as emailSent and inviteId for the non-applying executors', (done) => {
                 RemoveInvitedExecutor.remove(executors).then(res => {
-                    expect(res).to.deep.equal(executors);
+                    expect(res).to.deep.equal({
+                        'alias': 'Yes',
+                        'allalive': 'No',
+                        'executorsNumber': 4,
+                        'invitesSent': 'true',
+                        'list': [
+                            {
+                                'firstName': 'Bob Richard',
+                                'isApplicant': true,
+                                'isApplying': true,
+                                'lastName': 'Smith'
+                            },
+                            {
+                                'diedBefore': 'Yes',
+                                'fullName': 'executor_2_name',
+                                'hasOtherName': false,
+                                'isApplying': false,
+                                'isDead': true,
+                                'notApplyingKey': 'optionDiedBefore',
+                                'notApplyingReason': 'This executor died (before the person who has died)'
+                            },
+                            {
+                                'address': 'exec_3_address\r\n',
+                                'currentName': 'exec_3_new_name',
+                                'email': 'haji58@hotmail.co.uk',
+                                'emailSent': true,
+                                'freeTextAddress': 'exec_3_address\r\n',
+                                'fullName': 'executor_3_name',
+                                'hasOtherName': true,
+                                'inviteId': 'dummy_inviteId_2',
+                                'isApplying': true,
+                                'mobile': '07963723856'
+                            },
+                            {
+                                'fullName': 'executor_4_name',
+                                'hasOtherName': false,
+                                'isApplying': false,
+                                'isDead': false,
+                                'notApplyingKey': 'optionRenunciated',
+                                'notApplyingReason': 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)'
+                            }
+                        ],
+                        'otherExecutorsApplying': 'Yes'
+                    });
                     done();
                 })
                 .catch(err => {

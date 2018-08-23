@@ -446,20 +446,20 @@ describe('Executors.js', () => {
         });
     });
 
-    describe('removeExecutorsInviteId()', () => {
+    describe('removeExecutorsInviteData()', () => {
         it('should remove the inviteId of Executors who are not applying', (done) => {
             const data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullName: 'ed brown', isApplying: true, inviteId: 'invite_123'},
-                    {fullName: 'bob brown', isApplying: false, inviteId: 'invite_456'},
-                    {fullName: 'steve brown', isApplying: false, inviteId: 'invite_789'}
+                    {fullName: 'ed brown', isApplying: true, inviteId: 'invite_123', emailSent: true},
+                    {fullName: 'bob brown', isApplying: false, inviteId: 'invite_456', emailSent: true},
+                    {fullName: 'steve brown', isApplying: false, inviteId: 'invite_789', emailSent: true}
                 ]
             };
             const executorsWrapper = new ExecutorsWrapper(data);
-            expect(executorsWrapper.removeExecutorsInviteId()).to.deep.equal([
+            expect(executorsWrapper.removeExecutorsInviteData()).to.deep.equal([
                 {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                {fullName: 'ed brown', isApplying: true, inviteId: 'invite_123'},
+                {fullName: 'ed brown', isApplying: true, inviteId: 'invite_123', emailSent: true},
                 {fullName: 'bob brown', isApplying: false},
                 {fullName: 'steve brown', isApplying: false}
             ]);
