@@ -1,9 +1,12 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsInvite = require('app/steps/ui/executors/invite/index');
 const ExecutorsUpdateInvite = require('app/steps/ui/executors/updateinvite/index');
 const ExecutorsAdditionalInvite = require('app/steps/ui/executors/additionalinvite/index');
 const ExecutorsChangeMade = require('app/steps/ui/executors/changemade/index');
 const Tasklist = require('app/steps/ui/tasklist/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('declaration, multiple applicants', () => {
     let testWrapper, contentData, sessionData;
@@ -47,9 +50,7 @@ describe('declaration, multiple applicants', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        it('test help block content is loaded on page', (done) => {
-            testWrapper.importTest('test/component/common/testHelpBlockContent.js', 'helpBlockContentTest', testWrapper, done);
-        });
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test right content loaded on the page with multiple applicants, deceased has three other names, no codicils', (done) => {
             const contentToExclude = [

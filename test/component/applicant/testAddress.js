@@ -1,7 +1,10 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsNumber = require('app/steps/ui/executors/number/index');
 const testAddressData = require('test/data/find-address');
 const formatAddress = address => address.replace(/\n/g, ' ');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('applicant-address', () => {
     let testWrapper;
@@ -17,9 +20,7 @@ describe('applicant-address', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        it('test help block content is loaded on page', (done) => {
-            testWrapper.importTest('test/component/common/testHelpBlockContent.js', 'helpBlockContentTest', testWrapper, done);
-        });
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test right content loaded on the page', (done) => {
             const excludeKeys = ['selectAddress'];

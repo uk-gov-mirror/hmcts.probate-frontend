@@ -1,3 +1,5 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const sinon = require('sinon');
 const when = require('when');
@@ -5,6 +7,7 @@ const {assert} = require('chai');
 const services = require('app/components/services');
 const CoApplicantStartPage = require('app/steps/ui/coapplicant/startpage/index');
 const commonContent = require('app/resources/en/translation/common');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('pin-page', () => {
     let testWrapper;
@@ -24,9 +27,7 @@ describe('pin-page', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        it('test help block content is loaded on page', (done) => {
-            testWrapper.importTest('test/component/common/testHelpBlockContent.js', 'helpBlockContentTest', testWrapper, done);
-        });
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test right content loaded on the page', (done) => {
             const excludeKeys = [];
