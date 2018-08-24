@@ -1,6 +1,8 @@
 'use strict';
-const TestWrapper = require('test/util/TestWrapper'),
-    ApplicantExecutor = require('app/steps/ui/applicant/executor/index');
+
+const TestWrapper = require('test/util/TestWrapper');
+const ApplicantExecutor = require('app/steps/ui/applicant/executor/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('iht-paper', () => {
     let testWrapper;
@@ -16,9 +18,7 @@ describe('iht-paper', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        it('test help block content is loaded on page', (done) => {
-            testWrapper.importTest('test/component/common/testHelpBlockContent.js', 'helpBlockContentTest', testWrapper, done);
-        });
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test correct iht paper page content is loaded', (done) => {
             const contentToExclude = [];

@@ -1,6 +1,9 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsDealingWithEstate = require('app/steps/ui/executors/dealingwithestate/index');
 const ExecutorRoles = require('app/steps/ui/executors/roles/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executorsapplying', () => {
     let testWrapper;
@@ -18,9 +21,7 @@ describe('executorsapplying', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        it('test help block content is loaded on page', (done) => {
-            testWrapper.importTest('test/component/common/testHelpBlockContent.js', 'helpBlockContentTest', testWrapper, done);
-        });
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);

@@ -1,6 +1,9 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedName = require('app/steps/ui/deceased/name/index');
 const ExecutorRoles = require('app/steps/ui/executors/roles/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executor-notified', () => {
     let testWrapper, sessionData;
@@ -28,9 +31,7 @@ describe('executor-notified', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        it('test help block content is loaded on page', (done) => {
-            testWrapper.importTest('test/component/common/testHelpBlockContent.js', 'helpBlockContentTest', testWrapper, done);
-        });
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test right content loaded on the page', (done) => {
 

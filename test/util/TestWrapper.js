@@ -32,11 +32,6 @@ module.exports = class TestWrapper {
         this.agent = request.agent(this.server.app);
     }
 
-    importTest(path, name, testWrapper, done) {
-        const importedTest = require(path)(name, testWrapper, done);
-        importedTest.runTest(name, testWrapper, done);
-    }
-
     testContent(done, excludeKeys = [], data) {
         const contentToCheck = cloneDeep(filter(this.content, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
         this.substituteContent(data, contentToCheck);

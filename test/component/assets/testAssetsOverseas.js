@@ -1,6 +1,9 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    CopiesOverseas = require('app/steps/ui/copies/overseas/index'),
-    CopiesSummary = require('app/steps/ui/copies/summary/index');
+'use strict';
+
+const TestWrapper = require('test/util/TestWrapper');
+const CopiesOverseas = require('app/steps/ui/copies/overseas/index');
+const CopiesSummary = require('app/steps/ui/copies/summary/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('assets-overseas', () => {
     let testWrapper;
@@ -17,9 +20,7 @@ describe('assets-overseas', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        it('test help block content is loaded on page', (done) => {
-            testWrapper.importTest('test/component/common/testHelpBlockContent.js', 'helpBlockContentTest', testWrapper, done);
-        });
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);

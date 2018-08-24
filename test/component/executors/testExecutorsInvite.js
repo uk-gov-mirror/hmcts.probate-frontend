@@ -1,9 +1,12 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const services = require('app/components/services');
 const sinon = require('sinon');
 const when = require('when');
 const {assert} = require('chai');
 const ExecutorsInvitesSent = require('app/steps/ui/executors/invitesent/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executors-invite', () => {
     let testWrapper;
@@ -23,9 +26,7 @@ describe('executors-invite', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        it('test help block content is loaded on page', (done) => {
-            testWrapper.importTest('test/component/common/testHelpBlockContent.js', 'helpBlockContentTest', testWrapper, done);
-        });
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test correct content loaded on the page when more than 1 other executor', (done) => {
             testWrapper.agent.post('/prepare-session/form')

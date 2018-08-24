@@ -1,7 +1,9 @@
 'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const DeathCertificate = require('app/steps/ui/deceased/deathcertificate/index');
 const CodicilsNumber = require('app/steps/ui/will/codicilsnumber/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('will-codicils', () => {
     let testWrapper;
@@ -18,9 +20,7 @@ describe('will-codicils', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        it('test help block content is loaded on page', (done) => {
-            testWrapper.importTest('test/component/common/testHelpBlockContent.js', 'helpBlockContentTest', testWrapper, done);
-        });
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test correct content loaded on the page', (done) => {
             const excludeKeys = [];

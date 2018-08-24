@@ -1,5 +1,8 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    ApplicantAddress = require('app/steps/ui/applicant/address/index');
+'use strict';
+
+const TestWrapper = require('test/util/TestWrapper');
+const ApplicantAddress = require('app/steps/ui/applicant/address/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('applicant-phone', () => {
     let testWrapper;
@@ -15,9 +18,7 @@ describe('applicant-phone', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        it('test help block content is loaded on page', (done) => {
-            testWrapper.importTest('test/component/common/testHelpBlockContent.js', 'helpBlockContentTest', testWrapper, done);
-        });
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);
