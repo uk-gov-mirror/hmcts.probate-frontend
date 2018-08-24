@@ -98,9 +98,10 @@ const createPayment = (data, hostname) => {
     const headers = {
         'Content-Type': 'application/json',
         'Authorization': data.authToken,
-        'ServiceAuthorization': data.serviceAuthToken
+        'ServiceAuthorization': data.serviceAuthToken,
+        'return-url': FormatUrl.format(hostname, '/payment-status')
     };
-    const body = paymentData.createPaymentData(data, hostname);
+    const body = paymentData.createPaymentData(data);
     const fetchOptions = utils.fetchOptions(body, 'POST', headers);
     const createPaymentUrl = CREATE_PAYMENT_SERVICE_URL.replace('userId', data.userId);
     return [utils.fetchJson(createPaymentUrl, fetchOptions), body.reference];
@@ -115,7 +116,7 @@ const findPayment = (data) => {
     };
 
     const fetchOptions = utils.fetchOptions(data, 'GET', headers);
-    const findPaymentUrl = `${CREATE_PAYMENT_SERVICE_URL.replace('userId', data.userId)}/${data.paymentId}`;
+    const findPaymentUrl = `${CREATE_PAYMENT_SERVICE_URL}/${data.paymentId}`;
     return utils.fetchJson(findPaymentUrl, fetchOptions);
 };
 
