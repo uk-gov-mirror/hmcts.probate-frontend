@@ -67,12 +67,21 @@ module.exports = class PaymentStatus extends Step {
 
             const findPaymentResponse = yield services.findPayment(data);
 
-            if (get(findPaymentResponse, 'state.status') !== 'success') {
+            if (findPaymentResponse.status !== 'Success') {
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
             } else {
                 options.redirect = false;
                 formdata.paymentPending = 'false';
+                Object.assign(formdata.payment, {
+                    channel: findPaymentResponse.channel,
+                    transactionId: findPaymentResponse.id,
+                    reference: findPaymentResponse.reference,
+                    date: findPaymentResponse.date_updated,
+                    amount: findPaymentResponse.amount,
+                    status: findPaymentResponse.status,
+                    siteId: findPaymentResponse.site_id
+                });
                 options.errors = yield this.sendApplication(ctx, formdata);
             }
         } else {
