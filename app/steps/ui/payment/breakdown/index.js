@@ -81,7 +81,8 @@ class PaymentBreakdown extends Step {
                         userId: ctx.userId,
                         applicationFee: ctx.applicationFee,
                         copies: ctx.copies,
-                        deceasedLastName: ctx.deceasedLastName
+                        deceasedLastName: ctx.deceasedLastName,
+                        ccdCaseId: formdata.ccdCase.id
                     };
 
                     const [response, paymentReference] = yield services.createPayment(data, hostname);
@@ -92,7 +93,7 @@ class PaymentBreakdown extends Step {
                         return [ctx, errors];
                     }
 
-                    ctx.paymentId = response.id;
+                    ctx.paymentId = response.reference;
                     ctx.paymentReference = paymentReference;
 
                     this.nextStepUrl = () => response._links.next_url.href;
