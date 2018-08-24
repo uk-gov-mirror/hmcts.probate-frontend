@@ -1,7 +1,7 @@
 {
   "title": "Unable to proceed",
   "header": "Sorry, you can&rsquo;t use the online service",
-  "contactProbateOffice": "<a rel=\"external noopener\" href=\"http://hmctsformfinder.justice.gov.uk/HMCTS/GetForm.do?court_forms_id=735\">Please download the probate application form (PA1), print it out and fill it in.</a>",
+  "contactProbateOffice": "Please <a rel=\"external noopener\" href=\"http://hmctsformfinder.justice.gov.uk/HMCTS/GetForm.do?court_forms_id=735\">download the probate application form (PA1)</a>, print it out and fill it in.",
   "defaultReason": "Unable to proceed",
   "noWill": "You can&rsquo;t apply for probate online because the person who died didn&rsquo;t leave a will.</p><p>Download and complete the <a rel=\"external noopener\" href=\"{applicationFormPA1A}\">paper application form (PA1A)</a>.</p><p>You can also <a rel=\"external noopener\" href=\"{guidance}\">download guidance</a> and find out where to <a rel=\"external noopener\" href=\"{registryInformation}\">send your completed form</a>.",
   "notOriginal": "You can&rsquo;t apply for probate online because you don&rsquo;t have the original will of the person who died.</p><p>Download and complete the <a rel=\"external noopener\" href=\"{applicationFormPA1P}\">paper application form (PA1P)</a>.</p><p>You can also <a rel=\"external noopener\" href=\"{guidance}\">download guidance</a> and find out where to <a rel=\"external noopener\" href=\"{registryInformation}\">send your completed form</a>.",
