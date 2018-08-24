@@ -54,7 +54,7 @@ describe('Contact-Details', function () {
             updateContactDetailsStub.restore();
         });
 
-        it('test emailChanged flag is correctly set, executorToBeNotifiedList is correctly populated and contact details updated', (done) => {
+        it('test emailChanged flag is correctly set, executorToBeNotifiedList is correctly populated and contact details updated (single applicant)', (done) => {
             co(function* () {
                 ctx.list[1].inviteId = 'dummy_inviteId';
                 ctx.list[1].emailChanged = true;
@@ -111,7 +111,8 @@ describe('Contact-Details', function () {
 
         it('test emailChanged flag is correctly set, executorToBeNotifiedList is populated and contact details updated', (done) => {
             ctx.list[1].emailSent = false;
-            ctx.list[2].emailSent = false;
+            ctx.list[2].emailSent = true;
+            ctx.list[2].inviteId = 'dummy_id';
             co(function* () {
                 [ctx, errors] = yield contactDetails.handlePost(ctx, errors);
                 expect(ctx).to.deep.equal({
@@ -123,13 +124,6 @@ describe('Contact-Details', function () {
                             fullName: 'Bob Cratchett',
                             isApplying: true,
                             mobile: '07321321321'
-                        },
-                        {
-                            email: 'testemail@gmail.com',
-                            emailSent: false,
-                            fullName: 'Billy Jean',
-                            isApplying: true,
-                            mobile: '07567567567'
                         }
                     ],
                     list: [
@@ -151,7 +145,8 @@ describe('Contact-Details', function () {
                             isApplying: true,
                             email: 'testemail@gmail.com',
                             mobile: '07567567567',
-                            emailSent: false
+                            emailSent: true,
+                            inviteId: 'dummy_id'
                         }
                     ],
                     invitesSent: 'true',

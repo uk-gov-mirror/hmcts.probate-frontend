@@ -85,11 +85,11 @@ class Executors {
         return this.executorsList.filter(executor => executor.emailChanged);
     }
 
-    executorsToNotify() {
+    hasExecutorsToNotify() {
         return this.executorsList.some(executor => executor.isApplying && !executor.isApplicant && !executor.emailSent);
     }
 
-    executorsToNotifyList() {
+    executorsToNotify() {
         return this.executorsList.filter(executor => executor.isApplying && !executor.isApplicant && !executor.emailSent);
     }
 }

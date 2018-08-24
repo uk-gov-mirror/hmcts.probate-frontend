@@ -1,6 +1,6 @@
 'use strict';
 const initSteps = require('app/core/initSteps');
-const {expect} = require('chai');
+const {assert, expect} = require('chai');
 
 describe('Executor-Additional-Invite-Sent', function () {
     let ctx;
@@ -34,6 +34,7 @@ describe('Executor-Additional-Invite-Sent', function () {
                         'isApplying': true
                     }
                 ],
+                'header': 'header',
                 'inviteSuffix': '',
                 'sessionID': 'dummy_sessionId'
             });
@@ -58,6 +59,7 @@ describe('Executor-Additional-Invite-Sent', function () {
                         'isApplying': true
                     }
                 ],
+                'header': 'header-multiple',
                 'inviteSuffix': '-multiple',
                 'sessionID': 'dummy_sessionId'
             });
@@ -71,7 +73,8 @@ describe('Executor-Additional-Invite-Sent', function () {
                     {'fullName': 'other applicant', 'isApplying': true},
                     {'fullName': 'harvey', 'isApplying': true}
                 ],
-                inviteSuffix: '-multiple'
+                inviteSuffix: '-multiple',
+                header: 'header-multiple'
             };
         });
 
@@ -102,6 +105,12 @@ describe('Executor-Additional-Invite-Sent', function () {
             [ctx, formdata] = executorsAdditionalInviteSent.action(ctx, formdata);
             expect(ctx).to.deep.equal({invitesSent: 'true'});
             expect(formdata).to.deep.equal({'executors': {}});
+        });
+    });
+
+    describe('getUrl()', () => {
+        it('test correct url is returned from getUrl function', () => {
+            assert.equal(executorsAdditionalInviteSent.constructor.getUrl(), '/executors-additional-invite-sent');
         });
     });
 });

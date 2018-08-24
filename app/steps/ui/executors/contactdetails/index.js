@@ -46,7 +46,7 @@ class ExecutorContactDetails extends ValidationStep {
             ctx.list[ctx.index].emailChanged = true;
         }
 
-        ctx.executorsToNotifyList = executorsWrapper.executorsToNotifyList();
+        ctx.executorsToNotifyList = executorsWrapper.executorsToNotify();
         ctx.executorsEmailChanged = executorsWrapper.hasExecutorsEmailChanged();
         ctx.list[ctx.index].email = ctx.email;
         ctx.list[ctx.index].mobile = ctx.mobile;

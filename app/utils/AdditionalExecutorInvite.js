@@ -8,7 +8,7 @@ class AdditionalExecutorInvite {
     static invite(session) {
         const formdata = session.form;
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
-        const executorsToNotifyList = executorsWrapper.executorsToNotifyList();
+        const executorsToNotifyList = executorsWrapper.executorsToNotify();
 
         const promises = executorsToNotifyList
             .map(exec => {
@@ -30,10 +30,9 @@ class AdditionalExecutorInvite {
                 logger.error(`Error while sending emails to updated email address: ${result}`);
                 throw new ReferenceError('Error while sending co-applicant invitation email.');
             }
-            formdata.executors.list
-                .filter(executor => executor.isApplying && !executor.isApplicant && !executor.emailSent)
+            executorsWrapper.executorsToNotify()
                 .map((exec, index) => {
-                    exec.inviteId = promises[index];
+                    exec.inviteId = result[index];
                     exec.emailSent = true;
                     return exec;
                 });

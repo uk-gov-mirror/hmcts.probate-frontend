@@ -1,6 +1,6 @@
 'use strict';
 const initSteps = require('app/core/initSteps');
-const {expect} = require('chai');
+const {assert, expect} = require('chai');
 
 describe('Executor-Additional-Invite', function () {
     let ctx;
@@ -34,6 +34,7 @@ describe('Executor-Additional-Invite', function () {
                         'isApplying': true
                     }
                 ],
+                'executorsToNotifyNames': 'harvey',
                 'inviteSuffix': '',
                 'sessionID': 'dummy_sessionId'
             });
@@ -60,6 +61,7 @@ describe('Executor-Additional-Invite', function () {
                         'isApplying': true
                     }
                 ],
+                'executorsToNotifyNames': 'other applicant and harvey',
                 'inviteSuffix': '-multiple',
                 'sessionID': 'dummy_sessionId'
             });
@@ -91,6 +93,12 @@ describe('Executor-Additional-Invite', function () {
             ctx.invitesSent = 'true';
             [ctx, formdata] = executorsAdditionalInvite.action(ctx, formdata);
             expect(ctx).to.deep.equal({invitesSent: 'true'});
+        });
+    });
+
+    describe('getUrl()', () => {
+        it('test correct url is returned from getUrl function', () => {
+            assert.equal(executorsAdditionalInvite.constructor.getUrl(), '/executors-additional-invite');
         });
     });
 });
