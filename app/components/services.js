@@ -52,8 +52,8 @@ const validateFormData = (data, sessionID) => {
     return utils.fetchJson(`${VALIDATION_SERVICE_URL}`, fetchOptions);
 };
 
-const createApplication = (data, ctx, softStop) => {
-    logger.info('createApplication');
+const sendToSubmitService = (data, ctx, softStop) => {
+    logger.info('sendToSubmitService');
     const headers = {
         'Content-Type': 'application/json',
         'Session-Id': ctx.sessionID,
@@ -64,11 +64,11 @@ const createApplication = (data, ctx, softStop) => {
     body.softStop = softStop;
     body.applicantEmail = data.applicantEmail;
     const fetchOptions = utils.fetchOptions({submitdata: body}, 'POST', headers);
-    return utils.fetchJson(`${SUBMIT_SERVICE_URL}`, fetchOptions);
+    return utils.fetchJson(`${SUBMIT_SERVICE_URL}/submit`, fetchOptions);
 };
 
-const submitApplication = (data, ctx, softStop) => {
-    logger.info('submitApplication');
+const updateCcdCasePaymentStatus = (data, ctx) => {
+    logger.info('updateCcdCasePaymentStatus');
     const headers = {
         'Content-Type': 'application/json',
         'Session-Id': ctx.sessionID,
@@ -76,10 +76,8 @@ const submitApplication = (data, ctx, softStop) => {
         'UserId': ctx.userId
     };
     const body = submitData(ctx, data);
-    body.softStop = softStop;
-    body.applicantEmail = data.applicantEmail;
     const fetchOptions = utils.fetchOptions({submitdata: body}, 'POST', headers);
-    return utils.fetchJson(`${SUBMIT_SERVICE_URL}`, fetchOptions);
+    return utils.fetchJson(`${SUBMIT_SERVICE_URL}/updatePaymentStatus`, fetchOptions);
 };
 
 const loadFormData = (id, sessionID) => {
@@ -234,8 +232,8 @@ module.exports = {
     getUserDetails,
     findAddress,
     validateFormData,
-    createApplication,
-    submitApplication,
+    sendToSubmitService,
+    updateCcdCasePaymentStatus,
     loadFormData,
     saveFormData,
     createPayment,

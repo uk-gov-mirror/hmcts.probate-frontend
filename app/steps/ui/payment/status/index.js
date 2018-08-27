@@ -1,11 +1,10 @@
 'use strict';
 
 const Step = require('app/core/steps/Step');
-const FieldError = require('app/components/error');
 const services = require('app/components/services');
 const logger = require('app/components/logger')('Init');
 const RedirectRunner = require('app/core/runners/RedirectRunner');
-const {get} = require('lodash');
+const {get, set} = require('lodash');
 
 module.exports = class PaymentStatus extends Step {
 
@@ -66,47 +65,35 @@ module.exports = class PaymentStatus extends Step {
             };
 
             const findPaymentResponse = yield services.findPayment(data);
-
-            if (get(findPaymentResponse, 'state.status') !== 'success') {
+            const paymentStatus = get(findPaymentResponse, 'state.status');
+            options.errors = yield this.updateCcdCasePaymentStatus(ctx, formdata, paymentStatus);
+            if (paymentStatus !== 'success') {
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
             } else {
                 options.redirect = false;
                 formdata.paymentPending = 'false';
-                //options.errors = yield this.sendApplication(ctx, formdata);
             }
         } else {
             options.redirect = false;
-            //options.errors = yield this.sendApplication(ctx, formdata);
+            set(formdata, 'payment.status', 'not_required');
         }
 
         return options;
     }
 
-    * sendApplication(ctx, formdata) {
+    * updateCcdCasePaymentStatus(ctx, formdata, paymentStatus) {
         const submitData = {};
-        const softStop = this.anySoftStops(formdata, ctx) ? 'softStop' : false;
+        set(formdata, 'payment.status', paymentStatus);
         Object.assign(submitData, formdata);
-
-        const result = yield services.submitApplication(submitData, ctx, softStop);
         let errors;
+        const result = yield services.updateCcdCasePaymentStatus(submitData, ctx);
+        logger.info({tags: 'Analytics'}, 'Payment status update');
 
-        if (result.name === 'Error' || result === 'DUPLICATE_SUBMISSION') {
-            const keyword = result === 'DUPLICATE_SUBMISSION' ? 'duplicate' : 'failure';
-            errors = [(FieldError('submit', keyword, this.resourcePath, ctx))];
-            return errors;
-        }
-
-        logger.info({tags: 'Analytics'}, 'Application Submitted');
-        formdata.submissionReference = result.submissionReference;
-        formdata.registry = result.registry;
-
-        const saveResult = yield this.persistFormData(ctx.regId, formdata, ctx.sessionId);
-
-        if (saveResult.name === 'Error') {
-            logger.error('Could not persist user data', saveResult.message);
+        if (result.name === 'Error') {
+            logger.error('Could not update payment status', result.message);
         } else {
-            logger.info('Successfully persisted user data');
+            logger.info('Successfully updated payment status');
         }
 
         return errors;

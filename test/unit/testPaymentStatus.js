@@ -34,11 +34,11 @@ describe('PaymentStatus', () => {
         });
     });
 
-    describe('sendApplication', () => {
+    describe('updateCcdCasePaymentStatus', () => {
         let submitApplicationStub;
 
         beforeEach(() => {
-            submitApplicationStub = sinon.stub(services, 'submitApplication');
+            submitApplicationStub = sinon.stub(services, 'updateCcdCasePaymentStatus');
         });
 
         afterEach(() => {
@@ -46,13 +46,13 @@ describe('PaymentStatus', () => {
         });
 
         describe('should return an error', () => {
-            it('if submitApplication returns "Error"', (done) => {
+            it('if updateCcdCasePaymentStatus returns "Error"', (done) => {
                 submitApplicationStub.returns(Promise.resolve({name: 'Error'}));
                 const PaymentStatus = steps.PaymentStatus;
                 const ctx = {};
                 const formdata = {};
                 co(function * () {
-                    const errors = yield PaymentStatus.sendApplication(ctx, formdata);
+                    const errors = yield PaymentStatus.updateCcdCasePaymentStatus(ctx, formdata);
                     assert.deepEqual(errors, [{
                         param: 'submit',
                         msg: {
@@ -66,13 +66,13 @@ describe('PaymentStatus', () => {
                 });
             });
 
-            it('if submitApplication returns "DUPLICATE_SUBMISSION"', (done) => {
+            it('if updateCcdCasePaymentStatus returns "DUPLICATE_SUBMISSION"', (done) => {
                 submitApplicationStub.returns(Promise.resolve('DUPLICATE_SUBMISSION'));
                 const PaymentStatus = steps.PaymentStatus;
                 const ctx = {};
                 const formdata = {};
                 co(function * () {
-                    const errors = yield PaymentStatus.sendApplication(ctx, formdata);
+                    const errors = yield PaymentStatus.updateCcdCasePaymentStatus(ctx, formdata);
                     assert.deepEqual(errors, [{
                         param: 'submit',
                         msg: {
@@ -87,7 +87,7 @@ describe('PaymentStatus', () => {
             });
         });
 
-        it('should not return an error if submitApplication returns successfully', (done) => {
+        it('should not return an error if updateCcdCasePaymentStatus returns successfully', (done) => {
             submitApplicationStub.returns(Promise.resolve({name: 'Success'}));
             const saveFormDataStub = sinon
                 .stub(services, 'saveFormData')
@@ -96,7 +96,7 @@ describe('PaymentStatus', () => {
             const ctx = {};
             const formdata = {};
             co(function * () {
-                const errors = yield PaymentStatus.sendApplication(ctx, formdata);
+                const errors = yield PaymentStatus.updateCcdCasePaymentStatus(ctx, formdata);
                 assert.isUndefined(errors);
                 saveFormDataStub.restore();
                 done();

@@ -4,7 +4,7 @@ const Step = require('app/core/steps/Step');
 const FieldError = require('app/components/error');
 const config = require('app/config');
 const services = require('app/components/services');
-const {get} = require('lodash');
+const {get, set} = require('lodash');
 const logger = require('app/components/logger')('Init');
 
 class PaymentBreakdown extends Step {
@@ -57,12 +57,14 @@ class PaymentBreakdown extends Step {
 
     * handlePost(ctx, errors, formdata, session, hostname) {
         if (formdata.paymentPending !== 'unknown') {
-            if (errors > 0) {
+            const result = yield this.sendToSubmitService(ctx, errors, formdata, ctx.total);
+            if (errors.length > 0) {
                 logger.error('Failed to create case in CCD.');
                 return [ctx, errors];
             }
-
-            errors = yield this.createApplication(ctx, errors, formdata, ctx.total);
+            formdata.submissionReference = result.submissionReference;
+            formdata.registry = result.registry;
+            set(formdata, 'ccdCase.id', result.caseId);
             if (ctx.total > 0) {
                 formdata.paymentPending = 'true';
 
@@ -121,41 +123,29 @@ class PaymentBreakdown extends Step {
         return [['true', 'false'].includes(formdata.paymentPending), 'inProgress'];
     }
 
-    * createApplication(ctx, errors, formdata, total) {
+    * sendToSubmitService(ctx, errors, formdata, total) {
         const createData = {};
         const softStop = this.anySoftStops(formdata, ctx) ? 'softStop' : false;
-        formdata.payment = {total : total};
+        set(formdata, 'payment.total', total);
         Object.assign(createData, formdata);
-        const result = yield services.createApplication(createData, ctx, softStop);
+        const result = yield services.sendToSubmitService(createData, ctx, softStop);
 
         if (result.name === 'Error' || result === 'DUPLICATE_SUBMISSION') {
             const keyword = result === 'DUPLICATE_SUBMISSION' ? 'duplicate' : 'failure';
             errors.push(FieldError('create', keyword, this.resourcePath, ctx));
-            return errors;
         }
 
         logger.info({tags: 'Analytics'}, 'Application Case Created');
-        formdata.submissionReference = result.submissionReference;
-        formdata.registry = result.registry;
 
-        const saveResult = yield this.persistFormData(ctx.regId, formdata, ctx.sessionId);
-
-        if (saveResult.name === 'Error') {
-            logger.error('Could not persist user data', saveResult.message);
-        } else {
-            logger.info('Successfully persisted user data');
-        }
-
-        return errors;
+        return result;
     }
-
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.authToken;
         delete ctx.paymentError;
         delete ctx.deceasedLastName;
-        delete ctx.submissionReference;    
+        delete ctx.submissionReference;
         return [ctx, formdata];
     }
 }

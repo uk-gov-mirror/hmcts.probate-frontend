@@ -23,7 +23,7 @@ describe('submit service tests', function () {
 
     beforeEach(function () {
         fetchJsonStub = sinon.stub(utils, 'fetchJson');
-        submitApplicationSpy = sinon.spy(services, 'submitApplication');
+        submitApplicationSpy = sinon.spy(services, 'updateCcdCasePaymentStatus');
     });
 
     afterEach(function () {
@@ -35,7 +35,7 @@ describe('submit service tests', function () {
 
         fetchJsonStub.returns(when('1488295566956'));
 
-        services.submitApplication(formdata, ctx)
+        services.updateCcdCasePaymentStatus(formdata, ctx)
             .then(function(actualResponse) {
                 sinon.assert.alwaysCalledWith(submitApplicationSpy, formdata);
                 assert.strictEqual('1488295566956', actualResponse);
@@ -49,7 +49,7 @@ describe('submit service tests', function () {
         const expectedError = new Error('Failed to submit probate application');
         fetchJsonStub.returns(when(expectedError));
 
-        services.submitApplication(formdata, ctx)
+        services.updateCcdCasePaymentStatus(formdata, ctx)
             .then(function(actualError) {
                 sinon.assert.alwaysCalledWith(submitApplicationSpy, formdata);
                 assert.strictEqual(expectedError, actualError);
