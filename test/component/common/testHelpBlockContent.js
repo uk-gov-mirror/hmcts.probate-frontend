@@ -1,6 +1,6 @@
 'use strict';
-const TestWrapper = require('test/util/TestWrapper');
 
+const TestWrapper = require('test/util/TestWrapper');
 const common = require('app/resources/en/translation/common.json');
 const config = require('app/config');
 
