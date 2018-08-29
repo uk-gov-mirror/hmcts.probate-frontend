@@ -96,7 +96,8 @@ module.exports = {
         applicationFormPA1P: 'public/pdf/probate-application-form-pa1p.pdf',
         guidance: 'public/pdf/probate-guidance-pa2sot.pdf',
         registryInformation: 'public/pdf/probate-registries-pa4sot.pdf',
-        deathCertificate: 'https://www.gov.uk/order-copy-birth-death-marriage-certificate'
+        deathCertificate: 'https://www.gov.uk/order-copy-birth-death-marriage-certificate',
+        deathReportedToCoroner: 'https://www.gov.uk/after-a-death/when-a-death-is-reported-to-a-coroner'
     },
     helpline: {
         number: '0300 303 0648',
