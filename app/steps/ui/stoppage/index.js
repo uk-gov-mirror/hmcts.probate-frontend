@@ -13,13 +13,15 @@ module.exports = class StopPage extends Step {
         const formdata = req.session.form;
         const templateContent = this.generateContent(ctx, formdata)[ctx.stopReason];
 
-        const linkPlaceholders = templateContent.match(/{[^}]+}/g);
-        if (linkPlaceholders) {
-            ctx.linkPlaceholders = linkPlaceholders.map((placeholder) => {
-                return placeholder.substr(1, placeholder.length - 2);
-            });
-        } else {
-            ctx.linkPlaceholders = [];
+        if (templateContent) {
+            const linkPlaceholders = templateContent.match(/{[^}]+}/g);
+            if (linkPlaceholders) {
+                ctx.linkPlaceholders = linkPlaceholders.map((placeholder) => {
+                    return placeholder.substr(1, placeholder.length - 2);
+                });
+            } else {
+                ctx.linkPlaceholders = [];
+            }
         }
 
         return ctx;
