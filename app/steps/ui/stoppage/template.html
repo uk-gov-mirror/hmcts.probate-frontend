@@ -6,16 +6,16 @@
 
         {% include "includes/phase_banner_beta.html" %}
 
-        <h1 class="form-title heading-large">{{content.header | safe}}</h1>
+        <h1 class="form-title heading-large">{{ content.header | safe }}</h1>
 
-        {% set content = content[fields.stopReason.value] %}
+        {% set tempContent = content[fields.stopReason.value] %}
         {% for placeholder in fields.linkPlaceholders.value %}
-            {% set content = content | replace('{' + placeholder + '}', links[placeholder]) %}
+            {% set tempContent = tempContent | replace('{' + placeholder + '}', links[placeholder]) %}
         {% endfor %}
 
-        <p>{{ content | safe}}</p>
+        <p>{{ tempContent | safe}}</p>
 
-        {% if fields.stopReason.value != 'deathCertificate' %}
+        {% if fields.stopReason.value !== 'deathCertificate' %}
             <p>{{ content.contactProbateOffice | safe }}</p>
         {% else %}
             <p>{{ content.progress | safe }}</p>
