@@ -10,5 +10,6 @@
   "ihtNotCompleted": "You need to complete an <a rel=\"external noopener\" href=\"{ihtNotCompleted}\">inheritance tax form</a> before applying for probate. <br/>Your progress has been saved and will be kept for 6 months.",
   "mentalCapacity": "You can&rsquo;t use the online service because not all executors are able to make their own decisions.",
   "deathCertificate": "You need to have a <a rel=\"external noopener\" href=\"{deathCertificate}\">copy of the death certificate</a> before applying for probate.",
-  "progress": "Your progress has been saved and will be kept for 6 months."
+  "progress": "Your progress has been saved and will be kept for 6 months.",
+  "notInEnglandOrWales": "You can&rsquo;t apply for probate online because the person who died didn&rsquo;t live in England or Wales or intend to return here.</p><p>Download and complete the <a href=\"/public/pdf/probate-application-form-pa1p.pdf\">paper application form (PA1P) [REPLACE HARDCODED LINK URL WITH PLACEHOLDER FROM CONFIG.JS]</a>.</p><p>You can also <a href=\"/public/pdf/probate-guidance-pa2sot.pdf\">download guidance [REPLACE HARDCODED LINK URL WITH PLACEHOLDER FROM CONFIG.JS]</a> and find out where to <a href=\"/public/pdf/probate-registries-pa4sot.pdf\">send your completed form [REPLACE HARDCODED LINK URL WITH PLACEHOLDER FROM CONFIG.JS]</a>."
 }
