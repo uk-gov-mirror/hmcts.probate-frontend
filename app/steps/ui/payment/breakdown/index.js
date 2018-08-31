@@ -132,7 +132,7 @@ class PaymentBreakdown extends Step {
 
         if (result.name === 'Error' || result === 'DUPLICATE_SUBMISSION') {
             const keyword = result === 'DUPLICATE_SUBMISSION' ? 'duplicate' : 'failure';
-            errors.push(FieldError('create', keyword, this.resourcePath, ctx));
+            errors.push(FieldError('submit', keyword, this.resourcePath, ctx));
         }
 
         logger.info({tags: 'Analytics'}, 'Application Case Created');
