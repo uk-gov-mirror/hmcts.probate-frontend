@@ -17,6 +17,9 @@
       }
     },
     "submit": {
+      "failure": {
+        "summary": "We could not take your payment, please try again later"
+      },
       "duplicate": {
         "summary": "Your application has been submitted, please return to the tasklist to continue"
       }

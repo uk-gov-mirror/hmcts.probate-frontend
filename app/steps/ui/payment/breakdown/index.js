@@ -96,7 +96,7 @@ class PaymentBreakdown extends Step {
                     formdata.creatingPayment = 'false';
 
                     if (response.name === 'Error') {
-                        errors.push(FieldError('authorisation', 'failure', this.resourcePath, ctx));
+                        errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));
                         return [ctx, errors];
                     }
 

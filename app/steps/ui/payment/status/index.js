@@ -95,7 +95,7 @@ module.exports = class PaymentStatus extends Step {
         logger.info({tags: 'Analytics'}, 'Payment status update');
 
         if (result.name === 'Error') {
-          errors = [(FieldError('submit', 'failure', this.resourcePath, ctx))];
+          errors = [(FieldError('update', 'failure', this.resourcePath, ctx))];
           logger.error('Could not update payment status', result.message);
         } else {
             logger.info('Successfully updated payment status');
