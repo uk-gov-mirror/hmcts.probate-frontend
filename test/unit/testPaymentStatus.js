@@ -10,22 +10,22 @@ describe('PaymentStatus', () => {
     const steps = initSteps([__dirname + '/../../app/steps/ui/']);
 
   const successfulPaymentResponse = {
-    "id": "24",
-    "amount": 5000,
-    "state": {
-      "status": "success",
-      "finished": true
+    'id': '24',
+    'amount': 5000,
+    'state': {
+      'status': 'success',
+      'finished': true
     },
-    "description": "Probate Payment: 50",
-    "reference": "CODE4$$$Hill4314$$$CODE5$$$CODE2/100",
-    "date_created": "2018-08-29T15:25:11.920+0000",
-    "_links": {}
+    'description': 'Probate Payment: 50',
+    'reference': 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100',
+    'date_created': '2018-08-29T15:25:11.920+0000',
+    '_links': {}
   };
 
   const failedPaymentResponse = {
-    "state": {
-      "status": "failed",
-      "finished": false
+    'state': {
+      'status': 'failed',
+      'finished': false
     }
   };
 
@@ -61,18 +61,18 @@ describe('PaymentStatus', () => {
 
       it('should set redirect to false, paymentPending to false and payment status to success if payment is successful', sinon.test((done) => {
         const expectedFormData = {
-          "payment": {
-            "status": "success"
+          'payment': {
+            'status': 'success'
           },
-          "paymentPending": "false",
-          "paymentResponse": successfulPaymentResponse
+          'paymentPending': 'false',
+          'paymentResponse': successfulPaymentResponse
         };
         servicesMock.expects('authorise').returns(Promise.resolve({}));
         servicesMock.expects('findPayment').returns(Promise.resolve(successfulPaymentResponse));
         servicesMock.expects('updateCcdCasePaymentStatus').returns(Promise.resolve({}));
         const ctx = {
-          authToken: "XXXXX",
-          userId :12345,
+          authToken: 'XXXXX',
+          userId: 12345,
           paymentId: 4567
         };
         const formData = {paymentPending: 'true'};
@@ -91,14 +91,14 @@ describe('PaymentStatus', () => {
 
     it('should set redirect to true, paymentPending to true and payment status to failure if payment is not successful', sinon.test((done) => {
       const expectedFormData = {
-        "payment": {
-          "status": "failed",
+        'payment': {
+          'status': 'failed',
         },
-        "paymentPending": "true",
-        "paymentResponse": {
-          "state": {
-            "finished": false,
-            "status": "failed"
+        'paymentPending': 'true',
+        'paymentResponse': {
+          'state': {
+            'finished': false,
+            'status': 'failed'
           }
         }
       };
@@ -106,10 +106,9 @@ describe('PaymentStatus', () => {
       servicesMock.expects('findPayment').returns(Promise.resolve(failedPaymentResponse));
       servicesMock.expects('updateCcdCasePaymentStatus').returns(Promise.resolve({}));
 
-
       const ctx = {
-        authToken: "XXXXX",
-        userId :12345,
+        authToken: 'XXXXX',
+        userId: 12345,
         paymentId: 4567
       };
       const formData = {paymentPending: 'true'};
@@ -128,18 +127,18 @@ describe('PaymentStatus', () => {
 
       it('should set payment status to not_required and redirect to false when paymentPending is false', sinon.test((done) => {
         const expectedFormData = {
-          "payment": {
-            "status": "not_required"
+          'payment': {
+            'status': 'not_required'
           },
-          "paymentPending": "false"
+          'paymentPending': 'false'
         };
 
         servicesMock.expects('authorise').returns(Promise.resolve({}));
         servicesMock.expects('findPayment').returns(Promise.resolve({}));
         servicesMock.expects('updateCcdCasePaymentStatus').returns(Promise.resolve({}));
 
-        const ctx = {authToken: "XXXXX",
-          userId :12345,
+        const ctx = {authToken: 'XXXXX',
+          userId: 12345,
           paymentId: 4567
         };
 
@@ -162,8 +161,8 @@ describe('PaymentStatus', () => {
         servicesMock.expects('findPayment').returns(Promise.resolve(successfulPaymentResponse));
         servicesMock.expects('updateCcdCasePaymentStatus').returns(Promise.resolve({name: 'Error'}));
 
-        const ctx = {authToken: "XXXXX",
-          userId :12345,
+        const ctx = {authToken: 'XXXXX',
+          userId: 12345,
           paymentId: 4567
         };
 

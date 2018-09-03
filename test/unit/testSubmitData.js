@@ -95,26 +95,26 @@ describe('submit-data', () => {
         ];
 
         const registry = {
-          "registry": {
-            "name": "Oxford",
-            "email": "oxford@email.com",
-            "address": "Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n",
-            "sequenceNumber": 10034
+          'registry': {
+            'name': 'Oxford',
+            'email': 'oxford@email.com',
+            'address': 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
+            'sequenceNumber': 10034
           },
-          "submissionReference": 97
+          'submissionReference': 97
         };
 
         const payment = {
-          "id": "24",
-          "amount": 5000,
-          "state": {
-            "status": "success",
-            "finished": true
+          'id': '24',
+          'amount': 5000,
+          'state': {
+            'status': 'success',
+            'finished': true
           },
-          "description": "Probate Payment: 50",
-          "reference": "CODE4$$$Hill4314$$$CODE5$$$CODE2/100",
-          "date_created": "2018-08-29T15:25:11.920+0000",
-          "_links": {}
+          'description': 'Probate Payment: 50',
+          'reference': 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100',
+          'date_created': '2018-08-29T15:25:11.920+0000',
+          '_links': {}
         };
 
         assert.nestedPropertyVal(mappedData, 'applicantFirstName', 'Bob Richard');
