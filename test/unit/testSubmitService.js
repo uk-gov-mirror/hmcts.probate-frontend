@@ -28,7 +28,7 @@ describe('submit service tests', function () {
   });
 
   afterEach(function () {
-    nock.cleanAll();
+    nock.restore();
   });
 
   it('Should successfully update payment status', function (done) {
