@@ -1,5 +1,6 @@
 {
-  "title": "We&rsquo;ve notified the executors you&rsquo;ve added",
+  "title": "We&rsquo;ve notified the executor you&rsquo;ve added",
+  "title-multiple": "We&rsquo;ve notified the executors you&rsquo;ve added",
   "header": "We&rsquo;ve notified the executor you&rsquo;ve added",
   "header-multiple": "We&rsquo;ve notified the executors you&rsquo;ve added",
   "paragraph1": "They&rsquo;ve been sent an email asking them to confirm that the legal statement is correct.",

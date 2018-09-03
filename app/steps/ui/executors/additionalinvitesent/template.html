@@ -1,3 +1,5 @@
+{% set title = content["title" + fields.inviteSuffix.value] | safe %}
+
 {% extends "includes/two_thirds_form.html" %}
 
 {% block question %}

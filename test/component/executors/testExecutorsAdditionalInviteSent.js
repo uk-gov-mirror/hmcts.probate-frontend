@@ -26,7 +26,7 @@ describe('executors-additional-invite-sent', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, ['header-multiple']);
+                    testWrapper.testContent(done, ['title-multiple', 'header-multiple']);
                 });
         });
 
@@ -38,7 +38,7 @@ describe('executors-additional-invite-sent', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, ['header']);
+                    testWrapper.testContent(done, ['title', 'header']);
                 });
         });
 
