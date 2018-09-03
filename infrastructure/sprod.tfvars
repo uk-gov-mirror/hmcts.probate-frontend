@@ -33,6 +33,6 @@ reform_envirionment_for_test = "saat"
 
 probate_business_service_url = "http://betaDevBprobateApp01.reform.hmcts.net:4101/validate"
 
-probate_submit_service_url = "http://betaDevBprobateApp01.reform.hmcts.net:4102/submit"
+probate_submit_service_url = "http://betaDevBprobateApp01.reform.hmcts.net:4102"
 
 probate_persistence_service_url = "http://betaDevBprobateApp01.reform.hmcts.net:4103/formdata"
