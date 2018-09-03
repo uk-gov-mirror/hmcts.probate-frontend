@@ -1,13 +1,19 @@
 {
   "title": "Applicant alias",
   "question": "What is the reason for the name change?",
+  "optionMarriage": "Marriage",
+  "optionDivorce": "Divorce",
+  "optionDeedPoll": "Change by deed poll",
+  "optionOther": "Other",
+  "optionOtherHint": "Reason for name change",
   "continue": "Continue",
+  "legend": "What is the reason for the name change?",
 
   "errors": {
-    "applicantAlias": {
+    "aliasReason": {
       "required": {
-        "summary": "You haven&rsquo;t entered the name as it appears on the will ",
-        "message": "Enter the name as it appears on the will"
+        "summary": "You haven&rsquo;t selected a reason for the change of name",
+        "message": "Select a reason for the change of name"
       }
     }
   }
