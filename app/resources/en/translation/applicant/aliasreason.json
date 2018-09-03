@@ -1,0 +1,14 @@
+{
+  "title": "Applicant alias",
+  "question": "What is the reason for the name change?",
+  "continue": "Continue",
+
+  "errors": {
+    "applicantAlias": {
+      "required": {
+        "summary": "You haven&rsquo;t entered the name as it appears on the will ",
+        "message": "Enter the name as it appears on the will"
+      }
+    }
+  }
+}

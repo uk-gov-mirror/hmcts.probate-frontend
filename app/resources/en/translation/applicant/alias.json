@@ -1,0 +1,15 @@
+{
+  "title": "Applicant alias",
+  "question": "How is your name written on the will?",
+  "applicantAlias": "Name",
+  "continue": "Continue",
+
+  "errors": {
+    "applicantAlias": {
+      "required": {
+        "summary": "You haven&rsquo;t entered the name as it appears on the will ",
+        "message": "Enter the name as it appears on the will"
+      }
+    }
+  }
+}
