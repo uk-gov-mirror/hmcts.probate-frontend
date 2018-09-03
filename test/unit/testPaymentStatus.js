@@ -7,7 +7,8 @@ const services = require('app/components/services');
 const sinon = require('sinon');
 
 describe('PaymentStatus', () => {
-    const steps = initSteps([__dirname + '/../../app/steps/ui/']);
+  const steps = initSteps([__dirname + '/../../app/steps/ui/']);
+  let servicesMock;
 
   const successfulPaymentResponse = {
     'id': '24',
@@ -29,8 +30,15 @@ describe('PaymentStatus', () => {
     }
   };
 
-  const servicesMock = sinon.mock(services);
   const PaymentStatus = steps.PaymentStatus;
+
+  beforeEach(function () {
+    servicesMock = sinon.mock(services);
+  });
+
+  afterEach(function () {
+    servicesMock.restore();
+  });
 
   describe('runnerOptions', () => {
 

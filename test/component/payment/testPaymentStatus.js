@@ -26,7 +26,7 @@ describe('payment-status', () => {
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.restore();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
