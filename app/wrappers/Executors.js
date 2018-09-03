@@ -103,7 +103,7 @@ class Executors {
     executorsEmailChangedList() {
         return this.executorsList.filter(executor => executor.emailChanged);
     }
-  
+
     executorsRemoved() {
         return this.executorsData.executorsRemoved || [];
     }
