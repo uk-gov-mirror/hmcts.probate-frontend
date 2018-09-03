@@ -1,22 +1,44 @@
 {% extends "includes/two_thirds_form.html" %}
 
-
-{% from "widgets/radiobuttons.html" import optionsRadio %}
+{% from "widgets/textfields.html" import textField %}
 
 {% block question %}
-<h1 class="form-title heading-large">
-    {{content.question}}
-</h1>
+<h1 class="form-title heading-large">{{content.question}}</h1>
 {% endblock %}
+
 {% block form_content %}
-{{optionsRadio(content,
-name = 'aliasReason',
-field = fields.aliasReason,
-options = ['optionYes', 'optionNo'],
-legend = (content.legendWithCodicil if fields.codicilPresent.value === "true" else content.legend) | replace('{applicantName}', fields.firstName.value + ' ' + fields.lastName.value),
-inline = true
-)}}
+<fieldset class="form-group {{ 'form-group-error' if fields['form'].error }}">
+    <div class="multiple-choice">
+        <input id="aliasMarriage" type="radio" name="form" value="marriage" {{"checked='checked'" if fields['form'].value === 'marriage' }}>
+        <label for="aliasMarriage">{{content['optionMarriage']}}</label>
+    </div>
+
+    <div class="multiple-choice">
+        <input id="aliasDivorce" type="radio" name="form" value="divorce" {{"checked='checked'" if fields['form'].value === 'divorce' }}>
+        <label for="aliasDivorce">{{content['optionDivorce']}}</label>
+    </div>
+
+    <div class="multiple-choice">
+        <input id="aliasDeedPoll" type="radio" name="form" value="deed" {{"checked='checked'" if fields['form'].value === 'deed' }}>
+        <label for="aliasDeedPoll">{{content['optionDeedPoll']}}</label>
+    </div>
+
+
+    <div class="multiple-choice" data-target="other-details">
+        <input id="aliasOther" type="radio" name="form" value="other" {{"checked='checked'" if fields['form'].value === 'other' }}>
+        <label for="aliasOther">{{content['optionOther']}}</label>
+    </div>
+    <div class="panel panel-border-narrow js-hidden" id="other-details">
+        {{textField(
+        name = 'other',
+        field = fields.other,
+        text = content.optionOtherHint,
+        size = 13
+        )}}
+    </div>
+</fieldset>
+
 <div class="form-group">
-    <input class="button" type="submit" value="{{common.continue}}">
+    <input class="button" type="submit" value="{{content.continue}}">
 </div>
 {% endblock %}
