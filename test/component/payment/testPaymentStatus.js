@@ -6,6 +6,7 @@ const config = require('app/config');
 const SUBMIT_SERVICE_URL = config.services.submit.url;
 const CREATE_PAYMENT_SERVICE_URL = config.services.payment.createPaymentUrl;
 const USER_ID = config.services.payment.userId;
+const IDAM_S2S_URL = config.services.idam.s2s_url;
 
 describe('payment-status', () => {
     let testWrapper;
@@ -22,6 +23,10 @@ describe('payment-status', () => {
           'status': 'success'
         }
       });
+
+      nock(IDAM_S2S_URL).post('/lease')
+        .reply(200, 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSRUZFUkVOQ0UifQ.Z_YYn0go02ApdSMfbehsLXXbxJxLugPG' +
+        '8v_3ktCpQurK8tHkOy1qGyTo02bTdilX4fq4M5glFh80edDuhDJXPA');
     });
 
     afterEach(() => {
