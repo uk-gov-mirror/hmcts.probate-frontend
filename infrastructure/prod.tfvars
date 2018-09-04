@@ -20,7 +20,7 @@ idam_service_api = "http://rpe-service-auth-provider-prod.service.core-compute-p
 
 probate_private_beta_auth_url = "https://hmcts-access.service.gov.uk/login"
 
-idam_user_host = "https://prod-idamapi.reform.hmcts.net:3511"
+idam_user_host = "https://idam-api.platform.hmcts.net"
 
 probate_deployment_env = "test"
 
