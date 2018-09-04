@@ -4,9 +4,7 @@
   "type": "object",
   "properties": {
     "alias": {
-      "type": "string",
-      "minLength": 2,
-      "pattern": "^[^<>]+$"
+      "type": "string"
     }
   },
   "required":[

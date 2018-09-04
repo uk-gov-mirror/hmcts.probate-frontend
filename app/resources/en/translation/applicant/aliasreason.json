@@ -15,6 +15,12 @@
         "summary": "You haven&rsquo;t selected a reason for the change of name",
         "message": "Select a reason for the change of name"
       }
+    },
+    "otherReason": {
+      "required": {
+        "summary": "You haven&rsquo;t entered the reason for the change of name",
+        "message": "Enter the reason for the change of name"
+      }
     }
   }
 }

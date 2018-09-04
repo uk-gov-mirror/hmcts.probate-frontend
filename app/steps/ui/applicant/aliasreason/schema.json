@@ -3,7 +3,25 @@
   "id": "applicant-alias-reason",
   "type": "object",
   "properties": {},
-  "required":[
-    "aliasReason"
+  "switch": [
+    {
+      "if": {"properties": { "aliasReason": { "enum": [""] } }},
+      "then": {"required": ["aliasReason"]},
+      "continue": false
+    },
+    {
+      "if": { "properties": { "aliasReason": { "enum": ["other"] } } },
+      "then": {
+        "properties": {
+          "other": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50
+          }
+        },
+        "required": ["otherReason"]
+      },
+      "continue": false
+    }
   ]
 }
