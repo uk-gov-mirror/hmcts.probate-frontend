@@ -145,7 +145,6 @@ class PaymentBreakdown extends Step {
         delete ctx.authToken;
         delete ctx.paymentError;
         delete ctx.deceasedLastName;
-        delete ctx.submissionReference;
         return [ctx, formdata];
     }
 }

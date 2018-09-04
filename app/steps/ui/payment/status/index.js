@@ -70,6 +70,7 @@ module.exports = class PaymentStatus extends Step {
             const paymentStatus = get(findPaymentResponse, 'state.status');
             set(formdata, 'payment.status', paymentStatus);
             set(formdata, 'paymentResponse', findPaymentResponse);
+            options.errors = services.saveFormData(ctx.regId, formdata, ctx.sessionId);
             options.errors = yield this.updateCcdCasePaymentStatus(ctx, formdata);
             if (paymentStatus !== 'success') {
               options.redirect = true;
