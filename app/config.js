@@ -109,20 +109,22 @@ module.exports = {
     payment: {
         applicationFee: 215,
         applicationFeeThreshold: 5000,
-        applicationFeeCode: process.env.APPLICATION_FEE_CODE || 'FEE001',
+        applicationFeeCode: process.env.APPLICATION_FEE_CODE || 'FEE0226',
         copies: {
             uk: {
                 fee: 0.5,
-                code: process.env.UK_COPIES_FEE_CODE || 'FEE002'
+                code: process.env.UK_COPIES_FEE_CODE || 'FEE0003',
+                version: '3'
             },
             overseas: {
                  fee: 0.5,
-                 code: process.env.OVERSEAS_COPIES_FEE_CODE || 'FEE003'
+                 code: process.env.OVERSEAS_COPIES_FEE_CODE || 'FEE003',
+                 version: '3'
             }
         },
         serviceId: process.env.SERVICE_ID || 'PROBATE',
         siteId: process.env.SITE_ID || 'P223',
-        version: process.env.version || '3',
+        version: process.env.version || '1',
         currency: process.env.currency || 'GBP'
     },
     whitelistedPagesAfterSubmission: ['/documents', '/thankyou', '/sign-out'],

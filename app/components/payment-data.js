@@ -54,10 +54,12 @@ const createPaymentReference = (data, getCaseReference) => {
 
 const createPaymentData = (data, getCaseReference = createCaseReference) => {
     const version = config.payment.version;
+    const versionCopiesOverseas = config.payment.copies.overseas.version;
+    const versionCopiesUk = config.payment.copies.uk.version;
     const currency = config.payment.currency;
     const paymentData = {
         amount: data.amount,
-        description: `Probate Payment: ${data.amount}`,
+        description: 'Probate Fees',
         ccd_case_number: data.ccdCaseId,
         case_reference: createPaymentReference(data, getCaseReference),
         service: SERVICE_ID,
@@ -81,7 +83,7 @@ const createPaymentData = (data, getCaseReference = createCaseReference) => {
             code: ADDITIONAL_COPY_FEE_CODE_UK,
             memoLine: 'Additional UK copies',
             reference: data.userId,
-            version: version,
+            version: versionCopiesUk,
             volume: data.copies.uk.number
         }));
     }
@@ -93,7 +95,7 @@ const createPaymentData = (data, getCaseReference = createCaseReference) => {
             code: ADDITIONAL_COPY_FEE_CODE_OVERSEAS,
             memoLine: 'Additional overseas copies',
             reference: data.userId,
-            version: version,
+            version: versionCopiesOverseas,
             volume: data.copies.overseas.number
         }));
     }

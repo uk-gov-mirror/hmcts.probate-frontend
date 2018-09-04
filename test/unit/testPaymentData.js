@@ -32,7 +32,7 @@ describe('PaymentData', () => {
                     }
                 }
             };
-            const expectedReference = 'PROBATE$$$123456$$$P223$$$FEE001';
+            const expectedReference = 'PROBATE$$$123456$$$P223$$$FEE0226';
             const result = paymentData.createPaymentData(data, () => '123456');
             assert.equal(result.case_reference, expectedReference);
 
@@ -50,7 +50,7 @@ describe('PaymentData', () => {
                     }
                 }
             };
-            const expectedReference = 'PROBATE$$$123456$$$P223$$$FEE001$FEE002/1';
+            const expectedReference = 'PROBATE$$$123456$$$P223$$$FEE0226$FEE0003/1';
             const result = paymentData.createPaymentData(data, () => '123456');
             assert.equal(result.case_reference, expectedReference);
 
@@ -68,7 +68,7 @@ describe('PaymentData', () => {
                     }
                 }
             };
-            const expectedReference = 'PROBATE$$$123456$$$P223$$$FEE001$FEE003/2';
+            const expectedReference = 'PROBATE$$$123456$$$P223$$$FEE0226$FEE003/2';
             const result = paymentData.createPaymentData(data, () => '123456');
             assert.equal(result.case_reference, expectedReference);
         });
@@ -85,7 +85,7 @@ describe('PaymentData', () => {
                     }
                 }
             };
-            const expectedReference = 'PROBATE$$$123456$$$P223$$$FEE001$FEE002/3$FEE003/4';
+            const expectedReference = 'PROBATE$$$123456$$$P223$$$FEE0226$FEE0003/3$FEE003/4';
             const result = paymentData.createPaymentData(data, () => '123456');
             assert.equal(result.case_reference, expectedReference);
         });
@@ -102,7 +102,7 @@ describe('PaymentData', () => {
                     }
                 }
             };
-            const expectedReference = 'PROBATE$$$123456$$$P223$$$FEE002/5';
+            const expectedReference = 'PROBATE$$$123456$$$P223$$$FEE0003/5';
             const result = paymentData.createPaymentData(data, () => '123456');
             assert.deepEqual(result.case_reference, expectedReference);
         });
@@ -136,7 +136,7 @@ describe('PaymentData', () => {
                     }
                 }
             };
-            const expectedReference = 'PROBATE$$$123456$$$P223$$$FEE002/7$FEE003/8';
+            const expectedReference = 'PROBATE$$$123456$$$P223$$$FEE0003/7$FEE003/8';
             const result = paymentData.createPaymentData(data, () => '123456');
             assert.deepEqual(result.case_reference, expectedReference);
         });
