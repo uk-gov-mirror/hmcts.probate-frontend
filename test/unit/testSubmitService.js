@@ -33,7 +33,7 @@ describe('submit service tests', function () {
     });
 
     it('Should successfully update payment status', function (done) {
-        const expectedResponse = {"updatePaymentStatusResponse": 1234};
+        const expectedResponse = {'updatePaymentStatusResponse': 1234};
         nock(SUBMIT_SERVICE_URL).post('/updatePaymentStatus')
             .reply(200, expectedResponse);
         co(function* () {
@@ -46,7 +46,7 @@ describe('submit service tests', function () {
     });
 
     it('Should successfully sent to submit service', function (done) {
-        const expectedResponse = {"submitResponse": 1234};
+        const expectedResponse = {'submitResponse': 1234};
         nock(SUBMIT_SERVICE_URL).post('/submit')
             .reply(200, expectedResponse);
         co(function* () {

@@ -78,17 +78,17 @@ module.exports = class PaymentStatus extends Step {
             options.errors = services.saveFormData(ctx.regId, formdata, ctx.sessionId);
             options.errors = yield this.updateCcdCasePaymentStatus(ctx, formdata);
             if (findPaymentResponse.status !== 'Success') {
-              options.redirect = true;
-              options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
+                options.redirect = true;
+                options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
             } else {
-              options.redirect = false;
-              formdata.paymentPending = 'false';
+                options.redirect = false;
+                formdata.paymentPending = 'false';
             }
-          } else {
+        } else {
             options.errors = yield this.updateCcdCasePaymentStatus(ctx, formdata);
             options.redirect = false;
             set(formdata, 'payment.status', 'not_required');
-      }
+        }
 
         return options;
     }
@@ -101,8 +101,8 @@ module.exports = class PaymentStatus extends Step {
         logger.info({tags: 'Analytics'}, 'Payment status update');
 
         if (result.name === 'Error') {
-          errors = [(FieldError('update', 'failure', this.resourcePath, ctx))];
-          logger.error('Could not update payment status', result.message);
+            errors = [(FieldError('update', 'failure', this.resourcePath, ctx))];
+            logger.error('Could not update payment status', result.message);
         } else {
             logger.info('Successfully updated payment status');
         }

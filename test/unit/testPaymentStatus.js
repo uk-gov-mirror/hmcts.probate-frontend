@@ -11,23 +11,23 @@ describe('PaymentStatus', () => {
     let servicesMock;
 
     const successfulPaymentResponse = {
-        'id': '24',
+        'channel': 'Online',
+        'id': 12345,
+        'reference': 'PaymentReference12345',
         'amount': 5000,
-        'state': {
-            'status': 'success',
-            'finished': true
-        },
-        'description': 'Probate Payment: 50',
-        'reference': 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100',
-        'date_created': '2018-08-29T15:25:11.920+0000',
-        '_links': {}
+        'status': 'Success',
+        'date_updated': '2018-08-29T15:25:11.920+0000',
+        'site_id': 'siteId0001',
     };
 
     const failedPaymentResponse = {
-        'state': {
-            'status': 'failed',
-            'finished': false
-        }
+        'channel': 'Online',
+        'id': 12345,
+        'reference': 'PaymentReference12345',
+        'amount': 5000,
+        'status': 'Failed',
+        'date_updated': '2018-08-29T15:25:11.920+0000',
+        'site_id': 'siteId0001',
     };
 
     const PaymentStatus = steps.PaymentStatus;
@@ -72,11 +72,16 @@ describe('PaymentStatus', () => {
         it('should set redirect to false, paymentPending to false and payment status to success if payment is successful',
             sinon.test((done) => {
                 const expectedFormData = {
-                    'payment': {
-                        'status': 'success'
-                    },
                     'paymentPending': 'false',
-                    'paymentResponse': successfulPaymentResponse
+                    'payment': {
+                        'amount': 5000,
+                        'channel': 'Online',
+                        'date': '2018-08-29T15:25:11.920+0000',
+                        'reference': 'PaymentReference12345',
+                        'siteId': 'siteId0001',
+                        'status': 'Success',
+                        'transactionId': 12345
+                    }
                 };
                 servicesMock.expects('authorise').returns(Promise.resolve({}));
                 servicesMock.expects('findPayment').returns(
@@ -88,7 +93,7 @@ describe('PaymentStatus', () => {
                     userId: 12345,
                     paymentId: 4567
                 };
-                const formData = {paymentPending: 'true'};
+                const formData = {paymentPending: 'true', 'payment': {}};
                 co(function* () {
                     const options = yield PaymentStatus.runnerOptions(ctx, formData);
                     assert.deepEqual(options.redirect, false);
@@ -105,15 +110,15 @@ describe('PaymentStatus', () => {
         it('should set redirect to true, paymentPending to true and payment status to failure if payment is not successful',
             sinon.test((done) => {
                 const expectedFormData = {
-                    'payment': {
-                        'status': 'failed',
-                    },
                     'paymentPending': 'true',
-                    'paymentResponse': {
-                        'state': {
-                            'finished': false,
-                            'status': 'failed'
-                        }
+                    'payment': {
+                        'amount': 5000,
+                        'channel': 'Online',
+                        'date': '2018-08-29T15:25:11.920+0000',
+                        'reference': 'PaymentReference12345',
+                        'siteId': 'siteId0001',
+                        'status': 'Failed',
+                        'transactionId': 12345
                     }
                 };
                 servicesMock.expects('authorise').returns(Promise.resolve({}));
@@ -127,7 +132,7 @@ describe('PaymentStatus', () => {
                     userId: 12345,
                     paymentId: 4567
                 };
-                const formData = {paymentPending: 'true'};
+                const formData = {paymentPending: 'true', 'payment': {}};
                 co(function* () {
                     const options = yield PaymentStatus.runnerOptions(ctx, formData);
                     assert.deepEqual(options.redirect, true);
