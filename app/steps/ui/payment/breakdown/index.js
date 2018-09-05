@@ -126,11 +126,9 @@ class PaymentBreakdown extends Step {
     }
 
     * sendToSubmitService(ctx, errors, formdata, total) {
-        const createData = {};
         const softStop = this.anySoftStops(formdata, ctx) ? 'softStop' : false;
         set(formdata, 'payment.total', total);
-        Object.assign(createData, formdata);
-        const result = yield services.sendToSubmitService(createData, ctx, softStop);
+        const result = yield services.sendToSubmitService(formdata, ctx, softStop);
 
         if (result.name === 'Error' || result === 'DUPLICATE_SUBMISSION') {
             const keyword = result === 'DUPLICATE_SUBMISSION' ? 'duplicate' : 'failure';

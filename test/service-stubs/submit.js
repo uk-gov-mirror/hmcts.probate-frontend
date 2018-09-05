@@ -7,9 +7,9 @@ const express = require('express');
 const app = express();
 const router = require('express').Router();
 const SUBMIT_SERVICE_PORT = config.services.submit.port;
-const SUBMIT_SERVICE_PATH = config.services.submit.path;
+const SUBMIT_SERVICE_URL = config.services.submit.url;
 
-router.post(SUBMIT_SERVICE_PATH + '/submit', (req, res) => {
+router.post(SUBMIT_SERVICE_URL + '/submit', (req, res) => {
     res.status(200);
     res.send({
         submissionReference: '6',
@@ -22,7 +22,7 @@ router.post(SUBMIT_SERVICE_PATH + '/submit', (req, res) => {
     });
 });
 
-router.post(SUBMIT_SERVICE_PATH + '/updatePaymentStatus', (req, res) => {
+router.post(SUBMIT_SERVICE_URL + '/updatePaymentStatus', (req, res) => {
   res.status(200);
   res.send({
     submissionReference: '6',

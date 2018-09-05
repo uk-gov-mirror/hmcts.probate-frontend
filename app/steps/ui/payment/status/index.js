@@ -66,7 +66,7 @@ module.exports = class PaymentStatus extends Step {
             };
 
             const findPaymentResponse = yield services.findPayment(data);
-            const date = findPaymentResponse.date_updated == undefined ? ctx.paymentCreatedDate : findPaymentResponse.date_updated;
+            const date = findPaymentResponse.date_updated === undefined ? ctx.paymentCreatedDate : findPaymentResponse.date_updated;
             Object.assign(formdata.payment, {
                 channel: findPaymentResponse.channel,
                 transactionId: findPaymentResponse.external_reference,
