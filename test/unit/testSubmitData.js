@@ -105,16 +105,23 @@ describe('submit-data', () => {
         };
 
         const payment = {
-          'id': '24',
-          'amount': 5000,
-          'state': {
+            'applicationFee': '215',
+            'copies': {
+                'overseas': {
+                    'cost': '0',
+                    'number': '0'
+                },
+                'status': 'success',
+                'uk': {
+                    'cost': '1.5',
+                    'number': '3'
+                }
+            },
+            'paymentId': '1',
+            'paymentReference': 'CODE4$$$diedlastname7297$$$CODE5$$$CODE1$CODE2/3',
             'status': 'success',
-            'finished': true
-          },
-          'description': 'Probate Payment: 50',
-          'reference': 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100',
-          'date_created': '2018-08-29T15:25:11.920+0000',
-          '_links': {}
+            'total': '216.50',
+            'userId': '999999999',
         };
 
         assert.nestedPropertyVal(mappedData, 'applicantFirstName', 'Bob Richard');
@@ -155,7 +162,7 @@ describe('submit-data', () => {
         assert.nestedPropertyVal(mappedData, 'noOfApplicants', 2);
         assert.deepNestedPropertyVal(mappedData, 'executorsApplying', execsApplyingArray);
         assert.deepNestedPropertyVal(mappedData, 'executorsNotApplying', execsNotApplyingArray);
-        assert.deepNestedPropertyVal(mappedData, 'paymentResponse', payment);
+        assert.deepNestedPropertyVal(mappedData, 'payment', payment);
         assert.deepNestedPropertyVal(mappedData, 'registry', registry);
         assert.deepNestedPropertyVal(mappedData, 'caseId', 1535395401245028);
     });

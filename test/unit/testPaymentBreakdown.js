@@ -169,6 +169,7 @@ describe('PaymentBreakdown', () => {
                 assert.deepEqual(ctx, {
                     'total': 215,
                     'paymentId': 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100',
+                    "paymentCreatedDate": "2018-08-29T15:25:11.920+0000",
                     'paymentReference': 1234
                 });
                 done();
@@ -231,7 +232,8 @@ describe('PaymentBreakdown', () => {
                 assert.deepEqual(ctx, {
                     'total': 215,
                     'paymentId': 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100',
-                    'paymentReference': 1234
+                    'paymentReference': 1234,
+                    'paymentCreatedDate': '2018-08-29T15:25:11.920+0000'
                 });
                 done();
             })

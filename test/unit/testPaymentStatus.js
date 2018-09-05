@@ -18,6 +18,7 @@ describe('PaymentStatus', () => {
         'status': 'Success',
         'date_updated': '2018-08-29T15:25:11.920+0000',
         'site_id': 'siteId0001',
+        "external_reference": 12345
     };
 
     const failedPaymentResponse = {
@@ -28,6 +29,7 @@ describe('PaymentStatus', () => {
         'status': 'Failed',
         'date_updated': '2018-08-29T15:25:11.920+0000',
         'site_id': 'siteId0001',
+        "external_reference": 12345
     };
 
     const PaymentStatus = steps.PaymentStatus;

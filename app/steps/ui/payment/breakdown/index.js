@@ -103,6 +103,7 @@ class PaymentBreakdown extends Step {
 
                     ctx.paymentId = response.reference;
                     ctx.paymentReference = paymentReference;
+                    ctx.paymentCreatedDate = response.date_created;
 
                     this.nextStepUrl = () => response._links.next_url.href;
                 } else {
