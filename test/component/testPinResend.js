@@ -26,13 +26,13 @@ describe('pin-resend', () => {
 
         it('test phone number loads on the page', (done) => {
             const contentData = {
-                phoneNumber: '07701111111',
+                phoneNumber: '+447701111111',
             };
 
             testWrapper.agent
                 .post('/prepare-session-field')
                 .send({
-                    'phoneNumber': '07701111111',
+                    'phoneNumber': '+447701111111',
                     'validLink': true
                 })
                 .then(function() {

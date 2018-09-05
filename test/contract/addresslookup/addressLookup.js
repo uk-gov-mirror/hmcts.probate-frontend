@@ -1,7 +1,7 @@
 const assert = require('chai').assert;
 const expect = require('chai').expect;
 const request = require('supertest');
-const testConfig = require('../../../test/config');
+const testConfig = require('test/config');
 
 /* eslint no-console: 0 no-unused-vars: 0 */
 describe('Address Lookup API Tests', function() {
