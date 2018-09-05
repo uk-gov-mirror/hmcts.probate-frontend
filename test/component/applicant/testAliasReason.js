@@ -1,3 +1,4 @@
+'use strict';
 const TestWrapper = require('test/util/TestWrapper');
 const ApplicantPhone = require('app/steps/ui/applicant/phone/index');
 

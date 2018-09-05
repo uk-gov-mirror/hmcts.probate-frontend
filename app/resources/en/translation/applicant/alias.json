@@ -8,7 +8,7 @@
   "errors": {
     "alias": {
       "required": {
-        "summary": "You haven&rsquo;t entered the name as it appears on the will ",
+        "summary": "You haven&rsquo;t entered the name as it appears on the will",
         "message": "Enter the name as it appears on the will"
       }
     }
