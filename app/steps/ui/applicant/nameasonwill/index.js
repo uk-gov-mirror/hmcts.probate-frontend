@@ -1,9 +1,8 @@
 'use strict';
-
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {get} = require('lodash');
 const WillWrapper = require('app/wrappers/Will');
-const json = require('app/resources/en/translation/executors/applying.json');
+const content = require('app/resources/en/translation/executors/applying');
 
 class ApplicantNameAsOnWill extends ValidationStep {
 
@@ -26,7 +25,7 @@ class ApplicantNameAsOnWill extends ValidationStep {
     nextStepOptions() {
         const nextStepOptions = {
             options: [
-                {key: 'nameAsOnTheWill', value: json.optionNo, choice: 'hasAlias'}
+                {key: 'nameAsOnTheWill', value: content.optionNo, choice: 'hasAlias'}
             ]
         };
         return nextStepOptions;
