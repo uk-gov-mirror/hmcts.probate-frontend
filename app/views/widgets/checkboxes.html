@@ -1,7 +1,6 @@
 {% from "widgets/fielderror.html" import fieldError %}
 
 {% macro checkbox(name, field, text, disabled, legend) %}
-{% set id = name | replace('[]', '') %}
 <fieldset class="form-group {{ 'form-group-error' if field.error }}">
     <legend class="visually-hidden">{{legend | safe}}</legend>
 
