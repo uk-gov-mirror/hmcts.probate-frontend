@@ -42,7 +42,7 @@ describe('summary-iht-section', () => {
 
         it('test correct content loaded on the summary page iht section, when section is complete (paper)', (done) => {
             const sessionData = require('test/data/ihtPaper');
-            sessionData.form = '205';
+            sessionData.form = 'IHT205';
             testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end((err) => {
@@ -81,7 +81,7 @@ describe('summary-iht-section', () => {
 
         it('test data is played back correctly on the summary page iht section (paper205)', (done) => {
             const sessionData = require('test/data/ihtPaper');
-            sessionData.form = '205';
+            sessionData.form = 'IHT205';
             testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end((err) => {
@@ -102,7 +102,7 @@ describe('summary-iht-section', () => {
 
         it('test data is played back correctly on the summary page iht section (paper207)', (done) => {
             const sessionData = require('test/data/ihtPaper');
-            sessionData.form = '207';
+            sessionData.form = 'IHT207';
             testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end((err) => {
@@ -123,7 +123,7 @@ describe('summary-iht-section', () => {
 
         it('test data is played back correctly on the summary page iht section (paper400)', (done) => {
             const sessionData = require('test/data/ihtPaper');
-            sessionData.form = '400';
+            sessionData.form = 'IHT400421';
             testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end((err) => {

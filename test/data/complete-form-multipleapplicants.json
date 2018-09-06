@@ -8,10 +8,8 @@
   },
   "iht": {
     "completed": "Yes",
-    "method": "Through the HMRC online service",
-    "identifier": "jkhfilwahpwi",
-    "grossValueOnline": "123456",
-    "netValueOnline": "12345",
+    "method": "By post",
+    "form": "IHT205",
     "grossValue": "123456",
     "netValue": "12345"
   },

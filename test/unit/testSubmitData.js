@@ -148,8 +148,7 @@ describe('submit-data', () => {
         assert.nestedPropertyVal(mappedData, 'willWithCodicils', 'Yes');
         assert.nestedPropertyVal(mappedData, 'willCodicilsNumber', 1);
         assert.nestedPropertyVal(mappedData, 'ihtCompleted', 'Yes');
-        assert.nestedPropertyVal(mappedData, 'ihtForm', 'online');
-        assert.nestedPropertyVal(mappedData, 'ihtIdentifier', 'jkhfilwahpwi');
+        assert.nestedPropertyVal(mappedData, 'ihtForm', 'IHT205');
         assert.nestedPropertyVal(mappedData, 'ihtGrossValue', '123456');
         assert.nestedPropertyVal(mappedData, 'ihtNetValue', '12345');
         assert.nestedPropertyVal(mappedData, 'copiesUK', '3');
