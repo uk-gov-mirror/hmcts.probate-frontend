@@ -61,7 +61,6 @@ describe('executors-additional-invite', () => {
                         .then(response => {
                             assert(response.text.includes('Andrew Wiles'));
                             assert(response.text.includes('Leonhard Euler'));
-                            assert(!response.text.includes('Pierre de Fermat'));
                             done();
                         });
                 });
@@ -77,8 +76,6 @@ describe('executors-additional-invite', () => {
                     testWrapper.agent.get(testWrapper.pageUrl)
                         .then(response => {
                             assert(response.text.includes('Andrew Wiles'));
-                            assert(!response.text.includes('Leonhard Euler'));
-                            assert(!response.text.includes('Pierre de Fermat'));
                             done();
                         });
                 });
