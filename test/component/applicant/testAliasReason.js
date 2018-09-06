@@ -1,4 +1,5 @@
 'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const ApplicantPhone = require('app/steps/ui/applicant/phone/index');
 
@@ -23,7 +24,6 @@ describe('applicant-alias-reason', () => {
         it('test alias reason validation when no data is entered', (done) => {
             const errorsToTest = ['aliasReason'];
             const data = {};
-
             testWrapper.testErrors(done, data, 'required', errorsToTest);
         });
 
@@ -33,7 +33,6 @@ describe('applicant-alias-reason', () => {
                 aliasReason: 'other',
                 otherReason: ''
             };
-
             testWrapper.testErrors(done, data, 'required', errorsToTest);
         });
 

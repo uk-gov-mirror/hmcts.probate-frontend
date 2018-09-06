@@ -1,4 +1,5 @@
 'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {get} = require('lodash');
 const WillWrapper = require('app/wrappers/Will');

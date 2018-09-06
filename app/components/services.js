@@ -46,7 +46,6 @@ const findAddress = (postcode) => {
 const featureToggle = (featureToggleKey) => {
     logger.info('featureToggle');
     const url = `${FEATURE_TOGGLE_API}/api/ff4j/check/${featureToggleKey}`;
-    logger.info('url');
     const headers = {
         'Content-Type': 'application/json'
     };
