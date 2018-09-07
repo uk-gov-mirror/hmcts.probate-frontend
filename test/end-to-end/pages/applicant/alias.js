@@ -1,4 +1,4 @@
-const commonContent = require('app/resources/en/translation/common.json');
+const content = require('app/resources/en/translation/applicant/aliasreason');
 const pageUnderTest = require('app/steps/ui/applicant/alias/index');
 
 module.exports = function (alias) {
@@ -6,5 +6,5 @@ module.exports = function (alias) {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.fillField('#alias', alias);
 
-    I.click(commonContent.continue);
+    I.click(content.continue);
 };
