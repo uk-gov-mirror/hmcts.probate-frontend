@@ -1,10 +1,10 @@
-const commonContent = require('app/resources/en/translation/common.json');
+const content = require('app/resources/en/translation/applicant/aliasreason');
 const pageUnderTest = require('app/steps/ui/applicant/aliasreason/index');
 
 module.exports = function () {
     const I = this;
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click('#aliasReason-Divorce');
+    I.click('#aliasDivorce');
 
-    I.click(commonContent.continue);
+    I.click(content.continue);
 };
