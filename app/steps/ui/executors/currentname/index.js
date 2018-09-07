@@ -1,20 +1,23 @@
 'use strict';
 
-const CollectionStep = require('app/core/steps/CollectionStep');
+const ValidationStep = require('app/core/steps/ValidationStep');
 const {findIndex, get} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 
-const path = '/executor-current-name/';
-
-class ExecutorCurrentName extends CollectionStep {
-
-    constructor(steps, section, templatePath, i18next, schema) {
-        super(steps, section, templatePath, i18next, schema);
-        this.path = path;
-    }
+class ExecutorCurrentName extends ValidationStep {
 
     static getUrl(index = '*') {
-        return path + index;
+        return `/executor-current-name/${index}`;
+    }
+
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        if (req.params && !isNaN(req.params[0])) {
+            ctx.index = parseInt(req.params[0]);
+        } else if (!ctx.index) {
+            ctx.index = this.recalcIndex(ctx, 0);
+        }
+        return ctx;
     }
 
     handleGet(ctx) {
@@ -26,7 +29,6 @@ class ExecutorCurrentName extends CollectionStep {
 
     handlePost(ctx, errors) {
         ctx.list[ctx.index].currentName = ctx.currentName;
-        ctx.index = this.recalcIndex(ctx, ctx.index);
         return [ctx, errors];
     }
 
