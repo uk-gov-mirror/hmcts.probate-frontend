@@ -176,6 +176,21 @@
     answerIsCollection = true
 )}}
 
+{{checkanswer(
+    items = [{
+            question: content.Summary.executorsWithOtherNames,
+            answer: fields.summary.executorsWithOtherNames.value,
+            visible: fields.summary.executorsWithOtherNames.value
+        }
+    ],
+    url = content.ExecutorsWithOtherNames.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value,
+    answerIsCollection = true
+)}}
+
+
+
 {% set cls = cycler(common.second,common.third,common.fourth,common.fifth) %}
 {% for executor in fields.executors.list.value %}
     {% if executor.isApplicant != true and executor.isApplying === true %}
@@ -200,6 +215,18 @@
                 }
             ],
             url = content.ExecutorCurrentName.url | replace("*", loop.index - 1 ),
+            common = common,
+            alreadyDeclared = fields.summary.alreadyDeclared.value
+        )}}
+
+        {{checkanswer(
+            items = [{
+                    question: content.Summary.currentNameReason,
+                    answer: executor.currentNameReason,
+                    visible: executor.hasOtherName
+                }
+            ],
+            url = content.ExecutorCurrentNameReason.url | replace("*", loop.index - 1 ),
             common = common,
             alreadyDeclared = fields.summary.alreadyDeclared.value
         )}}
