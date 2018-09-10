@@ -28,7 +28,7 @@ describe('ExecutorCurrentNameReason', () => {
     });
 
     describe('getContextData()', () => {
-        it('sets the index and indexPosition when there is a numeric url param', (done) => {
+        it('sets the index when there is a numeric url param', (done) => {
             const req = {
                 session: {
                     form: {
