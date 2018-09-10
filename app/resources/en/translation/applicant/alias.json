@@ -2,7 +2,6 @@
   "title": "Applicant alias",
   "question": "How is your name written on the will?",
   "alias": "Name",
-  "continue": "Continue",
   "nameOnWill": "Name on will",
 
   "errors": {
