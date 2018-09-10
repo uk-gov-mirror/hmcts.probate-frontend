@@ -66,7 +66,7 @@ module.exports = class PaymentStatus extends Step {
             };
 
             const findPaymentResponse = yield services.findPayment(data);
-            const date = findPaymentResponse.date_updated === undefined ? ctx.paymentCreatedDate : findPaymentResponse.date_updated;
+            const date = typeof findPaymentResponse.date_updated === 'undefined' ? ctx.paymentCreatedDate : findPaymentResponse.date_updated;
             Object.assign(formdata.payment, {
                 channel: findPaymentResponse.channel,
                 transactionId: findPaymentResponse.external_reference,
@@ -76,8 +76,10 @@ module.exports = class PaymentStatus extends Step {
                 status: findPaymentResponse.status,
                 siteId: findPaymentResponse.site_id
             });
-            options.errors = services.saveFormData(ctx.regId, formdata, ctx.sessionId);
-            options.errors = yield this.updateCcdCasePaymentStatus(ctx, formdata);
+            const [updateCcdCaseResponse, errors] = yield this.updateCcdCasePaymentStatus(ctx, formdata);
+            this.setErrors(options, errors);
+            set(formdata, 'ccdCase.state', updateCcdCaseResponse.caseState);
+
             if (findPaymentResponse.status !== 'Success') {
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
@@ -86,11 +88,16 @@ module.exports = class PaymentStatus extends Step {
                 formdata.paymentPending = 'false';
             }
         } else {
-            options.errors = yield this.updateCcdCasePaymentStatus(ctx, formdata);
+            const [updateCcdCaseResponse, errors] = yield this.updateCcdCasePaymentStatus(ctx, formdata);
+            this.setErrors(options, errors);
             options.redirect = false;
             set(formdata, 'payment.status', 'not_required');
+            set(formdata, 'ccdCase.state', updateCcdCaseResponse.caseState);
         }
-
+        const saveFormDataResponse = services.saveFormData(ctx.regId, formdata, ctx.sessionId);
+        if (saveFormDataResponse.name === 'Error') {
+            options.errors = saveFormDataResponse;
+        }
         return options;
     }
 
@@ -107,10 +114,16 @@ module.exports = class PaymentStatus extends Step {
         } else {
             logger.info('Successfully updated payment status');
         }
-        return errors;
+        return [result, errors];
     }
 
     handleGet(ctx) {
         return [ctx, ctx.errors];
+    }
+
+    setErrors(options, errors) {
+        if (typeof errors !== 'undefined') {
+            options.errors = errors;
+        }
     }
 };

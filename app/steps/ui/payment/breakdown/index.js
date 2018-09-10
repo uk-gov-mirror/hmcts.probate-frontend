@@ -65,6 +65,7 @@ class PaymentBreakdown extends Step {
             formdata.submissionReference = result.submissionReference;
             formdata.registry = result.registry;
             set(formdata, 'ccdCase.id', result.caseId);
+            set(formdata, 'ccdCase.state', result.caseState);
             if (ctx.total > 0) {
                 formdata.paymentPending = 'true';
 

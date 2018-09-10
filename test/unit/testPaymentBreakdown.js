@@ -89,8 +89,10 @@ describe('PaymentBreakdown', () => {
                     errorsTestData, formdata, session, hostname);
                 assert.deepEqual(formdata, {
                     'ccdCase': {
-                        'id': 1535395401245028
-                    },
+                        'id': 1535395401245028,
+                        'state': 'PaAppCreated'
+
+            },
                     'creatingPayment': 'true',
                     'payment': {
                         'total': 215
@@ -147,7 +149,8 @@ describe('PaymentBreakdown', () => {
                     errorsTestData, formdata, session, hostname);
                 assert.deepEqual(formdata, {
                     'ccdCase': {
-                        'id': 1535395401245028
+                        'id': 1535395401245028,
+                        'state': 'PaAppCreated'
                     },
                     'creatingPayment': 'false',
                     'payment': {
@@ -169,7 +172,7 @@ describe('PaymentBreakdown', () => {
                 assert.deepEqual(ctx, {
                     'total': 215,
                     'paymentId': 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100',
-                    "paymentCreatedDate": "2018-08-29T15:25:11.920+0000",
+                    'paymentCreatedDate': '2018-08-29T15:25:11.920+0000',
                     'paymentReference': 1234
                 });
                 done();
@@ -210,7 +213,8 @@ describe('PaymentBreakdown', () => {
                     errorsTestData, formdata, session, hostname);
                 assert.deepEqual(formdata, {
                     'ccdCase': {
-                        'id': 1535395401245028
+                        'id': 1535395401245028,
+                        'state': 'PaAppCreated'
                     },
                     'creatingPayment': 'false',
                     'payment': {

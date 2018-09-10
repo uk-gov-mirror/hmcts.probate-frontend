@@ -18,7 +18,7 @@ describe('PaymentStatus', () => {
         'status': 'Success',
         'date_updated': '2018-08-29T15:25:11.920+0000',
         'site_id': 'siteId0001',
-        "external_reference": 12345
+        'external_reference': 12345
     };
 
     const failedPaymentResponse = {
@@ -29,7 +29,7 @@ describe('PaymentStatus', () => {
         'status': 'Failed',
         'date_updated': '2018-08-29T15:25:11.920+0000',
         'site_id': 'siteId0001',
-        "external_reference": 12345
+        'external_reference': 12345
     };
 
     const PaymentStatus = steps.PaymentStatus;
@@ -74,6 +74,9 @@ describe('PaymentStatus', () => {
         it('should set redirect to false, paymentPending to false and payment status to success if payment is successful',
             sinon.test((done) => {
                 const expectedFormData = {
+                    'ccdCase': {
+                        'state': 'caseCreated'
+                    },
                     'paymentPending': 'false',
                     'payment': {
                         'amount': 5000,
@@ -89,7 +92,7 @@ describe('PaymentStatus', () => {
                 servicesMock.expects('findPayment').returns(
                     Promise.resolve(successfulPaymentResponse));
                 servicesMock.expects('updateCcdCasePaymentStatus').returns(
-                    Promise.resolve({}));
+                    Promise.resolve({'caseState': 'caseCreated'}));
                 const ctx = {
                     authToken: 'XXXXX',
                     userId: 12345,
@@ -112,6 +115,9 @@ describe('PaymentStatus', () => {
         it('should set redirect to true, paymentPending to true and payment status to failure if payment is not successful',
             sinon.test((done) => {
                 const expectedFormData = {
+                    'ccdCase': {
+                        'state': 'caseCreated'
+                    },
                     'paymentPending': 'true',
                     'payment': {
                         'amount': 5000,
@@ -127,7 +133,7 @@ describe('PaymentStatus', () => {
                 servicesMock.expects('findPayment').returns(
                     Promise.resolve(failedPaymentResponse));
                 servicesMock.expects('updateCcdCasePaymentStatus').returns(
-                    Promise.resolve({}));
+                    Promise.resolve({'caseState': 'caseCreated'}));
 
                 const ctx = {
                     authToken: 'XXXXX',
@@ -152,6 +158,9 @@ describe('PaymentStatus', () => {
         it('should set payment status to not_required and redirect to false when paymentPending is false',
             sinon.test((done) => {
                 const expectedFormData = {
+                    'ccdCase': {
+                        'state': 'caseCreated'
+                    },
                     'payment': {
                         'status': 'not_required'
                     },
@@ -161,7 +170,7 @@ describe('PaymentStatus', () => {
                 servicesMock.expects('authorise').returns(Promise.resolve({}));
                 servicesMock.expects('findPayment').returns(Promise.resolve({}));
                 servicesMock.expects('updateCcdCasePaymentStatus').returns(
-                    Promise.resolve({}));
+                    Promise.resolve({'caseState': 'caseCreated'}));
 
                 const ctx = {
                     authToken: 'XXXXX',

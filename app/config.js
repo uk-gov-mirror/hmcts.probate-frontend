@@ -43,7 +43,7 @@ module.exports = {
             roles: ['probate-private-beta', 'citizen'],
             s2s_url: process.env.IDAM_S2S_URL || 'http://localhost:4502',
             service_name: 'probate_frontend',
-            service_key: process.env.IDAM_SERVICE_KEY || 'dummy_key',
+            service_key: process.env.IDAM_SERVICE_KEY || 'AAAAAAAAAAAAAAAA',
             probate_oauth2_client: 'probate',
             probate_oauth2_secret: process.env.IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE || '123456',
             probate_oauth_callback_path: '/oauth2/callback'
