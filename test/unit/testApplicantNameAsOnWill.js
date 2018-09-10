@@ -90,6 +90,19 @@ describe('ApplicantNameAsOnWill', () => {
                 done();
             });
         });
+    describe('nextStepOptions()', () => {
+        it('should return the correct next step options', (done) => {
+            const result = ApplicantNameAsOnWill.nextStepOptions();
+            expect(result).to.deep.equal({
+                options: [{
+                    key: 'nameAsOnTheWill',
+                    value: content.optionNo,
+                    choice: 'hasAlias'
+                }]
+            });
+            done();
+        });
+    });
 
         describe('handlePost()', () => {
             let ctx;
