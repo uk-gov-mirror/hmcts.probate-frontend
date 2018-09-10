@@ -24,6 +24,10 @@ class ExecutorsUpdateInvite extends ValidationStep {
         delete ctx.notifyExecutorsSuffix;
         return [ctx, formdata];
     }
+
+    isComplete(ctx) {
+        return [ctx.hasEmailChanged, 'inProgress'];
+    }
 }
 
 module.exports = ExecutorsUpdateInvite;

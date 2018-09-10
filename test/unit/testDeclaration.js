@@ -53,7 +53,6 @@ describe('Declaration tests', function () {
             ctx = {
                 hasMultipleApplicants: true,
                 hasDataChanged: false,
-                hasEmailChanged: false,
                 executorsEmailChanged: false,
                 hasDataChangedAfterEmailSent: true,
                 invitesSent: 'true',
