@@ -1,3 +1,5 @@
+'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {findIndex, get} = require('lodash');
 
@@ -9,6 +11,9 @@ module.exports = class ExecutorCurrentNameReason extends ValidationStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
+        if (req.params && !isNaN(req.params[0])) {
+            ctx.index = parseInt(req.params[0]);
+        }
         if (ctx.list && ctx.list[ctx.index]) {
             ctx.otherExecName = ctx.list[ctx.index].currentName;
         }
@@ -17,8 +22,10 @@ module.exports = class ExecutorCurrentNameReason extends ValidationStep {
 
     handlePost(ctx, errors) {
         if (ctx.list) {
+            if (ctx.otherReason) {
+                ctx.list[ctx.index].otherReason = ctx.otherReason;
+            }
             ctx.list[ctx.index].currentNameReason = ctx.aliasReason;
-            ctx.list[ctx.index].otherReason = ctx.otherReason;
         }
         ctx.index = this.recalcIndex(ctx, ctx.index);
         return [ctx, errors];
