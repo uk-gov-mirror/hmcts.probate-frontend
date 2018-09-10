@@ -1,4 +1,4 @@
-const content = require('app/resources/en/translation/applicant/aliasreason');
+const commonContent = require('app/resources/en/translation/common');
 const pageUnderTest = require('app/steps/ui/applicant/aliasreason/index');
 
 module.exports = function () {
@@ -6,5 +6,5 @@ module.exports = function () {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.click('#aliasDivorce');
 
-    I.click(content.continue);
+    I.click(commonContent.continue);
 };
