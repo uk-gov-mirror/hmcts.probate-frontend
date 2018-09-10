@@ -1,23 +1,30 @@
+'use strict';
+
 const expect = require('chai').expect;
 const config = require('app/config');
 const FormatUrl = require('app/utils/FormatUrl');
 const request = require('supertest');
 
 const VALIDATION_SERVICE_URL = config.services.validation.url;
+const VALID_SESSION_ID = '012233456789';
+const VALID_INTERNATIONAL_TEST_NUMBER = '+61437112945';
+const VALID_UK_WITH_PREFIX_TEST_NUMBER = '+447535538319';
+const VALID_UK_LOCAL_TEST_NUMBER = '07535538319';
+const VALID_PIN_CONTENT_LENGTH = '6';
 
 /* eslint no-console: 0 no-unused-vars: 0 */
-describe.only('Pin Creation API Tests', function() {
+describe('Pin Creation API Tests', () => {
 
     const pinServiceUrl = FormatUrl.format(VALIDATION_SERVICE_URL, '/pin');
 
-    describe('1. Invalid number which should produce a 400 Bad Request', function () {
-        it('Returns HTTP 400 status', function (done) {
+    describe('Invalid number which should produce a 400 Bad Request', () => {
+        it('Returns HTTP 400 status', (done) => {
             request(pinServiceUrl)
                 .get('')
                 .query({phoneNumber: '+$447701111111'})
-                .set('Session-Id', '012233456789')
+                .set('Session-Id', VALID_SESSION_ID)
                 .expect(400)
-                .end(function (err, res) {
+                .end((err, res) => {
                     if (err) {
                         console.log('error raised: ', err);
                     }
@@ -28,13 +35,13 @@ describe.only('Pin Creation API Tests', function() {
         });
     });
 
-    describe('2. Missing Session-Id which should produce a 400 Bad Request', function () {
-        it('Returns HTTP 400 status', function (done) {
+    describe('Missing Session-Id which should produce a 400 Bad Request', () => {
+        it('Returns HTTP 400 status', (done) => {
             request(pinServiceUrl)
                 .get('')
-                .query({phoneNumber: '+447701111111'})
+                .query({phoneNumber: `${VALID_UK_LOCAL_TEST_NUMBER}`})
                 .expect(400)
-                .end(function (err, res) {
+                .end((err, res) => {
                     if (err) {
                         console.log('error raised: ', err);
                     }
@@ -44,57 +51,57 @@ describe.only('Pin Creation API Tests', function() {
         });
     });
 
-    describe('3. Valid International Number', function () {
-        it('Returns HTTP 200 status and pin number', function (done) {
+    describe('Valid International Number', () => {
+        it('Returns HTTP 200 status and pin number', (done) => {
             request(pinServiceUrl)
                 .get('')
-                .query({phoneNumber: '+61437112945'})
-                .set('Session-Id', '012233456789')
+                .query({phoneNumber: `${VALID_INTERNATIONAL_TEST_NUMBER}`})
+                .set('Session-Id', VALID_SESSION_ID)
                 .expect(200)
-                .end(function (err, res) {
+                .end((err, res) => {
                     if (err) {
                         console.log('error raised: ', err);
                     }
                     expect(err).to.be.equal(null);
-                    expect(res.header).to.have.property('content-length').eq('6');
+                    expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
                     expect(res.text).is.not.equal(null);
                     done();
                 });
         });
     });
 
-    describe('4. Valid UK Number', function () {
-        it('Returns HTTP 200 status and pin number', function (done) {
+    describe('Valid UK With 44 Prefix Number', () => {
+        it('Returns HTTP 200 status and pin number', (done) => {
             request(pinServiceUrl)
                 .get('')
-                .query({phoneNumber: '+447535538319'})
-                .set('Session-Id', '012233456789')
+                .query({phoneNumber: `${VALID_UK_WITH_PREFIX_TEST_NUMBER}`})
+                .set('Session-Id', VALID_SESSION_ID)
                 .expect(200)
-                .end(function (err, res) {
+                .end((err, res) => {
                     if (err) {
                         console.log('error raised: ', err);
                     }
                     expect(err).to.be.equal(null);
-                    expect(res.header).to.have.property('content-length').eq('6');
+                    expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
                     expect(res.text).is.not.equal(null);
                     done();
                 });
         });
     });
 
-    describe('5. Valid UK Local Number', function () {
-        it('Returns HTTP 200 status and pin number', function (done) {
+   describe('Valid UK Local Number', () => {
+        it('Returns HTTP 200 status and pin number', (done) => {
             request(pinServiceUrl)
                 .get('')
-                .query({phoneNumber: '07535538319'})
-                .set('Session-Id', '012233456789')
+                .query({phoneNumber: `${VALID_UK_LOCAL_TEST_NUMBER}`})
+                .set('Session-Id', VALID_SESSION_ID)
                 .expect(200)
-                .end(function (err, res) {
+                .end((err, res) => {
                     if (err) {
                         console.log('error raised: ', err);
                     }
                     expect(err).to.be.equal(null);
-                    expect(res.header).to.have.property('content-length').eq('6');
+                    expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
                     expect(res.text).is.not.equal(null);
                     done();
                 });

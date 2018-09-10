@@ -1,17 +1,19 @@
+'use strict';
+
 const assert = require('chai').assert;
 const expect = require('chai').expect;
 const request = require('supertest');
 const testConfig = require('test/config');
 
 /* eslint no-console: 0 no-unused-vars: 0 */
-describe('Address Lookup API Tests', function() {
-    describe('1. Basic ping', function () {
-        it('Returns HTTP 403 status', function (done) {
+describe('Address Lookup API Tests', () => {
+    describe('Basic ping', () => {
+        it('Returns HTTP 403 status', (done) => {
             request(testConfig.postcodeLookup.url)
                 .get('/')
                 .expect('Content-Type', /json/)
                 .expect(403)
-                .end(function (err, res) {
+                .end((err, res) => {
                     if (err) {
                         console.log('error raised: ', err);
                     } else {
@@ -22,16 +24,15 @@ describe('Address Lookup API Tests', function() {
         });
     });
 
-    describe('2. Single address returned for postcode', function () {
-        it('Returns single address', function (done) {
-
+    describe('Single address returned for postcode', () => {
+        it('Returns single address', (done) => {
             request(testConfig.postcodeLookup.url)
                 .get(testConfig.postcodeLookup.endpoint)
                 .query({postcode: testConfig.postcodeLookup.singleAddressPostcode})
                 .set('Authorization', testConfig.postcodeLookup.token)
                 .set('Content-Type', testConfig.postcodeLookup.contentType)
                 .expect(200)
-                .end(function (err, res) {
+                .end((err, res) => {
                     if (err) {
                         console.log('error raised: ', err);
                     } else {
@@ -44,15 +45,15 @@ describe('Address Lookup API Tests', function() {
         });
     });
 
-    describe('3. Multiple addresses returned for postcode', function () {
-        it('Returns multiple addresses', function (done) {
+    describe('Multiple addresses returned for postcode', () => {
+        it('Returns multiple addresses', (done) => {
             request(testConfig.postcodeLookup.url)
                 .get(testConfig.postcodeLookup.endpoint)
                 .query({postcode: testConfig.postcodeLookup.multipleAddressPostcode})
                 .set('Authorization', testConfig.postcodeLookup.token)
                 .set('Content-Type', testConfig.postcodeLookup.contentType)
                 .expect(200)
-                .end(function (err, res) {
+                .end((err, res) => {
                     if (err) {
                         console.log('error raised: ', err);
                     } else {
@@ -63,15 +64,15 @@ describe('Address Lookup API Tests', function() {
         });
     });
 
-    describe('4. Partial postcode test', function () {
-        it('No address returned for partial postcode', function (done) {
+    describe('Partial postcode test', () => {
+        it('No address returned for partial postcode', (done) => {
             request(testConfig.postcodeLookup.url)
                 .get(testConfig.postcodeLookup.endpoint)
                 .query({postcode: testConfig.postcodeLookup.partialAddressPostcode})
                 .set('Authorization', testConfig.postcodeLookup.token)
                 .set('Content-Type', testConfig.postcodeLookup.contentType)
                 .expect(200)
-                .end(function (err, res) {
+                .end((err, res) => {
                     if (err) {
                         console.log('error raised: ', err);
                     } else {
@@ -82,15 +83,15 @@ describe('Address Lookup API Tests', function() {
         });
     });
 
-    describe('5. Invalid postcode test', function () {
-        it('No address returned for invalid postcode', function (done) {
+    describe('Invalid postcode test', () => {
+        it('No address returned for invalid postcode', (done) => {
             request(testConfig.postcodeLookup.url)
                 .get(testConfig.postcodeLookup.endpoint)
                 .query({postcode: testConfig.postcodeLookup.invalidAddressPostcode})
                 .set('Authorization', testConfig.postcodeLookup.token)
                 .set('Content-Type', testConfig.postcodeLookup.contentType)
                 .expect(200)
-                .end(function (err, res) {
+                .end((err, res) => {
                     if (err) {
                         console.log('error raised: ', err);
                     } else {
@@ -101,14 +102,14 @@ describe('Address Lookup API Tests', function() {
         });
     });
 
-    describe('6. No postcode entered test', function () {
-        it('No address returned for no postcode entered', function (done) {
+    describe('No postcode entered test', () => {
+        it('No address returned for no postcode entered', (done) => {
             request(testConfig.postcodeLookup.url)
                 .get(testConfig.postcodeLookup.endpoint)
                 .query({postcode: testConfig.postcodeLookup.emptyAddressPostcode})
                 .set('Authorization', testConfig.postcodeLookup.token)
                 .set('Content-Type', testConfig.postcodeLookup.contentType)
-                .end(function (err, res) {
+                .end((err, res) => {
                     if (err) {
                         console.log('error raised: ', err);
                     } else {
