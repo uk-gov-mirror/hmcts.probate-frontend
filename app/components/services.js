@@ -148,9 +148,10 @@ const updateInviteData = (inviteId, data) => {
     return utils.fetchJson(findInviteLinkUrl, fetchOptions);
 };
 
-const sendInvite = (data, sessionID) => {
+const sendInvite = (data, sessionID, exec) => {
     logger.info('send invite');
-    const sendInviteUrl = FormatUrl.format(VALIDATION_SERVICE_URL, '/invite');
+    const urlParameter = exec.inviteId ? `/${exec.inviteId}` : '';
+    const sendInviteUrl = FormatUrl.format(VALIDATION_SERVICE_URL, `/invite${urlParameter}`);
     const headers = {'Content-Type': 'application/json', 'Session-Id': sessionID};
     const fetchOptions = utils.fetchOptions(data, 'POST', headers);
     return utils.fetchText(sendInviteUrl, fetchOptions);
@@ -214,8 +215,8 @@ const removeExecutor = (inviteId) => {
     return utils.fetchText(removeExecutorUrl, fetchOptions);
 };
 
-const updatePhoneNumber = (inviteId, data) => {
-    logger.info('Update Phone Number');
+const updateContactDetails = (inviteId, data) => {
+    logger.info('Update Contact Details');
     const findInviteUrl = FormatUrl.format(PERSISTENCE_SERVICE_URL, `/invitedata/${inviteId}`);
     const headers = {
         'Content-Type': 'application/json'
@@ -250,8 +251,8 @@ module.exports = {
     getOauth2Token,
     sendPin,
     sendInvite,
+    updateContactDetails,
     removeExecutor,
-    updatePhoneNumber,
     checkAllAgreed,
     signOut
 };

@@ -10,7 +10,7 @@ describe('Executors.js', () => {
         data = {
             list: [
                 {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                {fullName: 'ed brown', isApplying: true}
+                {fullname: 'ed brown', isApplying: true}
             ]
         };
     });
@@ -66,7 +66,7 @@ describe('Executors.js', () => {
             data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullName: 'ed brown', isApplying: false, notApplyingKey: 'optionPowerReserved'}
+                    {fullname: 'ed brown', isApplying: false, notApplyingKey: 'optionPowerReserved'}
                 ]
             };
         });
@@ -112,7 +112,7 @@ describe('Executors.js', () => {
             data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullName: 'ed brown', isApplying: false, notApplyingKey: 'optionRenunciated'}
+                    {fullname: 'ed brown', isApplying: false, notApplyingKey: 'optionRenunciated'}
                 ]
             };
         });
@@ -138,8 +138,8 @@ describe('Executors.js', () => {
             data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullName: 'ed brown', isApplying: false, notApplyingKey: 'optionPowerReserved'},
-                    {fullName: 'jake smith', isApplying: false, notApplyingKey: 'optionRenunciated'}
+                    {fullname: 'ed brown', isApplying: false, notApplyingKey: 'optionPowerReserved'},
+                    {fullname: 'jake smith', isApplying: false, notApplyingKey: 'optionRenunciated'}
                 ]
             };
         });
@@ -253,7 +253,7 @@ describe('Executors.js', () => {
         beforeEach(() => {
             data = {
                 list: [
-                    {fullName: 'ed brown', isDead: true}
+                    {fullname: 'ed brown', isDead: true}
                 ]
             };
         });
@@ -276,7 +276,7 @@ describe('Executors.js', () => {
         beforeEach(() => {
             data = {
                 list: [
-                    {fullName: 'James Miller', hasOtherName: true}
+                    {fullname: 'James Miller', hasOtherName: true}
                 ]
             };
         });
@@ -309,8 +309,8 @@ describe('Executors.js', () => {
             data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullName: 'ed brown', isApplying: true},
-                    {fullName: 'jake smith', isDead: true}
+                    {fullname: 'ed brown', isApplying: true},
+                    {fullname: 'jake smith', isDead: true}
                 ]
             };
         });
@@ -343,8 +343,8 @@ describe('Executors.js', () => {
             data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullName: 'ed brown', hasOtherName: true},
-                    {fullName: 'jake smith', has: true}
+                    {fullname: 'ed brown', hasOtherName: true},
+                    {fullname: 'jake smith', has: true}
                 ]
             };
         });
@@ -352,7 +352,7 @@ describe('Executors.js', () => {
         it('should return a list of executors with another name', (done) => {
             const executorsWrapper = new ExecutorsWrapper(data);
             expect(executorsWrapper.executorsWithAnotherName()).to.deep.equal([
-                {fullName: 'ed brown', hasOtherName: true}
+                {fullname: 'ed brown', hasOtherName: true}
             ]);
             done();
         });
@@ -369,6 +369,153 @@ describe('Executors.js', () => {
                 const data = {};
                 const executorsWrapper = new ExecutorsWrapper(data);
                 expect(executorsWrapper.executorsWithAnotherName()).to.deep.equal([]);
+                done();
+            });
+        });
+    });
+
+    describe('hasExecutorsEmailChanged()', () => {
+        beforeEach(() => {
+            data = {
+                list: [
+                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                    {fullname: 'ed brown', hasOtherName: true},
+                    {fullname: 'jake smith', emailChanged: true},
+                    {fullname: 'bob smith'}
+                ]
+            };
+        });
+
+        it('should return true when one executor email has changed', (done) => {
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.hasExecutorsEmailChanged()).to.deep.equal(true);
+            done();
+        });
+
+        it('should return true when multiple executor emails have changed', (done) => {
+            data.list[3].emailChanged = true;
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.hasExecutorsEmailChanged()).to.deep.equal(true);
+            done();
+        });
+
+        describe('should return false', () => {
+            it('when no executors emails have changed', (done) => {
+                data.list[2].emailChanged = false;
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.hasExecutorsEmailChanged()).to.deep.equal(false);
+                done();
+            });
+
+            it('when there is no executor data', (done) => {
+                const data = {};
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.hasExecutorsEmailChanged()).to.deep.equal(false);
+                done();
+            });
+        });
+    });
+
+    describe('executorsEmailChangedList()', () => {
+        beforeEach(() => {
+            data = {
+                list: [
+                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                    {fullname: 'ed brown', hasOtherName: true},
+                    {fullname: 'jake smith', emailChanged: true},
+                    {fullname: 'bob smith'}
+                ]
+            };
+        });
+
+        it('should return a list with a single executor when only one executor email has changed', (done) => {
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.executorsEmailChangedList()).to.deep.equal([
+                {fullname: 'jake smith', emailChanged: true}
+            ]);
+            done();
+        });
+
+        it('should return a list of multiple executors when multiple executor emails have changed', (done) => {
+            data.list[3].emailChanged = true;
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.executorsEmailChangedList()).to.deep.equal([
+                {fullname: 'jake smith', emailChanged: true},
+                {fullname: 'bob smith', emailChanged: true}
+            ]);
+            done();
+        });
+
+        describe('should return an empty list', () => {
+            it('when no executors emails have changed', (done) => {
+                data.list[2].emailChanged = false;
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorsEmailChangedList()).to.deep.equal([]);
+                done();
+            });
+
+            it('when there is no executor data', (done) => {
+                const data = {};
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorsEmailChangedList()).to.deep.equal([]);
+                done();
+            });
+        });
+    });
+
+    describe('removeExecutorsEmailChangedFlag()', () => {
+        beforeEach(() => {
+            data = {
+                list: [
+                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                    {fullname: 'ed brown', hasOtherName: true},
+                    {fullname: 'jake smith', emailChanged: true},
+                    {fullname: 'bob smith'}
+                ]
+            };
+        });
+
+        it('should return a list with emailChanged flag removed when only one executor has the flag set to true', (done) => {
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.removeExecutorsEmailChangedFlag()).to.deep.equal([
+                {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                {fullname: 'ed brown', hasOtherName: true},
+                {fullname: 'jake smith'},
+                {fullname: 'bob smith'}
+            ]);
+            done();
+        });
+
+        it('should return a list with emailChanged flag removed when more than one executor has the flag set to true', (done) => {
+            data.list[3].emailChanged = true;
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.removeExecutorsEmailChangedFlag()).to.deep.equal([
+                {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                {fullname: 'ed brown', hasOtherName: true},
+                {fullname: 'jake smith'},
+                {fullname: 'bob smith'}
+            ]);
+            done();
+        });
+
+        it('when no executors emails have changed', (done) => {
+            delete data.list[2].emailChanged;
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.removeExecutorsEmailChangedFlag()).to.deep.equal([
+                {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                {fullname: 'ed brown', hasOtherName: true},
+                {fullname: 'jake smith'},
+                {fullname: 'bob smith'}
+            ]);
+            done();
+        });
+
+        describe('should return an empty list', () => {
+
+            it('when there is no executor data', (done) => {
+                const data = {};
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.removeExecutorsEmailChangedFlag()).to.deep.equal([]);
                 done();
             });
         });
