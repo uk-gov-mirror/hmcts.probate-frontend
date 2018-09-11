@@ -6,7 +6,6 @@
   "optionDeedPoll": "Change by deed poll",
   "optionOther": "Other",
   "optionOtherHint": "Reason for name change",
-  "continue": "Continue",
 
   "errors": {
     "aliasReason": {
