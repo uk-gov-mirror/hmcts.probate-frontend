@@ -1,11 +1,10 @@
 'use strict';
 
-const assert = require('chai').assert;
 const expect = require('chai').expect;
 const request = require('supertest');
+const logger = require('app/components/logger')('Init');
 const testConfig = require('test/config');
 
-/* eslint no-console: 0 no-unused-vars: 0 */
 describe('Address Lookup API Tests', () => {
     describe('Basic ping', () => {
         it('Returns HTTP 403 status', (done) => {
@@ -15,7 +14,7 @@ describe('Address Lookup API Tests', () => {
                 .expect(403)
                 .end((err, res) => {
                     if (err) {
-                        console.log('error raised: ', err);
+                        logger.error(`error raised: ${err}`);
                     } else {
                         expect(res.body.detail).to.equal('You do not have permission to perform this action.');
                     }
@@ -34,7 +33,7 @@ describe('Address Lookup API Tests', () => {
                 .expect(200)
                 .end((err, res) => {
                     if (err) {
-                        console.log('error raised: ', err);
+                        logger.error(`error raised: ${err}`);
                     } else {
                         expect(res.body.length).to.equal(1);
                         expect(res.body[0].organisation_name).to.equal(testConfig.postcodeLookup.singleOrganisationName);
@@ -55,7 +54,7 @@ describe('Address Lookup API Tests', () => {
                 .expect(200)
                 .end((err, res) => {
                     if (err) {
-                        console.log('error raised: ', err);
+                        logger.error(`error raised: ${err}`);
                     } else {
                         expect(res.body.length).to.equal(12);
                     }
@@ -74,7 +73,7 @@ describe('Address Lookup API Tests', () => {
                 .expect(200)
                 .end((err, res) => {
                     if (err) {
-                        console.log('error raised: ', err);
+                        logger.error(`error raised: ${err}`);
                     } else {
                         expect(res.body.length).to.equal(0);
                     }
@@ -93,7 +92,7 @@ describe('Address Lookup API Tests', () => {
                 .expect(200)
                 .end((err, res) => {
                     if (err) {
-                        console.log('error raised: ', err);
+                        logger.error(`error raised: ${err}`);
                     } else {
                         expect(res.body.length).to.equal(0);
                     }
@@ -111,7 +110,7 @@ describe('Address Lookup API Tests', () => {
                 .set('Content-Type', testConfig.postcodeLookup.contentType)
                 .end((err, res) => {
                     if (err) {
-                        console.log('error raised: ', err);
+                        logger.error(`error raised: ${err}`);
                     } else {
                         expect(res.body.length).to.equal(0);
                     }
