@@ -7,7 +7,7 @@ const ExecutorCurrentName = require('app/steps/ui/executors/currentname/index');
 describe('/executor-current-name-reason/', () => {
     let testWrapper, sessionData;
     const expectedNextUrlForExecContactDetails = ExecutorContactDetails.getUrl();
-    const FirstExecURL = ExecutorCurrentName.getUrl(2);
+    const firstNameReasonUrl = ExecutorCurrentName.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorCurrentNameReason');
@@ -15,12 +15,12 @@ describe('/executor-current-name-reason/', () => {
             'executors': {
                 'list': [
                     {'firstName': 'john', 'lastName': 'theapplicant', 'isApplying': true, 'isApplicant': true},
-                    {'fullName': 'executor name1', isApplying: true, hasOtherName: false},
+                    {'fullName': 'executor name1', isApplying: false},
                     {'fullName': 'executor name2', isApplying: true, currentName: 'name2 executor', hasOtherName: true},
                     {'fullName': 'executor name3', isApplying: true, hasOtherName: false},
                     {'fullName': 'executor name4', isApplying: true, hasOtherName: true},
-                    {'fullName': 'executor name5', isApplying: true, hasOtherName: false},
-                    {'fullName': 'executor name6', isApplying: true, hasOtherName: true}
+                    {'fullName': 'executor name5', isApplying: false},
+                    {'fullName': 'executor name6', isApplying: false}
                 ]
             }
         };
@@ -60,7 +60,7 @@ describe('/executor-current-name-reason/', () => {
             testWrapper.testErrors(done, data, 'required', errorsToTest);
         });
 
-        it(`test redirects from ExecutorCurrentNameReason to next ExecutorCurrentName, ${FirstExecURL}`, (done) => {
+        it(`test redirects from ExecutorCurrentNameReason to next ExecutorCurrentName, ${firstNameReasonUrl}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -68,7 +68,8 @@ describe('/executor-current-name-reason/', () => {
                         index: 1,
                         aliasReason: 'Marriage'
                     };
-                    testWrapper.testRedirect(done, data, FirstExecURL);
+                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
+                    testWrapper.testRedirect(done, data, firstNameReasonUrl);
                 });
         });
 
@@ -77,10 +78,10 @@ describe('/executor-current-name-reason/', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        index: 6,
+                        index: 4,
                         aliasReason: 'Marriage',
                     };
-                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(6);
+                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(4);
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecContactDetails);
                 });
         });
