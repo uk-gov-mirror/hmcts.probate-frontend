@@ -55,6 +55,21 @@ describe('pin-resend', () => {
                 });
         });
 
+        it('test international long phone number loads on the page', (done) => {
+            const contentData = {
+                phoneNumber: '+10900111000111000111',
+            };
+            testWrapper.agent
+                .post('/prepare-session-field')
+                .send({
+                    'phoneNumber': '+10900111000111000111',
+                    'validLink': true
+                })
+                .then(function() {
+                    testWrapper.testContent(done, ['subHeader2ExecName'], contentData);
+                });
+        });
+
         it('test lead executor name loads on the page', (done) => {
             const contentData = {
                 executorName: 'Works',
