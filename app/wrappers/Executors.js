@@ -1,9 +1,10 @@
 'use strict';
 
 class Executors {
-    constructor(executors) {
-        executors = executors || {};
-        this.executorsList = executors.list || [];
+    constructor(executorsData) {
+        this.executorsData = executorsData || {};
+        this.executorsList = this.executorsData.list || [];
+
     }
 
     executors(excludeApplicant) {
@@ -77,6 +78,24 @@ class Executors {
         });
     }
 
+    mainApplicant() {
+        return this.executorsList.filter(executor => executor.isApplicant);
+    }
+
+    executorsToRemove() {
+        return this.executorsList.filter(executor => !executor.isApplying && executor.inviteId);
+    }
+
+    removeExecutorsInviteData() {
+        return this.executorsList.map(executor => {
+            if (!executor.isApplying && executor.inviteId) {
+                delete executor.inviteId;
+                delete executor.emailSent;
+            }
+            return executor;
+        });
+    }
+
     hasExecutorsEmailChanged() {
         return this.executorsList.some(executor => executor.emailChanged);
     }
@@ -91,6 +110,10 @@ class Executors {
 
     executorsToNotify() {
         return this.executorsList.filter(executor => executor.isApplying && !executor.isApplicant && !executor.emailSent);
+    }
+
+    executorsRemoved() {
+        return this.executorsData.executorsRemoved || [];
     }
 }
 

@@ -15,7 +15,7 @@ probate_frontend_use_auth = "false"
 
 reform_envirionment_for_test = "preview"
 
-payment_create_url = "https://preprod.payments.reform.hmcts.net:4401/users/userId/payments"
+payment_create_url = "http://payment-api-aat.service.core-compute-aat.internal/users/userId/payments"
 
 idam_service_api = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
 
@@ -37,3 +37,5 @@ probate_business_service_url = "http://probate-business-service-aat.service.core
 probate_submit_service_url = "http://probate-submit-service-aat.service.core-compute-aat.internal/submit"
 
 probate_persistence_service_url = "http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata"
+
+feature_toggles_api_url = "http://rpe-feature-toggle-api-aat.service.core-compute-aat.internal"
