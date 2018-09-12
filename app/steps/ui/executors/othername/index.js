@@ -32,6 +32,7 @@ class ExecutorsWithOtherNames extends ValidationStep {
         if (!data.hasOtherName) {
             delete data.currentNameReason;
             delete data.currentName;
+            delete data.otherReason;
         }
         return data;
     }
