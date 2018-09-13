@@ -1,22 +1,11 @@
 'use strict';
 
 const config = require('app/config');
-const {defaultTo} = require('lodash');
-const simpleRandom = require('simple-random');
 const SERVICE_ID = config.payment.serviceId;
 const SITE_ID = config.payment.siteId;
-let APPLICATION_FEE_CODE;
-let ADDITIONAL_COPY_FEE_CODE_UK;
-let ADDITIONAL_COPY_FEE_CODE_OVERSEAS;
-
-const createCaseReference = (deceasedLastName) => {
-    let identifier = defaultTo(deceasedLastName, '');
-    identifier = identifier.replace(/[^a-zA-Z]/g, '');
-    identifier = identifier.substring(0, 28);
-    const suffix = simpleRandom({letters: false, length: 4});
-    identifier += suffix;
-    return identifier;
-};
+const APPLICATION_FEE_CODE = config.payment.applicationFeeCode;
+const ADDITIONAL_COPY_FEE_CODE_UK = config.payment.copies.uk.code;
+const ADDITIONAL_COPY_FEE_CODE_OVERSEAS = config.payment.copies.overseas.code;
 
 const createPaymentData = (data) => {
     const version = config.payment.version;
@@ -82,6 +71,5 @@ const createPaymentFees = (params) => {
 
 module.exports = {
     createPaymentData: createPaymentData,
-    createCaseReference: createCaseReference,
     createPaymentFees: createPaymentFees
 };

@@ -34,10 +34,6 @@ describe('PaymentData', () => {
             assert.exists(result.description);
         });
 
-        it('Limits case reference to 32 characters', () => {
-            const result = paymentData.createCaseReference('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz');
-            assert.isTrue(result.length === 32);
-        });
     });
 
     describe('createPaymentFees', () => {
