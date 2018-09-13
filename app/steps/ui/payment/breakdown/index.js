@@ -92,8 +92,9 @@ class PaymentBreakdown extends Step {
                         deceasedLastName: ctx.deceasedLastName
                     };
 
-                    logger.info(data);
                     const [response, paymentReference] = yield services.createPayment(data, hostname);
+                    logger.info('Response');
+                    logger.info(response);
                     formdata.creatingPayment = 'false';
 
                     if (response.name === 'Error') {

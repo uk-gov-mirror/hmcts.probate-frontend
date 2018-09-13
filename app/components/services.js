@@ -18,6 +18,7 @@ const PROXY = config.services.postcode.proxy;
 const SERVICE_AUTHORISATION_URL = `${config.services.idam.s2s_url}/lease`;
 const serviceName = config.services.idam.service_name;
 const secret = config.services.idam.service_key;
+const FEATURE_TOGGLE_API = config.featureToggles.api_url;
 const logger = require('app/components/logger')('Init');
 
 const getUserDetails = (securityCookie) => {
@@ -40,6 +41,17 @@ const findAddress = (postcode) => {
     };
     const fetchOptions = utils.fetchOptions({}, 'GET', headers, PROXY);
     return utils.fetchJson(url, fetchOptions);
+};
+
+const featureToggle = (featureToggleKey) => {
+    logger.info('featureToggle');
+    const url = `${FEATURE_TOGGLE_API}/api/ff4j/check/${featureToggleKey}`;
+    logger.info('url');
+    const headers = {
+        'Content-Type': 'application/json'
+    };
+    const fetchOptions = utils.fetchOptions({}, 'GET', headers);
+    return utils.fetchText(url, fetchOptions);
 };
 
 const validateFormData = (data, sessionID) => {
@@ -111,12 +123,14 @@ const createPayment = (data, hostname) => {
     const headers = {
         'Content-Type': 'application/json',
         'Authorization': data.authToken,
-        'ServiceAuthorization': data.serviceAuthToken
+        'ServiceAuthorization': data.serviceAuthToken,
+        'return-url': FormatUrl.format(hostname, '/payment-status')
     };
-    const body = paymentData.createPaymentData(data, hostname);
+    const body = paymentData.createPaymentData(data);
+    logger.info('Request body');
+    logger.info(JSON.stringify(body));
     const fetchOptions = utils.fetchOptions(body, 'POST', headers);
-    const createPaymentUrl = CREATE_PAYMENT_SERVICE_URL.replace('userId', data.userId);
-    return [utils.fetchJson(createPaymentUrl, fetchOptions), body.reference];
+    return [utils.fetchJson(CREATE_PAYMENT_SERVICE_URL, fetchOptions), body.reference];
 };
 
 const findPayment = (data) => {
@@ -128,7 +142,7 @@ const findPayment = (data) => {
     };
 
     const fetchOptions = utils.fetchOptions(data, 'GET', headers);
-    const findPaymentUrl = `${CREATE_PAYMENT_SERVICE_URL.replace('userId', data.userId)}/${data.paymentId}`;
+    const findPaymentUrl = `${CREATE_PAYMENT_SERVICE_URL}/${data.paymentId}`;
     return utils.fetchJson(findPaymentUrl, fetchOptions);
 };
 
@@ -238,6 +252,7 @@ const signOut = (access_token) => {
 module.exports = {
     getUserDetails,
     findAddress,
+    featureToggle,
     validateFormData,
     sendToSubmitService,
     updateCcdCasePaymentStatus,
