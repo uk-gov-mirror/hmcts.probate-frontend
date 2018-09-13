@@ -44,7 +44,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
     I.selectNameAsOnTheWill('optionNo');
     I.enterApplicantAlias('Bob Alias');
-    I.enterApplicantAliasReason();
+    I.enterApplicantAliasReason('aliasOther', 'Because YOLO');
     I.enterApplicantPhone();
     I.enterAddressManually();
 
