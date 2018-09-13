@@ -91,7 +91,7 @@ class Executors {
         return this.executorsData.executorsRemoved || [];
     }
 
-    executorsAliasList() {
+    executorsNameChangedByDeedPoll() {
         return this.executorsList
             .filter(executor => executor.aliasReason === 'Change by deed poll' || executor.currentNameReason === 'Change by deed poll')
             .map(executor => executor.alias || executor.currentName);

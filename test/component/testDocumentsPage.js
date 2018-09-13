@@ -3,7 +3,6 @@ const TestWrapper = require('test/util/TestWrapper');
 const config = require('app/config');
 const ThankYou = require('app/steps/ui/thankyou/index.js');
 const ihtContent = require('app/resources/en/translation/iht/method');
-const {assert} = require('chai');
 
 describe('documents-page', () => {
     let testWrapper;

@@ -488,7 +488,7 @@ describe('Executors.js', () => {
         });
     });
 
-    describe('executorsAliasList()', () => {
+    describe('executorsNameChangedByDeedPoll()', () => {
         it('should return only the lead applicant', (done) => {
             const data = {
                 list: [
@@ -498,7 +498,7 @@ describe('Executors.js', () => {
                 ]
             };
             const executorsWrapper = new ExecutorsWrapper(data);
-            expect(executorsWrapper.executorsAliasList()).to.deep.equal(['jimbo fisher']);
+            expect(executorsWrapper.executorsNameChangedByDeedPoll()).to.deep.equal(['jimbo fisher']);
             done();
         });
 
@@ -511,7 +511,7 @@ describe('Executors.js', () => {
                 ]
             };
             const executorsWrapper = new ExecutorsWrapper(data);
-            expect(executorsWrapper.executorsAliasList()).to.deep.equal(['eddie jones']);
+            expect(executorsWrapper.executorsNameChangedByDeedPoll()).to.deep.equal(['eddie jones']);
             done();
         });
 
@@ -524,7 +524,7 @@ describe('Executors.js', () => {
                 ]
             };
             const executorsWrapper = new ExecutorsWrapper(data);
-            expect(executorsWrapper.executorsAliasList()).to.deep.equal([
+            expect(executorsWrapper.executorsNameChangedByDeedPoll()).to.deep.equal([
                 'eddie jones',
                 'bobbie houston'
             ]);
@@ -541,7 +541,7 @@ describe('Executors.js', () => {
                     ]
                 };
                 const executorsWrapper = new ExecutorsWrapper(data);
-                expect(executorsWrapper.executorsAliasList()).to.deep.equal([]);
+                expect(executorsWrapper.executorsNameChangedByDeedPoll()).to.deep.equal([]);
                 done();
             });
 
@@ -550,7 +550,7 @@ describe('Executors.js', () => {
                     list: []
                 };
                 const executorsWrapper = new ExecutorsWrapper(data);
-                expect(executorsWrapper.executorsAliasList()).to.deep.equal([]);
+                expect(executorsWrapper.executorsNameChangedByDeedPoll()).to.deep.equal([]);
                 done();
             });
         });
