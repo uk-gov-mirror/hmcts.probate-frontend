@@ -2,6 +2,7 @@
 
 const initSteps = require('app/core/initSteps');
 const assert = require('chai').assert;
+const expect = require('chai').expect;
 const stopPagesContent = require('../../app/resources/en/translation/stoppage.json');
 
 describe('Soft Stops', function () {
@@ -73,7 +74,6 @@ describe('Soft Stops', function () {
     });
 
     describe('Link placeholder replacements', function () {
-
         it('Filters out link URL placeholders from content', function () {
             const stopPages = {
                 noWill: {placeHolders: ['applicationFormPA1A', 'guidance', 'registryInformation']},
@@ -91,6 +91,21 @@ describe('Soft Stops', function () {
             });
         });
 
+    });
+
+    describe('action()', () => {
+        it('removes the correct values from the context', (done) => {
+            const ctx = {
+                linkPlaceholders: ['applicationFormPA1A', 'guidance', 'registryInformation']
+            };
+            const testFormdata = {
+                linkPlaceholders: ['applicationFormPA1A', 'guidance', 'registryInformation']
+            };
+            const action = stopPage.action(ctx, testFormdata);
+
+            expect(action).to.deep.equal([{}, testFormdata]);
+            done();
+        });
     });
 
     function assertSoftStop(result, step) {
