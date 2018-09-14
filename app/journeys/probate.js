@@ -1,3 +1,4 @@
+'use strict';
 
 const taskList = {
     EligibilityTask: {
@@ -36,7 +37,6 @@ const taskList = {
 const stepList = {
     StartEligibility: 'StartApply',
     StartApply: 'TaskList',
-
     WillLeft: {
         withWill: 'WillOriginal',
         otherwise: 'StopPage'
@@ -65,7 +65,6 @@ const stepList = {
     IhtPaper: 'ApplicantExecutor',
     IhtIdentifier: 'IhtValue',
     IhtValue: 'ApplicantExecutor',
-
     ApplicantExecutor: {
         isExecutor: 'MentalCapacity',
         otherwise: 'StopPage'
@@ -75,7 +74,12 @@ const stepList = {
         otherwise: 'StopPage'
     },
     ApplicantName: 'ApplicantNameAsOnWill',
-    ApplicantNameAsOnWill: 'ApplicantPhone',
+    ApplicantNameAsOnWill: {
+        hasAlias: 'ApplicantAlias',
+        otherwise: 'ApplicantPhone'
+    },
+    ApplicantAlias: 'ApplicantAliasReason',
+    ApplicantAliasReason: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',
     ApplicantAddress: 'ExecutorsNumber',
     ExecutorsNumber: {
@@ -153,10 +157,8 @@ const stepList = {
     ExecutorsInvitesSent: 'TaskList',
     ExecutorsChangeMade: 'TaskList',
     Submit: 'TaskList',
-
     Documents: 'ThankYou',
     ThankYou: 'TaskList',
-
     CopiesStart: 'CopiesUk',
     CopiesUk: 'AssetsOverseas',
     AssetsOverseas: {
@@ -165,10 +167,8 @@ const stepList = {
     },
     CopiesOverseas: 'CopiesSummary',
     CopiesSummary: 'TaskList',
-
     PaymentBreakdown: 'PaymentStatus',
     PaymentStatus: 'TaskList',
-
     AddressLookup: 'AddressLookup',
     TaskList: 'TaskList',
     StopPage: 'StopPage',
