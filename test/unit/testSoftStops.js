@@ -1,9 +1,15 @@
-const initSteps = require('app/core/initSteps'),
-      assert = require('chai').assert;
+'use strict';
+
+const initSteps = require('app/core/initSteps');
+const assert = require('chai').assert;
+const stopPagesContent = require('../../app/resources/en/translation/stoppage.json');
 
 describe('Soft Stops', function () {
     const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui/']);
+    const stopPage = steps.StopPage;
+
     let ctx;
+
     beforeEach(() => {
         ctx = {};
     });
@@ -64,6 +70,27 @@ describe('Soft Stops', function () {
 
             assertSoftStop(result, step);
         });
+    });
+
+    describe('Link placeholder replacements', function () {
+
+        it('Filters out link URL placeholders from content', function () {
+            const stopPages = {
+                noWill: {placeHolders: ['applicationFormPA1A', 'guidance', 'registryInformation']},
+                notOriginal: {placeHolders: ['applicationFormPA1P', 'guidance', 'registryInformation']},
+                notExecutor: {placeHolders: ['applicationFormPA1P', 'guidance', 'registryInformation']},
+                ihtNotCompleted: {placeHolders: ['ihtNotCompleted']},
+                mentalCapacity: {placeHolders: ['applicationFormPA1P', 'guidance', 'registryInformation']},
+                deathCertificate: {placeHolders: ['deathReportedToCoroner']}
+            };
+
+            Object.keys(stopPages).forEach(function(key) {
+                stopPages[key].content = stopPagesContent[key];
+
+                assert.deepEqual(stopPage.replaceLinkPlaceholders(stopPagesContent[key]), stopPages[key].placeHolders);
+            });
+        });
+
     });
 
     function assertSoftStop(result, step) {
