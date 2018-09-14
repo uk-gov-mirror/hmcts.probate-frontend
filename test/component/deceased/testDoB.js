@@ -1,9 +1,11 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    DeceasedDomicile = require('app/steps/ui/deceased/domicile/index');
+'use strict';
+
+const TestWrapper = require('test/util/TestWrapper');
+const DeceasedAddress = require('app/steps/ui/deceased/address/index');
 
 describe('deceased-dob', () => {
     let testWrapper;
-    const expectedNextUrlForDeceasedDomicile = DeceasedDomicile.getUrl();
+    const expectedNextUrlForDeceasedAddress = DeceasedAddress.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedDob');
@@ -55,9 +57,9 @@ describe('deceased-dob', () => {
 
         });
 
-        it(`test it redirects to deceased domiciled: ${expectedNextUrlForDeceasedDomicile}`, (done) => {
+        it(`test it redirects to deceased domiciled: ${expectedNextUrlForDeceasedAddress}`, (done) => {
             const data = {dob_day: '01', dob_month: '01', dob_year: '1945'};
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDomicile);
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAddress);
         });
 
     });
