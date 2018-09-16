@@ -8,7 +8,7 @@
   "optionOtherHint": "Reason for name change",
 
   "errors": {
-    "aliasReason": {
+    "currentNameReason": {
       "required": {
         "summary": "You haven&rsquo;t selected a reason for the change of name",
         "message": "Select a reason for the change of name"
