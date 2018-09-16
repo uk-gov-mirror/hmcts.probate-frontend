@@ -43,7 +43,7 @@
                     visible: true
                 }
             ],
-            url = content.ExecutorsWhenDied.url | replace("*", loop.index - 1 ),
+            url = content.ExecutorsWhenDied.url | replace("*", loop.index0 ),
             common = common,
             alreadyDeclared = fields.summary.alreadyDeclared.value
         )}}
@@ -214,7 +214,7 @@
                     visible: executor.hasOtherName
                 }
             ],
-            url = content.ExecutorCurrentName.url | replace("*", loop.index - 1 ),
+            url = content.ExecutorCurrentName.url | replace("*", loop.index0 ),
             common = common,
             alreadyDeclared = fields.summary.alreadyDeclared.value
         )}}
@@ -226,7 +226,7 @@
                     visible: executor.hasOtherName
                 }
             ],
-            url = content.ExecutorCurrentNameReason.url | replace("*", loop.index - 1 ),
+            url = content.ExecutorCurrentNameReason.url | replace("*", loop.index0 ),
             common = common,
             alreadyDeclared = fields.summary.alreadyDeclared.value
         )}}
@@ -238,7 +238,7 @@
                     visible: true
                 }
             ],
-            url = content.ExecutorAddress.url | replace("*", loop.index - 1 ),
+            url = content.ExecutorAddress.url | replace("*", loop.index0 ),
             common = common,
             alreadyDeclared = fields.summary.alreadyDeclared.value
         )}}
@@ -251,7 +251,7 @@
                     visible: true
                 }
             ],
-            url = content.ExecutorContactDetails.url | replace("*", loop.index - 1 ),
+            url = content.ExecutorContactDetails.url | replace("*", loop.index0 ),
             common = common,
             alreadyDeclared = fields.summary.alreadyDeclared.value
         )}}
@@ -264,7 +264,7 @@
                     visible: true
                 }
             ],
-            url = content.ExecutorContactDetails.url | replace("*", loop.index - 1 ),
+            url = content.ExecutorContactDetails.url | replace("*", loop.index0 ),
             common = common,
             alreadyDeclared = fields.summary.alreadyDeclared.value
         )}}
@@ -284,7 +284,7 @@
                     visible: true
                 }
             ],
-            url = content.ExecutorRoles.url | replace("*", loop.index - 1 ),
+            url = content.ExecutorRoles.url | replace("*", loop.index0 ),
             common = common,
             alreadyDeclared = fields.summary.alreadyDeclared.value
         )}}
@@ -296,7 +296,7 @@
                     visible: executor.notApplyingReason == content.ExecutorRoles.optionPowerReserved
                 }
             ],
-            url = content.ExecutorNotified.url | replace("*", loop.index - 1 ),
+            url = content.ExecutorNotified.url | replace("*", loop.index0 ),
             common = common,
             alreadyDeclared = fields.summary.alreadyDeclared.value
         )}}
