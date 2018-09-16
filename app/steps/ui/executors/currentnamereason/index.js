@@ -4,7 +4,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const {findIndex, get} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 
-module.exports = class ExecutorCurrentNameReason extends ValidationStep {
+class ExecutorCurrentNameReason extends ValidationStep {
 
     static getUrl(index = '*') {
         return `/executor-current-name-reason/${index}`;
@@ -25,7 +25,7 @@ module.exports = class ExecutorCurrentNameReason extends ValidationStep {
         if (ctx.otherReason) {
             ctx.list[ctx.index].otherReason = ctx.otherReason;
         }
-        ctx.list[ctx.index].currentNameReason = ctx.aliasReason;
+        ctx.list[ctx.index].currentNameReason = ctx.currentNameReason;
         ctx.index = this.recalcIndex(ctx, ctx.index);
         return [ctx, errors];
     }
@@ -51,8 +51,10 @@ module.exports = class ExecutorCurrentNameReason extends ValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
-        delete ctx.aliasReason;
+        delete ctx.currentNameReason;
         delete ctx.otherReason;
         return [ctx, formdata];
     }
-};
+}
+
+module.exports = ExecutorCurrentNameReason;

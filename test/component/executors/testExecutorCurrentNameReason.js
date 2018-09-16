@@ -44,7 +44,7 @@ describe('/executor-current-name-reason/', () => {
         });
 
         it('test alias reason validation when no data is entered', (done) => {
-            const errorsToTest = ['aliasReason'];
+            const errorsToTest = ['currentNameReason'];
             const data = {};
 
             testWrapper.testErrors(done, data, 'required', errorsToTest);
@@ -53,7 +53,7 @@ describe('/executor-current-name-reason/', () => {
         it('test alias reason validation when other is selected but no reason is entered', (done) => {
             const errorsToTest = ['otherReason'];
             const data = {
-                aliasReason: 'other',
+                currentNameReason: 'other',
                 otherReason: ''
             };
 
@@ -66,7 +66,7 @@ describe('/executor-current-name-reason/', () => {
                 .end(() => {
                     const data = {
                         index: 1,
-                        aliasReason: 'Marriage'
+                        currentNameReason: 'Marriage'
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
                     testWrapper.testRedirect(done, data, firstNameReasonUrl);
@@ -79,7 +79,7 @@ describe('/executor-current-name-reason/', () => {
                 .end(() => {
                     const data = {
                         index: 4,
-                        aliasReason: 'Marriage',
+                        currentNameReason: 'Marriage',
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(4);
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecContactDetails);

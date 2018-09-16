@@ -1,4 +1,4 @@
-/* eslint max-lines: ["error", 500] */
+'use strict';
 
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
@@ -81,7 +81,7 @@ describe('ExecutorCurrentNameReason', () => {
                 }],
                 index: 0,
                 executorsWrapper: new ExecutorsWrapper(),
-                aliasReason: 'Marriage'
+                currentNameReason: 'Marriage'
             };
             testErrors = [];
         });
@@ -99,7 +99,7 @@ describe('ExecutorCurrentNameReason', () => {
         });
 
         it('returns the correct data for option:"other"', (done) => {
-            testCtx.aliasReason = 'other';
+            testCtx.currentNameReason = 'other';
             testCtx.otherReason = 'it was a dare';
             const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
             const [ctx, errors] = ExecutorCurrentNameReason.handlePost(testCtx, testErrors);
@@ -163,7 +163,7 @@ describe('ExecutorCurrentNameReason', () => {
     describe('action()', () => {
         it('removes the correct values from the context', (done) => {
             const testCtx = {
-                aliasReason: 'other',
+                currentNameReason: 'other',
                 otherReason: 'it was a dare',
             };
             const testFormdata = {};
