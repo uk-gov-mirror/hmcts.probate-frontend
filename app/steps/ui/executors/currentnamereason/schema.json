@@ -5,12 +5,12 @@
   "properties": {},
   "switch": [
     {
-      "if": {"properties": { "aliasReason": { "enum": [""] } }},
-      "then": {"required": ["aliasReason"]},
+      "if": {"properties": { "currentNameReason": { "enum": [""] } }},
+      "then": {"required": ["currentNameReason"]},
       "continue": false
     },
     {
-      "if": { "properties": { "aliasReason": { "enum": ["other"] } } },
+      "if": { "properties": { "currentNameReason": { "enum": ["other"] } } },
       "then": {
         "properties": {
           "other": {
