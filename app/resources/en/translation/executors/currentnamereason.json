@@ -1,6 +1,6 @@
 {
   "title": "Executor Alias Reason",
-  "question": "What is the reason for {executorName}'s name change?",
+  "question": "What is the reason for {executorName}&rsquo;s name change?",
   "optionMarriage": "Marriage",
   "optionDivorce": "Divorce",
   "optionDeedPoll": "Change by deed poll",
