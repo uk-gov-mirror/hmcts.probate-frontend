@@ -5,7 +5,7 @@ const featureToggles = require('app/config').featureToggles;
 
 class FeatureToggle {
     checkToggle(params) {
-        services.featureToggle(featureToggles[params.featureToggleKey]).then(isEnabled => {
+        return services.featureToggle(featureToggles[params.featureToggleKey]).then(isEnabled => {
             params.callback({
                 req: params.req,
                 res: params.res,
