@@ -42,7 +42,7 @@ module.exports = class PaymentStatus extends Step {
     }
 
     isComplete(ctx, formdata) {
-        return [formdata.submissionReference, 'inProgress'];
+        return [typeof formdata.payment !== 'undefined' && formdata.payment.status === 'Success', 'inProgress'];
     }
 
   * runnerOptions(ctx, formdata) {
