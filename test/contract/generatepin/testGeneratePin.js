@@ -28,9 +28,10 @@ describe('Pin Creation API Tests', () => {
                 .end((err, res) => {
                     if (err) {
                         logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
+                    } else {
+                        expect(err).to.be.equal(null);
+                        expect(res.text).to.equal('');
                     }
-                    expect(err).to.be.equal(null);
-                    expect(res.text).to.equal('');
                     done();
                 });
         });
@@ -45,9 +46,10 @@ describe('Pin Creation API Tests', () => {
                 .end((err, res) => {
                     if (err) {
                         logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
+                    } else {
+                        expect(err).to.be.equal(null);
+                        expect(res.text).to.contain('Bad Request');
                     }
-                    expect(err).to.be.equal(null);
-                    expect(res.text).to.contain('Bad Request');
                     done();
                 });
         });
@@ -63,10 +65,11 @@ describe('Pin Creation API Tests', () => {
                 .end((err, res) => {
                     if (err) {
                         logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
+                    } else {
+                        expect(err).to.be.equal(null);
+                        expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
+                        expect(res.text).is.not.equal(null);
                     }
-                    expect(err).to.be.equal(null);
-                    expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
-                    expect(res.text).is.not.equal(null);
                     done();
                 });
         });
@@ -82,10 +85,11 @@ describe('Pin Creation API Tests', () => {
                 .end((err, res) => {
                     if (err) {
                         logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
+                    } else {
+                        expect(err).to.be.equal(null);
+                        expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
+                        expect(res.text).is.not.equal(null);
                     }
-                    expect(err).to.be.equal(null);
-                    expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
-                    expect(res.text).is.not.equal(null);
                     done();
                 });
         });
@@ -101,10 +105,11 @@ describe('Pin Creation API Tests', () => {
                 .end((err, res) => {
                     if (err) {
                         logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
+                    } else {
+                        expect(err).to.be.equal(null);
+                        expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
+                        expect(res.text).is.not.equal(null);
                     }
-                    expect(err).to.be.equal(null);
-                    expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
-                    expect(res.text).is.not.equal(null);
                     done();
                 });
         });
