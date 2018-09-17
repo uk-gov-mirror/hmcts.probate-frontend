@@ -34,6 +34,10 @@ router.get('/health', function (req, res) {
     res.send({'status': 'UP'});
 });
 
+router.get('/api/ff4j/check/:featureToggleKey', function (req, res) {
+    res.send('true');
+});
+
 router.get('/info', function (req, res) {
     res.send({
         'git': {
