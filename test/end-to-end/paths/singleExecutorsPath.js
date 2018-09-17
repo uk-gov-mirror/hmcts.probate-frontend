@@ -17,7 +17,7 @@ After(() => {
 
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I) {
 
-    //PreIdam
+    //Pre-IDAM
     I.startApplication();
     I.startApply();
 
@@ -47,7 +47,9 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     //
     I.selectATask(taskListContent.taskNotStarted);
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
-    I.selectNameAsOnTheWill();
+    I.selectNameAsOnTheWill('optionNo');
+    I.enterApplicantAlias('Bob Alias');
+    I.enterApplicantAliasReason('aliasOther', 'Because YOLO');
     I.enterApplicantPhone();
     I.enterAddressManually();
 
