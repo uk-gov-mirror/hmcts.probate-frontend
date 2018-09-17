@@ -45,7 +45,7 @@ router.use((req, res, next) => {
     const isHardStop = formdata => config.hardStopParams.some(param => get(formdata, param) === commonContent.no);
     const hasMultipleApplicants = (new ExecutorsWrapper(formdata.executors)).hasMultipleApplicants();
 
-    if (get(formdata, 'submissionReference') && get(formdata, 'payment.status') &&
+    if (get(formdata, 'submissionReference') && get(formdata, 'payment.status') === 'Success' &&
         !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
     ) {
         res.redirect('documents');

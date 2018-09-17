@@ -10,7 +10,7 @@ describe('redirect to documents', () => {
         sessionData = {
             'submissionReference': 'testSubmissionReference',
             'payment': {
-                'status': 'success'
+                'status': 'Success'
             }
         };
     });

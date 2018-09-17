@@ -25,18 +25,6 @@ describe('PaymentBreakdown', () => {
         createPaymentStub.restore();
     });
 
-    describe('handleGet', () => {
-        it('cleans up context', () => {
-            const ctx = {
-                paymentError: 'failure'
-            };
-            const PaymentBreakdown = steps.PaymentBreakdown;
-            const [, errors] = PaymentBreakdown.handleGet(ctx);
-
-            assert.deepEqual(errors[0].param, 'payment');
-        });
-    });
-
     describe('handlePost', () => {
         it('sets paymentPending to false if ctx.total = 0', (done) => {
           sendToSubmitServiceStub.returns(submitResponse);

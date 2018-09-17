@@ -13,14 +13,7 @@ class PaymentBreakdown extends Step {
     }
 
     handleGet(ctx) {
-        if (ctx.paymentError === 'failure') {
-            const keyword = 'failure';
-            const errors = [];
-            errors.push(FieldError('payment', keyword, this.resourcePath, ctx));
-            return [ctx, errors];
-        }
-
-        return [ctx];
+        return [ctx, ctx.errors];
     }
 
     getContextData(req) {

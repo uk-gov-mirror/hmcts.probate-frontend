@@ -41,6 +41,7 @@ const dataMap = {
     payloadVersion: 'payloadVersion',
     paymentResponse: 'paymentResponse',
     caseId: 'ccdCase.id',
+    caseState: 'ccdCase.state',
     registry: 'registry'
 };
 
