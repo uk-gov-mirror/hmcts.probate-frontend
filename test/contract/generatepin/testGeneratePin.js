@@ -27,7 +27,7 @@ describe('Pin Creation API Tests', () => {
                 .expect(400)
                 .end((err, res) => {
                     if (err) {
-                        logger.error(`error raised: ${err}`);
+                        logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
                     }
                     expect(err).to.be.equal(null);
                     expect(res.text).to.equal('');
@@ -44,7 +44,7 @@ describe('Pin Creation API Tests', () => {
                 .expect(400)
                 .end((err, res) => {
                     if (err) {
-                        logger.error(`error raised: ${err}`);
+                        logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
                     }
                     expect(err).to.be.equal(null);
                     expect(res.text).to.contain('Bad Request');
@@ -62,7 +62,7 @@ describe('Pin Creation API Tests', () => {
                 .expect(200)
                 .end((err, res) => {
                     if (err) {
-                        logger.error(`error raised: ${err}`);
+                        logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
                     }
                     expect(err).to.be.equal(null);
                     expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
@@ -81,7 +81,7 @@ describe('Pin Creation API Tests', () => {
                 .expect(200)
                 .end((err, res) => {
                     if (err) {
-                        logger.error(`error raised: ${err}`);
+                        logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
                     }
                     expect(err).to.be.equal(null);
                     expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
@@ -100,7 +100,7 @@ describe('Pin Creation API Tests', () => {
                 .expect(200)
                 .end((err, res) => {
                     if (err) {
-                        logger.error(`error raised: ${err}`);
+                        logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
                     }
                     expect(err).to.be.equal(null);
                     expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
