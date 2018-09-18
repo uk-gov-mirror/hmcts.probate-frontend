@@ -20,7 +20,9 @@ class ExecutorsWhoDied extends ValidationStep {
     }
 
     pruneFormData(data) {
-        delete data.isApplying;
+        if (data.isDead) {
+            delete data.isApplying;
+        }
         return data;
     }
 
