@@ -34,5 +34,20 @@ describe('Summary', () => {
                 done();
             });
         });
+
+        it('executorsWithOtherNames returns empty when hasOtherName is false', (done) => {
+            const expectedResponse = [];
+            validateFormDataStub.returns(when(expectedResponse));
+
+            let ctx = {session: {form: {}}};
+            const formdata = {executors: {list: [{fullName: 'Prince', hasOtherName: false}, {fullName: 'Cher', hasOtherName: false}]}};
+            const Summary = steps.Summary;
+
+            co(function* () {
+                [ctx] = yield Summary.handleGet(ctx, formdata);
+                assert.deepEqual(ctx.executorsWithOtherNames, expectedResponse);
+                done();
+            });
+        });
     });
 });
