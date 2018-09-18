@@ -1,12 +1,12 @@
 'use strict';
 
 const expect = require('chai').expect;
-const config = require('app/config');
+const testConfig = require('test/config');
 const FormatUrl = require('app/utils/FormatUrl');
 const logger = require('app/components/logger')('Init');
 const request = require('supertest');
 
-const VALIDATION_SERVICE_URL = config.services.validation.url;
+const TEST_VALIDATION_SERVICE_URL = testConfig.validation.url;
 const VALID_SESSION_ID = '012233456789';
 const INVALID_TEST_NUMBER = '+$447701111111';
 const VALID_INTERNATIONAL_TEST_NUMBER = '+61437112945';
@@ -16,7 +16,7 @@ const VALID_PIN_CONTENT_LENGTH = '6';
 
 describe('Pin Creation API Tests', () => {
 
-    const pinServiceUrl = FormatUrl.format(VALIDATION_SERVICE_URL, '/pin');
+    const pinServiceUrl = FormatUrl.format(TEST_VALIDATION_SERVICE_URL, '/pin');
 
     describe('Invalid number which should produce a 400 Bad Request', () => {
         it('Returns HTTP 400 status', (done) => {
