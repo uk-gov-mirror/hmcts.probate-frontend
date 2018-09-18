@@ -14,7 +14,7 @@ probate_google_track_id = "UA-93598808-1"
 probate_frontend_https = "false"
 probate_frontend_use_auth = "false"
 
-payment_create_url = "https://preprod.payments.reform.hmcts.net:4401/users/userId/payments"
+payment_create_url = "http://payment-api-demo.service.core-compute-demo.internal/users/userId/payments"
 
 idam_service_api = "http://rpe-service-auth-provider-demo.service.core-compute-demo.internal"
 
@@ -38,3 +38,7 @@ probate_business_service_url = "http://probate-business-service-demo.service.cor
 probate_submit_service_url = "http://probate-submit-service-demo.service.core-compute-demo.internal/submit"
 
 probate_persistence_service_url = "http://probate-persistence-service-demo.service.core-compute-demo.internal/formdata"
+
+feature_toggles_api_url = "http://rpe-feature-toggle-api-demo.service.core-compute-demo.internal"
+asp_name = "probate-demo-asp-demo-asp"
+asp_rg = "mgmt-asp-demo"
