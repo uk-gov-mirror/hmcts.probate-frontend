@@ -19,11 +19,11 @@ class ExecutorsWhoDied extends ValidationStep {
         return ctx;
     }
 
-    pruneFormData(data) {
-        if (data.isDead) {
-            delete data.isApplying;
+    pruneFormData(executor) {
+        if (executor.isDead) {
+            delete executor.isApplying;
         }
-        return data;
+        return executor;
     }
 
     handlePost(ctx, errors) {
