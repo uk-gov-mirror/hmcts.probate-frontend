@@ -1,5 +1,7 @@
+'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
-const json = require('app/resources/en/translation/deceased/domicile.json');
+const json = require('app/resources/en/translation/deceased/domicile');
 
 module.exports = class DeceasedDomicile extends ValidationStep {
 
