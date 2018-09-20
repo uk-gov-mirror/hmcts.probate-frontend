@@ -86,8 +86,6 @@ class PaymentBreakdown extends Step {
                     };
 
                     const [response, paymentReference] = yield services.createPayment(data, hostname);
-                    logger.info('Response');
-                    logger.info(response);
                     formdata.creatingPayment = 'false';
 
                     if (response.name === 'Error') {
