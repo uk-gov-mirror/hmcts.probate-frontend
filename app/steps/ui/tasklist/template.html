@@ -14,9 +14,7 @@
             <p>{{content.saveAndReturn}}</p>
             <div class="form-group">
                 <ol>
-                    {% ifAsync fields.isScreeningQuestionsToggleEnabled.value !== 'true' %}
-                        {% include "ui/tasklist/includes/eligibility.html" %}
-                    {% endif %}
+                    {% include "ui/tasklist/includes/eligibility.html" %}
                     {% include "ui/tasklist/includes/executors.html" %}
                     {% include "ui/tasklist/includes/reviewAndConfirm.html" %}
                     {% include "ui/tasklist/includes/copies.html" %}
