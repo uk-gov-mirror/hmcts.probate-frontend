@@ -18,7 +18,7 @@ const PROXY = config.services.postcode.proxy;
 const SERVICE_AUTHORISATION_URL = `${config.services.idam.s2s_url}/lease`;
 const serviceName = config.services.idam.service_name;
 const secret = config.services.idam.service_key;
-const FEATURE_TOGGLE_API = config.featureToggles.api_url;
+const FEATURE_TOGGLE_URL = config.featureToggles.url;
 const logger = require('app/components/logger')('Init');
 
 const getUserDetails = (securityCookie) => {
@@ -45,8 +45,7 @@ const findAddress = (postcode) => {
 
 const featureToggle = (featureToggleKey) => {
     logger.info('featureToggle');
-    const url = `${FEATURE_TOGGLE_API}/api/ff4j/check/${featureToggleKey}`;
-    logger.info('url');
+    const url = `${FEATURE_TOGGLE_URL}${config.featureToggles.path}/${featureToggleKey}`;
     const headers = {
         'Content-Type': 'application/json'
     };
@@ -163,9 +162,10 @@ const updateInviteData = (inviteId, data) => {
     return utils.fetchJson(findInviteLinkUrl, fetchOptions);
 };
 
-const sendInvite = (data, sessionID) => {
+const sendInvite = (data, sessionID, exec) => {
     logger.info('send invite');
-    const sendInviteUrl = FormatUrl.format(VALIDATION_SERVICE_URL, '/invite');
+    const urlParameter = exec.inviteId ? `/${exec.inviteId}` : '';
+    const sendInviteUrl = FormatUrl.format(VALIDATION_SERVICE_URL, `/invite${urlParameter}`);
     const headers = {'Content-Type': 'application/json', 'Session-Id': sessionID};
     const fetchOptions = utils.fetchOptions(data, 'POST', headers);
     return utils.fetchText(sendInviteUrl, fetchOptions);
@@ -180,7 +180,8 @@ const checkAllAgreed = (formdataId) => {
 
 const sendPin = (phoneNumber, sessionID) => {
     logger.info('send pin');
-    const pinServiceUrl = FormatUrl.format(VALIDATION_SERVICE_URL, `/pin/${phoneNumber}`);
+    phoneNumber = encodeURIComponent(phoneNumber);
+    const pinServiceUrl = FormatUrl.format(VALIDATION_SERVICE_URL, `/pin?phoneNumber=${phoneNumber}`);
     const fetchOptions = utils.fetchOptions({}, 'GET', {'Content-Type': 'application/json', 'Session-Id': sessionID});
     return utils.fetchJson(pinServiceUrl, fetchOptions);
 };
@@ -229,8 +230,8 @@ const removeExecutor = (inviteId) => {
     return utils.fetchText(removeExecutorUrl, fetchOptions);
 };
 
-const updatePhoneNumber = (inviteId, data) => {
-    logger.info('Update Phone Number');
+const updateContactDetails = (inviteId, data) => {
+    logger.info('Update Contact Details');
     const findInviteUrl = FormatUrl.format(PERSISTENCE_SERVICE_URL, `/invitedata/${inviteId}`);
     const headers = {
         'Content-Type': 'application/json'
@@ -266,8 +267,8 @@ module.exports = {
     getOauth2Token,
     sendPin,
     sendInvite,
+    updateContactDetails,
     removeExecutor,
-    updatePhoneNumber,
     checkAllAgreed,
     signOut
 };

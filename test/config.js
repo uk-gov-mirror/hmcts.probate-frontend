@@ -30,6 +30,10 @@ module.exports = {
         emptyAddressPostcode: ''
     },
 
+    validation: {
+        url: process.env.TEST_VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
+    },
+
     TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',
 
     TestEnvEmailAddress: process.env.TEST_EMAIL_ADDRESS,

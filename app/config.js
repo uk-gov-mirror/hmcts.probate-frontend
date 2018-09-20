@@ -1,12 +1,15 @@
-module.exports = {
+'use strict';
 
+const config = {
     environment: process.env.REFORM_ENVIRONMENT || 'prod',
     nodeEnvironment: process.env.NODE_ENV,
     gitRevision: process.env.GIT_REVISION,
     frontendPublicHttpProtocol: process.env.PUBLIC_PROTOCOL || 'http',
     featureToggles: {
-        api_url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost',
-        fe_shutter_toggle: 'probate-fe-shutter'
+        url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost:8282',
+        path: process.env.FEATURE_TOGGLES_PATH || '/api/ff4j/check',
+        fe_shutter_toggle: 'probate-fe-shutter',
+        main_applicant_alias: 'probate-main-applicant-alias'
     },
     app: {
         username: process.env.USERNAME,
@@ -71,7 +74,6 @@ module.exports = {
             httpOnly: true,
             sameSite: 'lax'
         }
-
     },
     dateFormat: 'DD/MM/YYYY',
     payloadVersion: '4.1.0',
@@ -94,11 +96,13 @@ module.exports = {
         survey: process.env.SURVEY || 'https://www.smartsurvey.co.uk/',
         surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION || 'https://www.smartsurvey.co.uk/',
         ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value',
-        renunciationForm: 'public/pdf/renunciation.pdf',
-        applicationForm: 'public/pdf/probate-application-form-pa1p.pdf',
-        guidance: 'public/pdf/probate-guidance-pa2sot.pdf',
-        registryInformation: 'public/pdf/probate-registries-pa4sot.pdf',
-        deathCertificate: 'https://www.gov.uk/order-copy-birth-death-marriage-certificate'
+        renunciationForm: '/public/pdf/renunciation.pdf',
+        applicationFormPA1A: '/public/pdf/probate-application-form-pa1a.pdf',
+        applicationFormPA1P: '/public/pdf/probate-application-form-pa1p.pdf',
+        guidance: '/public/pdf/probate-guidance-pa2sot.pdf',
+        registryInformation: '/public/pdf/probate-registries-pa4sot.pdf',
+        deathCertificate: 'https://www.gov.uk/order-copy-birth-death-marriage-certificate',
+        deathReportedToCoroner: 'https://www.gov.uk/after-a-death/when-a-death-is-reported-to-a-coroner'
     },
     helpline: {
         number: '0300 303 0648',
@@ -144,3 +148,5 @@ module.exports = {
         instrumentationKey: process.env.APPINSIGHTS_INSTRUMENTATIONKEY
     }
 };
+
+module.exports = config;
