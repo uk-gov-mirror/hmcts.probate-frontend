@@ -36,6 +36,16 @@ router.get('/summary/*', (req, res, next) => {
     });
 });
 
+router.get('/tasklist', (req, res, next) => {
+    featureToggle.checkToggle({
+        req: req,
+        res: res,
+        next: next,
+        featureToggleKey: 'screening_questions',
+        callback: featureToggle.toggleFeature
+    });
+});
+
 router.get('/new-start-eligibility', (req, res, next) => {
     featureToggle.checkToggle({
         req: req,

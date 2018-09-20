@@ -3,6 +3,7 @@
 const Step = require('app/core/steps/Step');
 const utils = require('app/components/step-utils');
 const ExecutorsWrapper = require('app/wrappers/Executors');
+const FeatureToggle = require('app/utils/FeatureToggle');
 
 module.exports = class TaskList extends Step {
 
@@ -19,6 +20,10 @@ module.exports = class TaskList extends Step {
         if (ctx.hasMultipleApplicants && session.haveAllExecutorsDeclared === 'false') {
             return 'locked';
         }
+
+        if (ctx.isToggleEnabled) {
+            return this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask]);
+        }
         return this.previousTaskStatus([ctx.EligibilityTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask]);
     }
 
@@ -31,16 +36,33 @@ module.exports = class TaskList extends Step {
         ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
         ctx.alreadyDeclared = this.alreadyDeclared(req.session);
 
-        ctx.previousTaskStatus = {
-            EligibilityTask: ctx.EligibilityTask.status,
-            ExecutorsTask: ctx.EligibilityTask.status,
-            ReviewAndConfirmTask: this.previousTaskStatus([ctx.EligibilityTask, ctx.ExecutorsTask]),
-            CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
-            PaymentTask: this.previousTaskStatus([ctx.EligibilityTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
-            DocumentsTask: this.previousTaskStatus([ctx.EligibilityTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask, ctx.PaymentTask])
-        };
+        if (ctx.isToggleEnabled) {
+            ctx.previousTaskStatus = {
+                DeceasedTask: ctx.DeceasedTask.status,
+                ExecutorsTask: ctx.DeceasedTask.status,
+                ReviewAndConfirmTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask]),
+                CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
+                PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
+                DocumentsTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask, ctx.PaymentTask])
+            };
+        } else {
+            ctx.previousTaskStatus = {
+                EligibilityTask: ctx.EligibilityTask.status,
+                ExecutorsTask: ctx.EligibilityTask.status,
+                ReviewAndConfirmTask: this.previousTaskStatus([ctx.EligibilityTask, ctx.ExecutorsTask]),
+                CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
+                PaymentTask: this.previousTaskStatus([ctx.EligibilityTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
+                DocumentsTask: this.previousTaskStatus([ctx.EligibilityTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask, ctx.PaymentTask])
+            };
+        }
 
         return ctx;
+    }
+
+    handleGet(ctx, formdata, featureToggles) {
+        ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
+
+        return [ctx];
     }
 
     action(ctx, formdata) {
@@ -48,6 +70,7 @@ module.exports = class TaskList extends Step {
         delete ctx.hasMultipleApplicants;
         delete ctx.alreadyDeclared;
         delete ctx.previousTaskStatus;
+        delete ctx.isToggleEnabled;
         delete ctx.isScreeningQuestionsToggleEnabled;
         return [ctx, formdata];
     }

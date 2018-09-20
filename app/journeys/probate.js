@@ -6,6 +6,11 @@ const taskList = {
         lastStep: 'TaskList',
         summary: 'Summary'
     },
+    DeceasedTask: {
+        firstStep: 'DeceasedName',
+        lastStep: 'TaskList',
+        summary: 'Summary'
+    },
     ExecutorsTask: {
         firstStep: 'ApplicantName',
         lastStep: 'TaskList',
