@@ -209,4 +209,14 @@ router.post('/codicils-number', (req, res, next) => {
     });
 });
 
+router.post('/executors-number', (req, res, next) => {
+    featureToggle.checkToggle({
+        req: req,
+        res: res,
+        next: next,
+        featureToggleKey: 'screening_questions',
+        callback: featureToggle.toggleFeature
+    });
+});
+
 module.exports = router;

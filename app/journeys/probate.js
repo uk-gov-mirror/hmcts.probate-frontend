@@ -34,6 +34,7 @@ const taskList = {
 };
 
 const stepList = {
+    // New Eligibility Task ---------------------------------------------------
     NewStartEligibility: 'NewWillLeft',
     NewWillLeft: {
         withWill: 'NewWillOriginal',
@@ -64,6 +65,7 @@ const stepList = {
         otherwise: 'StopPage'
     },
     NewStartApply: 'TaskList',
+    // Old Eligibility Task ---------------------------------------------------
     StartEligibility: 'StartApply',
     StartApply: 'TaskList',
     WillLeft: {
@@ -94,61 +96,7 @@ const stepList = {
         isCapable: 'TaskList',
         otherwise: 'StopPage'
     },
-    ApplicantName: 'ApplicantNameAsOnWill',
-    ApplicantNameAsOnWill: {
-        hasAlias: 'ApplicantAlias',
-        otherwise: 'ApplicantPhone'
-    },
-    ApplicantAlias: 'ApplicantAliasReason',
-    ApplicantAliasReason: 'ApplicantPhone',
-    ApplicantPhone: 'ApplicantAddress',
-    ApplicantAddress: 'ExecutorsNumber',
-    ExecutorsNumber: {
-        deceasedName: 'DeceasedName',
-        otherwise: 'ExecutorsNames',
-    },
-    ExecutorsNames: 'ExecutorsAllAlive',
-    ExecutorsAllAlive: {
-        isAlive: 'ExecutorsApplying',
-        whoDied: 'ExecutorsWhoDied'
-    },
-    ExecutorsWhoDied: 'ExecutorsWhenDied',
-    ExecutorsWhenDied: {
-        continue: 'ExecutorsWhenDied',
-        allDead: 'DeceasedName',
-        otherwise: 'ExecutorsApplying'
-    },
-    ExecutorsApplying: {
-        otherExecutorsApplying: 'ExecutorsDealingWithEstate',
-        otherwise: 'ExecutorRoles'
-    },
-    ExecutorsDealingWithEstate: 'ExecutorsAlias',
-    ExecutorsAlias: {
-        withAlias: 'ExecutorsWithOtherNames',
-        otherwise: 'ExecutorContactDetails'
-    },
-    ExecutorsWithOtherNames: 'ExecutorCurrentName',
-    ExecutorCurrentName: {
-        continue: 'ExecutorCurrentName',
-        otherwise: 'ExecutorContactDetails',
-    },
-    ExecutorContactDetails: 'ExecutorAddress',
-    ExecutorAddress: {
-        continue: 'ExecutorContactDetails',
-        allExecsApplying: 'DeceasedName',
-        otherwise: 'ExecutorRoles'
-    },
-    ExecutorRoles: {
-        continue: 'ExecutorRoles',
-        powerReserved: 'ExecutorNotified',
-        otherwise: 'DeceasedName',
-    },
-    ExecutorNameAsOnWill: 'OtherExecutors',
-    ExecutorNotified: {
-        roles: 'ExecutorRoles',
-        otherwise: 'DeceasedName'
-    },
-    DeleteExecutor: 'OtherExecutors',
+    // Deceased Task ----------------------------------------------------------
     DeceasedName: {
         toggleOn: 'DeceasedDob',
         otherwise: 'DeceasedAlias'
@@ -198,6 +146,64 @@ const stepList = {
         toggleOn: 'TaskList',
         otherwise: 'DeathCertificate'
     },
+    // Executors Task ---------------------------------------------------------
+    ApplicantName: 'ApplicantNameAsOnWill',
+    ApplicantNameAsOnWill: {
+        hasAlias: 'ApplicantAlias',
+        otherwise: 'ApplicantPhone'
+    },
+    ApplicantAlias: 'ApplicantAliasReason',
+    ApplicantAliasReason: 'ApplicantPhone',
+    ApplicantPhone: 'ApplicantAddress',
+    ApplicantAddress: 'ExecutorsNumber',
+    ExecutorsNumber: {
+        oneExecutorToggleOn: 'TaskList',
+        oneExecutor: 'DeceasedName',
+        otherwise: 'ExecutorsNames',
+    },
+    ExecutorsNames: 'ExecutorsAllAlive',
+    ExecutorsAllAlive: {
+        isAlive: 'ExecutorsApplying',
+        whoDied: 'ExecutorsWhoDied'
+    },
+    ExecutorsWhoDied: 'ExecutorsWhenDied',
+    ExecutorsWhenDied: {
+        continue: 'ExecutorsWhenDied',
+        allDead: 'DeceasedName',
+        otherwise: 'ExecutorsApplying'
+    },
+    ExecutorsApplying: {
+        otherExecutorsApplying: 'ExecutorsDealingWithEstate',
+        otherwise: 'ExecutorRoles'
+    },
+    ExecutorsDealingWithEstate: 'ExecutorsAlias',
+    ExecutorsAlias: {
+        withAlias: 'ExecutorsWithOtherNames',
+        otherwise: 'ExecutorContactDetails'
+    },
+    ExecutorsWithOtherNames: 'ExecutorCurrentName',
+    ExecutorCurrentName: {
+        continue: 'ExecutorCurrentName',
+        otherwise: 'ExecutorContactDetails',
+    },
+    ExecutorContactDetails: 'ExecutorAddress',
+    ExecutorAddress: {
+        continue: 'ExecutorContactDetails',
+        allExecsApplying: 'DeceasedName',
+        otherwise: 'ExecutorRoles'
+    },
+    ExecutorRoles: {
+        continue: 'ExecutorRoles',
+        powerReserved: 'ExecutorNotified',
+        otherwise: 'DeceasedName',
+    },
+    ExecutorNameAsOnWill: 'OtherExecutors',
+    ExecutorNotified: {
+        roles: 'ExecutorRoles',
+        otherwise: 'DeceasedName'
+    },
+    DeleteExecutor: 'OtherExecutors',
+    // ------------------------------------------------------------------------
     Summary: 'TaskList',
     Declaration: {
         sendAdditionalInvites: 'ExecutorsAdditionalInvite',
