@@ -9,7 +9,8 @@ const config = {
         url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost:8282',
         path: process.env.FEATURE_TOGGLES_PATH || '/api/ff4j/check',
         fe_shutter_toggle: 'probate-fe-shutter',
-        main_applicant_alias: 'probate-main-applicant-alias'
+        main_applicant_alias: 'probate-main-applicant-alias',
+        screening_questions_toggle: 'probate-screening-questions'
     },
     app: {
         username: process.env.USERNAME,
