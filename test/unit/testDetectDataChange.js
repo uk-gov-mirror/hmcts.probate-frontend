@@ -257,10 +257,10 @@ describe('DetectDataChange.js', () => {
             it('when executors whoDied tick boxes have not been changed', (done) => {
                 req.session.form.executors.list[1].isDead = true;
                 req.session.form.executors.list[1].isApplying = false;
-                req.session.form.executors.list[2].isDead = true;
-                req.session.form.executors.list[2].isApplying = false;
+                req.session.form.executors.list[2].isDead = false;
+                req.session.form.executors.list[2].isApplying = true;
                 step.section = 'executors';
-                req.body = {executorsWhoDied: ['James Miller', 'Ed Brown']};
+                req.body = {executorsWhoDied: ['James Miller']};
                 req.session.haveAllExecutorsDeclared = 'false';
                 const detectDataChange = new DetectDataChange();
                 expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(false);
