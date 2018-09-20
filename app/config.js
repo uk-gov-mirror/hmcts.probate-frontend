@@ -4,6 +4,10 @@ module.exports = {
     nodeEnvironment: process.env.NODE_ENV,
     gitRevision: process.env.GIT_REVISION,
     frontendPublicHttpProtocol: process.env.PUBLIC_PROTOCOL || 'http',
+    featureToggles: {
+        api_url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost',
+        fe_shutter_toggle: 'probate-fe-shutter'
+    },
     app: {
         username: process.env.USERNAME,
         password: process.env.PASSWORD,
@@ -39,13 +43,13 @@ module.exports = {
             roles: ['probate-private-beta', 'citizen'],
             s2s_url: process.env.IDAM_S2S_URL || 'http://localhost:4502',
             service_name: 'probate_frontend',
-            service_key: process.env.IDAM_SERVICE_KEY || 'dummy_key',
+            service_key: process.env.IDAM_SERVICE_KEY || 'AAAAAAAAAAAAAAAA',
             probate_oauth2_client: 'probate',
             probate_oauth2_secret: process.env.IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE || '123456',
             probate_oauth_callback_path: '/oauth2/callback'
         },
         payment: {
-            createPaymentUrl: process.env.PAYMENT_CREATE_URL || 'http://localhost:8383/users/userId/payments',
+            createPaymentUrl: process.env.PAYMENT_CREATE_URL || 'http://localhost:8383/card-payments',
             authorization: process.env.PAYMENT_AUTHORIZATION || 'dummy_token',
             serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'dummy_token',
             userId: process.env.PAYMENT_USER_ID || 999999999,
@@ -109,19 +113,23 @@ module.exports = {
     payment: {
         applicationFee: 215,
         applicationFeeThreshold: 5000,
-        applicationFeeCode: process.env.APPLICATION_FEE_CODE || 'CODE1',
+        applicationFeeCode: process.env.APPLICATION_FEE_CODE || 'FEE0226',
         copies: {
             uk: {
                 fee: 0.5,
-                code: process.env.UK_COPIES_FEE_CODE || 'CODE2'
+                code: process.env.UK_COPIES_FEE_CODE || 'FEE0003',
+                version: '3'
             },
             overseas: {
                  fee: 0.5,
-                 code: process.env.OVERSEAS_COPIES_FEE_CODE || 'CODE3'
+                 code: process.env.OVERSEAS_COPIES_FEE_CODE || 'FEE003',
+                 version: '3'
             }
         },
-        serviceId: process.env.SERVICE_ID || 'CODE4',
-        siteId: process.env.SITE_ID || 'CODE5'
+        serviceId: process.env.SERVICE_ID || 'PROBATE',
+        siteId: process.env.SITE_ID || 'P223',
+        version: process.env.version || '1',
+        currency: process.env.currency || 'GBP'
     },
     whitelistedPagesAfterSubmission: ['/documents', '/thankyou', '/sign-out'],
     whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou', '/sign-out'],

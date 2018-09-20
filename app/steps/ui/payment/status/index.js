@@ -45,8 +45,8 @@ module.exports = class PaymentStatus extends Step {
         return [typeof formdata.payment !== 'undefined' && formdata.payment.status === 'Success', 'inProgress'];
     }
 
-  * runnerOptions(ctx, formdata) {
-      const options = {};
+    * runnerOptions(ctx, formdata) {
+        const options = {};
 
         if (formdata.paymentPending === 'true' || formdata.paymentPending === 'unknown') {
             const serviceAuthResult = yield services.authorise();
@@ -66,25 +66,39 @@ module.exports = class PaymentStatus extends Step {
             };
 
             const findPaymentResponse = yield services.findPayment(data);
+            const date = typeof findPaymentResponse.date_updated === 'undefined' ? ctx.paymentCreatedDate : findPaymentResponse.date_updated;
+            Object.assign(formdata.payment, {
+                channel: findPaymentResponse.channel,
+                transactionId: findPaymentResponse.external_reference,
+                reference: findPaymentResponse.reference,
+                date: date,
+                amount: findPaymentResponse.amount,
+                status: findPaymentResponse.status,
+                siteId: findPaymentResponse.site_id
+            });
+            const [updateCcdCaseResponse, errors] = yield this.updateCcdCasePaymentStatus(ctx, formdata);
+            this.setErrors(options, errors);
+            set(formdata, 'ccdCase.state', updateCcdCaseResponse.caseState);
 
-            const paymentStatus = get(findPaymentResponse, 'state.status');
-            set(formdata, 'payment.status', paymentStatus);
-            set(formdata, 'paymentResponse', findPaymentResponse);
-            options.errors = yield this.updateCcdCasePaymentStatus(ctx, formdata);
-            if (paymentStatus !== 'success') {
-              options.redirect = true;
-              options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
+            if (findPaymentResponse.status !== 'Success') {
+                options.redirect = true;
+                options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
             } else {
-              options.redirect = false;
-              formdata.paymentPending = 'false';
+                options.redirect = false;
+                formdata.paymentPending = 'false';
             }
-          } else {
-            options.errors = yield this.updateCcdCasePaymentStatus(ctx, formdata);
+        } else {
+            const [updateCcdCaseResponse, errors] = yield this.updateCcdCasePaymentStatus(ctx, formdata);
+            this.setErrors(options, errors);
             options.redirect = false;
             set(formdata, 'payment.status', 'not_required');
-      }
-
-      return options;
+            set(formdata, 'ccdCase.state', updateCcdCaseResponse.caseState);
+        }
+        const saveFormDataResponse = services.saveFormData(ctx.regId, formdata, ctx.sessionId);
+        if (saveFormDataResponse.name === 'Error') {
+            options.errors = saveFormDataResponse;
+        }
+        return options;
     }
 
     * updateCcdCasePaymentStatus(ctx, formdata) {
@@ -95,15 +109,21 @@ module.exports = class PaymentStatus extends Step {
         logger.info({tags: 'Analytics'}, 'Payment status update');
 
         if (result.name === 'Error') {
-          errors = [(FieldError('update', 'failure', this.resourcePath, ctx))];
-          logger.error('Could not update payment status', result.message);
+            errors = [(FieldError('update', 'failure', this.resourcePath, ctx))];
+            logger.error('Could not update payment status', result.message);
         } else {
             logger.info('Successfully updated payment status');
         }
-        return errors;
+        return [result, errors];
     }
 
     handleGet(ctx) {
         return [ctx, ctx.errors];
+    }
+
+    setErrors(options, errors) {
+        if (typeof errors !== 'undefined') {
+            options.errors = errors;
+        }
     }
 };

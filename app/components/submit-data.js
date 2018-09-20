@@ -39,7 +39,7 @@ const dataMap = {
     legalStatement: 'declaration.legalStatement',
     declaration: 'declaration.declaration',
     payloadVersion: 'payloadVersion',
-    paymentResponse: 'paymentResponse',
+    payment: 'payment',
     caseId: 'ccdCase.id',
     caseState: 'ccdCase.state',
     registry: 'registry'

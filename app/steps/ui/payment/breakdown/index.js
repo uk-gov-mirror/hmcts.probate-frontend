@@ -58,6 +58,7 @@ class PaymentBreakdown extends Step {
             formdata.submissionReference = result.submissionReference;
             formdata.registry = result.registry;
             set(formdata, 'ccdCase.id', result.caseId);
+            set(formdata, 'ccdCase.state', result.caseState);
             if (ctx.total > 0) {
                 formdata.paymentPending = 'true';
 
@@ -82,7 +83,8 @@ class PaymentBreakdown extends Step {
                         userId: ctx.userId,
                         applicationFee: ctx.applicationFee,
                         copies: ctx.copies,
-                        deceasedLastName: ctx.deceasedLastName
+                        deceasedLastName: ctx.deceasedLastName,
+                        ccdCaseId: formdata.ccdCase.id
                     };
 
                     const [response, paymentReference] = yield services.createPayment(data, hostname);
@@ -93,8 +95,9 @@ class PaymentBreakdown extends Step {
                         return [ctx, errors];
                     }
 
-                    ctx.paymentId = response.id;
+                    ctx.paymentId = response.reference;
                     ctx.paymentReference = paymentReference;
+                    ctx.paymentCreatedDate = response.date_created;
 
                     this.nextStepUrl = () => response._links.next_url.href;
                 } else {
@@ -117,11 +120,9 @@ class PaymentBreakdown extends Step {
     }
 
     * sendToSubmitService(ctx, errors, formdata, total) {
-        const createData = {};
         const softStop = this.anySoftStops(formdata, ctx) ? 'softStop' : false;
         set(formdata, 'payment.total', total);
-        Object.assign(createData, formdata);
-        const result = yield services.sendToSubmitService(createData, ctx, softStop);
+        const result = yield services.sendToSubmitService(formdata, ctx, softStop);
 
         if (result.name === 'Error' || result === 'DUPLICATE_SUBMISSION') {
             const keyword = result === 'DUPLICATE_SUBMISSION' ? 'duplicate' : 'failure';
@@ -138,7 +139,6 @@ class PaymentBreakdown extends Step {
         delete ctx.authToken;
         delete ctx.paymentError;
         delete ctx.deceasedLastName;
-        delete ctx.submissionReference;
         return [ctx, formdata];
     }
 }
