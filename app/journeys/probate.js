@@ -51,11 +51,7 @@ const stepList = {
     },
     CodicilsNumber: 'DeathCertificate',
     DeathCertificate: {
-        hasCertificate: 'DeceasedDomicile',
-        otherwise: 'StopPage'
-    },
-    DeceasedDomicile: {
-        inEnglandOrWales: 'ApplicantExecutor',
+        hasCertificate: 'IhtCompleted',
         otherwise: 'StopPage'
     },
     IhtCompleted: {
@@ -142,7 +138,8 @@ const stepList = {
     RemoveAlias: 'DeceasedOtherNames',
     DeceasedMarried: 'DeceasedDod',
     DeceasedDod: 'DeceasedDob',
-    DeceasedDob: 'DeceasedAddress',
+    DeceasedDob: 'DeceasedDomicile',
+    DeceasedDomicile: 'DeceasedAddress',
     DeceasedAddress: 'Summary',
     Summary: 'TaskList',
     Declaration: {

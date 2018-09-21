@@ -1,11 +1,9 @@
-'use strict';
-
-const TestWrapper = require('test/util/TestWrapper');
-const ApplicantExecutor = require('app/steps/ui/applicant/executor/index');
+const TestWrapper = require('test/util/TestWrapper'),
+    DeceasedAddress = require('app/steps/ui/deceased/address/index');
 
 describe('deceased-domicile', () => {
     let testWrapper;
-    const expectedNextUrlForApplicantExecutor = ApplicantExecutor.getUrl();
+    const expectedNextUrlForDeceasedAddress = DeceasedAddress.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedDomicile');
@@ -29,11 +27,11 @@ describe('deceased-domicile', () => {
 
         });
 
-        it(`test it redirects to deceased address: ${expectedNextUrlForApplicantExecutor}`, (done) => {
+        it(`test it redirects to deceased address: ${expectedNextUrlForDeceasedAddress}`, (done) => {
             const data = {
-                domicile: 'Yes'
+                domicile: 'England or Wales'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForApplicantExecutor);
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAddress);
         });
 
     });
