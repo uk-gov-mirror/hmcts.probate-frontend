@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "death-certificate",
+  "id": "new-death-certificate",
   "type": "object",
   "properties": {},
   "required": [

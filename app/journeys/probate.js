@@ -77,11 +77,7 @@ const stepList = {
         otherwise: 'StopPage'
     },
     DeathCertificate: {
-        hasCertificate: 'DeceasedDomicile',
-        otherwise: 'StopPage'
-    },
-    DeceasedDomicile: {
-        inEnglandOrWales: 'ApplicantExecutor',
+        hasCertificate: 'IhtCompleted',
         otherwise: 'StopPage'
     },
     IhtCompleted: {
@@ -103,12 +99,13 @@ const stepList = {
     },
     DeceasedDob: {
         toggleOn: 'DeceasedDod',
-        otherwise: 'DeceasedAddress'
+        otherwise: 'DeceasedDomicile'
     },
     DeceasedDod: {
         toggleOn: 'DeceasedAddress',
         otherwise: 'DeceasedDob'
     },
+    DeceasedDomicile: 'DeceasedAddress',
     DeceasedAddress: {
         toggleOn: 'IhtMethod',
         otherwise: 'Summary'

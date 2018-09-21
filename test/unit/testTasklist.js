@@ -42,9 +42,10 @@ describe('Tasklist', () => {
         it('Updates the context: EligibilityTask complete, ExecutorsTask not started', () => {
             const formdata = {
                 will: completedForm.will,
+                iht: completedForm.iht,
                 executors: {mentalCapacity: 'Yes'},
                 applicant: {executor: completedForm.applicant.executor},
-                deceased: {deathCertificate: completedForm.deceased.deathCertificate, domicile: completedForm.deceased.domicile}
+                deceased: {deathCertificate: completedForm.deceased.deathCertificate}
             };
             req.session.form = formdata;
             const taskList = steps.TaskList;
@@ -59,13 +60,14 @@ describe('Tasklist', () => {
         it('Updates the context: EligibilityTask complete, ExecutorsTask started', () => {
             const formdata = {
                 will: completedForm.will,
+                iht: completedForm.iht,
                 executors: {mentalCapacity: 'Yes'},
                 applicant: {
                     executor: completedForm.applicant.executor,
                     firstName: completedForm.applicant.firstName,
                     lastName: completedForm.applicant.lastName,
                 },
-                deceased: {deathCertificate: completedForm.deceased.deathCertificate, domicile: completedForm.deceased.domicile}
+                deceased: {deathCertificate: completedForm.deceased.deathCertificate}
             };
             req.session.form = formdata;
             const taskList = steps.TaskList;
@@ -80,9 +82,9 @@ describe('Tasklist', () => {
         it('Updates the context: EligibilityTask & ExecutorsTask started (ExecutorsTask blocked), ', () => {
             const formdata = {
                 will: completedForm.will,
-                applicant: {firstName: completedForm.applicant.firstName, lastName: completedForm.applicant.lastName, executor: completedForm.applicant.executor},
-                deceased: {deathCertificate: completedForm.deceased.deathCertificate, domicile: completedForm.deceased.domicile}
-
+                iht: {'completed': 'Yes'},
+                applicant: completedForm.applicant,
+                deceased: {deathCertificate: completedForm.deceased.deathCertificate}
             };
             req.session.form = formdata;
             const taskList = steps.TaskList;
@@ -90,7 +92,7 @@ describe('Tasklist', () => {
 
             assert.equal(ctx.EligibilityTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.EligibilityTask.status, 'started');
-            assert.equal(ctx.EligibilityTask.nextURL, journeyMap(steps.ApplicantExecutor, formdata.applicant).constructor.getUrl());
+            assert.equal(ctx.EligibilityTask.nextURL, journeyMap(steps.IhtCompleted, formdata.iht).constructor.getUrl());
             assert.equal(ctx.ExecutorsTask.status, 'started');
         });
 
@@ -216,7 +218,7 @@ describe('Tasklist', () => {
 
         it('Updates the context: PaymentTask started (Fee to Pay)', () => {
             req.session.form = {
-               paymentPending: 'true'
+                paymentPending: 'true'
             };
             req.body = {};
             const taskList = steps.TaskList;
@@ -228,7 +230,7 @@ describe('Tasklist', () => {
 
         it('Updates the context: PaymentTask started (No Fee)', () => {
             req.session.form = {
-               paymentPending: 'false'
+                paymentPending: 'false'
             };
             req.body = {};
             const taskList = steps.TaskList;
