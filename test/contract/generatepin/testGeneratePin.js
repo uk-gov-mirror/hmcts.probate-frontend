@@ -67,6 +67,7 @@ describe('Pin Creation API Tests', () => {
                     if (err) {
                         logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
                     } else {
+                        logger.error('RESPONSE: ' + JSON.stringify(res));
                         expect(err).to.be.equal(null);
                         expect(res.text).to.match(numberMatchRE);
                         expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
@@ -88,6 +89,7 @@ describe('Pin Creation API Tests', () => {
                     if (err) {
                         logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
                     } else {
+                        logger.error('RESPONSE: ' + JSON.stringify(res));
                         expect(err).to.be.equal(null);
                         expect(res.text).to.match(numberMatchRE);
                         expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
@@ -109,6 +111,7 @@ describe('Pin Creation API Tests', () => {
                     if (err) {
                         logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
                     } else {
+                        logger.error('RESPONSE: ' + JSON.stringify(res));
                         expect(err).to.be.equal(null);
                         expect(res.text).to.match(numberMatchRE);
                         expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
