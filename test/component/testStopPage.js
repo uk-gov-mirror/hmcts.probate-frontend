@@ -35,7 +35,7 @@ describe('stop-page', () => {
         it('test right content loaded on the page - deceased not in england or wales', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('notInEnglandOrWales');
             const excludeKeys = ['noWill', 'notOriginal', 'notExecutor', 'ihtNotCompleted', 'mentalCapacity', 'deathCertificate'];
-            testWrapper.testContent(done, excludeKeys);
+            testWrapper.testContent(done, excludeKeys, {applicationFormPA1P: config.links.applicationFormPA1P, guidance: config.links.guidance, registryInformation: config.links.registryInformation});
         });
 
         it('test right content loaded on the page - iht not completed', (done) => {

@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "will-left",
+  "id": "new-will-left",
   "type": "object",
   "properties": {
   },
