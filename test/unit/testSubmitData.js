@@ -94,6 +94,36 @@ describe('submit-data', () => {
             }
         ];
 
+        const registry = {
+          'registry': {
+            'name': 'Oxford',
+            'email': 'oxford@email.com',
+            'address': 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
+            'sequenceNumber': 10034
+          },
+          'submissionReference': 97
+        };
+
+        const payment = {
+            'applicationFee': '215',
+            'copies': {
+                'overseas': {
+                    'cost': '0',
+                    'number': '0'
+                },
+                'status': 'success',
+                'uk': {
+                    'cost': '1.5',
+                    'number': '3'
+                }
+            },
+            'paymentId': '1',
+            'paymentReference': 'CODE4$$$diedlastname7297$$$CODE5$$$CODE1$CODE2/3',
+            'status': 'success',
+            'total': '216.50',
+            'userId': '999999999',
+        };
+
         assert.nestedPropertyVal(mappedData, 'applicantFirstName', 'Bob Richard');
         assert.nestedPropertyVal(mappedData, 'applicantLastName', 'Smith');
         assert.nestedPropertyVal(mappedData, 'applicantAddress', 'Adam & Eve 81 Petty France London SW1H 9EX');
@@ -132,5 +162,8 @@ describe('submit-data', () => {
         assert.nestedPropertyVal(mappedData, 'noOfApplicants', 2);
         assert.deepNestedPropertyVal(mappedData, 'executorsApplying', execsApplyingArray);
         assert.deepNestedPropertyVal(mappedData, 'executorsNotApplying', execsNotApplyingArray);
+        assert.deepNestedPropertyVal(mappedData, 'payment', payment);
+        assert.deepNestedPropertyVal(mappedData, 'registry', registry);
+        assert.deepNestedPropertyVal(mappedData, 'caseId', 1535395401245028);
     });
 });

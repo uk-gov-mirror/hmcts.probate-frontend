@@ -47,7 +47,7 @@ router.use((req, res, next) => {
     const executorsWrapper = new ExecutorsWrapper(formdata.executors);
     const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
 
-    if (get(formdata, 'submissionReference') &&
+    if (get(formdata, 'submissionReference') && get(formdata, 'payment.status') === 'Success' &&
         !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
     ) {
         res.redirect('documents');
