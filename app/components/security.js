@@ -36,6 +36,8 @@ module.exports = class Security {
                 services.getUserDetails(securityCookie)
                     .then(response => {
                         if (response.name !== 'Error') {
+                            logger.error('*** DEBUG EMAIL ***: ' + response.email);
+                            logger.error('*** DEBUG SESSION ***: ' + req.sessionID);
                             req.session.regId = response.email;
                             req.userId = response.id;
                             req.authToken = securityCookie;
