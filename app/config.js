@@ -30,8 +30,7 @@ module.exports = {
         },
         submit: {
             url: process.env.SUBMIT_SERVICE_URL || 'http://localhost:8181',
-            port: 8181,
-            path: '/submit'
+            port: 8181
         },
         persistence: {
             url: process.env.PERSISTENCE_SERVICE_URL || 'http://localhost:8282/formdata',
@@ -44,16 +43,17 @@ module.exports = {
             roles: ['probate-private-beta', 'citizen'],
             s2s_url: process.env.IDAM_S2S_URL || 'http://localhost:4502',
             service_name: 'probate_frontend',
-            service_key: process.env.IDAM_SERVICE_KEY || 'AAAAAAAAAAAAAAAA',
+            service_key: process.env.IDAM_SERVICE_KEY || 'dummy_key',
             probate_oauth2_client: 'probate',
             probate_oauth2_secret: process.env.IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE || '123456',
             probate_oauth_callback_path: '/oauth2/callback'
         },
         payment: {
-            createPaymentUrl: process.env.PAYMENT_CREATE_URL || 'http://localhost:8383/users/userId/payments',
-            authorization: process.env.PAYMENT_AUTHORIZATION || 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJwZjloOXJlZTRwdHZyYjZhNm5pbjkxajd1MiIsInN1YiI6IjMzIiwiaWF0IjoxNTM2MTM3ODYwLCJleHAiOjE1MzYxNjY2NjAsImRhdGEiOiJjYXNld29ya2VyLXByb2JhdGUsY2l0aXplbixjYXNld29ya2VyLGNhc2V3b3JrZXItcHJvYmF0ZS1sb2ExLGNpdGl6ZW4tbG9hMSxjYXNld29ya2VyLWxvYTEiLCJ0eXBlIjoiQUNDRVNTIiwiaWQiOiIzMyIsImZvcmVuYW1lIjoiVXNlciIsInN1cm5hbWUiOiJUZXN0IiwiZGVmYXVsdC1zZXJ2aWNlIjoiQ0NEIiwibG9hIjoxLCJkZWZhdWx0LXVybCI6Imh0dHBzOi8vbG9jYWxob3N0OjkwMDAvcG9jL2NjZCIsImdyb3VwIjoiY2FzZXdvcmtlciJ9.if0K4IxgysBzU0XNnE3eXaFTtRMAv3mjMGwpkBM7KGU',
-            serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9iYXRlX2JhY2tlbmQiLCJleHAiOjE1MzYxNTIyNTF9.9Xnn_2mr5r_IdMFGFaX0xsdUCUJS4hHxwvt8pjeq6f6r8-EUtixGD9T7kUkJrk_IkDIzICNdrVFjiPNEFHOLow',
-            userId: process.env.PAYMENT_USER_ID || 33,
+            createPaymentUrl: process.env.PAYMENT_CREATE_URL || 'http://localhost:8383/card-payments',
+            authorization: process.env.PAYMENT_AUTHORIZATION || 'dummy_token',
+            serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'dummy_token',
+            userId: process.env.PAYMENT_USER_ID || 999999999,
+            returnUrlPath: '/payment-status'
         }
     },
     redis: {
