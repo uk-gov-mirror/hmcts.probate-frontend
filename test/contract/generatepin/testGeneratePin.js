@@ -12,11 +12,12 @@ const INVALID_TEST_NUMBER = '+$447701111111';
 const VALID_INTERNATIONAL_TEST_NUMBER = '+61437112945';
 const VALID_UK_WITH_PREFIX_TEST_NUMBER = '+447535538319';
 const VALID_UK_LOCAL_TEST_NUMBER = '07535538319';
-const VALID_PIN_CONTENT_LENGTH = '6';
+const VALID_PIN_CONTENT_LENGTH = 6;
 
 describe('Pin Creation API Tests', () => {
 
     const pinServiceUrl = FormatUrl.format(TEST_VALIDATION_SERVICE_URL, '/pin');
+    const numberMatchRE = new RegExp(/^[0-9]+$/);
 
     describe('Invalid number which should produce a 400 Bad Request', () => {
         it('Returns HTTP 400 status', (done) => {
@@ -67,7 +68,8 @@ describe('Pin Creation API Tests', () => {
                         logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
                     } else {
                         expect(err).to.be.equal(null);
-                        expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
+                        expect(res.text).to.match(numberMatchRE);
+                        expect(res.text.length).to.equal(VALID_PIN_CONTENT_LENGTH);
                         expect(res.text).is.not.equal(null);
                     }
                     done();
@@ -87,7 +89,8 @@ describe('Pin Creation API Tests', () => {
                         logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
                     } else {
                         expect(err).to.be.equal(null);
-                        expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
+                        expect(res.text).to.match(numberMatchRE);
+                        expect(res.text.length).to.equal(VALID_PIN_CONTENT_LENGTH);
                         expect(res.text).is.not.equal(null);
                     }
                     done();
@@ -107,7 +110,8 @@ describe('Pin Creation API Tests', () => {
                         logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
                     } else {
                         expect(err).to.be.equal(null);
-                        expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
+                        expect(res.text).to.match(numberMatchRE);
+                        expect(res.text.length).to.equal(VALID_PIN_CONTENT_LENGTH);
                         expect(res.text).is.not.equal(null);
                     }
                     done();
