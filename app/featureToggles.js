@@ -35,6 +35,15 @@ router.get('/summary/*', (req, res, next) => {
         callback: featureToggle.toggleFeature
     });
 });
+router.get('/summary/*', (req, res, next) => {
+    featureToggle.checkToggle({
+        req: req,
+        res: res,
+        next: next,
+        featureToggleKey: 'screening_questions',
+        callback: featureToggle.toggleFeature
+    });
+});
 
 router.get('/tasklist', (req, res, next) => {
     featureToggle.checkToggle({
