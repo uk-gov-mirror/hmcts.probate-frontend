@@ -39,54 +39,22 @@ const taskList = {
 };
 
 const stepList = {
-    // New Eligibility Task ---------------------------------------------------
-    NewStartEligibility: 'NewWillLeft',
-    NewWillLeft: {
-        withWill: 'NewWillOriginal',
-        otherwise: 'StopPage'
-    },
-    NewWillOriginal: {
-        isOriginal: 'NewDeathCertificate',
-        otherwise: 'StopPage'
-    },
-    NewDeathCertificate: {
-        hasCertificate: 'NewDeceasedDomicile',
-        otherwise: 'StopPage'
-    },
-    NewDeceasedDomicile: {
-        inEnglandOrWales: 'NewApplicantExecutor',
-        otherwise: 'StopPage'
-    },
-    NewApplicantExecutor: {
-        isExecutor: 'NewMentalCapacity',
-        otherwise: 'StopPage'
-    },
-    NewMentalCapacity: {
-        isCapable: 'NewIhtCompleted',
-        otherwise: 'StopPage'
-    },
-    NewIhtCompleted: {
-        completed: 'NewStartApply',
-        otherwise: 'StopPage'
-    },
-    NewStartApply: 'TaskList',
-    // Old Eligibility Task ---------------------------------------------------
-    StartEligibility: 'StartApply',
-    StartApply: 'TaskList',
+    // Eligibility Task -------------------------------------------------------
+    StartEligibility: 'WillLeft',
     WillLeft: {
         withWill: 'WillOriginal',
         otherwise: 'StopPage'
     },
     WillOriginal: {
-        isOriginal: 'WillCodicils',
+        isOriginal: 'DeathCertificate',
         otherwise: 'StopPage'
     },
     DeathCertificate: {
-        hasCertificate: 'IhtCompleted',
+        hasCertificate: 'DeceasedDomicile',
         otherwise: 'StopPage'
     },
-    IhtCompleted: {
-        completed: 'IhtMethod',
+    DeceasedDomicile: {
+        inEnglandOrWales: 'ApplicantExecutor',
         otherwise: 'StopPage'
     },
     ApplicantExecutor: {
@@ -94,40 +62,26 @@ const stepList = {
         otherwise: 'StopPage'
     },
     MentalCapacity: {
-        isCapable: 'TaskList',
+        isCapable: 'IhtCompleted',
         otherwise: 'StopPage'
     },
+    IhtCompleted: {
+        completed: 'StartApply',
+        otherwise: 'StopPage'
+    },
+    StartApply: 'TaskList',
     // Deceased Task ----------------------------------------------------------
-    DeceasedName: {
-        toggleOn: 'DeceasedDob',
-        otherwise: 'DeceasedAlias'
-    },
-    DeceasedDob: {
-        toggleOn: 'DeceasedDod',
-        otherwise: 'DeceasedDomicile'
-    },
-    DeceasedDod: {
-        toggleOn: 'DeceasedAddress',
-        otherwise: 'DeceasedDob'
-    },
-    DeceasedDomicile: 'DeceasedAddress',
-    DeceasedAddress: {
-        toggleOn: 'IhtMethod',
-        otherwise: 'Summary'
-    },
+    DeceasedName: 'DeceasedDob',
+    DeceasedDob: 'DeceasedDod',
+    DeceasedDod: 'DeceasedAddress',
+    DeceasedAddress: 'IhtMethod',
     IhtMethod: {
         online: 'IhtIdentifier',
         otherwise: 'IhtPaper'
     },
     IhtIdentifier: 'IhtValue',
-    IhtValue: {
-        toggleOn: 'DeceasedAlias',
-        otherwise: 'ApplicantExecutor'
-    },
-    IhtPaper: {
-        toggleOn: 'DeceasedAlias',
-        otherwise: 'ApplicantExecutor'
-    },
+    IhtValue: 'DeceasedAlias',
+    IhtPaper: 'DeceasedAlias',
     DeceasedAlias: {
         assetsInOtherNames: 'DeceasedOtherNames',
         otherwise: 'DeceasedMarried'
@@ -135,19 +89,12 @@ const stepList = {
     DeceasedOtherNames: 'DeceasedMarried',
     AddAlias: 'DeceasedOtherNames',
     RemoveAlias: 'DeceasedOtherNames',
-    DeceasedMarried: {
-        toggleOn: 'WillCodicils',
-        otherwise: 'DeceasedDod'
-    },
+    DeceasedMarried: 'WillCodicils',
     WillCodicils: {
-        noCodicilsToggleOn: 'TaskList',
-        noCodicils: 'DeathCertificate',
+        noCodicils: 'TaskList',
         otherwise: 'CodicilsNumber'
     },
-    CodicilsNumber: {
-        toggleOn: 'TaskList',
-        otherwise: 'DeathCertificate'
-    },
+    CodicilsNumber: 'TaskList',
     // Executors Task ---------------------------------------------------------
     ApplicantName: 'ApplicantNameAsOnWill',
     ApplicantNameAsOnWill: {
@@ -159,8 +106,7 @@ const stepList = {
     ApplicantPhone: 'ApplicantAddress',
     ApplicantAddress: 'ExecutorsNumber',
     ExecutorsNumber: {
-        oneExecutorToggleOn: 'TaskList',
-        oneExecutor: 'DeceasedName',
+        oneExecutor: 'TaskList',
         otherwise: 'ExecutorsNames',
     },
     ExecutorsNames: 'ExecutorsAllAlive',

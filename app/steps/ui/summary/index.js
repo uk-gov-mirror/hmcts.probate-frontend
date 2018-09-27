@@ -34,7 +34,6 @@ class Summary extends Step {
         ctx.executorsDealingWithEstate = executorsApplying.map(exec => exec.fullName);
         ctx.executorsPowerReservedOrRenounced = executorsWrapper.hasRenunciatedOrPowerReserved();
         ctx.isMainApplicantAliasToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'main_applicant_alias');
-        ctx.isScreeningQuestionToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
 
         utils.updateTaskStatus(ctx, ctx, this.steps);
 
