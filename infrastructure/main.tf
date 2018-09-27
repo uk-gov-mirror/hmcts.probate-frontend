@@ -108,6 +108,7 @@ module "probate-frontend" {
   subscription = "${var.subscription}"
   asp_name     = "${var.asp_name}"
   additional_host_name = "${var.external_host_name}"  // need to give proper url
+  appinsights_instrumentation_key = "${var.appinsights_instrumentation_key}"
   capacity     = "${var.capacity}"
   common_tags  = "${var.common_tags}"
   asp_rg       = "${var.asp_rg}"
