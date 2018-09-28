@@ -65,7 +65,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
 
     I.seeSummaryPage();
 
-    // Review and confirm Task
+    // Review and Confirm Task
     I.selectATask(taskListContent.taskNotStarted);
     I.seeSummaryPage('declaration');
     I.acceptDeclaration();
@@ -85,7 +85,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
 
     I.seeCopiesSummary();
 
-    // PaymentTask
+    // Payment Task
     I.selectATask(taskListContent.taskNotStarted);
     I.seePaymentBreakdownPage();
 
@@ -99,6 +99,6 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     // Send Documents Task
     I.seeDocumentsPage();
 
-    // Thank You - Application Complete Task
+    // Thank You
     I.seeThankYouPage();
 }).retry(TestConfigurator.getRetryScenarios());

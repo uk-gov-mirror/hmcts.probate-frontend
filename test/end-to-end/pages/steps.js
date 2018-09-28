@@ -38,19 +38,12 @@ module.exports = function () {
     selectWillNoOfCodicils: steps.will.codicilsnumber,
 
     // Executors Task
-
-
-
-
-
-    // Applicant details
     enterApplicantName: steps.applicant.name,
     selectNameAsOnTheWill: steps.applicant.nameasonwill,
     enterApplicantAlias: steps.applicant.alias,
     enterApplicantAliasReason: steps.applicant.aliasreason,
     enterApplicantPhone: steps.applicant.phone,
     enterAddressManually: steps.applicant.address,
-
     enterTotalExecutors: steps.executors.number,
     enterExecutorNames: steps.executors.names,
     selectExecutorsAllAlive: steps.executors.allalive,
@@ -66,33 +59,30 @@ module.exports = function () {
     selectExecutorRoles: steps.executors.roles,
     selectHasExecutorBeenNotified: steps.executors.notified,
 
-
-    //summary page
+    // Review and Confirm Task
     seeSummaryPage: steps.summary.summary,
-
-    //Declaration Page
     acceptDeclaration: steps.declaration.declaration,
 
-    //Notify additional executors
+    // Notify additional executors
     notifyAdditionalExecutors: steps.executors.invite,
 
-    //Pin page for additional executor
+    // Pin page for additional executor
     enterPinCode: steps.pin.signin,
 
-    //Additional executors Agree/Disagree with Statement of Truth
+    // Additional executors Agree/Disagree with Statement of Truth
     seeCoApplicantStartPage: steps.coapplicant.startPage,
     agreeDisagreeDeclaration: steps.coapplicant.declaration,
     seeAgreePage: steps.coapplicant.agree,
 
-    //Asset pages
+    // Asset pages
     selectOverseasAssets: steps.assets.overseas,
 
-    //Copies pages
+    // Copies pages
     enterUkCopies: steps.copies.uk,
     enterOverseasCopies: steps.copies.overseas,
     seeCopiesSummary: steps.copies.summary,
 
-    //Payment
+    // Payment
     seePaymentBreakdownPage: steps.payment.paymentbreakdown,
     seeGovUkPaymentPage: steps.payment.govukpayment,
     seeGovUkConfirmPage: steps.payment.govukconfirmpayment,
@@ -101,12 +91,12 @@ module.exports = function () {
     // Documents
     seeDocumentsPage: steps.documents.documents,
 
-    //Thank You Page
+    // Thank You
     seeThankYouPage: steps.thankyou.thankyou,
 
-    //Eligibility task
-    completeEligibilityTask: steps.tasks.tasks.completeEligibilityTask,
-    completeExecutorsTask: steps.tasks.tasks.completeExecutorsTask
+    // Eligibility task
+    // completeEligibilityTask: steps.tasks.tasks.completeEligibilityTask,
+    // completeExecutorsTask: steps.tasks.tasks.completeExecutorsTask
 
     });
 };
