@@ -53,16 +53,11 @@ data "vault_generic_secret" "idam_frontend_idam_key" {
 }
 
 locals {
-  aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
+  aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"  
   previewVaultName = "${var.raw_product}-aat"
   nonPreviewVaultName = "${var.raw_product}-${var.env}"
   vaultName = "${(var.env == "preview" || var.env == "spreview") ? local.previewVaultName : local.nonPreviewVaultName}"
-
-  localenv = "${(var.env == "preview" || var.env == "spreview") ?  "aat" : "${var.env}"}"
-  nonPreviewVaultUri = "${module.probate-frontend-vault.key_vault_uri}"
-  previewVaultUri = "https://probate-fe-aat.vault.azure.net/"
-  vaultUri = "${(var.env == "preview" || var.env == "spreview")? local.previewVaultUri : local.nonPreviewVaultUri}"
-
+  localenv = "${(var.env == "preview" || var.env == "spreview") ? "aat": "${var.env}"}"
   //once Backend is up in CNP need to get the 
   //localBusinessServiceUrl = "http://probate-business-service-${var.env}.service.${local.aseName}.internal"
   //businessServiceUrl = "${var.env == "preview" ? "http://probate-business-service-aat.service.core-compute-aat.internal" : local.localClaimStoreUrl}"
