@@ -70,6 +70,7 @@ const stepList = {
         otherwise: 'StopPage'
     },
     StartApply: 'TaskList',
+
     // Deceased Task ----------------------------------------------------------
     DeceasedName: 'DeceasedDob',
     DeceasedDob: 'DeceasedDod',
@@ -95,6 +96,7 @@ const stepList = {
         otherwise: 'CodicilsNumber'
     },
     CodicilsNumber: 'TaskList',
+
     // Executors Task ---------------------------------------------------------
     ApplicantName: 'ApplicantNameAsOnWill',
     ApplicantNameAsOnWill: {
@@ -151,6 +153,7 @@ const stepList = {
         otherwise: 'DeceasedName'
     },
     DeleteExecutor: 'OtherExecutors',
+
     // ------------------------------------------------------------------------
     Summary: 'TaskList',
     Declaration: {

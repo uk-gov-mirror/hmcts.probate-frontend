@@ -6,29 +6,44 @@ steps = requireDirectory(module);
 module.exports = function () {
 
     return actor({
-    //PreIdam
-    startApplication: steps.startEligibility.startEligibility,
-    startApply: steps.startApply.startApply,
 
-    //Sign In to IDAM
-    authenticateWithIdamIfAvailable: steps.IDAM.signIn,
-
-    //Start application
-    selectATask: steps.tasklist.tasklist,
-
-    // Eligibility
+    // Eligibility Task (pre IdAM)
+    startEligibility: steps.startEligibility.startEligibility,
     selectPersonWhoDiedLeftAWill: steps.will.left,
     selectOriginalWill: steps.will.original,
-    selectWillCodicils: steps.will.codicils,
-    selectWillNoOfCodicils: steps.will.codicilsnumber,
     selectDeathCertificate: steps.deceased.deathcertificate,
-    selectIhtCompleted: steps.iht.completed,
-    selectInheritanceMethodPaper: steps.iht.method,
-    enterGrossAndNet: steps.iht.paper,
+    selectDeceasedDomicile: steps.deceased.domicile,
     selectApplicantIsExecutor: steps.applicant.executor,
     selectMentallyCapable: steps.executors.mentalcapacity,
+    selectIhtCompleted: steps.iht.completed,
+    startApply: steps.startApply.startApply,
 
-    //applicant details
+    // Sign In to IDAM
+    authenticateWithIdamIfAvailable: steps.IDAM.signIn,
+
+    // Start application
+    selectATask: steps.tasklist.tasklist,
+
+    // Deceased Task
+    enterDeceasedName: steps.deceased.name,
+    enterDeceasedDateOfBirth: steps.deceased.dob,
+    enterDeceasedDateOfDeath: steps.deceased.dod,
+    enterDeceasedAddress: steps.deceased.address,
+    selectInheritanceMethodPaper: steps.iht.method,
+    enterGrossAndNet: steps.iht.paper,
+    selectDeceasedAlias: steps.deceased.alias,
+    selectOtherNames: steps.deceased.otherNames,
+    selectDeceasedMarriedAfterDateOnWill: steps.deceased.married,
+    selectWillCodicils: steps.will.codicils,
+    selectWillNoOfCodicils: steps.will.codicilsnumber,
+
+    // Executors Task
+
+
+
+
+
+    // Applicant details
     enterApplicantName: steps.applicant.name,
     selectNameAsOnTheWill: steps.applicant.nameasonwill,
     enterApplicantAlias: steps.applicant.alias,
@@ -36,7 +51,6 @@ module.exports = function () {
     enterApplicantPhone: steps.applicant.phone,
     enterAddressManually: steps.applicant.address,
 
-    //executors
     enterTotalExecutors: steps.executors.number,
     enterExecutorNames: steps.executors.names,
     selectExecutorsAllAlive: steps.executors.allalive,
@@ -52,15 +66,6 @@ module.exports = function () {
     selectExecutorRoles: steps.executors.roles,
     selectHasExecutorBeenNotified: steps.executors.notified,
 
-    //deceased details
-    enterDeceasedName: steps.deceased.name,
-    selectDeceasedAlias: steps.deceased.alias,
-    selectOtherNames: steps.deceased.otherNames,
-    selectDeceasedMarriedAfterDateOnWill: steps.deceased.married,
-    enterDeceasedDateOfBirth: steps.deceased.dob,
-    enterDeceasedDateOfDeath: steps.deceased.dod,
-    selectDeceasedDomicile: steps.deceased.domicile,
-    enterDeceasedAddress: steps.deceased.address,
 
     //summary page
     seeSummaryPage: steps.summary.summary,
