@@ -9,6 +9,7 @@ const USER_ID = config.services.payment.userId;
 const IDAM_S2S_URL = config.services.idam.s2s_url;
 const PERSISTENCE_URL = config.services.persistence.url;
 
+
 describe('payment-status', () => {
     let testWrapper;
     const expectedNextUrlForTaskList = TaskList.getUrl();
