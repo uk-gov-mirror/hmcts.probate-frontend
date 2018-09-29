@@ -3,6 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {findIndex, get} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
+const FeatureToggle = require('app/utils/FeatureToggle');
 
 class ExecutorCurrentNameReason extends ValidationStep {
 
@@ -26,6 +27,11 @@ class ExecutorCurrentNameReason extends ValidationStep {
             ctx.list[ctx.index].otherReason = ctx.otherReason;
         }
         ctx.list[ctx.index].currentNameReason = ctx.currentNameReason;
+
+        if (ctx.currentNameReason !=='other') {
+            delete ctx.list[ctx.index].otherReason;
+        }
+
         ctx.index = this.recalcIndex(ctx, ctx.index);
         return [ctx, errors];
     }
@@ -36,17 +42,17 @@ class ExecutorCurrentNameReason extends ValidationStep {
 
     nextStepOptions(ctx) {
         ctx.continue = get(ctx, 'index', -1) !== -1;
-        const nextStepOptions = {
+        return {
             options: [
                 {key: 'continue', value: true, choice: 'continue'},
             ],
         };
-        return nextStepOptions;
     }
 
-    isComplete(ctx) {
+    isComplete(ctx, formdata, featureToggles) {
         const executorsWrapper = new ExecutorsWrapper(ctx);
-        return [executorsWrapper.executorsWithAnotherName().every(exec => exec.currentNameReason), 'inProgress'];
+        const isEnabled = FeatureToggle.isEnabled(featureToggles, 'main_applicant_alias');
+        return [isEnabled ? executorsWrapper.executorsWithAnotherName().every(exec => exec.currentNameReason) : true, 'inProgress'];
     }
 
     action(ctx, formdata) {

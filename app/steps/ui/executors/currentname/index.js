@@ -3,6 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {findIndex, get} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
+const featureToggle = require('app/utils/FeatureToggle');
 
 class ExecutorCurrentName extends ValidationStep {
 
@@ -12,7 +13,15 @@ class ExecutorCurrentName extends ValidationStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
-        if (req.params && !isNaN(req.params[0])) {
+        const isToggleEnabled = featureToggle.isEnabled(req.session.featureToggles, 'main_applicant_alias');
+
+        if (!isToggleEnabled) {
+            if (req.params && !isNaN(req.params[0])) {
+                ctx.index = parseInt(req.params[0]);
+            } else if (req.params && req.params[0] === '*') {
+                ctx.index = this.recalcIndex(ctx, ctx.index);
+            }
+        } else if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else if (!ctx.index) {
             ctx.index = this.recalcIndex(ctx, 0);
@@ -27,7 +36,9 @@ class ExecutorCurrentName extends ValidationStep {
         return [ctx];
     }
 
-    handlePost(ctx, errors) {
+    handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
+        ctx.isToggleEnabled = featureToggle.isEnabled(featureToggles, 'main_applicant_alias');
+
         ctx.list[ctx.index].currentName = ctx.currentName;
         return [ctx, errors];
     }
@@ -37,19 +48,25 @@ class ExecutorCurrentName extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.continue = get(ctx, 'index', -1) !== -1;
-        const nextStepOptions = {
+        if (ctx.isToggleEnabled) {
+            ctx.continue = get(ctx, 'index', -1) !== -1;
+        } else {
+            const nextExec = this.recalcIndex(ctx, ctx.index);
+            ctx.continue = nextExec !==-1;
+        }
+
+        return {
             options: [
                 {key: 'continue', value: true, choice: 'continue'},
             ]
         };
-        return nextStepOptions;
     }
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.currentName;
         delete ctx.continue;
+        delete ctx.isToggleEnabled;
         return [ctx, formdata];
     }
 
