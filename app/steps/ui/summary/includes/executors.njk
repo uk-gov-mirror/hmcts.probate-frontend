@@ -219,10 +219,11 @@
             alreadyDeclared = fields.summary.alreadyDeclared.value
         )}}
 
+        {% if fields.isToggleEnabled.value === 'true' %}
         {{checkanswer(
             items = [{
                     question: content.Summary.currentNameReason,
-                    answer: executor.currentNameReason,
+                    answer: executor.otherReason | default(executor.currentNameReason),
                     visible: executor.hasOtherName
                 }
             ],
@@ -230,6 +231,7 @@
             common = common,
             alreadyDeclared = fields.summary.alreadyDeclared.value
         )}}
+        {% endif %}
 
         {{checkanswer(
             items = [{
