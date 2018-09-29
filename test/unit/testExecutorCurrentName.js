@@ -2,6 +2,7 @@
 
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
+const assert = require('chai').assert;
 
 describe('ExecutorCurrentName', () => {
     const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']);
@@ -64,4 +65,86 @@ describe('ExecutorCurrentName', () => {
             done();
         });
     });
+
+    describe('nextStepOptions()', () => {
+
+        it('ctx.continue returns true when next executor exists in list ', (done) => {
+
+            const testCtx = {
+                index: 1,
+                list: [
+                    {lastName: 'Huggins', firstName: 'Jake', isApplying: true, isApplicant: true},
+                    {fullName: 'Madonna', hasOtherName: true},
+                    {fullName: 'Prince', hasOtherName: false},
+                    {fullName: 'Cher', hasOtherName: true}
+                ]
+            };
+
+            const ExecutorCurrentName = steps.ExecutorCurrentName;
+            const nextStepOptions = ExecutorCurrentName.nextStepOptions(testCtx);
+
+            assert.equal(testCtx.continue, true);
+
+            expect(nextStepOptions).to.deep.equal({
+                options: [
+                    {key: 'continue', value: true, choice: 'continue'},
+                ],
+            });
+            done();
+        });
+
+        it('ctx.continue returns false when at the end of exec list ', (done) => {
+
+            const testCtx = {
+                index: 3,
+                list: [
+                    {lastName: 'Huggins', firstName: 'Jake', isApplying: true, isApplicant: true},
+                    {fullName: 'Madonna', hasOtherName: true},
+                    {fullName: 'Prince', hasOtherName: false},
+                    {fullName: 'Cher', hasOtherName: true}
+                ]
+            };
+
+            const ExecutorCurrentName = steps.ExecutorCurrentName;
+            const nextStepOptions = ExecutorCurrentName.nextStepOptions(testCtx);
+
+            assert.equal(testCtx.continue, false);
+            expect(nextStepOptions).to.deep.equal({
+                options: [
+                    {key: 'continue', value: true, choice: 'continue'},
+                ],
+            });
+            done();
+        });
+
+    });
+
+    describe('action()', () => {
+        it('removes the correct values from the context', (done) => {
+            const testCtx = {
+                currentName: 'leatherface',
+                continue: true,
+            };
+            const testFormdata = {};
+            const ExecutorCurrentName = steps.ExecutorCurrentName;
+            const action = ExecutorCurrentName.action(testCtx, testFormdata);
+
+            expect(action).to.deep.equal([{}, testFormdata]);
+            done();
+        });
+
+        it('removes featureToggle value from context', (done) => {
+            const testCtx = {
+                isToggleEnabled: true
+            };
+            const testFormdata = {};
+            const ExecutorCurrentName = steps.ExecutorCurrentName;
+            const action = ExecutorCurrentName.action(testCtx, testFormdata);
+
+            expect(action).to.deep.equal([{}, testFormdata]);
+            done();
+        });
+
+    });
+
 });
