@@ -5,7 +5,7 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 const {get} = require('lodash');
 const FeatureToggle = require('app/utils/FeatureToggle');
 
-module.exports = class ExecutorsNumber extends ValidationStep {
+class ExecutorsNumber extends ValidationStep {
 
     static getUrl() {
         return '/executors-number';
@@ -69,4 +69,6 @@ module.exports = class ExecutorsNumber extends ValidationStep {
         delete ctx.isToggleEnabled;
         return [ctx, formdata];
     }
-};
+}
+
+module.exports = ExecutorsNumber;

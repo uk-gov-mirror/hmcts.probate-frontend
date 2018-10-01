@@ -3,7 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const content = require('app/resources/en/translation/deceased/newdomicile');
 
-module.exports = class NewDeceasedDomicile extends ValidationStep {
+class NewDeceasedDomicile extends ValidationStep {
 
     static getUrl() {
         return '/new-deceased-domicile';
@@ -21,4 +21,6 @@ module.exports = class NewDeceasedDomicile extends ValidationStep {
         };
         return nextStepOptions;
     }
-};
+}
+
+module.exports = NewDeceasedDomicile;
