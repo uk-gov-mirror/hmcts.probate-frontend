@@ -5,7 +5,7 @@ const utils = require('app/components/step-utils');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const FeatureToggle = require('app/utils/FeatureToggle');
 
-module.exports = class TaskList extends Step {
+class TaskList extends Step {
 
     static getUrl() {
         return '/tasklist';
@@ -74,4 +74,6 @@ module.exports = class TaskList extends Step {
         delete ctx.isScreeningQuestionsToggleEnabled;
         return [ctx, formdata];
     }
-};
+}
+
+module.exports = TaskList;

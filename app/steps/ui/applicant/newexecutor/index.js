@@ -3,7 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const json = require('app/resources/en/translation/applicant/executor');
 
-module.exports = class NewApplicantExecutor extends ValidationStep {
+class NewApplicantExecutor extends ValidationStep {
 
     static getUrl() {
         return '/new-applicant-executor';
@@ -28,4 +28,6 @@ module.exports = class NewApplicantExecutor extends ValidationStep {
         };
         return nextStepOptions;
     }
-};
+}
+
+module.exports = NewApplicantExecutor;

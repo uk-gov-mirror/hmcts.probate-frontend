@@ -3,7 +3,7 @@
 const DateStep = require('app/core/steps/DateStep');
 const FeatureToggle = require('app/utils/FeatureToggle');
 
-module.exports = class DeceasedDod extends DateStep {
+class DeceasedDod extends DateStep {
 
     static getUrl() {
         return '/deceased-dod';
@@ -32,4 +32,6 @@ module.exports = class DeceasedDod extends DateStep {
         delete ctx.isToggleEnabled;
         return [ctx, formdata];
     }
-};
+}
+
+module.exports = DeceasedDod;

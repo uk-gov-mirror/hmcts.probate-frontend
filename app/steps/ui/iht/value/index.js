@@ -6,7 +6,7 @@ const numeral = require('numeral');
 const FieldError = require('app/components/error');
 const FeatureToggle = require('app/utils/FeatureToggle');
 
-module.exports = class IhtValue extends ValidationStep {
+class IhtValue extends ValidationStep {
 
     static getUrl() {
         return '/iht-value';
@@ -49,4 +49,6 @@ module.exports = class IhtValue extends ValidationStep {
         delete ctx.isToggleEnabled;
         return [ctx, formdata];
     }
-};
+}
+
+module.exports = IhtValue;
