@@ -11,22 +11,26 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     TestConfigurator.getBefore();
 
-    // Pre-IDAM
-    I.startApplication();
-    I.startApply();
-
-    // IDAM
-    I.authenticateWithIdamIfAvailable();
-
-    // EligibilityTask
-
-    I.selectATask(taskListContent.taskNotStarted);
+    // Eligibility Task (pre IdAM)
+    I.startEligibility();
     I.selectPersonWhoDiedLeftAWill();
     I.selectOriginalWill();
-    I.selectWillCodicils('Yes');
-    I.selectWillNoOfCodicils('3');
     I.selectDeathCertificate();
+    I.selectDeceasedDomicile();
+    I.selectApplicantIsExecutor();
+    I.selectMentallyCapable();
     I.selectIhtCompleted();
+    I.startApply();
+
+    // IdAM
+    I.authenticateWithIdamIfAvailable();
+
+    // Deceased Task
+    I.selectATask(taskListContent.taskNotStarted);
+    I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
+    I.enterDeceasedDateOfBirth('01', '01', '1950');
+    I.enterDeceasedDateOfDeath('01', '01', '2017');
+    I.enterDeceasedAddress();
     I.selectInheritanceMethodPaper();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
@@ -35,11 +39,13 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
         I.enterGrossAndNet('205', '500', '400');
     }
 
-    I.selectApplicantIsExecutor();
-    I.selectMentallyCapable();
+    I.selectDeceasedAlias('Yes');
+    I.selectOtherNames('2');
+    I.selectDeceasedMarriedAfterDateOnWill('optionNo');
+    I.selectWillCodicils('Yes');
+    I.selectWillNoOfCodicils('3');
 
-    // ExecutorsTask
-    //
+    // Executors Task
     I.selectATask(taskListContent.taskNotStarted);
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
     I.selectNameAsOnTheWill('optionNo');
@@ -61,11 +67,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     forEach(executorsWhoDiedList, executorNumber => {
         I.selectExecutorsWhenDied(executorNumber, diedBefore, head(executorsWhoDiedList) === executorNumber);
 
-        if (diedBefore) {
-            diedBefore = false;
-        } else {
-            diedBefore = true;
-        }
+        diedBefore = !diedBefore;
     });
 
     I.selectExecutorsApplying();
@@ -101,19 +103,8 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
         }
     });
 
-    I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
-    I.selectDeceasedAlias('Yes');
-    I.selectOtherNames('2');
-    I.selectDeceasedMarriedAfterDateOnWill('optionNo');
-    I.enterDeceasedDateOfDeath('01', '01', '2017');
-    I.enterDeceasedDateOfBirth('01', '01', '1950');
-    I.selectDeceasedDomicile();
-    I.enterDeceasedAddress();
-
-    I.seeSummaryPage();
-
-    // Review and confirm Task
-    I.selectATask('Start');
+    // Review and Confirm Task
+    I.selectATask(taskListContent.taskNotStarted);
     I.seeSummaryPage('declaration');
     I.acceptDeclaration();
 
@@ -156,7 +147,7 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     // IDAM
     I.authenticateWithIdamIfAvailable();
 
-    // Extra copies task
+    // Extra Copies Task
     I.selectATask(taskListContent.taskNotStarted);
 
     if (TestConfigurator.getUseGovPay() === 'true') {
@@ -171,7 +162,7 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
 
     I.seeCopiesSummary();
 
-    // PaymentTask
+    // Payment Task
     I.selectATask(taskListContent.taskNotStarted);
     I.seePaymentBreakdownPage();
 
@@ -185,6 +176,6 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     // Send Documents Task
     I.seeDocumentsPage();
 
-    // Thank You - Application Complete Task
+    // Thank You
     I.seeThankYouPage();
 });

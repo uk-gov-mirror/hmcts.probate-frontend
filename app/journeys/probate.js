@@ -119,7 +119,7 @@ const stepList = {
     ExecutorsWhoDied: 'ExecutorsWhenDied',
     ExecutorsWhenDied: {
         continue: 'ExecutorsWhenDied',
-        allDead: 'DeceasedName',
+        allDead: 'TaskList',
         otherwise: 'ExecutorsApplying'
     },
     ExecutorsApplying: {
@@ -139,18 +139,18 @@ const stepList = {
     ExecutorContactDetails: 'ExecutorAddress',
     ExecutorAddress: {
         continue: 'ExecutorContactDetails',
-        allExecsApplying: 'DeceasedName',
+        allExecsApplying: 'TaskList',
         otherwise: 'ExecutorRoles'
     },
     ExecutorRoles: {
         continue: 'ExecutorRoles',
         powerReserved: 'ExecutorNotified',
-        otherwise: 'DeceasedName',
+        otherwise: 'TaskList',
     },
     ExecutorNameAsOnWill: 'OtherExecutors',
     ExecutorNotified: {
         roles: 'ExecutorRoles',
-        otherwise: 'DeceasedName'
+        otherwise: 'TaskList'
     },
     DeleteExecutor: 'OtherExecutors',
 
