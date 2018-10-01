@@ -29,6 +29,7 @@ const dataMap = {
     willCodicilsNumber: 'will.codicilsNumber',
     ihtCompleted: 'iht.completed',
     ihtForm: 'iht.form',
+    ihtFormId: 'iht.ihtFormId',
     ihtIdentifier: 'iht.identifier',
     ihtGrossValue: 'iht.grossValue',
     ihtNetValue: 'iht.netValue',
