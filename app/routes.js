@@ -33,11 +33,12 @@ router.get('/', (req, res) => {
             if (result.name === 'Error') {
                 req.log.debug('Failed to load user data');
                 req.log.info({tags: 'Analytics'}, 'Application Started');
+                res.redirect('start-eligibility');
             } else {
                 req.log.debug('Successfully loaded user data');
                 req.session.form = result.formdata;
+                res.redirect('tasklist');
             }
-            res.redirect('start-eligibility');
         });
 });
 
