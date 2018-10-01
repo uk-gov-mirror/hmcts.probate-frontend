@@ -40,7 +40,7 @@ router.get('/new-start-eligibility', (req, res, next) => {
         res: res,
         next: next,
         redirectPage: 'start-eligibility',
-        featureToggleKey: 'screening_questions_toggle',
+        featureToggleKey: 'screening_questions',
         callback: featureToggle.togglePage
     });
 });
@@ -50,7 +50,7 @@ router.get('/new-will-left', (req, res, next) => {
         res: res,
         next: next,
         redirectPage: 'will-left',
-        featureToggleKey: 'screening_questions_toggle',
+        featureToggleKey: 'screening_questions',
         callback: featureToggle.togglePage
     });
 });
@@ -60,7 +60,7 @@ router.get('/new-will-original', (req, res, next) => {
         res: res,
         next: next,
         redirectPage: 'will-original',
-        featureToggleKey: 'screening_questions_toggle',
+        featureToggleKey: 'screening_questions',
         callback: featureToggle.togglePage
     });
 });
@@ -70,7 +70,7 @@ router.get('/new-death-certificate', (req, res, next) => {
         res: res,
         next: next,
         redirectPage: 'death-certificate',
-        featureToggleKey: 'screening_questions_toggle',
+        featureToggleKey: 'screening_questions',
         callback: featureToggle.togglePage
     });
 });
@@ -80,7 +80,7 @@ router.get('/new-deceased-domicile', (req, res, next) => {
         res: res,
         next: next,
         redirectPage: 'deceased-domicile',
-        featureToggleKey: 'screening_questions_toggle',
+        featureToggleKey: 'screening_questions',
         callback: featureToggle.togglePage
     });
 });
@@ -90,7 +90,7 @@ router.get('/new-applicant-executor', (req, res, next) => {
         res: res,
         next: next,
         redirectPage: 'applicant-executor',
-        featureToggleKey: 'screening_questions_toggle',
+        featureToggleKey: 'screening_questions',
         callback: featureToggle.togglePage
     });
 });
@@ -100,7 +100,7 @@ router.get('/new-mental-capacity', (req, res, next) => {
         res: res,
         next: next,
         redirectPage: 'mental-capacity',
-        featureToggleKey: 'screening_questions_toggle',
+        featureToggleKey: 'screening_questions',
         callback: featureToggle.togglePage
     });
 });
@@ -110,7 +110,7 @@ router.get('/new-iht-completed', (req, res, next) => {
         res: res,
         next: next,
         redirectPage: 'iht-completed',
-        featureToggleKey: 'screening_questions_toggle',
+        featureToggleKey: 'screening_questions',
         callback: featureToggle.togglePage
     });
 });
@@ -120,7 +120,7 @@ router.get('/new-start-apply', (req, res, next) => {
         res: res,
         next: next,
         redirectPage: 'start-apply',
-        featureToggleKey: 'screening_questions_toggle',
+        featureToggleKey: 'screening_questions',
         callback: featureToggle.togglePage
     });
 });
