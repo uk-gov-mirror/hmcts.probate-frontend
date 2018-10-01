@@ -1,10 +1,13 @@
 // eslint-disable-line max-lines
+'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsInvite = require('app/steps/ui/executors/invite/index');
+const ExecutorsUpdateInvite = require('app/steps/ui/executors/updateinvite/index');
+const ExecutorsAdditionalInvite = require('app/steps/ui/executors/additionalinvite/index');
 const ExecutorsChangeMade = require('app/steps/ui/executors/changemade/index');
 const Tasklist = require('app/steps/ui/tasklist/index');
-
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const {assert} = require('chai');
 
 describe('declaration, multiple applicants', () => {
@@ -47,6 +50,9 @@ describe('declaration, multiple applicants', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        testHelpBlockContent.runTest('WillLeft');
+
         it('test right content loaded on the page with multiple applicants, deceased has three other names, no codicils', (done) => {
             const contentToExclude = [
                 'executorApplyingName-codicils',
@@ -658,6 +664,34 @@ describe('declaration, multiple applicants', () => {
                         declarationCheckbox: true
                     };
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecChangeMade);
+                });
+        });
+
+        it(`test it redirects to next page when executor has been added: ${expectedNextUrlForAdditionalExecInvite}`, (done) => {
+            sessionData.executors.list[2].emailSent = false;
+            sessionData.executors.invitesSent = 'true';
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        declarationCheckbox: true
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAdditionalExecInvite);
+                });
+        });
+
+        it(`test it redirects to next page when executor email has been changed: ${expectedNextUrlForUpdateExecInvite}`, (done) => {
+            sessionData.executors.list[1].emailSent = true;
+            sessionData.executors.list[2].emailChanged = true;
+            sessionData.executors.list[2].emailSent = true;
+            sessionData.executors.invitesSent = 'true';
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        declarationCheckbox: true
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForUpdateExecInvite);
                 });
         });
 

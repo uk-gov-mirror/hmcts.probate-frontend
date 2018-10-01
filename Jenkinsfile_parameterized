@@ -28,7 +28,8 @@ List<LinkedHashMap<String, Object>> secrets = [
     secret('testUseGovPay', 'USE_GOV_PAY'),
     secret('testPostcodeServiceUrl', 'POSTCODE_SERVICE_URL'),
     secret('testPostCodeAddressToken', 'ADDRESS_TOKEN'),
-    secret('testRunE2ETest', 'RUN_E2E_TEST')
+    secret('testRunE2ETest', 'RUN_E2E_TEST'),
+    secret('testValidationServiceUrl', 'TEST_VALIDATION_SERVICE_URL')
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {

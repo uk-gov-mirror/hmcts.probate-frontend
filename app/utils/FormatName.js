@@ -8,6 +8,50 @@ class FormatName {
         return `${firstName} ${lastName}`.trim();
     }
 
+    static formatName(person, useOtherName) {
+        if (useOtherName && person.hasOtherName) {
+            return person.currentName;
+        } else if (person.fullName) {
+            return person.fullName;
+        }
+        return FormatName.format(person);
+    }
+
+    static getNameAndAddress(person, contentOf, applicantAddress) {
+        const fullName = FormatName.formatName(person, true);
+        const address = person.isApplicant ? applicantAddress : person.address;
+        return address ? `${fullName} ${contentOf} ${address}` : fullName;
+    }
+
+    static formatExecutorNames(executors) {
+        const contentAnd = 'and';
+        if (executors) {
+            const separator = ', ';
+            const formattedNames = executors
+                .map(executor => executor.fullName)
+                .join(separator);
+            return this.delimitNames(formattedNames, separator, contentAnd);
+        }
+    }
+
+    static formatMultipleNamesAndAddress(persons, content, applicantAddress) {
+        if (persons) {
+            const separator = ', ';
+            const formattedNames = Object.keys(persons)
+                .map(key => FormatName.getNameAndAddress(persons[key], content.of, applicantAddress))
+                .join(separator);
+            return FormatName.delimitNames(formattedNames, separator, content.and);
+        }
+    }
+
+    static delimitNames(formattedNames, separator, contentAnd) {
+        const lastCommaPos = formattedNames.lastIndexOf(separator);
+        if (lastCommaPos > -1) {
+            return `${formattedNames.substring(0, lastCommaPos)} ${contentAnd} ${formattedNames.substring(lastCommaPos + separator.length)}`;
+        }
+        return formattedNames;
+    }
+
     static applicantWillName(person) {
         person = person || {};
         const currentName = person.alias || this.format(person);
