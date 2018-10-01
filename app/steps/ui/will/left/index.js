@@ -1,9 +1,9 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const json = require('app/resources/en/translation/will/left.json');
+const json = require('app/resources/en/translation/will/left');
 
-module.exports = class WillLeft extends ValidationStep {
+class WillLeft extends ValidationStep {
 
     static getUrl() {
         return '/will-left';
@@ -21,4 +21,6 @@ module.exports = class WillLeft extends ValidationStep {
         };
         return nextStepOptions;
     }
-};
+}
+
+module.exports = WillLeft;

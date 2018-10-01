@@ -1,10 +1,10 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const json = require('app/resources/en/translation/iht/completed.json');
+const json = require('app/resources/en/translation/iht/completed');
 const {isEmpty} = require('lodash');
 
-module.exports = class IhtCompleted extends ValidationStep {
+class IhtCompleted extends ValidationStep {
 
     static getUrl() {
         return '/iht-completed';
@@ -25,4 +25,6 @@ module.exports = class IhtCompleted extends ValidationStep {
     isComplete(ctx) {
         return [!isEmpty(ctx.completed), 'inProgress'];
     }
-};
+}
+
+module.exports = IhtCompleted;

@@ -4,7 +4,7 @@ const Step = require('app/core/steps/Step');
 const utils = require('app/components/step-utils');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 
-module.exports = class TaskList extends Step {
+class TaskList extends Step {
 
     static getUrl() {
         return '/tasklist';
@@ -51,4 +51,6 @@ module.exports = class TaskList extends Step {
         delete ctx.previousTaskStatus;
         return [ctx, formdata];
     }
-};
+}
+
+module.exports = TaskList;

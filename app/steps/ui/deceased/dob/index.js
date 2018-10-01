@@ -2,7 +2,7 @@
 
 const DateStep = require('app/core/steps/DateStep');
 
-module.exports = class DeceasedDob extends DateStep {
+class DeceasedDob extends DateStep {
 
     static getUrl() {
         return '/deceased-dob';
@@ -11,4 +11,6 @@ module.exports = class DeceasedDob extends DateStep {
     dateName() {
         return 'dob';
     }
-};
+}
+
+module.exports = DeceasedDob;

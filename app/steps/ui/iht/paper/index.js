@@ -6,7 +6,7 @@ const numeral = require('numeral');
 const FieldError = require('app/components/error');
 const {get} = require('lodash');
 
-module.exports = class IhtPaper extends ValidationStep {
+class IhtPaper extends ValidationStep {
 
     static getUrl() {
         return '/iht-paper';
@@ -53,5 +53,6 @@ module.exports = class IhtPaper extends ValidationStep {
         delete ctx.netValuePaper;
         return [ctx, formdata];
     }
+}
 
-};
+module.exports = IhtPaper;

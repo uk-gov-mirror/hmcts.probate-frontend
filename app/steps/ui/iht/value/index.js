@@ -5,7 +5,7 @@ const validator = require('validator');
 const numeral = require('numeral');
 const FieldError = require('app/components/error');
 
-module.exports = class IhtValue extends ValidationStep {
+class IhtValue extends ValidationStep {
 
     static getUrl() {
         return '/iht-value';
@@ -32,4 +32,6 @@ module.exports = class IhtValue extends ValidationStep {
 
         return [ctx, errors];
     }
-};
+}
+
+module.exports = IhtValue;

@@ -109,7 +109,7 @@ const stepList = {
     ApplicantAddress: 'ExecutorsNumber',
     ExecutorsNumber: {
         oneExecutor: 'TaskList',
-        otherwise: 'ExecutorsNames',
+        otherwise: 'ExecutorsNames'
     },
     ExecutorsNames: 'ExecutorsAllAlive',
     ExecutorsAllAlive: {
@@ -134,7 +134,7 @@ const stepList = {
     ExecutorsWithOtherNames: 'ExecutorCurrentName',
     ExecutorCurrentName: {
         continue: 'ExecutorCurrentName',
-        otherwise: 'ExecutorContactDetails',
+        otherwise: 'ExecutorContactDetails'
     },
     ExecutorContactDetails: 'ExecutorAddress',
     ExecutorAddress: {
@@ -145,7 +145,7 @@ const stepList = {
     ExecutorRoles: {
         continue: 'ExecutorRoles',
         powerReserved: 'ExecutorNotified',
-        otherwise: 'TaskList',
+        otherwise: 'TaskList'
     },
     ExecutorNameAsOnWill: 'OtherExecutors',
     ExecutorNotified: {

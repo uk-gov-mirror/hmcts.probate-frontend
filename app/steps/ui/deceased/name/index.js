@@ -2,7 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 
-module.exports = class DeceasedName extends ValidationStep {
+class DeceasedName extends ValidationStep {
 
     static getUrl() {
         return '/deceased-name';
@@ -13,4 +13,6 @@ module.exports = class DeceasedName extends ValidationStep {
         delete ctx.index;
         return [ctx, formdata];
     }
-};
+}
+
+module.exports = DeceasedName;
