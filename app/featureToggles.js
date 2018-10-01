@@ -228,5 +228,41 @@ router.post('/executors-number', (req, res, next) => {
         callback: featureToggle.toggleFeature
     });
 });
+router.post('/executor-when-died', (req, res, next) => {
+    featureToggle.checkToggle({
+        req: req,
+        res: res,
+        next: next,
+        featureToggleKey: 'screening_questions',
+        callback: featureToggle.toggleFeature
+    });
+});
+router.post('/executor-address', (req, res, next) => {
+    featureToggle.checkToggle({
+        req: req,
+        res: res,
+        next: next,
+        featureToggleKey: 'screening_questions',
+        callback: featureToggle.toggleFeature
+    });
+});
+router.post('/executor-roles', (req, res, next) => {
+    featureToggle.checkToggle({
+        req: req,
+        res: res,
+        next: next,
+        featureToggleKey: 'screening_questions',
+        callback: featureToggle.toggleFeature
+    });
+});
+router.post('/executor-notified', (req, res, next) => {
+    featureToggle.checkToggle({
+        req: req,
+        res: res,
+        next: next,
+        featureToggleKey: 'screening_questions',
+        callback: featureToggle.toggleFeature
+    });
+});
 
 module.exports = router;
