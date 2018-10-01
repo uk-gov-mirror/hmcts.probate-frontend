@@ -93,10 +93,11 @@ router.use((req, res, next) => {
         formdata.executors.invitesSent === 'true' &&
         get(formdata, 'declaration.declarationCheckbox')
     ) {
-        services.checkAllAgreed(req.session.regId).then(data => {
-            req.session.haveAllExecutorsDeclared = data;
-            next();
-        })
+        services.checkAllAgreed(req.session.regId)
+            .then(data => {
+                req.session.haveAllExecutorsDeclared = data;
+                next();
+            })
             .catch(err => {
                 next(err);
             });

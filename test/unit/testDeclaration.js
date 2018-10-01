@@ -30,19 +30,21 @@ describe('Declaration tests', function () {
 
         it('Success - there are no Errors in the results', (done) => {
             updateInviteDataStub.returns(Promise.resolve({agreed: null}));
-            Declaration.resetAgreedFlags(executorsInvited).then((results) => {
-                assert.isFalse(results.some(result => result.name === 'Error'));
-                done();
-            })
+            Declaration.resetAgreedFlags(executorsInvited)
+                .then((results) => {
+                    assert.isFalse(results.some(result => result.name === 'Error'));
+                    done();
+                })
                 .catch(err => done(err));
         });
 
         it('Failure - there is an Error in the results', (done) => {
             updateInviteDataStub.returns(Promise.resolve(new Error('Blimey')));
-            Declaration.resetAgreedFlags(executorsInvited).then((results) => {
-                assert.isTrue(results.some(result => result.name === 'Error'));
-                done();
-            })
+            Declaration.resetAgreedFlags(executorsInvited)
+                .then((results) => {
+                    assert.isTrue(results.some(result => result.name === 'Error'));
+                    done();
+                })
                 .catch(err => done(err));
         });
     });

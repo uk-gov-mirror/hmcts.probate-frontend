@@ -15,15 +15,16 @@ module.exports = class SignOut extends Step {
         const ctx = super.getContextData(req);
         const access_token = req.cookies[SECURITY_COOKIE];
         const errorCodes = [400, 401, 403];
-        return services.signOut(access_token).then(result => {
-            if (errorCodes.includes(result)) {
-                throw new Error('Error while attempting to sign out of IDAM.');
-            }
-            delete req.cookies;
-            delete req.sessionID;
-            delete req.session;
-            return ctx;
-        })
+        return services.signOut(access_token)
+            .then(result => {
+                if (errorCodes.includes(result)) {
+                    throw new Error('Error while attempting to sign out of IDAM.');
+                }
+                delete req.cookies;
+                delete req.sessionID;
+                delete req.session;
+                return ctx;
+            })
             .catch(err => {
                 logger.error(`Error while calling IDAM: ${err}`);
             });
