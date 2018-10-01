@@ -11,8 +11,8 @@ module.exports = class ExecutorsWhoDied extends ValidationStep {
         const ctx = super.getContextData(req);
         if (ctx.list) {
             ctx.options = ctx.list
-            .filter(o => o.fullName)
-            .map(o => ({option: o.fullName, checked: o.isDead === true}));
+                .filter(o => o.fullName)
+                .map(o => ({option: o.fullName, checked: o.isDead === true}));
         }
         return ctx;
     }

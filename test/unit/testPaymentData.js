@@ -27,8 +27,8 @@ describe('PaymentData', function () {
             const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE1';
 
             const result = paymentData.createPaymentData(data, 'https://localhost', () => {
-return '123456';
-});
+                return '123456';
+            });
 
             assert.equal(result.reference, expectedReference);
 
@@ -46,14 +46,14 @@ return '123456';
             const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE1$CODE2/1';
 
             const result = paymentData.createPaymentData(data, 'https://localhost', () => {
-return '123456';
-});
+                return '123456';
+            });
 
             assert.equal(result.reference, expectedReference);
 
         });
 
-       it('Returns a payment data object, with fee, no uk copies, with overseas copies', function () {
+        it('Returns a payment data object, with fee, no uk copies, with overseas copies', function () {
 
             const data = {
                 applicationFee: config.payment.applicationFee,
@@ -65,14 +65,14 @@ return '123456';
             const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE1$CODE3/2';
 
             const result = paymentData.createPaymentData(data, 'https://localhost', () => {
-return '123456';
-});
+                return '123456';
+            });
 
             assert.equal(result.reference, expectedReference);
 
         });
 
-         it('Returns a payment data object, with fee, with uk copies, with overseas copies', function () {
+        it('Returns a payment data object, with fee, with uk copies, with overseas copies', function () {
 
             const data = {
                 applicationFee: config.payment.applicationFee,
@@ -85,8 +85,8 @@ return '123456';
             const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE1$CODE2/3$CODE3/4';
 
             const result = paymentData.createPaymentData(data, 'https://localhost', () => {
-return '123456';
-});
+                return '123456';
+            });
 
             assert.equal(result.reference, expectedReference);
 
@@ -98,24 +98,24 @@ return '123456';
 
             const data = {
                 applicationFee: 0,
-                 copies: {
+                copies: {
                     uk: {number: 5},
                 },
             };
 
             const result = paymentData.createPaymentData(data, 'https://localhost', () => {
-return '123456';
-});
+                return '123456';
+            });
 
             assert.deepEqual(result.reference, expectedReference);
 
         });
 
-         it('Returns a payment data object, no fee, no uk copies, with overseas copies', function () {
+        it('Returns a payment data object, no fee, no uk copies, with overseas copies', function () {
 
             const data = {
                 applicationFee: 0,
-                 copies: {
+                copies: {
                     overseas: {number: 6},
                 },
             };
@@ -123,18 +123,18 @@ return '123456';
             const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE3/6';
 
             const result = paymentData.createPaymentData(data, 'https://localhost', () => {
-return '123456';
-});
+                return '123456';
+            });
 
             assert.deepEqual(result.reference, expectedReference);
 
         });
 
-         it('Returns a payment data object, no fee, with uk copies, with overseas copies', function () {
+        it('Returns a payment data object, no fee, with uk copies, with overseas copies', function () {
 
             const data = {
                 applicationFee: 0,
-                 copies: {
+                copies: {
                     uk: {number: 7},
                     overseas: {number: 8},
                 },
@@ -143,8 +143,8 @@ return '123456';
             const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE2/7$CODE3/8';
 
             const result = paymentData.createPaymentData(data, 'https://localhost', () => {
-return '123456';
-});
+                return '123456';
+            });
 
             assert.deepEqual(result.reference, expectedReference);
 

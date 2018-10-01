@@ -9,9 +9,9 @@ router.post('/', (req, res, next) => {
         delete req.session.form.executors.hasEmailChanged;
         next();
     })
-    .catch(err => {
-        next(err);
-    });
+        .catch(err => {
+            next(err);
+        });
 });
 
 module.exports = router;

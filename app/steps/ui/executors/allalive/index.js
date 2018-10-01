@@ -13,20 +13,20 @@ class ExecutorsAllAlive extends ValidationStep {
         return this.next(ctx).constructor.getUrl(1);
     }
 
-  handlePost(ctx, errors) {
-    if (ctx.allalive === this.commonContent().yes) {
-        for (let i = 1; i < ctx.executorsNumber; i++) {
-            if (ctx.list[i].isDead) {
-                ctx.list[i].isDead = false;
-                delete ctx.list[i].diedBefore;
-                delete ctx.list[i].notApplyingKey;
-                delete ctx.list[i].notApplyingReason;
-            }
+    handlePost(ctx, errors) {
+        if (ctx.allalive === this.commonContent().yes) {
+            for (let i = 1; i < ctx.executorsNumber; i++) {
+                if (ctx.list[i].isDead) {
+                    ctx.list[i].isDead = false;
+                    delete ctx.list[i].diedBefore;
+                    delete ctx.list[i].notApplyingKey;
+                    delete ctx.list[i].notApplyingReason;
+                }
 
+            }
         }
+        return [ctx, errors];
     }
-    return [ctx, errors];
-  }
 
     nextStepOptions() {
         const nextStepOptions = {

@@ -14,7 +14,7 @@ module.exports = class IhtIdentifier extends ValidationStep {
     parseIdentifier(ctx) {
         if (ctx.identifier) {
             const identifier = ctx.identifier.replace(/-/g, '')
-                    .replace(/\s/g, '');
+                .replace(/\s/g, '');
             ctx.identifier = identifier;
         }
     }

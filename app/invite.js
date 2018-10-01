@@ -37,10 +37,10 @@ class InviteLink {
             }
 
         })
-        .catch(err => {
-            logger.error(`Error while checking the link or sending the pin: ${err}`);
-            failure(response);
-        });
+            .catch(err => {
+                logger.error(`Error while checking the link or sending the pin: ${err}`);
+                failure(response);
+            });
     }
 
     checkCoApplicant(useIDAM) {

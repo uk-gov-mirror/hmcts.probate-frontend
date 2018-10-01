@@ -19,9 +19,9 @@ class FeatureToggle {
                 featureToggleKey: featureToggleKey
             });
         })
-        .catch(err => {
-            params.next(err);
-        });
+            .catch(err => {
+                params.next(err);
+            });
     }
 
     togglePage(params) {

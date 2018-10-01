@@ -1,5 +1,5 @@
 const pageUnderTest = require('app/steps/ui/summary/index'),
-      commonContent = require('app/resources/en/translation/common.json');
+    commonContent = require('app/resources/en/translation/common.json');
 
 module.exports = function (redirect) {
     const I = this;

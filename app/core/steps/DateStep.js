@@ -1,7 +1,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep'),
-        moment = require('moment'),
-        config = require('app/config'),
-        utils = require('app/components/step-utils');
+    moment = require('moment'),
+    config = require('app/config'),
+    utils = require('app/components/step-utils');
 
 module.exports = class DateStep extends ValidationStep {
 

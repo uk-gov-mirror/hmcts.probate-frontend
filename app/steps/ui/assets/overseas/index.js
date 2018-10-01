@@ -1,5 +1,5 @@
 const ValidationStep = require('app/core/steps/ValidationStep'),
-        json = require('app/resources/en/translation/assets/overseas.json');
+    json = require('app/resources/en/translation/assets/overseas.json');
 
 module.exports = class AssetsOverseas extends ValidationStep {
 

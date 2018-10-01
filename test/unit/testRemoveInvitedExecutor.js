@@ -132,9 +132,9 @@ describe('RemoveInvitedExecutor.js', () => {
                     });
                     done();
                 })
-                .catch(err => {
-                    done(err);
-                });
+                    .catch(err => {
+                        done(err);
+                    });
             });
         });
 
@@ -147,9 +147,9 @@ describe('RemoveInvitedExecutor.js', () => {
                     expect(res).to.deep.equal(executors);
                     done();
                 })
-                .catch(err => {
-                    done(err);
-                });
+                    .catch(err => {
+                        done(err);
+                    });
             });
         });
     });

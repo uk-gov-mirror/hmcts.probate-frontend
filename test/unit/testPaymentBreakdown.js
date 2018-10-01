@@ -42,9 +42,9 @@ describe('PaymentBreakdown', () => {
                 assert.deepEqual(formdata.paymentPending, 'false');
                 done();
             })
-            .catch((err) => {
-                done(err);
-            });
+                .catch((err) => {
+                    done(err);
+                });
         });
 
         it('sets nextStepUrl to payment-status if paymentPending is unknown', (done) => {
@@ -58,9 +58,9 @@ describe('PaymentBreakdown', () => {
                 assert.equal(PaymentBreakdown.nextStepUrl(), '/payment-status');
                 done();
             })
-            .catch((err) => {
-                done(err);
-            });
+                .catch((err) => {
+                    done(err);
+                });
         });
 
         it('sets paymentPending to true if ctx.total > 0', (done) => {
@@ -86,9 +86,9 @@ describe('PaymentBreakdown', () => {
                 assert.equal(errors, errorsTestData);
                 done();
             })
-            .catch((err) => {
-                done(err);
-            });
+                .catch((err) => {
+                    done(err);
+                });
         });
 
         it('sets paymentPending and createPayment to null if authorise fails before createPayment', (done) => {
@@ -118,9 +118,9 @@ describe('PaymentBreakdown', () => {
                 }]);
                 done();
             })
-            .catch((err) => {
-                done(err);
-            });
+                .catch((err) => {
+                    done(err);
+                });
         });
     });
 

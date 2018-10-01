@@ -36,7 +36,7 @@ describe('executors-names', () => {
                 .send(sessionData)
                 .end(() => {
                     testWrapper.testContent(done);
-            });
+                });
         });
 
         it('test errors message displayed for invalid data', (done) => {

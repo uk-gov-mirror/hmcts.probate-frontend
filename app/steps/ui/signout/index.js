@@ -24,8 +24,8 @@ module.exports = class SignOut extends Step {
             delete req.session;
             return ctx;
         })
-        .catch(err => {
-            logger.error(`Error while calling IDAM: ${err}`);
-        });
+            .catch(err => {
+                logger.error(`Error while calling IDAM: ${err}`);
+            });
     }
 };

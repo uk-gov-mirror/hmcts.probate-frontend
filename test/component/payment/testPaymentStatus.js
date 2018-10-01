@@ -16,7 +16,7 @@ describe('payment-status', () => {
         payStub = require('test/service-stubs/payment');
     });
 
-   after(() => {
+    after(() => {
         submitStub.close();
         s2sStub.close();
         payStub.close();

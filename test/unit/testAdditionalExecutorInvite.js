@@ -69,9 +69,9 @@ describe('AdditionalExecutorInvite.js', () => {
                     expect(res.list[2].emailSent).to.deep.equal(true);
                     done();
                 })
-                .catch(err => {
-                    done(err);
-                });
+                    .catch(err => {
+                        done(err);
+                    });
             });
 
             it('should set emailSent flag to true when there are two executors to be notified', (done) => {
@@ -84,9 +84,9 @@ describe('AdditionalExecutorInvite.js', () => {
                     expect(res.list[2].emailSent).to.deep.equal(true);
                     done();
                 })
-                .catch(err => {
-                    done(err);
-                });
+                    .catch(err => {
+                        done(err);
+                    });
             });
         });
 
@@ -97,9 +97,9 @@ describe('AdditionalExecutorInvite.js', () => {
                     expect(res).to.deep.equal(executorsToCheck.form.executors);
                     done();
                 })
-                .catch(err => {
-                    done(err);
-                });
+                    .catch(err => {
+                        done(err);
+                    });
             });
         });
     });

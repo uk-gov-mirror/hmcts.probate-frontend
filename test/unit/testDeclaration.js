@@ -34,7 +34,7 @@ describe('Declaration tests', function () {
                 assert.isFalse(results.some(result => result.name === 'Error'));
                 done();
             })
-            .catch(err => done(err));
+                .catch(err => done(err));
         });
 
         it('Failure - there is an Error in the results', (done) => {
@@ -43,7 +43,7 @@ describe('Declaration tests', function () {
                 assert.isTrue(results.some(result => result.name === 'Error'));
                 done();
             })
-            .catch(err => done(err));
+                .catch(err => done(err));
         });
     });
 
@@ -80,8 +80,8 @@ describe('Declaration tests', function () {
             ctx.hasDataChanged = true;
             ctx.executors = {
                 'executorsNumber': 3,
-                    'invitesSent': 'true',
-                    'list': [
+                'invitesSent': 'true',
+                'list': [
                     {'fullName': 'john', 'isApplying': true, 'isApplicant': true},
                     {'fullName': 'other applicant', 'isApplying': true, 'emailChanged': true},
                     {'fullName': 'harvey', 'isApplying': true, 'emailChanged': true}

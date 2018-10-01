@@ -108,20 +108,20 @@ module.exports = class Security {
                 self._denyAccess(res);
             } else {
                 self._getTokenFromCode(req)
-                .then(result => {
-                    if (result.name === 'Error') {
-                        logger.error('Error while getting the access token');
-                        if (result.message === 'Unauthorized') {
-                            self._login(req, res);
+                    .then(result => {
+                        if (result.name === 'Error') {
+                            logger.error('Error while getting the access token');
+                            if (result.message === 'Unauthorized') {
+                                self._login(req, res);
+                            } else {
+                                self._denyAccess(res);
+                            }
                         } else {
-                            self._denyAccess(res);
+                            self._storeCookie(req, res, result[ACCESS_TOKEN_OAUTH2], SECURITY_COOKIE);
+                            res.clearCookie(REDIRECT_COOKIE);
+                            res.redirect(redirectInfo.continue_url);
                         }
-                    } else {
-                        self._storeCookie(req, res, result[ACCESS_TOKEN_OAUTH2], SECURITY_COOKIE);
-                        res.clearCookie(REDIRECT_COOKIE);
-                        res.redirect(redirectInfo.continue_url);
-                    }
-                });
+                    });
             }
         };
     }

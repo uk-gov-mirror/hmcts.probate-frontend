@@ -31,7 +31,7 @@ const createPaymentReference = (data, getCaseReference) => {
     if (data.applicationFee === config.payment.applicationFee) {
         reference += APPLICATION_FEE_CODE;
         if (numberOfUkCopies > 0 || numberOfOverseasCopies > 0) {
-           reference += FEE_DELIMITER;
+            reference += FEE_DELIMITER;
         }
     }
 

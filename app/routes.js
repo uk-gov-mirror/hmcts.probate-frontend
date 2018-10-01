@@ -97,9 +97,9 @@ router.use((req, res, next) => {
             req.session.haveAllExecutorsDeclared = data;
             next();
         })
-        .catch(err => {
-            next(err);
-        });
+            .catch(err => {
+                next(err);
+            });
     } else {
         next();
     }
