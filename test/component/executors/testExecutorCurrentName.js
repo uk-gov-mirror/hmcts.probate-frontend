@@ -10,7 +10,8 @@ describe('executor-current-name', () => {
     let testWrapper, sessionData;
     const FirstExecURL = ExecutorCurrentName.getUrl(4);
     const NextExecURL = ExecutorCurrentName.getUrl(6);
-    const executorCurrentNameReasonUrl = ExecutorCurrentNameReason.getUrl();
+    const executorCurrentNameReasonFirstUrl = ExecutorCurrentNameReason.getUrl(4);
+    const executorCurrentNameReasonSubsequentUrl = ExecutorCurrentNameReason.getUrl(6);
     const executorContactDetailsUrl = ExecutorContactDetails.getUrl();
 
     beforeEach(() => {
@@ -67,18 +68,18 @@ describe('executor-current-name', () => {
             });
         });
 
-        it(`test it redirects to next executor current name page, first exec: ${executorCurrentNameReasonUrl}`, (done) => {
+        it(`test it redirects to next executor current name page, first exec: ${executorCurrentNameReasonFirstUrl}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const data = {
                         currentName: 'another name2'
                     };
-                    testWrapper.testRedirect(done, data, executorCurrentNameReasonUrl);
+                    testWrapper.testRedirect(done, data, executorCurrentNameReasonFirstUrl);
                 });
         });
 
-        it(`test it redirects to next executor current name page, subsequent exec: ${executorCurrentNameReasonUrl}`, (done) => {
+        it(`test it redirects to next executor current name page, subsequent exec: ${executorCurrentNameReasonSubsequentUrl}`, (done) => {
             testWrapper.pageUrl = FirstExecURL;
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -86,7 +87,7 @@ describe('executor-current-name', () => {
                     const data = {
                         currentName: 'another name'
                     };
-                    testWrapper.testRedirect(done, data, executorCurrentNameReasonUrl);
+                    testWrapper.testRedirect(done, data, executorCurrentNameReasonSubsequentUrl);
                 });
         });
 

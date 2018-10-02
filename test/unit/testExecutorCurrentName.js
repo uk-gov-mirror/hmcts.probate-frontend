@@ -96,7 +96,7 @@ describe('ExecutorCurrentName', () => {
         it('ctx.continue returns false when at the end of exec list ', (done) => {
 
             const testCtx = {
-                index: 3,
+                index: -1,
                 list: [
                     {lastName: 'Huggins', firstName: 'Jake', isApplying: true, isApplicant: true},
                     {fullName: 'Madonna', hasOtherName: true},
