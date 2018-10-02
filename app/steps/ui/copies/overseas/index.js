@@ -25,4 +25,3 @@ class CopiesOverseas extends ValidationStep {
 }
 
 module.exports = CopiesOverseas;
-
