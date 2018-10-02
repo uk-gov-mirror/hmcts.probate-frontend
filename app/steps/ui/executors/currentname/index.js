@@ -13,17 +13,9 @@ class ExecutorCurrentName extends ValidationStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
-        const isToggleEnabled = featureToggle.isEnabled(req.session.featureToggles, 'main_applicant_alias');
-
-        if (!isToggleEnabled) {
-            if (req.params && !isNaN(req.params[0])) {
-                ctx.index = parseInt(req.params[0]);
-            } else if (req.params && req.params[0] === '*') {
-                ctx.index = this.recalcIndex(ctx, ctx.index);
-            }
-        } else if (req.params && !isNaN(req.params[0])) {
+        if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
-        } else if (!ctx.index) {
+        } else {
             ctx.index = this.recalcIndex(ctx, 0);
         }
         return ctx;
@@ -38,8 +30,10 @@ class ExecutorCurrentName extends ValidationStep {
 
     handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
         ctx.isToggleEnabled = featureToggle.isEnabled(featureToggles, 'main_applicant_alias');
-
         ctx.list[ctx.index].currentName = ctx.currentName;
+        if (!ctx.isToggleEnabled) {
+            ctx.index = this.recalcIndex(ctx, ctx.index);
+        }
         return [ctx, errors];
     }
 
@@ -47,14 +41,16 @@ class ExecutorCurrentName extends ValidationStep {
         return findIndex(ctx.list, o => o.hasOtherName === true, index + 1);
     }
 
-    nextStepOptions(ctx) {
-        if (ctx.isToggleEnabled) {
-            ctx.continue = get(ctx, 'index', -1) !== -1;
-        } else {
-            const nextExec = this.recalcIndex(ctx, ctx.index);
-            ctx.continue = nextExec !==-1;
+    nextStepUrl(ctx) {
+        if (ctx.index === -1) {
+            return this.next(ctx).constructor.getUrl();
         }
+        return this.next(ctx).constructor.getUrl(ctx.index);
 
+    }
+
+    nextStepOptions(ctx) {
+        ctx.continue = get(ctx, 'index', -1) !== -1;
         return {
             options: [
                 {key: 'continue', value: true, choice: 'continue'},
