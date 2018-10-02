@@ -4,12 +4,12 @@ const initSteps = require('app/core/initSteps');
 const assert = require('chai').assert;
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorNotified = require('app/steps/ui/executors/notified/index');
-const DeceasedName = require('app/steps/ui/deceased/name/index');
+const TaskList = require('app/steps/ui/tasklist/index');
 const executorRolesContent = require('app/resources/en/translation/executors/executorcontent');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executor-roles', () => {
-    const expectedNextUrlForDeceasedName = DeceasedName.getUrl();
+    const expectedNextUrlForTaskList = TaskList.getUrl();
     const expectedNextUrlForExecNotified = ExecutorNotified.getUrl(1);
     const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
     const reasons = {
@@ -81,7 +81,7 @@ describe('executor-roles', () => {
                 });
         });
 
-        it(`test it redirects to deceased name page: ${expectedNextUrlForDeceasedName}`, (done) => {
+        it(`test it redirects to tasklist page: ${expectedNextUrlForTaskList}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -89,7 +89,7 @@ describe('executor-roles', () => {
                         notApplyingReason: executorRolesContent.optionRenunciated
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedName);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
             });
         });
     });

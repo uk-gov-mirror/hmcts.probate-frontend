@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const DeceasedName = require('app/steps/ui/deceased/name/index');
+const TaskList = require('app/steps/ui/tasklist/index');
 const ExecutorRoles = require('app/steps/ui/executors/roles/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
@@ -9,7 +9,7 @@ describe('executor-notified', () => {
     let testWrapper, sessionData;
     const expectedNextUrlForFirstExec = ExecutorRoles.getUrl(2);
     const expectedNextUrlForSecondExec = ExecutorRoles.getUrl(3);
-    const expectedNextUrlForThirdExec = DeceasedName.getUrl();
+    const expectedNextUrlForThirdExec = TaskList.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorNotified');
@@ -80,7 +80,7 @@ describe('executor-notified', () => {
                 });
         });
 
-        it(`test it redirects to deceased name page: ${expectedNextUrlForThirdExec}`, (done) => {
+        it(`test it redirects to tasklist page: ${expectedNextUrlForThirdExec}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {

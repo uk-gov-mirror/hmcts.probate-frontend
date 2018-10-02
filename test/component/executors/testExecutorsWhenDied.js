@@ -4,7 +4,7 @@ const initSteps = require('app/core/initSteps');
 const assert = require('chai').assert;
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsWhenDied = require('app/steps/ui/executors/whendied/index');
-const DeceasedName = require('app/steps/ui/deceased/name/index');
+const TaskList = require('app/steps/ui/tasklist/index');
 const ExecutorsApplying = require('app/steps/ui/executors/applying/index');
 const contentData = {executorFullName: 'many clouds'};
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
@@ -12,7 +12,7 @@ const testHelpBlockContent = require('test/component/common/testHelpBlockContent
 describe('executors-when-died', () => {
     let testWrapper, sessionData;
     const expectedNextUrlForExecsWhenDied = ExecutorsWhenDied.getUrl(2);
-    const expectedNextUrlForDeceasedName = DeceasedName.getUrl();
+    const expectedNextUrlForTaskList = TaskList.getUrl();
     const expectedNextUrlForExecsApplying = ExecutorsApplying.getUrl(2);
     const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
     const reasons = {
@@ -157,7 +157,7 @@ describe('executors-when-died', () => {
                 });
         });
 
-        it(`test it redirects to deceased name page when yes selected: ${expectedNextUrlForDeceasedName}`, (done) => {
+        it(`test it redirects to tasklist page when yes selected: ${expectedNextUrlForTaskList}`, (done) => {
             sessionData = {
                 'index': 1,
                 'applicant': {
@@ -178,11 +178,11 @@ describe('executors-when-died', () => {
                         diedbefore: 'Yes'
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedName);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
                 });
         });
 
-        it(`test it redirects to deceased name page when no selected: ${expectedNextUrlForDeceasedName}`, (done) => {
+        it(`test it redirects to tasklist page when no selected: ${expectedNextUrlForTaskList}`, (done) => {
             sessionData = {
                 'index': 1,
                 'applicant': {
@@ -203,11 +203,11 @@ describe('executors-when-died', () => {
                         diedbefore: 'No'
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedName);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
                 });
         });
 
-        it(`test it redirects to deceased name page when yes selected on last exec: ${expectedNextUrlForDeceasedName}`, (done) => {
+        it(`test it redirects to tasklist page when yes selected on last exec: ${expectedNextUrlForTaskList}`, (done) => {
             sessionData = {
                 'index': 1,
                 'applicant': {
@@ -229,11 +229,11 @@ describe('executors-when-died', () => {
                         diedbefore: 'Yes'
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedName);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
                 });
         });
 
-        it(`test it redirects to deceased name page when no selected on last exec: ${expectedNextUrlForDeceasedName}`, (done) => {
+        it(`test it redirects to tasklist page when no selected on last exec: ${expectedNextUrlForTaskList}`, (done) => {
             sessionData = {
                 'index': 1,
                 'applicant': {
@@ -255,7 +255,7 @@ describe('executors-when-died', () => {
                         diedbefore: 'No'
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedName);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
                 });
         });
     });
