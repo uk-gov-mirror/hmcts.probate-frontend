@@ -1,7 +1,7 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const expect = require('chai').expect;
+const {assert, expect} = require('chai');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const executorCurrentNameReasonPath = '/executor-current-name-reason/';
 
@@ -48,11 +48,15 @@ describe('ExecutorCurrentNameReason', () => {
 
         it('sets otherExecName', (done) => {
             const req = {
+                params: {
+                    param: '*'
+                },
                 session: {
                     form: {
                         executors: {
                             list: [
-                                {currentName: 'executor current name'}
+                                {currentName: 'executor current name', hasOtherName: true},
+                                {currentName: 'bob smith', hasOtherName: true}
                             ],
                             index: 0
                         }
@@ -63,7 +67,66 @@ describe('ExecutorCurrentNameReason', () => {
             const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
             const ctx = ExecutorCurrentNameReason.getContextData(req);
 
-            expect(ctx.otherExecName).to.equal(executors.list[0].currentName);
+            expect(ctx.otherExecName).to.equal(executors.list[1].currentName);
+            done();
+        });
+    });
+
+    describe('handleGet()', () => {
+        let testCtx;
+
+        beforeEach(() => {
+            testCtx = {
+                list: [{
+                    isApplying: true
+                }, {
+                    isApplying: true,
+                    currentNameReason: 'marriage'
+                }],
+                index: 1
+            };
+        });
+
+        it('returns the ctx with currentNameReason', (done) => {
+            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
+            const [ctx] = ExecutorCurrentNameReason.handleGet(testCtx);
+
+            expect(ctx.currentNameReason).to.deep.equal('marriage');
+            assert.isUndefined(ctx.otherReason);
+            done();
+        });
+
+        it('returns the ctx with currentNameReason and otherReason', (done) => {
+            testCtx.list[1].otherReason = 'Yolo';
+            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
+            const [ctx] = ExecutorCurrentNameReason.handleGet(testCtx);
+
+            expect(ctx).to.deep.equal({
+                'currentNameReason': 'marriage',
+                'index': 1,
+                'list': [
+                    {
+                        'isApplying': true
+                    },
+                    {
+                        'currentNameReason': 'marriage',
+                        'isApplying': true,
+                        'otherReason': 'Yolo'
+                    }
+                ],
+                'otherReason': 'Yolo'
+            });
+            done();
+        });
+
+        it('returns the ctx with neither currentNameReason or otherReason', (done) => {
+            delete testCtx.list[1].currentNameReason;
+            delete testCtx.list[1].otherReason;
+            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
+            const [ctx] = ExecutorCurrentNameReason.handleGet(testCtx);
+
+            assert.isUndefined(ctx.currentNameReason);
+            assert.isUndefined(ctx.otherReason);
             done();
         });
     });

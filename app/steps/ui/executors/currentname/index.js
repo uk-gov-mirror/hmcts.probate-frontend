@@ -46,7 +46,6 @@ class ExecutorCurrentName extends ValidationStep {
             return this.next(ctx).constructor.getUrl();
         }
         return this.next(ctx).constructor.getUrl(ctx.index);
-
     }
 
     nextStepOptions(ctx) {
