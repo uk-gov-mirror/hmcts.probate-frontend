@@ -67,7 +67,7 @@ describe('ExecutorCurrentNameReason', () => {
             const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
             const ctx = ExecutorCurrentNameReason.getContextData(req);
 
-            expect(ctx.otherExecName).to.equal(executors.list[1].currentName);
+            expect(ctx.otherExecName).to.equal(executors.list[0].currentName);
             done();
         });
     });

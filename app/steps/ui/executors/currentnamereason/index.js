@@ -1,21 +1,26 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const {findIndex, get} = require('lodash');
+const {findIndex, get, startsWith} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const FeatureToggle = require('app/utils/FeatureToggle');
+
+const path = '/executor-current-name-reason/';
 
 class ExecutorCurrentNameReason extends ValidationStep {
 
     static getUrl(index = '*') {
-        return `/executor-current-name-reason/${index}`;
+        return path + index;
     }
 
     getContextData(req) {
         const ctx = super.getContextData(req);
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
-        } else {
+            req.session.indexPosition = ctx.index;
+        } else if (req.params && req.params[0] === '*') {
+            ctx.index = req.session.indexPosition;
+        } else if (startsWith(req.path, path)) {
             ctx.index = this.recalcIndex(ctx, 0);
         }
         if (ctx.list && ctx.list[ctx.index]) {
@@ -75,6 +80,7 @@ class ExecutorCurrentNameReason extends ValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
+        delete ctx.index;
         delete ctx.currentNameReason;
         delete ctx.otherReason;
         return [ctx, formdata];

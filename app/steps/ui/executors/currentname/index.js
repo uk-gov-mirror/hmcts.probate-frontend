@@ -59,6 +59,7 @@ class ExecutorCurrentName extends ValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
+        delete ctx.index;
         delete ctx.currentName;
         delete ctx.continue;
         delete ctx.isToggleEnabled;
