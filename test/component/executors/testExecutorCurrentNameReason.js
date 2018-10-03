@@ -7,7 +7,7 @@ const ExecutorCurrentName = require('app/steps/ui/executors/currentname/index');
 describe('/executor-current-name-reason/', () => {
     let testWrapper, sessionData;
     const expectedNextUrlForExecContactDetails = ExecutorContactDetails.getUrl();
-    const firstNameReasonUrl = ExecutorCurrentName.getUrl();
+    const firstNameReasonUrl = ExecutorCurrentName.getUrl(2);
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorCurrentNameReason');
@@ -38,6 +38,7 @@ describe('/executor-current-name-reason/', () => {
                 .end(() => {
                     const contentData = {
                         executorFullName: 'executor name2',
+                        executorName: 'name2 executor'
                     };
                     testWrapper.testContent(done, [], contentData);
             });

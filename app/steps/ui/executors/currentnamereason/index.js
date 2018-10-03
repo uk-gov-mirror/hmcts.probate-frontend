@@ -15,11 +15,22 @@ class ExecutorCurrentNameReason extends ValidationStep {
         const ctx = super.getContextData(req);
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
+        } else {
+            ctx.index = this.recalcIndex(ctx, 0);
         }
         if (ctx.list && ctx.list[ctx.index]) {
             ctx.otherExecName = ctx.list[ctx.index].currentName;
+
         }
         return ctx;
+    }
+
+    handleGet(ctx) {
+        if (ctx.list && ctx.list[ctx.index]) {
+            ctx.currentNameReason = ctx.list[ctx.index].currentNameReason;
+            ctx.otherReason = ctx.list[ctx.index].otherReason;
+        }
+        return [ctx];
     }
 
     handlePost(ctx, errors) {
@@ -28,7 +39,7 @@ class ExecutorCurrentNameReason extends ValidationStep {
         }
         ctx.list[ctx.index].currentNameReason = ctx.currentNameReason;
 
-        if (ctx.currentNameReason !=='other') {
+        if (ctx.currentNameReason !== 'other') {
             delete ctx.list[ctx.index].otherReason;
         }
 
@@ -38,6 +49,13 @@ class ExecutorCurrentNameReason extends ValidationStep {
 
     recalcIndex(ctx, index) {
         return findIndex(ctx.list, o => o.hasOtherName, index + 1);
+    }
+
+    nextStepUrl(ctx) {
+        if (ctx.index === -1) {
+            return this.next(ctx).constructor.getUrl();
+        }
+        return this.next(ctx).constructor.getUrl(ctx.index);
     }
 
     nextStepOptions(ctx) {
