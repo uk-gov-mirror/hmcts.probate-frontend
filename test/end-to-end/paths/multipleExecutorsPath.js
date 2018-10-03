@@ -143,7 +143,6 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
 Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function* (I) {
 
     // Pre-IDAM
-    I.startApplication();
     I.startApply();
 
     // IDAM
