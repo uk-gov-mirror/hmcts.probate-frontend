@@ -34,7 +34,7 @@ class IhtPaper extends ValidationStep {
 
         ctx.grossValue = Math.floor(ctx.grossValue);
         ctx.netValue = Math.floor(ctx.netValue);
-
+        ctx.ihtFormId = ctx.form;
         ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
 
         return [ctx, errors];
@@ -42,7 +42,7 @@ class IhtPaper extends ValidationStep {
 
     isSoftStop(formdata) {
         const paperForm = get(formdata, 'iht.form', {});
-        const softStopForNotAllowedIhtPaperForm = paperForm === '400' || paperForm === '207';
+        const softStopForNotAllowedIhtPaperForm = paperForm === 'IHT400421' || paperForm === 'IHT207';
 
         return {
             'stepName': this.constructor.name,

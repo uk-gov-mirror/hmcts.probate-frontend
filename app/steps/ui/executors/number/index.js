@@ -24,6 +24,7 @@ class ExecutorsNumber extends ValidationStep {
         ctx.list[0] = {
             firstName: get(formdata, 'applicant.firstName'),
             lastName: get(formdata, 'applicant.lastName'),
+            alias: get(formdata, 'applicant.alias'),
             isApplying: true,
             isApplicant: true
         };
