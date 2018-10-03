@@ -29,7 +29,7 @@ describe('ApplicantAliasReason', () => {
             done();
         });
 
-        it('should not remove otherReason from the ctx when the aliasReason is not set to other', (done) => {
+        it('should not remove otherReason from the ctx when the aliasReason is set to other', (done) => {
             ctx = {
                 aliasReason: 'other',
                 otherReason: 'because I wanted to'
@@ -41,6 +41,18 @@ describe('ApplicantAliasReason', () => {
                 otherReason: 'because I wanted to'
             });
             done();
+        });
+
+        describe('isComplete()', () => {
+            it('should return the correct data when the feature toggle does not exist', (done) => {
+                const ApplicantAliasReason = steps.ApplicantAliasReason;
+                const ctx = {};
+                const formdata = {};
+                const featureToggles = {};
+                const isComplete = ApplicantAliasReason.isComplete(ctx, formdata, featureToggles);
+                expect(isComplete).to.deep.equal([true, 'noProgress']);
+                done();
+            });
         });
     });
 });

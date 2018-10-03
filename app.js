@@ -20,6 +20,8 @@ const csrf = require('csurf');
 const healthcheck = require(`${__dirname}/app/healthcheck`);
 const declaration = require(`${__dirname}/app/declaration`);
 const InviteSecurity = require(`${__dirname}/app/invite`);
+const additionalInvite = require(`${__dirname}/app/routes/additionalInvite`);
+const updateInvite = require(`${__dirname}/app/routes/updateinvite`);
 const fs = require('fs');
 const https = require('https');
 const appInsights = require('applicationinsights');
@@ -178,7 +180,6 @@ exports.init = function() {
     app.use(function (req, res, next) {
         res.locals.serviceName = commonContent.serviceName;
         res.locals.cookieText = commonContent.cookieText;
-
         res.locals.releaseVersion = `v${releaseVersion}`;
         next();
     });
@@ -191,7 +192,10 @@ exports.init = function() {
     app.get('/executors/invitation/:inviteId', inviteSecurity.verify());
     app.use('/co-applicant-*', inviteSecurity.checkCoApplicant(useIDAM));
     app.use('/health', healthcheck);
+    app.use('/executors-additional-invite', additionalInvite);
+    app.use('/executors-update-invite', updateInvite);
     app.use('/declaration', declaration);
+
     if (useIDAM === 'true') {
        const idamPages = new RegExp(`/((?!${config.nonIdamPages.join('|')}).)*`);
        app.use(idamPages, security.protect(config.services.idam.roles));
@@ -230,12 +234,12 @@ exports.init = function() {
 
     app.all('*', (req, res) => {
         logger(req.sessionID).error(`Unhandled request ${req.url}`);
-        res.status(404).render('errors/404');
+        res.status(404).render('errors/404', {common: commonContent});
     });
 
     app.use((err, req, res, next) => {
         logger(req.sessionID).error(err);
-        res.status(500).render('errors/500');
+        res.status(500).render('errors/500', {common: commonContent});
     });
 
     return {app, http};

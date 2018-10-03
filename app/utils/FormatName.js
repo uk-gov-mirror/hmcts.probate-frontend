@@ -8,30 +8,54 @@ class FormatName {
         return `${firstName} ${lastName}`.trim();
     }
 
-    static currentName(person) {
+    static formatName(person, useOtherName) {
+        if (useOtherName && person.hasOtherName) {
+            return person.currentName;
+        } else if (person.fullName) {
+            return person.fullName;
+        }
+        return FormatName.format(person);
+    }
+
+    static getNameAndAddress(person, contentOf, applicantAddress) {
+        const fullName = FormatName.formatName(person, true);
+        const address = person.isApplicant ? applicantAddress : person.address;
+        return address ? `${fullName} ${contentOf} ${address}` : fullName;
+    }
+
+    static formatExecutorNames(executors) {
+        const contentAnd = 'and';
+        if (executors) {
+            const separator = ', ';
+            const formattedNames = executors
+                .map(executor => executor.fullName)
+                .join(separator);
+            return this.delimitNames(formattedNames, separator, contentAnd);
+        }
+    }
+
+    static formatMultipleNamesAndAddress(persons, content, applicantAddress) {
+        if (persons) {
+            const separator = ', ';
+            const formattedNames = Object.keys(persons)
+                .map(key => FormatName.getNameAndAddress(persons[key], content.of, applicantAddress))
+                .join(separator);
+            return FormatName.delimitNames(formattedNames, separator, content.and);
+        }
+    }
+
+    static delimitNames(formattedNames, separator, contentAnd) {
+        const lastCommaPos = formattedNames.lastIndexOf(separator);
+        if (lastCommaPos > -1) {
+            return `${formattedNames.substring(0, lastCommaPos)} ${contentAnd} ${formattedNames.substring(lastCommaPos + separator.length)}`;
+        }
+        return formattedNames;
+    }
+
+    static applicantWillName(person) {
         person = person || {};
         const currentName = person.alias || this.format(person);
         return currentName;
-    }
-
-    static aliasReason(person) {
-        person = person || {};
-        const aliasReason = person.aliasReason || person.currentNameReason || '';
-        const otherReason = person.otherReason ? person.otherReason : '';
-        const formattedReason = this.formatAliasReason(aliasReason, otherReason) || '';
-        return formattedReason;
-    }
-
-    static formatAliasReason(aliasReason, otherReason) {
-        if (aliasReason === 'Marriage') {
-            return 'got married';
-        } else if (aliasReason === 'Divorce') {
-            return 'got divorced';
-        } else if (aliasReason === 'Change by deed poll') {
-            return 'changed their name by deed poll';
-        } else if (aliasReason === 'other') {
-            return `: ${otherReason}`;
-        }
     }
 }
 

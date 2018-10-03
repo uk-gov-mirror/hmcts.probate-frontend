@@ -8,6 +8,7 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 const services = require('app/components/services');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
+const FormatAlias = require('app/utils/FormatAlias');
 
 class Declaration extends ValidationStep {
     static getUrl() {
@@ -29,8 +30,10 @@ class Declaration extends ValidationStep {
         const templateData = this.prepareDataForTemplate(ctx, this.generateContent(ctx, formdata), formdata);
         Object.assign(ctx, templateData);
         ctx.softStop = this.anySoftStops(formdata, ctx);
-        ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants(get(formdata, 'executors.list'));
         ctx.invitesSent = get(formdata, 'executors.invitesSent');
+        ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants(get(formdata, 'executors.list'));
+        ctx.executorsEmailChanged = ctx.executorsWrapper.hasExecutorsEmailChanged();
+        ctx.hasExecutorsToNotify = ctx.executorsWrapper.hasExecutorsToNotify() && ctx.invitesSent === 'true';
         return ctx;
     }
 
@@ -43,14 +46,14 @@ class Declaration extends ValidationStep {
         const deceasedName = FormatName.format(deceased);
         const executorsApplying = ctx.executorsWrapper.executorsApplying();
         const executorsNotApplying = ctx.executorsWrapper.executorsNotApplying();
-        const deceasedOtherNames = this.formatMultipleNames(get(deceased, 'otherNames'), content);
+        const deceasedOtherNames = FormatName.formatMultipleNamesAndAddress(get(deceased, 'otherNames'), content);
         const hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants();
         const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
         const legalStatement = {
             intro: content[`intro${multipleApplicantSuffix}`]
                 .replace('{applicantName}', applicantName),
             applicant: content[`legalStatementApplicant${multipleApplicantSuffix}`]
-                .replace('{detailsOfApplicants}', this.formatMultipleNames(executorsApplying, content, applicant.address))
+                .replace('{detailsOfApplicants}', FormatName.formatMultipleNamesAndAddress(executorsApplying, content, applicant.address))
                 .replace('{applicantName}', applicantName)
                 .replace('{applicantAddress}', applicant.address),
             deceased: content.legalStatementDeceased
@@ -86,45 +89,12 @@ class Declaration extends ValidationStep {
         return {legalStatement, declaration};
     }
 
-    formatName(person, useOtherName) {
-        if (useOtherName && person.hasOtherName) {
-            return person.currentName;
-        } else if (person.fullName) {
-            return person.fullName;
-        }
-        return FormatName.format(person);
-    }
-
     codicilsSuffix(hasCodicils) {
         return hasCodicils ? '-codicils' : '';
     }
 
     multipleApplicantSuffix(hasMultipleApplicants) {
         return hasMultipleApplicants ? '-multipleApplicants' : '';
-    }
-
-    getNameAndAddress(person, contentOf, applicantAddress) {
-        const fullName = this.formatName(person, true);
-        const address = person.isApplicant ? applicantAddress : person.address;
-        return address ? `${fullName} ${contentOf} ${address}` : fullName;
-    }
-
-    delimitNames(formattedNames, separator, contentAnd) {
-        const lastCommaPos = formattedNames.lastIndexOf(separator);
-        if (lastCommaPos > -1) {
-            return `${formattedNames.substring(0, lastCommaPos)} ${contentAnd} ${formattedNames.substring(lastCommaPos + separator.length)}`;
-        }
-        return formattedNames;
-    }
-
-    formatMultipleNames(persons, content, applicantAddress) {
-        if (persons) {
-            const separator = ', ';
-            const formattedNames = Object.keys(persons)
-                .map(key => this.getNameAndAddress(persons[key], content.of, applicantAddress))
-                .join(separator);
-            return this.delimitNames(formattedNames, separator, content.and);
-        }
     }
 
     executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, deceasedName, mainApplicantName) {
@@ -146,18 +116,18 @@ class Declaration extends ValidationStep {
         const mainApplicantSuffix = (props.hasMultipleApplicants && props.executor.isApplicant) ? '-mainApplicant' : '';
         const codicilsSuffix = this.codicilsSuffix(props.hasCodicils);
         const aliasSuffix = (props.hasMultipleApplicants && (props.executor.alias || props.executor.currentName)) ? '-alias' : '';
-        const applicantNameOnWill = this.formatName(props.executor);
-        const applicantCurrentName = this.formatName(props.executor, true);
-        const aliasReason = FormatName.aliasReason(props.executor);
+        const applicantNameOnWill = FormatName.formatName(props.executor);
+        const applicantCurrentName = FormatName.formatName(props.executor, true);
+        const aliasReason = FormatAlias.aliasReason(props.executor);
         return {
             name: props.content[`applicantName${props.multipleApplicantSuffix}${mainApplicantSuffix}${aliasSuffix}${codicilsSuffix}`]
-                .replace('{applicantName}', props.executor.isApplicant && props.executor.alias ? FormatName.currentName(props.executor) : props.mainApplicantName)
+                .replace('{applicantWillName}', props.executor.isApplicant && props.executor.alias ? FormatName.applicantWillName(props.executor) : props.mainApplicantName)
                 .replace(/{applicantCurrentName}/g, applicantCurrentName)
                 .replace('{applicantNameOnWill}', props.executor.hasOtherName ? ` ${props.content.as} ${applicantNameOnWill}` : '')
                 .replace('{aliasReason}', aliasReason),
             sign: props.content[`applicantSign${props.multipleApplicantSuffix}${mainApplicantSuffix}${codicilsSuffix}`]
                 .replace('{applicantName}', props.mainApplicantName)
-                .replace('{applicantCurrentName}', applicantCurrentName)
+                .replace('{applicantCurrentNameSign}', applicantCurrentName)
                 .replace('{deceasedName}', props.deceasedName)
         };
     }
@@ -165,7 +135,7 @@ class Declaration extends ValidationStep {
     executorsNotApplying(executorsNotApplying, content, deceasedName, hasCodicils) {
         return executorsNotApplying.map(executor => {
             return content[`executorNotApplyingReason${this.codicilsSuffix(hasCodicils)}`]
-                .replace('{otherExecutorName}', this.formatName(executor))
+                .replace('{otherExecutorName}', FormatName.formatName(executor))
                 .replace('{otherExecutorApplying}', this.executorsNotApplyingText(executor, content))
                 .replace('{deceasedName}', deceasedName);
         });
@@ -185,8 +155,11 @@ class Declaration extends ValidationStep {
 
     nextStepOptions(ctx) {
         ctx.hasDataChangedAfterEmailSent = ctx.hasDataChanged && ctx.invitesSent === 'true';
+        ctx.hasEmailChanged = ctx.executorsEmailChanged && ctx.invitesSent === 'true';
         const nextStepOptions = {
             options: [
+                {key: 'hasExecutorsToNotify', value: true, choice: 'sendAdditionalInvites'},
+                {key: 'hasEmailChanged', value: true, choice: 'executorEmailChanged'},
                 {key: 'hasDataChangedAfterEmailSent', value: true, choice: 'dataChangedAfterEmailSent'},
                 {key: 'hasMultipleApplicants', value: true, choice: 'otherExecutorsApplying'}
             ]
@@ -210,6 +183,8 @@ class Declaration extends ValidationStep {
 
         delete ctx.executorsWrapper;
         delete ctx.hasDataChanged;
+        delete ctx.hasExecutorsToNotify;
+        delete ctx.executorsEmailChanged;
         delete ctx.hasDataChangedAfterEmailSent;
         delete ctx.invitesSent;
         return [ctx, formdata];

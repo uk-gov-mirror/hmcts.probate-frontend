@@ -218,7 +218,7 @@ describe('Tasklist', () => {
 
         it('Updates the context: PaymentTask started (Fee to Pay)', () => {
             req.session.form = {
-               paymentPending: 'true'
+                paymentPending: 'true'
             };
             req.body = {};
             const taskList = steps.TaskList;
@@ -230,7 +230,7 @@ describe('Tasklist', () => {
 
         it('Updates the context: PaymentTask started (No Fee)', () => {
             req.session.form = {
-               paymentPending: 'false'
+                paymentPending: 'false'
             };
             req.body = {};
             const taskList = steps.TaskList;
