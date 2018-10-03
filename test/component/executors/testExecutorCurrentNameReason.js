@@ -40,6 +40,7 @@ describe('/executor-current-name-reason/', () => {
                         executorFullName: 'executor name2',
                         executorName: 'name2 executor'
                     };
+                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
                     testWrapper.testContent(done, [], contentData);
             });
         });
