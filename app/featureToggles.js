@@ -127,6 +127,16 @@ router.get('/new-start-apply', (req, res, next) => {
     });
 });
 
+router.get('/executor-current-name/:index', (req, res, next) => {
+    featureToggle.checkToggle({
+        req: req,
+        res: res,
+        next: next,
+        featureToggleKey: 'main_applicant_alias',
+        callback: featureToggle.toggleFeature
+    });
+});
+
 router.get('/executor-current-name-reason/:index', (req, res, next) => {
     featureToggle.checkToggle({
         req: req,
