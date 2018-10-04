@@ -4,7 +4,7 @@ const chai = require('chai');
 const expect = chai.expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 
-describe('ApplicantAliasReason', () => {
+describe('Documents', () => {
     const Documents = steps.Documents;
 
     describe('getUrl()', () => {

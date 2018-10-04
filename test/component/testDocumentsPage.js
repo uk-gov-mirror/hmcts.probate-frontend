@@ -328,41 +328,6 @@ describe('documents-page', () => {
                 });
         });
 
-        it('test correct content loaded on the page when all executors name changed by deed poll', (done) => {
-            const sessionData = {
-                executors: {
-                    list: [
-                        {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'Change by deed poll'},
-                        {fullName: 'ed brown', isApplying: true, currentName: 'eddie jones', currentNameReason: 'Change by deed poll'},
-                        {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'Change by deed poll'}
-                    ]
-                }
-            };
-            const contentData = {
-                executorCurrentName: [
-                    'jimbo fisher',
-                    'eddie jones',
-                    'bobbie houston'
-                ]
-            };
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const excludeKeys = [
-                        'checklist1-item2',
-                        'checklist2Header',
-                        'checklist2-item1',
-                        'checklist2-item2',
-                        'checklist3-item1-codicils',
-                        'checklist3-item3',
-                        'coverLetter-codicils',
-                        'checkboxLabel-codicils',
-                        'checklist3-item4-Form205'
-                    ];
-                    testWrapper.testContent(done, excludeKeys, contentData);
-                });
-        });
-
         it('test errors message displayed for missing data', (done) => {
             testWrapper.testErrors(done, {}, 'required', ['sentDocuments']);
         });
