@@ -51,12 +51,12 @@ class PaymentBreakdown extends Step {
     * handlePost(ctx, errors, formdata, session, hostname) {
         if (formdata.paymentPending !== 'unknown') {
             if (!formdata.applicantEmail) {
-                logger.warn('Unable to find applicantEmail, using regId ${session.regId} instead.');   
-                if (session.regId !== undefined) {
+                logger.warn('Unable to find applicantEmail, using session.regId instead.');
+                if (session.regId) {
                     formdata.applicantEmail = session.regId;
+                } else {
+                    logger.error('Unable to find applicantEmail or session.regId.');
                 }
-            } else {
-                logger.error('Unable to find applicantEmail or session.regId.'); 
             }
             const result = yield this.sendToSubmitService(ctx, errors, formdata, ctx.total);
             if (errors.length > 0) {
@@ -127,7 +127,7 @@ class PaymentBreakdown extends Step {
         return [['true', 'false'].includes(formdata.paymentPending), 'inProgress'];
     }
 
-    * sendToSubmitService(ctx, errors, formdata, total, regId) {
+    * sendToSubmitService(ctx, errors, formdata, total) {
         const softStop = this.anySoftStops(formdata, ctx) ? 'softStop' : false;
         set(formdata, 'payment.total', total);
         const result = yield services.sendToSubmitService(formdata, ctx, softStop);
