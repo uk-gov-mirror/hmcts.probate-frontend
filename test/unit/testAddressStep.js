@@ -73,7 +73,8 @@ describe('AddressStep', () => {
                     addresses: [
                         {address: '1 Red Road, London, LL1 1LL'},
                         {address: '2 Green Road, London, LL2 2LL'}
-                    ]
+                    ],
+                    isToggleEnabled: false
                 }, null]);
                 done();
             });
@@ -93,7 +94,8 @@ describe('AddressStep', () => {
                 expect(ctx).to.deep.equal([{
                     address: '1 Red Road, London, LL1 1LL',
                     postcode: 'LL1 1LL',
-                    freeTextAddress: '1 Red Road, London, LL1 1LL'
+                    freeTextAddress: '1 Red Road, London, LL1 1LL',
+                    isToggleEnabled: false
                 }, null]);
                 done();
             });

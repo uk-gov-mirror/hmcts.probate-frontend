@@ -125,4 +125,86 @@ router.get('/new-start-apply', (req, res, next) => {
     });
 });
 
+router.post('/deceased-name', (req, res, next) => {
+    featureToggle.checkToggle({
+        req: req,
+        res: res,
+        next: next,
+        featureToggleKey: 'screening_questions',
+        callback: featureToggle.toggleFeature
+    });
+});
+router.post('/deceased-dob', (req, res, next) => {
+    featureToggle.checkToggle({
+        req: req,
+        res: res,
+        next: next,
+        featureToggleKey: 'screening_questions',
+        callback: featureToggle.toggleFeature
+    });
+});
+router.post('/deceased-dod', (req, res, next) => {
+    featureToggle.checkToggle({
+        req: req,
+        res: res,
+        next: next,
+        featureToggleKey: 'screening_questions',
+        callback: featureToggle.toggleFeature
+    });
+});
+router.post('/deceased-address', (req, res, next) => {
+    featureToggle.checkToggle({
+        req: req,
+        res: res,
+        next: next,
+        featureToggleKey: 'screening_questions',
+        callback: featureToggle.toggleFeature
+    });
+});
+router.post('/iht-value', (req, res, next) => {
+    featureToggle.checkToggle({
+        req: req,
+        res: res,
+        next: next,
+        featureToggleKey: 'screening_questions',
+        callback: featureToggle.toggleFeature
+    });
+});
+router.post('/iht-paper', (req, res, next) => {
+    featureToggle.checkToggle({
+        req: req,
+        res: res,
+        next: next,
+        featureToggleKey: 'screening_questions',
+        callback: featureToggle.toggleFeature
+    });
+});
+router.post('/deceased-married', (req, res, next) => {
+    featureToggle.checkToggle({
+        req: req,
+        res: res,
+        next: next,
+        featureToggleKey: 'screening_questions',
+        callback: featureToggle.toggleFeature
+    });
+});
+router.post('/will-codicils', (req, res, next) => {
+    featureToggle.checkToggle({
+        req: req,
+        res: res,
+        next: next,
+        featureToggleKey: 'screening_questions',
+        callback: featureToggle.toggleFeature
+    });
+});
+router.post('/codicils-number', (req, res, next) => {
+    featureToggle.checkToggle({
+        req: req,
+        res: res,
+        next: next,
+        featureToggleKey: 'screening_questions',
+        callback: featureToggle.toggleFeature
+    });
+});
+
 module.exports = router;
