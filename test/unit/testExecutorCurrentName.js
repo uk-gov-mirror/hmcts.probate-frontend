@@ -124,17 +124,7 @@ describe('ExecutorCurrentName', () => {
             const testCtx = {
                 currentName: 'leatherface',
                 continue: true,
-            };
-            const testFormdata = {};
-            const ExecutorCurrentName = steps.ExecutorCurrentName;
-            const action = ExecutorCurrentName.action(testCtx, testFormdata);
-
-            expect(action).to.deep.equal([{}, testFormdata]);
-            done();
-        });
-
-        it('removes featureToggle value from context', (done) => {
-            const testCtx = {
+                index: 1,
                 isToggleEnabled: true
             };
             const testFormdata = {};
@@ -144,7 +134,5 @@ describe('ExecutorCurrentName', () => {
             expect(action).to.deep.equal([{}, testFormdata]);
             done();
         });
-
     });
-
 });
