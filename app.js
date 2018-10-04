@@ -162,9 +162,11 @@ exports.init = function() {
         resave: config.redis.resave,
         saveUninitialized: config.redis.saveUninitialized,
         secret: config.redis.secret,
+        rolling: true,
         cookie: {
             httpOnly: config.redis.cookie.httpOnly,
-            sameSite: config.redis.cookie.sameSite
+            sameSite: config.redis.cookie.sameSite,
+            maxAge: 1000 * 60 * 60
         },
         store: utils.getStore(config.redis, session)
     }));
@@ -184,7 +186,7 @@ exports.init = function() {
     app.use(config.services.idam.probate_oauth_callback_path, security.oAuth2CallbackEndpoint());
 
     if (config.app.useCSRFProtection === 'true') {
-        app.use(csrf(), (req, res, next) => {
+            app.use(csrf(), (req, res, next) => {
             res.locals.csrfToken = req.csrfToken();
             next();
         });
