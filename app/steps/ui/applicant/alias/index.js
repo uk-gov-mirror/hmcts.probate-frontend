@@ -10,7 +10,6 @@ class ApplicantAlias extends ValidationStep {
     }
 
     isComplete(ctx, formdata, featureToggles) {
-        console.log(featureToggles);
         const isEnabled = FeatureToggle.isEnabled(featureToggles, 'main_applicant_alias');
         return [isEnabled ? this.validate()[0] : true, 'noProgress'];
     }
