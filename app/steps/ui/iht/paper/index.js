@@ -35,6 +35,7 @@ class IhtPaper extends ValidationStep {
         ctx.netValue = Math.floor(ctx.netValue);
 
         ctx.ihtFormId = ctx.form;
+
         return [ctx, errors];
     }
 
