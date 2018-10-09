@@ -3,7 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FeatureToggle = require('app/utils/FeatureToggle');
 
-module.exports = class CodicilsNumber extends ValidationStep {
+class CodicilsNumber extends ValidationStep {
 
     static getUrl() {
         return '/codicils-number';
@@ -39,4 +39,6 @@ module.exports = class CodicilsNumber extends ValidationStep {
         delete ctx.isToggleEnabled;
         return [ctx, formdata];
     }
-};
+}
+
+module.exports = CodicilsNumber;

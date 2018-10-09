@@ -1,10 +1,10 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const json = require('app/resources/en/translation/will/codicils.json');
+const json = require('app/resources/en/translation/will/codicils');
 const FeatureToggle = require('app/utils/FeatureToggle');
 
-module.exports = class WillCodicils extends ValidationStep {
+class WillCodicils extends ValidationStep {
 
     static getUrl() {
         return '/will-codicils';
@@ -44,4 +44,6 @@ module.exports = class WillCodicils extends ValidationStep {
         delete ctx.isToggleEnabled;
         return [ctx, formdata];
     }
-};
+}
+
+module.exports = WillCodicils;

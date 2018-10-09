@@ -5,7 +5,7 @@ const WillWrapper = require('app/wrappers/Will');
 const DeceasedWrapper = require('app/wrappers/Deceased');
 const FeatureToggle = require('app/utils/FeatureToggle');
 
-module.exports = class DeceasedMarried extends ValidationStep {
+class DeceasedMarried extends ValidationStep {
 
     static getUrl() {
         return '/deceased-married';
@@ -26,7 +26,6 @@ module.exports = class DeceasedMarried extends ValidationStep {
 
     handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
         ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
-
         return [ctx, errors];
     }
 
@@ -43,4 +42,6 @@ module.exports = class DeceasedMarried extends ValidationStep {
         delete ctx.isToggleEnabled;
         return [ctx, formdata];
     }
-};
+}
+
+module.exports = DeceasedMarried;

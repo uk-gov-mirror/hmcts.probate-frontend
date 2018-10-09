@@ -7,7 +7,7 @@ const FieldError = require('app/components/error');
 const {get} = require('lodash');
 const FeatureToggle = require('app/utils/FeatureToggle');
 
-module.exports = class IhtPaper extends ValidationStep {
+class IhtPaper extends ValidationStep {
 
     static getUrl() {
         return '/iht-paper';
@@ -66,4 +66,6 @@ module.exports = class IhtPaper extends ValidationStep {
         delete ctx.isToggleEnabled;
         return [ctx, formdata];
     }
-};
+}
+
+module.exports = IhtPaper;
