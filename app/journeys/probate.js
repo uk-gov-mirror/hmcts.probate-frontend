@@ -35,7 +35,6 @@ const taskList = {
 };
 
 const stepList = {
-    // New Eligibility Task ---------------------------------------------------
     NewStartEligibility: 'NewWillLeft',
     NewWillLeft: {
         withWill: 'NewWillOriginal',
@@ -88,7 +87,6 @@ const stepList = {
         isExecutor: 'MentalCapacity',
         otherwise: 'StopPage'
     },
-    // Deceased Task ----------------------------------------------------------
     DeceasedName: {
         toggleOn: 'DeceasedDob',
         otherwise: 'DeceasedAlias'
