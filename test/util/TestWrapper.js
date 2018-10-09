@@ -8,9 +8,6 @@ const config = require('app/config');
 const request = require('supertest');
 const journeyMap = require('app/core/journeyMap');
 const {steps} = require('app/core/initSteps');
-const services = require('app/components/services');
-const sinon = require('sinon');
-let featureToggleStub;
 
 class TestWrapper {
     constructor(stepName) {
@@ -35,8 +32,6 @@ class TestWrapper {
         config.app.useCSRFProtection = 'false';
         this.server = app.init();
         this.agent = request.agent(this.server.app);
-
-        featureToggleStub = sinon.stub(services, 'featureToggle').returns(Promise.resolve('true'));
     }
 
     testContent(done, excludeKeys = [], data) {
@@ -155,7 +150,6 @@ class TestWrapper {
     }
 
     destroy() {
-        featureToggleStub.restore();
         this.server.http.close();
     }
 }

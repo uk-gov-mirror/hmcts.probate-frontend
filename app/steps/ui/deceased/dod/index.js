@@ -15,7 +15,6 @@ class DeceasedDod extends DateStep {
 
     handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
         ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
-
         return [ctx, errors];
     }
 
