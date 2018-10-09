@@ -28,6 +28,25 @@ describe('FormatName.js', () => {
         });
     });
 
+    describe('currentName()', () => {
+        it('should return applicant alias when the person does have an alias', (done) => {
+            const executor = {firstName: 'James', lastName: 'Miller', alias: 'Bob Alias'};
+            expect(FormatName.currentName(executor)).to.equal('Bob Alias');
+            done();
+        });
+
+        it('should return a correctly formatted name when the person does not have an alias', (done) => {
+            const executor = {firstName: 'James', lastName: 'Miller'};
+            expect(FormatName.currentName(executor)).to.equal('James Miller');
+            done();
+        });
+
+        it('should return an empty string when a person is not given', (done) => {
+            expect(FormatName.currentName()).to.equal('');
+            done();
+        });
+    });
+
     describe('applicantWillName()', () => {
         it('should return applicant alias when the person does have an alias', (done) => {
             const executor = {firstName: 'James', lastName: 'Miller', alias: 'Bob Alias'};
