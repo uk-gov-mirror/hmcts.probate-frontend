@@ -1,3 +1,5 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const DocumentsPage = require('app/steps/ui/documents/index');
 
@@ -8,7 +10,10 @@ describe('redirect to documents', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('CopiesUk');
         sessionData = {
-            'submissionReference': 'testSubmissionReference'
+            'submissionReference': 'testSubmissionReference',
+            'payment': {
+                'status': 'Success'
+            }
         };
     });
 

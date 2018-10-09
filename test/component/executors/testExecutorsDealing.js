@@ -1,5 +1,8 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsAlias = require('app/steps/ui/executors/alias/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executors-dealing-with-estate', () => {
     let testWrapper, sessionData;
@@ -25,7 +28,18 @@ describe('executors-dealing-with-estate', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        it('test content loaded on the page', (done) => {
+        testHelpBlockContent.runTest('WillLeft');
+
+        it('test correct content loaded on the page when lead applicant does not have an alias', (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done);
+                });
+        });
+
+        it('test correct content loaded on the page when lead applicant does have an alias', (done) => {
+            sessionData.executors.list[0].alias = 'Bobby Alias';
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {

@@ -1,10 +1,12 @@
-const ValidationStep = require('app/core/steps/ValidationStep'),
-    validator = require('validator'),
-    numeral = require('numeral'),
-    FieldError = require('app/components/error'),
-    {get} = require('lodash');
+'use strict';
 
-module.exports = class IhtPaper extends ValidationStep {
+const ValidationStep = require('app/core/steps/ValidationStep');
+const validator = require('validator');
+const numeral = require('numeral');
+const FieldError = require('app/components/error');
+const {get} = require('lodash');
+
+class IhtPaper extends ValidationStep {
 
     static getUrl() {
         return '/iht-paper';
@@ -32,12 +34,13 @@ module.exports = class IhtPaper extends ValidationStep {
         ctx.grossValue = Math.floor(ctx.grossValue);
         ctx.netValue = Math.floor(ctx.netValue);
 
+        ctx.ihtFormId = ctx.form;
         return [ctx, errors];
     }
 
     isSoftStop(formdata) {
         const paperForm = get(formdata, 'iht.form', {});
-        const softStopForNotAllowedIhtPaperForm = paperForm === '400' || paperForm === '207';
+        const softStopForNotAllowedIhtPaperForm = paperForm === 'IHT400421' || paperForm === 'IHT207';
 
         return {
             'stepName': this.constructor.name,
@@ -51,5 +54,6 @@ module.exports = class IhtPaper extends ValidationStep {
         delete ctx.netValuePaper;
         return [ctx, formdata];
     }
+}
 
-};
+module.exports = IhtPaper;

@@ -25,7 +25,8 @@ List<LinkedHashMap<String, Object>> secrets = [
     secret('testUseGovPay', 'USE_GOV_PAY'),
     secret('testPostcodeServiceUrl', 'POSTCODE_SERVICE_URL'),
     secret('testPostCodeAddressToken', 'ADDRESS_TOKEN'),
-    secret('testRunE2ETest', 'RUN_E2E_TEST')
+    secret('testRunE2ETest', 'RUN_E2E_TEST'),
+    secret('testValidationServiceUrl', 'TEST_VALIDATION_SERVICE_URL')
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
@@ -41,9 +42,9 @@ withPipeline("nodejs", product, component) {
   after('build') {
     sh 'yarn setup'
   }
-  
+
   loadVaultSecrets(secrets)
-  //enableSlackNotifications('#probate-jenkins')
+  enableSlackNotifications('#probate-jenkins')
   after('functionalTest:aat') {
       publishHTML target: [
 
