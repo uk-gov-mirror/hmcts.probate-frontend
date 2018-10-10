@@ -176,6 +176,10 @@ const stepList = {
     },
     ExecutorsWithOtherNames: 'ExecutorCurrentName',
     ExecutorCurrentName: {
+        continue: 'ExecutorCurrentNameReason',
+        otherwise: 'ExecutorContactDetails',
+    },
+    ExecutorCurrentNameReason: {
         continue: 'ExecutorCurrentName',
         otherwise: 'ExecutorContactDetails',
     },

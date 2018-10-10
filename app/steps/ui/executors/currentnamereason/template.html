@@ -1,38 +1,39 @@
 {% extends "includes/two_thirds_form.html" %}
 
 {% from "widgets/textfields.html" import textField %}
+{% from "widgets/radiobuttons.html" import optionsRadio %}
 
 {% block question %}
-<h1 class="form-title heading-large">{{content.question}}</h1>
+<h1 class="form-title heading-large">{{content.question | replace('{executorName}', fields.otherExecName.value) | safe }}</h1>
 {% endblock %}
 
 {% block form_content %}
-<fieldset class="form-group {{ 'form-group-error' if fields['aliasReason'].error }}">
+<fieldset class="form-group {{ 'form-group-error' if fields['currentNameReason'].error }}">
     <legend class="visuallyhidden">{{content.question}}</legend>
-    {% if fields['aliasReason'].error %}
-        <span class="error-message">
-            {{ fields['aliasReason'].errorMessage.message | safe}}
+    {% if fields['currentNameReason'].error %}
+    <span class="error-message">
+            {{ fields['currentNameReason'].errorMessage.message | safe}}
         </span>
     {% endif %}
 
     <div class="multiple-choice">
-        <input id="aliasMarriage" type="radio" name="aliasReason" value="Marriage" {{"checked='checked'" if fields['aliasReason'].value === 'Marriage' }}>
+        <input id="aliasMarriage" type="radio" name="currentNameReason" value="Marriage" {{"checked='checked'" if fields['currentNameReason'].value === 'Marriage' }}>
         <label for="aliasMarriage">{{content['optionMarriage']}}</label>
     </div>
 
     <div class="multiple-choice">
-        <input id="aliasDivorce" type="radio" name="aliasReason" value="Divorce" {{"checked='checked'" if fields['aliasReason'].value === 'Divorce' }}>
+        <input id="aliasDivorce" type="radio" name="currentNameReason" value="Divorce" {{"checked='checked'" if fields['currentNameReason'].value === 'Divorce' }}>
         <label for="aliasDivorce">{{content['optionDivorce']}}</label>
     </div>
 
     <div class="multiple-choice">
-        <input id="aliasDeedPoll" type="radio" name="aliasReason" value="Change by deed poll" {{"checked='checked'" if fields['aliasReason'].value === 'Change by deed poll' }}>
+        <input id="aliasDeedPoll" type="radio" name="currentNameReason" value="Change by deed poll" {{"checked='checked'" if fields['currentNameReason'].value === 'Change by deed poll' }}>
         <label for="aliasDeedPoll">{{content['optionDeedPoll']}}</label>
     </div>
 
 
     <div class="multiple-choice" data-target="other-details">
-        <input id="aliasOther" type="radio" name="aliasReason" value="other" {{"checked='checked'" if fields['aliasReason'].value === 'other' }}>
+        <input id="aliasOther" type="radio" name="currentNameReason" value="other" {{"checked='checked'" if fields['currentNameReason'].value === 'other' }}>
         <label for="aliasOther">{{content['optionOther']}}</label>
     </div>
     <div class="panel panel-border-narrow js-hidden" id="other-details">
