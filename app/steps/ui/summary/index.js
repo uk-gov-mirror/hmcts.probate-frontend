@@ -35,6 +35,7 @@ class Summary extends Step {
         ctx.executorsPowerReservedOrRenounced = executorsWrapper.hasRenunciatedOrPowerReserved();
         ctx.isMainApplicantAliasToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'main_applicant_alias');
         ctx.isScreeningQuestionToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
+        ctx.executorsWithOtherNames = executorsWrapper.executorsWithAnotherName().map(exec => exec.fullName);
 
         utils.updateTaskStatus(ctx, ctx, this.steps);
 
