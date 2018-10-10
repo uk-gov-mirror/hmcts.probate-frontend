@@ -20,20 +20,15 @@ describe('DeceasedAddress', () => {
     describe('handlePost()', () => {
         let ctx;
         let errors;
-        let formdata;
-        let session;
-        let hostname;
-        let featureToggles;
 
         it('should return the ctx with the deceased married status and the screening_question feature toggle', (done) => {
             ctx = {
                 codicils: 'Yes'
             };
             errors = {};
-            [ctx, errors] = WillCodicils.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
+            [ctx, errors] = WillCodicils.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
-                codicils: 'Yes',
-                isToggleEnabled: false
+                codicils: 'Yes'
             });
             done();
         });
@@ -59,10 +54,11 @@ describe('DeceasedAddress', () => {
     describe('action', () => {
         it('test isToggleEnabled is removed from the context', () => {
             const ctx = {
-                isToggleEnabled: false
+                codicils: json.optionNo,
+                codicilsNumber: 3
             };
             WillCodicils.action(ctx);
-            assert.isUndefined(ctx.isToggleEnabled);
+            assert.isUndefined(ctx.codicilsNumber);
         });
     });
 });

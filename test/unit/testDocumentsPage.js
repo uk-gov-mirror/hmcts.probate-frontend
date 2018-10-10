@@ -1,16 +1,16 @@
 'use strict';
-
 const initSteps = require('app/core/initSteps');
 const chai = require('chai');
 const expect = chai.expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
-const DeceasedDob = steps.DeceasedDob;
 
-describe('DeceasedDob', () => {
+describe('Documents', () => {
+    const Documents = steps.Documents;
+
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
-            const url = DeceasedDob.constructor.getUrl();
-            expect(url).to.equal('/deceased-dob');
+            const url = Documents.constructor.getUrl();
+            expect(url).to.equal('/documents');
             done();
         });
     });
