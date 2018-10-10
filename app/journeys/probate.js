@@ -34,7 +34,6 @@ const taskList = {
 };
 
 const stepList = {
-    // New Eligibility Task ---------------------------------------------------
     NewStartEligibility: 'NewWillLeft',
     NewWillLeft: {
         withWill: 'NewWillOriginal',
@@ -65,7 +64,6 @@ const stepList = {
         otherwise: 'StopPage'
     },
     NewStartApply: 'TaskList',
-    // Old Eligibility Task ---------------------------------------------------
     StartEligibility: 'StartApply',
     StartApply: 'TaskList',
     WillLeft: {
@@ -92,7 +90,6 @@ const stepList = {
         isCapable: 'TaskList',
         otherwise: 'StopPage'
     },
-    // Deceased Task ----------------------------------------------------------
     DeceasedName: {
         toggleOn: 'DeceasedDob',
         otherwise: 'DeceasedAlias'
@@ -143,7 +140,6 @@ const stepList = {
         toggleOn: 'TaskList',
         otherwise: 'DeathCertificate'
     },
-    // Executors Task ---------------------------------------------------------
     ApplicantName: 'ApplicantNameAsOnWill',
     ApplicantNameAsOnWill: {
         hasAlias: 'ApplicantAlias',
@@ -204,7 +200,6 @@ const stepList = {
         otherwise: 'DeceasedName'
     },
     DeleteExecutor: 'OtherExecutors',
-    // ------------------------------------------------------------------------
     Summary: 'TaskList',
     Declaration: {
         sendAdditionalInvites: 'ExecutorsAdditionalInvite',
