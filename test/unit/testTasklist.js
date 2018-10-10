@@ -1,7 +1,11 @@
+'use strict';
+
 const initSteps = require('app/core/initSteps');
 const journeyMap = require('app/core/journeyMap');
-const assert = require('chai').assert;
+const {expect, assert} = require('chai');
 const completedForm = require('test/data/complete-form').formdata;
+const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui/`]);
+const taskList = steps.TaskList;
 
 describe('Tasklist', () => {
     let ctx = {};
@@ -12,11 +16,17 @@ describe('Tasklist', () => {
         query: {
         }
     };
-    const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui/`]);
+
+    describe('getUrl()', () => {
+        it('should return the correct url', (done) => {
+            const url = taskList.constructor.getUrl();
+            expect(url).to.equal('/tasklist');
+            done();
+        });
+    });
 
     describe('updateTaskStatus', () => {
         it('Updates the context: neither task is started', () => {
-            const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
@@ -26,10 +36,9 @@ describe('Tasklist', () => {
             assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList.ExecutorsTask.firstStep].constructor.getUrl());
         });
 
-        it('Updates the context: EligibilityTask started, ', () => {
+        it('Updates the context: EligibilityTask started', () => {
             const formdata = {will: {left: 'Yes'}};
             req.session.form = formdata;
-            const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.EligibilityTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
@@ -48,7 +57,6 @@ describe('Tasklist', () => {
                 deceased: completedForm.deceased
             };
             req.session.form = formdata;
-            const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
@@ -70,7 +78,6 @@ describe('Tasklist', () => {
                 deceased: completedForm.deceased
             };
             req.session.form = formdata;
-            const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
@@ -79,7 +86,7 @@ describe('Tasklist', () => {
             assert.equal(ctx.ExecutorsTask.nextURL, journeyMap(steps.ApplicantName, formdata.will).constructor.getUrl());
         });
 
-        it('Updates the context: DeceasedTask & ExecutorsTask started (ExecutorsTask blocked), ', () => {
+        it('Updates the context: DeceasedTask & ExecutorsTask started (ExecutorsTask blocked)', () => {
             const formdata = {
                 will: completedForm.will,
                 iht: {completed: completedForm.iht.completed},
@@ -93,7 +100,6 @@ describe('Tasklist', () => {
                 }
             };
             req.session.form = formdata;
-            const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
@@ -111,7 +117,6 @@ describe('Tasklist', () => {
                 executors: completedForm.executors
             };
             req.session.form = formdata;
-            const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
@@ -132,7 +137,6 @@ describe('Tasklist', () => {
                 declaration: completedForm.declaration
             };
             req.body = {};
-            const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
@@ -151,7 +155,6 @@ describe('Tasklist', () => {
             };
             req.body = {};
             req.session.haveAllExecutorsDeclared = 'true';
-            const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
             ctx.alreadyDeclared = true;
             ctx.hasMultipleApplicants = true;
@@ -172,7 +175,6 @@ describe('Tasklist', () => {
             };
             req.body = {};
             req.session.haveAllExecutorsDeclared = 'false';
-            const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
@@ -182,7 +184,6 @@ describe('Tasklist', () => {
         it('Updates the context: CopiesTask not started', () => {
             req.session.form = {};
             req.body = {};
-            const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
@@ -196,7 +197,6 @@ describe('Tasklist', () => {
                 }
             };
             req.body = {};
-            const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
@@ -206,7 +206,6 @@ describe('Tasklist', () => {
         it('Updates the context: CopiesTask complete', () => {
             req.session.form = completedForm;
             req.body = {};
-            const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
@@ -216,7 +215,6 @@ describe('Tasklist', () => {
         it('Updates the context: PaymentTask not started', () => {
             req.session.form = {};
             req.body = {};
-            const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
@@ -228,7 +226,6 @@ describe('Tasklist', () => {
                 paymentPending: 'true'
             };
             req.body = {};
-            const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
@@ -240,7 +237,6 @@ describe('Tasklist', () => {
                 paymentPending: 'false'
             };
             req.body = {};
-            const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
@@ -255,7 +251,6 @@ describe('Tasklist', () => {
                 }
             };
             req.body = {};
-            const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
@@ -268,7 +263,6 @@ describe('Tasklist', () => {
                 sentDocuments: 'true'
             };
             req.body = {};
-            const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.DocumentsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());

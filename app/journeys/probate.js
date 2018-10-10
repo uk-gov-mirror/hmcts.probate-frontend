@@ -39,7 +39,6 @@ const taskList = {
 };
 
 const stepList = {
-    // Eligibility Task -------------------------------------------------------
     StartEligibility: 'WillLeft',
     WillLeft: {
         withWill: 'WillOriginal',
@@ -71,7 +70,6 @@ const stepList = {
     },
     StartApply: 'TaskList',
 
-    // Deceased Task ----------------------------------------------------------
     DeceasedName: 'DeceasedDob',
     DeceasedDob: 'DeceasedDod',
     DeceasedDod: 'DeceasedAddress',
@@ -97,7 +95,6 @@ const stepList = {
     },
     CodicilsNumber: 'TaskList',
 
-    // Executors Task ---------------------------------------------------------
     ApplicantName: 'ApplicantNameAsOnWill',
     ApplicantNameAsOnWill: {
         hasAlias: 'ApplicantAlias',
@@ -158,7 +155,6 @@ const stepList = {
     },
     DeleteExecutor: 'OtherExecutors',
 
-    // ------------------------------------------------------------------------
     Summary: 'TaskList',
     Declaration: {
         sendAdditionalInvites: 'ExecutorsAdditionalInvite',
