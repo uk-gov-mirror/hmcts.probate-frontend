@@ -8,7 +8,7 @@ const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/.
 const WillCodicils = steps.WillCodicils;
 const json = require('app/resources/en/translation/will/codicils');
 
-describe('DeceasedAddress', () => {
+describe('WillCodicils', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = WillCodicils.constructor.getUrl();

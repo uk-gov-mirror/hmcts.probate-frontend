@@ -7,7 +7,7 @@ const assert = require('chai').assert;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const DeceasedDod = steps.DeceasedDod;
 
-describe('DeceasedAddress', () => {
+describe('DeceasedDod', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = DeceasedDod.constructor.getUrl();
