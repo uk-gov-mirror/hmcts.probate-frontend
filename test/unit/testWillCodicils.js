@@ -40,7 +40,7 @@ describe('WillCodicils', () => {
     });
 
     describe('nextStepOptions()', () => {
-        it('should return the correct options', (done) => {
+        it('should return the correct options when the FT is off', (done) => {
             const ctx = {
                 isToggleEnabled: false
             };
@@ -50,6 +50,21 @@ describe('WillCodicils', () => {
                     key: 'codicils',
                     value: json.optionNo,
                     choice: 'noCodicils'
+                }]
+            });
+            done();
+        });
+
+        it('should return the correct options when the FT is on', (done) => {
+            const ctx = {
+                isToggleEnabled: true
+            };
+            const nextStepOptions = WillCodicils.nextStepOptions(ctx);
+            expect(nextStepOptions).to.deep.equal({
+                options: [{
+                    key: 'codicils',
+                    value: json.optionNo,
+                    choice: 'noCodicilsToggleOn'
                 }]
             });
             done();
