@@ -30,9 +30,9 @@ class SignOut extends Step {
 
             return ctx;
         })
-        .catch(err => {
-            logger.error(`Error while calling IDAM: ${err}`);
-        });
+            .catch(err => {
+                logger.error(`Error while calling IDAM: ${err}`);
+            });
     }
 }
 
