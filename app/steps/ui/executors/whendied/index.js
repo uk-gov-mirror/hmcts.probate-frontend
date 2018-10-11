@@ -41,7 +41,7 @@ class ExecutorsWhenDied extends CollectionStep {
             ctx.list[ctx.index].notApplyingReason = execContent.optionDiedAfter;
         }
         ctx.list[ctx.index].notApplyingKey = findKey(execContent, o => {
-           return o === ctx.list[ctx.index].notApplyingReason;
+            return o === ctx.list[ctx.index].notApplyingReason;
         });
     }
 
