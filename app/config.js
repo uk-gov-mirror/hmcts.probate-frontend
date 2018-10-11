@@ -125,9 +125,9 @@ const config = {
                 version: '3'
             },
             overseas: {
-                 fee: 0.5,
-                 code: process.env.OVERSEAS_COPIES_FEE_CODE || 'FEE003',
-                 version: '3'
+                fee: 0.5,
+                code: process.env.OVERSEAS_COPIES_FEE_CODE || 'FEE003',
+                version: '3'
             }
         },
         serviceId: process.env.SERVICE_ID || 'PROBATE',

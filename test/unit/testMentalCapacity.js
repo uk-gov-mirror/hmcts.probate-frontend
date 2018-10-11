@@ -37,10 +37,10 @@ describe('MentalCapacity.js', () => {
             const nextStepOptions = MentalCapacity.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [{
-                        key: 'mentalCapacity',
-                        value: content.optionYes,
-                        choice: 'isCapable'
-                    }]
+                    key: 'mentalCapacity',
+                    value: content.optionYes,
+                    choice: 'isCapable'
+                }]
             });
             done();
         });

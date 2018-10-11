@@ -70,7 +70,7 @@ class TestWrapper {
         const expectedErrors = cloneDeep(isEmpty(onlyKeys) ? contentErrors : filter(contentErrors, (value, key) => onlyKeys.includes(key)));
         assert.isNotEmpty(expectedErrors);
         this.substituteErrorsContent(data, expectedErrors, type);
-            this.agent.post(`${this.pageUrl}`)
+        this.agent.post(`${this.pageUrl}`)
             .type('form')
             .send(data)
             .expect('Content-type', 'text/html; charset=utf-8')

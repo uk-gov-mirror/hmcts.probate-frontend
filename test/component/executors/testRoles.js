@@ -89,8 +89,8 @@ describe('executor-roles', () => {
                         notApplyingReason: executorRolesContent.optionRenunciated
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
-                    testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
-            });
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedName);
+                });
         });
     });
 
