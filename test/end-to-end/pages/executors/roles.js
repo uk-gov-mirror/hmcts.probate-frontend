@@ -12,12 +12,12 @@ module.exports = function (executorNumber, powerReserved, firstRecord) {
         I.seeCurrentUrlEquals(pageUnderTest.getUrl(parseInt(executorNumber) - 1));
     }
 
-     if (powerReserved) {
-         I.click('#notApplyingReason-optionPowerReserved');
-     } else {
-         I.click('#notApplyingReason-optionRenunciated');
-     }
+    if (powerReserved) {
+        I.click('#notApplyingReason-optionPowerReserved');
+    } else {
+        I.click('#notApplyingReason-optionRenunciated');
+    }
 
-     I.click(commonContent.continue);
+    I.click(commonContent.continue);
 
 };

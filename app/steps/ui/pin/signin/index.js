@@ -20,14 +20,14 @@ class PinPage extends ValidationStep {
             errors.push(FieldError('pin', 'incorrect', this.resourcePath, this.generateContent()));
         } else {
             yield services.loadFormData(session.formdataId)
-            .then(result => {
-                if (result.name === 'Error') {
-                    throw new ReferenceError('Error getting the co-applicant\'s data');
-                } else {
-                    delete result.formdata.declaration.declarationCheckbox;
-                    session.form = result.formdata;
-                }
-            });
+                .then(result => {
+                    if (result.name === 'Error') {
+                        throw new ReferenceError('Error getting the co-applicant\'s data');
+                    } else {
+                        delete result.formdata.declaration.declarationCheckbox;
+                        session.form = result.formdata;
+                    }
+                });
         }
         return [ctx, errors];
     }
