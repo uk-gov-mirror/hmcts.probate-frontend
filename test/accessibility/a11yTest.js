@@ -49,10 +49,10 @@ for (const step in steps) {
                     }
                     results = yield a11y(agent.get(step.constructor.getUrl()).url + urlSuffix, title);
                 })
-                .then(done, done)
-                .catch((error) => {
-                    done(error);
-                });
+                    .then(done, done)
+                    .catch((error) => {
+                        done(error);
+                    });
             });
 
             after(function (done) {

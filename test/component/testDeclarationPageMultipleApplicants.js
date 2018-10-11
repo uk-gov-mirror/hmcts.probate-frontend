@@ -196,7 +196,7 @@ describe('declaration, multiple applicants', () => {
             contentData.aliasReason = 'got divorced';
             contentData.detailsOfApplicants = 'Bob Smith of flat 1, somewhere rd, nowhere., fname1 sname1 of 1 qwe\r\n1 asd\r\n1 zxc and fname4 sname4 of 4 qwe\r\n4 asd\r\n4 zxc';
 
-                testWrapper.agent.post('/prepare-session/form')
+            testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     testWrapper.testContent(done, contentToExclude, contentData);
