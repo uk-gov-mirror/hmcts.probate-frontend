@@ -1,7 +1,7 @@
 'use strict';
 
-const requireDirectory = require('require-directory'),
-    steps = requireDirectory(module);
+const requireDirectory = require('require-directory');
+const steps = requireDirectory(module);
 
 module.exports = function () {
 
@@ -47,6 +47,7 @@ module.exports = function () {
         selectExecutorsWithDifferentNameOnWill: steps.executors.alias,
         selectWhichExecutorsWithDifferentNameOnWill: steps.executors.othername,
         enterExecutorCurrentName: steps.executors.currentname,
+        enterExecutorCurrentNameReason: steps.executors.currentnamereason,
         enterExecutorContactDetails: steps.executors.contactdetails,
         enterExecutorManualAddress: steps.executors.address,
         selectExecutorRoles: steps.executors.roles,

@@ -24,6 +24,11 @@ router.use((req, res, next) => {
         };
         req.session.back = [];
     }
+
+    if (!req.session.form.applicantEmail) {
+        req.session.form.applicantEmail = req.session.regId;
+    }
+
     next();
 });
 
@@ -47,7 +52,7 @@ router.use((req, res, next) => {
     const executorsWrapper = new ExecutorsWrapper(formdata.executors);
     const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
 
-    if (get(formdata, 'submissionReference') &&
+    if (get(formdata, 'submissionReference') && (get(formdata, 'payment.status') === 'Success' || get(formdata, 'payment.status') === 'not_required') &&
         !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
     ) {
         res.redirect('documents');

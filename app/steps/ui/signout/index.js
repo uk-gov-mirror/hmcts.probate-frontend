@@ -1,11 +1,12 @@
 'use strict';
+
 const Step = require('app/core/steps/Step');
 const config = require('app/config');
 const logger = require('app/components/logger')('Init');
 const services = require('app/components/services');
 const SECURITY_COOKIE = `__auth-token-${config.payloadVersion}`;
 
-module.exports = class SignOut extends Step {
+class SignOut extends Step {
 
     static getUrl () {
         return '/sign-out';
@@ -29,4 +30,6 @@ module.exports = class SignOut extends Step {
                 logger.error(`Error while calling IDAM: ${err}`);
             });
     }
-};
+}
+
+module.exports = SignOut;
