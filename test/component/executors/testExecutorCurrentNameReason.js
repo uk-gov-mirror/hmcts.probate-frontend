@@ -42,7 +42,7 @@ describe('/executor-current-name-reason/', () => {
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
                     testWrapper.testContent(done, [], contentData);
-            });
+                });
         });
 
         it('test alias reason validation when no data is entered', (done) => {
