@@ -79,7 +79,7 @@ describe('PaymentBreakdown', () => {
                     'ccdCase': {
                         'id': 1535395401245028,
                         'state': 'PaAppCreated'
-            },
+                    },
                     'creatingPayment': 'true',
                     'payment': {
                         'total': 215
@@ -257,9 +257,10 @@ describe('PaymentBreakdown', () => {
                     }
                 }]);
                 done();
-            }).catch(err => {
-                done(err);
-            });
+            })
+                .catch((err) => {
+                    done(err);
+                });
         });
     });
 

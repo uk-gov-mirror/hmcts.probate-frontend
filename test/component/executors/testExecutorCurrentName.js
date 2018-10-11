@@ -47,7 +47,7 @@ describe('executor-current-name', () => {
                         executorFullName: 'executor name2',
                     };
                     testWrapper.testContent(done, [], contentData);
-            });
+                });
         });
 
         it('test errors message displayed for missing data', (done) => {
@@ -64,8 +64,8 @@ describe('executor-current-name', () => {
                     const data = {
                         currentName: '< brian'
                     };
-                testWrapper.testErrors(done, data, 'invalid', errorsToTest);
-            });
+                    testWrapper.testErrors(done, data, 'invalid', errorsToTest);
+                });
         });
 
         it(`test it redirects to next executor current name page, first exec: ${executorCurrentNameReasonFirstUrl}`, (done) => {

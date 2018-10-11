@@ -33,11 +33,11 @@ class CoApplicantDeclaration extends ValidationStep {
         const data = {};
         data.agreed = (this.content.optionYes === ctx.agreement);
         yield services.updateInviteData(ctx.inviteId, data)
-        .then(result => {
-            if (result.name === 'Error') {
-                throw new ReferenceError('Error updating co-applicant\'s data');
-            }
-        });
+            .then(result => {
+                if (result.name === 'Error') {
+                    throw new ReferenceError('Error updating co-applicant\'s data');
+                }
+            });
 
         return [ctx, errors];
     }
