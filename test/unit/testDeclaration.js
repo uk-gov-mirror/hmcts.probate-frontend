@@ -58,6 +58,7 @@ describe('Declaration tests', function () {
                 executorsEmailChanged: false,
                 hasDataChangedAfterEmailSent: true,
                 invitesSent: 'true',
+                isToggleEnabled: true
             };
             formdata = {};
         });
