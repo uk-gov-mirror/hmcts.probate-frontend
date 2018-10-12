@@ -18,6 +18,7 @@
   "address": "Address",
   "mobileNumber": "Mobile number",
   "emailAddress": "Email address",
+  "checkAnswersPdf": "Save this page (58kb PDF)",
 
   "errors": {
     "businessError": {

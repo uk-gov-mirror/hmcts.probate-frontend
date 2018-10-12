@@ -11,6 +11,7 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 const featureToggles = require('app/featureToggles');
 
 router.all('*', (req, res, next) => {
+
     req.log = logger(req.sessionID);
     req.log.info(`Processing ${req.method} for ${req.originalUrl}`);
     next();
@@ -115,6 +116,13 @@ Object.entries(steps).forEach(([, step]) => {
 router.get('/payment', (req, res) => {
     res.redirect(301, '/documents');
 });
+
+
+router.get('/checkAnswersPdf', (req, res) = > {
+    services.createCheckAnswersPdf(req.session.checkAnswersJson);
+
+})
+;
 
 if (['sandbox', 'saat', 'preview', 'sprod', 'demo', 'aat'].includes(config.environment)) {
     router.get('/inviteIdList', (req, res) => {

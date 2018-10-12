@@ -12,20 +12,19 @@
     <h1 class="heading-large">
         {{content.Summary.heading}}
     </h1>
-    <p>{{content.Summary.checkCarefully}}</p>
+    <p id="main-heading-content">{{content.Summary.checkCarefully}}</p>
 
     <h2 class="heading-medium">
-        {{content.Summary.willWithCodicilHeading if fields.summary.codicilPresent.value === "true" else content.Summary.willHeading}}
+        {{content.Summary.willWithCodicilHeading if fields.summary.codicilPresent.value === "true" else
+        content.Summary.willHeading}}
     </h2>
     <dl class="check-your-answers check-your-answers--long">
         {% include "ui/summary/includes/will.njk" %}
     </dl>
-
     <h2 class="heading-medium">{{content.Summary.ihtHeading}}</h2>
     <dl class="check-your-answers check-your-answers--long">
         {% include "ui/summary/includes/iht.njk" %}
     </dl>
-
     <h2 class="heading-medium">{{content.Summary.applicantHeading}}</h2>
     <dl class="check-your-answers check-your-answers--long">
         {% include "ui/summary/includes/executors.njk" %}
@@ -35,6 +34,8 @@
     <dl class="check-your-answers check-your-answers--long">
         {% include "ui/summary/includes/deceased.njk" %}
     </dl>
+
+    <p><a href="/checkAnswersPdf">{{content.Summary.checkAnswersPdf}}</a></p>
 
     <div class="form-group">
         {% if fields.summary.readyToDeclare.value === "true" %}

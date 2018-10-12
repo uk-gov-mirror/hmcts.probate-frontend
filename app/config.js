@@ -58,6 +58,9 @@ const config = {
             serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'dummy_token',
             userId: process.env.PAYMENT_USER_ID || 999999999,
             returnUrlPath: '/payment-status'
+        },
+        businessDocument: {
+            createCheckAnswersUrl: process.env.CHECK_ANSWERS_PDF_SERVICE_URL || 'http://localhost:8080/businessDocument/generateCheckAnswersSummaryPDF'
         }
     },
     redis: {

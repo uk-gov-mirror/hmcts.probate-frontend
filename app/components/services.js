@@ -9,6 +9,7 @@ const {URLSearchParams} = require('url');
 const FormatUrl = require('app/utils/FormatUrl');
 const IDAM_SERVICE_URL = config.services.idam.apiUrl;
 const VALIDATION_SERVICE_URL = config.services.validation.url;
+const CHECK_ANSWERS_PDF_SERVICE_URL = config.services.businessDocument.createCheckAnswersUrl
 const SUBMIT_SERVICE_URL = config.services.submit.url;
 const POSTCODE_SERVICE_URL = config.services.postcode.url;
 const PERSISTENCE_SERVICE_URL = config.services.persistence.url;
@@ -33,7 +34,7 @@ const getUserDetails = (securityCookie) => {
 };
 
 const findAddress = (postcode) => {
-    logger.info('findAddress');
+    logger.info(' findAddress');
     const url = `${POSTCODE_SERVICE_URL}?postcode=${encodeURIComponent(postcode)}`;
     const headers = {
         'Content-Type': 'application/json',
@@ -62,6 +63,7 @@ const validateFormData = (data, sessionID) => {
     const fetchOptions = utils.fetchOptions({formdata: data}, 'POST', headers);
     return utils.fetchJson(`${VALIDATION_SERVICE_URL}`, fetchOptions);
 };
+
 
 const submitApplication = (data, ctx, softStop) => {
     logger.info('submitApplication');
@@ -103,6 +105,24 @@ const saveFormData = (id, data, sessionID) => {
     const fetchOptions = utils.fetchOptions(body, 'POST', headers);
     return utils.fetchJson(`${PERSISTENCE_SERVICE_URL}`, fetchOptions);
 };
+
+const createCheckAnswersPdf = (data) =
+>
+{
+    logger.info('createCheckAnswersPdf');
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9iYXRlX2JhY2tlbmQiLCJleHAiOjE1Mzg2NjU0MjZ9.H1bNIEL__Cf-lxAGXkdO8iNNSCzSpRFS1vtd-KQuz_oacg5YXdekUx0ySuYxSKi5qdZH8m3c5giXahIWrNN11g',
+        'ServiceAuthorization': 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9iYXRlX2JhY2tlbmQiLCJleHAiOjE1Mzg2NjU0MjZ9.H1bNIEL__Cf-lxAGXkdO8iNNSCzSpRFS1vtd-KQuz_oacg5YXdekUx0ySuYxSKi5qdZH8m3c5giXahIWrNN11g'
+    };
+    const body = data;
+
+    const fetchOptions = utils.fetchOptions(body, 'POST', headers);
+    return utils.fetchText(`http://localhost:8080/businessDocument/handshake`, fetchOptions);
+}
+;
+
+
 
 const createPayment = (data, hostname) => {
     logger.info('createPayment');
@@ -240,6 +260,7 @@ module.exports = {
     findAddress,
     featureToggle,
     validateFormData,
+    createCheckAnswersPdf,
     submitApplication,
     loadFormData,
     saveFormData,

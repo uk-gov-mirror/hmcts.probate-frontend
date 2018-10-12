@@ -10,6 +10,9 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
 const featureToggle = require('app/utils/FeatureToggle');
+const jsdom = require("jsdom");
+const {JSDOM} = jsdom;
+
 
 class Summary extends Step {
 
@@ -91,6 +94,68 @@ class Summary extends Step {
         ctx.session = req.session;
         return ctx;
     }
+
+    renderCallBack(res, html) {
+
+        var json = this.parseData(html);
+        res.req.session.checkAnswersJson = json;
+
+        res.send(html);
+    }
+
+
+    parseData(html) {
+        const dom = new JSDOM(html);
+        const $ = (require('jquery'))(dom.window);
+        const summary = new Object()
+        summary.sections = [];
+        const sections = $(".heading-large, .heading-medium, .heading-small, .check-your-answers__row");
+        const mainParagraph = $("#main-heading-content");
+        summary.mainParagraph = mainParagraph.html();
+        var section;
+
+        for (var i = 0; i < sections.length; i++) {
+            const $element = $(sections[i]);
+
+            if ($element.hasClass("heading-large")) {
+                summary.pageTitle = $element.html();
+            }
+
+            if ($element.hasClass("heading-medium") || $element.hasClass("heading-small")) {
+                section = new Object();
+                section.title = $element.html();
+                section.type = $element.attr('class');
+                section.questionAndAnswers = [];
+                summary.sections.push(section)
+            }
+
+            if ($element.hasClass("check-your-answers__row") && $element.children().length > 0) {
+                const question = $element.children(".check-your-answers__question");
+                const answer = $element.children(".check-your-answers__answer");
+                const questionAndAnswer = new Object();
+
+                questionAndAnswer.question = question.html();
+                questionAndAnswer.answers = [];
+                const children = answer.children(".check-your-answers__row");
+                if (children.length > 0) {
+
+                    for (var j = 0; j < children.length; ++j) {
+                        questionAndAnswer.answers.push(children[j].textContent);
+                    }
+                }
+                else {
+                    questionAndAnswer.answers.push(answer.html());
+                }
+                section.questionAndAnswers.push(questionAndAnswer);
+            }
+
+            var sectionTitle = $element.html();
+        }
+
+        return JSON.stringify({'checkAnswersSummary': summary}, null, 2);
+    }
+
+
 }
 
 module.exports = Summary;

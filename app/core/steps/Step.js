@@ -134,6 +134,12 @@ class Step {
             get(session, 'form.declaration.declarationCheckbox')
         ].every(param => param === 'true');
     }
+
+    renderCallBack(res, html) {
+        //session.setAttribute("Json", "Data");
+        res.send(html);
+    }
+
 }
 
 module.exports = Step;

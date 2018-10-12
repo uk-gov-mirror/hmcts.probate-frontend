@@ -62,6 +62,21 @@ const fetchText = (url, fetchOptions) => {
         .catch(err => err);
 };
 
+const fetchPdf = (url, fetchOptions) =
+>
+{
+    return asyncFetch(url, fetchOptions, res = > res.text()
+)
+.
+    then(body = > body
+)
+.
+    catch(err = > err
+)
+    ;
+}
+;
+
 const fetchOptions = (data, method, headers, proxy) => {
     return {
         method: method,
@@ -78,6 +93,7 @@ const fetchOptions = (data, method, headers, proxy) => {
 module.exports = {
     fetchOptions: fetchOptions,
     fetchJson: fetchJson,
+    fetchPdf: fetchPdf,
     asyncFetch: asyncFetch,
     fetchText: fetchText
 };
