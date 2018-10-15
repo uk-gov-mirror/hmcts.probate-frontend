@@ -1,7 +1,7 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const json = require('app/resources/en/translation/will/left');
+const content = require('app/resources/en/translation/will/left');
 
 class WillLeft extends ValidationStep {
 
@@ -14,12 +14,11 @@ class WillLeft extends ValidationStep {
     }
 
     nextStepOptions() {
-        const nextStepOptions = {
+        return {
             options: [
-                {key: 'left', value: json.optionYes, choice: 'withWill'}
+                {key: 'left', value: content.optionYes, choice: 'withWill'}
             ]
         };
-        return nextStepOptions;
     }
 }
 

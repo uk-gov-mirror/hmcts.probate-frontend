@@ -45,20 +45,4 @@ describe('MentalCapacity.js', () => {
             done();
         });
     });
-
-    describe('isComplete()', () => {
-        it('should return the correct values when the step is complete', (done) => {
-            const ctx = {mentalCapacity: 'Yes'};
-            const val = MentalCapacity.isComplete(ctx);
-            expect(val).to.deep.equal([true, 'inProgress']);
-            done();
-        });
-
-        it('should return the correct values when the step is not complete', (done) => {
-            const ctx = {mentalCapacity: 'No'};
-            const val = MentalCapacity.isComplete(ctx);
-            expect(val).to.deep.equal([false, 'inProgress']);
-            done();
-        });
-    });
 });

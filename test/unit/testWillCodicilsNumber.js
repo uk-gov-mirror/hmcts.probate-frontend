@@ -18,7 +18,7 @@ describe('CodicilsNumber', () => {
         let ctx;
         let errors;
 
-        it('should return the ctx with the deceased married status and the screening_question feature toggle', (done) => {
+        it('should return the ctx with the deceased married status', (done) => {
             ctx = {
                 codicilsNumber: '3'
             };

@@ -18,7 +18,7 @@ describe('IhtValue', () => {
         let ctx;
         let errors;
 
-        it('should return the ctx with the deceased married status and the screening_question feature toggle', (done) => {
+        it('should return the ctx with the deceased married status', (done) => {
             ctx = {
                 grossValueOnline: '500000',
                 netValueOnline: '400000'

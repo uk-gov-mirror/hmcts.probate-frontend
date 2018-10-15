@@ -19,7 +19,7 @@ describe('WillCodicils', () => {
         let ctx;
         let errors;
 
-        it('should return the ctx with the deceased married status and the screening_question feature toggle', (done) => {
+        it('should return the ctx with the deceased married status', (done) => {
             ctx = {
                 codicils: 'Yes'
             };
@@ -33,10 +33,8 @@ describe('WillCodicils', () => {
     });
 
     describe('nextStepOptions()', () => {
-        it('should return the correct options when the FT is off', (done) => {
-            const ctx = {
-                isToggleEnabled: false
-            };
+        it('should return the correct options', (done) => {
+            const ctx = {};
             const nextStepOptions = WillCodicils.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [{
@@ -47,25 +45,10 @@ describe('WillCodicils', () => {
             });
             done();
         });
-
-        it('should return the correct options when the FT is on', (done) => {
-            const ctx = {
-                isToggleEnabled: true
-            };
-            const nextStepOptions = WillCodicils.nextStepOptions(ctx);
-            expect(nextStepOptions).to.deep.equal({
-                options: [{
-                    key: 'codicils',
-                    value: json.optionNo,
-                    choice: 'noCodicilsToggleOn'
-                }]
-            });
-            done();
-        });
     });
 
     describe('action', () => {
-        it('test isToggleEnabled is removed from the context', () => {
+        it('cleans up context', () => {
             const ctx = {
                 codicils: json.optionNo,
                 codicilsNumber: 3

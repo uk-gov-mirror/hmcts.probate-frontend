@@ -1,8 +1,7 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const json = require('app/resources/en/translation/iht/completed');
-const {isEmpty} = require('lodash');
+const content = require('app/resources/en/translation/iht/completed');
 
 class IhtCompleted extends ValidationStep {
 
@@ -15,15 +14,11 @@ class IhtCompleted extends ValidationStep {
     }
 
     nextStepOptions() {
-        const nextStepOptions = {
+        return {
             options: [
-                {key: 'completed', value: json.optionYes, choice: 'completed'}
+                {key: 'completed', value: content.optionYes, choice: 'completed'}
             ]
         };
-        return nextStepOptions;
-    }
-    isComplete(ctx) {
-        return [!isEmpty(ctx.completed), 'inProgress'];
     }
 }
 

@@ -18,7 +18,7 @@ describe('IhtPaper', () => {
         let ctx;
         let errors;
 
-        it('should return the ctx with the deceased married status and the screening_question feature toggle', (done) => {
+        it('should return the ctx with the deceased married status', (done) => {
             ctx = {
                 form: 'IHT205',
                 grossIHT205: '500000',
@@ -41,7 +41,7 @@ describe('IhtPaper', () => {
     });
 
     describe('action', () => {
-        it('test isToggleEnabled is removed from the context', () => {
+        it('cleans up context', () => {
             const ctx = {
                 grossValuePaper: 500000,
                 netValuePaper: 400000

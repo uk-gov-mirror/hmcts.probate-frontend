@@ -14,12 +14,11 @@ class DeceasedDomicile extends ValidationStep {
     }
 
     nextStepOptions() {
-        const nextStepOptions = {
+        return {
             options: [
                 {key: 'domicile', value: content.optionYes, choice: 'inEnglandOrWales'}
             ]
         };
-        return nextStepOptions;
     }
 }
 

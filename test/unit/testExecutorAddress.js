@@ -306,9 +306,8 @@ describe('ExecutorAddress', () => {
     });
 
     describe('nextStepOptions()', () => {
-        it('returns the next step options when the FT is off', (done) => {
+        it('returns the next step options', (done) => {
             const testCtx = {
-                isToggleEnabled: false,
                 index: 1,
                 executorsWrapper: new ExecutorsWrapper()
             };
@@ -322,29 +321,11 @@ describe('ExecutorAddress', () => {
             });
             done();
         });
-
-        it('returns the next step options when the FT is on', (done) => {
-            const ctx = {
-                isToggleEnabled: true,
-                index: 1,
-                executorsWrapper: new ExecutorsWrapper()
-            };
-            const nextStepOptions = ExecutorAddress.nextStepOptions(ctx);
-
-            expect(nextStepOptions).to.deep.equal({
-                options: [
-                    {key: 'continue', value: true, choice: 'continue'},
-                    {key: 'allExecsApplying', value: true, choice: 'allExecsApplyingToggleOn'}
-                ],
-            });
-            done();
-        });
     });
 
     describe('action()', () => {
         it('removes the correct values from the context', (done) => {
             const testCtx = {
-                isToggleEnabled: false,
                 otherExecName: 'James Miller',
                 address: '1 Red Street, London, L1 1LL',
                 postcodeAddress: '1 Red Street, London, L1 1LL',

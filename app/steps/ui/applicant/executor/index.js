@@ -1,9 +1,9 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const json = require('app/resources/en/translation/applicant/executor');
+const content = require('app/resources/en/translation/applicant/executor');
 
-module.exports = class ApplicantExecutor extends ValidationStep {
+class ApplicantExecutor extends ValidationStep {
 
     static getUrl() {
         return '/applicant-executor';
@@ -13,19 +13,13 @@ module.exports = class ApplicantExecutor extends ValidationStep {
         return this.next(ctx).constructor.getUrl('notExecutor');
     }
 
-    handlePost(ctx, errors) {
-        if (ctx.executor === json.optionNo) {
-            super.setHardStop(ctx, 'notExecutor');
-        }
-        return [ctx, errors];
-    }
-
     nextStepOptions() {
-        const nextStepOptions = {
+        return {
             options: [
-                {key: 'executor', value: json.optionYes, choice: 'isExecutor'}
+                {key: 'executor', value: content.optionYes, choice: 'isExecutor'}
             ]
         };
-        return nextStepOptions;
     }
-};
+}
+
+module.exports = ApplicantExecutor;
