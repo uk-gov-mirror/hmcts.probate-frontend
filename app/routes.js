@@ -119,7 +119,8 @@ router.get('/payment', (req, res) => {
 
 
 router.get('/checkAnswersPdf', (req, res) = > {
-    services.createCheckAnswersPdf(req.session.checkAnswersJson);
+    const formdata = req.session.form;
+services.createCheckAnswersPdf(formdata.serviceAuthToken, req.session.checkAnswersJson);
 
 })
 ;

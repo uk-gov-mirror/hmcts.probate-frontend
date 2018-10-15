@@ -106,19 +106,19 @@ const saveFormData = (id, data, sessionID) => {
     return utils.fetchJson(`${PERSISTENCE_SERVICE_URL}`, fetchOptions);
 };
 
-const createCheckAnswersPdf = (data) =
+const createCheckAnswersPdf = (serviceAuthToken, data) =
 >
 {
     logger.info('createCheckAnswersPdf');
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9iYXRlX2JhY2tlbmQiLCJleHAiOjE1Mzg2NjU0MjZ9.H1bNIEL__Cf-lxAGXkdO8iNNSCzSpRFS1vtd-KQuz_oacg5YXdekUx0ySuYxSKi5qdZH8m3c5giXahIWrNN11g',
-        'ServiceAuthorization': 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9iYXRlX2JhY2tlbmQiLCJleHAiOjE1Mzg2NjU0MjZ9.H1bNIEL__Cf-lxAGXkdO8iNNSCzSpRFS1vtd-KQuz_oacg5YXdekUx0ySuYxSKi5qdZH8m3c5giXahIWrNN11g'
+        'Authorization': serviceAuthToken,
+        'ServiceAuthorization': serviceAuthToken
     };
     const body = data;
 
     const fetchOptions = utils.fetchOptions(body, 'POST', headers);
-    return utils.fetchText(`http://localhost:8080/businessDocument/handshake`, fetchOptions);
+    return utils.fetchText(`${CHECK_ANSWERS_PDF_SERVICE_URL}`, fetchOptions);
 }
 ;
 
@@ -126,9 +126,11 @@ const createCheckAnswersPdf = (data) =
 
 const createPayment = (data, hostname) => {
     logger.info('createPayment');
-    const headers = {
+    const headers = {services.js
         'Content-Type': 'application/json',
-        'Authorization': data.authToken,
+        'Authorization'
+:
+    data.authToken, services.js
         'ServiceAuthorization': data.serviceAuthToken
     };
     const body = paymentData.createPaymentData(data, hostname);

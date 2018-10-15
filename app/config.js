@@ -47,16 +47,16 @@ const config = {
             roles: ['probate-private-beta', 'citizen'],
             s2s_url: process.env.IDAM_S2S_URL || 'http://localhost:4502',
             service_name: 'probate_frontend',
-            service_key: process.env.IDAM_SERVICE_KEY || 'dummy_key',
+            service_key: process.env.IDAM_SERVICE_KEY || 'AAAAAAAAAAAAAAAA',
             probate_oauth2_client: 'probate',
             probate_oauth2_secret: process.env.IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE || '123456',
             probate_oauth_callback_path: '/oauth2/callback'
         },
         payment: {
             createPaymentUrl: process.env.PAYMENT_CREATE_URL || 'http://localhost:8383/users/userId/payments',
-            authorization: process.env.PAYMENT_AUTHORIZATION || 'dummy_token',
-            serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'dummy_token',
-            userId: process.env.PAYMENT_USER_ID || 999999999,
+            authorization: process.env.PAYMENT_AUTHORIZATION || 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJnNmgwMjdkMnZ0bmY2OW1pdWxkcHFlNjNuZiIsInN1YiI6IjI5IiwiaWF0IjoxNTM5NjAwNzIwLCJleHAiOjE1Mzk2Mjk1MjAsImRhdGEiOiJjYXNld29ya2VyLXByb2JhdGUsY2l0aXplbixjYXNld29ya2VyLGNhc2V3b3JrZXItcHJvYmF0ZS1sb2ExLGNpdGl6ZW4tbG9hMSxjYXNld29ya2VyLWxvYTEiLCJ0eXBlIjoiQUNDRVNTIiwiaWQiOiIyOSIsImZvcmVuYW1lIjoiVXNlciIsInN1cm5hbWUiOiJUZXN0IiwiZGVmYXVsdC1zZXJ2aWNlIjoiQ0NEIiwibG9hIjoxLCJkZWZhdWx0LXVybCI6Imh0dHBzOi8vbG9jYWxob3N0OjkwMDAvcG9jL2NjZCIsImdyb3VwIjoiY2FzZXdvcmtlciJ9.ZiUItJIOrgcoVyCUgBORwgpqhzIBNqV63uyCSz1dzX0',
+            serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'F0IjoxNTM5NjEzNDY5LCJleyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJqYjNmMDNrYjlnNmFzbXBqc2c0bjdidnVpbCIsInN1YiI6IjMzIiwiaWeHAiOjE1Mzk2NDIyNjksImRhdGEiOiJjYXNld29ya2VyLXByb2JhdGUsY2l0aXplbixjYXNld29ya2VyLGNhc2V3b3JrZXItcHJvYmF0ZS1sb2ExLGNpdGl6ZW4tbG9hMSxjYXNld29ya2VyLWxvYTEiLCJ0eXBlIjoiQUNDRVNTIiwiaWQiOiIzMyIsImZvcmVuYW1lIjoiVXNlciIsInN1cm5hbWUiOiJUZXN0IiwiZGVmYXVsdC1zZXJ2aWNlIjoiQ0NEIiwibG9hIjoxLCJkZWZhdWx0LXVybCI6Imh0dHBzOi8vbG9jYWxob3N0OjkwMDAvcG9jL2NjZCIsImdyb3VwIjoiY2FzZXdvcmtlciJ9.yKKnsT5Bt-6x0Vv2m3DxYfNLsAcuDZLClnn3elXLPPg',
+            userId: process.env.PAYMENT_USER_ID || 29,
             returnUrlPath: '/payment-status'
         },
         businessDocument: {

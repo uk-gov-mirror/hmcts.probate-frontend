@@ -40,6 +40,8 @@ class Summary extends Step {
 
         utils.updateTaskStatus(ctx, ctx, this.steps);
 
+        formdata.serviceAuthToken = yield services.authorise();
+
         return [ctx, !isEmpty(errors) ? errors : null];
     }
 
@@ -92,6 +94,8 @@ class Summary extends Step {
         ctx.softStop = this.anySoftStops(formdata, ctx);
         ctx.alreadyDeclared = this.alreadyDeclared(req.session);
         ctx.session = req.session;
+
+
         return ctx;
     }
 
