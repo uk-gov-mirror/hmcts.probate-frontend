@@ -42,7 +42,7 @@ class PaymentStatus extends Step {
     }
 
     isComplete(ctx, formdata) {
-        return [typeof formdata.payment !== 'undefined' && (formdata.payment.status === 'Success' || formdata.payment.status === 'not_required'), 'inProgress'];
+        return [typeof formdata.payment !== 'undefined' && formdata.ccdCase.state === 'CaseCreated' && (formdata.payment.status === 'Success' || formdata.payment.status === 'not_required'), 'inProgress'];
     }
 
     * runnerOptions(ctx, formdata) {
@@ -83,6 +83,10 @@ class PaymentStatus extends Step {
             if (findPaymentResponse.status !== 'Success') {
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
+                logger.error('Unable to retrieve a payment response.');
+            } else if (updateCcdCaseResponse.caseState !== 'CaseCreated') {
+                options.redirect = false;
+                logger.warn('Did not get a successful case created state.');
             } else {
                 options.redirect = false;
                 formdata.paymentPending = 'false';
@@ -94,10 +98,12 @@ class PaymentStatus extends Step {
             set(formdata, 'payment.status', 'not_required');
             set(formdata, 'ccdCase.state', updateCcdCaseResponse.caseState);
         }
+
         const saveFormDataResponse = services.saveFormData(ctx.regId, formdata, ctx.sessionId);
         if (saveFormDataResponse.name === 'Error') {
             options.errors = saveFormDataResponse;
         }
+
         return options;
     }
 
@@ -106,12 +112,12 @@ class PaymentStatus extends Step {
         Object.assign(submitData, formdata);
         let errors;
         const result = yield services.updateCcdCasePaymentStatus(submitData, ctx);
-        logger.info({tags: 'Analytics'}, 'Payment status update');
 
-        if (result.name === 'Error') {
+        if (!result.caseState) {
             errors = [(FieldError('update', 'failure', this.resourcePath, ctx))];
             logger.error('Could not update payment status', result.message);
         } else {
+            logger.info({tags: 'Analytics'}, 'Payment status update');
             logger.info('Successfully updated payment status');
         }
         return [result, errors];

@@ -75,7 +75,7 @@ describe('PaymentStatus', () => {
             sinon.test((done) => {
                 const expectedFormData = {
                     'ccdCase': {
-                        'state': 'caseCreated'
+                        'state': 'CaseCreated'
                     },
                     'paymentPending': 'false',
                     'payment': {
@@ -92,7 +92,7 @@ describe('PaymentStatus', () => {
                 servicesMock.expects('findPayment').returns(
                     Promise.resolve(successfulPaymentResponse));
                 servicesMock.expects('updateCcdCasePaymentStatus').returns(
-                    Promise.resolve({'caseState': 'caseCreated'}));
+                    Promise.resolve({'caseState': 'CaseCreated'}));
                 const ctx = {
                     authToken: 'XXXXX',
                     userId: 12345,
@@ -116,7 +116,7 @@ describe('PaymentStatus', () => {
             sinon.test((done) => {
                 const expectedFormData = {
                     'ccdCase': {
-                        'state': 'caseCreated'
+                        'state': 'CaseCreated'
                     },
                     'paymentPending': 'true',
                     'payment': {
@@ -133,7 +133,7 @@ describe('PaymentStatus', () => {
                 servicesMock.expects('findPayment').returns(
                     Promise.resolve(failedPaymentResponse));
                 servicesMock.expects('updateCcdCasePaymentStatus').returns(
-                    Promise.resolve({'caseState': 'caseCreated'}));
+                    Promise.resolve({'caseState': 'CaseCreated'}));
 
                 const ctx = {
                     authToken: 'XXXXX',
