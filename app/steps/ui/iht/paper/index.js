@@ -5,6 +5,7 @@ const validator = require('validator');
 const numeral = require('numeral');
 const FieldError = require('app/components/error');
 const {get} = require('lodash');
+const FeatureToggle = require('app/utils/FeatureToggle');
 
 class IhtPaper extends ValidationStep {
 
@@ -12,7 +13,7 @@ class IhtPaper extends ValidationStep {
         return '/iht-paper';
     }
 
-    handlePost(ctx, errors) {
+    handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
         ctx.grossValuePaper = ctx[`gross${ctx.form}`];
         ctx.netValuePaper = ctx[`net${ctx.form}`];
 
@@ -35,6 +36,9 @@ class IhtPaper extends ValidationStep {
         ctx.netValue = Math.floor(ctx.netValue);
 
         ctx.ihtFormId = ctx.form;
+
+        ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
+
         return [ctx, errors];
     }
 
@@ -48,10 +52,19 @@ class IhtPaper extends ValidationStep {
         };
     }
 
+    nextStepOptions() {
+        return {
+            options: [
+                {key: 'isToggleEnabled', value: true, choice: 'toggleOn'}
+            ]
+        };
+    }
+
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.grossValuePaper;
         delete ctx.netValuePaper;
+        delete ctx.isToggleEnabled;
         return [ctx, formdata];
     }
 }
