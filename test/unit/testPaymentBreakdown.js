@@ -1,3 +1,4 @@
+// eslint-disable-line max-lines
 'use strict';
 
 const initSteps = require('app/core/initSteps');
@@ -321,7 +322,7 @@ describe('PaymentBreakdown', () => {
                     'creatingPayment': 'true',
                     'payment': {
                         'total': 215,
-                        "paymentId": "RC-12345"
+                        'paymentId': 'RC-12345'
                     },
                     'paymentPending': 'true',
                     'registry': {
@@ -373,7 +374,7 @@ describe('PaymentBreakdown', () => {
                     'creatingPayment': 'true',
                     'payment': {
                         'total': 215,
-                        "paymentId": "RC-12345"
+                        'paymentId': 'RC-12345'
                     },
                     'paymentPending': 'true',
                     'registry': {
