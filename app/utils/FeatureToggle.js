@@ -5,6 +5,17 @@ const featureToggles = require('app/config').featureToggles;
 const logger = require('app/components/logger');
 
 class FeatureToggle {
+    callCheckToggle(req, res, next, featureToggleKey, callback, redirectPage) {
+        return this.checkToggle({
+            req,
+            res,
+            next,
+            featureToggleKey,
+            callback,
+            redirectPage
+        });
+    }
+
     checkToggle(params) {
         const featureToggleKey = params.featureToggleKey;
         const sessionId = params.req.session.id;
