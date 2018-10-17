@@ -15,18 +15,18 @@ describe('submit-data', () => {
     const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui/']);
 
     it('maps forms data', () => {
-       const data = formData;
-       req.session.form = data;
-       const sessionData = steps.PaymentStatus;
-       ctx = sessionData.getContextData(req);
+        const data = formData;
+        req.session.form = data;
+        const sessionData = steps.PaymentStatus;
+        ctx = sessionData.getContextData(req);
 
         const mappedData = submitData(ctx, data);
 
         const deceasedOtherNames = {
             'name_0': {
-            'firstName': 'new_died_firstname',
-            'lastName': 'new_died_lastname'
-        }};
+                'firstName': 'new_died_firstname',
+                'lastName': 'new_died_lastname'
+            }};
 
         const legalState = {
             'applicant': 'We, Bob Richard Smith of Adam & Eve 81 Petty France London SW1H 9EX and exec_3_new_name of exec_3_address\r\n, make the following statement:',
@@ -84,15 +84,45 @@ describe('submit-data', () => {
             'isApplying': false,
             'hasOtherName': false
         },
-            {
-                'fullName': 'executor_4_name',
-                'isDead': false,
-                'isApplying': false,
-                'hasOtherName': false,
-                'notApplyingReason': 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)',
-                'notApplyingKey': 'optionRenunciated'
-            }
+        {
+            'fullName': 'executor_4_name',
+            'isDead': false,
+            'isApplying': false,
+            'hasOtherName': false,
+            'notApplyingReason': 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)',
+            'notApplyingKey': 'optionRenunciated'
+        }
         ];
+
+        const registry = {
+            'registry': {
+                'name': 'Oxford',
+                'email': 'oxford@email.com',
+                'address': 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
+                'sequenceNumber': 10034
+            },
+            'submissionReference': 97
+        };
+
+        const payment = {
+            'applicationFee': '215',
+            'copies': {
+                'overseas': {
+                    'cost': '0',
+                    'number': '0'
+                },
+                'status': 'success',
+                'uk': {
+                    'cost': '1.5',
+                    'number': '3'
+                }
+            },
+            'paymentId': '1',
+            'paymentReference': 'CODE4$$$diedlastname7297$$$CODE5$$$CODE1$CODE2/3',
+            'status': 'success',
+            'total': '216.50',
+            'userId': '999999999',
+        };
 
         assert.nestedPropertyVal(mappedData, 'applicantFirstName', 'Bob Richard');
         assert.nestedPropertyVal(mappedData, 'applicantLastName', 'Smith');
@@ -118,8 +148,7 @@ describe('submit-data', () => {
         assert.nestedPropertyVal(mappedData, 'willWithCodicils', 'Yes');
         assert.nestedPropertyVal(mappedData, 'willCodicilsNumber', 1);
         assert.nestedPropertyVal(mappedData, 'ihtCompleted', 'Yes');
-        assert.nestedPropertyVal(mappedData, 'ihtForm', 'online');
-        assert.nestedPropertyVal(mappedData, 'ihtIdentifier', 'jkhfilwahpwi');
+        assert.nestedPropertyVal(mappedData, 'ihtForm', 'IHT205');
         assert.nestedPropertyVal(mappedData, 'ihtGrossValue', '123456');
         assert.nestedPropertyVal(mappedData, 'ihtNetValue', '12345');
         assert.nestedPropertyVal(mappedData, 'copiesUK', '3');
@@ -132,5 +161,8 @@ describe('submit-data', () => {
         assert.nestedPropertyVal(mappedData, 'noOfApplicants', 2);
         assert.deepNestedPropertyVal(mappedData, 'executorsApplying', execsApplyingArray);
         assert.deepNestedPropertyVal(mappedData, 'executorsNotApplying', execsNotApplyingArray);
+        assert.deepNestedPropertyVal(mappedData, 'payment', payment);
+        assert.deepNestedPropertyVal(mappedData, 'registry', registry);
+        assert.deepNestedPropertyVal(mappedData, 'caseId', 1535395401245028);
     });
 });

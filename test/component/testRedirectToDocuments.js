@@ -10,7 +10,10 @@ describe('redirect to documents', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('CopiesUk');
         sessionData = {
-            'submissionReference': 'testSubmissionReference'
+            'submissionReference': 'testSubmissionReference',
+            'payment': {
+                'status': 'Success'
+            }
         };
     });
 
@@ -24,16 +27,16 @@ describe('redirect to documents', () => {
             .end(() => {
 
                 testWrapper.agent.get(testWrapper.pageUrl)
-                .expect('location', 'documents')
-                .expect(302)
-                .end((err) => {
-                    testWrapper.server.http.close();
-                    if (err) {
-                        done(err);
-                    } else {
-                        done();
-                    }
-                });
+                    .expect('location', 'documents')
+                    .expect(302)
+                    .end((err) => {
+                        testWrapper.server.http.close();
+                        if (err) {
+                            done(err);
+                        } else {
+                            done();
+                        }
+                    });
             });
     });
 

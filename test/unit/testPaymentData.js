@@ -1,177 +1,232 @@
-const paymentData = require('app/components/payment-data'),
-    assert = require('chai').assert,
-    config = require('app/config');
+'use strict';
 
-describe('PaymentData', function () {
+const paymentData = require('app/components/payment-data');
+const {assert, expect} = require('chai');
 
-    describe('createPaymentData', function () {
-
-        it('Returns a payment data object containing the amount converted to pence', function () {
-
+describe('payment-data.js', () => {
+    describe('createPaymentData()', () => {
+        it('should return no fees when there is no application fee, no uk copies and no overseas copies', (done) => {
             const data = {
-                amount: '10',
-            };
-
-            const result = paymentData.createPaymentData(data, 'https://localhost');
-
-            assert.equal(result.amount, '1000');
-
-        });
-
-        it('Returns a payment data object, with fee, no extra copies', function () {
-
-            const data = {
-                applicationFee: config.payment.applicationFee
-            };
-
-            const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE1';
-
-            const result = paymentData.createPaymentData(data, 'https://localhost', () => {
-return '123456';
-});
-
-            assert.equal(result.reference, expectedReference);
-
-        });
-
-        it('Returns a payment data object, with fee and uk copies, no overseas copies', function () {
-
-            const data = {
-                applicationFee: config.payment.applicationFee,
-                copies: {
-                    uk: {number: 1},
-                },
-            };
-
-            const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE1$CODE2/1';
-
-            const result = paymentData.createPaymentData(data, 'https://localhost', () => {
-return '123456';
-});
-
-            assert.equal(result.reference, expectedReference);
-
-        });
-
-       it('Returns a payment data object, with fee, no uk copies, with overseas copies', function () {
-
-            const data = {
-                applicationFee: config.payment.applicationFee,
-                copies: {
-                    overseas: {number: 2}
-                },
-            };
-
-            const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE1$CODE3/2';
-
-            const result = paymentData.createPaymentData(data, 'https://localhost', () => {
-return '123456';
-});
-
-            assert.equal(result.reference, expectedReference);
-
-        });
-
-         it('Returns a payment data object, with fee, with uk copies, with overseas copies', function () {
-
-            const data = {
-                applicationFee: config.payment.applicationFee,
-                copies: {
-                    uk: {number: 3},
-                    overseas: {number: 4}
-                },
-            };
-
-            const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE1$CODE2/3$CODE3/4';
-
-            const result = paymentData.createPaymentData(data, 'https://localhost', () => {
-return '123456';
-});
-
-            assert.equal(result.reference, expectedReference);
-
-        });
-
-        it('Returns a payment data object, no fee, with extra uk copies, no overseas copies', function () {
-
-            const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE2/5';
-
-            const data = {
+                amount: 0,
+                description: 'Probate Fees',
+                ccdCaseId: '123',
                 applicationFee: 0,
-                 copies: {
-                    uk: {number: 5},
-                },
+                copies: {
+                    uk: {
+                        number: 0
+                    },
+                    overseas: {
+                        number: 0
+                    }
+                }
             };
-
-            const result = paymentData.createPaymentData(data, 'https://localhost', () => {
-return '123456';
-});
-
-            assert.deepEqual(result.reference, expectedReference);
-
+            const result = paymentData.createPaymentData(data);
+            expect(result).to.deep.equal({
+                amount: 0,
+                description: 'Probate Fees',
+                ccd_case_number: '123',
+                service: 'PROBATE',
+                currency: 'GBP',
+                site_id: 'P223',
+                fees: []
+            });
+            done();
         });
 
-         it('Returns a payment data object, no fee, no uk copies, with overseas copies', function () {
-
+        it('should return the application fee when applicationFee > 0', (done) => {
             const data = {
-                applicationFee: 0,
-                 copies: {
-                    overseas: {number: 6},
+                amount: 215,
+                description: 'Probate Fees',
+                ccdCaseId: '123',
+                applicationFee: 215,
+                copies: {
+                    uk: {
+                        number: 0,
+                        cost: 0
+                    },
+                    overseas: {
+                        number: 0,
+                        cost: 0
+                    }
                 },
+                userId: '11111'
             };
-
-            const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE3/6';
-
-            const result = paymentData.createPaymentData(data, 'https://localhost', () => {
-return '123456';
-});
-
-            assert.deepEqual(result.reference, expectedReference);
-
+            const result = paymentData.createPaymentData(data);
+            expect(result).to.deep.equal({
+                amount: 215,
+                description: 'Probate Fees',
+                ccd_case_number: '123',
+                service: 'PROBATE',
+                currency: 'GBP',
+                site_id: 'P223',
+                fees: [{
+                    calculated_amount: 215,
+                    ccd_case_number: '123',
+                    code: 'FEE0226',
+                    memo_line: 'Probate Fees',
+                    reference: '11111',
+                    version: '1',
+                    volume: 1
+                }]
+            });
+            done();
         });
 
-         it('Returns a payment data object, no fee, with uk copies, with overseas copies', function () {
-
+        it('should return the uk copies when uk.copies.number > 0', (done) => {
             const data = {
+                amount: 0.50,
+                description: 'Probate Fees',
+                ccdCaseId: '123',
                 applicationFee: 0,
-                 copies: {
-                    uk: {number: 7},
-                    overseas: {number: 8},
+                copies: {
+                    uk: {
+                        number: 1,
+                        cost: 0.50
+                    },
+                    overseas: {
+                        number: 0,
+                        cost: 0
+                    }
                 },
+                userId: '11111'
             };
-
-            const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE2/7$CODE3/8';
-
-            const result = paymentData.createPaymentData(data, 'https://localhost', () => {
-return '123456';
-});
-
-            assert.deepEqual(result.reference, expectedReference);
-
+            const result = paymentData.createPaymentData(data);
+            expect(result).to.deep.equal({
+                amount: 0.50,
+                description: 'Probate Fees',
+                ccd_case_number: '123',
+                service: 'PROBATE',
+                currency: 'GBP',
+                site_id: 'P223',
+                fees: [{
+                    calculated_amount: 0.50,
+                    ccd_case_number: '123',
+                    code: 'FEE0003',
+                    memo_line: 'Additional UK copies',
+                    reference: '11111',
+                    version: '3',
+                    volume: 1
+                }]
+            });
+            done();
         });
 
-        it('Returns a payment data object containing a description', function () {
-
-            const data = {};
-
-            const result = paymentData.createPaymentData(data, 'https://localhost');
-
-            assert.exists(result.description);
+        it('should return the overseas copies when overseas.copies.number > 0', (done) => {
+            const data = {
+                amount: 1,
+                description: 'Probate Fees',
+                ccdCaseId: '123',
+                applicationFee: 0,
+                copies: {
+                    uk: {
+                        number: 0,
+                        cost: 0
+                    },
+                    overseas: {
+                        number: 2,
+                        cost: 1
+                    }
+                },
+                userId: '11111'
+            };
+            const result = paymentData.createPaymentData(data);
+            expect(result).to.deep.equal({
+                amount: 1,
+                description: 'Probate Fees',
+                ccd_case_number: '123',
+                service: 'PROBATE',
+                currency: 'GBP',
+                site_id: 'P223',
+                fees: [{
+                    calculated_amount: 1,
+                    ccd_case_number: '123',
+                    code: 'FEE003',
+                    memo_line: 'Additional overseas copies',
+                    reference: '11111',
+                    version: '3',
+                    volume: 2
+                }]
+            });
+            done();
         });
 
-        it('Returns a payment data object containing the return URL', function () {
-
-            const data = {};
-
-            const result = paymentData.createPaymentData(data, 'https://localhost');
-
-            assert.equal(result.return_url, `https://localhost${config.services.payment.returnUrlPath}`);
+        it('should return all fees when there is an application fee, uk copies and overseas copies', (done) => {
+            const data = {
+                amount: 216.50,
+                description: 'Probate Fees',
+                ccdCaseId: '123',
+                applicationFee: 215,
+                copies: {
+                    uk: {
+                        number: 1,
+                        cost: 0.50
+                    },
+                    overseas: {
+                        number: 2,
+                        cost: 1
+                    }
+                },
+                userId: '11111'
+            };
+            const result = paymentData.createPaymentData(data);
+            expect(result).to.deep.equal({
+                amount: 216.50,
+                description: 'Probate Fees',
+                ccd_case_number: '123',
+                service: 'PROBATE',
+                currency: 'GBP',
+                site_id: 'P223',
+                fees: [{
+                    calculated_amount: 215,
+                    ccd_case_number: '123',
+                    code: 'FEE0226',
+                    memo_line: 'Probate Fees',
+                    reference: '11111',
+                    version: '1',
+                    volume: 1
+                }, {
+                    calculated_amount: 0.50,
+                    ccd_case_number: '123',
+                    code: 'FEE0003',
+                    memo_line: 'Additional UK copies',
+                    reference: '11111',
+                    version: '3',
+                    volume: 1
+                }, {
+                    calculated_amount: 1,
+                    ccd_case_number: '123',
+                    code: 'FEE003',
+                    memo_line: 'Additional overseas copies',
+                    reference: '11111',
+                    version: '3',
+                    volume: 2
+                }]
+            });
+            done();
         });
+    });
 
-        it('Limits case reference to 32 characters', function () {
-            const result = paymentData.createCaseReference('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz');
-            assert.isTrue(result.length === 32);
-
+    describe('createPaymentFees()', () => {
+        it('should return the correct data', () => {
+            const params = {
+                amount: 1.50,
+                ccdCaseId: 'CASEREF123',
+                code: 'CODE123',
+                memoLine: 'Additional overseas copies',
+                reference: 123,
+                version: 3,
+                volume: 3
+            };
+            const paymentFees = paymentData.createPaymentFees(params);
+            assert.deepEqual(paymentFees, {
+                calculated_amount: params.amount,
+                ccd_case_number: params.ccdCaseId,
+                code: params.code,
+                memo_line: params.memoLine,
+                reference: params.reference,
+                version: params.version,
+                volume: params.volume
+            });
         });
     });
 });

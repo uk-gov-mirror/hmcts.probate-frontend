@@ -6,6 +6,7 @@ const fetch = require('node-fetch');
 const HttpsProxyAgent = require('https-proxy-agent');
 const config = require('app/config');
 
+
 const buildRequest = (url, fetchOptions) => {
     return new fetch.Request(url, fetchOptions);
 };
@@ -32,12 +33,12 @@ const asyncFetch = (url, fetchOptions, parseBody) => {
                 if (res.ok) {
                     return parseBody(res);
                 }
-                    logger.error(res.statusText);
-                    return parseBody(res)
-                        .then(body => {
-                            logger.error(body);
-                            reject(new Error(res.statusText));
-                        });
+                logger.error(res.statusText);
+                return parseBody(res)
+                    .then(body => {
+                        logger.error(body);
+                        reject(new Error(res.statusText));
+                    });
 
             })
             .then(body => {
@@ -62,6 +63,14 @@ const fetchText = (url, fetchOptions) => {
         .catch(err => err);
 };
 
+const fetchBuffer = (url, fetchOptions) => {
+    return asyncFetch(url, fetchOptions, res => res.buffer())
+        .then(buffer => buffer)
+        .catch(err => err);
+};
+
+
+
 
 const fetchOptions = (data, method, headers, proxy) => {
     return {
@@ -79,6 +88,7 @@ const fetchOptions = (data, method, headers, proxy) => {
 module.exports = {
     fetchOptions: fetchOptions,
     fetchJson: fetchJson,
+    fetchBuffer: fetchBuffer,
     asyncFetch: asyncFetch,
     fetchText: fetchText
 };

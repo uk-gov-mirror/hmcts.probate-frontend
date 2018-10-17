@@ -25,6 +25,11 @@ router.use((req, res, next) => {
         };
         req.session.back = [];
     }
+
+    if (!req.session.form.applicantEmail) {
+        req.session.form.applicantEmail = req.session.regId;
+    }
+
     next();
 });
 
@@ -48,7 +53,7 @@ router.use((req, res, next) => {
     const executorsWrapper = new ExecutorsWrapper(formdata.executors);
     const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
 
-    if (get(formdata, 'submissionReference') &&
+    if (get(formdata, 'submissionReference') && (get(formdata, 'payment.status') === 'Success' || get(formdata, 'payment.status') === 'not_required') &&
         !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
     ) {
         res.redirect('documents');
@@ -80,6 +85,11 @@ router.use((req, res, next) => {
 
 router.use(featureToggles);
 
+router.post('/upload-document', (req, res) => {
+    services.uploadDocument(req.session.id);
+    res.send('File uploaded successfully');
+});
+
 router.use((req, res, next) => {
     res.locals.session = req.session;
     res.locals.pageUrl = req.url;
@@ -94,13 +104,14 @@ router.use((req, res, next) => {
         formdata.executors.invitesSent === 'true' &&
         get(formdata, 'declaration.declarationCheckbox')
     ) {
-        services.checkAllAgreed(req.session.regId).then(data => {
-            req.session.haveAllExecutorsDeclared = data;
-            next();
-        })
-        .catch(err => {
-            next(err);
-        });
+        services.checkAllAgreed(req.session.regId)
+            .then(data => {
+                req.session.haveAllExecutorsDeclared = data;
+                next();
+            })
+            .catch(err => {
+                next(err);
+            });
     } else {
         next();
     }
@@ -118,12 +129,18 @@ router.get('/payment', (req, res) => {
 });
 
 
-router.get('/checkAnswersPdf', (req, res) = > {
+router.get('/checkAnswersPdf', (req, res) => {
     const formdata = req.session.form;
-services.createCheckAnswersPdf(formdata.serviceAuthToken, req.session.checkAnswersJson);
+    services.createCheckAnswersPdf( formdata, req.session.checkAnswersSummary)
+        .then(result => {
+            res.setHeader('Content-Type', 'application/pdf');
+            res.setHeader('Content-disposition', 'attachment; filename=checkYourAnswers.pdf');
+            res.send(result);
+        });
 
-})
-;
+});
+
+
 
 if (['sandbox', 'saat', 'preview', 'sprod', 'demo', 'aat'].includes(config.environment)) {
     router.get('/inviteIdList', (req, res) => {

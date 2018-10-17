@@ -9,7 +9,9 @@ const config = {
         url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost:8282',
         path: process.env.FEATURE_TOGGLES_PATH || '/api/ff4j/check',
         fe_shutter_toggle: 'probate-fe-shutter',
-        main_applicant_alias: 'probate-main-applicant-alias'
+        main_applicant_alias: 'probate-main-applicant-alias',
+        screening_questions: 'probate-screening-questions',
+        document_upload: 'probate-document-upload'
     },
     app: {
         username: process.env.USERNAME,
@@ -32,9 +34,8 @@ const config = {
             url: process.env.VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
         },
         submit: {
-            url: process.env.SUBMIT_SERVICE_URL || 'http://localhost:8181/submit',
-            port: 8181,
-            path: '/submit'
+            url: process.env.SUBMIT_SERVICE_URL || 'http://localhost:8181',
+            port: 8181
         },
         persistence: {
             url: process.env.PERSISTENCE_SERVICE_URL || 'http://localhost:8282/formdata',
@@ -53,10 +54,10 @@ const config = {
             probate_oauth_callback_path: '/oauth2/callback'
         },
         payment: {
-            createPaymentUrl: process.env.PAYMENT_CREATE_URL || 'http://localhost:8383/users/userId/payments',
-            authorization: process.env.PAYMENT_AUTHORIZATION || 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJnNmgwMjdkMnZ0bmY2OW1pdWxkcHFlNjNuZiIsInN1YiI6IjI5IiwiaWF0IjoxNTM5NjAwNzIwLCJleHAiOjE1Mzk2Mjk1MjAsImRhdGEiOiJjYXNld29ya2VyLXByb2JhdGUsY2l0aXplbixjYXNld29ya2VyLGNhc2V3b3JrZXItcHJvYmF0ZS1sb2ExLGNpdGl6ZW4tbG9hMSxjYXNld29ya2VyLWxvYTEiLCJ0eXBlIjoiQUNDRVNTIiwiaWQiOiIyOSIsImZvcmVuYW1lIjoiVXNlciIsInN1cm5hbWUiOiJUZXN0IiwiZGVmYXVsdC1zZXJ2aWNlIjoiQ0NEIiwibG9hIjoxLCJkZWZhdWx0LXVybCI6Imh0dHBzOi8vbG9jYWxob3N0OjkwMDAvcG9jL2NjZCIsImdyb3VwIjoiY2FzZXdvcmtlciJ9.ZiUItJIOrgcoVyCUgBORwgpqhzIBNqV63uyCSz1dzX0',
-            serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'F0IjoxNTM5NjEzNDY5LCJleyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJqYjNmMDNrYjlnNmFzbXBqc2c0bjdidnVpbCIsInN1YiI6IjMzIiwiaWeHAiOjE1Mzk2NDIyNjksImRhdGEiOiJjYXNld29ya2VyLXByb2JhdGUsY2l0aXplbixjYXNld29ya2VyLGNhc2V3b3JrZXItcHJvYmF0ZS1sb2ExLGNpdGl6ZW4tbG9hMSxjYXNld29ya2VyLWxvYTEiLCJ0eXBlIjoiQUNDRVNTIiwiaWQiOiIzMyIsImZvcmVuYW1lIjoiVXNlciIsInN1cm5hbWUiOiJUZXN0IiwiZGVmYXVsdC1zZXJ2aWNlIjoiQ0NEIiwibG9hIjoxLCJkZWZhdWx0LXVybCI6Imh0dHBzOi8vbG9jYWxob3N0OjkwMDAvcG9jL2NjZCIsImdyb3VwIjoiY2FzZXdvcmtlciJ9.yKKnsT5Bt-6x0Vv2m3DxYfNLsAcuDZLClnn3elXLPPg',
-            userId: process.env.PAYMENT_USER_ID || 29,
+            createPaymentUrl: process.env.PAYMENT_CREATE_URL || 'http://localhost:8383/card-payments',
+            authorization: process.env.PAYMENT_AUTHORIZATION || 'dummy_token',
+            serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'dummy_token',
+            userId: process.env.PAYMENT_USER_ID || 999999999,
             returnUrlPath: '/payment-status'
         },
         businessDocument: {
@@ -121,25 +122,29 @@ const config = {
     payment: {
         applicationFee: 215,
         applicationFeeThreshold: 5000,
-        applicationFeeCode: process.env.APPLICATION_FEE_CODE || 'CODE1',
+        applicationFeeCode: process.env.APPLICATION_FEE_CODE || 'FEE0226',
         copies: {
             uk: {
                 fee: 0.5,
-                code: process.env.UK_COPIES_FEE_CODE || 'CODE2'
+                code: process.env.UK_COPIES_FEE_CODE || 'FEE0003',
+                version: '3'
             },
             overseas: {
                 fee: 0.5,
-                code: process.env.OVERSEAS_COPIES_FEE_CODE || 'CODE3'
+                code: process.env.OVERSEAS_COPIES_FEE_CODE || 'FEE003',
+                version: '3'
             }
         },
-        serviceId: process.env.SERVICE_ID || 'CODE4',
-        siteId: process.env.SITE_ID || 'CODE5'
+        serviceId: process.env.SERVICE_ID || 'PROBATE',
+        siteId: process.env.SITE_ID || 'P223',
+        version: process.env.version || '1',
+        currency: process.env.currency || 'GBP'
     },
     whitelistedPagesAfterSubmission: ['/documents', '/thankyou', '/sign-out'],
     whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou', '/sign-out'],
     whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou', '/sign-out'],
     hardStopParams: ['will.left', 'will.original', 'iht.completed', 'applicant.executor'],
-    nonIdamPages: ['error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'start-apply'],
+    nonIdamPages: ['error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'start-apply', 'new-start-eligibility', 'new-will-left', 'new-will-original', 'new-death-certificate', 'new-deceased-domicile', 'new-applicant-executor', 'new-mental-capacity', 'new-iht-completed', 'new-start-apply'],
     endpoints: {
         health: '/health',
         info: '/info'

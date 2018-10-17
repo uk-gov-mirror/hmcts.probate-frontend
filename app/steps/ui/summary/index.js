@@ -37,6 +37,7 @@ class Summary extends Step {
         ctx.executorsDealingWithEstate = executorsApplying.map(exec => exec.fullName);
         ctx.executorsPowerReservedOrRenounced = executorsWrapper.hasRenunciatedOrPowerReserved();
         ctx.isMainApplicantAliasToggleEnabled = featureToggle.isEnabled(featureToggles, 'main_applicant_alias');
+        ctx.executorsWithOtherNames = executorsWrapper.executorsWithAnotherName().map(exec => exec.fullName);
 
         utils.updateTaskStatus(ctx, ctx, this.steps);
 
@@ -101,8 +102,8 @@ class Summary extends Step {
 
     renderCallBack(res, html) {
 
-        var json = this.parseData(html);
-        res.req.session.checkAnswersJson = json;
+        var summary = this.parseData(html);
+        res.req.session.checkAnswersSummary = summary;
 
         res.send(html);
     }
@@ -156,7 +157,8 @@ class Summary extends Step {
             var sectionTitle = $element.html();
         }
 
-        return JSON.stringify({'checkAnswersSummary': summary}, null, 2);
+       // return JSON.stringify({'checkAnswersSummary': summary}, null, 2);
+        return summary;
     }
 
 
