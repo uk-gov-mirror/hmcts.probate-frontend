@@ -67,15 +67,17 @@ class PaymentStatus extends Step {
 
             const findPaymentResponse = yield services.findPayment(data);
             const date = typeof findPaymentResponse.date_updated === 'undefined' ? ctx.paymentCreatedDate : findPaymentResponse.date_updated;
-            Object.assign(formdata.payment, {
-                channel: findPaymentResponse.channel,
-                transactionId: findPaymentResponse.external_reference,
-                reference: findPaymentResponse.reference,
-                date: date,
-                amount: findPaymentResponse.amount,
-                status: findPaymentResponse.status,
-                siteId: findPaymentResponse.site_id
-            });
+            this.updateFormDataPayment(formdata, findPaymentResponse, date);
+            if (findPaymentResponse.name === 'Error' || findPaymentResponse.status === 'Initiated') {
+                logger.error('Payment retrieval failed for paymentId = ' + ctx.paymentId);
+                services.saveFormData(ctx.regId, formdata, ctx.sessionId);
+                const options = {};
+                options.redirect = true;
+                options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
+                formdata.paymentPending = 'true';
+                return options;
+            }
+
             const [updateCcdCaseResponse, errors] = yield this.updateCcdCasePaymentStatus(ctx, formdata);
             this.setErrors(options, errors);
             set(formdata, 'ccdCase.state', updateCcdCaseResponse.caseState);
@@ -131,6 +133,18 @@ class PaymentStatus extends Step {
         if (typeof errors !== 'undefined') {
             options.errors = errors;
         }
+    }
+
+    updateFormDataPayment(formdata, findPaymentResponse, date) {
+        Object.assign(formdata.payment, {
+            channel: findPaymentResponse.channel,
+            transactionId: findPaymentResponse.external_reference,
+            reference: findPaymentResponse.reference,
+            date: date,
+            amount: findPaymentResponse.amount,
+            status: findPaymentResponse.status,
+            siteId: findPaymentResponse.site_id
+        });
     }
 }
 

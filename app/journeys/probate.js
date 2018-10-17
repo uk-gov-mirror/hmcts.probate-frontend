@@ -75,11 +75,6 @@ const stepList = {
         isOriginal: 'WillCodicils',
         otherwise: 'StopPage'
     },
-    WillCodicils: {
-        noCodicils: 'DeathCertificate',
-        otherwise: 'CodicilsNumber'
-    },
-    CodicilsNumber: 'DeathCertificate',
     DeathCertificate: {
         hasCertificate: 'IhtCompleted',
         otherwise: 'StopPage'
@@ -88,16 +83,59 @@ const stepList = {
         completed: 'IhtMethod',
         otherwise: 'StopPage'
     },
+    ApplicantExecutor: {
+        isExecutor: 'MentalCapacity',
+        otherwise: 'StopPage'
+    },
+    DeceasedName: {
+        toggleOn: 'DeceasedDob',
+        otherwise: 'DeceasedAlias'
+    },
+    DeceasedDob: {
+        toggleOn: 'DeceasedDod',
+        otherwise: 'DeceasedDomicile'
+    },
+    DeceasedDod: {
+        toggleOn: 'DeceasedAddress',
+        otherwise: 'DeceasedDob'
+    },
+    DeceasedDomicile: 'DeceasedAddress',
+    DeceasedAddress: {
+        toggleOn: 'IhtMethod',
+        otherwise: 'Summary'
+    },
     IhtMethod: {
         online: 'IhtIdentifier',
         otherwise: 'IhtPaper'
     },
-    IhtPaper: 'ApplicantExecutor',
     IhtIdentifier: 'IhtValue',
-    IhtValue: 'ApplicantExecutor',
-    ApplicantExecutor: {
-        isExecutor: 'MentalCapacity',
-        otherwise: 'StopPage'
+    IhtValue: {
+        toggleOn: 'DeceasedAlias',
+        otherwise: 'ApplicantExecutor'
+    },
+    IhtPaper: {
+        toggleOn: 'DeceasedAlias',
+        otherwise: 'ApplicantExecutor'
+    },
+    DeceasedAlias: {
+        assetsInOtherNames: 'DeceasedOtherNames',
+        otherwise: 'DeceasedMarried'
+    },
+    DeceasedOtherNames: 'DeceasedMarried',
+    AddAlias: 'DeceasedOtherNames',
+    RemoveAlias: 'DeceasedOtherNames',
+    DeceasedMarried: {
+        toggleOn: 'WillCodicils',
+        otherwise: 'DeceasedDod'
+    },
+    WillCodicils: {
+        noCodicilsToggleOn: 'TaskList',
+        noCodicils: 'DeathCertificate',
+        otherwise: 'CodicilsNumber'
+    },
+    CodicilsNumber: {
+        toggleOn: 'TaskList',
+        otherwise: 'DeathCertificate'
     },
     MentalCapacity: {
         isCapable: 'TaskList',
@@ -162,19 +200,6 @@ const stepList = {
         otherwise: 'DeceasedName'
     },
     DeleteExecutor: 'OtherExecutors',
-    DeceasedName: 'DeceasedAlias',
-    DeceasedAlias: {
-        assetsInOtherNames: 'DeceasedOtherNames',
-        otherwise: 'DeceasedMarried'
-    },
-    DeceasedOtherNames: 'DeceasedMarried',
-    AddAlias: 'DeceasedOtherNames',
-    RemoveAlias: 'DeceasedOtherNames',
-    DeceasedMarried: 'DeceasedDod',
-    DeceasedDod: 'DeceasedDob',
-    DeceasedDob: 'DeceasedDomicile',
-    DeceasedDomicile: 'DeceasedAddress',
-    DeceasedAddress: 'Summary',
     Summary: 'TaskList',
     Declaration: {
         sendAdditionalInvites: 'ExecutorsAdditionalInvite',
