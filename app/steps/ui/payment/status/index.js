@@ -69,7 +69,7 @@ class PaymentStatus extends Step {
             const date = typeof findPaymentResponse.date_updated === 'undefined' ? ctx.paymentCreatedDate : findPaymentResponse.date_updated;
             this.updateFormDataPayment(formdata, findPaymentResponse, date);
             if (findPaymentResponse.name === 'Error' || findPaymentResponse.status === 'Initiated') {
-                logger.error('Payment retrieval failed for paymentId = ' + ctx.paymentId);
+                logger.error('Payment retrieval failed for paymentId = ' + ctx.paymentId + ' with status = ' + findPaymentResponse.status);
                 services.saveFormData(ctx.regId, formdata, ctx.sessionId);
                 const options = {};
                 options.redirect = true;
