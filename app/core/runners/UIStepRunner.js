@@ -42,7 +42,6 @@ class UIStepRunner {
         });
     }
 
-
     handlePost(step, req, res) {
 
         return co(function * () {

@@ -6,7 +6,6 @@ const fetch = require('node-fetch');
 const HttpsProxyAgent = require('https-proxy-agent');
 const config = require('app/config');
 
-
 const buildRequest = (url, fetchOptions) => {
     return new fetch.Request(url, fetchOptions);
 };
@@ -66,11 +65,11 @@ const fetchText = (url, fetchOptions) => {
 const fetchBuffer = (url, fetchOptions) => {
     return asyncFetch(url, fetchOptions, res => res.buffer())
         .then(buffer => buffer)
-        .catch(err => err);
+        .catch(err => {
+            logger.error(`Error${err}`);
+            reject(Error(err));
+        });
 };
-
-
-
 
 const fetchOptions = (data, method, headers, proxy) => {
     return {
