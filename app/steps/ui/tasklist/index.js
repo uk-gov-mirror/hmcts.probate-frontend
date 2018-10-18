@@ -24,11 +24,14 @@ class TaskList extends Step {
         if (ctx.isToggleEnabled) {
             return this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask]);
         }
+
         return this.previousTaskStatus([ctx.EligibilityTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask]);
     }
 
     getContextData(req) {
         const ctx = super.getContextData(req);
+        ctx.isToggleEnabled = FeatureToggle.isEnabled(req.session.featureToggles, 'screening_questions');
+
         const formdata = req.session.form;
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         utils.updateTaskStatus(ctx, req, this.steps);
@@ -57,12 +60,6 @@ class TaskList extends Step {
         }
 
         return ctx;
-    }
-
-    handleGet(ctx, formdata, featureToggles) {
-        ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
-
-        return [ctx];
     }
 
     action(ctx, formdata) {
