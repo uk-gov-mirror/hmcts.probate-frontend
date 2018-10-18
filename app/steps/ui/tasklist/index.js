@@ -71,7 +71,6 @@ class TaskList extends Step {
         delete ctx.alreadyDeclared;
         delete ctx.previousTaskStatus;
         delete ctx.isToggleEnabled;
-        delete ctx.isScreeningQuestionsToggleEnabled;
         return [ctx, formdata];
     }
 }
