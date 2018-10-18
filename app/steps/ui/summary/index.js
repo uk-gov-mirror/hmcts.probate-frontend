@@ -99,11 +99,11 @@ class Summary extends Step {
     }
 
     renderCallBack(res, html) {
-        res.req.session.checkAnswersSummary = this.parseData(html);
+        res.req.session.checkAnswersSummary = this.buildCheckAnswersSummaryFromHtml(html);
         res.send(html);
     }
 
-    parseData(html) {
+    buildCheckAnswersSummaryFromHtml(html) {
         const dom = new JSDOM(html);
         const $ = (require('jquery'))(dom.window);
         const summary = {};
@@ -112,13 +112,11 @@ class Summary extends Step {
         const mainParagraph = $('#main-heading-content');
         summary.mainParagraph = mainParagraph.html();
         let section;
-        for (let i = 0; i < sections.length; i++) {
-            const $element = $(sections[i]);
-
+        for (var sectElement of sections) {
+            const $element = $(sectElement);
             if ($element.hasClass('heading-large')) {
                 summary.pageTitle = $element.html();
             }
-
             if ($element.hasClass('heading-medium') || $element.hasClass('heading-small')) {
                 section = {};
                 section.title = $element.html();
@@ -126,7 +124,6 @@ class Summary extends Step {
                 section.questionAndAnswers = [];
                 summary.sections.push(section);
             }
-
             if ($element.hasClass('check-your-answers__row') && $element.children().length > 0) {
                 const question = $element.children('.check-your-answers__question');
                 const answer = $element.children('.check-your-answers__answer');
@@ -136,9 +133,8 @@ class Summary extends Step {
                 questionAndAnswer.answers = [];
                 const children = answer.children('.check-your-answers__row');
                 if (children.length > 0) {
-
-                    for (let j = 0; j < children.length; ++j) {
-                        questionAndAnswer.answers.push(children[j].textContent);
+                    for (var answerChild of children) {
+                        questionAndAnswer.answers.push(answerChild.textContent);
                     }
                 } else {
                     questionAndAnswer.answers.push(answer.html());
