@@ -73,7 +73,7 @@ describe('ExecutorRoles', () => {
                 options: [
                     {key: 'notApplyingReason', value: json.optionPowerReserved, choice: 'powerReserved'},
                     {key: 'continue', value: true, choice: 'continue'}
-                 ]
+                ]
             });
             done();
         });
