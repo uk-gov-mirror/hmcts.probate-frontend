@@ -130,7 +130,7 @@ router.get('/payment', (req, res) => {
 
 router.get('/checkAnswersPdf', (req, res) => {
     const formdata = req.session.form;
-    services.createCheckAnswersPdf(formdata, req.session.checkAnswersSummary)
+    services.createCheckAnswersPdf(formdata)
         .then(result => {
             res.setHeader('Content-Type', 'application/pdf');
             res.setHeader('Content-disposition', 'attachment; filename=checkYourAnswers.pdf');

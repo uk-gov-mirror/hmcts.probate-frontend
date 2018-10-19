@@ -119,14 +119,14 @@ const saveFormData = (id, data, sessionID) => {
     return utils.fetchJson(`${PERSISTENCE_SERVICE_URL}`, fetchOptions);
 };
 
-const createCheckAnswersPdf = (data, summary) => {
+const createCheckAnswersPdf = (data) => {
     logInfo('createCheckAnswersPdf');
     const headers = {
         'Content-Type': 'application/json',
         'ServiceAuthorization': data.serviceAuthToken
     };
     const body = {
-        checkAnswersSummary: summary
+        checkAnswersSummary: data.checkAnswersSummary
     };
 
     const fetchOptions = utils.fetchOptions(body, 'POST', headers);

@@ -99,7 +99,8 @@ class Summary extends Step {
     }
 
     renderCallBack(res, html) {
-        res.req.session.checkAnswersSummary = this.buildCheckAnswersSummaryFromHtml(html);
+        const formdata = res.req.session.form;
+        formdata.checkAnswersSummary = this.buildCheckAnswersSummaryFromHtml(html);
         res.send(html);
     }
 
