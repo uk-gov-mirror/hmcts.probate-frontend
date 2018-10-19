@@ -39,6 +39,10 @@
       "invalid": {
         "summary": "Add the date of birth of the person who has died ",
         "message": "Enter a valid date"
+      },
+      "dateInFuture": {
+        "summary": "Add the date of birth of the person who has died ",
+        "message": "Enter a valid past date"
       }
     }
   }
