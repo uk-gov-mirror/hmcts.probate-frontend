@@ -2,6 +2,10 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const singleApplicantData = require('test/data/singleApplicant');
+const nock = require('nock');
+const config = require('app/config');
+const featureToggleUrl = config.featureToggles.url;
+const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.screening_questions}`;
 
 describe('task-list', () => {
     let testWrapper, sessionData;
@@ -20,6 +24,10 @@ describe('task-list', () => {
     describe('Verify Content, Errors and Redirection', () => {
 
         it('test right content loaded on the page (feature toggle off)', (done) => {
+            nock(featureToggleUrl)
+                .get(featureTogglePath)
+                .reply(200, 'false');
+
             const excludeKeys = [
                 'introduction',
                 'saveAndReturn',
@@ -34,22 +42,18 @@ describe('task-list', () => {
                 'deceasedTask'
             ];
 
-            sessionData.featureToggles = {
-                screening_questions: false
-            };
-
-            testWrapper.agent.post('/prepare-session/featureToggles')
-                .send(sessionData.featureToggles)
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, excludeKeys);
-                        });
+                    testWrapper.testContent(done, excludeKeys);
                 });
         });
 
         it('test right content loaded on the page (feature toggle on)', (done) => {
+            nock(featureToggleUrl)
+                .get(featureTogglePath)
+                .reply(200, 'true');
+
             const excludeKeys = [
                 'introduction',
                 'saveAndReturn',
@@ -64,22 +68,18 @@ describe('task-list', () => {
                 'eligibilityTask'
             ];
 
-            sessionData.featureToggles = {
-                screening_questions: true
-            };
-
-            testWrapper.agent.post('/prepare-session/featureToggles')
-                .send(sessionData.featureToggles)
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, excludeKeys);
-                        });
+                    testWrapper.testContent(done, excludeKeys);
                 });
         });
 
         it('test right content loaded in Review and Confirm section (Multiple Applicants) (feature toggle off)', (done) => {
+            nock(featureToggleUrl)
+                .get(featureTogglePath)
+                .reply(200, 'false');
+
             const multipleApplicantSessionData = {
                 will: sessionData.will,
                 iht: sessionData.iht,
@@ -98,22 +98,18 @@ describe('task-list', () => {
                 'deceasedTask'
             ];
 
-            sessionData.featureToggles = {
-                screening_questions: false
-            };
-
-            testWrapper.agent.post('/prepare-session/featureToggles')
-                .send(sessionData.featureToggles)
+            testWrapper.agent.post('/prepare-session/form')
+                .send(multipleApplicantSessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(multipleApplicantSessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, excludeKeys);
-                        });
+                    testWrapper.testContent(done, excludeKeys);
                 });
         });
 
         it('test right content loaded in Review and Confirm section (Multiple Applicants) (feature toggle on)', (done) => {
+            nock(featureToggleUrl)
+                .get(featureTogglePath)
+                .reply(200, 'true');
+
             const multipleApplicantSessionData = {
                 will: sessionData.will,
                 iht: sessionData.iht,
@@ -132,22 +128,18 @@ describe('task-list', () => {
                 'eligibilityTask'
             ];
 
-            sessionData.featureToggles = {
-                screening_questions: true
-            };
-
-            testWrapper.agent.post('/prepare-session/featureToggles')
-                .send(sessionData.featureToggles)
+            testWrapper.agent.post('/prepare-session/form')
+                .send(multipleApplicantSessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(multipleApplicantSessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, excludeKeys);
-                        });
+                    testWrapper.testContent(done, excludeKeys);
                 });
         });
 
         it('test right content loaded in Review and Confirm section (Single Applicant) (feature toggle off)', (done) => {
+            nock(featureToggleUrl)
+                .get(featureTogglePath)
+                .reply(200, 'false');
+
             const singleApplicantSessionData = {
                 will: sessionData.will,
                 iht: sessionData.iht,
@@ -168,22 +160,18 @@ describe('task-list', () => {
                 'deceasedTask'
             ];
 
-            sessionData.featureToggles = {
-                screening_questions: false
-            };
-
-            testWrapper.agent.post('/prepare-session/featureToggles')
-                .send(sessionData.featureToggles)
+            testWrapper.agent.post('/prepare-session/form')
+                .send(singleApplicantSessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(singleApplicantSessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, excludeKeys);
-                        });
+                    testWrapper.testContent(done, excludeKeys);
                 });
         });
 
         it('test right content loaded in Review and Confirm section (Single Applicant) (feature toggle on)', (done) => {
+            nock(featureToggleUrl)
+                .get(featureTogglePath)
+                .reply(200, 'true');
+
             const singleApplicantSessionData = {
                 will: sessionData.will,
                 iht: sessionData.iht,
@@ -204,18 +192,10 @@ describe('task-list', () => {
                 'eligibilityTask'
             ];
 
-            sessionData.featureToggles = {
-                screening_questions: true
-            };
-
-            testWrapper.agent.post('/prepare-session/featureToggles')
-                .send(sessionData.featureToggles)
+            testWrapper.agent.post('/prepare-session/form')
+                .send(singleApplicantSessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(singleApplicantSessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, excludeKeys);
-                        });
+                    testWrapper.testContent(done, excludeKeys);
                 });
         });
     });
