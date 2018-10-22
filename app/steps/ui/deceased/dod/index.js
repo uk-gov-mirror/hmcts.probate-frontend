@@ -15,7 +15,7 @@ class DeceasedDod extends DateStep {
     }
 
     handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
-        const dod = new Date(`${ctx.dod_year}-${ctx.dod_month}-${ctx.dod_day}'`);
+        const dod = new Date(`${ctx.dod_year}-${ctx.dod_month}-${ctx.dod_day}`);
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
