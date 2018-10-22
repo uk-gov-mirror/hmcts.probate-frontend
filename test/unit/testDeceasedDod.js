@@ -24,16 +24,16 @@ describe('DeceasedDod', () => {
 
         it('should return the ctx with the deceased dod and the screening_question feature toggle', (done) => {
             ctx = {
-                dob_day: '02',
-                dob_month: '03',
-                dob_year: '1952'
+                dod_day: '02',
+                dod_month: '03',
+                dod_year: '1952'
             };
             errors = {};
             [ctx, errors] = DeceasedDod.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
             expect(ctx).to.deep.equal({
-                dob_day: '02',
-                dob_month: '03',
-                dob_year: '1952',
+                dod_day: '02',
+                dod_month: '03',
+                dod_year: '1952',
                 isToggleEnabled: false
             });
             done();
