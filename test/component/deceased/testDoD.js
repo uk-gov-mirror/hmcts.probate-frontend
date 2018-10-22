@@ -65,7 +65,7 @@ describe('deceased-dod', () => {
                 deceased: {
                     dob_day: '01',
                     dob_month: '01',
-                    dob_year: '1999'
+                    dob_year: '1945'
                 }
             };
             testWrapper.agent.post('/prepare-session/form')

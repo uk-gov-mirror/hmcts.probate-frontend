@@ -61,7 +61,11 @@ describe('deceased-dob', () => {
         });
 
         it(`test it redirects to Deceased Date of Death page: ${expectedNextUrlForDeceasedDod}`, (done) => {
-            const data = {dob_day: '01', dob_month: '01', dob_year: '1945'};
+            const data = {
+                dob_day: '01',
+                dob_month: '01',
+                dob_year: '1945'
+            };
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDod);
         });
 
