@@ -22,6 +22,7 @@
   "applicantName": "I am an executor named in the will as {applicantWillName}, and I am applying for probate.",
   "applicantName-alias": "I, {applicantCurrentName}, an executor named in the will as {applicantWillName}, am applying for probate. My name is different because {aliasReason}.",
   "applicantName-codicils": "I am an executor named in the will or codicils as {applicantWillName}, and I am applying for probate.",
+  "applicantName-alias-codicils": "{applicantCurrentName}, an executor named in the will or codicils as {applicantWillName}, is applying for probate. Their name is different because {aliasReason}.",
   "applicantName-multipleApplicants": "{applicantCurrentName}, an executor named in the will{applicantNameOnWill}, is applying for probate.",
   "applicantName-multipleApplicants-alias": "{applicantCurrentName}, an executor named in the will{applicantNameOnWill}, is applying for probate. Their name is different because {applicantCurrentName} {aliasReason}.",
   "applicantName-multipleApplicants-codicils": "{applicantCurrentName}, an executor named in the will or codicils{applicantNameOnWill}, is applying for probate.",
