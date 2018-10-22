@@ -60,10 +60,25 @@ describe('deceased-dob', () => {
 
         });
 
-        it(`test it redirects to deceased domiciled: ${expectedNextUrlForDeceasedDomicile}`, (done) => {
-            const data = {dob_day: '01', dob_month: '01', dob_year: '1945'};
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDomicile);
-        });
+        it(`test it redirects to Deceased Domicile page: ${expectedNextUrlForDeceasedDomicile}`, (done) => {
+            const sessionData = {
+                deceased: {
+                    dod_day: '01',
+                    dod_month: '01',
+                    dod_year: '2000'
+                }
+            };
+            const data = {
+                dob_day: '01',
+                dob_month: '01',
+                dob_year: '1999'
+            };
 
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDomicile);
+                });
+        });
     });
 });
