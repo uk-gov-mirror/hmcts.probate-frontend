@@ -279,7 +279,6 @@ describe('declaration, multiple applicants', () => {
             contentData.applicantNameOnWill = '';
             contentData.aliasReason = 'got divorced';
             contentData.detailsOfApplicants = 'Bob Smith of flat 1, somewhere rd, nowhere., fname1 sname1 of 1 qwe\r\n1 asd\r\n1 zxc and fname4 sname4 of 4 qwe\r\n4 asd\r\n4 zxc';
-            'i, bob smith, an executor named in the will as larry bird, am applying for probate. my name is different because got divorced.';
 
             testWrapper.agent.post('/prepare-session/featureToggles')
                 .send(sessionData.featureToggles)
