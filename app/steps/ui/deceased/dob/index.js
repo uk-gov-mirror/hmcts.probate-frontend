@@ -15,12 +15,18 @@ class DeceasedDob extends DateStep {
     }
 
     handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
+        const dod = new Date(`${session.form.deceased.dod_year}-${session.form.deceased.dod_month}-${session.form.deceased.dod_day}'`);
+        dod.setHours(0, 0, 0, 0);
+
         const dob = new Date(`${ctx.dob_year}-${ctx.dob_month}-${ctx.dob_day}'`);
+
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
         if (today < dob) {
             errors.push(FieldError('dob_date', 'dateInFuture', this.resourcePath, this.generateContent()));
+        } else if (dod < dob) {
+            errors.push(FieldError('dob_date', 'dodBeforeDob', this.resourcePath, this.generateContent()));
         }
 
         ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
