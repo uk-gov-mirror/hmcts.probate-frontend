@@ -61,13 +61,23 @@ describe('deceased-dod', () => {
         });
 
         it(`test it redirects to Deceased Address page: ${expectedNextUrlForDeceasedAddress}`, (done) => {
-            const data = {
-                dod_day: '01',
-                dod_month: '01',
-                dod_year: '2000'
+            const sessionData = {
+                deceased: {
+                    dob_day: '01',
+                    dob_month: '01',
+                    dob_year: '1999'
+                }
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAddress);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        dod_day: '01',
+                        dod_month: '01',
+                        dod_year: '2000'
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAddress);
+                });
         });
-
     });
 });
