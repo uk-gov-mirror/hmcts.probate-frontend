@@ -18,7 +18,15 @@ describe('DeceasedDob', () => {
         let ctx;
         let errors;
         let formdata;
-        let session;
+        const session = {
+            form: {
+                deceased: {
+                    dod_day: '01',
+                    dod_month: '01',
+                    dod_year: '2000'
+                }
+            }
+        };
         let hostname;
         let featureToggles;
 
