@@ -17,16 +17,13 @@ describe('deceased-dod', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('WillLeft');
 
         it('test right content loaded on the page', (done) => {
-
             testWrapper.testContent(done, []);
         });
 
         it('test error message displayed for missing data', (done) => {
-
             const errorsToTest = ['dod_day', 'dod_month', 'dod_year'];
             const data = {};
 
@@ -34,30 +31,24 @@ describe('deceased-dod', () => {
         });
 
         it('test error message displayed for invalid date', (done) => {
-
             const errorsToTest = ['dod_date'];
             const data = {dod_day: '31', dod_month: '9', dod_year: '2000'};
 
             testWrapper.testErrors(done, data, 'invalid', errorsToTest);
-
         });
 
         it('test error message displayed for non-numeric field', (done) => {
-
             const errorsToTest = ['dod_day'];
             const data = {dod_day: 'ab', dod_month: '09', dod_year: '2000'};
 
             testWrapper.testErrors(done, data, 'invalid', errorsToTest);
-
         });
 
         it('test error message displayed for three digits in year field', (done) => {
-
             const errorsToTest = ['dod_year'];
             const data = {dod_day: '12', dod_month: '9', dod_year: '200'};
 
             testWrapper.testErrors(done, data, 'invalid', errorsToTest);
-
         });
 
         it(`test it redirects to Deceased Address page: ${expectedNextUrlForDeceasedAddress}`, (done) => {
@@ -68,6 +59,7 @@ describe('deceased-dod', () => {
                     dob_year: '1945'
                 }
             };
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -76,6 +68,7 @@ describe('deceased-dod', () => {
                         dod_month: '01',
                         dod_year: '2000'
                     };
+
                     testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAddress);
                 });
         });
