@@ -9,7 +9,7 @@ const {URLSearchParams} = require('url');
 const FormatUrl = require('app/utils/FormatUrl');
 const IDAM_SERVICE_URL = config.services.idam.apiUrl;
 const VALIDATION_SERVICE_URL = config.services.validation.url;
-const CHECK_ANSWERS_PDF_SERVICE_URL = config.services.businessDocument.createCheckAnswersUrl;
+const BUSINESS_DOCUMENT_URL = config.services.businessDocument.url;
 const SUBMIT_SERVICE_URL = config.services.submit.url;
 const POSTCODE_SERVICE_URL = config.services.postcode.url;
 const PERSISTENCE_SERVICE_URL = config.services.persistence.url;
@@ -130,7 +130,7 @@ const createCheckAnswersPdf = (data) => {
     };
 
     const fetchOptions = utils.fetchOptions(body, 'POST', headers);
-    return utils.fetchBuffer(`${CHECK_ANSWERS_PDF_SERVICE_URL}`, fetchOptions);
+    return utils.fetchBuffer(`${BUSINESS_DOCUMENT_URL}/generateCheckAnswersSummaryPDF`, fetchOptions);
 };
 
 const createPayment = (data, hostname) => {
