@@ -51,6 +51,17 @@ describe('deceased-dob', () => {
             testWrapper.testErrors(done, data, 'invalid', errorsToTest);
         });
 
+        it('test error message displayed for date in the future', (done) => {
+            const errorsToTest = ['dob_date'];
+            const data = {
+                dob_day: '12',
+                dob_month: '9',
+                dob_year: '3000'
+            };
+
+            testWrapper.testErrors(done, data, 'dateInFuture', errorsToTest);
+        });
+
         it(`test it redirects to Deceased Date of Death page: ${expectedNextUrlForDeceasedDod}`, (done) => {
             const data = {
                 dob_day: '01',

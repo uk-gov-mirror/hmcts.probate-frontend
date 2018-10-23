@@ -14,10 +14,10 @@ class DeceasedDod extends DateStep {
     }
 
     handlePost(ctx, errors, formdata, session) {
-        const dob = new Date(`${session.form.deceased.dob_year}-${session.form.deceased.dob_month}-${session.form.deceased.dob_day}'`);
+        const dob = new Date(`${session.form.deceased.dob_year}-${session.form.deceased.dob_month}-${session.form.deceased.dob_day}`);
         dob.setHours(0, 0, 0, 0);
 
-        const dod = new Date(`${ctx.dod_year}-${ctx.dod_month}-${ctx.dod_day}'`);
+        const dod = new Date(`${ctx.dod_year}-${ctx.dod_month}-${ctx.dod_day}`);
 
         const today = new Date();
         today.setHours(0, 0, 0, 0);
