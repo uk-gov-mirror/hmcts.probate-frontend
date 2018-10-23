@@ -168,7 +168,7 @@ exports.init = function() {
             sameSite: config.redis.cookie.sameSite,
             maxAge: 1000 * 60 * 60
         },
-        store: utils.getStore(config.redis, session)
+        store: utils.getStore(config.redis, session, config.app.session.ttl)
     }));
 
     app.use((req, res, next) => {
