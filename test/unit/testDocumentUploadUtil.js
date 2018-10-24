@@ -361,7 +361,7 @@ describe('DocumentUploadUtil', () => {
             const error = documentUpload.validate(document, uploads);
             expect(error).to.deep.equal({
                 js: 'You can upload a maximum of 10 files',
-                nonJs: 'maxFiles'
+                nonJs: 'maxFilesExceeded'
             });
             revert();
             done();
