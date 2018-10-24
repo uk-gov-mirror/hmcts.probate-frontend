@@ -33,17 +33,12 @@ class DocumentUpload {
         });
     }
 
-<<<<<<< HEAD
     isDocument(document) {
         return typeof document === 'object';
     }
 
     isValidType(document = {}) {
         const validMimeTypes = config.validMimeTypes;
-=======
-    isValidType(document = {}) {
-        const validMimeTypes = config.documentUpload.validMimeTypes;
->>>>>>> PRO-3775: Add methods to the DocumentUpload util class
 
         if (!validMimeTypes.includes(document.mimetype)) {
             return false;
@@ -88,7 +83,19 @@ class DocumentUpload {
         return error;
     }
 
+<<<<<<< HEAD
     mapError(errorKey) {
+=======
+    errorKey(errorType) {
+        const errorKey = Object.entries(config.error).filter((value) => {
+            return value[1] === errorType ? value : null;
+        });
+        return errorKey[0] ? errorKey[0][0] : null;
+    }
+
+    mapError(errorType) {
+        const errorKey = this.errorKey(errorType);
+>>>>>>> PRO-3775: Update unit tests for the DocumentUpload util class
         return {
             js: content[`documentUpload-${errorKey}`],
             nonJs: errorKey
