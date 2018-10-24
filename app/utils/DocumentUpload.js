@@ -33,12 +33,17 @@ class DocumentUpload {
         });
     }
 
+<<<<<<< HEAD
     isDocument(document) {
         return typeof document === 'object';
     }
 
     isValidType(document = {}) {
         const validMimeTypes = config.validMimeTypes;
+=======
+    isValidType(document = {}) {
+        const validMimeTypes = config.documentUpload.validMimeTypes;
+>>>>>>> PRO-3775: Add methods to the DocumentUpload util class
 
         if (!validMimeTypes.includes(document.mimetype)) {
             return false;
@@ -78,13 +83,6 @@ class DocumentUpload {
 
         if (error === null && !this.isValidNumber(uploads)) {
             error = this.mapError('maxFiles');
-        }
-
-        if (error === null && !this.isValidNumber(uploads)) {
-            error = {
-                js: content.documentUploadMaxFilesExceeded,
-                nonJs: 'maxFiles'
-            };
         }
 
         return error;
