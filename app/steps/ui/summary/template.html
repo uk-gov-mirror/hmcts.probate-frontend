@@ -35,8 +35,8 @@
         {% include "ui/summary/includes/deceased.njk" %}
     </dl>
 
-    <p><img class="icon-file-download"/>&nbsp;
-        <a href="/checkAnswersPdf">{{content.Summary.checkAnswersPdf}}</a></p>
+    <p><img class="icon-file-download" alt="Download PDF document"/>&nbsp;
+        <a id="checkAnswerHref" href="/checkAnswersPdf">{{content.Summary.checkAnswersPdf}}</a></p>
 
     <div class="form-group">
         {% if fields.summary.readyToDeclare.value === "true" %}
