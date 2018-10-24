@@ -4,6 +4,10 @@ const TestWrapper = require('test/util/TestWrapper');
 const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails/index');
 const ExecutorCurrentName = require('app/steps/ui/executors/currentname/index');
 
+const services = require('app/components/services');
+const sinon = require('sinon');
+let featureToggleStub;
+
 describe('/executor-current-name-reason/', () => {
     let testWrapper, sessionData;
     const expectedNextUrlForExecContactDetails = ExecutorContactDetails.getUrl();
@@ -24,9 +28,11 @@ describe('/executor-current-name-reason/', () => {
                 ]
             }
         };
+        featureToggleStub = sinon.stub(services, 'featureToggle').returns(Promise.resolve('true'));
     });
 
     afterEach(() => {
+        featureToggleStub.restore();
         testWrapper.destroy();
     });
 
