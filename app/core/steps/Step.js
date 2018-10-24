@@ -136,7 +136,6 @@ class Step {
     }
 
     renderCallBack(res, html) {
-        //session.setAttribute("Json", "Data");
         res.send(html);
     }
 

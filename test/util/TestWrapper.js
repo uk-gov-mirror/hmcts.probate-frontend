@@ -39,7 +39,7 @@ class TestWrapper {
         featureToggleStub = sinon.stub(services, 'featureToggle').returns(Promise.resolve('true'));
     }
 
-    testContent(done, excludeKeys = [], data) {
+     testContent(done, excludeKeys = [], data) {
         const contentToCheck = cloneDeep(filter(this.content, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
         const substitutedContent = this.substituteContent(data, contentToCheck);
         this.agent.get(this.pageUrl)
@@ -170,6 +170,10 @@ class TestWrapper {
     destroy() {
         featureToggleStub.restore();
         this.server.http.close();
+    }
+
+    getStep(){
+        return this.pageToTest;
     }
 }
 
