@@ -5,11 +5,11 @@ const initSteps = require('app/core/initSteps');
 const chai = require('chai');
 const expect = chai.expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
+const MentalCapacity = steps.MentalCapacity;
 
 describe('MentalCapacity.js', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
-            const MentalCapacity = steps.MentalCapacity;
             const url = MentalCapacity.constructor.getUrl();
             expect(url).to.equal('/mental-capacity');
             done();
@@ -19,7 +19,6 @@ describe('MentalCapacity.js', () => {
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
             const ctx = {mentalCapacity: 'Yes'};
-            const MentalCapacity = steps.MentalCapacity;
             const nextStepUrl = MentalCapacity.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/tasklist');
             done();
@@ -27,7 +26,6 @@ describe('MentalCapacity.js', () => {
 
         it('should return the correct url when No is given', (done) => {
             const ctx = {mentalCapacity: 'No'};
-            const MentalCapacity = steps.MentalCapacity;
             const nextStepUrl = MentalCapacity.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/stop-page/mentalCapacity');
             done();
@@ -36,7 +34,6 @@ describe('MentalCapacity.js', () => {
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const MentalCapacity = steps.MentalCapacity;
             const nextStepOptions = MentalCapacity.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [{
@@ -52,7 +49,6 @@ describe('MentalCapacity.js', () => {
     describe('isComplete()', () => {
         it('should return the correct values when the step is complete', (done) => {
             const ctx = {mentalCapacity: 'Yes'};
-            const MentalCapacity = steps.MentalCapacity;
             const val = MentalCapacity.isComplete(ctx);
             expect(val).to.deep.equal([true, 'inProgress']);
             done();
@@ -60,7 +56,6 @@ describe('MentalCapacity.js', () => {
 
         it('should return the correct values when the step is not complete', (done) => {
             const ctx = {mentalCapacity: 'No'};
-            const MentalCapacity = steps.MentalCapacity;
             const val = MentalCapacity.isComplete(ctx);
             expect(val).to.deep.equal([false, 'inProgress']);
             done();
