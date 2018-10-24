@@ -77,14 +77,7 @@ class DocumentUpload {
         }
 
         if (error === null && !this.isValidNumber(uploads)) {
-            error = this.mapError('maxFilesExceeded');
-        }
-
-        if (error === null && !this.isValidNumber(uploads)) {
-            error = {
-                js: content.documentUploadMaxFilesExceeded,
-                nonJs: 'maxFiles'
-            };
+            error = this.mapError('maxFiles');
         }
 
         return error;
