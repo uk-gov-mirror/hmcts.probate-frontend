@@ -2,16 +2,15 @@
 
 const requireDir = require('require-directory');
 const TestWrapper = require('test/util/TestWrapper');
-const deceasedData = require('test/data/deceased');
-const deceasedContent = requireDir(module, '../../../app/resources/en/translation/deceased');
-const FormatName = require('app/utils/FormatName');
+const documentuploadData = require('test/data/documentupload');
+const documentuploadContent = requireDir(module, '../../../app/resources/en/translation/documentupload');
 
-describe('summary-deceased-section', () => {
+describe('summary-documentupload-section', () => {
     let testWrapper, sessionData;
 
     beforeEach(() => {
         testWrapper = new TestWrapper('Summary');
-        sessionData = require('test/data/deceased');
+        sessionData = require('test/data/documentupload');
     });
 
     afterEach(() => {
@@ -21,13 +20,6 @@ describe('summary-deceased-section', () => {
     describe('Verify Content, Errors and Redirection', () => {
         it('test correct content loaded on document upload section of the summary page , when no data is entered', (done) => {
             const playbackData = {
-                firstName: deceasedContent.name.firstName,
-                lastName: deceasedContent.name.lastName,
-                alias: deceasedContent.alias.question.replace('{deceasedName}', deceasedContent.alias.theDeceased),
-                dod: deceasedContent.dod.question,
-                dob: deceasedContent.dob.question,
-                domicile: deceasedContent.domicile.question,
-                address: deceasedContent.address.question
             };
             testWrapper.testDataPlayback(done, playbackData);
         });
@@ -39,16 +31,8 @@ describe('summary-deceased-section', () => {
                     if (err) {
                         throw err;
                     }
-                    const deceasedName = FormatName.format(deceasedData.deceased);
                     const playbackData = {
-                        firstName: deceasedContent.name.firstName,
-                        lastName: deceasedContent.name.lastName,
-                        alias: deceasedContent.alias.question.replace('{deceasedName}', deceasedName),
-                        married: deceasedContent.married.question.replace('{deceasedName}', deceasedName),
-                        dod: deceasedContent.dod.question,
-                        dob: deceasedContent.dob.question,
-                        domicile: deceasedContent.domicile.question,
-                        address: deceasedContent.address.question
+                        deathCertificate: documentuploadContent.documentupload.deathCertificate,
                     };
                     testWrapper.testDataPlayback(done, playbackData);
                 });
@@ -61,18 +45,10 @@ describe('summary-deceased-section', () => {
                     if (err) {
                         throw err;
                     }
-                    const deceasedName = FormatName.format(deceasedData.deceased);
                     const playbackData = {
-                        firstName: deceasedContent.name.firstName,
-                        lastName: deceasedContent.name.lastName,
-                        alias: deceasedContent.alias.question,
-                        married: deceasedContent.married.question.replace('{deceasedName}', deceasedName),
-                        dod: deceasedContent.dod.question,
-                        dob: deceasedContent.dob.question,
-                        domicile: deceasedContent.domicile.question,
-                        address: deceasedContent.address.question
+                        deathCertificate: documentuploadContent.documentupload.deathCertificate,
                     };
-                    Object.assign(playbackData, deceasedData.deceased, deceasedData.will);
+                    Object.assign(playbackData, documentuploadData, documentuploadData);
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
