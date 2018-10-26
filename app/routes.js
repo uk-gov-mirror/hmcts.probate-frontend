@@ -137,10 +137,25 @@ router.get('/checkAnswersPdf', (req, res) => {
             res.send(result);
         })
         .catch(err => {
+            res.status(500).render('errors/500', {cmmon: commonContent});
+        });
+    ;
+});
+
+router.get('/declarationPdf', (req, res) => {
+    const formdata = req.session.form;
+    services.createDeclarationPdf(formdata)
+        .then(result => {
+            res.setHeader('Content-Type', 'application/pdf');
+            res.setHeader('Content-disposition', 'attachment; filename=legalDeclaration.pdf');
+            res.send(result);
+        })
+        .catch(err => {
             res.status(500).render('errors/500', {common: commonContent});
         });
     ;
 });
+
 
 if (['sandbox', 'saat', 'preview', 'sprod', 'demo', 'aat'].includes(config.environment)) {
     router.get('/inviteIdList', (req, res) => {
