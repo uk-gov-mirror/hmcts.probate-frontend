@@ -118,6 +118,34 @@ const saveFormData = (id, data, sessionID) => {
     return utils.fetchJson(`${PERSISTENCE_SERVICE_URL}`, fetchOptions);
 };
 
+const createCheckAnswersPdf = (data) => {
+    logInfo('createCheckAnswersPdf');
+    const headers = {
+        'Content-Type': 'application/json',
+        'ServiceAuthorization': data.serviceAuthToken
+    };
+    const body = {
+        checkAnswersSummary: data.checkAnswersSummary
+    };
+
+    const fetchOptions = utils.fetchOptions(body, 'POST', headers);
+    return utils.fetchBuffer(`${BUSINESS_DOCUMENT_URL}/generateCheckAnswersSummaryPDF`, fetchOptions);
+};
+
+const createDeclarationPdf = (data) => {
+    logInfo('createDeclarationPdf');
+    const headers = {
+        'Content-Type': 'application/json',
+        'ServiceAuthorization': data.serviceAuthToken
+    };
+    const body = {
+        legalDeclaration: data.legalDeclaration
+    };
+
+    const fetchOptions = utils.fetchOptions(body, 'POST', headers);
+    return utils.fetchBuffer(`${BUSINESS_DOCUMENT_URL}/generateLegalDeclarationPDF`, fetchOptions);
+};
+
 const createPayment = (data, hostname) => {
     logInfo('createPayment');
     const headers = {
@@ -272,6 +300,8 @@ module.exports = {
     findAddress,
     featureToggle,
     validateFormData,
+    createCheckAnswersPdf,
+    createDeclarationPdf,
     sendToSubmitService,
     updateCcdCasePaymentStatus,
     loadFormData,
