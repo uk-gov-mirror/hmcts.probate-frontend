@@ -19,7 +19,8 @@ class ExecutorCurrentNameReason extends ValidationStep {
             ctx.index = parseInt(req.params[0]);
             req.session.indexPosition = ctx.index;
         } else if (req.params && req.params[0] === '*') {
-            ctx.index = req.session.indexPosition;
+            ctx.index = req.session.indexPosition ||
+                            findIndex(ctx.list, o => o.hasOtherName && !o.currentNameReason, 1);
         } else if (startsWith(req.path, path)) {
             ctx.index = this.recalcIndex(ctx, 0);
         }

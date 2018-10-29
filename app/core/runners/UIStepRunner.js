@@ -5,6 +5,7 @@ const {curry, set, isEmpty, forEach} = require('lodash');
 const mapErrorsToFields = require('app/components/error').mapErrorsToFields;
 const DetectDataChange = require('app/wrappers/DetectDataChange');
 const FormatUrl = require('app/utils/FormatUrl');
+const FeatureToggle = require('app/utils/FeatureToggle');
 
 class UIStepRunner {
 
@@ -63,6 +64,12 @@ class UIStepRunner {
                 if (hasDataChanged) {
                     delete formdata.declaration.declarationCheckbox;
                     formdata.declaration.hasDataChanged = true;
+                }
+                if (FeatureToggle.isEnabled(featureToggles, 'main_applicant_alias') &&
+                    ((formdata.applicant.nameAsOnTheWill === 'No' && (!formdata.applicant.alias || !formdata.applicant.aliasReason)) ||
+                        (formdata.executors.currentNameReason === 'Yes' && formdata.executors.list.some(e => e.hasOtherName && !e.currentNameReason)))
+                ) {
+                    delete formdata.declaration.declarationCheckbox;
                 }
 
                 if (!formdata.applicantEmail) {

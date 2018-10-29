@@ -2,7 +2,6 @@
 
 const ExecutorsWrapper = require('./Executors');
 const executorsInviteSchema = require('app/steps/ui/executors/invite/schema');
-const FeatureToggle = require('app/utils/FeatureToggle');
 
 class DetectDataChanges {
     isNotEqual(val1, val2) {
@@ -37,7 +36,7 @@ class DetectDataChanges {
             (req.session.haveAllExecutorsDeclared !== 'true' || multipleApplicantsToSingle) &&
             step.schemaFile &&
             step.schemaFile.id !== executorsInviteSchema.id &&
-            (formdata[step.section] || FeatureToggle.isEnabled(req.session.featureToggles, 'main_applicant_alias')) &&
+            formdata[step.section] &&
             formdata.declaration &&
             !formdata.declaration.hasDataChanged
         ) {

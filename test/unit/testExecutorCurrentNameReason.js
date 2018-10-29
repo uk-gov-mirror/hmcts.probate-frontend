@@ -65,6 +65,27 @@ describe('ExecutorCurrentNameReason', () => {
             done();
         });
 
+        it('sets the index when the url param is "*" and req.session.indexPosition is not set', (done) => {
+            const req = {
+                session: {
+                    form: {
+                        executors: {
+                            list: [
+                                {currentName: 'executor current name', hasOtherName: true},
+                                {currentName: 'bob smith', hasOtherName: true}
+                            ]
+                        }
+                    }
+                },
+                params: ['*']
+            };
+            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
+            const ctx = ExecutorCurrentNameReason.getContextData(req);
+
+            expect(ctx.index).to.equal(1);
+            done();
+        });
+
         it('sets the index when startsWith(req.path, path)', (done) => {
             const req = {
                 path: '/executor-current-name-reason/',
