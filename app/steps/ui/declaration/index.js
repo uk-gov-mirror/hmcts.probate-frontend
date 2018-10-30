@@ -194,6 +194,8 @@ class Declaration extends ValidationStep {
     renderCallBack(res, html) {
         const formdata = res.req.session.form;
         formdata.legalDeclaration = this.buildLegalDeclarationFromHtml(html);
+        formdata.legalDeclaration.dateCreated = new Date().toLocaleString();
+        formdata.legalDeclaration.deceased = FormatName.format(formdata.deceased);
         res.send(html);
     }
 
@@ -207,7 +209,7 @@ class Declaration extends ValidationStep {
 
         let section;
         let declarationItem;
-        for (var sectElement of sections) {
+        for (const sectElement of sections) {
             const $element = $(sectElement);
             if ($element.hasClass('declaration-header')) {
                 legalDeclaration.headers.push($element.html());
