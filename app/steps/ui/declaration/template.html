@@ -63,8 +63,9 @@
     </div>
     <div class="declaration-grid-item">
         <h2 class="heading-medium">{{ content.saveThisPage }}</h2>
-        <p><img class="icon-file-download" alt="Download PDF document"/>&nbsp;
-            <a id="declarationPdfHref" href="/declarationPdf">{{content.declarationPdf}}</a></p>
+        <p><img src="{{ asset_path }}images/icon-file-download.png?" alt="Download pdf" width="30" height="30"/>&nbsp;
+            <a id="declarationPdfHref" href="/declarationPdf">{{content.declarationPdf}}</a>
+        </p>
     </div>
 </div>
     {{ checkbox(
