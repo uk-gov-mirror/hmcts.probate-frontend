@@ -189,6 +189,7 @@ describe('ExecutorCurrentNameReason', () => {
     describe('handlePost()', () => {
         let testCtx;
         let testErrors;
+        let formdata;
 
         beforeEach(() => {
             testCtx = {
@@ -202,11 +203,18 @@ describe('ExecutorCurrentNameReason', () => {
                 currentNameReason: 'Marriage'
             };
             testErrors = [];
+            formdata = {
+                executors: {
+                    list: [
+                        {currentName: 'bob'}
+                    ]
+                }
+            };
         });
 
         it('returns the correct data and errors', (done) => {
             const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
-            const [ctx, errors] = ExecutorCurrentNameReason.handlePost(testCtx, testErrors);
+            const [ctx, errors] = ExecutorCurrentNameReason.handlePost(testCtx, testErrors, formdata);
 
             expect(ctx.list[0]).to.deep.equal({
                 currentNameReason: 'Marriage',
@@ -220,7 +228,7 @@ describe('ExecutorCurrentNameReason', () => {
             testCtx.currentNameReason = 'other';
             testCtx.otherReason = 'it was a dare';
             const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
-            const [ctx, errors] = ExecutorCurrentNameReason.handlePost(testCtx, testErrors);
+            const [ctx, errors] = ExecutorCurrentNameReason.handlePost(testCtx, testErrors, formdata);
 
             expect(ctx.list[0]).to.deep.equal({
                 currentNameReason: 'other',
@@ -235,7 +243,7 @@ describe('ExecutorCurrentNameReason', () => {
             testCtx.currentNameReason = 'marriage';
             testCtx.otherReason = 'it was a dare';
             const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
-            const [ctx, errors] = ExecutorCurrentNameReason.handlePost(testCtx, testErrors);
+            const [ctx, errors] = ExecutorCurrentNameReason.handlePost(testCtx, testErrors, formdata);
 
             expect(ctx.list[0]).to.deep.equal({
                 currentNameReason: 'marriage',
@@ -294,16 +302,37 @@ describe('ExecutorCurrentNameReason', () => {
 
     describe('action()', () => {
         it('removes the correct values from the context', (done) => {
+            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
             const testCtx = {
                 index: 2,
                 currentNameReason: 'other',
                 otherReason: 'it was a dare',
+                currentNameReasonUpdated: false
             };
             const testFormdata = {};
-            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
             const action = ExecutorCurrentNameReason.action(testCtx, testFormdata);
 
             expect(action).to.deep.equal([{}, testFormdata]);
+            done();
+        });
+
+        it('updates the formdata when currentNameReasonUpdated is true and removes values', (done) => {
+            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
+            const testCtx = {
+                index: 2,
+                currentNameReason: 'other',
+                otherReason: 'it was a dare',
+                currentNameReasonUpdated: true
+            };
+            const testFormdata = {
+                declaration: {
+                    declarationCheckbox: 'Yes',
+                    hasDataChanged: false
+                }
+            };
+            const action = ExecutorCurrentNameReason.action(testCtx, testFormdata);
+
+            expect(action).to.deep.equal([{}, {declaration: {hasDataChanged: true}}]);
             done();
         });
     });

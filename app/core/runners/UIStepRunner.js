@@ -1,15 +1,10 @@
 'use strict';
 
 const co = require('co');
-const {curry, get, set, isEmpty, forEach} = require('lodash');
+const {curry, set, isEmpty, forEach} = require('lodash');
 const mapErrorsToFields = require('app/components/error').mapErrorsToFields;
 const DetectDataChange = require('app/wrappers/DetectDataChange');
 const FormatUrl = require('app/utils/FormatUrl');
-const isAliasDataMissing = (formdata) => {
-    return Boolean(get(formdata, 'declaration.declarationCheckbox') &&
-        ((get(formdata, 'applicant.nameAsOnTheWill') === 'No' && (formdata.applicant.alias && formdata.applicant.aliasReason)) ||
-            (get(formdata, 'executors.alias') === 'Yes' && formdata.executors.list.some(e => e.hasOtherName && e.currentNameReason))));
-};
 
 class UIStepRunner {
 
@@ -65,7 +60,7 @@ class UIStepRunner {
 
                 set(formdata, step.section, ctx);
 
-                if (hasDataChanged || isAliasDataMissing(formdata)) {
+                if (hasDataChanged) {
                     delete formdata.declaration.declarationCheckbox;
                     formdata.declaration.hasDataChanged = true;
                 }
@@ -104,4 +99,3 @@ class UIStepRunner {
 }
 
 module.exports = UIStepRunner;
-module.exports.isAliasDataMissing = isAliasDataMissing;
