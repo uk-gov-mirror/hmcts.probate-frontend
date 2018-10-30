@@ -1,13 +1,11 @@
-{% extends "includes/two_thirds_form.html" %}
+{% extends "includes/layout.html" %}
 
 {% from "widgets/lists.html" import unorderedList %}
 {% from "widgets/checkboxes.html" import checkbox %}
 
-{% block question %}
+{% block content %}
+<main id="content" role="main">
     <h1 class="form-title heading-large">{{ content.title }}</h1>
-{% endblock %}
-
-{% block form_content %}
 
     <p>{{ fields.legalStatement.value.intro | safe }}</p>
 <div class="declaration-wrapper">
@@ -88,5 +86,5 @@
     <div class="form-group">
         <input class="button" type="submit" id="acceptAndSend" value="{{common.saveAndContinue}}">
     </div>
-
+</main>
 {% endblock %}
