@@ -198,13 +198,11 @@ class Declaration extends ValidationStep {
 
     renderCallBack(res, html) {
         const formdata = res.req.session.form;
-        formdata.legalDeclaration = this.buildLegalDeclarationFromHtml(html);
-        formdata.legalDeclaration.dateCreated = new Date().toLocaleString();
-        formdata.legalDeclaration.deceased = FormatName.format(formdata.deceased);
+        formdata.legalDeclaration = this.buildLegalDeclarationFromHtml(formdata, html);
         res.send(html);
     }
 
-    buildLegalDeclarationFromHtml(html) {
+    buildLegalDeclarationFromHtml(formdata, html) {
         const dom = new JSDOM(html);
         const $ = (require('jquery'))(dom.window);
         const legalDeclaration = {};
@@ -239,6 +237,8 @@ class Declaration extends ValidationStep {
                 }
             }
         }
+        legalDeclaration.dateCreated = new Date().toLocaleString();
+        legalDeclaration.deceased = FormatName.format(formdata.deceased);
         return legalDeclaration;
     }
 
