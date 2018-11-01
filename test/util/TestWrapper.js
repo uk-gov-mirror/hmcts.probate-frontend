@@ -34,7 +34,7 @@ class TestWrapper {
         this.agent = request.agent(this.server.app);
     }
 
-     testContent(done, excludeKeys = [], data) {
+    testContent(done, excludeKeys = [], data) {
         const contentToCheck = cloneDeep(filter(this.content, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
         const substitutedContent = this.substituteContent(data, contentToCheck);
         this.agent.get(this.pageUrl)
@@ -166,7 +166,7 @@ class TestWrapper {
         this.server.http.close();
     }
 
-    getStep(){
+    getStep() {
         return this.pageToTest;
     }
 }
