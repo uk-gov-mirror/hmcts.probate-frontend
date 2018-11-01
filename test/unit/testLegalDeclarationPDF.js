@@ -2,16 +2,13 @@
 
 const requireDir = require('require-directory');
 const TestWrapper = require('test/util/TestWrapper');
-const TaskList = require('app/steps/ui/tasklist/index');
 const translations = requireDir(module, '../../app/resources/en/translation');
 const {assert} = require('chai');
 const he = require('he');
 
 describe('legalDeclarationPDF', () => {
     let testWrapper;
-    let sessionData = require('test/data/legalDeclarationPDF');
-    const headingMedium = 'heading-medium';
-    const headingSmall = 'heading-small';
+    const sessionData = require('test/data/legalDeclarationPDF');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('Declaration');
@@ -29,7 +26,7 @@ describe('legalDeclarationPDF', () => {
                 .end(() => {
                     testWrapper.agent.get(testWrapper.pageUrl)
                         .then(response => {
-                            let legalDeclaration = testWrapper.getStep().buildLegalDeclarationFromHtml(sessionData, response.text);
+                            const legalDeclaration = testWrapper.getStep().buildLegalDeclarationFromHtml(sessionData, response.text);
                             assert.exists(legalDeclaration);
                             //assertPropertyExistsAndIsEqualTo(legalDeclaration.date_created, ?????);
                             assertPropertyExistsAndIsEqualTo(legalDeclaration.deceased, sessionData.deceased.deceasedName);
@@ -42,14 +39,14 @@ describe('legalDeclarationPDF', () => {
                             assert.isArray(legalDeclaration.sections, 'Sections exists');
                             assert.lengthOf(legalDeclaration.sections, 5, 'Headers array has length of 5');
                             assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[0].title, translations.declaration.legalStatementHeader);
-                            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[0].declarationItems[0].title, replaceTokens(translations.declaration.legalStatementApplicant, ['Bob Smith','Flat1, Somewhere Rd, No where.']));
+                            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[0].declarationItems[0].title, replaceTokens(translations.declaration.legalStatementApplicant, ['Bob Smith', 'Flat1, Somewhere Rd, No where.']));
 
                             assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[1].title, translations.declaration.deceasedHeader);
-                            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[1].declarationItems[0].title, replaceTokens(translations.declaration.legalStatementDeceased, ['Someone Else','1 February 1900','1 February 2000']));
+                            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[1].declarationItems[0].title, replaceTokens(translations.declaration.legalStatementDeceased, ['Someone Else', '1 February 1900', '1 February 2000']));
 
                             assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[2].title, translations.declaration.deceasedEstateHeader);
-                            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[2].declarationItems[0].title, replaceTokens(he.decode(translations.declaration.deceasedEstateValue), ['150000','100000']));
-                            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[2].declarationItems[1].title, replaceTokens(translations.declaration.deceasedEstateLand, ['Someone Else','Someone Else']));
+                            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[2].declarationItems[0].title, replaceTokens(he.decode(translations.declaration.deceasedEstateValue), ['150000', '100000']));
+                            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[2].declarationItems[1].title, replaceTokens(translations.declaration.deceasedEstateLand, ['Someone Else', 'Someone Else']));
 
                             assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[3].title, translations.declaration.executorApplyingHeader);
                             assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[3].declarationItems[0].title, replaceTokens(translations.declaration.applicantName, ['Bob Smith']));
@@ -77,23 +74,16 @@ describe('legalDeclarationPDF', () => {
                 });
 
             function assertPropertyExistsAndIsEqualTo(value, equalto) {
-                value = value.replace(/\n| /g,'');
-                equalto = equalto.replace(/\n| /g,'');
+                value = value.replace(/\n| /g, '');
+                equalto = equalto.replace(/\n| /g, '');
                 assert.exists(value);
                 assert.equal(value, equalto);
             }
 
-            function assertQuestionAndAnswer(questionAndAnswers, question, answer) {
-                assertPropertyExistsAndIsEqualTo(questionAndAnswers.question, question);
-                assert.isArray(questionAndAnswers.answers);
-                assert.lengthOf(questionAndAnswers.answers, 1);
-                assertPropertyExistsAndIsEqualTo(questionAndAnswers.answers[0], answer);
-            }
-
             function replaceTokens(searchstring, tokenlist) {
                 let result = searchstring;
-                for (var i = 0, len = tokenlist.length; i < len; i++) {
-                    result = result.replace(RegExp("{[a-z0-9]*}","i"), tokenlist[i]);
+                for (let i = 0, len = tokenlist.length; i < len; i++) {
+                    result = result.replace(RegExp('{[a-z0-9]*}', 'i'), tokenlist[i]);
                 }
                 return result;
             }
