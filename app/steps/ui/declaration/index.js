@@ -216,22 +216,18 @@ class Declaration extends ValidationStep {
             const $element = $(sectElement);
             if ($element.hasClass('declaration-header')) {
                 legalDeclaration.headers.push($element.html());
-            }
-            else if ($element.hasClass('declaration-subheader')) {
-
+            } else if ($element.hasClass('declaration-subheader')) {
                 section = this.buildSection(section, $element);
                 legalDeclaration.sections.push(section);
-            }
-            else if ($element.hasClass('declaration-item')) {
+            } else if ($element.hasClass('declaration-item')) {
                 declarationItem = {};
                 declarationItem.title = $element.html();
                 section.declarationItems.push(declarationItem);
-            }
-            else if ($element.hasClass('list-bullet')) {
+            } else if ($element.hasClass('list-bullet')) {
                 declarationItem.values = [];
                 const children = $element.children();
                 if (children.length > 0) {
-                    for (var statement of children) {
+                    for (const statement of children) {
                         declarationItem.values.push(statement.textContent);
                     }
                 }
@@ -244,10 +240,9 @@ class Declaration extends ValidationStep {
 
     buildSection(section, $element) {
         section = {};
-        if($element.hasClass('heading-medium') || $element.hasClass('heading-large')){
+        if ($element.hasClass('heading-medium') || $element.hasClass('heading-large')) {
             section.headingType = 'large';
-        }
-        else{
+        } else {
             section.headingType = 'small';
         }
         section.title = $element.html();
