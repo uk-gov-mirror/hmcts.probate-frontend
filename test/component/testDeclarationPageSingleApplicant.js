@@ -5,7 +5,6 @@ const TestWrapper = require('test/util/TestWrapper');
 const Taskist = require('app/steps/ui/tasklist/index');
 const declarationContent = require('app/resources/en/translation/declaration');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
-const {assert} = require('chai');
 
 describe('declaration, single applicant', () => {
     let testWrapper, contentData, sessionData;
@@ -743,81 +742,6 @@ describe('declaration, single applicant', () => {
                         declarationCheckbox: true
                     };
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecInvite);
-                });
-        });
-    });
-    describe('Verify Legal Declaration Object is built', () => {
-        it('test legal declaration object populated', (done) => {
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.agent.get(testWrapper.pageUrl)
-                        .then(response => {
-                            let legalDeclarationObj = testWrapper.getStep().buildLegalDeclarationFromHtml(response.text);
-                            assert.exists(legalDeclarationObj);
-                            assert.isArray(legalDeclarationObj.headers, 'Headers exists');
-                            assert.lengthOf(legalDeclarationObj.headers, 3, 'Headers array has length of 3');
-                            assert.equal(legalDeclarationObj.headers[0], 'In the High Court of Justice');
-                            assert.equal(legalDeclarationObj.headers[1], 'Family Division');
-                            assert.equal(legalDeclarationObj.headers[2], '(Probate)');
-
-                            assert.isArray(legalDeclarationObj.sections, 'Sections exists');
-                            assert.lengthOf(legalDeclarationObj.sections, 5, 'Sections array has length of 5');
-
-                            let legalStatementSection = legalDeclarationObj.sections[0];
-                            assert.equal(legalStatementSection.title, 'Legal statement');
-                            assert.isArray(legalStatementSection.declarationItems, 'Legal Section Dec items exists');
-                            assert.lengthOf(legalStatementSection.declarationItems, 1, 'Dec Items array has length of 1');
-                            assert.equal(legalStatementSection.declarationItems[0].title, 'I, Bob Smith of Flat 1, Somewhere Rd, Nowhere., make the following statement:');
-
-                            let thePersonWhoDiedSection = legalDeclarationObj.sections[1];
-                            assert.equal(thePersonWhoDiedSection.title, 'The person who died');
-                            assert.isArray(thePersonWhoDiedSection.declarationItems, 'Legal Section Dec items exists');
-                            assert.lengthOf(thePersonWhoDiedSection.declarationItems, 1, 'Dec Items array has length of 1');
-                            assert.equal(thePersonWhoDiedSection.declarationItems[0].title, 'Someone Else was born on 1 February 1900 and died on 1 February 2000, domiciled in England and Wales. ');
-
-                            let estateSection = legalDeclarationObj.sections[2];
-                            assert.equal(estateSection.title, 'The estate of the person who died');
-                            assert.isArray(estateSection.declarationItems, 'Estate Section Dec items exists');
-                            assert.lengthOf(estateSection.declarationItems, 2, 'Dec Items array has length of 2');
-                            assert.equal(estateSection.declarationItems[0].title, 'The gross value for the estate amounts to £150000 and the net value for the estate amounts to £100000.');
-                            assert.equal(estateSection.declarationItems[1].title,'To the best of my knowledge, information and belief, there was no land vested in Someone Else which was settled previously to the death (and not by the will) of Someone Else and which remained settled land notwithstanding such death.');
-
-                            let executorsSection = legalDeclarationObj.sections[3];
-                            assert.equal(executorsSection.title, 'Executors applying for probate');
-                            assert.isArray(executorsSection.declarationItems, 'Executors Section Dec items exists');
-                            assert.lengthOf(executorsSection.declarationItems, 2, 'Dec Items array has length of 2');
-                            assert.equal(executorsSection.declarationItems[0].title, 'I am an executor named in the will as Bob Smith, and I am applying for probate.');
-                            assert.equal(executorsSection.declarationItems[1].title,'I will sign and send to the probate registry what I believe to be the true and original last will and testament of Someone Else.');
-
-                            let declarationSection = legalDeclarationObj.sections[4];
-                            assert.equal(declarationSection.title, 'Declaration');
-                            assert.isArray(declarationSection.declarationItems, 'Declaration Section Dec items exists');
-                            assert.lengthOf(declarationSection.declarationItems, 3, 'Dec Items array has length of 3');
-                            assert.equal(declarationSection.declarationItems[0].title, 'I confirm that we will administer the estate of Someone Else, according to law. I will:');
-                            assert.isArray(declarationSection.declarationItems[0].values, 'Declaration value items exists');
-                            assert.lengthOf(declarationSection.declarationItems[0].values, 3, 'Dec value items array has length of 3');
-                            assert.equal(declarationSection.declarationItems[0].values[0],'collect the whole estate');
-                            assert.equal(declarationSection.declarationItems[0].values[1],'keep full details (an inventory) of the estate');
-                            assert.equal(declarationSection.declarationItems[0].values[2],'keep a full account of how the estate has been administered');
-
-                            assert.equal(declarationSection.declarationItems[1].title, 'If the probate registry (court) asks me to do so, I will:');
-                            assert.isArray(declarationSection.declarationItems[1].values, 'Declaration value items exists');
-                            assert.lengthOf(declarationSection.declarationItems[1].values, 2, 'Dec value items array has length of 2');
-                            assert.equal(declarationSection.declarationItems[1].values[0],'provide the full details of the estate and how it has been administered');
-                            assert.equal(declarationSection.declarationItems[1].values[1],'return the grant of probate to the court');
-
-                            assert.equal(declarationSection.declarationItems[2].title, 'I understand that:');
-                            assert.isArray(declarationSection.declarationItems[2].values, 'Declaration value items exists');
-                            assert.lengthOf(declarationSection.declarationItems[2].values, 2, 'Dec value items array has length of 2');
-                            assert.equal(declarationSection.declarationItems[2].values[0],'my application will be rejected if I do not answer any questions about the information I have given');
-                            assert.equal(declarationSection.declarationItems[2].values[1],'criminal proceedings for fraud may be brought against me if I am found to have been deliberately untruthful or dishonest');
-                            done();
-                        })
-                        .catch(err => {
-                            done(err);
-                        });
                 });
         });
     });
