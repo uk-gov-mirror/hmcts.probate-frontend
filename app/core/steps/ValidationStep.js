@@ -1,3 +1,5 @@
+'use strict';
+
 const {mapValues, reduce} = require('lodash');
 const Ajv = require('ajv');
 const Step = require('app/core/steps/Step'),
@@ -5,14 +7,13 @@ const Step = require('app/core/steps/Step'),
 
 const validator = new Ajv({allErrors: true, v5: true});
 
-module.exports = class ValidationStep extends Step {
+class ValidationStep extends Step {
 
     get schema() {
 
         if (!this.schemaFile) {
             throw new TypeError(`Step ${this.name} has no schema file in it's resource folder`);
         }
-
         return this.schemaFile;
     }
 
@@ -64,4 +65,6 @@ module.exports = class ValidationStep extends Step {
     isComplete(ctx, formdata) {
         return [this.validate(ctx, formdata)[0], 'inProgress'];
     }
-};
+}
+
+module.exports = ValidationStep;

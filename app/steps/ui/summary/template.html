@@ -34,12 +34,10 @@
     <dl class="check-your-answers check-your-answers--long">
         {% include "ui/summary/includes/deceased.njk" %}
     </dl>
-    <p>
-        <img src="{{ asset_path }}images/icon-file-download.png?" alt="Download pdf" width="30" height="30"/>
-        &nbsp;
-        <a id="checkAnswerHref" href="/checkAnswersPdf">{{content.Summary.checkAnswersPdf}}</a>
+    <p class="save-this-page-link">
+        <i class="icon icon-file-download"></i>&nbsp;
+        <a id="checkAnswerHref" href="/check-answers-pdf">{{content.Summary.checkAnswersPdf}}</a>
     </p>
-
     <div class="form-group">
         {% if fields.summary.readyToDeclare.value === "true" %}
         <p><a href="/declaration" class="button button-start">{{common.continue}}</a></p>
@@ -51,3 +49,4 @@
     {% include "includes/help_details.html" %}
 </main>
 {% endblock %}
+

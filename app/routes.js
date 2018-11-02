@@ -9,6 +9,7 @@ const {get, includes, isEqual} = require('lodash');
 const commonContent = require('app/resources/en/translation/common');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const featureToggles = require('app/featureToggles');
+const pdfservices = require('app/components/pdf-services');
 
 router.all('*', (req, res, next) => {
 
@@ -128,34 +129,33 @@ router.get('/payment', (req, res) => {
     res.redirect(301, '/documents');
 });
 
-router.get('/checkAnswersPdf', (req, res) => {
+router.get('/check-answers-pdf', (req, res) => {
     const formdata = req.session.form;
-    services.createCheckAnswersPdf(formdata)
+    pdfservices.createCheckAnswersPdf(formdata, req.session.id)
         .then(result => {
             res.setHeader('Content-Type', 'application/pdf');
             res.setHeader('Content-disposition', 'attachment; filename=checkYourAnswers.pdf');
             res.send(result);
         })
         .catch(err => {
-            res.status(500).render('errors/500', {cmmon: commonContent});
+            req.log.error(err);
+            res.status(500).render('errors/500', {common: commonContent});
         });
-    ;
 });
 
-router.get('/declarationPdf', (req, res) => {
+router.get('/declaration-pdf', (req, res) => {
     const formdata = req.session.form;
-    services.createDeclarationPdf(formdata)
+    pdfservices.createDeclarationPdf(formdata,  req.session.id)
         .then(result => {
             res.setHeader('Content-Type', 'application/pdf');
             res.setHeader('Content-disposition', 'attachment; filename=legalDeclaration.pdf');
             res.send(result);
         })
         .catch(err => {
+            req.log.error(err);
             res.status(500).render('errors/500', {common: commonContent});
         });
-    ;
 });
-
 
 if (['sandbox', 'saat', 'preview', 'sprod', 'demo', 'aat'].includes(config.environment)) {
     router.get('/inviteIdList', (req, res) => {

@@ -10,8 +10,8 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
 const featureToggle = require('app/utils/FeatureToggle');
-const jsdom = require('jsdom');
-const {JSDOM} = jsdom;
+const CheckAnswersSummaryJSONObjectBuilder = require('app/utils/CheckAnswersSummaryJSONObjectBuilder');
+const checkAnswersSummaryJSONObjBuilder = new CheckAnswersSummaryJSONObjectBuilder();
 
 class Summary extends Step {
 
@@ -98,61 +98,10 @@ class Summary extends Step {
         return ctx;
     }
 
-    renderCallBack(res, html) {
+    renderPage(res, html) {
         const formdata = res.req.session.form;
-        formdata.checkAnswersSummary = this.buildCheckAnswersSummaryFromHtml(html);
+        formdata.checkAnswersSummary = checkAnswersSummaryJSONObjBuilder.build(html);
         res.send(html);
-    }
-
-    buildCheckAnswersSummaryFromHtml(html) {
-        const dom = new JSDOM(html);
-        const $ = (require('jquery'))(dom.window);
-        const summary = {};
-        summary.sections = [];
-        const sections = $('.heading-large, .heading-medium, .heading-small, .check-your-answers__row');
-        const mainParagraph = $('#main-heading-content');
-        summary.mainParagraph = mainParagraph.html();
-        let section;
-        for (var sectElement of sections) {
-            const $element = $(sectElement);
-            if ($element.hasClass('heading-large')) {
-                summary.pageTitle = $element.html();
-            }
-            if ($element.hasClass('heading-medium') || $element.hasClass('heading-small')) {
-                section = this.buildSection(section, $element, summary);
-            }
-            if ($element.hasClass('check-your-answers__row') && $element.children().length > 0) {
-                this.buildQuestionAndAnswers($element, section);
-            }
-        }
-        return summary;
-    }
-
-    buildQuestionAndAnswers($element, section) {
-        const question = $element.children('.check-your-answers__question');
-        const answer = $element.children('.check-your-answers__answer');
-        const questionAndAnswer = {};
-
-        questionAndAnswer.question = question.html();
-        questionAndAnswer.answers = [];
-        const children = answer.children('.check-your-answers__row');
-        if (children.length > 0) {
-            for (var answerChild of children) {
-                questionAndAnswer.answers.push(answerChild.textContent);
-            }
-        } else {
-            questionAndAnswer.answers.push(answer.html());
-        }
-        section.questionAndAnswers.push(questionAndAnswer);
-    }
-
-    buildSection(section, $element, summary) {
-        section = {};
-        section.title = $element.html();
-        section.type = $element.attr('class');
-        section.questionAndAnswers = [];
-        summary.sections.push(section);
-        return section;
     }
 }
 

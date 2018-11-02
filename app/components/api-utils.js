@@ -36,7 +36,7 @@ const asyncFetch = (url, fetchOptions, parseBody) => {
                 return parseBody(res)
                     .then(body => {
                         if (body instanceof Buffer) {
-                            logger.error(new String(body));
+                            logger.error({body});
                         } else {
                             logger.error(body);
                         }
@@ -71,7 +71,7 @@ const fetchBuffer = (url, fetchOptions) => {
         .then(buffer => buffer)
         .catch(err => {
             logger.error(`Error${err}`);
-            reject(Error(err));
+            throw (err);
         });
 };
 

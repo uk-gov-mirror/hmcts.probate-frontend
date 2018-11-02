@@ -135,7 +135,7 @@ class Step {
         ].every(param => param === 'true');
     }
 
-    renderCallBack(res, html) {
+    renderPage(res, html) {
         res.send(html);
     }
 
