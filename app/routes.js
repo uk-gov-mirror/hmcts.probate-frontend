@@ -138,20 +138,22 @@ router.get('/checkAnswersPdf', (req, res) => {
             res.send(result);
         })
         .catch(err => {
-            res.status(500).render('errors/500', {cmmon: commonContent});
+            req.log.error(err);
+            res.status(500).render('errors/500', {common: commonContent});
         });
     ;
 });
 
-router.get('/declarationPdf', (req, res) => {
+router.get('/declaration-pdf', (req, res) => {
     const formdata = req.session.form;
-    services.createDeclarationPdf(formdata)
+    pdfservices.createDeclarationPdf(formdata, req.session.id)
         .then(result => {
             res.setHeader('Content-Type', 'application/pdf');
             res.setHeader('Content-disposition', 'attachment; filename=legalDeclaration.pdf');
             res.send(result);
         })
         .catch(err => {
+            req.log.error(err);
             res.status(500).render('errors/500', {common: commonContent});
         });
     ;
