@@ -10,7 +10,6 @@ const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
 const FormatAlias = require('app/utils/FormatAlias');
 const FeatureToggle = require('app/utils/FeatureToggle');
-const {JSDOM} = require('jsdom');
 const LegalDocumentJSONObjectBuilder = require('app/utils/LegalDocumentJSONObjectBuilder');
 const legalDocumentJSONObjBuilder = new LegalDocumentJSONObjectBuilder();
 
@@ -202,7 +201,6 @@ class Declaration extends ValidationStep {
         formdata.legalDeclaration = legalDocumentJSONObjBuilder.build(formdata, html);
         res.send(html);
     }
-
 
 }
 

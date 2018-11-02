@@ -2,7 +2,7 @@
 
 const LegalDocumentJSONObjectBuilder = require('app/utils/LegalDocumentJSONObjectBuilder');
 const {assert} = require('chai');
-const fs = require("fs");
+const fs = require('fs');
 const html = fs.readFileSync('test/data/legalDeclationHTML.html').toString();
 const requireDir = require('require-directory');
 const translations = requireDir(module, '../../app/resources/en/translation');
