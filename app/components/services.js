@@ -119,8 +119,8 @@ const saveFormData = (id, data, sessionID) => {
     return utils.fetchJson(`${PERSISTENCE_SERVICE_URL}`, fetchOptions);
 };
 
-const createCheckAnswersPdf = (data) => {
-    logInfo('createCheckAnswersPdf');
+const createCheckAnswersPdf = (data, sessionId) => {
+    logInfo('Create check your answers PDF', sessionId);
     const headers = {
         'Content-Type': 'application/json',
         'ServiceAuthorization': data.serviceAuthToken

@@ -33,8 +33,13 @@ class UIStepRunner {
                 session.back.push(step.constructor.getUrl());
             }
             const common = step.commonContent();
-            res.render(step.template, {content, fields, errors, common}, function (err, html) {
-                step.renderCallBack(res, html);
+            res.render(step.template, {content, fields, errors, common}, (err, html) => {
+                if (err) {
+                    req.log.error(err);
+                    return res.status(500).render('errors/500');
+                }
+                step.renderPage(res, html);
+
             });
         }).catch((error) => {
             req.log.error(error);
