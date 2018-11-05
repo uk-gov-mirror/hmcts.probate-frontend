@@ -18,6 +18,17 @@ const createCheckAnswersPdf = (formdata, sessionId) => {
         });
 };
 
+const createDeclarationPdf = (formdata, sessionId) => {
+    logInfo('Create legal declaration PDF', sessionId);
+    return services.authorise()
+        .then(serviceToken => {
+            const body = {
+                legalDeclaration: formdata.legalDeclaration
+            };
+            return createPDFDocument(formdata, serviceToken, body, 'generateLegalDeclarationPDF');
+        });
+};
+
 function createPDFDocument(formdata, serviceToken, body, pdfTemplate) {
     const headers = {
         'Content-Type': 'application/json',
@@ -29,4 +40,5 @@ function createPDFDocument(formdata, serviceToken, body, pdfTemplate) {
 
 module.exports = {
     createCheckAnswersPdf,
+    createDeclarationPdf
 };
