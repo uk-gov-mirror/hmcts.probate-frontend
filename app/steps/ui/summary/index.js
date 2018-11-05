@@ -40,8 +40,6 @@ class Summary extends Step {
 
         utils.updateTaskStatus(ctx, ctx, this.steps);
 
-        formdata.serviceAuthToken = yield services.authorise();
-
         return [ctx, !isEmpty(errors) ? errors : null];
     }
 
@@ -49,7 +47,7 @@ class Summary extends Step {
         return services.validateFormData(formdata, ctx.sessionID);
     }
 
-    generateContent (ctx, formdata) {
+    generateContent(ctx, formdata) {
         const content = {};
 
         Object.keys(this.steps)
@@ -64,7 +62,7 @@ class Summary extends Step {
         return content;
     }
 
-    generateFields (ctx, errors, formdata) {
+    generateFields(ctx, errors, formdata) {
         const fields = {};
         Object.keys(this.steps)
             .filter((stepName) => stepName !== this.name)
@@ -78,7 +76,7 @@ class Summary extends Step {
         return fields;
     }
 
-    getContextData (req) {
+    getContextData(req) {
         const formdata = req.session.form;
         formdata.summary = {'readyToDeclare': includes(req.url, 'declaration')};
         const ctx = super.getContextData(req);
@@ -94,7 +92,6 @@ class Summary extends Step {
         ctx.softStop = this.anySoftStops(formdata, ctx);
         ctx.alreadyDeclared = this.alreadyDeclared(req.session);
         ctx.session = req.session;
-
         return ctx;
     }
 
@@ -103,6 +100,7 @@ class Summary extends Step {
         formdata.checkAnswersSummary = checkAnswersSummaryJSONObjBuilder.build(html);
         res.send(html);
     }
+
 }
 
 module.exports = Summary;

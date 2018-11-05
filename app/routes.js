@@ -9,6 +9,7 @@ const {get, includes, isEqual} = require('lodash');
 const commonContent = require('app/resources/en/translation/common');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const featureToggles = require('app/featureToggles');
+const pdfservices = require('app/components/pdf-services');
 
 router.all('*', (req, res, next) => {
 
@@ -130,17 +131,25 @@ router.get('/payment', (req, res) => {
 
 router.get('/check-answers-pdf', (req, res) => {
     const formdata = req.session.form;
-    services.createCheckAnswersPdf(formdata, req.session.id)
+    pdfservices.createCheckAnswersPdf(formdata, req.session.id)
         .then(result => {
-            res.setHeader('Content-Type', 'application/pdf');
-            res.setHeader('Content-disposition', 'attachment; filename=checkYourAnswers.pdf');
-            res.send(result);
+            setPDFHeadingValuesAndSend(res, result, 'checkYourAnswers.pdf');
         })
         .catch(err => {
-            req.log.error(err);
-            res.status(500).render('errors/500', {common: commonContent});
+            throwPDFException(req, res, err);
         });
 });
+
+function setPDFHeadingValuesAndSend(res, result, filename) {
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+    res.send(result);
+}
+
+function throwPDFException(req, res, err) {
+    req.log.error(err);
+    res.status(500).render('errors/500', {common: commonContent});
+}
 
 if (['sandbox', 'saat', 'preview', 'sprod', 'demo', 'aat'].includes(config.environment)) {
     router.get('/inviteIdList', (req, res) => {
