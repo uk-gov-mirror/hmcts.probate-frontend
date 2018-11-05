@@ -36,7 +36,11 @@ class LegalDocumentJSONObjectBuilder {
             }
         }
         legalDeclaration.dateCreated = new Date().toLocaleString();
-        legalDeclaration.deceased = formdata.deceased.deceasedName;
+        if (typeof formdata.deceased !== 'undefined') {
+            legalDeclaration.deceased = formdata.deceased.deceasedName;
+        } else {
+            legalDeclaration.deceased = '';
+        }
         return legalDeclaration;
     }
 
