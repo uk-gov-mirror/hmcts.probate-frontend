@@ -133,29 +133,23 @@ router.get('/check-answers-pdf', (req, res) => {
     const formdata = req.session.form;
     pdfservices.createCheckAnswersPdf(formdata, req.session.id)
         .then(result => {
-            res.setHeader('Content-Type', 'application/pdf');
-            res.setHeader('Content-disposition', 'attachment; filename=checkYourAnswers.pdf');
-            res.send(result);
+            setPDFHeadingValuesAndSend(res, result, 'checkYourAnswers.pdf');
         })
         .catch(err => {
-            req.log.error(err);
-            res.status(500).render('errors/500', {common: commonContent});
+            throwPDFException(req, res, err);
         });
 });
 
-router.get('/declaration-pdf', (req, res) => {
-    const formdata = req.session.form;
-    pdfservices.createDeclarationPdf(formdata, req.session.id)
-        .then(result => {
-            res.setHeader('Content-Type', 'application/pdf');
-            res.setHeader('Content-disposition', 'attachment; filename=legalDeclaration.pdf');
-            res.send(result);
-        })
-        .catch(err => {
-            req.log.error(err);
-            res.status(500).render('errors/500', {common: commonContent});
-        });
-});
+function setPDFHeadingValuesAndSend(res, result, filename) {
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+    res.send(result);
+}
+
+function throwPDFException(req, res, err) {
+    req.log.error(err);
+    res.status(500).render('errors/500', {common: commonContent});
+}
 
 if (['sandbox', 'saat', 'preview', 'sprod', 'demo', 'aat'].includes(config.environment)) {
     router.get('/inviteIdList', (req, res) => {

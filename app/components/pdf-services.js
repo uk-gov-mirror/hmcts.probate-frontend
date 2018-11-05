@@ -2,39 +2,31 @@
 
 const utils = require('app/components/api-utils');
 const config = require('app/config');
+const services = require('app/components/services');
 const BUSINESS_DOCUMENT_URL = config.services.businessDocument.url;
 const logger = require('app/components/logger');
 const logInfo = (message, sessionId = 'Init') => logger(sessionId).info(message);
 
-const createCheckAnswersPdf = (data, sessionId) => {
+const createCheckAnswersPdf = (formdata, sessionId) => {
     logInfo('Create check your answers PDF', sessionId);
-    const headers = {
-        'Content-Type': 'application/json',
-        'ServiceAuthorization': data.serviceAuthToken
-    };
-    const body = {
-        checkAnswersSummary: data.checkAnswersSummary
-    };
-
-    const fetchOptions = utils.fetchOptions(body, 'POST', headers);
-    return utils.fetchBuffer(`${BUSINESS_DOCUMENT_URL}/generateCheckAnswersSummaryPDF`, fetchOptions);
+    return services.authorise()
+        .then(serviceToken => {
+            const body = {
+                checkAnswersSummary: formdata.checkAnswersSummary
+            };
+            return createPDFDocument(formdata, serviceToken, body, 'generateCheckAnswersSummaryPDF');
+        });
 };
 
-const createDeclarationPdf = (data, sessionId) => {
-    logInfo('Create legal declaration PDF', sessionId);
+function createPDFDocument(formdata, serviceToken, body, pdfTemplate) {
     const headers = {
         'Content-Type': 'application/json',
-        'ServiceAuthorization': data.serviceAuthToken
+        'ServiceAuthorization': serviceToken
     };
-    const body = {
-        legalDeclaration: data.legalDeclaration
-    };
-
     const fetchOptions = utils.fetchOptions(body, 'POST', headers);
-    return utils.fetchBuffer(`${BUSINESS_DOCUMENT_URL}/generateLegalDeclarationPDF`, fetchOptions);
-};
+    return utils.fetchBuffer(`${BUSINESS_DOCUMENT_URL}/` + pdfTemplate, fetchOptions);
+}
 
 module.exports = {
     createCheckAnswersPdf,
-    createDeclarationPdf
 };
