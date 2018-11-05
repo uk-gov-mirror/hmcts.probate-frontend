@@ -9,6 +9,7 @@ router.get('/applicant-alias-reason', (req, res, next) => featureToggle.callChec
 router.get('/summary/*', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'main_applicant_alias', featureToggle.toggleFeature));
 router.get('/tasklist', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'main_applicant_alias', featureToggle.toggleFeature));
 
+router.get('/summary/*', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'screening_questions', featureToggle.toggleFeature));
 router.get('/tasklist', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'screening_questions', featureToggle.toggleFeature));
 
 router.get('/new-start-eligibility', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'screening_questions', featureToggle.togglePage, 'start-eligibility'));
