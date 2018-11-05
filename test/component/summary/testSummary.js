@@ -2,7 +2,6 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist/index');
-const {assert} = require('chai');
 
 describe('summary', () => {
     let testWrapper;
