@@ -9,10 +9,10 @@ const {get, includes, isEqual} = require('lodash');
 const commonContent = require('app/resources/en/translation/common');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const featureToggles = require('app/featureToggles');
+const documentUpload = require('app/documentUpload');
 const pdfservices = require('app/components/pdf-services');
 
 router.all('*', (req, res, next) => {
-
     req.log = logger(req.sessionID);
     req.log.info(`Processing ${req.method} for ${req.originalUrl}`);
     next();
@@ -86,10 +86,7 @@ router.use((req, res, next) => {
 
 router.use(featureToggles);
 
-router.post('/upload-document', (req, res) => {
-    services.uploadDocument(req.session.id);
-    res.send('File uploaded successfully');
-});
+router.use('/document-upload', documentUpload);
 
 router.use((req, res, next) => {
     res.locals.session = req.session;
