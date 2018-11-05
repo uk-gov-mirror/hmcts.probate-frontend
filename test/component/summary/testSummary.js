@@ -2,10 +2,6 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist/index');
-const config = require('app/config');
-const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.screening_questions}`;
 
 describe('summary', () => {
     let testWrapper;
@@ -20,35 +16,7 @@ describe('summary', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        it('test content loaded on the page with the screening questions feature toggle OFF', (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'false');
-
-            const contentToExclude = [
-                'executorsWhenDiedQuestion',
-                'otherNamesLabel',
-                'willWithCodicilHeading',
-                'otherExecutors',
-                'executorsWithOtherNames',
-                'executorApplyingForProbate',
-                'executorsNotApplyingForProbate',
-                'nameOnWill',
-                'currentName',
-                'currentNameReason',
-                'address',
-                'mobileNumber',
-                'emailAddress'
-            ];
-            testWrapper.testContent(done, contentToExclude);
-        });
-
-        it('test content loaded on the page with the screening questions feature toggle ON', (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
-
+        it('test content loaded on the page', (done) => {
             const contentToExclude = [
                 'executorsWhenDiedQuestion',
                 'otherNamesLabel',
