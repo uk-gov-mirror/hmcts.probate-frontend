@@ -37,6 +37,10 @@
       "uploadTimeout": {
         "summary": "The file has taken too long to upload. The file may be too big, reduce the file size and try again or post the death certificate",
         "message": ""
+      },
+      "uploadTimeout": {
+        "summary": "The document upload timed out. The document upload timed out",
+        "message": ""
       }
     }
   }
