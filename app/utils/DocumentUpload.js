@@ -1,7 +1,8 @@
 'use strict';
 
 const fileType = require('file-type');
-const config = require('app/config');
+const config = require('app/config').documentUpload;
+const content = require('app/resources/en/translation/common');
 
 class DocumentUpload {
     initDocuments(formdata) {
@@ -28,7 +29,7 @@ class DocumentUpload {
     }
 
     isValidType(document) {
-        const validMimeTypes = config.documentUpload.validMimeTypes;
+        const validMimeTypes = config.validMimeTypes;
 
         if (!validMimeTypes.includes(document.mimetype)) {
             return false;
@@ -43,10 +44,28 @@ class DocumentUpload {
         return validMimeTypes.includes(uploadedDocumentType.mime);
     }
 
-    isDocumentValid(document) {
-        let isValid = true;
-        isValid = this.isValidType(document);
-        return isValid;
+    isValidSize(document) {
+        return document.size <= config.maxSizeBytes;
+    }
+
+    error(document) {
+        let error = null;
+
+        if (error === null && !this.isValidType(document)) {
+            error = {
+                js: content.documentUploadInvalidFileType,
+                nonJs: 'type'
+            };
+        }
+
+        if (error === null && !this.isValidSize(document)) {
+            error = {
+                js: content.documentUploadMaxSize,
+                nonJs: 'maxSize'
+            };
+        }
+
+        return error;
     }
 }
 
