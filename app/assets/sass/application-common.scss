@@ -145,10 +145,12 @@ div.declaration-header {
   margin-bottom: 5px;
 }
 div.declaration-wrapper {
-  display: grid;
-  grid-column-gap: 50px;
-  grid-template-columns: 3fr 1fr;
-  padding: 10px;
+  @include media(tablet) {
+    display: grid;
+    grid-column-gap: 50px;
+    grid-template-columns: 3fr 1fr;
+    width: calc(133% + 50px);
+  }
 }
 div.declaration-grid-item {
   text-align: left;
