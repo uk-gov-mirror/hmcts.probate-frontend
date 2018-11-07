@@ -17,7 +17,6 @@ describe('deceased-dod', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('DeceasedDod');
 
         it('test right content loaded on the page', (done) => {
@@ -68,6 +67,5 @@ describe('deceased-dod', () => {
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDob);
         });
-
     });
 });

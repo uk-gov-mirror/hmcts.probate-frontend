@@ -20,7 +20,6 @@ describe('iht-method', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('IhtMethod');
 
         it('test correct iht method page content is loaded', (done) => {
@@ -47,6 +46,5 @@ describe('iht-method', () => {
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtIdentifier);
         });
-
     });
 });

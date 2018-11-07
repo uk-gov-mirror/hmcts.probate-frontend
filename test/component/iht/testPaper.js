@@ -17,7 +17,6 @@ describe('iht-paper', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('IhtPaper');
 
         it('test correct iht paper page content is loaded', (done) => {
@@ -90,8 +89,8 @@ describe('iht-paper', () => {
         it(`test it redirects to applicant executor page: ${expectedNextUrlForAppExec}`, (done) => {
             const data = {
                 form: 'IHT205',
-                'grossIHT205': '100000',
-                'netIHT205': '9999'
+                grossIHT205: '100000',
+                netIHT205: '9999'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForAppExec);
         });

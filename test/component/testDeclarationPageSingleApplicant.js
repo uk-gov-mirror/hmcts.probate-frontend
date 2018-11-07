@@ -36,7 +36,6 @@ describe('declaration, single applicant', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('Declaration');
 
         it('test right content loaded on the page when deceased has one other name, no codicils', (done) => {

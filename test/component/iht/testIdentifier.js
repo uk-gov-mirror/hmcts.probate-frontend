@@ -17,7 +17,6 @@ describe('iht-identifier', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('IhtIdentifier');
 
         it('test correct iht identifier page content is loaded', (done) => {
@@ -58,6 +57,5 @@ describe('iht-identifier', () => {
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtValue);
         });
-
     });
 });

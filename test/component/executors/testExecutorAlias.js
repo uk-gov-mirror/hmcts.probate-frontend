@@ -19,7 +19,6 @@ describe('executors-alias', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('ExecutorsAlias');
 
         it('test content loaded on the page', (done) => {
@@ -34,17 +33,16 @@ describe('executors-alias', () => {
 
         it(`test it redirects to Executor Other Names when Yes: ${expectedNextUrlForExecOtherNames}`, (done) => {
             const data = {
-                'alias': 'Yes'
+                alias: 'Yes'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForExecOtherNames);
         });
 
         it(`test it redirects to Executor Contact Details when No: ${expectedNextUrlForExecContactDetails}`, (done) => {
             const data = {
-                'alias': 'No'
+                alias: 'No'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForExecContactDetails);
         });
-
     });
 });

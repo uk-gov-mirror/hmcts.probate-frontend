@@ -19,7 +19,6 @@ describe('applicant-executor', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('ApplicantExecutor');
 
         it('test content loaded on the page', (done) => {

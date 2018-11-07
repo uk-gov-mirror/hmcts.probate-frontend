@@ -27,7 +27,6 @@ describe('executors-dealing-with-estate', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('ExecutorsDealingWithEstate');
 
         it('test correct content loaded on the page when lead applicant does not have an alias', (done) => {
@@ -80,6 +79,5 @@ describe('executors-dealing-with-estate', () => {
                     testWrapper.testErrors(done, data, 'invalid', errorsToTest);
                 });
         });
-
     });
 });

@@ -19,7 +19,6 @@ describe('executors-number', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('ExecutorsNumber');
 
         it('test content loaded on the page', (done) => {

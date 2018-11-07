@@ -17,7 +17,6 @@ describe('applicant-phone', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('ApplicantPhone');
 
         it('test content loaded on the page', (done) => {
@@ -33,6 +32,5 @@ describe('applicant-phone', () => {
             const data = {phoneNumber: '1234567890'};
             testWrapper.testRedirect(done, data, expectedNextUrlForApplicantAddress);
         });
-
     });
 });

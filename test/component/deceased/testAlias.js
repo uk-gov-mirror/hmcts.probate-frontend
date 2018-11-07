@@ -19,7 +19,6 @@ describe('deceased-alias', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('DeceasedAlias');
 
         it('test right content loaded on the page', (done) => {
@@ -50,13 +49,13 @@ describe('deceased-alias', () => {
 
         it(`test it redirects to deceased other names page: ${expectedNextUrlForDeceasedOtherNames}`, (done) => {
             const data = {
-                'alias': 'Yes'
+                alias: 'Yes'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedOtherNames);
         });
         it(`test it redirects to deceased married page: ${expectedNextUrlForDeceasedMarried}`, (done) => {
             const data = {
-                'alias': 'No'
+                alias: 'No'
             };
             testWrapper.agent.post('/prepare-session/form')
                 .end(() => {

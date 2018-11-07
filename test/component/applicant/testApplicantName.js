@@ -17,7 +17,6 @@ describe('applicant-name', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('ApplicantName');
 
         it('test content loaded on the page', (done) => {

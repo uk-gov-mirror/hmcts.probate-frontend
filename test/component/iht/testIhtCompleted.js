@@ -24,7 +24,6 @@ describe('iht-completed', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('IhtCompleted');
 
         it('test right content loaded on the page', (done) => {
@@ -56,6 +55,5 @@ describe('iht-completed', () => {
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
         });
-
     });
 });

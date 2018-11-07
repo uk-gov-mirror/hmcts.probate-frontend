@@ -17,7 +17,6 @@ describe('copies-overseas', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('CopiesOverseas');
 
         it('test content loaded on the page', (done) => {

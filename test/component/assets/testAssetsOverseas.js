@@ -19,7 +19,6 @@ describe('assets-overseas', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('AssetsOverseas');
 
         it('test content loaded on the page', (done) => {

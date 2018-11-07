@@ -3,7 +3,6 @@
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedName = require('app/steps/ui/deceased/name/index');
 const ExecutorRoles = require('app/steps/ui/executors/roles/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executor-notified', () => {
     let testWrapper, sessionData;
@@ -30,15 +29,11 @@ describe('executor-notified', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('ExecutorNotified');
-
         it('test right content loaded on the page', (done) => {
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-
                     const contentData = {executorName: 'Manah Mana'};
 
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);

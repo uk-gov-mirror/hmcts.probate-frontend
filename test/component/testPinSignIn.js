@@ -7,7 +7,6 @@ const {assert} = require('chai');
 const services = require('app/components/services');
 const CoApplicantStartPage = require('app/steps/ui/coapplicant/startpage/index');
 const commonContent = require('app/resources/en/translation/common');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('pin-page', () => {
     let testWrapper;
@@ -22,13 +21,9 @@ describe('pin-page', () => {
     afterEach(() => {
         testWrapper.destroy();
         loadFormDataStub.restore();
-
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('PinPage');
-
         it('test right content loaded on the page', (done) => {
             const excludeKeys = [];
             testWrapper.agent.post('/prepare-session-field/validLink/true')
@@ -65,8 +60,8 @@ describe('pin-page', () => {
                     testWrapper.testErrors(done, data, 'incorrect', ['pin']);
                 });
         });
-        it('test error page when form data cannot be found', (done) => {
 
+        it('test error page when form data cannot be found', (done) => {
             loadFormDataStub.returns(when(Promise.resolve(new Error('ReferenceError'))));
             testWrapper.agent.post('/prepare-session-field/pin/12345')
                 .end(() => {
@@ -82,7 +77,6 @@ describe('pin-page', () => {
                             done(err);
                         });
                 });
-
         });
 
         it('test save and close link is not displayed on the page', (done) => {

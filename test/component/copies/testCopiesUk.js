@@ -17,7 +17,6 @@ describe('copies-uk', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('CopiesUk');
 
         it('test content loaded on the page', (done) => {
