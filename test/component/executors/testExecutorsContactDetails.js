@@ -2,7 +2,6 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorAddress = require('app/steps/ui/executors/address/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executors-contact-details', () => {
     let testWrapper, sessionData;
@@ -11,15 +10,16 @@ describe('executors-contact-details', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorContactDetails');
         sessionData = {
-            'applicant': {
-                'firstName': 'john', 'lastName': 'theapplicant'
+            applicant: {
+                firstName: 'John',
+                lastName: 'TheApplicant'
             },
-            'executors': {
-                'executorsNumber': 3,
-                'list': [
-                    {'fullName': 'john', 'isApplying': true, 'isApplicant': true},
-                    {'fullName': 'other applicant', 'isApplying': true, 'isApplicant': true},
-                    {'fullName': 'harvey', 'isApplying': true, 'isApplicant': true}
+            executors: {
+                executorsNumber: 3,
+                list: [
+                    {fullName: 'John', isApplying: true, isApplicant: true},
+                    {fullName: 'Other Applicant', isApplying: true, isApplicant: true},
+                    {fullName: 'Harvey', isApplying: true, isApplicant: true}
                 ]
             }
         };
@@ -30,9 +30,6 @@ describe('executors-contact-details', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
-
         it('test correct content is loaded on the page', (done) => {
             const excludeKeys = [];
 
@@ -41,11 +38,10 @@ describe('executors-contact-details', () => {
                 .end(() => {
 
                     const contentData = {
-                        executorName: 'other applicant'
+                        executorName: 'Other Applicant'
                     };
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
-
         });
 
         it('test error messages displayed if no data entered', (done) => {
@@ -68,7 +64,7 @@ describe('executors-contact-details', () => {
                 .end(() => {
                     const data = {
                         index: 1,
-                        executorName: 'other applicant',
+                        executorName: 'Other Applicant',
                         email: '',
                         mobile: '07336622022'
                     };
@@ -82,7 +78,7 @@ describe('executors-contact-details', () => {
                 .end(() => {
                     const data = {
                         index: 1,
-                        executorName: 'other applicant',
+                        executorName: 'Other Applicant',
                         email: 'test@hotmail.com',
                         mobile: ''
                     };
@@ -96,7 +92,7 @@ describe('executors-contact-details', () => {
                 .end(() => {
                     const data = {
                         index: 1,
-                        executorName: 'other applicant',
+                        executorName: 'Other Applicant',
                         email: 'test@.com',
                         mobile: '+447663382082'
                     };
@@ -110,7 +106,7 @@ describe('executors-contact-details', () => {
                 .end(() => {
                     const data = {
                         index: 1,
-                        executorName: 'other applicant',
+                        executorName: 'Other Applicant',
                         email: 'test@hotmail.com',
                         mobile: '+rr53t6463'
                     };
@@ -124,7 +120,7 @@ describe('executors-contact-details', () => {
                 .end(() => {
                     const data = {
                         index: 1,
-                        executorName: 'other applicant',
+                        executorName: 'Other Applicant',
                         email: 'b@.m',
                         mobile: '075r5r5r5r'
                     };
@@ -137,13 +133,12 @@ describe('executors-contact-details', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        executorName: 'other applicant',
+                        executorName: 'Other Applicant',
                         email: 'test@hotmail.com',
                         mobile: '+447663382082'
                     };
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecAddress);
                 });
         });
-
     });
 });

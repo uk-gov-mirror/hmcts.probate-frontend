@@ -43,7 +43,6 @@ describe('executor-roles', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('WillLeft');
 
         it('test correct content is loaded on executor applying page', (done) => {
@@ -98,18 +97,21 @@ describe('executor-roles', () => {
         it('Adds the keys to the context', () => {
             const ExecutorRoles = steps.ExecutorRoles;
             let ctx = {
-                'list': [{
-                    'lastName': 'the',
-                    'firstName': 'applicant',
-                    'isApplying': 'Yes',
-                    'isApplicant': true
-                }, {
-                    'fullName': 'another executor',
-                    'isDead': false
-                }],
-                'index': 1,
-                'isApplying': 'No',
-                'notApplyingReason': reasons.optionRenunciated
+                list: [
+                    {
+                        lastName: 'The',
+                        firstName: 'Aapplicant',
+                        isApplying: 'Yes',
+                        isApplicant: true
+                    },
+                    {
+                        fullName: 'Another Executor',
+                        isDead: false
+                    }
+                ],
+                index: 1,
+                isApplying: 'No',
+                notApplyingReason: reasons.optionRenunciated
             };
 
             [ctx] = ExecutorRoles.handlePost(ctx);
@@ -119,18 +121,21 @@ describe('executor-roles', () => {
         it('Gets the reason key from the json and adds it to the context', () => {
             const ExecutorRoles = steps.ExecutorRoles;
             let ctx = {
-                'list': [{
-                    'lastName': 'the',
-                    'firstName': 'applicant',
-                    'isApplying': 'Yes',
-                    'isApplicant': true
-                }, {
-                    'fullName': 'another executor',
-                    'isDead': false
-                }],
-                'index': 1,
-                'isApplying': 'No',
-                'notApplyingReason': reasons.optionRenunciated
+                list: [
+                    {
+                        lastName: 'The',
+                        firstName: 'Applicant',
+                        isApplying: 'Yes',
+                        isApplicant: true
+                    },
+                    {
+                        fullName: 'Another Executor',
+                        isDead: false
+                    }
+                ],
+                index: 1,
+                isApplying: 'No',
+                notApplyingReason: reasons.optionRenunciated
             };
 
             Object.keys(reasons).forEach(key => {
