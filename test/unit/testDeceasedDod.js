@@ -19,9 +19,13 @@ describe('DeceasedDod', () => {
         let ctx;
         let errors;
         let formdata;
-        let session;
+        const session = {};
         let hostname;
         let featureToggles;
+
+        beforeEach(() => {
+            session.form = {};
+        });
 
         it('should return the ctx with the deceased dod and the screening_question feature toggle', (done) => {
             ctx = {
