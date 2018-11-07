@@ -23,9 +23,9 @@ class DeceasedDob extends DateStep {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
-        if (today < dob) {
+        if (dob >= today) {
             errors.push(FieldError('dob_date', 'dateInFuture', this.resourcePath, this.generateContent()));
-        } else if (dod < dob) {
+        } else if (dob >= dod) {
             errors.push(FieldError('dob_date', 'dodBeforeDob', this.resourcePath, this.generateContent()));
         }
 
