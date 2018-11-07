@@ -20,7 +20,7 @@ describe('executors-alias', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('ExecutorsAlias');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);

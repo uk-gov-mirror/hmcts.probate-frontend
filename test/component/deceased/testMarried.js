@@ -18,7 +18,7 @@ describe('deceased-married', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('DeceasedMarried');
 
         it('test correct content is loaded on the page', (done) => {
             const sessionData = {

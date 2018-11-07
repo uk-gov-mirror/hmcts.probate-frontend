@@ -35,7 +35,7 @@ describe('executors-address', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('ExecutorAddress');
 
         it('test correct content is loaded on the page', (done) => {
             const excludeKeys = ['selectAddress'];

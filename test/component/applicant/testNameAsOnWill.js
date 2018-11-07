@@ -19,7 +19,7 @@ describe('applicant-nameasonwill', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('ApplicantNameAsOnWill');
 
         it('test correct content is loaded on the page', (done) => {
             const sessionData = {

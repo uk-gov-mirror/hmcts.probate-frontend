@@ -31,7 +31,7 @@ describe('executors-contact-details', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('ExecutorContactDetails');
 
         it('test correct content is loaded on the page', (done) => {
             const excludeKeys = [];

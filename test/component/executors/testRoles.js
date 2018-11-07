@@ -44,7 +44,7 @@ describe('executor-roles', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('ExecutorRoles');
 
         it('test correct content is loaded on executor applying page', (done) => {
             testWrapper.agent.post('/prepare-session/form')

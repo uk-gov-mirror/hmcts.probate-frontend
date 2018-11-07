@@ -21,7 +21,7 @@ describe('documents-page', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('Documents');
 
         it('test correct content loaded on the page, no codicils, no alias, single executor', (done) => {
             const sessionData = {

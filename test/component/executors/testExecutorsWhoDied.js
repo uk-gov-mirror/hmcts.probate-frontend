@@ -32,7 +32,7 @@ describe('executors-who-died', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('ExecutorsWhoDied');
 
         it('test content loaded on the page', (done) => {
             testWrapper.agent.post('/prepare-session/form')

@@ -1,17 +1,26 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const WillCodicils = require('app/steps/ui/will/codicils/index');
+const NewDeathCertificate = require('app/steps/ui/deceased/newdeathcertificate/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
-describe('will-original', () => {
+const nock = require('nock');
+const config = require('app/config');
+const featureToggleUrl = config.featureToggles.url;
+const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.screening_questions}`;
+
+describe('new-will-original', () => {
     let testWrapper;
     const expectedNextUrlForStopPage = StopPage.getUrl('notOriginal');
-    const expectedNextUrlForWillCodicils = WillCodicils.getUrl();
+    const expectedNextUrlForNewDeathCertificate = NewDeathCertificate.getUrl();
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('WillOriginal');
+        testWrapper = new TestWrapper('NewWillOriginal');
+
+        nock(featureToggleUrl)
+            .get(featureTogglePath)
+            .reply(200, 'true');
     });
 
     afterEach(() => {
@@ -20,7 +29,7 @@ describe('will-original', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('WillOriginal');
+        testHelpBlockContent.runTest('NewWillOriginal');
 
         it('test right content loaded on the page', (done) => {
             const excludeKeys = [];
@@ -34,11 +43,11 @@ describe('will-original', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to will codicils: ${expectedNextUrlForWillCodicils}`, (done) => {
+        it(`test it redirects to will codicils: ${expectedNextUrlForNewDeathCertificate}`, (done) => {
             const data = {
                 'original': 'Yes'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForWillCodicils);
+            testWrapper.testRedirect(done, data, expectedNextUrlForNewDeathCertificate);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {

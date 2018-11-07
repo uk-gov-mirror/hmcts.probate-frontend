@@ -27,7 +27,7 @@ describe('pin-page', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('PinPage');
 
         it('test right content loaded on the page', (done) => {
             const excludeKeys = [];

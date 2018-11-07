@@ -20,7 +20,7 @@ describe('will-codicils', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('WillCodicils');
 
         it('test correct content loaded on the page', (done) => {
             const excludeKeys = [];

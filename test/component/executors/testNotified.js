@@ -31,7 +31,7 @@ describe('executor-notified', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('ExecutorNotified');
 
         it('test right content loaded on the page', (done) => {
 

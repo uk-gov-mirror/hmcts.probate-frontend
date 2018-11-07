@@ -18,7 +18,7 @@ describe('codicils-number', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('CodicilsNumber');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);

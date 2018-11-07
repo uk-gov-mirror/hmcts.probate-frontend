@@ -18,7 +18,7 @@ describe('applicant-phone', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('ApplicantPhone');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);

@@ -18,7 +18,7 @@ describe('deceased-address', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('DeceasedAddress');
 
         it('test right content loaded on the page', (done) => {
             const excludeKeys = ['selectAddress'];

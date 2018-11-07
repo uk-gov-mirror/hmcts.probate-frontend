@@ -1,17 +1,26 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const TaskList = require('app/steps/ui/tasklist/index');
+const NewIhtCompleted = require('app/steps/ui/iht/newcompleted/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
-describe('mental-capacity', () => {
+const nock = require('nock');
+const config = require('app/config');
+const featureToggleUrl = config.featureToggles.url;
+const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.screening_questions}`;
+
+describe('new-mental-capacity', () => {
     let testWrapper;
-    const expectedNextUrlForTaskList = TaskList.getUrl();
+    const expectedNextUrlForNewIhtCompleted = NewIhtCompleted.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('mentalCapacity');
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('MentalCapacity');
+        testWrapper = new TestWrapper('NewMentalCapacity');
+
+        nock(featureToggleUrl)
+            .get(featureTogglePath)
+            .reply(200, 'true');
     });
 
     afterEach(() => {
@@ -20,7 +29,7 @@ describe('mental-capacity', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('MentalCapacity');
+        testHelpBlockContent.runTest('NewMentalCapacity');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, [], {});
@@ -31,16 +40,16 @@ describe('mental-capacity', () => {
             testWrapper.testErrors(done, data, 'required');
         });
 
-        it(`test it redirects to tasklist if all executors are mentally capable: ${expectedNextUrlForTaskList}`, (done) => {
+        it(`test it redirects to iht completed if all executors are mentally capable: ${expectedNextUrlForNewIhtCompleted}`, (done) => {
             const data = {
-                'mentalCapacity': 'Yes'
+                mentalCapacity: 'Yes'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
+            testWrapper.testRedirect(done, data, expectedNextUrlForNewIhtCompleted);
         });
 
         it(`test it redirects to stop page if not all executors are mentally capable: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
-                'mentalCapacity': 'No'
+                mentalCapacity: 'No'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
         });

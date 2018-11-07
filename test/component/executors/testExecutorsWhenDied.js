@@ -59,7 +59,7 @@ describe('executors-when-died', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('ExecutorsWhenDied');
 
         it('test content loaded on the page', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);

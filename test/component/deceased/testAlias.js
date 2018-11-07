@@ -20,7 +20,7 @@ describe('deceased-alias', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('DeceasedAlias');
 
         it('test right content loaded on the page', (done) => {
             const sessionData = {

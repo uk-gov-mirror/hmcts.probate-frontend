@@ -18,7 +18,7 @@ describe('deceased-domicile', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('DeceasedDomicile');
 
         it('test right content loaded on the page', (done) => {
 

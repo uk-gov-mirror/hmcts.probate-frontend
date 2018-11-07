@@ -18,7 +18,7 @@ describe('iht-paper', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('IhtPaper');
 
         it('test correct iht paper page content is loaded', (done) => {
             const contentToExclude = [];

@@ -18,7 +18,7 @@ describe('iht-identifier', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('IhtIdentifier');
 
         it('test correct iht identifier page content is loaded', (done) => {
             const contentToExclude = [];
