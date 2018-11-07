@@ -45,14 +45,14 @@ describe('new-iht-completed', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForNewStartApply}`, (done) => {
             const data = {
-                'completed': 'Yes'
+                completed: 'Yes'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForNewStartApply);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
-                'completed': 'No'
+                completed: 'No'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
         });
