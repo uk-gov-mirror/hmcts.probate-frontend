@@ -3,7 +3,6 @@
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedName = require('app/steps/ui/deceased/name/index');
 const ExecutorRoles = require('app/steps/ui/executors/roles/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executor-notified', () => {
     let testWrapper, sessionData;
@@ -30,8 +29,6 @@ describe('executor-notified', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('WillLeft');
-
         it('test right content loaded on the page', (done) => {
 
             testWrapper.agent.post('/prepare-session/form')
