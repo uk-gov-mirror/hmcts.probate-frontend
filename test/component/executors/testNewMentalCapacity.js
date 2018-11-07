@@ -4,6 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const NewIhtCompleted = require('app/steps/ui/iht/newcompleted/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const commonContent = require('app/resources/en/translation/common');
 
 const nock = require('nock');
 const config = require('app/config');
@@ -52,6 +53,13 @@ describe('new-mental-capacity', () => {
                 mentalCapacity: 'No'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+        });
+
+        it('test save and close link is not displayed on the page', (done) => {
+            const playbackData = {};
+            playbackData.saveAndClose = commonContent.saveAndClose;
+
+            testWrapper.testContentNotPresent(done, playbackData);
         });
     });
 });

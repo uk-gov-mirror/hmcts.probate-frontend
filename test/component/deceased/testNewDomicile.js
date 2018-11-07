@@ -3,6 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const NewApplicantExecutor = require('app/steps/ui/applicant/newexecutor/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const commonContent = require('app/resources/en/translation/common');
 
 const nock = require('nock');
 const config = require('app/config');
@@ -48,5 +49,11 @@ describe('new-deceased-domicile', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForNewApplicantExecutor);
         });
 
+        it('test save and close link is not displayed on the page', (done) => {
+            const playbackData = {};
+            playbackData.saveAndClose = commonContent.saveAndClose;
+
+            testWrapper.testContentNotPresent(done, playbackData);
+        });
     });
 });

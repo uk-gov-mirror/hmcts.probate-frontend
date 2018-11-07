@@ -2,6 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const NewWillLeft = require('app/steps/ui/will/newleft/index');
+const commonContent = require('app/resources/en/translation/common');
 
 const nock = require('nock');
 const config = require('app/config');
@@ -36,5 +37,11 @@ describe('new-start-eligibility', () => {
             testWrapper.testRedirect(done, {}, expectedNextUrlForNewWillLeft);
         });
 
+        it('test save and close link is not displayed on the page', (done) => {
+            const playbackData = {};
+            playbackData.saveAndClose = commonContent.saveAndClose;
+
+            testWrapper.testContentNotPresent(done, playbackData);
+        });
     });
 });
