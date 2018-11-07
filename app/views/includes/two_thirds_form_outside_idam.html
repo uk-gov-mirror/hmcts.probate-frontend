@@ -1,24 +1,28 @@
 {% extends "includes/layout.html" %}
 
 {% block content %}
-    <main id="content" role="main">
+<main id="content" role="main">
 
-        {% include "includes/phase_banner_beta.html" %}
+    {% include "includes/phase_banner_beta.html" %}
 
-        <div class="grid-row">
-            <div class="column-two-thirds">
+    <div class="grid-row">
+        <div class="column-two-thirds">
 
-                {% block question %}{% endblock %}
+            {% block error_summary %}
+                {% include "includes/error_summary.html" %}
+            {% endblock %}
 
-                {% block page_content %}{% endblock %}
+            {% block question %}{% endblock %}
 
-                <form class="form" method="post" action="{{pageUrl}}" novalidate>
-                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
-                    {% block form_content %}{% endblock %}
-                </form>
+            {% block page_content %}{% endblock %}
 
-                {% include "includes/help_details.html" %}
-            </div>
+            <form class="form" method="post" action="{{pageUrl}}" novalidate>
+                <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                {% block form_content %}{% endblock %}
+            </form>
+
+            {% include "includes/help_details.html" %}
         </div>
-    </main>
+    </div>
+</main>
 {% endblock %}
