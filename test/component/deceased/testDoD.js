@@ -63,6 +63,28 @@ describe('deceased-dod', () => {
             testWrapper.testErrors(done, data, 'dateInFuture', errorsToTest);
         });
 
+        it('test error message displayed for DoD before DoB', (done) => {
+            const errorsToTest = ['dod_date'];
+            const sessionData = {
+                deceased: {
+                    dob_day: '12',
+                    dob_month: '9',
+                    dob_year: '2002'
+                }
+            };
+            const data = {
+                dod_day: '01',
+                dod_month: '01',
+                dod_year: '2000'
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testErrors(done, data, 'dodBeforeDob', errorsToTest);
+                });
+        });
+
         it(`test it redirects to deceased dob: ${expectedNextUrlForDeceasedDob}`, (done) => {
             const data = {
                 dod_day: '01',
