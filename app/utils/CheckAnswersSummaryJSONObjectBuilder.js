@@ -20,41 +20,41 @@ class CheckAnswersSummaryJSONObjectBuilder {
                 summary.pageTitle = $element.html();
             }
             if ($element.hasClass('heading-medium') || $element.hasClass('heading-small')) {
-                section = this.buildSection(section, $element, summary);
+                section = buildSection(section, $element, summary);
             }
             if ($element.hasClass('check-your-answers__row') && $element.children().length > 0) {
-                this.buildQuestionAndAnswers($element, section);
+                buildQuestionAndAnswers($element, section);
             }
         }
         return summary;
     }
+}
 
-    buildQuestionAndAnswers($element, section) {
-        const question = $element.children('.check-your-answers__question');
-        const answer = $element.children('.check-your-answers__answer');
-        const questionAndAnswer = {};
+function buildQuestionAndAnswers($element, section) {
+    const question = $element.children('.check-your-answers__question');
+    const answer = $element.children('.check-your-answers__answer');
+    const questionAndAnswer = {};
 
-        questionAndAnswer.question = question.html();
-        questionAndAnswer.answers = [];
-        const children = answer.children('.check-your-answers__row');
-        if (children.length > 0) {
-            for (const answerChild of children) {
-                questionAndAnswer.answers.push(answerChild.textContent);
-            }
-        } else {
-            questionAndAnswer.answers.push(answer.html());
+    questionAndAnswer.question = question.html();
+    questionAndAnswer.answers = [];
+    const children = answer.children('.check-your-answers__row');
+    if (children.length > 0) {
+        for (const answerChild of children) {
+            questionAndAnswer.answers.push(answerChild.textContent);
         }
-        section.questionAndAnswers.push(questionAndAnswer);
+    } else {
+        questionAndAnswer.answers.push(answer.html());
     }
+    section.questionAndAnswers.push(questionAndAnswer);
+}
 
-    buildSection(section, $element, summary) {
-        section = {};
-        section.title = $element.html();
-        section.type = $element.attr('class');
-        section.questionAndAnswers = [];
-        summary.sections.push(section);
-        return section;
-    }
+function buildSection(section, $element, summary) {
+    section = {};
+    section.title = $element.html();
+    section.type = $element.attr('class');
+    section.questionAndAnswers = [];
+    summary.sections.push(section);
+    return section;
 }
 
 module.exports = CheckAnswersSummaryJSONObjectBuilder;
