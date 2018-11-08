@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const NewApplicantExecutor = require('app/steps/ui/applicant/newexecutor/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const StopPage = require('app/steps/ui/stoppage/index');
 const commonContent = require('app/resources/en/translation/common');
 
 const nock = require('nock');
@@ -13,6 +13,7 @@ const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles
 describe('new-deceased-domicile', () => {
     let testWrapper;
     const expectedNextUrlForNewApplicantExecutor = NewApplicantExecutor.getUrl();
+    const expectedNextUrlForStopPage = StopPage.getUrl('notInEnglandOrWales');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('NewDeceasedDomicile');
@@ -24,14 +25,23 @@ describe('new-deceased-domicile', () => {
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+        it('test help block content is loaded on page', (done) => {
+            const playbackData = {};
+            playbackData.helpTitle = commonContent.helpTitle;
+            playbackData.helpText = commonContent.helpText;
+            playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
+            playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
+            playbackData.helpEmailLabel = commonContent.helpEmailLabel;
+            playbackData.contactEmailAddress = commonContent.contactEmailAddress;
 
-        testHelpBlockContent.runTest('NewDeceasedDomicile');
+            testWrapper.testDataPlayback(done, playbackData);
+        });
 
-        it('test right content loaded on the page', (done) => {
-
+        it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, []);
         });
 
@@ -39,14 +49,22 @@ describe('new-deceased-domicile', () => {
             const data = {};
 
             testWrapper.testErrors(done, data, 'required', []);
-
         });
 
-        it(`test it redirects to deceased address: ${expectedNextUrlForNewApplicantExecutor}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForNewApplicantExecutor}`, (done) => {
             const data = {
                 domicile: 'Yes'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForNewApplicantExecutor);
+        });
+
+        it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
+            const data = {
+                domicile: 'No'
+            };
+
+            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
         });
 
         it('test save and close link is not displayed on the page', (done) => {

@@ -3,7 +3,6 @@
 const TestWrapper = require('test/util/TestWrapper');
 const NewDeceasedDomicile = require('app/steps/ui/deceased/newdomicile/index');
 const StopPage = require('app/steps/ui/stoppage/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
 
 const nock = require('nock');
@@ -26,14 +25,23 @@ describe('new-death-certificate', () => {
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+        it('test help block content is loaded on page', (done) => {
+            const playbackData = {};
+            playbackData.helpTitle = commonContent.helpTitle;
+            playbackData.helpText = commonContent.helpText;
+            playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
+            playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
+            playbackData.helpEmailLabel = commonContent.helpEmailLabel;
+            playbackData.contactEmailAddress = commonContent.contactEmailAddress;
 
-        testHelpBlockContent.runTest('NewDeathCertificate');
+            testWrapper.testDataPlayback(done, playbackData);
+        });
 
-        it('test right content loaded on the page', (done) => {
-
+        it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, []);
         });
 
@@ -41,13 +49,13 @@ describe('new-death-certificate', () => {
             const data = {};
 
             testWrapper.testErrors(done, data, 'required', []);
-
         });
 
-        it(`test it redirects to iht completed: ${expectedNextUrlForNewDeceasedDomicile}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForNewDeceasedDomicile}`, (done) => {
             const data = {
                 deathCertificate: 'Yes'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForNewDeceasedDomicile);
         });
 
@@ -55,6 +63,7 @@ describe('new-death-certificate', () => {
             const data = {
                 deathCertificate: 'No'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
         });
 

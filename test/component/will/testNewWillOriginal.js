@@ -3,7 +3,6 @@
 const TestWrapper = require('test/util/TestWrapper');
 const NewDeathCertificate = require('app/steps/ui/deceased/newdeathcertificate/index');
 const StopPage = require('app/steps/ui/stoppage/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
 
 const nock = require('nock');
@@ -26,13 +25,23 @@ describe('new-will-original', () => {
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+        it('test help block content is loaded on page', (done) => {
+            const playbackData = {};
+            playbackData.helpTitle = commonContent.helpTitle;
+            playbackData.helpText = commonContent.helpText;
+            playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
+            playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
+            playbackData.helpEmailLabel = commonContent.helpEmailLabel;
+            playbackData.contactEmailAddress = commonContent.contactEmailAddress;
 
-        testHelpBlockContent.runTest('NewWillOriginal');
+            testWrapper.testDataPlayback(done, playbackData);
+        });
 
-        it('test right content loaded on the page', (done) => {
+        it('test content loaded on the page', (done) => {
             const excludeKeys = [];
 
             testWrapper.testContent(done, excludeKeys);
@@ -44,10 +53,11 @@ describe('new-will-original', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to will codicils: ${expectedNextUrlForNewDeathCertificate}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForNewDeathCertificate}`, (done) => {
             const data = {
                 'original': 'Yes'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForNewDeathCertificate);
         });
 
@@ -55,6 +65,7 @@ describe('new-will-original', () => {
             const data = {
                 'original': 'No'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
         });
 

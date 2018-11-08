@@ -3,7 +3,6 @@
 const TestWrapper = require('test/util/TestWrapper');
 const NewIhtCompleted = require('app/steps/ui/iht/newcompleted/index');
 const StopPage = require('app/steps/ui/stoppage/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
 
 const nock = require('nock');
@@ -26,11 +25,21 @@ describe('new-mental-capacity', () => {
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+        it('test help block content is loaded on page', (done) => {
+            const playbackData = {};
+            playbackData.helpTitle = commonContent.helpTitle;
+            playbackData.helpText = commonContent.helpText;
+            playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
+            playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
+            playbackData.helpEmailLabel = commonContent.helpEmailLabel;
+            playbackData.contactEmailAddress = commonContent.contactEmailAddress;
 
-        testHelpBlockContent.runTest('NewMentalCapacity');
+            testWrapper.testDataPlayback(done, playbackData);
+        });
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, [], {});
@@ -38,20 +47,23 @@ describe('new-mental-capacity', () => {
 
         it('test errors message displayed for missing data', (done) => {
             const data = {};
+
             testWrapper.testErrors(done, data, 'required');
         });
 
-        it(`test it redirects to iht completed if all executors are mentally capable: ${expectedNextUrlForNewIhtCompleted}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForNewIhtCompleted}`, (done) => {
             const data = {
                 mentalCapacity: 'Yes'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForNewIhtCompleted);
         });
 
-        it(`test it redirects to stop page if not all executors are mentally capable: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
                 mentalCapacity: 'No'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
         });
 

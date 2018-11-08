@@ -3,7 +3,6 @@
 const TestWrapper = require('test/util/TestWrapper');
 const NewStartApply = require('app/steps/ui/newstartapply/index');
 const StopPage = require('app/steps/ui/stoppage/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
 
 const nock = require('nock');
@@ -26,13 +25,23 @@ describe('new-iht-completed', () => {
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+        it('test help block content is loaded on page', (done) => {
+            const playbackData = {};
+            playbackData.helpTitle = commonContent.helpTitle;
+            playbackData.helpText = commonContent.helpText;
+            playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
+            playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
+            playbackData.helpEmailLabel = commonContent.helpEmailLabel;
+            playbackData.contactEmailAddress = commonContent.contactEmailAddress;
 
-        testHelpBlockContent.runTest('NewIhtCompleted');
+            testWrapper.testDataPlayback(done, playbackData);
+        });
 
-        it('test right content loaded on the page', (done) => {
+        it('test content loaded on the page', (done) => {
             const excludeKeys = [];
 
             testWrapper.testContent(done, excludeKeys);
@@ -48,6 +57,7 @@ describe('new-iht-completed', () => {
             const data = {
                 completed: 'Yes'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForNewStartApply);
         });
 
@@ -55,6 +65,7 @@ describe('new-iht-completed', () => {
             const data = {
                 completed: 'No'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
         });
 

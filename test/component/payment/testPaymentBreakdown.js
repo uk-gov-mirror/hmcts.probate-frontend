@@ -21,6 +21,7 @@ describe('payment-breakdown', () => {
     afterEach(() => {
         submitStub.close();
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

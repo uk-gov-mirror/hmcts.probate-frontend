@@ -3,7 +3,6 @@
 const TestWrapper = require('test/util/TestWrapper');
 const NewWillOriginal = require('app/steps/ui/will/neworiginal/index');
 const StopPage = require('app/steps/ui/stoppage/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
 
 const nock = require('nock');
@@ -26,11 +25,27 @@ describe('new-will-left', () => {
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+        it('test help block content is loaded on page', (done) => {
+            const playbackData = {};
+            playbackData.helpTitle = commonContent.helpTitle;
+            playbackData.helpText = commonContent.helpText;
+            playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
+            playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
+            playbackData.helpEmailLabel = commonContent.helpEmailLabel;
+            playbackData.contactEmailAddress = commonContent.contactEmailAddress;
 
-        testHelpBlockContent.runTest('NewWillLeft');
+            testWrapper.testDataPlayback(done, playbackData);
+        });
+
+        it('test content loaded on the page', (done) => {
+            const excludeKeys = [];
+
+            testWrapper.testContent(done, excludeKeys);
+        });
 
         it('test errors message displayed for missing data', (done) => {
             const data = {};
@@ -38,10 +53,11 @@ describe('new-will-left', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to will original: ${expectedNextUrlForNewWillOriginal}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForNewWillOriginal}`, (done) => {
             const data = {
                 left: 'Yes'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForNewWillOriginal);
         });
 
@@ -49,6 +65,7 @@ describe('new-will-left', () => {
             const data = {
                 left: 'No'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
         });
 
