@@ -4,6 +4,8 @@ const TestWrapper = require('test/util/TestWrapper');
 const ExecutorCurrentName = require('app/steps/ui/executors/currentname/index');
 const ExecutorCurrentNameReason = require('app/steps/ui/executors/currentnamereason/index');
 const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails/index');
+const commonContent = require('app/resources/en/translation/common');
+const config = require('app/config');
 
 describe('executor-current-name', () => {
     let testWrapper, sessionData;
@@ -35,6 +37,18 @@ describe('executor-current-name', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+        it('test help block content is loaded on page', (done) => {
+            const playbackData = {};
+            playbackData.helpTitle = commonContent.helpTitle;
+            playbackData.helpText = commonContent.helpText;
+            playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
+            playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
+            playbackData.helpEmailLabel = commonContent.helpEmailLabel;
+            playbackData.contactEmailAddress = commonContent.contactEmailAddress;
+
+            testWrapper.testDataPlayback(done, playbackData);
+        });
+
         it('test content loaded on the page', (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

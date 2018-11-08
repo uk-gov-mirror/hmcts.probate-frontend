@@ -6,6 +6,8 @@ const TestWrapper = require('test/util/TestWrapper');
 const ExecutorNotified = require('app/steps/ui/executors/notified/index');
 const DeceasedName = require('app/steps/ui/deceased/name/index');
 const executorRolesContent = require('app/resources/en/translation/executors/executorcontent');
+const commonContent = require('app/resources/en/translation/common');
+const config = require('app/config');
 
 describe('executor-roles', () => {
     const expectedNextUrlForDeceasedName = DeceasedName.getUrl();
@@ -21,16 +23,17 @@ describe('executor-roles', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorRoles');
         sessionData = {
-            'applicant': {
-                'firstName': 'john', 'lastName': 'theapplicant'
+            applicant: {
+                firstName: 'John',
+                lastName: 'TheApplicant'
             },
-            'executors': {
-                'executorsNumber': 2,
-                'list': [
-                    {'firstName': 'john', 'lastName': 'theapplicant', 'isApplying': 'Yes', 'isApplicant': true},
-                    {'fullName': 'Mana Manah', 'isApplying': 'No', 'isDead': false},
-                    {'fullName': 'Mee Mee', 'isApplying': 'No', 'isDead': true},
-                    {'fullName': 'Boo Boo', 'isApplying': 'No'}
+            executors: {
+                executorsNumber: 2,
+                list: [
+                    {firstName: 'John', lastName: 'TheApplicant', isApplying: 'Yes', isApplicant: true},
+                    {fullName: 'Mana Manah', isApplying: 'No', isDead: false},
+                    {fullName: 'Mee Mee', isApplying: 'No', isDead: true},
+                    {fullName: 'Boo Boo', isApplying: 'No'}
 
                 ]
             }
@@ -42,6 +45,22 @@ describe('executor-roles', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+        it('test help block content is loaded on page', (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const playbackData = {};
+                    playbackData.helpTitle = commonContent.helpTitle;
+                    playbackData.helpText = commonContent.helpText;
+                    playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
+                    playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
+                    playbackData.helpEmailLabel = commonContent.helpEmailLabel;
+                    playbackData.contactEmailAddress = commonContent.contactEmailAddress;
+
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+        });
+
         it('test correct content is loaded on executor applying page', (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -97,7 +116,7 @@ describe('executor-roles', () => {
                 list: [
                     {
                         lastName: 'The',
-                        firstName: 'Aapplicant',
+                        firstName: 'Applicant',
                         isApplying: 'Yes',
                         isApplicant: true
                     },

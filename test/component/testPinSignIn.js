@@ -7,6 +7,7 @@ const {assert} = require('chai');
 const services = require('app/components/services');
 const CoApplicantStartPage = require('app/steps/ui/coapplicant/startpage/index');
 const commonContent = require('app/resources/en/translation/common');
+const config = require('app/config');
 
 describe('pin-page', () => {
     let testWrapper;
@@ -24,6 +25,21 @@ describe('pin-page', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+        it('test help block content is loaded on page', (done) => {
+            testWrapper.agent.post('/prepare-session-field/validLink/true')
+                .end(() => {
+                    const playbackData = {};
+                    playbackData.helpTitle = commonContent.helpTitle;
+                    playbackData.helpText = commonContent.helpText;
+                    playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
+                    playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
+                    playbackData.helpEmailLabel = commonContent.helpEmailLabel;
+                    playbackData.contactEmailAddress = commonContent.contactEmailAddress;
+
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+        });
+
         it('test right content loaded on the page', (done) => {
             const excludeKeys = [];
             testWrapper.agent.post('/prepare-session-field/validLink/true')

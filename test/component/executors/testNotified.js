@@ -3,6 +3,8 @@
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedName = require('app/steps/ui/deceased/name/index');
 const ExecutorRoles = require('app/steps/ui/executors/roles/index');
+const commonContent = require('app/resources/en/translation/common');
+const config = require('app/config');
 
 describe('executor-notified', () => {
     let testWrapper, sessionData;
@@ -13,13 +15,13 @@ describe('executor-notified', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorNotified');
         sessionData = {
-            'executors': {
-                'list': [
-                    {'firstName': 'john', 'lastName': 'theapplicant', 'isApplying': 'Yes', 'isApplicant': true},
-                    {'fullName': 'Manah Mana'},
-                    {'fullName': 'Dave Bass'},
-                    {'fullName': 'Ann Watt'}
-                ],
+            executors: {
+                list: [
+                    {firstName: 'John', lastName: 'TheApplicant', isApplying: 'Yes', isApplicant: true},
+                    {fullName: 'Manah Mana'},
+                    {fullName: 'Dave Bass'},
+                    {fullName: 'Ann Watt'}
+                ]
             }
         };
     });
@@ -29,6 +31,22 @@ describe('executor-notified', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+        it('test help block content is loaded on page', (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const playbackData = {};
+                    playbackData.helpTitle = commonContent.helpTitle;
+                    playbackData.helpText = commonContent.helpText;
+                    playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
+                    playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
+                    playbackData.helpEmailLabel = commonContent.helpEmailLabel;
+                    playbackData.contactEmailAddress = commonContent.contactEmailAddress;
+
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+        });
+
         it('test right content loaded on the page', (done) => {
 
             testWrapper.agent.post('/prepare-session/form')

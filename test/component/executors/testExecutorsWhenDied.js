@@ -1,3 +1,4 @@
+// eslint-disable-line max-lines
 'use strict';
 
 const initSteps = require('app/core/initSteps');
@@ -7,6 +8,8 @@ const ExecutorsWhenDied = require('app/steps/ui/executors/whendied/index');
 const DeceasedName = require('app/steps/ui/deceased/name/index');
 const ExecutorsApplying = require('app/steps/ui/executors/applying/index');
 const contentData = {executorFullName: 'many clouds'};
+const commonContent = require('app/resources/en/translation/common');
+const config = require('app/config');
 
 describe('executors-when-died', () => {
     let testWrapper, sessionData;
@@ -61,6 +64,22 @@ describe('executors-when-died', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+        it('test help block content is loaded on page', (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const playbackData = {};
+                    playbackData.helpTitle = commonContent.helpTitle;
+                    playbackData.helpText = commonContent.helpText;
+                    playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
+                    playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
+                    playbackData.helpEmailLabel = commonContent.helpEmailLabel;
+                    playbackData.contactEmailAddress = commonContent.contactEmailAddress;
+
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+        });
+
         it('test content loaded on the page', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
             testWrapper.agent.post('/prepare-session/form')
