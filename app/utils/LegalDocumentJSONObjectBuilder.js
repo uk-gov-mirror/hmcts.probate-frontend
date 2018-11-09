@@ -10,29 +10,19 @@ class LegalDocumentJSONObjectBuilder {
         const legalDeclaration = {};
         legalDeclaration.headers = [];
         legalDeclaration.sections = [];
-        const sections = $('.declaration-header, .declaration-subheader, .declaration-item, .list-bullet');
+        const pageSections = $('.declaration-header, .declaration-subheader, .declaration-item, .list-bullet');
 
-        let section;
-        let declarationItem;
-        for (const sectElement of sections) {
+        for (const sectElement of pageSections) {
             const $element = $(sectElement);
             if ($element.hasClass('declaration-header')) {
                 legalDeclaration.headers.push($element.html());
             } else if ($element.hasClass('declaration-subheader')) {
-                section = buildSection(section, $element);
+                let section = buildSection($element);
                 legalDeclaration.sections.push(section);
             } else if ($element.hasClass('declaration-item')) {
-                declarationItem = {};
-                declarationItem.title = $element.html();
-                section.declarationItems.push(declarationItem);
+                buildDeclarationItem($element, legalDeclaration)
             } else if ($element.hasClass('list-bullet')) {
-                declarationItem.values = [];
-                const children = $element.children();
-                if (children.length > 0) {
-                    for (const statement of children) {
-                        declarationItem.values.push(statement.textContent);
-                    }
-                }
+                buildDeclarationItemValues($element, legalDeclaration)
             }
         }
         legalDeclaration.dateCreated = new Date().toLocaleString();
@@ -45,8 +35,28 @@ class LegalDocumentJSONObjectBuilder {
     }
 }
 
-function buildSection(section, $element) {
-    section = {};
+function buildDeclarationItemValues($element, legalDeclaration) {
+    let section = legalDeclaration.sections[legalDeclaration.sections.length - 1];
+    let declarationItem = section.declarationItems.pop();
+    declarationItem.values = [];
+    const children = $element.children();
+    if (children.length > 0) {
+        for (const statement of children) {
+            declarationItem.values.push(statement.textContent);
+        }
+    }
+    section.declarationItems.push(declarationItem);
+}
+
+function buildDeclarationItem($element, legalDeclaration) {
+    let declarationItem = {};
+    declarationItem.title = $element.html();
+    let section = legalDeclaration.sections[legalDeclaration.sections.length - 1];
+    section.declarationItems.push(declarationItem);
+}
+
+function buildSection($element) {
+    let section = {};
     if ($element.hasClass('heading-medium') || $element.hasClass('heading-large')) {
         section.headingType = 'large';
     } else {
