@@ -166,9 +166,6 @@ class TestWrapper {
         this.server.http.close();
     }
 
-    getStep() {
-        return this.pageToTest;
-    }
 }
 
 module.exports = TestWrapper;
