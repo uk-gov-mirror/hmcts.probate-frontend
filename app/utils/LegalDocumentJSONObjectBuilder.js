@@ -19,7 +19,7 @@ class LegalDocumentJSONObjectBuilder {
             if ($element.hasClass('declaration-header')) {
                 legalDeclaration.headers.push($element.html());
             } else if ($element.hasClass('declaration-subheader')) {
-                section = this.buildSection(section, $element);
+                section = buildSection(section, $element);
                 legalDeclaration.sections.push(section);
             } else if ($element.hasClass('declaration-item')) {
                 declarationItem = {};
@@ -43,18 +43,18 @@ class LegalDocumentJSONObjectBuilder {
         }
         return legalDeclaration;
     }
+}
 
-    buildSection(section, $element) {
-        section = {};
-        if ($element.hasClass('heading-medium') || $element.hasClass('heading-large')) {
-            section.headingType = 'large';
-        } else {
-            section.headingType = 'small';
-        }
-        section.title = $element.html();
-        section.declarationItems = [];
-        return section;
+function buildSection(section, $element) {
+    section = {};
+    if ($element.hasClass('heading-medium') || $element.hasClass('heading-large')) {
+        section.headingType = 'large';
+    } else {
+        section.headingType = 'small';
     }
+    section.title = $element.html();
+    section.declarationItems = [];
+    return section;
 }
 
 module.exports = LegalDocumentJSONObjectBuilder;
