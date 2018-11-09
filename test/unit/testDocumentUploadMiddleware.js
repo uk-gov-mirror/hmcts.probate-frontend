@@ -122,6 +122,7 @@ describe('DocumentUploadMiddleware', () => {
                         documents: {}
                     }
                 },
+                error: null,
                 log: {},
                 body: {
                     isUploadingDocument: 'true'
