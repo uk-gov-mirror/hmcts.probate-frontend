@@ -17,12 +17,12 @@ class LegalDocumentJSONObjectBuilder {
             if ($element.hasClass('declaration-header')) {
                 legalDeclaration.headers.push($element.html());
             } else if ($element.hasClass('declaration-subheader')) {
-                let section = buildSection($element);
+                const section = buildSection($element);
                 legalDeclaration.sections.push(section);
             } else if ($element.hasClass('declaration-item')) {
-                buildDeclarationItem($element, legalDeclaration)
+                buildDeclarationItem($element, legalDeclaration);
             } else if ($element.hasClass('list-bullet')) {
-                buildDeclarationItemValues($element, legalDeclaration)
+                buildDeclarationItemValues($element, legalDeclaration);
             }
         }
         legalDeclaration.dateCreated = new Date().toLocaleString();
@@ -36,8 +36,8 @@ class LegalDocumentJSONObjectBuilder {
 }
 
 function buildDeclarationItemValues($element, legalDeclaration) {
-    let section = legalDeclaration.sections[legalDeclaration.sections.length - 1];
-    let declarationItem = section.declarationItems.pop();
+    const section = legalDeclaration.sections[legalDeclaration.sections.length - 1];
+    const declarationItem = section.declarationItems.pop();
     declarationItem.values = [];
     const children = $element.children();
     if (children.length > 0) {
@@ -49,14 +49,14 @@ function buildDeclarationItemValues($element, legalDeclaration) {
 }
 
 function buildDeclarationItem($element, legalDeclaration) {
-    let declarationItem = {};
+    const declarationItem = {};
     declarationItem.title = $element.html();
-    let section = legalDeclaration.sections[legalDeclaration.sections.length - 1];
+    const section = legalDeclaration.sections[legalDeclaration.sections.length - 1];
     section.declarationItems.push(declarationItem);
 }
 
 function buildSection($element) {
-    let section = {};
+    const section = {};
     if ($element.hasClass('heading-medium') || $element.hasClass('heading-large')) {
         section.headingType = 'large';
     } else {
