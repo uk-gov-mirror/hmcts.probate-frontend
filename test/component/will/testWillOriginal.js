@@ -4,6 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const DeathCertificate = require('app/steps/ui/deceased/deathcertificate/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const commonContent = require('app/resources/en/translation/common');
 
 describe('will-original', () => {
     let testWrapper;
@@ -19,13 +20,10 @@ describe('will-original', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+        testHelpBlockContent.runTest('WillOriginal');
 
-        testHelpBlockContent.runTest('WillLeft');
-
-        it('test right content loaded on the page', (done) => {
-            const excludeKeys = [];
-
-            testWrapper.testContent(done, excludeKeys);
+        it('test content loaded on the page', (done) => {
+            testWrapper.testContent(done, []);
         });
 
         it('test errors message displayed for missing data', (done) => {
@@ -34,19 +32,27 @@ describe('will-original', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to Death Certificate page: ${expectedNextUrlForDeathCertificate}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForDeathCertificate}`, (done) => {
             const data = {
-                'original': 'Yes'
+                original: 'Yes'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForDeathCertificate);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
-                'original': 'No'
+                original: 'No'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
         });
 
+        it('test save and close link is not displayed on the page', (done) => {
+            const playbackData = {};
+            playbackData.saveAndClose = commonContent.saveAndClose;
+
+            testWrapper.testContentNotPresent(done, playbackData);
+        });
     });
 });

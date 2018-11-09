@@ -2,11 +2,14 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const ApplicantExecutor = require('app/steps/ui/applicant/executor/index');
+const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const commonContent = require('app/resources/en/translation/common');
 
 describe('deceased-domicile', () => {
     let testWrapper;
     const expectedNextUrlForApplicantExecutor = ApplicantExecutor.getUrl();
+    const expectedNextUrlForStopPage = StopPage.getUrl('notInEnglandOrWales');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedDomicile');
@@ -17,11 +20,9 @@ describe('deceased-domicile', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+        testHelpBlockContent.runTest('DeceasedDomicile');
 
-        testHelpBlockContent.runTest('WillLeft');
-
-        it('test right content loaded on the page', (done) => {
-
+        it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, []);
         });
 
@@ -29,15 +30,29 @@ describe('deceased-domicile', () => {
             const data = {};
 
             testWrapper.testErrors(done, data, 'required', []);
-
         });
 
-        it(`test it redirects to Applicant Executor page: ${expectedNextUrlForApplicantExecutor}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForApplicantExecutor}`, (done) => {
             const data = {
                 domicile: 'Yes'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForApplicantExecutor);
         });
 
+        it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
+            const data = {
+                domicile: 'No'
+            };
+
+            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+        });
+
+        it('test save and close link is not displayed on the page', (done) => {
+            const playbackData = {};
+            playbackData.saveAndClose = commonContent.saveAndClose;
+
+            testWrapper.testContentNotPresent(done, playbackData);
+        });
     });
 });

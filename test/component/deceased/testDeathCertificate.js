@@ -1,18 +1,18 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const WillOriginal = require('app/steps/ui/will/original/index');
+const DeceasedDomicile = require('app/steps/ui/deceased/domicile/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
 
-describe('will-left', () => {
+describe('death-certificate', () => {
     let testWrapper;
-    const expectedNextUrlForWillOriginal = WillOriginal.getUrl();
-    const expectedNextUrlForStopPage = StopPage.getUrl('noWill');
+    const expectedNextUrlForDeceasedDomicile = DeceasedDomicile.getUrl();
+    const expectedNextUrlForStopPage = StopPage.getUrl('deathCertificate');
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('WillLeft');
+        testWrapper = new TestWrapper('DeathCertificate');
     });
 
     afterEach(() => {
@@ -20,7 +20,7 @@ describe('will-left', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('DeathCertificate');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, []);
@@ -32,17 +32,17 @@ describe('will-left', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForWillOriginal}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForDeceasedDomicile}`, (done) => {
             const data = {
-                left: 'Yes'
+                deathCertificate: 'Yes'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForWillOriginal);
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDomicile);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
-                left: 'No'
+                deathCertificate: 'No'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
