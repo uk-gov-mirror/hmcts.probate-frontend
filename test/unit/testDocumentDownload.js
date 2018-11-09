@@ -74,7 +74,7 @@ describe('DocumentDownload.js', () => {
                         throw err;
                     }
                     expect(res.get('Content-Type')).equal('application/pdf; charset=utf-8');
-                    expect(res.get('Content-Disposition')).equal('attachment; filename=legal-declaration.pdf');
+                    expect(res.get('Content-Disposition')).equal('attachment; filename=legalDeclaration.pdf');
                     done();
                 });
         });
