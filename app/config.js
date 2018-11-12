@@ -78,7 +78,7 @@ const config = {
         }
     },
     dateFormat: 'DD/MM/YYYY',
-    payloadVersion: '4.1.0',
+    payloadVersion: '4.1.1',
     gaTrackingId: process.env.GA_TRACKING_ID || 'UA-93598808-3',
     enableTracking: process.env.ENABLE_TRACKING || 'true',
     links: {
