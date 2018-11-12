@@ -71,7 +71,7 @@ const config = {
         secret: process.env.REDIS_SECRET || 'OVERWRITE_THIS',
         proxy: true,
         resave: false,
-        saveUninitialized: false,
+        saveUninitialized: true,
         cookie: {
             httpOnly: true,
             sameSite: 'lax'
