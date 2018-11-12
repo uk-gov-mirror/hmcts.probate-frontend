@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const NewDeathCertificate = require('app/steps/ui/deceased/newdeathcertificate/index');
+const NewApplicantExecutor = require('app/steps/ui/applicant/newexecutor/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const commonContent = require('app/resources/en/translation/common');
 
@@ -13,7 +13,7 @@ const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles
 describe('new-will-original', () => {
     let testWrapper;
     const expectedNextUrlForStopPage = StopPage.getUrl('notOriginal');
-    const expectedNextUrlForNewDeathCertificate = NewDeathCertificate.getUrl();
+    const expectedNextUrlForNewApplicantExecutor = NewApplicantExecutor.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('NewWillOriginal');
@@ -53,12 +53,12 @@ describe('new-will-original', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForNewDeathCertificate}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForNewApplicantExecutor}`, (done) => {
             const data = {
                 'original': 'Yes'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForNewDeathCertificate);
+            testWrapper.testRedirect(done, data, expectedNextUrlForNewApplicantExecutor);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {

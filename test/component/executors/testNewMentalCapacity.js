@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const NewIhtCompleted = require('app/steps/ui/iht/newcompleted/index');
+const NewStartApply = require('app/steps/ui/newstartapply/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const commonContent = require('app/resources/en/translation/common');
 
@@ -12,7 +12,7 @@ const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles
 
 describe('new-mental-capacity', () => {
     let testWrapper;
-    const expectedNextUrlForNewIhtCompleted = NewIhtCompleted.getUrl();
+    const expectedNextUrlForNewStartApply = NewStartApply.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('mentalCapacity');
 
     beforeEach(() => {
@@ -51,12 +51,12 @@ describe('new-mental-capacity', () => {
             testWrapper.testErrors(done, data, 'required');
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForNewIhtCompleted}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForNewStartApply}`, (done) => {
             const data = {
                 mentalCapacity: 'Yes'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForNewIhtCompleted);
+            testWrapper.testRedirect(done, data, expectedNextUrlForNewStartApply);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
