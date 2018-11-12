@@ -1,14 +1,14 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ApplicantExecutor = require('app/steps/ui/applicant/executor/index');
+const IhtCompleted = require('app/steps/ui/iht/completed/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
 
 describe('deceased-domicile', () => {
     let testWrapper;
-    const expectedNextUrlForApplicantExecutor = ApplicantExecutor.getUrl();
+    const expectedNextUrlForIhtCompleted = IhtCompleted.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('notInEnglandOrWales');
 
     beforeEach(() => {
@@ -32,12 +32,12 @@ describe('deceased-domicile', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForApplicantExecutor}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForIhtCompleted}`, (done) => {
             const data = {
                 domicile: 'Yes'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForApplicantExecutor);
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtCompleted);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {

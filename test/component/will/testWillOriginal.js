@@ -1,15 +1,15 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const DeathCertificate = require('app/steps/ui/deceased/deathcertificate/index');
+const ApplicantExecutor = require('app/steps/ui/applicant/executor/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
 
 describe('will-original', () => {
     let testWrapper;
+    const expectedNextUrlForApplicantExecutor = ApplicantExecutor.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('notOriginal');
-    const expectedNextUrlForDeathCertificate = DeathCertificate.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('WillOriginal');
@@ -32,12 +32,12 @@ describe('will-original', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForDeathCertificate}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForApplicantExecutor}`, (done) => {
             const data = {
                 original: 'Yes'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeathCertificate);
+            testWrapper.testRedirect(done, data, expectedNextUrlForApplicantExecutor);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
