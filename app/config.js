@@ -74,7 +74,6 @@ const config = {
         cookie: {
             httpOnly: true,
             secure: true
-            //sameSite: 'lax'
         }
     },
     dateFormat: 'DD/MM/YYYY',
