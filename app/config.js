@@ -73,8 +73,8 @@ const config = {
         resave: false,
         saveUninitialized: true,
         cookie: {
-            httpOnly: true,
-            sameSite: 'lax'
+            httpOnly: true
+            //,sameSite: 'lax'
         }
     },
     dateFormat: 'DD/MM/YYYY',
