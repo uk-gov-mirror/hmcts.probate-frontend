@@ -69,16 +69,15 @@ const config = {
         useTLS: process.env.REDIS_USE_TLS || 'false',
         enabled: process.env.USE_REDIS || 'false',
         secret: process.env.REDIS_SECRET || 'OVERWRITE_THIS',
-        proxy: true,
         resave: false,
-        saveUninitialized: false,
+        saveUninitialized: true,
         cookie: {
             httpOnly: true,
-            sameSite: 'lax'
+            secure: true
         }
     },
     dateFormat: 'DD/MM/YYYY',
-    payloadVersion: '4.1.0',
+    payloadVersion: '4.1.1',
     gaTrackingId: process.env.GA_TRACKING_ID || 'UA-93598808-3',
     enableTracking: process.env.ENABLE_TRACKING || 'true',
     links: {
