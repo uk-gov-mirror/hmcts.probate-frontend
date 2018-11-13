@@ -73,7 +73,8 @@ const config = {
         resave: false,
         saveUninitialized: true,
         cookie: {
-            httpOnly: true
+            httpOnly: true,
+            secure: true
             //,sameSite: 'lax'
         }
     },
