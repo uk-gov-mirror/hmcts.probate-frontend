@@ -69,13 +69,12 @@ const config = {
         useTLS: process.env.REDIS_USE_TLS || 'false',
         enabled: process.env.USE_REDIS || 'false',
         secret: process.env.REDIS_SECRET || 'OVERWRITE_THIS',
-        //proxy: true,
         resave: false,
         saveUninitialized: true,
         cookie: {
             httpOnly: true,
-            //,secure: true
-            sameSite: 'lax'
+            secure: true
+            //sameSite: 'lax'
         }
     },
     dateFormat: 'DD/MM/YYYY',
