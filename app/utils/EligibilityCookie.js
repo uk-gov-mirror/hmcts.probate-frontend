@@ -6,12 +6,12 @@ class EligibilityCookie {
     checkCookie() {
         return function (req, res, next) {
             if (!req.cookies[ELIGIBILITY_COOKIE]) {
-                res.redirect('/start-eligibility');
+                res.redirect('/new-start-eligibility');
             } else {
                 const eligibilityCookie = JSON.parse(req.cookies[ELIGIBILITY_COOKIE]);
 
                 if (!eligibilityCookie.pages.includes(req.originalUrl) && req.originalUrl !== eligibilityCookie.nextStepUrl) {
-                    res.redirect('/start-eligibility');
+                    res.redirect('/new-start-eligibility');
                 } else {
                     next();
                 }
