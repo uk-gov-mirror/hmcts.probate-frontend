@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const NewApplicantExecutor = require('app/steps/ui/applicant/newexecutor/index');
+const NewIhtCompleted = require('app/steps/ui/iht/newcompleted/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const commonContent = require('app/resources/en/translation/common');
 
@@ -12,7 +12,7 @@ const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles
 
 describe('new-deceased-domicile', () => {
     let testWrapper;
-    const expectedNextUrlForNewApplicantExecutor = NewApplicantExecutor.getUrl();
+    const expectedNextUrlForNewIhtCompleted = NewIhtCompleted.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('notInEnglandOrWales');
 
     beforeEach(() => {
@@ -51,12 +51,12 @@ describe('new-deceased-domicile', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForNewApplicantExecutor}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForNewIhtCompleted}`, (done) => {
             const data = {
                 domicile: 'Yes'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForNewApplicantExecutor);
+            testWrapper.testRedirect(done, data, expectedNextUrlForNewIhtCompleted);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {

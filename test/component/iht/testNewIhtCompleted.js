@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const NewStartApply = require('app/steps/ui/newstartapply/index');
+const NewWillLeft = require('app/steps/ui/will/newleft/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const commonContent = require('app/resources/en/translation/common');
 
@@ -12,7 +12,7 @@ const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles
 
 describe('new-iht-completed', () => {
     let testWrapper;
-    const expectedNextUrlForNewStartApply = NewStartApply.getUrl();
+    const expectedNextUrlForNewWillLeft = NewWillLeft.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('ihtNotCompleted');
 
     beforeEach(() => {
@@ -53,12 +53,12 @@ describe('new-iht-completed', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForNewStartApply}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForNewWillLeft}`, (done) => {
             const data = {
                 completed: 'Yes'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForNewStartApply);
+            testWrapper.testRedirect(done, data, expectedNextUrlForNewWillLeft);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
