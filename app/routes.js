@@ -8,7 +8,6 @@ const logger = require('app/components/logger');
 const {get, includes, isEqual} = require('lodash');
 const commonContent = require('app/resources/en/translation/common');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const featureToggles = require('app/featureToggles');
 const documentUpload = require('app/documentUpload');
 const documentDownload = require('app/documentDownload');
 
@@ -83,8 +82,6 @@ router.use((req, res, next) => {
         next();
     }
 });
-
-router.use(featureToggles);
 
 router.use('/document-upload', documentUpload);
 
