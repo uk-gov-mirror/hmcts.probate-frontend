@@ -1,7 +1,9 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const content = require('app/resources/en/translation/executors/mentalcapacity');
+const content = require('app/resources/en/translation/executors/newmentalcapacity');
+const EligibilityCookie = require('app/utils/EligibilityCookie');
+const eligibilityCookie = new EligibilityCookie();
 
 class NewMentalCapacity extends ValidationStep {
 
@@ -21,8 +23,8 @@ class NewMentalCapacity extends ValidationStep {
         };
     }
 
-    isComplete(ctx) {
-        return [ctx.mentalCapacity === content.optionYes, 'inProgress'];
+    setEligibilityCookie(req, res, ctx) {
+        eligibilityCookie.setCookie(req, res, this.nextStepUrl(ctx));
     }
 }
 

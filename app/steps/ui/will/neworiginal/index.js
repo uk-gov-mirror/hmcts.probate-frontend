@@ -1,7 +1,9 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const json = require('app/resources/en/translation/will/original');
+const content = require('app/resources/en/translation/will/neworiginal');
+const EligibilityCookie = require('app/utils/EligibilityCookie');
+const eligibilityCookie = new EligibilityCookie();
 
 class NewWillOriginal extends ValidationStep {
 
@@ -14,12 +16,15 @@ class NewWillOriginal extends ValidationStep {
     }
 
     nextStepOptions() {
-        const nextStepOptions = {
+        return {
             options: [
-                {key: 'original', value: json.optionYes, choice: 'isOriginal'}
+                {key: 'original', value: content.optionYes, choice: 'isOriginal'}
             ]
         };
-        return nextStepOptions;
+    }
+
+    setEligibilityCookie(req, res, ctx) {
+        eligibilityCookie.setCookie(req, res, this.nextStepUrl(ctx));
     }
 }
 
