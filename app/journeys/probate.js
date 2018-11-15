@@ -2,7 +2,7 @@
 
 const taskList = {
     EligibilityTask: {
-        firstStep: 'WillLeft',
+        firstStep: 'NewDeathCertificate',
         lastStep: 'TaskList',
         summary: 'Summary'
     },
