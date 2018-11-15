@@ -36,7 +36,7 @@ const asyncFetch = (url, fetchOptions, parseBody) => {
                 return parseBody(res)
                     .then(body => {
                         if (body instanceof Buffer) {
-                            logger.error({body});
+                            logger.error(body.toLocaleString());
                         } else {
                             logger.error(body);
                         }
