@@ -1,12 +1,19 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
+const DeceasedDod = require('app/steps/ui/deceased/dod/index');
 const DeceasedDomicile = require('app/steps/ui/deceased/domicile/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+
+const nock = require('nock');
+const config = require('app/config');
+const featureToggleUrl = config.featureToggles.url;
+const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.screening_questions}`;
 
 describe('deceased-dob', () => {
     let testWrapper;
     const expectedNextUrlForDeceasedDomicile = DeceasedDomicile.getUrl();
+    const expectedNextUrlForDeceasedDod = DeceasedDod.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedDob');
@@ -14,10 +21,11 @@ describe('deceased-dob', () => {
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('DeceasedDob');
 
         it('test right content loaded on the page', (done) => {
             testWrapper.testContent(done, []);
@@ -53,24 +61,13 @@ describe('deceased-dob', () => {
 
         it('test error message displayed for date in the future', (done) => {
             const errorsToTest = ['dob_date'];
-            const sessionData = {
-                deceased: {
-                    dod_day: '01',
-                    dod_month: '01',
-                    dod_year: '2000'
-                }
-            };
             const data = {
                 dob_day: '12',
                 dob_month: '9',
                 dob_year: '3000'
             };
 
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.testErrors(done, data, 'dateInFuture', errorsToTest);
-                });
+            testWrapper.testErrors(done, data, 'dateInFuture', errorsToTest);
         });
 
         it('test error message displayed for DoD before DoB', (done) => {
@@ -95,25 +92,32 @@ describe('deceased-dob', () => {
                 });
         });
 
-        it(`test it redirects to Deceased Domicile page: ${expectedNextUrlForDeceasedDomicile}`, (done) => {
-            const sessionData = {
-                deceased: {
-                    dod_day: '01',
-                    dod_month: '01',
-                    dod_year: '2000'
-                }
-            };
+        it(`test it redirects to deceased domicile page: ${expectedNextUrlForDeceasedDomicile}`, (done) => {
+            nock(featureToggleUrl)
+                .get(featureTogglePath)
+                .reply(200, 'false');
+
             const data = {
                 dob_day: '01',
                 dob_month: '01',
                 dob_year: '1999'
             };
 
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDomicile);
-                });
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDomicile);
+        });
+
+        it(`test it redirects to deceased dod: ${expectedNextUrlForDeceasedDod}`, (done) => {
+            nock(featureToggleUrl)
+                .get(featureTogglePath)
+                .reply(200, 'true');
+
+            const data = {
+                dob_day: '01',
+                dob_month: '01',
+                dob_year: '1999'
+            };
+
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDod);
         });
     });
 });
