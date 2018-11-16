@@ -6,13 +6,11 @@ class EligibilityCookie {
     checkCookie() {
         return function (req, res, next) {
             if (!req.cookies[ELIGIBILITY_COOKIE]) {
-                console.log('>>>>>>>>>>>>>>>>>> Cookie not set :(');
                 res.redirect('/new-start-eligibility');
             } else {
                 const eligibilityCookie = JSON.parse(req.cookies[ELIGIBILITY_COOKIE]);
 
                 if (!eligibilityCookie.pages.includes(req.originalUrl) && req.originalUrl !== eligibilityCookie.nextStepUrl) {
-                    console.log('>>>>>>>>>>>>>>>>>> Cookie set but redirecting anyway :(');
                     res.redirect('/new-start-eligibility');
                 } else {
                     next();
