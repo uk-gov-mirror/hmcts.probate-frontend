@@ -104,7 +104,7 @@ for (const step in steps) {
 
                         cookieJar.setCookies(cookieString);
 
-                        const cookieValue = cookieJar.getCookie('__eligibility', Cookie.CookieAccessInfo.All);
+                        const cookieValue = cookieJar.getCookie(cookie.name, Cookie.CookieAccessInfo.All);
                         console.log('>>>>>>>>>>>>>>>>>> Cookie value:');
                         console.log(JSON.parse(cookieValue.value));
                     }
