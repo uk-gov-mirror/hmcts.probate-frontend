@@ -71,9 +71,8 @@ for (const step in steps) {
 
         if (step.name === 'NewApplicantExecutor') {
             describe(`Verify accessibility for the page ${step.name}`, () => {
-                const server = app.init();
-                let agent;
-
+                let server = null;
+                let agent = null;
                 const title = `${step.content.title} - ${commonContent.serviceName}`
                     .replace(/&lsquo;/g, '‘')
                     .replace(/&rsquo;/g, '’')
@@ -81,6 +80,7 @@ for (const step in steps) {
                     .replace(/\)/g, '\\)');
 
                 before((done) => {
+                    server = app.init();
                     agent = request.agent(server.app);
 
                     checkAllAgreedStub = sinon.stub(services, 'checkAllAgreed')
