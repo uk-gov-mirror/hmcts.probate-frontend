@@ -18,7 +18,19 @@ describe('ThankYou', () => {
         let ctx;
         let req;
 
-        it('should return the context with the CCD case Id when a CCD case Id exists', (done) => {
+        it('should return the context with an empty CCD Case Id when not present', (done) => {
+            req = {
+                session: {
+                    form: {}
+                }
+            };
+
+            ctx = ThankYou.getContextData(req);
+            expect(ctx.ccdReferenceNumber).to.deep.equal('');
+            done();
+        });
+
+        it('should return the context with the CCD Case ID when present', (done) => {
             req = {
                 session: {
                     form: {
