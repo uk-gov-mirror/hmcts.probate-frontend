@@ -2,6 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const config = require('app/config');
+const content = require('app/resources/en/translation/thankyou');
 
 describe('thank-you', () => {
     let testWrapper;
@@ -20,14 +21,11 @@ describe('thank-you', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const excludeKeys = ['referenceNumber'];
-
                     const contentData = {
-                        helpLineNumber: config.helpline.number,
-                        findOutNext: config.links.findOutNext
+                        referenceNumber: content.referenceNumber
                     };
 
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testContentNotPresent(done, contentData);
                 });
         });
 
