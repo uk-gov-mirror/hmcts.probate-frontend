@@ -10,10 +10,12 @@
                     <h1 class="heading-xlarge">
                         {{content.header | safe}}
                     </h1>
-                    <p class="font-large">
-                        <span class="font-medium">{{content.referenceNumber | safe}}</span><br>
-                        <strong class="bold">{{fields.ccdReferenceNumber.value}}</strong>
-                    </p>
+                    {% if fields.ccdReferenceNumber.value !== '' %}
+                        <p class="font-large">
+                            <span class="font-medium">{{content.referenceNumber | safe}}</span><br>
+                            <strong class="bold">{{fields.ccdReferenceNumber.value}}</strong>
+                        </p>
+                    {% endif %}
                 </div>
 
                 <h2 class="heading-medium">{{content.successHeading1 | safe}}</h2>

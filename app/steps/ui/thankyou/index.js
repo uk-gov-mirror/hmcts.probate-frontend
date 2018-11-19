@@ -10,6 +10,7 @@ class ThankYou extends Step {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
+        ctx.ccdReferenceNumber = '';
         if (req.session.form.ccdCase && req.session.form.ccdCase.id) {
             ctx.ccdReferenceNumber = req.session.form.ccdCase.id;
         }
