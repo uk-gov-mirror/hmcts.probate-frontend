@@ -30,12 +30,28 @@ describe('ThankYou', () => {
             done();
         });
 
-        it('should return the context with the CCD Case ID when present', (done) => {
+        it('should return the context with the CCD Case ID when present (WITH dashes)', (done) => {
             req = {
                 session: {
                     form: {
                         ccdCase: {
                             id: '1234-5678-9012-3456'
+                        }
+                    }
+                }
+            };
+
+            ctx = ThankYou.getContextData(req);
+            expect(ctx.ccdReferenceNumber).to.deep.equal('1234-5678-9012-3456');
+            done();
+        });
+
+        it('should return the context with the CCD Case ID when present (WITHOUT dashes)', (done) => {
+            req = {
+                session: {
+                    form: {
+                        ccdCase: {
+                            id: '1234567890123456'
                         }
                     }
                 }

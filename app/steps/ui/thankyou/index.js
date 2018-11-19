@@ -13,6 +13,11 @@ class ThankYou extends Step {
         ctx.ccdReferenceNumber = '';
         if (req.session.form.ccdCase && req.session.form.ccdCase.id) {
             ctx.ccdReferenceNumber = req.session.form.ccdCase.id;
+
+            if (ctx.ccdReferenceNumber.indexOf('-') === -1) {
+                ctx.ccdReferenceNumber = ctx.ccdReferenceNumber.match(/.{1,4}/g);
+                ctx.ccdReferenceNumber = ctx.ccdReferenceNumber.join('-');
+            }
         }
         return ctx;
     }
