@@ -38,16 +38,37 @@ describe('deceased-dod', () => {
             testWrapper.testErrors(done, data, 'required', errorsToTest);
         });
 
-        it('test error message displayed for invalid date', (done) => {
-            const errorsToTest = ['dod_date'];
-            const data = {dod_day: '31', dod_month: '9', dod_year: '2000'};
+        it('test error message displayed for invalid day', (done) => {
+            const errorsToTest = ['dod_day'];
+            const data = {dod_day: '32', dod_month: '09', dod_year: '2000'};
 
             testWrapper.testErrors(done, data, 'invalid', errorsToTest);
         });
 
-        it('test error message displayed for non-numeric field', (done) => {
+        it('test error message displayed for invalid month', (done) => {
+            const errorsToTest = ['dod_month'];
+            const data = {dod_day: '13', dod_month: '14', dod_year: '2000'};
+
+            testWrapper.testErrors(done, data, 'invalid', errorsToTest);
+        });
+
+        it('test error message displayed for non-numeric day', (done) => {
             const errorsToTest = ['dod_day'];
             const data = {dod_day: 'ab', dod_month: '09', dod_year: '2000'};
+
+            testWrapper.testErrors(done, data, 'invalid', errorsToTest);
+        });
+
+        it('test error message displayed for non-numeric month', (done) => {
+            const errorsToTest = ['dod_month'];
+            const data = {dod_day: '13', dod_month: 'ab', dod_year: '2000'};
+
+            testWrapper.testErrors(done, data, 'invalid', errorsToTest);
+        });
+
+        it('test error message displayed for non-numeric year', (done) => {
+            const errorsToTest = ['dod_year'];
+            const data = {dod_day: '13', dod_month: '12', dod_year: '20ab'};
 
             testWrapper.testErrors(done, data, 'invalid', errorsToTest);
         });
