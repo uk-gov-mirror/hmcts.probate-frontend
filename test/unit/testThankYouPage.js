@@ -61,6 +61,22 @@ describe('ThankYou', () => {
             expect(ctx.ccdReferenceNumber).to.deep.equal('1234-5678-9012-3456');
             done();
         });
+
+        it('should return the context with the CCD Case ID when present as an integer (WITHOUT dashes)', (done) => {
+            req = {
+                session: {
+                    form: {
+                        ccdCase: {
+                            id: 1234567890123456
+                        }
+                    }
+                }
+            };
+
+            ctx = ThankYou.getContextData(req);
+            expect(ctx.ccdReferenceNumber).to.deep.equal('1234-5678-9012-3456');
+            done();
+        });
     });
 
     describe('action()', () => {
