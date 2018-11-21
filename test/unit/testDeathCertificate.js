@@ -3,42 +3,42 @@
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
-const NewIhtCompleted = steps.NewIhtCompleted;
-const content = require('app/resources/en/translation/iht/newcompleted');
+const DeathCertificate = steps.DeathCertificate;
+const content = require('app/resources/en/translation/deceased/deathcertificate');
 
-describe('NewIhtCompleted', () => {
+describe('DeathCertificate', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
-            const url = NewIhtCompleted.constructor.getUrl();
-            expect(url).to.equal('/new-iht-completed');
+            const url = DeathCertificate.constructor.getUrl();
+            expect(url).to.equal('/death-certificate');
             done();
         });
     });
 
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
-            const ctx = {completed: content.optionYes};
-            const nextStepUrl = NewIhtCompleted.nextStepUrl(ctx);
-            expect(nextStepUrl).to.equal('/new-will-left');
+            const ctx = {deathCertificate: content.optionYes};
+            const nextStepUrl = DeathCertificate.nextStepUrl(ctx);
+            expect(nextStepUrl).to.equal('/deceased-domicile');
             done();
         });
 
         it('should return the correct url when No is given', (done) => {
-            const ctx = {completed: content.optionNo};
-            const nextStepUrl = NewIhtCompleted.nextStepUrl(ctx);
-            expect(nextStepUrl).to.equal('/stop-page/ihtNotCompleted');
+            const ctx = {deathCertificate: content.optionNo};
+            const nextStepUrl = DeathCertificate.nextStepUrl(ctx);
+            expect(nextStepUrl).to.equal('/stop-page/deathCertificate');
             done();
         });
     });
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const nextStepOptions = NewIhtCompleted.nextStepOptions();
+            const nextStepOptions = DeathCertificate.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [{
-                    key: 'completed',
+                    key: 'deathCertificate',
                     value: content.optionYes,
-                    choice: 'completed'
+                    choice: 'hasCertificate'
                 }]
             });
             done();

@@ -1,11 +1,10 @@
 'use strict';
 
-const content = require('app/resources/en/translation/iht/completed');
 const initSteps = require('app/core/initSteps');
-const chai = require('chai');
-const expect = chai.expect;
+const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const IhtCompleted = steps.IhtCompleted;
+const content = require('app/resources/en/translation/iht/completed');
 
 describe('IhtCompleted.js', () => {
     describe('getUrl()', () => {

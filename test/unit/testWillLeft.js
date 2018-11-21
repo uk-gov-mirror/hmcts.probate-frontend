@@ -1,11 +1,10 @@
 'use strict';
 
-const content = require('app/resources/en/translation/will/left');
 const initSteps = require('app/core/initSteps');
-const chai = require('chai');
-const expect = chai.expect;
+const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const WillLeft = steps.WillLeft;
+const content = require('app/resources/en/translation/will/left');
 
 describe('WillLeft.js', () => {
     describe('getUrl()', () => {

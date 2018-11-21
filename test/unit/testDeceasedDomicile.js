@@ -1,13 +1,12 @@
 'use strict';
 
-const content = require('app/resources/en/translation/deceased/domicile');
 const initSteps = require('app/core/initSteps');
-const chai = require('chai');
-const expect = chai.expect;
+const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const DeceasedDomicile = steps.DeceasedDomicile;
+const content = require('app/resources/en/translation/deceased/domicile');
 
-describe('DeceasedDomicile.js', () => {
+describe('DeceasedDomicile', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = DeceasedDomicile.constructor.getUrl();

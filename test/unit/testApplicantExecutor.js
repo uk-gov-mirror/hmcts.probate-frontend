@@ -1,13 +1,12 @@
 'use strict';
 
-const content = require('app/resources/en/translation/applicant/executor');
 const initSteps = require('app/core/initSteps');
-const chai = require('chai');
-const expect = chai.expect;
+const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const ApplicantExecutor = steps.ApplicantExecutor;
+const content = require('app/resources/en/translation/applicant/executor');
 
-describe('ApplicantExecutor.js', () => {
+describe('ApplicantExecutor', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = ApplicantExecutor.constructor.getUrl();

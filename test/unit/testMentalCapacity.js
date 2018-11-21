@@ -1,13 +1,12 @@
 'use strict';
 
-const content = require('app/resources/en/translation/executors/mentalcapacity');
 const initSteps = require('app/core/initSteps');
-const chai = require('chai');
-const expect = chai.expect;
+const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const MentalCapacity = steps.MentalCapacity;
+const content = require('app/resources/en/translation/executors/mentalcapacity');
 
-describe('MentalCapacity.js', () => {
+describe('MentalCapacity', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = MentalCapacity.constructor.getUrl();
