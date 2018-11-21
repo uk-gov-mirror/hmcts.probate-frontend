@@ -46,7 +46,7 @@
       },
       "dodBeforeDob": {
         "summary": "The date of birth you entered is after the date of death",
-        "message": "Enter a date date of birth that is before the date of death"
+        "message": "Enter a date of birth that is before the date of death"
       }
     }
   }
