@@ -21,11 +21,10 @@ class EligibilityCookie {
         };
     }
 
-    setCookie(req, res, nextStepUrl, redirectUrl) {
+    setCookie(req, res, nextStepUrl) {
         const json = this.readCookie(req);
         const currentPage = req.originalUrl;
 
-        json.redirectUrl = redirectUrl;
         json.nextStepUrl = nextStepUrl;
         if (!json.pages.includes(currentPage)) {
             json.pages.push(currentPage);
