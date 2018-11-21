@@ -5,6 +5,16 @@ const WillLeft = require('app/steps/ui/will/left/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
+const cookies = [{
+    name: '__eligibility',
+    content: {
+        nextStepUrl: '/new-iht-completed',
+        pages: [
+            '/new-death-certificate',
+            '/new-deceased-domicile'
+        ]
+    }
+}];
 
 describe('iht-completed', () => {
     let testWrapper;
@@ -23,13 +33,13 @@ describe('iht-completed', () => {
         testHelpBlockContent.runTest('IhtCompleted');
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, []);
+            testWrapper.testContent(done, [], {}, cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {
             const data = {};
 
-            testWrapper.testErrors(done, data, 'required', []);
+            testWrapper.testErrors(done, data, 'required', [], cookies);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForWillLeft}`, (done) => {
@@ -37,7 +47,7 @@ describe('iht-completed', () => {
                 completed: 'Yes'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForWillLeft);
+            testWrapper.testRedirect(done, data, expectedNextUrlForWillLeft, cookies);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
@@ -45,7 +55,7 @@ describe('iht-completed', () => {
                 completed: 'No'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
         });
 
         it('test save and close link is not displayed on the page', (done) => {

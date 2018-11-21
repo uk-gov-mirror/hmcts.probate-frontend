@@ -63,21 +63,23 @@ const config = {
     redis: {
         host: process.env.REDIS_HOST || 'localhost',
         port: process.env.REDIS_PORT || 6379,
-
         password: process.env.REDIS_PASSWORD || 'dummy_password',
         useTLS: process.env.REDIS_USE_TLS || 'false',
         enabled: process.env.USE_REDIS || 'false',
         secret: process.env.REDIS_SECRET || 'OVERWRITE_THIS',
-        proxy: true,
         resave: false,
-        saveUninitialized: false,
+        saveUninitialized: true,
         cookie: {
             httpOnly: true,
-            sameSite: 'lax'
+            secure: true
+        },
+        eligibilityCookie: {
+            name: '__eligibility',
+            redirectUrl: '/new-start-eligibility'
         }
     },
     dateFormat: 'DD/MM/YYYY',
-    payloadVersion: '4.1.0',
+    payloadVersion: '4.1.1',
     gaTrackingId: process.env.GA_TRACKING_ID || 'UA-93598808-3',
     enableTracking: process.env.ENABLE_TRACKING || 'true',
     links: {
@@ -103,7 +105,8 @@ const config = {
         guidance: '/public/pdf/probate-guidance-pa2sot.pdf',
         registryInformation: '/public/pdf/probate-registries-pa4sot.pdf',
         deathCertificate: 'https://www.gov.uk/order-copy-birth-death-marriage-certificate',
-        deathReportedToCoroner: 'https://www.gov.uk/after-a-death/when-a-death-is-reported-to-a-coroner'
+        deathReportedToCoroner: 'https://www.gov.uk/after-a-death/when-a-death-is-reported-to-a-coroner',
+        findOutNext: 'https://www.gov.uk/wills-probate-inheritance/once-the-grants-been-issued'
     },
     helpline: {
         number: '0300 303 0648',

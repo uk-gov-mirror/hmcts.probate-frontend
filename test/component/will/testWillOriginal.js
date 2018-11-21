@@ -5,6 +5,18 @@ const ApplicantExecutor = require('app/steps/ui/applicant/executor/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
+const cookies = [{
+    name: '__eligibility',
+    content: {
+        nextStepUrl: '/new-will-original',
+        pages: [
+            '/new-death-certificate',
+            '/new-deceased-domicile',
+            '/new-iht-completed',
+            '/new-will-left'
+        ]
+    }
+}];
 
 describe('will-original', () => {
     let testWrapper;
@@ -23,13 +35,13 @@ describe('will-original', () => {
         testHelpBlockContent.runTest('WillOriginal');
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, []);
+            testWrapper.testContent(done, [], {}, cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {
             const data = {};
 
-            testWrapper.testErrors(done, data, 'required', []);
+            testWrapper.testErrors(done, data, 'required', [], cookies);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForApplicantExecutor}`, (done) => {
@@ -37,7 +49,7 @@ describe('will-original', () => {
                 original: 'Yes'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForApplicantExecutor);
+            testWrapper.testRedirect(done, data, expectedNextUrlForApplicantExecutor, cookies);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
@@ -45,7 +57,7 @@ describe('will-original', () => {
                 original: 'No'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
         });
 
         it('test save and close link is not displayed on the page', (done) => {

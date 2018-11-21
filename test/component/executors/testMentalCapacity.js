@@ -5,6 +5,20 @@ const StartApply = require('app/steps/ui/startapply/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
+const cookies = [{
+    name: '__eligibility',
+    content: {
+        nextStepUrl: '/new-mental-capacity',
+        pages: [
+            '/new-death-certificate',
+            '/new-deceased-domicile',
+            '/new-iht-completed',
+            '/new-will-left',
+            '/new-will-original',
+            '/new-applicant-executor'
+        ]
+    }
+}];
 
 describe('mental-capacity', () => {
     let testWrapper;
@@ -23,13 +37,13 @@ describe('mental-capacity', () => {
         testHelpBlockContent.runTest('MentalCapacity');
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, []);
+            testWrapper.testContent(done, [], {}, cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {
             const data = {};
 
-            testWrapper.testErrors(done, data, 'required');
+            testWrapper.testErrors(done, data, 'required', [], cookies);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForStartApply}`, (done) => {
@@ -37,7 +51,7 @@ describe('mental-capacity', () => {
                 mentalCapacity: 'Yes'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForStartApply);
+            testWrapper.testRedirect(done, data, expectedNextUrlForStartApply, cookies);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
@@ -45,7 +59,7 @@ describe('mental-capacity', () => {
                 mentalCapacity: 'No'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
         });
 
         it('test save and close link is not displayed on the page', (done) => {
