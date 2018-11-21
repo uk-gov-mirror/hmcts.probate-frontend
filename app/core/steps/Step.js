@@ -54,7 +54,7 @@ class Step {
         return ctx;
     }
 
-    setEligibilityCookie(req, res, ctx) {
+    static setEligibilityCookie(req, res, ctx) {
         return [req, res, ctx];
     }
 
