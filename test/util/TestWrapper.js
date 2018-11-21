@@ -38,8 +38,11 @@ class TestWrapper {
         const contentToCheck = cloneDeep(filter(this.content, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
         const substitutedContent = this.substituteContent(data, contentToCheck);
         const res = this.agent.get(this.pageUrl);
+        const cookiesString = this.setCookiesString(res, cookies);
 
-        this.setCookies(res, cookies);
+        if (cookiesString !== '') {
+            res.set('Cookie', cookiesString);
+        }
 
         res.expect('Content-type', /html/)
             .then(response => {
@@ -51,8 +54,11 @@ class TestWrapper {
 
     testDataPlayback(done, data, cookies) {
         const res = this.agent.get(this.pageUrl);
+        const cookiesString = this.setCookiesString(res, cookies);
 
-        this.setCookies(res, cookies);
+        if (cookiesString !== '') {
+            res.set('Cookie', cookiesString);
+        }
 
         res.expect('Content-type', /html/)
             .then(response => {
@@ -77,8 +83,11 @@ class TestWrapper {
         assert.isNotEmpty(expectedErrors);
         this.substituteErrorsContent(data, expectedErrors, type);
         const res = this.agent.post(`${this.pageUrl}`);
+        const cookiesString = this.setCookiesString(res, cookies);
 
-        this.setCookies(res, cookies);
+        if (cookiesString !== '') {
+            res.set('Cookie', cookiesString);
+        }
 
         res.type('form')
             .send(data)
@@ -106,8 +115,11 @@ class TestWrapper {
 
     testRedirect(done, postData, expectedNextUrl, cookies = []) {
         const res = this.agent.post(this.pageUrl);
+        const cookiesString = this.setCookiesString(res, cookies);
 
-        this.setCookies(res, cookies);
+        if (cookiesString !== '') {
+            res.set('Cookie', cookiesString);
+        }
 
         res.type('form')
             .send(postData)
@@ -174,7 +186,7 @@ class TestWrapper {
         });
     }
 
-    setCookies(res, cookies = []) {
+    setCookiesString(res, cookies = []) {
         if (cookies.length) {
             let cookiesString;
 
@@ -186,8 +198,10 @@ class TestWrapper {
 
             cookiesString = cookiesString.substring(0, cookiesString.length - 1);
 
-            res.set('Cookie', cookiesString);
+            return cookiesString;
         }
+
+        return '';
     }
 
     destroy() {

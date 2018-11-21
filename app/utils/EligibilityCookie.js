@@ -1,17 +1,19 @@
 'use strict';
 
-const ELIGIBILITY_COOKIE = '__eligibility';
+const config = require('app/config');
+const eligibilityCookieName = config.redis.eligibilityCookie.name;
+const eligibilityCookieRedirectUrl = config.redis.eligibilityCookie.redirectUrl;
 
 class EligibilityCookie {
     checkCookie() {
         return function (req, res, next) {
-            if (!req.cookies[ELIGIBILITY_COOKIE]) {
-                res.redirect('/new-start-eligibility');
+            if (!req.cookies[eligibilityCookieName]) {
+                res.redirect(eligibilityCookieRedirectUrl);
             } else {
-                const eligibilityCookie = JSON.parse(req.cookies[ELIGIBILITY_COOKIE]);
+                const eligibilityCookie = JSON.parse(req.cookies[eligibilityCookieName]);
 
                 if (!eligibilityCookie.pages.includes(req.originalUrl) && req.originalUrl !== eligibilityCookie.nextStepUrl) {
-                    res.redirect('/new-start-eligibility');
+                    res.redirect(eligibilityCookieRedirectUrl);
                 } else {
                     next();
                 }
@@ -19,10 +21,11 @@ class EligibilityCookie {
         };
     }
 
-    setCookie(req, res, nextStepUrl) {
+    setCookie(req, res, nextStepUrl, redirectUrl) {
         const json = this.readCookie(req);
         const currentPage = req.originalUrl;
 
+        json.redirectUrl = redirectUrl;
         json.nextStepUrl = nextStepUrl;
         if (!json.pages.includes(currentPage)) {
             json.pages.push(currentPage);
@@ -37,8 +40,8 @@ class EligibilityCookie {
             pages: []
         };
 
-        if (req.cookies && req.cookies[ELIGIBILITY_COOKIE]) {
-            json = JSON.parse(req.cookies[ELIGIBILITY_COOKIE]);
+        if (req.cookies && req.cookies[eligibilityCookieName]) {
+            json = JSON.parse(req.cookies[eligibilityCookieName]);
         }
 
         return json;
@@ -48,9 +51,9 @@ class EligibilityCookie {
         const cookieValue = JSON.stringify(json);
 
         if (req.protocol === 'https') {
-            res.cookie(ELIGIBILITY_COOKIE, cookieValue, {secure: true, httpOnly: true});
+            res.cookie(eligibilityCookieName, cookieValue, {secure: true, httpOnly: true});
         } else {
-            res.cookie(ELIGIBILITY_COOKIE, cookieValue, {httpOnly: true});
+            res.cookie(eligibilityCookieName, cookieValue, {httpOnly: true});
         }
     }
 }
