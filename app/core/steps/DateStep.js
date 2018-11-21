@@ -22,6 +22,8 @@ class DateStep extends ValidationStep {
 
         const date = moment(`${ctx[day]}/${ctx[month]}/${ctx[year]}`, config.dateFormat);
 
+        ctx[`${dateName}_date`] = null;
+
         if (date.isValid()) {
             ctx[`${dateName}_date`] = date.toISOString();
             ctx[`${dateName}_formattedDate`] = this.formattedDate(date);
