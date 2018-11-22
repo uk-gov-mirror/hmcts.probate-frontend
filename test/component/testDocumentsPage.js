@@ -1,4 +1,5 @@
 // eslint-disable-line max-lines
+
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
@@ -169,6 +170,55 @@ describe('documents', () => {
                         'checklist1-item2',
                         'checklist2-item1',
                         'checklist2-item2',
+                        'checklist2-item3-will-uploaded',
+                        'checklist2-item4-iht205',
+                        'checklist2-item5-renunciated',
+                        'checklist2-item6-deed-poll',
+                        'checkboxLabel-codicils'
+                    ];
+                    testWrapper.testContent(done, excludeKeys, contentData);
+                });
+        });
+        it('test correct content loaded on the page, no codicils, no alias, multiple executors (Feature Toggle ON)', (done) => {
+            sessionData.executors = {
+                list: [
+                    {isApplying: true, isApplicant: true},
+                    {isApplying: true}
+                ]
+            };
+            nock(featureToggleUrl)
+                .get(featureTogglePath)
+                .reply(200, 'true');
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const excludeKeys = [
+                        'old_header',
+                        'old_printPage',
+                        'old_heading2',
+                        'old_checklist1Header',
+                        'old_checklist1-item1',
+                        'old_checklist1-item2',
+                        'old_checklist2Header',
+                        'old_checklist2-item1',
+                        'old_checklist2-item2',
+                        'old_checklist3HeaderNumber',
+                        'old_checklist3HeaderNumberMultipleExecutors',
+                        'old_checklist3Header',
+                        'old_checklist3-item1',
+                        'old_checklist3-item1-codicils',
+                        'old_checklist3-item2',
+                        'old_checklist3-item3',
+                        'old_checklist3-item4-Form205',
+                        'old_checklist3-item5-deedPoll',
+                        'old_coverLetter',
+                        'old_coverLetter-codicils',
+                        'old_warning',
+                        'old_heading3',
+                        'old_sendDocuments',
+                        'old_sendDocumentsAddress',
+                        'checklist1-item1-codicils',
                         'checklist2-item3-will-uploaded',
                         'checklist2-item4-iht205',
                         'checklist2-item5-renunciated',
@@ -538,6 +588,61 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
+        it('test correct content loaded on the page, has codicils, no alias, multiple executors (Feature Toggle ON)', (done) => {
+            sessionData.will = {
+                codicils: 'Yes',
+                codicilsNumber: '1'
+            };
+            sessionData.executors = {
+                list: [
+                    {isApplying: true, isApplicant: true},
+                    {isApplying: true}
+                ]
+            };
+            nock(featureToggleUrl)
+                .get(featureTogglePath)
+                .reply(200, 'true');
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const excludeKeys = [
+                        'old_header',
+                        'old_printPage',
+                        'old_heading2',
+                        'old_checklist1Header',
+                        'old_checklist1-item1',
+                        'old_checklist1-item2',
+                        'old_checklist2Header',
+                        'old_checklist2-item1',
+                        'old_checklist2-item2',
+                        'old_checklist3HeaderNumber',
+                        'old_checklist3HeaderNumberMultipleExecutors',
+                        'old_checklist3Header',
+                        'old_checklist3-item1',
+                        'old_checklist3-item1-codicils',
+                        'old_checklist3-item2',
+                        'old_checklist3-item3',
+                        'old_checklist3-item4-Form205',
+                        'old_checklist3-item5-deedPoll',
+                        'old_coverLetter',
+                        'old_coverLetter-codicils',
+                        'old_warning',
+                        'old_heading3',
+                        'old_sendDocuments',
+                        'old_sendDocumentsAddress',
+                        'checklist1-item1-no-codicils',
+                        'checklist2-item3-will-uploaded',
+                        'checklist2-item4-iht205',
+                        'checklist2-item5-renunciated',
+                        'checklist2-item6-deed-poll',
+                        'checkboxLabel'
+                    ];
+                    contentData.codicilsNumber = 1;
+
+                    testWrapper.testContent(done, excludeKeys, contentData);
+                });
+        });
 
         it('test correct content loaded on the page, no codicils, single executor, no alias, specified registry address (Feature Toggle OFF)', (done) => {
             sessionData.executors = {};
@@ -735,6 +840,55 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
+        it('test correct content loaded on the page, no codicils, single executor, no alias, online IHT (Feature Toggle ON)', (done) => {
+            sessionData.executors = {};
+            sessionData.iht = {
+                method: ihtContent.onlineOption
+            };
+            nock(featureToggleUrl)
+                .get(featureTogglePath)
+                .reply(200, 'true');
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const excludeKeys = [
+                        'old_header',
+                        'old_printPage',
+                        'old_heading2',
+                        'old_checklist1Header',
+                        'old_checklist1-item1',
+                        'old_checklist1-item2',
+                        'old_checklist2Header',
+                        'old_checklist2-item1',
+                        'old_checklist2-item2',
+                        'old_checklist3HeaderNumber',
+                        'old_checklist3HeaderNumberMultipleExecutors',
+                        'old_checklist3Header',
+                        'old_checklist3-item1',
+                        'old_checklist3-item1-codicils',
+                        'old_checklist3-item2',
+                        'old_checklist3-item3',
+                        'old_checklist3-item4-Form205',
+                        'old_checklist3-item5-deedPoll',
+                        'old_coverLetter',
+                        'old_coverLetter-codicils',
+                        'old_warning',
+                        'old_heading3',
+                        'old_sendDocuments',
+                        'old_sendDocumentsAddress',
+                        'text6',
+                        'checklist1-item1-codicils',
+                        'checklist2-item3-will-uploaded',
+                        'checklist2-item4-iht205',
+                        'checklist2-item5-renunciated',
+                        'checklist2-item6-deed-poll',
+                        'checkboxLabel-codicils'
+                    ];
+
+                    testWrapper.testContent(done, excludeKeys, contentData);
+                });
+        });
 
         it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 207 or 400 (Feature Toggle OFF)', (done) => {
             sessionData.executors = {};
@@ -775,6 +929,56 @@ describe('documents', () => {
                         'checklist1-item2',
                         'checklist2-item1',
                         'checklist2-item2',
+                        'checklist2-item3-will-uploaded',
+                        'checklist2-item4-iht205',
+                        'checklist2-item5-renunciated',
+                        'checklist2-item6-deed-poll',
+                        'checkboxLabel-codicils'
+                    ];
+
+                    testWrapper.testContent(done, excludeKeys, contentData);
+                });
+        });
+        it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 207 or 400 (Feature Toggle ON)', (done) => {
+            sessionData.executors = {};
+            sessionData.iht = {
+                method: ihtContent.paperOption,
+                form: 'IHT207'
+            };
+            nock(featureToggleUrl)
+                .get(featureTogglePath)
+                .reply(200, 'true');
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const excludeKeys = [
+                        'old_header',
+                        'old_printPage',
+                        'old_heading2',
+                        'old_checklist1Header',
+                        'old_checklist1-item1',
+                        'old_checklist1-item2',
+                        'old_checklist2Header',
+                        'old_checklist2-item1',
+                        'old_checklist2-item2',
+                        'old_checklist3HeaderNumber',
+                        'old_checklist3HeaderNumberMultipleExecutors',
+                        'old_checklist3Header',
+                        'old_checklist3-item1',
+                        'old_checklist3-item1-codicils',
+                        'old_checklist3-item2',
+                        'old_checklist3-item3',
+                        'old_checklist3-item4-Form205',
+                        'old_checklist3-item5-deedPoll',
+                        'old_coverLetter',
+                        'old_coverLetter-codicils',
+                        'old_warning',
+                        'old_heading3',
+                        'old_sendDocuments',
+                        'old_sendDocumentsAddress',
+                        'text6',
+                        'checklist1-item1-codicils',
                         'checklist2-item3-will-uploaded',
                         'checklist2-item4-iht205',
                         'checklist2-item5-renunciated',
@@ -876,6 +1080,55 @@ describe('documents', () => {
                         'checklist2-item2',
                         'checklist2-item3-will-uploaded',
                         'checklist2-item4-iht205',
+                        'checklist2-item5-renunciated',
+                        'checklist2-item6-deed-poll',
+                        'checkboxLabel-codicils'
+                    ];
+
+                    testWrapper.testContent(done, excludeKeys, contentData);
+                });
+        });
+        it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 205 (Feature Toggle ON)', (done) => {
+            sessionData.executors = {};
+            sessionData.iht = {
+                method: ihtContent.paperOption,
+                form: 'IHT205'
+            };
+            nock(featureToggleUrl)
+                .get(featureTogglePath)
+                .reply(200, 'true');
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const excludeKeys = [
+                        'old_header',
+                        'old_printPage',
+                        'old_heading2',
+                        'old_checklist1Header',
+                        'old_checklist1-item1',
+                        'old_checklist1-item2',
+                        'old_checklist2Header',
+                        'old_checklist2-item1',
+                        'old_checklist2-item2',
+                        'old_checklist3HeaderNumber',
+                        'old_checklist3HeaderNumberMultipleExecutors',
+                        'old_checklist3Header',
+                        'old_checklist3-item1',
+                        'old_checklist3-item1-codicils',
+                        'old_checklist3-item2',
+                        'old_checklist3-item3',
+                        'old_checklist3-item4-Form205',
+                        'old_checklist3-item5-deedPoll',
+                        'old_coverLetter',
+                        'old_coverLetter-codicils',
+                        'old_warning',
+                        'old_heading3',
+                        'old_sendDocuments',
+                        'old_sendDocumentsAddress',
+                        'text6',
+                        'checklist1-item1-codicils',
+                        'checklist2-item3-will-uploaded',
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils'
@@ -1242,6 +1495,55 @@ describe('documents', () => {
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils'
                     ];
+                    testWrapper.testContent(done, excludeKeys, contentData);
+                });
+        });
+
+        it('test correct content loaded on the page, CCD Case ID not present (Feature Toggle ON)', (done) => {
+            delete sessionData.ccdCase;
+
+            nock(featureToggleUrl)
+                .get(featureTogglePath)
+                .reply(200, 'true');
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const excludeKeys = [
+                        'old_header',
+                        'old_printPage',
+                        'old_heading2',
+                        'old_checklist1Header',
+                        'old_checklist1-item1',
+                        'old_checklist1-item2',
+                        'old_checklist2Header',
+                        'old_checklist2-item1',
+                        'old_checklist2-item2',
+                        'old_checklist3HeaderNumber',
+                        'old_checklist3HeaderNumberMultipleExecutors',
+                        'old_checklist3Header',
+                        'old_checklist3-item1',
+                        'old_checklist3-item1-codicils',
+                        'old_checklist3-item2',
+                        'old_checklist3-item3',
+                        'old_checklist3-item4-Form205',
+                        'old_checklist3-item5-deedPoll',
+                        'old_coverLetter',
+                        'old_coverLetter-codicils',
+                        'old_warning',
+                        'old_heading3',
+                        'old_sendDocuments',
+                        'old_sendDocumentsAddress',
+                        'text2',
+                        'text6',
+                        'checklist1-item1-codicils',
+                        'checklist2-item3-will-uploaded',
+                        'checklist2-item4-iht205',
+                        'checklist2-item5-renunciated',
+                        'checklist2-item6-deed-poll',
+                        'checkboxLabel-codicils'
+                    ];
+
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
