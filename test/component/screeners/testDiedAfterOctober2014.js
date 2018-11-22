@@ -8,7 +8,7 @@ const commonContent = require('app/resources/en/translation/common');
 const cookies = [{
     name: '__eligibility',
     content: {
-        nextStepUrl: '/iht-completed',
+        nextStepUrl: '/died-after-october-2014',
         pages: [
             '/death-certificate',
             '/deceased-domicile',
@@ -21,10 +21,10 @@ const cookies = [{
 describe('died-after-october-2014', () => {
     let testWrapper;
     const expectedNextUrlForRelationshipToDeceased = RelationshipToDeceased.getUrl();
-    const expectedNextUrlForStopPage = StopPage.getUrl('ihtNotCompleted');
+    const expectedNextUrlForStopPage = StopPage.getUrl('notDiedAfterOctober2014');
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('IhtCompleted');
+        testWrapper = new TestWrapper('DiedAfterOctober2014');
     });
 
     afterEach(() => {
@@ -44,12 +44,12 @@ describe('died-after-october-2014', () => {
             testWrapper.testErrors(done, data, 'required', [], cookies);
         });
 
-        it(`test it redirects to next page: ${RelationshipToDeceased}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForRelationshipToDeceased}`, (done) => {
             const data = {
                 diedAfter: 'Yes'
             };
 
-            testWrapper.testRedirect(done, data, RelationshipToDeceased, cookies);
+            testWrapper.testRedirect(done, data, expectedNextUrlForRelationshipToDeceased, cookies);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {

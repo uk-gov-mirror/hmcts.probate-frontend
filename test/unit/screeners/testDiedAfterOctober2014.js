@@ -1,0 +1,47 @@
+'use strict';
+
+const initSteps = require('../../../app/core/initSteps');
+const {expect} = require('chai');
+const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
+const DiedAfterOctober2014 = steps.DiedAfterOctober2014;
+const content = require('app/resources/en/translation/screeners/diedafteroctober2014');
+
+describe('DiedAfterOctober2014', () => {
+    describe('getUrl()', () => {
+        it('should return the correct url', (done) => {
+            const url = DiedAfterOctober2014.constructor.getUrl();
+            expect(url).to.equal('/died-after-october-2014');
+            done();
+        });
+    });
+
+    describe('nextStepUrl()', () => {
+        it('should return the correct url when Yes is given', (done) => {
+            const ctx = {diedAfter: content.optionYes};
+            const nextStepUrl = DiedAfterOctober2014.nextStepUrl(ctx);
+            expect(nextStepUrl).to.equal('/relationship-to-deceased');
+            done();
+        });
+
+        it('should return the correct url when No is given', (done) => {
+            const ctx = {diedAfter: content.optionNo};
+            const nextStepUrl = DiedAfterOctober2014.nextStepUrl(ctx);
+            expect(nextStepUrl).to.equal('/stop-page/notDiedAfterOctober2014');
+            done();
+        });
+    });
+
+    describe('nextStepOptions()', () => {
+        it('should return the correct options', (done) => {
+            const nextStepOptions = DiedAfterOctober2014.nextStepOptions();
+            expect(nextStepOptions).to.deep.equal({
+                options: [{
+                    key: 'diedAfter',
+                    value: content.optionYes,
+                    choice: 'diedAfter'
+                }]
+            });
+            done();
+        });
+    });
+});

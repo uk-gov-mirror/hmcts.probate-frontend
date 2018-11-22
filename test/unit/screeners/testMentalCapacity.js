@@ -1,10 +1,10 @@
 'use strict';
 
-const initSteps = require('app/core/initSteps');
+const initSteps = require('../../../app/core/initSteps');
 const {expect} = require('chai');
-const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
+const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const MentalCapacity = steps.MentalCapacity;
-const content = require('app/resources/en/translation/executors/mentalcapacity');
+const content = require('app/resources/en/translation/screeners/mentalcapacity');
 
 describe('MentalCapacity', () => {
     describe('getUrl()', () => {
@@ -17,14 +17,14 @@ describe('MentalCapacity', () => {
 
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
-            const ctx = {mentalCapacity: 'Yes'};
+            const ctx = {mentalCapacity: content.optionYes};
             const nextStepUrl = MentalCapacity.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/start-apply');
             done();
         });
 
         it('should return the correct url when No is given', (done) => {
-            const ctx = {mentalCapacity: 'No'};
+            const ctx = {mentalCapacity: content.optionNo};
             const nextStepUrl = MentalCapacity.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/stop-page/mentalCapacity');
             done();

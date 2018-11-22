@@ -54,7 +54,8 @@ const stepList = {
     },
     WillLeft: {
         withWill: 'WillOriginal',
-        otherwise: 'DiedAfterOctober2014'
+        withoutWillToggleOn: 'DiedAfterOctober2014',
+        otherwise: 'StopPage'
     },
     // Probate ----------------------------------
     WillOriginal: {

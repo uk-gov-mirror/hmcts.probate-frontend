@@ -1,10 +1,10 @@
 'use strict';
 
-const initSteps = require('app/core/initSteps');
+const initSteps = require('../../../app/core/initSteps');
 const {expect} = require('chai');
-const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
+const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ApplicantExecutor = steps.ApplicantExecutor;
-const content = require('app/resources/en/translation/applicant/executor');
+const content = require('app/resources/en/translation/screeners/applicantexecutor');
 
 describe('ApplicantExecutor', () => {
     describe('getUrl()', () => {
@@ -17,14 +17,14 @@ describe('ApplicantExecutor', () => {
 
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
-            const ctx = {executor: 'Yes'};
+            const ctx = {executor: content.optionYes};
             const nextStepUrl = ApplicantExecutor.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/mental-capacity');
             done();
         });
 
         it('should return the correct url when No is given', (done) => {
-            const ctx = {executor: 'No'};
+            const ctx = {executor: content.optionNo};
             const nextStepUrl = ApplicantExecutor.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/stop-page/notExecutor');
             done();

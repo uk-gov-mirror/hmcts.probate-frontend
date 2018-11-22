@@ -1,12 +1,12 @@
 'use strict';
 
-const initSteps = require('app/core/initSteps');
+const initSteps = require('../../../app/core/initSteps');
 const {expect} = require('chai');
-const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
+const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const WillOriginal = steps.WillOriginal;
-const content = require('app/resources/en/translation/will/original');
+const content = require('app/resources/en/translation/screeners/willoriginal');
 
-describe('WillOriginal.js', () => {
+describe('WillOriginal', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = WillOriginal.constructor.getUrl();
@@ -17,14 +17,14 @@ describe('WillOriginal.js', () => {
 
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
-            const ctx = {original: 'Yes'};
+            const ctx = {original: content.optionYes};
             const nextStepUrl = WillOriginal.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/applicant-executor');
             done();
         });
 
         it('should return the correct url when No is given', (done) => {
-            const ctx = {original: 'No'};
+            const ctx = {original: content.optionNo};
             const nextStepUrl = WillOriginal.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/stop-page/notOriginal');
             done();

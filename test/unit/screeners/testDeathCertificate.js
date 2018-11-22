@@ -1,10 +1,10 @@
 'use strict';
 
-const initSteps = require('app/core/initSteps');
+const initSteps = require('../../../app/core/initSteps');
 const {expect} = require('chai');
-const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
+const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const DeathCertificate = steps.DeathCertificate;
-const content = require('app/resources/en/translation/deceased/deathcertificate');
+const content = require('app/resources/en/translation/screeners/deathcertificate');
 
 describe('DeathCertificate', () => {
     describe('getUrl()', () => {

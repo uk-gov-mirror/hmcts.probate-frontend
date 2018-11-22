@@ -1,12 +1,12 @@
 'use strict';
 
-const initSteps = require('app/core/initSteps');
+const initSteps = require('../../../app/core/initSteps');
 const {expect} = require('chai');
-const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
+const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const IhtCompleted = steps.IhtCompleted;
-const content = require('app/resources/en/translation/iht/completed');
+const content = require('app/resources/en/translation/screeners/ihtcompleted');
 
-describe('IhtCompleted.js', () => {
+describe('IhtCompleted', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = IhtCompleted.constructor.getUrl();
@@ -17,14 +17,14 @@ describe('IhtCompleted.js', () => {
 
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
-            const ctx = {completed: 'Yes'};
+            const ctx = {completed: content.optionYes};
             const nextStepUrl = IhtCompleted.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/will-left');
             done();
         });
 
         it('should return the correct url when No is given', (done) => {
-            const ctx = {completed: 'No'};
+            const ctx = {completed: content.optionNo};
             const nextStepUrl = IhtCompleted.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/stop-page/ihtNotCompleted');
             done();
