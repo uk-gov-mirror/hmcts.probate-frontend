@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "died-after-oct-2014",
+  "type": "object",
+  "properties": {
+  },
+  "required": [
+    "diedAfter"
+  ]
+}

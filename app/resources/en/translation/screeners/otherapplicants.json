@@ -1,0 +1,15 @@
+{
+  "title": "Are you planning to make a joint application with someone else",
+  "question": "Are you planning to make a joint application with someone else?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "legend": "Are you planning to make a joint application with someone else?",
+  "errors": {
+    "otherApplicants": {
+      "required": {
+        "summary": "You haven&rsquo;t answered the question about applying with someone else",
+        "message": "Answer &lsquo;yes&rsquo; if you want to apply with someone else"
+      }
+    }
+  }
+}

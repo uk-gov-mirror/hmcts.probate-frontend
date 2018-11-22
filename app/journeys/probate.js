@@ -2,7 +2,7 @@
 
 const taskList = {
     EligibilityTask: {
-        firstStep: 'WillLeft',
+        firstStep: 'DeathCertificate',
         lastStep: 'TaskList',
         summary: 'Summary'
     },
@@ -54,8 +54,9 @@ const stepList = {
     },
     WillLeft: {
         withWill: 'WillOriginal',
-        otherwise: 'StopPage'
+        otherwise: 'DiedAfterOctober2014'
     },
+    // Probate ----------------------------------
     WillOriginal: {
         isOriginal: 'ApplicantExecutor',
         otherwise: 'StopPage'
@@ -68,6 +69,20 @@ const stepList = {
         isCapable: 'StartApply',
         otherwise: 'StopPage'
     },
+    // Intestacy --------------------------------
+    DiedAfterOctober2014: {
+        diedAfter: 'RelationshipToDeceased',
+        otherwise: 'StopPage'
+    },
+    RelationshipToDeceased: {
+        related: 'OtherApplicants',
+        otherwise: 'StopPage'
+    },
+    OtherApplicants: {
+        noOthers: 'StartApply',
+        otherwise: 'StopPage'
+    },
+    // ------------------------------------------
     StartApply: 'TaskList',
     DeceasedName: 'DeceasedDob',
     DeceasedDob: 'DeceasedDod',
