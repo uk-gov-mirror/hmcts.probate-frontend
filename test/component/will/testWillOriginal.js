@@ -8,12 +8,12 @@ const commonContent = require('app/resources/en/translation/common');
 const cookies = [{
     name: '__eligibility',
     content: {
-        nextStepUrl: '/new-will-original',
+        nextStepUrl: '/will-original',
         pages: [
-            '/new-death-certificate',
-            '/new-deceased-domicile',
-            '/new-iht-completed',
-            '/new-will-left'
+            '/death-certificate',
+            '/deceased-domicile',
+            '/iht-completed',
+            '/will-left'
         ]
     }
 }];

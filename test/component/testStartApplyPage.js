@@ -6,15 +6,15 @@ const commonContent = require('app/resources/en/translation/common');
 const cookies = [{
     name: '__eligibility',
     content: {
-        nextStepUrl: '/new-start-apply',
+        nextStepUrl: '/start-apply',
         pages: [
-            '/new-death-certificate',
-            '/new-deceased-domicile',
-            '/new-iht-completed',
-            '/new-will-left',
-            '/new-will-original',
-            '/new-applicant-executor',
-            '/new-mental-capacity'
+            '/death-certificate',
+            '/deceased-domicile',
+            '/iht-completed',
+            '/will-left',
+            '/will-original',
+            '/applicant-executor',
+            '/mental-capacity'
         ]
     }
 }];

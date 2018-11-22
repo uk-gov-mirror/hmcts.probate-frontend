@@ -8,10 +8,10 @@ const commonContent = require('app/resources/en/translation/common');
 const cookies = [{
     name: '__eligibility',
     content: {
-        nextStepUrl: '/new-iht-completed',
+        nextStepUrl: '/iht-completed',
         pages: [
-            '/new-death-certificate',
-            '/new-deceased-domicile'
+            '/death-certificate',
+            '/deceased-domicile'
         ]
     }
 }];
