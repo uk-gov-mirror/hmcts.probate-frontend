@@ -19,6 +19,11 @@ const cookies = [{
     }
 }];
 
+const nock = require('nock');
+const config = require('app/config');
+const featureToggleUrl = config.featureToggles.url;
+const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_screening_questions}`;
+
 describe('relationship-to-deceased', () => {
     let testWrapper;
     const expectedNextUrlForOtherApplicants = OtherApplicants.getUrl();
@@ -26,14 +31,28 @@ describe('relationship-to-deceased', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('RelationshipToDeceased');
+        nock(featureToggleUrl)
+            .get(featureTogglePath)
+            .reply(200, 'true');
     });
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('RelationshipToDeceased');
+        it('test help block content is loaded on page', (done) => {
+            const playbackData = {};
+            playbackData.helpTitle = commonContent.helpTitle;
+            playbackData.helpText = commonContent.helpText;
+            playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
+            playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
+            playbackData.helpEmailLabel = commonContent.helpEmailLabel;
+            playbackData.contactEmailAddress = commonContent.contactEmailAddress;
+
+            testWrapper.testDataPlayback(done, playbackData, cookies);
+        });
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, [], {}, cookies);
