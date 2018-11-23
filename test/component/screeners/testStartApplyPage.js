@@ -1,10 +1,11 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
-const TaskList = require('app/steps/ui/tasklist/index');
-const commonContent = require('app/resources/en/translation/common');
+const config = require('app/config');
+const TestWrapper = require('../../util/TestWrapper');
+const TaskList = require('../../../app/steps/ui/tasklist');
+const commonContent = require('../../../app/resources/en/translation/common');
 const cookies = [{
-    name: '__eligibility',
+    name: config.redis.eligibilityCookie.name,
     content: {
         nextStepUrl: '/start-apply',
         pages: [

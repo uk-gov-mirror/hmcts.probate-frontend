@@ -26,6 +26,7 @@ class WillLeft extends ValidationStep {
         if (ctx.isToggleEnabled) {
             return {
                 options: [
+                    {key: 'left', value: content.optionYes, choice: 'withWill'},
                     {key: 'left', value: content.optionNo, choice: 'withoutWillToggleOn'}
                 ]
             };
@@ -38,8 +39,8 @@ class WillLeft extends ValidationStep {
         };
     }
 
-    setEligibilityCookie(req, res, ctx) {
-        eligibilityCookie.setCookie(req, res, this.nextStepUrl(ctx));
+    setEligibilityCookie(req, res, nextStepUrl) {
+        eligibilityCookie.setCookie(req, res, nextStepUrl);
     }
 
     action(ctx, formdata) {

@@ -23,8 +23,8 @@ class DeceasedDomicile extends ValidationStep {
         };
     }
 
-    setEligibilityCookie(req, res, ctx) {
-        eligibilityCookie.setCookie(req, res, this.nextStepUrl(ctx));
+    setEligibilityCookie(req, res, nextStepUrl) {
+        eligibilityCookie.setCookie(req, res, nextStepUrl);
     }
 }
 

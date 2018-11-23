@@ -1,12 +1,12 @@
 'use strict';
 
+const config = require('app/config');
 const TestWrapper = require('test/util/TestWrapper');
 const StartApply = require('app/steps/ui/screeners/startapply/index');
 const StopPage = require('app/steps/ui/stoppage/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
 const cookies = [{
-    name: '__eligibility',
+    name: config.redis.eligibilityCookie.name,
     content: {
         nextStepUrl: '/other-applicants',
         pages: [
@@ -21,7 +21,6 @@ const cookies = [{
 }];
 
 const nock = require('nock');
-const config = require('app/config');
 const featureToggleUrl = config.featureToggles.url;
 const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_screening_questions}`;
 

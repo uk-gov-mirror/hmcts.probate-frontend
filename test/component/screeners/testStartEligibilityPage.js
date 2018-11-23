@@ -1,8 +1,8 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
-const DeathCertificate = require('app/steps/ui/deceased/deathcertificate/index');
-const commonContent = require('app/resources/en/translation/common');
+const TestWrapper = require('../../util/TestWrapper');
+const DeathCertificate = require('app/steps/ui/screeners/deathcertificate/index');
+const commonContent = require('../../../app/resources/en/translation/common');
 
 describe('start-eligibility', () => {
     let testWrapper;
