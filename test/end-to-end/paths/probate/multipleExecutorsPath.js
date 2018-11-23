@@ -1,9 +1,9 @@
 'use strict';
 
-const taskListContent = require('app/resources/en/translation/tasklist');
-const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
+const taskListContent = require('../../../../app/resources/en/translation/tasklist');
+const TestConfigurator = new (require('../../helpers/TestConfigurator'))();
 const {forEach, head} = require('lodash');
-const testConfig = require('test/config.js');
+const testConfig = require('../../../config.js');
 
 let grabIds;
 

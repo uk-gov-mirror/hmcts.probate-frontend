@@ -1,7 +1,7 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/starteligibility/index');
-const testConfig = require('test/config.js');
+const pageUnderTest = require('app/steps/ui/screeners/startapply/index');
+const testConfig = require('../../../config.js');
 
 module.exports = function () {
     const I = this;
