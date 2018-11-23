@@ -78,22 +78,6 @@ describe('will-left', () => {
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForDiedAfterOctober2014, cookies);
-
-            // const sessionData = {
-            //     featureToggles: {
-            //         intestacy_screening_questions: true
-            //     }
-            // };
-            //
-            // const data = {
-            //     left: 'No'
-            // };
-            //
-            // testWrapper.agent.post('/prepare-session/featureToggles')
-            //     .send(sessionData.featureToggles)
-            //     .end(() => {
-            //         testWrapper.testRedirect(done, data, expectedNextUrlForDiedAfterOctober2014, cookies);
-            //     });
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
