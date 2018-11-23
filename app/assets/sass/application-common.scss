@@ -182,3 +182,11 @@ div.declaration-header {
 .anchor-margin-left {
   margin-left: 10px;
 }
+
+.govuk-box-highlight {
+  .heading-xlarge,
+  .font-large {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
