@@ -1,6 +1,6 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/starteligibility/index');
+const pageUnderTest = require('app/steps/ui/screeners/starteligibility/index');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 
 Feature('Survey link');
