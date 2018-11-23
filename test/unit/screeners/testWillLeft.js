@@ -73,11 +73,18 @@ describe('WillLeft', () => {
             };
             const nextStepOptions = WillLeft.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
-                options: [{
-                    key: 'left',
-                    value: content.optionNo,
-                    choice: 'withoutWillToggleOn'
-                }]
+                options: [
+                    {
+                        key: 'left',
+                        value: content.optionYes,
+                        choice: 'withWill'
+                    },
+                    {
+                        key: 'left',
+                        value: content.optionNo,
+                        choice: 'withoutWillToggleOn'
+                    }
+                ]
             });
             done();
         });
