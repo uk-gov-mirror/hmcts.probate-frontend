@@ -1,9 +1,9 @@
 'use strict';
 
+const config = require('app/config');
 const TestWrapper = require('test/util/TestWrapper');
 const WillOriginal = require('app/steps/ui/will/original/index');
 const StopPage = require('app/steps/ui/stoppage/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
 const cookies = [{
     name: '__eligibility',
@@ -31,7 +31,17 @@ describe('will-left', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('WillLeft');
+        it('test help block content is loaded on page', (done) => {
+            const playbackData = {};
+            playbackData.helpTitle = commonContent.helpTitle;
+            playbackData.helpText = commonContent.helpText;
+            playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
+            playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
+            playbackData.helpEmailLabel = commonContent.helpEmailLabel;
+            playbackData.contactEmailAddress = commonContent.contactEmailAddress;
+
+            testWrapper.testDataPlayback(done, playbackData, cookies);
+        });
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, [], {}, cookies);
