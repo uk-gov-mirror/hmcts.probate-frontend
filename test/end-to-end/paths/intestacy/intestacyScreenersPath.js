@@ -1,6 +1,5 @@
 'use strict';
 
-const taskListContent = require('../../../../app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('../../helpers/TestConfigurator'))();
 
 Feature('Intestacy Screeners Questions flow');
