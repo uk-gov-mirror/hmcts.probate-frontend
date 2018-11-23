@@ -23,7 +23,7 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Screeners Questions Journey')
     I.selectDeathCertificate();
     I.selectDeceasedDomicile();
     I.selectIhtCompleted();
-    I.selectPersonWhoDiedLeftAWill();
+    I.selectPersonWhoDiedLeftAWill('No');
     I.selectDiedAfterOctober2014();
     I.selectRelationshipToDeceased();
     I.selectOtherApplicants();

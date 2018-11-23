@@ -24,7 +24,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     I.selectDeathCertificate();
     I.selectDeceasedDomicile();
     I.selectIhtCompleted();
-    I.selectPersonWhoDiedLeftAWill();
+    I.selectPersonWhoDiedLeftAWill('Yes');
     I.selectOriginalWill();
     I.selectApplicantIsExecutor();
     I.selectMentallyCapable();

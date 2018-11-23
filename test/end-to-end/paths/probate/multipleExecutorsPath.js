@@ -18,7 +18,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.selectDeathCertificate();
     I.selectDeceasedDomicile();
     I.selectIhtCompleted();
-    I.selectPersonWhoDiedLeftAWill();
+    I.selectPersonWhoDiedLeftAWill('Yes');
     I.selectOriginalWill();
     I.selectApplicantIsExecutor();
     I.selectMentallyCapable();
