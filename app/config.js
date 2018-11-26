@@ -63,7 +63,6 @@ const config = {
     redis: {
         host: process.env.REDIS_HOST || 'localhost',
         port: process.env.REDIS_PORT || 6379,
-
         password: process.env.REDIS_PASSWORD || 'dummy_password',
         useTLS: process.env.REDIS_USE_TLS || 'false',
         enabled: process.env.USE_REDIS || 'false',
@@ -73,6 +72,10 @@ const config = {
         cookie: {
             httpOnly: true,
             secure: true
+        },
+        eligibilityCookie: {
+            name: '__eligibility',
+            redirectUrl: '/new-start-eligibility'
         }
     },
     dateFormat: 'DD/MM/YYYY',

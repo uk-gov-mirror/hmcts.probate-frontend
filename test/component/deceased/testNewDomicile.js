@@ -4,6 +4,15 @@ const TestWrapper = require('test/util/TestWrapper');
 const NewIhtCompleted = require('app/steps/ui/iht/newcompleted/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const commonContent = require('app/resources/en/translation/common');
+const cookies = [{
+    name: '__eligibility',
+    content: {
+        nextStepUrl: '/new-deceased-domicile',
+        pages: [
+            '/new-death-certificate'
+        ]
+    }
+}];
 
 const nock = require('nock');
 const config = require('app/config');
@@ -38,17 +47,17 @@ describe('new-deceased-domicile', () => {
             playbackData.helpEmailLabel = commonContent.helpEmailLabel;
             playbackData.contactEmailAddress = commonContent.contactEmailAddress;
 
-            testWrapper.testDataPlayback(done, playbackData);
+            testWrapper.testDataPlayback(done, playbackData, cookies);
         });
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, []);
+            testWrapper.testContent(done, [], {}, cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {
             const data = {};
 
-            testWrapper.testErrors(done, data, 'required', []);
+            testWrapper.testErrors(done, data, 'required', [], cookies);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForNewIhtCompleted}`, (done) => {
@@ -56,7 +65,7 @@ describe('new-deceased-domicile', () => {
                 domicile: 'Yes'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForNewIhtCompleted);
+            testWrapper.testRedirect(done, data, expectedNextUrlForNewIhtCompleted, cookies);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
@@ -64,7 +73,7 @@ describe('new-deceased-domicile', () => {
                 domicile: 'No'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
         });
 
         it('test save and close link is not displayed on the page', (done) => {
