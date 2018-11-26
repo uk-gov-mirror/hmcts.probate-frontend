@@ -1,11 +1,6 @@
 'use strict';
 
 const taskList = {
-    EligibilityTask: {
-        firstStep: 'WillLeft',
-        lastStep: 'TaskList',
-        summary: 'Summary'
-    },
     DeceasedTask: {
         firstStep: 'DeceasedName',
         lastStep: 'TaskList',
