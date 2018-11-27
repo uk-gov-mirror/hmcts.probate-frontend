@@ -49,6 +49,13 @@ describe('NewMentalCapacity', () => {
         });
     });
 
+    describe('persistFormData()', () => {
+        it('should return an empty object', () => {
+            const result = NewMentalCapacity.persistFormData();
+            expect(result).to.deep.equal({});
+        });
+    });
+
     describe('setEligibilityCookie()', () => {
         it('should call eligibilityCookie.setCookie() with the correct params', (done) => {
             const revert = newMentalCapacity.__set__('eligibilityCookie', {setCookie: sinon.spy()});

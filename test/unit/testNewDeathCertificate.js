@@ -49,6 +49,13 @@ describe('NewDeathCertificate', () => {
         });
     });
 
+    describe('persistFormData()', () => {
+        it('should return an empty object', () => {
+            const result = NewDeathCertificate.persistFormData();
+            expect(result).to.deep.equal({});
+        });
+    });
+
     describe('setEligibilityCookie()', () => {
         it('should call eligibilityCookie.setCookie() with the correct params', (done) => {
             const revert = newDeathCertificate.__set__('eligibilityCookie', {setCookie: sinon.spy()});

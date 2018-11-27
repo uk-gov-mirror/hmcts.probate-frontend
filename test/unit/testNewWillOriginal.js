@@ -49,6 +49,13 @@ describe('NewWillOriginal', () => {
         });
     });
 
+    describe('persistFormData()', () => {
+        it('should return an empty object', () => {
+            const result = NewWillOriginal.persistFormData();
+            expect(result).to.deep.equal({});
+        });
+    });
+
     describe('setEligibilityCookie()', () => {
         it('should call eligibilityCookie.setCookie() with the correct params', (done) => {
             const revert = newWillOriginal.__set__('eligibilityCookie', {setCookie: sinon.spy()});

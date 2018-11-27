@@ -49,6 +49,13 @@ describe('NewApplicantExecutor', () => {
         });
     });
 
+    describe('persistFormData()', () => {
+        it('should return an empty object', () => {
+            const result = NewApplicantExecutor.persistFormData();
+            expect(result).to.deep.equal({});
+        });
+    });
+
     describe('setEligibilityCookie()', () => {
         it('should call eligibilityCookie.setCookie() with the correct params', (done) => {
             const revert = newApplicantExecutor.__set__('eligibilityCookie', {setCookie: sinon.spy()});

@@ -23,6 +23,10 @@ class NewIhtCompleted extends ValidationStep {
         };
     }
 
+    persistFormData() {
+        return {};
+    }
+
     setEligibilityCookie(req, res, nextStepUrl) {
         eligibilityCookie.setCookie(req, res, nextStepUrl);
     }

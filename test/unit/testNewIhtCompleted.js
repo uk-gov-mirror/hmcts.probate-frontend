@@ -49,6 +49,13 @@ describe('NewIhtCompleted', () => {
         });
     });
 
+    describe('persistFormData()', () => {
+        it('should return an empty object', () => {
+            const result = NewIhtCompleted.persistFormData();
+            expect(result).to.deep.equal({});
+        });
+    });
+
     describe('setEligibilityCookie()', () => {
         it('should call eligibilityCookie.setCookie() with the correct params', (done) => {
             const revert = newIhtCompleted.__set__('eligibilityCookie', {setCookie: sinon.spy()});

@@ -49,6 +49,13 @@ describe('NewDeceasedDomicile', () => {
         });
     });
 
+    describe('persistFormData()', () => {
+        it('should return an empty object', () => {
+            const result = NewDeceasedDomicile.persistFormData();
+            expect(result).to.deep.equal({});
+        });
+    });
+
     describe('setEligibilityCookie()', () => {
         it('should call eligibilityCookie.setCookie() with the correct params', (done) => {
             const revert = newDeceasedDomicile.__set__('eligibilityCookie', {setCookie: sinon.spy()});
