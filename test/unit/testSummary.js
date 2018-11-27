@@ -81,7 +81,7 @@ describe('Summary', () => {
             };
 
             co(function* () {
-                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles);
+                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles, req);
                 assert.equal(ctx.isScreeningQuestionToggleEnabled, expectedResponse);
                 assert.equal(ctx.isDocumentUploadToggleEnabled, expectedResponse);
                 done();
@@ -99,7 +99,7 @@ describe('Summary', () => {
             };
 
             co(function* () {
-                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles);
+                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles, req);
                 assert.equal(ctx.isScreeningQuestionToggleEnabled, expectedResponse);
                 assert.equal(ctx.isDocumentUploadToggleEnabled, expectedResponse);
                 done();
