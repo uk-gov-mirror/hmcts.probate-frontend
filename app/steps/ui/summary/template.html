@@ -21,7 +21,7 @@
             {% include "ui/summary/includes/deceased.njk" %}
         </dl>
 
-        {% if fields.summary.uploadedDocuments.value | length > 0 %}
+        {% if fields.summary.uploadedDocuments.value | length > 0 and fields.summary.isDocumentUploadToggleEnabled.value === "true" %}
             <h2 class="heading-medium">{{content.Summary.uploadedDocumentsHeading}}</h2>
         {% endif %}
         <dl class="check-your-answers check-your-answers--long">
