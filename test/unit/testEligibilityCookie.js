@@ -15,7 +15,7 @@ describe('EligibilityCookie.js', () => {
             eligibilityCookie.checkCookie()(req, res, next);
 
             expect(res.redirect.calledOnce).to.equal(true);
-            expect(res.redirect.calledWith('/new-start-eligibility')).to.equal(true);
+            expect(res.redirect.calledWith('/start-eligibility')).to.equal(true);
 
             done();
         });
@@ -24,15 +24,15 @@ describe('EligibilityCookie.js', () => {
             const req = {
                 cookies: {
                     __eligibility: JSON.stringify({
-                        nextStepUrl: '/new-will-original',
+                        nextStepUrl: '/will-original',
                         pages: [
-                            '/new-deceased-domicile',
-                            '/new-iht-completed',
-                            '/new-will-left'
+                            '/deceased-domicile',
+                            '/iht-completed',
+                            '/will-left'
                         ]
                     })
                 },
-                originalUrl: '/new-death-certificate'
+                originalUrl: '/death-certificate'
             };
             const res = {redirect: sinon.spy()};
             const next = {};
@@ -41,7 +41,7 @@ describe('EligibilityCookie.js', () => {
             eligibilityCookie.checkCookie()(req, res, next);
 
             expect(res.redirect.calledOnce).to.equal(true);
-            expect(res.redirect.calledWith('/new-start-eligibility')).to.equal(true);
+            expect(res.redirect.calledWith('/start-eligibility')).to.equal(true);
 
             done();
         });
@@ -50,16 +50,16 @@ describe('EligibilityCookie.js', () => {
             const req = {
                 cookies: {
                     __eligibility: JSON.stringify({
-                        nextStepUrl: '/new-death-certificate',
+                        nextStepUrl: '/death-certificate',
                         pages: [
-                            '/new-death-certificate',
-                            '/new-deceased-domicile',
-                            '/new-iht-completed',
-                            '/new-will-left'
+                            '/death-certificate',
+                            '/deceased-domicile',
+                            '/iht-completed',
+                            '/will-left'
                         ]
                     })
                 },
-                originalUrl: '/new-death-certificate'
+                originalUrl: '/death-certificate'
             };
             const res = {};
             const next = sinon.spy();
@@ -75,15 +75,15 @@ describe('EligibilityCookie.js', () => {
 
     describe('setCookie()', () => {
         it('should add the next step to the cookie if the current page exists in the cookie', (done) => {
-            const req = {originalUrl: '/new-deceased-domicile'};
+            const req = {originalUrl: '/deceased-domicile'};
             const res = {};
-            const nextStepUrl = '/new-death-certificate';
+            const nextStepUrl = '/death-certificate';
             const eligibilityCookie = new EligibilityCookie();
             const readCookieStub = sinon.stub(eligibilityCookie, 'readCookie').returns({
                 pages: [
-                    '/new-deceased-domicile',
-                    '/new-iht-completed',
-                    '/new-will-left'
+                    '/deceased-domicile',
+                    '/iht-completed',
+                    '/will-left'
                 ]
             });
             const writeCookieStub = sinon.stub(eligibilityCookie, 'writeCookie');
@@ -92,15 +92,15 @@ describe('EligibilityCookie.js', () => {
 
             expect(eligibilityCookie.writeCookie.calledOnce).to.equal(true);
             expect(eligibilityCookie.writeCookie.calledWith(
-                {originalUrl: '/new-deceased-domicile'},
+                {originalUrl: '/deceased-domicile'},
                 {},
                 {
                     pages: [
-                        '/new-deceased-domicile',
-                        '/new-iht-completed',
-                        '/new-will-left'
+                        '/deceased-domicile',
+                        '/iht-completed',
+                        '/will-left'
                     ],
-                    nextStepUrl: '/new-death-certificate'
+                    nextStepUrl: '/death-certificate'
                 }
             )).to.equal(true);
 
@@ -110,14 +110,14 @@ describe('EligibilityCookie.js', () => {
         });
 
         it('should add the next step and the current page to the cookie if the current page does not exist in the cookie', (done) => {
-            const req = {originalUrl: '/new-deceased-domicile'};
+            const req = {originalUrl: '/deceased-domicile'};
             const res = {};
-            const nextStepUrl = '/new-death-certificate';
+            const nextStepUrl = '/death-certificate';
             const eligibilityCookie = new EligibilityCookie();
             const readCookieStub = sinon.stub(eligibilityCookie, 'readCookie').returns({
                 pages: [
-                    '/new-iht-completed',
-                    '/new-will-left'
+                    '/iht-completed',
+                    '/will-left'
                 ]
             });
             const writeCookieStub = sinon.stub(eligibilityCookie, 'writeCookie');
@@ -126,15 +126,15 @@ describe('EligibilityCookie.js', () => {
 
             expect(eligibilityCookie.writeCookie.calledOnce).to.equal(true);
             expect(eligibilityCookie.writeCookie.calledWith(
-                {originalUrl: '/new-deceased-domicile'},
+                {originalUrl: '/deceased-domicile'},
                 {},
                 {
                     pages: [
-                        '/new-iht-completed',
-                        '/new-will-left',
-                        '/new-deceased-domicile'
+                        '/iht-completed',
+                        '/will-left',
+                        '/deceased-domicile'
                     ],
-                    nextStepUrl: '/new-death-certificate'
+                    nextStepUrl: '/death-certificate'
                 }
             )).to.equal(true);
 
@@ -162,8 +162,8 @@ describe('EligibilityCookie.js', () => {
             const req = {
                 cookies: {
                     __eligibility: JSON.stringify({
-                        nextStepUrl: '/new-iht-completed',
-                        pages: ['/new-will-left']
+                        nextStepUrl: '/iht-completed',
+                        pages: ['/will-left']
                     })
                 }
             };
@@ -171,8 +171,8 @@ describe('EligibilityCookie.js', () => {
             const json = eligibilityCookie.readCookie(req);
 
             expect(json).to.deep.equal({
-                nextStepUrl: '/new-iht-completed',
-                pages: ['/new-will-left']
+                nextStepUrl: '/iht-completed',
+                pages: ['/will-left']
             });
 
             done();
@@ -184,8 +184,8 @@ describe('EligibilityCookie.js', () => {
             const req = {protocol: 'https'};
             const res = {cookie: sinon.spy()};
             const json = {
-                nextStepUrl: '/new-iht-completed',
-                pages: ['/new-will-left']
+                nextStepUrl: '/iht-completed',
+                pages: ['/will-left']
             };
             const eligibilityCookie = new EligibilityCookie();
 
@@ -195,8 +195,8 @@ describe('EligibilityCookie.js', () => {
             expect(res.cookie.calledWith(
                 '__eligibility',
                 JSON.stringify({
-                    nextStepUrl: '/new-iht-completed',
-                    pages: ['/new-will-left']
+                    nextStepUrl: '/iht-completed',
+                    pages: ['/will-left']
                 }),
                 {secure: true, httpOnly: true}
             )).to.equal(true);
@@ -208,8 +208,8 @@ describe('EligibilityCookie.js', () => {
             const req = {};
             const res = {cookie: sinon.spy()};
             const json = {
-                nextStepUrl: '/new-iht-completed',
-                pages: ['/new-will-left']
+                nextStepUrl: '/iht-completed',
+                pages: ['/will-left']
             };
             const eligibilityCookie = new EligibilityCookie();
 
@@ -219,8 +219,8 @@ describe('EligibilityCookie.js', () => {
             expect(res.cookie.calledWith(
                 '__eligibility',
                 JSON.stringify({
-                    nextStepUrl: '/new-iht-completed',
-                    pages: ['/new-will-left']
+                    nextStepUrl: '/iht-completed',
+                    pages: ['/will-left']
                 }),
                 {httpOnly: true}
             )).to.equal(true);
