@@ -6,16 +6,16 @@ const eligibilityCookieRedirectUrl = config.redis.eligibilityCookie.redirectUrl;
 
 class EligibilityCookie {
     checkCookie() {
-        return function (req, res, next) {
+        return (req, res, next) => {
             if (!req.cookies[eligibilityCookieName]) {
                 res.redirect(eligibilityCookieRedirectUrl);
             } else {
                 const eligibilityCookie = JSON.parse(req.cookies[eligibilityCookieName]);
 
-                if (!eligibilityCookie.pages.includes(req.originalUrl) && req.originalUrl !== eligibilityCookie.nextStepUrl) {
-                    res.redirect(eligibilityCookieRedirectUrl);
-                } else {
+                if (eligibilityCookie.pages.includes(req.originalUrl) || req.originalUrl === eligibilityCookie.nextStepUrl) {
                     next();
+                } else {
+                    res.redirect(eligibilityCookieRedirectUrl);
                 }
             }
         };

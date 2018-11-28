@@ -23,6 +23,10 @@ class WillOriginal extends ValidationStep {
         };
     }
 
+    persistFormData() {
+        return {};
+    }
+
     setEligibilityCookie(req, res, ctx) {
         eligibilityCookie.setCookie(req, res, this.nextStepUrl(ctx));
     }

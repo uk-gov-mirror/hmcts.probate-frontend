@@ -65,14 +65,11 @@ class UIStepRunner {
                     formdata.declaration.hasDataChanged = true;
                 }
 
-                if (!formdata.applicantEmail) {
-                    req.log.error(`We don't have applicantEmail on ${step.constructor.getUrl()} step`);
-                }
-
                 const result = yield step.persistFormData(session.regId, formdata, session.id);
+
                 if (result.name === 'Error') {
                     req.log.error('Could not persist user data', result.message);
-                } else {
+                } else if (result.formdata) {
                     req.log.info('Successfully persisted user data');
                 }
 
@@ -80,7 +77,7 @@ class UIStepRunner {
                     session.back.push(step.constructor.getUrl());
                 }
 
-                step.setEligibilityCookie(req, res, ctx);
+                step.setEligibilityCookie(req, res, nextStepUrl);
 
                 res.redirect(nextStepUrl);
             } else {

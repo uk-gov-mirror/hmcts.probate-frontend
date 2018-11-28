@@ -6,7 +6,7 @@ const WillOriginal = require('app/steps/ui/will/original/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const commonContent = require('app/resources/en/translation/common');
 const cookies = [{
-    name: '__eligibility',
+    name: config.redis.eligibilityCookie.name,
     content: {
         nextStepUrl: '/will-left',
         pages: [
@@ -48,9 +48,7 @@ describe('will-left', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required', [], cookies);
+            testWrapper.testErrors(done, {}, 'required', [], cookies);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForWillOriginal}`, (done) => {

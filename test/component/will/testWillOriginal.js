@@ -6,7 +6,7 @@ const ApplicantExecutor = require('app/steps/ui/applicant/executor/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const commonContent = require('app/resources/en/translation/common');
 const cookies = [{
-    name: '__eligibility',
+    name: config.redis.eligibilityCookie.name,
     content: {
         nextStepUrl: '/will-original',
         pages: [
@@ -49,9 +49,7 @@ describe('will-original', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required', [], cookies);
+            testWrapper.testErrors(done, {}, 'required', [], cookies);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForApplicantExecutor}`, (done) => {

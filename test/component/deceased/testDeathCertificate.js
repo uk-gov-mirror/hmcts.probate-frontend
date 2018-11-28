@@ -37,9 +37,7 @@ describe('death-certificate', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required', []);
+            testWrapper.testErrors(done, {}, 'required', []);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForDeceasedDomicile}`, (done) => {
