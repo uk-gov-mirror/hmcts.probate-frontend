@@ -16,7 +16,7 @@
     {% endif %}
     {% set checklistOneItems = (checklistOneItems.push(content["checklist1-item2"]), checklistOneItems) %}
 
-    {% if fields.uploads.value | length > 0 %}
+    {% if fields.uploads.value | length === 0 %}
         {% set checklistTwoItems = (checklistTwoItems.push(content["checklist2-item3-will-uploaded"]), checklistTwoItems) %}
     {% endif %}
     {% if (fields.is205.value === "true") %}
