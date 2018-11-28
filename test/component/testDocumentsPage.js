@@ -1490,6 +1490,7 @@ describe('documents', () => {
                         'old_sendDocumentsAddress',
                         'text6',
                         'checklist1-item1-codicils',
+                        'checklist2-item3-will-uploaded',
                         'checklist2-item4-iht205',
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
