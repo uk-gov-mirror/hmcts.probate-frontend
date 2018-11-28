@@ -40,6 +40,10 @@
 
     <h2 class="heading-medium">{{ content.heading2 | safe }}</h2>
 
+    <p>
+        {{ content.coverSheetDownloadMessage }} <a class="anchor-margin-left" href="/cover-sheet-pdf">{{ content.coverSheetPdf }}</a>.
+    </p>
+
     <h3 class="heading-small">{{ content.checklist1Header | safe }}</h3>
 
     {{ unorderedList(checklistOneItems) }}

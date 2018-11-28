@@ -25,7 +25,15 @@
 
                 <div class="panel panel-border-wide">
                     <p>{{content.successParagraph4 | replace('{findOutNext}', links.findOutNext) | safe}}</p>
-                </div>
+                </div>            
+                
+                <h2 class="heading-medium">{{content.saveYourApplicationHeading1 | safe}}</h2>
+                <p>{{content.saveYourApplicationParagraph1 | safe}}</p>
+
+                <p>
+                    <i class="icon icon-file-download"></i>
+                    <a class="anchor-margin-left" href="/cover-sheet-pdf">{{ content.coverSheetPdf }}</a>
+                </p>
 
                 <a href="{{links.surveyEndOfApplication | safe}}">{{content.survey | safe}}</a>
             </div>

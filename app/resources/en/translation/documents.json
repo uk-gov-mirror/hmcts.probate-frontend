@@ -26,6 +26,8 @@
   "sendDocumentsAddress": "Digital Application\nOxford District Probate Registry\nCombined Court Building\nSt Aldates\nOxford\nOX1 1LY",
   "checkboxLabel": "I understand that I need to sign the will before sending my documents",
   "checkboxLabel-codicils": "I understand that I need to sign the will and any &lsquo;codicils&rsquo; before sending my documents",
+  "coverSheetDownloadMessage": "Download and print this",
+  "coverSheetPdf": "application coversheet",
   "errors": {
     "sentDocuments": {
       "required": {

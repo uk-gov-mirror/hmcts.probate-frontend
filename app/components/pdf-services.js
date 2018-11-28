@@ -23,9 +23,24 @@ const createDeclarationPdf = (formdata, sessionId) => {
     return services.authorise()
         .then(serviceToken => {
             const body = {
-                legalDeclaration: formdata.legalDeclaration
+                legalDeclaration: formdata.ccdCase.id
             };
             return createPDFDocument(formdata, serviceToken, body, 'generateLegalDeclarationPDF');
+        });
+};
+
+const createCoverSheetPdf = (formdata, sessionId) => {
+    logInfo('Create cover sheet PDF', sessionId);
+    return services.authorise()
+        .then(serviceToken => {
+            const body = {
+                bulkScanCoverSheet: {
+                    applicantAddress: formdata.applicant.address,
+                    caseReference: formdata.ccdCase.id,
+                    submitAddress: formdata.registry.registry.address
+                }
+            };
+            return createPDFDocument(formdata, serviceToken, body, 'generateBulkScanCoverSheetPDF');
         });
 };
 
@@ -40,5 +55,6 @@ function createPDFDocument(formdata, serviceToken, body, pdfTemplate) {
 
 module.exports = {
     createCheckAnswersPdf,
-    createDeclarationPdf
+    createDeclarationPdf,
+    createCoverSheetPdf
 };
