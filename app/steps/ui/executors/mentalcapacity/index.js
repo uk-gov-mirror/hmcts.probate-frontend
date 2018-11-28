@@ -27,8 +27,8 @@ class MentalCapacity extends ValidationStep {
         return {};
     }
 
-    setEligibilityCookie(req, res, ctx) {
-        eligibilityCookie.setCookie(req, res, this.nextStepUrl(ctx));
+    setEligibilityCookie(req, res, nextStepUrl) {
+        eligibilityCookie.setCookie(req, res, nextStepUrl);
     }
 }
 
