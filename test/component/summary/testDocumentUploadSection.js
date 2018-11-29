@@ -98,30 +98,6 @@ describe('summary-documentupload-section', () => {
                 });
         });
 
-        it('test content loaded on the page with the document upload feature toggle ON & screening question OFF when there is data', (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePathDocument)
-                .reply(200, 'true');
-            nock(featureToggleUrl)
-                .get(featureTogglePathScreening)
-                .reply(200, 'false');
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end((err) => {
-                    if (err) {
-                        throw err;
-                    }
-                    const playbackData = [
-                        summaryContent.uploadedDocumentsHeading,
-                        documentuploadContent.deathCertificate,
-                        documentuploadData.documents.uploads[0].filename,
-                        documentuploadData.documents.uploads[1].filename,
-                        documentuploadData.documents.uploads[2].filename
-                    ];
-                    testWrapper.testDataPlayback(done, playbackData);
-                });
-        });
-
         it('test content loaded on the page with the document upload feature toggle ON & screening question ON when there is no data', (done) => {
             nock(featureToggleUrl)
                 .get(featureTogglePathDocument)
@@ -129,25 +105,6 @@ describe('summary-documentupload-section', () => {
             nock(featureToggleUrl)
                 .get(featureTogglePathScreening)
                 .reply(200, 'true');
-            testWrapper.agent.post('/prepare-session/form')
-                .send({})
-                .end((err) => {
-                    if (err) {
-                        throw err;
-                    }
-                    const playbackData = [
-                    ];
-                    testWrapper.testDataPlayback(done, playbackData);
-                });
-        });
-
-        it('test content loaded on the page with the document upload feature toggle ON & screening question OFF when there is no data', (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePathDocument)
-                .reply(200, 'true');
-            nock(featureToggleUrl)
-                .get(featureTogglePathScreening)
-                .reply(200, 'false');
             testWrapper.agent.post('/prepare-session/form')
                 .send({})
                 .end((err) => {
