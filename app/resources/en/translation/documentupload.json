@@ -35,11 +35,7 @@
         "message": ""
       },
       "uploadTimeout": {
-        "summary": "It&rsquo;s taken too long to upload this file. Please either try again or reduce the size of the file",
-        "message": ""
-      },
-      "uploadTimeout": {
-        "summary": "It&rsquo;s taken too long to upload this file. Please either try again or reduce the size of the file",
+        "summary": "The file has taken too long to upload. The file may be too big, reduce the file size and try again or post the death certificate",
         "message": ""
       }
     }
