@@ -16,16 +16,8 @@ describe('DeceasedDomicile', () => {
 
     describe('isComplete()', () => {
         it('test it returns the correct values with the feature toggle off', () => {
-            const ctx = {
-                session: {
-                    form: {}
-                }
-            };
-            const formdata = {
-                deceased: {
-                    domicile: 'Yes'
-                }
-            };
+            const ctx = {};
+            const formdata = {};
             const featureToggles = {
                 screening_questions: false
             };
@@ -33,20 +25,10 @@ describe('DeceasedDomicile', () => {
             const result = DeceasedDomicile.isComplete(ctx, formdata, featureToggles);
             expect(result).to.deep.equal([false, 'inProgress']);
         });
-    });
 
-    describe('isComplete()', () => {
         it('test it returns the correct values with the feature toggle on', () => {
-            const ctx = {
-                session: {
-                    form: {}
-                }
-            };
-            const formdata = {
-                deceased: {
-                    domicile: 'No'
-                }
-            };
+            const ctx = {};
+            const formdata = {};
             const featureToggles = {
                 screening_questions: true
             };
