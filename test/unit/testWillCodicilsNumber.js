@@ -14,23 +14,37 @@ describe('CodicilsNumber', () => {
         });
     });
 
-    describe('handlePost()', () => {
-        let ctx;
-        let errors;
-        let formdata;
-        let session;
-        let hostname;
-        let featureToggles;
-
-        it('should return the ctx with the deceased married status and the screening_question feature toggle', (done) => {
-            ctx = {
-                codicilsNumber: '3'
+    describe('getContextData()', () => {
+        it('should return the ctx with the deceased address and the screening_question feature toggle on', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {form: {}, featureToggles: {screening_questions: true}},
+                body: {
+                    codicilsNumber: '3'
+                }
             };
-            errors = {};
-            [ctx, errors] = CodicilsNumber.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
+            const ctx = CodicilsNumber.getContextData(req);
             expect(ctx).to.deep.equal({
-                codicilsNumber: '3',
-                isToggleEnabled: false
+                codicilsNumber: 3,
+                isToggleEnabled: true,
+                sessionID: 'dummy_sessionId'
+            });
+            done();
+        });
+
+        it('should return the ctx with the deceased address and the screening_question feature toggle off', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {form: {}, featureToggles: {screening_questions: false}},
+                body: {
+                    codicilsNumber: '3'
+                }
+            };
+            const ctx = CodicilsNumber.getContextData(req);
+            expect(ctx).to.deep.equal({
+                codicilsNumber: 3,
+                isToggleEnabled: false,
+                sessionID: 'dummy_sessionId'
             });
             done();
         });

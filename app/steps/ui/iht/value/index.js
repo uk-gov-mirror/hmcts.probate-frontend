@@ -12,6 +12,12 @@ class IhtValue extends ValidationStep {
         return '/iht-value';
     }
 
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        ctx.isToggleEnabled = FeatureToggle.isEnabled(req.session.featureToggles, 'screening_questions');
+        return ctx;
+    }
+
     handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
         ctx.grossValue = numeral(ctx.grossValueOnline).value();
         ctx.netValue = numeral(ctx.netValueOnline).value();
@@ -30,8 +36,6 @@ class IhtValue extends ValidationStep {
 
         ctx.grossValue = Math.floor(ctx.grossValue);
         ctx.netValue = Math.floor(ctx.netValue);
-
-        ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
 
         return [ctx, errors];
     }
