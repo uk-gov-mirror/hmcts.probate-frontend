@@ -9,7 +9,6 @@ const services = require('app/components/services');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
 const FormatAlias = require('app/utils/FormatAlias');
-const FeatureToggle = require('app/utils/FeatureToggle');
 const LegalDocumentJSONObjectBuilder = require('app/utils/LegalDocumentJSONObjectBuilder');
 const legalDocumentJSONObjBuilder = new LegalDocumentJSONObjectBuilder();
 
