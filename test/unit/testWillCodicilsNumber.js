@@ -50,6 +50,23 @@ describe('CodicilsNumber', () => {
         });
     });
 
+    describe('handlePost()', () => {
+        let ctx;
+        let errors;
+
+        it('should return the ctx with the will codicils number and the screening_question feature toggle', (done) => {
+            ctx = {
+                codicilsNumber: '3'
+            };
+            errors = {};
+            [ctx, errors] = CodicilsNumber.handlePost(ctx, errors);
+            expect(ctx).to.deep.equal({
+                codicilsNumber: '3'
+            });
+            done();
+        });
+    });
+
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
             const nextStepOptions = CodicilsNumber.nextStepOptions();
