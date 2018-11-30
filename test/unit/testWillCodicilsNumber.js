@@ -54,7 +54,7 @@ describe('CodicilsNumber', () => {
         let ctx;
         let errors;
 
-        it('should return the ctx with the will codicils number and the screening_question feature toggle', (done) => {
+        it('should return the ctx with the will codicils number when there are codicils', (done) => {
             ctx = {
                 codicilsNumber: '3'
             };
@@ -62,6 +62,16 @@ describe('CodicilsNumber', () => {
             [ctx, errors] = CodicilsNumber.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
                 codicilsNumber: '3'
+            });
+            done();
+        });
+
+        it('should return the ctx with the will codicils number when there are no codicils', (done) => {
+            ctx = {};
+            errors = {};
+            [ctx, errors] = CodicilsNumber.handlePost(ctx, errors);
+            expect(ctx).to.deep.equal({
+                codicilsNumber: 0
             });
             done();
         });
