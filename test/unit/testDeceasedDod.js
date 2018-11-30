@@ -15,7 +15,7 @@ describe('DeceasedDod', () => {
     });
 
     describe('getContextData()', () => {
-        it('should return the ctx with the deceased address and the screening_question feature toggle on', (done) => {
+        it('should return the ctx with the deceased date of death and the screening_question feature toggle on', (done) => {
             const req = {
                 sessionID: 'dummy_sessionId',
                 session: {form: {}, featureToggles: {screening_questions: true}},
@@ -38,7 +38,7 @@ describe('DeceasedDod', () => {
             done();
         });
 
-        it('should return the ctx with the deceased address and the screening_question feature toggle off', (done) => {
+        it('should return the ctx with the deceased date of death and the screening_question feature toggle off', (done) => {
             const req = {
                 sessionID: 'dummy_sessionId',
                 session: {form: {}, featureToggles: {screening_questions: false}},

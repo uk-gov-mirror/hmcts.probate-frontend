@@ -16,6 +16,11 @@ class CodicilsNumber extends ValidationStep {
         return ctx;
     }
 
+    handlePost(ctx, errors) {
+        ctx.codicilsNumber = ctx.codicilsNumber || 0;
+        return [ctx, errors];
+    }
+
     isComplete(ctx) {
         return [ctx.codicilsNumber >= 0, 'inProgress'];
     }
