@@ -18,7 +18,7 @@ class IhtValue extends ValidationStep {
         return ctx;
     }
 
-    handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
+    handlePost(ctx, errors) {
         ctx.grossValue = numeral(ctx.grossValueOnline).value();
         ctx.netValue = numeral(ctx.netValueOnline).value();
 

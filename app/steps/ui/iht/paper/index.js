@@ -19,7 +19,7 @@ class IhtPaper extends ValidationStep {
         return ctx;
     }
 
-    handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
+    handlePost(ctx, errors) {
         ctx.grossValuePaper = ctx[`gross${ctx.form}`];
         ctx.netValuePaper = ctx[`net${ctx.form}`];
 
