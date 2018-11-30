@@ -21,12 +21,12 @@
             {% include "ui/summary/includes/deceased.njk" %}
         </dl>
 
-        {% if fields.summary.uploadedDocuments.value | length > 0 and fields.summary.isDocumentUploadToggleEnabled.value === "true" %}
+        {% ifAsync fields.summary.uploadedDocuments.value | length > 0 and fields.summary.isDocumentUploadToggleEnabled.value === "true" %}
             <h2 class="heading-medium">{{content.Summary.uploadedDocumentsHeading}}</h2>
+            <dl class="check-your-answers check-your-answers--long">
+                {% include "ui/summary/includes/documentupload.njk" %}
+            </dl>
         {% endif %}
-        <dl class="check-your-answers check-your-answers--long">
-            {% include "ui/summary/includes/documentupload.njk" %}
-        </dl>
 
         <h2 class="heading-medium">{{content.Summary.ihtHeading}}</h2>
         <dl class="check-your-answers check-your-answers--long">
@@ -42,12 +42,12 @@
             {% include "ui/summary/includes/will.njk" %}
         </dl>
 
-        {% if fields.summary.uploadedDocuments.value | length > 0 and fields.summary.isDocumentUploadToggleEnabled.value === "true" %}
-        <h2 class="heading-medium">{{content.Summary.uploadedDocumentsHeading}}</h2>
+        {% ifAsync fields.summary.uploadedDocuments.value | length > 0 and fields.summary.isDocumentUploadToggleEnabled.value === "true" %}
+            <h2 class="heading-medium">{{content.Summary.uploadedDocumentsHeading}}</h2>
+            <dl class="check-your-answers check-your-answers--long">
+                {% include "ui/summary/includes/documentupload.njk" %}
+            </dl>
         {% endif %}
-        <dl class="check-your-answers check-your-answers--long">
-            {% include "ui/summary/includes/documentupload.njk" %}
-        </dl>
 
         <h2 class="heading-medium">{{content.Summary.ihtHeading}}</h2>
         <dl class="check-your-answers check-your-answers--long">
