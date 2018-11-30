@@ -70,12 +70,14 @@ describe('Summary', () => {
             let ctx = {session: {form: {}}};
             const formdata = {executors: {list: []}};
             const featureToggles = {
-                screening_questions: true
+                screening_questions: true,
+                document_upload: true
             };
 
             co(function* () {
                 [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles);
-                assert.deepEqual(ctx.isScreeningQuestionToggleEnabled, expectedResponse);
+                assert.equal(ctx.isScreeningQuestionToggleEnabled, expectedResponse);
+                assert.equal(ctx.isDocumentUploadToggleEnabled, expectedResponse);
                 done();
             });
         });
@@ -87,12 +89,14 @@ describe('Summary', () => {
             let ctx = {session: {form: {}}};
             const formdata = {executors: {list: []}};
             const featureToggles = {
-                screening_questions: false
+                screening_questions: false,
+                document_upload: false
             };
 
             co(function* () {
                 [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles);
-                assert.deepEqual(ctx.isScreeningQuestionToggleEnabled, expectedResponse);
+                assert.equal(ctx.isScreeningQuestionToggleEnabled, expectedResponse);
+                assert.equal(ctx.isDocumentUploadToggleEnabled, expectedResponse);
                 done();
             });
         });
