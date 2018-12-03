@@ -11,7 +11,7 @@ class CodicilsNumber extends ValidationStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
-        ctx.codicilsNumber = ctx.codicilsNumber ? parseInt(ctx.codicilsNumber): ctx.codicilsNumber;
+        ctx.codicilsNumber = ctx.codicilsNumber ? parseInt(ctx.codicilsNumber) : ctx.codicilsNumber;
         ctx.isToggleEnabled = FeatureToggle.isEnabled(req.session.featureToggles, 'screening_questions');
         return ctx;
     }

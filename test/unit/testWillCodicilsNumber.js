@@ -15,7 +15,7 @@ describe('CodicilsNumber', () => {
     });
 
     describe('getContextData()', () => {
-        it('should return the ctx with the will codicils number and the screening_question feature toggle on', (done) => {
+        it('should return the ctx with a valid will codicils number and the screening_question feature toggle', (done) => {
             const req = {
                 sessionID: 'dummy_sessionId',
                 session: {form: {}, featureToggles: {screening_questions: true}},
@@ -32,17 +32,17 @@ describe('CodicilsNumber', () => {
             done();
         });
 
-        it('should return the ctx with the will codicils number and the screening_question feature toggle off', (done) => {
+        it('should return the ctx with a null will codicils number and the screening_question feature toggle', (done) => {
             const req = {
                 sessionID: 'dummy_sessionId',
                 session: {form: {}, featureToggles: {screening_questions: false}},
                 body: {
-                    codicilsNumber: '3'
+                    codicilsNumber: null
                 }
             };
             const ctx = CodicilsNumber.getContextData(req);
             expect(ctx).to.deep.equal({
-                codicilsNumber: 3,
+                codicilsNumber: null,
                 isToggleEnabled: false,
                 sessionID: 'dummy_sessionId'
             });
