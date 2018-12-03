@@ -41,7 +41,8 @@ describe('summary', () => {
                 'address',
                 'mobileNumber',
                 'emailAddress',
-                'uploadedDocumentsHeading'
+                'uploadedDocumentsHeading',
+                'uploadedDocumentsEmpty'
             ];
             testWrapper.testContent(done, contentToExclude);
         });
@@ -64,7 +65,8 @@ describe('summary', () => {
                 'currentNameReason',
                 'mobileNumber',
                 'emailAddress',
-                'uploadedDocumentsHeading'
+                'uploadedDocumentsHeading',
+                'uploadedDocumentsEmpty'
             ];
             testWrapper.testContent(done, contentToExclude);
         });
