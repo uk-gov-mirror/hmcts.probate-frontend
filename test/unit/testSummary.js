@@ -62,39 +62,5 @@ describe('Summary', () => {
                 done();
             });
         });
-
-        it('check feature toggles are set correctly to true', (done) => {
-            const expectedResponse = true;
-            validateFormDataStub.returns(when(expectedResponse));
-
-            let ctx = {session: {form: {}}};
-            const formdata = {executors: {list: []}};
-            const featureToggles = {
-                main_applicant_alias: true
-            };
-
-            co(function* () {
-                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles);
-                assert.deepEqual(ctx.isMainApplicantAliasToggleEnabled, expectedResponse);
-                done();
-            });
-        });
-
-        it('check feature toggles are set correctly to false', (done) => {
-            const expectedResponse = false;
-            validateFormDataStub.returns(when(expectedResponse));
-
-            let ctx = {session: {form: {}}};
-            const formdata = {executors: {list: []}};
-            const featureToggles = {
-                main_applicant_alias: false
-            };
-
-            co(function* () {
-                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles);
-                assert.deepEqual(ctx.isMainApplicantAliasToggleEnabled, expectedResponse);
-                done();
-            });
-        });
     });
 });
