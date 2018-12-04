@@ -19,6 +19,20 @@ describe('NewWillLeft', () => {
         });
     });
 
+    describe('getFieldKey()', () => {
+        it('should return the correct field key', (done) => {
+            const fieldKey = NewWillLeft.getFieldKey();
+            expect(fieldKey).to.equal('left');
+            done();
+        });
+    });
+
+    describe('getContextData()', () => {
+        it('______', (done) => {
+            done();
+        });
+    });
+
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
             const ctx = {left: content.optionYes};
@@ -62,19 +76,23 @@ describe('NewWillLeft', () => {
             const req = {reqParam: 'req value'};
             const res = {resParam: 'res value'};
             const nextStepUrl = '/stop-page/noWill';
+            const fieldKey = 'left';
+            const fieldValue = 'Yes';
             const steps = {};
             const section = null;
             const resourcePath = 'will/newleft';
             const i18next = {};
             const newWilLef = new newWillLeft(steps, section, resourcePath, i18next, schema);
 
-            newWilLef.setEligibilityCookie(req, res, nextStepUrl);
+            newWilLef.setEligibilityCookie(req, res, nextStepUrl, fieldKey, fieldValue);
 
             expect(newWillLeft.__get__('eligibilityCookie.setCookie').calledOnce).to.equal(true);
             expect(newWillLeft.__get__('eligibilityCookie.setCookie').calledWith(
                 {reqParam: 'req value'},
                 {resParam: 'res value'},
-                '/stop-page/noWill'
+                '/stop-page/noWill',
+                'left',
+                'Yes'
             )).to.equal(true);
 
             revert();

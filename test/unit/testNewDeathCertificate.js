@@ -19,6 +19,20 @@ describe('NewDeathCertificate', () => {
         });
     });
 
+    describe('getFieldKey()', () => {
+        it('should return the correct field key', (done) => {
+            const fieldKey = NewDeathCertificate.getFieldKey();
+            expect(fieldKey).to.equal('deathCertificate');
+            done();
+        });
+    });
+
+    describe('getContextData()', () => {
+        it('______', (done) => {
+            done();
+        });
+    });
+
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
             const ctx = {deathCertificate: content.optionYes};
@@ -62,19 +76,23 @@ describe('NewDeathCertificate', () => {
             const req = {reqParam: 'req value'};
             const res = {resParam: 'res value'};
             const nextStepUrl = '/stop-page/deathCertificate';
+            const fieldKey = 'deathCertificate';
+            const fieldValue = 'Yes';
             const steps = {};
             const section = null;
             const resourcePath = 'deceased/newdeathcertificate';
             const i18next = {};
-            const newAppExec = new newDeathCertificate(steps, section, resourcePath, i18next, schema);
+            const newDeathCert = new newDeathCertificate(steps, section, resourcePath, i18next, schema);
 
-            newAppExec.setEligibilityCookie(req, res, nextStepUrl);
+            newDeathCert.setEligibilityCookie(req, res, nextStepUrl, fieldKey, fieldValue);
 
             expect(newDeathCertificate.__get__('eligibilityCookie.setCookie').calledOnce).to.equal(true);
             expect(newDeathCertificate.__get__('eligibilityCookie.setCookie').calledWith(
                 {reqParam: 'req value'},
                 {resParam: 'res value'},
-                '/stop-page/deathCertificate'
+                '/stop-page/deathCertificate',
+                'deathCertificate',
+                'Yes'
             )).to.equal(true);
 
             revert();

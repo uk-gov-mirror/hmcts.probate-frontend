@@ -19,6 +19,20 @@ describe('NewIhtCompleted', () => {
         });
     });
 
+    describe('getFieldKey()', () => {
+        it('should return the correct field key', (done) => {
+            const fieldKey = NewIhtCompleted.getFieldKey();
+            expect(fieldKey).to.equal('completed');
+            done();
+        });
+    });
+
+    describe('getContextData()', () => {
+        it('______', (done) => {
+            done();
+        });
+    });
+
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
             const ctx = {completed: content.optionYes};
@@ -62,19 +76,23 @@ describe('NewIhtCompleted', () => {
             const req = {reqParam: 'req value'};
             const res = {resParam: 'res value'};
             const nextStepUrl = '/stop-page/ihtNotCompleted';
+            const fieldKey = 'completed';
+            const fieldValue = 'Yes';
             const steps = {};
             const section = null;
             const resourcePath = 'iht/newcompleted';
             const i18next = {};
             const newIhtCom = new newIhtCompleted(steps, section, resourcePath, i18next, schema);
 
-            newIhtCom.setEligibilityCookie(req, res, nextStepUrl);
+            newIhtCom.setEligibilityCookie(req, res, nextStepUrl, fieldKey, fieldValue);
 
             expect(newIhtCompleted.__get__('eligibilityCookie.setCookie').calledOnce).to.equal(true);
             expect(newIhtCompleted.__get__('eligibilityCookie.setCookie').calledWith(
                 {reqParam: 'req value'},
                 {resParam: 'res value'},
-                '/stop-page/ihtNotCompleted'
+                '/stop-page/ihtNotCompleted',
+                'completed',
+                'Yes'
             )).to.equal(true);
 
             revert();

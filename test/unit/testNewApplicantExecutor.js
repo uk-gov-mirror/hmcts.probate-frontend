@@ -19,6 +19,20 @@ describe('NewApplicantExecutor', () => {
         });
     });
 
+    describe('getFieldKey()', () => {
+        it('should return the correct field key', (done) => {
+            const fieldKey = NewApplicantExecutor.getFieldKey();
+            expect(fieldKey).to.equal('executor');
+            done();
+        });
+    });
+
+    describe('getContextData()', () => {
+        it('______', (done) => {
+            done();
+        });
+    });
+
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
             const ctx = {executor: content.optionYes};
@@ -62,19 +76,23 @@ describe('NewApplicantExecutor', () => {
             const req = {reqParam: 'req value'};
             const res = {resParam: 'res value'};
             const nextStepUrl = '/stop-page/notExecutor';
+            const fieldKey = 'executor';
+            const fieldValue = 'Yes';
             const steps = {};
             const section = null;
             const resourcePath = 'applicant/newexecutor';
             const i18next = {};
             const newAppExec = new newApplicantExecutor(steps, section, resourcePath, i18next, schema);
 
-            newAppExec.setEligibilityCookie(req, res, nextStepUrl);
+            newAppExec.setEligibilityCookie(req, res, nextStepUrl, fieldKey, fieldValue);
 
             expect(newApplicantExecutor.__get__('eligibilityCookie.setCookie').calledOnce).to.equal(true);
             expect(newApplicantExecutor.__get__('eligibilityCookie.setCookie').calledWith(
                 {reqParam: 'req value'},
                 {resParam: 'res value'},
-                '/stop-page/notExecutor'
+                '/stop-page/notExecutor',
+                'executor',
+                'Yes'
             )).to.equal(true);
 
             revert();

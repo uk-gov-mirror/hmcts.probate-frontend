@@ -19,6 +19,20 @@ describe('NewMentalCapacity', () => {
         });
     });
 
+    describe('getFieldKey()', () => {
+        it('should return the correct field key', (done) => {
+            const fieldKey = NewMentalCapacity.getFieldKey();
+            expect(fieldKey).to.equal('mentalCapacity');
+            done();
+        });
+    });
+
+    describe('getContextData()', () => {
+        it('______', (done) => {
+            done();
+        });
+    });
+
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
             const ctx = {mentalCapacity: content.optionYes};
@@ -62,19 +76,23 @@ describe('NewMentalCapacity', () => {
             const req = {reqParam: 'req value'};
             const res = {resParam: 'res value'};
             const nextStepUrl = '/stop-page/mentalCapacity';
+            const fieldKey = 'mentalCapacity';
+            const fieldValue = 'Yes';
             const steps = {};
             const section = null;
             const resourcePath = 'executors/newmentalcapacity';
             const i18next = {};
             const newMenCap = new newMentalCapacity(steps, section, resourcePath, i18next, schema);
 
-            newMenCap.setEligibilityCookie(req, res, nextStepUrl);
+            newMenCap.setEligibilityCookie(req, res, nextStepUrl, fieldKey, fieldValue);
 
             expect(newMentalCapacity.__get__('eligibilityCookie.setCookie').calledOnce).to.equal(true);
             expect(newMentalCapacity.__get__('eligibilityCookie.setCookie').calledWith(
                 {reqParam: 'req value'},
                 {resParam: 'res value'},
-                '/stop-page/mentalCapacity'
+                '/stop-page/mentalCapacity',
+                'mentalCapacity',
+                'Yes'
             )).to.equal(true);
 
             revert();

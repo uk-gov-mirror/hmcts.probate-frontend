@@ -19,6 +19,20 @@ describe('NewDeceasedDomicile', () => {
         });
     });
 
+    describe('getFieldKey()', () => {
+        it('should return the correct field key', (done) => {
+            const fieldKey = NewDeceasedDomicile.getFieldKey();
+            expect(fieldKey).to.equal('domicile');
+            done();
+        });
+    });
+
+    describe('getContextData()', () => {
+        it('______', (done) => {
+            done();
+        });
+    });
+
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
             const ctx = {domicile: content.optionYes};
@@ -62,19 +76,23 @@ describe('NewDeceasedDomicile', () => {
             const req = {reqParam: 'req value'};
             const res = {resParam: 'res value'};
             const nextStepUrl = '/stop-page/notInEnglandOrWales';
+            const fieldKey = 'domicile';
+            const fieldValue = 'Yes';
             const steps = {};
             const section = null;
             const resourcePath = 'deceased/newdomicile';
             const i18next = {};
             const newDecDom = new newDeceasedDomicile(steps, section, resourcePath, i18next, schema);
 
-            newDecDom.setEligibilityCookie(req, res, nextStepUrl);
+            newDecDom.setEligibilityCookie(req, res, nextStepUrl, fieldKey, fieldValue);
 
             expect(newDeceasedDomicile.__get__('eligibilityCookie.setCookie').calledOnce).to.equal(true);
             expect(newDeceasedDomicile.__get__('eligibilityCookie.setCookie').calledWith(
                 {reqParam: 'req value'},
                 {resParam: 'res value'},
-                '/stop-page/notInEnglandOrWales'
+                '/stop-page/notInEnglandOrWales',
+                'domicile',
+                'Yes'
             )).to.equal(true);
 
             revert();
