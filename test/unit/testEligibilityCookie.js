@@ -199,7 +199,7 @@ describe('EligibilityCookie.js', () => {
                     nextStepUrl: '/new-iht-completed',
                     pages: ['/new-will-left']
                 }),
-                {httpOnly: true, secure: true, expires: new Date(Date.now() + 172800)}
+                {httpOnly: true, secure: true, expires: new Date(Date.now() + config.redis.eligibilityCookie.expires)}
             )).to.equal(true);
 
             done();
@@ -223,7 +223,7 @@ describe('EligibilityCookie.js', () => {
                     nextStepUrl: '/new-iht-completed',
                     pages: ['/new-will-left']
                 }),
-                {httpOnly: true, expires: new Date(Date.now() + 172800)}
+                {httpOnly: true, expires: new Date(Date.now() + config.redis.eligibilityCookie.expires)}
             )).to.equal(true);
 
             done();
