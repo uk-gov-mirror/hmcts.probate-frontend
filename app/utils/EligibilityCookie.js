@@ -26,10 +26,9 @@ class EligibilityCookie {
         const json = this.readCookie(req);
         const currentPage = req.originalUrl;
 
-        json.nextStepUrl = nextStepUrl;
-
         const pageFound = Object.keys(json.pages).includes(currentPage);
         if (!pageFound) {
+            json.nextStepUrl = nextStepUrl;
             json.pages[currentPage] = {};
         }
 
