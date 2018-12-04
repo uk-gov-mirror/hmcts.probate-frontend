@@ -50,9 +50,9 @@ class EligibilityCookie {
         const cookieValue = JSON.stringify(json);
 
         if (req.protocol === 'https') {
-            res.cookie(eligibilityCookieName, cookieValue, {httpOnly: true, secure: true, expires: new Date(Date.now() + 172800)});
+            res.cookie(eligibilityCookieName, cookieValue, {httpOnly: true, expires: new Date(Date.now() + 172800), secure: true});
         } else {
-            res.cookie(eligibilityCookieName, cookieValue, {httpOnly: true});
+            res.cookie(eligibilityCookieName, cookieValue, {httpOnly: true, expires: new Date(Date.now() + 172800)});
         }
     }
 }
