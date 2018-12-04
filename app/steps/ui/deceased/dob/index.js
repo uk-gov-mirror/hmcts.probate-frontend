@@ -14,7 +14,7 @@ class DeceasedDob extends DateStep {
         return 'dob';
     }
 
-    handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
+    handlePost(ctx, errors, formdata, session) {
         let dod;
         if (session.form.deceased && session.form.deceased.dod_year && session.form.deceased.dod_month && session.form.deceased.dod_day) {
             dod = new Date(`${session.form.deceased.dod_year}-${session.form.deceased.dod_month}-${session.form.deceased.dod_day}`);
@@ -32,9 +32,13 @@ class DeceasedDob extends DateStep {
             errors.push(FieldError('dob_date', 'dodBeforeDob', this.resourcePath, this.generateContent()));
         }
 
-        ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
-
         return [ctx, errors];
+    }
+
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        ctx.isToggleEnabled = FeatureToggle.isEnabled(req.session.featureToggles, 'screening_questions');
+        return ctx;
     }
 
     nextStepOptions() {
