@@ -17,16 +17,12 @@ router.all('*', (req, res, next) => {
 });
 
 router.use((req, res, next) => {
-    if (!req.session.form) {
+    if (req.session.regId && !req.session.form) {
         req.session.form = {
             payloadVersion: config.payloadVersion,
             applicantEmail: req.session.regId
         };
         req.session.back = [];
-    }
-
-    if (!req.session.form.applicantEmail) {
-        req.session.form.applicantEmail = req.session.regId;
     }
 
     next();
