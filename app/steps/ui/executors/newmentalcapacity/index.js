@@ -12,7 +12,7 @@ class NewMentalCapacity extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata, session) {
-        delete session.formdata;
+        delete session.form;
         return [ctx, errors];
     }
 
