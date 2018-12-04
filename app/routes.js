@@ -17,7 +17,7 @@ router.all('*', (req, res, next) => {
 });
 
 router.use((req, res, next) => {
-    if (!req.session.form) {
+    if (!req.session.form || (req.session.form && req.session.form.executors && req.session.form.executors.mentalCapacity === commonContent.yes)) {
         req.session.form = {
             payloadVersion: config.payloadVersion,
             applicantEmail: req.session.regId
