@@ -11,8 +11,9 @@ class EligibilityCookie {
                 res.redirect(eligibilityCookieRedirectUrl);
             } else {
                 const eligibilityCookie = JSON.parse(req.cookies[eligibilityCookieName]);
+                const pageFound = Object.keys(eligibilityCookie.pages).includes(req.originalUrl);
 
-                if (eligibilityCookie.pages.includes(req.originalUrl) || req.originalUrl === eligibilityCookie.nextStepUrl) {
+                if (pageFound || req.originalUrl === eligibilityCookie.nextStepUrl) {
                     next();
                 } else {
                     res.redirect(eligibilityCookieRedirectUrl);
@@ -21,13 +22,21 @@ class EligibilityCookie {
         };
     }
 
-    setCookie(req, res, nextStepUrl) {
+    setCookie(req, res, nextStepUrl, fieldKey, fieldValue) {
         const json = this.readCookie(req);
         const currentPage = req.originalUrl;
 
         json.nextStepUrl = nextStepUrl;
-        if (!json.pages.includes(currentPage)) {
-            json.pages.push(currentPage);
+
+        const pageFound = Object.keys(json.pages).includes(currentPage);
+        if (!pageFound) {
+            json.pages[currentPage] = {};
+        }
+
+        const fieldFound = Object.keys(json.pages[currentPage]).includes(fieldKey);
+
+        if (!fieldFound) {
+            json.pages[currentPage][fieldKey] = fieldValue;
         }
 
         this.writeCookie(req, res, json);
@@ -36,7 +45,7 @@ class EligibilityCookie {
     readCookie(req) {
         let json = {
             nextStepUrl: '',
-            pages: []
+            pages: {}
         };
 
         if (req.cookies && req.cookies[eligibilityCookieName]) {
@@ -44,6 +53,17 @@ class EligibilityCookie {
         }
 
         return json;
+    }
+
+    getAnswer(req, pageUrl, fieldKey) {
+        const json = this.readCookie(req);
+        const page = json.pages[pageUrl];
+
+        if (page) {
+            return page[fieldKey];
+        }
+
+        return null;
     }
 
     writeCookie(req, res, json) {
@@ -58,7 +78,6 @@ class EligibilityCookie {
         }
 
         res.cookie(eligibilityCookieName, cookieValue, options);
-
     }
 }
 

@@ -14,7 +14,6 @@ class UIStepRunner {
     }
 
     handleGet(step, req, res) {
-
         return co(function * () {
             let errors = null;
             const session = req.session;
@@ -41,7 +40,6 @@ class UIStepRunner {
     }
 
     handlePost(step, req, res) {
-
         return co(function * () {
             const session = req.session;
             let formdata = session.form;
@@ -77,7 +75,9 @@ class UIStepRunner {
                     session.back.push(step.constructor.getUrl());
                 }
 
-                step.setEligibilityCookie(req, res, nextStepUrl);
+                const fieldKey = step.getFieldKey();
+
+                step.setEligibilityCookie(req, res, nextStepUrl, fieldKey, ctx[fieldKey]);
 
                 res.redirect(nextStepUrl);
             } else {

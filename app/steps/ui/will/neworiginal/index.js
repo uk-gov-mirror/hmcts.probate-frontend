@@ -4,11 +4,28 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const content = require('app/resources/en/translation/will/neworiginal');
 const EligibilityCookie = require('app/utils/EligibilityCookie');
 const eligibilityCookie = new EligibilityCookie();
+const pageUrl = '/new-will-original';
+const fieldKey = 'original';
 
 class NewWillOriginal extends ValidationStep {
 
     static getUrl() {
-        return '/new-will-original';
+        return pageUrl;
+    }
+
+    getFieldKey() {
+        return fieldKey;
+    }
+
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        const answerValue = eligibilityCookie.getAnswer(req, pageUrl, fieldKey);
+
+        if (answerValue) {
+            ctx[fieldKey] = answerValue;
+        }
+
+        return ctx;
     }
 
     nextStepUrl(ctx) {
@@ -18,7 +35,7 @@ class NewWillOriginal extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'original', value: content.optionYes, choice: 'isOriginal'}
+                {key: fieldKey, value: content.optionYes, choice: 'isOriginal'}
             ]
         };
     }
@@ -27,8 +44,8 @@ class NewWillOriginal extends ValidationStep {
         return {};
     }
 
-    setEligibilityCookie(req, res, nextStepUrl) {
-        eligibilityCookie.setCookie(req, res, nextStepUrl);
+    setEligibilityCookie(req, res, nextStepUrl, fieldKey, fieldValue) {
+        eligibilityCookie.setCookie(req, res, nextStepUrl, fieldKey, fieldValue);
     }
 }
 

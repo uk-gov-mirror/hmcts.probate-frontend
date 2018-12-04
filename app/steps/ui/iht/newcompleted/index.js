@@ -4,11 +4,28 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const content = require('app/resources/en/translation/iht/newcompleted');
 const EligibilityCookie = require('app/utils/EligibilityCookie');
 const eligibilityCookie = new EligibilityCookie();
+const pageUrl = '/new-iht-completed';
+const fieldKey = 'completed';
 
 class NewIhtCompleted extends ValidationStep {
 
     static getUrl() {
-        return '/new-iht-completed';
+        return pageUrl;
+    }
+
+    getFieldKey() {
+        return fieldKey;
+    }
+
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        const answerValue = eligibilityCookie.getAnswer(req, pageUrl, fieldKey);
+
+        if (answerValue) {
+            ctx[fieldKey] = answerValue;
+        }
+
+        return ctx;
     }
 
     nextStepUrl(ctx) {
@@ -18,7 +35,7 @@ class NewIhtCompleted extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'completed', value: content.optionYes, choice: 'completed'}
+                {key: fieldKey, value: content.optionYes, choice: 'completed'}
             ]
         };
     }
@@ -27,8 +44,8 @@ class NewIhtCompleted extends ValidationStep {
         return {};
     }
 
-    setEligibilityCookie(req, res, nextStepUrl) {
-        eligibilityCookie.setCookie(req, res, nextStepUrl);
+    setEligibilityCookie(req, res, nextStepUrl, fieldKey, fieldValue) {
+        eligibilityCookie.setCookie(req, res, nextStepUrl, fieldKey, fieldValue);
     }
 }
 

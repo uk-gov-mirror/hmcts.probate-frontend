@@ -4,11 +4,28 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const content = require('app/resources/en/translation/applicant/newexecutor');
 const EligibilityCookie = require('app/utils/EligibilityCookie');
 const eligibilityCookie = new EligibilityCookie();
+const pageUrl = '/new-applicant-executor';
+const fieldKey = 'executor';
 
 class NewApplicantExecutor extends ValidationStep {
 
     static getUrl() {
-        return '/new-applicant-executor';
+        return pageUrl;
+    }
+
+    getFieldKey() {
+        return fieldKey;
+    }
+
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        const answerValue = eligibilityCookie.getAnswer(req, pageUrl, fieldKey);
+
+        if (answerValue) {
+            ctx[fieldKey] = answerValue;
+        }
+
+        return ctx;
     }
 
     nextStepUrl(ctx) {
@@ -18,7 +35,7 @@ class NewApplicantExecutor extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'executor', value: content.optionYes, choice: 'isExecutor'}
+                {key: fieldKey, value: content.optionYes, choice: 'isExecutor'}
             ]
         };
     }
@@ -27,8 +44,8 @@ class NewApplicantExecutor extends ValidationStep {
         return {};
     }
 
-    setEligibilityCookie(req, res, nextStepUrl) {
-        eligibilityCookie.setCookie(req, res, nextStepUrl);
+    setEligibilityCookie(req, res, nextStepUrl, fieldKey, fieldValue) {
+        eligibilityCookie.setCookie(req, res, nextStepUrl, fieldKey, fieldValue);
     }
 }
 

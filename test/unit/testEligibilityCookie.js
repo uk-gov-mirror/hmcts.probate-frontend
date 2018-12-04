@@ -79,17 +79,18 @@ describe('EligibilityCookie.js', () => {
             const req = {originalUrl: '/new-deceased-domicile'};
             const res = {};
             const nextStepUrl = '/new-death-certificate';
+            const answer = 'Yes';
             const eligibilityCookie = new EligibilityCookie();
             const readCookieStub = sinon.stub(eligibilityCookie, 'readCookie').returns({
                 pages: [
-                    '/new-deceased-domicile',
-                    '/new-iht-completed',
-                    '/new-will-left'
+                    {url: '/new-iht-completed', answer: 'Yes'},
+                    {url: '/new-will-left', answer: 'Yes'},
+                    {url: '/new-deceased-domicile', answer: 'Yes'}
                 ]
             });
             const writeCookieStub = sinon.stub(eligibilityCookie, 'writeCookie');
 
-            eligibilityCookie.setCookie(req, res, nextStepUrl);
+            eligibilityCookie.setCookie(req, res, nextStepUrl, answer);
 
             expect(eligibilityCookie.writeCookie.calledOnce).to.equal(true);
             expect(eligibilityCookie.writeCookie.calledWith(
@@ -97,9 +98,9 @@ describe('EligibilityCookie.js', () => {
                 {},
                 {
                     pages: [
-                        '/new-deceased-domicile',
-                        '/new-iht-completed',
-                        '/new-will-left'
+                        {url: '/new-iht-completed', answer: 'Yes'},
+                        {url: '/new-will-left', answer: 'Yes'},
+                        {url: '/new-deceased-domicile', answer: 'Yes'}
                     ],
                     nextStepUrl: '/new-death-certificate'
                 }
@@ -114,16 +115,17 @@ describe('EligibilityCookie.js', () => {
             const req = {originalUrl: '/new-deceased-domicile'};
             const res = {};
             const nextStepUrl = '/new-death-certificate';
+            const answer = 'Yes';
             const eligibilityCookie = new EligibilityCookie();
             const readCookieStub = sinon.stub(eligibilityCookie, 'readCookie').returns({
                 pages: [
-                    '/new-iht-completed',
-                    '/new-will-left'
+                    {url: '/new-iht-completed', answer: 'Yes'},
+                    {url: '/new-will-left', answer: 'Yes'}
                 ]
             });
             const writeCookieStub = sinon.stub(eligibilityCookie, 'writeCookie');
 
-            eligibilityCookie.setCookie(req, res, nextStepUrl);
+            eligibilityCookie.setCookie(req, res, nextStepUrl, answer);
 
             expect(eligibilityCookie.writeCookie.calledOnce).to.equal(true);
             expect(eligibilityCookie.writeCookie.calledWith(
@@ -131,9 +133,9 @@ describe('EligibilityCookie.js', () => {
                 {},
                 {
                     pages: [
-                        '/new-iht-completed',
-                        '/new-will-left',
-                        '/new-deceased-domicile'
+                        {url: '/new-iht-completed', answer: 'Yes'},
+                        {url: '/new-will-left', answer: 'Yes'},
+                        {url: '/new-deceased-domicile', answer: 'Yes'}
                     ],
                     nextStepUrl: '/new-death-certificate'
                 }
@@ -186,7 +188,12 @@ describe('EligibilityCookie.js', () => {
             const res = {cookie: sinon.spy()};
             const json = {
                 nextStepUrl: '/new-iht-completed',
-                pages: ['/new-will-left']
+                pages: [
+                    {
+                        url: '/new-will-left',
+                        answer: 'Yes'
+                    }
+                ]
             };
             const eligibilityCookie = new EligibilityCookie();
 
@@ -197,7 +204,12 @@ describe('EligibilityCookie.js', () => {
                 config.redis.eligibilityCookie.name,
                 JSON.stringify({
                     nextStepUrl: '/new-iht-completed',
-                    pages: ['/new-will-left']
+                    pages: [
+                        {
+                            url: '/new-will-left',
+                            answer: 'Yes'
+                        }
+                    ]
                 }),
                 {httpOnly: true, secure: true, expires: new Date(Date.now() + config.redis.eligibilityCookie.expires)}
             )).to.equal(true);
@@ -210,7 +222,12 @@ describe('EligibilityCookie.js', () => {
             const res = {cookie: sinon.spy()};
             const json = {
                 nextStepUrl: '/new-iht-completed',
-                pages: ['/new-will-left']
+                pages: [
+                    {
+                        url: '/new-will-left',
+                        answer: 'Yes'
+                    }
+                ]
             };
             const eligibilityCookie = new EligibilityCookie();
 
@@ -221,7 +238,12 @@ describe('EligibilityCookie.js', () => {
                 config.redis.eligibilityCookie.name,
                 JSON.stringify({
                     nextStepUrl: '/new-iht-completed',
-                    pages: ['/new-will-left']
+                    pages: [
+                        {
+                            url: '/new-will-left',
+                            answer: 'Yes'
+                        }
+                    ]
                 }),
                 {httpOnly: true, expires: new Date(Date.now() + config.redis.eligibilityCookie.expires)}
             )).to.equal(true);
