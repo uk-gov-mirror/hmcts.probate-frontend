@@ -2,7 +2,7 @@
 
 const requireDir = require('require-directory');
 const TestWrapper = require('test/util/TestWrapper');
-// const willData = require('test/data/will');
+const willData = require('test/data/will');
 const willContent = requireDir(module, '../../../app/resources/en/translation/will');
 const applicantContent = requireDir(module, '../../../app/resources/en/translation/applicant');
 const mentalCapacityContent = require('app/resources/en/translation/executors/mentalcapacity');
@@ -51,25 +51,25 @@ describe('summary-will-section', () => {
                 });
         });
 
-        // it('test data is played back correctly on the summary page will section', (done) => {
-        //     testWrapper.agent.post('/prepare-session/form')
-        //         .send(sessionData)
-        //         .end((err) => {
-        //             if (err) {
-        //                 throw err;
-        //             }
+        it('test data is played back correctly on the summary page will section', (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end((err) => {
+                    if (err) {
+                        throw err;
+                    }
 
-        //             const playbackData = {
-        //                 willLeft: willContent.left.question,
-        //                 willOriginal: willContent.original.question,
-        //                 willCodicils: willContent.codicils.question,
-        //                 applicantExecutor: applicantContent.executor.question,
-        //                 mentalCapacity: mentalCapacityContent.question
-        //             };
-        //             Object.assign(playbackData, willData.will, willData.applicant, willData.executors);
+                    const playbackData = {
+                        willLeft: willContent.left.question,
+                        willOriginal: willContent.original.question,
+                        willCodicils: willContent.codicils.question,
+                        applicantExecutor: applicantContent.executor.question,
+                        mentalCapacity: mentalCapacityContent.question
+                    };
+                    Object.assign(playbackData, willData.will, willData.applicant, willData.executors);
 
-        //             testWrapper.testDataPlayback(done, playbackData);
-        //         });
-        // });
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+        });
     });
 });

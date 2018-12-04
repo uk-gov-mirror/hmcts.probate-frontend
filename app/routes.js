@@ -17,7 +17,7 @@ router.all('*', (req, res, next) => {
 });
 
 router.use((req, res, next) => {
-    if (!req.session.form || (req.session.form && req.session.form.executors && req.session.form.executors.mentalCapacity === commonContent.yes)) {
+    if (!req.session.form) {
         req.session.form = {
             payloadVersion: config.payloadVersion,
             applicantEmail: req.session.regId
@@ -47,7 +47,7 @@ router.get('/', (req, res) => {
 });
 
 router.use((req, res, next) => {
-    const formdata = req.session.form || {};
+    const formdata = req.session.form;
     const isHardStop = formdata => config.hardStopParams.some(param => get(formdata, param) === commonContent.no);
     const executorsWrapper = new ExecutorsWrapper(formdata.executors);
     const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
@@ -95,7 +95,7 @@ router.use((req, res, next) => {
 });
 
 router.use((req, res, next) => {
-    const formdata = req.session.form || {};
+    const formdata = req.session.form;
     const hasMultipleApplicants = (new ExecutorsWrapper(formdata.executors)).hasMultipleApplicants();
 
     if (hasMultipleApplicants &&
@@ -128,7 +128,7 @@ router.get('/payment', (req, res) => {
 
 if (['sandbox', 'saat', 'preview', 'sprod', 'demo', 'aat'].includes(config.environment)) {
     router.get('/inviteIdList', (req, res) => {
-        const formdata = req.session.form || {};
+        const formdata = req.session.form;
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         res.setHeader('Content-Type', 'text/plain');
         res.send({'ids': executorsWrapper.executorsInvited().map(e => e.inviteId)});

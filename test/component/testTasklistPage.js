@@ -76,65 +76,65 @@ describe('task-list', () => {
                 });
         });
 
-        // it('test right content loaded in Review and Confirm section (Multiple Applicants) (feature toggle off)', (done) => {
-        //     nock(featureToggleUrl)
-        //         .get(featureTogglePath)
-        //         .reply(200, 'false');
+        it('test right content loaded in Review and Confirm section (Multiple Applicants) (feature toggle off)', (done) => {
+            nock(featureToggleUrl)
+                .get(featureTogglePath)
+                .reply(200, 'false');
 
-        //     const multipleApplicantSessionData = {
-        //         will: sessionData.will,
-        //         iht: sessionData.iht,
-        //         applicant: sessionData.applicant,
-        //         deceased: sessionData.deceased,
-        //         executors: sessionData.executors,
-        //         declaration: sessionData.declaration
-        //     };
-        //     const excludeKeys = [
-        //         'taskNotStarted',
-        //         'taskStarted',
-        //         'taskComplete',
-        //         'taskUnavailable',
-        //         'checkYourAnswers',
-        //         'alreadyDeclared',
-        //         'deceasedTask'
-        //     ];
+            const multipleApplicantSessionData = {
+                will: sessionData.will,
+                iht: sessionData.iht,
+                applicant: sessionData.applicant,
+                deceased: sessionData.deceased,
+                executors: sessionData.executors,
+                declaration: sessionData.declaration
+            };
+            const excludeKeys = [
+                'taskNotStarted',
+                'taskStarted',
+                'taskComplete',
+                'taskUnavailable',
+                'checkYourAnswers',
+                'alreadyDeclared',
+                'deceasedTask'
+            ];
 
-        //     testWrapper.agent.post('/prepare-session/form')
-        //         .send(multipleApplicantSessionData)
-        //         .end(() => {
-        //             testWrapper.testContent(done, excludeKeys);
-        //         });
-        // });
+            testWrapper.agent.post('/prepare-session/form')
+                .send(multipleApplicantSessionData)
+                .end(() => {
+                    testWrapper.testContent(done, excludeKeys);
+                });
+        });
 
-        // it('test right content loaded in Review and Confirm section (Multiple Applicants) (feature toggle on)', (done) => {
-        //     nock(featureToggleUrl)
-        //         .get(featureTogglePath)
-        //         .reply(200, 'true');
+        it('test right content loaded in Review and Confirm section (Multiple Applicants) (feature toggle on)', (done) => {
+            nock(featureToggleUrl)
+                .get(featureTogglePath)
+                .reply(200, 'true');
 
-        //     const multipleApplicantSessionData = {
-        //         will: sessionData.will,
-        //         iht: sessionData.iht,
-        //         applicant: sessionData.applicant,
-        //         deceased: sessionData.deceased,
-        //         executors: sessionData.executors,
-        //         declaration: sessionData.declaration
-        //     };
-        //     const excludeKeys = [
-        //         'taskNotStarted',
-        //         'taskStarted',
-        //         'taskComplete',
-        //         'taskUnavailable',
-        //         'checkYourAnswers',
-        //         'alreadyDeclared',
-        //         'eligibilityTask'
-        //     ];
+            const multipleApplicantSessionData = {
+                will: sessionData.will,
+                iht: sessionData.iht,
+                applicant: sessionData.applicant,
+                deceased: sessionData.deceased,
+                executors: sessionData.executors,
+                declaration: sessionData.declaration
+            };
+            const excludeKeys = [
+                'taskNotStarted',
+                'taskStarted',
+                'taskComplete',
+                'taskUnavailable',
+                'checkYourAnswers',
+                'alreadyDeclared',
+                'eligibilityTask'
+            ];
 
-        //     testWrapper.agent.post('/prepare-session/form')
-        //         .send(multipleApplicantSessionData)
-        //         .end(() => {
-        //             testWrapper.testContent(done, excludeKeys);
-        //         });
-        // });
+            testWrapper.agent.post('/prepare-session/form')
+                .send(multipleApplicantSessionData)
+                .end(() => {
+                    testWrapper.testContent(done, excludeKeys);
+                });
+        });
 
         it('test right content loaded in Review and Confirm section (Single Applicant) (feature toggle off)', (done) => {
             nock(featureToggleUrl)
