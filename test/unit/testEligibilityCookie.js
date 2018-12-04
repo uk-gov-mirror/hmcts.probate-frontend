@@ -198,7 +198,7 @@ describe('EligibilityCookie.js', () => {
                     nextStepUrl: '/new-iht-completed',
                     pages: ['/new-will-left']
                 }),
-                {secure: true, httpOnly: true}
+                {httpOnly: true, secure: true, expires: new Date(Date.now() + 172800)}
             )).to.equal(true);
 
             done();
