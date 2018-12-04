@@ -46,9 +46,9 @@ class Step {
     }
 
     getContextData(req) {
-        const session = req.session;
+        const formdata = req.session.form || {};
         let ctx = {};
-        Object.assign(ctx, session.form[this.section] || {});
+        Object.assign(ctx, formdata[this.section] || {});
         ctx.sessionID = req.sessionID;
         ctx = Object.assign(ctx, req.body);
         return ctx;
