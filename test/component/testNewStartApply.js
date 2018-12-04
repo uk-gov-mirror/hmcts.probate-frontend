@@ -3,8 +3,9 @@
 const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist/index');
 const commonContent = require('app/resources/en/translation/common');
+const config = require('app/config');
 const cookies = [{
-    name: '__eligibility',
+    name: config.redis.eligibilityCookie.name,
     content: {
         nextStepUrl: '/new-start-apply',
         pages: [
@@ -20,7 +21,6 @@ const cookies = [{
 }];
 
 const nock = require('nock');
-const config = require('app/config');
 const featureToggleUrl = config.featureToggles.url;
 const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.screening_questions}`;
 

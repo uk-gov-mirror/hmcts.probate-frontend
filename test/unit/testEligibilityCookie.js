@@ -3,6 +3,7 @@
 const EligibilityCookie = require('app/utils/EligibilityCookie');
 const {expect} = require('chai');
 const sinon = require('sinon');
+const config = require('app/config');
 
 describe('EligibilityCookie.js', () => {
     describe('checkCookie()', () => {
@@ -193,7 +194,7 @@ describe('EligibilityCookie.js', () => {
 
             expect(res.cookie.calledOnce).to.equal(true);
             expect(res.cookie.calledWith(
-                '__eligibility',
+                config.redis.eligibilityCookie.name,
                 JSON.stringify({
                     nextStepUrl: '/new-iht-completed',
                     pages: ['/new-will-left']
@@ -217,7 +218,7 @@ describe('EligibilityCookie.js', () => {
 
             expect(res.cookie.calledOnce).to.equal(true);
             expect(res.cookie.calledWith(
-                '__eligibility',
+                config.redis.eligibilityCookie.name,
                 JSON.stringify({
                     nextStepUrl: '/new-iht-completed',
                     pages: ['/new-will-left']
