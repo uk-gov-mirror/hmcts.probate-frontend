@@ -25,6 +25,10 @@ router.use((req, res, next) => {
         req.session.back = [];
     }
 
+    if (!req.session.form.applicantEmail) {
+        req.session.form.applicantEmail = req.session.regId;
+    }
+
     next();
 });
 
