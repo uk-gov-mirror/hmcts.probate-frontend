@@ -38,6 +38,10 @@ class Security {
                     .then(response => {
                         if (response.name !== 'Error') {
                             req.session.regId = response.email;
+                            req.session.form = {
+                                payloadVersion: config.payloadVersion,
+                                applicantEmail: req.session.regId
+                            };
                             req.userId = response.id;
                             req.authToken = securityCookie;
                             self._authorize(res, next, response.roles, authorisedRoles);
