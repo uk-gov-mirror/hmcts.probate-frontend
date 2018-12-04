@@ -48,12 +48,23 @@ class EligibilityCookie {
 
     writeCookie(req, res, json) {
         const cookieValue = JSON.stringify(json);
+        let options = {};
 
         if (req.protocol === 'https') {
-            res.cookie(eligibilityCookieName, cookieValue, {httpOnly: true, expires: new Date(Date.now() + 172800), secure: true});
+            options = {
+                httpOnly: true,
+                expires: new Date(Date.now() + config.redis.eligibilityCookie.expires),
+                secure: true
+            };
         } else {
-            res.cookie(eligibilityCookieName, cookieValue, {httpOnly: true, expires: new Date(Date.now() + 172800)});
+            options = {
+                httpOnly: true,
+                expires: new Date(Date.now() + config.redis.eligibilityCookie.expires)
+            };
         }
+
+        res.cookie(eligibilityCookieName, cookieValue, options);
+
     }
 }
 
