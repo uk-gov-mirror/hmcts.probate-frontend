@@ -11,6 +11,11 @@ class WillOriginal extends ValidationStep {
         return '/will-original';
     }
 
+    handlePost(ctx, errors, formdata, session) {
+        delete session.form;
+        return [ctx, errors];
+    }
+
     nextStepUrl(ctx) {
         return this.next(ctx).constructor.getUrl('notOriginal');
     }
@@ -23,8 +28,12 @@ class WillOriginal extends ValidationStep {
         };
     }
 
-    setEligibilityCookie(req, res, ctx) {
-        eligibilityCookie.setCookie(req, res, this.nextStepUrl(ctx));
+    persistFormData() {
+        return {};
+    }
+
+    setEligibilityCookie(req, res, nextStepUrl) {
+        eligibilityCookie.setCookie(req, res, nextStepUrl);
     }
 }
 

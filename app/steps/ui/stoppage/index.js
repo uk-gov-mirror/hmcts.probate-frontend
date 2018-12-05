@@ -22,15 +22,9 @@ class StopPage extends Step {
         return ctx;
     }
 
-    * handleGet(ctx, formdata) {
-        [ctx] = yield super.handleGet(ctx, formdata);
-        return [ctx, {}];
-    }
-
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.linkPlaceholders;
-
         return [ctx, formdata];
     }
 

@@ -13,21 +13,4 @@ describe('DeceasedMarried', () => {
             done();
         });
     });
-
-    describe('handlePost()', () => {
-        let ctx;
-        let errors;
-
-        it('should return the ctx with the deceased married status', (done) => {
-            ctx = {
-                married: 'Yes'
-            };
-            errors = {};
-            [ctx, errors] = DeceasedMarried.handlePost(ctx, errors);
-            expect(ctx).to.deep.equal({
-                married: 'Yes'
-            });
-            done();
-        });
-    });
 });

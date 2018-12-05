@@ -5,6 +5,10 @@ const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const IhtCompleted = steps.IhtCompleted;
 const content = require('app/resources/en/translation/screeners/ihtcompleted');
+const rewire = require('rewire');
+const sinon = require('sinon');
+const schema = require('app/steps/ui/screeners/ihtcompleted/schema');
+const ihtCompleted = rewire('app/steps/ui/screeners/ihtcompleted/index');
 
 describe('IhtCompleted', () => {
     describe('getUrl()', () => {
@@ -41,6 +45,39 @@ describe('IhtCompleted', () => {
                     choice: 'completed'
                 }]
             });
+            done();
+        });
+    });
+
+    describe('persistFormData()', () => {
+        it('should return an empty object', () => {
+            const result = IhtCompleted.persistFormData();
+            expect(result).to.deep.equal({});
+        });
+    });
+
+    describe('setEligibilityCookie()', () => {
+        it('should call eligibilityCookie.setCookie() with the correct params', (done) => {
+            const revert = ihtCompleted.__set__('eligibilityCookie', {setCookie: sinon.spy()});
+            const req = {reqParam: 'req value'};
+            const res = {resParam: 'res value'};
+            const nextStepUrl = '/stop-page/ihtNotCompleted';
+            const steps = {};
+            const section = null;
+            const resourcePath = 'screeners/ihtcompleted';
+            const i18next = {};
+            const IhtCom = new ihtCompleted(steps, section, resourcePath, i18next, schema);
+
+            IhtCom.setEligibilityCookie(req, res, nextStepUrl);
+
+            expect(ihtCompleted.__get__('eligibilityCookie.setCookie').calledOnce).to.equal(true);
+            expect(ihtCompleted.__get__('eligibilityCookie.setCookie').calledWith(
+                {reqParam: 'req value'},
+                {resParam: 'res value'},
+                '/stop-page/ihtNotCompleted'
+            )).to.equal(true);
+
+            revert();
             done();
         });
     });

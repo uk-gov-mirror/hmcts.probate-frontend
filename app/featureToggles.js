@@ -10,5 +10,6 @@ router.get('/relationship-to-deceased', (req, res, next) => featureToggle.callCh
 router.get('/other-applicants', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'intestacy_screening_questions', featureToggle.togglePage, 'start-eligibility'));
 
 router.get('/document-upload', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'document_upload', featureToggle.togglePage, '/tasklist'));
+router.get('/deceased-address', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'document_upload', featureToggle.toggleFeature));
 
 module.exports = router;

@@ -5,6 +5,10 @@ const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const MentalCapacity = steps.MentalCapacity;
 const content = require('app/resources/en/translation/screeners/mentalcapacity');
+const rewire = require('rewire');
+const sinon = require('sinon');
+const schema = require('app/steps/ui/screeners/mentalcapacity/schema');
+const mentalCapacity = rewire('app/steps/ui/screeners/mentalcapacity/index');
 
 describe('MentalCapacity', () => {
     describe('getUrl()', () => {
@@ -41,6 +45,39 @@ describe('MentalCapacity', () => {
                     choice: 'isCapable'
                 }]
             });
+            done();
+        });
+    });
+
+    describe('persistFormData()', () => {
+        it('should return an empty object', () => {
+            const result = MentalCapacity.persistFormData();
+            expect(result).to.deep.equal({});
+        });
+    });
+
+    describe('setEligibilityCookie()', () => {
+        it('should call eligibilityCookie.setCookie() with the correct params', (done) => {
+            const revert = mentalCapacity.__set__('eligibilityCookie', {setCookie: sinon.spy()});
+            const req = {reqParam: 'req value'};
+            const res = {resParam: 'res value'};
+            const nextStepUrl = '/stop-page/mentalCapacity';
+            const steps = {};
+            const section = null;
+            const resourcePath = 'screeners/mentalcapacity';
+            const i18next = {};
+            const MenCap = new mentalCapacity(steps, section, resourcePath, i18next, schema);
+
+            MenCap.setEligibilityCookie(req, res, nextStepUrl);
+
+            expect(mentalCapacity.__get__('eligibilityCookie.setCookie').calledOnce).to.equal(true);
+            expect(mentalCapacity.__get__('eligibilityCookie.setCookie').calledWith(
+                {reqParam: 'req value'},
+                {resParam: 'res value'},
+                '/stop-page/mentalCapacity'
+            )).to.equal(true);
+
+            revert();
             done();
         });
     });

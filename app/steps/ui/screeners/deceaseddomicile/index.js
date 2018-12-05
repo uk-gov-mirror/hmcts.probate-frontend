@@ -11,6 +11,11 @@ class DeceasedDomicile extends ValidationStep {
         return '/deceased-domicile';
     }
 
+    handlePost(ctx, errors, formdata, session) {
+        delete session.form;
+        return [ctx, errors];
+    }
+
     nextStepUrl(ctx) {
         return this.next(ctx).constructor.getUrl('notInEnglandOrWales');
     }
@@ -21,6 +26,10 @@ class DeceasedDomicile extends ValidationStep {
                 {key: 'domicile', value: content.optionYes, choice: 'inEnglandOrWales'}
             ]
         };
+    }
+
+    persistFormData() {
+        return {};
     }
 
     setEligibilityCookie(req, res, nextStepUrl) {

@@ -2,6 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const config = require('app/config');
+const commonContent = require('app/resources/en/translation/common');
 
 describe('stop-page', () => {
     let testWrapper;
@@ -73,6 +74,12 @@ describe('stop-page', () => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('otherApplicants');
             const excludeKeys = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'noWill', 'notOriginal', 'notExecutor', 'mentalCapacity', 'notDiedAfterOctober2014', 'notRelated'];
             testWrapper.testContent(done, excludeKeys, {applicationFormPA1A: config.links.applicationFormPA1A});
+        });
+
+        it('test "sign out" link is not displayed on the page', (done) => {
+            const playbackData = {};
+            playbackData.signOut = commonContent.signOut;
+            testWrapper.testContentNotPresent(done, playbackData);
         });
     });
 });

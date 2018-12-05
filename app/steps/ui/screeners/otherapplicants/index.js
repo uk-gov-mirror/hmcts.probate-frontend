@@ -11,6 +11,11 @@ class OtherApplicants extends ValidationStep {
         return '/other-applicants';
     }
 
+    handlePost(ctx, errors, formdata, session) {
+        delete session.form;
+        return [ctx, errors];
+    }
+
     nextStepUrl(ctx) {
         return this.next(ctx).constructor.getUrl('otherApplicants');
     }
@@ -21,6 +26,10 @@ class OtherApplicants extends ValidationStep {
                 {key: 'otherApplicants', value: content.optionNo, choice: 'noOthers'}
             ]
         };
+    }
+
+    persistFormData() {
+        return {};
     }
 
     setEligibilityCookie(req, res, nextStepUrl) {

@@ -1,9 +1,9 @@
 'use strict';
 
+const config = require('app/config');
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedDomicile = require('app/steps/ui/screeners/deceaseddomicile/index');
 const StopPage = require('app/steps/ui/stoppage/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
 
 describe('death-certificate', () => {
@@ -20,16 +20,24 @@ describe('death-certificate', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('DeathCertificate');
+        it('test help block content is loaded on page', (done) => {
+            const playbackData = {};
+            playbackData.helpTitle = commonContent.helpTitle;
+            playbackData.helpText = commonContent.helpText;
+            playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
+            playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
+            playbackData.helpEmailLabel = commonContent.helpEmailLabel;
+            playbackData.contactEmailAddress = commonContent.contactEmailAddress;
+
+            testWrapper.testDataPlayback(done, playbackData);
+        });
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, []);
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required', []);
+            testWrapper.testErrors(done, {}, 'required', []);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForDeceasedDomicile}`, (done) => {
@@ -48,9 +56,10 @@ describe('death-certificate', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
         });
 
-        it('test save and close link is not displayed on the page', (done) => {
+        it('test "save and close" and "sign out" links are not displayed on the page', (done) => {
             const playbackData = {};
             playbackData.saveAndClose = commonContent.saveAndClose;
+            playbackData.signOut = commonContent.signOut;
 
             testWrapper.testContentNotPresent(done, playbackData);
         });

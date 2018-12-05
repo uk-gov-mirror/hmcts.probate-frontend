@@ -16,7 +16,6 @@ describe('Soft Stops', function () {
     });
 
     describe('Soft stops for pages', function () {
-
         it('Check soft stop for applicant name as on the will', function () {
             const step = steps.ApplicantNameAsOnWill;
             const formdata = {

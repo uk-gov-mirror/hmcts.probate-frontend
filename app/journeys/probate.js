@@ -1,11 +1,6 @@
 'use strict';
 
 const taskList = {
-    EligibilityTask: {
-        firstStep: 'DeathCertificate',
-        lastStep: 'TaskList',
-        summary: 'Summary'
-    },
     DeceasedTask: {
         firstStep: 'DeceasedName',
         lastStep: 'TaskList',
@@ -88,7 +83,14 @@ const stepList = {
     DeceasedName: 'DeceasedDob',
     DeceasedDob: 'DeceasedDod',
     DeceasedDod: 'DeceasedAddress',
-    DeceasedAddress: 'IhtMethod',
+    DeceasedAddress: {
+        documentUploadToggleOn: 'DocumentUpload',
+        otherwise: 'IhtMethod'
+    },
+    DocumentUpload: {
+        isUploadingDocument: 'DocumentUpload',
+        otherwise: 'IhtMethod'
+    },
     IhtMethod: {
         online: 'IhtIdentifier',
         otherwise: 'IhtPaper'
@@ -211,8 +213,7 @@ const stepList = {
         otherwise: 'CoApplicantDisagreePage'
     },
     CoApplicantAgreePage: 'CoApplicantAgreePage',
-    CoApplicantDisagreePage: 'CoApplicantDisagreePage',
-    DocumentUpload: 'DocumentUpload'
+    CoApplicantDisagreePage: 'CoApplicantDisagreePage'
 };
 
 module.exports.stepList = stepList;

@@ -11,6 +11,11 @@ class ApplicantExecutor extends ValidationStep {
         return '/applicant-executor';
     }
 
+    handlePost(ctx, errors, formdata, session) {
+        delete session.form;
+        return [ctx, errors];
+    }
+
     nextStepUrl(ctx) {
         return this.next(ctx).constructor.getUrl('notExecutor');
     }
@@ -21,6 +26,10 @@ class ApplicantExecutor extends ValidationStep {
                 {key: 'executor', value: content.optionYes, choice: 'isExecutor'}
             ]
         };
+    }
+
+    persistFormData() {
+        return {};
     }
 
     setEligibilityCookie(req, res, nextStepUrl) {

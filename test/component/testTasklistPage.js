@@ -30,8 +30,7 @@ describe('task-list', () => {
                 'taskComplete',
                 'taskUnavailable',
                 'checkYourAnswers',
-                'alreadyDeclared',
-                'eligibilityTask'
+                'alreadyDeclared'
             ];
 
             testWrapper.agent.post('/prepare-session/form')
@@ -56,8 +55,7 @@ describe('task-list', () => {
                 'taskComplete',
                 'taskUnavailable',
                 'checkYourAnswers',
-                'alreadyDeclared',
-                'eligibilityTask'
+                'alreadyDeclared'
             ];
 
             testWrapper.agent.post('/prepare-session/form')
@@ -84,8 +82,7 @@ describe('task-list', () => {
                 'taskComplete',
                 'taskUnavailable',
                 'checkYourAnswers',
-                'alreadyDeclared',
-                'eligibilityTask'
+                'alreadyDeclared'
             ];
 
             testWrapper.agent.post('/prepare-session/form')

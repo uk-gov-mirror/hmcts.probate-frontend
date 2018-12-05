@@ -11,6 +11,11 @@ class RelationshipToDeceased extends ValidationStep {
         return '/relationship-to-deceased';
     }
 
+    handlePost(ctx, errors, formdata, session) {
+        delete session.form;
+        return [ctx, errors];
+    }
+
     nextStepUrl(ctx) {
         return this.next(ctx).constructor.getUrl('notRelated');
     }
@@ -21,6 +26,10 @@ class RelationshipToDeceased extends ValidationStep {
                 {key: 'related', value: content.optionYes, choice: 'related'}
             ]
         };
+    }
+
+    persistFormData() {
+        return {};
     }
 
     setEligibilityCookie(req, res, nextStepUrl) {

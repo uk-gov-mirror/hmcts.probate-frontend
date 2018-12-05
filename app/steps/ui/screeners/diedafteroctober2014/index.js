@@ -11,6 +11,11 @@ class DiedAfterOctober2014 extends ValidationStep {
         return '/died-after-october-2014';
     }
 
+    handlePost(ctx, errors, formdata, session) {
+        delete session.form;
+        return [ctx, errors];
+    }
+
     nextStepUrl(ctx) {
         return this.next(ctx).constructor.getUrl('notDiedAfterOctober2014');
     }
@@ -21,6 +26,10 @@ class DiedAfterOctober2014 extends ValidationStep {
                 {key: 'diedAfter', value: content.optionYes, choice: 'diedAfter'}
             ]
         };
+    }
+
+    persistFormData() {
+        return {};
     }
 
     setEligibilityCookie(req, res, nextStepUrl) {

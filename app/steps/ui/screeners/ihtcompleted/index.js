@@ -11,6 +11,11 @@ class IhtCompleted extends ValidationStep {
         return '/iht-completed';
     }
 
+    handlePost(ctx, errors, formdata, session) {
+        delete session.form;
+        return [ctx, errors];
+    }
+
     nextStepUrl(ctx) {
         return this.next(ctx).constructor.getUrl('ihtNotCompleted');
     }
@@ -21,6 +26,10 @@ class IhtCompleted extends ValidationStep {
                 {key: 'completed', value: content.optionYes, choice: 'completed'}
             ]
         };
+    }
+
+    persistFormData() {
+        return {};
     }
 
     setEligibilityCookie(req, res, nextStepUrl) {

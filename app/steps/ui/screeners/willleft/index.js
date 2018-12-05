@@ -18,6 +18,7 @@ class WillLeft extends ValidationStep {
 
     handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
         ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'intestacy_screening_questions');
+        delete session.form;
 
         return [ctx, errors];
     }
@@ -37,6 +38,10 @@ class WillLeft extends ValidationStep {
                 {key: 'left', value: content.optionYes, choice: 'withWill'}
             ]
         };
+    }
+
+    persistFormData() {
+        return {};
     }
 
     setEligibilityCookie(req, res, nextStepUrl) {
