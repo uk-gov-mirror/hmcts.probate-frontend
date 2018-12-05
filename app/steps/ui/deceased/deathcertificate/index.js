@@ -11,6 +11,11 @@ class DeathCertificate extends ValidationStep {
         return '/death-certificate';
     }
 
+    handlePost(ctx, errors, formdata, session) {
+        delete session.form;
+        return [ctx, errors];
+    }
+
     nextStepUrl(ctx) {
         return this.next(ctx).constructor.getUrl('deathCertificate');
     }

@@ -11,6 +11,11 @@ class WillLeft extends ValidationStep {
         return '/will-left';
     }
 
+    handlePost(ctx, errors, formdata, session) {
+        delete session.form;
+        return [ctx, errors];
+    }
+
     nextStepUrl(ctx) {
         return this.next(ctx).constructor.getUrl('noWill');
     }

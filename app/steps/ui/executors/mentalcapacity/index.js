@@ -11,6 +11,11 @@ class MentalCapacity extends ValidationStep {
         return '/mental-capacity';
     }
 
+    handlePost(ctx, errors, formdata, session) {
+        delete session.form;
+        return [ctx, errors];
+    }
+
     nextStepUrl(ctx) {
         return this.next(ctx).constructor.getUrl('mentalCapacity');
     }
