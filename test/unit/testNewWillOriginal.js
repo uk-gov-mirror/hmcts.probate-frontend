@@ -28,7 +28,26 @@ describe('NewWillOriginal', () => {
     });
 
     describe('getContextData()', () => {
-        it('______', (done) => {
+        it('should call eligibilityCookie.getAnswer() with the correct params', (done) => {
+            const revert = newWillOriginal.__set__('eligibilityCookie', {getAnswer: sinon.spy()});
+            const req = {session: {form: {}}};
+
+            const steps = {};
+            const section = null;
+            const resourcePath = 'will/neworiginal';
+            const i18next = {};
+            const newDeathCert = new newWillOriginal(steps, section, resourcePath, i18next, schema);
+
+            newDeathCert.getContextData(req);
+
+            expect(newWillOriginal.__get__('eligibilityCookie.getAnswer').calledOnce).to.equal(true);
+            expect(newWillOriginal.__get__('eligibilityCookie.getAnswer').calledWith(
+                {session: {form: {}}},
+                '/new-will-original',
+                'original'
+            )).to.equal(true);
+
+            revert();
             done();
         });
     });

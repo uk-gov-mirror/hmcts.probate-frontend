@@ -28,7 +28,26 @@ describe('NewDeceasedDomicile', () => {
     });
 
     describe('getContextData()', () => {
-        it('______', (done) => {
+        it('should call eligibilityCookie.getAnswer() with the correct params', (done) => {
+            const revert = newDeceasedDomicile.__set__('eligibilityCookie', {getAnswer: sinon.spy()});
+            const req = {session: {form: {}}};
+
+            const steps = {};
+            const section = null;
+            const resourcePath = 'deceased/newdomicile';
+            const i18next = {};
+            const newDeathCert = new newDeceasedDomicile(steps, section, resourcePath, i18next, schema);
+
+            newDeathCert.getContextData(req);
+
+            expect(newDeceasedDomicile.__get__('eligibilityCookie.getAnswer').calledOnce).to.equal(true);
+            expect(newDeceasedDomicile.__get__('eligibilityCookie.getAnswer').calledWith(
+                {session: {form: {}}},
+                '/new-deceased-domicile',
+                'domicile'
+            )).to.equal(true);
+
+            revert();
             done();
         });
     });

@@ -27,11 +27,30 @@ describe('NewDeathCertificate', () => {
         });
     });
 
+    describe('getContextData()', () => {
+        it('should call eligibilityCookie.getAnswer() with the correct params', (done) => {
+            const revert = newDeathCertificate.__set__('eligibilityCookie', {getAnswer: sinon.spy()});
+            const req = {session: {form: {}}};
 
+            const steps = {};
+            const section = null;
+            const resourcePath = 'deceased/newdeathcertificate';
+            const i18next = {};
+            const newDeathCert = new newDeathCertificate(steps, section, resourcePath, i18next, schema);
 
+            newDeathCert.getContextData(req);
 
+            expect(newDeathCertificate.__get__('eligibilityCookie.getAnswer').calledOnce).to.equal(true);
+            expect(newDeathCertificate.__get__('eligibilityCookie.getAnswer').calledWith(
+                {session: {form: {}}},
+                '/new-death-certificate',
+                'deathCertificate'
+            )).to.equal(true);
 
-
+            revert();
+            done();
+        });
+    });
 
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
@@ -67,31 +86,6 @@ describe('NewDeathCertificate', () => {
         it('should return an empty object', () => {
             const result = NewDeathCertificate.persistFormData();
             expect(result).to.deep.equal({});
-        });
-    });
-
-    describe('getContextData()', () => {
-        it('should call eligibilityCookie.getAnswer() with the correct params', (done) => {
-            const revert = newDeathCertificate.__set__('eligibilityCookie', {setCookie: sinon.spy()});
-            const req = {session: {form: {}}};
-
-            const steps = {};
-            const section = null;
-            const resourcePath = 'deceased/newdeathcertificate';
-            const i18next = {};
-            const newDeathCert = new newDeathCertificate(steps, section, resourcePath, i18next, schema);
-
-            newDeathCert.getContextData(req);
-
-            expect(newDeathCertificate.__get__('eligibilityCookie.getAnswer').calledOnce).to.equal(true);
-            expect(newDeathCertificate.__get__('eligibilityCookie.getAnswer').calledWith(
-                {reqParam: 'req value'},
-                '/new-death-certificate',
-                'deathCertificate'
-            )).to.equal(true);
-
-            revert();
-            done();
         });
     });
 

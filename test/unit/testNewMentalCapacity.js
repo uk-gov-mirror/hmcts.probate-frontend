@@ -28,7 +28,26 @@ describe('NewMentalCapacity', () => {
     });
 
     describe('getContextData()', () => {
-        it('______', (done) => {
+        it('should call eligibilityCookie.getAnswer() with the correct params', (done) => {
+            const revert = newMentalCapacity.__set__('eligibilityCookie', {getAnswer: sinon.spy()});
+            const req = {session: {form: {}}};
+
+            const steps = {};
+            const section = null;
+            const resourcePath = 'executors/newmentalcapacity';
+            const i18next = {};
+            const newDeathCert = new newMentalCapacity(steps, section, resourcePath, i18next, schema);
+
+            newDeathCert.getContextData(req);
+
+            expect(newMentalCapacity.__get__('eligibilityCookie.getAnswer').calledOnce).to.equal(true);
+            expect(newMentalCapacity.__get__('eligibilityCookie.getAnswer').calledWith(
+                {session: {form: {}}},
+                '/new-mental-capacity',
+                'mentalCapacity'
+            )).to.equal(true);
+
+            revert();
             done();
         });
     });

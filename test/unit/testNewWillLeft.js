@@ -28,7 +28,26 @@ describe('NewWillLeft', () => {
     });
 
     describe('getContextData()', () => {
-        it('______', (done) => {
+        it('should call eligibilityCookie.getAnswer() with the correct params', (done) => {
+            const revert = newWillLeft.__set__('eligibilityCookie', {getAnswer: sinon.spy()});
+            const req = {session: {form: {}}};
+
+            const steps = {};
+            const section = null;
+            const resourcePath = 'will/newleft';
+            const i18next = {};
+            const newDeathCert = new newWillLeft(steps, section, resourcePath, i18next, schema);
+
+            newDeathCert.getContextData(req);
+
+            expect(newWillLeft.__get__('eligibilityCookie.getAnswer').calledOnce).to.equal(true);
+            expect(newWillLeft.__get__('eligibilityCookie.getAnswer').calledWith(
+                {session: {form: {}}},
+                '/new-will-left',
+                'left'
+            )).to.equal(true);
+
+            revert();
             done();
         });
     });

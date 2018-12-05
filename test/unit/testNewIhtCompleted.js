@@ -28,7 +28,26 @@ describe('NewIhtCompleted', () => {
     });
 
     describe('getContextData()', () => {
-        it('______', (done) => {
+        it('should call eligibilityCookie.getAnswer() with the correct params', (done) => {
+            const revert = newIhtCompleted.__set__('eligibilityCookie', {getAnswer: sinon.spy()});
+            const req = {session: {form: {}}};
+
+            const steps = {};
+            const section = null;
+            const resourcePath = 'iht/newcompleted';
+            const i18next = {};
+            const newDeathCert = new newIhtCompleted(steps, section, resourcePath, i18next, schema);
+
+            newDeathCert.getContextData(req);
+
+            expect(newIhtCompleted.__get__('eligibilityCookie.getAnswer').calledOnce).to.equal(true);
+            expect(newIhtCompleted.__get__('eligibilityCookie.getAnswer').calledWith(
+                {session: {form: {}}},
+                '/new-iht-completed',
+                'completed'
+            )).to.equal(true);
+
+            revert();
             done();
         });
     });

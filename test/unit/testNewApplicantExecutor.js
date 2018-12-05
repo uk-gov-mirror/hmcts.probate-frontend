@@ -28,7 +28,26 @@ describe('NewApplicantExecutor', () => {
     });
 
     describe('getContextData()', () => {
-        it('______', (done) => {
+        it('should call eligibilityCookie.getAnswer() with the correct params', (done) => {
+            const revert = newApplicantExecutor.__set__('eligibilityCookie', {getAnswer: sinon.spy()});
+            const req = {session: {form: {}}};
+
+            const steps = {};
+            const section = null;
+            const resourcePath = 'applicant/newexecutor';
+            const i18next = {};
+            const newDeathCert = new newApplicantExecutor(steps, section, resourcePath, i18next, schema);
+
+            newDeathCert.getContextData(req);
+
+            expect(newApplicantExecutor.__get__('eligibilityCookie.getAnswer').calledOnce).to.equal(true);
+            expect(newApplicantExecutor.__get__('eligibilityCookie.getAnswer').calledWith(
+                {session: {form: {}}},
+                '/new-applicant-executor',
+                'executor'
+            )).to.equal(true);
+
+            revert();
             done();
         });
     });
