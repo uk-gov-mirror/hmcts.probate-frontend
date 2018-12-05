@@ -11,18 +11,18 @@
         "message": "Enter the day they were born"
       },
       "invalid": {
-        "summary": "You haven&rsquo;t entered the date that they were born",
-        "message": "Date of birth can only contain numbers"
+        "summary": "You haven&rsquo;t entered a valid day that they were born",
+        "message": "Enter a valid day of birth"
       }
     },
     "dob_month": {
       "required": {
         "summary": "You haven&rsquo;t entered the month that they were born",
-        "message": "Enter a month they were born"
+        "message": "Enter the month they were born"
       },
       "invalid": {
-        "summary": "You haven&rsquo;t entered the date that they were born",
-        "message": "Date of birth can only contain numbers"
+        "summary": "You haven&rsquo;t entered a valid month that they were born",
+        "message": "Enter a valid month of birth"
       }
     },
     "dob_year": {
@@ -31,8 +31,8 @@
         "message": "Enter the year they were born"
       },
       "invalid": {
-        "summary": "You haven&rsquo;t entered the date that they were born",
-        "message": "Date of birth can only contain numbers"
+        "summary": "You haven&rsquo;t entered a valid year that they were born",
+        "message": "Enter a valid year of birth"
       }
     },
     "dob_date": {
@@ -43,6 +43,10 @@
       "dateInFuture": {
         "summary": "You must enter a date of birth in the past",
         "message": "Enter a date in the past"
+      },
+      "dodBeforeDob": {
+        "summary": "The date of birth you entered is after the date of death",
+        "message": "Enter a date of birth that is before the date of death"
       }
     }
   }

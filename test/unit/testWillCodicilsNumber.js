@@ -14,11 +14,45 @@ describe('CodicilsNumber', () => {
         });
     });
 
+    describe('getContextData()', () => {
+        it('should return the ctx with a valid will codicils number', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {form: {}},
+                body: {
+                    codicilsNumber: '3'
+                }
+            };
+            const ctx = CodicilsNumber.getContextData(req);
+            expect(ctx).to.deep.equal({
+                codicilsNumber: 3,
+                sessionID: 'dummy_sessionId'
+            });
+            done();
+        });
+
+        it('should return the ctx with a null will codicils number', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {form: {}},
+                body: {
+                    codicilsNumber: null
+                }
+            };
+            const ctx = CodicilsNumber.getContextData(req);
+            expect(ctx).to.deep.equal({
+                codicilsNumber: null,
+                sessionID: 'dummy_sessionId'
+            });
+            done();
+        });
+    });
+
     describe('handlePost()', () => {
         let ctx;
         let errors;
 
-        it('should return the ctx with the deceased married status', (done) => {
+        it('should return the ctx with the will codicils number when there are codicils', (done) => {
             ctx = {
                 codicilsNumber: '3'
             };
@@ -26,6 +60,16 @@ describe('CodicilsNumber', () => {
             [ctx, errors] = CodicilsNumber.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
                 codicilsNumber: '3'
+            });
+            done();
+        });
+
+        it('should return the ctx with the will codicils number when there are no codicils', (done) => {
+            ctx = {};
+            errors = {};
+            [ctx, errors] = CodicilsNumber.handlePost(ctx, errors);
+            expect(ctx).to.deep.equal({
+                codicilsNumber: 0
             });
             done();
         });

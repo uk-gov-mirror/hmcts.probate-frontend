@@ -15,23 +15,6 @@ describe('WillCodicils', () => {
         });
     });
 
-    describe('handlePost()', () => {
-        let ctx;
-        let errors;
-
-        it('should return the ctx with the deceased married status', (done) => {
-            ctx = {
-                codicils: 'Yes'
-            };
-            errors = {};
-            [ctx, errors] = WillCodicils.handlePost(ctx, errors);
-            expect(ctx).to.deep.equal({
-                codicils: 'Yes'
-            });
-            done();
-        });
-    });
-
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
             const ctx = {};

@@ -14,34 +14,8 @@ describe('IhtPaper', () => {
         });
     });
 
-    describe('handlePost()', () => {
-        let ctx;
-        let errors;
-
-        it('should return the ctx with the deceased married status', (done) => {
-            ctx = {
-                form: 'IHT205',
-                grossIHT205: '500000',
-                netIHT205: '400000'
-            };
-            errors = {};
-            [ctx, errors] = IhtPaper.handlePost(ctx, errors);
-            expect(ctx).to.deep.equal({
-                form: 'IHT205',
-                grossIHT205: '500000',
-                grossValue: 500000,
-                grossValuePaper: '500000',
-                ihtFormId: 'IHT205',
-                netIHT205: '400000',
-                netValue: 400000,
-                netValuePaper: '400000'
-            });
-            done();
-        });
-    });
-
     describe('action', () => {
-        it('cleans up context', () => {
+        it('test it cleans up context', () => {
             const ctx = {
                 grossValuePaper: 500000,
                 netValuePaper: 400000

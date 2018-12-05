@@ -22,13 +22,7 @@ describe('DeceasedDod', () => {
         const session = {};
 
         beforeEach(() => {
-            session.form = {
-                deceased: {
-                    dob_day: '02',
-                    dob_month: '03',
-                    dob_year: '1952'
-                }
-            };
+            session.form = {};
         });
 
         it('should return the ctx with the deceased dod', (done) => {
@@ -68,10 +62,17 @@ describe('DeceasedDod', () => {
         });
 
         it('should return the error for DoD before DoB', (done) => {
+            session.form = {
+                deceased: {
+                    dob_day: '02',
+                    dob_month: '03',
+                    dob_year: '2002'
+                }
+            };
             ctx = {
-                dod_day: '02',
-                dod_month: '03',
-                dod_year: '1950'
+                dod_day: '01',
+                dod_month: '01',
+                dod_year: '2000'
             };
             errors = [];
             [ctx, errors] = DeceasedDod.handlePost(ctx, errors, formdata, session);
