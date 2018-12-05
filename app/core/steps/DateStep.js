@@ -14,20 +14,30 @@ class DateStep extends ValidationStep {
     }
 
     parseDate(ctx, dateName) {
-        const [day, month, year] = [`${dateName}_day`, `${dateName}_month`, `${dateName}_year`];
+        let dateNames = [];
 
-        ctx[day] = ctx[day] ? parseInt(ctx[day]) : ctx[day];
-        ctx[month] = ctx[month] ? parseInt(ctx[month]) : ctx[month];
-        ctx[year] = ctx[year] ? parseInt(ctx[year]) : ctx[year];
-
-        const date = moment(`${ctx[day]}/${ctx[month]}/${ctx[year]}`, config.dateFormat);
-
-        ctx[`${dateName}_date`] = null;
-
-        if (date.isValid()) {
-            ctx[`${dateName}_date`] = date.toISOString();
-            ctx[`${dateName}_formattedDate`] = this.formattedDate(date);
+        if (typeof dateName === 'string') {
+            dateNames.push(dateName);
+        } else {
+            dateNames = dateName;
         }
+
+        dateNames.forEach(dateName => {
+            const [day, month, year] = [`${dateName}_day`, `${dateName}_month`, `${dateName}_year`];
+
+            ctx[day] = ctx[day] ? parseInt(ctx[day]) : ctx[day];
+            ctx[month] = ctx[month] ? parseInt(ctx[month]) : ctx[month];
+            ctx[year] = ctx[year] ? parseInt(ctx[year]) : ctx[year];
+
+            const date = moment(`${ctx[day]}/${ctx[month]}/${ctx[year]}`, config.dateFormat);
+
+            ctx[`${dateName}_date`] = null;
+
+            if (date.isValid()) {
+                ctx[`${dateName}_date`] = date.toISOString();
+                ctx[`${dateName}_formattedDate`] = this.formattedDate(date);
+            }
+        });
     }
 
     formattedDate(date) {
