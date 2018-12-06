@@ -3,6 +3,7 @@
 const config = require('app/config');
 const eligibilityCookieName = config.redis.eligibilityCookie.name;
 const eligibilityCookieRedirectUrl = config.redis.eligibilityCookie.redirectUrl;
+const cookieExpires = new Date(Date.now() + config.redis.eligibilityCookie.expires);
 
 class EligibilityCookie {
     checkCookie() {
@@ -69,7 +70,7 @@ class EligibilityCookie {
         const cookieValue = JSON.stringify(json);
         const options = {
             httpOnly: true,
-            expires: new Date(Date.now() + config.redis.eligibilityCookie.expires)
+            expires: cookieExpires
         };
 
         if (req.protocol === 'https') {

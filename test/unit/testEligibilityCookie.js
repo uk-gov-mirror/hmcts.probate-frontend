@@ -1,6 +1,9 @@
+// eslint-disable-line max-lines
+
 'use strict';
 
-const EligibilityCookie = require('app/utils/EligibilityCookie');
+const rewire = require('rewire');
+const EligibilityCookie = rewire('app/utils/EligibilityCookie');
 const {expect} = require('chai');
 const sinon = require('sinon');
 const config = require('app/config');
@@ -227,7 +230,20 @@ describe('EligibilityCookie.js', () => {
     });
 
     describe('writeCookie()', () => {
+        let cookieExpires;
+        let revert;
+
+        beforeEach(() => {
+            cookieExpires = new Date(Date.now() + config.redis.eligibilityCookie.expires);
+            revert = EligibilityCookie.__set__('cookieExpires', cookieExpires);
+        });
+
+        afterEach(() => {
+            revert();
+        });
+
         it('should set a cookie on https', (done) => {
+
             const req = {protocol: 'https'};
             const res = {cookie: sinon.spy()};
             const json = {
@@ -255,7 +271,7 @@ describe('EligibilityCookie.js', () => {
                         '/new-will-left': {left: 'Yes'}
                     }
                 }),
-                {httpOnly: true, secure: true, expires: new Date(Date.now() + config.redis.eligibilityCookie.expires)}
+                {httpOnly: true, secure: true, expires: cookieExpires}
             )).to.equal(true);
 
             done();
@@ -289,7 +305,7 @@ describe('EligibilityCookie.js', () => {
                         '/new-will-left': {left: 'Yes'}
                     }
                 }),
-                {httpOnly: true, expires: new Date(Date.now() + config.redis.eligibilityCookie.expires)}
+                {httpOnly: true, expires: cookieExpires}
             )).to.equal(true);
 
             done();
