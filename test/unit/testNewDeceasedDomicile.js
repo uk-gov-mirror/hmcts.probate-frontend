@@ -19,18 +19,11 @@ describe('NewDeceasedDomicile', () => {
         });
     });
 
-    describe('getFieldKey()', () => {
-        it('should return the correct field key', (done) => {
-            const fieldKey = NewDeceasedDomicile.getFieldKey();
-            expect(fieldKey).to.equal('domicile');
-            done();
-        });
-    });
-
     describe('getContextData()', () => {
         it('should call eligibilityCookie.getAnswer() with the correct params', (done) => {
             const revert = newDeceasedDomicile.__set__('eligibilityCookie', {getAnswer: sinon.spy()});
-            const req = {session: {form: {}}};
+            const req = {method: 'GET', session: {form: {}}};
+            const res = {};
 
             const steps = {};
             const section = null;
@@ -38,11 +31,11 @@ describe('NewDeceasedDomicile', () => {
             const i18next = {};
             const newDeathCert = new newDeceasedDomicile(steps, section, resourcePath, i18next, schema);
 
-            newDeathCert.getContextData(req);
+            newDeathCert.getContextData(req, res);
 
             expect(newDeceasedDomicile.__get__('eligibilityCookie.getAnswer').calledOnce).to.equal(true);
             expect(newDeceasedDomicile.__get__('eligibilityCookie.getAnswer').calledWith(
-                {session: {form: {}}},
+                {method: 'GET', session: {form: {}}},
                 '/new-deceased-domicile',
                 'domicile'
             )).to.equal(true);

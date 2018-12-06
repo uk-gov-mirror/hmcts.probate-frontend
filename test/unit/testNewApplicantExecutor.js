@@ -19,18 +19,11 @@ describe('NewApplicantExecutor', () => {
         });
     });
 
-    describe('getFieldKey()', () => {
-        it('should return the correct field key', (done) => {
-            const fieldKey = NewApplicantExecutor.getFieldKey();
-            expect(fieldKey).to.equal('executor');
-            done();
-        });
-    });
-
     describe('getContextData()', () => {
         it('should call eligibilityCookie.getAnswer() with the correct params', (done) => {
             const revert = newApplicantExecutor.__set__('eligibilityCookie', {getAnswer: sinon.spy()});
-            const req = {session: {form: {}}};
+            const req = {method: 'GET', session: {form: {}}};
+            const res = {};
 
             const steps = {};
             const section = null;
@@ -38,11 +31,11 @@ describe('NewApplicantExecutor', () => {
             const i18next = {};
             const newDeathCert = new newApplicantExecutor(steps, section, resourcePath, i18next, schema);
 
-            newDeathCert.getContextData(req);
+            newDeathCert.getContextData(req, res);
 
             expect(newApplicantExecutor.__get__('eligibilityCookie.getAnswer').calledOnce).to.equal(true);
             expect(newApplicantExecutor.__get__('eligibilityCookie.getAnswer').calledWith(
-                {session: {form: {}}},
+                {method: 'GET', session: {form: {}}},
                 '/new-applicant-executor',
                 'executor'
             )).to.equal(true);

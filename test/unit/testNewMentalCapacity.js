@@ -19,18 +19,11 @@ describe('NewMentalCapacity', () => {
         });
     });
 
-    describe('getFieldKey()', () => {
-        it('should return the correct field key', (done) => {
-            const fieldKey = NewMentalCapacity.getFieldKey();
-            expect(fieldKey).to.equal('mentalCapacity');
-            done();
-        });
-    });
-
     describe('getContextData()', () => {
         it('should call eligibilityCookie.getAnswer() with the correct params', (done) => {
             const revert = newMentalCapacity.__set__('eligibilityCookie', {getAnswer: sinon.spy()});
-            const req = {session: {form: {}}};
+            const req = {method: 'GET', session: {form: {}}};
+            const res = {};
 
             const steps = {};
             const section = null;
@@ -38,11 +31,11 @@ describe('NewMentalCapacity', () => {
             const i18next = {};
             const newDeathCert = new newMentalCapacity(steps, section, resourcePath, i18next, schema);
 
-            newDeathCert.getContextData(req);
+            newDeathCert.getContextData(req, res);
 
             expect(newMentalCapacity.__get__('eligibilityCookie.getAnswer').calledOnce).to.equal(true);
             expect(newMentalCapacity.__get__('eligibilityCookie.getAnswer').calledWith(
-                {session: {form: {}}},
+                {method: 'GET', session: {form: {}}},
                 '/new-mental-capacity',
                 'mentalCapacity'
             )).to.equal(true);

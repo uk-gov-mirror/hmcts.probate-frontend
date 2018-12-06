@@ -43,7 +43,7 @@ class UIStepRunner {
         return co(function * () {
             const session = req.session;
             let formdata = session.form;
-            let ctx = step.getContextData(req);
+            let ctx = step.getContextData(req, res);
             let [isValid, errors] = [];
             [isValid, errors] = step.validate(ctx, formdata);
             const hasDataChanged = (new DetectDataChange()).hasDataChanged(ctx, req, step);
@@ -74,10 +74,6 @@ class UIStepRunner {
                 if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
                     session.back.push(step.constructor.getUrl());
                 }
-
-                const fieldKey = step.getFieldKey();
-
-                step.setEligibilityCookie(req, res, nextStepUrl, fieldKey, ctx[fieldKey]);
 
                 res.redirect(nextStepUrl);
             } else {

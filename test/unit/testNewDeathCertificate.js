@@ -19,18 +19,11 @@ describe('NewDeathCertificate', () => {
         });
     });
 
-    describe('getFieldKey()', () => {
-        it('should return the correct field key', (done) => {
-            const fieldKey = NewDeathCertificate.getFieldKey();
-            expect(fieldKey).to.equal('deathCertificate');
-            done();
-        });
-    });
-
     describe('getContextData()', () => {
         it('should call eligibilityCookie.getAnswer() with the correct params', (done) => {
             const revert = newDeathCertificate.__set__('eligibilityCookie', {getAnswer: sinon.spy()});
-            const req = {session: {form: {}}};
+            const req = {method: 'GET', session: {form: {}}};
+            const res = {};
 
             const steps = {};
             const section = null;
@@ -38,11 +31,11 @@ describe('NewDeathCertificate', () => {
             const i18next = {};
             const newDeathCert = new newDeathCertificate(steps, section, resourcePath, i18next, schema);
 
-            newDeathCert.getContextData(req);
+            newDeathCert.getContextData(req, res);
 
             expect(newDeathCertificate.__get__('eligibilityCookie.getAnswer').calledOnce).to.equal(true);
             expect(newDeathCertificate.__get__('eligibilityCookie.getAnswer').calledWith(
-                {session: {form: {}}},
+                {method: 'GET', session: {form: {}}},
                 '/new-death-certificate',
                 'deathCertificate'
             )).to.equal(true);

@@ -19,18 +19,11 @@ describe('NewWillLeft', () => {
         });
     });
 
-    describe('getFieldKey()', () => {
-        it('should return the correct field key', (done) => {
-            const fieldKey = NewWillLeft.getFieldKey();
-            expect(fieldKey).to.equal('left');
-            done();
-        });
-    });
-
     describe('getContextData()', () => {
         it('should call eligibilityCookie.getAnswer() with the correct params', (done) => {
             const revert = newWillLeft.__set__('eligibilityCookie', {getAnswer: sinon.spy()});
-            const req = {session: {form: {}}};
+            const req = {method: 'GET', session: {form: {}}};
+            const res = {};
 
             const steps = {};
             const section = null;
@@ -38,11 +31,11 @@ describe('NewWillLeft', () => {
             const i18next = {};
             const newDeathCert = new newWillLeft(steps, section, resourcePath, i18next, schema);
 
-            newDeathCert.getContextData(req);
+            newDeathCert.getContextData(req, res);
 
             expect(newWillLeft.__get__('eligibilityCookie.getAnswer').calledOnce).to.equal(true);
             expect(newWillLeft.__get__('eligibilityCookie.getAnswer').calledWith(
-                {session: {form: {}}},
+                {method: 'GET', session: {form: {}}},
                 '/new-will-left',
                 'left'
             )).to.equal(true);

@@ -13,16 +13,19 @@ class NewMentalCapacity extends ValidationStep {
         return pageUrl;
     }
 
-    getFieldKey() {
-        return fieldKey;
-    }
-
-    getContextData(req) {
+    getContextData(req, res) {
         const ctx = super.getContextData(req);
-        const answerValue = eligibilityCookie.getAnswer(req, pageUrl, fieldKey);
 
-        if (answerValue) {
-            ctx[fieldKey] = answerValue;
+        if (req.method === 'GET') {
+            const answerValue = eligibilityCookie.getAnswer(req, pageUrl, fieldKey);
+
+            if (answerValue) {
+                ctx[fieldKey] = answerValue;
+            }
+        } else {
+            const nextStepUrl = this.nextStepUrl(ctx);
+
+            this.setEligibilityCookie(req, res, nextStepUrl, fieldKey, ctx[fieldKey]);
         }
 
         return ctx;
