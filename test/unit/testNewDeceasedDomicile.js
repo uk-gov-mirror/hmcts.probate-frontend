@@ -3,10 +3,6 @@
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
 const content = require('app/resources/en/translation/deceased/newdomicile');
-const rewire = require('rewire');
-const sinon = require('sinon');
-const schema = require('app/steps/ui/deceased/newdomicile/schema');
-const newDeceasedDomicile = rewire('app/steps/ui/deceased/newdomicile/index');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const NewDeceasedDomicile = steps.NewDeceasedDomicile;
 
@@ -15,32 +11,6 @@ describe('NewDeceasedDomicile', () => {
         it('should return the correct url', (done) => {
             const url = NewDeceasedDomicile.constructor.getUrl();
             expect(url).to.equal('/new-deceased-domicile');
-            done();
-        });
-    });
-
-    describe('getContextData()', () => {
-        it('should call eligibilityCookie.getAnswer() with the correct params', (done) => {
-            const revert = newDeceasedDomicile.__set__('eligibilityCookie', {getAnswer: sinon.spy()});
-            const req = {method: 'GET', session: {form: {}}};
-            const res = {};
-
-            const steps = {};
-            const section = null;
-            const resourcePath = 'deceased/newdomicile';
-            const i18next = {};
-            const newDeathCert = new newDeceasedDomicile(steps, section, resourcePath, i18next, schema);
-
-            newDeathCert.getContextData(req, res);
-
-            expect(newDeceasedDomicile.__get__('eligibilityCookie.getAnswer').calledOnce).to.equal(true);
-            expect(newDeceasedDomicile.__get__('eligibilityCookie.getAnswer').calledWith(
-                {method: 'GET', session: {form: {}}},
-                '/new-deceased-domicile',
-                'domicile'
-            )).to.equal(true);
-
-            revert();
             done();
         });
     });
@@ -71,43 +41,6 @@ describe('NewDeceasedDomicile', () => {
                     choice: 'inEnglandOrWales'
                 }]
             });
-            done();
-        });
-    });
-
-    describe('persistFormData()', () => {
-        it('should return an empty object', () => {
-            const result = NewDeceasedDomicile.persistFormData();
-            expect(result).to.deep.equal({});
-        });
-    });
-
-    describe('setEligibilityCookie()', () => {
-        it('should call eligibilityCookie.setCookie() with the correct params', (done) => {
-            const revert = newDeceasedDomicile.__set__('eligibilityCookie', {setCookie: sinon.spy()});
-            const req = {reqParam: 'req value'};
-            const res = {resParam: 'res value'};
-            const nextStepUrl = '/stop-page/notInEnglandOrWales';
-            const fieldKey = 'domicile';
-            const fieldValue = 'Yes';
-            const steps = {};
-            const section = null;
-            const resourcePath = 'deceased/newdomicile';
-            const i18next = {};
-            const newDecDom = new newDeceasedDomicile(steps, section, resourcePath, i18next, schema);
-
-            newDecDom.setEligibilityCookie(req, res, nextStepUrl, fieldKey, fieldValue);
-
-            expect(newDeceasedDomicile.__get__('eligibilityCookie.setCookie').calledOnce).to.equal(true);
-            expect(newDeceasedDomicile.__get__('eligibilityCookie.setCookie').calledWith(
-                {reqParam: 'req value'},
-                {resParam: 'res value'},
-                '/stop-page/notInEnglandOrWales',
-                'domicile',
-                'Yes'
-            )).to.equal(true);
-
-            revert();
             done();
         });
     });
