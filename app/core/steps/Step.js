@@ -134,6 +134,14 @@ class Step {
             get(session, 'form.declaration.declarationCheckbox')
         ].every(param => param === 'true');
     }
+
+    getFieldKey() {
+        return null;
+    }
+
+    setEligibilityCookie() {
+        return null;
+    }
 }
 
 module.exports = Step;
