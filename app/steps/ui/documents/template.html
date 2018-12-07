@@ -17,7 +17,7 @@
 {% set checklistThreeItems = [content["checklist3-item1" + codicilsSuffix], content["checklist3-item2"]] %}
 
 {% if fields.hasRenunciated.value === "true" %}
-    {% set checklistThreeItems = (checklistThreeItems.push(content["checklist3-item3"] | replace('{renunciationFormLink}', links.renunciationForm)), checklistThreeItems) %}
+    {% set checklistThreeItems = (checklistThreeItems.push(content["checklist3-item3"] | replace('{renunciationFormLink}', links.applicationFormPA15)), checklistThreeItems) %}
 {% endif %}
 
 {% if (fields.is205.value === "true") %}

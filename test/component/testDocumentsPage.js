@@ -96,7 +96,7 @@ describe('documents', () => {
                         'checklist3-item4-Form205'
                     ];
                     const contentData = {
-                        renunciationFormLink: config.links.renunciationForm
+                        renunciationFormLink: config.links.applicationFormPA15
                     };
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
