@@ -15,14 +15,6 @@ class NewDeceasedDomicile extends EligibilityValidationStep {
         return super.getContextData(req, res, pageUrl, fieldKey);
     }
 
-    handlePost(ctx, errors, formdata, session) {
-        return super.handlePost(ctx, errors, formdata, session);
-    }
-
-    persistFormData() {
-        return super.persistFormData();
-    }
-
     nextStepUrl(ctx) {
         return this.next(ctx).constructor.getUrl('notInEnglandOrWales');
     }
