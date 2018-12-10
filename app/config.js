@@ -63,7 +63,6 @@ const config = {
     redis: {
         host: process.env.REDIS_HOST || 'localhost',
         port: process.env.REDIS_PORT || 6379,
-
         password: process.env.REDIS_PASSWORD || 'dummy_password',
         useTLS: process.env.REDIS_USE_TLS || 'false',
         enabled: process.env.USE_REDIS || 'false',
@@ -73,6 +72,10 @@ const config = {
         cookie: {
             httpOnly: true,
             secure: true
+        },
+        eligibilityCookie: {
+            name: '__eligibility',
+            redirectUrl: '/new-start-eligibility'
         }
     },
     dateFormat: 'DD/MM/YYYY',
@@ -151,7 +154,20 @@ const config = {
     documentUpload: {
         validMimeTypes: ['image/jpeg', 'image/bmp', 'image/tiff', 'image/png', 'application/pdf'],
         maxFiles: 10,
-        maxSizeBytes: 10485760
+        maxSizeBytes: 10485760,
+        paths: {
+            upload: '/document/upload',
+            remove: '/document/delete'
+        },
+        error: {
+            invalidFileType: 'Error: invalid file type',
+            maxSize: 'Error: invalid file size',
+            maxFilesExceeded: 'Error: too many files',
+            nothingUploaded: 'Error: no files passed',
+            uploadFailed: 'Error: upload failed',
+            uploadTimeout: 'Error: upload timed out'
+        },
+        timeoutMs: 300000
     }
 };
 
