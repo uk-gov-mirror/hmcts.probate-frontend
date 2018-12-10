@@ -1,6 +1,7 @@
 {
-  "title": "Are you planning to make a joint application with someone else",
-  "question": "Are you planning to make a joint application with someone else?",
+  "title": "Are you planning to make a joint application",
+  "question": "Are you planning to make a joint application?",
+  "hintText": "You may want to apply with someone in your family, for example your sister or brother.",
   "optionYes": "Yes",
   "optionNo": "No",
   "legend": "Are you planning to make a joint application with someone else?",
