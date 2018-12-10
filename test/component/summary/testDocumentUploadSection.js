@@ -31,8 +31,7 @@ describe('summary-documentupload-section', () => {
                 .get(featureTogglePathDocument)
                 .reply(200, 'false');
 
-            const playbackData = {
-            };
+            const playbackData = [];
             testWrapper.testDataPlayback(done, playbackData);
         });
 
@@ -68,8 +67,11 @@ describe('summary-documentupload-section', () => {
                     if (err) {
                         throw err;
                     }
-                    const playbackData = {
-                    };
+                    const playbackData = [
+                        summaryContent.uploadedDocumentsHeading,
+                        documentuploadContent.deathCertificate,
+                        summaryContent.uploadedDocumentsEmpty
+                    ];
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
@@ -112,6 +114,9 @@ describe('summary-documentupload-section', () => {
                         throw err;
                     }
                     const playbackData = [
+                        summaryContent.uploadedDocumentsHeading,
+                        documentuploadContent.deathCertificate,
+                        summaryContent.uploadedDocumentsEmpty
                     ];
                     testWrapper.testDataPlayback(done, playbackData);
                 });
