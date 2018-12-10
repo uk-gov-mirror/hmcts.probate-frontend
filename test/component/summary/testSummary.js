@@ -40,7 +40,8 @@ describe('summary', () => {
                 'currentNameReason',
                 'mobileNumber',
                 'emailAddress',
-                'uploadedDocumentsHeading'
+                'uploadedDocumentsHeading',
+                'uploadedDocumentsEmpty'
             ];
             testWrapper.testContent(done, contentToExclude);
         });
@@ -62,7 +63,9 @@ describe('summary', () => {
                 'currentName',
                 'currentNameReason',
                 'mobileNumber',
-                'emailAddress'
+                'emailAddress',
+                'uploadedDocumentsHeading',
+                'uploadedDocumentsEmpty'
             ];
 
             testWrapper.agent.post('/prepare-session/form')
