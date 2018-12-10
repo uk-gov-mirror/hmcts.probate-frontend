@@ -2,6 +2,11 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist/index');
+const sessionData = require('test/data/documentupload');
+const config = require('app/config');
+const nock = require('nock');
+const featureToggleUrl = config.featureToggles.url;
+const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
 
 describe('summary', () => {
     let testWrapper;
@@ -13,10 +18,15 @@ describe('summary', () => {
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        it('test content loaded on the page', (done) => {
+        it('test content loaded on the page with the document upload feature toggle OFF', (done) => {
+            nock(featureToggleUrl)
+                .get(featureTogglePath)
+                .reply(200, 'false');
+
             const contentToExclude = [
                 'executorsWhenDiedQuestion',
                 'otherNamesLabel',
@@ -29,9 +39,40 @@ describe('summary', () => {
                 'currentName',
                 'currentNameReason',
                 'mobileNumber',
-                'emailAddress'
+                'emailAddress',
+                'uploadedDocumentsHeading',
+                'uploadedDocumentsEmpty'
             ];
             testWrapper.testContent(done, contentToExclude);
+        });
+
+        it('test content loaded on the page with the document upload feature toggle ON and documents uploaded', (done) => {
+            nock(featureToggleUrl)
+                .get(featureTogglePath)
+                .reply(200, 'true');
+
+            const contentToExclude = [
+                'executorsWhenDiedQuestion',
+                'otherNamesLabel',
+                'willWithCodicilHeading',
+                'otherExecutors',
+                'executorsWithOtherNames',
+                'executorApplyingForProbate',
+                'executorsNotApplyingForProbate',
+                'nameOnWill',
+                'currentName',
+                'currentNameReason',
+                'mobileNumber',
+                'emailAddress',
+                'uploadedDocumentsHeading',
+                'uploadedDocumentsEmpty'
+            ];
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, contentToExclude);
+                });
         });
 
         it('test it redirects to submit', (done) => {
