@@ -1,70 +1,86 @@
 'use strict';
 
-const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
 const {expect} = require('chai');
-
-// const rewire = require('rewire');
-// const sinon = require('sinon');
+const rewire = require('rewire');
+const sinon = require('sinon');
+const EligibilityValidationStep = rewire('app/core/steps/EligibilityValidationStep');
 const schema = require('app/steps/ui/deceased/newdeathcertificate/schema');
-// const eligibilityCookie = rewire('app/utils/EligibilityCookie');
+const steps = {};
+const section = 'deceased';
+const resourcePath = 'deceased/newdeathcertificate';
+const i18next = {};
+const pageUrl = '/new-death-certificate';
+const nextStepUrl = '/new-deceased-domicile';
+const fieldKey = 'deathCertificate';
+const fieldValue = 'Yes';
 
-describe('EligibilityValidationStep.js', () => {
-    const steps = {};
-    const section = null;
-    const resourcePath = 'deceased/newdeathcertificate';
-    const i18next = {};
+describe('EligibilityValidationStep', () => {
+    describe('getContextData()', () => {
+        let req;
+        let res;
 
-    // const pageUrl = '/new-death-certificate';
-    // const nextStepUrl = '/new-deceased-domicile';
-    // const fieldKey = 'deathCertificate';
-    // const fieldValue = 'Yes';
+        beforeEach(() => {
+            req = {
+                method: 'GET',
+                session: {form: {}},
+                sessionID: 'abc123'
+            };
+            res = {};
+        });
 
-    const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
+        it('a GET request should not set ctx.answerValue when an answer value is not given and call eligibilityCookie.getAnswer()', (done) => {
+            const revert = EligibilityValidationStep.__set__('eligibilityCookie', {getAnswer: sinon.spy()});
+            const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
+            const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey);
 
-    // describe('getContextData()', () => {
-    //     it('should call eligibilityCookie.getAnswer() with the correct params', (done) => {
-    //         const revert = eligibilityCookie.__set__('EligibilityCookie', {getAnswer: sinon.spy()});
-    //         const req = {method: 'GET', session: {form: {}}};
-    //         const res = {};
-    //
-    //         eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey);
-    //
-    //         expect(eligibilityCookie.__get__('EligibilityCookie.getAnswer').calledOnce).to.equal(true);
-    //         // expect(eligibilityCookie.__get__('EligibilityCookie.getAnswer').calledWith(
-    //         //     {method: 'GET', session: {form: {}}},
-    //         //     '/new-death-certificate',
-    //         //     'deathCertificate'
-    //         // )).to.equal(true);
-    //
-    //         revert();
-    //         done();
-    //     });
-    // });
+            expect(EligibilityValidationStep.__get__('eligibilityCookie.getAnswer').calledOnce).to.equal(true);
+            expect(EligibilityValidationStep.__get__('eligibilityCookie.getAnswer').calledWith(req, pageUrl, fieldKey)).to.equal(true);
+            expect(ctx).to.deep.equal({sessionID: 'abc123'});
 
-    // describe('setEligibilityCookie()', () => {
-    //     it('should return the same req, res, ctx params that are given', (done) => {
-    //         const revert = eligibilityCookie.__set__('EligibilityCookie', {setCookie: sinon.spy()});
-    //         const req = {};
-    //         const res = {cookie: () => true};
-    //
-    //         eligibilityValidationStep.setEligibilityCookie(req, res, nextStepUrl, fieldKey, fieldValue);
-    //
-    //         expect(eligibilityCookie.__get__('EligibilityCookie.setCookie').calledOnce).to.equal(true);
-    //         // expect(eligibilityCookie.__get__('EligibilityCookie.setCookie').calledWith(
-    //         //     {reqParam: 'req value'},
-    //         //     {resParam: 'res value'},
-    //         //     '/stop-page/deathCertificate',
-    //         //     'deathCertificate',
-    //         //     'Yes'
-    //         // )).to.equal(true);
-    //
-    //         revert();
-    //         done();
-    //     });
-    // });
+            revert();
+            done();
+        });
+
+        it('a GET request should set ctx.answerValue when an answer value is given', (done) => {
+            const revert = EligibilityValidationStep.__set__('eligibilityCookie', {getAnswer: sinon.stub().returns('Yes')});
+            const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
+            const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey);
+
+            expect(ctx).to.deep.equal({
+                sessionID: 'abc123',
+                deathCertificate: 'Yes'
+            });
+
+            revert();
+            done();
+        });
+
+        it('a POST request should call nextStepUrl() and setEligibilityCookie()', (done) => {
+            req.method = 'POST';
+            req.session.form = {
+                deceased: {
+                    deathCertificate: 'Yes'
+                }
+            };
+            const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
+            const nextStepUrlStub = sinon.stub(eligibilityValidationStep, 'nextStepUrl').returns(nextStepUrl);
+            const setEligibilityCookieStub = sinon.stub(eligibilityValidationStep, 'setEligibilityCookie');
+            const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey);
+
+            expect(nextStepUrlStub.calledOnce).to.equal(true);
+            expect(nextStepUrlStub.calledWith({sessionID: 'abc123', deathCertificate: 'Yes'})).to.equal(true);
+            expect(setEligibilityCookieStub.calledOnce).to.equal(true);
+            expect(setEligibilityCookieStub.calledWith(req, res, nextStepUrl, fieldKey, fieldValue)).to.equal(true);
+            expect(ctx).to.deep.equal({sessionID: 'abc123', deathCertificate: 'Yes'});
+
+            nextStepUrlStub.restore();
+            setEligibilityCookieStub.restore();
+            done();
+        });
+    });
 
     describe('handlePost()', () => {
-        it('should return the context and errors', () => {
+        it('should delete the form data', (done) => {
             const ctx = {
                 deathCertificate: 'Yes',
                 domicile: 'Yes',
@@ -72,24 +88,43 @@ describe('EligibilityValidationStep.js', () => {
             };
             const errors = {};
             const formdata = {};
-            const session = {};
-
+            const session = {form: {}};
+            const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
             const result = eligibilityValidationStep.handlePost(ctx, errors, formdata, session);
-            expect(result).to.deep.equal([
-                {
-                    deathCertificate: 'Yes',
-                    domicile: 'Yes',
-                    completed: 'Yes'
-                },
-                {}
-            ]);
+
+            expect(session).to.deep.equal({});
+            expect(result).to.deep.equal([{
+                deathCertificate: 'Yes',
+                domicile: 'Yes',
+                completed: 'Yes'
+            }, {}]);
+
+            done();
         });
     });
 
     describe('persistFormData()', () => {
         it('should return an empty object', () => {
+            const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
             const result = eligibilityValidationStep.persistFormData();
             expect(result).to.deep.equal({});
+        });
+    });
+
+    describe('setEligibilityCookie()', () => {
+        it('should call eligibilityCookie.setCookie()', (done) => {
+            const revert = EligibilityValidationStep.__set__('eligibilityCookie', {setCookie: sinon.spy()});
+            const req = {};
+            const res = {cookie: () => true};
+            const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
+
+            eligibilityValidationStep.setEligibilityCookie(req, res, nextStepUrl, fieldKey, fieldValue);
+
+            expect(EligibilityValidationStep.__get__('eligibilityCookie.setCookie').calledOnce).to.equal(true);
+            expect(EligibilityValidationStep.__get__('eligibilityCookie.setCookie').calledWith(req, res, nextStepUrl, fieldKey, fieldValue)).to.equal(true);
+
+            revert();
+            done();
         });
     });
 });

@@ -11,13 +11,11 @@ class EligibilityValidationStep extends ValidationStep {
 
         if (req.method === 'GET') {
             const answerValue = eligibilityCookie.getAnswer(req, pageUrl, fieldKey);
-
             if (answerValue) {
                 ctx[fieldKey] = answerValue;
             }
         } else {
             const nextStepUrl = this.nextStepUrl(ctx);
-
             this.setEligibilityCookie(req, res, nextStepUrl, fieldKey, ctx[fieldKey]);
         }
 
