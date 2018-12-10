@@ -229,6 +229,47 @@ describe('EligibilityCookie.js', () => {
         });
     });
 
+    describe('getAnswer()', () => {
+        it('should return an existing answer', (done) => {
+            const req = {
+                cookies: {
+                    __eligibility: JSON.stringify({
+                        nextStepUrl: '/new-will-original',
+                        pages: {
+                            '/new-death-certificate': {deathCertificate: 'Yes'}
+                        }
+                    })
+                },
+                originalUrl: '/new-death-certificate'
+            };
+            const pageUrl = '/new-death-certificate';
+            const fieldKey = 'deathCertificate';
+
+            const eligibilityCookie = new EligibilityCookie();
+            const answer = eligibilityCookie.getAnswer(req, pageUrl, fieldKey);
+
+            expect(answer).to.equal('Yes');
+
+            done();
+        });
+
+        it('should return null', (done) => {
+            const req = {
+                cookies: {},
+                originalUrl: '/new-death-certificate'
+            };
+            const pageUrl = '/new-death-certificate';
+            const fieldKey = 'deathCertificate';
+
+            const eligibilityCookie = new EligibilityCookie();
+            const answer = eligibilityCookie.getAnswer(req, pageUrl, fieldKey);
+
+            expect(answer).to.equal(null);
+
+            done();
+        });
+    });
+
     describe('writeCookie()', () => {
         let cookieExpires;
         let revert;
