@@ -361,7 +361,7 @@ describe('DocumentUploadUtil', () => {
             const error = documentUpload.validate(document, uploads);
             expect(error).to.deep.equal({
                 js: 'You can upload a maximum of 10 files',
-                nonJs: 'maxFilesExceeded'
+                nonJs: 'maxFiles'
             });
             revert();
             done();
@@ -380,13 +380,13 @@ describe('DocumentUploadUtil', () => {
             done();
         });
 
-        it('should return an error when maxFilesExceeded is given', (done) => {
-            const errorKey = 'maxFilesExceeded';
+        it('should return an error when maxFiles is given', (done) => {
+            const errorKey = 'maxFiles';
             const documentUpload = new DocumentUpload();
             const error = documentUpload.mapError(errorKey);
             expect(error).to.deep.equal({
                 js: 'You can upload a maximum of 10 files',
-                nonJs: 'maxFilesExceeded'
+                nonJs: 'maxFiles'
             });
             done();
         });
