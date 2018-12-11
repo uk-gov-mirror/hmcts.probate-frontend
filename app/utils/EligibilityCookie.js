@@ -62,7 +62,7 @@ class EligibilityCookie {
         const cookieValue = JSON.stringify(json);
         const options = {
             httpOnly: true,
-            expires: new Date(Date.now() + config.redis.eligibilityCookie.expires)
+            expires: cookieExpires
         };
 
         if (req.protocol === 'https') {
