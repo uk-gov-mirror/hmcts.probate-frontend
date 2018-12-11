@@ -27,17 +27,9 @@ class EligibilityCookie {
         const json = this.readCookie(req);
         const currentPage = req.originalUrl;
 
-        const pageFound = Object.keys(json.pages).includes(currentPage);
-        if (!pageFound) {
-            json.nextStepUrl = nextStepUrl;
-            json.pages[currentPage] = {};
-        }
-
-        const fieldFound = Object.keys(json.pages[currentPage]).includes(fieldKey);
-
-        if (!fieldFound) {
-            json.pages[currentPage][fieldKey] = fieldValue;
-        }
+        json.nextStepUrl = nextStepUrl;
+        json.pages[currentPage] = {};
+        json.pages[currentPage][fieldKey] = fieldValue;
 
         this.writeCookie(req, res, json);
     }
@@ -70,7 +62,7 @@ class EligibilityCookie {
         const cookieValue = JSON.stringify(json);
         const options = {
             httpOnly: true,
-            expires: cookieExpires
+            expires: new Date(Date.now() + config.redis.eligibilityCookie.expires)
         };
 
         if (req.protocol === 'https') {

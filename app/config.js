@@ -76,7 +76,7 @@ const config = {
         eligibilityCookie: {
             name: '__eligibility',
             redirectUrl: '/new-start-eligibility',
-            expires: 172800
+            expires: 1000 * 60 * 60 * 24 * 2
         }
     },
     dateFormat: 'DD/MM/YYYY',
