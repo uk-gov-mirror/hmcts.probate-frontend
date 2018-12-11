@@ -16,6 +16,28 @@ describe('NewWillLeft', () => {
         });
     });
 
+    describe('handlePost()', () => {
+        it('should remove session.form and set session.willLeft', (done) => {
+            const ctxToTest = {
+                left: 'Yes'
+            };
+            const errorsToTest = {};
+            const formdata = {};
+            const session = {
+                form: {}
+            };
+            const [ctx, errors] = NewWillLeft.handlePost(ctxToTest, errorsToTest, formdata, session);
+            expect(session).to.deep.equal({
+                willLeft: 'Yes'
+            });
+            expect(ctx).to.deep.equal({
+                left: 'Yes'
+            });
+            expect(errors).to.deep.equal({});
+            done();
+        });
+    });
+
     describe('nextStepUrl()', () => {
         it('should return url for the next step', (done) => {
             const req = {
