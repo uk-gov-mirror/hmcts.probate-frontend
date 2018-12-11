@@ -161,7 +161,7 @@ const config = {
         error: {
             invalidFileType: 'Error: invalid file type',
             maxSize: 'Error: invalid file size',
-            maxFilesExceeded: 'Error: too many files',
+            maxFiles: 'Error: too many files',
             nothingUploaded: 'Error: no files passed',
             uploadFailed: 'Error: upload failed',
             uploadTimeout: 'Error: upload timed out'
