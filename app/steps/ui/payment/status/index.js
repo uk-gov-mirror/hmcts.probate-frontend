@@ -121,7 +121,7 @@ class PaymentStatus extends Step {
             logger.error('Could not update payment status', result.message);
         } else {
             logger.info({tags: 'Analytics'}, 'Payment status update');
-            logger.info('Successfully updated payment status');
+            logger.info('Successfully updated payment status to caseState' + result.caseState);
         }
         return [result, errors];
     }
