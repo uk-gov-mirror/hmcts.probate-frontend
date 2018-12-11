@@ -49,7 +49,7 @@ describe('stop-page', () => {
         it('test right content loaded on the page - not executor', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('notExecutor');
             const excludeKeys = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'noWill', 'notOriginal', 'mentalCapacity', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants'];
-            testWrapper.testContent(done, excludeKeys, {applicationFormPA1P: config.links.applicationFormPA1P, guidance: config.links.guidance, registryInformation: config.links.registryInformation});
+            testWrapper.testContent(done, excludeKeys, {applicationFormPA1P: config.links.applicationFormPA1P});
         });
 
         it('test right content loaded on the page - mental capacity', (done) => {
