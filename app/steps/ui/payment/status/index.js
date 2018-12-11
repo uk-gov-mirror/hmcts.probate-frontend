@@ -66,6 +66,7 @@ class PaymentStatus extends Step {
             };
 
             const findPaymentResponse = yield services.findPayment(data);
+            logger.info('Payment retrieval in status for paymentId = ' + ctx.paymentId + ' with response = ' + JSON.stringify(findPaymentResponse));
             const date = typeof findPaymentResponse.date_updated === 'undefined' ? ctx.paymentCreatedDate : findPaymentResponse.date_updated;
             this.updateFormDataPayment(formdata, findPaymentResponse, date);
             if (findPaymentResponse.name === 'Error' || findPaymentResponse.status === 'Initiated') {
