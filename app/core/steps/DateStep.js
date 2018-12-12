@@ -13,15 +13,7 @@ class DateStep extends ValidationStep {
         return ctx;
     }
 
-    parseDate(ctx, dateName) {
-        let dateNames = [];
-
-        if (typeof dateName === 'string') {
-            dateNames.push(dateName);
-        } else {
-            dateNames = dateName;
-        }
-
+    parseDate(ctx, dateNames) {
         dateNames.forEach(dateName => {
             const [day, month, year] = [`${dateName}_day`, `${dateName}_month`, `${dateName}_year`];
 
@@ -42,6 +34,7 @@ class DateStep extends ValidationStep {
 
     formattedDate(date) {
         const month = utils.commonContent().months.split(',')[date.month()].trim();
+        console.log(`${date.date()} ${month} ${date.year()}`);
         return `${date.date()} ${month} ${date.year()}`;
     }
 }

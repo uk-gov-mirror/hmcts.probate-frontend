@@ -95,7 +95,7 @@ const stepList = {
         isCapable: 'TaskList',
         otherwise: 'StopPage'
     },
-    DeceasedDetails: 'Tasklist',
+    DeceasedDetails: 'DeceasedAddress',
     DeceasedName: {
         toggleOn: 'DeceasedDob',
         otherwise: 'DeceasedAlias'

@@ -11,7 +11,7 @@ class DeceasedDod extends DateStep {
     }
 
     dateName() {
-        return 'dod';
+        return ['dod'];
     }
 
     handlePost(ctx, errors, formdata, session) {

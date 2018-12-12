@@ -11,7 +11,7 @@ class DeceasedDob extends DateStep {
     }
 
     dateName() {
-        return 'dob';
+        return ['dob'];
     }
 
     handlePost(ctx, errors, formdata, session) {

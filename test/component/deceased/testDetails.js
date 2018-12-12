@@ -1,12 +1,12 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-// const DeceasedDob = require('app/steps/ui/deceased/dob/index');
+const DeceasedAddress = require('app/steps/ui/deceased/address/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('deceased-details', () => {
     let testWrapper;
-    // const expectedNextUrlForDeceasedDob = DeceasedDob.getUrl();
+    const expectedNextUrlForDeceasedAddress = DeceasedAddress.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedDetails');
@@ -17,7 +17,6 @@ describe('deceased-details', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('DeceasedDetails');
 
         it('test right content loaded on the page', (done) => {
@@ -181,12 +180,18 @@ describe('deceased-details', () => {
             testWrapper.testErrors(done, data, 'dodBeforeDob', errorsToTest);
         });
 
-        // it(`test it redirects to Deceased Date of Birth page: ${expectedNextUrlForDeceasedDob}`, (done) => {
-        //     const data = {
-        //         firstName: 'Bob',
-        //         lastName: 'Smith'
-        //     };
-        //     testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDob);
-        // });
+        it(`test it redirects to Deceased Address page: ${expectedNextUrlForDeceasedAddress}`, (done) => {
+            const data = {
+                firstName: 'Bob',
+                lastName: 'Smith',
+                dob_day: '12',
+                dob_month: '9',
+                dob_year: '2000',
+                dod_day: '12',
+                dod_month: '9',
+                dod_year: '2018'
+            };
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAddress);
+        });
     });
 });
