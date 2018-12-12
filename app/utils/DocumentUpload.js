@@ -83,19 +83,7 @@ class DocumentUpload {
         return error;
     }
 
-<<<<<<< HEAD
     mapError(errorKey) {
-=======
-    errorKey(errorType) {
-        const errorKey = Object.entries(config.error).filter((value) => {
-            return value[1] === errorType ? value : null;
-        });
-        return errorKey[0] ? errorKey[0][0] : null;
-    }
-
-    mapError(errorType) {
-        const errorKey = this.errorKey(errorType);
->>>>>>> PRO-3775: Update unit tests for the DocumentUpload util class
         return {
             js: content[`documentUpload-${errorKey}`],
             nonJs: errorKey
