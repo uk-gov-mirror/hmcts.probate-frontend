@@ -105,7 +105,7 @@ describe('EligibilityCookie.js', () => {
     });
 
     describe('setCookie()', () => {
-        it('should leave the next url untouched if the current page exists in the cookie', (done) => {
+        it('should add or update the next step and the current page in the cookie ', (done) => {
             const req = {originalUrl: '/new-iht-completed'};
             const res = {};
             const nextStepUrl = '/new-will-original';
@@ -136,44 +136,6 @@ describe('EligibilityCookie.js', () => {
                         '/new-deceased-domicile': {'domicile': 'Yes'},
                         '/new-iht-completed': {'completed': 'Yes'},
                         '/new-will-left': {'left': 'Yes'}
-                    }
-                }
-            )).to.equal(true);
-
-            readCookieStub.restore();
-            writeCookieStub.restore();
-            done();
-        });
-
-        it('should add the next step and the current page to the cookie if the current page does not exist in the cookie', (done) => {
-            const req = {originalUrl: '/new-will-left'};
-            const res = {};
-            const nextStepUrl = '/new-will-original';
-            const fieldKey = 'left';
-            const fieldValue = 'Yes';
-            const eligibilityCookie = new EligibilityCookie();
-            const readCookieStub = sinon.stub(eligibilityCookie, 'readCookie').returns({
-                pages: {
-                    '/new-death-certificate': {deathCertificate: 'Yes'},
-                    '/new-deceased-domicile': {domicile: 'Yes'},
-                    '/new-iht-completed': {completed: 'Yes'}
-                }
-            });
-            const writeCookieStub = sinon.stub(eligibilityCookie, 'writeCookie');
-
-            eligibilityCookie.setCookie(req, res, nextStepUrl, fieldKey, fieldValue);
-
-            expect(eligibilityCookie.writeCookie.calledOnce).to.equal(true);
-            expect(eligibilityCookie.writeCookie.calledWith(
-                {originalUrl: '/new-will-left'},
-                {},
-                {
-                    nextStepUrl: '/new-will-original',
-                    pages: {
-                        '/new-death-certificate': {deathCertificate: 'Yes'},
-                        '/new-deceased-domicile': {domicile: 'Yes'},
-                        '/new-iht-completed': {completed: 'Yes'},
-                        '/new-will-left': {left: 'Yes'}
                     }
                 }
             )).to.equal(true);
