@@ -7,9 +7,13 @@ const utils = require('app/components/step-utils');
 
 class DateStep extends ValidationStep {
 
+    dateName() {
+        return null;
+    }
+
     getContextData(req) {
-        const ctx = super.getContextData(req);
-        this.parseDate(ctx, this.dateName());
+        let ctx = super.getContextData(req);
+        ctx = this.parseDate(ctx, this.dateName());
         return ctx;
     }
 
@@ -30,6 +34,8 @@ class DateStep extends ValidationStep {
                 ctx[`${dateName}_formattedDate`] = this.formattedDate(date);
             }
         });
+
+        return ctx;
     }
 
     formattedDate(date) {
