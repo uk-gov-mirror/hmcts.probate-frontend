@@ -98,7 +98,7 @@ describe('DateStep', () => {
                 dod_day: 4,
                 dod_month: 6,
                 dod_year: 2018,
-                dod_date: '2018-06-04T23:00:00.000Z',
+                dod_date: '2018-06-04T00:00:00.000Z',
                 dod_formattedDate: '4 June 2018'
             });
             done();
@@ -124,7 +124,7 @@ describe('DateStep', () => {
                 dod_day: 4,
                 dod_month: 6,
                 dod_year: 2018,
-                dod_date: '2018-06-04T23:00:00.000Z',
+                dod_date: '2018-06-04T00:00:00.000Z',
                 dod_formattedDate: '4 June 2018'
             });
             done();
