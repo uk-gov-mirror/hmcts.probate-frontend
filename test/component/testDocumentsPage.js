@@ -13,18 +13,16 @@ const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles
 
 describe('documents', () => {
     let testWrapper;
-    let sessionData;
-    let contentData;
     const expectedNextUrlForThankYouPage = ThankYou.getUrl();
+    const sessionData = {
+        ccdCase: {
+            state: 'CaseCreated',
+            id: '1234-1235-1236-1237'
+        }
+    };
+    const contentData = {};
 
     beforeEach(() => {
-        sessionData = {
-            ccdCase: {
-                state: 'CaseCreated',
-                id: '1234-1235-1236-1237'
-            }
-        };
-        contentData = {};
         contentData.ccdReferenceNumber = '1234-1235-1236-1237';
         testWrapper = new TestWrapper('Documents');
     });
@@ -37,6 +35,7 @@ describe('documents', () => {
         testHelpBlockContent.runTest('Documents');
 
         it('test correct content loaded on the page, no codicils, no alias, single executor (Feature Toggle OFF)', (done) => {
+            sessionData.executors = {};
             nock(featureToggleUrl)
                 .get(featureTogglePath)
                 .reply(200, 'false');
@@ -79,8 +78,8 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
-
         it('test correct content loaded on the page, no codicils, no alias, single executor (Feature Toggle ON)', (done) => {
+            sessionData.executors = {};
             nock(featureToggleUrl)
                 .get(featureTogglePath)
                 .reply(200, 'true');
@@ -173,7 +172,6 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
-
         it('test correct content loaded on the page, no codicils, no alias, multiple executors (Feature Toggle ON)', (done) => {
             sessionData.executors = {
                 list: [
@@ -324,7 +322,6 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
-
         it('test correct content loaded on the page, no codicils, multiple executors, no alias, with optionRenunciated (Feature Toggle ON)', (done) => {
             sessionData.executors = {
                 executorsNumber: 2,
@@ -426,7 +423,6 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
-
         it('test correct content loaded on the page, has codicils, no alias, single executor (Feature Toggle ON)', (done) => {
             sessionData.will = {
                 codicils: 'Yes',
@@ -530,7 +526,6 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
-
         it('test correct content loaded on the page, has codicils, no alias, multiple executors (Feature Toggle ON)', (done) => {
             sessionData.will = {
                 codicils: 'Yes',
@@ -643,6 +638,7 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, single executor, no alias, specified registry address (Feature Toggle OFF)', (done) => {
+            sessionData.executors = {};
             sessionData.registry = {
                 address: '1 Red Street\nLondon\nO1 1OL'
             };
@@ -690,8 +686,8 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
-
         it('test correct content loaded on the page, no codicils, single executor, no alias, specified registry address (Feature Toggle ON)', (done) => {
+            sessionData.executors = {};
             sessionData.registry = {
                 address: '1 Red Street\nLondon\nO1 1OL'
             };
@@ -741,6 +737,7 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, single executor, no alias, online IHT (Feature Toggle OFF)', (done) => {
+            sessionData.executors = {};
             sessionData.iht = {
                 method: ihtContent.onlineOption
             };
@@ -777,55 +774,6 @@ describe('documents', () => {
                         'checklist1-item2',
                         'checklist2-item1',
                         'checklist2-item2',
-                        'checklist2-item3-will-uploaded',
-                        'checklist2-item4-iht205',
-                        'checklist2-item5-renunciated',
-                        'checklist2-item6-deed-poll',
-                        'checkboxLabel-codicils'
-                    ];
-
-                    testWrapper.testContent(done, excludeKeys, contentData);
-                });
-        });
-
-        it('test correct content loaded on the page, no codicils, single executor, no alias, online IHT (Feature Toggle ON)', (done) => {
-            sessionData.iht = {
-                method: ihtContent.onlineOption
-            };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const excludeKeys = [
-                        'old_header',
-                        'old_printPage',
-                        'old_heading2',
-                        'old_checklist1Header',
-                        'old_checklist1-item1',
-                        'old_checklist1-item2',
-                        'old_checklist2Header',
-                        'old_checklist2-item1',
-                        'old_checklist2-item2',
-                        'old_checklist3HeaderNumber',
-                        'old_checklist3HeaderNumberMultipleExecutors',
-                        'old_checklist3Header',
-                        'old_checklist3-item1',
-                        'old_checklist3-item1-codicils',
-                        'old_checklist3-item2',
-                        'old_checklist3-item3',
-                        'old_checklist3-item4-Form205',
-                        'old_checklist3-item5-deedPoll',
-                        'old_coverLetter',
-                        'old_coverLetter-codicils',
-                        'old_warning',
-                        'old_heading3',
-                        'old_sendDocuments',
-                        'old_sendDocumentsAddress',
-                        'text6',
-                        'checklist1-item1-codicils',
                         'checklist2-item3-will-uploaded',
                         'checklist2-item4-iht205',
                         'checklist2-item5-renunciated',
@@ -887,6 +835,7 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 207 or 400 (Feature Toggle OFF)', (done) => {
+            sessionData.executors = {};
             sessionData.iht = {
                 method: ihtContent.paperOption,
                 form: 'IHT207'
@@ -934,8 +883,8 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
-
         it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 207 or 400 (Feature Toggle ON)', (done) => {
+            sessionData.executors = {};
             sessionData.iht = {
                 method: ihtContent.paperOption,
                 form: 'IHT207'
@@ -1036,6 +985,7 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 205 (Feature Toggle OFF)', (done) => {
+            sessionData.executors = {};
             sessionData.iht = {
                 method: ihtContent.paperOption,
                 form: 'IHT205'
@@ -1074,55 +1024,6 @@ describe('documents', () => {
                         'checklist2-item2',
                         'checklist2-item3-will-uploaded',
                         'checklist2-item4-iht205',
-                        'checklist2-item5-renunciated',
-                        'checklist2-item6-deed-poll',
-                        'checkboxLabel-codicils'
-                    ];
-
-                    testWrapper.testContent(done, excludeKeys, contentData);
-                });
-        });
-
-        it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 205 (Feature Toggle ON)', (done) => {
-            sessionData.iht = {
-                method: ihtContent.paperOption,
-                form: 'IHT205'
-            };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const excludeKeys = [
-                        'old_header',
-                        'old_printPage',
-                        'old_heading2',
-                        'old_checklist1Header',
-                        'old_checklist1-item1',
-                        'old_checklist1-item2',
-                        'old_checklist2Header',
-                        'old_checklist2-item1',
-                        'old_checklist2-item2',
-                        'old_checklist3HeaderNumber',
-                        'old_checklist3HeaderNumberMultipleExecutors',
-                        'old_checklist3Header',
-                        'old_checklist3-item1',
-                        'old_checklist3-item1-codicils',
-                        'old_checklist3-item2',
-                        'old_checklist3-item3',
-                        'old_checklist3-item4-Form205',
-                        'old_checklist3-item5-deedPoll',
-                        'old_coverLetter',
-                        'old_coverLetter-codicils',
-                        'old_warning',
-                        'old_heading3',
-                        'old_sendDocuments',
-                        'old_sendDocumentsAddress',
-                        'text6',
-                        'checklist1-item1-codicils',
-                        'checklist2-item3-will-uploaded',
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils'
@@ -1181,7 +1082,7 @@ describe('documents', () => {
                 });
         });
 
-        it('test correct content loaded on the page, with one executor name changed by deed poll (Feature Toggle OFF)', (done) => {
+        it('test correct content loaded on the page, one executor name changed by deed poll (Feature Toggle OFF)', (done) => {
             sessionData.executors = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'Marriage'},
@@ -1233,8 +1134,7 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
-
-        it('test correct content loaded on the page, with one executor name changed by deed poll (Feature Toggle ON)', (done) => {
+        it('test correct content loaded on the page, one executor name changed by deed poll (Feature Toggle ON)', (done) => {
             sessionData.executors = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'Marriage'},
@@ -1340,7 +1240,6 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
-
         it('test correct content loaded on the page, multiple executor name changed by deed poll (Feature Toggle ON)', (done) => {
             sessionData.executors = {
                 list: [
@@ -1488,52 +1387,6 @@ describe('documents', () => {
                         'text6',
                         'checklist1-item1-codicils',
                         'checklist2-item3-will-uploaded',
-                        'checklist2-item4-iht205',
-                        'checklist2-item5-renunciated',
-                        'checklist2-item6-deed-poll',
-                        'checkboxLabel-codicils'
-                    ];
-                    testWrapper.testContent(done, excludeKeys, contentData);
-                });
-        });
-        it('test correct content loaded on the page, original will not uploaded (Feature Toggle ON)', (done) => {
-            sessionData.documents = {
-                uploads: []
-            };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const excludeKeys = [
-                        'old_header',
-                        'old_printPage',
-                        'old_heading2',
-                        'old_checklist1Header',
-                        'old_checklist1-item1',
-                        'old_checklist1-item2',
-                        'old_checklist2Header',
-                        'old_checklist2-item1',
-                        'old_checklist2-item2',
-                        'old_checklist3HeaderNumber',
-                        'old_checklist3HeaderNumberMultipleExecutors',
-                        'old_checklist3Header',
-                        'old_checklist3-item1',
-                        'old_checklist3-item1-codicils',
-                        'old_checklist3-item2',
-                        'old_checklist3-item3',
-                        'old_checklist3-item4-Form205',
-                        'old_checklist3-item5-deedPoll',
-                        'old_coverLetter',
-                        'old_coverLetter-codicils',
-                        'old_warning',
-                        'old_heading3',
-                        'old_sendDocuments',
-                        'old_sendDocumentsAddress',
-                        'text6',
-                        'checklist1-item1-codicils',
                         'checklist2-item4-iht205',
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
