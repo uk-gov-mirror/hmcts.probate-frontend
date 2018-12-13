@@ -34,7 +34,6 @@ class DateStep extends ValidationStep {
 
     formattedDate(date) {
         const month = utils.commonContent().months.split(',')[date.month()].trim();
-        console.log(`${date.date()} ${month} ${date.year()}`);
         return `${date.date()} ${month} ${date.year()}`;
     }
 }
