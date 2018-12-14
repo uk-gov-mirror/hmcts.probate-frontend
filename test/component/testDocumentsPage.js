@@ -14,16 +14,19 @@ const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles
 describe('documents', () => {
     let testWrapper;
     const expectedNextUrlForThankYouPage = ThankYou.getUrl();
-    const sessionData = {
-        ccdCase: {
-            state: 'CaseCreated',
-            id: '1234-1235-1236-1237'
-        }
-    };
-    const contentData = {};
+    let sessionData;
+    let contentData;
 
     beforeEach(() => {
-        contentData.ccdReferenceNumber = '1234-1235-1236-1237';
+        sessionData = {
+            ccdCase: {
+                state: 'CaseCreated',
+                id: '1234-1235-1236-1237'
+            }
+        };
+        contentData = {
+            ccdReferenceNumber: '1234-1235-1236-1237'
+        };
         testWrapper = new TestWrapper('Documents');
     });
 
@@ -35,7 +38,6 @@ describe('documents', () => {
         testHelpBlockContent.runTest('Documents');
 
         it('test correct content loaded on the page, no codicils, no alias, single executor (Feature Toggle OFF)', (done) => {
-            sessionData.executors = {};
             nock(featureToggleUrl)
                 .get(featureTogglePath)
                 .reply(200, 'false');
@@ -78,8 +80,8 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
+
         it('test correct content loaded on the page, no codicils, no alias, single executor (Feature Toggle ON)', (done) => {
-            sessionData.executors = {};
             nock(featureToggleUrl)
                 .get(featureTogglePath)
                 .reply(200, 'true');
@@ -172,6 +174,7 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
+
         it('test correct content loaded on the page, no codicils, no alias, multiple executors (Feature Toggle ON)', (done) => {
             sessionData.executors = {
                 list: [
@@ -221,6 +224,7 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
+
         it('test correct content loaded on the page, no codicils, no alias, multiple executors (Feature Toggle ON)', (done) => {
             sessionData.executors = {
                 list: [
@@ -322,6 +326,7 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
+
         it('test correct content loaded on the page, no codicils, multiple executors, no alias, with optionRenunciated (Feature Toggle ON)', (done) => {
             sessionData.executors = {
                 executorsNumber: 2,
@@ -379,7 +384,6 @@ describe('documents', () => {
             sessionData.will = {
                 codicilsNumber: '1'
             };
-            sessionData.executors = {};
             nock(featureToggleUrl)
                 .get(featureTogglePath)
                 .reply(200, 'false');
@@ -423,12 +427,12 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
+
         it('test correct content loaded on the page, has codicils, no alias, single executor (Feature Toggle ON)', (done) => {
             sessionData.will = {
                 codicils: 'Yes',
                 codicilsNumber: '1'
             };
-            sessionData.executors = {};
             nock(featureToggleUrl)
                 .get(featureTogglePath)
                 .reply(200, 'true');
@@ -526,6 +530,7 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
+
         it('test correct content loaded on the page, has codicils, no alias, multiple executors (Feature Toggle ON)', (done) => {
             sessionData.will = {
                 codicils: 'Yes',
@@ -581,6 +586,7 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
+
         it('test correct content loaded on the page, has codicils, no alias, multiple executors (Feature Toggle ON)', (done) => {
             sessionData.will = {
                 codicils: 'Yes',
@@ -638,7 +644,6 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, single executor, no alias, specified registry address (Feature Toggle OFF)', (done) => {
-            sessionData.executors = {};
             sessionData.registry = {
                 address: '1 Red Street\nLondon\nO1 1OL'
             };
@@ -686,8 +691,8 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
+
         it('test correct content loaded on the page, no codicils, single executor, no alias, specified registry address (Feature Toggle ON)', (done) => {
-            sessionData.executors = {};
             sessionData.registry = {
                 address: '1 Red Street\nLondon\nO1 1OL'
             };
@@ -737,7 +742,6 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, single executor, no alias, online IHT (Feature Toggle OFF)', (done) => {
-            sessionData.executors = {};
             sessionData.iht = {
                 method: ihtContent.onlineOption
             };
@@ -784,8 +788,8 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
+
         it('test correct content loaded on the page, no codicils, single executor, no alias, online IHT (Feature Toggle ON)', (done) => {
-            sessionData.executors = {};
             sessionData.iht = {
                 method: ihtContent.onlineOption
             };
@@ -835,7 +839,6 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 207 or 400 (Feature Toggle OFF)', (done) => {
-            sessionData.executors = {};
             sessionData.iht = {
                 method: ihtContent.paperOption,
                 form: 'IHT207'
@@ -883,8 +886,8 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
+
         it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 207 or 400 (Feature Toggle ON)', (done) => {
-            sessionData.executors = {};
             sessionData.iht = {
                 method: ihtContent.paperOption,
                 form: 'IHT207'
@@ -933,8 +936,8 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
+
         it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 207 or 400 (Feature Toggle ON)', (done) => {
-            sessionData.executors = {};
             sessionData.iht = {
                 method: ihtContent.paperOption,
                 form: 'IHT207'
@@ -985,7 +988,6 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 205 (Feature Toggle OFF)', (done) => {
-            sessionData.executors = {};
             sessionData.iht = {
                 method: ihtContent.paperOption,
                 form: 'IHT205'
@@ -1032,8 +1034,8 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
+
         it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 205 (Feature Toggle ON)', (done) => {
-            sessionData.executors = {};
             sessionData.iht = {
                 method: ihtContent.paperOption,
                 form: 'IHT205'
@@ -1134,6 +1136,7 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
+
         it('test correct content loaded on the page, one executor name changed by deed poll (Feature Toggle ON)', (done) => {
             sessionData.executors = {
                 list: [
@@ -1240,6 +1243,7 @@ describe('documents', () => {
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
+
         it('test correct content loaded on the page, multiple executor name changed by deed poll (Feature Toggle ON)', (done) => {
             sessionData.executors = {
                 list: [
@@ -1397,8 +1401,6 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, CCD Case ID not present (Feature Toggle ON)', (done) => {
-            delete sessionData.ccdCase;
-
             nock(featureToggleUrl)
                 .get(featureTogglePath)
                 .reply(200, 'true');
