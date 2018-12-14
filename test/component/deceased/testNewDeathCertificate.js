@@ -42,7 +42,7 @@ describe('new-death-certificate', () => {
         });
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, []);
+            testWrapper.testContent(done, [], {deathReportedToCoroner: config.links.deathReportedToCoroner});
         });
 
         it('test errors message displayed for missing data', (done) => {
@@ -67,9 +67,10 @@ describe('new-death-certificate', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
         });
 
-        it('test save and close link is not displayed on the page', (done) => {
+        it('test "save and close" and "sign out" links are not displayed on the page', (done) => {
             const playbackData = {};
             playbackData.saveAndClose = commonContent.saveAndClose;
+            playbackData.signOut = commonContent.signOut;
 
             testWrapper.testContentNotPresent(done, playbackData);
         });
