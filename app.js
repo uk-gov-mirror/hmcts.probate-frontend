@@ -184,7 +184,7 @@ exports.init = function() {
     app.use(config.services.idam.probate_oauth_callback_path, security.oAuth2CallbackEndpoint());
 
     if (config.app.useCSRFProtection === 'true') {
-            app.use(csrf(), (req, res, next) => {
+        app.use(csrf(), (req, res, next) => {
             res.locals.csrfToken = req.csrfToken();
             next();
         });
