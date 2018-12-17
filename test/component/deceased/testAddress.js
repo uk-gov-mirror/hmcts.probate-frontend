@@ -3,8 +3,8 @@
 const TestWrapper = require('test/util/TestWrapper');
 const Summary = require('app/steps/ui/summary/index');
 const IhtMethod = require('app/steps/ui/iht/method/index');
-// const DocumentUpload = require('app/steps/ui/documentupload/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const DocumentUpload = require('app/steps/ui/documentupload/index');
+// const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const config = require('app/config');
 const nock = require('nock');
 const featureToggleUrl = config.featureToggles.url;
@@ -15,7 +15,7 @@ describe('deceased-address', () => {
     let testWrapper;
     const expectedNextUrlForSummary = Summary.getUrl();
     const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
-    // const expectedNextUrlForDocumentUpload = DocumentUpload.getUrl();
+    const expectedNextUrlForDocumentUpload = DocumentUpload.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedAddress');
@@ -82,21 +82,21 @@ describe('deceased-address', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });
 
-        // it(`test it redirects to document upload page: ${expectedNextUrlForDocumentUpload}`, (done) => {
-        //     nock(featureToggleUrl)
-        //         .get(screeningQuestionsFeatureTogglePath)
-        //         .reply(200, 'true');
-        //
-        //     nock(featureToggleUrl)
-        //         .get(documentUploadFeatureTogglePath)
-        //         .reply(200, 'true');
-        //
-        //     const data = {
-        //         postcode: 'ea1 eaf',
-        //         postcodeAddress: '102 Petty France'
-        //     };
-        //     testWrapper.testRedirect(done, data, expectedNextUrlForDocumentUpload);
-        // });
+        it(`test it redirects to document upload page: ${expectedNextUrlForDocumentUpload}`, (done) => {
+            nock(featureToggleUrl)
+                .get(screeningQuestionsFeatureTogglePath)
+                .reply(200, 'true');
+
+            nock(featureToggleUrl)
+                .get(documentUploadFeatureTogglePath)
+                .reply(200, 'true');
+
+            const data = {
+                postcode: 'ea1 eaf',
+                postcodeAddress: '102 Petty France'
+            };
+            testWrapper.testRedirect(done, data, expectedNextUrlForDocumentUpload);
+        });
 
         it(`test it redirects to summary page: ${expectedNextUrlForSummary}`, (done) => {
             nock(featureToggleUrl)
