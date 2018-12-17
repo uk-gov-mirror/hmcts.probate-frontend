@@ -274,7 +274,7 @@ describe('EligibilityCookie.js', () => {
                         '/new-will-left': {left: 'Yes'}
                     }
                 }),
-                {httpOnly: true, secure: true, expires: cookieExpires}
+                {httpOnly: true, secure: true, expires: cookieExpires, maxAge: config.redis.eligibilityCookie.expires}
             )).to.equal(true);
 
             done();
@@ -308,7 +308,7 @@ describe('EligibilityCookie.js', () => {
                         '/new-will-left': {left: 'Yes'}
                     }
                 }),
-                {httpOnly: true, expires: cookieExpires}
+                {httpOnly: true, expires: cookieExpires, maxAge: config.redis.eligibilityCookie.expires}
             )).to.equal(true);
 
             done();
