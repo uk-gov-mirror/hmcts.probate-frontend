@@ -4,6 +4,7 @@ const initSteps = require('app/core/initSteps');
 const assert = require('chai').assert;
 const expect = require('chai').expect;
 const stopPagesContent = require('../../app/resources/en/translation/stoppage.json');
+const co = require('co');
 
 describe('Soft Stops', function () {
     const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui/']);
@@ -13,6 +14,25 @@ describe('Soft Stops', function () {
 
     beforeEach(() => {
         ctx = {};
+    });
+
+    describe('handleGet()', () => {
+        it('should return ctx with the feature toggle', (done) => {
+            const ctxToTest = {};
+            const formdata = {};
+            const featureToggles = {
+                screening_questions: true
+            };
+
+            co(function* () {
+                const result = stopPage.handleGet(ctxToTest, formdata, featureToggles);
+                expect(result).to.deep.equal([{isToggleEnabled: true}, {}]);
+                done();
+            }).catch(err => {
+                done(err);
+            });
+
+        });
     });
 
     describe('Soft stops for pages', function () {
@@ -76,12 +96,13 @@ describe('Soft Stops', function () {
     describe('Link placeholder replacements', function () {
         it('Filters out link URL placeholders from content', function () {
             const stopPages = {
-                noWill: {placeHolders: ['applicationFormPA1A', 'guidance', 'registryInformation']},
-                notOriginal: {placeHolders: ['applicationFormPA1P', 'guidance', 'registryInformation']},
-                notExecutor: {placeHolders: ['applicationFormPA1P', 'guidance', 'registryInformation']},
+                deathCertificate: {placeHolders: ['deathReportedToCoroner']},
+                notInEnglandOrWales: {placeHolders: ['applicationFormPA1P', 'applicationFormPA1A']},
                 ihtNotCompleted: {placeHolders: ['ihtNotCompleted']},
-                mentalCapacity: {placeHolders: ['applicationFormPA1P', 'guidance', 'registryInformation']},
-                deathCertificate: {placeHolders: ['deathReportedToCoroner']}
+                noWill: {placeHolders: ['applicationFormPA1A', 'whoInherits']},
+                notOriginal: {placeHolders: ['applicationFormPA1P', 'applicationFormPA1A']},
+                notExecutor: {placeHolders: ['applicationFormPA1P']},
+                mentalCapacity: {placeHolders: ['applicationFormPA1P', 'ifYoureAnExecutor']}
             };
 
             Object.keys(stopPages).forEach(function(key) {
@@ -96,10 +117,10 @@ describe('Soft Stops', function () {
     describe('action()', () => {
         it('removes the correct values from the context', (done) => {
             const ctx = {
-                linkPlaceholders: ['applicationFormPA1A', 'guidance', 'registryInformation']
+                linkPlaceholders: ['applicationFormPA1A']
             };
             const testFormdata = {
-                linkPlaceholders: ['applicationFormPA1A', 'guidance', 'registryInformation']
+                linkPlaceholders: ['applicationFormPA1A']
             };
             const action = stopPage.action(ctx, testFormdata);
 
