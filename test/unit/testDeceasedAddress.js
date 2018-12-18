@@ -28,7 +28,7 @@ describe('DeceasedAddress', () => {
             expect(ctx).to.deep.equal({
                 freeTextAddress: '143 Caerfai Bay Road',
                 postcode: 'L23 6WW',
-                isScreeningQuestionsToggleEnabled: false,
+                isScreeningQuestionsToggleEnabled: true,
                 isDocumentUploadToggleEnabled: true,
                 sessionID: 'dummy_sessionId'
             });

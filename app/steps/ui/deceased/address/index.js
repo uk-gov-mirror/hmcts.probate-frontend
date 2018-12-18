@@ -15,10 +15,6 @@ class DeceasedAddress extends AddressStep {
         ctx.isScreeningQuestionsToggleEnabled = FeatureToggle.isEnabled(req.session.featureToggles, 'screening_questions');
         ctx.isDocumentUploadToggleEnabled = ctx.isScreeningQuestionsToggleEnabled && isDocumentUploadToggleEnabled;
 
-        if (ctx.isDocumentUploadToggleEnabled) {
-            ctx.isScreeningQuestionsToggleEnabled = false;
-        }
-
         return ctx;
     }
 
@@ -27,10 +23,6 @@ class DeceasedAddress extends AddressStep {
         const isDocumentUploadToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'document_upload');
         ctx.isScreeningQuestionsToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
         ctx.isDocumentUploadToggleEnabled = ctx.isScreeningQuestionsToggleEnabled && isDocumentUploadToggleEnabled;
-
-        if (ctx.isDocumentUploadToggleEnabled) {
-            ctx.isScreeningQuestionsToggleEnabled = false;
-        }
 
         return [ctx, errors];
     }
