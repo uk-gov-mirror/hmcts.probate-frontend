@@ -48,7 +48,7 @@ describe('ThankYou', () => {
     });
 
     describe('handleGet()', () => {
-        it('test when only checkAnswersSummary JSON exists', () => {
+        it('test when checkAnswersSummary JSON just exists', () => {
             let ctx = {};
             let formdata = {
                 checkAnswersSummary: '{"test":"data"}'
@@ -56,10 +56,9 @@ describe('ThankYou', () => {
             [ctx, formdata] = ThankYou.handleGet(ctx, formdata);
             expect(ctx.checkAnswersSummary).to.deep.equal(true);
             expect(ctx.legalDeclaration).to.deep.equal(false);
-            expect(ctx.displaySaveApplication).to.deep.equal(true);
         });
 
-        it('test when only legalDeclaration JSON exists', () => {
+        it('test when legalDeclaration JSON just exists', () => {
             let ctx = {};
             let formdata = {
                 legalDeclaration: '{"test":"data"}'
@@ -67,7 +66,6 @@ describe('ThankYou', () => {
             [ctx, formdata] = ThankYou.handleGet(ctx, formdata);
             expect(ctx.checkAnswersSummary).to.deep.equal(false);
             expect(ctx.legalDeclaration).to.deep.equal(true);
-            expect(ctx.displaySaveApplication).to.deep.equal(true);
         });
 
         it('test when no pdf variables JSON exists', () => {
@@ -76,7 +74,6 @@ describe('ThankYou', () => {
             [ctx, formdata] = ThankYou.handleGet(ctx, formdata);
             expect(ctx.checkAnswersSummary).to.deep.equal(false);
             expect(ctx.legalDeclaration).to.deep.equal(false);
-            expect(ctx.displaySaveApplication).to.deep.equal(false);
         });
 
         it('test when all pdf variables JSON exists', () => {
@@ -88,7 +85,6 @@ describe('ThankYou', () => {
             [ctx, formdata] = ThankYou.handleGet(ctx, formdata);
             expect(ctx.checkAnswersSummary).to.deep.equal(true);
             expect(ctx.legalDeclaration).to.deep.equal(true);
-            expect(ctx.displaySaveApplication).to.deep.equal(true);
         });
     });
 });
