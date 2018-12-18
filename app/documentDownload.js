@@ -8,7 +8,7 @@ router.get('/check-answers-pdf', (req, res) => {
     const formdata = req.session.form;
     pdfservices.createCheckAnswersPdf(formdata, req.session.id)
         .then(result => {
-            setPDFHeadingValuesAndSend(res, result, 'checkYourAnswers.pdf');
+            setPDFHeadingValuesAndSend(res, result, 'check-your-answers.pdf');
         })
         .catch(err => {
             throwPDFException(req, res, err);
@@ -19,7 +19,7 @@ router.get('/declaration-pdf', (req, res) => {
     const formdata = req.session.form;
     pdfservices.createDeclarationPdf(formdata, req.session.id)
         .then(result => {
-            setPDFHeadingValuesAndSend(res, result, 'legalDeclaration.pdf');
+            setPDFHeadingValuesAndSend(res, result, 'legal-declaration.pdf');
         })
         .catch(err => {
             throwPDFException(req, res, err);

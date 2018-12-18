@@ -33,7 +33,7 @@ describe('DocumentDownload.js', () => {
                         throw err;
                     }
                     expect(res.get('Content-Type')).equal('application/pdf; charset=utf-8');
-                    expect(res.get('Content-Disposition')).equal('attachment; filename=checkYourAnswers.pdf');
+                    expect(res.get('Content-Disposition')).equal('attachment; filename=check-your-answers.pdf');
                     done();
                 });
         });
@@ -74,7 +74,7 @@ describe('DocumentDownload.js', () => {
                         throw err;
                     }
                     expect(res.get('Content-Type')).equal('application/pdf; charset=utf-8');
-                    expect(res.get('Content-Disposition')).equal('attachment; filename=legalDeclaration.pdf');
+                    expect(res.get('Content-Disposition')).equal('attachment; filename=legal-declaration.pdf');
                     done();
                 });
         });
