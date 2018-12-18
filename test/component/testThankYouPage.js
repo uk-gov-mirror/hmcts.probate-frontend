@@ -38,7 +38,7 @@ describe('thank-you', () => {
                     state: 'CaseCreated'
                 }
             };
-            const excludeKeys = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf','coverSheetPdf'];
+            const excludeKeys = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf', 'coverSheetPdf'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -58,7 +58,7 @@ describe('thank-you', () => {
                     state: 'CaseCreated'},
                 checkAnswersSummary: '{"test":"data"}'
             };
-            const excludeKeys = ['declarationPdf','coverSheetPdf'];
+            const excludeKeys = ['declarationPdf', 'coverSheetPdf'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -136,7 +136,7 @@ describe('thank-you', () => {
             const sessionData = {
                 ccdCase: {
                     id: '1234-5678-9012-3456',
-                    state: 'CaseCreated'},   
+                    state: 'CaseCreated'},
                 checkAnswersSummary: '{"test":"data"}',
                 legalDeclaration: '{"test":"data"}'
             };
@@ -162,7 +162,7 @@ describe('thank-you', () => {
                     id: '1234-5678-9012-3456',
                     state: 'CaseCreated'}
             };
-            const excludeKeys = ['checkAnswersPdf','declarationPdf'];
+            const excludeKeys = ['checkAnswersPdf', 'declarationPdf'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
