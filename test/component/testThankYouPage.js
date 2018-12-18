@@ -23,7 +23,6 @@ describe('thank-you', () => {
                 .end(() => {
                     const contentData = {
                         referenceNumber: content.referenceNumber,
-                        saveYourApplication: content.saveYourApplication,
                         checkSummaryLink: content.checkAnswersPdf,
                         declarationLink: content.declarationPdf
                     };
@@ -39,7 +38,7 @@ describe('thank-you', () => {
                     state: 'CaseCreated'
                 }
             };
-            const excludeKeys = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf'];
+            const excludeKeys = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf','coverSheetPdf'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -55,10 +54,11 @@ describe('thank-you', () => {
         it('test content loaded on the page when CheckAnswers present', (done) => {
             const sessionData = {
                 ccdCase: {
-                    id: '1234-5678-9012-3456'},
+                    id: '1234-5678-9012-3456',
+                    state: 'CaseCreated'},
                 checkAnswersSummary: '{"test":"data"}'
             };
-            const excludeKeys = ['declarationPdf'];
+            const excludeKeys = ['declarationPdf','coverSheetPdf'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -77,7 +77,8 @@ describe('thank-you', () => {
         it('test content not loaded on the page when exclusively CheckAnswers present', (done) => {
             const sessionData = {
                 ccdCase: {
-                    id: '1234-5678-9012-3456'},
+                    id: '1234-5678-9012-3456',
+                    state: 'CaseCreated'},
                 checkAnswersSummary: '{"test":"data"}'
             };
             testWrapper.agent.post('/prepare-session/form')
@@ -93,7 +94,9 @@ describe('thank-you', () => {
         it('test content loaded on the page when LegalDeclaration present', (done) => {
             const sessionData = {
                 ccdCase: {
-                    id: '1234-5678-9012-3456'},
+                    id: '1234-5678-9012-3456',
+                    state: 'CaseCreated'
+                },
                 legalDeclaration: '{"test":"data"}'
             };
             const excludeKeys = ['checkAnswersPdf'];
@@ -105,7 +108,6 @@ describe('thank-you', () => {
                         findOutNext: config.links.findOutNext,
                         saveYourApplication: content.saveYourApplication,
                         declarationLink: content.declarationPdf
-
                     };
 
                     testWrapper.testContent(done, excludeKeys, contentData);
@@ -115,7 +117,8 @@ describe('thank-you', () => {
         it('test content loaded on the page when exclusively LegalDeclaration present', (done) => {
             const sessionData = {
                 ccdCase: {
-                    id: '1234-5678-9012-3456'},
+                    id: '1234-5678-9012-3456',
+                    state: 'CaseCreated'},
                 legalDeclaration: '{"test":"data"}'
             };
             testWrapper.agent.post('/prepare-session/form')
@@ -132,7 +135,8 @@ describe('thank-you', () => {
         it('test content loaded on the page when CheckAnswers and LegalDeclaration present', (done) => {
             const sessionData = {
                 ccdCase: {
-                    id: '1234-5678-9012-3456'},
+                    id: '1234-5678-9012-3456',
+                    state: 'CaseCreated'},   
                 checkAnswersSummary: '{"test":"data"}',
                 legalDeclaration: '{"test":"data"}'
             };
@@ -146,6 +150,27 @@ describe('thank-you', () => {
                         saveYourApplication: content.saveYourApplication,
                         checkSummaryLink: content.checkAnswersPdf,
                         declarationLink: content.declarationPdf
+                    };
+
+                    testWrapper.testContent(done, excludeKeys, contentData);
+                });
+        });
+
+        it('test content loaded on the page so Cover Sheet download is present', (done) => {
+            const sessionData = {
+                ccdCase: {
+                    id: '1234-5678-9012-3456',
+                    state: 'CaseCreated'}
+            };
+            const excludeKeys = ['checkAnswersPdf','declarationPdf'];
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const contentData = {
+                        helpLineNumber: config.helpline.number,
+                        findOutNext: config.links.findOutNext,
+                        saveYourApplication: content.saveYourApplication,
+                        coverSheetLink: content.coverSheetPdf
                     };
 
                     testWrapper.testContent(done, excludeKeys, contentData);

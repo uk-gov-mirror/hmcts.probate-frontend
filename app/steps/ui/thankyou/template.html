@@ -23,7 +23,6 @@
                 <p>{{content.successParagraph2 | safe}}</p>
                 <p>{{content.successParagraph3 | replace('{helpLineNumber}', helpline.number) | safe}}</p>
 
-                {% if fields.displaySaveApplication.value === 'true' %}
                 <div class="margin-bottom50">
                     <h2 class="heading-medium">{{content.saveYourApplication}}</h2>
                     <p>{{content.saveParagraph1}}</p>
@@ -44,7 +43,6 @@
                         <a class="anchor-margin-left" id="coverSheetPdfHref" href="/cover-sheet-pdf">{{ content.coverSheetPdf }}</a>
                     </p>
                 </div>
-                {% endif %}
 
                 <div class="panel panel-border-wide">
                     <p>{{content.successParagraph4 | replace('{findOutNext}', links.findOutNext) | safe}}</p>

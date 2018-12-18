@@ -10,16 +10,13 @@ class ThankYou extends Step {
     }
 
     handleGet(ctx, formdata) {
-        ctx.displaySaveApplication = false;
         ctx.checkAnswersSummary = false;
         ctx.legalDeclaration = false;
         if (formdata.checkAnswersSummary) {
             ctx.checkAnswersSummary = true;
-            ctx.displaySaveApplication = true;
         }
         if (formdata.legalDeclaration) {
             ctx.legalDeclaration = true;
-            ctx.displaySaveApplication = true;
         }
         return [ctx];
     }
