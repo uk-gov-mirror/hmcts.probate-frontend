@@ -30,7 +30,7 @@ describe('WillLeft', () => {
         it('should return the correct url when No is given', (done) => {
             const ctx = {left: content.optionNo};
             const nextStepUrl = WillLeft.nextStepUrl(ctx);
-            expect(nextStepUrl).to.equal('/stop-page/noWill');
+            expect(nextStepUrl).to.equal('/died-after-october-2014');
             done();
         });
     });
@@ -40,58 +40,30 @@ describe('WillLeft', () => {
         let errors;
         let formdata;
         let session;
-        let hostname;
-        let featureToggles;
 
         it('should return the ctx with the will left status and the intestacy_screening_question feature toggle', (done) => {
             ctx = {left: content.optionYes};
             errors = {};
             formdata = {};
             session = {};
-            hostname = {};
-            featureToggles = {};
 
-            [ctx, errors] = WillLeft.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
+            [ctx, errors] = WillLeft.handlePost(ctx, errors, formdata, session);
             expect(ctx).to.deep.equal({
-                left: content.optionYes,
-                isToggleEnabled: false
+                left: content.optionYes
             });
             done();
         });
     });
 
     describe('nextStepOptions()', () => {
-        it('should return the correct options when the FT is off', (done) => {
-            const ctx = {
-                isToggleEnabled: false
-            };
-            const nextStepOptions = WillLeft.nextStepOptions(ctx);
-            expect(nextStepOptions).to.deep.equal({
-                options: [{
-                    key: 'left',
-                    value: content.optionYes,
-                    choice: 'withWill'
-                }]
-            });
-            done();
-        });
-
         it('should return the correct options when the FT is on', (done) => {
-            const ctx = {
-                isToggleEnabled: true
-            };
-            const nextStepOptions = WillLeft.nextStepOptions(ctx);
+            const nextStepOptions = WillLeft.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [
                     {
                         key: 'left',
                         value: content.optionYes,
                         choice: 'withWill'
-                    },
-                    {
-                        key: 'left',
-                        value: content.optionNo,
-                        choice: 'withoutWillToggleOn'
                     }
                 ]
             });
@@ -129,16 +101,6 @@ describe('WillLeft', () => {
 
             revert();
             done();
-        });
-    });
-
-    describe('action', () => {
-        it('test isToggleEnabled is removed from the context', () => {
-            const ctx = {
-                isToggleEnabled: false
-            };
-            WillLeft.action(ctx);
-            assert.isUndefined(ctx.isToggleEnabled);
         });
     });
 });

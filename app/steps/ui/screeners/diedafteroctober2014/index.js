@@ -5,7 +5,7 @@ const content = require('app/resources/en/translation/screeners/diedafteroctober
 const EligibilityCookie = require('app/utils/EligibilityCookie');
 const eligibilityCookie = new EligibilityCookie();
 const pageUrl = '/died-after-october-2014';
-const fieldKey = 'left';
+const fieldKey = 'diedAfter';
 
 class DiedAfterOctober2014 extends EligibilityValidationStep {
 

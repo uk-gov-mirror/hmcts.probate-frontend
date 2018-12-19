@@ -5,7 +5,7 @@ const content = require('app/resources/en/translation/screeners/otherapplicants'
 const EligibilityCookie = require('app/utils/EligibilityCookie');
 const eligibilityCookie = new EligibilityCookie();
 const pageUrl = '/other-applicants';
-const fieldKey = 'left';
+const fieldKey = 'otherApplicants';
 
 class OtherApplicants extends EligibilityValidationStep {
 

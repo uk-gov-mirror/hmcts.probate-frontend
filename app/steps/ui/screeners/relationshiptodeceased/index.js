@@ -5,7 +5,7 @@ const content = require('app/resources/en/translation/screeners/relationshiptode
 const EligibilityCookie = require('app/utils/EligibilityCookie');
 const eligibilityCookie = new EligibilityCookie();
 const pageUrl = '/relationship-to-deceased';
-const fieldKey = 'left';
+const fieldKey = 'related';
 
 class RelationshipToDeceased extends EligibilityValidationStep {
 
