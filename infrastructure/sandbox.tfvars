@@ -33,6 +33,8 @@ probate_frontend_use_redis = "true"
 
 probate_business_service_url = "http://probate-business-service-sandbox.service.core-compute-sandbox.internal/validate"
 
+probate_business_service_document_url = "http://probate-business-service-sandbox.service.core-compute-sandbox.internal/businessDocument"
+
 probate_submit_service_url = "http://probate-submit-service-sandbox.service.core-compute-sandbox.internal"
 
 probate_persistence_service_url = " http://probate-persistence-service-sandbox.service.core-compute-sandbox.internal/formdata"

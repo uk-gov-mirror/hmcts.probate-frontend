@@ -36,6 +36,8 @@ reform_envirionment_for_test = "sprod"
 
 probate_business_service_url = "http://probate-business-service-sprod.service.core-compute-sprod.internal/validate"
 
+probate_business_service_document_url = "http://probate-business-service-sprod.service.core-compute-sprod.internal/businessDocument"
+
 probate_submit_service_url = "http://probate-submit-service-sprod.service.core-compute-sprod.internal"
 
 probate_persistence_service_url = "http://probate-persistence-service-sprod.service.core-compute-sprod.internal/formdata"
