@@ -193,9 +193,9 @@ class Declaration extends ValidationStep {
         return [ctx, formdata];
     }
 
-    renderCallBack(res, html) {
+    renderPage(res, html) {
         const formdata = res.req.session.form;
-        formdata.legalDeclaration = this.buildLegalDeclarationFromHtml(formdata, html);
+        formdata.legalDeclaration = legalDocumentJSONObjBuilder.build(formdata, html);
         res.send(html);
     }
 
