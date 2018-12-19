@@ -1,12 +1,12 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/will/left/index');
+const pageUnderTest = require('app/steps/ui/will/newleft/index');
 
-module.exports = function () {
+module.exports = function (option) {
     const I = this;
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click('#left-optionYes');
+    I.click('#left-option' + option);
 
     I.click(commonContent.continue);
 };

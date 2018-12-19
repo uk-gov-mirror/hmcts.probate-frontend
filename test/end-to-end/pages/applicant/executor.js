@@ -1,12 +1,12 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/applicant/executor/index');
+const pageUnderTest = require('app/steps/ui/applicant/newexecutor/index');
 
-module.exports = function () {
+module.exports = function (option) {
     const I = this;
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click('#executor-optionYes');
+    I.click('#executor-option' + option);
 
     I.click(commonContent.continue);
 };

@@ -1,6 +1,6 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/documents/index');
+const pageUnderTest = require('app/steps/ui/documentupload/index');
 
 module.exports = function () {
     const I = this;

@@ -1,6 +1,6 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/starteligibility/index');
+const pageUnderTest = require('app/steps/ui/newstarteligibility/index');
 const testConfig = require('test/config.js');
 
 module.exports = function () {

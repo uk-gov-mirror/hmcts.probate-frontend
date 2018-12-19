@@ -9,5 +9,5 @@ module.exports = function () {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.click('#method-paperOption');
 
-    I.click(commonContent.continue);
+    I.click(commonContent.saveAndContinue);
 };
