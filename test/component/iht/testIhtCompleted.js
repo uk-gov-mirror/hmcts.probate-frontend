@@ -1,10 +1,10 @@
 'use strict';
 
-const config = require('app/config');
 const TestWrapper = require('test/util/TestWrapper');
 const WillLeft = require('app/steps/ui/will/left/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const commonContent = require('app/resources/en/translation/common');
+const config = require('app/config');
 const cookies = [{
     name: config.redis.eligibilityCookie.name,
     content: {
