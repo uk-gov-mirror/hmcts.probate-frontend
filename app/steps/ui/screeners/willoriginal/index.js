@@ -1,19 +1,25 @@
 'use strict';
 
-const ValidationStep = require('app/core/steps/ValidationStep');
+const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
 const content = require('app/resources/en/translation/screeners/willoriginal');
 const EligibilityCookie = require('app/utils/EligibilityCookie');
 const eligibilityCookie = new EligibilityCookie();
+const pageUrl = '/will-original';
+const fieldKey = 'original';
 
-class WillOriginal extends ValidationStep {
+class WillOriginal extends EligibilityValidationStep {
 
     static getUrl() {
-        return '/will-original';
+        return pageUrl;
     }
 
     handlePost(ctx, errors, formdata, session) {
         delete session.form;
         return [ctx, errors];
+    }
+
+    getContextData(req, res) {
+        return super.getContextData(req, res, pageUrl, fieldKey);
     }
 
     nextStepUrl(ctx) {
@@ -23,7 +29,7 @@ class WillOriginal extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'original', value: content.optionYes, choice: 'isOriginal'}
+                {key: fieldKey, value: content.optionYes, choice: 'isOriginal'}
             ]
         };
     }

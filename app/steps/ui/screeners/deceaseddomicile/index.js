@@ -1,19 +1,25 @@
 'use strict';
 
-const ValidationStep = require('app/core/steps/ValidationStep');
+const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
 const content = require('app/resources/en/translation/screeners/deceaseddomicile');
 const EligibilityCookie = require('app/utils/EligibilityCookie');
 const eligibilityCookie = new EligibilityCookie();
+const pageUrl = '/deceased-domicile';
+const fieldKey = 'domicile';
 
-class DeceasedDomicile extends ValidationStep {
+class DeceasedDomicile extends EligibilityValidationStep {
 
     static getUrl() {
-        return '/deceased-domicile';
+        return pageUrl;
     }
 
     handlePost(ctx, errors, formdata, session) {
         delete session.form;
         return [ctx, errors];
+    }
+
+    getContextData(req, res) {
+        return super.getContextData(req, res, pageUrl, fieldKey);
     }
 
     nextStepUrl(ctx) {
@@ -23,7 +29,7 @@ class DeceasedDomicile extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'domicile', value: content.optionYes, choice: 'inEnglandOrWales'}
+                {key: fieldKey, value: content.optionYes, choice: 'inEnglandOrWales'}
             ]
         };
     }

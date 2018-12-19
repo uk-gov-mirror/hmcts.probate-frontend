@@ -1,19 +1,25 @@
 'use strict';
 
-const ValidationStep = require('app/core/steps/ValidationStep');
+const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
 const content = require('app/resources/en/translation/screeners/applicantexecutor');
 const EligibilityCookie = require('app/utils/EligibilityCookie');
 const eligibilityCookie = new EligibilityCookie();
+const pageUrl = '/applicant-executor';
+const fieldKey = 'executor';
 
-class ApplicantExecutor extends ValidationStep {
+class ApplicantExecutor extends EligibilityValidationStep {
 
     static getUrl() {
-        return '/applicant-executor';
+        return pageUrl;
     }
 
     handlePost(ctx, errors, formdata, session) {
         delete session.form;
         return [ctx, errors];
+    }
+
+    getContextData(req, res) {
+        return super.getContextData(req, res, pageUrl, fieldKey);
     }
 
     nextStepUrl(ctx) {
@@ -23,7 +29,7 @@ class ApplicantExecutor extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'executor', value: content.optionYes, choice: 'isExecutor'}
+                {key: fieldKey, value: content.optionYes, choice: 'isExecutor'}
             ]
         };
     }

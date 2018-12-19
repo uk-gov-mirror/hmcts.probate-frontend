@@ -1,19 +1,25 @@
 'use strict';
 
-const ValidationStep = require('app/core/steps/ValidationStep');
+const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
 const content = require('app/resources/en/translation/screeners/ihtcompleted');
 const EligibilityCookie = require('app/utils/EligibilityCookie');
 const eligibilityCookie = new EligibilityCookie();
+const pageUrl = '/iht-completed';
+const fieldKey = 'completed';
 
-class IhtCompleted extends ValidationStep {
+class IhtCompleted extends EligibilityValidationStep {
 
     static getUrl() {
-        return '/iht-completed';
+        return pageUrl;
     }
 
     handlePost(ctx, errors, formdata, session) {
         delete session.form;
         return [ctx, errors];
+    }
+
+    getContextData(req, res) {
+        return super.getContextData(req, res, pageUrl, fieldKey);
     }
 
     nextStepUrl(ctx) {
@@ -23,7 +29,7 @@ class IhtCompleted extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'completed', value: content.optionYes, choice: 'completed'}
+                {key: fieldKey, value: content.optionYes, choice: 'completed'}
             ]
         };
     }

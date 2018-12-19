@@ -1,9 +1,9 @@
 'use strict';
 
+const TestWrapper = require('test/util/TestWrapper');
+const TaskList = require('app/steps/ui/tasklist/index');
+const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
-const TestWrapper = require('../../util/TestWrapper');
-const TaskList = require('../../../app/steps/ui/tasklist');
-const commonContent = require('../../../app/resources/en/translation/common');
 const cookies = [{
     name: config.redis.eligibilityCookie.name,
     content: {
@@ -34,9 +34,7 @@ describe('start-apply', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test content loaded on the page', (done) => {
-            const excludeKeys = [];
-
-            testWrapper.testContent(done, excludeKeys, {}, cookies);
+            testWrapper.testContent(done, [], {}, cookies);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForTaskList}`, (done) => {

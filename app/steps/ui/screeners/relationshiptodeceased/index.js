@@ -1,19 +1,25 @@
 'use strict';
 
-const ValidationStep = require('app/core/steps/ValidationStep');
+const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
 const content = require('app/resources/en/translation/screeners/relationshiptodeceased');
 const EligibilityCookie = require('app/utils/EligibilityCookie');
 const eligibilityCookie = new EligibilityCookie();
+const pageUrl = '/relationship-to-deceased';
+const fieldKey = 'left';
 
-class RelationshipToDeceased extends ValidationStep {
+class RelationshipToDeceased extends EligibilityValidationStep {
 
     static getUrl() {
-        return '/relationship-to-deceased';
+        return pageUrl;
     }
 
     handlePost(ctx, errors, formdata, session) {
         delete session.form;
         return [ctx, errors];
+    }
+
+    getContextData(req, res) {
+        return super.getContextData(req, res, pageUrl, fieldKey);
     }
 
     nextStepUrl(ctx) {
@@ -23,7 +29,7 @@ class RelationshipToDeceased extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'related', value: content.optionYes, choice: 'related'}
+                {key: fieldKey, value: content.optionYes, choice: 'related'}
             ]
         };
     }

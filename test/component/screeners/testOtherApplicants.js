@@ -1,10 +1,10 @@
 'use strict';
 
-const config = require('app/config');
 const TestWrapper = require('test/util/TestWrapper');
 const StartApply = require('app/steps/ui/screeners/startapply/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const commonContent = require('app/resources/en/translation/common');
+const config = require('app/config');
 const cookies = [{
     name: config.redis.eligibilityCookie.name,
     content: {
@@ -20,10 +20,6 @@ const cookies = [{
     }
 }];
 
-const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_screening_questions}`;
-
 describe('other-applicants', () => {
     let testWrapper;
     const expectedNextUrlForStartApply = StartApply.getUrl();
@@ -31,14 +27,10 @@ describe('other-applicants', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('OtherApplicants');
-        nock(featureToggleUrl)
-            .get(featureTogglePath)
-            .reply(200, 'true');
     });
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -59,9 +51,7 @@ describe('other-applicants', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required', [], cookies);
+            testWrapper.testErrors(done, {}, 'required', [], cookies);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForStartApply}`, (done) => {
@@ -80,9 +70,10 @@ describe('other-applicants', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
         });
 
-        it('test save and close link is not displayed on the page', (done) => {
+        it('test "save and close" and "sign out" links are not displayed on the page', (done) => {
             const playbackData = {};
             playbackData.saveAndClose = commonContent.saveAndClose;
+            playbackData.signOut = commonContent.signOut;
 
             testWrapper.testContentNotPresent(done, playbackData);
         });

@@ -1,10 +1,10 @@
 'use strict';
 
-const config = require('app/config');
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedDomicile = require('app/steps/ui/screeners/deceaseddomicile/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const commonContent = require('app/resources/en/translation/common');
+const config = require('app/config');
 
 describe('death-certificate', () => {
     let testWrapper;
