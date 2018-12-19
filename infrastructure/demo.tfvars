@@ -35,6 +35,8 @@ reform_envirionment_for_test = "demo"
 
 probate_business_service_url = "http://probate-business-service-demo.service.core-compute-demo.internal/validate"
 
+probate_business_service_document_url = "http://probate-business-service-demo.service.core-compute-demo.internal/businessDocument"
+
 probate_submit_service_url = "http://probate-submit-service-demo.service.core-compute-demo.internal"
 
 probate_persistence_service_url = "http://probate-persistence-service-demo.service.core-compute-demo.internal/formdata"
