@@ -15,36 +15,43 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     // Pre-IDAM
     I.startApplication();
+    I.selectDeathCertificate('Yes');
+    I.selectDeceasedDomicile('Yes');
+    I.selectIhtCompleted('Yes');
+    I.selectPersonWhoDiedLeftAWill('Yes');
+    I.selectOriginalWill('Yes');
+    I.selectApplicantIsExecutor('Yes');
+    I.selectMentallyCapable('Yes');
     I.startApply();
 
     // IDAM
     I.authenticateWithIdamIfAvailable();
 
-    // EligibilityTask
-
+    // DeceasedTask
     I.selectATask(taskListContent.taskNotStarted);
-    I.selectPersonWhoDiedLeftAWill();
-    I.selectOriginalWill();
-    I.selectWillCodicils('Yes');
-    I.selectWillNoOfCodicils('3');
-    I.selectDeathCertificate();
-    I.selectIhtCompleted();
+    I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
+    I.enterDeceasedDateOfBirth('01', '01', '1950');
+    I.enterDeceasedDateOfDeath('01', '01', '2017');
+    I.enterDeceasedAddress();
+    I.selectDocumentUpload();
     I.selectInheritanceMethodPaper();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.enterGrossAndNet('205', '600000', '300000');
+        I.enterGrossAndNet('IHT205', '600000', '300000');
     } else {
-        I.enterGrossAndNet('205', '500', '400');
+        I.enterGrossAndNet('IHT205', '500', '400');
     }
 
-    I.selectApplicantIsExecutor();
-    I.selectMentallyCapable();
+    I.selectDeceasedAlias('Yes');
+    I.selectOtherNames('2');
+    I.selectDeceasedMarriedAfterDateOnWill('No');
+    I.selectWillCodicils('Yes');
+    I.selectWillNoOfCodicils('3');
 
     // ExecutorsTask
-    //
     I.selectATask(taskListContent.taskNotStarted);
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
-    I.selectNameAsOnTheWill('optionNo');
+    I.selectNameAsOnTheWill('No');
     I.enterApplicantAlias('Bob Alias');
     I.enterApplicantAliasReason('aliasOther', 'Because YOLO');
     I.enterApplicantPhone();
@@ -53,7 +60,6 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     const totalExecutors = '7';
     I.enterTotalExecutors(totalExecutors);
     I.enterExecutorNames(totalExecutors);
-
     I.selectExecutorsAllAlive('No');
 
     const executorsWhoDiedList = ['2', '7'];
@@ -104,19 +110,8 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
         }
     });
 
-    I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
-    I.selectDeceasedAlias('Yes');
-    I.selectOtherNames('2');
-    I.selectDeceasedMarriedAfterDateOnWill('optionNo');
-    I.enterDeceasedDateOfDeath('01', '01', '2017');
-    I.enterDeceasedDateOfBirth('01', '01', '1950');
-    I.selectDeceasedDomicile();
-    I.enterDeceasedAddress();
-
-    I.seeSummaryPage();
-
     // Review and confirm Task
-    I.selectATask('Start');
+    I.selectATask(taskListContent.taskNotStarted);
     I.seeSummaryPage('declaration');
     I.acceptDeclaration();
 
@@ -154,6 +149,13 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
 
     // Pre-IDAM
     I.startApplication();
+    I.selectDeathCertificate('Yes');
+    I.selectDeceasedDomicile('Yes');
+    I.selectIhtCompleted('Yes');
+    I.selectPersonWhoDiedLeftAWill('Yes');
+    I.selectOriginalWill('Yes');
+    I.selectApplicantIsExecutor('Yes');
+    I.selectMentallyCapable('Yes');
     I.startApply();
 
     // IDAM
