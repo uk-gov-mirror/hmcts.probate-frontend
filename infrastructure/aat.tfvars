@@ -31,8 +31,10 @@ probate_frontend_use_idam = "true"
 probate_frontend_use_redis = "true"
 
 reform_envirionment_for_test = "aat"
- 
+
 probate_business_service_url = "http://probate-business-service-aat.service.core-compute-aat.internal/validate"
+
+probate_business_service_document_url = "http://probate-business-service-aat.service.core-compute-aat.internal/businessDocument"
 
 probate_submit_service_url = "http://probate-submit-service-aat.service.core-compute-aat.internal"
 

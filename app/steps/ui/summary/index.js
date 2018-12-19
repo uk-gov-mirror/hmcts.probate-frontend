@@ -10,6 +10,8 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
 const FeatureToggle = require('app/utils/FeatureToggle');
+const CheckAnswersSummaryJSONObjectBuilder = require('app/utils/CheckAnswersSummaryJSONObjectBuilder');
+const checkAnswersSummaryJSONObjBuilder = new CheckAnswersSummaryJSONObjectBuilder();
 
 class Summary extends Step {
 
@@ -45,7 +47,7 @@ class Summary extends Step {
         return services.validateFormData(formdata, ctx.sessionID);
     }
 
-    generateContent (ctx, formdata) {
+    generateContent(ctx, formdata) {
         const content = {};
 
         Object.keys(this.steps)
@@ -60,7 +62,7 @@ class Summary extends Step {
         return content;
     }
 
-    generateFields (ctx, errors, formdata) {
+    generateFields(ctx, errors, formdata) {
         const fields = {};
         Object.keys(this.steps)
             .filter((stepName) => stepName !== this.name)
@@ -74,7 +76,7 @@ class Summary extends Step {
         return fields;
     }
 
-    getContextData (req) {
+    getContextData(req) {
         const formdata = req.session.form;
         formdata.summary = {'readyToDeclare': includes(req.url, 'declaration')};
         const ctx = super.getContextData(req);
@@ -95,6 +97,13 @@ class Summary extends Step {
         ctx.session = req.session;
         return ctx;
     }
+
+    renderPage(res, html) {
+        const formdata = res.req.session.form;
+        formdata.checkAnswersSummary = checkAnswersSummaryJSONObjBuilder.build(html);
+        res.send(html);
+    }
+
 }
 
 module.exports = Summary;
