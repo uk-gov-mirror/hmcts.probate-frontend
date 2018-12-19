@@ -19,6 +19,10 @@ const cookies = [{
     }
 }];
 
+const nock = require('nock');
+const featureToggleUrl = config.featureToggles.url;
+const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_screening_questions}`;
+
 describe('relationship-to-deceased', () => {
     let testWrapper;
     const expectedNextUrlForOtherApplicants = OtherApplicants.getUrl();
@@ -26,10 +30,14 @@ describe('relationship-to-deceased', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('RelationshipToDeceased');
+        nock(featureToggleUrl)
+            .get(featureTogglePath)
+            .reply(200, 'true');
     });
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -69,10 +77,9 @@ describe('relationship-to-deceased', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
         });
 
-        it('test "save and close" and "sign out" links are not displayed on the page', (done) => {
+        it('test save and close link is not displayed on the page', (done) => {
             const playbackData = {};
             playbackData.saveAndClose = commonContent.saveAndClose;
-            playbackData.signOut = commonContent.signOut;
 
             testWrapper.testContentNotPresent(done, playbackData);
         });

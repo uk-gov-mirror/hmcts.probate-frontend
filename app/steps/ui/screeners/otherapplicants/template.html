@@ -1,5 +1,7 @@
 {% extends "includes/two_thirds_form.html" %}
 
+{% set displaySignOutLink = 'false' %}
+
 {% from "widgets/textfields.html" import textField %}
 {% from "widgets/radiobuttons.html" import optionsRadio %}
 
@@ -9,7 +11,7 @@
 {% endblock %}
 
 {% block form_content %}
-  {{ optionsRadio(content,
+  {{optionsRadio(content,
     name = 'otherApplicants',
     field = fields.otherApplicants,
     options = ['optionYes', 'optionNo'],
