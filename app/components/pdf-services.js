@@ -36,7 +36,7 @@ function createPDFDocument(formdata, serviceToken, body, pdfTemplate) {
         'ServiceAuthorization': serviceToken
     };
     const fetchOptions = utils.fetchOptions(body, 'POST', headers);
-    const businessDocumentURL = FormatUrl.format(VALIDATION_SERVICE_URL, `/businessDocument`);
+    const businessDocumentURL = FormatUrl.format(VALIDATION_SERVICE_URL, '/businessDocument');
     return utils.fetchBuffer(`${businessDocumentURL}/` + pdfTemplate, fetchOptions);
 }
 
