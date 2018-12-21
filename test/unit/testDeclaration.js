@@ -64,7 +64,7 @@ describe('Declaration tests', () => {
 
             expect(data.legalStatement.executorsApplying).to.deep.equal([{
                 name: 'Applicant Current Name, an executor named in the will as Applicant Will Name, is applying for probate. Their name is different because Applicant Current Name changed their name by deed poll.',
-                send: 'Applicant Current Name will send to the probate registry what they believe to be the true and original last will and testament of Mrs Deceased.'
+                sign: 'Applicant Current Name will send to the probate registry what they believe to be the true and original last will and testament of Mrs Deceased.'
             }, {
                 name: 'Exec 1 Current Name, an executor named in the will as Exec 1 Will Name, is applying for probate. Their name is different because Exec 1 Current Name got married.'
             }, {
@@ -117,7 +117,7 @@ describe('Declaration tests', () => {
 
             expect(data).to.deep.equal([{
                 name: 'Applicant Current Name, an executor named in the will as Applicant Will Name, is applying for probate. Their name is different because Applicant Current Name changed their name by deed poll.',
-                send: 'Applicant Current Name will send to the probate registry what they believe to be the true and original last will and testament of Mrs Deceased.'
+                sign: 'Applicant Current Name will send to the probate registry what they believe to be the true and original last will and testament of Mrs Deceased.'
             }, {
                 name: 'Exec 1 Current Name, an executor named in the will as Exec 1 Will Name, is applying for probate. Their name is different because Exec 1 Current Name got married.'
             }, {
@@ -156,7 +156,7 @@ describe('Declaration tests', () => {
 
             expect(content).to.deep.equal({
                 name: 'Exec 1 Current Name, an executor named in the will as Applicant Current Name, is applying for probate. Their name is different because Exec 1 Current Name got married.',
-                send: 'Applicant Current Name will send to the probate registry what they believe to be the true and original last will and testament of Mrs Deceased.'
+                sign: 'Applicant Current Name will send to the probate registry what they believe to be the true and original last will and testament of Mrs Deceased.'
             });
 
             done();

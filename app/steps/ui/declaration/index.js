@@ -128,7 +128,7 @@ class Declaration extends ValidationStep {
                 .replace('{aliasReason}', aliasReason)
         };
         if (props.executor.isApplicant) {
-            content.send = props.content[`applicantSend${props.multipleApplicantSuffix}${mainApplicantSuffix}${codicilsSuffix}`]
+            content.sign = props.content[`applicantSign${props.multipleApplicantSuffix}${mainApplicantSuffix}${codicilsSuffix}`]
                 .replace('{applicantName}', props.mainApplicantName)
                 .replace('{deceasedName}', props.deceasedName);
         }
