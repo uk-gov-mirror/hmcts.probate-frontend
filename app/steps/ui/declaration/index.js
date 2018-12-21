@@ -125,7 +125,8 @@ class Declaration extends ValidationStep {
                 .replace('{applicantWillName}', props.executor.isApplicant && props.executor.alias ? FormatName.applicantWillName(props.executor) : props.mainApplicantName)
                 .replace(/{applicantCurrentName}/g, applicantCurrentName)
                 .replace('{applicantNameOnWill}', props.executor.hasOtherName ? ` ${props.content.as} ${applicantNameOnWill}` : '')
-                .replace('{aliasReason}', aliasReason)
+                .replace('{aliasReason}', aliasReason),
+            sign: ''
         };
         if (props.executor.isApplicant) {
             content.sign = props.content[`applicantSign${props.multipleApplicantSuffix}${mainApplicantSuffix}${codicilsSuffix}`]
