@@ -44,7 +44,7 @@
   "optionRenunciated": "now and gives up the right to do so in the future.",
   "additionalExecutorNotified": "They have been notified in writing.",
   "declarationHeader": "Declaration",
-  "declarationConfirm": "I confirm that we will administer the estate of {deceasedName}, according to law. I will:",
+  "declarationConfirm": "I confirm that I will administer the estate of {deceasedName}, according to law. I will:",
   "declarationConfirm-multipleApplicants": "We confirm that we will administer the estate of {deceasedName}, according to law. We will:",
   "declarationConfirmItem1": "collect the whole estate",
   "declarationConfirmItem2": "keep full details (an inventory) of the estate",
