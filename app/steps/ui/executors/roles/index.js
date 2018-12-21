@@ -17,12 +17,6 @@ class ExecutorRoles extends CollectionStep {
         return path + index;
     }
 
-    getContextData(req) {
-        const ctx = super.getContextData(req);
-        ctx.isToggleEnabled = FeatureToggle.isEnabled(req.session.featureToggles, 'screening_questions');
-        return ctx;
-    }
-
     handleGet(ctx) {
         if (ctx.list[ctx.index]) {
             ctx.isApplying = false;
