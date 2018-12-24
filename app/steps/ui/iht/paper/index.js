@@ -5,6 +5,7 @@ const validator = require('validator');
 const numeral = require('numeral');
 const FieldError = require('app/components/error');
 const {get} = require('lodash');
+const json = require('app/resources/en/translation/iht/paper');
 
 class IhtPaper extends ValidationStep {
 
@@ -38,6 +39,16 @@ class IhtPaper extends ValidationStep {
         return [ctx, errors];
     }
 
+    nextStepOptions(ctx) {
+        ctx.lessThan250 = ctx.netValue <= 250000;
+
+        return {
+            options: [
+                {key: 'lessThan250', value: true, choice: 'lessThan250'}
+            ]
+        };
+    }
+
     isSoftStop(formdata) {
         const paperForm = get(formdata, 'iht.form', {});
         const softStopForNotAllowedIhtPaperForm = paperForm === 'IHT400421' || paperForm === 'IHT207';
@@ -52,6 +63,7 @@ class IhtPaper extends ValidationStep {
         super.action(ctx, formdata);
         delete ctx.grossValuePaper;
         delete ctx.netValuePaper;
+        delete ctx.lessThan250;
         return [ctx, formdata];
     }
 }
