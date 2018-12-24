@@ -2,8 +2,6 @@
   "title": "Value of assets outside of England and Wales",
   "question": "What is the value of assets outside of England and Wales?",
   "hint": "Enter the total amount after any debts and expenses have been paid.",
-  "optionYes": "Yes",
-  "optionNo": "No",
 
   "errors": {
     "netValueAssetsOutside": {

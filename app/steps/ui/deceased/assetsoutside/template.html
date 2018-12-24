@@ -4,7 +4,7 @@
 
 {% block question %}
     <h1 class="form-title heading-large">
-        {{content.question | replace('{deceasedName}', fields.deceased.firstName.value + ' ' + fields.deceased.lastName.value) | safe}}
+        {{content.question | replace('{deceasedName}', fields.deceasedName.value) | safe}}
     </h1>
     <p class="form-hint">{{content.hint | safe}}</p>
 {% endblock %}
@@ -14,7 +14,7 @@
         name = 'assetsOutside',
         field = fields.assetsOutside,
         options = ['optionYes', 'optionNo'],
-        legend = content.legend | replace('{deceasedName}', fields.deceased.firstName.value + ' ' + fields.deceased.lastName.value),
+        legend = content.legend | replace('{deceasedName}', fields.deceasedName.value),
         inline = true
     )}}
     <div class="form-group">
