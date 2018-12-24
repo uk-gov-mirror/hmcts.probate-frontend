@@ -5,7 +5,6 @@ const validator = require('validator');
 const numeral = require('numeral');
 const FieldError = require('app/components/error');
 const {get} = require('lodash');
-const json = require('app/resources/en/translation/iht/paper');
 
 class IhtPaper extends ValidationStep {
 
