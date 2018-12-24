@@ -1,7 +1,8 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const content = require('app/resources/en/translation/deceased/maritalstatus');
+const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
+const content = require('app/resources/en/translation/deceased/divorceplace');
 
 class DivorcePlace extends ValidationStep {
 
@@ -12,7 +13,7 @@ class DivorcePlace extends ValidationStep {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        ctx.legalProcess = formdata.deceased.maritalStatus === content.optionDivorced ? content.divorce : content.separation;
+        ctx.legalProcess = formdata.deceased.maritalStatus === contentMaritalStatus.optionDivorced ? contentMaritalStatus.divorce : contentMaritalStatus.separation;
         return ctx;
     }
 
