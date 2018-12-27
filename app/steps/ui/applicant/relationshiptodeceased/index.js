@@ -27,7 +27,7 @@ class RelationshipToDeceased extends ValidationStep {
     nextStepOptions(ctx) {
         ctx.spousePartnerLessThan250k = ctx.relationshipToDeceased === content.optionSpousePartner && ctx.estateValue <= config.estateValueThreshold;
         ctx.spousePartnerMoreThan250k = ctx.relationshipToDeceased === content.optionSpousePartner && ctx.estateValue > config.estateValueThreshold;
-        ctx.childDeceasedMarried    = ctx.relationshipToDeceased === content.optionChild && ctx.deceasedMaritalStatus === contentMaritalStatus.optionMarried;
+        ctx.childDeceasedMarried = ctx.relationshipToDeceased === content.optionChild && ctx.deceasedMaritalStatus === contentMaritalStatus.optionMarried;
         ctx.childDeceasedNotMarried = ctx.relationshipToDeceased === content.optionChild && ctx.deceasedMaritalStatus !== contentMaritalStatus.optionMarried;
 
         return {
