@@ -5,6 +5,7 @@ const validator = require('validator');
 const numeral = require('numeral');
 const FieldError = require('app/components/error');
 const {get} = require('lodash');
+const config = require('app/config');
 
 class IhtPaper extends ValidationStep {
 
@@ -39,11 +40,11 @@ class IhtPaper extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.lessThan250 = ctx.netValue <= 250000;
+        ctx.lessThan250k = ctx.netValue <= config.estateValueThreshold;
 
         return {
             options: [
-                {key: 'lessThan250', value: true, choice: 'lessThan250'}
+                {key: 'lessThan250k', value: true, choice: 'lessThan250k'}
             ]
         };
     }

@@ -4,6 +4,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const validator = require('validator');
 const numeral = require('numeral');
 const FieldError = require('app/components/error');
+const config = require('app/config');
 
 class IhtValue extends ValidationStep {
 
@@ -34,11 +35,11 @@ class IhtValue extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.lessThan250 = ctx.netValue <= 250000;
+        ctx.lessThan250k = ctx.netValue <= config.estateValueThreshold;
 
         return {
             options: [
-                {key: 'lessThan250', value: true, choice: 'lessThan250'}
+                {key: 'lessThan250k', value: true, choice: 'lessThan250k'}
             ]
         };
     }

@@ -172,7 +172,8 @@ const config = {
             uploadTimeout: 'Error: upload timed out'
         },
         timeoutMs: 300000
-    }
+    },
+    estateValueThreshold: 250000
 };
 
 module.exports = config;
