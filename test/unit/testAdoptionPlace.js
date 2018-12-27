@@ -17,11 +17,8 @@ describe('DeceasedMaritalStatus', () => {
     });
 
     describe('getContextData()', () => {
-        let ctx;
-        let req;
-
         it('should return the context with the deceased name', (done) => {
-            req = {
+            const req = {
                 session: {
                     form: {
                         deceased: {
@@ -31,7 +28,7 @@ describe('DeceasedMaritalStatus', () => {
                 }
             };
 
-            ctx = AdoptionPlace.getContextData(req);
+            const ctx = AdoptionPlace.getContextData(req);
             expect(ctx.deceasedMaritalStatus).to.equal(contentMaritalStatus.optionMarried);
             done();
         });

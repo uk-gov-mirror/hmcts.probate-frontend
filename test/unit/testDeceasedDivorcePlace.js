@@ -17,11 +17,8 @@ describe('DivorcePlace', () => {
     });
 
     describe('getContextData()', () => {
-        let ctx;
-        let req;
-
         it('should return the context with the legal process string in case of divorce', (done) => {
-            req = {
+            const req = {
                 session: {
                     form: {
                         deceased: {
@@ -31,7 +28,7 @@ describe('DivorcePlace', () => {
                 }
             };
 
-            ctx = DivorcePlace.getContextData(req);
+            const ctx = DivorcePlace.getContextData(req);
             expect(ctx.legalProcess).to.equal(contentMaritalStatus.divorce);
             done();
         });

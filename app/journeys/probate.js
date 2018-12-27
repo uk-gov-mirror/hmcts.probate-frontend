@@ -139,7 +139,7 @@ const stepList = {
     //     otherwise: 'StopPage'
     // },
     // SpouseNotApplyingReason: {
-    //     renuncing: 'AnyChildren',
+    //     renuncing: 'AnyOtherChildren',
     //     otherwise: 'StopPage'
     // },
     // AdoptionPlace: {

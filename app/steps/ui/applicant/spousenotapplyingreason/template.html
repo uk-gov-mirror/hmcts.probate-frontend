@@ -11,8 +11,7 @@
         name = 'spouseNotApplyingReason',
         field = fields.spouseNotApplyingReason,
         options = ['optionRenuncing', 'optionOther'],
-        legend = content.legend | replace('{deceasedName}', fields.deceasedName.value),
-        inline = true
+        legend = content.legend | replace('{deceasedName}', fields.deceasedName.value)
     )}}
     <div class="form-group">
         <input class="button" type="submit" value="{{common.saveAndContinue}}">

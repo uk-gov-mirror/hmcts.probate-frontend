@@ -3,14 +3,14 @@
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
-const DeceasedMaritalStatus = steps.DeceasedMaritalStatus;
-const content = require('app/resources/en/translation/deceased/maritalstatus');
+const SpouseNotApplyingReason = steps.SpouseNotApplyingReason;
+const content = require('app/resources/en/translation/applicant/spousenotapplyingreason');
 
-describe('DeceasedMaritalStatus', () => {
+describe('SpouseNotApplyingReason', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
-            const url = DeceasedMaritalStatus.constructor.getUrl();
-            expect(url).to.equal('/deceased-marital-status');
+            const url = SpouseNotApplyingReason.constructor.getUrl();
+            expect(url).to.equal('/spouse-not-applying-reason');
             done();
         });
     });
@@ -28,7 +28,7 @@ describe('DeceasedMaritalStatus', () => {
                 }
             };
 
-            const ctx = DeceasedMaritalStatus.getContextData(req);
+            const ctx = SpouseNotApplyingReason.getContextData(req);
             expect(ctx.deceasedName).to.equal('John Doe');
             done();
         });
@@ -37,17 +37,11 @@ describe('DeceasedMaritalStatus', () => {
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
             const ctx = {};
-            const nextStepOptions = DeceasedMaritalStatus.nextStepOptions(ctx);
+            const nextStepOptions = SpouseNotApplyingReason.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
-                options: [{
-                    key: 'maritalStatus',
-                    value: content.optionDivorced,
-                    choice: 'divorced'
-                },{
-                    key: 'maritalStatus',
-                    value: content.optionSeparated,
-                    choice: 'divorced'
-                }]
+                options: [
+                    {key: 'spouseNotApplyingReason', value: content.optionRenuncing, choice: 'renuncing'},
+                ]
             });
             done();
         });
