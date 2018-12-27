@@ -17,8 +17,11 @@ describe('RelationshipToDeceased', () => {
     });
 
     describe('getContextData()', () => {
+        let ctx;
+        let req;
+
         it('should return the context with the deceased marital status and the estate value', (done) => {
-            const req = {
+            req = {
                 session: {
                     form: {
                         deceased: {
@@ -31,7 +34,7 @@ describe('RelationshipToDeceased', () => {
                 }
             };
 
-            const ctx = RelationshipToDeceased.getContextData(req);
+            ctx = RelationshipToDeceased.getContextData(req);
             expect(ctx.deceasedMaritalStatus).to.equal(contentMaritalStatus.optionMarried);
             expect(ctx.estateValue).to.equal(350000);
             done();

@@ -16,8 +16,11 @@ describe('AssetsOutside', () => {
     });
 
     describe('getContextData()', () => {
+        let ctx;
+        let req;
+
         it('should return the context with the deceased name', (done) => {
-            const req = {
+            req = {
                 session: {
                     form: {
                         deceased: {
@@ -28,7 +31,7 @@ describe('AssetsOutside', () => {
                 }
             };
 
-            const ctx = AssetsOutside.getContextData(req);
+            ctx = AssetsOutside.getContextData(req);
             expect(ctx.deceasedName).to.equal('John Doe');
             done();
         });
