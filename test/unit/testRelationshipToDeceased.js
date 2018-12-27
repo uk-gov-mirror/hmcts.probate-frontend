@@ -63,14 +63,14 @@ describe('RelationshipToDeceased', () => {
             done();
         });
 
-        it('should return the correct url when relationship is Spouse/Partner and estate value is <= 250k', (done) => {
+        it('should return the correct url when relationship is Spouse/Partner and estate value is <= £250k', (done) => {
             const ctx = {relationshipToDeceased: content.optionSpousePartner, estateValue: 200000};
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/applicant-name');
             done();
         });
 
-        it('should return the correct url when relationship is Spouse/Partner and estate value is > 250k', (done) => {
+        it('should return the correct url when relationship is Spouse/Partner and estate value is > £250k', (done) => {
             const ctx = {relationshipToDeceased: content.optionSpousePartner, estateValue: 450000};
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/any-children');

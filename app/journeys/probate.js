@@ -86,11 +86,11 @@ const stepList = {
     IhtPaper: 'DeceasedAlias',
     // -------------------------------------------------
     // IhtValue: {
-    //     lessThan250: 'AssetsOutside',
+    //     lessThan250k: 'AssetsOutside',
     //     otherwise: 'DeceasedAlias'
     // },
     // IhtPaper: {
-    //     lessThan250: 'AssetsOutside',
+    //     lessThan250k: 'AssetsOutside',
     //     otherwise: 'DeceasedAlias'
     // },
     // AssetsOutside: {
@@ -127,8 +127,34 @@ const stepList = {
         otherwise: 'CodicilsNumber'
     },
     CodicilsNumber: 'TaskList',
-
+    // -------------------------------------------------
     ApplicantName: 'ApplicantNameAsOnWill',
+    // -------------------------------------------------
+    // RelationshipToDeceased: {
+    //     childDeceasedMarried: 'SpouseNotApplyingReason',
+    //     childDeceasedNotMarried: 'AnyOtherChildren',
+    //     adoptedChild: 'AdoptionPlace',
+    //     spousePartnerLessThan250k: 'ApplicantName',
+    //     spousePartnerMoreThan250k: 'AnyChildren',
+    //     otherwise: 'StopPage'
+    // },
+    // SpouseNotApplyingReason: {
+    //     renuncing: 'AnyChildren',
+    //     otherwise: 'StopPage'
+    // },
+    // AdoptionPlace: {
+    //     inEnglandOrWales: 'SpouseNotApplyingReason',
+    //     otherwise: 'StopPage'
+    // },
+    // AnyChildren: {
+    //     hadChildren: 'AllChildrenOver18',
+    //     otherwise: 'ApplicantName'
+    // },
+    // AnyOtherChildren: {
+    //     hadOtherChildren: 'AllChildrenOver18',
+    //     otherwise: 'ApplicantName'
+    // },
+    // -------------------------------------------------
     ApplicantNameAsOnWill: {
         hasAlias: 'ApplicantAlias',
         otherwise: 'ApplicantPhone'
