@@ -21,7 +21,7 @@ class AnyDeceasedChildren extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'anyDeceasedChildren', value: content.optionYes, choice: 'hadChildren'}
+                {key: 'anyDeceasedChildren', value: content.optionYes, choice: 'hadDeceasedChildren'}
             ]
         };
     }
