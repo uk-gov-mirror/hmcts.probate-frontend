@@ -7,7 +7,8 @@ const taskList = {
         summary: 'Summary'
     },
     ExecutorsTask: {
-        firstStep: 'ApplicantName',
+        // firstStep: 'ApplicantName',
+        firstStep: 'RelationshipToDeceased',
         lastStep: 'TaskList',
         summary: 'Summary'
     },
@@ -82,42 +83,42 @@ const stepList = {
     },
     IhtIdentifier: 'IhtValue',
     // -------------------------------------------------
-    IhtValue: 'DeceasedAlias',
-    IhtPaper: 'DeceasedAlias',
+    // IhtValue: 'DeceasedAlias',
+    // IhtPaper: 'DeceasedAlias',
     // -------------------------------------------------
-    // IhtValue: {
-    //     lessThan250k: 'AssetsOutside',
-    //     otherwise: 'DeceasedAlias'
-    // },
-    // IhtPaper: {
-    //     lessThan250k: 'AssetsOutside',
-    //     otherwise: 'DeceasedAlias'
-    // },
-    // AssetsOutside: {
-    //     hasAssetsOutside: 'ValueAssetsOutside',
-    //     otherwise: 'DeceasedAlias'
-    // },
-    // ValueAssetsOutside: 'DeceasedAlias',
-    // -------------------------------------------------
-    DeceasedAlias: {
-        assetsInOtherNames: 'DeceasedOtherNames',
-        otherwise: 'DeceasedMarried'
+    IhtValue: {
+        lessThan250k: 'AssetsOutside',
+        otherwise: 'DeceasedAlias'
     },
-    DeceasedOtherNames: 'DeceasedMarried',
+    IhtPaper: {
+        lessThan250k: 'AssetsOutside',
+        otherwise: 'DeceasedAlias'
+    },
+    AssetsOutside: {
+        hasAssetsOutside: 'ValueAssetsOutside',
+        otherwise: 'DeceasedAlias'
+    },
+    ValueAssetsOutside: 'DeceasedAlias',
     // -------------------------------------------------
     // DeceasedAlias: {
     //     assetsInOtherNames: 'DeceasedOtherNames',
-    //     otherwise: 'DeceasedMaritalStatus'
+    //     otherwise: 'DeceasedMarried'
     // },
-    // DeceasedOtherNames: 'DeceasedMaritalStatus',
-    // DeceasedMaritalStatus: {
-    //     divorced: 'DivorcePlace',
-    //     otherwise: 'TaskList'
-    // },
-    // DivorcePlace: {
-    //     inEnglandOrWales: 'TaskList',
-    //     otherwise: 'StopPage'
-    // },
+    // DeceasedOtherNames: 'DeceasedMarried',
+    // -------------------------------------------------
+    DeceasedAlias: {
+        assetsInOtherNames: 'DeceasedOtherNames',
+        otherwise: 'DeceasedMaritalStatus'
+    },
+    DeceasedOtherNames: 'DeceasedMaritalStatus',
+    DeceasedMaritalStatus: {
+        divorced: 'DivorcePlace',
+        otherwise: 'TaskList'
+    },
+    DivorcePlace: {
+        inEnglandOrWales: 'TaskList',
+        otherwise: 'StopPage'
+    },
     // -------------------------------------------------
     AddAlias: 'DeceasedOtherNames',
     RemoveAlias: 'DeceasedOtherNames',
@@ -128,37 +129,41 @@ const stepList = {
     },
     CodicilsNumber: 'TaskList',
     // -------------------------------------------------
-    ApplicantName: 'ApplicantNameAsOnWill',
+    // ApplicantName: 'ApplicantNameAsOnWill',
     // -------------------------------------------------
-    // RelationshipToDeceased: {
-    //     childDeceasedMarried: 'SpouseNotApplyingReason',
-    //     childDeceasedNotMarried: 'AnyOtherChildren',
-    //     adoptedChild: 'AdoptionPlace',
-    //     spousePartnerLessThan250k: 'ApplicantName',
-    //     spousePartnerMoreThan250k: 'AnyChildren',
-    //     otherwise: 'StopPage'
-    // },
-    // SpouseNotApplyingReason: {
-    //     renuncing: 'AnyOtherChildren',
-    //     otherwise: 'StopPage'
-    // },
-    // AdoptionPlace: {
-    //     inEnglandOrWalesDeceasedMarried: 'SpouseNotApplyingReason',
-    //     inEnglandOrWalesDeceasedNotMarried: 'AnyOtherChildren',
-    //     otherwise: 'StopPage'
-    // },
-    // AnyChildren: {
-    //     hadChildren: 'AllChildrenOver18',
-    //     otherwise: 'ApplicantName'
-    // },
-    // AnyOtherChildren: {
-    //     hadOtherChildren: 'AllChildrenOver18',
-    //     otherwise: 'ApplicantName'
-    // },
-    // AllChildrenOver18: {
-    //     allChildrenOver18: 'anyDeceasedChildren',
-    //     otherwise: 'StopPage'
-    // },
+    RelationshipToDeceased: {
+        childDeceasedMarried: 'SpouseNotApplyingReason',
+        childDeceasedNotMarried: 'AnyOtherChildren',
+        adoptedChild: 'AdoptionPlace',
+        spousePartnerLessThan250k: 'ApplicantName',
+        spousePartnerMoreThan250k: 'AnyChildren',
+        otherwise: 'StopPage'
+    },
+    SpouseNotApplyingReason: {
+        renuncing: 'AnyOtherChildren',
+        otherwise: 'StopPage'
+    },
+    AdoptionPlace: {
+        inEnglandOrWalesDeceasedMarried: 'SpouseNotApplyingReason',
+        inEnglandOrWalesDeceasedNotMarried: 'AnyOtherChildren',
+        otherwise: 'StopPage'
+    },
+    AnyChildren: {
+        hadChildren: 'AllChildrenOver18',
+        otherwise: 'ApplicantName'
+    },
+    AnyOtherChildren: {
+        hadOtherChildren: 'AllChildrenOver18',
+        otherwise: 'ApplicantName'
+    },
+    AllChildrenOver18: {
+        allChildrenOver18: 'AnyDeceasedChildren',
+        otherwise: 'StopPage'
+    },
+    AnyDeceasedChildren: {
+        hadDeceasedChildren: 'AnyGrandchildren',
+        otherwise: 'ApplicantName'
+    },
     // -------------------------------------------------
     ApplicantNameAsOnWill: {
         hasAlias: 'ApplicantAlias',
