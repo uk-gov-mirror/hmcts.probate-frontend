@@ -6,13 +6,13 @@ const ApplicantName = require('app/steps/ui/applicant/name/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const content = require('app/resources/en/translation/deceased/anychildren');
 
-describe('any-children', () => {
+describe('any-other-children', () => {
     let testWrapper;
     const expectedNextUrlForAllChildrenOver18 = AllChildrenOver18.getUrl();
     const expectedNextUrlForApplicantName = ApplicantName.getUrl();
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('AnyChildren');
+        testWrapper = new TestWrapper('AnyOtherChildren');
     });
 
     afterEach(() => {
@@ -20,7 +20,7 @@ describe('any-children', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('AnyChildren');
+        testHelpBlockContent.runTest('AnyOtherChildren');
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
@@ -42,17 +42,17 @@ describe('any-children', () => {
             testWrapper.testErrors(done, {}, 'required', []);
         });
 
-        it(`test it redirects to All Children Over 18 page if deceased had children: ${expectedNextUrlForAllChildrenOver18}`, (done) => {
+        it(`test it redirects to All Children Over 18 page if deceased had other children: ${expectedNextUrlForAllChildrenOver18}`, (done) => {
             const data = {
-                anyChildren: content.optionYes
+                anyOtherChildren: content.optionYes
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForAllChildrenOver18);
         });
 
-        it(`test it redirects to Applicant Name page if deceased had no children: ${expectedNextUrlForApplicantName}`, (done) => {
+        it(`test it redirects to Applicant Name page if deceased had no other children: ${expectedNextUrlForApplicantName}`, (done) => {
             const data = {
-                anyChildren: content.optionNo
+                anyOtherChildren: content.optionNo
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
