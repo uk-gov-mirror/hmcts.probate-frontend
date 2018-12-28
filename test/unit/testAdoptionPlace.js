@@ -7,7 +7,7 @@ const AdoptionPlace = steps.AdoptionPlace;
 const content = require('app/resources/en/translation/applicant/adoptionplace');
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
 
-describe('DeceasedMaritalStatus', () => {
+describe('AdoptionPlace', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = AdoptionPlace.constructor.getUrl();
