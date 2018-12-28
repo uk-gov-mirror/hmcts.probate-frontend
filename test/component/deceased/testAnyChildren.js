@@ -6,7 +6,7 @@ const ApplicantName = require('app/steps/ui/applicant/name/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const content = require('app/resources/en/translation/deceased/anychildren');
 
-describe('any-children', () => {
+describe('adoption-place', () => {
     let testWrapper;
     const expectedNextUrlForAllChildrenOver18 = AllChildrenOver18.getUrl();
     const expectedNextUrlForApplicantName = ApplicantName.getUrl();
