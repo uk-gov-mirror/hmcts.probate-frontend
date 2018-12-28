@@ -6,7 +6,7 @@ const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const content = require('app/resources/en/translation/applicant/spousenotapplyingreason');
 
-describe('adoption-place', () => {
+describe('spouse-not-applying-reason', () => {
     let testWrapper;
     const expectedNextUrlForAnyOtherChildren = AnyOtherChildren.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('spouseNotApplying');
