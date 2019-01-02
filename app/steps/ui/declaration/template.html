@@ -29,7 +29,9 @@
         <h3 class="heading-small">{{ content.executorApplyingHeader }}</h3>
         {% for executor in fields.legalStatement.value.executorsApplying %}
             <p>{{ executor.name | safe }}</p>
-            <p>{{ executor.sign | safe }}</p>
+            {% if executor.sign !== '' %}
+                <p>{{ executor.sign | safe }}</p>
+            {% endif %}
         {% endfor %}
 
         {% if fields.legalStatement.value.executorsNotApplying.length > 0 %}
