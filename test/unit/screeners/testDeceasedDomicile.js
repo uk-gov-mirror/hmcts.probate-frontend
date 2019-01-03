@@ -1,6 +1,7 @@
 'use strict';
 
-const initSteps = require('../../../app/core/initSteps');
+const journey = require('app/journeys/probate');
+const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const DeceasedDomicile = steps.DeceasedDomicile;
@@ -20,16 +21,26 @@ describe('DeceasedDomicile', () => {
     });
 
     describe('nextStepUrl()', () => {
+        const req = {
+            session: {
+                journey: journey
+            }
+        };
+
         it('should return the correct url when Yes is given', (done) => {
-            const ctx = {domicile: content.optionYes};
-            const nextStepUrl = DeceasedDomicile.nextStepUrl(ctx);
+            const ctx = {
+                domicile: content.optionYes
+            };
+            const nextStepUrl = DeceasedDomicile.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/iht-completed');
             done();
         });
 
         it('should return the correct url when No is given', (done) => {
-            const ctx = {domicile: content.optionNo};
-            const nextStepUrl = DeceasedDomicile.nextStepUrl(ctx);
+            const ctx = {
+                domicile: content.optionNo
+            };
+            const nextStepUrl = DeceasedDomicile.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/notInEnglandOrWales');
             done();
         });
