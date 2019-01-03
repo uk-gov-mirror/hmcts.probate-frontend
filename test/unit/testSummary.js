@@ -4,6 +4,7 @@ const sinon = require('sinon');
 const when = require('when');
 const services = require('app/components/services');
 const co = require('co');
+const journey = require('app/journeys/probate');
 
 describe('Summary', () => {
     const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']);
@@ -11,9 +12,18 @@ describe('Summary', () => {
 
     describe('handleGet()', () => {
         let validateFormDataStub;
+        let req;
+        let featureToggles;
 
         beforeEach(() => {
             validateFormDataStub = sinon.stub(services, 'validateFormData');
+            req = {
+                session: {
+                    form: {},
+                    journey: journey
+                }
+            };
+            featureToggles = {};
         });
 
         afterEach(() => {
@@ -28,7 +38,7 @@ describe('Summary', () => {
             const formdata = {executors: {list: [{fullName: 'Prince', hasOtherName: true}, {fullName: 'Cher', hasOtherName: true}]}};
 
             co(function* () {
-                [ctx] = yield Summary.handleGet(ctx, formdata);
+                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles, req);
                 assert.deepEqual(ctx.executorsWithOtherNames, expectedResponse);
                 done();
             });
@@ -42,7 +52,7 @@ describe('Summary', () => {
             const formdata = {executors: {list: [{fullName: 'Prince', hasOtherName: false}, {fullName: 'Cher', hasOtherName: false}]}};
 
             co(function* () {
-                [ctx] = yield Summary.handleGet(ctx, formdata);
+                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles, req);
                 assert.deepEqual(ctx.executorsWithOtherNames, expectedResponse);
                 done();
             });
@@ -56,7 +66,7 @@ describe('Summary', () => {
             const formdata = {executors: {list: []}};
 
             co(function* () {
-                [ctx] = yield Summary.handleGet(ctx, formdata);
+                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles, req);
                 assert.deepEqual(ctx.executorsWithOtherNames, expectedResponse);
                 done();
             });
@@ -73,7 +83,7 @@ describe('Summary', () => {
             };
 
             co(function* () {
-                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles);
+                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles, req);
                 assert.equal(ctx.isDocumentUploadToggleEnabled, expectedResponse);
                 done();
             });
@@ -90,7 +100,7 @@ describe('Summary', () => {
             };
 
             co(function* () {
-                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles);
+                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles, req);
                 assert.equal(ctx.isDocumentUploadToggleEnabled, expectedResponse);
                 done();
             });

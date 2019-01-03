@@ -1,9 +1,10 @@
 'use strict';
 
+const journey = require('app/journeys/probate');
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
-const rewire = require('rewire');
 const content = require('app/resources/en/translation/applicant/executor');
+const rewire = require('rewire');
 const sinon = require('sinon');
 const schema = require('app/steps/ui/applicant/executor/schema');
 const applicantExecutor = rewire('app/steps/ui/applicant/executor/index');
@@ -20,16 +21,26 @@ describe('ApplicantExecutor', () => {
     });
 
     describe('nextStepUrl()', () => {
-        it('should return the correct url when Yes is given', (done) => {
-            const ctx = {executor: content.optionYes};
-            const nextStepUrl = ApplicantExecutor.nextStepUrl(ctx);
+        const req = {
+            session: {
+                journey: journey
+            }
+        };
+
+        it('should return url for the next step', (done) => {
+            const ctx = {
+                executor: content.optionYes
+            };
+            const nextStepUrl = ApplicantExecutor.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/mental-capacity');
             done();
         });
 
-        it('should return the correct url when No is given', (done) => {
-            const ctx = {executor: content.optionNo};
-            const nextStepUrl = ApplicantExecutor.nextStepUrl(ctx);
+        it('should return the url for the stop page', (done) => {
+            const ctx = {
+                executor: content.optionNo
+            };
+            const nextStepUrl = ApplicantExecutor.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/notExecutor');
             done();
         });
