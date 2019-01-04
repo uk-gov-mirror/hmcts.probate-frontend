@@ -3,7 +3,6 @@
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
 const content = require('app/resources/en/translation/will/neworiginal');
-const journey = require('app/journeys/probate');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const NewWillOriginal = steps.NewWillOriginal;
 
@@ -17,32 +16,16 @@ describe('NewWillOriginal', () => {
     });
 
     describe('nextStepUrl()', () => {
-        it('should return url for the next step', (done) => {
-            const req = {
-                session: {
-                    journey: journey
-                }
-            };
-            const ctx = {
-                original: 'Yes'
-            };
-            const NewWillOriginal = steps.NewWillOriginal;
-            const nextStepUrl = NewWillOriginal.nextStepUrl(req, ctx);
+        it('should return the correct url when Yes is given', (done) => {
+            const ctx = {original: content.optionYes};
+            const nextStepUrl = NewWillOriginal.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/new-applicant-executor');
             done();
         });
 
-        it('should return the url for the stop page', (done) => {
-            const req = {
-                session: {
-                    journey: journey
-                }
-            };
-            const ctx = {
-                original: 'No'
-            };
-            const NewWillOriginal = steps.NewWillOriginal;
-            const nextStepUrl = NewWillOriginal.nextStepUrl(req, ctx);
+        it('should return the correct url when No is given', (done) => {
+            const ctx = {original: content.optionNo};
+            const nextStepUrl = NewWillOriginal.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/stop-page/notOriginal');
             done();
         });

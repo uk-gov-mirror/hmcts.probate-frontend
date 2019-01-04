@@ -10,8 +10,8 @@ class IhtCompleted extends ValidationStep {
         return '/iht-completed';
     }
 
-    nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('ihtNotCompleted');
+    nextStepUrl(ctx) {
+        return this.next(ctx).constructor.getUrl('ihtNotCompleted');
     }
 
     nextStepOptions() {

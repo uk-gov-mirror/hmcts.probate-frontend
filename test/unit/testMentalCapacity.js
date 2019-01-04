@@ -6,7 +6,6 @@ const chai = require('chai');
 const expect = chai.expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const MentalCapacity = steps.MentalCapacity;
-const journey = require('app/journeys/probate');
 
 describe('MentalCapacity.js', () => {
     describe('getUrl()', () => {
@@ -18,22 +17,16 @@ describe('MentalCapacity.js', () => {
     });
 
     describe('nextStepUrl()', () => {
-        const req = {
-            session: {
-                journey: journey
-            }
-        };
-
         it('should return the correct url when Yes is given', (done) => {
             const ctx = {mentalCapacity: 'Yes'};
-            const nextStepUrl = MentalCapacity.nextStepUrl(req, ctx);
+            const nextStepUrl = MentalCapacity.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/tasklist');
             done();
         });
 
         it('should return the correct url when No is given', (done) => {
             const ctx = {mentalCapacity: 'No'};
-            const nextStepUrl = MentalCapacity.nextStepUrl(req, ctx);
+            const nextStepUrl = MentalCapacity.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/stop-page/mentalCapacity');
             done();
         });
