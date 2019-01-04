@@ -1,12 +1,10 @@
 // eslint-disable-line max-lines
-
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const JourneyMap = require('app/core/JourneyMap');
+const journeyMap = require('app/core/journeyMap');
 const {expect, assert} = require('chai');
 const completedForm = require('test/data/complete-form').formdata;
-const journey = require('app/journeys/probate');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui/`]);
 const taskList = steps.TaskList;
 
@@ -29,13 +27,6 @@ describe('Tasklist', () => {
     });
 
     describe('updateTaskStatus', () => {
-        let journeyMap;
-
-        beforeEach(() => {
-            req.session.journey = journey;
-            journeyMap = new JourneyMap(journey);
-        });
-
         it('Updates the context: neither task is started (feature toggle off)', () => {
             req.session.featureToggles = {
                 screening_questions: false
@@ -45,9 +36,9 @@ describe('Tasklist', () => {
 
             assert.equal(ctx.EligibilityTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.EligibilityTask.status, 'notStarted');
-            assert.equal(ctx.EligibilityTask.nextURL, steps[journeyMap.taskList().EligibilityTask.firstStep].constructor.getUrl());
+            assert.equal(ctx.EligibilityTask.nextURL, steps[journeyMap.taskList.EligibilityTask.firstStep].constructor.getUrl());
             assert.equal(ctx.ExecutorsTask.status, 'notStarted');
-            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
+            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList.ExecutorsTask.firstStep].constructor.getUrl());
         });
 
         it('Updates the context: neither task is started (feature toggle on)', () => {
@@ -59,9 +50,9 @@ describe('Tasklist', () => {
 
             assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.DeceasedTask.status, 'notStarted');
-            assert.equal(ctx.DeceasedTask.nextURL, steps[journeyMap.taskList().DeceasedTask.firstStep].constructor.getUrl());
+            assert.equal(ctx.DeceasedTask.nextURL, steps[journeyMap.taskList.DeceasedTask.firstStep].constructor.getUrl());
             assert.equal(ctx.ExecutorsTask.status, 'notStarted');
-            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
+            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList.ExecutorsTask.firstStep].constructor.getUrl());
         });
 
         it('Updates the context: EligibilityTask started (feature toggle off)', () => {
@@ -74,9 +65,9 @@ describe('Tasklist', () => {
 
             assert.equal(ctx.EligibilityTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.EligibilityTask.status, 'started');
-            assert.equal(ctx.EligibilityTask.nextURL, journeyMap.nextStep(steps.WillLeft, formdata.will).constructor.getUrl());
+            assert.equal(ctx.EligibilityTask.nextURL, journeyMap(steps.WillLeft, formdata.will).constructor.getUrl());
             assert.equal(ctx.ExecutorsTask.status, 'notStarted');
-            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
+            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList.ExecutorsTask.firstStep].constructor.getUrl());
         });
 
         it('Updates the context: DeceasedTask started (feature toggle on)', () => {
@@ -90,9 +81,9 @@ describe('Tasklist', () => {
 
             assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.DeceasedTask.status, 'started');
-            assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedName, ctx).constructor.getUrl());
+            assert.equal(ctx.DeceasedTask.nextURL, journeyMap(steps.DeceasedName, ctx).constructor.getUrl());
             assert.equal(ctx.ExecutorsTask.status, 'notStarted');
-            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
+            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList.ExecutorsTask.firstStep].constructor.getUrl());
         });
 
         it('Updates the context: EligibilityTask complete, ExecutorsTask not started (feature toggle off)', () => {
@@ -112,7 +103,7 @@ describe('Tasklist', () => {
             assert.equal(ctx.EligibilityTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.EligibilityTask.status, 'complete');
             assert.equal(ctx.ExecutorsTask.status, 'notStarted');
-            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
+            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList.ExecutorsTask.firstStep].constructor.getUrl());
         });
 
         it('Updates the context: DeceasedTask complete, ExecutorsTask not started (feature toggle on)', () => {
@@ -130,7 +121,7 @@ describe('Tasklist', () => {
             assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.DeceasedTask.status, 'complete');
             assert.equal(ctx.ExecutorsTask.status, 'notStarted');
-            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
+            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList.ExecutorsTask.firstStep].constructor.getUrl());
         });
 
         it('Updates the context: EligibilityTask complete, ExecutorsTask started (feature toggle off)', () => {
@@ -154,7 +145,7 @@ describe('Tasklist', () => {
             assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.EligibilityTask.status, 'complete');
             assert.equal(ctx.ExecutorsTask.status, 'started');
-            assert.equal(ctx.ExecutorsTask.nextURL, journeyMap.nextStep(steps.ApplicantName, formdata.will).constructor.getUrl());
+            assert.equal(ctx.ExecutorsTask.nextURL, journeyMap(steps.ApplicantName, formdata.will).constructor.getUrl());
         });
 
         it('Updates the context: DeceasedTask complete, ExecutorsTask started (feature toggle on)', () => {
@@ -176,7 +167,7 @@ describe('Tasklist', () => {
             assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.DeceasedTask.status, 'complete');
             assert.equal(ctx.ExecutorsTask.status, 'started');
-            assert.equal(ctx.ExecutorsTask.nextURL, journeyMap.nextStep(steps.ApplicantName, formdata.will).constructor.getUrl());
+            assert.equal(ctx.ExecutorsTask.nextURL, journeyMap(steps.ApplicantName, formdata.will).constructor.getUrl());
         });
 
         it('Updates the context: EligibilityTask & ExecutorsTask started (ExecutorsTask blocked) (feature toggle off)', () => {
@@ -194,7 +185,7 @@ describe('Tasklist', () => {
 
             assert.equal(ctx.EligibilityTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.EligibilityTask.status, 'started');
-            assert.equal(ctx.EligibilityTask.nextURL, journeyMap.nextStep(steps.IhtCompleted, formdata.iht).constructor.getUrl());
+            assert.equal(ctx.EligibilityTask.nextURL, journeyMap(steps.IhtCompleted, formdata.iht).constructor.getUrl());
             assert.equal(ctx.ExecutorsTask.status, 'started');
         });
 
@@ -215,7 +206,7 @@ describe('Tasklist', () => {
 
             assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.DeceasedTask.status, 'started');
-            assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedName, ctx).constructor.getUrl());
+            assert.equal(ctx.DeceasedTask.nextURL, journeyMap(steps.DeceasedName, ctx).constructor.getUrl());
             assert.equal(ctx.ExecutorsTask.status, 'started');
         });
 
@@ -235,7 +226,7 @@ describe('Tasklist', () => {
             assert.equal(ctx.ExecutorsTask.status, 'complete');
             assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.ReviewAndConfirmTask.status, 'notStarted');
-            assert.equal(ctx.ReviewAndConfirmTask.nextURL, steps[journeyMap.taskList().ReviewAndConfirmTask.firstStep].constructor.getUrl());
+            assert.equal(ctx.ReviewAndConfirmTask.nextURL, steps[journeyMap.taskList.ReviewAndConfirmTask.firstStep].constructor.getUrl());
         });
 
         it('Updates the context: Review and confirm complete (Single Applicants)', () => {

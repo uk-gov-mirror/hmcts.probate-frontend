@@ -15,8 +15,8 @@ class NewMentalCapacity extends EligibilityValidationStep {
         return super.getContextData(req, res, pageUrl, fieldKey);
     }
 
-    nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('mentalCapacity');
+    nextStepUrl(ctx) {
+        return this.next(ctx).constructor.getUrl('mentalCapacity');
     }
 
     nextStepOptions() {

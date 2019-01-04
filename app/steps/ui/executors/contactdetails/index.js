@@ -92,8 +92,8 @@ class ExecutorContactDetails extends ValidationStep {
         return findIndex(ctx.list, o => o.isApplying === true && o.isDead !== true, index + 1);
     }
 
-    nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl(ctx.index);
+    nextStepUrl(ctx) {
+        return this.next(ctx).constructor.getUrl(ctx.index);
     }
 
     action(ctx, formdata) {

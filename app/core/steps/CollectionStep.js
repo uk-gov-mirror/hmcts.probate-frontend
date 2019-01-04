@@ -5,11 +5,11 @@ const {startsWith, findIndex} = require('lodash');
 
 class CollectionStep extends ValidationStep {
 
-    nextStepUrl(req, ctx) {
+    nextStepUrl(ctx) {
         if (ctx.index === -1) {
-            return this.next(req, ctx).constructor.getUrl();
+            return this.next(ctx).constructor.getUrl();
         }
-        return this.next(req, ctx).constructor.getUrl(ctx.index);
+        return this.next(ctx).constructor.getUrl(ctx.index);
     }
 
     getContextData(req) {
