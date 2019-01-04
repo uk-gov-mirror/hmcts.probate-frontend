@@ -1,151 +1,101 @@
 'use strict';
 
-const initSteps = require('../../../app/core/initSteps');
-const {expect, assert} = require('chai');
-const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
-const WillLeft = steps.WillLeft;
-const content = require('app/resources/en/translation/screeners/willleft');
-const rewire = require('rewire');
-const sinon = require('sinon');
-const schema = require('app/steps/ui/screeners/diedafteroctober2014/schema');
-const diedAfter = rewire('app/steps/ui/screeners/diedafteroctober2014/index');
+const TestWrapper = require('test/util/TestWrapper');
+const WillOriginal = require('app/steps/ui/screeners/willoriginal/index');
+const DiedAfterOctober2014 = require('app/steps/ui/screeners/diedafteroctober2014/index');
+const StopPage = require('app/steps/ui/stoppage/index');
+const commonContent = require('app/resources/en/translation/common');
+const config = require('app/config');
+const cookies = [{
+    name: config.redis.eligibilityCookie.name,
+    content: {
+        nextStepUrl: '/will-left',
+        pages: [
+            '/death-certificate',
+            '/deceased-domicile',
+            '/iht-completed'
+        ]
+    }
+}];
 
-describe('WillLeft', () => {
-    describe('getUrl()', () => {
-        it('should return the correct url', (done) => {
-            const url = WillLeft.constructor.getUrl();
-            expect(url).to.equal('/will-left');
-            done();
-        });
+const nock = require('nock');
+const featureToggleUrl = config.featureToggles.url;
+const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_screening_questions}`;
+
+describe('will-left', () => {
+    let testWrapper;
+    const expectedNextUrlForWillOriginal = WillOriginal.getUrl();
+    const expectedNextUrlForDiedAfterOctober2014 = DiedAfterOctober2014.getUrl();
+    const expectedNextUrlForStopPage = StopPage.getUrl('noWill');
+
+    beforeEach(() => {
+        testWrapper = new TestWrapper('WillLeft');
     });
 
-    describe('nextStepUrl()', () => {
-        it('should return the correct url when Yes is given', (done) => {
-            const ctx = {left: content.optionYes};
-            const nextStepUrl = WillLeft.nextStepUrl(ctx);
-            expect(nextStepUrl).to.equal('/will-original');
-            done();
-        });
-
-        it('should return the correct url when No is given and the intestacy_screening_question feature toggle is off', (done) => {
-            const ctx = {left: content.optionNo, isToggleEnabled: false};
-            const nextStepUrl = WillLeft.nextStepUrl(ctx);
-            expect(nextStepUrl).to.equal('/stop-page/noWill');
-            done();
-        });
-
-        it('should return the correct url when No is given and the intestacy_screening_question feature toggle is on', (done) => {
-            const ctx = {left: content.optionNo, isToggleEnabled: true};
-            const nextStepUrl = WillLeft.nextStepUrl(ctx);
-            expect(nextStepUrl).to.equal('/died-after-october-2014');
-            done();
-        });
+    afterEach(() => {
+        testWrapper.destroy();
+        nock.cleanAll();
     });
 
-    describe('handlePost()', () => {
-        let ctx;
-        let errors;
-        let formdata;
-        let session;
-        let hostname;
-        let featureToggles;
+    describe('Verify Content, Errors and Redirection', () => {
+        it('test help block content is loaded on page', (done) => {
+            const playbackData = {};
+            playbackData.helpTitle = commonContent.helpTitle;
+            playbackData.helpText = commonContent.helpText;
+            playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
+            playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
+            playbackData.helpEmailLabel = commonContent.helpEmailLabel;
+            playbackData.contactEmailAddress = commonContent.contactEmailAddress;
 
-        it('should return the ctx with the will left status and the intestacy_screening_question feature toggle', (done) => {
-            ctx = {left: content.optionYes};
-            errors = {};
-            formdata = {};
-            session = {};
-            hostname = {};
-            featureToggles = {};
-
-            [ctx, errors] = WillLeft.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
-            expect(ctx).to.deep.equal({
-                left: content.optionYes,
-                isToggleEnabled: false
-            });
-            done();
+            testWrapper.testDataPlayback(done, playbackData, cookies);
         });
-    });
 
-    describe('nextStepOptions()', () => {
-        it('should return the correct options when the FT is off', (done) => {
-            const ctx = {
-                isToggleEnabled: false
+        it('test content loaded on the page', (done) => {
+            testWrapper.testContent(done, [], {}, cookies);
+        });
+
+        it('test errors message displayed for missing data', (done) => {
+            testWrapper.testErrors(done, {}, 'required', [], cookies);
+        });
+
+        it(`test it redirects to next page: ${expectedNextUrlForWillOriginal}`, (done) => {
+            const data = {
+                left: 'Yes'
             };
-            const nextStepOptions = WillLeft.nextStepOptions(ctx);
-            expect(nextStepOptions).to.deep.equal({
-                options: [{
-                    key: 'left',
-                    value: content.optionYes,
-                    choice: 'withWill'
-                }]
-            });
-            done();
+
+            testWrapper.testRedirect(done, data, expectedNextUrlForWillOriginal, cookies);
         });
 
-        it('should return the correct options when the FT is on', (done) => {
-            const ctx = {
-                isToggleEnabled: true
+        it(`test it redirects to next page: ${expectedNextUrlForDiedAfterOctober2014}`, (done) => {
+            nock(featureToggleUrl)
+                .get(featureTogglePath)
+                .reply(200, 'true');
+
+            const data = {
+                left: 'No'
             };
-            const nextStepOptions = WillLeft.nextStepOptions(ctx);
-            expect(nextStepOptions).to.deep.equal({
-                options: [
-                    {
-                        key: 'left',
-                        value: content.optionYes,
-                        choice: 'withWill'
-                    },
-                    {
-                        key: 'left',
-                        value: content.optionNo,
-                        choice: 'withoutWillToggleOn'
-                    }
-                ]
-            });
-            done();
+
+            testWrapper.testRedirect(done, data, expectedNextUrlForDiedAfterOctober2014, cookies);
         });
-    });
 
-    describe('persistFormData()', () => {
-        it('should return an empty object', () => {
-            const result = WillLeft.persistFormData();
-            expect(result).to.deep.equal({});
-        });
-    });
+        it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
+            nock(featureToggleUrl)
+                .get(featureTogglePath)
+                .reply(200, 'false');
 
-    describe('setEligibilityCookie()', () => {
-        it('should call eligibilityCookie.setCookie() with the correct params', (done) => {
-            const revert = diedAfter.__set__('eligibilityCookie', {setCookie: sinon.spy()});
-            const req = {reqParam: 'req value'};
-            const res = {resParam: 'res value'};
-            const nextStepUrl = '/stop-page/diedAfter';
-            const steps = {};
-            const section = null;
-            const resourcePath = 'screeners/diedafteroctober2014';
-            const i18next = {};
-            const DieAft = new diedAfter(steps, section, resourcePath, i18next, schema);
-
-            DieAft.setEligibilityCookie(req, res, nextStepUrl);
-
-            expect(diedAfter.__get__('eligibilityCookie.setCookie').calledOnce).to.equal(true);
-            expect(diedAfter.__get__('eligibilityCookie.setCookie').calledWith(
-                {reqParam: 'req value'},
-                {resParam: 'res value'},
-                '/stop-page/diedAfter'
-            )).to.equal(true);
-
-            revert();
-            done();
-        });
-    });
-
-    describe('action', () => {
-        it('test isToggleEnabled is removed from the context', () => {
-            const ctx = {
-                isToggleEnabled: false
+            const data = {
+                left: 'No'
             };
-            WillLeft.action(ctx);
-            assert.isUndefined(ctx.isToggleEnabled);
+
+            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+        });
+
+        it('test "save and close" and "sign out" links are not displayed on the page', (done) => {
+            const playbackData = {};
+            playbackData.saveAndClose = commonContent.saveAndClose;
+            playbackData.signOut = commonContent.signOut;
+
+            testWrapper.testContentNotPresent(done, playbackData);
         });
     });
 });
