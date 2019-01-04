@@ -1,5 +1,6 @@
 'use strict';
 
+const journey = require('app/journeys/probate');
 const initSteps = require('../../../app/core/initSteps');
 const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
@@ -20,16 +21,26 @@ describe('RelationshipToDeceased', () => {
     });
 
     describe('nextStepUrl()', () => {
+        const req = {
+            session: {
+                journey: journey
+            }
+        };
+
         it('should return the correct url when Yes is given', (done) => {
-            const ctx = {related: content.optionYes};
-            const nextStepUrl = RelationshipToDeceased.nextStepUrl(ctx);
+            const ctx = {
+                related: content.optionYes
+            };
+            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/other-applicants');
             done();
         });
 
         it('should return the correct url when No is given', (done) => {
-            const ctx = {related: content.optionNo};
-            const nextStepUrl = RelationshipToDeceased.nextStepUrl(ctx);
+            const ctx = {
+                related: content.optionNo
+            };
+            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/notRelated');
             done();
         });
