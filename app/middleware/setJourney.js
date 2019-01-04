@@ -1,7 +1,7 @@
 'use strict';
 
-const probateJourney = require('app/journeys/probate.js');
-const intestacyJourney = require('app/journeys/intestacy.js');
+const probateJourney = require('app/journeys/probate');
+const intestacyJourney = require('app/journeys/intestacy');
 const willLeftContent = require('app/resources/en/translation/will/left');
 
 const isIntestacyJourney = (session) => {
