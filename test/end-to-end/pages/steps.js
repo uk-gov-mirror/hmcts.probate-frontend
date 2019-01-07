@@ -17,9 +17,6 @@ module.exports = function () {
         selectMentallyCapable: steps.executors.mentalcapacity,
         startApply: steps.startApply.startApply,
 
-        //Screener Stops
-        selectStopPage: steps.stoppage.stoppage,
-
         //Sign In to IDAM
         authenticateWithIdamIfAvailable: steps.IDAM.signIn,
 
