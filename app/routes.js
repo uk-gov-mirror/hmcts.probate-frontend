@@ -10,7 +10,6 @@ const commonContent = require('app/resources/en/translation/common');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const documentUpload = require('app/documentUpload');
 const documentDownload = require('app/documentDownload');
-const pdfservices = require('app/components/pdf-services');
 
 router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
@@ -129,40 +128,6 @@ Object.entries(steps).forEach(([, step]) => {
 router.get('/payment', (req, res) => {
     res.redirect(301, '/documents');
 });
-
-router.get('/check-answers-pdf', (req, res) => {
-    const formdata = req.session.form;
-    pdfservices.createCheckAnswersPdf(formdata, req.session.id)
-        .then(result => {
-            setPDFHeadingValuesAndSend(res, result, 'checkYourAnswers.pdf');
-        })
-        .catch(err => {
-            throwPDFException(req, res, err);
-        });
-    ;
-});
-
-router.get('/declaration-pdf', (req, res) => {
-    const formdata = req.session.form;
-    pdfservices.createDeclarationPdf(formdata, req.session.id)
-        .then(result => {
-            setPDFHeadingValuesAndSend(res, result, 'legalDeclaration.pdf');
-        })
-        .catch(err => {
-            throwPDFException(req, res, err);
-        });
-});
-
-function setPDFHeadingValuesAndSend(res, result, filename) {
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-disposition', 'attachment; filename=' + filename);
-    res.send(result);
-}
-
-function throwPDFException(req, res, err) {
-    req.log.error(err);
-    res.status(500).render('errors/500', {common: commonContent});
-}
 
 if (['sandbox', 'saat', 'preview', 'sprod', 'demo', 'aat'].includes(config.environment)) {
     router.get('/inviteIdList', (req, res) => {
