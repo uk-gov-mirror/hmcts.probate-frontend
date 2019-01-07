@@ -245,12 +245,12 @@ describe('Declaration tests', () => {
             updateInviteDataStub.returns(Promise.resolve({agreed: null}));
             ctx.hasDataChanged = true;
             ctx.executors = {
-                'executorsNumber': 3,
-                'invitesSent': 'true',
-                'list': [
-                    {'fullName': 'john', 'isApplying': true, 'isApplicant': true},
-                    {'fullName': 'other applicant', 'isApplying': true, 'emailChanged': true},
-                    {'fullName': 'harvey', 'isApplying': true, 'emailChanged': true}
+                executorsNumber: 3,
+                invitesSent: 'true',
+                list: [
+                    {fullName: 'john', isApplying: true, isApplicant: true},
+                    {fullName: 'other applicant', isApplying: true, emailChanged: true},
+                    {fullName: 'harvey', isApplying: true, emailChanged: true}
                 ]
             };
             ctx.executorsWrapper = new ExecutorsWrapper(ctx.executors);
@@ -258,12 +258,12 @@ describe('Declaration tests', () => {
 
             expect(ctx).to.deep.equal({
                 executors: {
-                    'executorsNumber': 3,
-                    'invitesSent': 'true',
-                    'list': [
-                        {'fullName': 'john', 'isApplying': true, 'isApplicant': true},
-                        {'fullName': 'other applicant', 'isApplying': true, 'emailChanged': true},
-                        {'fullName': 'harvey', 'isApplying': true, 'emailChanged': true}
+                    executorsNumber: 3,
+                    invitesSent: 'true',
+                    list: [
+                        {fullName: 'john', isApplying: true, isApplicant: true},
+                        {fullName: 'other applicant', isApplying: true, emailChanged: true},
+                        {fullName: 'harvey', isApplying: true, emailChanged: true}
                     ]
                 }
             });

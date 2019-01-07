@@ -66,7 +66,7 @@ describe('ExecutorRoles', () => {
     describe('isComplete()', () => {
         it('should return the correct step completion status status when all executors are applying', (done) => {
             const ctx = {
-                'list': [
+                list: [
                     {
                         'lastName': 'the',
                         'firstName': 'applicant',
@@ -90,7 +90,7 @@ describe('ExecutorRoles', () => {
 
         it('should return the correct step completion status status when not all executors are applying', (done) => {
             const ctx = {
-                'list': [
+                list: [
                     {
                         'lastName': 'the',
                         'firstName': 'applicant',
@@ -114,7 +114,7 @@ describe('ExecutorRoles', () => {
 
         it('should return the correct step completion status status when some executors are not applying and their reason is power reserved and the notify question has been answered', (done) => {
             const ctx = {
-                'list': [
+                list: [
                     {
                         'lastName': 'the',
                         'firstName': 'applicant',
@@ -140,7 +140,7 @@ describe('ExecutorRoles', () => {
 
         it('should return the correct step completion status status when some executors are not applying and their reason is power reserved and the notify question has not been answered', (done) => {
             const ctx = {
-                'list': [
+                list: [
                     {
                         'lastName': 'the',
                         'firstName': 'applicant',
@@ -165,7 +165,7 @@ describe('ExecutorRoles', () => {
 
         it('should return the correct step completion status status when some executors are not applying and their reason is not power reserved', (done) => {
             const ctx = {
-                'list': [
+                list: [
                     {
                         'lastName': 'the',
                         'firstName': 'applicant',
