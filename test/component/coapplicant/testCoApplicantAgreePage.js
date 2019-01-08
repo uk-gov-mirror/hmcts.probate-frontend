@@ -26,29 +26,23 @@ describe('co-applicant-agree-page', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test correct content is loaded on the page when there are no codicils', (done) => {
-            const contentToExclude = [
-                'paragraph4-codicils'
-            ];
             checkAllAgreedStub.returns(Promise.resolve('false'));
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData.formdata)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, [], contentData);
                 });
         });
 
         it('test correct content is loaded on the page when there are codicils', (done) => {
             sessionData.formdata.will.codicils = commonContent.yes;
-            const contentToExclude = [
-                'paragraph4'
-            ];
             checkAllAgreedStub.returns(Promise.resolve('false'));
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData.formdata)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, [], contentData);
                 });
         });
 
