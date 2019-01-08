@@ -22,18 +22,8 @@ describe('co-applicant-all-agreed-page', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        it('test correct content is loaded on the page when there are no codicils', (done) => {
+        it('test correct content is loaded on the page', (done) => {
             sessionData.formdata.will.codicils = commonContent.no;
-            checkAllAgreedStub.returns(Promise.resolve('true'));
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData.formdata)
-                .end(() => {
-                    testWrapper.testContent(done, [], contentData);
-                });
-        });
-
-        it('test correct content is loaded on the page when there are codicils', (done) => {
-            sessionData.formdata.will.codicils = commonContent.yes;
             checkAllAgreedStub.returns(Promise.resolve('true'));
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData.formdata)
