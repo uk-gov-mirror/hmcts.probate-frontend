@@ -8,7 +8,9 @@ provider "vault" {
   address = "https://vault.reform.hmcts.net:6200"
 }
 
-
+provider "azurerm" {
+  version = "1.19.0"
+}
 
 # data "vault_generic_secret" "idam_frontend_service_key" {
 #   path = "secret/${var.vault_section}/ccidam/service-auth-provider/api/microservice-keys/probate-frontend"
@@ -188,5 +190,10 @@ module "probate-frontend" {
     REFORM_ENVIRONMENT = "${var.reform_envirionment_for_test}"
 
     FEATURE_TOGGLES_API_URL = "${var.feature_toggles_api_url}"
+
+    TESTING = "TESTING"
+       // Cache
+    WEBSITE_LOCAL_CACHE_OPTION = "${var.website_local_cache_option}"
+    WEBSITE_LOCAL_CACHE_SIZEINMB = "${var.website_local_cache_sizeinmb}"
   }
 }
