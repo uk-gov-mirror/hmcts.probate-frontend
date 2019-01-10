@@ -3,7 +3,8 @@
 const utils = require('app/components/api-utils');
 const config = require('app/config');
 const services = require('app/components/services');
-const BUSINESS_DOCUMENT_URL = config.services.businessDocument.url;
+const FormatUrl = require('app/utils/FormatUrl');
+const VALIDATION_SERVICE_URL = config.services.validation.url;
 const logger = require('app/components/logger');
 const logInfo = (message, sessionId = 'Init') => logger(sessionId).info(message);
 
@@ -50,7 +51,8 @@ function createPDFDocument(formdata, serviceToken, body, pdfTemplate) {
         'ServiceAuthorization': serviceToken
     };
     const fetchOptions = utils.fetchOptions(body, 'POST', headers);
-    return utils.fetchBuffer(`${BUSINESS_DOCUMENT_URL}/` + pdfTemplate, fetchOptions);
+    const businessDocumentURL = FormatUrl.format(VALIDATION_SERVICE_URL, '/businessDocument');
+    return utils.fetchBuffer(`${businessDocumentURL}/` + pdfTemplate, fetchOptions);
 }
 
 module.exports = {
