@@ -11,7 +11,12 @@ const isIntestacyJourney = (session) => {
 
 const setWillLeftFormdata = (session) => {
     if (session.willLeft) {
-        session.form = Object.assign(session.form, {will: {left: session.willLeft}});
+        if (!session.form.will) {
+            session.form.will = {};
+        }
+        if (!session.form.will.left) {
+            session.form.will.left = session.willLeft;
+        }
     }
     return session;
 };

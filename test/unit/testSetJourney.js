@@ -71,9 +71,49 @@ describe('setJourney', () => {
             done();
         });
 
-        it('should add session.willLeft to the form data if session.willLeft exists', (done) => {
+        it('should add session.willLeft to the form data if session.willLeft exists and session.form.will does not exist', (done) => {
             const sessionToTest = {
                 form: {},
+                willLeft: 'Yes'
+            };
+            const session = setJourney.setWillLeftFormdata(sessionToTest);
+            expect(session).to.deep.equal({
+                form: {
+                    will: {
+                        left: 'Yes'
+                    }
+                },
+                willLeft: 'Yes'
+            });
+            done();
+        });
+
+        it('should add session.willLeft to the form data if session.willLeft exists and session.form.will.left does not exist', (done) => {
+            const sessionToTest = {
+                form: {
+                    will: {}
+                },
+                willLeft: 'Yes'
+            };
+            const session = setJourney.setWillLeftFormdata(sessionToTest);
+            expect(session).to.deep.equal({
+                form: {
+                    will: {
+                        left: 'Yes'
+                    }
+                },
+                willLeft: 'Yes'
+            });
+            done();
+        });
+
+        it('should not add session.willLeft to the form data if session.willLeft exists and session.form.will.left exists', (done) => {
+            const sessionToTest = {
+                form: {
+                    will: {
+                        left: 'Yes'
+                    }
+                },
                 willLeft: 'Yes'
             };
             const session = setJourney.setWillLeftFormdata(sessionToTest);
