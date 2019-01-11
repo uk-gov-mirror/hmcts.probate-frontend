@@ -1,6 +1,5 @@
 'use strict';
 
-const journey = require('app/journeys/probate');
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
 const content = require('app/resources/en/translation/executors/mentalcapacity');
@@ -21,17 +20,11 @@ describe('MentalCapacity', () => {
     });
 
     describe('nextStepUrl()', () => {
-        const req = {
-            session: {
-                journey: journey
-            }
-        };
-
         it('should return url for the next step', (done) => {
             const ctx = {
                 mentalCapacity: content.optionYes
             };
-            const nextStepUrl = MentalCapacity.nextStepUrl(req, ctx);
+            const nextStepUrl = MentalCapacity.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/start-apply');
             done();
         });
@@ -40,7 +33,7 @@ describe('MentalCapacity', () => {
             const ctx = {
                 mentalCapacity: content.optionNo
             };
-            const nextStepUrl = MentalCapacity.nextStepUrl(req, ctx);
+            const nextStepUrl = MentalCapacity.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/stop-page/mentalCapacity');
             done();
         });

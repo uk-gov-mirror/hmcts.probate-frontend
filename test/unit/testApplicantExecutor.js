@@ -1,6 +1,5 @@
 'use strict';
 
-const journey = require('app/journeys/probate');
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
 const content = require('app/resources/en/translation/applicant/executor');
@@ -21,17 +20,11 @@ describe('ApplicantExecutor', () => {
     });
 
     describe('nextStepUrl()', () => {
-        const req = {
-            session: {
-                journey: journey
-            }
-        };
-
         it('should return url for the next step', (done) => {
             const ctx = {
                 executor: content.optionYes
             };
-            const nextStepUrl = ApplicantExecutor.nextStepUrl(req, ctx);
+            const nextStepUrl = ApplicantExecutor.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/mental-capacity');
             done();
         });
@@ -40,7 +33,7 @@ describe('ApplicantExecutor', () => {
             const ctx = {
                 executor: content.optionNo
             };
-            const nextStepUrl = ApplicantExecutor.nextStepUrl(req, ctx);
+            const nextStepUrl = ApplicantExecutor.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/stop-page/notExecutor');
             done();
         });
