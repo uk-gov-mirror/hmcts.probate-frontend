@@ -6,9 +6,8 @@ const app = require('app');
 const routes = require('app/routes');
 const config = require('app/config');
 const request = require('supertest');
-const JourneyMap = require('app/core/JourneyMap');
+const journeyMap = require('app/core/journeyMap');
 const {steps} = require('app/core/initSteps');
-const journey = require('app/journeys/probate');
 
 class TestWrapper {
     constructor(stepName) {
@@ -131,8 +130,7 @@ class TestWrapper {
     }
 
     nextStep(data = {}) {
-        const journeyMap = new JourneyMap(journey);
-        return journeyMap.nextStep(this.pageToTest, data);
+        return journeyMap(this.pageToTest, data);
     }
 
     substituteContent(data, contentToSubstitute) {
