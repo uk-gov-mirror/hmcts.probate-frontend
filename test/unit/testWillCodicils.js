@@ -3,7 +3,6 @@
 const initSteps = require('app/core/initSteps');
 const {expect, assert} = require('chai');
 const content = require('app/resources/en/translation/will/codicils');
-const journey = require('app/journeys/probate');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const WillCodicils = steps.WillCodicils;
 const json = require('app/resources/en/translation/will/codicils');
