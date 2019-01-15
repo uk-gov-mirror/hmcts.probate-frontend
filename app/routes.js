@@ -47,6 +47,8 @@ router.get('/', (req, res) => {
         });
 });
 
+router.use(documentDownload);
+
 router.use((req, res, next) => {
     const formdata = req.session.form;
     const isHardStop = formdata => config.hardStopParams.some(param => get(formdata, param) === commonContent.no);
@@ -88,8 +90,6 @@ router.use((req, res, next) => {
 });
 
 router.use('/document-upload', documentUpload);
-
-router.use(documentDownload);
 
 router.use((req, res, next) => {
     res.locals.session = req.session;

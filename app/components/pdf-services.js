@@ -30,6 +30,21 @@ const createDeclarationPdf = (formdata, sessionId) => {
         });
 };
 
+const createCoverSheetPdf = (formdata, sessionId) => {
+    logInfo('Create cover sheet PDF', sessionId);
+    return services.authorise()
+        .then(serviceToken => {
+            const body = {
+                bulkScanCoverSheet: {
+                    applicantAddress: formdata.applicant.address,
+                    caseReference: formdata.ccdCase.id,
+                    submitAddress: formdata.registry.address
+                }
+            };
+            return createPDFDocument(formdata, serviceToken, body, 'generateBulkScanCoverSheetPDF');
+        });
+};
+
 function createPDFDocument(formdata, serviceToken, body, pdfTemplate) {
     const headers = {
         'Content-Type': 'application/json',
@@ -42,5 +57,6 @@ function createPDFDocument(formdata, serviceToken, body, pdfTemplate) {
 
 module.exports = {
     createCheckAnswersPdf,
-    createDeclarationPdf
+    createDeclarationPdf,
+    createCoverSheetPdf
 };
