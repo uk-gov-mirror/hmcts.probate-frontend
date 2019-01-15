@@ -1,6 +1,5 @@
 'use strict';
 
-const journey = require('app/journeys/probate');
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
@@ -21,17 +20,11 @@ describe('DeathCertificate', () => {
     });
 
     describe('nextStepUrl()', () => {
-        const req = {
-            session: {
-                journey: journey
-            }
-        };
-
         it('should return the correct url when Yes is given', (done) => {
             const ctx = {
                 deathCertificate: content.optionYes
             };
-            const nextStepUrl = DeathCertificate.nextStepUrl(req, ctx);
+            const nextStepUrl = DeathCertificate.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/deceased-domicile');
             done();
         });
@@ -40,7 +33,7 @@ describe('DeathCertificate', () => {
             const ctx = {
                 deathCertificate: content.optionNo
             };
-            const nextStepUrl = DeathCertificate.nextStepUrl(req, ctx);
+            const nextStepUrl = DeathCertificate.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/stop-page/deathCertificate');
             done();
         });

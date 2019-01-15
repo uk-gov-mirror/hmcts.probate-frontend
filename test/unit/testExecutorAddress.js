@@ -6,7 +6,6 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']);
 const ExecutorAddress = steps.ExecutorAddress;
 const executorAddressPath = '/executor-address/';
-const journey = require('app/journeys/probate');
 
 describe('ExecutorAddress', () => {
 
@@ -282,34 +281,24 @@ describe('ExecutorAddress', () => {
 
     describe('nextStepUrl()', () => {
         it('returns the correct url without an index if there is one executor applying', (done) => {
-            const req = {
-                session: {
-                    journey: journey
-                }
-            };
             const testCtx = {
                 list: [{}, {}],
                 index: -1,
                 executorsWrapper: new ExecutorsWrapper(this.list)
             };
-            const url = ExecutorAddress.nextStepUrl(req, testCtx);
+            const url = ExecutorAddress.nextStepUrl(testCtx);
 
             expect(url).to.equal('/tasklist');
             done();
         });
 
         it('returns the correct url with an index if there are multiple executors applying', (done) => {
-            const req = {
-                session: {
-                    journey: journey
-                }
-            };
             const testCtx = {
                 list: [{}, {}],
                 index: 1,
                 executorsWrapper: new ExecutorsWrapper(this.list)
             };
-            const url = ExecutorAddress.nextStepUrl(req, testCtx);
+            const url = ExecutorAddress.nextStepUrl(testCtx);
 
             expect(url).to.equal('/executor-contact-details/1');
             done();

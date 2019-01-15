@@ -22,8 +22,8 @@ class RelationshipToDeceased extends EligibilityValidationStep {
         return super.getContextData(req, res, pageUrl, fieldKey);
     }
 
-    nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('notRelated');
+    nextStepUrl(ctx) {
+        return this.next(ctx).constructor.getUrl('notRelated');
     }
 
     nextStepOptions() {

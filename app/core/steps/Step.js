@@ -3,7 +3,7 @@
 const {mapValues, map, reduce, escape, isObject, isEmpty, get} = require('lodash');
 const services = require('app/components/services');
 const UIStepRunner = require('app/core/runners/UIStepRunner');
-const JourneyMap = require('app/core/JourneyMap');
+const journeyMap = require('app/core/journeyMap');
 const mapErrorsToFields = require('app/components/error').mapErrorsToFields;
 const ExecutorsWrapper = require('app/wrappers/Executors');
 
@@ -37,13 +37,12 @@ class Step {
         this.i18next = i18next;
     }
 
-    next(req, ctx) {
-        const journeyMap = new JourneyMap(req.session.journey);
-        return journeyMap.nextStep(this, ctx);
+    next(ctx) {
+        return journeyMap(this, ctx);
     }
 
-    nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl();
+    nextStepUrl(ctx) {
+        return this.next(ctx).constructor.getUrl();
     }
 
     getContextData(req) {

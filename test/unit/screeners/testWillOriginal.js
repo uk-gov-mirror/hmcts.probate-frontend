@@ -1,6 +1,5 @@
 'use strict';
 
-const journey = require('app/journeys/probate');
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
@@ -21,17 +20,11 @@ describe('WillOriginal', () => {
     });
 
     describe('nextStepUrl()', () => {
-        const req = {
-            session: {
-                journey: journey
-            }
-        };
-
         it('should return the correct url when Yes is given', (done) => {
             const ctx = {
                 original: content.optionYes
             };
-            const nextStepUrl = WillOriginal.nextStepUrl(req, ctx);
+            const nextStepUrl = WillOriginal.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/applicant-executor');
             done();
         });
@@ -40,7 +33,7 @@ describe('WillOriginal', () => {
             const ctx = {
                 original: content.optionNo
             };
-            const nextStepUrl = WillOriginal.nextStepUrl(req, ctx);
+            const nextStepUrl = WillOriginal.nextStepUrl(ctx);
             expect(nextStepUrl).to.equal('/stop-page/notOriginal');
             done();
         });

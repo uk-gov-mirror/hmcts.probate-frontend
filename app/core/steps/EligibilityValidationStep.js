@@ -15,7 +15,7 @@ class EligibilityValidationStep extends ValidationStep {
                 ctx[fieldKey] = answerValue;
             }
         } else {
-            const nextStepUrl = this.nextStepUrl(req, ctx);
+            const nextStepUrl = this.nextStepUrl(ctx);
             this.setEligibilityCookie(req, res, nextStepUrl, fieldKey, ctx[fieldKey]);
         }
 
