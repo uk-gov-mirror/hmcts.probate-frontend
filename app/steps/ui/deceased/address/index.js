@@ -20,9 +20,7 @@ class DeceasedAddress extends AddressStep {
 
     handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
         super.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
-        const isDocumentUploadToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'document_upload');
-        ctx.isScreeningQuestionsToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
-        ctx.isDocumentUploadToggleEnabled = ctx.isScreeningQuestionsToggleEnabled && isDocumentUploadToggleEnabled;
+        ctx.isDocumentUploadToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'document_upload');
 
         return [ctx, errors];
     }
@@ -30,15 +28,13 @@ class DeceasedAddress extends AddressStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'isDocumentUploadToggleEnabled', value: true, choice: 'documentUploadToggleOn'},
-                {key: 'isScreeningQuestionsToggleEnabled', value: true, choice: 'toggleOn'},
+                {key: 'isDocumentUploadToggleEnabled', value: true, choice: 'documentUploadToggleOn'}
             ]
         };
     }
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
-        delete ctx.isScreeningQuestionsToggleEnabled;
         delete ctx.isDocumentUploadToggleEnabled;
         return [ctx, formdata];
     }

@@ -47,10 +47,7 @@ router.get('/', (req, res) => {
         });
 });
 
-router.use((req, res, next) => {
-    req.session.journey = require('app/journeys/probate');
-    next();
-});
+router.use(documentDownload);
 
 router.use((req, res, next) => {
     const formdata = req.session.form;
@@ -93,8 +90,6 @@ router.use((req, res, next) => {
 });
 
 router.use('/document-upload', documentUpload);
-
-router.use(documentDownload);
 
 router.use((req, res, next) => {
     res.locals.session = req.session;

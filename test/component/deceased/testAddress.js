@@ -111,7 +111,7 @@ describe('deceased-address', () => {
                 postcode: 'ea1 eaf',
                 postcodeAddress: '102 Petty France'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForSummary);
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });
     });
 });

@@ -101,8 +101,7 @@ describe('DeceasedAddress', () => {
             const nextStepOptions = DeceasedAddress.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'isDocumentUploadToggleEnabled', value: true, choice: 'documentUploadToggleOn'},
-                    {key: 'isScreeningQuestionsToggleEnabled', value: true, choice: 'toggleOn'}
+                    {key: 'isDocumentUploadToggleEnabled', value: true, choice: 'documentUploadToggleOn'}
                 ]
             });
             done();
@@ -112,11 +111,9 @@ describe('DeceasedAddress', () => {
     describe('action', () => {
         it('test variables are removed from the context', () => {
             const ctx = {
-                isScreeningQuestionsToggleEnabled: false,
                 isDocumentUploadToggleEnabled: false
             };
             DeceasedAddress.action(ctx);
-            assert.isUndefined(ctx.isScreeningQuestionsToggleEnabled);
             assert.isUndefined(ctx.isDocumentUploadToggleEnabled);
         });
     });

@@ -6,7 +6,6 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']);
 const ExecutorAddress = steps.ExecutorAddress;
 const executorAddressPath = '/executor-address/';
-const journey = require('app/journeys/probate');
 
 describe('ExecutorAddress', () => {
 
@@ -222,10 +221,7 @@ describe('ExecutorAddress', () => {
         });
 
         it('returns the correct data and errors', (done) => {
-            const featureToggles = {
-                screening_questions: true
-            };
-            const [ctx, errors] = ExecutorAddress.handlePost(testCtx, testErrors, null, null, null, featureToggles);
+            const [ctx, errors] = ExecutorAddress.handlePost(testCtx, testErrors);
 
             expect(ctx.list[0]).to.deep.equal({
                 isApplying: true,
@@ -234,7 +230,6 @@ describe('ExecutorAddress', () => {
                 postcodeAddress: testCtx.postcodeAddress,
                 freeTextAddress: testCtx.freeTextAddress
             });
-            expect(ctx.isToggleEnabled).to.equal(true);
             expect(errors).to.deep.equal(testErrors);
             done();
         });
@@ -286,34 +281,24 @@ describe('ExecutorAddress', () => {
 
     describe('nextStepUrl()', () => {
         it('returns the correct url without an index if there is one executor applying', (done) => {
-            const req = {
-                session: {
-                    journey: journey
-                }
-            };
             const testCtx = {
                 list: [{}, {}],
                 index: -1,
                 executorsWrapper: new ExecutorsWrapper(this.list)
             };
-            const url = ExecutorAddress.nextStepUrl(req, testCtx);
+            const url = ExecutorAddress.nextStepUrl(testCtx);
 
-            expect(url).to.equal('/deceased-name');
+            expect(url).to.equal('/tasklist');
             done();
         });
 
         it('returns the correct url with an index if there are multiple executors applying', (done) => {
-            const req = {
-                session: {
-                    journey: journey
-                }
-            };
             const testCtx = {
                 list: [{}, {}],
                 index: 1,
                 executorsWrapper: new ExecutorsWrapper(this.list)
             };
-            const url = ExecutorAddress.nextStepUrl(req, testCtx);
+            const url = ExecutorAddress.nextStepUrl(testCtx);
 
             expect(url).to.equal('/executor-contact-details/1');
             done();
@@ -321,9 +306,8 @@ describe('ExecutorAddress', () => {
     });
 
     describe('nextStepOptions()', () => {
-        it('returns the next step options when the FT is off', (done) => {
+        it('returns the next step options', (done) => {
             const testCtx = {
-                isToggleEnabled: false,
                 index: 1,
                 executorsWrapper: new ExecutorsWrapper()
             };
@@ -337,29 +321,11 @@ describe('ExecutorAddress', () => {
             });
             done();
         });
-
-        it('returns the next step options when the FT is on', (done) => {
-            const ctx = {
-                isToggleEnabled: true,
-                index: 1,
-                executorsWrapper: new ExecutorsWrapper()
-            };
-            const nextStepOptions = ExecutorAddress.nextStepOptions(ctx);
-
-            expect(nextStepOptions).to.deep.equal({
-                options: [
-                    {key: 'continue', value: true, choice: 'continue'},
-                    {key: 'allExecsApplying', value: true, choice: 'allExecsApplyingToggleOn'}
-                ],
-            });
-            done();
-        });
     });
 
     describe('action()', () => {
         it('removes the correct values from the context', (done) => {
             const testCtx = {
-                isToggleEnabled: false,
                 otherExecName: 'James Miller',
                 address: '1 Red Street, London, L1 1LL',
                 postcodeAddress: '1 Red Street, London, L1 1LL',

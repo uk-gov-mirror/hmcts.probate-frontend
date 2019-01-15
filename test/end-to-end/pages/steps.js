@@ -4,39 +4,47 @@ const requireDirectory = require('require-directory');
 const steps = requireDirectory(module);
 
 module.exports = function () {
-
     return actor({
-    //PreIdam
-        startApplication: steps.startEligibility.startEligibility,
-        startApply: steps.startApply.startApply,
+        // Eligibility Task (pre IdAM)
+        startEligibility: steps.screeners.starteligibility,
+        selectPersonWhoDiedLeftAWill: steps.screeners.willleft,
+        selectOriginalWill: steps.screeners.willoriginal,
+        selectDeathCertificate: steps.screeners.deathcertificate,
+        selectDeceasedDomicile: steps.screeners.deceaseddomicile,
+        selectApplicantIsExecutor: steps.screeners.applicantexecutor,
+        selectMentallyCapable: steps.screeners.mentalcapacity,
+        selectIhtCompleted: steps.screeners.ihtcompleted,
+        selectDiedAfterOctober2014: steps.screeners.diedafteroctober2014,
+        selectRelationshipToDeceased: steps.screeners.relationshiptodeceased,
+        selectOtherApplicants: steps.screeners.otherapplicants,
+        startApply: steps.screeners.startapply,
 
-        //Sign In to IDAM
+        // Sign In to IDAM
         authenticateWithIdamIfAvailable: steps.IDAM.signIn,
 
-        //Start application
+        // Start application
         selectATask: steps.tasklist.tasklist,
 
-        // Eligibility
-        selectPersonWhoDiedLeftAWill: steps.will.left,
-        selectOriginalWill: steps.will.original,
-        selectWillCodicils: steps.will.codicils,
-        selectWillNoOfCodicils: steps.will.codicilsnumber,
-        selectDeathCertificate: steps.deceased.deathcertificate,
-        selectIhtCompleted: steps.iht.completed,
+        // Deceased Task
+        enterDeceasedName: steps.deceased.name,
+        enterDeceasedDateOfBirth: steps.deceased.dob,
+        enterDeceasedDateOfDeath: steps.deceased.dod,
+        enterDeceasedAddress: steps.deceased.address,
         selectInheritanceMethodPaper: steps.iht.method,
         enterGrossAndNet: steps.iht.paper,
-        selectApplicantIsExecutor: steps.applicant.executor,
-        selectMentallyCapable: steps.executors.mentalcapacity,
+        selectDeceasedAlias: steps.deceased.alias,
+        selectOtherNames: steps.deceased.otherNames,
+        selectDeceasedMarriedAfterDateOnWill: steps.deceased.married,
+        selectWillCodicils: steps.will.codicils,
+        selectWillNoOfCodicils: steps.will.codicilsnumber,
 
-        //applicant details
+        // Executors Task
         enterApplicantName: steps.applicant.name,
         selectNameAsOnTheWill: steps.applicant.nameasonwill,
         enterApplicantAlias: steps.applicant.alias,
         enterApplicantAliasReason: steps.applicant.aliasreason,
         enterApplicantPhone: steps.applicant.phone,
         enterAddressManually: steps.applicant.address,
-
-        //executors
         enterTotalExecutors: steps.executors.number,
         enterExecutorNames: steps.executors.names,
         selectExecutorsAllAlive: steps.executors.allalive,
@@ -53,42 +61,30 @@ module.exports = function () {
         selectExecutorRoles: steps.executors.roles,
         selectHasExecutorBeenNotified: steps.executors.notified,
 
-        //deceased details
-        enterDeceasedName: steps.deceased.name,
-        selectDeceasedAlias: steps.deceased.alias,
-        selectOtherNames: steps.deceased.otherNames,
-        selectDeceasedMarriedAfterDateOnWill: steps.deceased.married,
-        enterDeceasedDateOfBirth: steps.deceased.dob,
-        enterDeceasedDateOfDeath: steps.deceased.dod,
-        selectDeceasedDomicile: steps.deceased.domicile,
-        enterDeceasedAddress: steps.deceased.address,
-
-        //summary page
+        // Review and Confirm Task
         seeSummaryPage: steps.summary.summary,
-
-        //Declaration Page
         acceptDeclaration: steps.declaration.declaration,
 
-        //Notify additional executors
+        // Notify additional executors
         notifyAdditionalExecutors: steps.executors.invite,
 
-        //Pin page for additional executor
+        // Pin page for additional executor
         enterPinCode: steps.pin.signin,
 
-        //Additional executors Agree/Disagree with Statement of Truth
+        // Additional executors Agree/Disagree with Statement of Truth
         seeCoApplicantStartPage: steps.coapplicant.startPage,
         agreeDisagreeDeclaration: steps.coapplicant.declaration,
         seeAgreePage: steps.coapplicant.agree,
 
-        //Asset pages
+        // Asset pages
         selectOverseasAssets: steps.assets.overseas,
 
-        //Copies pages
+        // Copies pages
         enterUkCopies: steps.copies.uk,
         enterOverseasCopies: steps.copies.overseas,
         seeCopiesSummary: steps.copies.summary,
 
-        //Payment
+        // Payment
         seePaymentBreakdownPage: steps.payment.paymentbreakdown,
         seeGovUkPaymentPage: steps.payment.govukpayment,
         seeGovUkConfirmPage: steps.payment.govukconfirmpayment,
@@ -97,12 +93,7 @@ module.exports = function () {
         // Documents
         seeDocumentsPage: steps.documents.documents,
 
-        //Thank You Page
+        // Thank You
         seeThankYouPage: steps.thankyou.thankyou,
-
-        //Eligibility task
-        completeEligibilityTask: steps.tasks.tasks.completeEligibilityTask,
-        completeExecutorsTask: steps.tasks.tasks.completeExecutorsTask
-
     });
 };
