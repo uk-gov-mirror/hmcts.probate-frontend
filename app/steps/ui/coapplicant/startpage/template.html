@@ -17,8 +17,7 @@
     <p>{{content.list1Header | replace('{leadExecutorName}', fields.leadExecFullName.value) | safe}}</p>
     {{unorderedList([
         content["list1Item1"] | safe,
-        content["list1Item2"] | safe,
-        content["list1Item3"] | safe
+        content["list1Item2"] | safe
     ])}}
     <div class="form-group">
         <p><a href="/co-applicant-declaration" class="button">{{content.button}}</a></p>
