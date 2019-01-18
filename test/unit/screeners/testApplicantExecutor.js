@@ -1,5 +1,6 @@
 'use strict';
 
+const journey = require('app/journeys/probate');
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
@@ -21,19 +22,29 @@ describe('ApplicantExecutor', () => {
 
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
             const ctx = {
                 executor: content.optionYes
             };
-            const nextStepUrl = ApplicantExecutor.nextStepUrl(ctx);
+            const nextStepUrl = ApplicantExecutor.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/mental-capacity');
             done();
         });
 
         it('should return the correct url when No is given', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
             const ctx = {
                 executor: content.optionNo
             };
-            const nextStepUrl = ApplicantExecutor.nextStepUrl(ctx);
+            const nextStepUrl = ApplicantExecutor.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/notExecutor');
             done();
         });

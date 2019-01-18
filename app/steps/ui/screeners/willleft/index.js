@@ -4,9 +4,9 @@ const EligibilityValidationStep = require('app/core/steps/EligibilityValidationS
 const content = require('app/resources/en/translation/screeners/willleft');
 const EligibilityCookie = require('app/utils/EligibilityCookie');
 const eligibilityCookie = new EligibilityCookie();
-const FeatureToggle = require('app/utils/FeatureToggle');
 const pageUrl = '/will-left';
 const fieldKey = 'left';
+const FeatureToggle = require('app/utils/FeatureToggle');
 
 class WillLeft extends EligibilityValidationStep {
 
@@ -24,8 +24,8 @@ class WillLeft extends EligibilityValidationStep {
         return super.getContextData(req, res, pageUrl, fieldKey);
     }
 
-    nextStepUrl(ctx) {
-        return this.next(ctx).constructor.getUrl('noWill');
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('noWill');
     }
 
     nextStepOptions(ctx) {
@@ -47,6 +47,10 @@ class WillLeft extends EligibilityValidationStep {
 
     persistFormData() {
         return {};
+    }
+
+    setEligibilityCookie(req, res, nextStepUrl) {
+        eligibilityCookie.setCookie(req, res, nextStepUrl);
     }
 
     action(ctx, formdata) {

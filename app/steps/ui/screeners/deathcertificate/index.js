@@ -22,8 +22,8 @@ class DeathCertificate extends EligibilityValidationStep {
         return super.getContextData(req, res, pageUrl, fieldKey);
     }
 
-    nextStepUrl(ctx) {
-        return this.next(ctx).constructor.getUrl('deathCertificate');
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('deathCertificate');
     }
 
     nextStepOptions() {
@@ -36,6 +36,10 @@ class DeathCertificate extends EligibilityValidationStep {
 
     persistFormData() {
         return {};
+    }
+
+    setEligibilityCookie(req, res, nextStepUrl) {
+        eligibilityCookie.setCookie(req, res, nextStepUrl);
     }
 }
 
