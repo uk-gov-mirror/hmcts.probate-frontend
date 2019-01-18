@@ -9,8 +9,8 @@ const steps = {};
 const section = 'deceased';
 const resourcePath = 'deceased/deathcertificate';
 const i18next = {};
-const pageUrl = '/new-death-certificate';
-const nextStepUrl = '/new-deceased-domicile';
+const pageUrl = '/death-certificate';
+const nextStepUrl = '/deceased-domicile';
 const fieldKey = 'deathCertificate';
 const fieldValue = 'Yes';
 
