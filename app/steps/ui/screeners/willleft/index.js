@@ -49,10 +49,6 @@ class WillLeft extends EligibilityValidationStep {
         return {};
     }
 
-    setEligibilityCookie(req, res, nextStepUrl) {
-        eligibilityCookie.setCookie(req, res, nextStepUrl);
-    }
-
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.isToggleEnabled;
