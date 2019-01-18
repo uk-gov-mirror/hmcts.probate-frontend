@@ -1,5 +1,6 @@
 'use strict';
 
+const journey = require('app/journeys/probate');
 const initSteps = require('app/core/initSteps');
 const {expect, assert} = require('chai');
 const content = require('app/resources/en/translation/will/codicils');
@@ -36,21 +37,31 @@ describe('WillCodicils', () => {
 
     describe('nextStepUrl()', () => {
         it('should return url for the next step if there are codicils', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
             const ctx = {
                 codicils: content.optionYes
             };
             const WillCodicils = steps.WillCodicils;
-            const nextStepUrl = WillCodicils.nextStepUrl(ctx);
+            const nextStepUrl = WillCodicils.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/codicils-number');
             done();
         });
 
         it('should return the url for the next step if there are no codicils', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
             const ctx = {
                 codicils: content.optionNo
             };
             const WillCodicils = steps.WillCodicils;
-            const nextStepUrl = WillCodicils.nextStepUrl(ctx);
+            const nextStepUrl = WillCodicils.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/tasklist');
             done();
         });

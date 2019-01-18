@@ -45,8 +45,14 @@ exports.init = function() {
     const inviteSecurity = new InviteSecurity();
 
     if (config.appInsights.instrumentationKey) {
-        appInsights.setup(config.appInsights.instrumentationKey);
-        appInsights.start();
+        appInsights.setup(config.appInsights.instrumentationKey)
+            .setAutoDependencyCorrelation(true)
+            .setAutoCollectRequests(true)
+            .setAutoCollectPerformance(true)
+            .setAutoCollectDependencies(true)
+            .setAutoCollectConsole(true, true)
+            .start();
+        appInsights.defaultClient.trackTrace({message: 'App insights activated'});
     }
 
     // Authenticate against the environment-provided credentials, if running

@@ -1,5 +1,6 @@
 'use strict';
 
+const journey = require('app/journeys/probate');
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
 const content = require('app/resources/en/translation/deceased/domicile');
@@ -21,19 +22,29 @@ describe('DeceasedDomicile', () => {
 
     describe('nextStepUrl()', () => {
         it('should return url for the next step', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
             const ctx = {
                 domicile: content.optionYes
             };
-            const nextStepUrl = DeceasedDomicile.nextStepUrl(ctx);
+            const nextStepUrl = DeceasedDomicile.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/iht-completed');
             done();
         });
 
         it('should return the url for the stop page', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
             const ctx = {
                 domicile: content.optionNo
             };
-            const nextStepUrl = DeceasedDomicile.nextStepUrl(ctx);
+            const nextStepUrl = DeceasedDomicile.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/notInEnglandOrWales');
             done();
         });
