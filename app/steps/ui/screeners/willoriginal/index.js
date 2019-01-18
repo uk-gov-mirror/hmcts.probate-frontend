@@ -37,10 +37,6 @@ class WillOriginal extends EligibilityValidationStep {
     persistFormData() {
         return {};
     }
-
-    setEligibilityCookie(req, res, nextStepUrl) {
-        eligibilityCookie.setCookie(req, res, nextStepUrl);
-    }
 }
 
 module.exports = WillOriginal;
