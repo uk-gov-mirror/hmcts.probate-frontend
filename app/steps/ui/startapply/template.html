@@ -1,14 +1,13 @@
 {% extends "includes/layout.html" %}
 {% block page_title %}
-    {{ content.title }}
+  {{ content.title }}
 {% endblock %}
 
 {% set displaySignOutLink = 'false' %}
 {% set serviceName = '' %}
 
 {% block content %}
-
-    {% from "widgets/lists.html" import taskAction, unorderedList %}
+  {% from "widgets/lists.html" import taskAction, unorderedList %}
 
   <main id="content" role="main">
       {% include "includes/phase_banner_beta.html" %}
@@ -26,5 +25,4 @@
 
     <p>{{content.paragraph3 | safe}}</p>
   </main>
-
 {% endblock %}
