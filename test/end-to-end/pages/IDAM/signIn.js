@@ -12,6 +12,6 @@ module.exports = function () {
         I.fillField('username', process.env.testCitizenEmail);
         I.fillField('password', process.env.testCitizenPassword);
 
-        I.click('Sign in');
+        I.awaitNavigation(() => I.click('Sign in'));
     }
 };

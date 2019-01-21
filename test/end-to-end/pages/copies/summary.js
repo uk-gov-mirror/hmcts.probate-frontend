@@ -6,5 +6,5 @@ module.exports = function () {
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
-    I.click(commonContent.saveAndContinue);
+    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
 };

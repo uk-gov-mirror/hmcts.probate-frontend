@@ -2,14 +2,14 @@ module.exports = {
 
     TestIdamBaseUrl: process.env.IDAM_API_URL || 'http://localhost:8484',
     TestFrontendUrl: process.env.TEST_URL || 'http://localhost:3000',
-    TestE2EFrontendUrl: process.env.TEST_E2E_URL || 'http://localhost:3000',
+    TestE2EFrontendUrl: process.env.TEST_E2E_URL || 'https://probate-frontend-aat.service.core-compute-aat.internal',
     TestUseIdam: process.env.USE_IDAM || 'false',
     TestUseSidam: process.env.USE_SIDAM || 'true',
     TestIdamLoginUrl: process.env.IDAM_LOGIN_URL || 'https://localhost:8000/login',
     TestUseGovPay: process.env.USE_GOV_PAY || 'false',
-    TestInviteIdListUrl: process.env.INVITE_ID_LIST_URL,
+    TestInviteIdListUrl: process.env.INVITE_ID_LIST_URL || '/inviteIdList',
     TestPinUrl: process.env.PIN_URL,
-    TestInvitationUrl: process.env.INVITATION_URL,
+    TestInvitationUrl: process.env.INVITATION_URL || 'http://probate-frontend-aat.service.core-compute-aat.internal/executors/invitation',
     TestIdamAddUserUrl: process.env.IDAM_ADD_USER_URL,
     TestIdamUserGroup: process.env.IDAM_USER_GROUP,
     TestIdamRole: process.env.IDAM_CITIZEN_ROLE,
@@ -34,14 +34,19 @@ module.exports = {
         url: process.env.TEST_VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
     },
 
-    businessDocument: {
-        url: process.env.TEST_BUSINESS_DOCUMENT_URL || 'http://localhost:8080/businessDocument'
-    },
-
     TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',
 
-    TestEnvEmailAddress: process.env.TEST_EMAIL_ADDRESS,
-    TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER,
+    TestNewUserForename: 'testAAT24',
+    TestNewUserSurname: 'testmail1251',
+    TestNewUserPassword: 'Probate123',
+    TestNewUserGroupName: 'probate-private-beta',
+
+    TestCreateUserURL: 'https://preprod-idamapi.reform.hmcts.net:3511/testing-support/accounts',
+    TestReformProxy: 'http://proxyout.reform.hmcts.net:8080',
+    TestInjectFormDataURL: 'http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata',
+
+    TestEnvEmailAddress: process.env.TEST_EMAIL_ADDRESS || 'fourthExecutor123@fakeemail.com',
+    TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER || '07700900042',
     s2sStubErrorSequence: '000',
     links: {
         cookies: '/cookies',

@@ -1,7 +1,5 @@
 'use strict';
 
-const testConfig = require('test/config');
-
 module.exports = function () {
     const I = this;
 
@@ -13,7 +11,7 @@ module.exports = function () {
     I.fillField('#address-line-1', '1');
     I.fillField('#address-city', 'London');
     I.fillField('#address-postcode', 'SW1A1AA');
-    I.fillField('#email', testConfig.TestEnvEmailAddress);
-
-    I.click('#submit-card-details');
+    I.fillField('#email', 'b5zsocuo2@example.com');
+    
+    I.awaitNavigation(() => I.click('#submit-card-details'));
 };

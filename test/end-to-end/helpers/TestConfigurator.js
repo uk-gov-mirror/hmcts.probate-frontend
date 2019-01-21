@@ -5,6 +5,7 @@ const request = require('request');
 const testConfig = require('test/config');
 
 /* eslint no-console: 0 no-unused-vars: 0 */
+/* eslint-disable no-undef */
 class TestConfigurator {
 
     constructor() {
@@ -23,6 +24,13 @@ class TestConfigurator {
         this.userDetails = '';
         this.useSidam = testConfig.TestUseSidam;
         this.retryScenarios = testConfig.TestRetryScenarios;
+        this.testUserForename = testConfig.TestNewUserForename;
+        this.testUserSurname = testConfig.TestNewUserSurname;
+        this.testUserPassword = testConfig.TestNewUserPassword;
+        this.testUserGroupName = testConfig.TestNewUserGroupName;
+        this.testCreateUserURL = testConfig.TestCreateUserURL;
+        this.testReformProxy = testConfig.TestReformProxy;
+        this.testInjectFormDataURL = testConfig.TestInjectFormDataURL;
     }
 
     getBefore() {
@@ -142,6 +150,54 @@ class TestConfigurator {
 
     getRetryScenarios() {
         return this.retryScenarios;
+    }
+
+    createAUser(emailId) {
+        const myJSONObject = {
+            email: emailId,
+            forename: this.testUserForename,
+            surname: this.testUserSurname,
+            password: this.testUserPassword,
+            user_group_name: this.testUserGroupName
+        };
+
+        request(
+            {
+                url: this.testCreateUserURL,
+                method: 'POST',
+                headers: {'content-type': 'application/json'},
+                proxy: this.testReformProxy,
+                json: true,
+                body: myJSONObject
+            },
+            function (error, response, body) {
+                // console.log(emailId);
+            });
+    }
+
+    injectFormData(data, emailId) {
+        const formData =
+            {
+                id: emailId,
+                formdata: {
+                    payloadVersion: '4.1.0',
+                    applicantEmail: emailId,
+                }
+            };
+        Object.assign(formData.formdata, data);
+        request({
+            url: this.testInjectFormDataURL,
+            method: 'POST',
+            headers: {'content-type': 'application/json', 'Session-Id': emailId},
+            proxy: this.testReformProxy,
+            socksProxyHost: 'localhost',
+            socksProxyPort: '9090',
+            json: true,
+            body: formData
+        },
+        function (error, response, body) {
+            console.log('This is email id ' + emailId);
+        });
     }
 }
 

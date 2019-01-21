@@ -10,6 +10,6 @@ module.exports = function () {
 
     I.click('#alias-optionYes');
 
-    I.click(commonContent.saveAndContinue);
+    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
 
 };

@@ -4,14 +4,14 @@ const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const {forEach, head} = require('lodash');
 const testConfig = require('test/config.js');
+const randomstring = require('randomstring');
 
 let grabIds;
+let emailId;
 
 Feature('Multiple Executors flow');
 
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant: 1st stage of completing application'), function* (I) {
-
-    TestConfigurator.getBefore();
 
     // Pre-IDAM
     I.startApplication();
@@ -25,7 +25,9 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.startApply();
 
     // IDAM
-    I.authenticateWithIdamIfAvailable();
+    emailId = randomstring.generate(9).toLowerCase()+'@example.com';
+    TestConfigurator.createAUser(emailId);
+    I.signInWith(emailId, 'Probate123');
 
     // DeceasedTask
     I.selectATask(taskListContent.taskNotStarted);
@@ -159,7 +161,7 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     I.startApply();
 
     // IDAM
-    I.authenticateWithIdamIfAvailable();
+    I.signInWith(emailId, 'Probate123');
 
     // Extra copies task
     I.selectATask(taskListContent.taskNotStarted);

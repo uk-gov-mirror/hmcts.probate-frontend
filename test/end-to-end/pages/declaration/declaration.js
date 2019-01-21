@@ -8,5 +8,5 @@ module.exports = function () {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.click('#declarationCheckbox');
 
-    I.click('#acceptAndSend');
+    I.awaitNavigation(() => I.click('#acceptAndSend'));
 };

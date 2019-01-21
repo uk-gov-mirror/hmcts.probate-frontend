@@ -19,6 +19,7 @@ module.exports = function () {
 
         //Sign In to IDAM
         authenticateWithIdamIfAvailable: steps.IDAM.signIn,
+        signInWith: steps.IDAM.signInExternal,
 
         //Start application
         selectATask: steps.tasklist.tasklist,
@@ -101,7 +102,10 @@ module.exports = function () {
 
         //Eligibility task
         completeEligibilityTask: steps.tasks.tasks.completeEligibilityTask,
-        completeExecutorsTask: steps.tasks.tasks.completeExecutorsTask
+        completeExecutorsTask: steps.tasks.tasks.completeExecutorsTask,
+
+        //Custom Functions 
+        awaitNavigation: steps.functions.awaitNavigation,
 
     });
 };

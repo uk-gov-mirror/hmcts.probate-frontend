@@ -13,6 +13,6 @@ module.exports = function (executorsApplyingList) {
         I.checkOption('#executorsApplying-'+(parseInt(executorNumber) - 1));
     });
 
-    I.click(commonContent.saveAndContinue);
+    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
 
 };

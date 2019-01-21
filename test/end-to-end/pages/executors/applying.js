@@ -10,6 +10,5 @@ module.exports = function () {
 
     I.click('#otherExecutorsApplying-optionYes');
 
-    I.click(commonContent.saveAndContinue);
-
+    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
 };

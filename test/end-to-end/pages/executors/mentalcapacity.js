@@ -8,5 +8,5 @@ module.exports = function (option) {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.click('#mentalCapacity-option' + option);
 
-    I.click(commonContent.continue);
+    I.awaitNavigation(() => I.click(commonContent.continue));
 };

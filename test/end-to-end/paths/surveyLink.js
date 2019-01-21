@@ -2,6 +2,7 @@
 
 const pageUnderTest = require('app/steps/ui/starteligibility/index');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
+const randomstring = require('randomstring');
 
 Feature('Survey link');
 
@@ -32,10 +33,13 @@ Scenario(TestConfigurator.idamInUseText('Survey link redirects to the correct pa
     I.startApply();
 
     // IDAM
-    I.authenticateWithIdamIfAvailable();
+    const emailId = randomstring.generate(9).toLowerCase()+'@example.com';
+    TestConfigurator.createAUser(emailId);
+    I.signInWith(emailId, 'Probate123');
 
     I.amOnPage(pageUnderTest.getUrl());
     I.click('feedback');
+    I.wait(7);
     I.seeElement('#cmdGo');
 
 });

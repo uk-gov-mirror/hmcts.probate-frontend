@@ -1,5 +1,6 @@
 'use strict';
 
+const randomstring = require('randomstring');
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 
@@ -18,7 +19,6 @@ After(() => {
 });
 
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I) {
-
     //Screeners & Pre-IDAM
     I.startApplication();
     I.selectDeathCertificate('Yes');
@@ -31,7 +31,9 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     I.startApply();
 
     // IDAM
-    I.authenticateWithIdamIfAvailable();
+    const emailId = randomstring.generate(9).toLowerCase()+'@example.com';
+    TestConfigurator.createAUser(emailId);
+    I.signInWith(emailId, 'Probate123');
 
     // Deceased Details
     I.selectATask(taskListContent.taskNotStarted);
