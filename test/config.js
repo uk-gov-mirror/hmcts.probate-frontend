@@ -3,6 +3,8 @@ module.exports = {
     TestIdamBaseUrl: process.env.IDAM_API_URL || 'https://preprod-idamapi.reform.hmcts.net:3511',
     TestFrontendUrl: process.env.TEST_URL || 'https://probate-frontend-aat.service.core-compute-aat.internal',
     TestE2EFrontendUrl: process.env.TEST_E2E_URL || 'https://probate-frontend-aat.service.core-compute-aat.internal',
+    TestUseProxy: process.env.TEST_USE_PROXY || 'true',
+    TestProxy: process.env.TEST_PROXY || 'socks5:proxyout.reform.hmcts.net:8080',
     TestUseIdam: process.env.USE_IDAM || 'true',
     TestUseSidam: process.env.USE_SIDAM || 'false',
     TestIdamLoginUrl: process.env.IDAM_LOGIN_URL || 'https://idam.preprod.ccidam.reform.hmcts.net/login',

@@ -29,8 +29,9 @@ class TestConfigurator {
         this.testUserPassword = testConfig.TestNewUserPassword;
         this.testUserGroupName = testConfig.TestNewUserGroupName;
         this.testCreateUserURL = testConfig.TestCreateUserURL;
-        this.testReformProxy = testConfig.TestReformProxy;
         this.testInjectFormDataURL = testConfig.TestInjectFormDataURL;
+        this.testUseProxy = testConfig.TestUseProxy;
+        this.testProxy = testConfig.TestProxy;
     }
 
     getBefore() {
@@ -66,13 +67,22 @@ class TestConfigurator {
                     };
             }
 
-            request({
-                url: this.getTestAddUserURL(),
-                proxy: 'socks5:proxyout.reform.hmcts.net:8080',
-                method: 'POST',
-                json: true, // <--Very important!!!
-                body: this.userDetails
-            });
+            if (this.getUseProxy() === 'true') {
+                request({
+                    url: this.getTestAddUserURL(),
+                    proxy: this.getProxy(),
+                    method: 'POST',
+                    json: true, // <--Very important!!!
+                    body: this.userDetails
+                });
+            } else {
+                request({
+                    url: this.getTestAddUserURL(),
+                    method: 'POST',
+                    json: true, // <--Very important!!!
+                    body: this.userDetails
+                });
+            }
         }
 
     }
@@ -151,6 +161,14 @@ class TestConfigurator {
 
     getRetryScenarios() {
         return this.retryScenarios;
+    }
+
+    getUseProxy() {
+        return this.testUseProxy;
+    }
+
+    getProxy() {
+        return this.testProxy;
     }
 
     createAUser(emailId) {
