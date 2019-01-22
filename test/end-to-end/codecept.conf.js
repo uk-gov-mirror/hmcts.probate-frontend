@@ -7,16 +7,22 @@ exports.config = {
         'Puppeteer': {
             'url': testConfig.TestE2EFrontendUrl || 'http://localhost:3000',
             'waitForTimeout': 60000,
-            'getPageTimeout': 60000,
+            'waitForAction': 3000,
+            'getPageTimeout': 20000,
             'show': true,
             'waitForNavigation': 'networkidle0',
             'chrome': {
                 'ignoreHTTPSErrors': true,
                 'ignore-certificate-errors': true,
+                'defaultViewport': {
+                    'width': 1280,
+                    'height': 960
+                },
                 args: [
                     '--no-sandbox',
                     '--proxy-server=proxyout.reform.hmcts.net:8080',
-                    '--proxy-bypass-list=*beta*LB.reform.hmcts.net'
+                    '--proxy-bypass-list=*beta*LB.reform.hmcts.net',
+                    '--window-size=1440,1400'
                 ]
             },
         },
