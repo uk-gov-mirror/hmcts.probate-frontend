@@ -4,7 +4,7 @@ const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const {forEach, head} = require('lodash');
 const testConfig = require('test/config.js');
-const randomstring = require('randomstring');
+//const randomstring = require('randomstring');
 
 let grabIds;
 let emailId;
@@ -25,9 +25,10 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.startApply();
 
     // IDAM
-    emailId = randomstring.generate(9).toLowerCase()+'@example.com';
-    TestConfigurator.createAUser(emailId);
-    I.signInWith(emailId, 'Probate123');
+    //   emailId = randomstring.generate(9).toLowerCase()+'@example.com';
+    // TestConfigurator.createAUser(emailId);
+    // I.signInWith(emailId, 'Probate123');
+    I.authenticateWithIdamIfAvailable();
 
     // DeceasedTask
     I.selectATask(taskListContent.taskNotStarted);

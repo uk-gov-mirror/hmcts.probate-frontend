@@ -8,7 +8,6 @@ module.exports = function () {
         const I = this;
 
         I.see('Sign in');
-
         I.fillField('username', process.env.testCitizenEmail);
         I.fillField('password', process.env.testCitizenPassword);
 

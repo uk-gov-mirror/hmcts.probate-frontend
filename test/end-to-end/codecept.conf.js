@@ -1,14 +1,14 @@
 const testConfig = require('test/config.js');
 
 exports.config = {
-    'tests': './paths/**/*.js',
+    'tests': './paths/**/singleExecutorsPath.js',
     'output': './output',
     'helpers': {
         'Puppeteer': {
             'url': testConfig.TestE2EFrontendUrl || 'http://localhost:3000',
             'waitForTimeout': 60000,
             'getPageTimeout': 60000,
-            'show': false,
+            'show': true,
             'waitForNavigation': 'networkidle0',
             'chrome': {
                 'ignoreHTTPSErrors': true,

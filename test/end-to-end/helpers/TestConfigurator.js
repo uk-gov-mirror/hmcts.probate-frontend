@@ -64,10 +64,12 @@ class TestConfigurator {
                         'user_group_name': this.getTestRole(),
                         'password': this.getTestCitizenPassword()
                     };
+                console.log('old login');
             }
 
             request({
                 url: this.getTestAddUserURL(),
+                proxy: 'socks5:proxyout.reform.hmcts.net:8080',
                 method: 'POST',
                 json: true, // <--Very important!!!
                 body: this.userDetails
