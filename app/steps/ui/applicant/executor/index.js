@@ -11,11 +11,6 @@ class ApplicantExecutor extends EligibilityValidationStep {
         return pageUrl;
     }
 
-    handlePost(ctx, errors, formdata, session) {
-        delete session.form;
-        return [ctx, errors];
-    }
-
     getContextData(req, res) {
         return super.getContextData(req, res, pageUrl, fieldKey);
     }
