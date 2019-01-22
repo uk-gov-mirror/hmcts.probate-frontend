@@ -62,8 +62,8 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     I.selectATask(taskListContent.taskNotStarted);
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
     I.selectNameAsOnTheWill('No');
-    I.enterApplicantAlias('Bob Alias');
-    I.enterApplicantAliasReason('aliasOther', 'Because YOLO');
+    I.enterApplicantAlias('Applicant Alias');
+    I.enterApplicantAliasReason('aliasOther', 'Applicant_alias_reason');
     I.enterApplicantPhone();
     I.enterAddressManually();
 

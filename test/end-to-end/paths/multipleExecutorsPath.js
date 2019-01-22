@@ -11,6 +11,18 @@ let emailId;
 
 Feature('Multiple Executors flow');
 
+// eslint complains that the Before/After are not used but they are by codeceptjs
+// so we have to tell eslint to not validate these
+// eslint-disable-next-line no-undef
+Before(() => {
+    TestConfigurator.getBefore();
+});
+
+// eslint-disable-next-line no-undef
+After(() => {
+    TestConfigurator.getAfter();
+});
+
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant: 1st stage of completing application'), function* (I) {
 
     // Pre-IDAM
@@ -36,7 +48,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.enterDeceasedDateOfBirth('01', '01', '1950');
     I.enterDeceasedDateOfDeath('01', '01', '2017');
     I.enterDeceasedAddress();
-    I.selectDocumentUpload();
+    I.selectDocumentsToUpload();
     I.selectInheritanceMethodPaper();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
@@ -92,7 +104,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     const executorsWithDifferentNameList = ['5'];
     forEach(executorsWithDifferentNameList, executorNumber => {
         I.enterExecutorCurrentName(executorNumber, head(executorsWithDifferentNameList) === executorNumber);
-        I.enterExecutorCurrentNameReason(executorNumber, 'aliasOther', 'Because YOLO');
+        I.enterExecutorCurrentNameReason(executorNumber, 'aliasOther', 'executor_alias_reason');
     });
 
     forEach(executorsApplyingList, executorNumber => {

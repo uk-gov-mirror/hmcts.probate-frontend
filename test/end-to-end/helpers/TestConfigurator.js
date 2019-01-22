@@ -147,7 +147,6 @@ class TestConfigurator {
 
     setEnvVars() {
         process.env.testCitizenEmail = this.getTestCitizenEmail();
-        process.env.testCitizenPassword = this.getTestCitizenPassword();
     }
 
     resetEnvVars() {
