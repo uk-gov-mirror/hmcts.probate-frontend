@@ -2,8 +2,6 @@
 
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
 const content = require('app/resources/en/translation/iht/completed');
-const EligibilityCookie = require('app/utils/EligibilityCookie');
-const eligibilityCookie = new EligibilityCookie();
 const pageUrl = '/iht-completed';
 const fieldKey = 'completed';
 
@@ -32,14 +30,6 @@ class IhtCompleted extends EligibilityValidationStep {
                 {key: fieldKey, value: content.optionYes, choice: 'completed'}
             ]
         };
-    }
-
-    persistFormData() {
-        return {};
-    }
-
-    setEligibilityCookie(req, res, nextStepUrl) {
-        eligibilityCookie.setCookie(req, res, nextStepUrl);
     }
 }
 

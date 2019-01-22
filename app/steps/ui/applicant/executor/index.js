@@ -2,8 +2,6 @@
 
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
 const content = require('app/resources/en/translation/applicant/executor');
-const EligibilityCookie = require('app/utils/EligibilityCookie');
-const eligibilityCookie = new EligibilityCookie();
 const pageUrl = '/applicant-executor';
 const fieldKey = 'executor';
 
@@ -32,14 +30,6 @@ class ApplicantExecutor extends EligibilityValidationStep {
                 {key: fieldKey, value: content.optionYes, choice: 'isExecutor'}
             ]
         };
-    }
-
-    persistFormData() {
-        return {};
-    }
-
-    setEligibilityCookie(req, res, nextStepUrl) {
-        eligibilityCookie.setCookie(req, res, nextStepUrl);
     }
 }
 

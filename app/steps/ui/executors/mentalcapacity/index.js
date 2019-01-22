@@ -2,8 +2,6 @@
 
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
 const content = require('app/resources/en/translation/executors/mentalcapacity');
-const EligibilityCookie = require('app/utils/EligibilityCookie');
-const eligibilityCookie = new EligibilityCookie();
 const pageUrl = '/mental-capacity';
 const fieldKey = 'mentalCapacity';
 
@@ -32,14 +30,6 @@ class MentalCapacity extends EligibilityValidationStep {
                 {key: fieldKey, value: content.optionYes, choice: 'isCapable'}
             ]
         };
-    }
-
-    persistFormData() {
-        return {};
-    }
-
-    setEligibilityCookie(req, res, nextStepUrl) {
-        eligibilityCookie.setCookie(req, res, nextStepUrl);
     }
 }
 

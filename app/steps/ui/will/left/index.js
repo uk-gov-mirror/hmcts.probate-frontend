@@ -2,8 +2,6 @@
 
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
 const content = require('app/resources/en/translation/will/left');
-const EligibilityCookie = require('app/utils/EligibilityCookie');
-const eligibilityCookie = new EligibilityCookie();
 const pageUrl = '/will-left';
 const fieldKey = 'left';
 
@@ -32,14 +30,6 @@ class WillLeft extends EligibilityValidationStep {
                 {key: fieldKey, value: content.optionYes, choice: 'withWill'}
             ]
         };
-    }
-
-    persistFormData() {
-        return {};
-    }
-
-    setEligibilityCookie(req, res, nextStepUrl) {
-        eligibilityCookie.setCookie(req, res, nextStepUrl);
     }
 }
 

@@ -2,8 +2,6 @@
 
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
 const content = require('app/resources/en/translation/deceased/deathcertificate');
-const EligibilityCookie = require('app/utils/EligibilityCookie');
-const eligibilityCookie = new EligibilityCookie();
 const pageUrl = '/death-certificate';
 const fieldKey = 'deathCertificate';
 
@@ -32,14 +30,6 @@ class DeathCertificate extends EligibilityValidationStep {
                 {key: fieldKey, value: content.optionYes, choice: 'hasCertificate'}
             ]
         };
-    }
-
-    persistFormData() {
-        return {};
-    }
-
-    setEligibilityCookie(req, res, nextStepUrl) {
-        eligibilityCookie.setCookie(req, res, nextStepUrl);
     }
 }
 
