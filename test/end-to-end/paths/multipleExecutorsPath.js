@@ -13,12 +13,12 @@ Feature('Multiple Executors flow');
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
 // eslint-disable-next-line no-undef
-Before(() => {
+BeforeSuite(() => {
     TestConfigurator.getBefore();
 });
 
 // eslint-disable-next-line no-undef
-After(() => {
+AfterSuite(() => {
     TestConfigurator.getAfter();
 });
 
