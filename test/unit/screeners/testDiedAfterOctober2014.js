@@ -6,10 +6,6 @@ const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const DiedAfterOctober2014 = steps.DiedAfterOctober2014;
 const content = require('app/resources/en/translation/screeners/diedafteroctober2014');
-const rewire = require('rewire');
-const sinon = require('sinon');
-const schema = require('app/steps/ui/screeners/diedafteroctober2014/schema');
-const diedAfter = rewire('app/steps/ui/screeners/diedafteroctober2014/index');
 
 describe('DiedAfterOctober2014', () => {
     describe('getUrl()', () => {
@@ -60,39 +56,6 @@ describe('DiedAfterOctober2014', () => {
                     choice: 'diedAfter'
                 }]
             });
-            done();
-        });
-    });
-
-    describe('persistFormData()', () => {
-        it('should return an empty object', () => {
-            const result = DiedAfterOctober2014.persistFormData();
-            expect(result).to.deep.equal({});
-        });
-    });
-
-    describe('setEligibilityCookie()', () => {
-        it('should call eligibilityCookie.setCookie() with the correct params', (done) => {
-            const revert = diedAfter.__set__('eligibilityCookie', {setCookie: sinon.spy()});
-            const req = {reqParam: 'req value'};
-            const res = {resParam: 'res value'};
-            const nextStepUrl = '/stop-page/diedAfter';
-            const steps = {};
-            const section = null;
-            const resourcePath = 'screeners/diedafteroctober2014';
-            const i18next = {};
-            const DieAft = new diedAfter(steps, section, resourcePath, i18next, schema);
-
-            DieAft.setEligibilityCookie(req, res, nextStepUrl);
-
-            expect(diedAfter.__get__('eligibilityCookie.setCookie').calledOnce).to.equal(true);
-            expect(diedAfter.__get__('eligibilityCookie.setCookie').calledWith(
-                {reqParam: 'req value'},
-                {resParam: 'res value'},
-                '/stop-page/diedAfter'
-            )).to.equal(true);
-
-            revert();
             done();
         });
     });

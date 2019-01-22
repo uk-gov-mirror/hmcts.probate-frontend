@@ -2,8 +2,6 @@
 
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
 const content = require('app/resources/en/translation/screeners/willleft');
-const EligibilityCookie = require('app/utils/EligibilityCookie');
-const eligibilityCookie = new EligibilityCookie();
 const pageUrl = '/will-left';
 const fieldKey = 'left';
 const FeatureToggle = require('app/utils/FeatureToggle');
@@ -15,8 +13,8 @@ class WillLeft extends EligibilityValidationStep {
     }
 
     handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
+        super.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
         ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'intestacy_screening_questions');
-        delete session.form;
         return [ctx, errors];
     }
 
@@ -43,14 +41,6 @@ class WillLeft extends EligibilityValidationStep {
                 {key: fieldKey, value: content.optionYes, choice: 'withWill'}
             ]
         };
-    }
-
-    persistFormData() {
-        return {};
-    }
-
-    setEligibilityCookie(req, res, nextStepUrl) {
-        eligibilityCookie.setCookie(req, res, nextStepUrl);
     }
 
     action(ctx, formdata) {
