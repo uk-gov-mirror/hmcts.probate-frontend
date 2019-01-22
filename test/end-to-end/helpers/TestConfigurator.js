@@ -39,6 +39,7 @@ class TestConfigurator {
         if (process.env.testCitizenEmail === this.getTestCitizenEmail()) {
             this.setTestCitizenName();
             this.setTestCitizenPassword();
+            console.log('here');
         }
 
         this.setEnvVars();
@@ -147,6 +148,7 @@ class TestConfigurator {
 
     setEnvVars() {
         process.env.testCitizenEmail = this.getTestCitizenEmail();
+        process.env.testCitizenPassword = this.getTestCitizenPassword();
     }
 
     resetEnvVars() {

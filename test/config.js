@@ -16,7 +16,7 @@ module.exports = {
     TestIdamUserGroup: process.env.IDAM_USER_GROUP || 'probate-private-beta',
     TestIdamRole: process.env.IDAM_CITIZEN_ROLE || 'citizen',
     TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN || '/@probateTest.com',
-    TestRetryScenarios: process.env.RETRY_SCENARIOS || 3,
+    TestRetryScenarios: process.env.RETRY_SCENARIOS || 0,
     TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png',
     TestWaitForDocumentUpload: 60,
 

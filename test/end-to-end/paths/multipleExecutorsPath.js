@@ -7,7 +7,6 @@ const testConfig = require('test/config.js');
 //const randomstring = require('randomstring');
 
 let grabIds;
-let emailId;
 
 Feature('Multiple Executors flow');
 
@@ -174,7 +173,8 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     I.startApply();
 
     // IDAM
-    I.signInWith(emailId, 'Probate123');
+    //    I.signInWith(emailId, 'Probate123');
+    I.authenticateWithIdamIfAvailable();
 
     // Extra copies task
     I.selectATask(taskListContent.taskNotStarted);
