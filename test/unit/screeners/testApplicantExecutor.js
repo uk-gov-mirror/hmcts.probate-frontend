@@ -6,12 +6,37 @@ const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ApplicantExecutor = steps.ApplicantExecutor;
 const content = require('app/resources/en/translation/screeners/applicantexecutor');
+const pageUrl = '/applicant-executor';
+const fieldKey = 'executor';
 
 describe('ApplicantExecutor', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = ApplicantExecutor.constructor.getUrl();
             expect(url).to.equal('/applicant-executor');
+            done();
+        });
+    });
+
+    describe('getContextData()', () => {
+        it('should return the correct context on GET', (done) => {
+            const req = {
+                method: 'GET',
+                sessionID: 'dummy_sessionId',
+                session: {
+                    form: {}
+                },
+                body: {
+                    executor: content.optionYes
+                }
+            };
+            const res = {};
+
+            const ctx = ApplicantExecutor.getContextData(req, res, pageUrl, fieldKey);
+            expect(ctx).to.deep.equal({
+                sessionID: 'dummy_sessionId',
+                executor: content.optionYes
+            });
             done();
         });
     });

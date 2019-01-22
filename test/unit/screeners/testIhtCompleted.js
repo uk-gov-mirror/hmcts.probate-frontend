@@ -6,12 +6,37 @@ const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const IhtCompleted = steps.IhtCompleted;
 const content = require('app/resources/en/translation/screeners/ihtcompleted');
+const pageUrl = '/iht-completed';
+const fieldKey = 'completed';
 
 describe('IhtCompleted', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = IhtCompleted.constructor.getUrl();
             expect(url).to.equal('/iht-completed');
+            done();
+        });
+    });
+
+    describe('getContextData()', () => {
+        it('should return the correct context on GET', (done) => {
+            const req = {
+                method: 'GET',
+                sessionID: 'dummy_sessionId',
+                session: {
+                    form: {}
+                },
+                body: {
+                    completed: content.optionYes
+                }
+            };
+            const res = {};
+
+            const ctx = IhtCompleted.getContextData(req, res, pageUrl, fieldKey);
+            expect(ctx).to.deep.equal({
+                sessionID: 'dummy_sessionId',
+                completed: content.optionYes
+            });
             done();
         });
     });
