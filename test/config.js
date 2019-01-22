@@ -36,10 +36,10 @@ module.exports = {
 
     TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',
 
-    TestNewUserForename: 'testAAT24',
+    /* TestNewUserForename: 'testAAT24',
     TestNewUserSurname: 'testmail1251',
     TestNewUserPassword: 'Probate123',
-    TestNewUserGroupName: 'probate-private-beta',
+    TestNewUserGroupName: 'probate-private-beta',*/
 
     TestCreateUserURL: 'https://preprod-idamapi.reform.hmcts.net:3511/testing-support/accounts',
     TestReformProxy: 'http://proxyout.reform.hmcts.net:8080',
