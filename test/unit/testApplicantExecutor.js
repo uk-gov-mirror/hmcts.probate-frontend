@@ -4,10 +4,6 @@ const journey = require('app/journeys/probate');
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
 const content = require('app/resources/en/translation/applicant/executor');
-const rewire = require('rewire');
-const sinon = require('sinon');
-const schema = require('app/steps/ui/applicant/executor/schema');
-const applicantExecutor = rewire('app/steps/ui/applicant/executor/index');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const ApplicantExecutor = steps.ApplicantExecutor;
 
@@ -60,39 +56,6 @@ describe('ApplicantExecutor', () => {
                     choice: 'isExecutor'
                 }]
             });
-            done();
-        });
-    });
-
-    describe('persistFormData()', () => {
-        it('should return an empty object', () => {
-            const result = ApplicantExecutor.persistFormData();
-            expect(result).to.deep.equal({});
-        });
-    });
-
-    describe('setEligibilityCookie()', () => {
-        it('should call eligibilityCookie.setCookie() with the correct params', (done) => {
-            const revert = applicantExecutor.__set__('eligibilityCookie', {setCookie: sinon.spy()});
-            const req = {reqParam: 'req value'};
-            const res = {resParam: 'res value'};
-            const nextStepUrl = '/stop-page/notExecutor';
-            const steps = {};
-            const section = null;
-            const resourcePath = 'applicant/executor';
-            const i18next = {};
-            const AppExec = new applicantExecutor(steps, section, resourcePath, i18next, schema);
-
-            AppExec.setEligibilityCookie(req, res, nextStepUrl);
-
-            expect(applicantExecutor.__get__('eligibilityCookie.setCookie').calledOnce).to.equal(true);
-            expect(applicantExecutor.__get__('eligibilityCookie.setCookie').calledWith(
-                {reqParam: 'req value'},
-                {resParam: 'res value'},
-                '/stop-page/notExecutor'
-            )).to.equal(true);
-
-            revert();
             done();
         });
     });
