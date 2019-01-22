@@ -21,7 +21,7 @@ describe('WillCodicils', () => {
         it('should return the ctx with the will codicils', (done) => {
             const req = {
                 sessionID: 'dummy_sessionId',
-                session: {form: {}, featureToggles: {screening_questions: true}},
+                session: {form: {}},
                 body: {
                     codicils: content.optionYes
                 }

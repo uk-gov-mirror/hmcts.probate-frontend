@@ -6,12 +6,37 @@ const {expect} = require('chai');
 const content = require('app/resources/en/translation/will/left');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const WillLeft = steps.WillLeft;
+const pageUrl = '/will-left';
+const fieldKey = 'left';
 
 describe('WillLeft', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = WillLeft.constructor.getUrl();
             expect(url).to.equal('/will-left');
+            done();
+        });
+    });
+
+    describe('getContextData()', () => {
+        it('should return the correct context on GET', (done) => {
+            const req = {
+                method: 'GET',
+                sessionID: 'dummy_sessionId',
+                session: {
+                    form: {}
+                },
+                body: {
+                    left: content.optionYes
+                }
+            };
+            const res = {};
+
+            const ctx = WillLeft.getContextData(req, res, pageUrl, fieldKey);
+            expect(ctx).to.deep.equal({
+                sessionID: 'dummy_sessionId',
+                left: content.optionYes
+            });
             done();
         });
     });

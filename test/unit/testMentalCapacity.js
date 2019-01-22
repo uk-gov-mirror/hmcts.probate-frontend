@@ -6,12 +6,37 @@ const {expect} = require('chai');
 const content = require('app/resources/en/translation/executors/mentalcapacity');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const MentalCapacity = steps.MentalCapacity;
+const pageUrl = '/mental-capacity';
+const fieldKey = 'mentalCapacity';
 
 describe('MentalCapacity', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = MentalCapacity.constructor.getUrl();
             expect(url).to.equal('/mental-capacity');
+            done();
+        });
+    });
+
+    describe('getContextData()', () => {
+        it('should return the correct context on GET', (done) => {
+            const req = {
+                method: 'GET',
+                sessionID: 'dummy_sessionId',
+                session: {
+                    form: {}
+                },
+                body: {
+                    mentalCapacity: content.optionYes
+                }
+            };
+            const res = {};
+
+            const ctx = MentalCapacity.getContextData(req, res, pageUrl, fieldKey);
+            expect(ctx).to.deep.equal({
+                sessionID: 'dummy_sessionId',
+                mentalCapacity: content.optionYes
+            });
             done();
         });
     });
