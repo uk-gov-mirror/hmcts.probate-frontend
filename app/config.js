@@ -21,7 +21,7 @@ const config = {
         port: process.env.PORT || '3000',
         useCSRFProtection: 'true',
         session: {
-            expires: 300000, // ms (5 min)
+            expires: 100000, // ms (100 min)
             ttl: 28800 // s (8 hours)
         }
     },
