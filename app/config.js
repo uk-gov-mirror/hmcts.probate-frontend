@@ -144,7 +144,7 @@ const config = {
     whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
     whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
     hardStopParams: ['will.left', 'will.original', 'iht.completed', 'applicant.executor'],
-    nonIdamPages: ['error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'will-left', 'will-original', 'death-certificate', 'deceased-domicile', 'applicant-executor', 'mental-capacity', 'iht-completed', 'start-apply'],
+    nonIdamPages: ['stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'will-left', 'will-original', 'death-certificate', 'deceased-domicile', 'applicant-executor', 'mental-capacity', 'iht-completed', 'start-apply'],
     endpoints: {
         health: '/health',
         info: '/info'
