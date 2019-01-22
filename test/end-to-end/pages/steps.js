@@ -29,7 +29,7 @@ module.exports = function () {
         enterDeceasedDateOfBirth: steps.deceased.dob,
         enterDeceasedDateOfDeath: steps.deceased.dod,
         enterDeceasedAddress: steps.deceased.address,
-        selectDocumentUpload: steps.documentupload.documentupload,
+        selectDocumentToUpload: steps.documentupload.documentupload,
         selectInheritanceMethodPaper: steps.iht.method,
         enterGrossAndNet: steps.iht.paper,
         selectDeceasedAlias: steps.deceased.alias,
