@@ -7,8 +7,9 @@ const testConfig = require('test/config.js');
 //const randomstring = require('randomstring');
 
 let grabIds;
+let retries = -1;
 
-Feature('Multiple Executors flow');
+Feature('Multiple Executors flow').retry(TestConfigurator.getRetryFeatures());
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
@@ -23,6 +24,11 @@ AfterSuite(() => {
 });
 
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant: 1st stage of completing application'), function* (I) {
+    retries += 1;
+
+    if (retries >= 1) {
+        TestConfigurator.getBefore();
+    }
 
     // Pre-IDAM
     I.startApplication();
@@ -36,9 +42,6 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.startApply();
 
     // IDAM
-    //   emailId = randomstring.generate(9).toLowerCase()+'@example.com';
-    // TestConfigurator.createAUser(emailId);
-    // I.signInWith(emailId, 'Probate123');
     I.authenticateWithIdamIfAvailable();
 
     // DeceasedTask
@@ -157,7 +160,7 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
         I.seeAgreePage(i);
 
     }
-});
+}).retry(TestConfigurator.getRetryScenarios());
 
 Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function* (I) {
 
@@ -207,4 +210,4 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
 
     // Thank You - Application Complete Task
     I.seeThankYouPage();
-});
+}).retry(TestConfigurator.getRetryScenarios());

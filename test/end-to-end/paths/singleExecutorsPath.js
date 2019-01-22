@@ -4,7 +4,7 @@
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 
-Feature('Single Executor flow');
+Feature('Single Executor flow').retry(TestConfigurator.getRetryFeatures());
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
@@ -106,4 +106,4 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
 
     // Thank You - Application Complete Task
     I.seeThankYouPage();
-}).retry(TestConfigurator.getRetryScenarios());
+});
