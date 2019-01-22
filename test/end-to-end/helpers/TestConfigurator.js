@@ -64,7 +64,6 @@ class TestConfigurator {
                         'user_group_name': this.getTestRole(),
                         'password': this.getTestCitizenPassword()
                     };
-                console.log('old login');
             }
 
             request({
