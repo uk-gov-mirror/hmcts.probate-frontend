@@ -28,7 +28,6 @@ class TestConfigurator {
     }
 
     getBefore() {
-        console.log('getBefore()');
         if (process.env.testCitizenEmail === this.getTestCitizenEmail()) {
             this.setTestCitizenName();
             this.setTestCitizenPassword();
