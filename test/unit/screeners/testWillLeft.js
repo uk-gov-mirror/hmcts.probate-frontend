@@ -6,8 +6,6 @@ const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const WillLeft = steps.WillLeft;
 const content = require('app/resources/en/translation/screeners/willleft');
-const pageUrl = '/will-left';
-const fieldKey = 'left';
 
 describe('WillLeft', () => {
     describe('getUrl()', () => {
@@ -19,12 +17,15 @@ describe('WillLeft', () => {
     });
 
     describe('getContextData()', () => {
-        it('should return the correct context on GET', (done) => {
+        it('should return the correct context on GET and the intestacy_screening_questions feature toggle OFF', (done) => {
             const req = {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
-                    form: {}
+                    form: {},
+                    featureToggles: {
+                        intestacy_screening_questions: false
+                    }
                 },
                 body: {
                     left: content.optionYes
@@ -32,10 +33,36 @@ describe('WillLeft', () => {
             };
             const res = {};
 
-            const ctx = WillLeft.getContextData(req, res, pageUrl, fieldKey);
+            const ctx = WillLeft.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
-                left: content.optionYes
+                left: content.optionYes,
+                isToggleEnabled: false
+            });
+            done();
+        });
+
+        it('should return the correct context on GET and the intestacy_screening_questions feature toggle ON', (done) => {
+            const req = {
+                method: 'GET',
+                sessionID: 'dummy_sessionId',
+                session: {
+                    form: {},
+                    featureToggles: {
+                        intestacy_screening_questions: true
+                    }
+                },
+                body: {
+                    left: content.optionYes
+                }
+            };
+            const res = {};
+
+            const ctx = WillLeft.getContextData(req, res);
+            expect(ctx).to.deep.equal({
+                sessionID: 'dummy_sessionId',
+                left: content.optionYes,
+                isToggleEnabled: true
             });
             done();
         });

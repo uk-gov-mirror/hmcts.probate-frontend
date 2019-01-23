@@ -6,8 +6,6 @@ const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const DeathCertificate = steps.DeathCertificate;
 const content = require('app/resources/en/translation/screeners/deathcertificate');
-const pageUrl = '/death-certificate';
-const fieldKey = 'deathCertificate';
 
 describe('DeathCertificate', () => {
     describe('getUrl()', () => {
@@ -32,7 +30,7 @@ describe('DeathCertificate', () => {
             };
             const res = {};
 
-            const ctx = DeathCertificate.getContextData(req, res, pageUrl, fieldKey);
+            const ctx = DeathCertificate.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 deathCertificate: content.optionYes

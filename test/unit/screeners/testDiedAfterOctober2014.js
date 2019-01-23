@@ -16,6 +16,29 @@ describe('DiedAfterOctober2014', () => {
         });
     });
 
+    describe('getContextData()', () => {
+        it('should return the correct context on GET', (done) => {
+            const req = {
+                method: 'GET',
+                sessionID: 'dummy_sessionId',
+                session: {
+                    form: {}
+                },
+                body: {
+                    diedAfter: content.optionYes
+                }
+            };
+            const res = {};
+
+            const ctx = DiedAfterOctober2014.getContextData(req, res);
+            expect(ctx).to.deep.equal({
+                sessionID: 'dummy_sessionId',
+                diedAfter: content.optionYes
+            });
+            done();
+        });
+    });
+
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
             const req = {

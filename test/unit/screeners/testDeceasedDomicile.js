@@ -6,8 +6,6 @@ const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const DeceasedDomicile = steps.DeceasedDomicile;
 const content = require('app/resources/en/translation/screeners/deceaseddomicile');
-const pageUrl = '/deceased-domicile';
-const fieldKey = 'domicile';
 
 describe('DeceasedDomicile', () => {
     describe('getUrl()', () => {
@@ -32,7 +30,7 @@ describe('DeceasedDomicile', () => {
             };
             const res = {};
 
-            const ctx = DeceasedDomicile.getContextData(req, res, pageUrl, fieldKey);
+            const ctx = DeceasedDomicile.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 domicile: content.optionYes

@@ -6,8 +6,6 @@ const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const WillOriginal = steps.WillOriginal;
 const content = require('app/resources/en/translation/screeners/willoriginal');
-const pageUrl = '/will-original';
-const fieldKey = 'original';
 
 describe('WillOriginal', () => {
     describe('getUrl()', () => {
@@ -32,7 +30,7 @@ describe('WillOriginal', () => {
             };
             const res = {};
 
-            const ctx = WillOriginal.getContextData(req, res, pageUrl, fieldKey);
+            const ctx = WillOriginal.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 original: content.optionYes

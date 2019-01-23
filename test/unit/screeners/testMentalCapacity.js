@@ -6,8 +6,6 @@ const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const MentalCapacity = steps.MentalCapacity;
 const content = require('app/resources/en/translation/screeners/mentalcapacity');
-const pageUrl = '/mental-capacity';
-const fieldKey = 'mentalCapacity';
 
 describe('MentalCapacity', () => {
     describe('getUrl()', () => {
@@ -32,7 +30,7 @@ describe('MentalCapacity', () => {
             };
             const res = {};
 
-            const ctx = MentalCapacity.getContextData(req, res, pageUrl, fieldKey);
+            const ctx = MentalCapacity.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 mentalCapacity: content.optionYes
