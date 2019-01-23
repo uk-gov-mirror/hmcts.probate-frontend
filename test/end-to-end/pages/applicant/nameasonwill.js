@@ -5,7 +5,7 @@ const pageUnderTest = require('app/steps/ui/applicant/nameasonwill/index');
 
 module.exports = function (option) {
     const I = this;
-    
+
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.click('#nameAsOnTheWill-option' + option);
 

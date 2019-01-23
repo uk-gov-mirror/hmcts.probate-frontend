@@ -12,6 +12,6 @@ module.exports = function () {
     I.fillField('#address-city', 'London');
     I.fillField('#address-postcode', 'SW1A1AA');
     I.fillField('#email', 'b5zsocuo2@example.com');
-    
+
     I.awaitNavigation(() => I.click('#submit-card-details'));
 };
