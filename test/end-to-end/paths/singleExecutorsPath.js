@@ -31,11 +31,6 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     I.startApply();
 
     // IDAM
-    /*
-     const emailId = randomstring.generate(9).toLowerCase()+'@example.com';
-     TestConfigurator.createAUser(emailId);
-     I.signInWith(emailId, 'Probate123');
-    */
     I.authenticateWithIdamIfAvailable();
 
     // Deceased Details

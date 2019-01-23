@@ -4,7 +4,6 @@ const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const {forEach, head} = require('lodash');
 const testConfig = require('test/config.js');
-//const randomstring = require('randomstring');
 
 let grabIds;
 let retries = -1;

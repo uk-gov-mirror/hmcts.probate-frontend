@@ -19,7 +19,6 @@ module.exports = function () {
 
         //Sign In to IDAM
         authenticateWithIdamIfAvailable: steps.IDAM.signIn,
-        //signInWith: steps.IDAM.signInExternal,
 
         //Start application
         selectATask: steps.tasklist.tasklist,

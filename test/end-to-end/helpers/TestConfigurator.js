@@ -18,19 +18,11 @@ class TestConfigurator {
         this.testDeleteUserUrl = this.testAddUserUrl + '/';
         this.role = testConfig.TestIdamRole;
         this.testIdamUserGroup = testConfig.TestIdamUserGroup;
-        this.paymentEnvironments = testConfig.paymentEnvironments;
-        this.TestE2EFrontendUrl = testConfig.TestE2EFrontendUrl;
         this.useGovPay = testConfig.TestUseGovPay;
         this.userDetails = '';
         this.useSidam = testConfig.TestUseSidam;
         this.retryFeatures = testConfig.TestRetryFeatures;
         this.retryScenarios = testConfig.TestRetryScenarios;
-        this.testUserForename = testConfig.TestNewUserForename;
-        this.testUserSurname = testConfig.TestNewUserSurname;
-        this.testUserPassword = testConfig.TestNewUserPassword;
-        this.testUserGroupName = testConfig.TestNewUserGroupName;
-        this.testCreateUserURL = testConfig.TestCreateUserURL;
-        this.testInjectFormDataURL = testConfig.TestInjectFormDataURL;
         this.testUseProxy = testConfig.TestUseProxy;
         this.testProxy = testConfig.TestProxy;
     }
@@ -174,29 +166,6 @@ class TestConfigurator {
 
     getProxy() {
         return this.testProxy;
-    }
-
-    createAUser(emailId) {
-        const myJSONObject = {
-            email: emailId,
-            forename: this.testUserForename,
-            surname: this.testUserSurname,
-            password: this.testUserPassword,
-            user_group_name: this.testUserGroupName
-        };
-
-        request(
-            {
-                url: this.testCreateUserURL,
-                method: 'POST',
-                headers: {'content-type': 'application/json'},
-                proxy: this.testReformProxy,
-                json: true,
-                body: myJSONObject
-            },
-            function (error, response, body) {
-                // console.log(emailId);
-            });
     }
 
     injectFormData(data, emailId) {
