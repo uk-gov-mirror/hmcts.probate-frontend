@@ -10,7 +10,7 @@
     "executor": {
       "required": {
         "summary": "You haven&rsquo;t answered the question about the executors",
-        "message": "Select &lsquo;yes&rsquo; if you are an executor on the will"
+        "message": "Answer &lsquo;yes&rsquo; if you are an executor on the will"
       }
     }
   }

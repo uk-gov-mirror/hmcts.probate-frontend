@@ -1,14 +1,11 @@
 'use strict';
 
+const journey = require('app/journeys/probate');
 const initSteps = require('../../../app/core/initSteps');
 const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const OtherApplicants = steps.OtherApplicants;
 const content = require('app/resources/en/translation/screeners/otherapplicants');
-const rewire = require('rewire');
-const sinon = require('sinon');
-const schema = require('app/steps/ui/screeners/otherapplicants/schema');
-const othrAppl = rewire('app/steps/ui/screeners/otherapplicants/index');
 
 describe('OtherApplicants', () => {
     describe('getUrl()', () => {
@@ -19,21 +16,54 @@ describe('OtherApplicants', () => {
         });
     });
 
+    describe('getContextData()', () => {
+        it('should return the correct context on GET', (done) => {
+            const req = {
+                method: 'GET',
+                sessionID: 'dummy_sessionId',
+                session: {
+                    form: {}
+                },
+                body: {
+                    otherApplicants: content.optionYes
+                }
+            };
+            const res = {};
+
+            const ctx = OtherApplicants.getContextData(req, res);
+            expect(ctx).to.deep.equal({
+                sessionID: 'dummy_sessionId',
+                otherApplicants: content.optionYes
+            });
+            done();
+        });
+    });
+
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
             const ctx = {
                 otherApplicants: content.optionYes
             };
-            const nextStepUrl = OtherApplicants.nextStepUrl(ctx);
+            const nextStepUrl = OtherApplicants.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/otherApplicants');
             done();
         });
 
         it('should return the correct url when No is given', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
             const ctx = {
                 otherApplicants: content.optionNo
             };
-            const nextStepUrl = OtherApplicants.nextStepUrl(ctx);
+            const nextStepUrl = OtherApplicants.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/start-apply');
             done();
         });
@@ -49,39 +79,6 @@ describe('OtherApplicants', () => {
                     choice: 'noOthers'
                 }]
             });
-            done();
-        });
-    });
-
-    describe('persistFormData()', () => {
-        it('should return an empty object', () => {
-            const result = OtherApplicants.persistFormData();
-            expect(result).to.deep.equal({});
-        });
-    });
-
-    describe('setEligibilityCookie()', () => {
-        it('should call eligibilityCookie.setCookie() with the correct params', (done) => {
-            const revert = othrAppl.__set__('eligibilityCookie', {setCookie: sinon.spy()});
-            const req = {reqParam: 'req value'};
-            const res = {resParam: 'res value'};
-            const nextStepUrl = '/stop-page/otherApplicants';
-            const steps = {};
-            const section = null;
-            const resourcePath = 'screeners/otherapplicants';
-            const i18next = {};
-            const OthrAppl = new othrAppl(steps, section, resourcePath, i18next, schema);
-
-            OthrAppl.setEligibilityCookie(req, res, nextStepUrl);
-
-            expect(othrAppl.__get__('eligibilityCookie.setCookie').calledOnce).to.equal(true);
-            expect(othrAppl.__get__('eligibilityCookie.setCookie').calledWith(
-                {reqParam: 'req value'},
-                {resParam: 'res value'},
-                '/stop-page/otherApplicants'
-            )).to.equal(true);
-
-            revert();
             done();
         });
     });

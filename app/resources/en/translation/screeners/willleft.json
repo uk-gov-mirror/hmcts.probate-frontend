@@ -8,7 +8,7 @@
     "left": {
       "required": {
         "summary": "You haven&rsquo;t answered the question about whether the deceased left a will",
-        "message": "Select &lsquo;yes&rsquo; if there is a will"
+        "message": "Answer &lsquo;yes&rsquo; if there is a will"
       }
     }
   }

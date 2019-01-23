@@ -8,7 +8,6 @@ const testHelpBlockContent = require('test/component/common/testHelpBlockContent
 const config = require('app/config');
 const nock = require('nock');
 const featureToggleUrl = config.featureToggles.url;
-const screeningQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.screening_questions}`;
 const documentUploadFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
 
 describe('deceased-address', () => {
@@ -68,10 +67,6 @@ describe('deceased-address', () => {
 
         it(`test it redirects to iht method page: ${expectedNextUrlForIhtMethod}`, (done) => {
             nock(featureToggleUrl)
-                .get(screeningQuestionsFeatureTogglePath)
-                .reply(200, 'true');
-
-            nock(featureToggleUrl)
                 .get(documentUploadFeatureTogglePath)
                 .reply(200, 'false');
 
@@ -84,10 +79,6 @@ describe('deceased-address', () => {
 
         it(`test it redirects to document upload page: ${expectedNextUrlForDocumentUpload}`, (done) => {
             nock(featureToggleUrl)
-                .get(screeningQuestionsFeatureTogglePath)
-                .reply(200, 'true');
-
-            nock(featureToggleUrl)
                 .get(documentUploadFeatureTogglePath)
                 .reply(200, 'true');
 
@@ -99,10 +90,6 @@ describe('deceased-address', () => {
         });
 
         it(`test it redirects to summary page: ${expectedNextUrlForSummary}`, (done) => {
-            nock(featureToggleUrl)
-                .get(screeningQuestionsFeatureTogglePath)
-                .reply(200, 'false');
-
             nock(featureToggleUrl)
                 .get(documentUploadFeatureTogglePath)
                 .reply(200, 'false');

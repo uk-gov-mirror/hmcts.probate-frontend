@@ -28,6 +28,28 @@ describe('EligibilityValidationStep', () => {
             res = {};
         });
 
+        it('should set feature toggles in the ctx correctly', (done) => {
+            const featureToggles = {
+                isToggleEnabled: 'intestacy_screening_questions',
+                isDocumentUploadToggleEnabled: 'document_upload'
+            };
+
+            const revert = EligibilityValidationStep.__set__('eligibilityCookie', {getAnswer: sinon.spy()});
+            const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
+            const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey, featureToggles);
+
+            expect(EligibilityValidationStep.__get__('eligibilityCookie.getAnswer').calledOnce).to.equal(true);
+            expect(EligibilityValidationStep.__get__('eligibilityCookie.getAnswer').calledWith(req, pageUrl, fieldKey)).to.equal(true);
+            expect(ctx).to.deep.equal({
+                sessionID: 'abc123',
+                isToggleEnabled: false,
+                isDocumentUploadToggleEnabled: false
+            });
+
+            revert();
+            done();
+        });
+
         it('a GET request should not set ctx.answerValue when an answer value is not given and call eligibilityCookie.getAnswer()', (done) => {
             const revert = EligibilityValidationStep.__set__('eligibilityCookie', {getAnswer: sinon.spy()});
             const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
@@ -68,7 +90,7 @@ describe('EligibilityValidationStep', () => {
             const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey);
 
             expect(nextStepUrlStub.calledOnce).to.equal(true);
-            expect(nextStepUrlStub.calledWith({sessionID: 'abc123', deathCertificate: 'Yes'})).to.equal(true);
+            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', deathCertificate: 'Yes'})).to.equal(true);
             expect(setEligibilityCookieStub.calledOnce).to.equal(true);
             expect(setEligibilityCookieStub.calledWith(req, res, nextStepUrl, fieldKey, fieldValue)).to.equal(true);
             expect(ctx).to.deep.equal({sessionID: 'abc123', deathCertificate: 'Yes'});

@@ -6,8 +6,8 @@ const eligibilityCookie = new EligibilityCookie();
 
 class EligibilityValidationStep extends ValidationStep {
 
-    getContextData(req, res, pageUrl, fieldKey) {
-        const ctx = super.getContextData(req);
+    getContextData(req, res, pageUrl, fieldKey, featureToggles) {
+        const ctx = super.getContextData(req, featureToggles);
 
         if (req.method === 'GET') {
             const answerValue = eligibilityCookie.getAnswer(req, pageUrl, fieldKey);
@@ -15,7 +15,7 @@ class EligibilityValidationStep extends ValidationStep {
                 ctx[fieldKey] = answerValue;
             }
         } else {
-            const nextStepUrl = this.nextStepUrl(ctx);
+            const nextStepUrl = this.nextStepUrl(req, ctx);
             this.setEligibilityCookie(req, res, nextStepUrl, fieldKey, ctx[fieldKey]);
         }
 

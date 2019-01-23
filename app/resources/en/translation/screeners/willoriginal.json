@@ -9,7 +9,7 @@
     "original": {
       "required": {
         "summary": "You haven&rsquo;t answered the question about whether you have the original will",
-        "message": "Select &lsquo;yes&rsquo; if you have the original will"
+        "message": "Answer &lsquo;yes&rsquo; if you have the original will"
       }
     }
   }

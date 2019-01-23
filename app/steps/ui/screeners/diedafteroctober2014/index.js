@@ -2,8 +2,6 @@
 
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
 const content = require('app/resources/en/translation/screeners/diedafteroctober2014');
-const EligibilityCookie = require('app/utils/EligibilityCookie');
-const eligibilityCookie = new EligibilityCookie();
 const pageUrl = '/died-after-october-2014';
 const fieldKey = 'diedAfter';
 
@@ -13,17 +11,12 @@ class DiedAfterOctober2014 extends EligibilityValidationStep {
         return pageUrl;
     }
 
-    handlePost(ctx, errors, formdata, session) {
-        delete session.form;
-        return [ctx, errors];
-    }
-
     getContextData(req, res) {
         return super.getContextData(req, res, pageUrl, fieldKey);
     }
 
-    nextStepUrl(ctx) {
-        return this.next(ctx).constructor.getUrl('notDiedAfterOctober2014');
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('notDiedAfterOctober2014');
     }
 
     nextStepOptions() {
@@ -32,10 +25,6 @@ class DiedAfterOctober2014 extends EligibilityValidationStep {
                 {key: fieldKey, value: content.optionYes, choice: 'diedAfter'}
             ]
         };
-    }
-
-    persistFormData() {
-        return {};
     }
 }
 

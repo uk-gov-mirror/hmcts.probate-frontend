@@ -1,14 +1,11 @@
 'use strict';
 
+const journey = require('app/journeys/probate');
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const WillOriginal = steps.WillOriginal;
 const content = require('app/resources/en/translation/screeners/willoriginal');
-const rewire = require('rewire');
-const sinon = require('sinon');
-const schema = require('app/steps/ui/screeners/willoriginal/schema');
-const willOriginal = rewire('app/steps/ui/screeners/willoriginal/index');
 
 describe('WillOriginal', () => {
     describe('getUrl()', () => {
@@ -19,21 +16,54 @@ describe('WillOriginal', () => {
         });
     });
 
+    describe('getContextData()', () => {
+        it('should return the correct context on GET', (done) => {
+            const req = {
+                method: 'GET',
+                sessionID: 'dummy_sessionId',
+                session: {
+                    form: {}
+                },
+                body: {
+                    original: content.optionYes
+                }
+            };
+            const res = {};
+
+            const ctx = WillOriginal.getContextData(req, res);
+            expect(ctx).to.deep.equal({
+                sessionID: 'dummy_sessionId',
+                original: content.optionYes
+            });
+            done();
+        });
+    });
+
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
             const ctx = {
                 original: content.optionYes
             };
-            const nextStepUrl = WillOriginal.nextStepUrl(ctx);
+            const nextStepUrl = WillOriginal.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/applicant-executor');
             done();
         });
 
         it('should return the correct url when No is given', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
             const ctx = {
                 original: content.optionNo
             };
-            const nextStepUrl = WillOriginal.nextStepUrl(ctx);
+            const nextStepUrl = WillOriginal.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/notOriginal');
             done();
         });
@@ -49,39 +79,6 @@ describe('WillOriginal', () => {
                     choice: 'isOriginal'
                 }]
             });
-            done();
-        });
-    });
-
-    describe('persistFormData()', () => {
-        it('should return an empty object', () => {
-            const result = WillOriginal.persistFormData();
-            expect(result).to.deep.equal({});
-        });
-    });
-
-    describe('setEligibilityCookie()', () => {
-        it('should call eligibilityCookie.setCookie() with the correct params', (done) => {
-            const revert = willOriginal.__set__('eligibilityCookie', {setCookie: sinon.spy()});
-            const req = {reqParam: 'req value'};
-            const res = {resParam: 'res value'};
-            const nextStepUrl = '/stop-page/notOriginal';
-            const steps = {};
-            const section = null;
-            const resourcePath = 'screeners/willoriginal';
-            const i18next = {};
-            const WilOri = new willOriginal(steps, section, resourcePath, i18next, schema);
-
-            WilOri.setEligibilityCookie(req, res, nextStepUrl);
-
-            expect(willOriginal.__get__('eligibilityCookie.setCookie').calledOnce).to.equal(true);
-            expect(willOriginal.__get__('eligibilityCookie.setCookie').calledWith(
-                {reqParam: 'req value'},
-                {resParam: 'res value'},
-                '/stop-page/notOriginal'
-            )).to.equal(true);
-
-            revert();
             done();
         });
     });

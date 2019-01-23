@@ -1,14 +1,11 @@
 'use strict';
 
+const journey = require('app/journeys/probate');
 const initSteps = require('../../../app/core/initSteps');
 const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const WillLeft = steps.WillLeft;
 const content = require('app/resources/en/translation/screeners/willleft');
-const rewire = require('rewire');
-const sinon = require('sinon');
-const schema = require('app/steps/ui/screeners/diedafteroctober2014/schema');
-const diedAfter = rewire('app/steps/ui/screeners/diedafteroctober2014/index');
 
 describe('WillLeft', () => {
     describe('getUrl()', () => {
@@ -19,21 +16,83 @@ describe('WillLeft', () => {
         });
     });
 
+    describe('getContextData()', () => {
+        it('should return the correct context on GET and the intestacy_screening_questions feature toggle OFF', (done) => {
+            const req = {
+                method: 'GET',
+                sessionID: 'dummy_sessionId',
+                session: {
+                    form: {},
+                    featureToggles: {
+                        intestacy_screening_questions: false
+                    }
+                },
+                body: {
+                    left: content.optionYes
+                }
+            };
+            const res = {};
+
+            const ctx = WillLeft.getContextData(req, res);
+            expect(ctx).to.deep.equal({
+                sessionID: 'dummy_sessionId',
+                left: content.optionYes,
+                isToggleEnabled: false
+            });
+            done();
+        });
+
+        it('should return the correct context on GET and the intestacy_screening_questions feature toggle ON', (done) => {
+            const req = {
+                method: 'GET',
+                sessionID: 'dummy_sessionId',
+                session: {
+                    form: {},
+                    featureToggles: {
+                        intestacy_screening_questions: true
+                    }
+                },
+                body: {
+                    left: content.optionYes
+                }
+            };
+            const res = {};
+
+            const ctx = WillLeft.getContextData(req, res);
+            expect(ctx).to.deep.equal({
+                sessionID: 'dummy_sessionId',
+                left: content.optionYes,
+                isToggleEnabled: true
+            });
+            done();
+        });
+    });
+
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
             const ctx = {
                 left: content.optionYes
             };
-            const nextStepUrl = WillLeft.nextStepUrl(ctx);
+            const nextStepUrl = WillLeft.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/will-original');
             done();
         });
 
         it('should return the correct url when No is given', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
             const ctx = {
                 left: content.optionNo
             };
-            const nextStepUrl = WillLeft.nextStepUrl(ctx);
+            const nextStepUrl = WillLeft.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/noWill');
             done();
         });
@@ -99,39 +158,6 @@ describe('WillLeft', () => {
                     }
                 ]
             });
-            done();
-        });
-    });
-
-    describe('persistFormData()', () => {
-        it('should return an empty object', () => {
-            const result = WillLeft.persistFormData();
-            expect(result).to.deep.equal({});
-        });
-    });
-
-    describe('setEligibilityCookie()', () => {
-        it('should call eligibilityCookie.setCookie() with the correct params', (done) => {
-            const revert = diedAfter.__set__('eligibilityCookie', {setCookie: sinon.spy()});
-            const req = {reqParam: 'req value'};
-            const res = {resParam: 'res value'};
-            const nextStepUrl = '/stop-page/diedAfter';
-            const steps = {};
-            const section = null;
-            const resourcePath = 'screeners/diedafteroctober2014';
-            const i18next = {};
-            const DieAft = new diedAfter(steps, section, resourcePath, i18next, schema);
-
-            DieAft.setEligibilityCookie(req, res, nextStepUrl);
-
-            expect(diedAfter.__get__('eligibilityCookie.setCookie').calledOnce).to.equal(true);
-            expect(diedAfter.__get__('eligibilityCookie.setCookie').calledWith(
-                {reqParam: 'req value'},
-                {resParam: 'res value'},
-                '/stop-page/diedAfter'
-            )).to.equal(true);
-
-            revert();
             done();
         });
     });
