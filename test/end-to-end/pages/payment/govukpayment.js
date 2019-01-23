@@ -1,17 +1,19 @@
 'use strict';
 
+const testConfig = require('test/config');
+
 module.exports = function () {
     const I = this;
 
-    I.fillField('#card-no', '4242424242424242');
-    I.fillField('#expiry-month', '06');
-    I.fillField('#expiry-year', '99');
-    I.fillField('#cardholder-name', 'Test Payment');
-    I.fillField('#cvc', '123');
-    I.fillField('#address-line-1', '1');
-    I.fillField('#address-city', 'London');
-    I.fillField('#address-postcode', 'SW1A1AA');
-    I.fillField('#email', 'b5zsocuo2@example.com');
+    I.fillField('#card-no', testConfig.govPayTestCardNos.validCardNo);
+    I.fillField('#expiry-month', testConfig.govPayTestCardDetails.expiryMonth);
+    I.fillField('#expiry-year', testConfig.govPayTestCardDetails.expiryYear);
+    I.fillField('#cardholder-name', testConfig.govPayTestCardDetails.cardholderName);
+    I.fillField('#cvc', testConfig.govPayTestCardDetails.cvc);
+    I.fillField('#address-line-1', testConfig.govPayTestCardDetails.addressLine1);
+    I.fillField('#address-city', testConfig.govPayTestCardDetails.addressCity);
+    I.fillField('#address-postcode', testConfig.govPayTestCardDetails.addressPostcode);
+    I.fillField('#email', testConfig.TestEnvEmailAddress);
 
-    I.awaitNavigation(() => I.click('#submit-card-details'));
+    I.click('#submit-card-details');
 };

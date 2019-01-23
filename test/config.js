@@ -35,6 +35,20 @@ module.exports = {
         emptyAddressPostcode: ''
     },
 
+    govPayTestCardNos: {
+        validCardNo: '4242424242424242'
+    },
+
+    govPayTestCardDetails: {
+        expiryMonth: '06',
+        expiryYear: '99',
+        cardholderName: 'Test Payment',
+        cvc: '123',
+        addressLine1: '1',
+        addressCity: 'London',
+        addressPostcode: 'SW1A1AA'
+    },
+
     validation: {
         url: process.env.TEST_VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
     },
