@@ -16,8 +16,8 @@ module.exports = {
     TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN || '@test.com',
     TestUseProxy: process.env.TEST_USE_PROXY || 'true',
     TestProxy: process.env.TEST_PROXY,
-    TestRetryScenarios: process.env.RETRY_SCENARIOS || 3,
-    TestRetryFeatures: process.env.RETRY_FEATURES || 0,
+    TestRetryFeatures: process.env.RETRY_FEATURES || 3,
+    TestRetryScenarios: process.env.RETRY_SCENARIOS || 0,
     TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png',
     TestWaitForDocumentUpload: 60,
 
