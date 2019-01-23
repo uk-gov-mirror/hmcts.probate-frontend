@@ -2,11 +2,19 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const Summary = require('app/steps/ui/summary/index');
+const IhtMethod = require('app/steps/ui/iht/method/index');
+const DocumentUpload = require('app/steps/ui/documentupload/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const config = require('app/config');
+const nock = require('nock');
+const featureToggleUrl = config.featureToggles.url;
+const documentUploadFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
 
 describe('deceased-address', () => {
     let testWrapper;
     const expectedNextUrlForSummary = Summary.getUrl();
+    const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
+    const expectedNextUrlForDocumentUpload = DocumentUpload.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedAddress');
@@ -14,6 +22,7 @@ describe('deceased-address', () => {
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -56,12 +65,40 @@ describe('deceased-address', () => {
             testWrapper.testErrors(done, data, 'required', ['freeTextAddress']);
         });
 
-        it(`test it redirects to summary page: ${expectedNextUrlForSummary}`, (done) => {
+        it(`test it redirects to iht method page: ${expectedNextUrlForIhtMethod}`, (done) => {
+            nock(featureToggleUrl)
+                .get(documentUploadFeatureTogglePath)
+                .reply(200, 'false');
+
             const data = {
                 postcode: 'ea1 eaf',
                 postcodeAddress: '102 Petty France'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForSummary);
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
+        });
+
+        it(`test it redirects to document upload page: ${expectedNextUrlForDocumentUpload}`, (done) => {
+            nock(featureToggleUrl)
+                .get(documentUploadFeatureTogglePath)
+                .reply(200, 'true');
+
+            const data = {
+                postcode: 'ea1 eaf',
+                postcodeAddress: '102 Petty France'
+            };
+            testWrapper.testRedirect(done, data, expectedNextUrlForDocumentUpload);
+        });
+
+        it(`test it redirects to summary page: ${expectedNextUrlForSummary}`, (done) => {
+            nock(featureToggleUrl)
+                .get(documentUploadFeatureTogglePath)
+                .reply(200, 'false');
+
+            const data = {
+                postcode: 'ea1 eaf',
+                postcodeAddress: '102 Petty France'
+            };
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });
     });
 });

@@ -19,6 +19,7 @@ AfterSuite(() => {
 });
 
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I) {
+
     //Screeners & Pre-IDAM
     I.startApplication();
     I.selectDeathCertificate('Yes');
@@ -30,7 +31,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     I.selectMentallyCapable('Yes');
     I.startApply();
 
-    // IDAM
+    // IdAM
     I.authenticateWithIdamIfAvailable();
 
     // Deceased Details
@@ -47,6 +48,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     } else {
         I.enterGrossAndNet('IHT205', '500', '400');
     }
+
     I.selectDeceasedAlias('Yes');
     I.selectOtherNames('2');
     I.selectDeceasedMarriedAfterDateOnWill('No');
@@ -65,12 +67,13 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     const totalExecutors = '1';
     I.enterTotalExecutors(totalExecutors);
 
-    // Review and confirm Task
+
+    // Review and Confirm Task
     I.selectATask(taskListContent.taskNotStarted);
     I.seeSummaryPage('declaration');
     I.acceptDeclaration();
 
-    // Extra copies task
+    // Extra Copies Task
     I.selectATask(taskListContent.taskNotStarted);
 
     if (TestConfigurator.getUseGovPay() === 'true') {
@@ -85,7 +88,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
 
     I.seeCopiesSummary();
 
-    // PaymentTask
+    // Payment Task
     I.selectATask(taskListContent.taskNotStarted);
     I.seePaymentBreakdownPage();
 
@@ -99,6 +102,6 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     // Send Documents Task
     I.seeDocumentsPage();
 
-    // Thank You - Application Complete Task
+    // Thank You
     I.seeThankYouPage();
 });

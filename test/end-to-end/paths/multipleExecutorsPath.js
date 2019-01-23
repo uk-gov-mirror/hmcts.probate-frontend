@@ -40,10 +40,10 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.selectMentallyCapable('Yes');
     I.startApply();
 
-    // IDAM
+    // IdAM
     I.authenticateWithIdamIfAvailable();
 
-    // DeceasedTask
+    // Deceased Task
     I.selectATask(taskListContent.taskNotStarted);
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
     I.enterDeceasedDateOfBirth('01', '01', '1950');
@@ -85,11 +85,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     forEach(executorsWhoDiedList, executorNumber => {
         I.selectExecutorsWhenDied(executorNumber, diedBefore, head(executorsWhoDiedList) === executorNumber);
 
-        if (diedBefore) {
-            diedBefore = false;
-        } else {
-            diedBefore = true;
-        }
+        diedBefore = !diedBefore;
     });
 
     I.selectExecutorsApplying();
@@ -126,7 +122,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
         }
     });
 
-    // Review and confirm Task
+    // Review and Confirm Task
     I.selectATask(taskListContent.taskNotStarted);
     I.seeSummaryPage('declaration');
     I.acceptDeclaration();
@@ -175,10 +171,9 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     I.startApply();
 
     // IDAM
-    //    I.signInWith(emailId, 'Probate123');
     I.authenticateWithIdamIfAvailable();
 
-    // Extra copies task
+    // Extra Copies Task
     I.selectATask(taskListContent.taskNotStarted);
 
     if (TestConfigurator.getUseGovPay() === 'true') {
@@ -193,7 +188,7 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
 
     I.seeCopiesSummary();
 
-    // PaymentTask
+    // Payment Task
     I.selectATask(taskListContent.taskNotStarted);
     I.seePaymentBreakdownPage();
 
@@ -207,6 +202,6 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     // Send Documents Task
     I.seeDocumentsPage();
 
-    // Thank You - Application Complete Task
+    // Thank You
     I.seeThankYouPage();
 }).retry(TestConfigurator.getRetryScenarios());

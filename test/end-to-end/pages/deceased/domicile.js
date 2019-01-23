@@ -7,6 +7,7 @@ module.exports = function (option) {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+
     I.click('#domicile-option' + option);
 
     I.awaitNavigation(() => I.click(commonContent.continue));

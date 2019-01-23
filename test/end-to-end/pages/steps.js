@@ -4,8 +4,8 @@ const requireDirectory = require('require-directory');
 const steps = requireDirectory(module);
 
 module.exports = function () {
-
     return actor({
+
         //Screeners & PreIdam
         startApplication: steps.startEligibility.startEligibility,
         selectDeathCertificate: steps.deceased.deathcertificate,
@@ -17,10 +17,10 @@ module.exports = function () {
         selectMentallyCapable: steps.executors.mentalcapacity,
         startApply: steps.startApply.startApply,
 
-        //Sign In to IDAM
+        // Sign In to IDAM
         authenticateWithIdamIfAvailable: steps.IDAM.signIn,
 
-        //Start application
+        // Start application
         selectATask: steps.tasklist.tasklist,
 
         //deceased details
@@ -64,30 +64,28 @@ module.exports = function () {
 
         //summary page
         seeSummaryPage: steps.summary.summary,
-
-        //Declaration Page
         acceptDeclaration: steps.declaration.declaration,
 
-        //Notify additional executors
+        // Notify additional executors
         notifyAdditionalExecutors: steps.executors.invite,
 
-        //Pin page for additional executor
+        // Pin page for additional executor
         enterPinCode: steps.pin.signin,
 
-        //Additional executors Agree/Disagree with Statement of Truth
+        // Additional executors Agree/Disagree with Statement of Truth
         seeCoApplicantStartPage: steps.coapplicant.startPage,
         agreeDisagreeDeclaration: steps.coapplicant.declaration,
         seeAgreePage: steps.coapplicant.agree,
 
-        //Asset pages
+        // Asset pages
         selectOverseasAssets: steps.assets.overseas,
 
-        //Copies pages
+        // Copies pages
         enterUkCopies: steps.copies.uk,
         enterOverseasCopies: steps.copies.overseas,
         seeCopiesSummary: steps.copies.summary,
 
-        //Payment
+        // Payment
         seePaymentBreakdownPage: steps.payment.paymentbreakdown,
         seeGovUkPaymentPage: steps.payment.govukpayment,
         seeGovUkConfirmPage: steps.payment.govukconfirmpayment,
@@ -96,7 +94,7 @@ module.exports = function () {
         // Documents
         seeDocumentsPage: steps.documents.documents,
 
-        //Thank You Page
+        // Thank You
         seeThankYouPage: steps.thankyou.thankyou,
 
         //Eligibility task
@@ -105,6 +103,5 @@ module.exports = function () {
 
         //Custom Functions
         awaitNavigation: steps.functions.awaitNavigation,
-
     });
 };

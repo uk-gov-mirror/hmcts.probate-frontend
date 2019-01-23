@@ -15,10 +15,10 @@ describe('DeceasedAddress', () => {
     });
 
     describe('getContextData()', () => {
-        it('should return the ctx with the deceased address and the screening_question feature toggle on', (done) => {
+        it('should return the ctx with the deceased address and the document_upload feature toggle on', (done) => {
             const req = {
                 sessionID: 'dummy_sessionId',
-                session: {form: {}, featureToggles: {screening_questions: true}},
+                session: {form: {}, featureToggles: {document_upload: true}},
                 body: {
                     freeTextAddress: '143 Caerfai Bay Road',
                     postcode: 'L23 6WW'
@@ -28,16 +28,16 @@ describe('DeceasedAddress', () => {
             expect(ctx).to.deep.equal({
                 freeTextAddress: '143 Caerfai Bay Road',
                 postcode: 'L23 6WW',
-                isToggleEnabled: true,
+                isDocumentUploadToggleEnabled: true,
                 sessionID: 'dummy_sessionId'
             });
             done();
         });
 
-        it('should return the ctx with the deceased address and the screening_question feature toggle off', (done) => {
+        it('should return the ctx with the deceased address and the document_upload feature toggle off', (done) => {
             const req = {
                 sessionID: 'dummy_sessionId',
-                session: {form: {}, featureToggles: {screening_questions: false}},
+                session: {form: {}, featureToggles: {document_upload: false}},
                 body: {
                     freeTextAddress: '143 Caerfai Bay Road',
                     postcode: 'L23 6WW'
@@ -47,7 +47,7 @@ describe('DeceasedAddress', () => {
             expect(ctx).to.deep.equal({
                 freeTextAddress: '143 Caerfai Bay Road',
                 postcode: 'L23 6WW',
-                isToggleEnabled: false,
+                isDocumentUploadToggleEnabled: false,
                 sessionID: 'dummy_sessionId'
             });
             done();
@@ -59,8 +59,7 @@ describe('DeceasedAddress', () => {
             const nextStepOptions = DeceasedAddress.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'isDocumentUploadToggleEnabled', value: true, choice: 'documentUploadToggleOn'},
-                    {key: 'isScreeningQuestionsToggleEnabled', value: true, choice: 'toggleOn'}
+                    {key: 'isDocumentUploadToggleEnabled', value: true, choice: 'documentUploadToggleOn'}
                 ]
             });
             done();
@@ -70,11 +69,9 @@ describe('DeceasedAddress', () => {
     describe('action', () => {
         it('test variables are removed from the context', () => {
             const ctx = {
-                isScreeningQuestionsToggleEnabled: false,
                 isDocumentUploadToggleEnabled: false
             };
             DeceasedAddress.action(ctx);
-            assert.isUndefined(ctx.isScreeningQuestionsToggleEnabled);
             assert.isUndefined(ctx.isDocumentUploadToggleEnabled);
         });
     });
