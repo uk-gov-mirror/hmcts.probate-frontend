@@ -26,25 +26,25 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function* (I) {
     I.selectDeathCertificate('Yes');
 
     I.selectDeceasedDomicile('No');
-    I.seeStopPage();
-    I.selectDeathCertificate('Yes');
+    I.seeStopPage('notInEnglandOrWales');
+    I.selectDeceasedDomicile('Yes');
 
     I.selectIhtCompleted('No');
-    I.seeStopPage();
+    I.seeStopPage('ihtNotCompleted');
     I.selectIhtCompleted('Yes');
 
     I.selectPersonWhoDiedLeftAWill('No');
 
     I.selectDiedAfterOctober2014('No');
-    I.seeStopPage();
+    I.seeStopPage('notDiedAfterOctober2014');
     I.selectDiedAfterOctober2014('Yes');
 
     I.selectRelationshipToDeceased('No');
-    I.seeStopPage();
+    I.seeStopPage('notRelated');
     I.selectRelationshipToDeceased('Yes');
 
     I.selectOtherApplicants('Yes');
-    I.seeStopPage();
+    I.seeStopPage('otherApplicants');
     I.selectOtherApplicants('No');
 
     I.startApply();

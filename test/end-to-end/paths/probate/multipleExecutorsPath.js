@@ -17,29 +17,29 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.startEligibility();
 
     I.selectDeathCertificate('No');
-    I.seeStopPage();
+    I.seeStopPage('deathCertificate');
     I.selectDeathCertificate('Yes');
 
     I.selectDeceasedDomicile('No');
-    I.seeStopPage();
-    I.selectDeathCertificate('Yes');
+    I.seeStopPage('notInEnglandOrWales');
+    I.selectDeceasedDomicile('Yes');
 
     I.selectIhtCompleted('No');
-    I.seeStopPage();
+    I.seeStopPage('ihtNotCompleted');
     I.selectIhtCompleted('Yes');
 
     I.selectPersonWhoDiedLeftAWill('Yes');
 
     I.selectOriginalWill('No');
-    I.seeStopPage();
+    I.seeStopPage('notOriginal');
     I.selectOriginalWill('Yes');
 
     I.selectApplicantIsExecutor('No');
-    I.seeStopPage();
+    I.seeStopPage('notExecutor');
     I.selectApplicantIsExecutor('Yes');
 
     I.selectMentallyCapable('No');
-    I.seeStopPage();
+    I.seeStopPage('mentalCapacity');
     I.selectMentallyCapable('Yes');
 
     I.startApply();
