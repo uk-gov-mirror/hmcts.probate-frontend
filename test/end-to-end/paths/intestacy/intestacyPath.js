@@ -2,7 +2,7 @@
 
 const TestConfigurator = new (require('../../helpers/TestConfigurator'))();
 
-Feature('Intestacy Screeners Questions flow');
+Feature('Intestacy flow');
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
@@ -16,7 +16,7 @@ After(() => {
     TestConfigurator.getAfter();
 });
 
-Scenario(TestConfigurator.idamInUseText('Intestacy Screeners Questions Journey'), function* (I) {
+Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function* (I) {
 
     // Eligibility Task (pre IdAM)
     I.startEligibility();
