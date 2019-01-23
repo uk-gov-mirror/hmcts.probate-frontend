@@ -67,7 +67,6 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     const totalExecutors = '1';
     I.enterTotalExecutors(totalExecutors);
 
-
     // Review and Confirm Task
     I.selectATask(taskListContent.taskNotStarted);
     I.seeSummaryPage('declaration');
