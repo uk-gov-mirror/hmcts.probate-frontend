@@ -11,5 +11,5 @@ module.exports = function (formName, grossAmount, netAmount) {
     I.fillField('#grossIHT' + formName, grossAmount);
     I.fillField('#netIHT' + formName, netAmount);
 
-    I.click(commonContent.continue);
+    I.click(commonContent.saveAndContinue);
 };
