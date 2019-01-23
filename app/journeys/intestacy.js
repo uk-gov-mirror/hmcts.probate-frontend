@@ -1,17 +1,21 @@
 'use strict';
 
-const probate = require('./probate');
+const taskList = {
+    DeceasedTask: {
+        firstStep: 'DeceasedDetails',
+        lastStep: 'TaskList',
+        summary: 'Summary'
+    },
+    ExecutorsTask: {
+        firstStep: 'RelationshipToDeceased',
+        lastStep: 'TaskList',
+        summary: 'Summary'
+    },
+};
 
-// const taskList = {
-
-// };
-
-// const stepList = {
-
-// };
-
-const taskList = probate.taskList;
-const stepList = probate.stepList;
+const stepList = {
+    DeceasedDetails: 'DeceasedAddress',
+};
 
 module.exports.stepList = stepList;
 module.exports.taskList = taskList;

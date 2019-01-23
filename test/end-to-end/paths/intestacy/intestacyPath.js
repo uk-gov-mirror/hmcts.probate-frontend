@@ -1,5 +1,6 @@
 'use strict';
 
+const taskListContent = require('../../../../app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('../../helpers/TestConfigurator'))();
 
 Feature('Intestacy flow');
@@ -48,5 +49,15 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function* (I) {
     I.selectOtherApplicants('No');
 
     I.startApply();
+
+    // IdAM
+    I.authenticateWithIdamIfAvailable();
+
+    // Deceased Task
+    I.selectATask(taskListContent.taskNotStarted);
+    I.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
+
+    // Executors Task
+    I.selectATask(taskListContent.taskNotStarted);
 
 }).retry(TestConfigurator.getRetryScenarios());

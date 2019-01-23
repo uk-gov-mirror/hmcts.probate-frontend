@@ -98,5 +98,8 @@ module.exports = function () {
 
         // Thank You
         seeThankYouPage: steps.thankyou.thankyou,
+
+        // Intestacy
+        enterDeceasedDetails: steps.deceased.details
     });
 };

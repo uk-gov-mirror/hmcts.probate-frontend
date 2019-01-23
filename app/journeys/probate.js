@@ -80,7 +80,6 @@ const stepList = {
     },
     // ------------------------------------------
     StartApply: 'TaskList',
-    DeceasedDetails: 'DeceasedAddress',
     DeceasedName: 'DeceasedDob',
     DeceasedDob: 'DeceasedDod',
     DeceasedDod: 'DeceasedAddress',
