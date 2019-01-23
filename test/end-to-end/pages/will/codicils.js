@@ -8,11 +8,7 @@ module.exports = function (option) {
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
-    if (option === 'Yes') {
-        I.click('#codicils-optionYes');
-    } else {
-        I.click('#codicils-optionNo');
-    }
+    I.click(`#codicils-option${option}`);
 
-    I.click(commonContent.continue);
+    I.click(commonContent.saveAndContinue);
 };
