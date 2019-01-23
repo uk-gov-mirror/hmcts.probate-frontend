@@ -7,7 +7,7 @@ module.exports = function (answer) {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click('#left-option' + answer);
+    I.click(`#left-option${answer}`);
 
     I.click(commonContent.continue);
 };

@@ -5,6 +5,9 @@ const steps = requireDirectory(module);
 
 module.exports = function () {
     return actor({
+        // Stop page
+        seeStopPage: steps.stoppage.stoppage,
+
         // Eligibility Task (pre IdAM)
         startEligibility: steps.screeners.starteligibility,
         selectPersonWhoDiedLeftAWill: steps.screeners.willleft,
