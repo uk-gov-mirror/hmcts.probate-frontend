@@ -1,12 +1,18 @@
 'use strict';
 
-const ValidationStep = require('app/core/steps/ValidationStep');
-const json = require('app/resources/en/translation/will/left');
+const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
+const content = require('app/resources/en/translation/will/left');
+const pageUrl = '/will-left';
+const fieldKey = 'left';
 
-class WillLeft extends ValidationStep {
+class WillLeft extends EligibilityValidationStep {
 
     static getUrl() {
-        return '/will-left';
+        return pageUrl;
+    }
+
+    getContextData(req, res) {
+        return super.getContextData(req, res, pageUrl, fieldKey);
     }
 
     nextStepUrl(req, ctx) {
@@ -14,12 +20,11 @@ class WillLeft extends ValidationStep {
     }
 
     nextStepOptions() {
-        const nextStepOptions = {
+        return {
             options: [
-                {key: 'left', value: json.optionYes, choice: 'withWill'}
+                {key: fieldKey, value: content.optionYes, choice: 'withWill'}
             ]
         };
-        return nextStepOptions;
     }
 }
 

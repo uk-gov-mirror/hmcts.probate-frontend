@@ -1,12 +1,18 @@
 'use strict';
 
-const ValidationStep = require('app/core/steps/ValidationStep');
+const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
 const content = require('app/resources/en/translation/deceased/deathcertificate');
+const pageUrl = '/death-certificate';
+const fieldKey = 'deathCertificate';
 
-class DeathCertificate extends ValidationStep {
+class DeathCertificate extends EligibilityValidationStep {
 
     static getUrl() {
-        return '/death-certificate';
+        return pageUrl;
+    }
+
+    getContextData(req, res) {
+        return super.getContextData(req, res, pageUrl, fieldKey);
     }
 
     nextStepUrl(req, ctx) {
@@ -16,13 +22,9 @@ class DeathCertificate extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'deathCertificate', value: content.optionYes, choice: 'hasCertificate'}
+                {key: fieldKey, value: content.optionYes, choice: 'hasCertificate'}
             ]
         };
-    }
-
-    isComplete(ctx) {
-        return [ctx.deathCertificate === content.optionYes, 'inProgress'];
     }
 }
 

@@ -2,7 +2,6 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const json = require('app/resources/en/translation/will/codicils');
-const FeatureToggle = require('app/utils/FeatureToggle');
 
 class WillCodicils extends ValidationStep {
 
@@ -14,21 +13,7 @@ class WillCodicils extends ValidationStep {
         return this.next(req, ctx).constructor.getUrl('codicils');
     }
 
-    getContextData(req) {
-        const ctx = super.getContextData(req);
-        ctx.isToggleEnabled = FeatureToggle.isEnabled(req.session.featureToggles, 'screening_questions');
-        return ctx;
-    }
-
-    nextStepOptions(ctx) {
-        if (ctx.isToggleEnabled) {
-            return {
-                options: [
-                    {key: 'codicils', value: json.optionNo, choice: 'noCodicilsToggleOn'}
-                ]
-            };
-        }
-
+    nextStepOptions() {
         return {
             options: [
                 {key: 'codicils', value: json.optionNo, choice: 'noCodicils'}
@@ -41,7 +26,6 @@ class WillCodicils extends ValidationStep {
             delete ctx.codicilsNumber;
         }
         super.action(ctx, formdata);
-        delete ctx.isToggleEnabled;
         return [ctx, formdata];
     }
 }

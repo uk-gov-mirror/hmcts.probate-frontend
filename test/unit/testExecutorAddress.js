@@ -222,10 +222,7 @@ describe('ExecutorAddress', () => {
         });
 
         it('returns the correct data and errors', (done) => {
-            const featureToggles = {
-                screening_questions: true
-            };
-            const [ctx, errors] = ExecutorAddress.handlePost(testCtx, testErrors, null, null, null, featureToggles);
+            const [ctx, errors] = ExecutorAddress.handlePost(testCtx, testErrors);
 
             expect(ctx.list[0]).to.deep.equal({
                 isApplying: true,
@@ -234,7 +231,6 @@ describe('ExecutorAddress', () => {
                 postcodeAddress: testCtx.postcodeAddress,
                 freeTextAddress: testCtx.freeTextAddress
             });
-            expect(ctx.isToggleEnabled).to.equal(true);
             expect(errors).to.deep.equal(testErrors);
             done();
         });
@@ -298,7 +294,7 @@ describe('ExecutorAddress', () => {
             };
             const url = ExecutorAddress.nextStepUrl(req, testCtx);
 
-            expect(url).to.equal('/deceased-name');
+            expect(url).to.equal('/tasklist');
             done();
         });
 
@@ -321,9 +317,8 @@ describe('ExecutorAddress', () => {
     });
 
     describe('nextStepOptions()', () => {
-        it('returns the next step options when the FT is off', (done) => {
+        it('returns the next step options', (done) => {
             const testCtx = {
-                isToggleEnabled: false,
                 index: 1,
                 executorsWrapper: new ExecutorsWrapper()
             };
@@ -337,29 +332,11 @@ describe('ExecutorAddress', () => {
             });
             done();
         });
-
-        it('returns the next step options when the FT is on', (done) => {
-            const ctx = {
-                isToggleEnabled: true,
-                index: 1,
-                executorsWrapper: new ExecutorsWrapper()
-            };
-            const nextStepOptions = ExecutorAddress.nextStepOptions(ctx);
-
-            expect(nextStepOptions).to.deep.equal({
-                options: [
-                    {key: 'continue', value: true, choice: 'continue'},
-                    {key: 'allExecsApplying', value: true, choice: 'allExecsApplyingToggleOn'}
-                ],
-            });
-            done();
-        });
     });
 
     describe('action()', () => {
         it('removes the correct values from the context', (done) => {
             const testCtx = {
-                isToggleEnabled: false,
                 otherExecName: 'James Miller',
                 address: '1 Red Street, London, L1 1LL',
                 postcodeAddress: '1 Red Street, London, L1 1LL',

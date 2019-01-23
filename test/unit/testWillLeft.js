@@ -1,39 +1,42 @@
 'use strict';
 
+const journey = require('app/journeys/probate');
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
-const content = require('app/resources/en/translation/will/newleft');
-const journey = require('app/journeys/probate');
+const content = require('app/resources/en/translation/will/left');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
-const NewWillLeft = steps.NewWillLeft;
+const WillLeft = steps.WillLeft;
+const pageUrl = '/will-left';
+const fieldKey = 'left';
 
-describe('NewWillLeft', () => {
+describe('WillLeft', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
-            const url = NewWillLeft.constructor.getUrl();
-            expect(url).to.equal('/new-will-left');
+            const url = WillLeft.constructor.getUrl();
+            expect(url).to.equal('/will-left');
             done();
         });
     });
 
-    describe('handlePost()', () => {
-        it('should remove session.form and set session.willLeft', (done) => {
-            const ctxToTest = {
-                left: 'Yes'
+    describe('getContextData()', () => {
+        it('should return the correct context on GET', (done) => {
+            const req = {
+                method: 'GET',
+                sessionID: 'dummy_sessionId',
+                session: {
+                    form: {}
+                },
+                body: {
+                    left: content.optionYes
+                }
             };
-            const errorsToTest = {};
-            const formdata = {};
-            const session = {
-                form: {}
-            };
-            const [ctx, errors] = NewWillLeft.handlePost(ctxToTest, errorsToTest, formdata, session);
-            expect(session).to.deep.equal({
-                willLeft: 'Yes'
-            });
+            const res = {};
+
+            const ctx = WillLeft.getContextData(req, res, pageUrl, fieldKey);
             expect(ctx).to.deep.equal({
-                left: 'Yes'
+                sessionID: 'dummy_sessionId',
+                left: content.optionYes
             });
-            expect(errors).to.deep.equal({});
             done();
         });
     });
@@ -46,11 +49,10 @@ describe('NewWillLeft', () => {
                 }
             };
             const ctx = {
-                left: 'Yes'
+                left: content.optionYes
             };
-            const NewWillLeft = steps.NewWillLeft;
-            const nextStepUrl = NewWillLeft.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/new-will-original');
+            const nextStepUrl = WillLeft.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/will-original');
             done();
         });
 
@@ -61,10 +63,9 @@ describe('NewWillLeft', () => {
                 }
             };
             const ctx = {
-                left: 'No'
+                left: content.optionNo
             };
-            const NewWillLeft = steps.NewWillLeft;
-            const nextStepUrl = NewWillLeft.nextStepUrl(req, ctx);
+            const nextStepUrl = WillLeft.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/noWill');
             done();
         });
@@ -72,7 +73,7 @@ describe('NewWillLeft', () => {
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const nextStepOptions = NewWillLeft.nextStepOptions();
+            const nextStepOptions = WillLeft.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [{
                     key: 'left',
