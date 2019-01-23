@@ -14,7 +14,41 @@ const taskList = {
 };
 
 const stepList = {
-    DeceasedDetails: 'DeceasedAddress',
+    StartEligibility: 'DeathCertificate',
+    DeathCertificate: {
+        hasCertificate: 'DeceasedDomicile',
+        otherwise: 'StopPage'
+    },
+    DeceasedDomicile: {
+        inEnglandOrWales: 'IhtCompleted',
+        otherwise: 'StopPage'
+    },
+    IhtCompleted: {
+        completed: 'WillLeft',
+        otherwise: 'StopPage'
+    },
+    WillLeft: {
+        withWill: 'WillOriginal',
+        withoutWillToggleOn: 'DiedAfterOctober2014',
+        otherwise: 'StopPage'
+    },
+    // Intestacy --------------------------------
+    DiedAfterOctober2014: {
+        diedAfter: 'RelationshipToDeceased',
+        otherwise: 'StopPage'
+    },
+    RelationshipToDeceased: {
+        related: 'OtherApplicants',
+        otherwise: 'StopPage'
+    },
+    OtherApplicants: {
+        noOthers: 'StartApply',
+        otherwise: 'StopPage'
+    },
+    // ------------------------------------------
+    StartApply: 'TaskList',
+    // DeceasedDetails: 'DeceasedAddress',
+    DeceasedDetails: 'TaskList',
 };
 
 module.exports.stepList = stepList;

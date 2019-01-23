@@ -2,10 +2,12 @@
 
 const probateJourney = require('app/journeys/probate');
 const intestacyJourney = require('app/journeys/intestacy');
+const EligibilityCookie = require('app/utils/EligibilityCookie');
+const eligibilityCookie = new EligibilityCookie();
 const willLeftContent = require('app/resources/en/translation/screeners/willleft');
 
-const isIntestacyJourney = (session) => {
-    const willLeft = session.willLeft || (session.form && session.form.will && session.form.will.left);
+const isIntestacyJourney = (req) => {
+    const willLeft = eligibilityCookie.getAnswer(req, '/will-left', 'left');
     return willLeft === willLeftContent.optionNo;
 };
 
@@ -23,7 +25,7 @@ const setWillLeftFormdata = (session) => {
 
 const setJourney = (req, res, next) => {
     req.session = setWillLeftFormdata(req.session);
-    req.session.journey = isIntestacyJourney(req.session) ? intestacyJourney : probateJourney;
+    req.session.journey = isIntestacyJourney(req) ? intestacyJourney : probateJourney;
     next();
 };
 
