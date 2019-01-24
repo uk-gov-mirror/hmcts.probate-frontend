@@ -21,7 +21,7 @@ const cookies = [{
 
 const nock = require('nock');
 const featureToggleUrl = config.featureToggles.url;
-const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_screening_questions}`;
+const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
 
 describe('relationship-to-deceased', () => {
     let testWrapper;
@@ -62,19 +62,33 @@ describe('relationship-to-deceased', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForOtherApplicants}`, (done) => {
-            const data = {
-                related: 'Yes'
+            const sessionData = {
+                willLeft: 'No'
             };
+            testWrapper.agent.post('/prepare-session-field')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        related: 'Yes'
+                    };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForOtherApplicants, cookies);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForOtherApplicants, cookies);
+                });
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            const data = {
-                related: 'No'
+            const sessionData = {
+                willLeft: 'No'
             };
+            testWrapper.agent.post('/prepare-session-field')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        related: 'No'
+                    };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+                });
         });
 
         it('test save and close link is not displayed on the page', (done) => {

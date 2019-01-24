@@ -61,19 +61,33 @@ describe('died-after-october-2014', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForRelationshipToDeceased}`, (done) => {
-            const data = {
-                diedAfter: 'Yes'
+            const sessionData = {
+                willLeft: 'No'
             };
+            testWrapper.agent.post('/prepare-session-field')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        diedAfter: 'Yes'
+                    };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForRelationshipToDeceased, cookies);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForRelationshipToDeceased, cookies);
+                });
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            const data = {
-                diedAfter: 'No'
+            const sessionData = {
+                willLeft: 'No'
             };
+            testWrapper.agent.post('/prepare-session-field')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        diedAfter: 'No'
+                    };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+                });
         });
 
         it('test save and close link is not displayed on the page', (done) => {

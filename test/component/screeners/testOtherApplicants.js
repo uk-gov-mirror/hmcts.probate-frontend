@@ -63,19 +63,33 @@ describe('other-applicants', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForStartApply}`, (done) => {
-            const data = {
-                otherApplicants: 'No'
+            const sessionData = {
+                willLeft: 'No'
             };
+            testWrapper.agent.post('/prepare-session-field')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        otherApplicants: 'No'
+                    };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForStartApply, cookies);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForStartApply, cookies);
+                });
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            const data = {
-                otherApplicants: 'Yes'
+            const sessionData = {
+                willLeft: 'No'
             };
+            testWrapper.agent.post('/prepare-session-field')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        otherApplicants: 'Yes'
+                    };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+                });
         });
 
         it('test save and close link is not displayed on the page', (done) => {
