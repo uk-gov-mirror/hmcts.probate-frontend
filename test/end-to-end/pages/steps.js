@@ -100,8 +100,5 @@ module.exports = function () {
         //Eligibility task
         completeEligibilityTask: steps.tasks.tasks.completeEligibilityTask,
         completeExecutorsTask: steps.tasks.tasks.completeExecutorsTask,
-
-        //Custom Functions
-        awaitNavigation: steps.functions.awaitNavigation,
     });
 };

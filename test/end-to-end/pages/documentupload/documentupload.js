@@ -12,8 +12,8 @@ module.exports = function () {
     if (I.seeElementInDOM('.dz-hidden-input')) {
         I.attachFile('.dz-hidden-input', '/uploadDocuments/test_file_for_document_upload.png');
         I.waitForEnabled('#button', testConfig.TestDocumentToUpload);
-        I.awaitNavigation(() => I.click(commonContent.continue));
+        I.awaitNavigation(`input[value="${commonContent.continue}"]`);
     } else {
-        I.click('#input');
+        I.awaitNavigation('#input');
     }
 };

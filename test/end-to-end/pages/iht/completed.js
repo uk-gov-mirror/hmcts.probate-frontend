@@ -9,5 +9,5 @@ module.exports = function (option) {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.click('#completed-option' + option);
 
-    I.awaitNavigation(() => I.click(commonContent.continue));
+    I.awaitNavigation(`input[value="${commonContent.continue}"]`);
 };

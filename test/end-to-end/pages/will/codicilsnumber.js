@@ -9,5 +9,5 @@ module.exports = function (totalCodicils) {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.fillField('#codicilsNumber', totalCodicils);
 
-    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
+    I.awaitNavigation(`input[value="${commonContent.saveAndContinue}"]`);
 };

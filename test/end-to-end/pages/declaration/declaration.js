@@ -9,5 +9,5 @@ module.exports = function () {
     I.click('#declarationPdfHref');
     I.click('#declarationCheckbox');
 
-    I.awaitNavigation(() => I.click('#acceptAndSend'));
+    I.awaitNavigation('#acceptAndSend');
 };

@@ -1,6 +1,5 @@
 'use strict';
 
-const randomstring = require('randomstring');
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const testConfig = require('test/config.js');
@@ -34,9 +33,10 @@ xScenario(TestConfigurator.idamInUseText('Save And Close Link Click Flow'), func
     I.startApply();
 
     // IDAM
-    const emailId = randomstring.generate(9).toLowerCase()+'@example.com';
-    TestConfigurator.createAUser(emailId);
-    I.signInWith(emailId, 'Probate123');
+    // const emailId = randomstring.generate(9).toLowerCase()+'@example.com';
+    // TestConfigurator.createAUser(emailId);
+    // I.signInWith(emailId, 'Probate123');
+    I.authenticateWithIdamIfAvailable();
 
     // Deceased Details
     I.selectATask(taskListContent.taskNotStarted);
@@ -44,9 +44,9 @@ xScenario(TestConfigurator.idamInUseText('Save And Close Link Click Flow'), func
     I.enterDeceasedDateOfBirth('01', '01', '1950');
     I.enterDeceasedDateOfDeath('01', '01', '2017');
     I.enterDeceasedAddress();
-    I.awaitNavigation(() => I.click('Save and close'));
+    I.awaitNavigation('Save and close'); //Doesn't work
     I.see('You’ve signed out');
     I.seeCurrentUrlEquals(testConfig.TestE2EFrontendUrl+'/sign-out');
-    I.awaitNavigation(() => I.click('sign back in'));
-    //I.seeInCurrentUrl(testConfig.TestIdamLoginUrl);
+    I.awaitNavigation('Sign in'); //Doesn't work
+    I.seeInCurrentUrl(testConfig.TestIdamLoginUrl);
 });

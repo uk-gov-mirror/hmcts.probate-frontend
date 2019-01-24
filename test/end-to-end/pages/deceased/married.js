@@ -8,5 +8,5 @@ module.exports = function (option) {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.click('#married-option' + option);
 
-    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
+    I.awaitNavigation(`input[value="${commonContent.saveAndContinue}"]`);
 };

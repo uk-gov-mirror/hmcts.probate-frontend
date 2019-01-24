@@ -10,5 +10,5 @@ module.exports = function (totalExecutors) {
 
     I.fillField('#executorsNumber', totalExecutors);
 
-    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
+    I.awaitNavigation(`input[value="${commonContent.saveAndContinue}"]`);
 };

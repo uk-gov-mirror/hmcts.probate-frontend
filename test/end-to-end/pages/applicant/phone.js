@@ -9,5 +9,5 @@ module.exports = function () {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.fillField(content.phoneNumber, '123456789');
 
-    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
+    I.awaitNavigation(`input[value="${commonContent.saveAndContinue}"]`);
 };

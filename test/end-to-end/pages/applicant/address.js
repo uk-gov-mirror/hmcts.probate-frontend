@@ -10,6 +10,6 @@ module.exports = function () {
     I.click('.summary');
     I.fillField('#freeTextAddress', 'test address for applicant');
 
-    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
+    I.awaitNavigation(`input[value="${commonContent.saveAndContinue}"]`);
 
 };

@@ -9,5 +9,5 @@ module.exports = function (option) {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.click('#nameAsOnTheWill-option' + option);
 
-    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
+    I.awaitNavigation(`input[value="${commonContent.saveAndContinue}"]`);
 };

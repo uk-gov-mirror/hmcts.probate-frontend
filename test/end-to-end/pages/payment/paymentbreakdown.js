@@ -6,5 +6,6 @@ module.exports = function () {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.awaitNavigation(() => I.click('.button'));
+
+    I.awaitNavigation('.button');
 };

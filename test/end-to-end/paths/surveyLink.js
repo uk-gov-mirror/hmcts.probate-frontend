@@ -1,8 +1,6 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/starteligibility/index');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
-const randomstring = require('randomstring');
 
 Feature('Survey link');
 
@@ -32,14 +30,14 @@ xScenario(TestConfigurator.idamInUseText('Survey link redirects to the correct p
     I.selectMentallyCapable('Yes');
     I.startApply();
 
-    // IDAM
-    const emailId = randomstring.generate(9).toLowerCase()+'@example.com';
-    TestConfigurator.createAUser(emailId);
-    I.signInWith(emailId, 'Probate123');
+    // // IDAM
+    // const emailId = randomstring.generate(9).toLowerCase()+'@example.com';
+    // TestConfigurator.createAUser(emailId);
+    // I.signInWith(emailId, 'Probate123');
 
-    I.amOnPage(pageUnderTest.getUrl());
+    I.authenticateWithIdamIfAvailable();
     I.click('feedback');
-    I.wait(7);
-    I.seeElement('#cmdGo');
+    I.switchToNextTab(1);
+    I.waitForVisible('#cmdGo');
 
 });

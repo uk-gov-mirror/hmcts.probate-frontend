@@ -15,5 +15,5 @@ module.exports = function (totalExecutors) {
         i += 1;
     }
 
-    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
+    I.awaitNavigation(`input[value="${commonContent.saveAndContinue}"]`);
 };

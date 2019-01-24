@@ -13,5 +13,5 @@ module.exports = function (executorsWhoDiedList) {
         I.checkOption('#executorsWhoDied-'+(parseInt(executorNumber) - 1));
     });
 
-    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
+    I.awaitNavigation(`input[value="${commonContent.saveAndContinue}"]`);
 };

@@ -18,5 +18,5 @@ module.exports = function (executorNumber, diedBefore, firstRecord) {
         I.click('#diedbefore-optionNo');
     }
 
-    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
+    I.awaitNavigation(`input[value="${commonContent.saveAndContinue}"]`);
 };

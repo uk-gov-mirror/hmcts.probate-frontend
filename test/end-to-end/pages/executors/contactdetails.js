@@ -16,5 +16,5 @@ module.exports = function (executorNumber, firstRecord) {
     I.fillField('#email', testConfig.TestEnvEmailAddress);
     I.fillField('#mobile', testConfig.TestEnvMobileNumber);
 
-    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
+    I.awaitNavigation(`input[value="${commonContent.saveAndContinue}"]`);
 };

@@ -13,7 +13,7 @@ module.exports = function (noOfAliases) {
             I.fillField('#otherNames_name_'+ (i-1) + '_firstName', 'alias_firstnames_' + i);
             I.fillField('#otherNames_name_'+ (i-1) + '_lastName', 'alias_lastnames_' + i);
         } else {
-            I.awaitNavigation(() => I.click('Add another name'));
+            I.awaitNavigation('input[value="Add another name"]');
             I.fillField('#otherNames_name_'+ (i-1) + '_firstName', 'alias_firstnames_' + i);
             I.fillField('#otherNames_name_'+ (i-1) + '_lastName', 'alias_lastnames_' + i);
         }
@@ -21,5 +21,5 @@ module.exports = function (noOfAliases) {
         i += 1;
     }
 
-    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
+    I.awaitNavigation(`input[value="${commonContent.saveAndContinue}"]`);
 };
