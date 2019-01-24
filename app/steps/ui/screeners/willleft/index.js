@@ -13,7 +13,7 @@ class WillLeft extends EligibilityValidationStep {
     }
 
     handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
-        super.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
+        super.handlePost(ctx, errors, formdata, session);
         ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'intestacy_screening_questions');
         return [ctx, errors];
     }

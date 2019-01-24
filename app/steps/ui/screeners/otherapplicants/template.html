@@ -2,26 +2,26 @@
 
 {% set displaySignOutLink = 'false' %}
 
-{% from "widgets/textfields.html" import textField %}
 {% from "widgets/radiobuttons.html" import optionsRadio %}
 
 {% block question %}
-  <h1 class="form-title heading-large">{{content.question}}</h1>
-  <p>{{content.hintText}}</p>
+    <h1 class="form-title heading-large">{{ content.question }}</h1>
 {% endblock %}
 
 {% block form_content %}
-  {{optionsRadio(content,
-    name = 'otherApplicants',
-    field = fields.otherApplicants,
-    options = ['optionYes', 'optionNo'],
-    legend = content.legend,
-    inline = true
-  )}}
+    <p>{{ content.hintText }}</p>
 
-  <div class="form-group">
-    <input class="button" type="submit" value="{{common.continue}}">
-  </div>
+    {{ optionsRadio(content,
+        name = 'otherApplicants',
+        field = fields.otherApplicants,
+        options = ['optionYes', 'optionNo'],
+        legend = content.legend,
+        inline = true
+    ) }}
+
+    <div class="form-group">
+      <input class="button" type="submit" value="{{common.continue}}">
+    </div>
 {% endblock %}
 
 {% block save_and_close %}{% endblock %}
