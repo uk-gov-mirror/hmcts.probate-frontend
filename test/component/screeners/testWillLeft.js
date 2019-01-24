@@ -20,7 +20,7 @@ const cookies = [{
 
 const nock = require('nock');
 const featureToggleUrl = config.featureToggles.url;
-const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_screening_questions}`;
+const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
 
 describe('will-left', () => {
     let testWrapper;

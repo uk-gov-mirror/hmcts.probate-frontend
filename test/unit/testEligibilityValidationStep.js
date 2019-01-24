@@ -30,7 +30,7 @@ describe('EligibilityValidationStep', () => {
 
         it('should set feature toggles in the ctx correctly', (done) => {
             const featureToggles = {
-                isToggleEnabled: 'intestacy_screening_questions',
+                isToggleEnabled: 'intestacy_questions',
                 isDocumentUploadToggleEnabled: 'document_upload'
             };
 

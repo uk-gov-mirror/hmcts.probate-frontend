@@ -17,14 +17,14 @@ describe('WillLeft', () => {
     });
 
     describe('getContextData()', () => {
-        it('should return the correct context on GET and the intestacy_screening_questions feature toggle OFF', (done) => {
+        it('should return the correct context on GET and the intestacy_questions feature toggle OFF', (done) => {
             const req = {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {},
                     featureToggles: {
-                        intestacy_screening_questions: false
+                        intestacy_questions: false
                     }
                 },
                 body: {
@@ -42,14 +42,14 @@ describe('WillLeft', () => {
             done();
         });
 
-        it('should return the correct context on GET and the intestacy_screening_questions feature toggle ON', (done) => {
+        it('should return the correct context on GET and the intestacy_questions feature toggle ON', (done) => {
             const req = {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {},
                     featureToggles: {
-                        intestacy_screening_questions: true
+                        intestacy_questions: true
                     }
                 },
                 body: {

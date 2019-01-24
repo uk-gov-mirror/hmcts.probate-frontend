@@ -14,14 +14,14 @@ class WillLeft extends EligibilityValidationStep {
 
     handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
         super.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
-        ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'intestacy_screening_questions');
+        ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'intestacy_questions');
         session.willLeft = ctx.left;
         return [ctx, errors];
     }
 
     getContextData(req, res) {
         const featureToggles = {
-            isToggleEnabled: 'intestacy_screening_questions'
+            isToggleEnabled: 'intestacy_questions'
         };
         return super.getContextData(req, res, pageUrl, fieldKey, featureToggles);
     }
