@@ -1,12 +1,14 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const DeceasedAddress = require('app/steps/ui/deceased/address/index');
+// const DeceasedAddress = require('app/steps/ui/deceased/address/index');
+const TaskList = require('app/steps/ui/tasklist/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('deceased-details', () => {
     let testWrapper;
-    const expectedNextUrlForDeceasedAddress = DeceasedAddress.getUrl();
+    // const expectedNextUrlForDeceasedAddress = DeceasedAddress.getUrl();
+    const expectedNextUrlForTaskList = TaskList.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedDetails');
@@ -180,7 +182,21 @@ describe('deceased-details', () => {
             testWrapper.testErrors(done, data, 'dodBeforeDob', errorsToTest);
         });
 
-        it(`test it redirects to Deceased Address page: ${expectedNextUrlForDeceasedAddress}`, (done) => {
+        // it(`test it redirects to Deceased Address page: ${expectedNextUrlForDeceasedAddress}`, (done) => {
+        //     const data = {
+        //         firstName: 'Bob',
+        //         lastName: 'Smith',
+        //         dob_day: '12',
+        //         dob_month: '9',
+        //         dob_year: '2000',
+        //         dod_day: '12',
+        //         dod_month: '9',
+        //         dod_year: '2018'
+        //     };
+        //     testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAddress);
+        // });
+
+        it(`test it redirects to TaskList page: ${expectedNextUrlForTaskList}`, (done) => {
             const data = {
                 firstName: 'Bob',
                 lastName: 'Smith',
@@ -191,7 +207,7 @@ describe('deceased-details', () => {
                 dod_month: '9',
                 dod_year: '2018'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAddress);
+            testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
         });
     });
 });
