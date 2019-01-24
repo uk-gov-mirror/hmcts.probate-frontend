@@ -197,17 +197,24 @@ describe('deceased-details', () => {
         // });
 
         it(`test it redirects to TaskList page: ${expectedNextUrlForTaskList}`, (done) => {
-            const data = {
-                firstName: 'Bob',
-                lastName: 'Smith',
-                dob_day: '12',
-                dob_month: '9',
-                dob_year: '2000',
-                dod_day: '12',
-                dod_month: '9',
-                dod_year: '2018'
+            const sessionData = {
+                willLeft: 'No'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
+            testWrapper.agent.post('/prepare-session-field')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        firstName: 'Bob',
+                        lastName: 'Smith',
+                        dob_day: '12',
+                        dob_month: '9',
+                        dob_year: '2000',
+                        dod_day: '12',
+                        dod_month: '9',
+                        dod_year: '2018'
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
+                });
         });
     });
 });

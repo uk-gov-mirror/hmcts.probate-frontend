@@ -49,6 +49,10 @@ const stepList = {
     StartApply: 'TaskList',
     // DeceasedDetails: 'DeceasedAddress',
     DeceasedDetails: 'TaskList',
+
+    Summary: 'TaskList',
+    TaskList: 'TaskList',
+    StopPage: 'StopPage'
 };
 
 module.exports.stepList = stepList;
