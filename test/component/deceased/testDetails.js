@@ -3,7 +3,11 @@
 const TestWrapper = require('test/util/TestWrapper');
 // const DeceasedAddress = require('app/steps/ui/deceased/address/index');
 const TaskList = require('app/steps/ui/tasklist/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const commonContent = require('app/resources/en/translation/common');
+const config = require('app/config');
+const nock = require('nock');
+const featureToggleUrl = config.featureToggles.url;
+const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
 
 describe('deceased-details', () => {
     let testWrapper;
@@ -12,14 +16,28 @@ describe('deceased-details', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedDetails');
+        nock(featureToggleUrl)
+            .get(featureTogglePath)
+            .reply(200, 'true');
     });
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('DeceasedDetails');
+        it('test help block content is loaded on page', (done) => {
+            const playbackData = {};
+            playbackData.helpTitle = commonContent.helpTitle;
+            playbackData.helpText = commonContent.helpText;
+            playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
+            playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
+            playbackData.helpEmailLabel = commonContent.helpEmailLabel;
+            playbackData.contactEmailAddress = commonContent.contactEmailAddress;
+
+            testWrapper.testDataPlayback(done, playbackData);
+        });
 
         it('test right content loaded on the page', (done) => {
             testWrapper.testContent(done, []);
