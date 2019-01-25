@@ -55,14 +55,14 @@ module.exports = {
 
     TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',
 
-    TestEnvEmailAddress: process.env.TEST_EMAIL_ADDRESS || 'test.probate.inbox@gmail.com',
-    TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER || '07952626390',
+    TestEnvEmailAddress: process.env.TEST_EMAIL_ADDRESS,
+    TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER,
     s2sStubErrorSequence: '000',
     links: {
         cookies: '/cookies',
-        terms: process.env.TERMS_AND_CONDITIONS || '/terms-conditions',
-        survey: process.env.SURVEY || 'http://www.smartsurvey.co.uk/s/CFZF7/',
-        surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION || 'http://www.smartsurvey.co.uk/s/A2LY8/',
+        terms: process.env.TERMS_AND_CONDITIONS,
+        survey: process.env.SURVEY,
+        surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION,
         privacy: '/privacy-policy',
         contact: '/contact-us',
         callCharges: 'https://www.gov.uk/call-charges',
