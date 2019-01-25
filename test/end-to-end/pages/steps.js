@@ -9,14 +9,14 @@ module.exports = function () {
         seeStopPage: steps.stoppage.stoppage,
 
         // Eligibility Task (pre IdAM)
-        startEligibility: steps.screeners.starteligibility,
-        selectPersonWhoDiedLeftAWill: steps.screeners.willleft,
-        selectOriginalWill: steps.screeners.willoriginal,
+        startApplication: steps.screeners.startEligibility,
         selectDeathCertificate: steps.screeners.deathcertificate,
         selectDeceasedDomicile: steps.screeners.deceaseddomicile,
+        selectIhtCompleted: steps.screeners.ihtcompleted,
+        selectPersonWhoDiedLeftAWill: steps.screeners.willleft,
+        selectOriginalWill: steps.screeners.willoriginal,
         selectApplicantIsExecutor: steps.screeners.applicantexecutor,
         selectMentallyCapable: steps.screeners.mentalcapacity,
-        selectIhtCompleted: steps.screeners.ihtcompleted,
         selectDiedAfterOctober2014: steps.screeners.diedafteroctober2014,
         selectRelationshipToDeceased: steps.screeners.relationshiptodeceased,
         selectOtherApplicants: steps.screeners.otherapplicants,
@@ -28,11 +28,12 @@ module.exports = function () {
         // Start application
         selectATask: steps.tasklist.tasklist,
 
-        // Deceased Task
+        //deceased details
         enterDeceasedName: steps.deceased.name,
         enterDeceasedDateOfBirth: steps.deceased.dob,
         enterDeceasedDateOfDeath: steps.deceased.dod,
         enterDeceasedAddress: steps.deceased.address,
+        selectDocumentsToUpload: steps.documentupload.documentupload,
         selectInheritanceMethodPaper: steps.iht.method,
         enterGrossAndNet: steps.iht.paper,
         selectDeceasedAlias: steps.deceased.alias,
@@ -41,7 +42,7 @@ module.exports = function () {
         selectWillCodicils: steps.will.codicils,
         selectWillNoOfCodicils: steps.will.codicilsnumber,
 
-        // Executors Task
+        //executors
         enterApplicantName: steps.applicant.name,
         selectNameAsOnTheWill: steps.applicant.nameasonwill,
         enterApplicantAlias: steps.applicant.alias,
@@ -49,6 +50,8 @@ module.exports = function () {
         enterApplicantPhone: steps.applicant.phone,
         enterAddressManually: steps.applicant.address,
         enterTotalExecutors: steps.executors.number,
+
+        //Multiple Executors
         enterExecutorNames: steps.executors.names,
         selectExecutorsAllAlive: steps.executors.allalive,
         selectExecutorsWhoDied: steps.executors.whodied,
@@ -64,7 +67,7 @@ module.exports = function () {
         selectExecutorRoles: steps.executors.roles,
         selectHasExecutorBeenNotified: steps.executors.notified,
 
-        // Review and Confirm Task
+        //summary page
         seeSummaryPage: steps.summary.summary,
         acceptDeclaration: steps.declaration.declaration,
 
@@ -100,6 +103,10 @@ module.exports = function () {
         seeThankYouPage: steps.thankyou.thankyou,
 
         // Intestacy
-        enterDeceasedDetails: steps.deceased.details
+        enterDeceasedDetails: steps.deceased.details,
+
+        //Eligibility task
+        completeEligibilityTask: steps.tasks.tasks.completeEligibilityTask,
+        completeExecutorsTask: steps.tasks.tasks.completeExecutorsTask,
     });
 };
