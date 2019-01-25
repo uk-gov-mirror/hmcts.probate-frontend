@@ -3,7 +3,7 @@
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 
-Feature('Single Executor flow');
+Feature('Single Executor flow').retry(TestConfigurator.getRetryFeatures());
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
@@ -19,26 +19,27 @@ After(() => {
 
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I) {
 
-    // Eligibility Task (pre IdAM)
-    I.startEligibility();
-    I.selectDeathCertificate();
-    I.selectDeceasedDomicile();
-    I.selectIhtCompleted();
-    I.selectPersonWhoDiedLeftAWill();
-    I.selectOriginalWill();
-    I.selectApplicantIsExecutor();
-    I.selectMentallyCapable();
+    //Screeners & Pre-IDAM
+    I.startApplication();
+    I.selectDeathCertificate('Yes');
+    I.selectDeceasedDomicile('Yes');
+    I.selectIhtCompleted('Yes');
+    I.selectPersonWhoDiedLeftAWill('Yes');
+    I.selectOriginalWill('Yes');
+    I.selectApplicantIsExecutor('Yes');
+    I.selectMentallyCapable('Yes');
     I.startApply();
 
     // IdAM
     I.authenticateWithIdamIfAvailable();
 
-    // Deceased Task
+    // Deceased Details
     I.selectATask(taskListContent.taskNotStarted);
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
     I.enterDeceasedDateOfBirth('01', '01', '1950');
     I.enterDeceasedDateOfDeath('01', '01', '2017');
     I.enterDeceasedAddress();
+    I.selectDocumentsToUpload();
     I.selectInheritanceMethodPaper();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
@@ -49,16 +50,16 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
 
     I.selectDeceasedAlias('Yes');
     I.selectOtherNames('2');
-    I.selectDeceasedMarriedAfterDateOnWill('optionNo');
+    I.selectDeceasedMarriedAfterDateOnWill('No');
     I.selectWillCodicils('Yes');
     I.selectWillNoOfCodicils('3');
 
-    // Executors Task
+    // ExecutorsTask
     I.selectATask(taskListContent.taskNotStarted);
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
-    I.selectNameAsOnTheWill('optionNo');
-    I.enterApplicantAlias('Bob Alias');
-    I.enterApplicantAliasReason('aliasOther', 'Because YOLO');
+    I.selectNameAsOnTheWill('No');
+    I.enterApplicantAlias('Applicant Alias');
+    I.enterApplicantAliasReason('aliasOther', 'Applicant_alias_reason');
     I.enterApplicantPhone();
     I.enterAddressManually();
 
@@ -101,4 +102,4 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
 
     // Thank You
     I.seeThankYouPage();
-}).retry(TestConfigurator.getRetryScenarios());
+});

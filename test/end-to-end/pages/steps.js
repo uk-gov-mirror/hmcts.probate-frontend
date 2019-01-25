@@ -5,15 +5,16 @@ const steps = requireDirectory(module);
 
 module.exports = function () {
     return actor({
-        // Eligibility Task (pre IdAM)
-        startEligibility: steps.startEligibility.startEligibility,
-        selectPersonWhoDiedLeftAWill: steps.will.left,
-        selectOriginalWill: steps.will.original,
+
+        //Screeners & PreIdam
+        startApplication: steps.startEligibility.startEligibility,
         selectDeathCertificate: steps.deceased.deathcertificate,
         selectDeceasedDomicile: steps.deceased.domicile,
+        selectIhtCompleted: steps.iht.completed,
+        selectPersonWhoDiedLeftAWill: steps.will.left,
+        selectOriginalWill: steps.will.original,
         selectApplicantIsExecutor: steps.applicant.executor,
         selectMentallyCapable: steps.executors.mentalcapacity,
-        selectIhtCompleted: steps.iht.completed,
         startApply: steps.startApply.startApply,
 
         // Sign In to IDAM
@@ -22,11 +23,12 @@ module.exports = function () {
         // Start application
         selectATask: steps.tasklist.tasklist,
 
-        // Deceased Task
+        //deceased details
         enterDeceasedName: steps.deceased.name,
         enterDeceasedDateOfBirth: steps.deceased.dob,
         enterDeceasedDateOfDeath: steps.deceased.dod,
         enterDeceasedAddress: steps.deceased.address,
+        selectDocumentsToUpload: steps.documentupload.documentupload,
         selectInheritanceMethodPaper: steps.iht.method,
         enterGrossAndNet: steps.iht.paper,
         selectDeceasedAlias: steps.deceased.alias,
@@ -35,7 +37,7 @@ module.exports = function () {
         selectWillCodicils: steps.will.codicils,
         selectWillNoOfCodicils: steps.will.codicilsnumber,
 
-        // Executors Task
+        //executors
         enterApplicantName: steps.applicant.name,
         selectNameAsOnTheWill: steps.applicant.nameasonwill,
         enterApplicantAlias: steps.applicant.alias,
@@ -43,6 +45,8 @@ module.exports = function () {
         enterApplicantPhone: steps.applicant.phone,
         enterAddressManually: steps.applicant.address,
         enterTotalExecutors: steps.executors.number,
+
+        //Multiple Executors
         enterExecutorNames: steps.executors.names,
         selectExecutorsAllAlive: steps.executors.allalive,
         selectExecutorsWhoDied: steps.executors.whodied,
@@ -58,7 +62,7 @@ module.exports = function () {
         selectExecutorRoles: steps.executors.roles,
         selectHasExecutorBeenNotified: steps.executors.notified,
 
-        // Review and Confirm Task
+        //summary page
         seeSummaryPage: steps.summary.summary,
         acceptDeclaration: steps.declaration.declaration,
 
@@ -92,5 +96,9 @@ module.exports = function () {
 
         // Thank You
         seeThankYouPage: steps.thankyou.thankyou,
+
+        //Eligibility task
+        completeEligibilityTask: steps.tasks.tasks.completeEligibilityTask,
+        completeExecutorsTask: steps.tasks.tasks.completeExecutorsTask,
     });
 };
