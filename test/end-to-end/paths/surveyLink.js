@@ -17,7 +17,7 @@ After(() => {
 });
 
 // eslint-disable-next-line no-undef
-xScenario(TestConfigurator.idamInUseText('Survey link redirects to the correct page'), function* (I) {
+Scenario(TestConfigurator.idamInUseText('Survey link redirects to the correct page'), function* (I) {
 
     //Screeners & Pre-IDAM
     I.startApplication();
@@ -30,13 +30,10 @@ xScenario(TestConfigurator.idamInUseText('Survey link redirects to the correct p
     I.selectMentallyCapable('Yes');
     I.startApply();
 
-    // // IDAM
-    // const emailId = randomstring.generate(9).toLowerCase()+'@example.com';
-    // TestConfigurator.createAUser(emailId);
-    // I.signInWith(emailId, 'Probate123');
-
+    // IDAM
     I.authenticateWithIdamIfAvailable();
-    I.click('feedback');
+    I.click('.phase-banner-beta a');
+
     I.switchToNextTab(1);
     I.waitForVisible('#cmdGo');
 

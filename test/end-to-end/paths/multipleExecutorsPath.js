@@ -1,6 +1,6 @@
 'use strict';
 
-const taskListContent = require('app/resources/en/translation/tasklist');
+//const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const {forEach, head} = require('lodash');
 const testConfig = require('test/config.js');
@@ -44,7 +44,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.authenticateWithIdamIfAvailable();
 
     // Deceased Task
-    I.selectATask(taskListContent.taskNotStarted);
+    I.selectATask();
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
     I.enterDeceasedDateOfBirth('01', '01', '1950');
     I.enterDeceasedDateOfDeath('01', '01', '2017');
@@ -53,9 +53,9 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.selectInheritanceMethodPaper();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.enterGrossAndNet('IHT205', '600000', '300000');
+        I.enterGrossAndNet('205', '600000', '300000');
     } else {
-        I.enterGrossAndNet('IHT205', '500', '400');
+        I.enterGrossAndNet('205', '500', '400');
     }
 
     I.selectDeceasedAlias('Yes');
@@ -65,11 +65,11 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.selectWillNoOfCodicils('3');
 
     // ExecutorsTask
-    I.selectATask(taskListContent.taskNotStarted);
+    I.selectATask();
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
     I.selectNameAsOnTheWill('No');
-    I.enterApplicantAlias('Bob Alias');
-    I.enterApplicantAliasReason('aliasOther', 'Because YOLO');
+    I.enterApplicantAlias('applicant_alias');
+    I.enterApplicantAliasReason('aliasOther', 'alias_other_reason');
     I.enterApplicantPhone();
     I.enterAddressManually();
 
@@ -123,7 +123,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     });
 
     // Review and Confirm Task
-    I.selectATask(taskListContent.taskNotStarted);
+    I.selectATask();
     I.seeSummaryPage('declaration');
     I.acceptDeclaration();
 
@@ -132,7 +132,9 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     //Retrieve the email urls for additional executors
     I.amOnPage(testConfig.TestInviteIdListUrl);
+
     grabIds = yield I.grabTextFrom('pre');
+
 }).retry(TestConfigurator.getRetryScenarios());
 
 Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Statement of Truth'), function* (I) {
@@ -174,7 +176,7 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     I.authenticateWithIdamIfAvailable();
 
     // Extra Copies Task
-    I.selectATask(taskListContent.taskNotStarted);
+    I.selectATask();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterUkCopies('5');
@@ -189,7 +191,8 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     I.seeCopiesSummary();
 
     // Payment Task
-    I.selectATask(taskListContent.taskNotStarted);
+    I.selectATask();
+
     I.seePaymentBreakdownPage();
 
     if (TestConfigurator.getUseGovPay() === 'true') {

@@ -8,5 +8,5 @@ module.exports = function (redirect) {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl(redirect));
     I.click('#checkAnswerHref');
     I.switchTo();
-    I.awaitNavigation('a[href="/declaration"]');
+    I.waitForNavigationToComplete('.button');
 };

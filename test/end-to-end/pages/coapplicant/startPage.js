@@ -7,6 +7,6 @@ module.exports = function () {
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
-    I.awaitNavigation('.button');
+    I.waitForNavigationToComplete('.button');
 
 };

@@ -11,6 +11,6 @@ module.exports = function () {
         I.fillField('username', process.env.testCitizenEmail);
         I.fillField('password', process.env.testCitizenPassword);
 
-        I.awaitNavigation('input[value="Sign in"]');
+        I.waitForNavigationToComplete('input[value="Sign in"]');
     }
 };

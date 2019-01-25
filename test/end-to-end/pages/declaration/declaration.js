@@ -1,5 +1,6 @@
 'use strict';
 
+const commonContent = require('app/resources/en/translation/common');
 const pageUnderTest = require('app/steps/ui/declaration/index');
 
 module.exports = function () {
@@ -9,5 +10,5 @@ module.exports = function () {
     I.click('#declarationPdfHref');
     I.click('#declarationCheckbox');
 
-    I.awaitNavigation('#acceptAndSend');
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

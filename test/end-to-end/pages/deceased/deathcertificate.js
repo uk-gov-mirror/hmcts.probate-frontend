@@ -8,5 +8,5 @@ module.exports = function (option) {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.click('#deathCertificate-option' + option);
 
-    I.awaitNavigation(`input[value="${commonContent.continue}"]`);
+    I.waitForNavigationToComplete(`input[value="${commonContent.continue}"]`);
 };

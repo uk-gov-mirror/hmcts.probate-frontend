@@ -13,6 +13,6 @@ module.exports = function (agreeDisagree) {
         I.click('#agreement-optionNo');
     }
 
-    I.awaitNavigation('#acceptAndSend');
+    I.waitForNavigationToComplete('#acceptAndSend');
 
 };

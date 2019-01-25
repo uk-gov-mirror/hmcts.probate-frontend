@@ -9,5 +9,5 @@ module.exports = function () {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.click('#method-paperOption');
 
-    I.awaitNavigation(`input[value="${commonContent.saveAndContinue}"]`);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

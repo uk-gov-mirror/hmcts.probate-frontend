@@ -5,5 +5,5 @@ module.exports = function () {
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
-    I.awaitNavigation('a[href="/tasklist"]');
+    I.waitForNavigationToComplete('.button');
 };

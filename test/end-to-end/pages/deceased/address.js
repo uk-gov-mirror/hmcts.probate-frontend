@@ -10,5 +10,5 @@ module.exports = function () {
     I.click('.summary');
     I.fillField('#freeTextAddress', 'test address for deceased');
 
-    I.awaitNavigation(`input[value="${commonContent.saveAndContinue}"]`);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

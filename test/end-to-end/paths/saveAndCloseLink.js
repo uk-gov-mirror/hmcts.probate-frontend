@@ -2,7 +2,7 @@
 
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
-const testConfig = require('test/config.js');
+const signOutPage = require('app/steps/ui/signout/index');
 
 Feature('Save And Close Link Functionality');
 
@@ -19,7 +19,7 @@ After(() => {
 });
 
 // eslint-disable-next-line no-undef
-xScenario(TestConfigurator.idamInUseText('Save And Close Link Click Flow'), function* (I) {
+Scenario(TestConfigurator.idamInUseText('Save And Close Link Click Flow'), function* (I) {
 
     //Screeners & Pre-IDAM
     I.startApplication();
@@ -33,20 +33,12 @@ xScenario(TestConfigurator.idamInUseText('Save And Close Link Click Flow'), func
     I.startApply();
 
     // IDAM
-    // const emailId = randomstring.generate(9).toLowerCase()+'@example.com';
-    // TestConfigurator.createAUser(emailId);
-    // I.signInWith(emailId, 'Probate123');
     I.authenticateWithIdamIfAvailable();
 
     // Deceased Details
     I.selectATask(taskListContent.taskNotStarted);
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
     I.enterDeceasedDateOfBirth('01', '01', '1950');
-    I.enterDeceasedDateOfDeath('01', '01', '2017');
-    I.enterDeceasedAddress();
-    I.awaitNavigation('Save and close'); //Doesn't work
-    I.see('You’ve signed out');
-    I.seeCurrentUrlEquals(testConfig.TestE2EFrontendUrl+'/sign-out');
-    I.awaitNavigation('Sign in'); //Doesn't work
-    I.seeInCurrentUrl(testConfig.TestIdamLoginUrl);
+    I.enterDeceasedDateOfDeath('01', '01', '2017', true);
+    I.seeCurrentUrlEquals(signOutPage.getUrl());
 });

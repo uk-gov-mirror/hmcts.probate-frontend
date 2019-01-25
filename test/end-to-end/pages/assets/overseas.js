@@ -9,5 +9,5 @@ module.exports = function () {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.click('#assetsoverseas-optionYes');
 
-    I.awaitNavigation(`input[value="${commonContent.saveAndContinue}"]`);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

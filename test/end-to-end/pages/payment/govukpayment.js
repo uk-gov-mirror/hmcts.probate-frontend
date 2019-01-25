@@ -15,5 +15,5 @@ module.exports = function () {
     I.fillField('#address-postcode', testConfig.govPayTestCardDetails.addressPostcode);
     I.fillField('#email', testConfig.TestEnvEmailAddress);
 
-    I.awaitNavigation('#submit-card-details');
+    I.waitForNavigationToComplete('#submit-card-details');
 };

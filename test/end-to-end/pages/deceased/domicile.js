@@ -10,5 +10,5 @@ module.exports = function (option) {
 
     I.click('#domicile-option' + option);
 
-    I.awaitNavigation(`input[value="${commonContent.continue}"]`);
+    I.waitForNavigationToComplete(`input[value="${commonContent.continue}"]`);
 };
