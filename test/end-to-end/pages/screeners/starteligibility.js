@@ -3,7 +3,7 @@
 const pageUnderTest = require('app/steps/ui/screeners/starteligibility/index');
 const testConfig = require('../../../config.js');
 
-module.exports = function () {
+module.exports = function (checkCookieBannerExists) {
     const I = this;
 
     if (testConfig.useIdam !== 'false') {
@@ -11,6 +11,9 @@ module.exports = function () {
         I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     }
 
-    I.click('.button.button-start');
+    if (checkCookieBannerExists) {
+        I.waitForElement('div#global-cookie-message', 60);
+    }
 
+    I.waitForNavigationToComplete('.button');
 };

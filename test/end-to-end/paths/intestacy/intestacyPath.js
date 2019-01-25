@@ -19,7 +19,7 @@ After(() => {
 Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function* (I) {
 
     // Eligibility Task (pre IdAM)
-    I.startEligibility();
+    I.startApplication();
 
     I.selectDeathCertificate('No');
     I.seeStopPage('deathCertificate');
