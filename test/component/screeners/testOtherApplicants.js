@@ -63,11 +63,7 @@ describe('other-applicants', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForStartApply}`, (done) => {
-            const sessionData = {
-                willLeft: 'No'
-            };
-            testWrapper.agent.post('/prepare-session-field')
-                .send(sessionData)
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         otherApplicants: 'No'
@@ -78,11 +74,7 @@ describe('other-applicants', () => {
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            const sessionData = {
-                willLeft: 'No'
-            };
-            testWrapper.agent.post('/prepare-session-field')
-                .send(sessionData)
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         otherApplicants: 'Yes'

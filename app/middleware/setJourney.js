@@ -22,8 +22,10 @@ const setWillLeftFormdata = (session) => {
 };
 
 const setJourney = (req, res, next) => {
+    console.log(req.method, req.originalUrl);
     req.session = setWillLeftFormdata(req.session);
     req.session.journey = isIntestacyJourney(req.session) ? intestacyJourney : probateJourney;
+    console.log('Is Intestacy: ', isIntestacyJourney(req.session));
     next();
 };
 

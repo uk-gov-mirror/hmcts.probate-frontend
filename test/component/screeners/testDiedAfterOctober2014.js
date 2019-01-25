@@ -61,11 +61,7 @@ describe('died-after-october-2014', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForRelationshipToDeceased}`, (done) => {
-            const sessionData = {
-                willLeft: 'No'
-            };
-            testWrapper.agent.post('/prepare-session-field')
-                .send(sessionData)
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         diedAfter: 'Yes'
@@ -76,11 +72,7 @@ describe('died-after-october-2014', () => {
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            const sessionData = {
-                willLeft: 'No'
-            };
-            testWrapper.agent.post('/prepare-session-field')
-                .send(sessionData)
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         diedAfter: 'No'
