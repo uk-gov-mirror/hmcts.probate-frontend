@@ -6,7 +6,6 @@ const UIStepRunner = require('app/core/runners/UIStepRunner');
 const JourneyMap = require('app/core/JourneyMap');
 const mapErrorsToFields = require('app/components/error').mapErrorsToFields;
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const FeatureToggle = require('app/utils/FeatureToggle');
 
 class Step {
 
