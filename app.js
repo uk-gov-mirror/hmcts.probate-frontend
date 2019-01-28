@@ -217,7 +217,7 @@ exports.init = function() {
     app.use('/applicant-executor', eligibilityCookie.checkCookie());
     app.use('/mental-capacity', eligibilityCookie.checkCookie());
     app.use('/died-after-october-2014', eligibilityCookie.checkCookie());
-    // app.use('/relationship-to-deceased', eligibilityCookie.checkCookie());
+    app.use('/relationship-to-deceased', eligibilityCookie.checkCookie());
     app.use('/other-applicants', eligibilityCookie.checkCookie());
     app.use('/start-apply', eligibilityCookie.checkCookie());
 

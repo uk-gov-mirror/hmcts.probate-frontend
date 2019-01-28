@@ -26,9 +26,6 @@ class TestWrapper {
         });
         routes.post('/prepare-session-field/:field/:value', (req, res) => {
             set(req.session, req.params.field, req.params.value);
-
-            console.log('Will Left: ', req.session.willLeft);
-
             res.send('OK');
         });
 
@@ -121,7 +118,7 @@ class TestWrapper {
         const cookiesString = this.setCookiesString(res, cookies);
 
         if (cookiesString !== '') {
-            // res.set('Cookie', cookiesString);
+            res.set('Cookie', cookiesString);
         }
 
         res.type('form')
