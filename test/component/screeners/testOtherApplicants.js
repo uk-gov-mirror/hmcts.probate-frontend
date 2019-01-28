@@ -59,7 +59,10 @@ describe('other-applicants', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required', [], cookies);
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
+                .end(() => {
+                    testWrapper.testErrors(done, {}, 'required', [], cookies);
+                });
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForStartApply}`, (done) => {
