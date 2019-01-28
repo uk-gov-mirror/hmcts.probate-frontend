@@ -4,7 +4,6 @@ const EligibilityValidationStep = require('app/core/steps/EligibilityValidationS
 const content = require('app/resources/en/translation/screeners/willleft');
 const pageUrl = '/will-left';
 const fieldKey = 'left';
-const FeatureToggle = require('app/utils/FeatureToggle');
 
 class WillLeft extends EligibilityValidationStep {
 
@@ -12,15 +11,9 @@ class WillLeft extends EligibilityValidationStep {
         return pageUrl;
     }
 
-    handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
-        super.handlePost(ctx, errors, formdata, session);
-        ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'intestacy_screening_questions');
-        return [ctx, errors];
-    }
-
     getContextData(req, res) {
         const featureToggles = {
-            isToggleEnabled: 'intestacy_screening_questions'
+            isIntestacyScreeningToggleEnabled: 'intestacy_screening_questions'
         };
         return super.getContextData(req, res, pageUrl, fieldKey, featureToggles);
     }
@@ -30,7 +23,7 @@ class WillLeft extends EligibilityValidationStep {
     }
 
     nextStepOptions(ctx) {
-        if (ctx.isToggleEnabled) {
+        if (ctx.isIntestacyScreeningToggleEnabled) {
             return {
                 options: [
                     {key: fieldKey, value: content.optionYes, choice: 'withWill'},
@@ -48,7 +41,7 @@ class WillLeft extends EligibilityValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
-        delete ctx.isToggleEnabled;
+        delete ctx.isIntestacyScreeningToggleEnabled;
         return [ctx, formdata];
     }
 }

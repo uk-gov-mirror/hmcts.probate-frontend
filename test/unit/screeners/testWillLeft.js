@@ -98,31 +98,6 @@ describe('WillLeft', () => {
         });
     });
 
-    describe('handlePost()', () => {
-        let ctx;
-        let errors;
-        let formdata;
-        let session;
-        let hostname;
-        let featureToggles;
-
-        it('should return the ctx with the will left status and the intestacy_screening_question feature toggle', (done) => {
-            ctx = {left: content.optionYes};
-            errors = {};
-            formdata = {};
-            session = {};
-            hostname = {};
-            featureToggles = {};
-
-            [ctx, errors] = WillLeft.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
-            expect(ctx).to.deep.equal({
-                left: content.optionYes,
-                isToggleEnabled: false
-            });
-            done();
-        });
-    });
-
     describe('nextStepOptions()', () => {
         it('should return the correct options when the FT is off', (done) => {
             const ctx = {

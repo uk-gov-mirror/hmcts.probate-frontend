@@ -210,16 +210,16 @@ exports.init = function() {
     app.use('/executors-update-invite', updateInvite);
     app.use('/declaration', declaration);
 
-    app.use('/deceased-domicile', eligibilityCookie.checkCookie());
-    app.use('/iht-completed', eligibilityCookie.checkCookie());
-    app.use('/will-left', eligibilityCookie.checkCookie());
-    app.use('/will-original', eligibilityCookie.checkCookie());
-    app.use('/applicant-executor', eligibilityCookie.checkCookie());
-    app.use('/mental-capacity', eligibilityCookie.checkCookie());
-    app.use('/died-after-october-2014', eligibilityCookie.checkCookie());
-    app.use('/relationship-to-deceased', eligibilityCookie.checkCookie());
-    app.use('/other-applicants', eligibilityCookie.checkCookie());
-    app.use('/start-apply', eligibilityCookie.checkCookie());
+    app.get('/deceased-domicile', eligibilityCookie.checkCookie());
+    app.get('/iht-completed', eligibilityCookie.checkCookie());
+    app.get('/will-left', eligibilityCookie.checkCookie());
+    app.get('/will-original', eligibilityCookie.checkCookie());
+    app.get('/applicant-executor', eligibilityCookie.checkCookie());
+    app.get('/mental-capacity', eligibilityCookie.checkCookie());
+    app.get('/died-after-october-2014', eligibilityCookie.checkCookie());
+    app.get('/relationship-to-deceased', eligibilityCookie.checkCookie());
+    app.get('/other-applicants', eligibilityCookie.checkCookie());
+    app.get('/start-apply', eligibilityCookie.checkCookie());
 
     app.use(featureToggles);
 

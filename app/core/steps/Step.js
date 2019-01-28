@@ -47,18 +47,12 @@ class Step {
         return this.next(req, ctx).constructor.getUrl();
     }
 
-    getContextData(req, featureToggles) {
+    getContextData(req) {
         const session = req.session;
         let ctx = {};
         Object.assign(ctx, session.form[this.section] || {});
         ctx.sessionID = req.sessionID;
         ctx = Object.assign(ctx, req.body);
-
-        if (featureToggles) {
-            Object.keys(featureToggles).forEach(toggleKey => {
-                ctx[toggleKey] = FeatureToggle.isEnabled(req.session.featureToggles, featureToggles[toggleKey]);
-            });
-        }
 
         return ctx;
     }
