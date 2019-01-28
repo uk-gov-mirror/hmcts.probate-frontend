@@ -17,15 +17,12 @@ describe('WillLeft', () => {
     });
 
     describe('getContextData()', () => {
-        it('should return the correct context on GET and the intestacy_screening_questions feature toggle OFF', (done) => {
+        it('should return the correct context on GET', (done) => {
             const req = {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
-                    form: {},
-                    featureToggles: {
-                        intestacy_screening_questions: false
-                    }
+                    form: {}
                 },
                 body: {
                     left: content.optionYes
@@ -36,33 +33,7 @@ describe('WillLeft', () => {
             const ctx = WillLeft.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
-                left: content.optionYes,
-                isToggleEnabled: false
-            });
-            done();
-        });
-
-        it('should return the correct context on GET and the intestacy_screening_questions feature toggle ON', (done) => {
-            const req = {
-                method: 'GET',
-                sessionID: 'dummy_sessionId',
-                session: {
-                    form: {},
-                    featureToggles: {
-                        intestacy_screening_questions: true
-                    }
-                },
-                body: {
-                    left: content.optionYes
-                }
-            };
-            const res = {};
-
-            const ctx = WillLeft.getContextData(req, res);
-            expect(ctx).to.deep.equal({
-                sessionID: 'dummy_sessionId',
-                left: content.optionYes,
-                isToggleEnabled: true
+                left: content.optionYes
             });
             done();
         });
@@ -101,7 +72,7 @@ describe('WillLeft', () => {
     describe('nextStepOptions()', () => {
         it('should return the correct options when the FT is off', (done) => {
             const ctx = {
-                isToggleEnabled: false
+                isIntestacyScreeningToggleEnabled: false
             };
             const nextStepOptions = WillLeft.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
@@ -116,7 +87,7 @@ describe('WillLeft', () => {
 
         it('should return the correct options when the FT is on', (done) => {
             const ctx = {
-                isToggleEnabled: true
+                isIntestacyScreeningToggleEnabled: true
             };
             const nextStepOptions = WillLeft.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
@@ -138,12 +109,12 @@ describe('WillLeft', () => {
     });
 
     describe('action', () => {
-        it('test isToggleEnabled is removed from the context', () => {
+        it('test isIntestacyScreeningToggleEnabled is removed from the context', () => {
             const ctx = {
-                isToggleEnabled: false
+                isIntestacyScreeningToggleEnabled: false
             };
             WillLeft.action(ctx);
-            assert.isUndefined(ctx.isToggleEnabled);
+            assert.isUndefined(ctx.isIntestacyScreeningToggleEnabled);
         });
     });
 });
