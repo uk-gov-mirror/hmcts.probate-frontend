@@ -15,6 +15,25 @@ const fieldKey = 'deathCertificate';
 const fieldValue = 'Yes';
 
 describe('EligibilityValidationStep', () => {
+    describe('setFeatureTogglesOnCtx()', () => {
+        it('should set feature toggles in the context', (done) => {
+            let ctx = {};
+            const featureToggles = {
+                isDocumentUploadToggleEnabled: 'document_upload',
+                isIntestacyScreeningToggleEnabled: 'intestacy_screening_questions'
+            };
+
+            const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
+            ctx = eligibilityValidationStep.setFeatureTogglesOnCtx(ctx, featureToggles);
+
+            expect(ctx).to.deep.equal({
+                isDocumentUploadToggleEnabled: 'document_upload',
+                isIntestacyScreeningToggleEnabled: 'intestacy_screening_questions'
+            });
+            done();
+        });
+    });
+
     describe('getContextData()', () => {
         let req;
         let res;
@@ -29,21 +48,14 @@ describe('EligibilityValidationStep', () => {
         });
 
         it('a GET request should not set ctx.answerValue when an answer value is not given and call eligibilityCookie.getAnswer()', (done) => {
-            const featureToggles = {
-                isToggleEnabled: 'intestacy_questions',
-                isDocumentUploadToggleEnabled: 'document_upload'
-            };
-
             const revert = EligibilityValidationStep.__set__('eligibilityCookie', {getAnswer: sinon.spy()});
             const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
-            const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey, featureToggles);
+            const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey);
 
             expect(EligibilityValidationStep.__get__('eligibilityCookie.getAnswer').calledOnce).to.equal(true);
             expect(EligibilityValidationStep.__get__('eligibilityCookie.getAnswer').calledWith(req, pageUrl, fieldKey)).to.equal(true);
             expect(ctx).to.deep.equal({
                 sessionID: 'abc123',
-                isToggleEnabled: false,
-                isDocumentUploadToggleEnabled: false
             });
 
             revert();
