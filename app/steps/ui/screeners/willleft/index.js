@@ -4,6 +4,7 @@ const EligibilityValidationStep = require('app/core/steps/EligibilityValidationS
 const content = require('app/resources/en/translation/screeners/willleft');
 const pageUrl = '/will-left';
 const fieldKey = 'left';
+const FeatureToggle = require('app/utils/FeatureToggle');
 
 class WillLeft extends EligibilityValidationStep {
 
@@ -13,7 +14,7 @@ class WillLeft extends EligibilityValidationStep {
 
     getContextData(req, res) {
         const featureToggles = {
-            isIntestacyScreeningToggleEnabled: 'intestacy_screening_questions'
+            isIntestacyScreeningToggleEnabled: FeatureToggle.isEnabled(req.session.featureToggles, 'intestacy_screening_questions')
         };
         return super.getContextData(req, res, pageUrl, fieldKey, featureToggles);
     }
