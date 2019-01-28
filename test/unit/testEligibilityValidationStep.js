@@ -20,7 +20,7 @@ describe('EligibilityValidationStep', () => {
             let ctx = {};
             const featureToggles = {
                 isDocumentUploadToggleEnabled: 'document_upload',
-                isIntestacyScreeningToggleEnabled: 'intestacy_screening_questions'
+                isIntestacyScreeningToggleEnabled: 'intestacy_questions'
             };
 
             const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
@@ -28,7 +28,7 @@ describe('EligibilityValidationStep', () => {
 
             expect(ctx).to.deep.equal({
                 isDocumentUploadToggleEnabled: 'document_upload',
-                isIntestacyScreeningToggleEnabled: 'intestacy_screening_questions'
+                isIntestacyScreeningToggleEnabled: 'intestacy_questions'
             });
             done();
         });

@@ -14,7 +14,7 @@ class WillLeft extends EligibilityValidationStep {
 
     getContextData(req, res) {
         const featureToggles = {
-            isIntestacyScreeningToggleEnabled: FeatureToggle.isEnabled(req.session.featureToggles, 'intestacy_screening_questions')
+            isIntestacyScreeningToggleEnabled: FeatureToggle.isEnabled(req.session.featureToggles, 'intestacy_questions')
         };
         return super.getContextData(req, res, pageUrl, fieldKey, featureToggles);
     }
