@@ -4,17 +4,36 @@ const {expect} = require('chai');
 const rewire = require('rewire');
 const sinon = require('sinon');
 const EligibilityValidationStep = rewire('app/core/steps/EligibilityValidationStep');
-const schema = require('app/steps/ui/deceased/deathcertificate/schema');
+const schema = require('app/steps/ui/screeners/deathcertificate/schema');
 const steps = {};
 const section = 'deceased';
-const resourcePath = 'deceased/deathcertificate';
+const resourcePath = 'screeners/deathcertificate';
 const i18next = {};
-const pageUrl = '/new-death-certificate';
-const nextStepUrl = '/new-deceased-domicile';
+const pageUrl = '/death-certificate';
+const nextStepUrl = '/deceased-domicile';
 const fieldKey = 'deathCertificate';
 const fieldValue = 'Yes';
 
 describe('EligibilityValidationStep', () => {
+    describe('setFeatureTogglesOnCtx()', () => {
+        it('should set feature toggles in the context', (done) => {
+            let ctx = {};
+            const featureToggles = {
+                isDocumentUploadToggleEnabled: true,
+                isIntestacyScreeningToggleEnabled: true
+            };
+
+            const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
+            ctx = eligibilityValidationStep.setFeatureTogglesOnCtx(ctx, featureToggles);
+
+            expect(ctx).to.deep.equal({
+                isDocumentUploadToggleEnabled: true,
+                isIntestacyScreeningToggleEnabled: true
+            });
+            done();
+        });
+    });
+
     describe('getContextData()', () => {
         let req;
         let res;
@@ -35,7 +54,9 @@ describe('EligibilityValidationStep', () => {
 
             expect(EligibilityValidationStep.__get__('eligibilityCookie.getAnswer').calledOnce).to.equal(true);
             expect(EligibilityValidationStep.__get__('eligibilityCookie.getAnswer').calledWith(req, pageUrl, fieldKey)).to.equal(true);
-            expect(ctx).to.deep.equal({sessionID: 'abc123'});
+            expect(ctx).to.deep.equal({
+                sessionID: 'abc123',
+            });
 
             revert();
             done();
@@ -62,16 +83,23 @@ describe('EligibilityValidationStep', () => {
                     deathCertificate: 'Yes'
                 }
             };
+            const featureToggles = {
+                isIntestacyScreeningToggleEnabled: true
+            };
             const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
             const nextStepUrlStub = sinon.stub(eligibilityValidationStep, 'nextStepUrl').returns(nextStepUrl);
             const setEligibilityCookieStub = sinon.stub(eligibilityValidationStep, 'setEligibilityCookie');
-            const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey);
+            const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey, featureToggles);
 
             expect(nextStepUrlStub.calledOnce).to.equal(true);
-            expect(nextStepUrlStub.calledWith({sessionID: 'abc123', deathCertificate: 'Yes'})).to.equal(true);
+            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', deathCertificate: 'Yes', isIntestacyScreeningToggleEnabled: true})).to.equal(true);
             expect(setEligibilityCookieStub.calledOnce).to.equal(true);
             expect(setEligibilityCookieStub.calledWith(req, res, nextStepUrl, fieldKey, fieldValue)).to.equal(true);
-            expect(ctx).to.deep.equal({sessionID: 'abc123', deathCertificate: 'Yes'});
+            expect(ctx).to.deep.equal({
+                sessionID: 'abc123',
+                deathCertificate: 'Yes',
+                isIntestacyScreeningToggleEnabled: true
+            });
 
             nextStepUrlStub.restore();
             setEligibilityCookieStub.restore();
