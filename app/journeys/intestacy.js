@@ -6,11 +6,11 @@ const taskList = {
         lastStep: 'TaskList',
         summary: 'Summary'
     },
-    ExecutorsTask: {
-        firstStep: 'RelationshipToDeceased',
-        lastStep: 'TaskList',
-        summary: 'Summary'
-    },
+    // ExecutorsTask: {
+    //     firstStep: 'RelationshipToDeceased',
+    //     lastStep: 'TaskList',
+    //     summary: 'Summary'
+    // },
 };
 
 const stepList = {
