@@ -12,7 +12,7 @@ module.exports = function (executorNumber, firstRecord) {
         I.seeCurrentUrlEquals(pageUnderTest.getUrl(parseInt(executorNumber) - 1));
     }
 
-    I.fillField('#currentName', 'Executor' + executorNumber + 'Current Name');
+    I.fillField('#currentName', `Executor${executorNumber} Current Name`);
 
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

@@ -11,5 +11,4 @@ module.exports = function (executorNumber) {
     I.fillField('#freeTextAddress', 'additional executor test address');
 
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
-
 };

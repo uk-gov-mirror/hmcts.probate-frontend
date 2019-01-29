@@ -2,7 +2,7 @@
 
 const probateJourney = require('app/journeys/probate');
 const intestacyJourney = require('app/journeys/intestacy');
-const willLeftContent = require('app/resources/en/translation/will/left');
+const willLeftContent = require('app/resources/en/translation/screeners/willleft');
 
 const isIntestacyJourney = (session) => {
     const willLeft = session.willLeft || (session.form && session.form.will && session.form.will.left);

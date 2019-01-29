@@ -8,5 +8,4 @@ module.exports = function () {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
     I.waitForNavigationToComplete('.button');
-
 };

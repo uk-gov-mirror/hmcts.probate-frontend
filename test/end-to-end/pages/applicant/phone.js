@@ -10,5 +10,4 @@ module.exports = function () {
     I.fillField(content.phoneNumber, '123456789');
 
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
-
 };

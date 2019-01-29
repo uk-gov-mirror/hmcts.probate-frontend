@@ -10,5 +10,4 @@ module.exports = function (pinCode) {
     I.fillField('#pin', pinCode);
 
     I.waitForNavigationToComplete('.button');
-
 };

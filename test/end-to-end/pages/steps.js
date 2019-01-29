@@ -5,17 +5,23 @@ const steps = requireDirectory(module);
 
 module.exports = function () {
     return actor({
+        // Stop page
+        seeStopPage: steps.stoppage.stoppage,
 
-        //Screeners & PreIdam
-        startApplication: steps.startEligibility.startEligibility,
-        selectDeathCertificate: steps.deceased.deathcertificate,
-        selectDeceasedDomicile: steps.deceased.domicile,
-        selectIhtCompleted: steps.iht.completed,
-        selectPersonWhoDiedLeftAWill: steps.will.left,
-        selectOriginalWill: steps.will.original,
-        selectApplicantIsExecutor: steps.applicant.executor,
-        selectMentallyCapable: steps.executors.mentalcapacity,
-        startApply: steps.startApply.startApply,
+        // Eligibility Task (pre IdAM)
+        startApplication: steps.screeners.startEligibility,
+        selectDeathCertificate: steps.screeners.deathcertificate,
+        selectDeceasedDomicile: steps.screeners.deceaseddomicile,
+        selectIhtCompleted: steps.screeners.ihtcompleted,
+        selectPersonWhoDiedLeftAWill: steps.screeners.willleft,
+        selectOriginalWill: steps.screeners.willoriginal,
+        selectApplicantIsExecutor: steps.screeners.applicantexecutor,
+        selectMentallyCapable: steps.screeners.mentalcapacity,
+
+        selectDiedAfterOctober2014: steps.screeners.diedafteroctober2014,
+        selectRelationshipToDeceased: steps.screeners.relationshiptodeceased,
+        selectOtherApplicants: steps.screeners.otherapplicants,
+        startApply: steps.screeners.startapply,
 
         // Sign In to IDAM
         authenticateWithIdamIfAvailable: steps.IDAM.signIn,

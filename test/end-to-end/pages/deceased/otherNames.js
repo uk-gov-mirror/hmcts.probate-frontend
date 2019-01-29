@@ -10,12 +10,12 @@ module.exports = function (noOfAliases) {
 
     while (i <= noOfAliases) {
         if (i === 1) {
-            I.fillField('#otherNames_name_'+ (i-1) + '_firstName', 'alias_firstnames_' + i);
-            I.fillField('#otherNames_name_'+ (i-1) + '_lastName', 'alias_lastnames_' + i);
+            I.fillField(`#otherNames_name_${i-1}_firstName`, `alias_firstnames_${i}`);
+            I.fillField(`#otherNames_name_${i-1}_lastName`, `alias_lastnames_${i}`);
         } else {
             I.waitForNavigationToComplete('input[value="Add another name"]');
-            I.fillField('#otherNames_name_'+ (i-1) + '_firstName', 'alias_firstnames_' + i);
-            I.fillField('#otherNames_name_'+ (i-1) + '_lastName', 'alias_lastnames_' + i);
+            I.fillField(`#otherNames_name_${i-1}_firstName`, `alias_firstnames_${i}`);
+            I.fillField(`#otherNames_name_${i-1}_lastName`, `alias_lastnames_${i}`);
         }
 
         i += 1;

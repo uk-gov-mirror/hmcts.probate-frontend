@@ -7,7 +7,7 @@ module.exports = function (option) {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click('#codicils-option' + option);
+    I.click(`#codicils-option${option}`);
 
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

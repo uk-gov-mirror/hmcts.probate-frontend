@@ -36,5 +36,4 @@ xScenario(TestConfigurator.idamInUseText('Survey link redirects to the correct p
 
     I.switchToNextTab(1);
     I.waitForVisible('#cmdGo');
-
 });

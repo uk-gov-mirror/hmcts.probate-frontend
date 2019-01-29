@@ -11,5 +11,4 @@ module.exports = function () {
     I.fillField('#freeTextAddress', 'test address for applicant');
 
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
-
 };

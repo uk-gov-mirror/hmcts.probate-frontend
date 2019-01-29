@@ -13,5 +13,4 @@ module.exports = function (aliasReason, aliasOther) {
     }
 
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
-
 };

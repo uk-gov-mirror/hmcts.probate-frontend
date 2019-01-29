@@ -14,5 +14,4 @@ module.exports = function (executorsApplyingList) {
     });
 
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
-
 };
