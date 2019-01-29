@@ -3,6 +3,7 @@
 const Step = require('app/core/steps/Step');
 const utils = require('app/components/step-utils');
 const ExecutorsWrapper = require('app/wrappers/Executors');
+const setJourney = require('app/middleware/setJourney');
 
 class TaskList extends Step {
 
@@ -32,14 +33,26 @@ class TaskList extends Step {
         ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
         ctx.alreadyDeclared = this.alreadyDeclared(req.session);
 
-        ctx.previousTaskStatus = {
-            DeceasedTask: ctx.DeceasedTask.status,
-            ExecutorsTask: ctx.DeceasedTask.status,
-            ReviewAndConfirmTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask]),
-            CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
-            PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
-            DocumentsTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask, ctx.PaymentTask])
-        };
+        if (setJourney.isIntestacyJourney(req.session)) {
+            ctx.previousTaskStatus = {
+                DeceasedTask: ctx.DeceasedTask.status,
+                // ExecutorsTask: ctx.DeceasedTask.status,
+                // ReviewAndConfirmTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask]),
+                // CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
+                // PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
+                // DocumentsTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask, ctx.PaymentTask])
+            };
+        }
+        else {
+            ctx.previousTaskStatus = {
+                DeceasedTask: ctx.DeceasedTask.status,
+                ExecutorsTask: ctx.DeceasedTask.status,
+                ReviewAndConfirmTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask]),
+                CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
+                PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
+                DocumentsTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask, ctx.PaymentTask])
+            };
+        }
 
         return ctx;
     }
