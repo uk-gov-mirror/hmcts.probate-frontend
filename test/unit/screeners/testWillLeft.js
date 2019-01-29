@@ -72,7 +72,7 @@ describe('WillLeft', () => {
     describe('nextStepOptions()', () => {
         it('should return the correct options when the FT is off', (done) => {
             const ctx = {
-                isIntestacyScreeningToggleEnabled: false
+                isIntestacyQuestionsToggleEnabled: false
             };
             const nextStepOptions = WillLeft.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
@@ -87,7 +87,7 @@ describe('WillLeft', () => {
 
         it('should return the correct options when the FT is on', (done) => {
             const ctx = {
-                isIntestacyScreeningToggleEnabled: true
+                isIntestacyQuestionsToggleEnabled: true
             };
             const nextStepOptions = WillLeft.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
@@ -109,12 +109,12 @@ describe('WillLeft', () => {
     });
 
     describe('action', () => {
-        it('test isIntestacyScreeningToggleEnabled is removed from the context', () => {
+        it('test isIntestacyQuestionsToggleEnabled is removed from the context', () => {
             const ctx = {
-                isIntestacyScreeningToggleEnabled: false
+                isIntestacyQuestionsToggleEnabled: false
             };
             WillLeft.action(ctx);
-            assert.isUndefined(ctx.isIntestacyScreeningToggleEnabled);
+            assert.isUndefined(ctx.isIntestacyQuestionsToggleEnabled);
         });
     });
 });

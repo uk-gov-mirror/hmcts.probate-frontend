@@ -14,7 +14,7 @@ class WillLeft extends EligibilityValidationStep {
 
     getContextData(req, res) {
         const featureToggles = {
-            isIntestacyScreeningToggleEnabled: FeatureToggle.isEnabled(req.session.featureToggles, 'intestacy_questions')
+            isIntestacyQuestionsToggleEnabled: FeatureToggle.isEnabled(req.session.featureToggles, 'intestacy_questions')
         };
         return super.getContextData(req, res, pageUrl, fieldKey, featureToggles);
     }
@@ -24,7 +24,7 @@ class WillLeft extends EligibilityValidationStep {
     }
 
     nextStepOptions(ctx) {
-        if (ctx.isIntestacyScreeningToggleEnabled) {
+        if (ctx.isIntestacyQuestionsToggleEnabled) {
             return {
                 options: [
                     {key: fieldKey, value: content.optionYes, choice: 'withWill'},
@@ -42,7 +42,7 @@ class WillLeft extends EligibilityValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
-        delete ctx.isIntestacyScreeningToggleEnabled;
+        delete ctx.isIntestacyQuestionsToggleEnabled;
         return [ctx, formdata];
     }
 }
