@@ -8,7 +8,7 @@ module.exports = function (firstName, lastName, dob_day, dob_month, dob_year, do
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
     I.fillField('#firstName', firstName);
-    I.fillField('lastName', lastName);
+    I.fillField('#lastName', lastName);
 
     I.fillField('#dob_day', dob_day);
     I.fillField('#dob_month', dob_month);

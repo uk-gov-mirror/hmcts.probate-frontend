@@ -4,12 +4,17 @@ const TestWrapper = require('test/util/TestWrapper');
 const ValueAssetsOutside = require('app/steps/ui/deceased/valueassetsoutside/index');
 // const DeceasedAlias = require('app/steps/ui/deceased/alias/index');
 const TaskList = require('app/steps/ui/tasklist/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const content = require('app/resources/en/translation/deceased/assetsoutside');
-const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 const nock = require('nock');
 const featureToggleUrl = config.featureToggles.url;
 const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
+const featureTogglesNock = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(featureTogglePath)
+        .reply(200, status);
+};
 
 describe('assets-outside-england-wales', () => {
     let testWrapper;
@@ -19,9 +24,7 @@ describe('assets-outside-england-wales', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('AssetsOutside');
-        nock(featureToggleUrl)
-            .get(featureTogglePath)
-            .reply(200, 'true');
+        featureTogglesNock();
     });
 
     afterEach(() => {
@@ -30,17 +33,7 @@ describe('assets-outside-england-wales', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        it('test help block content is loaded on page', (done) => {
-            const playbackData = {};
-            playbackData.helpTitle = commonContent.helpTitle;
-            playbackData.helpText = commonContent.helpText;
-            playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
-            playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
-            playbackData.helpEmailLabel = commonContent.helpEmailLabel;
-            playbackData.contactEmailAddress = commonContent.contactEmailAddress;
-
-            testWrapper.testDataPlayback(done, playbackData);
-        });
+        testHelpBlockContent.runTest('DeceasedDetails', featureTogglesNock);
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
