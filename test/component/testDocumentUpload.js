@@ -10,7 +10,12 @@ const sinon = require('sinon');
 const services = require('app/components/services');
 
 const featureToggleUrl = config.featureToggles.url;
-const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
+const documentUploadFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
+const featureTogglesNock = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(documentUploadFeatureTogglePath)
+        .reply(200, status);
+};
 
 describe('document-upload', () => {
     let testWrapper;
@@ -25,19 +30,8 @@ describe('document-upload', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        it('test content loaded on the page', (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
-
-            testWrapper.testContent(done);
-        });
-
         it('test help block content loaded on the page', (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
+            featureTogglesNock('true');
 
             const playbackData = {};
             playbackData.helpTitle = common.helpTitle;
@@ -48,6 +42,12 @@ describe('document-upload', () => {
             playbackData.contactEmailAddress = common.contactEmailAddress;
 
             testWrapper.testDataPlayback(done, playbackData);
+        });
+
+        it('test content loaded on the page', (done) => {
+            featureTogglesNock('true');
+
+            testWrapper.testContent(done);
         });
 
         it('test it remains on the document upload page after uploading a document', (done) => {
@@ -152,6 +152,5 @@ describe('document-upload', () => {
             const data = {};
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });
-
     });
 });

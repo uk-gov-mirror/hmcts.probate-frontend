@@ -5,7 +5,7 @@ const common = require('app/resources/en/translation/common');
 const config = require('app/config');
 
 class TestHelpBlockContent {
-    static runTest(page, callback) {
+    static runTest(page, callback, cookies = []) {
         describe('Test the help content', () => {
             const testWrapper = new TestWrapper(page);
 
@@ -25,7 +25,7 @@ class TestHelpBlockContent {
                             helpEmailLabel: common.helpEmailLabel,
                             contactEmailAddress: common.contactEmailAddress
                         };
-                        testWrapper.testDataPlayback(done, playbackData);
+                        testWrapper.testDataPlayback(done, playbackData, cookies);
                     })
                     .catch(err => {
                         done(err);

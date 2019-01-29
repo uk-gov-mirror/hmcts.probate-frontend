@@ -3,6 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedDomicile = require('app/steps/ui/screeners/deceaseddomicile/index');
 const StopPage = require('app/steps/ui/stoppage/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 
@@ -20,17 +21,7 @@ describe('death-certificate', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        it('test help block content is loaded on page', (done) => {
-            const playbackData = {};
-            playbackData.helpTitle = commonContent.helpTitle;
-            playbackData.helpText = commonContent.helpText;
-            playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
-            playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
-            playbackData.helpEmailLabel = commonContent.helpEmailLabel;
-            playbackData.contactEmailAddress = commonContent.contactEmailAddress;
-
-            testWrapper.testDataPlayback(done, playbackData);
-        });
+        testHelpBlockContent.runTest('DeathCertificate');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, [], {deathReportedToCoroner: config.links.deathReportedToCoroner});
