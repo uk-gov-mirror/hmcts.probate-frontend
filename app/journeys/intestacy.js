@@ -47,9 +47,37 @@ const stepList = {
     },
     // ------------------------------------------
     StartApply: 'TaskList',
-    // DeceasedDetails: 'DeceasedAddress',
-    DeceasedDetails: 'TaskList',
-
+    DeceasedDetails: 'DeceasedAddress',
+    DeceasedAddress: {
+        documentUploadToggleOn: 'DocumentUpload',
+        otherwise: 'IhtMethod'
+    },
+    DocumentUpload: {
+        isUploadingDocument: 'DocumentUpload',
+        otherwise: 'IhtMethod'
+    },
+    IhtMethod: {
+        online: 'IhtIdentifier',
+        otherwise: 'IhtPaper'
+    },
+    IhtIdentifier: 'IhtValue',
+    IhtValue: {
+        lessThan250: 'AssetsOutside',
+        // otherwise: 'DeceasedAlias'
+        otherwise: 'TaskList'
+    },
+    IhtPaper: {
+        lessThan250: 'AssetsOutside',
+        // otherwise: 'DeceasedAlias'
+        otherwise: 'TaskList'
+    },
+    AssetsOutside: {
+        hasAssetsOutside: 'ValueAssetsOutside',
+        // otherwise: 'DeceasedAlias'
+        otherwise: 'TaskList'
+    },
+    // ValueAssetsOutside: 'DeceasedAlias',
+    ValueAssetsOutside: 'TaskList',
     Summary: 'TaskList',
     TaskList: 'TaskList',
     StopPage: 'StopPage'

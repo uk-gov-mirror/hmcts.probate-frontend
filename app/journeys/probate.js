@@ -84,24 +84,8 @@ const stepList = {
         otherwise: 'IhtPaper'
     },
     IhtIdentifier: 'IhtValue',
-    // -------------------------------------------------
     IhtValue: 'DeceasedAlias',
     IhtPaper: 'DeceasedAlias',
-    // -------------------------------------------------
-    // IhtValue: {
-    //     lessThan250: 'AssetsOutside',
-    //     otherwise: 'DeceasedAlias'
-    // },
-    // IhtPaper: {
-    //     lessThan250: 'AssetsOutside',
-    //     otherwise: 'DeceasedAlias'
-    // },
-    // AssetsOutside: {
-    //     hasAssetsOutside: 'ValueAssetsOutside',
-    //     otherwise: 'DeceasedAlias'
-    // },
-    // ValueAssetsOutside: 'DeceasedAlias',
-    // -------------------------------------------------
     DeceasedAlias: {
         assetsInOtherNames: 'DeceasedOtherNames',
         otherwise: 'DeceasedMarried'
