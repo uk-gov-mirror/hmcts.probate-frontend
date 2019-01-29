@@ -15,13 +15,13 @@ class TaskList extends Step {
         return allPreviousTasksComplete ? 'complete' : 'started';
     }
 
-    copiesPreviousTaskStatus(session, ctx) {
-        if (ctx.hasMultipleApplicants && session.haveAllExecutorsDeclared === 'false') {
-            return 'locked';
-        }
-
-        return this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask]);
-    }
+    // copiesPreviousTaskStatus(session, ctx) {
+    //     if (ctx.hasMultipleApplicants && session.haveAllExecutorsDeclared === 'false') {
+    //         return 'locked';
+    //     }
+    //
+    //     return this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask]);
+    // }
 
     getContextData(req) {
         const ctx = super.getContextData(req);
@@ -34,11 +34,11 @@ class TaskList extends Step {
 
         ctx.previousTaskStatus = {
             DeceasedTask: ctx.DeceasedTask.status,
-            ExecutorsTask: ctx.DeceasedTask.status,
-            ReviewAndConfirmTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask]),
-            CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
-            PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
-            DocumentsTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask, ctx.PaymentTask])
+            // ExecutorsTask: ctx.DeceasedTask.status,
+            // ReviewAndConfirmTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask]),
+            // CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
+            // PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
+            // DocumentsTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask, ctx.PaymentTask])
         };
 
         return ctx;
