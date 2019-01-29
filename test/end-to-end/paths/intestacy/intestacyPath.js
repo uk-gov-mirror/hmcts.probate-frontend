@@ -56,6 +56,18 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function* (I) {
     // Deceased Task
     I.selectATask(taskListContent.taskNotStarted);
     I.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
+    I.enterDeceasedAddress();
+    I.selectDocumentsToUpload();
+    I.selectInheritanceMethodPaper();
+
+    if (TestConfigurator.getUseGovPay() === 'true') {
+        I.enterGrossAndNet('205', '600000', '300000');
+    } else {
+        I.enterGrossAndNet('205', '500', '400');
+    }
+
+    I.selectAssetsOutsideEnglandWales('Yes');
+    I.enterValueAssetsOutsideEnglandWales('400000');
 
     // Executors Task
     I.selectATask(taskListContent.taskNotStarted);
