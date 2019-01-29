@@ -6,10 +6,10 @@ const testHelpBlockContent = require('test/component/common/testHelpBlockContent
 const config = require('app/config');
 const nock = require('nock');
 const featureToggleUrl = config.featureToggles.url;
-const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
+const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
 const featureTogglesNock = (status = 'true') => {
     nock(featureToggleUrl)
-        .get(featureTogglePath)
+        .get(intestacyQuestionsFeatureTogglePath)
         .reply(200, status);
 };
 
