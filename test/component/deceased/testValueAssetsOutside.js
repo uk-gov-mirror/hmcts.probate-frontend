@@ -1,8 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-// const DeceasedAlias = require('app/steps/ui/deceased/alias/index');
-const TaskList = require('app/steps/ui/tasklist/index');
+const DeceasedAlias = require('app/steps/ui/deceased/alias/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const config = require('app/config');
 const nock = require('nock');
@@ -16,8 +15,7 @@ const featureTogglesNock = (status = 'true') => {
 
 describe('value-assets-outside-england-wales', () => {
     let testWrapper;
-    // const expectedNextUrlForDeceasedAlias = DeceasedAlias.getUrl();
-    const expectedNextUrlForTaskList = TaskList.getUrl();
+    const expectedNextUrlForDeceasedAlias = DeceasedAlias.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ValueAssetsOutside');
@@ -40,25 +38,14 @@ describe('value-assets-outside-england-wales', () => {
             testWrapper.testErrors(done, {}, 'required', []);
         });
 
-        // it(`test it redirects to next page: ${expectedNextUrlForDeceasedAlias}`, (done) => {
-        //     testWrapper.agent.post('/prepare-session-field/willLeft/No')
-        //         .end(() => {
-        //             const data = {
-        //                 netValueAssetsOutside: '300000'
-        //             };
-        //
-        //             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
-        //         });
-        // });
-
-        it(`test it redirects to TaskList page: ${expectedNextUrlForTaskList}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForDeceasedAlias}`, (done) => {
             testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         netValueAssetsOutside: '300000'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
                 });
         });
     });

@@ -2,8 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const ValueAssetsOutside = require('app/steps/ui/deceased/valueassetsoutside/index');
-// const DeceasedAlias = require('app/steps/ui/deceased/alias/index');
-const TaskList = require('app/steps/ui/tasklist/index');
+const DeceasedAlias = require('app/steps/ui/deceased/alias/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const content = require('app/resources/en/translation/deceased/assetsoutside');
 const config = require('app/config');
@@ -19,8 +18,7 @@ const featureTogglesNock = (status = 'true') => {
 describe('assets-outside-england-wales', () => {
     let testWrapper;
     const expectedNextUrlForValueAssetsOutside = ValueAssetsOutside.getUrl();
-    // const expectedNextUrlForDeceasedAlias = DeceasedAlias.getUrl();
-    const expectedNextUrlForTaskList = TaskList.getUrl();
+    const expectedNextUrlForDeceasedAlias = DeceasedAlias.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('AssetsOutside');
@@ -67,25 +65,14 @@ describe('assets-outside-england-wales', () => {
                 });
         });
 
-        // it(`test it redirects to Deceased Alias page: ${expectedNextUrlForDeceasedAlias}`, (done) => {
-        //     testWrapper.agent.post('/prepare-session-field/willLeft/No')
-        //         .end(() => {
-        //             const data = {
-        //                 assetsOutside: content.optionNo
-        //             };
-        //
-        //             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
-        //         });
-        // });
-
-        it(`test it redirects to TaskList page: ${expectedNextUrlForTaskList}`, (done) => {
+        it(`test it redirects to Deceased Alias page: ${expectedNextUrlForDeceasedAlias}`, (done) => {
             testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         assetsOutside: content.optionNo
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
                 });
         });
     });
