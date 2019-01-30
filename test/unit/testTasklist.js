@@ -36,6 +36,10 @@ describe('Tasklist', () => {
             journeyMap = new JourneyMap(journey);
         });
 
+        afterEach(() => {
+            delete req.session.willLeft;
+        });
+
         it('Updates the context: neither task is started', () => {
             ctx = taskList.getContextData(req);
 
@@ -65,6 +69,22 @@ describe('Tasklist', () => {
                 will: completedForm.will,
                 iht: completedForm.iht
             };
+            req.session.form = formdata;
+            ctx = taskList.getContextData(req);
+
+            assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+            assert.equal(ctx.DeceasedTask.status, 'complete');
+            assert.equal(ctx.ExecutorsTask.status, 'notStarted');
+            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
+        });
+
+        it('[INTESTACY] Updates the context: DeceasedTask complete, ExecutorsTask not started', () => {
+            const formdata = {
+                deceased: completedForm.deceased,
+                will: completedForm.will,
+                iht: completedForm.iht
+            };
+            req.session.willLeft = 'No';
             req.session.form = formdata;
             ctx = taskList.getContextData(req);
 

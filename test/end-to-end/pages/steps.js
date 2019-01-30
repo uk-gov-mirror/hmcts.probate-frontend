@@ -9,7 +9,7 @@ module.exports = function () {
         seeStopPage: steps.stoppage.stoppage,
 
         // Eligibility Task (pre IdAM)
-        startApplication: steps.screeners.startEligibility,
+        startApplication: steps.screeners.starteligibility,
         selectDeathCertificate: steps.screeners.deathcertificate,
         selectDeceasedDomicile: steps.screeners.deceaseddomicile,
         selectIhtCompleted: steps.screeners.ihtcompleted,
@@ -17,7 +17,6 @@ module.exports = function () {
         selectOriginalWill: steps.screeners.willoriginal,
         selectApplicantIsExecutor: steps.screeners.applicantexecutor,
         selectMentallyCapable: steps.screeners.mentalcapacity,
-
         selectDiedAfterOctober2014: steps.screeners.diedafteroctober2014,
         selectRelationshipToDeceased: steps.screeners.relationshiptodeceased,
         selectOtherApplicants: steps.screeners.otherapplicants,
@@ -102,6 +101,9 @@ module.exports = function () {
 
         // Thank You
         seeThankYouPage: steps.thankyou.thankyou,
+
+        // Intestacy
+        enterDeceasedDetails: steps.deceased.details,
 
         //Eligibility task
         completeEligibilityTask: steps.tasks.tasks.completeEligibilityTask,

@@ -24,7 +24,6 @@ class TestWrapper {
             Object.assign(req.session, req.body);
             res.send('OK');
         });
-
         routes.post('/prepare-session-field/:field/:value', (req, res) => {
             set(req.session, req.params.field, req.params.value);
             res.send('OK');

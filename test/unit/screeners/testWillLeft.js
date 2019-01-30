@@ -39,6 +39,28 @@ describe('WillLeft', () => {
         });
     });
 
+    describe('handlePost()', () => {
+        it('should remove session.form and set session.willLeft', (done) => {
+            const ctxToTest = {
+                left: content.optionYes
+            };
+            const errorsToTest = {};
+            const formdata = {};
+            const session = {
+                form: {}
+            };
+            const [ctx, errors] = WillLeft.handlePost(ctxToTest, errorsToTest, formdata, session);
+            expect(session).to.deep.equal({
+                willLeft: content.optionYes
+            });
+            expect(ctx).to.deep.equal({
+                left: content.optionYes
+            });
+            expect(errors).to.deep.equal({});
+            done();
+        });
+    });
+
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
             const req = {
@@ -72,7 +94,7 @@ describe('WillLeft', () => {
     describe('nextStepOptions()', () => {
         it('should return the correct options when the FT is off', (done) => {
             const ctx = {
-                isIntestacyScreeningToggleEnabled: false
+                isIntestacyQuestionsToggleEnabled: false
             };
             const nextStepOptions = WillLeft.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
@@ -87,7 +109,7 @@ describe('WillLeft', () => {
 
         it('should return the correct options when the FT is on', (done) => {
             const ctx = {
-                isIntestacyScreeningToggleEnabled: true
+                isIntestacyQuestionsToggleEnabled: true
             };
             const nextStepOptions = WillLeft.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
@@ -109,12 +131,12 @@ describe('WillLeft', () => {
     });
 
     describe('action', () => {
-        it('test isIntestacyScreeningToggleEnabled is removed from the context', () => {
+        it('test isIntestacyQuestionsToggleEnabled is removed from the context', () => {
             const ctx = {
-                isIntestacyScreeningToggleEnabled: false
+                isIntestacyQuestionsToggleEnabled: false
             };
             WillLeft.action(ctx);
-            assert.isUndefined(ctx.isIntestacyScreeningToggleEnabled);
+            assert.isUndefined(ctx.isIntestacyQuestionsToggleEnabled);
         });
     });
 });

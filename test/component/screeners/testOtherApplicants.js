@@ -3,6 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const StartApply = require('app/steps/ui/screeners/startapply/index');
 const StopPage = require('app/steps/ui/stoppage/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 const cookies = [{
@@ -22,7 +23,12 @@ const cookies = [{
 
 const nock = require('nock');
 const featureToggleUrl = config.featureToggles.url;
-const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_screening_questions}`;
+const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
+const featureTogglesNock = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(intestacyQuestionsFeatureTogglePath)
+        .reply(200, status);
+};
 
 describe('other-applicants', () => {
     let testWrapper;
@@ -31,9 +37,7 @@ describe('other-applicants', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('OtherApplicants');
-        nock(featureToggleUrl)
-            .get(featureTogglePath)
-            .reply(200, 'true');
+        featureTogglesNock();
     });
 
     afterEach(() => {
@@ -42,40 +46,39 @@ describe('other-applicants', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        it('test help block content is loaded on page', (done) => {
-            const playbackData = {};
-            playbackData.helpTitle = commonContent.helpTitle;
-            playbackData.helpText = commonContent.helpText;
-            playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
-            playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
-            playbackData.helpEmailLabel = commonContent.helpEmailLabel;
-            playbackData.contactEmailAddress = commonContent.contactEmailAddress;
-
-            testWrapper.testDataPlayback(done, playbackData, cookies);
-        });
+        testHelpBlockContent.runTest('OtherApplicants', featureTogglesNock, cookies);
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, [], {}, cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required', [], cookies);
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
+                .end(() => {
+                    testWrapper.testErrors(done, {}, 'required', [], cookies);
+                });
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForStartApply}`, (done) => {
-            const data = {
-                otherApplicants: 'No'
-            };
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
+                .end(() => {
+                    const data = {
+                        otherApplicants: 'No'
+                    };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForStartApply, cookies);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForStartApply, cookies);
+                });
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            const data = {
-                otherApplicants: 'Yes'
-            };
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
+                .end(() => {
+                    const data = {
+                        otherApplicants: 'Yes'
+                    };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+                });
         });
 
         it('test save and close link is not displayed on the page', (done) => {

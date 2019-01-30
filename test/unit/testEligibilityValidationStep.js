@@ -20,7 +20,7 @@ describe('EligibilityValidationStep', () => {
             let ctx = {};
             const featureToggles = {
                 isDocumentUploadToggleEnabled: true,
-                isIntestacyScreeningToggleEnabled: true
+                isIntestacyQuestionsToggleEnabled: true
             };
 
             const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
@@ -28,7 +28,7 @@ describe('EligibilityValidationStep', () => {
 
             expect(ctx).to.deep.equal({
                 isDocumentUploadToggleEnabled: true,
-                isIntestacyScreeningToggleEnabled: true
+                isIntestacyQuestionsToggleEnabled: true
             });
             done();
         });
@@ -84,7 +84,7 @@ describe('EligibilityValidationStep', () => {
                 }
             };
             const featureToggles = {
-                isIntestacyScreeningToggleEnabled: true
+                isIntestacyQuestionsToggleEnabled: true
             };
             const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
             const nextStepUrlStub = sinon.stub(eligibilityValidationStep, 'nextStepUrl').returns(nextStepUrl);
@@ -92,13 +92,13 @@ describe('EligibilityValidationStep', () => {
             const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey, featureToggles);
 
             expect(nextStepUrlStub.calledOnce).to.equal(true);
-            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', deathCertificate: 'Yes', isIntestacyScreeningToggleEnabled: true})).to.equal(true);
+            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', deathCertificate: 'Yes', isIntestacyQuestionsToggleEnabled: true})).to.equal(true);
             expect(setEligibilityCookieStub.calledOnce).to.equal(true);
             expect(setEligibilityCookieStub.calledWith(req, res, nextStepUrl, fieldKey, fieldValue)).to.equal(true);
             expect(ctx).to.deep.equal({
                 sessionID: 'abc123',
                 deathCertificate: 'Yes',
-                isIntestacyScreeningToggleEnabled: true
+                isIntestacyQuestionsToggleEnabled: true
             });
 
             nextStepUrlStub.restore();
