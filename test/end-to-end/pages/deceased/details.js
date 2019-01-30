@@ -18,5 +18,5 @@ module.exports = function (firstName, lastName, dob_day, dob_month, dob_year, do
     I.fillField('#dod_month', dod_month);
     I.fillField('#dod_year', dod_year);
 
-    I.click(commonContent.saveAndContinue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.continue}"]`);
 };

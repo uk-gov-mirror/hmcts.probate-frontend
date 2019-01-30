@@ -3,7 +3,7 @@
 //const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const {forEach, head} = require('lodash');
-const testConfig = require('../../../config.js');
+const testConfig = require('test/config.js');
 
 let grabIds;
 let retries = -1;
