@@ -33,7 +33,7 @@ describe('assets-outside-england-wales', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('DeceasedDetails', featureTogglesNock);
+        testHelpBlockContent.runTest('AssetsOutside', featureTogglesNock);
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
