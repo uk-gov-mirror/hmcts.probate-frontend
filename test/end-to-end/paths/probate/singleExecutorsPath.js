@@ -1,7 +1,7 @@
 'use strict';
 
-const taskListContent = require('../../../../app/resources/en/translation/tasklist');
-const TestConfigurator = new (require('../../helpers/TestConfigurator'))();
+const taskListContent = require('app/resources/en/translation/tasklist');
+const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 
 Feature('Single Executor flow').retry(TestConfigurator.getRetryFeatures());
 
