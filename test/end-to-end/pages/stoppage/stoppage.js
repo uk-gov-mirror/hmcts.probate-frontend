@@ -1,7 +1,7 @@
 'use strict';
 
 const pageUnderTest = require('app/steps/ui/stoppage/index');
-const testConfig = require('../../../config.js');
+const testConfig = require('test/config.js');
 
 module.exports = function (url) {
     const I = this;

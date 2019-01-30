@@ -9,7 +9,7 @@ module.exports = function () {
         seeStopPage: steps.stoppage.stoppage,
 
         // Eligibility Task (pre IdAM)
-        startApplication: steps.screeners.startEligibility,
+        startApplication: steps.screeners.starteligibility,
         selectDeathCertificate: steps.screeners.deathcertificate,
         selectDeceasedDomicile: steps.screeners.deceaseddomicile,
         selectIhtCompleted: steps.screeners.ihtcompleted,
