@@ -89,21 +89,6 @@ const stepList = {
         otherwise: 'DeceasedMarried'
     },
     DeceasedOtherNames: 'DeceasedMarried',
-    // -------------------------------------------------
-    // DeceasedAlias: {
-    //     assetsInOtherNames: 'DeceasedOtherNames',
-    //     otherwise: 'DeceasedMaritalStatus'
-    // },
-    // DeceasedOtherNames: 'DeceasedMaritalStatus',
-    // DeceasedMaritalStatus: {
-    //     divorced: 'DivorcePlace',
-    //     otherwise: 'TaskList'
-    // },
-    // DivorcePlace: {
-    //     inEnglandOrWales: 'TaskList',
-    //     otherwise: 'StopPage'
-    // },
-    // -------------------------------------------------
     AddAlias: 'DeceasedOtherNames',
     RemoveAlias: 'DeceasedOtherNames',
     DeceasedMarried: 'WillCodicils',

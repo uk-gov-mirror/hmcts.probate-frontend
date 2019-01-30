@@ -39,8 +39,7 @@ describe('AssetsOutside', () => {
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const ctx = {};
-            const nextStepOptions = AssetsOutside.nextStepOptions(ctx);
+            const nextStepOptions = AssetsOutside.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [{
                     key: 'assetsOutside',

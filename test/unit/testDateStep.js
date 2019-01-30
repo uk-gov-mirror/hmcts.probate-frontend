@@ -1,6 +1,6 @@
 'use strict';
 
-const {expect} = require('chai');
+const expect = require('chai').expect;
 const DateStep = require('app/core/steps/DateStep');
 const moment = require('moment');
 const config = require('app/config');
