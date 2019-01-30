@@ -3,7 +3,7 @@
 {% from "widgets/radiobuttons.html" import optionsRadio %}
 
 {% block page_title %}
-    {{ content.title | replace('{legalProcess}', fields.legalProcess.value) | safe }}
+    {{ fields.title.value }}
 {% endblock %}
 
 {% block question %}

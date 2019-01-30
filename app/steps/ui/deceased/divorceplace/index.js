@@ -3,6 +3,8 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
 const content = require('app/resources/en/translation/deceased/divorceplace');
+const commonContent = require('app/resources/en/translation/common');
+const {set} = require('lodash');
 
 class DivorcePlace extends ValidationStep {
 
@@ -13,8 +15,22 @@ class DivorcePlace extends ValidationStep {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        ctx.legalProcess = (formdata.deceased && formdata.deceased.maritalStatus === contentMaritalStatus.optionDivorced) ? contentMaritalStatus.divorce : contentMaritalStatus.separation;
+        if (formdata.deceased && formdata.deceased.maritalStatus) {
+            ctx.legalProcess = formdata.deceased.maritalStatus === contentMaritalStatus.optionDivorced ? contentMaritalStatus.divorce : contentMaritalStatus.separation;
+        }
         return ctx;
+    }
+
+    generateFields(ctx, errors) {
+        const fields = super.generateFields(ctx, errors);
+
+        set(fields, 'title.value', `${content.title} - ${commonContent.serviceName}`);
+
+        if (ctx.legalProcess) {
+            set(fields, 'title.value', fields.title.value.replace('{legalProcess}', ctx.legalProcess));
+        }
+
+        return fields;
     }
 
     nextStepUrl(req, ctx) {
