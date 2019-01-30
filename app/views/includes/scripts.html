@@ -9,33 +9,33 @@
 <script src="/public/javascripts/application.js"></script>
 
 {% if enableTracking === 'true' %}
-    <script nonce="{{nonce}}">
-        var gatrackingid = "{{gaTrackingId}}";
+    <script nonce="{{ nonce }}">
+        var gatrackingid = "{{ gaTrackingId }}";
     </script>
     <script src="/public/javascripts/ga-tracking.js"></script>
 {% endif %}
 
 <script src="/public/javascripts/dropzone.js"></script>
-<script nonce="{{nonce}}">
+<script nonce="{{ nonce }}">
     var documentUploadConfig = {
-        csrfToken: "{{csrfToken}}",
-        validMimeTypes: "{{documentUpload.validMimeTypes}}",
-        maxFiles: "{{documentUpload.maxFiles}}",
-        maxSizeBytes: "{{documentUpload.maxSizeBytes}}",
-        timeout: "{{documentUpload.timeout}}",
+        csrfToken: "{{ csrfToken }}",
+        validMimeTypes: "{{ documentUpload.validMimeTypes }}",
+        maxFiles: "{{ documentUpload.maxFiles }}",
+        maxSizeBytes: "{{ documentUpload.maxSizeBytes }}",
+        timeout: "{{ documentUpload.timeout }}",
         content: {
-            removeFileText: "{{common.documentUploadRemoveFile}}",
-            errorSummaryHeading: "{{common.errorSummaryHeading}}",
-            invalidFileType: "{{common['documentUpload-invalidFileType']}}",
-            invalidFileTypeSummary: "{{common['documentUpload-invalidFileTypeSummary']}}",
-            maxFiles: "{{common['documentUpload-maxFiles']}}",
-            maxFilesSummary: "{{common['documentUpload-maxFilesSummary']}}",
-            maxSize: "{{common['documentUpload-maxSize']}}",
-            maxSizeSummary: "{{common['documentUpload-maxSizeSummary']}}",
-            uploadFailed: "{{common['documentUpload-uploadFailed']}}",
-            uploadFailedSummary: "{{common['documentUpload-uploadFailedSummary']}}",
-            uploadTimeout: "{{common['documentUpload-uploadTimeout']}}",
-            uploadTimeoutSummary: "{{common['documentUpload-uploadTimeoutSummary']}}"
+            removeFileText: "{{ common.documentUploadRemoveFile }}",
+            errorSummaryHeading: "{{ common.errorSummaryHeading }}",
+            invalidFileType: "{{ common['documentUpload-invalidFileType'] }}",
+            invalidFileTypeSummary: "{{ common['documentUpload-invalidFileTypeSummary'] }}",
+            maxFiles: "{{ common['documentUpload-maxFiles'] }}",
+            maxFilesSummary: "{{ common['documentUpload-maxFilesSummary'] }}",
+            maxSize: "{{ common['documentUpload-maxSize'] }}",
+            maxSizeSummary: "{{ common['documentUpload-maxSizeSummary'] }}",
+            uploadFailed: "{{ common['documentUpload-uploadFailed'] }}",
+            uploadFailedSummary: "{{ common['documentUpload-uploadFailedSummary'] }}",
+            uploadTimeout: "{{ common['documentUpload-uploadTimeout'] }}",
+            uploadTimeoutSummary: "{{ common['documentUpload-uploadTimeoutSummary'] }}"
         }
     };
 </script>

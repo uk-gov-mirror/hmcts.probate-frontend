@@ -9,13 +9,13 @@
 {% block form_content %}
     <p class="form-hint">{{content.paragraph1 | safe}}</p>
 
-    {{optionsRadio(content,
+    {{ optionsRadio(content,
         name = 'method',
         field = fields.method,
         options = ['paperOption', 'onlineOption'],
         legend = content.legend
-    )}}
+    ) }}
     <div class="form-group">
-        <input class="button" type="submit" value="{{common.saveAndContinue}}">
+        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}
