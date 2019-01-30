@@ -2,6 +2,10 @@
 
 {% from "widgets/radiobuttons.html" import optionsRadio %}
 
+{% block page_title %}
+    {{ content.title | replace('{legalProcess}', fields.legalProcess.value) | safe }}
+{% endblock %}
+
 {% block question %}
     <h1 class="form-title heading-large">{{ content.question | replace('{legalProcess}', fields.legalProcess.value) | safe }}</h1>
 {% endblock %}
