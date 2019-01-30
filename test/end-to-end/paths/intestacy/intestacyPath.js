@@ -57,7 +57,4 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function* (I) {
     I.selectATask(taskListContent.taskNotStarted);
     I.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
 
-    // Executors Task
-    I.selectATask(taskListContent.taskNotStarted);
-
 }).retry(TestConfigurator.getRetryScenarios());
