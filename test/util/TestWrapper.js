@@ -6,8 +6,9 @@ const app = require('app');
 const routes = require('app/routes');
 const config = require('app/config');
 const request = require('supertest');
-const journeyMap = require('app/core/journeyMap');
+const JourneyMap = require('app/core/JourneyMap');
 const {steps} = require('app/core/initSteps');
+const journey = require('app/journeys/probate');
 
 class TestWrapper {
     constructor(stepName) {
@@ -23,7 +24,6 @@ class TestWrapper {
             Object.assign(req.session, req.body);
             res.send('OK');
         });
-
         routes.post('/prepare-session-field/:field/:value', (req, res) => {
             set(req.session, req.params.field, req.params.value);
             res.send('OK');
@@ -130,7 +130,8 @@ class TestWrapper {
     }
 
     nextStep(data = {}) {
-        return journeyMap(this.pageToTest, data);
+        const journeyMap = new JourneyMap(journey);
+        return journeyMap.nextStep(this.pageToTest, data);
     }
 
     substituteContent(data, contentToSubstitute) {

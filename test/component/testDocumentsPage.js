@@ -9,7 +9,12 @@ const ihtContent = require('app/resources/en/translation/iht/method');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const nock = require('nock');
 const featureToggleUrl = config.featureToggles.url;
-const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
+const documentUploadFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
+const featureTogglesNock = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(documentUploadFeatureTogglePath)
+        .reply(200, status);
+};
 
 describe('documents', () => {
     let testWrapper;
@@ -25,22 +30,21 @@ describe('documents', () => {
             }
         };
         contentData = {
-            ccdReferenceNumber: '1234-1235-1236-1237'
+            ccdReferenceNumber: '1234-1235-1236-1237',
         };
         testWrapper = new TestWrapper('Documents');
     });
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('Documents');
+        testHelpBlockContent.runTest('Documents', featureTogglesNock);
 
         it('test correct content loaded on the page, no codicils, no alias, single executor (Feature Toggle OFF)', (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'false');
+            featureTogglesNock('false');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -76,6 +80,8 @@ describe('documents', () => {
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils',
+                        'coverSheetDownloadMessage',
+                        'coverSheetPdf',
                         'warning'
                     ];
                     testWrapper.testContent(done, excludeKeys, contentData);
@@ -83,9 +89,7 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, no alias, single executor (Feature Toggle ON)', (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
+            featureTogglesNock('true');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -130,15 +134,14 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, no alias, multiple executors (Feature Toggle OFF)', (done) => {
+            featureTogglesNock('false');
+
             sessionData.executors = {
                 list: [
                     {isApplying: true, isApplicant: true},
                     {isApplying: true}
                 ]
             };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'false');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -172,6 +175,8 @@ describe('documents', () => {
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils',
+                        'coverSheetDownloadMessage',
+                        'coverSheetPdf',
                         'warning'
                     ];
                     testWrapper.testContent(done, excludeKeys, contentData);
@@ -179,15 +184,14 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, no alias, multiple executors (Feature Toggle ON)', (done) => {
+            featureTogglesNock('true');
+
             sessionData.executors = {
                 list: [
                     {isApplying: true, isApplicant: true},
                     {isApplying: true}
                 ]
             };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -230,15 +234,14 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, no alias, multiple executors (Feature Toggle ON)', (done) => {
+            featureTogglesNock('true');
+
             sessionData.executors = {
                 list: [
                     {isApplying: true, isApplicant: true},
                     {isApplying: true}
                 ]
             };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -281,6 +284,8 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, multiple executors, no alias, with optionRenunciated (Feature Toggle OFF)', (done) => {
+            featureTogglesNock('false');
+
             sessionData.executors = {
                 executorsNumber: 2,
                 list: [
@@ -288,9 +293,6 @@ describe('documents', () => {
                     {notApplyingKey: 'optionRenunciated'}
                 ]
             };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'false');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -325,6 +327,8 @@ describe('documents', () => {
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils',
+                        'coverSheetDownloadMessage',
+                        'coverSheetPdf',
                         'warning'
                     ];
                     contentData.renunciationFormLink = config.links.renunciationForm;
@@ -334,6 +338,8 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, multiple executors, no alias, with optionRenunciated (Feature Toggle ON)', (done) => {
+            featureTogglesNock('true');
+
             sessionData.executors = {
                 executorsNumber: 2,
                 list: [
@@ -341,9 +347,6 @@ describe('documents', () => {
                     {notApplyingKey: 'optionRenunciated'}
                 ]
             };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -388,12 +391,11 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, has codicils, no alias, single executor (Feature Toggle OFF)', (done) => {
+            featureTogglesNock('false');
+
             sessionData.will = {
                 codicilsNumber: '1'
             };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'false');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -428,6 +430,8 @@ describe('documents', () => {
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel',
+                        'coverSheetDownloadMessage',
+                        'coverSheetPdf',
                         'warning'
                     ];
                     contentData.codicilsNumber = 1;
@@ -437,13 +441,12 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, has codicils, no alias, single executor (Feature Toggle ON)', (done) => {
+            featureTogglesNock('true');
+
             sessionData.will = {
                 codicils: 'Yes',
                 codicilsNumber: '1'
             };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -489,6 +492,8 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, has codicils, no alias, multiple executors (Feature Toggle OFF)', (done) => {
+            featureTogglesNock('false');
+
             sessionData.will = {
                 codicilsNumber: '1'
             };
@@ -498,9 +503,6 @@ describe('documents', () => {
                     {isApplying: true}
                 ]
             };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'false');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -533,6 +535,8 @@ describe('documents', () => {
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel',
+                        'coverSheetDownloadMessage',
+                        'coverSheetPdf',
                         'warning'
                     ];
                     contentData.codicilsNumber = 1;
@@ -542,6 +546,8 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, has codicils, no alias, multiple executors (Feature Toggle ON)', (done) => {
+            featureTogglesNock('true');
+
             sessionData.will = {
                 codicils: 'Yes',
                 codicilsNumber: '1'
@@ -552,9 +558,6 @@ describe('documents', () => {
                     {isApplying: true}
                 ]
             };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -599,12 +602,11 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, single executor, no alias, specified registry address (Feature Toggle OFF)', (done) => {
+            featureTogglesNock('false');
+
             sessionData.registry = {
                 address: '1 Red Street\nLondon\nO1 1OL'
             };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'false');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -641,6 +643,8 @@ describe('documents', () => {
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils',
+                        'coverSheetDownloadMessage',
+                        'coverSheetPdf',
                         'warning'
                     ];
 
@@ -649,12 +653,11 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, single executor, no alias, specified registry address (Feature Toggle ON)', (done) => {
+            featureTogglesNock('true');
+
             sessionData.registry = {
                 address: '1 Red Street\nLondon\nO1 1OL'
             };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -700,12 +703,11 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, single executor, no alias, online IHT (Feature Toggle OFF)', (done) => {
+            featureTogglesNock('false');
+
             sessionData.iht = {
                 method: ihtContent.onlineOption
             };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'false');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -741,6 +743,8 @@ describe('documents', () => {
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils',
+                        'coverSheetDownloadMessage',
+                        'coverSheetPdf',
                         'warning'
                     ];
 
@@ -749,12 +753,11 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, single executor, no alias, online IHT (Feature Toggle ON)', (done) => {
+            featureTogglesNock('true');
+
             sessionData.iht = {
                 method: ihtContent.onlineOption
             };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -799,13 +802,12 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 207 or 400 (Feature Toggle OFF)', (done) => {
+            featureTogglesNock('false');
+
             sessionData.iht = {
                 method: ihtContent.paperOption,
                 form: 'IHT207'
             };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'false');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -841,6 +843,8 @@ describe('documents', () => {
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils',
+                        'coverSheetDownloadMessage',
+                        'coverSheetPdf',
                         'warning'
                     ];
 
@@ -849,13 +853,12 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 207 or 400 (Feature Toggle ON)', (done) => {
+            featureTogglesNock('true');
+
             sessionData.iht = {
                 method: ihtContent.paperOption,
                 form: 'IHT207'
             };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -900,13 +903,12 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 205 (Feature Toggle OFF)', (done) => {
+            featureTogglesNock('false');
+
             sessionData.iht = {
                 method: ihtContent.paperOption,
                 form: 'IHT205'
             };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'false');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -941,6 +943,8 @@ describe('documents', () => {
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils',
+                        'coverSheetDownloadMessage',
+                        'coverSheetPdf',
                         'warning'
                     ];
 
@@ -949,13 +953,12 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 205 (Feature Toggle ON)', (done) => {
+            featureTogglesNock('true');
+
             sessionData.iht = {
                 method: ihtContent.paperOption,
                 form: 'IHT205'
             };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -999,6 +1002,8 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, one executor name changed by deed poll (Feature Toggle OFF)', (done) => {
+            featureTogglesNock('false');
+
             sessionData.executors = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'Marriage'},
@@ -1006,9 +1011,6 @@ describe('documents', () => {
                     {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'Divorce'}
                 ]
             };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'false');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -1043,6 +1045,8 @@ describe('documents', () => {
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils',
+                        'coverSheetDownloadMessage',
+                        'coverSheetPdf',
                         'warning'
                     ];
 
@@ -1053,6 +1057,8 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, one executor name changed by deed poll (Feature Toggle ON)', (done) => {
+            featureTogglesNock('true');
+
             sessionData.executors = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'Marriage'},
@@ -1060,9 +1066,6 @@ describe('documents', () => {
                     {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'Divorce'}
                 ]
             };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -1106,6 +1109,8 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, multiple executor name changed by deed poll (Feature Toggle OFF)', (done) => {
+            featureTogglesNock('false');
+
             sessionData.executors = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'Change by deed poll'},
@@ -1113,9 +1118,6 @@ describe('documents', () => {
                     {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'other', otherReason: 'Did not like my name'}
                 ]
             };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'false');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -1150,6 +1152,8 @@ describe('documents', () => {
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils',
+                        'coverSheetDownloadMessage',
+                        'coverSheetPdf',
                         'warning'
                     ];
                     contentData.executorCurrentName = [
@@ -1162,6 +1166,8 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, multiple executor name changed by deed poll (Feature Toggle ON)', (done) => {
+            featureTogglesNock('true');
+
             sessionData.executors = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'Change by deed poll'},
@@ -1169,9 +1175,6 @@ describe('documents', () => {
                     {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'other', otherReason: 'Did not like my name'}
                 ]
             };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -1218,6 +1221,8 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, original will uploaded (Feature Toggle ON)', (done) => {
+            featureTogglesNock('true');
+
             sessionData.documents = {
                 uploads: [
                     {
@@ -1226,9 +1231,6 @@ describe('documents', () => {
                     }
                 ]
             };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -1272,12 +1274,11 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, original will not uploaded (Feature Toggle ON)', (done) => {
+            featureTogglesNock('true');
+
             sessionData.documents = {
                 uploads: []
             };
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -1321,9 +1322,7 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, CCD Case ID not present (Feature Toggle ON)', (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
+            featureTogglesNock('true');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -1369,9 +1368,7 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, CCD Case ID is present (Feature Toggle ON)', (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
+            featureTogglesNock('true');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
