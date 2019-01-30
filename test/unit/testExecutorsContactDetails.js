@@ -5,7 +5,7 @@ const services = require('app/components/services');
 const sinon = require('sinon');
 const when = require('when');
 const co = require('co');
-const {expect} = require('chai');
+const expect = require('chai').expect;
 const journey = require('app/journeys/probate');
 
 describe('Contact-Details', function () {

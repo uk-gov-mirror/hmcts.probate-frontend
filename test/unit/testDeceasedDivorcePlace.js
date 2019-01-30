@@ -1,5 +1,6 @@
 'use strict';
 
+const journey = require('app/journeys/intestacy');
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
@@ -55,15 +56,29 @@ describe('DivorcePlace', () => {
 
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
-            const ctx = {divorcePlace: content.optionYes};
-            const nextStepUrl = DivorcePlace.nextStepUrl(ctx);
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                divorcePlace: content.optionYes
+            };
+            const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/tasklist');
             done();
         });
 
         it('should return the correct url when No is given', (done) => {
-            const ctx = {divorcePlace: content.optionNo};
-            const nextStepUrl = DivorcePlace.nextStepUrl(ctx);
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                divorcePlace: content.optionNo
+            };
+            const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/divorcePlace');
             done();
         });
@@ -71,8 +86,7 @@ describe('DivorcePlace', () => {
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const ctx = {};
-            const nextStepOptions = DivorcePlace.nextStepOptions(ctx);
+            const nextStepOptions = DivorcePlace.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [{
                     key: 'divorcePlace',

@@ -39,14 +39,13 @@ describe('DeceasedMaritalStatus', () => {
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const ctx = {};
-            const nextStepOptions = DeceasedMaritalStatus.nextStepOptions(ctx);
+            const nextStepOptions = DeceasedMaritalStatus.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [{
                     key: 'maritalStatus',
                     value: content.optionDivorced,
                     choice: 'divorced'
-                },{
+                }, {
                     key: 'maritalStatus',
                     value: content.optionSeparated,
                     choice: 'divorced'

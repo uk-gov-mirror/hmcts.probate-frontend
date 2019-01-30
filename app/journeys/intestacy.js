@@ -73,11 +73,25 @@ const stepList = {
     },
     AssetsOutside: {
         hasAssetsOutside: 'ValueAssetsOutside',
-        // otherwise: 'DeceasedAlias'
+        otherwise: 'DeceasedAlias'
+    },
+    ValueAssetsOutside: 'DeceasedAlias',
+    DeceasedAlias: {
+        assetsInOtherNames: 'DeceasedOtherNames',
+        otherwise: 'DeceasedMaritalStatus'
+    },
+    DeceasedOtherNames: 'DeceasedMaritalStatus',
+    AddAlias: 'DeceasedOtherNames',
+    RemoveAlias: 'DeceasedOtherNames',
+    DeceasedMaritalStatus: {
+        divorced: 'DivorcePlace',
         otherwise: 'TaskList'
     },
-    // ValueAssetsOutside: 'DeceasedAlias',
-    ValueAssetsOutside: 'TaskList',
+    DivorcePlace: {
+        inEnglandOrWales: 'TaskList',
+        otherwise: 'StopPage'
+    },
+
     Summary: 'TaskList',
     TaskList: 'TaskList',
     StopPage: 'StopPage'

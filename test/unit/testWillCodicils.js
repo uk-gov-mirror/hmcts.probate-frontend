@@ -69,8 +69,7 @@ describe('WillCodicils', () => {
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const ctx = {};
-            const nextStepOptions = WillCodicils.nextStepOptions(ctx);
+            const nextStepOptions = WillCodicils.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [{
                     key: 'codicils',

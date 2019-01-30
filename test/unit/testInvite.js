@@ -1,9 +1,9 @@
 'use strict';
-const chai = require('chai'),
-    sinon = require('sinon'),
-    expect = chai.expect,
-    InviteLink = require('app/invite.js'),
-    services = require('app/components/services');
+
+const expect = require('chai').expect;
+const sinon = require('sinon');
+const InviteLink = require('app/invite.js');
+const services = require('app/components/services');
 
 describe('Executors invite endpoints', function () {
     let req, res, next, findInviteLinkStub, sendPinStub, checkAllAgreedStub, invite;

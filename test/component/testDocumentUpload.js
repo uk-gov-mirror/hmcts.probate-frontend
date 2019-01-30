@@ -5,7 +5,7 @@ const IhtMethod = require('app/steps/ui/iht/method/index');
 const common = require('app/resources/en/translation/common');
 const config = require('app/config');
 const nock = require('nock');
-const {expect} = require('chai');
+const expect = require('chai').expect;
 const sinon = require('sinon');
 const services = require('app/components/services');
 

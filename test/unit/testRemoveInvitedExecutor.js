@@ -2,7 +2,7 @@
 
 const RemoveInvitedExecutor = require('app/utils/RemoveInvitedExecutor');
 const services = require('app/components/services');
-const {expect} = require('chai');
+const expect = require('chai').expect;
 const sinon = require('sinon');
 
 describe('RemoveInvitedExecutor.js', () => {

@@ -1,7 +1,7 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const {expect} = require('chai');
+const expect = require('chai').expect;
 const journey = require('app/journeys/probate');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 
