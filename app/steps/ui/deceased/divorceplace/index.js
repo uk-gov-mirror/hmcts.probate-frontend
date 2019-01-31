@@ -26,7 +26,7 @@ class DivorcePlace extends ValidationStep {
 
         set(fields, 'title.value', `${content.title} - ${commonContent.serviceName}`);
 
-        if (ctx.legalProcess) {
+        if (ctx && ctx.legalProcess) {
             set(fields, 'title.value', fields.title.value.replace('{legalProcess}', ctx.legalProcess));
         }
 
