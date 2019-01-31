@@ -38,9 +38,9 @@ class TestWrapper {
         const contentToCheck = cloneDeep(filter(this.content, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
         const substitutedContent = this.substituteContent(data, contentToCheck);
         const res = this.agent.get(this.pageUrl);
-        const cookiesString = this.setCookiesString(res, cookies);
 
-        if (cookiesString !== '') {
+        if (cookies.length) {
+            const cookiesString = this.setCookiesString(res, cookies);
             res.set('Cookie', cookiesString);
         }
 
@@ -52,11 +52,11 @@ class TestWrapper {
             .catch(done);
     }
 
-    testDataPlayback(done, data, cookies) {
+    testDataPlayback(done, data, cookies = []) {
         const res = this.agent.get(this.pageUrl);
-        const cookiesString = this.setCookiesString(res, cookies);
 
-        if (cookiesString !== '') {
+        if (cookies.length) {
+            const cookiesString = this.setCookiesString(res, cookies);
             res.set('Cookie', cookiesString);
         }
 
@@ -83,9 +83,9 @@ class TestWrapper {
         assert.isNotEmpty(expectedErrors);
         this.substituteErrorsContent(data, expectedErrors, type);
         const res = this.agent.post(`${this.pageUrl}`);
-        const cookiesString = this.setCookiesString(res, cookies);
 
-        if (cookiesString !== '') {
+        if (cookies.length) {
+            const cookiesString = this.setCookiesString(res, cookies);
             res.set('Cookie', cookiesString);
         }
 
@@ -115,9 +115,9 @@ class TestWrapper {
 
     testRedirect(done, postData, expectedNextUrl, cookies = []) {
         const res = this.agent.post(this.pageUrl);
-        const cookiesString = this.setCookiesString(res, cookies);
 
-        if (cookiesString !== '') {
+        if (cookies.length) {
+            const cookiesString = this.setCookiesString(res, cookies);
             res.set('Cookie', cookiesString);
         }
 
