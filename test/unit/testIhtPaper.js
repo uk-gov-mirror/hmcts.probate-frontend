@@ -81,22 +81,22 @@ describe('IhtPaper', () => {
             expect(errors).to.deep.equal([
                 {
                     msg: {
-                        message: 'Invalid currency format',
-                        summary: 'Invalid currency format'
+                        summary: 'You haven&rsquo;t entered a valid gross amount',
+                        message: 'Enter a valid amount using numbers only'
                     },
                     param: 'grossIHT205'
                 },
                 {
                     msg: {
-                        message: 'Invalid currency format',
-                        summary: 'Invalid currency format'
+                        summary: 'You haven&rsquo;t entered a valid net amount',
+                        message: 'Enter a valid amount using numbers only'
                     },
                     param: 'netIHT205'
                 },
                 {
                     msg: {
-                        message: 'The net amount can&rsquo;t be greater than the gross amount',
-                        summary: 'The net amount can&rsquo;t be greater than the gross amount'
+                        summary: 'The net amount can&rsquo;t be greater than the gross amount',
+                        message: 'The net amount can&rsquo;t be greater than the gross amount'
                     },
                     param: 'netIHT205'
                 }

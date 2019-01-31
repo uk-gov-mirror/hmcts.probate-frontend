@@ -54,8 +54,8 @@ describe('ValueAssetsOutside', () => {
             expect(errors).to.deep.equal([
                 {
                     msg: {
-                        message: 'Invalid currency format',
-                        summary: 'Invalid currency format'
+                        summary: 'You haven&rsquo;t entered a valid amount of assets outside England and Wales',
+                        message: 'Enter a valid amount using numbers only'
                     },
                     param: 'netValueAssetsOutside'
                 }

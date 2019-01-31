@@ -34,7 +34,7 @@ describe('IhtValue', () => {
             done();
         });
 
-        it('should return the ctx with the estate values (values containin decimals)', (done) => {
+        it('should return the ctx with the estate values (values containing decimals)', (done) => {
             ctx = {
                 grossValueOnline: '500000.00',
                 netValueOnline: '400000.00'
@@ -66,22 +66,22 @@ describe('IhtValue', () => {
             expect(errors).to.deep.equal([
                 {
                     msg: {
-                        message: 'Invalid currency format',
-                        summary: 'Invalid currency format'
+                        summary: 'You haven&rsquo;t entered a valid gross amount',
+                        message: 'Enter a valid amount using numbers only'
                     },
                     param: 'grossValueOnline'
                 },
                 {
                     msg: {
-                        message: 'Invalid currency format',
-                        summary: 'Invalid currency format'
+                        summary: 'You haven&rsquo;t entered a valid net amount',
+                        message: 'Enter a valid amount using numbers only'
                     },
                     param: 'netValueOnline'
                 },
                 {
                     msg: {
-                        message: 'The net amount can&rsquo;t be greater than the gross amount',
-                        summary: 'The net amount can&rsquo;t be greater than the gross amount'
+                        summary: 'The net amount can&rsquo;t be greater than the gross amount',
+                        message: 'The net amount can&rsquo;t be greater than the gross amount'
                     },
                     param: 'netValueOnline'
                 }

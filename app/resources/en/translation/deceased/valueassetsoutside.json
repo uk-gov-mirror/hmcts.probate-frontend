@@ -2,6 +2,7 @@
   "title": "Value of assets outside of England and Wales",
   "question": "What is the value of assets outside of England and Wales?",
   "hint": "Enter the total amount after any debts and expenses have been paid.",
+  "netValue": "Net value in &pound;",
 
   "errors": {
     "netValueAssetsOutside": {
@@ -14,8 +15,8 @@
         "message": "Invalid amount"
       },
       "invalidCurrencyFormat": {
-        "summary": "Invalid currency format",
-        "message": "Invalid currency format"
+        "summary": "You haven&rsquo;t entered a valid amount of assets outside England and Wales",
+        "message": "Enter a valid amount using numbers only"
       }
     }
   }
