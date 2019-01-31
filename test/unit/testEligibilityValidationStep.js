@@ -125,7 +125,7 @@ describe('EligibilityValidationStep', () => {
                 deathCertificate: 'Yes',
                 domicile: 'Yes',
                 completed: 'Yes'
-            }, {}]);
+            }, []]);
 
             done();
         });
