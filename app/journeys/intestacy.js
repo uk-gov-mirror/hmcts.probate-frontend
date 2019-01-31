@@ -5,12 +5,7 @@ const taskList = {
         firstStep: 'DeceasedDetails',
         lastStep: 'TaskList',
         summary: 'Summary'
-    },
-    // ExecutorsTask: {
-    //     firstStep: 'RelationshipToDeceased',
-    //     lastStep: 'TaskList',
-    //     summary: 'Summary'
-    // },
+    }
 };
 
 const stepList = {
@@ -32,7 +27,6 @@ const stepList = {
         withoutWillToggleOn: 'DiedAfterOctober2014',
         otherwise: 'StopPage'
     },
-    // Intestacy --------------------------------
     DiedAfterOctober2014: {
         diedAfter: 'RelationshipToDeceased',
         otherwise: 'StopPage'
@@ -45,7 +39,6 @@ const stepList = {
         noOthers: 'StartApply',
         otherwise: 'StopPage'
     },
-    // ------------------------------------------
     StartApply: 'TaskList',
     DeceasedDetails: 'DeceasedAddress',
     DeceasedAddress: {
@@ -89,7 +82,6 @@ const stepList = {
         inEnglandOrWales: 'TaskList',
         otherwise: 'StopPage'
     },
-
     Summary: 'TaskList',
     TaskList: 'TaskList',
     StopPage: 'StopPage'

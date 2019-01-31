@@ -56,7 +56,7 @@ describe('CodicilsNumber', () => {
             ctx = {
                 codicilsNumber: '3'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = CodicilsNumber.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
                 codicilsNumber: '3'
@@ -66,7 +66,7 @@ describe('CodicilsNumber', () => {
 
         it('should return the ctx with the will codicils number when there are no codicils', (done) => {
             ctx = {};
-            errors = {};
+            errors = [];
             [ctx, errors] = CodicilsNumber.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
                 codicilsNumber: 0

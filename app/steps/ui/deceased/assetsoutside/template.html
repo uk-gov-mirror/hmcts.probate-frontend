@@ -6,10 +6,11 @@
     <h1 class="form-title heading-large">
         {{ content.question | replace('{deceasedName}', fields.deceasedName.value) | safe }}
     </h1>
-    <p class="form-hint">{{ content.hint | safe }}</p>
 {% endblock %}
 
 {% block form_content %}
+    <p class="form-hint">{{ content.hint | safe }}</p>
+
     {{ optionsRadio(content,
         name = 'assetsOutside',
         field = fields.assetsOutside,
