@@ -52,7 +52,6 @@ const stepList = {
         withoutWillToggleOn: 'DiedAfterOctober2014',
         otherwise: 'StopPage'
     },
-    // Probate ----------------------------------
     WillOriginal: {
         isOriginal: 'ApplicantExecutor',
         otherwise: 'StopPage'
@@ -65,7 +64,6 @@ const stepList = {
         isCapable: 'StartApply',
         otherwise: 'StopPage'
     },
-    // ------------------------------------------
     StartApply: 'TaskList',
 
     DeceasedName: 'DeceasedDob',

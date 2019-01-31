@@ -34,18 +34,18 @@ class IhtValue extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.lessThan250 = ctx.netValue <= 250000;
+        ctx.lessThanOrEqualTo250k = ctx.netValue <= 250000;
 
         return {
             options: [
-                {key: 'lessThan250', value: true, choice: 'lessThan250'}
+                {key: 'lessThanOrEqualTo250k', value: true, choice: 'lessThan250'}
             ]
         };
     }
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
-        delete ctx.lessThan250;
+        delete ctx.lessThanOrEqualTo250k;
         return [ctx, formdata];
     }
 }

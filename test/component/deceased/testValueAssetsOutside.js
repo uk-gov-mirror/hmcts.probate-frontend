@@ -1,7 +1,6 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-// const DeceasedAlias = require('app/steps/ui/deceased/alias/index');
 const TaskList = require('app/steps/ui/tasklist/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const config = require('app/config');
@@ -16,7 +15,6 @@ const featureTogglesNock = (status = 'true') => {
 
 describe('value-assets-outside-england-wales', () => {
     let testWrapper;
-    // const expectedNextUrlForDeceasedAlias = DeceasedAlias.getUrl();
     const expectedNextUrlForTaskList = TaskList.getUrl();
 
     beforeEach(() => {
@@ -39,17 +37,6 @@ describe('value-assets-outside-england-wales', () => {
         it('test errors message displayed for missing data', (done) => {
             testWrapper.testErrors(done, {}, 'required', []);
         });
-
-        // it(`test it redirects to next page: ${expectedNextUrlForDeceasedAlias}`, (done) => {
-        //     testWrapper.agent.post('/prepare-session-field/willLeft/No')
-        //         .end(() => {
-        //             const data = {
-        //                 netValueAssetsOutside: '300000'
-        //             };
-        //
-        //             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
-        //         });
-        // });
 
         it(`test it redirects to TaskList page: ${expectedNextUrlForTaskList}`, (done) => {
             testWrapper.agent.post('/prepare-session-field/willLeft/No')

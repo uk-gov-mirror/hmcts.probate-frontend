@@ -49,7 +49,7 @@ describe('Contact-Details', function () {
                 otherExecName: 'Bob Cratchett',
                 executorsEmailChanged: false
             };
-            errors = {};
+            errors = [];
         });
 
         afterEach(() => {

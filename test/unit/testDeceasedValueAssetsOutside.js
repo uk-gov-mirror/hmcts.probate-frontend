@@ -22,11 +22,44 @@ describe('ValueAssetsOutside', () => {
             ctx = {
                 netValueAssetsOutside: '500000'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ValueAssetsOutside.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
                 netValueAssetsOutside: 500000
             });
+            done();
+        });
+
+        it('should return the ctx with the value of the assets outside england and wales (value containing decimals)', (done) => {
+            ctx = {
+                netValueAssetsOutside: '500000.00'
+            };
+            errors = [];
+            [ctx, errors] = ValueAssetsOutside.handlePost(ctx, errors);
+            expect(ctx).to.deep.equal({
+                netValueAssetsOutside: 500000
+            });
+            done();
+        });
+
+        it('should return the errors correctly', (done) => {
+            ctx = {
+                netValueAssetsOutside: '50a0000'
+            };
+            errors = [];
+            [ctx, errors] = ValueAssetsOutside.handlePost(ctx, errors);
+            expect(ctx).to.deep.equal({
+                netValueAssetsOutside: 500000
+            });
+            expect(errors).to.deep.equal([
+                {
+                    msg: {
+                        message: 'Invalid currency format',
+                        summary: 'Invalid currency format'
+                    },
+                    param: 'netValueAssetsOutside'
+                }
+            ]);
             done();
         });
     });
