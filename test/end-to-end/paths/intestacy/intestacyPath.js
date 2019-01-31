@@ -69,7 +69,4 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function* (I) {
     I.selectAssetsOutsideEnglandWales('Yes');
     I.enterValueAssetsOutsideEnglandWales('400000');
 
-    // Executors Task
-    I.selectATask(taskListContent.taskNotStarted);
-
 }).retry(TestConfigurator.getRetryScenarios());
