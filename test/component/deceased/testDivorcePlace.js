@@ -16,7 +16,7 @@ const featureTogglesNock = (status = 'true') => {
         .reply(200, status);
 };
 
-describe('deceased-marital-status', () => {
+describe('divorce-place', () => {
     let testWrapper;
     const expectedNextUrlForStopPage = StopPage.getUrl('divorcePlace');
     const expectedNextUrlForTaskList = TaskList.getUrl();
