@@ -2,7 +2,6 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const json = require('app/resources/en/translation/coapplicant/declaration.json');
-const sessionData = require('test/data/complete-form-undeclared');
 const CoApplicantAgreePage = require('app/steps/ui/coapplicant/agreepage/index');
 const CoApplicantDisagreePage = require('app/steps/ui/coapplicant/disagreepage/index');
 const commonContent = require('app/resources/en/translation/common');
@@ -16,6 +15,7 @@ const invitesNock = () => {
         .get('/invites/allAgreed/undefined')
         .reply(200, 'false');
 };
+let sessionData = require('test/data/complete-form-undeclared');
 
 describe('co-applicant-declaration', () => {
     let testWrapper;
@@ -62,31 +62,41 @@ describe('co-applicant-declaration', () => {
 
         it(`test it redirects to agree page: ${expectedNextUrlForCoAppAgree}`, (done) => {
             nock(persistenceServiceUrl)
-                .patch('/invitedata/undefined')
+                .patch('/invitedata/34')
                 .reply(200, 'false');
 
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData.formdata)
+            sessionData = {};
+
+            testWrapper.agent.post('/prepare-session-field/inviteId/34')
                 .end(() => {
-                    const data = {
-                        agreement: json.optionYes
-                    };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCoAppAgree);
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData)
+                        .end(() => {
+                            const data = {
+                                agreement: json.optionYes
+                            };
+                            testWrapper.testRedirect(done, data, expectedNextUrlForCoAppAgree);
+                        });
                 });
         });
 
         it(`test it redirects to disagree page: ${expectedNextUrlForCoAppDisagree}`, (done) => {
             nock(persistenceServiceUrl)
-                .patch('/invitedata/undefined')
+                .patch('/invitedata/34')
                 .reply(200, 'false');
 
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData.formdata)
+            sessionData = {};
+
+            testWrapper.agent.post('/prepare-session-field/inviteId/34')
                 .end(() => {
-                    const data = {
-                        agreement: json.optionNo
-                    };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCoAppDisagree);
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData)
+                        .end(() => {
+                            const data = {
+                                agreement: json.optionNo
+                            };
+                            testWrapper.testRedirect(done, data, expectedNextUrlForCoAppDisagree);
+                        });
                 });
         });
 
