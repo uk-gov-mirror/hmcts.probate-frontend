@@ -43,7 +43,7 @@ class IhtPaper extends ValidationStep {
 
         return {
             options: [
-                {key: 'lessThanOrEqualTo250k', value: true, choice: 'lessThan250'}
+                {key: 'lessThanOrEqualTo250k', value: true, choice: 'lessThanOrEqualTo250k'}
             ]
         };
     }
