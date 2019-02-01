@@ -61,9 +61,9 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function* (I) {
     I.selectInheritanceMethodPaper();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.enterGrossAndNet('205', '600000', '300000');
+        I.enterGrossAndNet('205', '300000', '200000');
     } else {
-        I.enterGrossAndNet('205', '500', '400');
+        I.enterGrossAndNet('205', '300000', '200000');
     }
 
     I.selectAssetsOutsideEnglandWales('Yes');
