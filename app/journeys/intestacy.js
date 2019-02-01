@@ -40,6 +40,7 @@ const stepList = {
         otherwise: 'StopPage'
     },
     StartApply: 'TaskList',
+
     DeceasedDetails: 'DeceasedAddress',
     DeceasedAddress: {
         documentUploadToggleOn: 'DocumentUpload',
