@@ -61,11 +61,12 @@ const stepList = {
     },
     IhtIdentifier: 'IhtValue',
     IhtValue: {
-        lessThan250k: 'AssetsOutside',
+
+        lessThanOrEqualTo250k: 'AssetsOutside',
         otherwise: 'DeceasedAlias'
     },
     IhtPaper: {
-        lessThan250k: 'AssetsOutside',
+        lessThanOrEqualTo250k: 'AssetsOutside',
         otherwise: 'DeceasedAlias'
     },
     AssetsOutside: {
