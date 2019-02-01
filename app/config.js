@@ -9,7 +9,8 @@ const config = {
         url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost:8282',
         path: process.env.FEATURE_TOGGLES_PATH || '/api/ff4j/check',
         fe_shutter_toggle: 'probate-fe-shutter',
-        document_upload: 'probate-document-upload'
+        document_upload: 'probate-document-upload',
+        intestacy_questions: 'probate-screening-questions'
     },
     app: {
         username: process.env.USERNAME,
@@ -53,13 +54,10 @@ const config = {
         },
         payment: {
             createPaymentUrl: process.env.PAYMENT_CREATE_URL || 'http://localhost:8383/card-payments',
-            authorization: process.env.PAYMENT_AUTHORIZATION || 'dummy_token',
-            serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'dummy_token',
-            userId: process.env.PAYMENT_USER_ID || 999999999,
+            authorization: process.env.PAYMENT_AUTHORIZATION || 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJvOGN0b3Bwbm9xcmFrOXNvaW5rZXUxMjBxZyIsInN1YiI6IjI4IiwiaWF0IjoxNTQ1MzE4MjU3LCJleHAiOjE1NDUzNDcwNTcsImRhdGEiOiJjYXNld29ya2VyLXByb2JhdGUsY2l0aXplbixjYXNld29ya2VyLGNhc2V3b3JrZXItcHJvYmF0ZS1sb2ExLGNpdGl6ZW4tbG9hMSxjYXNld29ya2VyLWxvYTEiLCJ0eXBlIjoiQUNDRVNTIiwiaWQiOiIyOCIsImZvcmVuYW1lIjoiVXNlciIsInN1cm5hbWUiOiJUZXN0IiwiZGVmYXVsdC1zZXJ2aWNlIjoiQ0NEIiwibG9hIjoxLCJkZWZhdWx0LXVybCI6Imh0dHBzOi8vbG9jYWxob3N0OjkwMDAvcG9jL2NjZCIsImdyb3VwIjoiY2FzZXdvcmtlciJ9.CTBjHrHGYmLmcwk47dAwqRRP_MpTx4MWlOu2ONnD_Y0',
+            serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9iYXRlX2Zyb250ZW5kIiwiZXhwIjoxNTQ1MzMyNjU3fQ.dGYVilG7KFXhbIEtayoAQWHcA7EMlyRnptbgjCPFH7pdTKCfXkl-WeQ3gZ-8pCC4bk-kTNLohspP7uA0xqV8FQ',
+            userId: process.env.PAYMENT_USER_ID || 28,
             returnUrlPath: '/payment-status'
-        },
-        businessDocument: {
-            url: process.env.BUSINESS_DOCUMENT_URL || 'http://localhost:8080/businessDocument'
         }
     },
     redis: {
@@ -143,11 +141,11 @@ const config = {
         version: process.env.version || '1',
         currency: process.env.currency || 'GBP'
     },
-    whitelistedPagesAfterSubmission: ['/documents', '/thankyou', '/sign-out'],
-    whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou', '/sign-out'],
-    whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou', '/sign-out'],
+    whitelistedPagesAfterSubmission: ['/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
+    whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
+    whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
     hardStopParams: ['will.left', 'will.original', 'iht.completed', 'applicant.executor'],
-    nonIdamPages: ['error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'will-left', 'will-original', 'death-certificate', 'deceased-domicile', 'applicant-executor', 'mental-capacity', 'iht-completed', 'start-apply'],
+    nonIdamPages: ['stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply'],
     endpoints: {
         health: '/health',
         info: '/info'

@@ -6,7 +6,12 @@ const sessionData = require('test/data/documentupload');
 const config = require('app/config');
 const nock = require('nock');
 const featureToggleUrl = config.featureToggles.url;
-const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
+const documentUploadFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
+const featureTogglesNock = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(documentUploadFeatureTogglePath)
+        .reply(200, status);
+};
 
 describe('summary', () => {
     let testWrapper;
@@ -23,9 +28,7 @@ describe('summary', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test content loaded on the page with the document upload feature toggle OFF', (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'false');
+            featureTogglesNock('false');
 
             const contentToExclude = [
                 'executorsWhenDiedQuestion',
@@ -47,9 +50,7 @@ describe('summary', () => {
         });
 
         it('test content loaded on the page with the document upload feature toggle ON and documents uploaded', (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
+            featureTogglesNock('true');
 
             const contentToExclude = [
                 'executorsWhenDiedQuestion',

@@ -6,8 +6,9 @@ const app = require('app');
 const routes = require('app/routes');
 const config = require('app/config');
 const request = require('supertest');
-const journeyMap = require('app/core/journeyMap');
+const JourneyMap = require('app/core/JourneyMap');
 const {steps} = require('app/core/initSteps');
+const journey = require('app/journeys/probate');
 
 class TestWrapper {
     constructor(stepName) {
@@ -23,7 +24,6 @@ class TestWrapper {
             Object.assign(req.session, req.body);
             res.send('OK');
         });
-
         routes.post('/prepare-session-field/:field/:value', (req, res) => {
             set(req.session, req.params.field, req.params.value);
             res.send('OK');
@@ -38,9 +38,9 @@ class TestWrapper {
         const contentToCheck = cloneDeep(filter(this.content, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
         const substitutedContent = this.substituteContent(data, contentToCheck);
         const res = this.agent.get(this.pageUrl);
-        const cookiesString = this.setCookiesString(res, cookies);
 
-        if (cookiesString !== '') {
+        if (cookies.length) {
+            const cookiesString = this.setCookiesString(res, cookies);
             res.set('Cookie', cookiesString);
         }
 
@@ -52,11 +52,11 @@ class TestWrapper {
             .catch(done);
     }
 
-    testDataPlayback(done, data, cookies) {
+    testDataPlayback(done, data, cookies = []) {
         const res = this.agent.get(this.pageUrl);
-        const cookiesString = this.setCookiesString(res, cookies);
 
-        if (cookiesString !== '') {
+        if (cookies.length) {
+            const cookiesString = this.setCookiesString(res, cookies);
             res.set('Cookie', cookiesString);
         }
 
@@ -83,9 +83,9 @@ class TestWrapper {
         assert.isNotEmpty(expectedErrors);
         this.substituteErrorsContent(data, expectedErrors, type);
         const res = this.agent.post(`${this.pageUrl}`);
-        const cookiesString = this.setCookiesString(res, cookies);
 
-        if (cookiesString !== '') {
+        if (cookies.length) {
+            const cookiesString = this.setCookiesString(res, cookies);
             res.set('Cookie', cookiesString);
         }
 
@@ -115,9 +115,9 @@ class TestWrapper {
 
     testRedirect(done, postData, expectedNextUrl, cookies = []) {
         const res = this.agent.post(this.pageUrl);
-        const cookiesString = this.setCookiesString(res, cookies);
 
-        if (cookiesString !== '') {
+        if (cookies.length) {
+            const cookiesString = this.setCookiesString(res, cookies);
             res.set('Cookie', cookiesString);
         }
 
@@ -130,7 +130,8 @@ class TestWrapper {
     }
 
     nextStep(data = {}) {
-        return journeyMap(this.pageToTest, data);
+        const journeyMap = new JourneyMap(journey);
+        return journeyMap.nextStep(this.pageToTest, data);
     }
 
     substituteContent(data, contentToSubstitute) {

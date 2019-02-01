@@ -3,7 +3,7 @@
 const co = require('co');
 const request = require('supertest');
 const a11y = require('test/util/a11y');
-const {expect} = require('chai');
+const expect = require('chai').expect;
 const app = require('app');
 const initSteps = require('app/core/initSteps');
 const {endsWith} = require('lodash');
@@ -13,6 +13,7 @@ const services = require('app/components/services');
 const stepsToExclude = [
     'StartEligibility', 'ApplicantExecutor', 'DeceasedDomicile', 'MentalCapacity', 'IhtCompleted', 'WillLeft', 'WillOriginal', 'StartApply',
     'NewStartEligibility', 'NewApplicantExecutor', 'NewDeceasedDomicile', 'NewMentalCapacity', 'NewIhtCompleted', 'NewWillLeft', 'NewWillOriginal', 'NewStartApply',
+    'DiedAfterOctober2014', 'RelationshipToDeceased', 'OtherApplicants',
     'Summary', 'TaskList', 'PinPage', 'PinSent', 'PinResend', 'AddressLookup', 'ExecutorAddress', 'ExecutorContactDetails', 'ExecutorName',
     'ExecutorNotified', 'ExecutorNameAsOnWill', 'ExecutorApplying', 'DeleteExecutor', 'PaymentStatus', 'AddAlias', 'RemoveAlias', 'ExecutorRoles', 'ExecutorsWhenDied'
 ];

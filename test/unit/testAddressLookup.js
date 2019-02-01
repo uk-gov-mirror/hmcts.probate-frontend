@@ -31,7 +31,7 @@ describe('AddressLookup', function () {
                 referrer: 'ApplicantAddress',
                 postcode: 'SW1H 9AJ'
             };
-            let errors = {};
+            let errors = [];
             const formdata = {applicant: {'someThingToLookFor': 'someThingToLookFor'}};
 
             co(function* () {
@@ -52,7 +52,7 @@ describe('AddressLookup', function () {
                 referrer: 'ApplicantAddress',
                 postcode: 'wibble'
             };
-            let errors = {};
+            let errors = [];
             const formdata = {applicant: {'someThingToLookFor': 'someThingToLookFor'}};
 
             co(function* () {

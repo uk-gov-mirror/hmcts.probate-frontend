@@ -1,7 +1,6 @@
 'use strict';
 const initSteps = require('app/core/initSteps');
-const chai = require('chai');
-const expect = chai.expect;
+const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 
 describe('ApplicantAliasReason', () => {
@@ -23,7 +22,7 @@ describe('ApplicantAliasReason', () => {
                 aliasReason: 'Divorce',
                 otherReason: 'because I wanted to'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ApplicantAliasReason.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({aliasReason: 'Divorce'});
             done();
@@ -34,7 +33,7 @@ describe('ApplicantAliasReason', () => {
                 aliasReason: 'other',
                 otherReason: 'because I wanted to'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ApplicantAliasReason.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
                 aliasReason: 'other',
@@ -52,7 +51,7 @@ describe('ApplicantAliasReason', () => {
                 aliasReason: 'Divorce',
                 otherReason: 'because I wanted to'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ApplicantAliasReason.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({aliasReason: 'Divorce'});
             done();
@@ -63,7 +62,7 @@ describe('ApplicantAliasReason', () => {
                 aliasReason: 'other',
                 otherReason: 'because I wanted to'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ApplicantAliasReason.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
                 aliasReason: 'other',

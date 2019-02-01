@@ -40,11 +40,11 @@ class IhtPaper extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.lessThan250k = ctx.netValue <= config.estateValueThreshold;
+        ctx.lessThanOrEqualTo250k = ctx.netValue <= config.estateValueThreshold;
 
         return {
             options: [
-                {key: 'lessThan250k', value: true, choice: 'lessThan250k'}
+                {key: 'lessThanOrEqualTo250k', value: true, choice: 'lessThan250k'}
             ]
         };
     }
@@ -63,7 +63,7 @@ class IhtPaper extends ValidationStep {
         super.action(ctx, formdata);
         delete ctx.grossValuePaper;
         delete ctx.netValuePaper;
-        delete ctx.lessThan250;
+        delete ctx.lessThanOrEqualTo250k;
         return [ctx, formdata];
     }
 }

@@ -2,7 +2,7 @@
 
 const UpdateExecutorInvite = require('app/utils/UpdateExecutorInvite');
 const services = require('app/components/services');
-const {expect} = require('chai');
+const expect = require('chai').expect;
 const sinon = require('sinon');
 
 describe('UpdateExecutorInvite.js', () => {

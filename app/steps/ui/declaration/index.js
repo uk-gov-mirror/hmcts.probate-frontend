@@ -9,6 +9,8 @@ const services = require('app/components/services');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
 const FormatAlias = require('app/utils/FormatAlias');
+const LegalDocumentJSONObjectBuilder = require('app/utils/LegalDocumentJSONObjectBuilder');
+const legalDocumentJSONObjBuilder = new LegalDocumentJSONObjectBuilder();
 
 class Declaration extends ValidationStep {
     static getUrl() {
@@ -120,17 +122,20 @@ class Declaration extends ValidationStep {
         const applicantCurrentName = FormatName.formatName(props.executor, true);
         const aliasSuffix = props.executor.alias || props.executor.currentName ? '-alias' : '';
         const aliasReason = FormatAlias.aliasReason(props.executor, props.hasMultipleApplicants);
-        return {
+        const content = {
             name: props.content[`applicantName${props.multipleApplicantSuffix}${mainApplicantSuffix}${aliasSuffix}${codicilsSuffix}`]
                 .replace('{applicantWillName}', props.executor.isApplicant && props.executor.alias ? FormatName.applicantWillName(props.executor) : props.mainApplicantName)
                 .replace(/{applicantCurrentName}/g, applicantCurrentName)
                 .replace('{applicantNameOnWill}', props.executor.hasOtherName ? ` ${props.content.as} ${applicantNameOnWill}` : '')
                 .replace('{aliasReason}', aliasReason),
-            sign: props.content[`applicantSign${props.multipleApplicantSuffix}${mainApplicantSuffix}${codicilsSuffix}`]
-                .replace('{applicantName}', props.mainApplicantName)
-                .replace('{applicantCurrentNameSign}', applicantCurrentName)
-                .replace('{deceasedName}', props.deceasedName)
+            sign: ''
         };
+        if (props.executor.isApplicant) {
+            content.sign = props.content[`applicantSign${props.multipleApplicantSuffix}${mainApplicantSuffix}${codicilsSuffix}`]
+                .replace('{applicantName}', props.mainApplicantName)
+                .replace('{deceasedName}', props.deceasedName);
+        }
+        return content;
     }
 
     executorsNotApplying(executorsNotApplying, content, deceasedName, hasCodicils) {
@@ -190,6 +195,13 @@ class Declaration extends ValidationStep {
         delete ctx.invitesSent;
         return [ctx, formdata];
     }
+
+    renderPage(res, html) {
+        const formdata = res.req.session.form;
+        formdata.legalDeclaration = legalDocumentJSONObjBuilder.build(formdata, html);
+        res.send(html);
+    }
+
 }
 
 module.exports = Declaration;
