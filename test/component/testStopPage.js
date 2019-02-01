@@ -94,15 +94,6 @@ describe('stop-page', () => {
             testWrapper.testContent(done, excludeKeys, {applicationFormPA1A: config.links.applicationFormPA1A});
         });
 
-
-
-
-
-
-
-
-
-
         it('test "sign out" link is not displayed on the page', (done) => {
             const playbackData = {};
             playbackData.signOut = commonContent.signOut;
