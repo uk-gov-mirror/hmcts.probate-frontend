@@ -115,7 +115,7 @@ describe('IhtPaper', () => {
                 options: [{
                     key: 'lessThanOrEqualTo250k',
                     value: true,
-                    choice: 'lessThan250'
+                    choice: 'lessThanOrEqualTo250k'
                 }]
             });
             done();
