@@ -3,7 +3,7 @@
 const pageUnderTest = require('app/steps/ui/deceased/valueassetsoutside/index');
 const commonContent = require('app/resources/en/translation/common');
 
-module.exports = function (formName, grossAmount, netAmount) {
+module.exports = function (netAmount) {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
