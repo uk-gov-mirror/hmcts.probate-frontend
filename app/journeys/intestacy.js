@@ -33,7 +33,7 @@ const stepList = {
         otherwise: 'StopPage'
     },
     DiedAfterOctober2014: {
-        diedAfter: 'RelationshipToDeceased',
+        diedAfter: 'RelatedToDeceased',
         otherwise: 'StopPage'
     },
     RelatedToDeceased: {
