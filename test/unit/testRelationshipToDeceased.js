@@ -1,5 +1,6 @@
 'use strict';
 
+const journey = require('app/journeys/intestacy');
 const initSteps = require('app/core/initSteps');
 const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
@@ -43,43 +44,89 @@ describe('RelationshipToDeceased', () => {
 
     describe('nextStepUrl()', () => {
         it('should return the correct url when relationship is Child and the deceased was married', (done) => {
-            const ctx = {relationshipToDeceased: content.optionChild, deceasedMaritalStatus: contentMaritalStatus.optionMarried};
-            const nextStepUrl = RelationshipToDeceased.nextStepUrl(ctx);
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                relationshipToDeceased: content.optionChild,
+                deceasedMaritalStatus: contentMaritalStatus.optionMarried
+            };
+            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/spouse-not-applying-reason');
             done();
         });
 
         it('should return the correct url when relationship is Child and the deceased was not married', (done) => {
-            const ctx = {relationshipToDeceased: content.optionChild, deceasedMaritalStatus: contentMaritalStatus.optionNotMarried};
-            const nextStepUrl = RelationshipToDeceased.nextStepUrl(ctx);
-            expect(nextStepUrl).to.equal('/any-children');
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                relationshipToDeceased: content.optionChild,
+                deceasedMaritalStatus: contentMaritalStatus.optionNotMarried
+            };
+            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/any-other-children');
             done();
         });
 
         it('should return the correct url when relationship is Adopted Child', (done) => {
-            const ctx = {relationshipToDeceased: content.optionAdoptedChild};
-            const nextStepUrl = RelationshipToDeceased.nextStepUrl(ctx);
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                relationshipToDeceased: content.optionAdoptedChild
+            };
+            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/adoption-place');
             done();
         });
 
         it('should return the correct url when relationship is Spouse/Partner and estate value is <= £250k', (done) => {
-            const ctx = {relationshipToDeceased: content.optionSpousePartner, estateValue: 200000};
-            const nextStepUrl = RelationshipToDeceased.nextStepUrl(ctx);
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                relationshipToDeceased: content.optionSpousePartner,
+                estateValue: 200000
+            };
+            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/applicant-name');
             done();
         });
 
         it('should return the correct url when relationship is Spouse/Partner and estate value is > £250k', (done) => {
-            const ctx = {relationshipToDeceased: content.optionSpousePartner, estateValue: 450000};
-            const nextStepUrl = RelationshipToDeceased.nextStepUrl(ctx);
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                relationshipToDeceased: content.optionSpousePartner,
+                estateValue: 450000
+            };
+            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/any-children');
             done();
         });
 
         it('should return the correct url when Other is given', (done) => {
-            const ctx = {relationshipToDeceased: content.optionOther};
-            const nextStepUrl = RelationshipToDeceased.nextStepUrl(ctx);
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                relationshipToDeceased: content.optionOther
+            };
+            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/otherRelationship');
             done();
         });
