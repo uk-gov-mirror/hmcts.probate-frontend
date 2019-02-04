@@ -4,10 +4,11 @@
 
 const path = require('path');
 const pact = require('@pact-foundation/pact-node');
+const config = require('app/config');
 
 const opts = {
-    pactFilesOrDirs: [path.resolve(process.cwd(), '../../../pacts')],
-    pactBroker: 'http://localhost:80',
+    pactFilesOrDirs: [path.resolve(process.cwd(), config.services.pact.pactsDirectory)],
+    pactBroker: config.services.pact.brokerUrl,
     consumerVersion: '1.0.0'
 };
 pact.publishPacts(opts)

@@ -67,6 +67,10 @@ const config = {
             serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9iYXRlX2Zyb250ZW5kIiwiZXhwIjoxNTQ1MzMyNjU3fQ.dGYVilG7KFXhbIEtayoAQWHcA7EMlyRnptbgjCPFH7pdTKCfXkl-WeQ3gZ-8pCC4bk-kTNLohspP7uA0xqV8FQ',
             userId: process.env.PAYMENT_USER_ID || 28,
             returnUrlPath: '/payment-status'
+        },
+        pact: {
+            brokerUrl: process.env.PACT_BROKER_URL || 'http://localhost:80',
+            pactDirectory: 'pacts'
         }
     },
     redis: {

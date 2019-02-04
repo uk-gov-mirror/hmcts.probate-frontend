@@ -6,6 +6,7 @@ const chai = require('chai');
 const {Pact} = require('@pact-foundation/pact');
 const chaiAsPromised = require('chai-as-promised');
 const IntestacyFormData = require('app/services/IntestacyFormData');
+const config = require('app/config');
 
 const expect = chai.expect;
 const MOCK_SERVER_PORT = 2204;
@@ -19,7 +20,7 @@ describe('Pact IntestacyFormData', () => {
         provider: 'probate_orchestrator_intestacyformdataperistence_provider',
         port: MOCK_SERVER_PORT,
         log: path.resolve(process.cwd(), 'logs', 'pact.log'),
-        dir: path.resolve(process.cwd(), 'pacts'),
+        dir: path.resolve(process.cwd(), config.services.pact.pactsDirectory),
         logLevel: 'INFO',
         spec: 2
     });
