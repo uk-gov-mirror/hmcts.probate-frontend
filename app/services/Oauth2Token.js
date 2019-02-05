@@ -19,7 +19,12 @@ class Oauth2Token extends Service {
             code: code,
             redirect_uri: redirectUri,
         });
-        const fetchOptions = this.fetchOptions(params, 'POST', headers);
+        const fetchOptions = {
+            method: 'POST',
+            timeout: 10000,
+            body: params.toString(),
+            headers: headers
+        };
         return this.fetchJson(url, fetchOptions);
     }
 }
