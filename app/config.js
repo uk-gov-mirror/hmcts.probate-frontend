@@ -187,7 +187,7 @@ const config = {
     pdf: {
         template: {
             checkAnswers: 'generateCheckAnswersSummaryPDF',
-            legalDeclaration: 'generateLegalDeclarationPDF',
+            declaration: 'generateLegalDeclarationPDF',
             coverSheet: 'generateBulkScanCoverSheetPDF'
         },
         path: '/businessDocument'
