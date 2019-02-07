@@ -7,6 +7,7 @@ const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/.
 const DivorcePlace = steps.DivorcePlace;
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
 const content = require('app/resources/en/translation/deceased/divorceplace');
+const commonContent = require('app/resources/en/translation/common');
 
 describe('DivorcePlace', () => {
     describe('getUrl()', () => {
@@ -54,6 +55,27 @@ describe('DivorcePlace', () => {
         });
     });
 
+    describe('generateFields()', () => {
+        it('should return the correct content fields', (done) => {
+            const ctx = {
+                legalProcess: 'divorce'
+            };
+            const errors = [];
+
+            const fields = DivorcePlace.generateFields(ctx, errors);
+            expect(fields).to.deep.equal({
+                legalProcess: {
+                    error: false,
+                    value: 'divorce'
+                },
+                title: {
+                    value: `Where the divorce took place - ${commonContent.serviceName}`
+                }
+            });
+            done();
+        });
+    });
+
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
             const req = {
@@ -95,6 +117,17 @@ describe('DivorcePlace', () => {
                 }]
             });
             done();
+        });
+    });
+
+    describe('action()', () => {
+        it('test that context variables are removed and empty object returned', () => {
+            let formdata = {};
+            let ctx = {
+                legalProcess: 'divorce'
+            };
+            [ctx, formdata] = DivorcePlace.action(ctx, formdata);
+            expect(ctx).to.deep.equal({});
         });
     });
 });

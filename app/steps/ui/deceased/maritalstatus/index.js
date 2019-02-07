@@ -20,10 +20,15 @@ class DeceasedMaritalStatus extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'maritalStatus', value: content.optionDivorced, choice: 'divorced'},
-                {key: 'maritalStatus', value: content.optionSeparated, choice: 'divorced'}
+                {key: 'maritalStatus', value: content.optionDivorced || content.optionSeparated, choice: 'divorcedOrSeparated'}
             ]
         };
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.deceasedName;
+        return [ctx, formdata];
     }
 }
 
