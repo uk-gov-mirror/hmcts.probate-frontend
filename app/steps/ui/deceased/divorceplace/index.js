@@ -44,6 +44,12 @@ class DivorcePlace extends ValidationStep {
             ]
         };
     }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.legalProcess;
+        return [ctx, formdata];
+    }
 }
 
 module.exports = DivorcePlace;

@@ -76,7 +76,7 @@ const stepList = {
     AddAlias: 'DeceasedOtherNames',
     RemoveAlias: 'DeceasedOtherNames',
     DeceasedMaritalStatus: {
-        divorced: 'DivorcePlace',
+        divorcedOrSeparated: 'DivorcePlace',
         otherwise: 'TaskList'
     },
     DivorcePlace: {
