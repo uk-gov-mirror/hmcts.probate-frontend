@@ -44,11 +44,7 @@ describe('DeceasedMaritalStatus', () => {
                 options: [{
                     key: 'maritalStatus',
                     value: content.optionDivorced,
-                    choice: 'divorced'
-                }, {
-                    key: 'maritalStatus',
-                    value: content.optionSeparated,
-                    choice: 'divorced'
+                    choice: 'divorcedOrSeparated'
                 }]
             });
             done();
