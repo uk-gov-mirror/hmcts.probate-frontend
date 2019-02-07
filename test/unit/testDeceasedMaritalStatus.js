@@ -1,4 +1,4 @@
-'use strict';
+ 'use strict';
 
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
@@ -39,11 +39,14 @@ describe('DeceasedMaritalStatus', () => {
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const nextStepOptions = DeceasedMaritalStatus.nextStepOptions();
+            const ctx = {
+                maritalStatus: content.optionMarried
+            };
+            const nextStepOptions = DeceasedMaritalStatus.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [{
-                    key: 'maritalStatus',
-                    value: content.optionDivorced,
+                    key: 'divorcedOrSeparated',
+                    value: true,
                     choice: 'divorcedOrSeparated'
                 }]
             });
@@ -55,7 +58,8 @@ describe('DeceasedMaritalStatus', () => {
         it('test that context variables are removed and empty object returned', () => {
             let formdata = {};
             let ctx = {
-                deceasedName: 'Dee Ceased'
+                deceasedName: 'Dee Ceased',
+                divorcedOrSeparated: true
             };
             [ctx, formdata] = DeceasedMaritalStatus.action(ctx, formdata);
             expect(ctx).to.deep.equal({});
