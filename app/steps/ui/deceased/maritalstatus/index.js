@@ -17,13 +17,20 @@ class DeceasedMaritalStatus extends ValidationStep {
         return ctx;
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        ctx.divorcedOrSeparated = (ctx.maritalStatus === content.optionDivorced || ctx.maritalStatus === content.optionSeparated);
         return {
             options: [
-                {key: 'maritalStatus', value: content.optionDivorced, choice: 'divorced'},
-                {key: 'maritalStatus', value: content.optionSeparated, choice: 'divorced'}
+                {key: 'divorcedOrSeparated', value: true, choice: 'divorcedOrSeparated'}
             ]
         };
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.deceasedName;
+        delete ctx.divorcedOrSeparated;
+        return [ctx, formdata];
     }
 }
 

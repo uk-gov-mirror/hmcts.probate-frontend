@@ -39,19 +39,30 @@ describe('DeceasedMaritalStatus', () => {
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const nextStepOptions = DeceasedMaritalStatus.nextStepOptions();
+            const ctx = {
+                maritalStatus: content.optionMarried
+            };
+            const nextStepOptions = DeceasedMaritalStatus.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [{
-                    key: 'maritalStatus',
-                    value: content.optionDivorced,
-                    choice: 'divorced'
-                }, {
-                    key: 'maritalStatus',
-                    value: content.optionSeparated,
-                    choice: 'divorced'
+                    key: 'divorcedOrSeparated',
+                    value: true,
+                    choice: 'divorcedOrSeparated'
                 }]
             });
             done();
+        });
+    });
+
+    describe('action()', () => {
+        it('test that context variables are removed and empty object returned', () => {
+            let formdata = {};
+            let ctx = {
+                deceasedName: 'Dee Ceased',
+                divorcedOrSeparated: true
+            };
+            [ctx, formdata] = DeceasedMaritalStatus.action(ctx, formdata);
+            expect(ctx).to.deep.equal({});
         });
     });
 });
