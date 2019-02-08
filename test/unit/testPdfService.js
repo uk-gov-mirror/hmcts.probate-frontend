@@ -57,7 +57,7 @@ describe('PdfService', () => {
         });
 
         it('should log an error if Authorise returns an error', (done) => {
-            const error = new Error('Internal service error');
+            const error = new Error('Internal Service Error');
             const revert = Pdf.__set__('Authorise', class {
                 post() {
                     return Promise.reject(error);
@@ -69,10 +69,11 @@ describe('PdfService', () => {
 
             pdf
                 .post(body, logMessage, headers, url)
-                .then(() => {
+                .catch(() => {
                     expect(pdf.log.calledTwice).to.equal(true);
                     expect(pdf.log.calledWith(logMessage)).to.equal(true);
-                    expect(pdf.log.calledWith(error, 'error')).to.equal(true);
+                    expect(pdf.log.calledWith('Pdf error: Error: Internal Service Error', 'error')).to.equal(true);
+                    expect(pdf.post).to.throw(Error);
 
                     revert();
                     done();

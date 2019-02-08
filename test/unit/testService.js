@@ -137,7 +137,7 @@ describe('Service', () => {
             });
             const service = new Service();
             service
-                .fetchText('http://localhost/forms', {})
+                .fetchBuffer('http://localhost/forms', {})
                 .then((res) => {
                     expect(res).to.equal(buffer);
                     revert();
@@ -145,6 +145,21 @@ describe('Service', () => {
                 })
                 .catch((err) => {
                     done(err);
+                });
+        });
+
+        it('should throw an error', (done) => {
+            const service = new Service();
+
+            service.log = sinon.spy();
+
+            service
+                .fetchBuffer('http://localhost/forms', {})
+                .catch(() => {
+                    expect(service.log.calledOnce).to.equal(true);
+                    expect(service.log.calledWith('Fetch buffer error: Error: FetchError: request to http://localhost/forms failed, reason: connect ECONNREFUSED 127.0.0.1:80')).to.equal(true);
+                    expect(service.fetchBuffer).to.throw(Error);
+                    done();
                 });
         });
     });
@@ -178,6 +193,15 @@ describe('Service', () => {
             const service = new Service();
             const options = service.fetchOptions();
             expect(options.agent).to.equal(null);
+            done();
+        });
+    });
+
+    describe('formatErrorMessage()', () => {
+        it('should return an error string', (done) => {
+            const service = new Service();
+            const error = service.formatErrorMessage(new Error('Error: Not Found'));
+            expect(error).to.equal('Error: Error: Not Found');
             done();
         });
     });
