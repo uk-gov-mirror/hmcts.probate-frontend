@@ -210,14 +210,6 @@ exports.init = function() {
     app.use('/executors-update-invite', updateInvite);
     app.use('/declaration', declaration);
 
-    app.use('/new-deceased-domicile', eligibilityCookie.checkCookie());
-    app.use('/new-iht-completed', eligibilityCookie.checkCookie());
-    app.use('/new-will-left', eligibilityCookie.checkCookie());
-    app.use('/new-will-original', eligibilityCookie.checkCookie());
-    app.use('/new-applicant-executor', eligibilityCookie.checkCookie());
-    app.use('/new-mental-capacity', eligibilityCookie.checkCookie());
-    app.use('/new-start-apply', eligibilityCookie.checkCookie());
-
     app.use(featureToggles);
 
     if (useIDAM === 'true') {
@@ -235,6 +227,17 @@ exports.init = function() {
             next();
         }, routes);
     }
+
+    app.get('/deceased-domicile', eligibilityCookie.checkCookie());
+    app.get('/iht-completed', eligibilityCookie.checkCookie());
+    app.get('/will-left', eligibilityCookie.checkCookie());
+    app.get('/will-original', eligibilityCookie.checkCookie());
+    app.get('/applicant-executor', eligibilityCookie.checkCookie());
+    app.get('/mental-capacity', eligibilityCookie.checkCookie());
+    app.get('/died-after-october-2014', eligibilityCookie.checkCookie());
+    app.get('/relationship-to-deceased', eligibilityCookie.checkCookie());
+    app.get('/other-applicants', eligibilityCookie.checkCookie());
+    app.get('/start-apply', eligibilityCookie.checkCookie());
 
     // Start the app
     let http;

@@ -2,10 +2,16 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist/index');
+const sessionData = require('test/data/documentupload');
 const config = require('app/config');
 const nock = require('nock');
 const featureToggleUrl = config.featureToggles.url;
-const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.screening_questions}`;
+const documentUploadFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
+const featureTogglesNock = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(documentUploadFeatureTogglePath)
+        .reply(200, status);
+};
 
 describe('summary', () => {
     let testWrapper;
@@ -21,11 +27,8 @@ describe('summary', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        it('test content loaded on the page with the screening questions feature toggle OFF', (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'false');
+        it('test content loaded on the page with the document upload feature toggle OFF', (done) => {
+            featureTogglesNock('false');
 
             const contentToExclude = [
                 'executorsWhenDiedQuestion',
@@ -38,7 +41,6 @@ describe('summary', () => {
                 'nameOnWill',
                 'currentName',
                 'currentNameReason',
-                'address',
                 'mobileNumber',
                 'emailAddress',
                 'uploadedDocumentsHeading',
@@ -47,10 +49,8 @@ describe('summary', () => {
             testWrapper.testContent(done, contentToExclude);
         });
 
-        it('test content loaded on the page with the screening questions feature toggle ON', (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
+        it('test content loaded on the page with the document upload feature toggle ON and documents uploaded', (done) => {
+            featureTogglesNock('true');
 
             const contentToExclude = [
                 'executorsWhenDiedQuestion',
@@ -68,7 +68,12 @@ describe('summary', () => {
                 'uploadedDocumentsHeading',
                 'uploadedDocumentsEmpty'
             ];
-            testWrapper.testContent(done, contentToExclude);
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, contentToExclude);
+                });
         });
 
         it('test it redirects to submit', (done) => {

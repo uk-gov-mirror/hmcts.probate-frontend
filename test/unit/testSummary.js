@@ -11,7 +11,6 @@ describe('Summary', () => {
     const Summary = steps.Summary;
 
     describe('handleGet()', () => {
-
         let validateFormDataStub;
         let featureToggles;
         let ctx;
@@ -76,13 +75,11 @@ describe('Summary', () => {
 
             const formdata = {executors: {list: []}};
             const featureToggles = {
-                screening_questions: true,
                 document_upload: true
             };
 
             co(function* () {
                 [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles);
-                assert.equal(ctx.isScreeningQuestionToggleEnabled, expectedResponse);
                 assert.equal(ctx.isDocumentUploadToggleEnabled, expectedResponse);
                 done();
             });
@@ -94,13 +91,11 @@ describe('Summary', () => {
 
             const formdata = {executors: {list: []}};
             const featureToggles = {
-                screening_questions: false,
                 document_upload: false
             };
 
             co(function* () {
                 [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles);
-                assert.equal(ctx.isScreeningQuestionToggleEnabled, expectedResponse);
                 assert.equal(ctx.isDocumentUploadToggleEnabled, expectedResponse);
                 done();
             });
@@ -108,7 +103,6 @@ describe('Summary', () => {
     });
 
     describe('getContextData()', () => {
-
         it('ctx.uploadedDocuments returns an array of uploaded documents when there uploaded documents', (done) => {
             const req = {
                 session: {
@@ -139,7 +133,6 @@ describe('Summary', () => {
             const ctx = Summary.getContextData(req);
             expect(ctx.uploadedDocuments).to.deep.equal([]);
             done();
-
         });
     });
 });

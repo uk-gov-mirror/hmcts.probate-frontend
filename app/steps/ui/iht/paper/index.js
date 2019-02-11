@@ -5,18 +5,11 @@ const validator = require('validator');
 const numeral = require('numeral');
 const FieldError = require('app/components/error');
 const {get} = require('lodash');
-const FeatureToggle = require('app/utils/FeatureToggle');
 
 class IhtPaper extends ValidationStep {
 
     static getUrl() {
         return '/iht-paper';
-    }
-
-    getContextData(req) {
-        const ctx = super.getContextData(req);
-        ctx.isToggleEnabled = FeatureToggle.isEnabled(req.session.featureToggles, 'screening_questions');
-        return ctx;
     }
 
     handlePost(ctx, errors) {
@@ -45,6 +38,16 @@ class IhtPaper extends ValidationStep {
         return [ctx, errors];
     }
 
+    nextStepOptions(ctx) {
+        ctx.lessThanOrEqualTo250k = ctx.netValue <= 250000;
+
+        return {
+            options: [
+                {key: 'lessThanOrEqualTo250k', value: true, choice: 'lessThanOrEqualTo250k'}
+            ]
+        };
+    }
+
     isSoftStop(formdata) {
         const paperForm = get(formdata, 'iht.form', {});
         const softStopForNotAllowedIhtPaperForm = paperForm === 'IHT400421' || paperForm === 'IHT207';
@@ -55,19 +58,11 @@ class IhtPaper extends ValidationStep {
         };
     }
 
-    nextStepOptions() {
-        return {
-            options: [
-                {key: 'isToggleEnabled', value: true, choice: 'toggleOn'}
-            ]
-        };
-    }
-
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.grossValuePaper;
         delete ctx.netValuePaper;
-        delete ctx.isToggleEnabled;
+        delete ctx.lessThanOrEqualTo250k;
         return [ctx, formdata];
     }
 }

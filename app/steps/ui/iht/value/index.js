@@ -4,18 +4,11 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const validator = require('validator');
 const numeral = require('numeral');
 const FieldError = require('app/components/error');
-const FeatureToggle = require('app/utils/FeatureToggle');
 
 class IhtValue extends ValidationStep {
 
     static getUrl() {
         return '/iht-value';
-    }
-
-    getContextData(req) {
-        const ctx = super.getContextData(req);
-        ctx.isToggleEnabled = FeatureToggle.isEnabled(req.session.featureToggles, 'screening_questions');
-        return ctx;
     }
 
     handlePost(ctx, errors) {
@@ -40,17 +33,19 @@ class IhtValue extends ValidationStep {
         return [ctx, errors];
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        ctx.lessThanOrEqualTo250k = ctx.netValue <= 250000;
+
         return {
             options: [
-                {key: 'isToggleEnabled', value: true, choice: 'toggleOn'}
+                {key: 'lessThanOrEqualTo250k', value: true, choice: 'lessThanOrEqualTo250k'}
             ]
         };
     }
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
-        delete ctx.isToggleEnabled;
+        delete ctx.lessThanOrEqualTo250k;
         return [ctx, formdata];
     }
 }
