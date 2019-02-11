@@ -29,6 +29,14 @@ const config = {
             port: 8585,
             path: '/find-address'
         },
+        orchestrator: {
+            url: process.env.ORCHESTRATOR_SERVICE_URL || 'http://localhost:8080',
+            paths: {
+                forms: '/forms/{applicantEmail}',
+                submissions: '/forms/{applicantEmail}/submissions',
+                payments: '/forms/{applicantEmail}/payments'
+            }
+        },
         validation: {
             url: process.env.VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
         },
@@ -50,7 +58,8 @@ const config = {
             service_key: process.env.IDAM_SERVICE_KEY || 'AAAAAAAAAAAAAAAA',
             probate_oauth2_client: 'probate',
             probate_oauth2_secret: process.env.IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE || '123456',
-            probate_oauth_callback_path: '/oauth2/callback'
+            probate_oauth_callback_path: '/oauth2/callback',
+            probate_oauth_token_path: '/oauth2/token',
         },
         payment: {
             createPaymentUrl: process.env.PAYMENT_CREATE_URL || 'http://localhost:8383/card-payments',
@@ -58,6 +67,10 @@ const config = {
             serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9iYXRlX2Zyb250ZW5kIiwiZXhwIjoxNTQ1MzMyNjU3fQ.dGYVilG7KFXhbIEtayoAQWHcA7EMlyRnptbgjCPFH7pdTKCfXkl-WeQ3gZ-8pCC4bk-kTNLohspP7uA0xqV8FQ',
             userId: process.env.PAYMENT_USER_ID || 28,
             returnUrlPath: '/payment-status'
+        },
+        pact: {
+            brokerUrl: process.env.PACT_BROKER_URL || 'http://localhost:80',
+            pactDirectory: 'pacts'
         }
     },
     redis: {
@@ -170,6 +183,14 @@ const config = {
             uploadTimeout: 'Error: upload timed out'
         },
         timeoutMs: 300000
+    },
+    pdf: {
+        template: {
+            checkAnswers: 'generateCheckAnswersSummaryPDF',
+            declaration: 'generateLegalDeclarationPDF',
+            coverSheet: 'generateBulkScanCoverSheetPDF'
+        },
+        path: '/businessDocument'
     },
     estateValueThreshold: 250000
 };

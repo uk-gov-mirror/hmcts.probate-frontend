@@ -22,7 +22,8 @@ describe('RelatedToDeceased', () => {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
-                    form: {}
+                    form: {},
+                    journeyType: 'Probate'
                 },
                 body: {
                     related: content.optionYes
@@ -33,7 +34,8 @@ describe('RelatedToDeceased', () => {
             const ctx = RelatedToDeceased.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
-                related: content.optionYes
+                related: content.optionYes,
+                journeyType: 'Probate'
             });
             done();
         });

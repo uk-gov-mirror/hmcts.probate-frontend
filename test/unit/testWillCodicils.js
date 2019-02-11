@@ -21,7 +21,12 @@ describe('WillCodicils', () => {
         it('should return the ctx with the will codicils', (done) => {
             const req = {
                 sessionID: 'dummy_sessionId',
-                session: {form: {}},
+                session: {
+                    form: {
+                        journeyType: 'probate'
+                    },
+                    journeyType: 'probate'
+                },
                 body: {
                     codicils: content.optionYes
                 }
@@ -29,7 +34,8 @@ describe('WillCodicils', () => {
             const ctx = WillCodicils.getContextData(req);
             expect(ctx).to.deep.equal({
                 codicils: 'Yes',
-                sessionID: 'dummy_sessionId'
+                sessionID: 'dummy_sessionId',
+                journeyType: 'probate'
             });
             done();
         });
@@ -39,7 +45,17 @@ describe('WillCodicils', () => {
         it('should return url for the next step if there are codicils', (done) => {
             const req = {
                 session: {
-                    journey: journey
+                    journey: journey,
+                    form: {
+                        journeyType: 'probate'
+                    },
+                    featureToggles: {
+                        screening_questions: false
+                    },
+                    journeyType: 'probate'
+                },
+                body: {
+                    codicils: 'Yes'
                 }
             };
             const ctx = {
