@@ -91,17 +91,33 @@ describe('DivorcePlace', () => {
             done();
         });
 
-        it('should return the correct url when No is given', (done) => {
+        it('should return the correct url when No is given and legal act is Divorce', (done) => {
             const req = {
                 session: {
                     journey: journey
                 }
             };
             const ctx = {
+                legalProcess: 'divorce',
                 divorcePlace: content.optionNo
             };
             const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/divorcePlace');
+            done();
+        });
+
+        it('should return the correct url when No is given and legal act is Separation', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                legalProcess: 'separation',
+                divorcePlace: content.optionNo
+            };
+            const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/stop-page/separationPlace');
             done();
         });
     });
