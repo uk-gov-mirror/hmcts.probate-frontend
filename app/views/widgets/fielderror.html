@@ -1,7 +1,12 @@
-{% macro fieldError(field) %}
+{% macro fieldError(field, errorReplacement) %}
     {% if field.error %}
+        {% set errorMessage = field.errorMessage.message %}
+        {% if errorReplacement %}
+            {% set errorMessage = errorMessage | replace(errorReplacement[0], errorReplacement[1]) %}
+        {% endif %}
+
         <span class="error-message">
-            {{ field.errorMessage.message | safe }}
+            {{ errorMessage | safe }}
         </span>
     {% endif %}
 {%- endmacro %}

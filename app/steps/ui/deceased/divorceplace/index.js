@@ -9,7 +9,7 @@ const {set} = require('lodash');
 class DivorcePlace extends ValidationStep {
 
     static getUrl() {
-        return '/deceased-divorce-place';
+        return '/deceased-divorce-or-separation-place';
     }
 
     getContextData(req) {
@@ -34,7 +34,11 @@ class DivorcePlace extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('divorcePlace');
+        if (ctx.legalProcess === 'divorce') {
+            return this.next(req, ctx).constructor.getUrl('divorcePlace');
+        }
+
+        return this.next(req, ctx).constructor.getUrl('separationPlace');
     }
 
     nextStepOptions() {
