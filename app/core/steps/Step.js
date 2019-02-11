@@ -1,11 +1,12 @@
 'use strict';
 
 const {mapValues, map, reduce, escape, isObject, isEmpty, get} = require('lodash');
-const services = require('app/components/services');
 const UIStepRunner = require('app/core/runners/UIStepRunner');
 const JourneyMap = require('app/core/JourneyMap');
 const mapErrorsToFields = require('app/components/error').mapErrorsToFields;
 const ExecutorsWrapper = require('app/wrappers/Executors');
+const config = require('app/config');
+const ServiceMapper = require('app/utils/ServiceMapper');
 
 class Step {
 
@@ -51,6 +52,7 @@ class Step {
         let ctx = {};
         Object.assign(ctx, session.form[this.section] || {});
         ctx.sessionID = req.sessionID;
+        ctx.journeyType = session.journeyType;
         ctx = Object.assign(ctx, req.body);
 
         return ctx;
@@ -97,11 +99,17 @@ class Step {
     }
 
     persistFormData(id, formdata, sessionID) {
-        return services.saveFormData(id, formdata, sessionID);
+        const formData = ServiceMapper.map(
+            'FormData',
+            [config.services.persistence.url, sessionID],
+            formdata.journeyType
+        );
+        return formData.post(id, formdata, sessionID);
     }
 
     action(ctx, formdata) {
         delete ctx.sessionID;
+        delete ctx.journeyType;
         delete ctx._csrf;
         return [ctx, formdata];
     }
