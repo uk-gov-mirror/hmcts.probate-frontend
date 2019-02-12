@@ -4,8 +4,6 @@ const Service = require('./Service');
 
 class FeesRegister extends Service {
     get(url, headers) {
-        this.log('Get fees register fees');
-
         const fetchOptions = this.fetchOptions({}, 'GET', {
             'Content-Type': 'application/json',
             'Authorization': headers.authToken

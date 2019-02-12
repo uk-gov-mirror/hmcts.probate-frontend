@@ -1,19 +1,19 @@
 'use strict';
 
-const get = require('lodash').get();
-const PaymentsCalculator = require('app/utils/PaymentsCalculator');
-let paymentsCalculator;
+const {get} = require('lodash');
+const FeesCalculator = require('app/utils/FeesCalculator');
+let feesCalculator;
 
-class PaymentsBreakDownMapper {
+class FeesBreakDownMapper {
 
     constructor(endpoint, sessionId) {
         this.endpoint = endpoint;
         this.sessionId = sessionId;
-        paymentsCalculator = new PaymentsCalculator(this.endpoint, sessionId);
+        feesCalculator = new FeesCalculator(this.endpoint, sessionId);
     }
 
     calculateBreakDownCost(formdata, authToken) {
-        return paymentsCalculator.calc(formdata, authToken)
+        return feesCalculator.calc(formdata, authToken)
             .then((res) => {
                 if (res.toLocaleString().includes('FetchError')) {
                     return {status: 'failed'};
@@ -33,4 +33,4 @@ class PaymentsBreakDownMapper {
 
 }
 
-module.exports = PaymentsBreakDownMapper;
+module.exports = FeesBreakDownMapper;
