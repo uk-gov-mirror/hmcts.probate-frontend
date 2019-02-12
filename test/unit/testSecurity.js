@@ -19,6 +19,7 @@ describe('Security middleware', function () {
     const appConfig = require('../../app/config');
     const SECURITY_COOKIE = '__auth-token-' + appConfig.payloadVersion;
     const EXPIRES_TIME = new Date() + 999999;
+    const TIME_IN_THE_PAST = Date.now() - 1;
     const TIMEOUT_PATH = '/time-out';
 
     describe('protect', function () {
@@ -135,7 +136,6 @@ describe('Security middleware', function () {
 
         it('should redirect to time-out page when session has expired', function (done) {
             req.cookies[SECURITY_COOKIE] = TOKEN;
-            const TIME_IN_THE_PAST = Date.now() - 1;
             req.session = {expires: TIME_IN_THE_PAST};
 
             req.protocol = 'http';
@@ -149,6 +149,30 @@ describe('Security middleware', function () {
                 .then(() => {
                     sinon.assert.calledOnce(res.redirect);
                     expect(res.redirect).to.have.been.calledWith(TIMEOUT_PATH);
+                    done();
+                })
+                .catch((err) => {
+                    done(err);
+                });
+        });
+
+        it('should ignore redirect to time-out page if expired page is /payment-status', function (done) {
+            req.cookies[SECURITY_COOKIE] = TOKEN;
+            req.session = {expires: TIME_IN_THE_PAST};
+            req.originalUrl = '/payment-status';
+
+            req.protocol = 'http';
+            const promise = when({name: 'Success', roles: ['probate-private-beta', 'citizen']});
+
+            getUserDetailsStub.returns(promise);
+
+            protect(req, res, next);
+
+            promise
+                .then(() => {
+                    sinon.assert.notCalled(res.redirect);
+                    sinon.assert.calledOnce(getUserDetailsStub);
+                    sinon.assert.calledWith(getUserDetailsStub, TOKEN);
                     done();
                 })
                 .catch((err) => {

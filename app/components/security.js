@@ -1,6 +1,7 @@
 'use strict';
 
 const FormatUrl = require('app/utils/FormatUrl');
+const includes = require('lodash/includes');
 const config = require('../config');
 const services = require('app/components/services');
 const logger = require('app/components/logger');
@@ -35,10 +36,11 @@ class Security {
             if (securityCookie) {
                 const lostSession = !req.session.expires;
                 const sessionExpired = req.session.expires?req.session.expires <= Date.now():false;
+                const sessionTimeoutCheck = !includes(config.whitelistedPagesIgnoreSessionTimeout, req.originalUrl);
                 services.getUserDetails(securityCookie)
                     .then(response => {
                         if (response.name !== 'Error') {
-                            if (lostSession || sessionExpired) {
+                            if (sessionTimeoutCheck && (lostSession || sessionExpired)) {
                                 if (lostSession) {
                                     req.log.error('The current user session is lost.');
                                 } else {
