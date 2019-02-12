@@ -60,10 +60,25 @@ describe('DivorcePlace', () => {
             const ctx = {
                 legalProcess: 'divorce'
             };
-            const errors = [];
+            const errors = [
+                {
+                    param: 'divorcePlace',
+                    msg: {
+                        summary: 'You haven&rsquo;t answered the question about where the {legalProcess} took place',
+                        message: 'Answer &lsquo;yes&rsquo; if the {legalProcess} took place in England or Wales'
+                    }
+                }
+            ];
 
             const fields = DivorcePlace.generateFields(ctx, errors);
             expect(fields).to.deep.equal({
+                divorcePlace: {
+                    error: true,
+                    errorMessage: {
+                        message: 'Answer &lsquo;yes&rsquo; if the divorce took place in England or Wales',
+                        summary: 'You haven&rsquo;t answered the question about where the divorce took place'
+                    }
+                },
                 legalProcess: {
                     error: false,
                     value: 'divorce'
