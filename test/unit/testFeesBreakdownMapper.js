@@ -66,7 +66,6 @@ describe('FeesBreakDownMapper', () => {
                 total: 216.50
             };
 
-
             promiseStub.returns(Promise.resolve(promiseResponse));
             feesLookupStub.returns(Promise.resolve(''));
 
