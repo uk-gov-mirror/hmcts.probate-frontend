@@ -1,33 +1,64 @@
 'use strict';
 
-const chai = require('chai');
-const expect = chai.expect;
+const {assert, expect} = require('chai');
 const FeesLookup = require('app/services/FeesLookup');
-const config = require('app/config');
+const sinon = require('sinon');
+const Service =require('app/services/Service');
+let expectedResponse;
+let fees;
+let headers;
+let data;
+let url;
+let fetchJsonStub;
 
 describe('FeesLookup', () => {
-    describe('get FeesLookup ()', () => {
-        it('should return a list of probate fees', (done) => {
-            const expectedResponse = require('test/data/paymentfees/paymentfeeslookup-response');
-            const feesLookup = new FeesLookup(config.services.feesRegister.url, 'dummyId');
-            const headers = {
+    describe('get ()', () => {
+
+        beforeEach(() => {
+            expectedResponse = require('test/data/paymentfees/paymentfeeslookup-response');
+            fees = new FeesLookup('http://localhost', 'dummyId');
+            url = 'http://localhost/fees/lookup?applicant_type=personal&jurisdiction1=family&service=probate';
+            headers = {
                 authToken: 'dummyToken'
             };
-            const data = {
-                amount_or_volume: '1',
-                applicant_type: 'all',
-                channel: 'default',
-                event: 'copies',
+            data = {
+                applicant_type: 'personal',
                 jurisdiction1: 'family',
-                jurisdiction2: 'probate registry',
                 service: 'probate'
             };
-            feesLookup
-                .get(data, headers)
+        });
+
+        afterEach(() => {
+            fetchJsonStub.restore();
+        });
+
+
+        it('should return the correct response when fees lookup service available', (done) => {
+
+            fetchJsonStub = sinon.stub(Service.prototype, 'fetchJson').returns(Promise.resolve(expectedResponse));
+
+            fees.get(data, headers)
                 .then((res) => {
                     expect(res).to.deep.equal(expectedResponse);
-                    done();
                 });
+
+            assert.equal(fetchJsonStub.getCall(0).args[0], url);
+            done();
+        });
+
+        it('should return the correct response when fees lookup service unavailable', (done) => {
+            const errMsg = 'FetchError: request to http://localhost/feeslookup?applicant_type=personal&' +
+                'jurisdiction1=family&service=probate failed, reason: connect ECONNREFUSED 127.0.0.1:80';
+
+            fetchJsonStub = sinon.stub(Service.prototype, 'fetchJson').returns(Promise.resolve(errMsg));
+
+            fees.get(data, headers)
+                .then((res) => {
+                    expect(res).to.deep.equal(errMsg);
+                });
+
+            assert.equal(fetchJsonStub.getCall(0).args[0], url);
+            done();
         });
     });
 

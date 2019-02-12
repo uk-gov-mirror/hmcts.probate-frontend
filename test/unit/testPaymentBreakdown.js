@@ -101,9 +101,13 @@ describe('PaymentBreakdown', () => {
 
         it('sets paymentPending to false if ctx.total = 0', (done) => {
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
-            let ctx = {total: 0};
+            let ctx = {};
             let errors = [];
-            const formdata = {};
+            const formdata = {
+                fees: {
+                    status: 'success',
+                    total: 0
+                }};
 
             co(function* () {
                 [ctx, errors] = yield paymentBreakdown.handlePost(ctx, errors, formdata);

@@ -8,7 +8,7 @@ const logger = require('app/components/logger')('Init');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const Payment = require('app/services/Payment');
 const Authorise = require('app/services/Authorise');
-const PaymentBreakDownMapper = require('app/utils/FeesBreakDownMapper');
+const FeesBreakDownMapper = require('app/utils/FeesBreakDownMapper');
 
 class PaymentBreakdown extends Step {
     static getUrl() {
@@ -52,13 +52,16 @@ class PaymentBreakdown extends Step {
     }
 
     * handlePost(ctx, errors, formdata, session, hostname) {
-        const paymentBreakDownMapper = new PaymentBreakDownMapper(config.services.feesRegister.url, session.id);
-        const confirmFees = yield paymentBreakDownMapper.calculateBreakDownCost(formdata, ctx.authToken);
+        const feesBreakDownMapper = new FeesBreakDownMapper(config.services.feesRegister.url, ctx.sessionID);
+        const confirmFees = yield feesBreakDownMapper.calculateBreakDownCost(formdata, ctx.authToken);
         this.checkFeesStatus(confirmFees);
         const originalFees = formdata.fees;
         if (confirmFees.total !== originalFees.total) {
             throw new Error (`Error calculated fees totals have changed from ${originalFees.total} to ${confirmFees.total}`);
         }
+        ctx.total = originalFees.total;
+        ctx.applicationFee = originalFees.applicationFee;
+        ctx.copies = this.createCopiesLayout(formdata);
 
         const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
         const serviceAuthResult = yield authorise.post();
@@ -71,7 +74,7 @@ class PaymentBreakdown extends Step {
         }
         const canCreatePayment = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
         if (formdata.paymentPending !== 'unknown') {
-            const [result, submissionErrors] = yield this.sendToSubmitService(ctx, errors, formdata, originalFees.total);
+            const [result, submissionErrors] = yield this.sendToSubmitService(ctx, errors, formdata, ctx.total);
             errors = errors.concat(submissionErrors);
             if (errors.length > 0) {
                 logger.error('Failed to create case in CCD.');
@@ -81,7 +84,7 @@ class PaymentBreakdown extends Step {
             formdata.registry = result.registry;
             set(formdata, 'ccdCase.id', result.caseId);
             set(formdata, 'ccdCase.state', result.caseState);
-            if (originalFees.total > 0 && canCreatePayment) {
+            if (ctx.total > 0 && canCreatePayment) {
                 formdata.paymentPending = 'true';
 
                 if (formdata.creatingPayment !== 'true') {
@@ -100,12 +103,12 @@ class PaymentBreakdown extends Step {
                     }
 
                     const data = {
-                        amount: parseFloat(originalFees.total),
+                        amount: parseFloat(ctx.total),
                         authToken: ctx.authToken,
                         serviceAuthToken: serviceAuthResult,
                         userId: ctx.userId,
-                        applicationFee: originalFees.applicationFee,
-                        copies: this.createCopiesLayout(formdata),
+                        applicationFee: ctx.applicationFee,
+                        copies: ctx.copies,
                         deceasedLastName: ctx.deceasedLastName,
                         ccdCaseId: formdata.ccdCase.id
                     };
