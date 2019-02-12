@@ -32,7 +32,6 @@ describe('FeesLookup', () => {
             fetchJsonStub.restore();
         });
 
-
         it('should return the correct response when fees lookup service available', (done) => {
 
             fetchJsonStub = sinon.stub(Service.prototype, 'fetchJson').returns(Promise.resolve(expectedResponse));
