@@ -21,12 +21,6 @@ class ValueAssetsOutside extends ValidationStep {
 
         return [ctx, errors];
     }
-
-    action(ctx, formdata) {
-        super.action(ctx, formdata);
-        delete ctx.netValueAssetsOutsideField;
-        return [ctx, formdata];
-    }
 }
 
 module.exports = ValueAssetsOutside;

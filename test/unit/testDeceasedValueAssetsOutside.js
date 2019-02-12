@@ -66,14 +66,4 @@ describe('ValueAssetsOutside', () => {
             done();
         });
     });
-
-    describe('action', () => {
-        it('test netValueAssetsOutsideField is removed from the context', () => {
-            const ctx = {
-                netValueAssetsOutsideField: '500000'
-            };
-            ValueAssetsOutside.action(ctx);
-            assert.isUndefined(ctx.netValueAssetsOutsideField);
-        });
-    });
 });
