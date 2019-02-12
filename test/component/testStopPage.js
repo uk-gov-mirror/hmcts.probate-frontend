@@ -95,7 +95,7 @@ describe('stop-page', () => {
             testWrapper.testContentNotPresent(done, playbackData);
         });
 
-        it('test "sign out" link is displayed on the page on pages outside of IdAM', (done) => {
+        it('test "sign out" link is displayed on the page on pages inside IdAM', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('divorcePlace');
             const playbackData = {};
             playbackData.signOut = commonContent.signOut;
