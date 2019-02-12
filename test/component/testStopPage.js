@@ -82,7 +82,7 @@ describe('stop-page', () => {
             testWrapper.testContent(done, excludeKeys, {applicationFormPA1A: config.links.applicationFormPA1A});
         });
 
-        it('test right content loaded on the page - divorce not in england or wales', (done) => {
+        it('test right content loaded on the page - separation not in england or wales', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('separationPlace');
             const excludeKeys = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'noWill', 'notOriginal', 'notExecutor', 'mentalCapacity', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'divorcePlace'];
             testWrapper.testContent(done, excludeKeys, {applicationFormPA1A: config.links.applicationFormPA1A});
