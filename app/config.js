@@ -192,6 +192,7 @@ const config = {
         },
         path: '/businessDocument'
     },
+    signOutOnStopPages: ['divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales'],
     estateValueThreshold: 250000
 };
 

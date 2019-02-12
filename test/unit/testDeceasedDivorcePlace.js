@@ -13,7 +13,7 @@ describe('DivorcePlace', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = DivorcePlace.constructor.getUrl();
-            expect(url).to.equal('/deceased-divorce-place');
+            expect(url).to.equal('/deceased-divorce-or-separation-place');
             done();
         });
     });
@@ -60,10 +60,25 @@ describe('DivorcePlace', () => {
             const ctx = {
                 legalProcess: 'divorce'
             };
-            const errors = [];
+            const errors = [
+                {
+                    param: 'divorcePlace',
+                    msg: {
+                        summary: 'You haven&rsquo;t answered the question about where the {legalProcess} took place',
+                        message: 'Answer &lsquo;yes&rsquo; if the {legalProcess} took place in England or Wales'
+                    }
+                }
+            ];
 
             const fields = DivorcePlace.generateFields(ctx, errors);
             expect(fields).to.deep.equal({
+                divorcePlace: {
+                    error: true,
+                    errorMessage: {
+                        message: 'Answer &lsquo;yes&rsquo; if the divorce took place in England or Wales',
+                        summary: 'You haven&rsquo;t answered the question about where the divorce took place'
+                    }
+                },
                 legalProcess: {
                     error: false,
                     value: 'divorce'
@@ -91,17 +106,33 @@ describe('DivorcePlace', () => {
             done();
         });
 
-        it('should return the correct url when No is given', (done) => {
+        it('should return the correct url when No is given and legal act is Divorce', (done) => {
             const req = {
                 session: {
                     journey: journey
                 }
             };
             const ctx = {
+                legalProcess: 'divorce',
                 divorcePlace: content.optionNo
             };
             const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/divorcePlace');
+            done();
+        });
+
+        it('should return the correct url when No is given and legal act is Separation', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                legalProcess: 'separation',
+                divorcePlace: content.optionNo
+            };
+            const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/stop-page/separationPlace');
             done();
         });
     });
