@@ -28,6 +28,11 @@ class DivorcePlace extends ValidationStep {
 
         if (ctx && ctx.legalProcess) {
             set(fields, 'title.value', fields.title.value.replace('{legalProcess}', ctx.legalProcess));
+
+            if (fields.divorcePlace && fields.divorcePlace.error) {
+                set(fields, 'divorcePlace.errorMessage.summary', fields.divorcePlace.errorMessage.summary.replace('{legalProcess}', ctx.legalProcess));
+                set(fields, 'divorcePlace.errorMessage.message', fields.divorcePlace.errorMessage.message.replace('{legalProcess}', ctx.legalProcess));
+            }
         }
 
         return fields;

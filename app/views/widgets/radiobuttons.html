@@ -1,10 +1,10 @@
 {% from "widgets/fielderror.html" import fieldError %}
 
-{% macro optionsRadio(content, name, field, options, legend, inline = false, errorReplacement) %}
+{% macro optionsRadio(content, name, field, options, legend, inline = false) %}
     <fieldset class="form-group {{ 'form-group-error' if field.error }} {{ 'inline' if inline }}" id="{{ name }}">
         <legend class="visually-hidden">{{ legend | safe }}</legend>
 
-        {{ fieldError(field, errorReplacement) }}
+        {{ fieldError(field) }}
 
         {% for option in options %}
             <div class="multiple-choice" data-target="{{ name }}-{{ loop.index }}-details">
@@ -16,12 +16,12 @@
     </fieldset>
 {% endmacro %}
 
-{% macro optionsRadioWithHint(content, name, field, options, legend, inline = false, hint, errorReplacement) %}
+{% macro optionsRadioWithHint(content, name, field, options, legend, inline = false, hint) %}
     <fieldset class="form-group {{ 'form-group-error' if field.error }} {{ 'inline' if inline }}" id="{{ name }}">
         <legend class="visually-hidden">{{ legend | safe }}</legend>
         <p class="form-hint">{{ hint | safe }}</p>
 
-        {{ fieldError(field, errorReplacement) }}
+        {{ fieldError(field) }}
 
         {% for option in options %}
             <div class="multiple-choice" data-target="{{ name }}-{{ loop.index }}-details">
@@ -33,12 +33,12 @@
     </fieldset>
 {% endmacro %}
 
-{% macro optionsRadioWithLegend(content, name, field, options, legend, inline = false, hint, errorReplacement) %}
+{% macro optionsRadioWithLegend(content, name, field, options, legend, inline = false, hint) %}
     <fieldset class="form-group {{ 'form-group-error' if field.error }} {{ 'inline' if inline }}" id="{{ name }}">
         <legend class="heading-medium">{{ legend | safe }}</legend>
         <p class="form-hint">{{ hint | safe }}</p>
 
-        {{ fieldError(field, errorReplacement) }}
+        {{ fieldError(field) }}
 
         {% for option in options %}
             <div class="multiple-choice" data-target="{{ name }}-{{ loop.index }}-details">

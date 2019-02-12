@@ -164,13 +164,12 @@ class TestWrapper {
         Object.entries(contentToSubstitute)
             .forEach(([key, contentValue]) => {
                 forEach(contentValue[type], (errorMessageItem) => {
-                    let placeholder = errorMessageItem.match(/\{(.*?)\}/g);
-                    if (placeholder) {
+                    forEach(errorMessageItem.match(/\{(.*?)\}/g), (placeholder) => {
                         const placeholderRegex = new RegExp(placeholder, 'g');
                         placeholder = placeholder.replace(/[{}]/g, '');
                         errorMessageItem = errorMessageItem.replace(placeholderRegex, data[placeholder]);
                         contentToSubstitute[key][type] = errorMessageItem;
-                    }
+                    });
                 });
             });
     }

@@ -1,10 +1,10 @@
 {% from "widgets/fielderror.html" import fieldError %}
 
-{% macro checkbox(name, field, text, disabled, legend, errorReplacement) %}
+{% macro checkbox(name, field, text, disabled, legend) %}
     <fieldset class="form-group {{ 'form-group-error' if field.error }}">
         <legend class="visually-hidden">{{ legend | safe }}</legend>
 
-        {{ fieldError(field, errorReplacement) }}
+        {{ fieldError(field) }}
 
         <div class="multiple-choice">
             <input id="{{ name }}" type="checkbox" name="{{ name }}" value="true" {{ "checked='checked'" if field.value === 'true' }}>
@@ -14,12 +14,12 @@
     </fieldset>
 {% endmacro %}
 
-{% macro checkboxes(name, field, options, legend, errorReplacement) %}
+{% macro checkboxes(name, field, options, legend) %}
     {% set id = name | replace('[]', '') %}
     <fieldset id={{ id }} class="form-group {{ 'form-group-error' if field.error }}">
     <legend class="visually-hidden">{{ legend | safe }}</legend>
 
-    {{ fieldError(field, errorReplacement) }}
+    {{ fieldError(field) }}
 
     {% for option in options %}
         <div class="multiple-choice">

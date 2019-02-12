@@ -1,12 +1,12 @@
 {% from "widgets/fielderror.html" import fieldError %}
 
-{% macro numberField(text, hint, name, field, size, width, currency=true, errorReplacement) %}
+{% macro numberField(text, hint, name, field, size, width, currency=true) %}
     <div class="form-group {{ 'form-group-error' if field.error }}">
         {% if hint %}
             <p class="form-hint">{{ hint | safe }}</p>
         {% endif %}
 
-        {{ fieldError(field, errorReplacement) }}
+        {{ fieldError(field) }}
 
         <label class="form-label" for="{{ name }}">{{ text | safe }}</label>
 
