@@ -15,8 +15,7 @@ class Healthcheck {
         return [
             {name: 'Business Service', url: urlFormatter(servicesConfig.validation.url)},
             {name: 'Submit Service', url: urlFormatter(servicesConfig.submit.url)},
-            {name: 'Persistence Service', url: urlFormatter(servicesConfig.persistence.url)},
-            {name: 'Fees API Service', url: urlFormatter(servicesConfig.feesRegister.url)}
+            {name: 'Persistence Service', url: urlFormatter(servicesConfig.persistence.url)}
         ];
     }
 
