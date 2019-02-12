@@ -8,7 +8,7 @@ const logger = require('app/components/logger')('Init');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const Payment = require('app/services/Payment');
 const Authorise = require('app/services/Authorise');
-const PaymentBreakDownMapper = require('app/utils/PaymentsBreakDownMapper');
+const PaymentBreakDownMapper = require('app/utils/FeesBreakDownMapper');
 
 class PaymentBreakdown extends Step {
     static getUrl() {
@@ -17,11 +17,9 @@ class PaymentBreakdown extends Step {
 
     handleGet(ctx, formdata) {
         const fees = formdata.fees;
-
         this.checkFeesStatus(fees);
-        const copies = this.createCopiesLayout(formdata);
 
-        ctx.copies = copies;
+        ctx.copies = this.createCopiesLayout(formdata);
         ctx.applicationFee = fees.applicationfee;
         ctx.total = Number.isInteger(fees.total) ? fees.total : parseFloat(fees.total).toFixed(2);
         return [ctx, ctx.errors];
@@ -107,7 +105,7 @@ class PaymentBreakdown extends Step {
                         serviceAuthToken: serviceAuthResult,
                         userId: ctx.userId,
                         applicationFee: originalFees.applicationFee,
-                        copies: this.createCopiesLayout(originalFees),
+                        copies: this.createCopiesLayout(formdata),
                         deceasedLastName: ctx.deceasedLastName,
                         ccdCaseId: formdata.ccdCase.id
                     };

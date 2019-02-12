@@ -1,7 +1,7 @@
 'use strict';
 
-const get = require('lodash').get();
-const PaymentFeesLookup = require('app/services/PaymentFeesLookup');
+const {get} = require('lodash');
+const PaymentFeesLookup = require('app/services/FeesLookup');
 let paymentsFeesLookup;
 const issuesdata = {
     amount_or_volume: 0,
@@ -13,7 +13,7 @@ const issuesdata = {
     service: 'probate'
 };
 
-class PaymentsCalculator {
+class FeesCalculator {
 
     constructor(endpoint, sessionId) {
         this.endpoint = endpoint;
@@ -68,4 +68,4 @@ class PaymentsCalculator {
 
 }
 
-module.exports = PaymentsCalculator;
+module.exports = FeesCalculator;

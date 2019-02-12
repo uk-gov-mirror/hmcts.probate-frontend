@@ -1,7 +1,7 @@
 'use strict';
 
 const config = require('app/config');
-const PaymentBreakDownMapper = require('app/utils/PaymentsBreakDownMapper');
+const PaymentBreakDownMapper = require('app/utils/FeesBreakDownMapper');
 
 const calculatePaymentBreakDownFees = (req, res, next) => {
     const session = req.session;
