@@ -191,7 +191,8 @@ const config = {
             coverSheet: 'generateBulkScanCoverSheetPDF'
         },
         path: '/businessDocument'
-    }
+    },
+    signOutOnStopPages: ['divorcePlace', 'separationPlace']
 };
 
 module.exports = config;
