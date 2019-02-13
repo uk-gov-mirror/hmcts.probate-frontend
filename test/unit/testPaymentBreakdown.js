@@ -61,6 +61,16 @@ describe('PaymentBreakdown', () => {
                 payment: {
                     total: 215
                 },
+                fees: {
+                    status: 'success',
+                    applicationfee: 215,
+                    applicationvalue: 6000,
+                    ukcopies: 1,
+                    ukcopiesfee: 0.50,
+                    overseascopies: 2,
+                    overseascopiesfee: 1,
+                    total: 216.50
+                },
                 paymentPending: 'true',
                 registry: {
                     registry: {
@@ -92,6 +102,7 @@ describe('PaymentBreakdown', () => {
             nock(config.services.submit.url)
                 .post('/submit')
                 .reply(200, submitResponse);
+
         });
 
         afterEach(() => {
@@ -106,8 +117,15 @@ describe('PaymentBreakdown', () => {
             const formdata = {
                 fees: {
                     status: 'success',
+                    applicationfee: 0,
+                    applicationvalue: 4000,
+                    ukcopies: 0,
+                    ukcopiesfee: 0,
+                    overseascopies: 0,
+                    overseascopiesfee: 0,
                     total: 0
-                }};
+                }
+            };
 
             co(function* () {
                 [ctx, errors] = yield paymentBreakdown.handlePost(ctx, errors, formdata);
