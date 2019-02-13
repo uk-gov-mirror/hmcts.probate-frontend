@@ -7,9 +7,7 @@ const {expect} = require('chai');
 const app = require('app');
 const initSteps = require('app/core/initSteps');
 const {endsWith} = require('lodash');
-const sinon = require('sinon');
 const commonContent = require('app/resources/en/translation/common');
-const services = require('app/components/services');
 const stepsToExclude = [
     'StartEligibility', 'ApplicantExecutor', 'DeceasedDomicile', 'MentalCapacity', 'IhtCompleted', 'WillLeft', 'WillOriginal', 'StartApply',
     'NewStartEligibility', 'NewApplicantExecutor', 'NewDeceasedDomicile', 'NewMentalCapacity', 'NewIhtCompleted', 'NewWillLeft', 'NewWillOriginal', 'NewStartApply',
@@ -18,8 +16,8 @@ const stepsToExclude = [
     'ExecutorNotified', 'ExecutorNameAsOnWill', 'ExecutorApplying', 'DeleteExecutor', 'PaymentStatus', 'AddAlias', 'RemoveAlias', 'ExecutorRoles', 'ExecutorsWhenDied'
 ];
 const steps = initSteps.steps;
-let checkAllAgreedStub;
-let featureToggleStub;
+const nock = require('nock');
+const config = require('app/config');
 
 Object.keys(steps)
     .filter(stepName => stepsToExclude.includes(stepName))
@@ -40,11 +38,17 @@ for (const step in steps) {
                 .replace(/\)/g, '\\)');
 
             before((done) => {
-                checkAllAgreedStub = sinon.stub(services, 'checkAllAgreed')
-                    .returns(Promise.resolve('false'));
+                nock(config.services.validation.url.replace('/validate', ''))
+                    .get('/invites/allAgreed/undefined')
+                    .reply(200, 'false');
 
-                featureToggleStub = sinon.stub(services, 'featureToggle')
-                    .returns(Promise.resolve('true'));
+                nock(config.featureToggles.url)
+                    .get(`${config.featureToggles.path}/probate-screening-questions`)
+                    .reply(200, 'true');
+
+                nock(config.featureToggles.url)
+                    .get(`${config.featureToggles.path}/probate-document-upload`)
+                    .reply(200, 'true');
 
                 server = app.init();
                 agent = request.agent(server.app);
@@ -62,8 +66,7 @@ for (const step in steps) {
             });
 
             after(function (done) {
-                checkAllAgreedStub.restore();
-                featureToggleStub.restore();
+                nock.cleanAll();
                 server.http.close();
                 done();
             });

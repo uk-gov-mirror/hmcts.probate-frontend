@@ -18,7 +18,15 @@ describe('DeceasedAddress', () => {
         it('should return the ctx with the deceased address and the document_upload feature toggle on', (done) => {
             const req = {
                 sessionID: 'dummy_sessionId',
-                session: {form: {}, featureToggles: {document_upload: true}},
+                session: {
+                    form: {
+                        journeyType: 'probate'
+                    },
+                    featureToggles: {
+                        document_upload: true
+                    },
+                    journeyType: 'probate'
+                },
                 body: {
                     freeTextAddress: '143 Caerfai Bay Road',
                     postcode: 'L23 6WW'
@@ -29,7 +37,8 @@ describe('DeceasedAddress', () => {
                 freeTextAddress: '143 Caerfai Bay Road',
                 postcode: 'L23 6WW',
                 isDocumentUploadToggleEnabled: true,
-                sessionID: 'dummy_sessionId'
+                sessionID: 'dummy_sessionId',
+                journeyType: 'probate'
             });
             done();
         });
@@ -37,7 +46,15 @@ describe('DeceasedAddress', () => {
         it('should return the ctx with the deceased address and the document_upload feature toggle off', (done) => {
             const req = {
                 sessionID: 'dummy_sessionId',
-                session: {form: {}, featureToggles: {document_upload: false}},
+                session: {
+                    form: {
+                        journeyType: 'probate'
+                    },
+                    featureToggles: {
+                        document_upload: false
+                    },
+                    journeyType: 'probate'
+                },
                 body: {
                     freeTextAddress: '143 Caerfai Bay Road',
                     postcode: 'L23 6WW'
@@ -48,7 +65,8 @@ describe('DeceasedAddress', () => {
                 freeTextAddress: '143 Caerfai Bay Road',
                 postcode: 'L23 6WW',
                 isDocumentUploadToggleEnabled: false,
-                sessionID: 'dummy_sessionId'
+                sessionID: 'dummy_sessionId',
+                journeyType: 'probate'
             });
             done();
         });

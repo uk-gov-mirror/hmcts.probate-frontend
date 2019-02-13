@@ -18,7 +18,12 @@ describe('CodicilsNumber', () => {
         it('should return the ctx with a valid will codicils number', (done) => {
             const req = {
                 sessionID: 'dummy_sessionId',
-                session: {form: {}},
+                session: {
+                    form: {
+                        journeyType: 'probate'
+                    },
+                    journeyType: 'probate'
+                },
                 body: {
                     codicilsNumber: '3'
                 }
@@ -26,7 +31,8 @@ describe('CodicilsNumber', () => {
             const ctx = CodicilsNumber.getContextData(req);
             expect(ctx).to.deep.equal({
                 codicilsNumber: 3,
-                sessionID: 'dummy_sessionId'
+                sessionID: 'dummy_sessionId',
+                journeyType: 'probate'
             });
             done();
         });
@@ -34,7 +40,12 @@ describe('CodicilsNumber', () => {
         it('should return the ctx with a null will codicils number', (done) => {
             const req = {
                 sessionID: 'dummy_sessionId',
-                session: {form: {}},
+                session: {
+                    form: {
+                        journeyType: 'probate'
+                    },
+                    journeyType: 'probate'
+                },
                 body: {
                     codicilsNumber: null
                 }
@@ -42,7 +53,8 @@ describe('CodicilsNumber', () => {
             const ctx = CodicilsNumber.getContextData(req);
             expect(ctx).to.deep.equal({
                 codicilsNumber: null,
-                sessionID: 'dummy_sessionId'
+                sessionID: 'dummy_sessionId',
+                journeyType: 'probate'
             });
             done();
         });
