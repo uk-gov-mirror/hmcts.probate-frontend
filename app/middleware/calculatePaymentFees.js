@@ -8,10 +8,12 @@ const calculatePaymentFees = (req, res, next) => {
     const formdata = session.form;
     const feesCalculator = new FeesCalculator(config.services.feesRegister.url, session.id);
 
-    const fees = feesCalculator.calc(formdata, req.authToken);
-    formdata.fees = fees;
-    session.form = formdata;
-    next();
+    feesCalculator.calc(formdata, req.authToken)
+        .then((fees) => {
+            formdata.fees = fees;
+            session.form = formdata;
+            next();
+        });
 };
 
 module.exports = calculatePaymentFees;

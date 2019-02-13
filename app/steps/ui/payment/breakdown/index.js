@@ -8,7 +8,7 @@ const logger = require('app/components/logger')('Init');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const Payment = require('app/services/Payment');
 const Authorise = require('app/services/Authorise');
-const FeesBreakDownMapper = require('app/utils/FeesBreakDownMapper');
+const FeesCalculator = require('app/utils/FeesCalculator');
 
 class PaymentBreakdown extends Step {
     static getUrl() {
@@ -52,15 +52,15 @@ class PaymentBreakdown extends Step {
     }
 
     * handlePost(ctx, errors, formdata, session, hostname) {
-        const feesBreakDownMapper = new FeesBreakDownMapper(config.services.feesRegister.url, ctx.sessionID);
-        const confirmFees = yield feesBreakDownMapper.calculateBreakDownCost(formdata, ctx.authToken);
+        const feesCalculator = new FeesCalculator(config.services.feesRegister.url, ctx.sessionID);
+        const confirmFees = yield feesCalculator.calc(formdata, ctx.authToken);
         this.checkFeesStatus(confirmFees);
         const originalFees = formdata.fees;
         if (confirmFees.total !== originalFees.total) {
             throw new Error (`Error calculated fees totals have changed from ${originalFees.total} to ${confirmFees.total}`);
         }
         ctx.total = originalFees.total;
-        ctx.applicationFee = originalFees.applicationFee;
+        ctx.applicationFee = originalFees.applicationfee;
         ctx.copies = this.createCopiesLayout(formdata);
 
         const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
