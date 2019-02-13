@@ -40,6 +40,7 @@ const stepList = {
         otherwise: 'StopPage'
     },
     StartApply: 'TaskList',
+
     DeceasedDetails: 'DeceasedAddress',
     DeceasedAddress: {
         documentUploadToggleOn: 'DocumentUpload',
@@ -56,17 +57,33 @@ const stepList = {
     IhtIdentifier: 'IhtValue',
     IhtValue: {
         lessThanOrEqualTo250k: 'AssetsOutside',
-        otherwise: 'TaskList'
+        otherwise: 'DeceasedAlias'
     },
     IhtPaper: {
         lessThanOrEqualTo250k: 'AssetsOutside',
-        otherwise: 'TaskList'
+        otherwise: 'DeceasedAlias'
     },
     AssetsOutside: {
         hasAssetsOutside: 'ValueAssetsOutside',
+        otherwise: 'DeceasedAlias'
+    },
+    ValueAssetsOutside: 'DeceasedAlias',
+    DeceasedAlias: {
+        assetsInOtherNames: 'DeceasedOtherNames',
+        otherwise: 'DeceasedMaritalStatus'
+    },
+    DeceasedOtherNames: 'DeceasedMaritalStatus',
+    AddAlias: 'DeceasedOtherNames',
+    RemoveAlias: 'DeceasedOtherNames',
+    DeceasedMaritalStatus: {
+        divorcedOrSeparated: 'DivorcePlace',
         otherwise: 'TaskList'
     },
-    ValueAssetsOutside: 'TaskList',
+    DivorcePlace: {
+        inEnglandOrWales: 'TaskList',
+        otherwise: 'StopPage'
+    },
+
     Summary: 'TaskList',
     TaskList: 'TaskList',
     StopPage: 'StopPage'

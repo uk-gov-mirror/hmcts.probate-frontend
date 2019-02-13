@@ -8,7 +8,7 @@ module.exports = function (netAmount) {
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
-    I.fillField('#netValueAssetsOutside', netAmount);
+    I.fillField('#netValueAssetsOutsideField', netAmount);
 
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

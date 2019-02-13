@@ -4,7 +4,7 @@
 {% from "widgets/dates.html" import date %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{content.question | safe }}</h1>
+    <h1 class="form-title heading-large">{{ content.question | safe }}</h1>
 {% endblock %}
 
 {% block form_content %}
@@ -13,26 +13,26 @@
         <legend class="visually-hidden">
             {{ content.questionName | safe }}
         </legend>
-        {{textField(
+        {{ textField(
             name = 'firstName',
             field = fields.firstName,
             text = content.firstName,
             hint = content.firstNameHint,
             size = 30
-        )}}
-        {{textField(
+        ) }}
+        {{ textField(
             name = 'lastName',
             field = fields.lastName,
             text = content.lastName,
             size = 50
-        )}}
+        ) }}
     </fieldset>
     <fieldset>
         <h2 class="form-title heading-medium">{{ content.questionDob | safe }}</h2>
         <legend class="visually-hidden">
             {{ content.questionDob | safe }}
         </legend>
-        {{date(
+        {{ date(
             name = 'dob',
             day = fields.dob_day,
             month = fields.dob_month,
@@ -41,14 +41,14 @@
             maxyear = currentYear,
             legend = content.legendDob,
             hint = content.questionHintDob
-        )}}
+        ) }}
     </fieldset>
     <fieldset>
         <h2 class="form-title heading-medium">{{ content.questionDod | safe }}</h2>
         <legend class="visually-hidden">
             {{ content.questionDod | safe }}
         </legend>
-        {{date(
+        {{ date(
             name = 'dod',
             day = fields.dod_day,
             month = fields.dod_month,
@@ -57,9 +57,9 @@
             maxyear = currentYear,
             legend = content.legendDod,
             hint = content.questionHintDod
-        )}}
+        ) }}
     </fieldset>
     <div class="form-group">
-        <input class="button" type="submit" value="{{common.saveAndContinue}}">
+        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}

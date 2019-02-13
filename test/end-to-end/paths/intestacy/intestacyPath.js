@@ -68,5 +68,10 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function* (I) {
 
     I.selectAssetsOutsideEnglandWales('Yes');
     I.enterValueAssetsOutsideEnglandWales('400000');
-
+    I.selectDeceasedAlias('Yes');
+    I.selectOtherNames('2');
+    I.selectDeceasedMaritalStatus('Divorced');
+    I.selectDeceasedDivorcePlace('No');
+    I.seeStopPage('divorcePlace');
+    I.selectDeceasedDivorcePlace('Yes');
 }).retry(TestConfigurator.getRetryScenarios());

@@ -20,4 +20,7 @@ router.get('/deceased-details', (req, res, next) => featureToggle.callCheckToggl
 router.get('/assets-outside-england-wales', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'intestacy_questions', featureToggle.togglePage, 'start-eligibility'));
 router.get('/value-assets-outside-england-wales', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'intestacy_questions', featureToggle.togglePage, 'start-eligibility'));
 
+router.get('/deceased-marital-status', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'intestacy_questions', featureToggle.togglePage, 'start-eligibility'));
+router.get('/deceased-divorce-place', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'intestacy_questions', featureToggle.togglePage, 'start-eligibility'));
+
 module.exports = router;

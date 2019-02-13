@@ -106,6 +106,8 @@ module.exports = function () {
         enterDeceasedDetails: steps.deceased.details,
         selectAssetsOutsideEnglandWales: steps.deceased.assetsoutsideenglandwales,
         enterValueAssetsOutsideEnglandWales: steps.deceased.valueassetsoutsideenglandwales,
+        selectDeceasedMaritalStatus: steps.deceased.maritalstatus,
+        selectDeceasedDivorcePlace: steps.deceased.divorceplace,
 
         // Eligibility task
         completeEligibilityTask: steps.tasks.tasks.completeEligibilityTask,
