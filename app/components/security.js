@@ -49,7 +49,9 @@ class Security {
                                 }
                                 req.log.info('Redirecting user to the time-out page.');
                                 res.clearCookie(SECURITY_COOKIE);
-                                req.session.destroy();
+                                if (typeof req.session.destroy === 'function') {
+                                    req.session.destroy();
+                                }
                                 delete req.cookies;
                                 delete req.sessionID;
                                 delete req.session;
