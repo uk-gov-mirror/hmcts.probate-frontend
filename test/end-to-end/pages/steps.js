@@ -112,6 +112,6 @@ module.exports = function () {
 
         // Eligibility task
         completeEligibilityTask: steps.tasks.tasks.completeEligibilityTask,
-        completeExecutorsTask: steps.tasks.tasks.completeExecutorsTask,
+        completeExecutorsTask: steps.tasks.tasks.completeExecutorsTask
     });
 };

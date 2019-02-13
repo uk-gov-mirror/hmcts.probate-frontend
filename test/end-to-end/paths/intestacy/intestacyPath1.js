@@ -40,9 +40,9 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function* (I) {
     I.seeStopPage('notDiedAfterOctober2014');
     I.selectDiedAfterOctober2014('Yes');
 
-    I.selectRelationshipToDeceased('No');
+    I.selectRelatedToDeceased('No');
     I.seeStopPage('notRelated');
-    I.selectRelationshipToDeceased('Yes');
+    I.selectRelatedToDeceased('Yes');
 
     I.selectOtherApplicants('Yes');
     I.seeStopPage('otherApplicants');
@@ -61,21 +61,25 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function* (I) {
     I.selectInheritanceMethodPaper();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.enterGrossAndNet('205', '300000', '200000');
+        I.enterGrossAndNet('205', '500000', '400000');
     } else {
         I.enterGrossAndNet('205', '500', '400');
     }
 
-    I.selectAssetsOutsideEnglandWales('Yes');
-    I.enterValueAssetsOutsideEnglandWales('400000');
+    // I.selectAssetsOutsideEnglandWales('Yes');
+    // I.enterValueAssetsOutsideEnglandWales('400000');
     I.selectDeceasedAlias('Yes');
     I.selectOtherNames('2');
-    I.selectDeceasedMaritalStatus('Divorced');
-    I.selectDeceasedDivorcePlace('No');
-    I.seeStopPage('divorcePlace');
-    I.selectDeceasedDivorcePlace('Yes');
+    I.selectDeceasedMaritalStatus('Married');
+    // I.selectDeceasedDivorcePlace('No');
+    // I.seeStopPage('deathCertificate');
+    // I.selectDeceasedDivorcePlace('Yes');
 
     // Executors Task
     I.selectATask(taskListContent.taskNotStarted);
+    I.selectRelationshipToDeceased('Other');
+    I.seeStopPage('otherRelationship');
+    I.selectRelationshipToDeceased('Child');
+    // I.selectSpouseNotApplyingReason('Other');
 
 }).retry(TestConfigurator.getRetryScenarios());
