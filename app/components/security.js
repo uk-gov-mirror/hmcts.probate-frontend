@@ -50,7 +50,11 @@ class Security {
                                 }
                                 req.log.info('Redirecting user to the time-out page.');
                                 res.clearCookie(SECURITY_COOKIE);
-                                delete req.cookies[SECURITY_COOKIE];
+                                req.session.destroy();
+                                delete req.cookies;
+                                delete req.sessionID;
+                                delete req.session;
+                                delete req.sessionStore;
                                 return res.redirect('/time-out');
                             }
                             req.log.debug('Extending session for active user.');
