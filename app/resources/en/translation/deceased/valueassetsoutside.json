@@ -5,7 +5,7 @@
   "netValue": "Net value in &pound;",
 
   "errors": {
-    "netValueAssetsOutside": {
+    "netValueAssetsOutsideField": {
       "required": {
         "summary": "You haven&rsquo;t entered the amount of assets outside of England and Wales",
         "message": "Enter the amount of assets outside of England and Wales"

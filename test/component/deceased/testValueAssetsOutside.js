@@ -42,7 +42,7 @@ describe('value-assets-outside-england-wales', () => {
             testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
-                        netValueAssetsOutside: '300000'
+                        netValueAssetsOutsideField: '300000'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
