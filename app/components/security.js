@@ -1,7 +1,6 @@
 'use strict';
 
 const FormatUrl = require('app/utils/FormatUrl');
-const includes = require('lodash/includes');
 const config = require('../config');
 const logger = require('app/components/logger');
 const URL = require('url');
@@ -36,7 +35,7 @@ class Security {
             if (securityCookie) {
                 const lostSession = !req.session.expires;
                 const sessionExpired = req.session.expires?req.session.expires <= Date.now():false;
-                const sessionTimeoutCheck = !includes(config.whitelistedPagesIgnoreSessionTimeout, req.originalUrl);
+                const sessionTimeoutCheck = !config.whitelistedPagesIgnoreSessionTimeout.includes(req.originalUrl);
                 const idamSession = new IdamSession(config.services.idam.apiUrl, req.sessionID);
                 idamSession
                     .get(securityCookie)
