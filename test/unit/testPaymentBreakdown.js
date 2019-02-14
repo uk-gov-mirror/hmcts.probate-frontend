@@ -291,7 +291,7 @@ describe('PaymentBreakdown', () => {
                             cost: 0.5,
                             number: 1
                         },
-                        overseas : {
+                        overseas: {
                             cost: 1,
                             number: 2
                         }
@@ -366,7 +366,7 @@ describe('PaymentBreakdown', () => {
                             cost: 0.5,
                             number: 1
                         },
-                        overseas : {
+                        overseas: {
                             cost: 1,
                             number: 2
                         }
@@ -433,11 +433,11 @@ describe('PaymentBreakdown', () => {
                             cost: 0.5,
                             number: 1
                         },
-                        overseas : {
+                        overseas: {
                             cost: 1,
                             number: 2
                         }
-                    },});
+                    }});
                 expect(errors).to.deep.equal([{
                     param: 'submit',
                     msg: {
@@ -567,9 +567,9 @@ describe('PaymentBreakdown', () => {
                 paymentError: 'dummyError',
                 deceasedLastName: 'aName',
             };
-            let formdata = {
+            const formdata = {
                 fees: 'fees object'
-            }
+            };
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
             feesCalculator.returns(Promise.resolve({
                 status: 'success',
