@@ -16,7 +16,7 @@ router.get(`/fees-register${config.services.feesRegister.paths.feesLookup}`, (re
             'description': 'Application for a grant of probate (Estate over £5000)',
             'version': 3,
             'fee_amount': 215
-        })
+        });
     }
     if (req.query.event === 'copies') {
         res.send({
