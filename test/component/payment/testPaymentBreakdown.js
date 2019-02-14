@@ -75,14 +75,14 @@ describe('payment-breakdown', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({fees: {
                     status: 'success',
-                        applicationfee: 215,
-                        applicationvalue: 6000,
-                        ukcopies: 1,
-                        ukcopiesfee: 0.50,
-                        overseascopies: 2,
-                        overseascopiesfee: 1,
-                        total: 216.50
-                    }})
+                    applicationfee: 215,
+                    applicationvalue: 6000,
+                    ukcopies: 1,
+                    ukcopiesfee: 0.50,
+                    overseascopies: 2,
+                    overseascopiesfee: 1,
+                    total: 216.50
+                }})
                 .end((err) => {
                     if (err) {
                         throw err;
@@ -91,7 +91,6 @@ describe('payment-breakdown', () => {
                     const data = {};
                     testWrapper.testErrors(done, data, 'failure', ['authorisation']);
                 });
-
 
         });
     });
