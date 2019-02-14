@@ -64,10 +64,16 @@ withPipeline("nodejs", product, component) {
         notifyBuildEvent channel: notificationsChannel, color: 'warning', message: 'Failed to update demo branch'
       }
     }
+     env.PACT_BROKER_URL = "pact-broker.platform.hmcts.net"
   }
   after('build') {
     sh 'yarn setup'
   }
+  after('test') {
+    sh 'yarn test-pact'
+    sh 'yarn publish-pact'
+  }
+
 
   //if (env.CHANGE_TITLE && !env.CHANGE_TITLE.startsWith('[PREVIEW]')) {
     enableDockerBuild()
@@ -91,6 +97,7 @@ withPipeline("nodejs", product, component) {
 
     env.FEATURE_TOGGLES_API_URL="https://feature-toggle-api-${aksServiceName}.${aksDomain}"
     echo "${env.FEATURE_TOGGLES_API_URL}"
+
   }
 
   after('functionalTest:aat') {

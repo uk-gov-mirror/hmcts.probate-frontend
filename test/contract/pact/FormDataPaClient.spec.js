@@ -6,6 +6,7 @@ const chai = require('chai');
 const {Pact} = require('@pact-foundation/pact');
 const chaiAsPromised = require('chai-as-promised');
 const ProbateFormData = require('app/services/ProbateFormData');
+const config = require('app/config');
 
 const expect = chai.expect;
 const MOCK_SERVER_PORT = 2203;
@@ -19,7 +20,7 @@ describe('Pact ProbateFormData', () => {
         provider: 'probate_orchestrator_formdataperistence_provider',
         port: MOCK_SERVER_PORT,
         log: path.resolve(process.cwd(), 'logs', 'pact.log'),
-        dir: path.resolve(process.cwd(), 'pacts'),
+        dir: path.resolve(process.cwd(), config.services.pact.pactDirectory),
         logLevel: 'INFO',
         spec: 2
     });
@@ -34,7 +35,7 @@ describe('Pact ProbateFormData', () => {
         }
     };
 
-    const FORM_DATA_BODY = {
+    const FORM_DATA_BODY_REQUEST = {
         'id': 'someId',
         'formdata': {
             'applicant': {
@@ -55,6 +56,24 @@ describe('Pact ProbateFormData', () => {
         'submissionReference': 'submissionRef'
     };
 
+
+    const FORM_DATA_BODY = {
+            'applicant': {
+                'email': 'someemaildaddress@host.com',
+                'address': 'Flat 1, Somewhere Rd, Nowhere.',
+                'executor': 'Yes',
+                'lastName': 'Smith',
+                'postcode': 'NW1 8SS',
+                'referrer': 'ApplicantAddress',
+                'firstName': 'Bob',
+                'phoneNumber': '123456780',
+                'addressFound': 'none',
+                'freeTextAddress': 'Flat 1 Somewhere Rd, Nowhere.',
+                'nameAsOnTheWill': 'Yes'
+            },
+            'submissionReference': 'submissionRef'
+    };
+
     context('when formdata is posted', () => {
         describe('and is required to be persisted', () => {
             before(done => {
@@ -71,7 +90,7 @@ describe('Pact ProbateFormData', () => {
                                 method: 'POST',
                                 path: '/formdata',
                                 headers: {'Content-Type': 'application/json', 'Session-Id': 'someSessionId'},
-                                body: FORM_DATA_BODY
+                                body: FORM_DATA_BODY_REQUEST
                             },
                             willRespondWith: {
                                 status: 200,

@@ -16,11 +16,11 @@ chai.use(chaiAsPromised);
 describe('Pact IntestacyFormData', () => {
     // (1) Create the Pact object to represent your provider
     const provider = new Pact({
-        consumer: 'probate_frontend_intestacyformdatapersistence_client',
-        provider: 'probate_orchestrator_intestacyformdataperistence_provider',
+        consumer: 'probate_frontend',
+        provider: 'probate_orchestrator_service',
         port: MOCK_SERVER_PORT,
         log: path.resolve(process.cwd(), 'logs', 'pact.log'),
-        dir: path.resolve(process.cwd(), config.services.pact.pactsDirectory),
+        dir: path.resolve(process.cwd(), config.services.pact.pactDirectory),
         logLevel: 'INFO',
         spec: 2
     });
