@@ -40,9 +40,9 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function* (I) {
     I.seeStopPage('notDiedAfterOctober2014');
     I.selectDiedAfterOctober2014('Yes');
 
-    I.selectRelationshipToDeceased('No');
+    I.selectRelatedToDeceased('No');
     I.seeStopPage('notRelated');
-    I.selectRelationshipToDeceased('Yes');
+    I.selectRelatedToDeceased('Yes');
 
     I.selectOtherApplicants('Yes');
     I.seeStopPage('otherApplicants');
