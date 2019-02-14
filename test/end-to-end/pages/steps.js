@@ -110,7 +110,7 @@ module.exports = function () {
         selectDeceasedDivorcePlace: steps.deceased.divorceplace,
         selectRelationshipToDeceased: steps.applicant.relationshiptodeceased,
 
-        // Eligibility task
+        // Tasks
         completeEligibilityTask: steps.tasks.tasks.completeEligibilityTask,
         completeExecutorsTask: steps.tasks.tasks.completeExecutorsTask
     });
