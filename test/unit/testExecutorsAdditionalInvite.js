@@ -46,30 +46,18 @@ describe('Executor-Additional-Invite', function () {
 
         it('test that context variables are correctly populated for multiple executors to be notified', () => {
             req.session.form.executors = {
-                executorsToNotifyList: [
+                list: [
                     {fullName: 'other applicant', isApplying: true, emailSent: false},
                     {fullName: 'harvey', isApplying: true, emailSent: false}
                 ]
             };
             ctx = executorsAdditionalInvite.getContextData(req);
-            expect(ctx).to.deep.equal({
-                executorsToNotifyList: [
-                    {
-                        emailSent: false,
-                        fullName: 'other applicant',
-                        isApplying: true
-                    },
-                    {
-                        emailSent: false,
-                        fullName: 'harvey',
-                        isApplying: true
-                    }
-                ],
-                executorsToNotifyNames: 'other applicant and harvey',
-                inviteSuffix: '-multiple',
-                sessionID: 'dummy_sessionId',
-                journeyType: 'probate'
-            });
+            expect(ctx.executorsToNotifyNames).to.equal('other applicant and harvey');
+            expect(ctx.inviteSuffix).to.equal('-multiple');
+            expect(ctx.executorsToNotifyList).to.deep.equal([
+                {emailSent: false, fullName: 'other applicant', isApplying: true},
+                {emailSent: false, fullName: 'harvey', isApplying: true}
+            ]);
         });
     });
 

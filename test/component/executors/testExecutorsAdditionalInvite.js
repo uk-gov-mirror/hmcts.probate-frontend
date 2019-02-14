@@ -48,7 +48,7 @@ describe('executors-additional-invite', () => {
         });
 
         it('test content displays only the executors who have been added and need to be emailed', (done) => {
-            sessionData.executors.executorsToNotifyList = [
+            sessionData.executors.list = [
                 {fullName: 'Andrew Wiles', isApplying: true, emailSent: false},
                 {fullName: 'Leonhard Euler', isApplying: true, emailSent: false}
             ];
