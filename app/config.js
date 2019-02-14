@@ -74,10 +74,12 @@ const config = {
         },
         feesRegister: {
             url: process.env.FEES_REGISTRY_URL || 'http://localhost:4411/fees-register',
+            port: 4411,
             paths: {
                 fees: '/fees',
                 feesLookup: '/fees/lookup'
-            }
+            },
+            ihtMinAmt: 5000
         }
 
     },

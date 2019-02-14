@@ -87,18 +87,12 @@ describe('FeesCalculator', () => {
             };
 
             feesLookupStub.onCall(0).returns(Promise.resolve({
-                'code': 'string',
-                'description': 'string',
-                'fee_amount': 0,
-                'version': 0
-            }));
-            feesLookupStub.onCall(1).returns(Promise.resolve({
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
                 'fee_amount': 0.5
             }));
-            feesLookupStub.onCall(2).returns(Promise.resolve({
+            feesLookupStub.onCall(1).returns(Promise.resolve({
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
@@ -151,10 +145,10 @@ describe('FeesCalculator', () => {
             const expectedResponse = {
                 status: 'failed',
                 applicationfee: 0,
-                applicationvalue: 0,
-                ukcopies: 0,
+                applicationvalue: 6000,
+                ukcopies: 1,
                 ukcopiesfee: 0,
-                overseascopies: 0,
+                overseascopies: 2,
                 overseascopiesfee: 0,
                 total: 0
             };
@@ -200,7 +194,7 @@ describe('FeesCalculator', () => {
                 status: 'failed',
                 applicationfee: 0,
                 applicationvalue: 6000,
-                ukcopies: 0,
+                ukcopies: 1,
                 ukcopiesfee: 0,
                 overseascopies: 2,
                 overseascopiesfee: 1,
@@ -220,7 +214,7 @@ describe('FeesCalculator', () => {
 
             formdata = {
                 iht: {
-                    netValue: 4000
+                    netValue: 6000
                 },
                 copies: {
                     uk: 1,
@@ -235,7 +229,7 @@ describe('FeesCalculator', () => {
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
-                'fee_amount': 0.5
+                'fee_amount': 0.50
             }));
             feesLookupStub.onCall(2).returns(Promise.resolve({
                 'code': 'FEE0003',
@@ -247,7 +241,7 @@ describe('FeesCalculator', () => {
             const expectedResponse = {
                 status: 'failed',
                 applicationfee: 0,
-                applicationvalue: 0,
+                applicationvalue: 6000,
                 ukcopies: 1,
                 ukcopiesfee: 0.50,
                 overseascopies: 2,
