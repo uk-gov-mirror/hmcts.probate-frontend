@@ -79,14 +79,14 @@ describe('Executors-Applying', function () {
         });
     });
 
-    describe('pruneFormData', () => {
+    describe('pruneExecutorData', () => {
 
         it('test that isApplying flag is deleted when executor is not applying', () => {
             data = {
                 fullName: 'Ed Brown',
                 isApplying: false
             };
-            ExecsDealing.pruneFormData(data);
+            ExecsDealing.pruneExecutorData(data);
             assert.isUndefined(data.isApplying);
             expect(data).to.deep.equal({fullName: 'Ed Brown'});
         });
@@ -100,7 +100,7 @@ describe('Executors-Applying', function () {
                 notApplyingReason: 'not sure',
                 notApplyingKey: 'not sure'
             };
-            ExecsDealing.pruneFormData(data);
+            ExecsDealing.pruneExecutorData(data);
             expect(data).to.deep.equal({
                 fullName: 'Ed Brown',
                 isApplying: true
@@ -135,42 +135,42 @@ describe('Executors-Applying', function () {
         };
 
         it('removes email from data if isApplying is false', () => {
-            const data = ExecsDealing.pruneFormData(ctx.list[1]);
+            const data = ExecsDealing.pruneExecutorData(ctx.list[1]);
             assert.isUndefined(data.email);
         });
 
         it('removes mobile from data if isApplying is false', () => {
-            const data = ExecsDealing.pruneFormData(ctx.list[1]);
+            const data = ExecsDealing.pruneExecutorData(ctx.list[1]);
             assert.isUndefined(data.mobile);
         });
 
         it('removes address from data if isApplying is false', () => {
-            const data = ExecsDealing.pruneFormData(ctx.list[1]);
+            const data = ExecsDealing.pruneExecutorData(ctx.list[1]);
             assert.isUndefined(data.address);
         });
 
         it('removes postcode from data if isApplying is false', () => {
-            const data = ExecsDealing.pruneFormData(ctx.list[1]);
+            const data = ExecsDealing.pruneExecutorData(ctx.list[1]);
             assert.isUndefined(data.postcode);
         });
 
         it('removes currentName from data if isApplying is false', () => {
-            const data = ExecsDealing.pruneFormData(ctx.list[1]);
+            const data = ExecsDealing.pruneExecutorData(ctx.list[1]);
             assert.isUndefined(data.currentName);
         });
 
         it('removes hasOtherName from data if isApplying is false', () => {
-            const data = ExecsDealing.pruneFormData(ctx.list[1]);
+            const data = ExecsDealing.pruneExecutorData(ctx.list[1]);
             assert.isUndefined(data.hasOtherName);
         });
 
         it('removes postcodeAddress from data if isApplying is false', () => {
-            const data = ExecsDealing.pruneFormData(ctx.list[1]);
+            const data = ExecsDealing.pruneExecutorData(ctx.list[1]);
             assert.isUndefined(data.postcodeAddress);
         });
 
         it('removes currentNameReason from data if isApplying is false', () => {
-            const data = ExecsDealing.pruneFormData(ctx.list[1]);
+            const data = ExecsDealing.pruneExecutorData(ctx.list[1]);
             assert.isUndefined(data.currentNameReason);
         });
 
