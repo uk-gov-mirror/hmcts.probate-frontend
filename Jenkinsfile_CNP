@@ -73,7 +73,7 @@ withPipeline("nodejs", product, component) {
     enableDockerBuild()
  //   installCharts()
     enableDeployToAKS()
-/  }
+//  }
   setVaultName('probate')
   loadVaultSecrets(secrets)
   enableSlackNotifications('#probate-jenkins')
