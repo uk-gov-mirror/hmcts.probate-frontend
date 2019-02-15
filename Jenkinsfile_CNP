@@ -71,8 +71,8 @@ withPipeline("nodejs", product, component) {
 
   //if (env.CHANGE_TITLE && !env.CHANGE_TITLE.startsWith('[PREVIEW]')) {
     enableDockerBuild()
-    installCharts()
-//    enableDeployToAKS()
+ //   installCharts()
+    enableDeployToAKS()
 //  }
   setVaultName('probate')
   loadVaultSecrets(secrets)
