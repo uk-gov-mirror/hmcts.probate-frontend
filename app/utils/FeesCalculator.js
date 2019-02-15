@@ -99,8 +99,8 @@ async function createCallsRequired(formdata, headers) {
 }
 
 /*
- * message  - equivalent to a return status of 404
- * FetchError - is returned when fees api is down
+ * if no fee_amount is returned, we assume an error has occured
+ * this caters for 404 type messages etc.
  */
 function identifyAnyErrors(res) {
     if (res.fee_amount) {
