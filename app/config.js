@@ -21,7 +21,8 @@ const config = {
         port: process.env.PORT || '3000',
         useCSRFProtection: 'true',
         session: {
-            expires: 300000, // ms (60 min) - 5 min test
+            //expires: 3600000, // ms (60 min)
+            expires: 60000, // ms (1 min)
             ttl: 28800 // s (8 hours)
         }
     },
@@ -163,7 +164,7 @@ const config = {
     whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
     whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
     hardStopParams: ['will.left', 'will.original', 'iht.completed', 'applicant.executor'],
-    nonIdamPages: ['stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'relationship-to-deceased', 'other-applicants', 'start-apply', 'time-out'],
+    nonIdamPages: ['stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'relationship-to-deceased', 'other-applicants', 'time-out', 'start-apply'],
     endpoints: {
         health: '/health',
         info: '/info'
