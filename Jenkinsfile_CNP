@@ -71,8 +71,9 @@ withPipeline("nodejs", product, component) {
 
   //if (env.CHANGE_TITLE && !env.CHANGE_TITLE.startsWith('[PREVIEW]')) {
     enableDockerBuild()
-    installCharts()
-//  }
+ //   installCharts()
+    enableDeployToAKS()
+/  }
   setVaultName('probate')
   loadVaultSecrets(secrets)
   enableSlackNotifications('#probate-jenkins')
