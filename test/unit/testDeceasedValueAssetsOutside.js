@@ -20,13 +20,49 @@ describe('ValueAssetsOutside', () => {
 
         it('should return the ctx with the value of the assets outside england and wales', (done) => {
             ctx = {
-                netValueAssetsOutside: '500000'
+                netValueAssetsOutsideField: '500000'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ValueAssetsOutside.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
-                netValueAssetsOutside: 500000
+                netValueAssetsOutside: 500000,
+                netValueAssetsOutsideField: '500000'
             });
+            done();
+        });
+
+        it('should return the ctx with the value of the assets outside england and wales (value containing decimals)', (done) => {
+            ctx = {
+                netValueAssetsOutsideField: '500000.00'
+            };
+            errors = [];
+            [ctx, errors] = ValueAssetsOutside.handlePost(ctx, errors);
+            expect(ctx).to.deep.equal({
+                netValueAssetsOutside: 500000,
+                netValueAssetsOutsideField: '500000.00'
+            });
+            done();
+        });
+
+        it('should return the errors correctly', (done) => {
+            ctx = {
+                netValueAssetsOutsideField: '50a0000'
+            };
+            errors = [];
+            [ctx, errors] = ValueAssetsOutside.handlePost(ctx, errors);
+            expect(ctx).to.deep.equal({
+                netValueAssetsOutside: 500000,
+                netValueAssetsOutsideField: '50a0000'
+            });
+            expect(errors).to.deep.equal([
+                {
+                    msg: {
+                        summary: 'You haven&rsquo;t entered a valid amount of assets outside England and Wales',
+                        message: 'Enter a valid amount using numbers only'
+                    },
+                    param: 'netValueAssetsOutsideField'
+                }
+            ]);
             done();
         });
     });

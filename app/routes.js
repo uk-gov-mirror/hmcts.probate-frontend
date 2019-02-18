@@ -3,13 +3,15 @@
 const config = require('app/config');
 const router = require('express').Router();
 const initSteps = require('app/core/initSteps');
-const services = require('app/components/services');
 const logger = require('app/components/logger');
 const {get, includes, isEqual} = require('lodash');
 const commonContent = require('app/resources/en/translation/common');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const documentUpload = require('app/documentUpload');
 const documentDownload = require('app/documentDownload');
+const setJourney = require('app/middleware/setJourney');
+const AllExecutorsAgreed = require('app/services/AllExecutorsAgreed');
+const ServiceMapper = require('app/utils/ServiceMapper');
 
 router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
@@ -34,7 +36,13 @@ router.use((req, res, next) => {
 });
 
 router.get('/', (req, res) => {
-    services.loadFormData(req.session.regId)
+    const formData = ServiceMapper.map(
+        'FormData',
+        [config.services.persistence.url, req.sessionID],
+        req.session.journeyType
+    );
+    formData
+        .get(req.session.regId)
         .then(result => {
             if (result.name === 'Error') {
                 req.log.debug('Failed to load user data');
@@ -46,6 +54,10 @@ router.get('/', (req, res) => {
             res.redirect('tasklist');
         });
 });
+
+router.use(documentDownload);
+
+router.use(setJourney);
 
 router.use((req, res, next) => {
     const formdata = req.session.form;
@@ -89,8 +101,6 @@ router.use((req, res, next) => {
 
 router.use('/document-upload', documentUpload);
 
-router.use(documentDownload);
-
 router.use((req, res, next) => {
     res.locals.session = req.session;
     res.locals.pageUrl = req.url;
@@ -105,7 +115,8 @@ router.use((req, res, next) => {
         formdata.executors.invitesSent === 'true' &&
         get(formdata, 'declaration.declarationCheckbox')
     ) {
-        services.checkAllAgreed(req.session.regId)
+        const allExecutorsAgreed = new AllExecutorsAgreed(config.services.validation.url, req.sessionID);
+        allExecutorsAgreed.get(req.session.regId)
             .then(data => {
                 req.session.haveAllExecutorsDeclared = data;
                 next();

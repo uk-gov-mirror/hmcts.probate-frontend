@@ -1,8 +1,9 @@
 #!groovy
 
-//#@Library("Infrastructure")
-@Library("Infrastructure@fd7aef62b5503c45b4998a072175d94d62aab70e")
+@Library("Infrastructure")
+//@Library("Infrastructure@fd7aef62b5503c45b4998a072175d94d62aab70e")
 import uk.gov.hmcts.contino.Kubectl
+import uk.gov.hmcts.contino.Consul
 
 String product = "probate"
 String component = "frontend"
@@ -51,36 +52,53 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
   ]
 }
 
+// Vars needed for AKS testing - keep values in sync with: /src/kubernetes/deployment.template.yaml
+// THESE WILL BE OVERWRITTEN IN ASE DEPLOYMENTS WITH TERRAFORM OUTPUTS.TF
+// THESE CAN BE PICKED UP IN INTEGRATION-TEST CODE DIRECTLY
+env.IDAM_URL = 'https://preprod-idamapi.reform.hmcts.net:3511'
+
 withPipeline("nodejs", product, component) {
+   afterCheckout {
+    onMaster {
+      try {
+        sh """
+          git fetch origin demo:demo
+          git push --force origin HEAD:demo
+        """
+      } catch (err) {
+        notifyBuildEvent channel: notificationsChannel, color: 'warning', message: 'Failed to update demo branch'
+      }
+    }
+  }
   after('build') {
     sh 'yarn setup'
   }
 
   //if (env.CHANGE_TITLE && !env.CHANGE_TITLE.startsWith('[PREVIEW]')) {
     enableDockerBuild()
-    enableDeployToAKS()
+    installCharts()
+
 //  }
-
-  after('aksdeploy') {
-    def subscription = env.SUBSCRIPTION_NAME
-    def aksServiceName = "${product}-${component}-${env.BRANCH_NAME}".toLowerCase()
-    def aksDomain = "${(env.SUBSCRIPTION_NAME in ['nonprod', 'prod']) ? 'service.core-compute-preview.internal' : 'service.core-compute-saat.internal'}"
-
-    def kubectl = new Kubectl(this, subscription, aksServiceName)
-
-    def ingressIP = kubectl.getServiceLoadbalancerIP("traefik", "kube-system")
-
-    registerConsulDns(subscription, "feature-toggle-api-${aksServiceName}", ingressIP)
-
-
-    env.FEATURE_TOGGLES_API_URL="https://feature-toggle-api-${aksServiceName}.${aksDomain}"
-    echo "${env.FEATURE_TOGGLES_API_URL}"
-  }
-
-
   setVaultName('probate')
   loadVaultSecrets(secrets)
   enableSlackNotifications('#probate-jenkins')
+//  after('aksdeploy') {
+//    def subscription = env.SUBSCRIPTION_NAME
+//    def aksServiceName = "${product}-${component}-${env.BRANCH_NAME}".toLowerCase()
+//    def aksDomain = "${(env.SUBSCRIPTION_NAME in ['nonprod', 'prod']) ? 'service.core-compute-preview.internal' : 'service.core-compute-saat.internal'}"
+//
+//    def kubectl = new Kubectl(this, subscription, aksServiceName)
+//
+//    def ingressIP = kubectl.getServiceLoadbalancerIP("traefik", "kube-system")
+//
+//    def consul = new Consul(this)
+//
+//    consul.registerDns("feature-toggle-api-${aksServiceName}", ingressIP)
+//
+//    env.FEATURE_TOGGLES_API_URL="https://feature-toggle-api-${aksServiceName}.${aksDomain}"
+//    echo "${env.FEATURE_TOGGLES_API_URL}"
+//  }
+
   after('functionalTest:aat') {
       publishHTML target: [
 

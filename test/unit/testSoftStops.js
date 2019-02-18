@@ -81,7 +81,10 @@ describe('Soft Stops', function () {
                 noWill: {placeHolders: ['applicationFormPA1A', 'whoInherits']},
                 notOriginal: {placeHolders: ['applicationFormPA1P', 'applicationFormPA1A']},
                 notExecutor: {placeHolders: ['applicationFormPA1P']},
-                mentalCapacity: {placeHolders: ['applicationFormPA1P', 'ifYoureAnExecutor']}
+                mentalCapacity: {placeHolders: ['applicationFormPA1P', 'ifYoureAnExecutor']},
+                notDiedAfterOctober2014: {placeHolders: ['applicationFormPA1A']},
+                notRelated: {placeHolders: ['applicationFormPA1A']},
+                otherApplicants: {placeHolders: ['applicationFormPA1A']}
             };
 
             Object.keys(stopPages).forEach(function(key) {

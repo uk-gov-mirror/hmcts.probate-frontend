@@ -5,10 +5,13 @@ const executorNotifiedContent = require('app/resources/en/translation/executors/
 const executorContent = require('app/resources/en/translation/executors/executorcontent');
 const {get} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const services = require('app/components/services');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
 const FormatAlias = require('app/utils/FormatAlias');
+const LegalDocumentJSONObjectBuilder = require('app/utils/LegalDocumentJSONObjectBuilder');
+const legalDocumentJSONObjBuilder = new LegalDocumentJSONObjectBuilder();
+const InviteData = require('app/services/InviteData');
+const config = require('app/config');
 
 class Declaration extends ValidationStep {
     static getUrl() {
@@ -120,17 +123,20 @@ class Declaration extends ValidationStep {
         const applicantCurrentName = FormatName.formatName(props.executor, true);
         const aliasSuffix = props.executor.alias || props.executor.currentName ? '-alias' : '';
         const aliasReason = FormatAlias.aliasReason(props.executor, props.hasMultipleApplicants);
-        return {
+        const content = {
             name: props.content[`applicantName${props.multipleApplicantSuffix}${mainApplicantSuffix}${aliasSuffix}${codicilsSuffix}`]
                 .replace('{applicantWillName}', props.executor.isApplicant && props.executor.alias ? FormatName.applicantWillName(props.executor) : props.mainApplicantName)
                 .replace(/{applicantCurrentName}/g, applicantCurrentName)
                 .replace('{applicantNameOnWill}', props.executor.hasOtherName ? ` ${props.content.as} ${applicantNameOnWill}` : '')
                 .replace('{aliasReason}', aliasReason),
-            sign: props.content[`applicantSign${props.multipleApplicantSuffix}${mainApplicantSuffix}${codicilsSuffix}`]
-                .replace('{applicantName}', props.mainApplicantName)
-                .replace('{applicantCurrentNameSign}', applicantCurrentName)
-                .replace('{deceasedName}', props.deceasedName)
+            sign: ''
         };
+        if (props.executor.isApplicant) {
+            content.sign = props.content[`applicantSign${props.multipleApplicantSuffix}${mainApplicantSuffix}${codicilsSuffix}`]
+                .replace('{applicantName}', props.mainApplicantName)
+                .replace('{deceasedName}', props.deceasedName);
+        }
+        return content;
     }
 
     executorsNotApplying(executorsNotApplying, content, deceasedName, hasCodicils) {
@@ -168,9 +174,12 @@ class Declaration extends ValidationStep {
         return nextStepOptions;
     }
 
-    resetAgreedFlags(executorsInvited) {
+    resetAgreedFlags(ctx) {
         const data = {agreed: null};
-        const promises = executorsInvited.map(exec => services.updateInviteData(exec.inviteId, data));
+        const inviteData = new InviteData(config.services.persistence.url, ctx.sessionID);
+        const promises = ctx.executorsWrapper
+            .executorsInvited()
+            .map(exec => inviteData.patch(exec.inviteId, data));
         return Promise.all(promises);
     }
 
@@ -179,7 +188,7 @@ class Declaration extends ValidationStep {
         delete ctx.hasMultipleApplicants;
 
         if (ctx.hasDataChanged === true) {
-            this.resetAgreedFlags(ctx.executorsWrapper.executorsInvited());
+            this.resetAgreedFlags(ctx);
         }
 
         delete ctx.executorsWrapper;
@@ -190,6 +199,13 @@ class Declaration extends ValidationStep {
         delete ctx.invitesSent;
         return [ctx, formdata];
     }
+
+    renderPage(res, html) {
+        const formdata = res.req.session.form;
+        formdata.legalDeclaration = legalDocumentJSONObjBuilder.build(formdata, html);
+        res.send(html);
+    }
+
 }
 
 module.exports = Declaration;

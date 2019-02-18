@@ -20,8 +20,8 @@ class RelationshipToDeceased extends ValidationStep {
         return ctx;
     }
 
-    nextStepUrl(ctx) {
-        return this.next(ctx).constructor.getUrl('otherRelationship');
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('otherRelationship');
     }
 
     nextStepOptions(ctx) {
