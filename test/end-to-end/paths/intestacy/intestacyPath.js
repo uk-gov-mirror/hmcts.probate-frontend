@@ -75,7 +75,4 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function* (I) {
     I.seeStopPage('divorcePlace');
     I.selectDeceasedDivorcePlace('Yes');
 
-    // Executors Task
-    I.selectATask(taskListContent.taskNotStarted);
-
 }).retry(TestConfigurator.getRetryScenarios());
