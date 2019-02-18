@@ -17,8 +17,8 @@ class AdoptionPlace extends ValidationStep {
         return ctx;
     }
 
-    nextStepUrl(ctx) {
-        return this.next(ctx).constructor.getUrl('adoptionNotEnglandOrWales');
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('adoptionNotEnglandOrWales');
     }
 
     nextStepOptions(ctx) {
