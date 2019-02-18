@@ -52,11 +52,6 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
   ]
 }
 
-// Vars needed for AKS testing - keep values in sync with: /src/kubernetes/deployment.template.yaml
-// THESE WILL BE OVERWRITTEN IN ASE DEPLOYMENTS WITH TERRAFORM OUTPUTS.TF
-// THESE CAN BE PICKED UP IN INTEGRATION-TEST CODE DIRECTLY
-env.IDAM_URL = 'https://preprod-idamapi.reform.hmcts.net:3511'
-
 withPipeline("nodejs", product, component) {
    afterCheckout {
     onMaster {
@@ -76,9 +71,8 @@ withPipeline("nodejs", product, component) {
 
   //if (env.CHANGE_TITLE && !env.CHANGE_TITLE.startsWith('[PREVIEW]')) {
     enableDockerBuild()
-
+//    installCharts()
     enableDeployToAKS()
-
 //  }
   setVaultName('probate')
   loadVaultSecrets(secrets)
