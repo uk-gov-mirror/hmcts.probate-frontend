@@ -58,7 +58,6 @@ describe('Contact-Details', function () {
                 mobile: '07321321321',
                 index: 1,
                 otherExecName: 'Bob Cratchett',
-                executorsEmailChanged: false
             };
             errors = [];
         });
@@ -100,7 +99,6 @@ describe('Contact-Details', function () {
                     mobile: '07321321321',
                     index: 1,
                     otherExecName: 'Bob Cratchett',
-                    executorsEmailChanged: true
                 });
                 done();
             })
@@ -147,7 +145,6 @@ describe('Contact-Details', function () {
                     mobile: '07321321321',
                     index: 1,
                     otherExecName: 'Bob Cratchett',
-                    executorsEmailChanged: false
                 });
                 done();
             })
@@ -202,7 +199,6 @@ describe('Contact-Details', function () {
                     mobile: '07888888888',
                     index: 1,
                     otherExecName: 'Bob Cratchett',
-                    executorsEmailChanged: true
                 });
                 revert();
                 done();
