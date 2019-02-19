@@ -17,7 +17,7 @@ describe('Pact IntestacyFormData', () => {
     // (1) Create the Pact object to represent your provider
     const provider = new Pact({
         consumer: 'probate_frontend',
-        provider: 'probate_orchestrator_service',
+        provider: 'probate_orchestrator_service_intestacy_forms',
         port: MOCK_SERVER_PORT,
         log: path.resolve(process.cwd(), 'logs', 'pact.log'),
         dir: path.resolve(process.cwd(), config.services.pact.pactDirectory),
@@ -70,7 +70,7 @@ describe('Pact IntestacyFormData', () => {
                     .then(() => {
                         return provider.addInteraction({
                             // The 'state' field specifies a 'Provider State'
-                            state: 'provider persists intestacy formdata with success',
+                            state: 'probate_orchestrator_service persists intestacy formdata with success',
                             uponReceiving: 'a request to POST intestacy formdata',
                             withRequest: {
                                 method: 'POST',

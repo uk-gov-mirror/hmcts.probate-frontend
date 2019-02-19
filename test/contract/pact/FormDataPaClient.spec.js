@@ -16,8 +16,8 @@ chai.use(chaiAsPromised);
 describe('Pact ProbateFormData', () => {
     // (1) Create the Pact object to represent your provider
     const provider = new Pact({
-        consumer: 'probate_frontend_probateformdatapersistence_client',
-        provider: 'probate_orchestrator_formdataperistence_provider',
+        consumer: 'probate_frontend',
+        provider: 'probate_orchestrator_service_probate_forms',
         port: MOCK_SERVER_PORT,
         log: path.resolve(process.cwd(), 'logs', 'pact.log'),
         dir: path.resolve(process.cwd(), config.services.pact.pactDirectory),
@@ -56,22 +56,21 @@ describe('Pact ProbateFormData', () => {
         'submissionReference': 'submissionRef'
     };
 
-
     const FORM_DATA_BODY = {
-            'applicant': {
-                'email': 'someemaildaddress@host.com',
-                'address': 'Flat 1, Somewhere Rd, Nowhere.',
-                'executor': 'Yes',
-                'lastName': 'Smith',
-                'postcode': 'NW1 8SS',
-                'referrer': 'ApplicantAddress',
-                'firstName': 'Bob',
-                'phoneNumber': '123456780',
-                'addressFound': 'none',
-                'freeTextAddress': 'Flat 1 Somewhere Rd, Nowhere.',
-                'nameAsOnTheWill': 'Yes'
-            },
-            'submissionReference': 'submissionRef'
+        'applicant': {
+            'email': 'someemaildaddress@host.com',
+            'address': 'Flat 1, Somewhere Rd, Nowhere.',
+            'executor': 'Yes',
+            'lastName': 'Smith',
+            'postcode': 'NW1 8SS',
+            'referrer': 'ApplicantAddress',
+            'firstName': 'Bob',
+            'phoneNumber': '123456780',
+            'addressFound': 'none',
+            'freeTextAddress': 'Flat 1 Somewhere Rd, Nowhere.',
+            'nameAsOnTheWill': 'Yes'
+        },
+        'submissionReference': 'submissionRef'
     };
 
     context('when formdata is posted', () => {
@@ -84,7 +83,7 @@ describe('Pact ProbateFormData', () => {
                     .then(() => {
                         return provider.addInteraction({
                             // The 'state' field specifies a 'Provider State'
-                            state: 'provider persists formdata with success',
+                            state: 'probate_orchestrator_service persists formdata with success',
                             uponReceiving: 'a request to POST formdata',
                             withRequest: {
                                 method: 'POST',
