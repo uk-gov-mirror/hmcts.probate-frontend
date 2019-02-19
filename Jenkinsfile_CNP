@@ -64,7 +64,7 @@ withPipeline("nodejs", product, component) {
         notifyBuildEvent channel: notificationsChannel, color: 'warning', message: 'Failed to update demo branch'
       }
     }
-     env.PACT_BROKER_URL = "pact-broker.platform.hmcts.net"
+     env.PACT_BROKER_URL = "https://pact-broker.platform.hmcts.net"
   }
   after('build') {
     sh 'yarn setup'
