@@ -6,8 +6,7 @@ const chai = require('chai');
 const {Pact} = require('@pact-foundation/pact');
 const chaiAsPromised = require('chai-as-promised');
 const IntestacySubmitData = require('app/services/IntestacySubmitData');
-const pact = require('pact');
-const {somethingLike: like} = pact.Matchers;
+const like = require('@pact-foundation/pact').Matchers.somethingLike;
 const config = require('app/config');
 
 const expect = chai.expect;
@@ -19,7 +18,7 @@ describe('Pact Intestacy Submit Data', () => {
     // (1) Create the Pact object to represent your provider
     const provider = new Pact({
         consumer: 'probate_frontend',
-        provider: 'probate_orchestrator_service_intestacy_submit',
+        provider: 'probate_orchestrator_service',
         port: MOCK_SERVER_PORT,
         log: path.resolve(process.cwd(), 'logs', 'pact.log'),
         dir: path.resolve(process.cwd(), config.services.pact.pactDirectory),
