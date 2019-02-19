@@ -11,7 +11,7 @@ const opts = {
     pactFilesOrDirs: [path.resolve(process.cwd(), config.services.pact.pactDirectory)],
     pactBroker: config.services.pact.brokerUrl,
     consumerVersion: git.short(),
-    tags: [git.branch()]
+    tags: config.services.pact.tag
 };
 pact.publishPacts(opts)
     .then(() => {
