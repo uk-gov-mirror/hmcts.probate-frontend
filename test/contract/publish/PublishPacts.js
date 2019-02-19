@@ -5,7 +5,6 @@
 const path = require('path');
 const pact = require('@pact-foundation/pact-node');
 const config = require('app/config');
-const git = require('git-rev-sync');
 
 const opts = {
     pactFilesOrDirs: [path.resolve(process.cwd(), config.services.pact.pactDirectory)],
