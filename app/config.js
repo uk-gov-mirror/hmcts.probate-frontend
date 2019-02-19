@@ -196,7 +196,7 @@ const config = {
         path: '/businessDocument'
     },
     signOutOnStopPages: ['divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales'],
-    estateValueThreshold: 250000
+    assetsValueThreshold: 250000
 };
 
 module.exports = config;
