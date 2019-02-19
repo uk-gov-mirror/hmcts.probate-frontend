@@ -71,7 +71,6 @@ const config = {
         pact: {
             brokerUrl: process.env.PACT_BROKER_URL || 'http://localhost:80',
             tag: process.env.CHANGE_BRANCH || 'Dev',
-            version: process.env.PACT_VERSION || '1.0.0',
             pactDirectory: 'pacts'
         }
     },

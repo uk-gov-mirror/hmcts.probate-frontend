@@ -5,11 +5,12 @@
 const path = require('path');
 const pact = require('@pact-foundation/pact-node');
 const config = require('app/config');
+const git = require('git-rev-sync');
 
 const opts = {
     pactFilesOrDirs: [path.resolve(process.cwd(), config.services.pact.pactDirectory)],
     pactBroker: config.services.pact.brokerUrl,
-    consumerVersion: config.services.pact.version,
+    consumerVersion: git.short(),
     tags: config.services.pact.tag
 };
 pact.publishPacts(opts)

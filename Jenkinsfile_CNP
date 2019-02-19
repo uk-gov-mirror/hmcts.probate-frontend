@@ -65,7 +65,6 @@ withPipeline("nodejs", product, component) {
       }
     }
      env.PACT_BROKER_URL = "https://pact-broker.platform.hmcts.net"
-     env.PACT_VERSION = sh(returnStdout: true, script: 'git rev-parse --verify --short HEAD')
   }
   after('build') {
     sh 'yarn setup'
