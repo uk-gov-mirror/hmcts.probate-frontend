@@ -18,7 +18,7 @@ describe('Pact Intestacy Submit Data', () => {
     // (1) Create the Pact object to represent your provider
     const provider = new Pact({
         consumer: 'probate_frontend',
-        provider: 'probate_orchestrator_service',
+        provider: 'probate_orchestrator_service_intestacy_submit',
         port: MOCK_SERVER_PORT,
         log: path.resolve(process.cwd(), 'logs', 'pact.log'),
         dir: path.resolve(process.cwd(), config.services.pact.pactDirectory),
