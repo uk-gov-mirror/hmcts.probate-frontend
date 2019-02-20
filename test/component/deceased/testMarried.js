@@ -31,7 +31,6 @@ describe('deceased-married', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-
                     const contentData = {deceasedName: 'Mana Manah'};
 
                     testWrapper.testContent(done, excludeKeys, contentData);
