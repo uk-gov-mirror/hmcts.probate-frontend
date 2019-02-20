@@ -37,7 +37,7 @@ describe('RelationshipToDeceased', () => {
 
             ctx = RelationshipToDeceased.getContextData(req);
             expect(ctx.deceasedMaritalStatus).to.equal(contentMaritalStatus.optionMarried);
-            expect(ctx.estateValue).to.equal(350000);
+            expect(ctx.assetsValue).to.equal(350000);
             done();
         });
     });
@@ -95,7 +95,7 @@ describe('RelationshipToDeceased', () => {
             };
             const ctx = {
                 relationshipToDeceased: content.optionSpousePartner,
-                estateValue: 200000
+                assetsValue: 200000
             };
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/applicant-name');
@@ -110,7 +110,7 @@ describe('RelationshipToDeceased', () => {
             };
             const ctx = {
                 relationshipToDeceased: content.optionSpousePartner,
-                estateValue: 450000
+                assetsValue: 450000
             };
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/any-children');
@@ -152,14 +152,14 @@ describe('RelationshipToDeceased', () => {
     describe('action', () => {
         it('test it cleans up context', () => {
             const ctx = {
-                estateValue: 450000,
+                assetsValue: 450000,
                 spousePartnerLessThan250k: true,
                 spousePartnerMoreThan250k: true,
                 childDeceasedMarried: true,
                 childDeceasedNotMarried: true
             };
             RelationshipToDeceased.action(ctx);
-            assert.isUndefined(ctx.estateValue);
+            assert.isUndefined(ctx.assetsValue);
             assert.isUndefined(ctx.spousePartnerLessThan250k);
             assert.isUndefined(ctx.spousePartnerMoreThan250k);
             assert.isUndefined(ctx.childDeceasedMarried);

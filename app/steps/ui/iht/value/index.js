@@ -35,7 +35,7 @@ class IhtValue extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.lessThanOrEqualTo250k = ctx.netValue <= config.estateValueThreshold;
+        ctx.lessThanOrEqualTo250k = ctx.netValue <= config.assetsValueThreshold;
 
         return {
             options: [
