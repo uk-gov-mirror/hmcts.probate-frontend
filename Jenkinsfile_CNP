@@ -65,11 +65,10 @@ withPipeline("nodejs", product, component) {
                 notifyBuildEvent channel: notificationsChannel, color: 'warning', message: 'Failed to update demo branch'
             }
         }
+        env.PACT_BRANCH_NAME = env.CHANGE_BRANCH
         env.PACT_BROKER_URL = "https://pact-broker.platform.hmcts.net"
         if (env.BRANCH_NAME == 'master') {
             env.PACT_BRANCH_NAME = 'master'
-        } else {
-            env.PACT_BRANCH_NAME = env.CHANGE_BRANCH
         }
     }
     after('build') {
@@ -83,7 +82,7 @@ withPipeline("nodejs", product, component) {
         sh 'curl -LO https://github.com/pact-foundation/pact-ruby-standalone/releases/download/v1.63.0/pact-1.63.0-linux-x86_64.tar.gz'
         sh 'tar xzf pact-1.63.0-linux-x86_64.tar.gz'
         dir('pact/bin') {
-            sh './pact-broker can-i-deploy --retry-while-unknown=12 --retry-interval=10 -a probate_frontend -b  https://pact-broker.platform.hmcts.net -e ${PACT_BROKER_VERSION}'
+            sh './pact-broker can-i-deploy --retry-while-unknown=12 --retry-interval=10 -a probate_frontend -b  ${PACT_BROKER_URL} -e ${PACT_BROKER_VERSION}'
         }
 
     }
