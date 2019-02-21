@@ -65,6 +65,11 @@ withPipeline("nodejs", product, component) {
       }
     }
      env.PACT_BROKER_URL = "https://pact-broker.platform.hmcts.net"
+     if (env.BRANCH_NAME != 'master') {
+       env.PACT_BRANCH_NAME = env.CHANGE_BRANCH
+     } else {
+       env.PACT_BRANCH_NAME = env.BRANCH_NAME
+     }
   }
   after('build') {
     sh 'yarn setup'
