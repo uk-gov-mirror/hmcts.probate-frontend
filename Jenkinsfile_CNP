@@ -64,11 +64,11 @@ withPipeline("nodejs", product, component) {
                 notifyBuildEvent channel: notificationsChannel, color: 'warning', message: 'Failed to update demo branch'
             }
         }
-        env.PACT_BRANCH_NAME = env.CHANGE_BRANCH
+        //env.PACT_BRANCH_NAME = env.CHANGE_BRANCH
         env.PACT_BROKER_URL = "https://pact-broker.platform.hmcts.net"
-        if (env.BRANCH_NAME == 'master') {
-            env.PACT_BRANCH_NAME = 'master'
-        }
+//        if (env.BRANCH_NAME == 'master') {
+//            env.PACT_BRANCH_NAME = 'master'
+//        }
     }
     after('build') {
         sh 'yarn setup'
