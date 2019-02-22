@@ -85,7 +85,6 @@ withPipeline("nodejs", product, component) {
                 sh './pact-broker can-i-deploy --retry-while-unknown=12 --retry-interval=10 -a probate_frontend -b ${PACT_BROKER_URL} -e ${PACT_BROKER_VERSION}'
             }
         }
-
     }
     before('buildinfra:prod') {
         error 'Deliberately breaking pipeline to prevent prod deployment'
