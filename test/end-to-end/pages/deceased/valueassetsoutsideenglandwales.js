@@ -1,6 +1,6 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/deceased/valueassetsoutside/index');
+const pageUnderTest = require('app/steps/ui/iht/valueassetsoutside/index');
 const commonContent = require('app/resources/en/translation/common');
 
 module.exports = function (netAmount) {

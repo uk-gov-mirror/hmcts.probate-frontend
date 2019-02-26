@@ -66,6 +66,24 @@ class IhtPaper extends ValidationStep {
         delete ctx.lessThanOrEqualTo250k;
         return [ctx, formdata];
     }
+
+    clearFormData(ctx, sessionForm) {
+        const fieldToCheckSection = 'iht';
+        const fieldToCheck = 'maritalStatus';
+        const dataToClear = {
+            divorcePlace: 'deceased.divorcePlace',
+            anyChildren: 'deceased.anyChildren',
+            anyOtherChildren: 'deceased.anyOtherChildren',
+            allChildrenOver18: 'deceased.allChildrenOver18',
+            anyDeceasedChildren: 'deceased.anyDeceasedChildren',
+            anyGrandchildrenUnder18: 'deceased.anyGrandchildrenUnder18',
+            relationshipToDeceased: 'applicant.relationshipToDeceased',
+            spouseNotApplyingReason: 'applicant.spouseNotApplyingReason',
+            adoptionPlace: 'applicant.adoptionPlace'
+        };
+
+        return super.clearFormData(ctx, sessionForm, fieldToCheckSection, fieldToCheck, dataToClear);
+    }
 }
 
 module.exports = IhtPaper;

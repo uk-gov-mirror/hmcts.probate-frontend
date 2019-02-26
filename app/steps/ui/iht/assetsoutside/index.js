@@ -1,7 +1,7 @@
 'use strict';
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
-const content = require('app/resources/en/translation/deceased/assetsoutside');
+const content = require('app/resources/en/translation/iht/assetsoutside');
 
 class AssetsOutside extends ValidationStep {
 

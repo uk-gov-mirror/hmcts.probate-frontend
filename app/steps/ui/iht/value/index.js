@@ -12,7 +12,7 @@ class IhtValue extends ValidationStep {
         return '/iht-value';
     }
 
-    handlePost(ctx, errors) {
+    handlePost(ctx, errors, formdata, session) {
         ctx.grossValue = numeral(ctx.grossValueOnline).value();
         ctx.netValue = numeral(ctx.netValueOnline).value();
 
@@ -48,6 +48,27 @@ class IhtValue extends ValidationStep {
         super.action(ctx, formdata);
         delete ctx.lessThanOrEqualTo250k;
         return [ctx, formdata];
+    }
+
+    clearFormData(ctx, sessionForm) {
+        const fieldToCheckSection = 'iht';
+        const fieldToCheck = 'netValue';
+
+        console.log('ctx[fieldToCheck]: ', ctx[fieldToCheck]);
+        console.log('config.assetsValueThreshold: ', config.assetsValueThreshold);
+
+        if (ctx[fieldToCheck] > config.assetsValueThreshold) {
+            console.log('Values changed');
+            const dataToClear = {
+                assetsOutside: 'iht.assetsOutside',
+                netValueAssetsOutsideField: 'iht.netValueAssetsOutsideField',
+                netValueAssetsOutside: 'iht.netValueAssetsOutside'
+            };
+
+            return super.clearFormData(ctx, sessionForm, fieldToCheckSection, fieldToCheck, dataToClear);
+        }
+
+        return super.clearFormData(ctx, sessionForm);
     }
 }
 

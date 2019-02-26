@@ -48,13 +48,12 @@ class UIStepRunner {
     }
 
     handlePost(step, req, res) {
+        let ctx = step.getContextData(req, res);
+
         return co(function * () {
-            let ctx = step.getContextData(req, res);
-
-            [ctx, req.session.form] = step.clearFormData(ctx, req.session.form);
-
             const session = req.session;
             let formdata = session.form;
+            // let ctx = step.getContextData(req, res);
             let [isValid, errors] = [];
             [isValid, errors] = step.validate(ctx, formdata);
             const hasDataChanged = (new DetectDataChange()).hasDataChanged(ctx, req, step);
@@ -97,10 +96,17 @@ class UIStepRunner {
                 const common = step.commonContent();
                 res.render(step.template, {content, fields, errors, common});
             }
-        }).catch((error) => {
-            req.log.error(error);
-            res.status(500).render('errors/500', {common: commonContent});
-        });
+        })
+            .then(() => {
+                [ctx, req.session.form] = step.clearFormData(ctx, req.session.form);
+                console.log('---------------------------');
+                console.log('ctx: ', ctx);
+                console.log('req.session.form: ', req.session.form);
+            })
+            .catch((error) => {
+                req.log.error(error);
+                res.status(500).render('errors/500', {common: commonContent});
+            });
     }
 }
 
