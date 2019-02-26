@@ -32,6 +32,24 @@ class DeceasedMaritalStatus extends ValidationStep {
         delete ctx.divorcedOrSeparated;
         return [ctx, formdata];
     }
+
+    clearFormData(ctx, sessionForm) {
+        const fieldToCheckSection = 'deceased';
+        const fieldToCheck = 'maritalStatus';
+        const dataToClear = {
+            divorcePlace: 'deceased.divorcePlace',
+            anyChildren: 'deceased.anyChildren',
+            anyOtherChildren: 'deceased.anyOtherChildren',
+            allChildrenOver18: 'deceased.allChildrenOver18',
+            anyDeceasedChildren: 'deceased.anyDeceasedChildren',
+            anyGrandchildrenUnder18: 'deceased.anyGrandchildrenUnder18',
+            relationshipToDeceased: 'applicant.relationshipToDeceased',
+            spouseNotApplyingReason: 'applicant.spouseNotApplyingReason',
+            adoptionPlace: 'applicant.adoptionPlace'
+        };
+
+        return super.clearFormData(ctx, sessionForm, fieldToCheckSection, fieldToCheck, dataToClear);
+    }
 }
 
 module.exports = DeceasedMaritalStatus;

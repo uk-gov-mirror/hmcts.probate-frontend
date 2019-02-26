@@ -49,9 +49,12 @@ class UIStepRunner {
 
     handlePost(step, req, res) {
         return co(function * () {
+            let ctx = step.getContextData(req, res);
+
+            [ctx, req.session.form] = step.clearFormData(ctx, req.session.form);
+
             const session = req.session;
             let formdata = session.form;
-            let ctx = step.getContextData(req, res);
             let [isValid, errors] = [];
             [isValid, errors] = step.validate(ctx, formdata);
             const hasDataChanged = (new DetectDataChange()).hasDataChanged(ctx, req, step);

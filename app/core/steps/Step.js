@@ -1,6 +1,6 @@
 'use strict';
 
-const {mapValues, map, reduce, escape, isObject, isEmpty, get} = require('lodash');
+const {mapValues, map, reduce, escape, isObject, isEmpty, get, omit} = require('lodash');
 const UIStepRunner = require('app/core/runners/UIStepRunner');
 const JourneyMap = require('app/core/JourneyMap');
 const mapErrorsToFields = require('app/components/error').mapErrorsToFields;
@@ -147,6 +147,14 @@ class Step {
 
     renderPage(res, html) {
         res.send(html);
+    }
+
+    clearFormData(ctx, sessionForm, fieldToCheckSection, fieldToCheck, dataToClear) {
+        if (fieldToCheckSection && fieldToCheck && dataToClear && sessionForm[fieldToCheckSection] && sessionForm[fieldToCheckSection][fieldToCheck] && ctx[fieldToCheck] !== sessionForm[fieldToCheckSection][fieldToCheck]) {
+            return [omit(ctx, Object.keys(dataToClear)), omit(sessionForm, Object.values(dataToClear))];
+        }
+
+        return [ctx, sessionForm];
     }
 
 }
