@@ -150,14 +150,7 @@ class Step {
     }
 
     clearFormData(ctx, sessionForm, fieldToCheckSection, fieldToCheck, dataToClear) {
-        console.log('fieldToCheckSection: ', fieldToCheckSection);
-        console.log('fieldToCheck: ', fieldToCheck);
-        console.log('dataToClear: ', dataToClear);
-        console.log('ctx: ', ctx);
-        console.log('sessionForm: ', sessionForm);
-        if (fieldToCheckSection && fieldToCheck && dataToClear) {
-        // if (fieldToCheckSection && fieldToCheck && dataToClear && sessionForm[fieldToCheckSection] && sessionForm[fieldToCheckSection][fieldToCheck]) {
-            console.log('CLEARING DATA INSIDE');
+        if (fieldToCheckSection && fieldToCheck && dataToClear && sessionForm[fieldToCheckSection] && sessionForm[fieldToCheckSection][fieldToCheck]) {
             return [omit(ctx, Object.keys(dataToClear)), omit(sessionForm, Object.values(dataToClear))];
         }
 
