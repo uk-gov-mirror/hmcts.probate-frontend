@@ -56,7 +56,6 @@ class DeceasedAlias extends ValidationStep {
 
         return super.clearFormData(ctx, sessionForm, fieldToCheckSection, fieldToCheck, dataToClear);
     }
-
 }
 
 module.exports = DeceasedAlias;

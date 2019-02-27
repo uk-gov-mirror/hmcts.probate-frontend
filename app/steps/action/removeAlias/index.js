@@ -33,7 +33,6 @@ class RemoveAlias extends DeceasedOtherNames {
         }
         return [ctx, errors];
     }
-
 }
 
 module.exports = RemoveAlias;

@@ -131,7 +131,6 @@ class PaymentBreakdown extends Step {
                 } else {
                     logger.warn('Skipping - create payment request in progress');
                 }
-
             } else {
                 formdata.paymentPending = ctx.total === 0 ? 'false' : 'true';
                 delete this.nextStepUrl;

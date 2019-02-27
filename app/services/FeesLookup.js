@@ -10,7 +10,6 @@ class FeesLookup extends FeesRegister {
         const url = `${this.endpoint}${config.services.feesRegister.paths.feesLookup}?${params.toString()}`;
         return super.get(url, headers);
     }
-
 }
 
 module.exports = FeesLookup;

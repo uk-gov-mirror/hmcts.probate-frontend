@@ -156,7 +156,6 @@ class Step {
 
         return [ctx, sessionForm];
     }
-
 }
 
 module.exports = Step;

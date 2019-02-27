@@ -10,7 +10,6 @@ class Fees extends FeesRegister {
         const url = `${this.endpoint}${config.services.feesRegister.paths.fees}?${params.toString()}`;
         return super.get(url, headers);
     }
-
 }
 
 module.exports = Fees;

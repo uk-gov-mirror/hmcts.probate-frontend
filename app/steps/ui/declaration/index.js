@@ -205,7 +205,6 @@ class Declaration extends ValidationStep {
         formdata.legalDeclaration = legalDocumentJSONObjBuilder.build(formdata, html);
         res.send(html);
     }
-
 }
 
 module.exports = Declaration;

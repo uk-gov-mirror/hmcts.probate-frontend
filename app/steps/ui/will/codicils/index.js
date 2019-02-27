@@ -37,7 +37,6 @@ class WillCodicils extends ValidationStep {
 
         return super.clearFormData(ctx, sessionForm, fieldToCheckSection, fieldToCheck, dataToClear);
     }
-
 }
 
 module.exports = WillCodicils;
