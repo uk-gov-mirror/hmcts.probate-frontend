@@ -23,6 +23,17 @@ class AssetsOutside extends ValidationStep {
             ]
         };
     }
+
+    clearFormData(ctx, sessionForm) {
+        const fieldToCheckSection = 'iht';
+        const fieldToCheck = 'assetsOutside';
+        const dataToClear = {
+            netValueAssetsOutsideField: 'iht.netValueAssetsOutsideField',
+            netValueAssetsOutside: 'iht.netValueAssetsOutside'
+        };
+
+        return super.clearFormData(ctx, sessionForm, fieldToCheckSection, fieldToCheck, dataToClear);
+    }
 }
 
 module.exports = AssetsOutside;

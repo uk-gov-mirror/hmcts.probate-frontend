@@ -46,6 +46,17 @@ class DeceasedAlias extends ValidationStep {
             isSoftStop: softStopForAssetsInAnotherName
         };
     }
+
+    clearFormData(ctx, sessionForm) {
+        const fieldToCheckSection = 'deceased';
+        const fieldToCheck = 'alias';
+        const dataToClear = {
+            otherNames: 'deceased.otherNames'
+        };
+
+        return super.clearFormData(ctx, sessionForm, fieldToCheckSection, fieldToCheck, dataToClear);
+    }
+
 }
 
 module.exports = DeceasedAlias;

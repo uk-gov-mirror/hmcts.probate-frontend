@@ -69,20 +69,19 @@ class IhtPaper extends ValidationStep {
 
     clearFormData(ctx, sessionForm) {
         const fieldToCheckSection = 'iht';
-        const fieldToCheck = 'maritalStatus';
-        const dataToClear = {
-            divorcePlace: 'deceased.divorcePlace',
-            anyChildren: 'deceased.anyChildren',
-            anyOtherChildren: 'deceased.anyOtherChildren',
-            allChildrenOver18: 'deceased.allChildrenOver18',
-            anyDeceasedChildren: 'deceased.anyDeceasedChildren',
-            anyGrandchildrenUnder18: 'deceased.anyGrandchildrenUnder18',
-            relationshipToDeceased: 'applicant.relationshipToDeceased',
-            spouseNotApplyingReason: 'applicant.spouseNotApplyingReason',
-            adoptionPlace: 'applicant.adoptionPlace'
-        };
+        const fieldToCheck = 'netValue';
 
-        return super.clearFormData(ctx, sessionForm, fieldToCheckSection, fieldToCheck, dataToClear);
+        if (ctx[fieldToCheck] > config.assetsValueThreshold) {
+            const dataToClear = {
+                assetsOutside: 'iht.assetsOutside',
+                netValueAssetsOutsideField: 'iht.netValueAssetsOutsideField',
+                netValueAssetsOutside: 'iht.netValueAssetsOutside'
+            };
+
+            return super.clearFormData(ctx, sessionForm, fieldToCheckSection, fieldToCheck, dataToClear);
+        }
+
+        return super.clearFormData(ctx, sessionForm);
     }
 }
 
