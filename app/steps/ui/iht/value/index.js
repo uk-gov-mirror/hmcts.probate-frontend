@@ -54,11 +54,7 @@ class IhtValue extends ValidationStep {
         const fieldToCheckSection = 'iht';
         const fieldToCheck = 'netValue';
 
-        console.log('ctx[fieldToCheck]: ', ctx[fieldToCheck]);
-        console.log('config.assetsValueThreshold: ', config.assetsValueThreshold);
-
         if (ctx[fieldToCheck] > config.assetsValueThreshold) {
-            console.log('Values changed');
             const dataToClear = {
                 assetsOutside: 'iht.assetsOutside',
                 netValueAssetsOutsideField: 'iht.netValueAssetsOutsideField',
