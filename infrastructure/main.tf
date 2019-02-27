@@ -1,24 +1,7 @@
-#//provider "vault" {
-  //  # It is strongly recommended to configure this provider through the
-  //  # environment variables described above, so that each user can have
-  //  # separate credentials set in the environment.
-  //  #
-  //  # This will default to using $VAULT_ADDR
-  //  # But can be set explicitly
-#//  address = "https://vault.reform.hmcts.net:6200"
-#//}
-
 provider "azurerm" {
   version = "1.19.0"
 }
 
-# data "vault_generic_secret" "idam_frontend_service_key" {
-#   path = "secret/${var.vault_section}/ccidam/service-auth-provider/api/microservice-keys/probate-frontend"
-# }
-
-# data "vault_generic_secret" "idam_frontend_idam_key" {
-#   path = "secret/${var.vault_section}/ccidam/idam-api/oauth2/client-secrets/probate"
-# }
 
 locals {
   aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
