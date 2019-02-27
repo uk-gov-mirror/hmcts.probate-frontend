@@ -1,4 +1,5 @@
 'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 const content = require('app/resources/en/translation/applicant/adoptionplace');
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
