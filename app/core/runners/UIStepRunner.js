@@ -96,11 +96,10 @@ class UIStepRunner {
                 const common = step.commonContent();
                 res.render(step.template, {content, fields, errors, common});
             }
-        })
-            .catch((error) => {
-                req.log.error(error);
-                res.status(500).render('errors/500', {common: commonContent});
-            });
+        }).catch((error) => {
+            req.log.error(error);
+            res.status(500).render('errors/500', {common: commonContent});
+        });
     }
 }
 
