@@ -39,6 +39,18 @@ class ApplicantNameAsOnWill extends ValidationStep {
         };
         return nextStepOptions;
     }
+
+    clearFormData(ctx, sessionForm) {
+        const fieldToCheckSection = 'applicant';
+        const fieldToCheck = 'nameAsOnTheWill';
+        const dataToClear = {
+            alias: 'applicant.alias',
+            aliasReason: 'applicant.aliasReason'
+        };
+
+        return super.clearFormData(ctx, sessionForm, fieldToCheckSection, fieldToCheck, dataToClear);
+    }
+
 }
 
 module.exports = ApplicantNameAsOnWill;
