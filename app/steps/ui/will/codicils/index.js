@@ -29,8 +29,7 @@ class WillCodicils extends ValidationStep {
         return [ctx, formdata];
     }
 
-    clearFormData(ctx, sessionForm) {
-        const fieldToCheckSection = 'will';
+    clearFormData(ctx, sessionForm, fieldToCheckSection) {
         const fieldToCheck = 'codicils';
         const dataToClear = {
             codicilsNumber: 'will.codicilsNumber'

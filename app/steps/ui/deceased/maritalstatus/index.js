@@ -33,8 +33,7 @@ class DeceasedMaritalStatus extends ValidationStep {
         return [ctx, formdata];
     }
 
-    clearFormData(ctx, sessionForm) {
-        const fieldToCheckSection = 'deceased';
+    clearFormData(ctx, sessionForm, fieldToCheckSection) {
         const fieldToCheck = 'maritalStatus';
         const dataToClear = {
             divorcePlace: 'deceased.divorcePlace',

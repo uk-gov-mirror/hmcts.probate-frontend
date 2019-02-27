@@ -50,8 +50,7 @@ class IhtValue extends ValidationStep {
         return [ctx, formdata];
     }
 
-    clearFormData(ctx, sessionForm) {
-        const fieldToCheckSection = 'iht';
+    clearFormData(ctx, sessionForm, fieldToCheckSection) {
         const fieldToCheck = 'netValue';
 
         if (ctx[fieldToCheck] > config.assetsValueThreshold) {

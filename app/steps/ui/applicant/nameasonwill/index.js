@@ -40,8 +40,7 @@ class ApplicantNameAsOnWill extends ValidationStep {
         return nextStepOptions;
     }
 
-    clearFormData(ctx, sessionForm) {
-        const fieldToCheckSection = 'applicant';
+    clearFormData(ctx, sessionForm, fieldToCheckSection) {
         const fieldToCheck = 'nameAsOnTheWill';
         const dataToClear = {
             alias: 'applicant.alias',
