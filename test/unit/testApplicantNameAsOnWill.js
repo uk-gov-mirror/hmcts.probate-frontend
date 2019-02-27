@@ -1,7 +1,9 @@
 'use strict';
+
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const content = require('app/resources/en/translation/applicant/nameasonwill');
+const contentAliasReason = require('app/resources/en/translation/applicant/aliasreason');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const ApplicantNameAsOnWill = steps.ApplicantNameAsOnWill;
 
@@ -88,6 +90,37 @@ describe('ApplicantNameAsOnWill', () => {
                     choice: 'hasAlias'
                 }]
             });
+            done();
+        });
+    });
+
+    describe('clearFormData()', () => {
+        it('should clear answers to following questions affected by a change in this answer', (done) => {
+            const testCtx = {
+                nameAsOnTheWill: content.optionNo,
+                alias: 'Applicant Alias',
+                aliasReason: contentAliasReason.optionMarriage
+            };
+            const testSessionForm = {
+                applicant: {
+                    nameAsOnTheWill: content.optionNo,
+                    alias: 'Applicant Alias',
+                    aliasReason: contentAliasReason.optionMarriage
+                }
+            };
+            const fieldToCheckSection = 'applicant';
+
+            const [ctx, sessionForm] = ApplicantNameAsOnWill.clearFormData(testCtx, testSessionForm, fieldToCheckSection);
+            expect([ctx, sessionForm]).to.deep.equal([
+                {
+                    nameAsOnTheWill: content.optionNo
+                },
+                {
+                    applicant: {
+                        nameAsOnTheWill: content.optionNo
+                    }
+                }
+            ]);
             done();
         });
     });

@@ -34,27 +34,12 @@ class DeceasedAlias extends ValidationStep {
         return [ctx, errors];
     }
 
-    action(ctx, formdata) {
-        super.action(ctx, formdata);
-        return [ctx, formdata];
-    }
-
     isSoftStop(formdata) {
         const softStopForAssetsInAnotherName = (new DeceasedWrapper(formdata.deceased)).hasAlias();
         return {
             stepName: this.constructor.name,
             isSoftStop: softStopForAssetsInAnotherName
         };
-    }
-
-    clearFormData(ctx, sessionForm) {
-        const fieldToCheckSection = 'deceased';
-        const fieldToCheck = 'alias';
-        const dataToClear = {
-            otherNames: 'deceased.otherNames'
-        };
-
-        return super.clearFormData(ctx, sessionForm, fieldToCheckSection, fieldToCheck, dataToClear);
     }
 }
 
