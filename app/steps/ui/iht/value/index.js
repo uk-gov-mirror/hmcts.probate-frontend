@@ -47,23 +47,14 @@ class IhtValue extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.lessThanOrEqualTo250k;
-        return [ctx, formdata];
-    }
 
-    clearFormData(ctx, sessionForm, fieldToCheckSection) {
-        const fieldToCheck = 'netValue';
-
-        if (ctx[fieldToCheck] > config.assetsValueThreshold) {
-            const dataToClear = {
-                assetsOutside: 'iht.assetsOutside',
-                netValueAssetsOutsideField: 'iht.netValueAssetsOutsideField',
-                netValueAssetsOutside: 'iht.netValueAssetsOutside'
-            };
-
-            return super.clearFormData(ctx, sessionForm, fieldToCheckSection, fieldToCheck, dataToClear);
+        if (ctx.netValue > config.assetsValueThreshold) {
+            delete ctx.assetsOutside;
+            delete ctx.netValueAssetsOutsideField;
+            delete ctx.netValueAssetsOutside;
         }
 
-        return super.clearFormData(ctx, sessionForm);
+        return [ctx, formdata];
     }
 }
 
