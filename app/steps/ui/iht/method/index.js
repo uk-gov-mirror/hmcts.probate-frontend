@@ -1,7 +1,7 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const json = require('app/resources/en/translation/iht/method');
+const content = require('app/resources/en/translation/iht/method');
 
 class IhtMethod extends ValidationStep {
 
@@ -12,31 +12,30 @@ class IhtMethod extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'method', value: json.onlineOption, choice: 'online'}
+                {key: 'method', value: content.optionOnline, choice: 'online'}
             ]
         };
     }
 
-    clearFormData(ctx, sessionForm) {
-        const fieldToCheckSection = 'iht';
-        const fieldToCheck = 'method';
-        const dataToClear = {
-            identifier: 'iht.identifier',
-            form: 'iht.form',
-            ihtFormId: 'iht.ihtFormId',
-            grossValueOnline: 'iht.grossValueOnline',
-            grossIHT205: 'iht.grossIHT205',
-            grossIHT207: 'iht.grossIHT207',
-            grossIHT400421: 'iht.grossIHT400421',
-            grossValue: 'iht.grossValue',
-            netValueOnline: 'iht.netValueOnline',
-            netIHT205: 'iht.netIHT205',
-            netIHT207: 'iht.netIHT207',
-            netIHT400421: 'iht.netIHT400421',
-            netValue: 'iht.netValue'
-        };
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
 
-        return super.clearFormData(ctx, sessionForm, fieldToCheckSection, fieldToCheck, dataToClear);
+        if (ctx.method === content.optionPaper) {
+            delete ctx.identifier;
+            delete ctx.grossValueOnline;
+            delete ctx.netValueOnline;
+        } else {
+            delete ctx.form;
+            delete ctx.ihtFormId;
+            delete ctx.grossIHT205;
+            delete ctx.grossIHT207;
+            delete ctx.grossIHT400421;
+            delete ctx.netIHT205;
+            delete ctx.netIHT207;
+            delete ctx.netIHT400421;
+        }
+
+        return [ctx, formdata];
     }
 }
 

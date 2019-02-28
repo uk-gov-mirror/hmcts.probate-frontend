@@ -37,7 +37,7 @@ describe('iht-method', () => {
 
         it(`test it redirects to iht paper: ${expectedNextUrlForIhtPaper}`, (done) => {
             const data = {
-                method: ihtMethodContent.paperOption
+                method: ihtMethodContent.optionPaper
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtPaper);
@@ -45,7 +45,7 @@ describe('iht-method', () => {
 
         it(`test it redirects to iht identifier: ${expectedNextUrlForIhtIdentifier}`, (done) => {
             const data = {
-                method: ihtMethodContent.onlineOption
+                method: ihtMethodContent.optionOnline
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtIdentifier);

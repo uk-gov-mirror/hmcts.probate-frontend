@@ -1,7 +1,7 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const json = require('app/resources/en/translation/assets/overseas');
+const content = require('app/resources/en/translation/assets/overseas');
 
 class AssetsOverseas extends ValidationStep {
 
@@ -12,7 +12,7 @@ class AssetsOverseas extends ValidationStep {
     nextStepOptions() {
         const nextStepOptions = {
             options: [
-                {key: 'assetsoverseas', value: json.optionYes, choice: 'assetsoverseas'}
+                {key: 'assetsoverseas', value: content.optionYes, choice: 'assetsoverseas'}
             ]
         };
         return nextStepOptions;

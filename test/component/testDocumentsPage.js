@@ -706,7 +706,7 @@ describe('documents', () => {
             featureTogglesNock('false');
 
             sessionData.iht = {
-                method: ihtContent.onlineOption
+                method: ihtContent.optionOnline
             };
 
             testWrapper.agent.post('/prepare-session/form')
@@ -756,7 +756,7 @@ describe('documents', () => {
             featureTogglesNock('true');
 
             sessionData.iht = {
-                method: ihtContent.onlineOption
+                method: ihtContent.optionOnline
             };
 
             testWrapper.agent.post('/prepare-session/form')
@@ -805,7 +805,7 @@ describe('documents', () => {
             featureTogglesNock('false');
 
             sessionData.iht = {
-                method: ihtContent.paperOption,
+                method: ihtContent.optionPaper,
                 form: 'IHT207'
             };
 
@@ -856,7 +856,7 @@ describe('documents', () => {
             featureTogglesNock('true');
 
             sessionData.iht = {
-                method: ihtContent.paperOption,
+                method: ihtContent.optionPaper,
                 form: 'IHT207'
             };
 
@@ -906,7 +906,7 @@ describe('documents', () => {
             featureTogglesNock('false');
 
             sessionData.iht = {
-                method: ihtContent.paperOption,
+                method: ihtContent.optionPaper,
                 form: 'IHT205'
             };
 
@@ -956,7 +956,7 @@ describe('documents', () => {
             featureTogglesNock('true');
 
             sessionData.iht = {
-                method: ihtContent.paperOption,
+                method: ihtContent.optionPaper,
                 form: 'IHT205'
             };
 

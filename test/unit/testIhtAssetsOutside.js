@@ -50,4 +50,19 @@ describe('AssetsOutside', () => {
             done();
         });
     });
+
+    describe('action()', () => {
+        it('test that the Value of Assets Outside England and Wales context variables are removed if No Assets Outside chosen', () => {
+            let formdata = {};
+            let ctx = {
+                assetsOutside: content.optionNo,
+                netValueAssetsOutsideField: '600000',
+                netValueAssetsOutside: 600000
+            };
+            [ctx, formdata] = AssetsOutside.action(ctx, formdata);
+            expect(ctx).to.deep.equal({
+                assetsOutside: content.optionNo
+            });
+        });
+    });
 });

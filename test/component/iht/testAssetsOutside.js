@@ -1,8 +1,8 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ValueAssetsOutside = require('app/steps/ui/iht/valueassetsoutside/index');
-const DeceasedAlias = require('app/steps/ui/deceased/alias/index');
+const ValueAssetsOutside = require('app/steps/ui/iht/valueassetsoutside');
+const DeceasedAlias = require('app/steps/ui/deceased/alias');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const content = require('app/resources/en/translation/iht/assetsoutside');
 const config = require('app/config');
