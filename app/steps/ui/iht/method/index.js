@@ -20,7 +20,7 @@ class IhtMethod extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
 
-        if (ctx.method === content.optionPaper) {
+        if (ctx.method === this.generateContent(ctx, formdata).optionPaper) {
             delete ctx.identifier;
             delete ctx.grossValueOnline;
             delete ctx.netValueOnline;

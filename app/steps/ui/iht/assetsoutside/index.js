@@ -28,7 +28,7 @@ class AssetsOutside extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
 
-        if (ctx.assetsOutside === content.optionNo) {
+        if (ctx.assetsOutside === this.generateContent(ctx, formdata).optionNo) {
             delete ctx.netValueAssetsOutsideField;
             delete ctx.netValueAssetsOutside;
         }

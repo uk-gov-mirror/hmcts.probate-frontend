@@ -44,7 +44,7 @@ class ApplicantNameAsOnWill extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
 
-        if (ctx.nameAsOnTheWill === content.optionYes) {
+        if (ctx.nameAsOnTheWill === this.generateContent(ctx, formdata).optionYes) {
             delete ctx.alias;
             delete ctx.aliasReason;
         }

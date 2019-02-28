@@ -28,15 +28,6 @@ class WillCodicils extends ValidationStep {
         super.action(ctx, formdata);
         return [ctx, formdata];
     }
-
-    clearFormData(ctx, sessionForm, fieldToCheckSection) {
-        const fieldToCheck = 'codicils';
-        const dataToClear = {
-            codicilsNumber: 'will.codicilsNumber'
-        };
-
-        return super.clearFormData(ctx, sessionForm, fieldToCheckSection, fieldToCheck, dataToClear);
-    }
 }
 
 module.exports = WillCodicils;
