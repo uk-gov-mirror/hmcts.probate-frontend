@@ -1,6 +1,6 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/screeners/starteligibility/index');
+const pageUnderTest = require('app/steps/ui/screeners/starteligibility');
 const testConfig = require('test/config.js');
 
 module.exports = function (checkCookieBannerExists) {
