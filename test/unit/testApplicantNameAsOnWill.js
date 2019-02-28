@@ -94,34 +94,18 @@ describe('ApplicantNameAsOnWill', () => {
         });
     });
 
-    describe('clearFormData()', () => {
-        it('should clear answers to following questions affected by a change in this answer', (done) => {
-            const testCtx = {
-                nameAsOnTheWill: content.optionNo,
+    describe('action()', () => {
+        it('test that the Value of Assets Outside England and Wales context variables are removed if No Assets Outside chosen', () => {
+            let formdata = {};
+            let ctx = {
+                nameAsOnTheWill: content.optionYes,
                 alias: 'Applicant Alias',
                 aliasReason: contentAliasReason.optionMarriage
             };
-            const testSessionForm = {
-                applicant: {
-                    nameAsOnTheWill: content.optionNo,
-                    alias: 'Applicant Alias',
-                    aliasReason: contentAliasReason.optionMarriage
-                }
-            };
-            const fieldToCheckSection = 'applicant';
-
-            const [ctx, sessionForm] = ApplicantNameAsOnWill.clearFormData(testCtx, testSessionForm, fieldToCheckSection);
-            expect([ctx, sessionForm]).to.deep.equal([
-                {
-                    nameAsOnTheWill: content.optionNo
-                },
-                {
-                    applicant: {
-                        nameAsOnTheWill: content.optionNo
-                    }
-                }
-            ]);
-            done();
+            [ctx, formdata] = ApplicantNameAsOnWill.action(ctx, formdata);
+            expect(ctx).to.deep.equal({
+                nameAsOnTheWill: content.optionYes
+            });
         });
     });
 });
