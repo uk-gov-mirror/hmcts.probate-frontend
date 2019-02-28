@@ -79,4 +79,15 @@ describe('ApplicantNameAsOnWill', () => {
             done();
         });
     });
+
+    describe('action()', () => {
+        it('test that context variables are removed and empty object returned', () => {
+            let formdata = {};
+            let ctx = {
+                deceasedName: 'Dee Ceased'
+            };
+            [ctx, formdata] = DeceasedAlias.action(ctx, formdata);
+            expect(ctx).to.deep.equal({});
+        });
+    });
 });

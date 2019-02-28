@@ -41,6 +41,12 @@ class DeceasedAlias extends ValidationStep {
             isSoftStop: softStopForAssetsInAnotherName
         };
     }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.deceasedName;
+        return [ctx, formdata];
+    }
 }
 
 module.exports = DeceasedAlias;

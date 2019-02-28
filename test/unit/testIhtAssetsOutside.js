@@ -55,6 +55,7 @@ describe('AssetsOutside', () => {
         it('test that the Value of Assets Outside England and Wales context variables are removed if No Assets Outside chosen', () => {
             let formdata = {};
             let ctx = {
+                deceasedName: 'Dee Ceased',
                 assetsOutside: content.optionNo,
                 netValueAssetsOutsideField: '600000',
                 netValueAssetsOutside: 600000
