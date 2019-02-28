@@ -4,7 +4,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const config = require('app/config');
-const ThankYou = require('app/steps/ui/thankyou/index.js');
+const ThankYou = require('app/steps/ui/thankyou');
 const ihtContent = require('app/resources/en/translation/iht/method');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const nock = require('nock');

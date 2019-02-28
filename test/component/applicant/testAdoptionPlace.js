@@ -1,9 +1,9 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const SpouseNotApplyingReason = require('app/steps/ui/applicant/spousenotapplyingreason/index');
-const AnyOtherChildren = require('app/steps/ui/deceased/anyotherchildren/index');
-const StopPage = require('app/steps/ui/stoppage/index');
+const SpouseNotApplyingReason = require('app/steps/ui/applicant/spousenotapplyingreason');
+const AnyOtherChildren = require('app/steps/ui/deceased/anyotherchildren');
+const StopPage = require('app/steps/ui/stoppage');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const content = require('app/resources/en/translation/applicant/adoptionplace');
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');

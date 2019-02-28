@@ -2,8 +2,8 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const ihtMethodContent = require('app/resources/en/translation/iht/method');
-const IhtIdentifier = require('app/steps/ui/iht/identifier/index');
-const IhtPaper = require('app/steps/ui/iht/paper/index');
+const IhtIdentifier = require('app/steps/ui/iht/identifier');
+const IhtPaper = require('app/steps/ui/iht/paper');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('iht-method', () => {
