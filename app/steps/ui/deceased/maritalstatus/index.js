@@ -30,18 +30,21 @@ class DeceasedMaritalStatus extends ValidationStep {
         super.action(ctx, formdata);
         delete ctx.deceasedName;
         delete ctx.divorcedOrSeparated;
+
+        if (ctx.maritalStatus !== formdata.deceased.maritalStatus) {
+            delete ctx.divorcePlace;
+            delete ctx.anyChildren;
+            delete ctx.anyOtherChildren;
+            delete ctx.allChildrenOver18;
+            delete ctx.anyDeceasedChildren;
+            delete ctx.anyGrandchildrenUnder18;
+        }
         return [ctx, formdata];
     }
 
     clearFormData(ctx, sessionForm, fieldToCheckSection) {
         const fieldToCheck = 'maritalStatus';
         const dataToClear = {
-            divorcePlace: 'deceased.divorcePlace',
-            anyChildren: 'deceased.anyChildren',
-            anyOtherChildren: 'deceased.anyOtherChildren',
-            allChildrenOver18: 'deceased.allChildrenOver18',
-            anyDeceasedChildren: 'deceased.anyDeceasedChildren',
-            anyGrandchildrenUnder18: 'deceased.anyGrandchildrenUnder18',
             relationshipToDeceased: 'applicant.relationshipToDeceased',
             spouseNotApplyingReason: 'applicant.spouseNotApplyingReason',
             adoptionPlace: 'applicant.adoptionPlace'

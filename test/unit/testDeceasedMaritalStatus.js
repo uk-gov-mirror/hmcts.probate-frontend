@@ -65,20 +65,15 @@ describe('DeceasedMaritalStatus', () => {
 
     describe('action()', () => {
         it('test that context variables are removed and empty object returned', () => {
-            let formdata = {};
-            let ctx = {
-                deceasedName: 'Dee Ceased',
-                divorcedOrSeparated: true
+            let formdata = {
+                deceased: {
+                    maritalStatus: content.optionDivorced
+                }
             };
-            [ctx, formdata] = DeceasedMaritalStatus.action(ctx, formdata);
-            expect(ctx).to.deep.equal({});
-        });
-    });
-
-    describe('clearFormData()', () => {
-        it('should clear answers to following questions affected by a change in this answer', (done) => {
-            const testCtx = {
+            let ctx = {
                 maritalStatus: content.optionMarried,
+                deceasedName: 'Dee Ceased',
+                divorcedOrSeparated: true,
                 divorcePlace: contentDivorcePlace.optionYes,
                 anyChildren: contentAnyChildren.optionYes,
                 anyOtherChildren: contentAnyOtherChildren.optionYes,
@@ -86,8 +81,20 @@ describe('DeceasedMaritalStatus', () => {
                 allChildrenOver18: 'Yes',
                 // anyDeceasedChildren: contentAnyDeceasedChildren.optionYes,
                 anyDeceasedChildren: 'Yes',
-                // anyGrandchildrenUnder18: contentAnyGrandchildrenUnder18.optionYes,
-                anyGrandchildrenUnder18: 'Yes',
+                // anyGrandchildrenUnder18: contentAnyGrandchildrenUnder18.optionYes
+                anyGrandchildrenUnder18: 'Yes'
+            };
+            [ctx, formdata] = DeceasedMaritalStatus.action(ctx, formdata);
+            expect(ctx).to.deep.equal({
+                maritalStatus: content.optionMarried
+            });
+        });
+    });
+
+    describe('clearFormData()', () => {
+        it('should clear answers to following questions affected by a change in this answer', (done) => {
+            const testCtx = {
+                maritalStatus: content.optionMarried,
                 relationshipToDeceased: contentRelationshipToDeceased.optionAdoptedChild,
                 spouseNotApplyingReason: contentSpouseNotApplyingReason.optionRenouncing,
                 adoptionPlace: contentAdoptionPlace.optionYes
@@ -95,16 +102,6 @@ describe('DeceasedMaritalStatus', () => {
             const testSessionForm = {
                 applicant: {
                     maritalStatus: content.optionMarried,
-                    nameAsOnTheWill: content.optionNo,
-                    divorcePlace: contentDivorcePlace.optionYes,
-                    anyChildren: contentAnyChildren.optionYes,
-                    anyOtherChildren: contentAnyOtherChildren.optionYes,
-                    // allChildrenOver18: contentAllChildrenOver18.optionYes,
-                    allChildrenOver18: 'Yes',
-                    // anyDeceasedChildren: contentAnyDeceasedChildren.optionYes,
-                    anyDeceasedChildren: 'Yes',
-                    // anyGrandchildrenUnder18: contentAnyGrandchildrenUnder18.optionYes,
-                    anyGrandchildrenUnder18: 'Yes',
                     relationshipToDeceased: contentRelationshipToDeceased.optionAdoptedChild,
                     spouseNotApplyingReason: contentSpouseNotApplyingReason.optionRenouncing,
                     adoptionPlace: contentAdoptionPlace.optionYes
@@ -125,4 +122,5 @@ describe('DeceasedMaritalStatus', () => {
             ]);
             done();
         });
-    });});
+    });
+});
