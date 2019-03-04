@@ -1,5 +1,6 @@
 {% extends "includes/two_thirds_form.html" %}
 
+{% from "widgets/lists.html" import unorderedList %}
 {% from "widgets/numbers.html" import numberField %}
 
 {% block question %}
@@ -7,6 +8,14 @@
 {% endblock %}
 
 {% block form_content %}
+    <p>{{ content.paragraph1 | safe }}</p>
+    <p>{{ content.paragraph2 | safe }}</p>
+    <p>{{ content.paragraph3 | safe }}</p>
+    {{ unorderedList([
+        content.bullet1 | safe,
+        content.bullet2 | safe
+    ]) }}
+
     <fieldset>
         <legend class="visually-hidden">
             {{ content.question | safe }}
