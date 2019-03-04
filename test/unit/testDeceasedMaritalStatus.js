@@ -93,12 +93,6 @@ describe('DeceasedMaritalStatus', () => {
 
     describe('clearFormData()', () => {
         it('should clear answers to following questions affected by a change in this answer', (done) => {
-            const testCtx = {
-                maritalStatus: content.optionMarried,
-                relationshipToDeceased: contentRelationshipToDeceased.optionAdoptedChild,
-                spouseNotApplyingReason: contentSpouseNotApplyingReason.optionRenouncing,
-                adoptionPlace: contentAdoptionPlace.optionYes
-            };
             const testSessionForm = {
                 applicant: {
                     maritalStatus: content.optionMarried,
@@ -109,17 +103,12 @@ describe('DeceasedMaritalStatus', () => {
             };
             const fieldToCheckSection = 'applicant';
 
-            const [ctx, sessionForm] = DeceasedMaritalStatus.clearFormData(testCtx, testSessionForm, fieldToCheckSection);
-            expect([ctx, sessionForm]).to.deep.equal([
-                {
+            const sessionForm = DeceasedMaritalStatus.clearFormData(testSessionForm, fieldToCheckSection);
+            expect(sessionForm).to.deep.equal({
+                applicant: {
                     maritalStatus: content.optionMarried
-                },
-                {
-                    applicant: {
-                        maritalStatus: content.optionMarried
-                    }
                 }
-            ]);
+            });
             done();
         });
     });

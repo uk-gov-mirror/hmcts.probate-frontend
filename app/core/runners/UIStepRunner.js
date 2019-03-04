@@ -71,7 +71,7 @@ class UIStepRunner {
                     formdata.declaration.hasDataChanged = true;
                 }
 
-                [ctx, req.session.form] = step.clearFormData(ctx, req.session.form, step.section);
+                req.session.form = step.clearFormData(req.session.form, step.section);
 
                 const result = yield step.persistFormData(session.regId, formdata, session.id);
 

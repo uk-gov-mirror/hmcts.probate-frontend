@@ -149,12 +149,12 @@ class Step {
         res.send(html);
     }
 
-    clearFormData(ctx, sessionForm, fieldToCheckSection, fieldToCheck, dataToClear) {
+    clearFormData(sessionForm, fieldToCheckSection, fieldToCheck, dataToClear) {
         if (fieldToCheckSection && fieldToCheck && dataToClear && sessionForm[fieldToCheckSection] && sessionForm[fieldToCheckSection][fieldToCheck]) {
-            return [omit(ctx, Object.keys(dataToClear)), omit(sessionForm, Object.values(dataToClear))];
+            return omit(sessionForm, Object.values(dataToClear));
         }
 
-        return [ctx, sessionForm];
+        return sessionForm;
     }
 }
 
