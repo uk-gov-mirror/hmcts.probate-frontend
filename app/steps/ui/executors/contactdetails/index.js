@@ -35,6 +35,7 @@ class ExecutorContactDetails extends ValidationStep {
     }
 
     * handlePost(ctx, errors) {
+        const executorsWrapper = new ExecutorsWrapper(ctx);
         const executor = ctx.list[ctx.index];
         if (!emailValidator.validate(ctx.email)) {
             errors.push(FieldError('email', 'invalid', this.resourcePath, this.generateContent()));
@@ -48,6 +49,7 @@ class ExecutorContactDetails extends ValidationStep {
             executor.emailChanged = true;
         }
 
+        ctx.executorsEmailChanged = executorsWrapper.hasExecutorsEmailChanged();
         executor.email = ctx.email;
         executor.mobile = ctx.mobile;
         if (executor.emailSent) {
