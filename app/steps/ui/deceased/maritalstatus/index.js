@@ -39,9 +39,11 @@ class DeceasedMaritalStatus extends ValidationStep {
             delete ctx.anyDeceasedChildren;
             delete ctx.anyGrandchildrenUnder18;
 
-            delete formdata.applicant.relationshipToDeceased;
-            delete formdata.applicant.spouseNotApplyingReason;
-            delete formdata.applicant.adoptionPlace;
+            if (formdata.applicant) {
+                delete formdata.applicant.relationshipToDeceased;
+                delete formdata.applicant.spouseNotApplyingReason;
+                delete formdata.applicant.adoptionPlace;
+            }
         }
         return [ctx, formdata];
     }

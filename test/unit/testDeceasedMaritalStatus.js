@@ -64,10 +64,15 @@ describe('DeceasedMaritalStatus', () => {
     });
 
     describe('action()', () => {
-        it('test that context variables are removed and empty object returned', () => {
+        it('test that context and session form variables are removed', () => {
             let formdata = {
                 deceased: {
                     maritalStatus: content.optionDivorced
+                },
+                applicant: {
+                    relationshipToDeceased: contentRelationshipToDeceased.optionSpousePartner,
+                    spouseNotApplyingReason: contentSpouseNotApplyingReason.optionRenouncing,
+                    adoptionPlace: contentAdoptionPlace.optionYes
                 }
             };
             let ctx = {
@@ -85,9 +90,17 @@ describe('DeceasedMaritalStatus', () => {
                 anyGrandchildrenUnder18: 'Yes'
             };
             [ctx, formdata] = DeceasedMaritalStatus.action(ctx, formdata);
-            expect(ctx).to.deep.equal({
-                maritalStatus: content.optionMarried
-            });
+            expect([ctx, formdata]).to.deep.equal([
+                {
+                    maritalStatus: content.optionMarried
+                },
+                {
+                    deceased: {
+                        maritalStatus: content.optionDivorced
+                    },
+                    applicant: {}
+                }
+            ]);
         });
     });
 });

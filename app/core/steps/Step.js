@@ -1,6 +1,6 @@
 'use strict';
 
-const {mapValues, map, reduce, escape, isObject, isEmpty, get, omit} = require('lodash');
+const {mapValues, map, reduce, escape, isObject, isEmpty, get} = require('lodash');
 const UIStepRunner = require('app/core/runners/UIStepRunner');
 const JourneyMap = require('app/core/JourneyMap');
 const mapErrorsToFields = require('app/components/error').mapErrorsToFields;
