@@ -148,14 +148,6 @@ class Step {
     renderPage(res, html) {
         res.send(html);
     }
-
-    clearFormData(sessionForm, fieldToCheckSection, fieldToCheck, dataToClear) {
-        if (fieldToCheckSection && fieldToCheck && dataToClear && sessionForm[fieldToCheckSection] && sessionForm[fieldToCheckSection][fieldToCheck]) {
-            return omit(sessionForm, Object.values(dataToClear));
-        }
-
-        return sessionForm;
-    }
 }
 
 module.exports = Step;

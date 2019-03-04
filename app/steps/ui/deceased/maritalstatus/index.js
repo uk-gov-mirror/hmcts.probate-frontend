@@ -38,19 +38,12 @@ class DeceasedMaritalStatus extends ValidationStep {
             delete ctx.allChildrenOver18;
             delete ctx.anyDeceasedChildren;
             delete ctx.anyGrandchildrenUnder18;
+
+            delete formdata.applicant.relationshipToDeceased;
+            delete formdata.applicant.spouseNotApplyingReason;
+            delete formdata.applicant.adoptionPlace;
         }
         return [ctx, formdata];
-    }
-
-    clearFormData(sessionForm, fieldToCheckSection) {
-        const fieldToCheck = 'maritalStatus';
-        const dataToClear = {
-            relationshipToDeceased: 'applicant.relationshipToDeceased',
-            spouseNotApplyingReason: 'applicant.spouseNotApplyingReason',
-            adoptionPlace: 'applicant.adoptionPlace'
-        };
-
-        return super.clearFormData(sessionForm, fieldToCheckSection, fieldToCheck, dataToClear);
     }
 }
 

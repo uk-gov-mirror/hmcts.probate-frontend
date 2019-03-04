@@ -71,8 +71,6 @@ class UIStepRunner {
                     formdata.declaration.hasDataChanged = true;
                 }
 
-                req.session.form = step.clearFormData(req.session.form, step.section);
-
                 const result = yield step.persistFormData(session.regId, formdata, session.id);
 
                 if (result.name === 'Error') {

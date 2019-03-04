@@ -90,26 +90,4 @@ describe('DeceasedMaritalStatus', () => {
             });
         });
     });
-
-    describe('clearFormData()', () => {
-        it('should clear answers to following questions affected by a change in this answer', (done) => {
-            const testSessionForm = {
-                applicant: {
-                    maritalStatus: content.optionMarried,
-                    relationshipToDeceased: contentRelationshipToDeceased.optionAdoptedChild,
-                    spouseNotApplyingReason: contentSpouseNotApplyingReason.optionRenouncing,
-                    adoptionPlace: contentAdoptionPlace.optionYes
-                }
-            };
-            const fieldToCheckSection = 'applicant';
-
-            const sessionForm = DeceasedMaritalStatus.clearFormData(testSessionForm, fieldToCheckSection);
-            expect(sessionForm).to.deep.equal({
-                applicant: {
-                    maritalStatus: content.optionMarried
-                }
-            });
-            done();
-        });
-    });
 });
