@@ -30,8 +30,10 @@
                 <h2 class="heading-medium">
                     {{ content.feesHeader | safe }}
                 </h2>
-                <p>{{ content.paragraph7 | safe }}</p>
-                <table>
+
+                {% if fields.isFeesApiToggleEnabled.value === 'true' %}
+                    <p>{{ content.paragraph7 | safe }}</p>
+                    <table>
                     <thead>
                         <tr>
                             <th scope="col">{{ content.tableHeadLeft | safe }}</th>
@@ -69,7 +71,11 @@
                         </tr>
                     </tbody>
                 </table><br>
-                <p>{{ content.paragraph8 | safe }}</p>
+                    <p>{{ content.paragraph8 | safe }}</p>
+                {% else %}
+                    <p>{{ content.paragraph7old | safe }}</p>
+                    <p>{{ content.paragraph8old | safe }}</p>
+                {% endif %}
                 <p>{{ content.paragraph9 | safe }}</p>
                 <h2 class="heading-medium">
                     {{ content.feedbackHeader | safe }}
