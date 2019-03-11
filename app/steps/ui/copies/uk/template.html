@@ -21,7 +21,7 @@
             content.bullet2 | safe
         ]) }}
 
-        <fieldset>
+        <fieldset class="bold-labels">
             <legend class="visually-hidden">
                 {{ content.question | safe }}
             </legend>
@@ -35,7 +35,7 @@
             ) }}
         </fieldset>
     {% else %}
-        <fieldset>
+        <fieldset class="bold-labels">
             <legend class="visually-hidden">
                 {{ content.questionOld | safe }}
             </legend>
