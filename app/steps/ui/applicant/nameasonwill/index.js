@@ -1,4 +1,5 @@
 'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {get} = require('lodash');
 const WillWrapper = require('app/wrappers/Will');
@@ -12,8 +13,8 @@ class ApplicantNameAsOnWill extends ValidationStep {
 
     isSoftStop (formdata, ctx) {
         return {
-            'stepName': this.constructor.name,
-            'isSoftStop': get(formdata, 'applicant.nameAsOnTheWill') === this.generateContent(ctx, formdata).optionNo
+            stepName: this.constructor.name,
+            isSoftStop: get(formdata, 'applicant.nameAsOnTheWill') === this.generateContent(ctx, formdata).optionNo
         };
     }
 
@@ -38,6 +39,17 @@ class ApplicantNameAsOnWill extends ValidationStep {
             ]
         };
         return nextStepOptions;
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+
+        if (ctx.nameAsOnTheWill === this.generateContent(ctx, formdata).optionYes) {
+            delete ctx.alias;
+            delete ctx.aliasReason;
+        }
+
+        return [ctx, formdata];
     }
 }
 

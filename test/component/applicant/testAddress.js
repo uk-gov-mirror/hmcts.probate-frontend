@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ExecutorsNumber = require('app/steps/ui/executors/number/index');
+const ExecutorsNumber = require('app/steps/ui/executors/number');
 const testAddressData = require('test/data/find-address');
 const formatAddress = address => address.replace(/\n/g, ' ');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
@@ -36,7 +36,6 @@ describe('applicant-address', () => {
             const data = {addressFound: 'true'};
 
             testWrapper.testErrors(done, data, 'oneOf', ['crossField']);
-
         });
 
         it('test address validation when address search is successful, and two addresses are provided', (done) => {
@@ -47,7 +46,13 @@ describe('applicant-address', () => {
             };
 
             testWrapper.testErrors(done, data, 'oneOf', ['crossField']);
+        });
 
+        it('should return error when freeTextAddress is over 150 characters', (done) => {
+            const data = {
+                freeTextAddress: '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111',
+            };
+            testWrapper.testErrors(done, data, 'invalid', ['freeTextAddress']);
         });
 
         it('test address validation when address search is unsuccessful', (done) => {

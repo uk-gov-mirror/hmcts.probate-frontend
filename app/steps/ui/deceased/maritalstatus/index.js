@@ -17,13 +17,35 @@ class DeceasedMaritalStatus extends ValidationStep {
         return ctx;
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        ctx.divorcedOrSeparated = (ctx.maritalStatus === content.optionDivorced || ctx.maritalStatus === content.optionSeparated);
         return {
             options: [
-                {key: 'maritalStatus', value: content.optionDivorced, choice: 'divorced'},
-                {key: 'maritalStatus', value: content.optionSeparated, choice: 'divorced'}
+                {key: 'divorcedOrSeparated', value: true, choice: 'divorcedOrSeparated'}
             ]
         };
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.deceasedName;
+        delete ctx.divorcedOrSeparated;
+
+        if (formdata.deceased && formdata.deceased.maritalStatus && ctx.maritalStatus !== formdata.deceased.maritalStatus) {
+            delete ctx.divorcePlace;
+            delete ctx.anyChildren;
+            delete ctx.anyOtherChildren;
+            delete ctx.allChildrenOver18;
+            delete ctx.anyDeceasedChildren;
+            delete ctx.anyGrandchildrenUnder18;
+
+            if (formdata.applicant) {
+                delete formdata.applicant.relationshipToDeceased;
+                delete formdata.applicant.spouseNotApplyingReason;
+                delete formdata.applicant.adoptionPlace;
+            }
+        }
+        return [ctx, formdata];
     }
 }
 

@@ -2,7 +2,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const Taskist = require('app/steps/ui/tasklist/index');
+const Taskist = require('app/steps/ui/tasklist');
 const declarationContent = require('app/resources/en/translation/declaration');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
@@ -472,6 +472,17 @@ describe('declaration, single applicant', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForExecInvite}`, (done) => {
+            sessionData = {
+                executors: {
+                    list: [
+                        {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true}
+                    ],
+                    invitesSent: 'true'
+                },
+                declaration: {
+                    hasDataChanged: false
+                }
+            };
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
