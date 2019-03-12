@@ -123,6 +123,10 @@ const stepList = {
         hadDeceasedChildren: 'AnyGrandchildren',
         otherwise: 'ApplicantName'
     },
+    AnyGrandchildrenUnder18: {
+        allGrandchildrenOver18: 'ApplicantName',
+        otherwise: 'StopPage'
+    },
 
     Summary: 'TaskList',
     TaskList: 'TaskList',
