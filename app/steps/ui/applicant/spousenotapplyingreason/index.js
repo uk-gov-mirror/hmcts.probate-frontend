@@ -24,7 +24,7 @@ class SpouseNotApplyingReason extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'spouseNotApplyingReason', value: content.optionRenuncing, choice: 'renuncing'},
+                {key: 'spouseNotApplyingReason', value: content.optionRenouncing, choice: 'renouncing'},
             ]
         };
     }

@@ -1,7 +1,7 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/executors/whodied/index');
+const pageUnderTest = require('app/steps/ui/executors/whodied');
 const {forEach} = require('lodash');
 
 module.exports = function (executorsWhoDiedList) {
@@ -13,5 +13,5 @@ module.exports = function (executorsWhoDiedList) {
         I.checkOption('#executorsWhoDied-'+(parseInt(executorNumber) - 1));
     });
 
-    I.click(commonContent.continue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

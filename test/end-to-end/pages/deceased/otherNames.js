@@ -1,7 +1,7 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/deceased/otherNames/index');
+const pageUnderTest = require('app/steps/ui/deceased/otherNames');
 
 module.exports = function (noOfAliases) {
     const I = this;
@@ -10,16 +10,16 @@ module.exports = function (noOfAliases) {
 
     while (i <= noOfAliases) {
         if (i === 1) {
-            I.fillField('#otherNames_name_'+ (i-1) + '_firstName', 'alias_firstnames_' + i);
-            I.fillField('#otherNames_name_'+ (i-1) + '_lastName', 'alias_lastnames_' + i);
+            I.fillField(`#otherNames_name_${i-1}_firstName`, `alias_firstnames_${i}`);
+            I.fillField(`#otherNames_name_${i-1}_lastName`, `alias_lastnames_${i}`);
         } else {
-            I.click('Add another name');
-            I.fillField('#otherNames_name_'+ (i-1) + '_firstName', 'alias_firstnames_' + i);
-            I.fillField('#otherNames_name_'+ (i-1) + '_lastName', 'alias_lastnames_' + i);
+            I.waitForNavigationToComplete('input[value="Add another name"]');
+            I.fillField(`#otherNames_name_${i-1}_firstName`, `alias_firstnames_${i}`);
+            I.fillField(`#otherNames_name_${i-1}_lastName`, `alias_lastnames_${i}`);
         }
 
         i += 1;
     }
 
-    I.click(commonContent.continue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

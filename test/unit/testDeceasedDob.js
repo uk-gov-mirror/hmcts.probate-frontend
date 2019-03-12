@@ -7,6 +7,14 @@ const DeceasedDob = steps.DeceasedDob;
 const content = require('app/resources/en/translation/deceased/dob');
 
 describe('DeceasedDob', () => {
+    describe('dateName()', () => {
+        it('should return the date names array', (done) => {
+            const dateName = DeceasedDob.dateName();
+            expect(dateName).to.deep.equal(['dob']);
+            done();
+        });
+    });
+
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = DeceasedDob.constructor.getUrl();

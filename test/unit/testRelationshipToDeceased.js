@@ -1,5 +1,6 @@
 'use strict';
 
+const journey = require('app/journeys/intestacy');
 const initSteps = require('app/core/initSteps');
 const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
@@ -17,8 +18,11 @@ describe('RelationshipToDeceased', () => {
     });
 
     describe('getContextData()', () => {
+        let ctx;
+        let req;
+
         it('should return the context with the deceased marital status and the estate value', (done) => {
-            const req = {
+            req = {
                 session: {
                     form: {
                         deceased: {
@@ -31,52 +35,98 @@ describe('RelationshipToDeceased', () => {
                 }
             };
 
-            const ctx = RelationshipToDeceased.getContextData(req);
+            ctx = RelationshipToDeceased.getContextData(req);
             expect(ctx.deceasedMaritalStatus).to.equal(contentMaritalStatus.optionMarried);
-            expect(ctx.estateValue).to.equal(350000);
+            expect(ctx.assetsValue).to.equal(350000);
             done();
         });
     });
 
     describe('nextStepUrl()', () => {
         it('should return the correct url when relationship is Child and the deceased was married', (done) => {
-            const ctx = {relationshipToDeceased: content.optionChild, deceasedMaritalStatus: contentMaritalStatus.optionMarried};
-            const nextStepUrl = RelationshipToDeceased.nextStepUrl(ctx);
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                relationshipToDeceased: content.optionChild,
+                deceasedMaritalStatus: contentMaritalStatus.optionMarried
+            };
+            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/spouse-not-applying-reason');
             done();
         });
 
         it('should return the correct url when relationship is Child and the deceased was not married', (done) => {
-            const ctx = {relationshipToDeceased: content.optionChild, deceasedMaritalStatus: contentMaritalStatus.optionNotMarried};
-            const nextStepUrl = RelationshipToDeceased.nextStepUrl(ctx);
-            expect(nextStepUrl).to.equal('/any-children');
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                relationshipToDeceased: content.optionChild,
+                deceasedMaritalStatus: contentMaritalStatus.optionNotMarried
+            };
+            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/any-other-children');
             done();
         });
 
         it('should return the correct url when relationship is Adopted Child', (done) => {
-            const ctx = {relationshipToDeceased: content.optionAdoptedChild};
-            const nextStepUrl = RelationshipToDeceased.nextStepUrl(ctx);
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                relationshipToDeceased: content.optionAdoptedChild
+            };
+            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/adoption-place');
             done();
         });
 
         it('should return the correct url when relationship is Spouse/Partner and estate value is <= £250k', (done) => {
-            const ctx = {relationshipToDeceased: content.optionSpousePartner, estateValue: 200000};
-            const nextStepUrl = RelationshipToDeceased.nextStepUrl(ctx);
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                relationshipToDeceased: content.optionSpousePartner,
+                assetsValue: 200000
+            };
+            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/applicant-name');
             done();
         });
 
         it('should return the correct url when relationship is Spouse/Partner and estate value is > £250k', (done) => {
-            const ctx = {relationshipToDeceased: content.optionSpousePartner, estateValue: 450000};
-            const nextStepUrl = RelationshipToDeceased.nextStepUrl(ctx);
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                relationshipToDeceased: content.optionSpousePartner,
+                assetsValue: 450000
+            };
+            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/any-children');
             done();
         });
 
         it('should return the correct url when Other is given', (done) => {
-            const ctx = {relationshipToDeceased: content.optionOther};
-            const nextStepUrl = RelationshipToDeceased.nextStepUrl(ctx);
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                relationshipToDeceased: content.optionOther
+            };
+            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/otherRelationship');
             done();
         });
@@ -102,14 +152,14 @@ describe('RelationshipToDeceased', () => {
     describe('action', () => {
         it('test it cleans up context', () => {
             const ctx = {
-                estateValue: 450000,
+                assetsValue: 450000,
                 spousePartnerLessThan250k: true,
                 spousePartnerMoreThan250k: true,
                 childDeceasedMarried: true,
                 childDeceasedNotMarried: true
             };
             RelationshipToDeceased.action(ctx);
-            assert.isUndefined(ctx.estateValue);
+            assert.isUndefined(ctx.assetsValue);
             assert.isUndefined(ctx.spousePartnerLessThan250k);
             assert.isUndefined(ctx.spousePartnerMoreThan250k);
             assert.isUndefined(ctx.childDeceasedMarried);
