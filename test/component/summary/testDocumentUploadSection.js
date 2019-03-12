@@ -7,7 +7,12 @@ const summaryContent = require('app/resources/en/translation/summary');
 const config = require('app/config');
 const nock = require('nock');
 const featureToggleUrl = config.featureToggles.url;
-const featureTogglePathDocument = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
+const documentUploadFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
+const featureTogglesNock = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(documentUploadFeatureTogglePath)
+        .reply(200, status);
+};
 
 describe('summary-documentupload-section', () => {
     let testWrapper, sessionData;
@@ -25,18 +30,14 @@ describe('summary-documentupload-section', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test content loaded on the page with the document upload feature toggle OFF', (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePathDocument)
-                .reply(200, 'false');
+            featureTogglesNock('false');
 
             const playbackData = [];
             testWrapper.testDataPlayback(done, playbackData);
         });
 
         it('test content loaded on the page with the document upload feature toggle ON when there is data', (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePathDocument)
-                .reply(200, 'true');
+            featureTogglesNock('true');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -56,9 +57,7 @@ describe('summary-documentupload-section', () => {
         });
 
         it('test content loaded on the page with the document upload feature toggle ON when there is no data', (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePathDocument)
-                .reply(200, 'true');
+            featureTogglesNock('true');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send({})
@@ -76,9 +75,7 @@ describe('summary-documentupload-section', () => {
         });
 
         it('test correct content loaded on document upload section of the summary page, when section is complete', (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePathDocument)
-                .reply(200, 'true');
+            featureTogglesNock('true');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -94,9 +91,7 @@ describe('summary-documentupload-section', () => {
         });
 
         it('test data is played back correctly on document upload section of the summary page', (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePathDocument)
-                .reply(200, 'true');
+            featureTogglesNock('true');
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -113,9 +108,7 @@ describe('summary-documentupload-section', () => {
         });
 
         it('test correct content loaded on document upload section of the summary page , when no data is entered', (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePathDocument)
-                .reply(200, 'true');
+            featureTogglesNock('true');
 
             const playbackData = {
             };

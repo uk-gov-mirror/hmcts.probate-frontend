@@ -1,7 +1,7 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const json = require('app/resources/en/translation/will/codicils');
+const content = require('app/resources/en/translation/will/codicils');
 
 class WillCodicils extends ValidationStep {
 
@@ -9,14 +9,14 @@ class WillCodicils extends ValidationStep {
         return '/will-codicils';
     }
 
-    nextStepUrl(ctx) {
-        return this.next(ctx).constructor.getUrl('codicils');
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('codicils');
     }
 
     nextStepOptions() {
         return {
             options: [
-                {key: 'codicils', value: json.optionNo, choice: 'noCodicils'}
+                {key: 'codicils', value: content.optionNo, choice: 'noCodicils'}
             ]
         };
     }

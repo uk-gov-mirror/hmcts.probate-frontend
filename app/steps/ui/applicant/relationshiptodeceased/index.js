@@ -16,17 +16,17 @@ class RelationshipToDeceased extends ValidationStep {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
         ctx.deceasedMaritalStatus = get(formdata, 'deceased.maritalStatus');
-        ctx.estateValue = get(formdata, 'iht.netValue');
+        ctx.assetsValue = get(formdata, 'iht.netValue', 0) + get(formdata, 'deceased.netValueAssetsOutside', 0);
         return ctx;
     }
 
-    nextStepUrl(ctx) {
-        return this.next(ctx).constructor.getUrl('otherRelationship');
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('otherRelationship');
     }
 
     nextStepOptions(ctx) {
-        ctx.spousePartnerLessThan250k = ctx.relationshipToDeceased === content.optionSpousePartner && ctx.estateValue <= config.estateValueThreshold;
-        ctx.spousePartnerMoreThan250k = ctx.relationshipToDeceased === content.optionSpousePartner && ctx.estateValue > config.estateValueThreshold;
+        ctx.spousePartnerLessThan250k = ctx.relationshipToDeceased === content.optionSpousePartner && ctx.assetsValue <= config.assetsValueThreshold;
+        ctx.spousePartnerMoreThan250k = ctx.relationshipToDeceased === content.optionSpousePartner && ctx.assetsValue > config.assetsValueThreshold;
         ctx.childDeceasedMarried = ctx.relationshipToDeceased === content.optionChild && ctx.deceasedMaritalStatus === contentMaritalStatus.optionMarried;
         ctx.childDeceasedNotMarried = ctx.relationshipToDeceased === content.optionChild && ctx.deceasedMaritalStatus !== contentMaritalStatus.optionMarried;
 
@@ -43,7 +43,7 @@ class RelationshipToDeceased extends ValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
-        delete ctx.estateValue;
+        delete ctx.assetsValue;
         delete ctx.spousePartnerLessThan250k;
         delete ctx.spousePartnerMoreThan250k;
         delete ctx.childDeceasedMarried;

@@ -1,7 +1,7 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/executors/othername/index');
+const pageUnderTest = require('app/steps/ui/executors/othername');
 const {forEach} = require('lodash');
 
 module.exports = function (executorsWithDifferentNameIdList) {
@@ -13,5 +13,5 @@ module.exports = function (executorsWithDifferentNameIdList) {
         I.checkOption('#executorsWithOtherNames-'+ executorListId);
     });
 
-    I.click(commonContent.continue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

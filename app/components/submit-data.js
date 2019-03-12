@@ -13,7 +13,6 @@ const dataMap = {
     applicantPostcode: 'applicant.postcode',
     applicantPhone: 'applicant.phoneNumber',
     applicantEmail: 'applicantEmail',
-    applicantIsExecutor: 'applicant.executor',
     deceasedFirstname: 'deceased.firstName',
     deceasedSurname: 'deceased.lastName',
     deceasedAliasAssets: 'deceased.alias',
@@ -23,14 +22,10 @@ const dataMap = {
     deceasedPostcode: 'deceased.postcode',
     deceasedDod: 'deceased.dod_formattedDate',
     deceasedDob: 'deceased.dob_formattedDate',
-    deceasedDomicile: 'deceased.domicile',
     noOfExecutors: 'executors.executorsNumber',
     dealingWithEstate: 'executors.otherExecutorsApplying',
-    willLeft: 'will.left',
-    willOriginal: 'will.original',
     willWithCodicils: 'will.codicils',
     willCodicilsNumber: 'will.codicilsNumber',
-    ihtCompleted: 'iht.completed',
     ihtForm: 'iht.form',
     ihtFormId: 'iht.ihtFormId',
     ihtIdentifier: 'iht.identifier',
@@ -61,7 +56,7 @@ const submitData = (ctx, data) => {
 
     const ihtMethod = get(data, 'iht.method');
 
-    if (ihtMethod === steps.IhtMethod.generateContent(ctx).paperOption) {
+    if (ihtMethod === steps.IhtMethod.generateContent(ctx).optionPaper) {
         mappedData.ihtIdentifier = steps.CopiesOverseas.commonContent().notApplicable;
     } else {
         mappedData.ihtIdentifier = get(data, 'iht.identifier');

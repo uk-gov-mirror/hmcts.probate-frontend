@@ -1,11 +1,11 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/payment/status/index');
+const pageUnderTest = require('app/steps/ui/payment/status');
 
 module.exports = function () {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
-    I.click('.button');
+    I.waitForNavigationToComplete('.button');
 };

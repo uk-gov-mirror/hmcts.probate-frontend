@@ -1,7 +1,7 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/deceased/address/index');
+const pageUnderTest = require('app/steps/ui/deceased/address');
 
 module.exports = function () {
     const I = this;
@@ -10,5 +10,5 @@ module.exports = function () {
     I.click('.summary');
     I.fillField('#freeTextAddress', 'test address for deceased');
 
-    I.click(commonContent.continue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

@@ -1,7 +1,7 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/executors/dealingwithestate/index');
+const pageUnderTest = require('app/steps/ui/executors/dealingwithestate');
 const {forEach} = require('lodash');
 
 module.exports = function (executorsApplyingList) {
@@ -13,6 +13,5 @@ module.exports = function (executorsApplyingList) {
         I.checkOption('#executorsApplying-'+(parseInt(executorNumber) - 1));
     });
 
-    I.click(commonContent.continue);
-
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };
