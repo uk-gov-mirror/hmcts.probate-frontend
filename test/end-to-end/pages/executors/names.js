@@ -1,7 +1,7 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/executors/names/index');
+const pageUnderTest = require('app/steps/ui/executors/names');
 
 module.exports = function (totalExecutors) {
     const I = this;
@@ -15,5 +15,5 @@ module.exports = function (totalExecutors) {
         i += 1;
     }
 
-    I.click(commonContent.continue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

@@ -1,7 +1,7 @@
 'use strict';
 
 const CollectionStep = require('app/core/steps/CollectionStep');
-const json = require('app/resources/en/translation/executors/roles');
+const content = require('app/resources/en/translation/executors/roles');
 const {get, isEmpty, every, findKey, findIndex} = require('lodash');
 const path = '/executor-roles/';
 
@@ -28,16 +28,25 @@ class ExecutorRoles extends CollectionStep {
         if (ctx.list[ctx.index]) {
             ctx.list[ctx.index].isApplying = false;
             ctx.list[ctx.index].notApplyingReason = ctx.notApplyingReason;
-            ctx.list[ctx.index].notApplyingKey = findKey(json, o => o === ctx.notApplyingReason);
+            ctx.list[ctx.index].notApplyingKey = findKey(content, o => o === ctx.notApplyingReason);
         }
-        if (ctx.notApplyingReason !== json.optionPowerReserved) {
+        if (ctx.notApplyingReason !== content.optionPowerReserved) {
             ctx.index = this.recalcIndex(ctx, ctx.index);
         }
         return [ctx, errors];
     }
 
     isComplete(ctx) {
-        return [every(ctx.list, exec => !isEmpty(exec.notApplyingReason) || exec.isApplying), 'inProgress'];
+        return [every(ctx.list, exec => {
+            return exec.isApplying ||
+                (
+                    !isEmpty(exec.notApplyingReason) &&
+                    (
+                        (exec.notApplyingReason === content.optionPowerReserved && !isEmpty(exec.executorNotified)) ||
+                        (exec.notApplyingReason !== content.optionPowerReserved)
+                    )
+                );
+        }), 'inProgress'];
     }
 
     nextStepOptions(ctx) {
@@ -45,7 +54,7 @@ class ExecutorRoles extends CollectionStep {
 
         return {
             options: [
-                {key: 'notApplyingReason', value: json.optionPowerReserved, choice: 'powerReserved'},
+                {key: 'notApplyingReason', value: content.optionPowerReserved, choice: 'powerReserved'},
                 {key: 'continue', value: true, choice: 'continue'}
             ]
         };

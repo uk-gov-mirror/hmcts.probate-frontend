@@ -1,6 +1,6 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/pin/signin/index');
+const pageUnderTest = require('app/steps/ui/pin/signin');
 
 module.exports = function (pinCode) {
     const I = this;
@@ -9,6 +9,5 @@ module.exports = function (pinCode) {
 
     I.fillField('#pin', pinCode);
 
-    I.click('.button');
-
+    I.waitForNavigationToComplete('.button');
 };

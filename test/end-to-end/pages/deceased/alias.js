@@ -1,17 +1,13 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/deceased/alias/index');
+const pageUnderTest = require('app/steps/ui/deceased/alias');
 
-module.exports = function (option) {
+module.exports = function (answer) {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    if (option === 'Yes') {
-        I.click('#alias-optionYes');
-    } else {
-        I.click('#alias-optionNo');
-    }
+    I.click(`#alias-option${answer}`);
 
-    I.click(commonContent.continue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

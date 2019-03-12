@@ -1,6 +1,6 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/coapplicant/declaration/index');
+const pageUnderTest = require('app/steps/ui/coapplicant/declaration');
 
 module.exports = function (agreeDisagree) {
     const I = this;
@@ -13,6 +13,5 @@ module.exports = function (agreeDisagree) {
         I.click('#agreement-optionNo');
     }
 
-    I.click('#acceptAndSend');
-
+    I.waitForNavigationToComplete('#acceptAndSend');
 };

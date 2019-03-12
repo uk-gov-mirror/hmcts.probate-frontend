@@ -1,27 +1,10 @@
-provider "vault" {
-  //  # It is strongly recommended to configure this provider through the
-  //  # environment variables described above, so that each user can have
-  //  # separate credentials set in the environment.
-  //  #
-  //  # This will default to using $VAULT_ADDR
-  //  # But can be set explicitly
-  address = "https://vault.reform.hmcts.net:6200"
-}
-
 provider "azurerm" {
-  version = "1.19.0"
+  version = "1.22.1"
 }
 
-# data "vault_generic_secret" "idam_frontend_service_key" {
-#   path = "secret/${var.vault_section}/ccidam/service-auth-provider/api/microservice-keys/probate-frontend"
-# }
-
-# data "vault_generic_secret" "idam_frontend_idam_key" {
-#   path = "secret/${var.vault_section}/ccidam/idam-api/oauth2/client-secrets/probate"
-# }
 
 locals {
-  aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
+  aseName = "core-compute-${var.env}"
   previewVaultName = "${var.raw_product}-aat"
   nonPreviewVaultName = "${var.raw_product}-${var.env}"
   vaultName = "${(var.env == "preview" || var.env == "spreview") ? local.previewVaultName : local.nonPreviewVaultName}"
@@ -32,13 +15,18 @@ locals {
   // add other services
 }
 
+data "azurerm_subnet" "core_infra_redis_subnet" {
+  name                 = "core-infra-subnet-1-${var.env}"
+  virtual_network_name = "core-infra-vnet-${var.env}"
+  resource_group_name = "core-infra-${var.env}"
+}
 
 module "probate-frontend-redis-cache" {
   source   = "git@github.com:hmcts/moj-module-redis?ref=master"
   product     = "${(var.env == "preview" || var.env == "spreview") ? "${var.product}-${var.microservice}-pr-redis" : "${var.product}-${var.microservice}-redis-cache"}"
   location = "${var.location}"
   env      = "${var.env}"
-  subnetid = "${data.terraform_remote_state.core_apps_infrastructure.subnet_ids[1]}"
+  subnetid = "${data.azurerm_subnet.core_infra_redis_subnet.id}"
   common_tags  = "${var.common_tags}"
 }
 
@@ -148,6 +136,7 @@ module "probate-frontend" {
     BUSINESS_DOCUMENT_URL = "${var.probate_business_service_document_url}"
     SUBMIT_SERVICE_URL = "${var.probate_submit_service_url}"
     PERSISTENCE_SERVICE_URL = "${var.probate_persistence_service_url}"
+    FEES_REGISTRY_URL = "${var.probate_fees_registry_service_url}"
     USE_HTTPS =  "${var.probate_frontend_https}"
     USE_AUTH = "${var.probate_frontend_use_auth}"
     GA_TRACKING_ID = "${var.probate_google_track_id}"
