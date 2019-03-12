@@ -1,9 +1,9 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const TaskList = require('app/steps/ui/tasklist/index');
-const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails/index');
-const ExecutorRoles = require('app/steps/ui/executors/roles/index');
+const TaskList = require('app/steps/ui/tasklist');
+const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails');
+const ExecutorRoles = require('app/steps/ui/executors/roles');
 
 describe('executors-address', () => {
     let testWrapper, sessionData;
@@ -66,6 +66,18 @@ describe('executors-address', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {addressFound: 'true'};
+                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
+                    testWrapper.testErrors(done, data, 'oneOf', ['crossField']);
+                });
+        });
+
+        it('should return error when freeTextAddress is over 150 characters', (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        freeTextAddress: '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111',
+                    };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
                     testWrapper.testErrors(done, data, 'oneOf', ['crossField']);
                 });

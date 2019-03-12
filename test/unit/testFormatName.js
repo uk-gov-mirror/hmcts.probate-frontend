@@ -1,6 +1,5 @@
 const FormatName = require('app/utils/FormatName');
-const chai = require('chai');
-const expect = chai.expect;
+const expect = require('chai').expect;
 
 describe('FormatName.js', () => {
     describe('format()', () => {

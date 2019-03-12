@@ -1,14 +1,22 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const StopPage = require('app/steps/ui/stoppage/index');
-const TaskList = require('app/steps/ui/tasklist/index');
+const StopPage = require('app/steps/ui/stoppage');
+const TaskList = require('app/steps/ui/tasklist');
 const commonContent = require('app/resources/en/translation/common');
-const config = require('app/config');
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
 const content = require('app/resources/en/translation/deceased/divorceplace');
+const config = require('app/config');
+const nock = require('nock');
+const featureToggleUrl = config.featureToggles.url;
+const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
+const featureTogglesNock = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(intestacyQuestionsFeatureTogglePath)
+        .reply(200, status);
+};
 
-describe('deceased-marital-status', () => {
+describe('divorce-place', () => {
     let testWrapper;
     const expectedNextUrlForStopPage = StopPage.getUrl('divorcePlace');
     const expectedNextUrlForTaskList = TaskList.getUrl();
@@ -20,10 +28,12 @@ describe('deceased-marital-status', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DivorcePlace');
+        featureTogglesNock();
     });
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -62,26 +72,32 @@ describe('deceased-marital-status', () => {
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            const data = {
-                divorcePlace: content.optionNo
-            };
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    const data = {
+                        divorcePlace: content.optionNo
+                    };
+
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData)
+                        .end(() => {
+                            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                        });
                 });
         });
 
         it(`test it redirects to tasklist: ${expectedNextUrlForTaskList}`, (done) => {
-            const data = {
-                divorcePlace: content.optionYes
-            };
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
+                    const data = {
+                        divorcePlace: content.optionYes
+                    };
+
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData)
+                        .end(() => {
+                            testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
+                        });
                 });
         });
     });

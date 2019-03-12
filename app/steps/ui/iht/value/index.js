@@ -35,18 +35,25 @@ class IhtValue extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.lessThan250k = ctx.netValue <= config.estateValueThreshold;
+        ctx.lessThanOrEqualTo250k = ctx.netValue <= config.assetsValueThreshold;
 
         return {
             options: [
-                {key: 'lessThan250k', value: true, choice: 'lessThan250k'}
+                {key: 'lessThanOrEqualTo250k', value: true, choice: 'lessThanOrEqualTo250k'}
             ]
         };
     }
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
-        delete ctx.lessThan250;
+        delete ctx.lessThanOrEqualTo250k;
+
+        if (ctx.netValue > config.assetsValueThreshold) {
+            delete ctx.assetsOutside;
+            delete ctx.netValueAssetsOutsideField;
+            delete ctx.netValueAssetsOutside;
+        }
+
         return [ctx, formdata];
     }
 }

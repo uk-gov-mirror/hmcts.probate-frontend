@@ -1,0 +1,92 @@
+{% extends "includes/layout.html" %}
+{% block page_title %}
+    {{ content.title }}
+{% endblock %}
+
+{% set displaySignOutLink = 'false' %}
+{% set serviceName = '' %}
+
+{% block content %}
+    {% from "widgets/lists.html" import taskAction, unorderedList %}
+
+    <main id="content" role="main">
+        {% include "includes/phase_banner_beta.html" %}
+
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                <h1 class="form-title heading-large">{{ content.header }}</h1>
+                <p>{{ content.introduction | safe }}</p>
+                <p>{{ content.paragraph1 | safe }}</p>
+                <div class="panel panel-border-wide">
+                    <p>{{ content.paragraph2 | replace('{applicationFormPA1P}', links.applicationFormPA1P) | replace('{applicationFormPA1A}', links.applicationFormPA1A) | safe }}</p>
+                </div>
+                <h2 class="heading-medium">
+                    {{ content.multipleHeader | safe }}
+                </h2>
+                <p>{{ content.paragraph3 | safe }}</p>
+                <p>{{ content.paragraph4 | safe }}</p>
+                <p>{{ content.paragraph5 | safe }}</p>
+                <p>{{ content.paragraph6 | safe }}</p>
+                <h2 class="heading-medium">
+                    {{ content.feesHeader | safe }}
+                </h2>
+
+                {% if fields.isFeesApiToggleEnabled.value === 'true' %}
+                    <p>{{ content.paragraph7 | safe }}</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">{{ content.tableHeadLeft | safe }}</th>
+                                <th class="numeric" scope="col">{{ content.tableHeadRight | safe }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">{{ content.tableBodyFeeRange1 | safe }}</th>
+                                <td class="numeric">{{ content.tableBodyFeeRange1Value | safe }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{{ content.tableBodyFeeRange2 | safe }}</th>
+                                <td class="numeric">{{ content.tableBodyFeeRange2Value | safe }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{{ content.tableBodyFeeRange3 | safe }}</th>
+                                <td class="numeric">{{ content.tableBodyFeeRange3Value | safe }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{{ content.tableBodyFeeRange4 | safe }}</th>
+                                <td class="numeric">{{ content.tableBodyFeeRange4Value | safe }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{{ content.tableBodyFeeRange5 | safe }}</th>
+                                <td class="numeric">{{ content.tableBodyFeeRange5Value | safe }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{{ content.tableBodyFeeRange6 | safe }}</th>
+                                <td class="numeric">{{ content.tableBodyFeeRange6Value | safe }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{{ content.tableBodyFeeRange7 | safe }}</th>
+                                <td class="numeric">{{ content.tableBodyFeeRange7Value | safe }}</td>
+                            </tr>
+                        </tbody>
+                    </table><br>
+                    <p>{{ content.paragraph8 | safe }}</p>
+                {% else %}
+                    <p>{{ content.paragraph7old | safe }}</p>
+                    <p>{{ content.paragraph8old | safe }}</p>
+                {% endif %}
+                <p>{{ content.paragraph9 | safe }}</p>
+                <h2 class="heading-medium">
+                    {{ content.feedbackHeader | safe }}
+                </h2>
+                <p>{{ content.paragraph10 | safe }}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <p><a href="/death-certificate" class="button button-start">{{ common.checkApply }}</a></p>
+        </div>
+
+        <p><a href="/tasklist">{{ content.paragraph11 }}</a></p>
+    </main>
+{% endblock %}

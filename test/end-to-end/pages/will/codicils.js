@@ -1,18 +1,13 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/will/codicils/index');
+const pageUnderTest = require('app/steps/ui/will/codicils');
 
 module.exports = function (option) {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.click(`#codicils-option${option}`);
 
-    if (option === 'Yes') {
-        I.click('#codicils-optionYes');
-    } else {
-        I.click('#codicils-optionNo');
-    }
-
-    I.click(commonContent.continue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

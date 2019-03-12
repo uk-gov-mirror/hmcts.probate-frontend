@@ -16,10 +16,10 @@ payment_create_url = "http://payment-api-saat.service.core-compute-saat.internal
 
 idam_service_api = "http://rpe-service-auth-provider-saat.service.core-compute-saat.internal"
 
-probate_private_beta_auth_url = "https://idam-test.dev.ccidam.reform.hmcts.net/login"
-#probate_private_beta_auth_url = "https://idam-web-public-idam-saat.service.core-compute-idam-saat.internal/login"
-idam_user_host = "http://betaDevBccidamAppLB.reform.hmcts.net"
-#idam_user_host = "http://idam-api-idam-saat.service.core-compute-saat.internal/"
+#probate_private_beta_auth_url = "https://idam-test.dev.ccidam.reform.hmcts.net/login"
+probate_private_beta_auth_url = "https://idam-web-public-idam-saat.service.core-compute-idam-saat.internal/login"
+#idam_user_host = "http://betaDevBccidamAppLB.reform.hmcts.net"
+idam_user_host = "http://idam-api-idam-saat.service.core-compute-saat.internal/"
 
 
 probate_deployment_env = "test"
@@ -41,6 +41,8 @@ probate_business_service_document_url = "http://probate-business-service-saat.se
 probate_submit_service_url = "http://probate-submit-service-saat.service.core-compute-saat.internal"
 
 probate_persistence_service_url = "http://probate-persistence-service-saat.service.core-compute-saat.internal/formdata"
+
+probate_fees_registry_service_url = "http://fees-register-api-saat.service.core-compute-aat.internal/fees-register"
 
 feature_toggles_api_url = "http://rpe-feature-toggle-api-saat.service.core-compute-saat.internal"
 asp_name = "probate-saat"

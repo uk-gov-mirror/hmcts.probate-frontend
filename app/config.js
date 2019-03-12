@@ -9,7 +9,9 @@ const config = {
         url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost:8282',
         path: process.env.FEATURE_TOGGLES_PATH || '/api/ff4j/check',
         fe_shutter_toggle: 'probate-fe-shutter',
-        document_upload: 'probate-document-upload'
+        document_upload: 'probate-document-upload',
+        intestacy_questions: 'probate-intestacy-questions',
+        fees_api: 'probate-fees-api'
     },
     app: {
         username: process.env.USERNAME,
@@ -18,7 +20,11 @@ const config = {
         useHttps: process.env.USE_HTTPS || 'false',
         useIDAM: process.env.USE_IDAM || 'false',
         port: process.env.PORT || '3000',
-        useCSRFProtection: 'true'
+        useCSRFProtection: 'true',
+        session: {
+            expires: 3600000, // ms (60 mins)
+            ttl: 28800 // ms (8 hours)
+        }
     },
     services: {
         postcode: {
@@ -27,6 +33,14 @@ const config = {
             proxy: process.env.http_proxy,
             port: 8585,
             path: '/find-address'
+        },
+        orchestrator: {
+            url: process.env.ORCHESTRATOR_SERVICE_URL || 'http://localhost:8080',
+            paths: {
+                forms: '/forms/{applicantEmail}',
+                submissions: '/forms/{applicantEmail}/submissions',
+                payments: '/forms/{applicantEmail}/payments'
+            }
         },
         validation: {
             url: process.env.VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
@@ -49,17 +63,29 @@ const config = {
             service_key: process.env.IDAM_SERVICE_KEY || 'AAAAAAAAAAAAAAAA',
             probate_oauth2_client: 'probate',
             probate_oauth2_secret: process.env.IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE || '123456',
-            probate_oauth_callback_path: '/oauth2/callback'
+            probate_oauth_callback_path: '/oauth2/callback',
+            probate_oauth_token_path: '/oauth2/token',
         },
         payment: {
             createPaymentUrl: process.env.PAYMENT_CREATE_URL || 'http://localhost:8383/card-payments',
-            authorization: process.env.PAYMENT_AUTHORIZATION || 'dummy_token',
-            serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'dummy_token',
-            userId: process.env.PAYMENT_USER_ID || 999999999,
+            authorization: process.env.PAYMENT_AUTHORIZATION || 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI3bTRsNWlrZmFsZGZwbzQyaGR0ZjZiMTBmNCIsInN1YiI6IjM3IiwiaWF0IjoxNTQ5OTA1MzE2LCJleHAiOjE1NDk5MzQxMTYsImRhdGEiOiJjYXNld29ya2VyLXByb2JhdGUsY2l0aXplbixjYXNld29ya2VyLGNhc2V3b3JrZXItcHJvYmF0ZS1sb2ExLGNpdGl6ZW4tbG9hMSxjYXNld29ya2VyLWxvYTEiLCJ0eXBlIjoiQUNDRVNTIiwiaWQiOiIzNyIsImZvcmVuYW1lIjoiVXNlciIsInN1cm5hbWUiOiJUZXN0IiwiZGVmYXVsdC1zZXJ2aWNlIjoiQ0NEIiwibG9hIjoxLCJkZWZhdWx0LXVybCI6Imh0dHBzOi8vbG9jYWxob3N0OjkwMDAvcG9jL2NjZCIsImdyb3VwIjoiY2FzZXdvcmtlciJ9.PEIyDFArolm9Am9YUVRO74zAbUSbwhlxvq-O_2gKqt8',
+            serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9iYXRlX2Zyb250ZW5kIiwiZXhwIjoxNTQ5OTE5NzE2fQ.GJ9wLe_4it4TysL2M4ABGyvDGIc97cnryJJPd4wz7Ic5qM-k6ENlVmcLXbUqwL2LV7XuyW5MJofWJIgUPCA9lQ',
+            userId: process.env.PAYMENT_USER_ID || 37,
             returnUrlPath: '/payment-status'
         },
-        businessDocument: {
-            url: process.env.BUSINESS_DOCUMENT_URL || 'http://localhost:8080/businessDocument'
+        pact: {
+            brokerUrl: process.env.PACT_BROKER_URL || 'http://localhost:80',
+            tag: process.env.PACT_BRANCH_NAME || 'Dev',
+            pactDirectory: 'pacts'
+        },
+        feesRegister: {
+            url: process.env.FEES_REGISTRY_URL || 'http://localhost:4411/fees-register',
+            port: 4411,
+            paths: {
+                fees: '/fees',
+                feesLookup: '/fees/lookup'
+            },
+            ihtMinAmt: 5000
         }
     },
     redis: {
@@ -143,11 +169,15 @@ const config = {
         version: process.env.version || '1',
         currency: process.env.currency || 'GBP'
     },
-    whitelistedPagesAfterSubmission: ['/documents', '/thankyou', '/sign-out'],
-    whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou', '/sign-out'],
-    whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou', '/sign-out'],
-    hardStopParams: ['will.left', 'will.original', 'iht.completed', 'applicant.executor'],
-    nonIdamPages: ['error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'will-left', 'will-original', 'death-certificate', 'deceased-domicile', 'applicant-executor', 'mental-capacity', 'iht-completed', 'start-apply'],
+    whitelistedPagesIgnoreSessionTimeout: ['/payment-status'],
+    whitelistedPagesAfterSubmission: ['/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
+    whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
+    whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
+    hardStopParams: {
+        probate: [],
+        intestacy: []
+    },
+    nonIdamPages: ['stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'time-out'],
     endpoints: {
         health: '/health',
         info: '/info'
@@ -173,7 +203,16 @@ const config = {
         },
         timeoutMs: 300000
     },
-    estateValueThreshold: 250000
+    pdf: {
+        template: {
+            checkAnswers: 'generateCheckAnswersSummaryPDF',
+            declaration: 'generateLegalDeclarationPDF',
+            coverSheet: 'generateBulkScanCoverSheetPDF'
+        },
+        path: '/businessDocument'
+    },
+    signOutOnStopPages: ['divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales'],
+    assetsValueThreshold: 250000
 };
 
 module.exports = config;

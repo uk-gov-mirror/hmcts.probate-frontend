@@ -15,10 +15,18 @@ describe('DeceasedAddress', () => {
     });
 
     describe('getContextData()', () => {
-        it('should return the ctx with the deceased address and the screening_question feature toggle on and the document_upload feature toggle on', (done) => {
+        it('should return the ctx with the deceased address and the document_upload feature toggle on', (done) => {
             const req = {
                 sessionID: 'dummy_sessionId',
-                session: {form: {}, featureToggles: {screening_questions: true, document_upload: true}},
+                session: {
+                    form: {
+                        journeyType: 'probate'
+                    },
+                    featureToggles: {
+                        document_upload: true
+                    },
+                    journeyType: 'probate'
+                },
                 body: {
                     freeTextAddress: '143 Caerfai Bay Road',
                     postcode: 'L23 6WW'
@@ -28,17 +36,25 @@ describe('DeceasedAddress', () => {
             expect(ctx).to.deep.equal({
                 freeTextAddress: '143 Caerfai Bay Road',
                 postcode: 'L23 6WW',
-                isScreeningQuestionsToggleEnabled: true,
                 isDocumentUploadToggleEnabled: true,
-                sessionID: 'dummy_sessionId'
+                sessionID: 'dummy_sessionId',
+                journeyType: 'probate'
             });
             done();
         });
 
-        it('should return the ctx with the deceased address and the screening_question feature toggle on and the document_upload feature toggle off', (done) => {
+        it('should return the ctx with the deceased address and the document_upload feature toggle off', (done) => {
             const req = {
                 sessionID: 'dummy_sessionId',
-                session: {form: {}, featureToggles: {screening_questions: true, document_upload: false}},
+                session: {
+                    form: {
+                        journeyType: 'probate'
+                    },
+                    featureToggles: {
+                        document_upload: false
+                    },
+                    journeyType: 'probate'
+                },
                 body: {
                     freeTextAddress: '143 Caerfai Bay Road',
                     postcode: 'L23 6WW'
@@ -48,49 +64,9 @@ describe('DeceasedAddress', () => {
             expect(ctx).to.deep.equal({
                 freeTextAddress: '143 Caerfai Bay Road',
                 postcode: 'L23 6WW',
-                isScreeningQuestionsToggleEnabled: true,
                 isDocumentUploadToggleEnabled: false,
-                sessionID: 'dummy_sessionId'
-            });
-            done();
-        });
-
-        it('should return the ctx with the deceased address and the screening_question feature toggle off and the document_upload feature toggle on', (done) => {
-            const req = {
                 sessionID: 'dummy_sessionId',
-                session: {form: {}, featureToggles: {screening_questions: false, document_upload: true}},
-                body: {
-                    freeTextAddress: '143 Caerfai Bay Road',
-                    postcode: 'L23 6WW'
-                }
-            };
-            const ctx = DeceasedAddress.getContextData(req);
-            expect(ctx).to.deep.equal({
-                freeTextAddress: '143 Caerfai Bay Road',
-                postcode: 'L23 6WW',
-                isScreeningQuestionsToggleEnabled: false,
-                isDocumentUploadToggleEnabled: false,
-                sessionID: 'dummy_sessionId'
-            });
-            done();
-        });
-
-        it('should return the ctx with the deceased address and the screening_question feature toggle off and the document_upload feature toggle off', (done) => {
-            const req = {
-                sessionID: 'dummy_sessionId',
-                session: {form: {}, featureToggles: {screening_questions: false, document_upload: false}},
-                body: {
-                    freeTextAddress: '143 Caerfai Bay Road',
-                    postcode: 'L23 6WW'
-                }
-            };
-            const ctx = DeceasedAddress.getContextData(req);
-            expect(ctx).to.deep.equal({
-                freeTextAddress: '143 Caerfai Bay Road',
-                postcode: 'L23 6WW',
-                isScreeningQuestionsToggleEnabled: false,
-                isDocumentUploadToggleEnabled: false,
-                sessionID: 'dummy_sessionId'
+                journeyType: 'probate'
             });
             done();
         });

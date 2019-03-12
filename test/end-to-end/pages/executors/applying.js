@@ -1,7 +1,7 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/executors/applying/index');
+const pageUnderTest = require('app/steps/ui/executors/applying');
 
 module.exports = function () {
     const I = this;
@@ -10,6 +10,5 @@ module.exports = function () {
 
     I.click('#otherExecutorsApplying-optionYes');
 
-    I.click(commonContent.continue);
-
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };
