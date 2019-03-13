@@ -29,7 +29,7 @@ describe('Pact IntestacyFormData', () => {
         sessionID: 'someSessionId',
         authToken: 'authToken',
         serviceAuthorization: 'someServiceAuthorization'
-    }
+    };
 
     // Define expected payloads
     const FORM_DATA_BODY_PAYLOAD =
@@ -66,19 +66,19 @@ describe('Pact IntestacyFormData', () => {
         };
 
     function getRequestBody() {
-        let fullBody = JSON.parse(JSON.stringify(FORM_DATA_BODY_PAYLOAD));
-        fullBody["type"] = 'Intestacy';
+        const fullBody = JSON.parse(JSON.stringify(FORM_DATA_BODY_PAYLOAD));
+        fullBody.type = 'Intestacy';
         return fullBody;
     }
 
     function getExpectedResponseBody() {
 
-        var expectedJSON = JSON.parse(JSON.stringify(FORM_DATA_BODY_PAYLOAD));
+        const expectedJSON = JSON.parse(JSON.stringify(FORM_DATA_BODY_PAYLOAD));
         expectedJSON.ccdCase = {
             'id': 1535574519543819,
             'state': 'Draft'
-        }
-        expectedJSON["type"] = 'Intestacy';
+        };
+        expectedJSON.type = 'Intestacy';
         return expectedJSON;
     }
 

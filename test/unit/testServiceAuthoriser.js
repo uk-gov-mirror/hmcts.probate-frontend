@@ -7,7 +7,6 @@ const Service = require('app/services/Service');
 let serviceAuthoriser;
 let fetchTextStub;
 
-
 describe('ServiceAuhoriser', () => {
     describe('determineServiceAuthorizationToken()', () => {
 
@@ -15,7 +14,6 @@ describe('ServiceAuhoriser', () => {
             serviceAuthoriser = new ServiceAuthoriser('http://localhost', 'dummyId');
             fetchTextStub = sinon.stub(Service.prototype, 'fetchText');
         });
-
 
         it('should return service authorisation token', (done) => {
             fetchTextStub.returns(Promise.resolve('token'));
@@ -26,7 +24,6 @@ describe('ServiceAuhoriser', () => {
                 });
 
         });
-
 
     });
 

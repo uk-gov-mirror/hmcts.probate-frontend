@@ -201,6 +201,7 @@ class Declaration extends ValidationStep {
     }
 
     renderPage(res, html) {
+        const formdata = res.req.session.form;
         res.req.session.legalDeclaration = legalDocumentJSONObjBuilder.build(formdata, html);
         res.send(html);
     }

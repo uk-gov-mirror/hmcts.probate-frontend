@@ -4,10 +4,9 @@ const ProbatePdf = require('./ProbatePdf');
 
 class ProbateDeclarationPdf extends ProbatePdf {
     post(req) {
-        const formdata = req.session.formdata;
         const pdfTemplate = this.config.pdf.template.declaration;
         const body = {
-            legalDeclaration: formdata.legalDeclaration
+            legalDeclaration: req.session.legalDeclaration
         };
         const logMessage = 'Post probate declaration pdf';
         return super.post(pdfTemplate, body, logMessage, req);

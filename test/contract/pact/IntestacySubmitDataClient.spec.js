@@ -6,7 +6,6 @@ const chai = require('chai');
 const {Pact} = require('@pact-foundation/pact');
 const chaiAsPromised = require('chai-as-promised');
 const IntestacySubmitData = require('app/services/IntestacySubmitData');
-const {somethingLike: like, eachLike, term} = require('@pact-foundation/pact').Matchers
 const config = require('app/config');
 
 const expect = chai.expect;
@@ -32,7 +31,7 @@ describe('Pact Intestacy Submit Data', () => {
         sessionID: 'someSessionId',
         authToken: 'authToken',
         serviceAuthorization: 'someServiceAuthorization'
-    }
+    };
     // Define expected payloads
     const FORM_DATA_BODY_REQUEST =
         {
@@ -101,26 +100,23 @@ describe('Pact Intestacy Submit Data', () => {
             uploadDocumentUrl: 'http://document-management/document/12345'
         };
 
-
-
     function getRequestPayload() {
 
-        var expectedJSON = JSON.parse(JSON.stringify(FORM_DATA_BODY_REQUEST));
-        expectedJSON["type"] = 'Intestacy';
+        const expectedJSON = JSON.parse(JSON.stringify(FORM_DATA_BODY_REQUEST));
+        expectedJSON.type = 'Intestacy';
         return expectedJSON;
     }
 
     function getExpectedPayload() {
 
-        var expectedJSON = JSON.parse(JSON.stringify(FORM_DATA_BODY_REQUEST));
+        const expectedJSON = JSON.parse(JSON.stringify(FORM_DATA_BODY_REQUEST));
         expectedJSON.ccdCase = {
             'id': 1535574519543819,
             'state': 'PAAppCreated'
-        }
-        expectedJSON["type"] = 'Intestacy';
+        };
+        expectedJSON.type = 'Intestacy';
         return expectedJSON;
     }
-
 
     context('when intestacy formdata is posted', () => {
         describe('and is required to be submitted', () => {

@@ -4,7 +4,7 @@ const SubmitData = require('./SubmitData');
 
 class IntestacySubmitData extends SubmitData {
 
-    getFormType(){
+    getFormType() {
         return 'Intestacy';
     }
 }

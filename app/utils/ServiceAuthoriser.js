@@ -19,9 +19,9 @@ async function callServiceAuthorsiation() {
 
     let returnResult;
     await authoriser.post()
-            .then((res) => {
-                returnResult =  res;
-            });
+        .then((res) => {
+            returnResult = res;
+        });
 
     return returnResult;
 }
