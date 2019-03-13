@@ -48,6 +48,7 @@ class Step {
     }
 
     getContextData(req) {
+
         const session = req.session;
         let ctx = {};
         Object.assign(ctx, session.form[this.section] || {});
@@ -98,13 +99,14 @@ class Step {
         return fields;
     }
 
-    persistFormData(id, formdata, sessionID) {
+    persistFormData(id, formdata, sessionID, req) {
+
         const formData = ServiceMapper.map(
             'FormData',
-            [config.services.persistence.url, sessionID],
+            [config.services.orchestrator.url, sessionID],
             formdata.journeyType
         );
-        return formData.post(id, formdata, sessionID);
+        return formData.post(id, formdata, req);
     }
 
     action(ctx, formdata) {

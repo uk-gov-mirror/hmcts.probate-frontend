@@ -6,11 +6,13 @@ const chai = require('chai');
 const {Pact} = require('@pact-foundation/pact');
 const chaiAsPromised = require('chai-as-promised');
 const IntestacySubmitData = require('app/services/IntestacySubmitData');
-const like = require('@pact-foundation/pact').Matchers.somethingLike;
+const {somethingLike: like, eachLike, term} = require('@pact-foundation/pact').Matchers
 const config = require('app/config');
 
 const expect = chai.expect;
-const MOCK_SERVER_PORT = 2205;
+const MOCK_SERVER_PORT = 2204;
+
+//let fullForm = require('test/data/FullOriginal');
 
 chai.use(chaiAsPromised);
 
@@ -26,14 +28,13 @@ describe('Pact Intestacy Submit Data', () => {
         spec: 2
     });
 
-    const ctx = {};
-    ctx.sessionID = 'someSessionId';
-    ctx.journeyType = 'intestacy';
-    ctx.authToken = 'authToken';
-    ctx.userId = 'userId';
-
+    const ctx = {
+        sessionID: 'someSessionId',
+        authToken: 'authToken',
+        serviceAuthorization: 'someServiceAuthorization'
+    }
     // Define expected payloads
-    const FORM_DATA_BODY_FULL =
+    const FORM_DATA_BODY_REQUEST =
         {
             'type': 'Intestacy',
             'applicant': {
@@ -74,30 +75,36 @@ describe('Pact Intestacy Submit Data', () => {
                         'firstName': 'King'
                     }
                 },
-                'maritalStatus': 'marriedCivilPartnership',
-                'divorcedInEnglandOrWales': 'No',
-                'domiciledInEnglandOrWales': 'Yes',
-                'spouseNotApplyingReason': 'mentallyIncapable',
-                'otherChildren': 'Yes',
-                'allDeceasedChildrenOverEighteen': 'Yes',
-                'anyDeceasedChildrenDieBeforeDeceased': 'No',
-                'anyDeceasedGrandchildrenUnderEighteen': 'No',
-                'anyChildren': 'No'
+                maritalStatus: 'marriedCivilPartnership',
+                divorcedInEnglandOrWales: 'No',
+                domiciledInEnglandOrWales: 'Yes',
+                spouseNotApplyingReason: 'mentallyIncapable',
+                otherChildren: 'Yes',
+                allDeceasedChildrenOverEighteen: 'Yes',
+                anyDeceasedChildrenDieBeforeDeceased: 'No',
+                anyDeceasedGrandchildrenUnderEighteen: 'No',
+                anyChildren: 'No'
             },
-            'iht': {
-                'form': 'IHT205',
-                'method': 'Through the HMRC online service',
-                'netValue': 100000,
-                'grossValue': 100000,
-                'identifier': 'GOT123456'
+            iht: {
+                form: 'IHT205',
+                method: 'Through the HMRC online service',
+                netValue: 10000.99,
+                grossValue: 10000.99,
+                identifier: 'GOT123456'
             },
-            'assets': {
-                'assetsOverseasNetValue': 100.50,
-                'assetsOverseas': 'Yes'
+            assets: {
+                assetsOverseasNetValue: 100.99,
+                assetsOverseas: 'Yes'
             },
-            'copies': {
-                'uk': 5,
-                'overseas': 6
+            copies: {
+                uk: 5,
+                overseas: 6
+            },
+            registry: {
+                name: 'Birmingham',
+                email: 'birmingham@email.com',
+                address: 'Line 1 Bham\nLine 2 Bham\nLine 3 Bham\nPostCode Bham',
+                sequenceNumber: 20075
             },
             'ccdCase': {
                 'id': 1535574519543819,
@@ -219,6 +226,25 @@ describe('Pact Intestacy Submit Data', () => {
             'uploadDocumentUrl': 'http://document-management/document/12345'
         };
 
+    function getRequestPayload() {
+
+        var expectedJSON = JSON.parse(JSON.stringify(FORM_DATA_BODY_REQUEST));
+        expectedJSON["type"] = 'Intestacy';
+        return expectedJSON;
+    }
+
+    function getExpectedPayload() {
+
+        var expectedJSON = JSON.parse(JSON.stringify(FORM_DATA_BODY_REQUEST));
+        expectedJSON.ccdCase = {
+            'id': 1535574519543819,
+            'state': 'PAAppCreated'
+        }
+        expectedJSON["type"] = 'Intestacy';
+        return expectedJSON;
+    }
+
+
     context('when intestacy formdata is posted', () => {
         describe('and is required to be submitted', () => {
             before(done => {
@@ -234,16 +260,18 @@ describe('Pact Intestacy Submit Data', () => {
                             withRequest: {
                                 method: 'POST',
                                 path: '/forms/someemailaddress@host.com/submissions',
-                                headers: {'Content-Type': 'application/json',
-                                    'Session-Id': 'someSessionId',
-                                    'Authorization': 'authToken',
-                                    'UserId': 'userId'},
-                                body: FORM_DATA_BODY_FULL
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Session-Id': ctx.sessionID,
+                                    'Authorization': ctx.authToken,
+                                    'ServiceAuthorization': ctx.serviceAuthorization
+                                },
+                                body: getRequestPayload()
                             },
                             willRespondWith: {
                                 status: 200,
                                 headers: {'Content-Type': 'application/json'},
-                                body: FORM_DATA_BODY_FULL_EXPECTED
+                                body: getExpectedPayload()
                             }
                         });
                     })
@@ -253,9 +281,9 @@ describe('Pact Intestacy Submit Data', () => {
             // (4) write your test(s)
             // Verify service client works as expected
             it('successfully submitted form data', (done) => {
-                const submitDataClient = new IntestacySubmitData('http://localhost:2205', 'someSessionId');
-                const verificationPromise = submitDataClient.post(FORM_DATA_BODY_FULL, ctx);
-                expect(verificationPromise).to.eventually.eql(FORM_DATA_BODY_FULL).notify(done);
+                const submitDataClient = new IntestacySubmitData('http://localhost:2204', ctx.sessionID);
+                const verificationPromise = submitDataClient.submit(FORM_DATA_BODY_REQUEST, ctx);
+                expect(verificationPromise).to.eventually.eql(getExpectedPayload()).notify(done);
             });
 
             // (6) write the pact file for this consumer-provider pair,

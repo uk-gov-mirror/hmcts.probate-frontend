@@ -18,7 +18,7 @@ const config = {
         password: process.env.PASSWORD,
         useAuth: process.env.USE_AUTH || 'false',
         useHttps: process.env.USE_HTTPS || 'false',
-        useIDAM: process.env.USE_IDAM || 'false',
+        useIDAM: process.env.USE_IDAM || 'true',
         port: process.env.PORT || '3000',
         useCSRFProtection: 'true',
         session: {
@@ -35,7 +35,7 @@ const config = {
             path: '/find-address'
         },
         orchestrator: {
-            url: process.env.ORCHESTRATOR_SERVICE_URL || 'http://localhost:8080',
+            url: process.env.ORCHESTRATOR_SERVICE_URL || 'http://localhost:8888',
             paths: {
                 forms: '/forms/{applicantEmail}',
                 submissions: '/forms/{applicantEmail}/submissions',
@@ -211,11 +211,11 @@ const config = {
     },
     pdf: {
         template: {
-            checkAnswers: 'generateCheckAnswersSummaryPDF',
-            declaration: 'generateLegalDeclarationPDF',
-            coverSheet: 'generateBulkScanCoverSheetPDF'
+            checkAnswers: 'checkAnswersSummary',
+            declaration: 'legalDeclaration',
+            coverSheet: 'bulkScanCoversheet'
         },
-        path: '/businessDocument'
+        path: '/documents/generate'
     },
     signOutOnStopPages: ['divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales'],
     assetsValueThreshold: 250000

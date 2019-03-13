@@ -100,8 +100,7 @@ class Summary extends Step {
     }
 
     renderPage(res, html) {
-        const formdata = res.req.session.form;
-        formdata.checkAnswersSummary = checkAnswersSummaryJSONObjBuilder.build(html);
+        res.req.session.checkAnswersSummary = checkAnswersSummaryJSONObjBuilder.build(html);
         res.send(html);
     }
 }

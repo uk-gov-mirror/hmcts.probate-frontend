@@ -9,6 +9,7 @@ const commonContent = require('app/resources/en/translation/common');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const documentUpload = require('app/documentUpload');
 const documentDownload = require('app/documentDownload');
+const serviceAuthorisationToken = require('app/serviceAuthorisation');
 const paymentFees = require('app/paymentFees');
 const setJourney = require('app/middleware/setJourney');
 const AllExecutorsAgreed = require('app/services/AllExecutorsAgreed');
@@ -36,14 +37,17 @@ router.use((req, res, next) => {
     next();
 });
 
+router.use(serviceAuthorisationToken);
+
 router.get('/', (req, res) => {
+
     const formData = ServiceMapper.map(
         'FormData',
-        [config.services.persistence.url, req.sessionID],
+        [config.services.orchestrator.url, req.sessionID],
         req.session.journeyType
     );
     formData
-        .get(req.session.regId)
+        .get(req.session.regId, req.authToken, req.session.serviceAuthorization)
         .then(result => {
             if (result.name === 'Error') {
                 req.log.debug('Failed to load user data');
