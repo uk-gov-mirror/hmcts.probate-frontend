@@ -1,7 +1,6 @@
 'use strict';
 
 const Service = require('./Service');
-const Authorise = require('./Authorise');
 
 class Pdf extends Service {
     post(body, logMessage, headers, url) {

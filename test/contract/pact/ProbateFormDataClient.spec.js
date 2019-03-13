@@ -29,7 +29,7 @@ describe('Pact ProbateFormData', () => {
         sessionID: 'someSessionId',
         authToken: 'authToken',
         serviceAuthorization: 'someServiceAuthorization'
-    }
+    };
 
     // Define expected payloads
     const FORM_DATA_BODY_PAYLOAD =
@@ -63,19 +63,19 @@ describe('Pact ProbateFormData', () => {
         };
 
     function getRequestBody() {
-        let fullBody = JSON.parse(JSON.stringify(FORM_DATA_BODY_PAYLOAD));
-        fullBody["type"] = 'PA';
+        const fullBody = JSON.parse(JSON.stringify(FORM_DATA_BODY_PAYLOAD));
+        fullBody.type = 'PA';
         return fullBody;
     }
 
     function getExpectedResponseBody() {
 
-        var expectedJSON = JSON.parse(JSON.stringify(FORM_DATA_BODY_PAYLOAD));
+        const expectedJSON = JSON.parse(JSON.stringify(FORM_DATA_BODY_PAYLOAD));
         expectedJSON.ccdCase = {
             'id': 1535574519543819,
             'state': 'Draft'
-        }
-        expectedJSON["type"] = 'PA';
+        };
+        expectedJSON.type = 'PA';
         return expectedJSON;
     }
 
@@ -128,7 +128,6 @@ describe('Pact ProbateFormData', () => {
             });
         });
     });
-
 
     context('when probate formdata is posted', () => {
         describe('and is required to be persisted', () => {

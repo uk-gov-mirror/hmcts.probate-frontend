@@ -5,7 +5,7 @@ const Service = require('./Service');
 class SubmitData extends Service {
 
     submit(data, ctx) {
-        data["type"] = this.getFormType();
+        data.type = this.getFormType();
         const path = this.replaceEmailInPath(this.config.services.orchestrator.paths.submissions, data.applicant.email);
         const logMessage = 'Post submit data';
         const url = this.endpoint + path;
@@ -25,7 +25,7 @@ class SubmitData extends Service {
     }
 
     getFormType() {
-        throw( new Error( "Abstract method not implemened." ) );
+        throw (new Error('Abstract method not implemened.'));
     }
 }
 

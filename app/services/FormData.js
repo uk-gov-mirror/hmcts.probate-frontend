@@ -25,14 +25,12 @@ class FormData extends Service {
             'ServiceAuthorization': req.session.serviceAuthorization
         };
 
-        var jsonstr =  JSON.stringify(data);
-        console.log(jsonstr);
         const fetchOptions = this.fetchOptions(data, 'POST', headers);
         return this.fetchJson(url, fetchOptions);
     }
 
     getFormType() {
-        throw( new Error( "Abstract method not implemened." ) );
+        throw (new Error('Abstract method not implemened.'));
     }
 }
 
