@@ -537,7 +537,7 @@ jQuery.extend({
 			fn = tmp;
 		}
 
-		// Quick check to determine if target is callable, in the spec
+		// Quick check to determineServiceAuthorizationToken if target is callable, in the spec
 		// this throws a TypeError, but we will just return undefined.
 		if ( !jQuery.isFunction( fn ) ) {
 			return undefined;
@@ -4359,7 +4359,7 @@ jQuery.event = {
 			// If event changes its type, use the special event handlers for the changed type
 			special = jQuery.event.special[ type ] || {};
 
-			// If selector defined, determine special event api type, otherwise given type
+			// If selector defined, determineServiceAuthorizationToken special event api type, otherwise given type
 			type = ( selector ? special.delegateType : special.bindType ) || type;
 
 			// Update special based on newly reset type
@@ -6053,7 +6053,7 @@ function actualDisplay( name, doc ) {
 }
 
 /**
- * Try to determine the default display value of an element
+ * Try to determineServiceAuthorizationToken the default display value of an element
  * @param {String} nodeName
  */
 function defaultDisplay( nodeName ) {

@@ -3,13 +3,13 @@
 const ProbatePdf = require('./ProbatePdf');
 
 class ProbateCheckAnswersPdf extends ProbatePdf {
-    post(formdata) {
+    post(req) {
         const pdfTemplate = this.config.pdf.template.checkAnswers;
         const body = {
-            checkAnswersSummary: formdata.checkAnswersSummary
+            checkAnswersSummary: req.session.checkAnswersSummary
         };
         const logMessage = 'Post probate check answers pdf';
-        return super.post(pdfTemplate, body, logMessage);
+        return super.post(pdfTemplate, body, logMessage, req);
     }
 }
 
