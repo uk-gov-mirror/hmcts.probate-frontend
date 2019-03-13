@@ -3,7 +3,8 @@
 const ProbatePdf = require('./ProbatePdf');
 
 class ProbateCoverSheetPdf extends ProbatePdf {
-    post(formdata) {
+    post(req) {
+        const formdata = req.session.formdata;
         const pdfTemplate = this.config.pdf.template.coverSheet;
         const body = {
             bulkScanCoverSheet: {
@@ -13,7 +14,7 @@ class ProbateCoverSheetPdf extends ProbatePdf {
             }
         };
         const logMessage = 'Post probate cover sheet pdf';
-        return super.post(pdfTemplate, body, logMessage);
+        return super.post(pdfTemplate, body, logMessage, req);
     }
 }
 

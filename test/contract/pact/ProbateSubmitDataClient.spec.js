@@ -5,7 +5,7 @@ const path = require('path');
 const chai = require('chai');
 const {Pact} = require('@pact-foundation/pact');
 const chaiAsPromised = require('chai-as-promised');
-const IntestacySubmitData = require('app/services/IntestacySubmitData');
+const ProbateSubmitData = require('app/services/ProbateSubmitData');
 const {somethingLike: like, eachLike, term} = require('@pact-foundation/pact').Matchers
 const config = require('app/config');
 
@@ -16,11 +16,11 @@ const MOCK_SERVER_PORT = 2204;
 
 chai.use(chaiAsPromised);
 
-describe('Pact Intestacy Submit Data', () => {
+describe('Pact Probate Submit Data', () => {
     // (1) Create the Pact object to represent your provider
     const provider = new Pact({
         consumer: 'probate_frontend',
-        provider: 'probate_orchestrator_service_intestacy_submit',
+        provider: 'probate_orchestrator_service_probate_submit',
         port: MOCK_SERVER_PORT,
         log: path.resolve(process.cwd(), 'logs', 'pact.log'),
         dir: path.resolve(process.cwd(), config.services.pact.pactDirectory),
@@ -33,6 +33,7 @@ describe('Pact Intestacy Submit Data', () => {
         authToken: 'authToken',
         serviceAuthorization: 'someServiceAuthorization'
     }
+
     // Define expected payloads
     const FORM_DATA_BODY_REQUEST =
         {
@@ -106,7 +107,7 @@ describe('Pact Intestacy Submit Data', () => {
     function getRequestPayload() {
 
         var expectedJSON = JSON.parse(JSON.stringify(FORM_DATA_BODY_REQUEST));
-        expectedJSON["type"] = 'Intestacy';
+        expectedJSON["type"] = 'PA';
         return expectedJSON;
     }
 
@@ -117,12 +118,12 @@ describe('Pact Intestacy Submit Data', () => {
             'id': 1535574519543819,
             'state': 'PAAppCreated'
         }
-        expectedJSON["type"] = 'Intestacy';
+        expectedJSON["type"] = 'PA';
         return expectedJSON;
     }
 
 
-    context('when intestacy formdata is posted', () => {
+    context('when probate formdata is posted', () => {
         describe('and is required to be submitted', () => {
             before(done => {
                 // (2) Start the mock server
@@ -132,8 +133,8 @@ describe('Pact Intestacy Submit Data', () => {
                     .then(() => {
                         return provider.addInteraction({
                             // The 'state' field specifies a 'Provider State'
-                            state: 'probate_orchestrator_service submits intestacy formdata with success',
-                            uponReceiving: 'a submit request to POST intestacy formdata',
+                            state: 'probate_orchestrator_service submits probate formdata with success',
+                            uponReceiving: 'a submit request to POST probate formdata',
                             withRequest: {
                                 method: 'POST',
                                 path: '/forms/someemailaddress@host.com/submissions',
@@ -158,7 +159,7 @@ describe('Pact Intestacy Submit Data', () => {
             // (4) write your test(s)
             // Verify service client works as expected
             it('successfully submitted form data', (done) => {
-                const submitDataClient = new IntestacySubmitData('http://localhost:2204', ctx.sessionID);
+                const submitDataClient = new ProbateSubmitData('http://localhost:2204', ctx.sessionID);
                 const verificationPromise = submitDataClient.submit(FORM_DATA_BODY_REQUEST, ctx);
                 expect(verificationPromise).to.eventually.eql(getExpectedPayload()).notify(done);
             });

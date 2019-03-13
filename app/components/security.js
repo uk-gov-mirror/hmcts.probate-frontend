@@ -20,10 +20,10 @@ class Security {
         this.loginUrl = loginUrl;
     }
 
-    protect(authorisedRoles) {
+     protect(authorisedRoles) {
         const self = this;
 
-        return (req, res, next) => {
+       return (req, res, next) => {
 
             let securityCookie;
             if (req.cookies) {

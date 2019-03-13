@@ -17,7 +17,7 @@ const config = {
         password: process.env.PASSWORD,
         useAuth: process.env.USE_AUTH || 'false',
         useHttps: process.env.USE_HTTPS || 'false',
-        useIDAM: process.env.USE_IDAM || 'false',
+        useIDAM: process.env.USE_IDAM || 'true',
         port: process.env.PORT || '3000',
         useCSRFProtection: 'true'
     },
@@ -30,7 +30,7 @@ const config = {
             path: '/find-address'
         },
         orchestrator: {
-            url: process.env.ORCHESTRATOR_SERVICE_URL || 'http://localhost:8080',
+            url: process.env.ORCHESTRATOR_SERVICE_URL || 'http://localhost:8888',
             paths: {
                 forms: '/forms/{applicantEmail}',
                 submissions: '/forms/{applicantEmail}/submissions',
@@ -51,7 +51,7 @@ const config = {
         },
         idam: {
             loginUrl: process.env.IDAM_LOGIN_URL || 'https://localhost:8000/login',
-            apiUrl: process.env.IDAM_API_URL || 'http://localhost:8484',
+            apiUrl: process.env.IDAM_API_URL || 'http://localhost:4501',
             roles: ['probate-private-beta', 'citizen'],
             s2s_url: process.env.IDAM_S2S_URL || 'http://localhost:4502',
             service_name: 'probate_frontend',
@@ -200,11 +200,11 @@ const config = {
     },
     pdf: {
         template: {
-            checkAnswers: 'generateCheckAnswersSummaryPDF',
-            declaration: 'generateLegalDeclarationPDF',
-            coverSheet: 'generateBulkScanCoverSheetPDF'
+            checkAnswers: 'checkAnswersSummary',
+            declaration: 'legalDeclaration',
+            coverSheet: 'bulkScanCoversheet'
         },
-        path: '/businessDocument'
+        path: '/documents/generate'
     },
     signOutOnStopPages: ['divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales'],
     assetsValueThreshold: 250000
