@@ -125,8 +125,8 @@ describe('declaration, single applicant', () => {
             sessionData.will.codicils = 'Yes';
             sessionData.will.codicilsNumber = 3;
             delete contentData.deceasedOtherNames;
-
-            console.log(sessionData);
+            contentData.codicilsNumber = 3;
+            contentData.codicils = 'codicils';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -164,6 +164,10 @@ describe('declaration, single applicant', () => {
                 notApplyingKey: 'optionDiedBefore'
             };
             sessionData.will.codicils = 'Yes';
+            sessionData.will.codicilsNumber = 1;
+            contentData.codicilsNumber = '';
+            contentData.codicils = 'codicil';
+
             contentData.otherExecutorName = executor.fullName;
             contentData.otherExecutorApplying = declarationContent.optionDiedBefore.replace('{deceasedName}', sessionData.deceased.deceasedName);
             sessionData.executors.list.push(executor);
@@ -184,6 +188,9 @@ describe('declaration, single applicant', () => {
                 notApplyingKey: 'optionDiedAfter'
             };
             sessionData.will.codicils = 'Yes';
+            sessionData.will.codicilsNumber = 2;
+            contentData.codicilsNumber = 2;
+            contentData.codicils = 'codicils';
             contentData.otherExecutorName = executor.fullName;
             contentData.otherExecutorApplying = declarationContent.optionDiedAfter.replace('{deceasedName}', sessionData.deceased.deceasedName);
             sessionData.executors.list.push(executor);
@@ -204,6 +211,9 @@ describe('declaration, single applicant', () => {
                 notApplyingKey: 'optionRenunciated'
             };
             sessionData.will.codicils = 'Yes';
+            sessionData.will.codicilsNumber = 1;
+            contentData.codicilsNumber = '';
+            contentData.codicils = 'codicil';
             contentData.otherExecutorName = executor.fullName;
             contentData.otherExecutorApplying = declarationContent.optionRenunciated.replace('{deceasedName}', sessionData.deceased.deceasedName);
             sessionData.executors.list.push(executor);
@@ -256,6 +266,7 @@ describe('declaration, single applicant', () => {
                 'codicils'
             ];
             sessionData.will.codicils = 'Yes';
+            sessionData.will.codicilsNumber = 4;
             sessionData.applicant.nameAsOnTheWill = 'No';
             sessionData.applicant.alias = 'Robert Bruce';
             sessionData.applicant.aliasReason = 'other';
@@ -264,6 +275,8 @@ describe('declaration, single applicant', () => {
             sessionData.executors.list[0].aliasReason = 'other';
             sessionData.executors.list[0].otherReason = 'Legal Name Change';
 
+            contentData.codicilsNumber = 4;
+            contentData.codicils = 'codicils';
             contentData.applicantWillName = 'Robert Bruce';
             contentData.applicantCurrentNameSign = 'Robert Bruce';
             contentData.applicantCurrentName = 'Bob Smith';
@@ -378,6 +391,7 @@ describe('declaration, single applicant', () => {
                 'codicils'
             ];
             sessionData.will.codicils = 'Yes';
+            sessionData.will.codicilsNumber = 1;
             sessionData.applicant.nameAsOnTheWill = 'No';
             sessionData.applicant.alias = 'Robert Bruce';
             sessionData.applicant.aliasReason = 'other';
@@ -391,6 +405,8 @@ describe('declaration, single applicant', () => {
                     lastName: 'Miller'
                 }
             };
+            contentData.codicilsNumber = '';
+            contentData.codicils = 'codicil';
             contentData.applicantWillName = 'Robert Bruce';
             contentData.applicantCurrentNameSign = 'Robert Bruce';
             contentData.deceasedOtherNames = 'James Miller';
