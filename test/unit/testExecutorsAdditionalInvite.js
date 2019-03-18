@@ -15,7 +15,7 @@ describe('Executor-Additional-Invite', function () {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        executors: {},
+                        executors: [],
                         journeyType: 'probate'
                     },
                     journeyType: 'probate'
@@ -26,6 +26,7 @@ describe('Executor-Additional-Invite', function () {
         it('test that context variables are correctly populated for single executor to be notified', () => {
             req.session.form.executors = {
                 list: [
+                    {fullName: 'Applicant', isApplying: true, isApplicant: true},
                     {fullName: 'harvey', isApplying: true, emailSent: false}]
             };
             ctx = executorsAdditionalInvite.getContextData(req);
@@ -39,6 +40,7 @@ describe('Executor-Additional-Invite', function () {
         it('test that context variables are correctly populated for multiple executors to be notified', () => {
             req.session.form.executors = {
                 list: [
+                    {fullName: 'Applicant', isApplying: true, isApplicant: true},
                     {fullName: 'other applicant', isApplying: true, emailSent: false},
                     {fullName: 'harvey', isApplying: true, emailSent: false}
                 ]
