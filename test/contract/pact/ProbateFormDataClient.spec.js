@@ -13,11 +13,11 @@ const MOCK_SERVER_PORT = 2204;
 
 chai.use(chaiAsPromised);
 
-describe('Pact ProbateFormData', () => {
+describe('Pact ProbateCheckAnswersPdf', () => {
     // (1) Create the Pact object to represent your provider
     const provider = new Pact({
         consumer: 'probate_frontend',
-        provider: 'probate_orchestrator_service_probate_forms',
+        provider: 'probate_orchestrator_service_probate_check_answers',
         port: MOCK_SERVER_PORT,
         log: path.resolve(process.cwd(), 'logs', 'pact.log'),
         dir: path.resolve(process.cwd(), config.services.pact.pactDirectory),
