@@ -134,7 +134,7 @@ class Declaration extends ValidationStep {
             sign: ''
         };
         if (props.executor.isApplicant) {
-            content.sign = props.content[`applicantSign${props.multipleApplicantSuffix}${mainApplicantSuffix}${codicilsSuffix}`]
+            content.sign = props.content[`applicantSend${props.multipleApplicantSuffix}${mainApplicantSuffix}${codicilsSuffix}`]
                 .replace('{applicantName}', props.mainApplicantName)
                 .replace('{deceasedName}', props.deceasedName);
 
