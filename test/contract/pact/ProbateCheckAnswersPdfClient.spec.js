@@ -141,7 +141,7 @@ describe('Pact ProbateCheckAnswersPdf', () => {
             it('invalid check answers summary', (done) => {
                 const checkAnswersPdfClient = new ProbateCheckAnswersPdf('http://localhost:2204', reqInvalid.sessionID);
                 const verificationPromise = checkAnswersPdfClient.post(reqInvalid);
-                expect(verificationPromise).to.eventually.be.rejectedWith("Bad Request").notify(done);
+                expect(verificationPromise).to.eventually.be.rejectedWith('Bad Request').notify(done);
             });
 
             // (6) write the pact file for this consumer-provider pair,
