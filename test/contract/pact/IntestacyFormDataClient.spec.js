@@ -28,7 +28,9 @@ describe('Pact IntestacyFormData', () => {
     const ctx = {
         sessionID: 'someSessionId',
         authToken: 'authToken',
-        serviceAuthorization: 'someServiceAuthorization'
+        session: {
+            serviceAuthorization: 'someServiceAuthorization'
+        }
     };
 
     // Define expected payloads
