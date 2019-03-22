@@ -123,7 +123,6 @@ describe('Pact Probate Submit Data', () => {
         return expectedJSON;
     }
 
-
     // Setup a Mock Server before unit tests run.
     // This server acts as a Test Double for the real Provider API.
     // We then call addInteraction() for each test to configure the Mock Service
@@ -132,14 +131,13 @@ describe('Pact Probate Submit Data', () => {
     // if the calls are not seen.
     before(() =>
         provider.setup()
-    )
+    );
 
     // After each individual test (one or more interactions)
     // we validate that the correct request came through.
     // This ensures what we _expect_ from the provider, is actually
     // what we've asked for (and is what gets captured in the contract)
-    afterEach(() => provider.verify())
-
+    afterEach(() => provider.verify());
 
     context('when probate formdata is posted', () => {
         describe('and is required to be submitted', () => {
@@ -165,8 +163,8 @@ describe('Pact Probate Submit Data', () => {
                         headers: {'Content-Type': 'application/json'},
                         body: getExpectedPayload()
                     }
-                })
-            })
+                });
+            });
 
             // (4) write your test(s)
             // Verify service client works as expected

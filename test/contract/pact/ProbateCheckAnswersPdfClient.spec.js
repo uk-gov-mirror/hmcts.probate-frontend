@@ -58,7 +58,6 @@ describe('Pact ProbateCheckAnswersPdf', () => {
         return fullBody;
     }
 
-
     // Setup a Mock Server before unit tests run.
     // This server acts as a Test Double for the real Provider API.
     // We then call addInteraction() for each test to configure the Mock Service
@@ -67,17 +66,16 @@ describe('Pact ProbateCheckAnswersPdf', () => {
     // if the calls are not seen.
     before(() =>
         provider.setup()
-    )
+    );
 
     // After each individual test (one or more interactions)
     // we validate that the correct request came through.
     // This ensures what we _expect_ from the provider, is actually
     // what we've asked for (and is what gets captured in the contract)
-    afterEach(() => provider.verify())
-
+    afterEach(() => provider.verify());
 
     describe('when valid check answers doc is posted', () => {
-        describe("and is required to be downloaded", () => {
+        describe('and is required to be downloaded', () => {
             before(() =>
                 provider.addInteraction({
                     // The 'state' field specifies a 'Provider State'
@@ -99,18 +97,18 @@ describe('Pact ProbateCheckAnswersPdf', () => {
                         headers: {'Content-Type': 'application/octet-stream'},
                     }
                 })
-            )
+            );
 
             it('successfully validated check answers summary', (done) => {
-                const checkAnswersPdfClient = new ProbateCheckAnswersPdf('http://localhost:'+MOCK_SERVER_PORT, req.sessionID);
+                const checkAnswersPdfClient = new ProbateCheckAnswersPdf('http://localhost:' + MOCK_SERVER_PORT, req.sessionID);
                 const verificationPromise = checkAnswersPdfClient.post(req);
                 assert.eventually.ok(verificationPromise).notify(done);
-            })
-        })
-    })
+            });
+        });
+    });
 
     describe('when invalid check answers doc is posted', () => {
-        describe("and is required to be downloaded", () => {
+        describe('and is required to be downloaded', () => {
             before(() =>
                 provider.addInteraction({
                     // The 'state' field specifies a 'Provider State'
@@ -129,21 +127,21 @@ describe('Pact ProbateCheckAnswersPdf', () => {
                     },
                     willRespondWith: {
                         status: 400,
-                        headers: {'Content-Type': 'application/octet-stream'},
+                        headers: {'Content-Type': 'application/businessdocument+json;charset=UTF-8'},
                     }
                 })
-            )
+            );
             it('invalid check answers summary', (done) => {
-                const checkAnswersPdfClient = new ProbateCheckAnswersPdf('http://localhost:'+MOCK_SERVER_PORT, reqInvalid.sessionID);
+                const checkAnswersPdfClient = new ProbateCheckAnswersPdf('http://localhost:' + MOCK_SERVER_PORT, reqInvalid.sessionID);
                 const verificationPromise = checkAnswersPdfClient.post(reqInvalid);
                 expect(verificationPromise).to.eventually.be.rejectedWith('Bad Request').notify(done);
-            })
-        })
-    })
+            });
+        });
+    });
 
     // Write pact files
     after(() => {
-        return provider.finalize()
-    })
+        return provider.finalize();
+    });
 
 });
