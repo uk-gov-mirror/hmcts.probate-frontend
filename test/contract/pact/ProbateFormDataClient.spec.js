@@ -10,7 +10,6 @@ const config = require('app/config');
 const expect = chai.expect;
 const getPort = require('get-port');
 
-
 chai.use(chaiAsPromised);
 
 describe('Pact ProbateFormData', () => {
@@ -96,13 +95,13 @@ describe('Pact ProbateFormData', () => {
     // if the calls are not seen.
     before(() =>
         provider.setup()
-    )
+    );
 
     // After each individual test (one or more interactions)
     // we validate that the correct request came through.
     // This ensures what we _expect_ from the provider, is actually
     // what we've asked for (and is what gets captured in the contract)
-    afterEach(() => provider.verify())
+    afterEach(() => provider.verify());
 
     context('when formdata is requested', () => {
         describe('from a GET', () => {
@@ -120,7 +119,7 @@ describe('Pact ProbateFormData', () => {
                             'Content-Type': 'application/json',
                             'Session-Id': ctx.sessionID,
                             'Authorization': ctx.authToken,
-                            'ServiceAuthorization': ctx.serviceAuthorization
+                            'ServiceAuthorization': ctx.session.serviceAuthorization
                         }
                     },
                     willRespondWith: {
@@ -128,14 +127,14 @@ describe('Pact ProbateFormData', () => {
                         headers: {'Content-Type': 'application/json'},
                         body: getExpectedResponseBody()
                     }
-                })
-            })
+                });
+            });
 
             // (4) write your test(s)
             // Verify service client works as expected
             it('successfully get form data', (done) => {
                 const formDataClient = new ProbateFormData('http://localhost:' + MOCK_SERVER_PORT, 'someSessionId');
-                const verificationPromise = formDataClient.get('someemailaddress@host.com', ctx.authToken, ctx.serviceAuthorization);
+                const verificationPromise = formDataClient.get('someemailaddress@host.com', ctx.authToken, ctx.session.serviceAuthorization);
                 expect(verificationPromise).to.eventually.eql(getExpectedResponseBody()).notify(done);
             });
 
@@ -157,7 +156,7 @@ describe('Pact ProbateFormData', () => {
                             'Content-Type': 'application/json',
                             'Session-Id': 'someSessionId',
                             'Authorization': 'authToken',
-                            'ServiceAuthorization': 'someServiceAuthorization'
+                            'ServiceAuthorization': ctx.session.serviceAuthorization
                         },
                         body: getRequestBody()
                     },
@@ -166,13 +165,13 @@ describe('Pact ProbateFormData', () => {
                         headers: {'Content-Type': 'application/json'},
                         body: getExpectedResponseBody()
                     }
-                })
-            })
+                });
+            });
 
             // (4) write your test(s)
             // Verify service client works as expected
             it('successfully validated form data', (done) => {
-                const formDataClient = new ProbateFormData('http://localhost:' + MOCK_SERVER_PORT, 'someSessionId');
+                const formDataClient = new ProbateFormData('http://localhost:' + MOCK_SERVER_PORT, ctx.sessionID);
                 const verificationPromise = formDataClient.post('someemailaddress@host.com', FORM_DATA_BODY_PAYLOAD, ctx);
                 expect(verificationPromise).to.eventually.eql(getExpectedResponseBody()).notify(done);
             });
