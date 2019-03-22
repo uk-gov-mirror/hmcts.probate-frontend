@@ -30,7 +30,6 @@ describe('Pact IntestacyFormData', () => {
         });
     });
 
-
     const ctx = {
         sessionID: 'someSessionId',
         authToken: 'authToken',
@@ -98,13 +97,13 @@ describe('Pact IntestacyFormData', () => {
     // if the calls are not seen.
     before(() =>
         provider.setup()
-    )
+    );
 
     // After each individual test (one or more interactions)
     // we validate that the correct request came through.
     // This ensures what we _expect_ from the provider, is actually
     // what we've asked for (and is what gets captured in the contract)
-    afterEach(() => provider.verify())
+    afterEach(() => provider.verify());
 
     describe('when intestacy formdata is posted', () => {
         describe('and is required to be persisted', () => {
@@ -121,7 +120,7 @@ describe('Pact IntestacyFormData', () => {
                             'Content-Type': 'application/json',
                             'Session-Id': ctx.sessionID,
                             'Authorization': ctx.authToken,
-                            'ServiceAuthorization': ctx.serviceAuthorization
+                            'ServiceAuthorization': ctx.session.serviceAuthorization
                         },
                         body: getRequestBody()
                     },
@@ -130,8 +129,8 @@ describe('Pact IntestacyFormData', () => {
                         headers: {'Content-Type': 'application/json'},
                         body: getExpectedResponseBody()
                     }
-                })
-            })
+                });
+            });
 
             // (4) write your test(s)
             // Verify service client works as expected
@@ -140,8 +139,6 @@ describe('Pact IntestacyFormData', () => {
                 const verificationPromise = formDataClient.post('someemailaddress@host.com', FORM_DATA_BODY_PAYLOAD, ctx);
                 expect(verificationPromise).to.eventually.eql(getExpectedResponseBody()).notify(done);
             });
-
-
         });
     });
     // (6) write the pact file for this consumer-provider pair,

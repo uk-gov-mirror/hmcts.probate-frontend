@@ -129,49 +129,47 @@ describe('Pact Intestacy Submit Data', () => {
     // if the calls are not seen.
     before(() =>
         provider.setup()
-    )
+    );
 
     // After each individual test (one or more interactions)
     // we validate that the correct request came through.
     // This ensures what we _expect_ from the provider, is actually
     // what we've asked for (and is what gets captured in the contract)
-    afterEach(() => provider.verify())
+    afterEach(() => provider.verify());
 
     describe('when intestacy formdata is posted', () => {
         describe('and is required to be submitted', () => {
             before(() => {
-                 provider.addInteraction({
-                            // The 'state' field specifies a 'Provider State'
-                            state: 'probate_orchestrator_service submits intestacy formdata with success',
-                            uponReceiving: 'a submit request to POST intestacy formdata',
-                            withRequest: {
-                                method: 'POST',
-                                path: '/forms/someemailaddress@host.com/submissions',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'Session-Id': ctx.sessionID,
-                                    'Authorization': ctx.authToken,
-                                    'ServiceAuthorization': ctx.serviceAuthorization
-                                },
-                                body: getRequestPayload()
-                            },
-                            willRespondWith: {
-                                status: 200,
-                                headers: {'Content-Type': 'application/json'},
-                                body: getExpectedPayload()
-                            }
-                        })
-            })
+                provider.addInteraction({
+                    // The 'state' field specifies a 'Provider State'
+                    state: 'probate_orchestrator_service submits intestacy formdata with success',
+                    uponReceiving: 'a submit request to POST intestacy formdata',
+                    withRequest: {
+                        method: 'POST',
+                        path: '/forms/someemailaddress@host.com/submissions',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Session-Id': ctx.sessionID,
+                            'Authorization': ctx.authToken,
+                            'ServiceAuthorization': ctx.serviceAuthorization
+                        },
+                        body: getRequestPayload()
+                    },
+                    willRespondWith: {
+                        status: 200,
+                        headers: {'Content-Type': 'application/json'},
+                        body: getExpectedPayload()
+                    }
+                });
+            });
 
             // (4) write your test(s)
             // Verify service client works as expected
             it('successfully submitted form data', (done) => {
-                const submitDataClient = new IntestacySubmitData('http://localhost:'+MOCK_SERVER_PORT, ctx.sessionID);
+                const submitDataClient = new IntestacySubmitData('http://localhost:' + MOCK_SERVER_PORT, ctx.sessionID);
                 const verificationPromise = submitDataClient.submit(FORM_DATA_BODY_REQUEST, ctx);
                 expect(verificationPromise).to.eventually.eql(getExpectedPayload()).notify(done);
             });
-
-
         });
     });
     // (6) write the pact file for this consumer-provider pair,
