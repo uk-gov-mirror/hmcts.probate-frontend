@@ -21,6 +21,12 @@ probate_private_beta_auth_url = "https://idam-web-public.aat.platform.hmcts.net/
 
 idam_user_host = "https://idam-api.aat.platform.hmcts.net:3511"
 
+#probate_private_beta_auth_url = "https://idam-test.dev.ccidam.reform.hmcts.net/login"
+#probate_private_beta_auth_url = "https://idam-web-public-idam-saat.service.core-compute-idam-saat.internal/login"
+#idam_user_host = "http://betaDevBccidamAppLB.reform.hmcts.net"
+#idam_user_host = "http://idam-api-idam-saat.service.core-compute-idam-saat.internal/"
+#"http://idam-api-idam-saat.service.core-compute-saat.internal/"
+
 probate_deployment_env = "test"
 
 
