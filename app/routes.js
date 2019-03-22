@@ -25,7 +25,9 @@ router.use((req, res, next) => {
     if (!req.session.form) {
         req.session.form = {
             payloadVersion: config.payloadVersion,
-            applicantEmail: req.session.regId
+            applicantEmail: req.session.regId,
+            applicant: {},
+            deceased: {}
         };
         req.session.back = [];
     }
@@ -54,7 +56,7 @@ router.get('/', (req, res) => {
                 req.log.info({tags: 'Analytics'}, 'Application Started');
             } else {
                 req.log.debug('Successfully loaded user data');
-                req.session.form = result.formdata;
+                req.session.form = formData.formatForGet(result);
             }
             res.redirect('tasklist');
         });
