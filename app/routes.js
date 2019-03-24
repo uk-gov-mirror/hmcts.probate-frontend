@@ -56,7 +56,7 @@ router.get('/', (req, res) => {
                 req.log.info({tags: 'Analytics'}, 'Application Started');
             } else {
                 req.log.debug('Successfully loaded user data');
-                req.session.form = formData.formatForGet(result);
+                req.session.form = result;
             }
             res.redirect('tasklist');
         });
