@@ -10,9 +10,8 @@ const config = require('app/config');
 const getPort = require('get-port');
 const assert = chai.assert;
 const expect = chai.expect;
-const DOC_BODY_PAYLOAD = require('test/data/pacts/checkAnswersSummary');
-const INVALID_DOC_BODY_PAYLOAD = require('test/data/pacts/invalidNoTitleCheckAnswersSummary');
-
+const DOC_BODY_PAYLOAD = require('test/data/pacts/probate/checkAnswersSummary');
+const INVALID_DOC_BODY_PAYLOAD = require('test/data/pacts/probate/invalidNoTitleCheckAnswersSummary');
 chai.use(chaiAsPromised);
 
 describe('Pact ProbateCheckAnswersPdf', () => {
@@ -66,13 +65,13 @@ describe('Pact ProbateCheckAnswersPdf', () => {
     // if the calls are not seen.
     before(() =>
         provider.setup()
-    );
+    )
 
     // After each individual test (one or more interactions)
     // we validate that the correct request came through.
     // This ensures what we _expect_ from the provider, is actually
     // what we've asked for (and is what gets captured in the contract)
-    afterEach(() => provider.verify());
+    afterEach(() => provider.verify())
 
     describe('when valid check answers doc is posted', () => {
         describe('and is required to be downloaded', () => {
@@ -100,7 +99,7 @@ describe('Pact ProbateCheckAnswersPdf', () => {
             );
 
             it('successfully validated check answers summary', (done) => {
-                const checkAnswersPdfClient = new ProbateCheckAnswersPdf('http://localhost:' + MOCK_SERVER_PORT, req.sessionID);
+                const checkAnswersPdfClient = new ProbateCheckAnswersPdf('http://localhost:'+MOCK_SERVER_PORT, req.sessionID);
                 const verificationPromise = checkAnswersPdfClient.post(req);
                 assert.eventually.ok(verificationPromise).notify(done);
             });
@@ -127,14 +126,14 @@ describe('Pact ProbateCheckAnswersPdf', () => {
                     },
                     willRespondWith: {
                         status: 400,
-                        headers: {'Content-Type': 'application/businessdocument+json;charset=UTF-8'},
+                        headers: {'Content-Type': 'application/octet-stream'},
                     }
                 })
             );
             it('invalid check answers summary', (done) => {
-                const checkAnswersPdfClient = new ProbateCheckAnswersPdf('http://localhost:' + MOCK_SERVER_PORT, reqInvalid.sessionID);
+                const checkAnswersPdfClient = new ProbateCheckAnswersPdf('http://localhost:'+MOCK_SERVER_PORT, reqInvalid.sessionID);
                 const verificationPromise = checkAnswersPdfClient.post(reqInvalid);
-                expect(verificationPromise).to.eventually.be.rejectedWith('Bad Request').notify(done);
+                expect(verificationPromise).to.eventually.be.rejectedWith('Error: Bad Request').notify(done);
             });
         });
     });
