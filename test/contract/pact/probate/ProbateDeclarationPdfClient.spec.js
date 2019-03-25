@@ -9,7 +9,7 @@ const ProbateDeclarationPdf = require('app/services/ProbateDeclarationPdf');
 const config = require('app/config');
 const assert = chai.assert;
 const getPort = require('get-port');
-const DOC_BODY_PAYLOAD = require('test/data/pacts/legalDeclaration');
+const DOC_BODY_PAYLOAD = require('test/data/pacts/probate/legalDeclaration');
 
 chai.use(chaiAsPromised);
 
@@ -56,13 +56,13 @@ describe('Pact ProbateDeclarationPdf', () => {
     // if the calls are not seen.
     before(() =>
         provider.setup()
-    );
+    )
 
     // After each individual test (one or more interactions)
     // we validate that the correct request came through.
     // This ensures what we _expect_ from the provider, is actually
     // what we've asked for (and is what gets captured in the contract)
-    afterEach(() => provider.verify());
+    afterEach(() => provider.verify())
 
     describe('when legal declaration doc is posted', () => {
         describe('and is required to be downloaded', () => {
@@ -87,8 +87,8 @@ describe('Pact ProbateDeclarationPdf', () => {
                         status: 200,
                         headers: {'Content-Type': 'application/octet-stream'},
                     }
-                });
-            });
+                })
+            })
 
             // (4) write your test(s)
             // Verify service client works as expected
