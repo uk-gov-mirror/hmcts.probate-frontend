@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const IhtMethod = require('app/steps/ui/iht/method/index');
-const common = require('app/resources/en/translation/common');
+const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 const nock = require('nock');
 const expect = require('chai').expect;
