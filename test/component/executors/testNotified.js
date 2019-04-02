@@ -4,7 +4,6 @@ const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist/index');
 const ExecutorRoles = require('app/steps/ui/executors/roles/index');
 const commonContent = require('app/resources/en/translation/common');
-const config = require('app/config');
 
 describe('executor-notified', () => {
     let testWrapper, sessionData;

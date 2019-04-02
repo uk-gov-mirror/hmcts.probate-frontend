@@ -7,7 +7,6 @@ const ExecutorNotified = require('app/steps/ui/executors/notified/index');
 const TaskList = require('app/steps/ui/tasklist/index');
 const executorRolesContent = require('app/resources/en/translation/executors/executorcontent');
 const commonContent = require('app/resources/en/translation/common');
-const config = require('app/config');
 
 describe('executor-roles', () => {
     const expectedNextUrlForTaskList = TaskList.getUrl();
