@@ -14,7 +14,7 @@
         </h1>
         <p>{{ content.CopiesSummary.extraCopies }}</p>
 
-        <dl class="check-your-answers check-your-answers--long">
+        <table class="check-your-answers check-your-answers--long">
             {{ checkanswer(
                 items = [
                     {
@@ -42,7 +42,7 @@
                 common = common,
                 alreadyDeclared = 'false'
             ) }}
-        </dl>
+        </table>
 
         <div class="form-group">
             <p><a href="/tasklist" class="button button-start">{{ common.saveAndContinue }}</a></p>
