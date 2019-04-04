@@ -71,12 +71,9 @@ class PaymentBreakdown extends Step {
             const options = {};
             options.redirect = true;
             options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
-            formdata.paymentPending = 'unknown';
             authKnown = false;
             return options;
         }
-
-        // if (formdata.paymentPending !== 'unknown') {
         if (authKnown) {
             const [result, submissionErrors] = yield this.sendToSubmitService(ctx, errors, formdata, ctx.total);
             errors = errors.concat(submissionErrors);
@@ -92,10 +89,6 @@ class PaymentBreakdown extends Step {
             const canCreatePayment = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
 
             if (ctx.total > 0 && canCreatePayment) {
-                formdata.paymentPending = 'true';
-
-                // if (formdata.creatingPayment !== 'true') {
-                formdata.creatingPayment = 'true';
                 session.save();
 
                 const serviceAuthResult = yield authorise.post();
@@ -103,8 +96,6 @@ class PaymentBreakdown extends Step {
                 if (serviceAuthResult.name === 'Error') {
                     logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
                     const keyword = 'failure';
-                    formdata.creatingPayment = null;
-                    formdata.paymentPending = null;
                     errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
                     return [ctx, errors];
                 }
@@ -123,7 +114,6 @@ class PaymentBreakdown extends Step {
                 const payment = new Payment(config.services.payment.createPaymentUrl, ctx.sessionID);
                 const [response, paymentReference] = yield payment.post(data, hostname);
                 logger.info(`Payment creation in breakdown for paymentReference = ${paymentReference} with response = ${JSON.stringify(response)}`);
-                formdata.creatingPayment = 'false';
 
                 if (response.name === 'Error') {
                     errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));
@@ -136,11 +126,7 @@ class PaymentBreakdown extends Step {
                 ctx.paymentStatus = response.status;
 
                 this.nextStepUrl = () => response._links.next_url.href;
-            // } else {
-            //     logger.warn('Skipping - create payment request in progress');
-            // }
             } else {
-                formdata.paymentPending = ctx.total === 0 ? 'false' : 'true';
                 delete this.nextStepUrl;
             }
         } else {
@@ -150,9 +136,8 @@ class PaymentBreakdown extends Step {
         return [ctx, errors];
     }
 
-    isComplete(ctx, formdata) {
+    isComplete(ctx) {
         return [ctx.total === 0 || ctx.paymentStatus === 'Initiated' || ctx.paymentStatus === 'Success', 'inProgress'];
-        // return [['true', 'false'].includes(formdata.paymentPending), 'inProgress'];
     }
 
     * sendToSubmitService(ctx, errors, formdata, total) {

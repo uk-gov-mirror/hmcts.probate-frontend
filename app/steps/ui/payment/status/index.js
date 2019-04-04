@@ -57,16 +57,14 @@ class PaymentStatus extends Step {
         );
 
         const paymentRequired = ctx.total !== 0 || ctx.paymentStatus !== 'Success';
-        // const paymentRequired = ctx.paymentStatus === 'Initiated';
+
         if (paymentRequired) {
-        // if (formdata.paymentPending === 'true' || formdata.paymentPending === 'unknown') {
             const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
             const serviceAuthResult = yield authorise.post();
 
             if (serviceAuthResult.name === 'Error') {
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
-                formdata.paymentPending = 'unknown';
                 return options;
             }
 
@@ -89,10 +87,8 @@ class PaymentStatus extends Step {
                 const options = {};
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
-                formdata.paymentPending = 'true';
                 return options;
             }
-
 
             const [updateCcdCaseResponse, errors] = yield this.updateCcdCasePaymentStatus(ctx, formdata);
             this.setErrors(options, errors);
@@ -107,7 +103,6 @@ class PaymentStatus extends Step {
                 logger.warn('Did not get a successful case created state.');
             } else {
                 options.redirect = false;
-                formdata.paymentPending = 'false';
             }
         } else {
             const [updateCcdCaseResponse, errors] = yield this.updateCcdCasePaymentStatus(ctx, formdata);
