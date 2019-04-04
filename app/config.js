@@ -18,7 +18,7 @@ const config = {
         password: process.env.PASSWORD,
         useAuth: process.env.USE_AUTH || 'false',
         useHttps: process.env.USE_HTTPS || 'false',
-        useIDAM: process.env.USE_IDAM || 'false',
+        useIDAM: process.env.USE_IDAM || 'true',
         port: process.env.PORT || '3000',
         useCSRFProtection: 'true',
         session: {
@@ -56,7 +56,7 @@ const config = {
         },
         idam: {
             loginUrl: process.env.IDAM_LOGIN_URL || 'https://localhost:8000/login',
-            apiUrl: process.env.IDAM_API_URL || 'http://localhost:8484',
+            apiUrl: process.env.IDAM_API_URL || 'http://localhost:4501',
             roles: ['probate-private-beta', 'citizen'],
             s2s_url: process.env.IDAM_S2S_URL || 'http://localhost:4502',
             service_name: 'probate_frontend',
@@ -68,9 +68,9 @@ const config = {
         },
         payment: {
             createPaymentUrl: process.env.PAYMENT_CREATE_URL || 'http://localhost:8383/card-payments',
-            authorization: process.env.PAYMENT_AUTHORIZATION || 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI3bTRsNWlrZmFsZGZwbzQyaGR0ZjZiMTBmNCIsInN1YiI6IjM3IiwiaWF0IjoxNTQ5OTA1MzE2LCJleHAiOjE1NDk5MzQxMTYsImRhdGEiOiJjYXNld29ya2VyLXByb2JhdGUsY2l0aXplbixjYXNld29ya2VyLGNhc2V3b3JrZXItcHJvYmF0ZS1sb2ExLGNpdGl6ZW4tbG9hMSxjYXNld29ya2VyLWxvYTEiLCJ0eXBlIjoiQUNDRVNTIiwiaWQiOiIzNyIsImZvcmVuYW1lIjoiVXNlciIsInN1cm5hbWUiOiJUZXN0IiwiZGVmYXVsdC1zZXJ2aWNlIjoiQ0NEIiwibG9hIjoxLCJkZWZhdWx0LXVybCI6Imh0dHBzOi8vbG9jYWxob3N0OjkwMDAvcG9jL2NjZCIsImdyb3VwIjoiY2FzZXdvcmtlciJ9.PEIyDFArolm9Am9YUVRO74zAbUSbwhlxvq-O_2gKqt8',
-            serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9iYXRlX2Zyb250ZW5kIiwiZXhwIjoxNTQ5OTE5NzE2fQ.GJ9wLe_4it4TysL2M4ABGyvDGIc97cnryJJPd4wz7Ic5qM-k6ENlVmcLXbUqwL2LV7XuyW5MJofWJIgUPCA9lQ',
-            userId: process.env.PAYMENT_USER_ID || 37,
+            authorization: process.env.PAYMENT_AUTHORIZATION || 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJzdXVmdG4wc3UzdmxpMDE0M2wwbHNobm1nYiIsInN1YiI6IjM2IiwiaWF0IjoxNTUzNTA5NDU3LCJleHAiOjE1NTM1MzgyNTcsImRhdGEiOiJjYXNld29ya2VyLXByb2JhdGUsY2l0aXplbixjYXNld29ya2VyLGNhc2V3b3JrZXItcHJvYmF0ZS1sb2ExLGNpdGl6ZW4tbG9hMSxjYXNld29ya2VyLWxvYTEiLCJ0eXBlIjoiQUNDRVNTIiwiaWQiOiIzNiIsImZvcmVuYW1lIjoiVXNlciIsInN1cm5hbWUiOiJUZXN0IiwiZGVmYXVsdC1zZXJ2aWNlIjoiQ0NEIiwibG9hIjoxLCJkZWZhdWx0LXVybCI6Imh0dHBzOi8vbG9jYWxob3N0OjkwMDAvcG9jL2NjZCIsImdyb3VwIjoiY2FzZXdvcmtlciJ9.Nsr_bolsFGzSlidIBdhyhIm1tk2V0z3YHY5Ek8FxAM4',
+            serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9iYXRlX2Zyb250ZW5kIiwiZXhwIjoxNTUzNTIzODU4fQ.fys5ScwHs6nyBH-py7gZkn5wYBTVwWF2hUmPjJOa-q_aZuxAouaxNQ-K7pNr74RlA23mhuWW2nsWQFo-uA7Iqg',
+            userId: process.env.PAYMENT_USER_ID || 36,
             returnUrlPath: '/payment-status'
         },
         pact: {
