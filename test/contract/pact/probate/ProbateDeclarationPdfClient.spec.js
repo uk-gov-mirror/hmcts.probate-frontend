@@ -9,7 +9,7 @@ const ProbateDeclarationPdf = require('app/services/ProbateDeclarationPdf');
 const config = require('app/config');
 const assert = chai.assert;
 const getPort = require('get-port');
-const DOC_BODY_PAYLOAD = require('test/data/pacts/legalDeclaration');
+const DOC_BODY_PAYLOAD = require('test/data/pacts/probate/legalDeclaration');
 
 chai.use(chaiAsPromised);
 

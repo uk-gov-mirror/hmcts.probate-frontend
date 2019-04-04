@@ -9,6 +9,7 @@ const IntestacySubmitData = require('app/services/IntestacySubmitData');
 const config = require('app/config');
 const getPort = require('get-port');
 const expect = chai.expect;
+const FORM_DATA_BODY_REQUEST = require('test/data/pacts/intestacy/submitDataClient');
 
 chai.use(chaiAsPromised);
 
@@ -35,74 +36,6 @@ describe('Pact Intestacy Submit Data', () => {
         authToken: 'authToken',
         serviceAuthorization: 'someServiceAuthorization'
     };
-    // Define expected payloads
-    const FORM_DATA_BODY_REQUEST =
-        {
-            applicant: {
-                email: 'someemailaddress@host.com',
-                firstName: 'Jon',
-                lastName: 'Snow',
-                address: 'Pret a Manger St. Georges Hospital Blackshaw Road London SW17 0QT',
-                postCode: 'SW17 0QT',
-                phoneNumber: '123455678',
-                addressFound: 'Yes',
-                freeTextAddress: 'Pret a Manger St. Georges Hospital Blackshaw Road',
-                relationshipToDeceased: 'adoptedChild',
-                adoptionInEnglandOrWales: 'Yes'
-            },
-            deceased: {
-                firstName: 'Ned',
-                lastName: 'Stark',
-                dob_date: '1930-01-01',
-                dod_date: '2018-01-01',
-                address: 'Winterfell, Westeros',
-                addressFound: 'Yes',
-                postCode: 'SW17 0QT',
-                freeTextAddress: 'Winterfell, Westeros',
-                alias: 'Yes',
-                otherNames: {
-                    name_0: {
-                        lastName: 'North',
-                        firstName: 'King'
-                    }
-                },
-                maritalStatus: 'marriedCivilPartnership',
-                divorcedInEnglandOrWales: 'No',
-                domiciledInEnglandOrWales: 'Yes',
-                spouseNotApplyingReason: 'mentallyIncapable',
-                otherChildren: 'Yes',
-                allDeceasedChildrenOverEighteen: 'Yes',
-                anyDeceasedChildrenDieBeforeDeceased: 'No',
-                anyDeceasedGrandchildrenUnderEighteen: 'No',
-                anyChildren: 'No'
-            },
-            iht: {
-                form: 'IHT205',
-                method: 'Through the HMRC online service',
-                netValue: 10000.99,
-                grossValue: 10000.99,
-                identifier: 'GOT123456'
-            },
-            assets: {
-                assetsOverseasNetValue: 100.99,
-                assetsOverseas: 'Yes'
-            },
-            copies: {
-                uk: 5,
-                overseas: 6
-            },
-            registry: {
-                name: 'Birmingham',
-                email: 'birmingham@email.com',
-                address: 'Line 1 Bham\nLine 2 Bham\nLine 3 Bham\nPostCode Bham',
-                sequenceNumber: 20075
-            },
-            declaration: {
-                declarationCheckbox: 'Yes'
-            },
-            uploadDocumentUrl: 'http://document-management/document/12345'
-        };
-
     function getRequestPayload() {
 
         const expectedJSON = JSON.parse(JSON.stringify(FORM_DATA_BODY_REQUEST));
@@ -166,10 +99,11 @@ describe('Pact Intestacy Submit Data', () => {
             // (4) write your test(s)
             // Verify service client works as expected
             it('successfully submitted form data', (done) => {
-                const submitDataClient = new IntestacySubmitData('http://localhost:' + MOCK_SERVER_PORT, ctx.sessionID);
+                const submitDataClient = new IntestacySubmitData('http://localhost:'+MOCK_SERVER_PORT, ctx.sessionID);
                 const verificationPromise = submitDataClient.submit(FORM_DATA_BODY_REQUEST, ctx);
                 expect(verificationPromise).to.eventually.eql(getExpectedPayload()).notify(done);
             });
+
         });
     });
     // (6) write the pact file for this consumer-provider pair,
