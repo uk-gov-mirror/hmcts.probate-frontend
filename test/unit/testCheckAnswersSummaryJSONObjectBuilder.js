@@ -8,13 +8,10 @@ let checkAnswersSummaryJSONObjBuilder;
 const html = `
 <!DOCTYPE html>
   <body>
-    <h1 class="heading-large">
-        Check your answers
-    </h1>
+    <h1 class="heading-large">Check your answers</h1>
     <p id="main-heading-content">Check the information below carefully. This will form a record of your application for probate. It will also be stored as a public record, and will be able to be viewed online.</p>
-    <h2 class="heading-medium">
-        The will
-    </h2>
+    
+    <h2 class="heading-medium">The will</h2>
     <table class="check-your-answers check-your-answers--long">
         <tr class="check-your-answers__row">
             <th class="check-your-answers__question">Did the person who died leave a will?</th>
@@ -25,6 +22,7 @@ const html = `
             <td class="check-your-answers__answer">Yes</td>
         </tr>
     </table>
+
     <h2 class="heading-medium">Inheritance tax</h2>
     <table class="check-your-answers check-your-answers--long">
         <tr class="check-your-answers__row">
@@ -36,6 +34,7 @@ const html = `
             <td class="check-your-answers__answer">By post</td>
         </tr>
     </table>
+
     <h2 class="heading-medium">The executors</h2>
     <table class="check-your-answers check-your-answers--long">
         <tr class="check-your-answers__row">
@@ -43,7 +42,8 @@ const html = `
             <td class="check-your-answers__answer">1</td>
         </tr>
     </table>
-    <h2 class="heading-medium">About you</h2>
+
+    <h3 class="heading-small">About you</h3>
     <table class="check-your-answers check-your-answers--long">
         <tr class="check-your-answers__row">
             <th class="check-your-answers__question">First name(s)</th>
@@ -54,6 +54,7 @@ const html = `
             <td class="check-your-answers__answer">Brown</td>
         </tr>
     </table>
+
     <h2 class="heading-medium">About the person who died</h2>
     <table class="check-your-answers check-your-answers--long">
         <tr class="check-your-answers__row">
@@ -79,16 +80,12 @@ describe('CheckAnswersSummaryJSONObjectBuilder', function () {
             assert.exists(checkAnswersSummary);
             assertPropertyExistsAndIsEqualTo(checkAnswersSummary.mainParagraph,
                 'Check the information below carefully. This will form a record of your application for probate. It will also be stored as a public record, and will be able to be viewed online.');
-            assertPropertyExistsAndIsEqualTo(checkAnswersSummary.pageTitle, '\n' +
-                '        Check your answers\n' +
-                '    ');
+            assertPropertyExistsAndIsEqualTo(checkAnswersSummary.pageTitle, 'Check your answers');
             assert.isArray(checkAnswersSummary.sections, 'Sections exists');
             assert.lengthOf(checkAnswersSummary.sections, 5, 'Section array has length of 5');
 
             const willSection = checkAnswersSummary.sections[0];
-            assertPropertyExistsAndIsEqualTo(willSection.title, '\n' +
-                '        The will\n' +
-                '    ');
+            assertPropertyExistsAndIsEqualTo(willSection.title, 'The will');
             assertPropertyExistsAndIsEqualTo(willSection.type, 'heading-medium');
             assert.isArray(willSection.questionAndAnswers);
             assert.lengthOf(willSection.questionAndAnswers, 2, 'Will Section array has 2 questionsAndAnswers');
@@ -116,7 +113,7 @@ describe('CheckAnswersSummaryJSONObjectBuilder', function () {
 
             const aboutYouSection = checkAnswersSummary.sections[3];
             assertPropertyExistsAndIsEqualTo(aboutYouSection.title, 'About you');
-            assertPropertyExistsAndIsEqualTo(aboutYouSection.type, 'heading-medium');
+            assertPropertyExistsAndIsEqualTo(aboutYouSection.type, 'heading-small');
 
             assert.isArray(aboutYouSection.questionAndAnswers);
             assert.lengthOf(aboutYouSection.questionAndAnswers, 2, 'About You Section array has 2 questionsAndAnswers');
