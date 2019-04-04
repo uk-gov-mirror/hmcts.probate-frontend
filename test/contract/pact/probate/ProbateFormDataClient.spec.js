@@ -9,7 +9,8 @@ const ProbateFormData = require('app/services/ProbateFormData');
 const config = require('app/config');
 const expect = chai.expect;
 const getPort = require('get-port');
-const FORM_DATA_BODY_PAYLOAD = require('test/data/pacts/probate/formDataClient');
+const PA_FORMDATA_PAYLOAD = require('test/data/pacts/probateDraftFormWithExecutors');
+const PA_FORMDATA_RESPONSE = require('test/data/pacts/probateDraftFormWithExecutorsResponse');
 
 chai.use(chaiAsPromised);
 
@@ -38,21 +39,11 @@ describe('Pact ProbateFormData', () => {
             serviceAuthorization: 'someServiceAuthorization'
         }
     };
-    function getRequestBody() {
-        const fullBody = JSON.parse(JSON.stringify(FORM_DATA_BODY_PAYLOAD));
+
+    function getWrappedPayload(unwrappedPayload) {
+        const fullBody = unwrappedPayload;
         fullBody.type = 'PA';
         return fullBody;
-    }
-
-    function getExpectedResponseBody() {
-
-        const expectedJSON = JSON.parse(JSON.stringify(FORM_DATA_BODY_PAYLOAD));
-        expectedJSON.ccdCase = {
-            'id': 1535574519543819,
-            'state': 'Draft'
-        };
-        expectedJSON.type = 'PA';
-        return expectedJSON;
     }
 
     // Setup a Mock Server before unit tests run.
@@ -93,7 +84,7 @@ describe('Pact ProbateFormData', () => {
                     willRespondWith: {
                         status: 200,
                         headers: {'Content-Type': 'application/json'},
-                        body: getExpectedResponseBody()
+                        body: PA_FORMDATA_RESPONSE
                     }
                 });
             });
@@ -102,8 +93,8 @@ describe('Pact ProbateFormData', () => {
             // Verify service client works as expected
             it('successfully get form data', (done) => {
                 const formDataClient = new ProbateFormData('http://localhost:' + MOCK_SERVER_PORT, 'someSessionId');
-                const verificationPromise = formDataClient.get('someemailaddress@host.com', ctx.authToken, ctx.serviceAuthorization);
-                expect(verificationPromise).to.eventually.eql(getExpectedResponseBody()).notify(done);
+                const verificationPromise = formDataClient.get('someemailaddress@host.com', ctx.authToken, ctx.session.serviceAuthorization);
+                expect(verificationPromise).to.eventually.eql(PA_FORMDATA_RESPONSE).notify(done);
             });
 
         });
@@ -126,12 +117,12 @@ describe('Pact ProbateFormData', () => {
                             'Authorization': 'authToken',
                             'ServiceAuthorization': 'someServiceAuthorization'
                         },
-                        body: getRequestBody()
+                        body: getWrappedPayload(PA_FORMDATA_PAYLOAD)
                     },
                     willRespondWith: {
                         status: 200,
                         headers: {'Content-Type': 'application/json'},
-                        body: getExpectedResponseBody()
+                        body: PA_FORMDATA_RESPONSE
                     }
                 });
             });
@@ -139,9 +130,9 @@ describe('Pact ProbateFormData', () => {
             // (4) write your test(s)
             // Verify service client works as expected
             it('successfully validated form data', (done) => {
-                const formDataClient = new ProbateFormData('http://localhost:' + MOCK_SERVER_PORT, 'someSessionId');
-                const verificationPromise = formDataClient.post('someemailaddress@host.com', FORM_DATA_BODY_PAYLOAD, ctx);
-                expect(verificationPromise).to.eventually.eql(getExpectedResponseBody()).notify(done);
+                const formDataClient = new ProbateFormData('http://localhost:' + MOCK_SERVER_PORT, ctx.sessionID);
+                const verificationPromise = formDataClient.post('someemailaddress@host.com', PA_FORMDATA_PAYLOAD, ctx);
+                expect(verificationPromise).to.eventually.eql(PA_FORMDATA_RESPONSE).notify(done);
             });
         });
     });
