@@ -1,11 +1,10 @@
 {% set title = content.Summary.title %}
 
 {% extends "includes/layout.html" %}
+{% from "widgets/checkanswer.html" import checkanswer %}
 
 {% block content %}
     <main id="content" role="main">
-        {% from "widgets/checkanswer.html" import checkanswer %}
-
         {% include "includes/phase_banner_beta.html" %}
         {% include "includes/error_summary.html" %}
 
@@ -16,22 +15,25 @@
 
         <h2 class="heading-medium">{{ content.Summary.deceasedHeading }}</h2>
         <table class="check-your-answers check-your-answers--long">
+            <caption class="visually-hidden">{{ content.Summary.deceasedHeading }}</caption>
             <tbody>
                 {% include "ui/summary/includes/deceased.njk" %}
             </tbody>
         </table>
 
         {% ifAsync fields.summary.isDocumentUploadToggleEnabled.value === "true" %}
-        <h2 class="heading-medium">{{ content.Summary.uploadedDocumentsHeading }}</h2>
-        <table class="check-your-answers check-your-answers--long">
-            <tbody>
-                {% include "ui/summary/includes/documentupload.njk" %}
-            </tbody>
-        </table>
+            <h2 class="heading-medium">{{ content.Summary.uploadedDocumentsHeading }}</h2>
+            <table class="check-your-answers check-your-answers--long">
+                <caption class="visually-hidden">{{ content.Summary.uploadedDocumentsHeading }}</caption>
+                <tbody>
+                    {% include "ui/summary/includes/documentupload.njk" %}
+                </tbody>
+            </table>
         {% endif %}
 
         <h2 class="heading-medium">{{ content.Summary.ihtHeading }}</h2>
         <table class="check-your-answers check-your-answers--long">
+            <caption class="visually-hidden">{{ content.Summary.ihtHeading }}</caption>
             <tbody>
                 {% include "ui/summary/includes/iht.njk" %}
             </tbody>
@@ -39,6 +41,7 @@
 
         <h2 class="heading-medium">{{ content.Summary.applicantHeading }}</h2>
         <table class="check-your-answers check-your-answers--long">
+            <caption class="visually-hidden">{{ content.Summary.applicantHeading }}</caption>
             <tbody>
                 {% include "ui/summary/includes/executors.njk" %}
             </tbody>
