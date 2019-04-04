@@ -56,7 +56,10 @@ class PaymentStatus extends Step {
             ctx.journeyType
         );
 
-        if (formdata.paymentPending === 'true' || formdata.paymentPending === 'unknown') {
+        const paymentRequired = ctx.total !== 0 || ctx.paymentStatus !== 'Success';
+        // const paymentRequired = ctx.paymentStatus === 'Initiated';
+        if (paymentRequired) {
+        // if (formdata.paymentPending === 'true' || formdata.paymentPending === 'unknown') {
             const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
             const serviceAuthResult = yield authorise.post();
 
@@ -79,6 +82,7 @@ class PaymentStatus extends Step {
             logger.info('Payment retrieval in status for paymentId = ' + ctx.paymentId + ' with response = ' + JSON.stringify(getPaymentResponse));
             const date = typeof getPaymentResponse.date_updated === 'undefined' ? ctx.paymentCreatedDate : getPaymentResponse.date_updated;
             this.updateFormDataPayment(formdata, getPaymentResponse, date);
+            ctx.paymentStatus = getPaymentResponse.status;
             if (getPaymentResponse.name === 'Error' || getPaymentResponse.status === 'Initiated') {
                 logger.error('Payment retrieval failed for paymentId = ' + ctx.paymentId + ' with status = ' + getPaymentResponse.status);
                 formData.post(ctx.regId, formdata);
@@ -88,6 +92,7 @@ class PaymentStatus extends Step {
                 formdata.paymentPending = 'true';
                 return options;
             }
+
 
             const [updateCcdCaseResponse, errors] = yield this.updateCcdCasePaymentStatus(ctx, formdata);
             this.setErrors(options, errors);
