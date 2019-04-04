@@ -16,24 +16,32 @@
 
         <h2 class="heading-medium">{{ content.Summary.deceasedHeading }}</h2>
         <table class="check-your-answers check-your-answers--long">
-            {% include "ui/summary/includes/deceased.njk" %}
+            <tbody>
+                {% include "ui/summary/includes/deceased.njk" %}
+            </tbody>
         </table>
 
         {% ifAsync fields.summary.isDocumentUploadToggleEnabled.value === "true" %}
         <h2 class="heading-medium">{{ content.Summary.uploadedDocumentsHeading }}</h2>
         <table class="check-your-answers check-your-answers--long">
-            {% include "ui/summary/includes/documentupload.njk" %}
+            <tbody>
+                {% include "ui/summary/includes/documentupload.njk" %}
+            </tbody>
         </table>
         {% endif %}
 
         <h2 class="heading-medium">{{ content.Summary.ihtHeading }}</h2>
         <table class="check-your-answers check-your-answers--long">
-            {% include "ui/summary/includes/iht.njk" %}
+            <tbody>
+                {% include "ui/summary/includes/iht.njk" %}
+            </tbody>
         </table>
 
         <h2 class="heading-medium">{{ content.Summary.applicantHeading }}</h2>
         <table class="check-your-answers check-your-answers--long">
-            {% include "ui/summary/includes/executors.njk" %}
+            <tbody>
+                {% include "ui/summary/includes/executors.njk" %}
+            </tbody>
         </table>
 
         <p class="save-this-page-link">
