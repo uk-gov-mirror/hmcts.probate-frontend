@@ -52,6 +52,7 @@ class PaymentBreakdown extends Step {
     }
 
     * handlePost(ctx, errors, formdata, session, hostname) {
+        console.log(formdata)
         const feesCalculator = new FeesCalculator(config.services.feesRegister.url, ctx.sessionID);
         const confirmFees = yield feesCalculator.calc(formdata, ctx.authToken);
         this.checkFeesStatus(confirmFees);
@@ -74,8 +75,11 @@ class PaymentBreakdown extends Step {
             authKnown = false;
             return options;
         }
+
         if (authKnown) {
+            console.log(formdata);
             const [result, submissionErrors] = yield this.sendToSubmitService(ctx, errors, formdata, ctx.total);
+            console.log(formdata);
             errors = errors.concat(submissionErrors);
             if (errors.length > 0) {
                 logger.error('Failed to create case in CCD.');
@@ -123,7 +127,11 @@ class PaymentBreakdown extends Step {
                 ctx.paymentId = response.reference;
                 ctx.paymentReference = paymentReference;
                 ctx.paymentCreatedDate = response.date_created;
-                ctx.paymentStatus = response.status;
+                formdata.paymentStatus = response.status;
+
+                Object.assign(formdata.payment, {
+                    status: response.status
+                });
 
                 this.nextStepUrl = () => response._links.next_url.href;
             } else {
@@ -136,8 +144,10 @@ class PaymentBreakdown extends Step {
         return [ctx, errors];
     }
 
-    isComplete(ctx) {
-        return [ctx.total === 0 || ctx.paymentStatus === 'Initiated' || ctx.paymentStatus === 'Success', 'inProgress'];
+    isComplete(ctx, formdata) {
+        const feeTotal = get(formdata, 'payment.total');
+        const paymentStatus = formdata.paymentStatus;
+        return [feeTotal === 0 || paymentStatus === 'Initiated' || paymentStatus === 'Success', 'inProgress'];
     }
 
     * sendToSubmitService(ctx, errors, formdata, total) {

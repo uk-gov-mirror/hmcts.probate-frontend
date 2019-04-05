@@ -56,7 +56,8 @@ class PaymentStatus extends Step {
             ctx.journeyType
         );
 
-        const paymentRequired = ctx.total !== 0 || ctx.paymentStatus !== 'Success';
+        console.log(formdata.payment.status);
+        const paymentRequired = get(formdata, 'payment.total') !== 0 || formdata.paymentStatus !== 'Success';
 
         if (paymentRequired) {
             const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
@@ -80,7 +81,6 @@ class PaymentStatus extends Step {
             logger.info('Payment retrieval in status for paymentId = ' + ctx.paymentId + ' with response = ' + JSON.stringify(getPaymentResponse));
             const date = typeof getPaymentResponse.date_updated === 'undefined' ? ctx.paymentCreatedDate : getPaymentResponse.date_updated;
             this.updateFormDataPayment(formdata, getPaymentResponse, date);
-            ctx.paymentStatus = getPaymentResponse.status;
             if (getPaymentResponse.name === 'Error' || getPaymentResponse.status === 'Initiated') {
                 logger.error('Payment retrieval failed for paymentId = ' + ctx.paymentId + ' with status = ' + getPaymentResponse.status);
                 formData.post(ctx.regId, formdata);
