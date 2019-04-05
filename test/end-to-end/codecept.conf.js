@@ -1,8 +1,8 @@
 const testConfig = require('test/config.js');
 
 exports.config = {
-    'tests': './paths/**/*.js',
-    'output': './output',
+    'tests': testConfig.TestPathToRun,
+    'output': testConfig.TestOutputDir,
     'helpers': {
         'Puppeteer': {
             'url': testConfig.TestE2EFrontendUrl,
@@ -45,7 +45,7 @@ exports.config = {
     },
     'mocha': {
         'reporterOptions': {
-            'reportDir': process.env.E2E_OUTPUT_DIR || './output',
+            'reportDir': testConfig.TestOutputDir,
             'reportName': 'index',
             'inlineAssets': true
         }
