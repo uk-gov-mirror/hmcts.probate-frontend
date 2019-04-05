@@ -5,10 +5,10 @@ exports.config = {
     'output': './output',
     'helpers': {
         'Puppeteer': {
-            'url': testConfig.TestE2EFrontendUrl || 'http://localhost:3000',
+            'url': testConfig.TestE2EFrontendUrl,
             'waitForTimeout': 60000,
             'getPageTimeout': 20000,
-            'show': false,
+            'show': testConfig.TestShowBrowser,
             'waitForNavigation': ['domcontentloaded', 'networkidle0'],
             'chrome': {
                 'ignoreHTTPSErrors': true,
