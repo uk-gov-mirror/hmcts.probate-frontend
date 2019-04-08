@@ -56,10 +56,7 @@ class PaymentStatus extends Step {
             ctx.journeyType
         );
 
-        console.log(formdata.payment.status);
-        const paymentRequired = get(formdata, 'payment.total') !== 0 || formdata.paymentStatus !== 'Success';
-
-        if (paymentRequired) {
+        if (ctx.paymentDue) {
             const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
             const serviceAuthResult = yield authorise.post();
 
