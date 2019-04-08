@@ -53,10 +53,8 @@ class TestConfigurator {
                     json: true, // <--Very important!!!
                     body: this.userDetails
                 }, function (error, response, body) {
-                    console.log('response.statusCode>>>', response.statusCode);
                     if (response.statusCode !== 201) {
-                        console.log('Unable to create IDAM user.  Response code: ', response.statusCode);
-                        process.exitCode = 1;
+                        throw new Error('TestConfigurator.getBefore: Using proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
                     }
                 });
             } else {
@@ -65,6 +63,10 @@ class TestConfigurator {
                     method: 'POST',
                     json: true, // <--Very important!!!
                     body: this.userDetails
+                }, function (error, response, body) {
+                    if (response.statusCode !== 201) {
+                        throw new Error('TestConfigurator.getBefore: Without proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
+                    }
                 });
             }
         }
