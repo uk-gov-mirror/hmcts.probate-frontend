@@ -74,7 +74,8 @@ class PaymentStatus extends Step {
                 paymentId: ctx.paymentId
             };
 
-            const payment = new Payment(config.services.payment.createPaymentUrl, ctx.sessionID);
+            const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
+            const payment = new Payment(paymentCreateServiceUrl, ctx.sessionID);
             const getPaymentResponse = yield payment.get(data);
             logger.info('Payment retrieval in status for paymentId = ' + ctx.paymentId + ' with response = ' + JSON.stringify(getPaymentResponse));
             const date = typeof getPaymentResponse.date_updated === 'undefined' ? ctx.paymentCreatedDate : getPaymentResponse.date_updated;

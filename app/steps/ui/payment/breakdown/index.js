@@ -73,6 +73,12 @@ class PaymentBreakdown extends Step {
             return options;
         }
         const canCreatePayment = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
+        if (ctx.total > 0 && !canCreatePayment) {
+            logger.error('Unable to create payment at this time.');
+            errors.push(FieldError('payment', 'initiated', this.resourcePath, ctx));
+            return [ctx, errors];
+        }
+
         if (formdata.paymentPending !== 'unknown') {
             const [result, submissionErrors] = yield this.sendToSubmitService(ctx, errors, formdata, ctx.total);
             errors = errors.concat(submissionErrors);
@@ -113,7 +119,8 @@ class PaymentBreakdown extends Step {
                         ccdCaseId: formdata.ccdCase.id
                     };
 
-                    const payment = new Payment(config.services.payment.createPaymentUrl, ctx.sessionID);
+                    const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
+                    const payment = new Payment(paymentCreateServiceUrl, ctx.sessionID);
                     const [response, paymentReference] = yield payment.post(data, hostname);
                     logger.info(`Payment creation in breakdown for paymentReference = ${paymentReference} with response = ${JSON.stringify(response)}`);
                     formdata.creatingPayment = 'false';
@@ -179,20 +186,29 @@ class PaymentBreakdown extends Step {
 
     * canCreatePayment(ctx, formdata, serviceAuthResult) {
         const paymentId = get(formdata, 'payment.paymentId');
-        if (paymentId) {
+        const caseId = get(formdata, 'ccdCase.id');
+        if (caseId) {
             const data = {
                 authToken: ctx.authToken,
                 serviceAuthToken: serviceAuthResult,
                 userId: ctx.userId,
-                paymentId: paymentId
+                paymentId: paymentId,
+                caseId: caseId
             };
-            const payment = new Payment(config.services.payment.createPaymentUrl, ctx.sessionID);
-            const paymentResponse = yield payment.get(data);
-            logger.info(`Payment retrieval in breakdown for paymentId = ${ctx.paymentId} with response = ${JSON.stringify(paymentResponse)}`);
+            const paymentServiceUrl = config.services.payment.url + config.services.payment.paths.payments;
+            const payment = new Payment(paymentServiceUrl, ctx.sessionID);
+            const casePaymentsArray = yield payment.getCasePayments(data);
+            const paymentResponse = payment.processCasePaymentsResponse(casePaymentsArray, paymentId);
+            logger.info(`Payment retrieval in breakdown for caseId = ${caseId} with response = ${JSON.stringify(paymentResponse)}`);
             if (typeof paymentResponse === 'undefined') {
                 return true;
+            } else if (paymentResponse.status === 'Initiated' || paymentResponse.status === 'Success') {
+                if (paymentResponse.payment_reference !== paymentId) {
+                    set(formdata, 'payment.paymentId', paymentResponse.payment_reference);
+                }
+                return false;
             }
-            return (paymentResponse.status !== 'Initiated') && (paymentResponse.status !== 'Success');
+            return true;
         }
         return true;
     }

@@ -30,6 +30,30 @@ describe('PaymentService', () => {
         });
     });
 
+    describe('getCasePayments()', () => {
+        it('should call log() and fetchJson()', (done) => {
+            const endpoint = 'http://localhost';
+            const fetchOptions = {method: 'GET'};
+            const data = {caseId: 'RC-1554-1335-2518-2256'};
+            const payment = new Payment(endpoint, 'abc123');
+            const logSpy = sinon.spy(payment, 'log');
+            const fetchJsonSpy = sinon.spy(payment, 'fetchJson');
+            const fetchOptionsStub = sinon.stub(payment, 'fetchOptions').returns(fetchOptions);
+
+            payment.getCasePayments(data);
+
+            expect(payment.log.calledOnce).to.equal(true);
+            expect(payment.log.calledWith('Getting all payments from case')).to.equal(true);
+            expect(payment.fetchJson.calledOnce).to.equal(true);
+            expect(payment.fetchJson.calledWith(`${endpoint}?service_name=Probate&ccd_case_number=${data.caseId}`, fetchOptions)).to.equal(true);
+
+            logSpy.restore();
+            fetchJsonSpy.restore();
+            fetchOptionsStub.restore();
+            done();
+        });
+    });
+
     describe('post()', () => {
         it('should call log() and fetchJson()', (done) => {
             const endpoint = 'http://localhost';
