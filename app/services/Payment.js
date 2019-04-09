@@ -18,7 +18,7 @@ class Payment extends Service {
     }
 
     getCasePayments(data) {
-        this.log(`Getting all payments from case` );
+        this.log('Getting all payments from case');
         const url = `${this.endpoint}?service_name=Probate&ccd_case_number=${data.caseId}`;
         const headers = {
             'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ class Payment extends Service {
         return [this.fetchJson(url, fetchOptions), body.reference];
     }
 
-    processCasePaymentsResponse(casePayments, paymentReference) {
+    processCasePaymentsResponse(casePayments) {
         for (const payment of casePayments.payments) {
             if (payment.status === 'Success') {
                 this.log(`Found successful payment: ${payment.payment_reference}`);
@@ -56,13 +56,7 @@ class Payment extends Service {
                 return payment;
             }
         }
-        for (const payment of casePayments.payments) {
-            if (payment.payment_reference === paymentReference) {
-                this.log(`Payment found: ${payment.payment_reference}`);
-                return payment;
-            }
-        }
-        this.log('No payment found for case.');
+        this.log('No payments found.');
     }
 }
 

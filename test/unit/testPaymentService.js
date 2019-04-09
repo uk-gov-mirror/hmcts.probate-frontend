@@ -84,4 +84,84 @@ describe('PaymentService', () => {
             done();
         });
     });
+
+    describe('processCasePaymentsResponse()', () => {
+        it('should log() and capture a Success payment from list', (done) => {
+            const endpoint = 'http://localhost';
+            const casePayments = {
+                'payments': [{
+                    'amount': 216.50,
+                    'ccd_case_number': '1554131023277701',
+                    'payment_reference': 'RC-1554-1311-2865-4101',
+                    'status': 'Failed'
+                }, {
+                    'amount': 216.50,
+                    'ccd_case_number': '1554131023277701',
+                    'payment_reference': 'RC-1554-1311-2865-4102',
+                    'status': 'Success'
+                }]
+            };
+            const payment = new Payment(endpoint, 'abc123');
+            const logSpy = sinon.spy(payment, 'log');
+
+            const response = payment.processCasePaymentsResponse(casePayments);
+
+            expect(payment.log.calledOnce).to.equal(true);
+            expect(payment.log.calledWith('Found successful payment: RC-1554-1311-2865-4102')).to.equal(true);
+            expect(response.status).to.equal('Success');
+            expect(response.payment_reference).to.equal('RC-1554-1311-2865-4102');
+
+            logSpy.restore();
+            done();
+        });
+
+        it('should log() and capture a Initiated payment from list', (done) => {
+            const endpoint = 'http://localhost';
+            const casePayments = {
+                'payments': [{
+                    'amount': 216.50,
+                    'ccd_case_number': '1554131023277701',
+                    'payment_reference': 'RC-1554-1311-2865-4101',
+                    'status': 'Initiated'
+                }, {
+                    'amount': 216.50,
+                    'ccd_case_number': '1554131023277701',
+                    'payment_reference': 'RC-1554-1311-2865-4102',
+                    'status': 'Failed'
+                }]
+            };
+            const payment = new Payment(endpoint, 'abc123');
+            const logSpy = sinon.spy(payment, 'log');
+
+            const response = payment.processCasePaymentsResponse(casePayments);
+
+            expect(payment.log.calledOnce).to.equal(true);
+            expect(payment.log.calledWith('Payment still in progress (Initiated): RC-1554-1311-2865-4101')).to.equal(true);
+            expect(response.status).to.equal('Initiated');
+            expect(response.payment_reference).to.equal('RC-1554-1311-2865-4101');
+
+            logSpy.restore();
+            done();
+        });
+
+        it('should log() and return an undefined for an empty list', (done) => {
+            const endpoint = 'http://localhost';
+            const paymentReference = '';
+            const casePayments = {
+                'payments': []
+            };
+            const payment = new Payment(endpoint, 'abc123');
+            const logSpy = sinon.spy(payment, 'log');
+
+            const response = payment.processCasePaymentsResponse(casePayments, paymentReference);
+
+            expect(payment.log.calledOnce).to.equal(true);
+            expect(payment.log.calledWith('No payments found.')).to.equal(true);
+            expect(typeof response).to.equal('undefined');
+
+            logSpy.restore();
+            done();
+        });
+
+    });
 });

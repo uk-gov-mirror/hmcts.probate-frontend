@@ -198,7 +198,7 @@ class PaymentBreakdown extends Step {
             const paymentServiceUrl = config.services.payment.url + config.services.payment.paths.payments;
             const payment = new Payment(paymentServiceUrl, ctx.sessionID);
             const casePaymentsArray = yield payment.getCasePayments(data);
-            const paymentResponse = payment.processCasePaymentsResponse(casePaymentsArray, paymentId);
+            const paymentResponse = payment.processCasePaymentsResponse(casePaymentsArray);
             logger.info(`Payment retrieval in breakdown for caseId = ${caseId} with response = ${JSON.stringify(paymentResponse)}`);
             if (typeof paymentResponse === 'undefined') {
                 return true;
