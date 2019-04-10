@@ -21,7 +21,8 @@ class PaymentBreakdown extends Step {
 
         ctx.copies = this.createCopiesLayout(formdata);
         ctx.applicationFee = fees.applicationfee;
-        ctx.total = Number.isInteger(fees.total) ? fees.total : parseFloat(fees.total).toFixed(2);
+        ctx.total = Number.isInteger(fees.total) ? fees.total : parseFloat(fees.total)
+            .toFixed(2);
         return [ctx, ctx.errors];
     }
 
@@ -57,7 +58,7 @@ class PaymentBreakdown extends Step {
         this.checkFeesStatus(confirmFees);
         const originalFees = formdata.fees;
         if (confirmFees.total !== originalFees.total) {
-            throw new Error (`Error calculated fees totals have changed from ${originalFees.total} to ${confirmFees.total}`);
+            throw new Error(`Error calculated fees totals have changed from ${originalFees.total} to ${confirmFees.total}`);
         }
         ctx.total = originalFees.total;
         ctx.applicationFee = originalFees.applicationfee;
@@ -65,73 +66,65 @@ class PaymentBreakdown extends Step {
 
         const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
         const serviceAuthResult = yield authorise.post();
-
-        let authKnown = true;
         if (serviceAuthResult.name === 'Error') {
-            const options = {};
-            options.redirect = true;
-            options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
-            authKnown = false;
-            return options;
+            logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
+            const keyword = 'failure';
+            errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
+            return [ctx, errors];
         }
 
-        if (authKnown) {
-            const [result, submissionErrors] = yield this.sendToSubmitService(ctx, errors, formdata, ctx.total);
-            errors = errors.concat(submissionErrors);
-            if (errors.length > 0) {
-                logger.error('Failed to create case in CCD.');
+        const [result, submissionErrors] = yield this.sendToSubmitService(ctx, errors, formdata, ctx.total);
+        errors = errors.concat(submissionErrors);
+        if (errors.length > 0) {
+            logger.error('Failed to create case in CCD.');
+            return [ctx, errors];
+        }
+        formdata.submissionReference = result.submissionReference;
+        formdata.registry = result.registry;
+        set(formdata, 'ccdCase.id', result.caseId);
+        set(formdata, 'ccdCase.state', result.caseState);
+
+        const canCreatePayment = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
+        if (ctx.total > 0 && canCreatePayment) {
+            session.save();
+
+            const serviceAuthResult = yield authorise.post();
+
+            if (serviceAuthResult.name === 'Error') {
+                logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
+                const keyword = 'failure';
+                errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
                 return [ctx, errors];
             }
-            formdata.submissionReference = result.submissionReference;
-            formdata.registry = result.registry;
-            set(formdata, 'ccdCase.id', result.caseId);
-            set(formdata, 'ccdCase.state', result.caseState);
 
-            const canCreatePayment = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
+            const data = {
+                amount: parseFloat(ctx.total),
+                authToken: ctx.authToken,
+                serviceAuthToken: serviceAuthResult,
+                userId: ctx.userId,
+                applicationFee: ctx.applicationFee,
+                copies: ctx.copies,
+                deceasedLastName: ctx.deceasedLastName,
+                ccdCaseId: formdata.ccdCase.id
+            };
 
-            if (ctx.total > 0 && canCreatePayment) {
-                session.save();
+            const payment = new Payment(config.services.payment.createPaymentUrl, ctx.sessionID);
+            const [response, paymentReference] = yield payment.post(data, hostname);
+            logger.info(`Payment creation in breakdown for paymentReference = ${paymentReference} with response = ${JSON.stringify(response)}`);
 
-                const serviceAuthResult = yield authorise.post();
-
-                if (serviceAuthResult.name === 'Error') {
-                    logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
-                    const keyword = 'failure';
-                    errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
-                    return [ctx, errors];
-                }
-
-                const data = {
-                    amount: parseFloat(ctx.total),
-                    authToken: ctx.authToken,
-                    serviceAuthToken: serviceAuthResult,
-                    userId: ctx.userId,
-                    applicationFee: ctx.applicationFee,
-                    copies: ctx.copies,
-                    deceasedLastName: ctx.deceasedLastName,
-                    ccdCaseId: formdata.ccdCase.id
-                };
-
-                const payment = new Payment(config.services.payment.createPaymentUrl, ctx.sessionID);
-                const [response, paymentReference] = yield payment.post(data, hostname);
-                logger.info(`Payment creation in breakdown for paymentReference = ${paymentReference} with response = ${JSON.stringify(response)}`);
-
-                if (response.name === 'Error') {
-                    errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));
-                    return [ctx, errors];
-                }
-
-                ctx.paymentId = response.reference;
-                ctx.paymentReference = paymentReference;
-                ctx.paymentCreatedDate = response.date_created;
-                ctx.paymentStatus = response.paymentStatus;
-
-                this.nextStepUrl = () => response._links.next_url.href;
-            } else {
-                delete this.nextStepUrl;
+            if (response.name === 'Error') {
+                errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));
+                return [ctx, errors];
             }
+
+            ctx.paymentId = response.reference;
+            ctx.paymentReference = paymentReference;
+            ctx.paymentCreatedDate = response.date_created;
+            ctx.paymentStatus = response.paymentStatus;
+
+            this.nextStepUrl = () => response._links.next_url.href;
         } else {
-            logger.warn('Skipping create payment as authorisation is unknown.');
+            delete this.nextStepUrl;
         }
 
         return [ctx, errors];
@@ -139,7 +132,7 @@ class PaymentBreakdown extends Step {
 
     isComplete(ctx, formdata) {
         const paymentTotal = get(formdata, 'payment.total');
-        const paymentStatus = ctx.paymentStatus;
+        const paymentStatus = ctx.paymentStatus; // get(formdata, 'payment.status');
         return [paymentTotal === 0 || paymentStatus === 'Initiated' || paymentStatus === 'Success', 'inProgress'];
     }
 
