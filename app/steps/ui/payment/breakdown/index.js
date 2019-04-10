@@ -73,12 +73,6 @@ class PaymentBreakdown extends Step {
             return options;
         }
         const canCreatePayment = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
-        if (ctx.total > 0 && !canCreatePayment) {
-            logger.error('Unable to create payment at this time.');
-            errors.push(FieldError('payment', 'initiated', this.resourcePath, ctx));
-            return [ctx, errors];
-        }
-
         if (formdata.paymentPending !== 'unknown') {
             const [result, submissionErrors] = yield this.sendToSubmitService(ctx, errors, formdata, ctx.total);
             errors = errors.concat(submissionErrors);
@@ -204,7 +198,8 @@ class PaymentBreakdown extends Step {
                 return true;
             } else if (paymentResponse.status === 'Initiated' || paymentResponse.status === 'Success') {
                 if (paymentResponse.payment_reference !== paymentId) {
-                    set(formdata, 'payment.paymentId', paymentResponse.payment_reference);
+                    ctx.paymentId = paymentResponse.payment_reference;
+                    ctx.paymentCreatedDate = paymentResponse.date_created;
                 }
                 return false;
             }
