@@ -93,7 +93,6 @@ describe('payment-breakdown', () => {
                     if (err) {
                         throw err;
                     }
-                    //const contentToExclude = ['extraCopiesFeeJersey', 'extraCopiesFeeUk'];
                     const data = {};
                     testWrapper.testErrors(done, data, 'failure', ['authorisation']);
                 });

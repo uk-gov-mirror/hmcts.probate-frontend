@@ -43,7 +43,7 @@ class Payment extends Service {
         return [this.fetchJson(url, fetchOptions), body.reference];
     }
 
-    processCasePaymentsResponse(casePayments) {
+    identifySuccessfulOrInitiatedPayment(casePayments) {
         for (const payment of casePayments.payments) {
             if (payment.status === 'Success') {
                 this.log(`Found successful payment: ${payment.payment_reference}`);

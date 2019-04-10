@@ -72,6 +72,7 @@ class PaymentBreakdown extends Step {
             formdata.paymentPending = 'unknown';
             return options;
         }
+
         const canCreatePayment = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
         if (formdata.paymentPending !== 'unknown') {
             const [result, submissionErrors] = yield this.sendToSubmitService(ctx, errors, formdata, ctx.total);
@@ -192,7 +193,7 @@ class PaymentBreakdown extends Step {
             const paymentServiceUrl = config.services.payment.url + config.services.payment.paths.payments;
             const payment = new Payment(paymentServiceUrl, ctx.sessionID);
             const casePaymentsArray = yield payment.getCasePayments(data);
-            const paymentResponse = payment.processCasePaymentsResponse(casePaymentsArray);
+            const paymentResponse = payment.identifySuccessfulOrInitiatedPayment(casePaymentsArray);
             logger.info(`Payment retrieval in breakdown for caseId = ${caseId} with response = ${JSON.stringify(paymentResponse)}`);
             if (typeof paymentResponse === 'undefined') {
                 return true;

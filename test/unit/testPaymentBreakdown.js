@@ -106,7 +106,6 @@ describe('PaymentBreakdown', () => {
                 .reply(200, submitResponse);
 
             feesCalculator = sinon.stub(FeesCalculator.prototype, 'calc');
-
         });
 
         afterEach(() => {
@@ -308,7 +307,7 @@ describe('PaymentBreakdown', () => {
             });
         });
 
-        it('Returns errror message if ctx.total > 0 and authorise service returns error', (done) => {
+        it('Returns error message if ctx.total > 0 and authorise service returns error', (done) => {
             const revert = PaymentBreakdown.__set__({
                 Payment: class {
                     post() {
@@ -542,6 +541,82 @@ describe('PaymentBreakdown', () => {
                 const [ctx, errors] = yield paymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
                 expect(formdata).to.deep.equal(expectedFormdata);
                 expect(ctx).to.deep.equal(ctxTestData);
+                expect(errors).to.deep.equal(errorsTestData);
+                revert();
+                done();
+            }).catch((err) => {
+                done(err);
+            });
+        });
+
+        it('set ctx.paymentId to a previous successful paymentid for a case.', (done) => {
+            const caseSuccessPaymentResponse = {
+                'payments': [{
+                    'amount': 216.50,
+                    'ccd_case_number': '1535395401245028',
+                    'payment_reference': 'RC-12345',
+                    'status': 'Failed'
+                }, {
+                    'amount': 216.50,
+                    'ccd_case_number': '1535395401245028',
+                    'payment_reference': 'RC-67890',
+                    'status': 'Success'
+                }]
+            };
+            const identifySuccessfulOrInitiatedPaymentResponse = {
+                'amount': 216.50,
+                'ccd_case_number': '1535395401245028',
+                'payment_reference': 'RC-67890',
+                'status': 'Success'
+            };
+            const revert = PaymentBreakdown.__set__({
+                Payment: class {
+                    getCasePayments() {
+                        return caseSuccessPaymentResponse;
+                    }
+                    identifySuccessfulOrInitiatedPayment() {
+                        return identifySuccessfulOrInitiatedPaymentResponse;
+                    }
+                }
+            });
+            const formdata = {
+                creatingPayment: 'true',
+                ccdCase: {
+                    id: 1535395401245028,
+                    state: 'PAPaymentFailed'
+                },
+                fees: {
+                    status: 'success',
+                    applicationfee: 215,
+                    applicationvalue: 6000,
+                    ukcopies: 1,
+                    ukcopiesfee: 0.50,
+                    overseascopies: 2,
+                    overseascopiesfee: 1,
+                    total: 216.50
+                },
+                payment: {
+                    paymentId: 'RC-12345'
+                }
+            };
+            const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
+            expectedFormdata.payment.paymentId = 'RC-12345';
+            feesCalculator.returns(Promise.resolve({
+                status: 'success',
+                applicationfee: 215,
+                applicationvalue: 6000,
+                ukcopies: 1,
+                ukcopiesfee: 0.50,
+                overseascopies: 2,
+                overseascopiesfee: 1,
+                total: 216.50
+            }));
+
+            co(function* () {
+                const [ctx, errors] = yield paymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
+                expect(formdata).to.deep.equal(expectedFormdata);
+                expect(ctx).to.deep.equal(ctxTestData);
+                expect(ctx.paymentId).to.equal('RC-67890');
                 expect(errors).to.deep.equal(errorsTestData);
                 revert();
                 done();
