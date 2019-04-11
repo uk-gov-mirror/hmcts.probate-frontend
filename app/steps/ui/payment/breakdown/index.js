@@ -86,7 +86,6 @@ class PaymentBreakdown extends Step {
 
         const canCreatePayment = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
         if (ctx.total > 0 && canCreatePayment) {
-            console.log('reached');
             session.save();
 
             const serviceAuthResult = yield authorise.post();
@@ -119,7 +118,7 @@ class PaymentBreakdown extends Step {
 
             ctx.reference = response.reference;
             ctx.paymentCreatedDate = response.date_created;
-            ctx.paymentStatus = response.paymentStatus;
+            ctx.status = response.status;
 
             this.nextStepUrl = () => response._links.next_url.href;
         } else {
@@ -131,9 +130,9 @@ class PaymentBreakdown extends Step {
 
     isComplete(ctx, formdata) {
         const paymentTotal = get(formdata, 'payment.total');
-        const paymentStatus = ctx.paymentStatus;
+        const paymentStatus = get(formdata, 'payment.status');
         return [paymentTotal === 0 || paymentStatus === 'Initiated' || paymentStatus === 'Success', 'inProgress'];
-    } // add more conditions?
+    }
 
     * sendToSubmitService(ctx, errors, formdata, total) {
         const softStop = this.anySoftStops(formdata, ctx) ? 'softStop' : false;
