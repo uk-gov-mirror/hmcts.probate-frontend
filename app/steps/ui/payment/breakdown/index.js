@@ -74,7 +74,7 @@ class PaymentBreakdown extends Step {
         }
 
         const [canCreatePayment, paymentStatus] = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
-        if (paymentStatus === 'Initiated' && canCreatePayment === false ) {
+        if (paymentStatus === 'Initiated' && canCreatePayment === false) {
             const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
             const payment = new Payment(paymentCreateServiceUrl, ctx.sessionID);
             const data = {
@@ -198,7 +198,7 @@ class PaymentBreakdown extends Step {
     * canCreatePayment(ctx, formdata, serviceAuthResult) {
         const paymentId = get(formdata, 'payment.paymentId');
         const caseId = get(formdata, 'ccdCase.id');
-        let paymentStatus = undefined;
+        let paymentStatus;
         let canMakePayment = true;
         if (caseId) {
             const data = {
@@ -213,12 +213,11 @@ class PaymentBreakdown extends Step {
             const paymentResponse = payment.identifySuccessfulOrInitiatedPayment(casePaymentsArray);
             logger.info(`Payment retrieval in breakdown for caseId = ${caseId} with response = ${JSON.stringify(paymentResponse)}`);
             if (typeof paymentResponse === 'undefined') {
-                logger.info('No pyaments of Initiated for Success found for case.'); 
+                logger.info('No pyaments of Initiated for Success found for case.');
             } else if (paymentResponse.status === 'Initiated' || paymentResponse.status === 'Success') {
                 paymentStatus = paymentResponse.status;
                 if (paymentResponse.payment_reference !== paymentId) {
-                    logger.info(`Payment with status ${paymentResponse.status} found, using paymentId ${paymentResponse.payment_reference}.`
-                ); 
+                    logger.info(`Payment with status ${paymentResponse.status} found, using paymentId ${paymentResponse.payment_reference}.`);
                     ctx.paymentId = paymentResponse.payment_reference;
                     ctx.paymentCreatedDate = paymentResponse.date_created;
                 }
