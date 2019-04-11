@@ -699,7 +699,7 @@ describe('PaymentBreakdown', () => {
                 expect(errors).to.deep.equal([{
                     param: 'payment',
                     msg: {
-                        summary: 'payment.breakdown.errors.payment.initiated.summary',
+                        summary: 'Your payment may have failed. Do not try to pay again for 2 hours.',
                         message: 'payment.breakdown.errors.payment.initiated.message'
                     }
                 }]);
