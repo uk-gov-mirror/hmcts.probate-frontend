@@ -73,7 +73,25 @@ class PaymentBreakdown extends Step {
             return options;
         }
 
-        const canCreatePayment = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
+        const [canCreatePayment, paymentStatus] = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
+        if (paymentStatus === 'Initiated' && canCreatePayment === false ) {
+            const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
+            const payment = new Payment(paymentCreateServiceUrl, ctx.sessionID);
+            const data = {
+                authToken: ctx.authToken,
+                serviceAuthToken: serviceAuthResult,
+                userId: ctx.userId,
+                paymentId: ctx.paymentId
+            };
+            const getPaymentResponse = yield payment.get(data);
+            logger.info('Checking status of paymentId = ' + ctx.paymentId + ' with response = ' + getPaymentResponse.status);
+            if (getPaymentResponse.status === 'Initiated') {
+                logger.error('Payment retrieval failed for paymentId = ' + ctx.paymentId + ' with status = ' + getPaymentResponse.status);
+                errors.push(FieldError('payment', 'initiated', this.resourcePath, ctx));
+                return [ctx, errors];
+            }
+        }
+
         if (formdata.paymentPending !== 'unknown') {
             const [result, submissionErrors] = yield this.sendToSubmitService(ctx, errors, formdata, ctx.total);
             errors = errors.concat(submissionErrors);
@@ -93,7 +111,6 @@ class PaymentBreakdown extends Step {
                     session.save();
 
                     const serviceAuthResult = yield authorise.post();
-
                     if (serviceAuthResult.name === 'Error') {
                         logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
                         const keyword = 'failure';
@@ -117,9 +134,8 @@ class PaymentBreakdown extends Step {
                     const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
                     const payment = new Payment(paymentCreateServiceUrl, ctx.sessionID);
                     const [response, paymentReference] = yield payment.post(data, hostname);
-                    logger.info(`Payment creation in breakdown for paymentReference = ${paymentReference} with response = ${JSON.stringify(response)}`);
+                    logger.info(`Payment creation in breakdown for ccdCaseId = ${formdata.ccdCase.id} with response = ${JSON.stringify(response)}`);
                     formdata.creatingPayment = 'false';
-
                     if (response.name === 'Error') {
                         errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));
                         return [ctx, errors];
@@ -182,12 +198,13 @@ class PaymentBreakdown extends Step {
     * canCreatePayment(ctx, formdata, serviceAuthResult) {
         const paymentId = get(formdata, 'payment.paymentId');
         const caseId = get(formdata, 'ccdCase.id');
+        let paymentStatus = undefined;
+        let canMakePayment = true;
         if (caseId) {
             const data = {
                 authToken: ctx.authToken,
                 serviceAuthToken: serviceAuthResult,
                 userId: ctx.userId,
-                paymentId: paymentId,
                 caseId: caseId
             };
             const paymentServiceUrl = config.services.payment.url + config.services.payment.paths.payments;
@@ -196,17 +213,19 @@ class PaymentBreakdown extends Step {
             const paymentResponse = payment.identifySuccessfulOrInitiatedPayment(casePaymentsArray);
             logger.info(`Payment retrieval in breakdown for caseId = ${caseId} with response = ${JSON.stringify(paymentResponse)}`);
             if (typeof paymentResponse === 'undefined') {
-                return true;
+                logger.info('No pyaments of Initiated for Success found for case.'); 
             } else if (paymentResponse.status === 'Initiated' || paymentResponse.status === 'Success') {
+                paymentStatus = paymentResponse.status;
                 if (paymentResponse.payment_reference !== paymentId) {
+                    logger.info(`Payment with status ${paymentResponse.status} found, using paymentId ${paymentResponse.payment_reference}.`
+                ); 
                     ctx.paymentId = paymentResponse.payment_reference;
                     ctx.paymentCreatedDate = paymentResponse.date_created;
                 }
-                return false;
+                canMakePayment = false;
             }
-            return true;
         }
-        return true;
+        return [canMakePayment, paymentStatus];
     }
 }
 
