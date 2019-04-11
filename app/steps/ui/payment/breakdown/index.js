@@ -86,7 +86,7 @@ class PaymentBreakdown extends Step {
             const getPaymentResponse = yield payment.get(data);
             logger.info('Checking status of paymentId = ' + ctx.paymentId + ' with response = ' + getPaymentResponse.status);
             if (getPaymentResponse.status === 'Initiated') {
-                logger.error('Payment retrieval failed for paymentId = ' + ctx.paymentId + ' with status = ' + getPaymentResponse.status);
+                logger.error('As payment is still Initiated, user will need to wait for this state to expire.');
                 errors.push(FieldError('payment', 'initiated', this.resourcePath, ctx));
                 return [ctx, errors];
             }

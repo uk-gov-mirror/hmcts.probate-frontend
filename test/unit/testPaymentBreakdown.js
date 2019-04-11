@@ -624,6 +624,91 @@ describe('PaymentBreakdown', () => {
                 done(err);
             });
         });
+
+        it('show initiated error when a ctx.paymentId has been proven to be still in an initiated state.', (done) => {
+            const caseInitiatedPaymentResponse = {
+                'payments': [{
+                    'amount': 216.50,
+                    'ccd_case_number': '1535395401245028',
+                    'payment_reference': 'RC-12345',
+                    'status': 'Initiated'
+                }]
+            };
+            const identifySuccessfulOrInitiatedPaymentResponse = {
+                'amount': 216.50,
+                'ccd_case_number': '1535395401245028',
+                'payment_reference': 'RC-67890',
+                'status': 'Initiated'
+            };
+            const getPaymentResponse = {
+                'amount': 216.50,
+                'ccd_case_number': '1535395401245028',
+                'payment_reference': 'RC-67890',
+                'status': 'Initiated'
+            };
+            const revert = PaymentBreakdown.__set__({
+                Payment: class {
+                    getCasePayments() {
+                        return caseInitiatedPaymentResponse;
+                    }
+                    identifySuccessfulOrInitiatedPayment() {
+                        return identifySuccessfulOrInitiatedPaymentResponse;
+                    }
+                    get() {
+                        return getPaymentResponse;
+                    }
+                }
+            });
+            const formdata = {
+                creatingPayment: 'true',
+                ccdCase: {
+                    id: 1535395401245028,
+                    state: 'PAPaymentFailed'
+                },
+                fees: {
+                    status: 'success',
+                    applicationfee: 215,
+                    applicationvalue: 6000,
+                    ukcopies: 1,
+                    ukcopiesfee: 0.50,
+                    overseascopies: 2,
+                    overseascopiesfee: 1,
+                    total: 216.50
+                },
+                payment: {
+                    paymentId: 'RC-12345'
+                }
+            };
+            const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
+            expectedFormdata.payment.paymentId = 'RC-12345';
+            feesCalculator.returns(Promise.resolve({
+                status: 'success',
+                applicationfee: 215,
+                applicationvalue: 6000,
+                ukcopies: 1,
+                ukcopiesfee: 0.50,
+                overseascopies: 2,
+                overseascopiesfee: 1,
+                total: 216.50
+            }));
+
+            co(function* () {
+                const [ctx, errors] = yield paymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
+                expect(ctx).to.deep.equal(ctxTestData);
+                expect(ctx.paymentId).to.equal('RC-67890');
+                expect(errors).to.deep.equal([{
+                    param: 'payment',
+                    msg: {
+                        summary: 'payment.breakdown.errors.payment.initiated.summary',
+                        message: 'payment.breakdown.errors.payment.initiated.message'
+                    }
+                }]);
+                revert();
+                done();
+            }).catch((err) => {
+                done(err);
+            });
+        });
     });
 
     describe('action', () => {
