@@ -86,10 +86,10 @@ class PaymentBreakdown extends Step {
 
         const canCreatePayment = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
         if (ctx.total > 0 && canCreatePayment) {
+            console.log('reached');
             session.save();
 
             const serviceAuthResult = yield authorise.post();
-
             if (serviceAuthResult.name === 'Error') {
                 logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
                 const keyword = 'failure';
@@ -109,16 +109,15 @@ class PaymentBreakdown extends Step {
             };
 
             const payment = new Payment(config.services.payment.createPaymentUrl, ctx.sessionID);
-            const [response, paymentReference] = yield payment.post(data, hostname);
-            logger.info(`Payment creation in breakdown for paymentReference = ${paymentReference} with response = ${JSON.stringify(response)}`);
+            const [response] = yield payment.post(data, hostname);
+            logger.info(`Payment creation in breakdown for reference = ${response.reference} with response = ${JSON.stringify(response)}`);
 
             if (response.name === 'Error') {
                 errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));
                 return [ctx, errors];
             }
 
-            ctx.paymentId = response.reference;
-            ctx.paymentReference = paymentReference;
+            ctx.reference = response.reference;
             ctx.paymentCreatedDate = response.date_created;
             ctx.paymentStatus = response.paymentStatus;
 
@@ -132,9 +131,9 @@ class PaymentBreakdown extends Step {
 
     isComplete(ctx, formdata) {
         const paymentTotal = get(formdata, 'payment.total');
-        const paymentStatus = ctx.paymentStatus; // get(formdata, 'payment.status');
+        const paymentStatus = ctx.paymentStatus;
         return [paymentTotal === 0 || paymentStatus === 'Initiated' || paymentStatus === 'Success', 'inProgress'];
-    }
+    } // add more conditions?
 
     * sendToSubmitService(ctx, errors, formdata, total) {
         const softStop = this.anySoftStops(formdata, ctx) ? 'softStop' : false;
@@ -167,17 +166,17 @@ class PaymentBreakdown extends Step {
     }
 
     * canCreatePayment(ctx, formdata, serviceAuthResult) {
-        const paymentId = get(formdata, 'payment.paymentId');
-        if (paymentId) {
+        const paymentReference = get(formdata, 'payment.reference');
+        if (paymentReference) {
             const data = {
                 authToken: ctx.authToken,
                 serviceAuthToken: serviceAuthResult,
                 userId: ctx.userId,
-                paymentId: paymentId
+                paymentId: paymentReference
             };
             const payment = new Payment(config.services.payment.createPaymentUrl, ctx.sessionID);
             const paymentResponse = yield payment.get(data);
-            logger.info(`Payment retrieval in breakdown for paymentId = ${ctx.paymentId} with response = ${JSON.stringify(paymentResponse)}`);
+            logger.info(`Payment retrieval in breakdown for reference = ${paymentReference} with response = ${JSON.stringify(paymentResponse)}`);
             if (typeof paymentResponse === 'undefined') {
                 return true;
             }
