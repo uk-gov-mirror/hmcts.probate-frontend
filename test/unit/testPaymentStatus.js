@@ -147,11 +147,10 @@ describe('PaymentStatus', () => {
             });
         });
 
-        it('should set redirect to true, paymentPending to true and payment status to failure if payment is not successful', (done) => {
+        it('should set redirect to true and payment status to failure if payment is not successful', (done) => {
             nockMock.reply(200, {caseState: 'CaseCreated'});
 
             expectedFormData.payment.status = 'Failed';
-            expectedFormData.paymentPending = 'true';
 
             const revert = PaymentStatus.__set__({
                 Payment: class {
@@ -160,7 +159,7 @@ describe('PaymentStatus', () => {
                     }
                 }
             });
-            const formData = {paymentPending: 'true', 'payment': {}};
+            const formData = {'payment': {}};
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
 
             co(function* () {
