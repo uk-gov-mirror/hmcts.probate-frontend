@@ -117,8 +117,8 @@ class PaymentBreakdown extends Step {
             }
 
             ctx.reference = response.reference;
+            set(formdata, 'payment.reference', response.reference);
             ctx.paymentCreatedDate = response.date_created;
-            ctx.status = response.status;
 
             this.nextStepUrl = () => response._links.next_url.href;
         } else {
@@ -129,9 +129,7 @@ class PaymentBreakdown extends Step {
     }
 
     isComplete(ctx, formdata) {
-        const paymentTotal = get(formdata, 'payment.total');
-        const paymentStatus = get(formdata, 'payment.status');
-        return [paymentTotal === 0 || paymentStatus === 'Initiated' || paymentStatus === 'Success', 'inProgress'];
+        return [get(formdata, 'payment.total') === 0 || typeof (get(formdata, 'payment.reference')) !== 'undefined', 'inProgress'];
     }
 
     * sendToSubmitService(ctx, errors, formdata, total) {

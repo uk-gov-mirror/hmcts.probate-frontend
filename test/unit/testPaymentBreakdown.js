@@ -59,7 +59,6 @@ describe('PaymentBreakdown', () => {
                     id: 1535395401245028,
                     state: 'PaAppCreated'
                 },
-                creatingPayment: 'true',
                 payment: {
                     total: 216.50
                 },
@@ -73,7 +72,6 @@ describe('PaymentBreakdown', () => {
                     overseascopiesfee: 1,
                     total: 216.50
                 },
-                paymentPending: 'true',
                 registry: {
                     registry: {
                         address: 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
@@ -115,53 +113,15 @@ describe('PaymentBreakdown', () => {
             feesCalculator.restore();
         });
 
-        it('sets paymentPending to false if ctx.total = 0', (done) => {
-            const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
-            let ctx = {};
-            let errors = [];
-            const formdata = {
-                fees: {
-                    status: 'success',
-                    applicationfee: 0,
-                    applicationvalue: 4000,
-                    ukcopies: 0,
-                    ukcopiesfee: 0,
-                    overseascopies: 0,
-                    overseascopiesfee: 0,
-                    total: 0
-                }
-            };
-
-            feesCalculator.returns(Promise.resolve({
-                status: 'success',
-                applicationfee: 0,
-                applicationvalue: 4000,
-                ukcopies: 0,
-                ukcopiesfee: 0,
-                overseascopies: 0,
-                overseascopiesfee: 0,
-                total: 0
-            }));
-
-            co(function* () {
-                [ctx, errors] = yield paymentBreakdown.handlePost(ctx, errors, formdata);
-                expect(formdata.paymentPending).to.equal('false');
-                done();
-            }).catch((err) => {
-                done(err);
-            });
-        });
-
-        it('sets nextStepUrl to payment-status if paymentPending is unknown', (done) => {
+        it('sets nextStepUrl to payment-status if ctx.total = 0', (done) => {
             const req = {
                 session: {
                     journey: journey
                 }
             };
-            let ctx = {total: 1};
+            let ctx = {total: 0};
             let errors = [];
             const formdata = {
-                paymentPending: 'unknown',
                 fees: {
                     status: 'success',
                     applicationfee: 215,
@@ -186,7 +146,7 @@ describe('PaymentBreakdown', () => {
             }));
 
             co(function* () {
-                [ctx, errors] = yield paymentBreakdown.handlePost(ctx, errors, formdata);
+                [ctx, errors] = yield paymentBreakdown.handlePost(ctx, errors, formdata, session, hostname);
                 expect(paymentBreakdown.nextStepUrl(req)).to.equal('/payment-status');
                 done();
             }).catch((err) => {
@@ -194,9 +154,21 @@ describe('PaymentBreakdown', () => {
             });
         });
 
-        it('sets paymentPending to true if ctx.total > 0', (done) => {
+        it('sets nextStepUrl to payment-status if payment.status is Success', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const revert = PaymentBreakdown.__set__({
+                Payment: class {
+                    get() {
+                        return Promise.resolve(successfulPaymentResponse);
+                    }
+                }
+            });
+
             const formdata = {
-                creatingPayment: 'true',
                 fees: {
                     status: 'success',
                     applicationfee: 215,
@@ -206,9 +178,11 @@ describe('PaymentBreakdown', () => {
                     overseascopies: 2,
                     overseascopiesfee: 1,
                     total: 216.50
+                },
+                payment: {
+                    reference: 'RC-12345'
                 }
             };
-
             feesCalculator.returns(Promise.resolve({
                 status: 'success',
                 applicationfee: 215,
@@ -219,41 +193,97 @@ describe('PaymentBreakdown', () => {
                 overseascopiesfee: 1,
                 total: 216.50
             }));
-
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
 
+            let ctx = {
+                total: 215
+            };
+            let errors = [];
+
             co(function* () {
-                const [ctx, errors] = yield paymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
-                expect(formdata).to.deep.equal(expectedFormdata);
-                expect(ctx).to.deep.equal(ctxTestData);
-                expect(errors).to.deep.equal(errorsTestData);
+                [ctx, errors] = yield paymentBreakdown.handlePost(ctx, errors, formdata, session, hostname);
+                expect(paymentBreakdown.nextStepUrl(req)).to.equal('/payment-status');
+                revert();
                 done();
             }).catch((err) => {
                 done(err);
             });
         });
 
-        it('sets paymentPending to true if ctx.total > 0 and createPayment is false', (done) => {
+        it('sets nextStepUrl to payment-status if payment.status is Initiated', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+
+            const revert = PaymentBreakdown.__set__({
+                Payment: class {
+                    get() {
+                        return Promise.resolve(initiatedPaymentResponse);
+                    }
+                }
+            });
+
+            const formdata = {
+                fees: {
+                    status: 'success',
+                    applicationfee: 215,
+                    applicationvalue: 6000,
+                    ukcopies: 1,
+                    ukcopiesfee: 0.50,
+                    overseascopies: 2,
+                    overseascopiesfee: 1,
+                    total: 216.50
+                },
+                payment: {
+                    reference: 'RC-12345'
+                }
+            };
+            feesCalculator.returns(Promise.resolve({
+                status: 'success',
+                applicationfee: 215,
+                applicationvalue: 6000,
+                ukcopies: 1,
+                ukcopiesfee: 0.50,
+                overseascopies: 2,
+                overseascopiesfee: 1,
+                total: 216.50
+            }));
+            const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
+
+            let ctx = {
+                total: 215
+            };
+            let errors = [];
+
+            co(function* () {
+                [ctx, errors] = yield paymentBreakdown.handlePost(ctx, errors, formdata, session, hostname);
+                expect(paymentBreakdown.nextStepUrl(req)).to.equal('/payment-status');
+                revert();
+                done();
+            }).catch((err) => {
+                done(err);
+            });
+        });
+
+        it('if ctx.total > 0 and the formdata does not contain a paymentId', (done) => {
             const revert = PaymentBreakdown.__set__({
                 Payment: class {
                     post() {
                         return Promise.resolve([{
                             id: '24',
                             amount: 5000,
-                            state: {
-                                status: 'success',
-                                finished: true
-                            },
+                            status: 'Initiated',
                             description: 'Probate Payment: 50',
                             reference: 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100',
                             date_created: '2018-08-29T15:25:11.920+0000',
                             _links: {}
-                        }, 1234]);
+                        }]);
                     }
                 }
             });
             const formdata = {
-                creatingPayment: 'false',
                 fees: {
                     status: 'success',
                     applicationfee: 215,
@@ -278,7 +308,7 @@ describe('PaymentBreakdown', () => {
             }));
 
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
-            expectedFormdata.creatingPayment = 'false';
+            expectedFormdata.payment.reference = 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100';
 
             co(function* () {
                 const [ctx, errors] = yield paymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
@@ -297,9 +327,8 @@ describe('PaymentBreakdown', () => {
                         }
                     },
                     total: 216.50,
-                    paymentId: 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100',
+                    reference: 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100',
                     paymentCreatedDate: '2018-08-29T15:25:11.920+0000',
-                    paymentReference: 1234
                 });
                 revert();
                 done();
@@ -308,7 +337,7 @@ describe('PaymentBreakdown', () => {
             });
         });
 
-        it('Returns errror message if ctx.total > 0 and authorise service returns error', (done) => {
+        it('Returns error message if ctx.total > 0 and authorise service returns error', (done) => {
             const revert = PaymentBreakdown.__set__({
                 Payment: class {
                     post() {
@@ -328,7 +357,6 @@ describe('PaymentBreakdown', () => {
                 }
             });
             const formdata = {
-                creatingPayment: 'false',
                 fees: {
                     status: 'success',
                     applicationfee: 215,
@@ -353,7 +381,7 @@ describe('PaymentBreakdown', () => {
             }));
 
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
-            expectedFormdata.creatingPayment = 'false';
+            expectedFormdata.payment.reference = 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100';
 
             co(function* () {
                 const [ctx, errors] = yield paymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
@@ -372,8 +400,7 @@ describe('PaymentBreakdown', () => {
                         }
                     },
                     total: 216.50,
-                    paymentId: 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100',
-                    paymentReference: 1234,
+                    reference: 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100',
                     paymentCreatedDate: '2018-08-29T15:25:11.920+0000'
                 });
                 revert();
@@ -446,104 +473,6 @@ describe('PaymentBreakdown', () => {
                     }
                 }]);
                 stub.restore();
-                done();
-            }).catch((err) => {
-                done(err);
-            });
-        });
-
-        it('sets paymentPending to true if ctx.total > 0 and payment exists with status of Success', (done) => {
-            const revert = PaymentBreakdown.__set__({
-                Payment: class {
-                    get() {
-                        return Promise.resolve(successfulPaymentResponse);
-                    }
-                }
-            });
-            const formdata = {
-                creatingPayment: 'true',
-                fees: {
-                    status: 'success',
-                    applicationfee: 215,
-                    applicationvalue: 6000,
-                    ukcopies: 1,
-                    ukcopiesfee: 0.50,
-                    overseascopies: 2,
-                    overseascopiesfee: 1,
-                    total: 216.50
-                },
-                payment: {
-                    paymentId: 'RC-12345'
-                }
-            };
-            feesCalculator.returns(Promise.resolve({
-                status: 'success',
-                applicationfee: 215,
-                applicationvalue: 6000,
-                ukcopies: 1,
-                ukcopiesfee: 0.50,
-                overseascopies: 2,
-                overseascopiesfee: 1,
-                total: 216.50
-            }));
-            const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
-            expectedFormdata.payment.paymentId = 'RC-12345';
-
-            co(function* () {
-                const [ctx, errors] = yield paymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
-                expect(formdata).to.deep.equal(expectedFormdata);
-                expect(ctx).to.deep.equal(ctxTestData);
-                expect(errors).to.deep.equal(errorsTestData);
-                revert();
-                done();
-            }).catch((err) => {
-                done(err);
-            });
-        });
-
-        it('sets paymentPending to true if ctx.total > 0 and payment exists with status of Initiated', (done) => {
-            const revert = PaymentBreakdown.__set__({
-                Payment: class {
-                    get() {
-                        return Promise.resolve(initiatedPaymentResponse);
-                    }
-                }
-            });
-            const formdata = {
-                creatingPayment: 'true',
-                fees: {
-                    status: 'success',
-                    applicationfee: 215,
-                    applicationvalue: 6000,
-                    ukcopies: 1,
-                    ukcopiesfee: 0.50,
-                    overseascopies: 2,
-                    overseascopiesfee: 1,
-                    total: 216.50
-                },
-                payment: {
-                    paymentId: 'RC-12345'
-                }
-            };
-            const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
-            expectedFormdata.payment.paymentId = 'RC-12345';
-            feesCalculator.returns(Promise.resolve({
-                status: 'success',
-                applicationfee: 215,
-                applicationvalue: 6000,
-                ukcopies: 1,
-                ukcopiesfee: 0.50,
-                overseascopies: 2,
-                overseascopiesfee: 1,
-                total: 216.50
-            }));
-
-            co(function* () {
-                const [ctx, errors] = yield paymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
-                expect(formdata).to.deep.equal(expectedFormdata);
-                expect(ctx).to.deep.equal(ctxTestData);
-                expect(errors).to.deep.equal(errorsTestData);
-                revert();
                 done();
             }).catch((err) => {
                 done(err);
