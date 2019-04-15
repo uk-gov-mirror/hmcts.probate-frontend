@@ -4,23 +4,23 @@ const Service = require('./Service');
 
 class SubmitData extends Service {
 
-    submit(data, ctx) {
+    submit(data, authorisation, serviceAuthorization) {
         data.type = this.getFormType();
-        const path = this.replaceEmailInPath(this.config.services.orchestrator.paths.submissions, data.applicant.email);
+        const path = this.replaceEmailInPath(this.config.services.orchestrator.paths.submissions, data.applicantEmail);
         const logMessage = 'Post submit data';
         const url = this.endpoint + path;
-        return this.post(ctx, logMessage, url, data);
+        return this.put(logMessage, url, data, authorisation, serviceAuthorization);
     }
 
-    post(ctx, logMessage, url, bodyData) {
+    put(logMessage, url, bodyData, authorization, serviceAuthorization) {
         this.log(logMessage);
         const headers = {
             'Content-Type': 'application/json',
-            'Session-Id': ctx.sessionID,
-            'Authorization': ctx.authToken,
-            'ServiceAuthorization': ctx.serviceAuthorization
+            'Authorization': authorization,
+            'ServiceAuthorization': serviceAuthorization
         };
-        const fetchOptions = this.fetchOptions(bodyData, 'POST', headers);
+        console.log("Submit body " + JSON.stringify(bodyData))
+        const fetchOptions = this.fetchOptions(bodyData, 'PUT', headers);
         return this.fetchJson(url, fetchOptions);
     }
 
