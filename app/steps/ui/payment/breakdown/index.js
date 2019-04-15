@@ -127,7 +127,7 @@ class PaymentBreakdown extends Step {
     }
 
     isComplete(ctx, formdata) {
-        return [get(formdata, 'payment.total') === 0 || typeof (get(formdata, 'payment.reference')) !== 'undefined', 'inProgress'];
+        return [typeof get(formdata, 'ccdCase.id') !== 'undefined' && (get(formdata, 'payment.total') === 0 || typeof get(formdata, 'payment.reference') !== 'undefined'), 'inProgress'];
     }
 
     * sendToSubmitService(ctx, errors, formdata, total) {

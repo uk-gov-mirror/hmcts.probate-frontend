@@ -249,7 +249,8 @@ describe('Tasklist', () => {
                     reference: '1234'
                 },
                 ccdCase: {
-                    state: 'PAAppCreated'
+                    state: 'PAAppCreated',
+                    id: 1535395401245028
                 }
             };
             req.body = {};
@@ -262,10 +263,11 @@ describe('Tasklist', () => {
         it('Updates the context: PaymentTask started (No Fee)', () => {
             req.session.form = {
                 payment: {
-                    total: 0
+                    total: 0,
                 },
                 ccdCase: {
-                    state: 'PAAppCreated'
+                    state: 'PAAppCreated',
+                    id: 1535395401245028
                 }
             };
             req.body = {};
