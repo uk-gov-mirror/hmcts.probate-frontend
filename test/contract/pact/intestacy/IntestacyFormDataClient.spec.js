@@ -54,20 +54,20 @@ describe('Pact IntestacyFormData', () => {
     }
 
     // Setup a Mock Server before unit tests run.
-    // This server acts as a Test Double for the real Provider API.
+    // This server acts as a Test Double for the real Provider API
     // We then call addInteraction() for each test to configure the Mock Service
     // to act like the Provider
     // It also sets up expectations for what requests are to come, and will fail
     // if the calls are not seen.
     before(() =>
         provider.setup()
-    )
+    );
 
     // After each individual test (one or more interactions)
     // we validate that the correct request came through.
     // This ensures what we _expect_ from the provider, is actually
     // what we've asked for (and is what gets captured in the contract)
-    afterEach(() => provider.verify())
+    afterEach(() => provider.verify());
 
     describe('when intestacy formdata is posted', () => {
         describe('and is required to be persisted', () => {
@@ -93,8 +93,8 @@ describe('Pact IntestacyFormData', () => {
                         headers: {'Content-Type': 'application/json'},
                         body: getExpectedResponseBody()
                     }
-                })
-            })
+                });
+            });
 
             // (4) write your test(s)
             // Verify service client works as expected
@@ -103,7 +103,6 @@ describe('Pact IntestacyFormData', () => {
                 const verificationPromise = formDataClient.post('someemailaddress@host.com', FORM_DATA_BODY_PAYLOAD, ctx);
                 expect(verificationPromise).to.eventually.eql(getExpectedResponseBody()).notify(done);
             });
-
 
         });
     });
