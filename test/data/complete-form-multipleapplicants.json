@@ -121,8 +121,6 @@
   "assets": {
     "assetsoverseas": "No"
   },
-  "paymentPending": "false",
-  "creatingPayment": "false",
   "payment": {
     "copies": {
       "uk": {
@@ -139,7 +137,7 @@
     "total": "216.50",
     "userId": "999999999",
     "paymentId": "1",
-    "paymentReference": "CODE4$$$diedlastname7297$$$CODE5$$$CODE1$CODE2/3",
+    "reference": "CODE4$$$diedlastname7297$$$CODE5$$$CODE1$CODE2/3",
     "status": "success"
   },
 

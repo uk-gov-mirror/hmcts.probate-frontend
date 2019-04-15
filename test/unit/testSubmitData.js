@@ -116,7 +116,7 @@ describe('submit-data', () => {
                 }
             },
             'paymentId': '1',
-            'paymentReference': 'CODE4$$$diedlastname7297$$$CODE5$$$CODE1$CODE2/3',
+            'reference': 'CODE4$$$diedlastname7297$$$CODE5$$$CODE1$CODE2/3',
             'status': 'success',
             'total': '216.50',
             'userId': '999999999',
@@ -151,7 +151,7 @@ describe('submit-data', () => {
         assert.nestedPropertyVal(mappedData, 'copiesUK', '3');
         assert.nestedPropertyVal(mappedData, 'copiesOverseas', 0);
         assert.nestedPropertyVal(mappedData, 'totalFee', '216.50');
-        assert.nestedPropertyVal(mappedData, 'paymentReference', 'CODE4$$$diedlastname7297$$$CODE5$$$CODE1$CODE2/3');
+        assert.nestedPropertyVal(mappedData, 'reference', 'CODE4$$$diedlastname7297$$$CODE5$$$CODE1$CODE2/3');
         assert.deepNestedPropertyVal(mappedData, 'legalStatement', legalState);
         assert.deepNestedPropertyVal(mappedData, 'declaration', dec);
         assert.nestedPropertyVal(mappedData, 'payloadVersion', '2.8.2');
