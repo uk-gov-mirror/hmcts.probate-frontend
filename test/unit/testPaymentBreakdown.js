@@ -267,7 +267,7 @@ describe('PaymentBreakdown', () => {
             });
         });
 
-        it('if ctx.total > 0 and the formdata does not contain a paymentId', (done) => {
+        it('if ctx.total > 0 and the formdata does not contain a payment.reference', (done) => {
             const revert = PaymentBreakdown.__set__({
                 Payment: class {
                     post() {

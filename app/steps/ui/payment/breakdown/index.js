@@ -110,14 +110,12 @@ class PaymentBreakdown extends Step {
             const payment = new Payment(config.services.payment.createPaymentUrl, ctx.sessionID);
             const [response] = yield payment.post(data, hostname);
             logger.info(`Payment creation in breakdown for reference = ${response.reference} with response = ${JSON.stringify(response)}`);
-
             if (response.name === 'Error') {
                 errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));
                 return [ctx, errors];
             }
-
-            ctx.reference = response.reference;
             set(formdata, 'payment.reference', response.reference);
+            ctx.reference = response.reference;
             ctx.paymentCreatedDate = response.date_created;
 
             this.nextStepUrl = () => response._links.next_url.href;

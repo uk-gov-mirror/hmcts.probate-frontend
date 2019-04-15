@@ -246,8 +246,7 @@ describe('Tasklist', () => {
         it('Updates the context: PaymentTask started (Fee to Pay)', () => {
             req.session.form = {
                 payment: {
-                    reference: '1234',
-                    total: 1
+                    reference: '1234'
                 },
                 ccdCase: {
                     state: 'PAAppCreated'
