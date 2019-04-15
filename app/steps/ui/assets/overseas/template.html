@@ -4,11 +4,11 @@
 {% from "widgets/radiobuttons.html" import optionsRadio %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{ content.question }}</h1>
+    <h1 class="form-title heading-large">{{ content.question | replace('{deceasedName}', fields.deceasedName.value) | safe }}</h1>
 {% endblock %}
 
 {% block form_content %}
-    <p class="form-hint">{{ content.hint }}</p>
+    <p>{{ content.hint }}</p>
 
     {{ optionsRadio(content,
         name = 'assetsoverseas',
