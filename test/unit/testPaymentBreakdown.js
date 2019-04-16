@@ -276,7 +276,7 @@ describe('PaymentBreakdown', () => {
                             amount: 5000,
                             status: 'Initiated',
                             description: 'Probate Payment: 50',
-                            reference: 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100',
+                            reference: 'RC-1234-5678-9012-3456',
                             date_created: '2018-08-29T15:25:11.920+0000',
                             _links: {}
                         }]);
@@ -308,7 +308,7 @@ describe('PaymentBreakdown', () => {
             }));
 
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
-            expectedFormdata.payment.reference = 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100';
+            expectedFormdata.payment.reference = 'RC-1234-5678-9012-3456';
 
             co(function* () {
                 const [ctx, errors] = yield paymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
@@ -327,7 +327,7 @@ describe('PaymentBreakdown', () => {
                         }
                     },
                     total: 216.50,
-                    reference: 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100',
+                    reference: 'RC-1234-5678-9012-3456',
                     paymentCreatedDate: '2018-08-29T15:25:11.920+0000',
                 });
                 revert();
@@ -349,7 +349,7 @@ describe('PaymentBreakdown', () => {
                                 finished: true
                             },
                             description: 'Probate Payment: 50',
-                            reference: 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100',
+                            reference: 'RC-1234-5678-9012-3456',
                             date_created: '2018-08-29T15:25:11.920+0000',
                             _links: {}
                         }, 1234]);
@@ -381,7 +381,7 @@ describe('PaymentBreakdown', () => {
             }));
 
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
-            expectedFormdata.payment.reference = 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100';
+            expectedFormdata.payment.reference = 'RC-1234-5678-9012-3456';
 
             co(function* () {
                 const [ctx, errors] = yield paymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
@@ -400,7 +400,7 @@ describe('PaymentBreakdown', () => {
                         }
                     },
                     total: 216.50,
-                    reference: 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100',
+                    reference: 'RC-1234-5678-9012-3456',
                     paymentCreatedDate: '2018-08-29T15:25:11.920+0000'
                 });
                 revert();
