@@ -338,22 +338,9 @@ describe('PaymentBreakdown', () => {
         });
 
         it('Returns error message if ctx.total > 0 and authorise service returns error', (done) => {
-            const revert = PaymentBreakdown.__set__({
-                Payment: class {
-                    post() {
-                        return Promise.resolve([{
-                            id: '24',
-                            amount: 5000,
-                            state: {
-                                status: 'success',
-                                finished: true
-                            },
-                            description: 'Probate Payment: 50',
-                            reference: 'RC-1234-5678-9012-3456',
-                            date_created: '2018-08-29T15:25:11.920+0000',
-                            _links: {}
-                        }, 1234]);
-                    }
+            const revert = PaymentBreakdown.__set__('Authorise', class {
+                post() {
+                    return Promise.resolve({name: 'Error'});
                 }
             });
             const formdata = {
@@ -368,7 +355,6 @@ describe('PaymentBreakdown', () => {
                     total: 216.50
                 }
             };
-
             feesCalculator.returns(Promise.resolve({
                 status: 'success',
                 applicationfee: 215,
@@ -381,28 +367,17 @@ describe('PaymentBreakdown', () => {
             }));
 
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
-            expectedFormdata.payment.reference = 'RC-1234-5678-9012-3456';
 
             co(function* () {
                 const [ctx, errors] = yield paymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
-                expect(formdata).to.deep.equal(expectedFormdata);
-                expect(errors).to.deep.equal(errorsTestData);
-                expect(ctx).to.deep.equal({
-                    applicationFee: 215,
-                    copies: {
-                        uk: {
-                            cost: 0.5,
-                            number: 1
-                        },
-                        overseas: {
-                            cost: 1,
-                            number: 2
-                        }
-                    },
-                    total: 216.50,
-                    reference: 'RC-1234-5678-9012-3456',
-                    paymentCreatedDate: '2018-08-29T15:25:11.920+0000'
-                });
+                expect(errors).to.deep.equal([{
+                    param: 'authorisation',
+                    msg: {
+                        summary: 'We could not take your payment, please try again later',
+                        message: 'payment.breakdown.errors.authorisation.failure.message'
+                    }
+                }]);
+                expect(ctx).to.deep.equal(ctxTestData);
                 revert();
                 done();
             }).catch((err) => {
