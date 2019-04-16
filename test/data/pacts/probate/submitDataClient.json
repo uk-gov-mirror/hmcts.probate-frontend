@@ -61,5 +61,6 @@
   "declaration": {
     "declarationCheckbox": "Yes"
   },
-  "uploadDocumentUrl": "http://document-management/document/12345"
+  "uploadDocumentUrl": "http://document-management/document/12345",
+  "applicantEmail": "someemailaddress@host.com"
 }
