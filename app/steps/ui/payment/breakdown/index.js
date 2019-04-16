@@ -72,16 +72,18 @@ class PaymentBreakdown extends Step {
             return [ctx, errors];
         }
 
-        const [result, submissionErrors] = yield this.sendToSubmitService(ctx, errors, formdata, ctx.total);
-        errors = errors.concat(submissionErrors);
-        if (errors.length > 0) {
-            logger.error('Failed to create case in CCD.');
-            return [ctx, errors];
+        if (typeof get(formdata, 'ccdCase.id') === 'undefined') {
+            const [result, submissionErrors] = yield this.sendToSubmitService(ctx, errors, formdata, ctx.total);
+            errors = errors.concat(submissionErrors);
+            if (errors.length > 0) {
+                logger.error('Failed to create case in CCD.');
+                return [ctx, errors];
+            }
+            formdata.submissionReference = result.submissionReference;
+            formdata.registry = result.registry;
+            set(formdata, 'ccdCase.id', result.caseId);
+            set(formdata, 'ccdCase.state', result.caseState);
         }
-        formdata.submissionReference = result.submissionReference;
-        formdata.registry = result.registry;
-        set(formdata, 'ccdCase.id', result.caseId);
-        set(formdata, 'ccdCase.state', result.caseState);
 
         const canCreatePayment = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
         if (ctx.total > 0 && canCreatePayment) {
