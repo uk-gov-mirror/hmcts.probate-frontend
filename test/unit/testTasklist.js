@@ -28,7 +28,7 @@ describe('Tasklist', () => {
         });
     });
 
-    describe('updateTaskStatus', () => {
+    describe('updateTaskStatus()', () => {
         let journeyMap;
 
         beforeEach(() => {
@@ -306,7 +306,7 @@ describe('Tasklist', () => {
         });
     });
 
-    describe('action', () => {
+    describe('action()', () => {
         it('test it cleans up context', () => {
             const ctx = {
                 hasMultipleApplicants: true,

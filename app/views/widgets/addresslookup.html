@@ -19,10 +19,53 @@
             <select id="postcodeAddress" class="form-control form-control-1-2" name="postcodeAddress" value="{{ fields.address.value }}">
                 <option value="">{{ content.selectAddress }}</option>
                 {% for address in fields.addresses.value %}
-                    {% set formattedAddress = address.formatted_address | replace("\n"," ") %}
-                    <option {{ "selected" if formattedAddress === fields.postcodeAddress.value }}>{{ formattedAddress }}</option>
+                    {% set formattedAddress = address.formatted_address | replace("\n",", ") %}
+                    <option value="{{ loop.index0 }}" {{ "selected" if formattedAddress === fields.postcodeAddress.value }}>{{ formattedAddress }}</option>
                 {% endfor %}
             </select>
         </div>
     {% endif %}
+
+    <script nonce="{{ nonce }}">
+        if (document.getElementById('postcodeAddress')) {
+            const addresses = [
+                {% for address in fields.addresses.value %}
+                    {% set formattedAddress = address.formatted_address | replace('\n', '###') %}
+                    '{{ formattedAddress }}',
+                {% endfor %}
+            ];
+
+            document.getElementById('postcodeAddress').addEventListener('change', function(e) {
+                const addressIndex = e.target.value;
+                let formattedAddress = addresses[addressIndex].split('###');
+                const city = formattedAddress[formattedAddress.length - 2];
+                const postcode = formattedAddress[formattedAddress.length - 1];
+
+                formattedAddress.length = formattedAddress.length - 2;
+
+                if (formattedAddress[3] !== undefined) {
+                    formattedAddress[2] = formattedAddress[3] + ', ' + formattedAddress[2];
+                }
+
+                const address = {
+                    line1: formattedAddress[0],
+                    line2: formattedAddress[1],
+                    line3: formattedAddress[2],
+                    city: city,
+                    postcode: postcode
+                };
+
+                document.getElementById('addressLine1').value = address.line1;
+                document.getElementById('addressLine2').value = address.line2;
+                document.getElementById('addressLine3').value = address.line3;
+                document.getElementById('townOrCity').value = address.city;
+                document.getElementById('newPostCode').value = address.postcode;
+                document.getElementById('country').value = 'United Kingdom';
+
+                document.getElementById('details-panel').setAttribute('open', null);
+                document.getElementById('details-summary').setAttribute('aria-expanded', true);
+                document.getElementById('details-content-0').setAttribute('aria-hidden', false);
+            });
+        }
+    </script>
 {% endmacro %}

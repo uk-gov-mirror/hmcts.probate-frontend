@@ -25,7 +25,7 @@ describe('PaymentBreakdown', () => {
     };
     let feesCalculator;
 
-    describe('handlePost', () => {
+    describe('handlePost()', () => {
         const successfulPaymentResponse = {
             channel: 'Online',
             id: 12345,
@@ -551,7 +551,7 @@ describe('PaymentBreakdown', () => {
         });
     });
 
-    describe('action', () => {
+    describe('action()', () => {
         beforeEach(() => {
             feesCalculator = sinon.stub(FeesCalculator.prototype, 'calc');
         });

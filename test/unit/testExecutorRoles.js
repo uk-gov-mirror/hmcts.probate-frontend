@@ -198,7 +198,7 @@ describe('ExecutorRoles', () => {
         });
     });
 
-    describe('action', () => {
+    describe('action()', () => {
         it('test it cleans up context', () => {
             const ctx = {
                 otherwise: 'something',

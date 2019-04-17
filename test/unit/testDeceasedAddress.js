@@ -84,7 +84,7 @@ describe('DeceasedAddress', () => {
         });
     });
 
-    describe('action', () => {
+    describe('action()', () => {
         it('test variables are removed from the context', () => {
             const ctx = {
                 isDocumentUploadToggleEnabled: false

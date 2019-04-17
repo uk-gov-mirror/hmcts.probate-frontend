@@ -98,7 +98,7 @@ describe('CopiesUk', () => {
         });
     });
 
-    describe('action', () => {
+    describe('action()', () => {
         it('test applicant and deceased addresses are removed from formdata', () => {
             let formdata = {
                 applicant: {
