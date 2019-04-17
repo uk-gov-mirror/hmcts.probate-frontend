@@ -36,30 +36,21 @@
             ];
 
             document.getElementById('postcodeAddress').addEventListener('change', function(e) {
-                const addressIndex = e.target.value;
-                let formattedAddress = addresses[addressIndex].split('###');
-                const city = formattedAddress[formattedAddress.length - 2];
-                const postcode = formattedAddress[formattedAddress.length - 1];
+                let address = addresses[e.target.value].split('###');
+                const city = address[address.length - 2];
+                const postcode = address[address.length - 1];
 
-                formattedAddress.length = formattedAddress.length - 2;
+                address.length = address.length - 2;
 
-                if (formattedAddress[3] !== undefined) {
-                    formattedAddress[2] = formattedAddress[3] + ', ' + formattedAddress[2];
+                if (address[3] !== undefined) {
+                    address[2] = address[3] + ', ' + address[2];
                 }
 
-                const address = {
-                    line1: formattedAddress[0],
-                    line2: formattedAddress[1],
-                    line3: formattedAddress[2],
-                    city: city,
-                    postcode: postcode
-                };
-
-                document.getElementById('addressLine1').value = address.line1;
-                document.getElementById('addressLine2').value = address.line2;
-                document.getElementById('addressLine3').value = address.line3;
-                document.getElementById('townOrCity').value = address.city;
-                document.getElementById('newPostCode').value = address.postcode;
+                document.getElementById('addressLine1').value = address[0];
+                document.getElementById('addressLine2').value = address[1];
+                document.getElementById('addressLine3').value = address[2];
+                document.getElementById('townOrCity').value = city;
+                document.getElementById('newPostCode').value = postcode;
                 document.getElementById('country').value = 'United Kingdom';
 
                 document.getElementById('details-panel').setAttribute('open', null);
