@@ -1,7 +1,9 @@
 {
   "title": "Deceased address",
   "question": "What was the permanent address at the time of their death?",
+  "townOrCity": "Town or city",
   "postcode": "Postcode",
+  "country": "Country",
   "findAddress": "Find UK address",
   "addressLabel": "Address",
   "selectAddress": "Select address",
