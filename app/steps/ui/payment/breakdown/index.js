@@ -99,7 +99,6 @@ class PaymentBreakdown extends Step {
                 logger.error('Failed to create case in CCD.', errors);
                 return [ctx, errors];
             }
-            formdata.submissionReference = result.submissionReference;
             formdata.registry = result.registry;
             set(formdata, 'ccdCase.id', result.caseId);
             set(formdata, 'ccdCase.state', result.caseState);
