@@ -19,20 +19,15 @@ describe('iht-value', () => {
     describe('Verify Content, Errors and Redirection', () => {
         testHelpBlockContent.runTest('IhtValue');
 
-        it('test correct iht value page content is loaded', (done) => {
-            const contentToExclude = [];
-
-            testWrapper.testContent(done, contentToExclude);
+        it('test content loaded on the page', (done) => {
+            testWrapper.testContent(done, []);
         });
 
-        it('test iht value schema validation when no data is entered', (done) => {
-            const errorsToTest = [];
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required', errorsToTest);
+        it('test errors message displayed for missing data', (done) => {
+            testWrapper.testErrors(done, {}, 'required', []);
         });
 
-        it('test iht value schema validation when invalid data is entered', (done) => {
+        it('test iht value schema validation when net value is greater than gross value', (done) => {
             const data = {
                 grossValueOnline: 12345,
                 netValueOnline: 123456

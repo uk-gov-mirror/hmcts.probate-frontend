@@ -11,13 +11,11 @@ class ValueAssetsOutside extends ValidationStep {
     }
 
     handlePost(ctx, errors) {
-        ctx.netValueAssetsOutside = numeral(ctx.netValueAssetsOutsideField).format('0[.]00');
+        ctx.netValueAssetsOutside = parseFloat(numeral(ctx.netValueAssetsOutsideField).format('0[.]00'));
 
         if (!validator.isCurrency(ctx.netValueAssetsOutsideField, {symbol: '£', allow_negatives: false})) {
             errors.push(FieldError('netValueAssetsOutsideField', 'invalidCurrencyFormat', this.resourcePath, this.generateContent()));
         }
-
-        ctx.netValueAssetsOutside = parseFloat(ctx.netValueAssetsOutside);
 
         return [ctx, errors];
     }

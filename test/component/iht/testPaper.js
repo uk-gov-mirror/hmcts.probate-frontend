@@ -19,17 +19,14 @@ describe('iht-paper', () => {
     describe('Verify Content, Errors and Redirection', () => {
         testHelpBlockContent.runTest('IhtPaper');
 
-        it('test correct iht paper page content is loaded', (done) => {
-            const contentToExclude = [];
-
-            testWrapper.testContent(done, contentToExclude);
+        it('test content loaded on the page', (done) => {
+            testWrapper.testContent(done, []);
         });
 
-        it('test iht paper schema validation when no data is entered', (done) => {
+        it('test errors message displayed for missing data', (done) => {
             const errorsToTest = ['form'];
-            const data = {};
 
-            testWrapper.testErrors(done, data, 'required', errorsToTest);
+            testWrapper.testErrors(done, {}, 'required', errorsToTest);
         });
 
         it('test iht paper schema validation when form 205 is chosen', (done) => {
