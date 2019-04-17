@@ -105,10 +105,8 @@ describe('PaymentBreakdown', () => {
                         email: 'oxford@email.com',
                         name: 'Oxford',
                         sequenceNumber: 10034
-                    },
-                    submissionReference: 97
+                    }
                 },
-                submissionReference: 97
             };
             expectedPaymentFormdata = {
                 payment: {
