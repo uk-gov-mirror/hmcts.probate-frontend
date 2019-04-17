@@ -9,6 +9,7 @@ const TaskList = require('app/steps/ui/tasklist/index');
 const ExecutorsApplying = require('app/steps/ui/executors/applying/index');
 const contentData = {executorFullName: 'many clouds'};
 const commonContent = require('app/resources/en/translation/common');
+const config = require('app/config');
 
 describe('executors-when-died', () => {
     let testWrapper, sessionData;

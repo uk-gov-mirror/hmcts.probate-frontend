@@ -3,6 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorAddress = require('app/steps/ui/executors/address/index');
 const commonContent = require('app/resources/en/translation/common');
+const config = require('app/config');
 
 describe('executors-contact-details', () => {
     let testWrapper, sessionData;

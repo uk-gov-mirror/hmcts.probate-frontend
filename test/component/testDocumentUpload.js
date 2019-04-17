@@ -31,11 +31,11 @@ describe('document-upload', () => {
             featureTogglesNock('true');
 
             const playbackData = {
-                helpTitle: common.helpTitle,
-                helpHeading1: common.helpHeading1,
-                helpHeading2: common.helpHeading2,
-                contactOpeningTimes: common.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours),
-                helpEmailLabel: common.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress)
+                helpTitle: commonContent.helpTitle,
+                helpHeading1: commonContent.helpHeading1,
+                helpHeading2: commonContent.helpHeading2,
+                contactOpeningTimes: commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours),
+                helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress)
             };
 
             testWrapper.testDataPlayback(done, playbackData);
