@@ -33,13 +33,26 @@ describe('ValueAssetsOutside', () => {
 
         it('should return the ctx with the value of the assets outside england and wales (value containing decimals)', (done) => {
             ctx = {
-                netValueAssetsOutsideField: '500000.00'
+                netValueAssetsOutsideField: '500000.12'
             };
             errors = [];
             [ctx, errors] = ValueAssetsOutside.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
-                netValueAssetsOutside: 500000,
-                netValueAssetsOutsideField: '500000.00'
+                netValueAssetsOutside: 500000.12,
+                netValueAssetsOutsideField: '500000.12'
+            });
+            done();
+        });
+
+        it('should return the ctx with the value of the assets outside england and wales (value containing 3 decimals and thousands separators)', (done) => {
+            ctx = {
+                netValueAssetsOutsideField: '500000.345'
+            };
+            errors = [];
+            [ctx, errors] = ValueAssetsOutside.handlePost(ctx, errors);
+            expect(ctx).to.deep.equal({
+                netValueAssetsOutside: 500000.35,
+                netValueAssetsOutsideField: '500000.345'
             });
             done();
         });

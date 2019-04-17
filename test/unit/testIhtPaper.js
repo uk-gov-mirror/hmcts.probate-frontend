@@ -42,20 +42,41 @@ describe('IhtPaper', () => {
         it('should return the ctx with the estate values (values containing decimals)', (done) => {
             ctx = {
                 form: 'IHT205',
-                grossIHT205: '500000.00',
-                netIHT205: '400000.00'
+                grossIHT205: '500000.12',
+                netIHT205: '400000.34'
             };
             errors = [];
             [ctx, errors] = IhtPaper.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
                 form: 'IHT205',
                 ihtFormId: 'IHT205',
-                grossIHT205: '500000.00',
-                grossValuePaper: '500000.00',
-                grossValue: 500000,
-                netIHT205: '400000.00',
-                netValuePaper: '400000.00',
-                netValue: 400000
+                grossIHT205: '500000.12',
+                grossValuePaper: '500000.12',
+                grossValue: 500000.12,
+                netIHT205: '400000.34',
+                netValuePaper: '400000.34',
+                netValue: 400000.34
+            });
+            done();
+        });
+
+        it('should return the ctx with the estate values (values containing 3 decimals and thousands separators)', (done) => {
+            ctx = {
+                form: 'IHT205',
+                grossIHT205: '500,000.123',
+                netIHT205: '400,000.345'
+            };
+            errors = [];
+            [ctx, errors] = IhtPaper.handlePost(ctx, errors);
+            expect(ctx).to.deep.equal({
+                form: 'IHT205',
+                ihtFormId: 'IHT205',
+                grossIHT205: '500,000.123',
+                grossValuePaper: '500,000.123',
+                grossValue: 500000.12,
+                netIHT205: '400,000.345',
+                netValuePaper: '400,000.345',
+                netValue: 400000.35
             });
             done();
         });

@@ -17,8 +17,8 @@ class IhtPaper extends ValidationStep {
         ctx.grossValuePaper = ctx[`gross${ctx.form}`];
         ctx.netValuePaper = ctx[`net${ctx.form}`];
 
-        ctx.grossValue = numeral(ctx.grossValuePaper).value();
-        ctx.netValue = numeral(ctx.netValuePaper).value();
+        ctx.grossValue = numeral(ctx.grossValuePaper).format('0[.]00');
+        ctx.netValue = numeral(ctx.netValuePaper).format('0[.]00');
 
         if (!validator.isCurrency(ctx.grossValuePaper, {symbol: '£', allow_negatives: false})) {
             errors.push(FieldError(`gross${ctx.form}`, 'invalidCurrencyFormat', this.resourcePath, this.generateContent()));
@@ -32,8 +32,8 @@ class IhtPaper extends ValidationStep {
             errors.push(FieldError(`net${ctx.form}`, 'netValueGreaterThanGross', this.resourcePath, this.generateContent()));
         }
 
-        ctx.grossValue = Math.floor(ctx.grossValue);
-        ctx.netValue = Math.floor(ctx.netValue);
+        ctx.grossValue = parseFloat(ctx.grossValue);
+        ctx.netValue = parseFloat(ctx.netValue);
         ctx.ihtFormId = ctx.form;
 
         return [ctx, errors];

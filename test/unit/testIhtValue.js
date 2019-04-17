@@ -36,16 +36,32 @@ describe('IhtValue', () => {
 
         it('should return the ctx with the estate values (values containing decimals)', (done) => {
             ctx = {
-                grossValueOnline: '500000.00',
-                netValueOnline: '400000.00'
+                grossValueOnline: '500000.12',
+                netValueOnline: '400000.34'
             };
             errors = [];
             [ctx, errors] = IhtValue.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
-                grossValueOnline: '500000.00',
-                grossValue: 500000,
-                netValueOnline: '400000.00',
-                netValue: 400000
+                grossValueOnline: '500000.12',
+                grossValue: 500000.12,
+                netValueOnline: '400000.34',
+                netValue: 400000.34
+            });
+            done();
+        });
+
+        it('should return the ctx with the estate values (values containing 3 decimals and thousands separators)', (done) => {
+            ctx = {
+                grossValueOnline: '500,000.123',
+                netValueOnline: '400,000.345'
+            };
+            errors = [];
+            [ctx, errors] = IhtValue.handlePost(ctx, errors);
+            expect(ctx).to.deep.equal({
+                grossValueOnline: '500,000.123',
+                grossValue: 500000.12,
+                netValueOnline: '400,000.345',
+                netValue: 400000.35
             });
             done();
         });

@@ -13,8 +13,8 @@ class IhtValue extends ValidationStep {
     }
 
     handlePost(ctx, errors) {
-        ctx.grossValue = numeral(ctx.grossValueOnline).value();
-        ctx.netValue = numeral(ctx.netValueOnline).value();
+        ctx.grossValue = numeral(ctx.grossValueOnline).format('0[.]00');
+        ctx.netValue = numeral(ctx.netValueOnline).format('0[.]00');
 
         if (!validator.isCurrency(ctx.grossValueOnline, {symbol: '£', allow_negatives: false})) {
             errors.push(FieldError('grossValueOnline', 'invalidCurrencyFormat', this.resourcePath, this.generateContent()));
@@ -28,8 +28,8 @@ class IhtValue extends ValidationStep {
             errors.push(FieldError('netValueOnline', 'netValueGreaterThanGross', this.resourcePath, this.generateContent()));
         }
 
-        ctx.grossValue = Math.floor(ctx.grossValue);
-        ctx.netValue = Math.floor(ctx.netValue);
+        ctx.grossValue = parseFloat(ctx.grossValue);
+        ctx.netValue = parseFloat(ctx.netValue);
 
         return [ctx, errors];
     }
