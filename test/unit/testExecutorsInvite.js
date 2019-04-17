@@ -8,7 +8,7 @@ describe('Executors-Invite', () => {
     let ctx;
     const ExecsInvite = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).ExecutorsInvite;
 
-    describe('getContextData', () => {
+    describe('getContextData()', () => {
         const req = {
             session: {
                 form: {
