@@ -84,7 +84,7 @@ describe('Pact IntestacyFormData', () => {
                             'Content-Type': 'application/json',
                             'Session-Id': ctx.sessionID,
                             'Authorization': ctx.authToken,
-                            'ServiceAuthorization': ctx.serviceAuthorization
+                            'ServiceAuthorization': ctx.session.serviceAuthorization
                         },
                         body: getRequestBody()
                     },

@@ -36,6 +36,7 @@ describe('Pact Intestacy Submit Data', () => {
         authToken: 'authToken',
         serviceAuthorization: 'someServiceAuthorization'
     };
+
     function getRequestPayload() {
 
         const expectedJSON = JSON.parse(JSON.stringify(FORM_DATA_BODY_REQUEST));
