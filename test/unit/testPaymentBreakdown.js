@@ -71,7 +71,7 @@ describe('PaymentBreakdown', () => {
             date_updated: '2018-08-29T15:25:11.920+0000',
             site_id: 'siteId0001',
             external_reference: 12345
-        };    
+        };
         let revertAuthorise;
         let expectedPaymentFormdata;
         let expectedPaAppCreatedFormdata;
@@ -153,14 +153,14 @@ describe('PaymentBreakdown', () => {
             nock.cleanAll();
             feesCalculator.restore();
         });
-        
+
         it('sets reference if ctx.total > 0 and payment exists with status of Initiated', (done) => {
             const getCasePaymentsStub = sinon
                 .stub(Payment.prototype, 'getCasePayments')
                 .returns({});
             const postStub = sinon
                 .stub(Payment.prototype, 'post')
-                .returns(postInitiatedCardPayment);  
+                .returns(postInitiatedCardPayment);
             const formdata = {
                 fees: {
                     status: 'success',
@@ -248,7 +248,7 @@ describe('PaymentBreakdown', () => {
                 ccdCase: {
                     id: 1535395401245028,
                     state: 'CaseCreated'
-                },         
+                },
                 fees: {
                     status: 'success',
                     applicationfee: 215,
@@ -468,7 +468,7 @@ describe('PaymentBreakdown', () => {
         it('sets reference if ctx.total > 0 and payment exists with status of Success', (done) => {
             const getCasePaymentsStub = sinon
                 .stub(Payment.prototype, 'getCasePayments')
-                .returns(successfulCasePaymentsResponse);  
+                .returns(successfulCasePaymentsResponse);
             const formdata = {
                 ccdCase: {
                     id: 1535395401245028,
