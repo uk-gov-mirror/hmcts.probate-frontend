@@ -160,6 +160,5 @@ describe('submit-data', () => {
         assert.deepNestedPropertyVal(mappedData, 'payment', payment);
         assert.deepNestedPropertyVal(mappedData, 'registry', registry);
         assert.deepNestedPropertyVal(mappedData, 'caseId', 1535395401245028);
-        assert.deepNestedPropertyVal(mappedData, 'submissionReference', 97);
     });
 });
