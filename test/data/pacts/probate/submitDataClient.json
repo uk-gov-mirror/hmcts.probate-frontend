@@ -58,9 +58,7 @@
     "address": "Line 1 Bham\nLine 2 Bham\nLine 3 Bham\nPostCode Bham",
     "sequenceNumber": 20075
   },
-  "declaration": {
-    "declarationCheckbox": "Yes"
-  },
+  "declarationCheckbox": "Yes",
   "uploadDocumentUrl": "http://document-management/document/12345",
   "applicantEmail": "someemailaddress@host.com"
 }
