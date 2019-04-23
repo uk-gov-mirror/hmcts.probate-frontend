@@ -510,7 +510,7 @@ describe('PaymentBreakdown', () => {
                 total: 216.50
             }));
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
-            expectedPaAppCreatedFormdata.payment.reference = 'RC-1234-5678-9012-3456';
+            expectedPaAppCreatedFormdata.payment.reference = 'RC-67890';
 
             co(function* () {
                 const [ctx, errors] = yield paymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
@@ -585,7 +585,7 @@ describe('PaymentBreakdown', () => {
                 submissionReference: 97
             };
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
-            expectedPaAppCreatedFormdata.payment.reference = 'RC-12345';
+            expectedPaAppCreatedFormdata.payment.reference = 'RC-67890';
             feesCalculator.returns(Promise.resolve({
                 status: 'success',
                 applicationfee: 215,
