@@ -14,13 +14,13 @@ const setJourney = require('app/middleware/setJourney');
 const AllExecutorsAgreed = require('app/services/AllExecutorsAgreed');
 const ServiceMapper = require('app/utils/ServiceMapper');
 
-router.all('*', (req, res, next) => {
+router.all('*', (req, next) => {
     req.log = logger(req.sessionID);
     req.log.info(`Processing ${req.method} for ${req.originalUrl}`);
     next();
 });
 
-router.use((req, res, next) => {
+router.use((req, next) => {
     if (!req.session.form) {
         req.session.form = {
             payloadVersion: config.payloadVersion,
@@ -66,7 +66,6 @@ router.use((req, res, next) => {
     const isHardStop = (formdata, journey) => config.hardStopParams[journey].some(param => get(formdata, param) === commonContent.no);
     const executorsWrapper = new ExecutorsWrapper(formdata.executors);
     const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
-    const skipPayment = get(formdata, 'payment.total') === 0 || get(formdata, 'payment.status') === 'Success';
 
     if (get(formdata, 'submissionReference') && get(formdata, 'ccdCase.state') === 'CaseCreated' && (get(formdata, 'documents.sentDocuments', 'false') === 'false') && (get(formdata, 'payment.status') === 'Success' || get(formdata, 'payment.status') === 'not_required') &&
         !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
@@ -76,7 +75,7 @@ router.use((req, res, next) => {
         !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
     ) {
         res.redirect('thankyou');
-    } else if (skipPayment &&
+    } else if ((get(formdata, 'payment.total') === 0 || get(formdata, 'payment.status') === 'Success') &&
         !includes(config.whitelistedPagesAfterPayment, req.originalUrl)
     ) {
         res.redirect('tasklist');
@@ -110,7 +109,7 @@ router.use((req, res, next) => {
     next();
 });
 
-router.use((req, res, next) => {
+router.use((req, next) => {
     const formdata = req.session.form;
     const hasMultipleApplicants = (new ExecutorsWrapper(formdata.executors)).hasMultipleApplicants();
 
@@ -139,7 +138,7 @@ Object.entries(steps).forEach(([, step]) => {
     router.post(step.constructor.getUrl(), step.runner().POST(step));
 });
 
-router.get('/payment', (req, res) => {
+router.get('/payment', (res) => {
     res.redirect(301, '/documents');
 });
 
