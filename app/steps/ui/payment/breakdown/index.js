@@ -74,7 +74,7 @@ class PaymentBreakdown extends Step {
 
         const [canCreatePayment, paymentStatus] = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
         logger.info(`canCreatePayment result = ${canCreatePayment} with status ${paymentStatus}`);
-        if (paymentStatus === 'Initiated' && canCreatePayment === false) {
+        if (paymentStatus === 'Initiated') {
             const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
             const payment = new Payment(paymentCreateServiceUrl, ctx.sessionID);
             const data = {
@@ -205,6 +205,7 @@ class PaymentBreakdown extends Step {
                 paymentStatus = paymentResponse.status;
                 if (paymentResponse.payment_reference !== paymentReference) {
                     logger.info(`Payment with status ${paymentResponse.status} found, using reference ${paymentResponse.payment_reference}.`);
+                    set(formdata, 'payment.reference', paymentResponse.payment_reference);
                     ctx.reference = paymentResponse.payment_reference;
                     ctx.paymentCreatedDate = paymentResponse.date_created;
                 }
