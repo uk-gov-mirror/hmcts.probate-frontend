@@ -3,6 +3,7 @@
 const Service = require('./Service');
 const paymentData = require('app/components/payment-data');
 const config = require('app/config');
+const {forEach} = require('lodash');
 
 class Payment extends Service {
     get(data) {
@@ -44,20 +45,21 @@ class Payment extends Service {
     }
 
     identifySuccessfulOrInitiatedPayment(casePayments) {
-        for (const payment of casePayments.payments) {
+        let response = false;
+        forEach(casePayments.payments, (payment) => {
             if (payment.status === 'Success') {
-                this.log(`Found successful payment: ${payment.payment_reference}`);
-                return payment;
+                this.log(`Found a successful payment: ${payment.payment_reference}`);
+                response = payment;
+                return false;
+            } else if (payment.status === 'Initiated') {
+                this.log(`Found an initiated payment: ${payment.payment_reference}`);
+                response = payment;
             }
+        });
+        if (response === false) {
+            this.log('No payments of Success or Initiated found.');
         }
-        for (const payment of casePayments.payments) {
-            if (payment.status === 'Initiated') {
-                this.log(`Payment still in progress (Initiated): ${payment.payment_reference}`);
-                return payment;
-            }
-        }
-        this.log('No payments found.');
-        return false;
+        return response;
     }
 }
 

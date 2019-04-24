@@ -107,7 +107,7 @@ describe('PaymentService', () => {
             const response = payment.identifySuccessfulOrInitiatedPayment(casePayments);
 
             expect(payment.log.calledOnce).to.equal(true);
-            expect(payment.log.calledWith('Found successful payment: RC-1554-1311-2865-4102')).to.equal(true);
+            expect(payment.log.calledWith('Found a successful payment: RC-1554-1311-2865-4102')).to.equal(true);
             expect(response.status).to.equal('Success');
             expect(response.payment_reference).to.equal('RC-1554-1311-2865-4102');
 
@@ -136,7 +136,7 @@ describe('PaymentService', () => {
             const response = payment.identifySuccessfulOrInitiatedPayment(casePayments);
 
             expect(payment.log.calledOnce).to.equal(true);
-            expect(payment.log.calledWith('Payment still in progress (Initiated): RC-1554-1311-2865-4101')).to.equal(true);
+            expect(payment.log.calledWith('Found an initiated payment: RC-1554-1311-2865-4101')).to.equal(true);
             expect(response.status).to.equal('Initiated');
             expect(response.payment_reference).to.equal('RC-1554-1311-2865-4101');
 
@@ -144,7 +144,7 @@ describe('PaymentService', () => {
             done();
         });
 
-        it('should log() and return an undefined for a list without Initiated or Success', (done) => {
+        it('should log() and return an false for a list without Initiated or Success', (done) => {
             const endpoint = 'http://localhost';
             const casePayments = {
                 'payments': [{
@@ -160,14 +160,14 @@ describe('PaymentService', () => {
             const response = payment.identifySuccessfulOrInitiatedPayment(casePayments);
 
             expect(payment.log.calledOnce).to.equal(true);
-            expect(payment.log.calledWith('No payments found.')).to.equal(true);
+            expect(payment.log.calledWith('No payments of Success or Initiated found.')).to.equal(true);
             expect(response).to.equal(false);
 
             logSpy.restore();
             done();
         });
 
-        it('should log() and return an undefined for an empty list', (done) => {
+        it('should log() and return an false for an empty list', (done) => {
             const endpoint = 'http://localhost';
             const casePayments = {
                 'payments': []
@@ -178,7 +178,7 @@ describe('PaymentService', () => {
             const response = payment.identifySuccessfulOrInitiatedPayment(casePayments);
 
             expect(payment.log.calledOnce).to.equal(true);
-            expect(payment.log.calledWith('No payments found.')).to.equal(true);
+            expect(payment.log.calledWith('No payments of Success or Initiated found.')).to.equal(true);
             expect(response).to.equal(false);
 
             logSpy.restore();
