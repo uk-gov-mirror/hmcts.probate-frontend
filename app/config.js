@@ -74,6 +74,7 @@ const config = {
             paths: {
                 payments: '/payments',
                 createPayment: '/card-payments',
+                
                 returnUrlPath: '/payment-status'
             },
         },
