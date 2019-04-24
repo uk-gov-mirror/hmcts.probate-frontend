@@ -161,7 +161,7 @@ describe('PaymentService', () => {
 
             expect(payment.log.calledOnce).to.equal(true);
             expect(payment.log.calledWith('No payments found.')).to.equal(true);
-            expect(typeof response).to.equal('undefined');
+            expect(response).to.equal(false);
 
             logSpy.restore();
             done();
@@ -179,7 +179,7 @@ describe('PaymentService', () => {
 
             expect(payment.log.calledOnce).to.equal(true);
             expect(payment.log.calledWith('No payments found.')).to.equal(true);
-            expect(typeof response).to.equal('undefined');
+            expect(response).to.equal(false);
 
             logSpy.restore();
             done();

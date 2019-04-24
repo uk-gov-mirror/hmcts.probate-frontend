@@ -14,13 +14,13 @@ const setJourney = require('app/middleware/setJourney');
 const AllExecutorsAgreed = require('app/services/AllExecutorsAgreed');
 const ServiceMapper = require('app/utils/ServiceMapper');
 
-router.all('*', (req, next) => {
+router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
     req.log.info(`Processing ${req.method} for ${req.originalUrl}`);
     next();
 });
 
-router.use((req, next) => {
+router.use((req, res, next) => {
     if (!req.session.form) {
         req.session.form = {
             payloadVersion: config.payloadVersion,
@@ -109,7 +109,7 @@ router.use((req, res, next) => {
     next();
 });
 
-router.use((req, next) => {
+router.use((req, res, next) => {
     const formdata = req.session.form;
     const hasMultipleApplicants = (new ExecutorsWrapper(formdata.executors)).hasMultipleApplicants();
 
@@ -138,7 +138,7 @@ Object.entries(steps).forEach(([, step]) => {
     router.post(step.constructor.getUrl(), step.runner().POST(step));
 });
 
-router.get('/payment', (res) => {
+router.get('/payment', (req, res) => {
     res.redirect(301, '/documents');
 });
 

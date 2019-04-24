@@ -199,7 +199,7 @@ class PaymentBreakdown extends Step {
             logger.debug(`Case payments for ${caseId} with response = ${JSON.stringify(casePaymentsArray)}`);
             const paymentResponse = payment.identifySuccessfulOrInitiatedPayment(casePaymentsArray);
             logger.debug(`Payment retrieval in breakdown for caseId = ${caseId} with response = ${JSON.stringify(paymentResponse)}`);
-            if (typeof paymentResponse === 'undefined') {
+            if (!paymentResponse) {
                 logger.info('No payments of Initiated for Success found for case.');
             } else if (paymentResponse.status === 'Initiated' || paymentResponse.status === 'Success') {
                 paymentStatus = paymentResponse.status;

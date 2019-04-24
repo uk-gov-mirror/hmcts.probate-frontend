@@ -44,7 +44,6 @@ class Payment extends Service {
     }
 
     identifySuccessfulOrInitiatedPayment(casePayments) {
-        let undefinedPayment;
         for (const payment of casePayments.payments) {
             if (payment.status === 'Success') {
                 this.log(`Found successful payment: ${payment.payment_reference}`);
@@ -58,7 +57,7 @@ class Payment extends Service {
             }
         }
         this.log('No payments found.');
-        return undefinedPayment;
+        return false;
     }
 }
 
