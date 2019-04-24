@@ -112,7 +112,7 @@ describe('Pact ProbateCheckAnswersPdf', () => {
                 provider.addInteraction({
                     // The 'state' field specifies a 'Provider State'
                     state: 'probate_orchestrator_service returns with validation errors',
-                    uponReceiving: 'a request to POST check answers doc',
+                    uponReceiving: 'a request to POST check answers doc with errors',
                     withRequest: {
                         method: 'POST',
                         path: '/documents/generate/checkAnswersSummary',
@@ -126,7 +126,7 @@ describe('Pact ProbateCheckAnswersPdf', () => {
                     },
                     willRespondWith: {
                         status: 400,
-                        headers: {'Content-Type': 'application/octet-stream'},
+                        headers: {'Content-Type': 'text/html;charset=utf-8'}
                     }
                 })
             );

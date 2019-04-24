@@ -36,6 +36,7 @@ describe('Pact Intestacy Submit Data', () => {
         authToken: 'authToken',
         serviceAuthorization: 'someServiceAuthorization'
     };
+
     function getRequestPayload() {
 
         const expectedJSON = JSON.parse(JSON.stringify(FORM_DATA_BODY_REQUEST));
@@ -78,11 +79,10 @@ describe('Pact Intestacy Submit Data', () => {
                     state: 'probate_orchestrator_service submits intestacy formdata with success',
                     uponReceiving: 'a submit request to POST intestacy formdata',
                     withRequest: {
-                        method: 'POST',
+                        method: 'PUT',
                         path: '/forms/someemailaddress@host.com/submissions',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Session-Id': ctx.sessionID,
                             'Authorization': ctx.authToken,
                             'ServiceAuthorization': ctx.serviceAuthorization
                         },
@@ -100,7 +100,7 @@ describe('Pact Intestacy Submit Data', () => {
             // Verify service client works as expected
             it('successfully submitted form data', (done) => {
                 const submitDataClient = new IntestacySubmitData('http://localhost:'+MOCK_SERVER_PORT, ctx.sessionID);
-                const verificationPromise = submitDataClient.submit(FORM_DATA_BODY_REQUEST, ctx);
+                const verificationPromise = submitDataClient.submit(FORM_DATA_BODY_REQUEST, ctx.authToken, ctx.serviceAuthorization);
                 expect(verificationPromise).to.eventually.eql(getExpectedPayload()).notify(done);
             });
 

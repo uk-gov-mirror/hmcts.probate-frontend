@@ -75,11 +75,10 @@ describe('Pact Probate Submit Data', () => {
                     state: 'probate_orchestrator_service submits probate formdata with success',
                     uponReceiving: 'a submit request to POST probate formdata',
                     withRequest: {
-                        method: 'POST',
+                        method: 'PUT',
                         path: '/forms/someemailaddress@host.com/submissions',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Session-Id': ctx.sessionID,
                             'Authorization': ctx.authToken,
                             'ServiceAuthorization': ctx.serviceAuthorization
                         },
@@ -96,7 +95,7 @@ describe('Pact Probate Submit Data', () => {
             // Verify service client works as expected
             it('successfully submitted form data', (done) => {
                 const submitDataClient = new ProbateSubmitData('http://localhost:' + MOCK_SERVER_PORT, ctx.sessionID);
-                const verificationPromise = submitDataClient.submit(FORM_DATA_BODY_REQUEST, ctx);
+                const verificationPromise = submitDataClient.submit(FORM_DATA_BODY_REQUEST, ctx.authToken, ctx.serviceAuthorization);
                 expect(verificationPromise).to.eventually.eql(getExpectedPayload(FORM_DATA_BODY_REQUEST)).notify(done);
             });
         });
@@ -110,11 +109,10 @@ describe('Pact Probate Submit Data', () => {
                     state: 'probate_orchestrator_service submits single probate formdata with success',
                     uponReceiving: 'a submit single exe request to POST probate formdata ',
                     withRequest: {
-                        method: 'POST',
+                        method: 'PUT',
                         path: '/forms/ccdcasedata1@gmail.com/submissions',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Session-Id': ctx.sessionID,
                             'Authorization': ctx.authToken,
                             'ServiceAuthorization': ctx.serviceAuthorization
                         },
@@ -132,7 +130,7 @@ describe('Pact Probate Submit Data', () => {
             // Verify service client works as expected
             it('successfully submitted form data', (done) => {
                 const submitDataClient = new ProbateSubmitData('http://localhost:' + MOCK_SERVER_PORT, ctx.sessionID);
-                const verificationPromise = submitDataClient.submit(SINGLE_EXE_FORM_DATA_BODY_REQUEST, ctx);
+                const verificationPromise = submitDataClient.submit(SINGLE_EXE_FORM_DATA_BODY_REQUEST, ctx.authToken, ctx.serviceAuthorization);
                 expect(verificationPromise).to.eventually.eql(getExpectedPayload(SINGLE_EXE_FORM_DATA_BODY_REQUEST)).notify(done);
             });
         });
@@ -146,11 +144,10 @@ describe('Pact Probate Submit Data', () => {
                     state: 'probate_orchestrator_service submits multiple probate formdata with success',
                     uponReceiving: 'a submit multiple exe request to POST probate formdata ',
                     withRequest: {
-                        method: 'POST',
+                        method: 'PUT',
                         path: '/forms/maggy.penelope@sellcow.net/submissions',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Session-Id': ctx.sessionID,
                             'Authorization': ctx.authToken,
                             'ServiceAuthorization': ctx.serviceAuthorization
                         },
@@ -167,7 +164,7 @@ describe('Pact Probate Submit Data', () => {
             // Verify service client works as expected
             it('successfully submitted form data', (done) => {
                 const submitDataClient = new ProbateSubmitData('http://localhost:' + MOCK_SERVER_PORT, ctx.sessionID);
-                const verificationPromise = submitDataClient.submit(MULTIPLE_EXE_FORM_DATA_BODY_REQUEST, ctx);
+                const verificationPromise = submitDataClient.submit(MULTIPLE_EXE_FORM_DATA_BODY_REQUEST, ctx.authToken, ctx.serviceAuthorization);
                 expect(verificationPromise).to.eventually.eql(getExpectedPayload(MULTIPLE_EXE_FORM_DATA_BODY_REQUEST)).notify(done);
             });
         });

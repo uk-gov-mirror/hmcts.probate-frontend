@@ -37,17 +37,17 @@
     "executorsNumber": 2,
     "alias": "Yes",
     "allalive": "Yes",
-    "otherExecutorsApplying" : "No",
+    "otherExecutorsApplying": "No",
     "list": [
       {
         "fullName": "Graham Smith",
         "isApplying": true,
         "currentName": "Graham Poll",
         "currentNameReason": "Divorce",
-        "email":"anotheremail@address.com",
+        "email": "anotheremail@address.com",
         "hasOtherName": true,
-        "mobile" : "079898989898",
-        "address" : "12 West End Avenue"
+        "mobile": "079898989898",
+        "address": "12 West End Avenue"
       },
       {
         "fullName": "Jackie Smith",
@@ -81,6 +81,6 @@
   "registry": {
   },
   "declaration": {
-    "declarationCheckbox": "Yes"
+    "declarationCheckbox": "true"
   }
 }
