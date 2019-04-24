@@ -73,7 +73,7 @@ const config = {
             userId: process.env.PAYMENT_USER_ID || 37,
             paths: {
                 payments: '/payments',
-                createPayment: '/cardpayments',
+                createPayment: '/card-payments',
                 returnUrlPath: '/payment-status'
             },
         },
