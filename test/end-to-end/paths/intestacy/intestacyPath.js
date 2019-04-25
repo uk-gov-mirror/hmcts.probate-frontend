@@ -76,11 +76,4 @@ xScenario(TestConfigurator.idamInUseText('Intestacy Journey'), function (I) {
     I.seeStopPage('divorcePlace');
     I.selectDeceasedDivorcePlace('Yes');
 
-    // Executors Task
-    I.selectATask(taskListContent.taskNotStarted);
-    I.selectRelationshipToDeceased('Other');
-    I.seeStopPage('otherRelationship');
-    I.selectRelationshipToDeceased('Child');
-    // I.selectSpouseNotApplyingReason('Other');
-
 });
