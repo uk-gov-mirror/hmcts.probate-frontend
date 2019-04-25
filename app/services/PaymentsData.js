@@ -19,7 +19,6 @@ class PaymentsData extends Service {
             'Authorization': authorization,
             'ServiceAuthorization': serviceAuthorization
         };
-        console.log("Payments body " + JSON.stringify(bodyData))
         const fetchOptions = this.fetchOptions(bodyData, 'POST', headers);
         return this.fetchJson(url, fetchOptions);
     }
