@@ -1,6 +1,5 @@
 'use strict';
 
-const dateformat = require('dateformat');
 const FormData = require('./FormData');
 
 class ProbateFormData extends FormData {
@@ -18,7 +17,6 @@ class ProbateFormData extends FormData {
         const path = this.replaceEmailInPath(this.config.services.orchestrator.paths.forms, id);
         const logMessage = 'Post probate form data';
         const url = this.endpoint + path;
-        console.log(JSON.stringify(data));
         return super.post(data, logMessage, url, ctx);
     }
 
