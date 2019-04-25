@@ -182,6 +182,7 @@ describe('ExecutorRoles', () => {
                     }, {
                         isApplying: false,
                         notApplyingReason: json.optionPowerReserved,
+                        notApplyingKey: 'optionPowerReserved',
                         executorNotified: 'Yes',
                         fullName: 'Ed Brown',
                         address: '20 Green Street, London, L12 9LN'
@@ -208,6 +209,7 @@ describe('ExecutorRoles', () => {
                     }, {
                         isApplying: false,
                         notApplyingReason: json.optionPowerReserved,
+                        notApplyingKey: 'optionPowerReserved',
                         fullName: 'Ed Brown',
                         address: '20 Green Street, London, L12 9LN'
                     }, {
@@ -233,6 +235,7 @@ describe('ExecutorRoles', () => {
                     }, {
                         isApplying: false,
                         notApplyingReason: json.optionRenunciated,
+                        notApplyingKey: 'optionRenunciated',
                         fullName: 'Ed Brown',
                         address: '20 Green Street, London, L12 9LN'
                     }, {
