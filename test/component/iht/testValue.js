@@ -29,17 +29,17 @@ describe('iht-value', () => {
 
         it('test iht value schema validation when net value is greater than gross value', (done) => {
             const data = {
-                grossValueOnline: 12345,
-                netValueOnline: 123456
+                grossValueField: 12345,
+                netValueField: 123456
             };
 
-            testWrapper.testErrors(done, data, 'netValueGreaterThanGross', ['netValueOnline']);
+            testWrapper.testErrors(done, data, 'netValueGreaterThanGross', ['netValueField']);
         });
 
         it(`test it redirects to Deceased Alias page: ${expectedNextUrlForDeceasedAlias}`, (done) => {
             const data = {
-                grossValueOnline: 123456,
-                netValueOnline: 12345
+                grossValueField: 123456,
+                netValueField: 12345
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);

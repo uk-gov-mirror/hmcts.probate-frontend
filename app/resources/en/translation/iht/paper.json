@@ -19,7 +19,7 @@
         "message": "Please select a form"
       }
     },
-    "grossIHT205": {
+    "grossValueFieldIHT205": {
       "required": {
         "summary": "You haven&rsquo;t entered the gross amount",
         "message": "Please enter the gross amount"
@@ -33,7 +33,7 @@
         "message": "Enter a valid amount using numbers only"
       }
     },
-    "netIHT205": {
+    "netValueFieldIHT205": {
       "required": {
         "summary": "You haven&rsquo;t entered the net amount",
         "message": "Please enter the net amount"
@@ -51,7 +51,7 @@
         "message": "The net amount can&rsquo;t be greater than the gross amount"
       }
     },
-    "grossIHT207": {
+    "grossValueFieldIHT207": {
       "required": {
         "summary": "You haven&rsquo;t entered the gross amount",
         "message": "Please enter the gross amount"
@@ -65,7 +65,7 @@
         "message": "Enter a valid amount using numbers only"
       }
     },
-    "netIHT207": {
+    "netValueFieldIHT207": {
       "required": {
         "summary": "You haven&rsquo;t entered the net amount",
         "message": "Please enter the net amount"
@@ -83,7 +83,7 @@
         "message": "The net amount can&rsquo;t be greater than the gross amount"
       }
     },
-    "grossIHT400421": {
+    "grossValueFieldIHT400421": {
       "required": {
         "summary": "You haven&rsquo;t entered the gross amount",
         "message": "Please enter the gross amount"
@@ -97,7 +97,7 @@
         "message": "Enter a valid amount using numbers only"
       }
     },
-    "netIHT400421": {
+    "netValueFieldIHT400421": {
       "required": {
         "summary": "You haven&rsquo;t entered the net amount",
         "message": "Please enter the net amount"
