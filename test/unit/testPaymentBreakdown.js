@@ -492,10 +492,8 @@ describe('PaymentBreakdown', () => {
                         email: 'oxford@email.com',
                         name: 'Oxford',
                         sequenceNumber: 10034
-                    },
-                    submissionReference: 97
-                },
-                submissionReference: 97
+                    }
+                }
             };
             feesCalculator.returns(Promise.resolve({
                 status: 'success',
@@ -577,10 +575,8 @@ describe('PaymentBreakdown', () => {
                         email: 'oxford@email.com',
                         name: 'Oxford',
                         sequenceNumber: 10034
-                    },
-                    submissionReference: 97
-                },
-                submissionReference: 97
+                    }
+                }
             };
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
             expectedPaAppCreatedFormdata.payment.reference = 'RC-67890';
