@@ -126,7 +126,7 @@ describe('Pact ProbateCheckAnswersPdf', () => {
                     },
                     willRespondWith: {
                         status: 400,
-                        headers: {'Content-Type': 'text/html;charset=utf-8'}
+                        headers: {'Content-Type': 'application/businessdocument+json'}
                     }
                 })
             );
