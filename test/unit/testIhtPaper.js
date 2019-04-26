@@ -102,15 +102,15 @@ describe('IhtPaper', () => {
             expect(errors).to.deep.equal([
                 {
                     msg: {
-                        summary: 'You haven&rsquo;t entered a valid gross amount',
-                        message: 'Enter a valid amount using numbers only'
+                        summary: 'Gross value can only contain numbers',
+                        message: 'Gross value must be a whole number or a number with 2 decimal places'
                     },
                     param: 'grossValueFieldIHT205'
                 },
                 {
                     msg: {
-                        summary: 'You haven&rsquo;t entered a valid net amount',
-                        message: 'Enter a valid amount using numbers only'
+                        summary: 'Net value can only contain numbers',
+                        message: 'Net value must be a whole number or a number with 2 decimal places'
                     },
                     param: 'netValueFieldIHT205'
                 },
