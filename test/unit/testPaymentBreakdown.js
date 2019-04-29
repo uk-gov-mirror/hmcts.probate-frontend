@@ -721,7 +721,7 @@ describe('PaymentBreakdown', () => {
         });
     });
 
-    describe('action()', () => {
+    describe('action', () => {
         beforeEach(() => {
             feesCalculator = sinon.stub(FeesCalculator.prototype, 'calc');
         });
