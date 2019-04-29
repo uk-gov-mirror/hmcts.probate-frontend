@@ -26,8 +26,33 @@ describe('PaymentBreakdown', () => {
     };
     let feesCalculator;
 
-    describe('handlePost()', () => {
-        const successfulPaymentResponse = {
+    describe('handlePost', () => {
+        const postInitiatedCardPayment = [{
+            id: '24',
+            amount: 5000,
+            status: 'Initiated',
+            description: 'Probate Payment: 50',
+            reference: 'RC-1234-5678-9012-3456',
+            date_created: '2018-08-29T15:25:11.920+0000',
+            _links: {}
+        }];
+        const successfulCasePaymentsResponse = {
+            payments: [{
+                amount: 216.50,
+                ccd_case_number: '1535395401245028',
+                payment_reference: 'RC-67890',
+                status: 'Success'
+            }]
+        };
+        const initiatedCasePaymentsResponse = {
+            payments: [{
+                amount: 216.50,
+                ccd_case_number: '1535395401245028',
+                payment_reference: 'RC-67890',
+                status: 'Initiated'
+            }]
+        };
+        const successPaymentResponse = {
             channel: 'Online',
             amount: 5000,
             ccd_case_number: '1535395401245028',
@@ -696,7 +721,7 @@ describe('PaymentBreakdown', () => {
         });
     });
 
-    describe('action()', () => {
+    describe('action', () => {
         beforeEach(() => {
             feesCalculator = sinon.stub(FeesCalculator.prototype, 'calc');
         });
