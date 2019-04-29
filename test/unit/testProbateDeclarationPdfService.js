@@ -10,19 +10,19 @@ describe('ProbateDeclarationPdfService', () => {
     describe('post()', () => {
         it('should call super.post()', (done) => {
             const endpoint = 'http://localhost';
-            const formdata = {
+            const req = {session: {
                 legalDeclaration: 'Some really interesting text'
-            };
+            }};
             const probateDeclarationPdf = new ProbateDeclarationPdf(endpoint, 'abc123');
             const postStub = sinon.stub(ProbatePdf.prototype, 'post');
 
-            probateDeclarationPdf.post(formdata);
+            probateDeclarationPdf.post(req);
 
             expect(postStub.calledOnce).to.equal(true);
             expect(postStub.calledWith(
                 config.template.declaration,
                 {
-                    legalDeclaration: formdata.legalDeclaration
+                    legalDeclaration: req.session.legalDeclaration
                 },
                 'Post probate declaration pdf'
             )).to.equal(true);

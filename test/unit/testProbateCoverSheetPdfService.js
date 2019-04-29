@@ -10,23 +10,27 @@ describe('ProbateCoverSheetPdfService', () => {
     describe('post()', () => {
         it('should call super.post()', (done) => {
             const endpoint = 'http://localhost';
-            const formdata = {
-                applicant: {
-                    address: {
-                        formattedAddress: '1 Red Road, London, L1 1LL'
+            const req = {
+                session: {
+                    formdata: {
+                        applicant: {
+                            address: {
+                                formattedAddress: '1 Red Road, London, L1 1LL'
+                            }
+                        },
+                        ccdCase: {
+                            id: 'ccd123'
+                        },
+                        registry: {
+                            address: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY'
+                        }
                     }
-                },
-                ccdCase: {
-                    id: 'ccd123'
-                },
-                registry: {
-                    address: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY'
                 }
             };
             const probateCoverSheetPdf = new ProbateCoverSheetPdf(endpoint, 'abc123');
             const postStub = sinon.stub(ProbatePdf.prototype, 'post');
 
-            probateCoverSheetPdf.post(formdata);
+            probateCoverSheetPdf.post(req);
 
             expect(postStub.calledOnce).to.equal(true);
             expect(postStub.calledWith(

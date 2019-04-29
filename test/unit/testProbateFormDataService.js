@@ -5,21 +5,25 @@ const sinon = require('sinon');
 const rewire = require('rewire');
 const ProbateFormData = rewire('app/services/ProbateFormData');
 const FormData = require('app/services/FormData');
+const config = require('app/config');
 
 describe('ProbateFormDataService', () => {
     describe('get()', () => {
         it('should call super.get()', (done) => {
             const endpoint = 'http://localhost';
-            const id = 'fred@example.com';
-            const probateCcdCasePaymentStatus = new ProbateFormData(endpoint, 'abc123');
+            const userId = 'fred@example.com';
+            const authToken = 'authToken';
+            const serviceAuthorisation = 'serviceAuthorisation';
+            const probateFormData = new ProbateFormData(endpoint, 'abc123');
+            const path = probateFormData.replaceEmailInPath(config.services.orchestrator.paths.forms, userId);
             const getStub = sinon.stub(FormData.prototype, 'get');
 
-            probateCcdCasePaymentStatus.get(id);
+            probateFormData.get(userId, authToken, serviceAuthorisation);
 
             expect(getStub.calledOnce).to.equal(true);
             expect(getStub.calledWith(
                 'Get probate form data',
-                `${endpoint}/${id}`
+                endpoint + path + '?probateType=PA', authToken, serviceAuthorisation
             )).to.equal(true);
 
             getStub.restore();
@@ -30,25 +34,30 @@ describe('ProbateFormDataService', () => {
     describe('post()', () => {
         it('should call super.post()', (done) => {
             const endpoint = 'http://localhost';
-            const id = 'fred@example.com';
-            const data = {};
+            const userId = 'fred@example.com';
+            const ctx = {
+                authToken: 'authToken',
+                session: {
+                    serviceAuthorization: 'serviceAuthorization'
+                }
+            };
+            const data = {submissionReference: 'sub123'};
             const probateCcdCasePaymentStatus = new ProbateFormData(endpoint, 'abc123');
+            const path = probateCcdCasePaymentStatus.replaceEmailInPath(config.services.orchestrator.paths.forms, userId);
             const postStub = sinon.stub(FormData.prototype, 'post');
 
-            probateCcdCasePaymentStatus.post(id, data);
+            probateCcdCasePaymentStatus.post(userId, data, ctx);
 
             expect(postStub.calledOnce).to.equal(true);
             expect(postStub.calledWith(
-                {
-                    id: id,
-                    formdata: data,
-                },
+                data,
                 'Post probate form data',
-                endpoint
+                endpoint + path, ctx
             )).to.equal(true);
 
             postStub.restore();
             done();
+
         });
     });
 });

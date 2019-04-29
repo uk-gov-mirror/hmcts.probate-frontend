@@ -5,35 +5,29 @@ const sinon = require('sinon');
 const rewire = require('rewire');
 const ProbateSubmitData = rewire('app/services/ProbateSubmitData');
 const SubmitData = require('app/services/SubmitData');
+const config = require('app/config');
 
 describe('ProbateSubmitDataService', () => {
-    describe('post()', () => {
-        it('should call super.post()', (done) => {
-            const submitData = {applicantFirstName: 'Fred'};
-            const revert = ProbateSubmitData.__set__('submitData', sinon.stub().returns(submitData));
+    describe('put()', () => {
+        it('should call super.put()', (done) => {
             const endpoint = 'http://localhost';
-            const data = {applicantEmail: 'fred@example.com'};
-            const ctx = {testCtx: true};
-            const softStop = false;
-            const bodyData = Object.assign(submitData, {
-                softStop: softStop,
-                applicantEmail: data.applicantEmail
-            });
+            const data = {applicant: {email: 'fred@example.com'}};
+            const authToken = 'authToken';
+            const serviceAuthorisation = 'serviceAuthorisation';
             const probateSubmitData = new ProbateSubmitData(endpoint, 'abc123');
-            const postStub = sinon.stub(SubmitData.prototype, 'post');
+            const path = probateSubmitData.replaceEmailInPath(config.services.orchestrator.paths.submissions, data.applicant.email);
+            const putStub = sinon.stub(SubmitData.prototype, 'put');
+            const url = endpoint + path + '?probateType=PA';
 
-            probateSubmitData.post(data, ctx, softStop);
+            probateSubmitData.put('Put submit data', url, data, authToken, serviceAuthorisation);
 
-            expect(postStub.calledOnce).to.equal(true);
-            expect(postStub.calledWith(
-                ctx,
-                'Post probate submit data',
-                `${endpoint}/submit`,
-                {submitdata: bodyData}
+            expect(putStub.calledOnce).to.equal(true);
+            expect(putStub.calledWith(
+                'Put submit data',
+                url, data, authToken, serviceAuthorisation
             )).to.equal(true);
 
-            revert();
-            postStub.restore();
+            putStub.restore();
             done();
         });
     });
