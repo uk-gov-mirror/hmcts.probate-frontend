@@ -102,7 +102,6 @@ describe('Pact ProbateCoverSheetPdf', () => {
             // You should do this only _once_ per Provider you are testing.
         });
     });
-    //New test
     describe('when invalid cover sheet doc is posted', () => {
         describe('and is required to be downloaded', () => {
             before(() => {
