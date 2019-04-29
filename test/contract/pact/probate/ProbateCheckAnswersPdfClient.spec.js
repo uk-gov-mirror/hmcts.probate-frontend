@@ -36,7 +36,7 @@ describe('Pact ProbateCheckAnswersPdf', () => {
         sessionID: 'someSessionId',
         authToken: 'authToken',
         session: {
-            serviceAuthorization: 'someServiceAuthoriz ation',
+            serviceAuthorization: 'someServiceAuthorization',
             checkAnswersSummary: DOC_BODY_PAYLOAD
         }
     };
@@ -45,7 +45,7 @@ describe('Pact ProbateCheckAnswersPdf', () => {
         sessionID: 'someSessionId',
         authToken: 'authToken',
         session: {
-            serviceAuthorization: 'someServiceAuthoriz ation',
+            serviceAuthorization: 'someServiceAuthorization',
             checkAnswersSummary: INVALID_DOC_BODY_PAYLOAD
         }
     };
