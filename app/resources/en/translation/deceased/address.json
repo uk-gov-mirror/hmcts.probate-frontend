@@ -1,7 +1,7 @@
 {
   "title": "Deceased address",
   "question": "What was the permanent address at the time of their death?",
-  "townOrCity": "Town or city",
+  "postTown": "Town or city",
   "postcode": "Postcode",
   "country": "Country",
   "findAddress": "Find UK address",
@@ -10,45 +10,34 @@
   "enterManually": "Enter their address instead",
 
   "errors": {
-    "crossField": {
-      "oneOf": {
-        "summary": "Please select an address or enter it manually",
-        "message": "Please select an address or enter it manually"
-      }
-    },
-    "postcode": {
+    "addressLine1": {
       "required": {
-        "summary": "Please enter a postcode",
-        "message": "Please enter a postcode"
+        "summary": "Please enter address line 1",
+        "message": "Enter the address line"
       },
       "invalid": {
-        "summary": "Please enter a postcode",
-        "message": "Please enter a valid postcode"
+        "summary": "Please enter minimum length for address line 1",
+        "message": "2 - 150 characters"
       }
     },
-    "postcodeLookup": {
+    "postTown": {
       "required": {
-        "summary": "You haven&rsquo;t entered a postcode or address"
-      }
-    },
-    "postcodeAddress": {
-      "required": {
-        "summary": "You haven&rsquo;t entered a postcode or address",
-        "message": "Please search for an address or enter one manually"
+        "summary": "Please enter town or city",
+        "message": "Enter the town or city line"
       },
       "invalid": {
-        "summary": "You haven&rsquo;t entered a postcode or address",
-        "message": "Please search for an address or enter one manually"
+        "summary": "Please enter minimum length for post town",
+        "message": "2 - 50 characters"
       }
     },
-    "freeTextAddress": {
+    "newPostCode": {
       "required": {
-        "summary": "You haven&rsquo;t entered a postcode or address",
-        "message": "Please search for an address or enter one manually"
+        "summary": "Please enter post code",
+        "message": "Enter the post code line"
       },
       "invalid": {
-        "summary": "You haven&rsquo;t entered a postcode or address",
-        "message": "Please search for an address or enter one manually"
+        "summary": "Please enter minimum length for post code",
+        "message": "2 - 14 characters"
       }
     }
   }

@@ -1,8 +1,23 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
+const {get} = require('lodash');
 
 class AddressStep extends ValidationStep {
+
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        if (ctx.address) {
+            ctx.addressLine1 = get(ctx.address, 'addressLine1', '');
+            ctx.addressLine2 = get(ctx.address, 'addressLine2', '');
+            ctx.addressLine3 = get(ctx.address, 'addressLine3', '');
+            ctx.postTown = get(ctx.address, 'postTown', '');
+            ctx.county = get(ctx.address, 'county', '');
+            ctx.newPostCode = get(ctx.address, 'postCode', '');
+            ctx.country = get(ctx.address, 'country', 'United Kingdom');
+        }
+        return ctx;
+    }
 
     handleGet(ctx, formdata) {
         if (ctx.errors) {
@@ -21,25 +36,40 @@ class AddressStep extends ValidationStep {
             addressLine1: ctx.addressLine1,
             addressLine2: ctx.addressLine2,
             addressLine3: ctx.addressLine3,
-            postTown: ctx.townOrCity,
-            county: ctx.county,
+            postTown: ctx.postTown,
             postCode: ctx.newPostCode,
-            country: ctx.country,
+            county: ctx.county,
+            country: ctx.country
         };
-        ctx.postcode = ctx.postcode ? ctx.postcode.toUpperCase() : ctx.postcode;
-        if (!ctx.postcodeAddress) {
-            delete ctx.addresses;
-        }
+        ctx.address.formattedAddress = this.getFormattedAddress(ctx.address);
+
+        return [ctx, errors];
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
         delete ctx.referrer;
         delete ctx.addressLine1;
         delete ctx.addressLine2;
         delete ctx.addressLine3;
-        delete ctx.townOrCity;
+        delete ctx.postTown;
         delete ctx.county;
         delete ctx.newPostCode;
         delete ctx.country;
-        return [ctx, errors];
+
+        return [ctx, formdata];
     }
+
+    getFormattedAddress(address) {
+        let formattedAddress = '';
+        Object.values(address).forEach(value => {
+            if (value) {
+                formattedAddress = `${formattedAddress}${value} `;
+            }
+        });
+        return formattedAddress;
+    }
+
 }
 
 module.exports = AddressStep;

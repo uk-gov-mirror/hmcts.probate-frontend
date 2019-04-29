@@ -18,7 +18,7 @@
             'DeceasedAddress'
         ) }}
         <div class="form-group">
-            <details id="details-panel" {{ "open" if fields.freeTextAddress }}>
+            <details id="details-panel" {{ "open" if fields.addressLine1 }}>
                 <summary id="details-summary"><span class="summary">{{ content.enterManually }}</span></summary>
                 <div class="panel panel-border-narrow">
                     {{ textField(
@@ -40,9 +40,9 @@
                         size = 50
                     ) }}
                     {{ textField(
-                        name = 'townOrCity',
-                        text = content.townOrCity,
-                        field = fields.townOrCity,
+                        name = 'postTown',
+                        text = content.postTown,
+                        field = fields.postTown,
                         width = '3-4',
                         size = 50
                     ) }}
