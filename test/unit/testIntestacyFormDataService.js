@@ -12,16 +12,18 @@ describe('IntestacyFormDataService', () => {
         it('should call super.get()', (done) => {
             const endpoint = 'http://localhost';
             const userId = 'fred@example.com';
+            const authToken = 'authToken';
+            const serviceAuthorisation = 'serviceAuthorisation';
             const intestacyFormData = new IntestacyFormData(endpoint, 'abc123');
             const path = intestacyFormData.replaceEmailInPath(config.services.orchestrator.paths.forms, userId);
             const getStub = sinon.stub(FormData.prototype, 'get');
 
-            intestacyFormData.get(userId);
+            intestacyFormData.get(userId, authToken, serviceAuthorisation);
 
             expect(getStub.calledOnce).to.equal(true);
             expect(getStub.calledWith(
                 'Get intestacy form data',
-                endpoint + path
+                endpoint + path + '?probateType=Intestacy', authToken, serviceAuthorisation
             )).to.equal(true);
 
             getStub.restore();

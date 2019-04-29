@@ -8,14 +8,16 @@ describe('SubmitDataService', () => {
     describe('post()', () => {
         it('should call log() and fetchJson()', (done) => {
             const endpoint = 'http://localhost';
-            const fetchOptions = {method: 'POST'};
+            const fetchOptions = {method: 'PUT'};
             const logMessage = 'Post submit data';
             const submitData = new SubmitData(endpoint, 'abc123');
             const logSpy = sinon.spy(submitData, 'log');
             const fetchJsonSpy = sinon.spy(submitData, 'fetchJson');
             const fetchOptionsStub = sinon.stub(submitData, 'fetchOptions').returns(fetchOptions);
 
-            submitData.post({ctxTest: true}, logMessage, endpoint);
+            const bodydata = {id: 'id'};
+
+            submitData.put(logMessage, endpoint, bodydata, 'authorization', 'serviceAuthorization');
 
             expect(submitData.log.calledOnce).to.equal(true);
             expect(submitData.log.calledWith(logMessage)).to.equal(true);

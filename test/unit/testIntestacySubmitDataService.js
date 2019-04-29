@@ -8,28 +8,26 @@ const SubmitData = require('app/services/SubmitData');
 const config = require('app/config');
 
 describe('IntestacySubmitDataService', () => {
-    describe('post()', () => {
+    describe('put()', () => {
         it('should call super.post()', (done) => {
             const endpoint = 'http://localhost';
             const data = {applicant: {email: 'fred@example.com'}};
-            const ctx = {testCtx: true};
-            const softStop = false;
+            const authToken = 'authToken';
+            const serviceAuthorisation = 'serviceAuthorisation';
             const intestacySubmitData = new IntestacySubmitData(endpoint, 'abc123');
             const path = intestacySubmitData.replaceEmailInPath(config.services.orchestrator.paths.submissions, data.applicant.email);
-            const postStub = sinon.stub(SubmitData.prototype, 'post');
-            data.softStop = softStop;
+            const putStub = sinon.stub(SubmitData.prototype, 'put');
+            const url = endpoint + path + '?probateType=Intestacy';
 
-            intestacySubmitData.post(data, ctx, softStop);
+            intestacySubmitData.put('Put submit data', url, data, authToken, serviceAuthorisation);
 
-            expect(postStub.calledOnce).to.equal(true);
-            expect(postStub.calledWith(
-                ctx,
-                'Post submit data',
-                endpoint + path,
-                data
+            expect(putStub.calledOnce).to.equal(true);
+            expect(putStub.calledWith(
+                'Put submit data',
+                url, data, authToken, serviceAuthorisation
             )).to.equal(true);
 
-            postStub.restore();
+            putStub.restore();
             done();
         });
     });
