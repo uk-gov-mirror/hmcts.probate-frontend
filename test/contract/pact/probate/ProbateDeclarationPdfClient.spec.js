@@ -8,9 +8,10 @@ const chaiAsPromised = require('chai-as-promised');
 const ProbateDeclarationPdf = require('app/services/ProbateDeclarationPdf');
 const config = require('app/config');
 const assert = chai.assert;
+const expect = chai.expect;
 const getPort = require('get-port');
 const DOC_BODY_PAYLOAD = require('test/data/pacts/probate/legalDeclaration');
-
+const DOC_BODY_INVALID_PAYLOAD = require('test/data/pacts/probate/invalidNoApplicantEmailAddressCoverSheet');
 chai.use(chaiAsPromised);
 
 describe('Pact ProbateDeclarationPdf', () => {
@@ -40,10 +41,17 @@ describe('Pact ProbateDeclarationPdf', () => {
             legalDeclaration: DOC_BODY_PAYLOAD
         }
     };
-
-    function getRequestBody() {
+    const InvalidReq = {
+        sessionID: 'someSessionId',
+        authToken: 'authToken',
+        session: {
+            serviceAuthorization: 'someServiceAuthorization',
+            legalDeclaration: DOC_BODY_INVALID_PAYLOAD
+        }
+    };
+    function getRequestBody(payload) {
         const fullBody = {
-            legalDeclaration: DOC_BODY_PAYLOAD
+            legalDeclaration: payload
         };
         return fullBody;
     }
@@ -81,7 +89,7 @@ describe('Pact ProbateDeclarationPdf', () => {
                             'Authorization': req.authToken,
                             'ServiceAuthorization': req.session.serviceAuthorization
                         },
-                        body: getRequestBody()
+                        body: getRequestBody(DOC_BODY_PAYLOAD)
                     },
                     willRespondWith: {
                         status: 200,
@@ -96,6 +104,40 @@ describe('Pact ProbateDeclarationPdf', () => {
                 const declarationPdfClient = new ProbateDeclarationPdf('http://localhost:' + MOCK_SERVER_PORT, req.sessionID);
                 const verificationPromise = declarationPdfClient.post(req);
                 assert.eventually.ok(verificationPromise).notify(done);
+            });
+        });
+    });
+    describe('when Invalid legal declaration doc is posted', () => {
+        describe('and is required to be downloaded', () => {
+            before(() => {
+                // (2) Start the mock server
+                provider.addInteraction({
+                    // The 'state' field specifies a 'Provider State'
+                    state: 'probate_orchestrator_service generates legal declaration byte[] with validation errors',
+                    uponReceiving: 'a request to POST Invalid legal declaration doc',
+                    withRequest: {
+                        method: 'POST',
+                        path: '/documents/generate/legalDeclaration',
+                        headers: {
+                            'Content-Type': 'application/businessdocument+json',
+                            'Session-Id': req.sessionID,
+                            'Authorization': req.authToken,
+                            'ServiceAuthorization': req.session.serviceAuthorization
+                        },
+                        body: getRequestBody(DOC_BODY_INVALID_PAYLOAD)
+                    },
+                    willRespondWith: {
+                        status: 400,
+                        headers: {'Content-Type': 'application/businessdocument+json'},
+                    }
+                });
+            });
+            // (4) write your test(s)
+            // Verify service client works as expected
+            it('successfully Invalid form data', (done) => {
+                const declarationPdfClient = new ProbateDeclarationPdf('http://localhost:' + MOCK_SERVER_PORT, InvalidReq.sessionID);
+                const verificationPromise = declarationPdfClient.post(InvalidReq);
+                expect(verificationPromise).to.eventually.be.rejectedWith('Error: Bad Request').notify(done);
             });
         });
     });
