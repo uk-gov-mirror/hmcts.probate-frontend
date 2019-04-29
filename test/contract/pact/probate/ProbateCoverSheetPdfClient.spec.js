@@ -44,6 +44,18 @@ describe('Pact ProbateCoverSheetPdf', () => {
             }
         }
     };
+    const reqInvalid = {
+        sessionID: 'someSessionId',
+        authToken: 'authToken',
+        session: {
+            serviceAuthorization: 'someServiceAuthorization',
+            formdata: {
+                applicant: {address: ''},
+                ccdCase: {id: '123454'},
+                registry: {address: 'manchester'}
+            }
+        }
+    };
     function getRequestBody(payload) {
         const fullBody = {
             bulkScanCoverSheet: payload
@@ -123,7 +135,7 @@ describe('Pact ProbateCoverSheetPdf', () => {
                     },
                     willRespondWith: {
                         status: 400,
-                        headers: {'Content-Type': 'application/octet-stream'},
+                        headers: {'Content-Type': 'application/businessdocument+json'},
                     }
                 });
             });
@@ -131,7 +143,7 @@ describe('Pact ProbateCoverSheetPdf', () => {
             // Verify service client works as expected
             it('successfully Invalidate form data', (done) => {
                 const coverSheetPdfClient = new ProbateCoverSheetPdf('http://localhost:' + MOCK_SERVER_PORT, req.sessionID);
-                const verificationPromise = coverSheetPdfClient.post(req);
+                const verificationPromise = coverSheetPdfClient.post(reqInvalid);
                 expect(verificationPromise).to.eventually.be.rejectedWith('Error: Bad Request').notify(done);
             });
             // (6) write the pact file for this consumer-provider pair,
