@@ -10,7 +10,6 @@ const {endsWith} = require('lodash');
 const commonContent = require('app/resources/en/translation/common');
 const stepsToExclude = [
     'StartEligibility', 'ApplicantExecutor', 'DeceasedDomicile', 'MentalCapacity', 'IhtCompleted', 'WillLeft', 'WillOriginal', 'StartApply',
-    'NewStartEligibility', 'NewApplicantExecutor', 'NewDeceasedDomicile', 'NewMentalCapacity', 'NewIhtCompleted', 'NewWillLeft', 'NewWillOriginal', 'NewStartApply',
     'DiedAfterOctober2014', 'RelationshipToDeceased', 'OtherApplicants',
     'Summary', 'TaskList', 'PinPage', 'PinSent', 'PinResend', 'AddressLookup', 'ExecutorAddress', 'ExecutorContactDetails', 'ExecutorName',
     'ExecutorNotified', 'ExecutorNameAsOnWill', 'ExecutorApplying', 'DeleteExecutor', 'PaymentStatus', 'AddAlias', 'RemoveAlias', 'ExecutorRoles', 'ExecutorsWhenDied'
@@ -43,7 +42,7 @@ for (const step in steps) {
                     .reply(200, 'false');
 
                 nock(config.featureToggles.url)
-                    .get(`${config.featureToggles.path}/probate-screening-questions`)
+                    .get(`${config.featureToggles.path}/probate-intestacy-questions`)
                     .reply(200, 'true');
 
                 nock(config.featureToggles.url)

@@ -37,6 +37,7 @@ class ExecutorRoles extends CollectionStep {
 
     handlePost(ctx, errors) {
         if (ctx.list[ctx.index]) {
+            ctx.list[ctx.index] = this.pruneExecutorData(ctx.list[ctx.index]);
             ctx.list[ctx.index].isApplying = false;
             ctx.list[ctx.index].notApplyingReason = ctx.notApplyingReason;
             ctx.list[ctx.index].notApplyingKey = findKey(json, o => o === ctx.notApplyingReason);
@@ -45,6 +46,19 @@ class ExecutorRoles extends CollectionStep {
             ctx.index = this.recalcIndex(ctx, ctx.index);
         }
         return [ctx, errors];
+    }
+
+    pruneExecutorData(data) {
+        delete data.address;
+        delete data.currentName;
+        delete data.currentNameReason;
+        delete data.email;
+        delete data.freeTextAddress;
+        delete data.hasOtherName;
+        delete data.mobile;
+        delete data.postcode;
+        delete data.postcodeAddress;
+        return data;
     }
 
     isComplete(ctx) {
