@@ -47,8 +47,8 @@
                 }
 
                 document.getElementById('addressLine1').value = address[0];
-                document.getElementById('addressLine2').value = address[1];
-                document.getElementById('addressLine3').value = address[2];
+                document.getElementById('addressLine2').value = address[1] || '';
+                document.getElementById('addressLine3').value = address[2] || '';
                 document.getElementById('postTown').value = city;
                 document.getElementById('newPostCode').value = postcode;
                 document.getElementById('country').value = 'United Kingdom';
