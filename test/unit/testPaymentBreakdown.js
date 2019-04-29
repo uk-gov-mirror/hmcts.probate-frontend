@@ -15,7 +15,7 @@ const sinon = require('sinon');
 const FeesCalculator = require('app/utils/FeesCalculator');
 const Payment = require('app/services/Payment');
 
-describe('PaymentBreakdown', () => {
+describe.skip('PaymentBreakdown', () => {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
     const section = 'paymentBreakdown';
     const templatePath = 'payment/breakdown';
