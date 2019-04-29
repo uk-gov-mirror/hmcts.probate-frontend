@@ -128,7 +128,7 @@ describe('Pact ProbateDeclarationPdf', () => {
                     },
                     willRespondWith: {
                         status: 400,
-                        headers: {'Content-Type': 'application/octet-stream'},
+                        headers: {'Content-Type': 'application/businessdocument+json'},
                     }
                 });
             });
