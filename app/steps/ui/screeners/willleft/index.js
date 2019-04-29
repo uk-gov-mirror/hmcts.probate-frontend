@@ -21,6 +21,7 @@ class WillLeft extends EligibilityValidationStep {
 
     handlePost(ctx, errors, formdata, session) {
         session.willLeft = ctx.left;
+        session.willLeft = ctx.left;
         return super.handlePost(ctx, errors, formdata, session);
     }
 
