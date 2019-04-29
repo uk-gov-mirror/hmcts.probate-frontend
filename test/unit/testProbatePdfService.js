@@ -13,19 +13,32 @@ describe('ProbatePdfService', () => {
             const endpoint = 'http://localhost';
             const pdfTemplate = config.template.coverSheet;
             const body = {};
+            const ctx = {
+                sessionID: 'sessionID',
+                authToken: 'authToken',
+                session: {
+                    serviceAuthorization: 'serviceAuthorization'
+                }
+            };
+
+            const headers = {
+                'Content-Type': 'application/businessdocument+json',
+                'Session-Id': ctx.sessionID,
+                'Authorization': ctx.authToken,
+                'ServiceAuthorization': ctx.session.serviceAuthorization
+            };
+
             const logMessage = 'Post probate pdf';
             const probatePdf = new ProbatePdf(endpoint, 'abc123');
             const postStub = sinon.stub(Pdf.prototype, 'post');
 
-            probatePdf.post(pdfTemplate, body, logMessage);
+            probatePdf.post(pdfTemplate, body, logMessage, ctx);
 
             expect(postStub.calledOnce).to.equal(true);
             expect(postStub.calledWith(
                 body,
                 logMessage,
-                {
-                    'Content-Type': 'application/json'
-                },
+                headers,
                 `${endpoint}${config.path}/${pdfTemplate}`
             )).to.equal(true);
 
