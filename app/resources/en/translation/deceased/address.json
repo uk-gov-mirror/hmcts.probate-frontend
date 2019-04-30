@@ -12,8 +12,8 @@
   "errors": {
     "addressLine1": {
       "required": {
-        "summary": "Please enter address line 1",
-        "message": "Enter the address line"
+        "summary": "Enter the first line of the address",
+        "message": "Enter the first line of the address"
       },
       "invalid": {
         "summary": "Please enter minimum length for address line 1",
@@ -22,8 +22,8 @@
     },
     "postTown": {
       "required": {
-        "summary": "Please enter town or city",
-        "message": "Enter the town or city line"
+        "summary": "Enter a town or city",
+        "message": "Enter a town or city"
       },
       "invalid": {
         "summary": "Please enter minimum length for post town",
@@ -32,8 +32,8 @@
     },
     "newPostCode": {
       "required": {
-        "summary": "Please enter post code",
-        "message": "Enter the post code line"
+        "summary": "Enter a postcode",
+        "message": "Enter a postcode"
       },
       "invalid": {
         "summary": "Please enter minimum length for post code",
