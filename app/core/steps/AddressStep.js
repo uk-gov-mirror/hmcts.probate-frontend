@@ -7,7 +7,7 @@ class AddressStep extends ValidationStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
-        if (ctx.address) {
+        if (ctx.address && !ctx.addressLine1) {
             ctx.addressLine1 = get(ctx.address, 'addressLine1', '');
             ctx.addressLine2 = get(ctx.address, 'addressLine2', '');
             ctx.addressLine3 = get(ctx.address, 'addressLine3', '');

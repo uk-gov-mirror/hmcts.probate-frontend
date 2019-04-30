@@ -72,7 +72,7 @@ describe('submit-data', () => {
             'mobile': '07963723856',
             'address': {
                 addressLine1: 'exec_3_address',
-                'newPostCode': 'postCode',
+                'postCode': 'postCode',
                 'postTown': 'town'
             },
             'inviteId': {},
@@ -128,7 +128,7 @@ describe('submit-data', () => {
             'addressLine1': 'Adam & Eve',
             'addressLine2': '81 Petty France',
             'formattedAddress': 'Adam & Eve 81 Petty France London SW1H 9EX',
-            'newPostCode': 'SW1H 9EX',
+            'postCode': 'SW1H 9EX',
             'postTown': 'London'
         };
 
@@ -136,7 +136,7 @@ describe('submit-data', () => {
             'addressLine1': 'Adam & Eve',
             'addressLine2': '81 Petty France',
             'formattedAddress': 'Adam & Eve 81 Petty France London SW1H 9EX',
-            'newPostCode': 'SW1H 9EX',
+            'postCode': 'SW1H 9EX',
             'postTown': 'London'
         };
 

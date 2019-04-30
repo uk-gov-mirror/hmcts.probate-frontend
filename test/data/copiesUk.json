@@ -16,7 +16,6 @@
   },
   "deceased": {
     "alias": "No",
-    "address": "67 Hill Rise Cuffley Potters Bar EN6 4RX",
     "dob_day": 1,
     "dod_day": 12,
     "married": "No",
@@ -229,7 +228,7 @@
       "addressLine1": "67 Hill Rise",
       "addressLine2": "Cuffley",
       "postTown": "Potters Bar",
-      "newPostCode": "EN6 4RX"
+      "postCode": "EN6 4RX"
     },
     "dob_formattedDate": "1 January 1950",
     "dod_formattedDate": "12 December 2017"
@@ -239,7 +238,7 @@
       "addressLine1": "57 Hill Rise",
       "addressLine2": "Cuffley",
       "postTown": "Potters Bar",
-      "newPostCode": "EN6 4RX"
+      "postCode": "EN6 4RX"
     },
     "lastName": "app_test",
     "postcode": "EN6 4RX",
@@ -462,7 +461,7 @@
           "addressLine1": "61 Hill Rise",
           "addressLine2": "Cuffley",
           "postTown": "Potters Bar",
-          "newPostCode": "EN6 4RX"
+          "postCode": "EN6 4RX"
         }
       },
       {
@@ -472,7 +471,7 @@
           "addressLine1": "63 Hill Rise",
           "addressLine2": "Cuffley",
           "postTown": "Potters Bar",
-          "newPostCode": "EN6 4RX"
+          "postCode": "EN6 4RX"
         },
         "fullName": "exec3",
         "inviteId": "test-test-abe3aecd-a768-4231-8a67-bf3c68f7e9b0",
@@ -496,7 +495,7 @@
           "addressLine1": "61 Hill Rise",
           "addressLine2": "Cuffley",
           "postTown": "Potters Bar",
-          "newPostCode": "EN6 4RX"
+          "postCode": "EN6 4RX"
         },
         "fullName": "exec2",
         "postcode": "EN6 4RX",
