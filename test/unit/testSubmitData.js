@@ -70,8 +70,11 @@ describe('submit-data', () => {
             'currentNameReason': 'Divorce',
             'email': 'haji58@hotmail.co.uk',
             'mobile': '07963723856',
-            'address': 'exec_3_address\r\n',
-            'freeTextAddress': 'exec_3_address\r\n',
+            'address': {
+                addressLine1: 'exec_3_address',
+                'newPostCode': 'postCode',
+                'postTown': 'town'
+            },
             'inviteId': {},
             'emailSent': true
         }];
@@ -121,13 +124,29 @@ describe('submit-data', () => {
             'userId': '999999999',
         };
 
+        const deceasedAddress = {
+            'addressLine1': 'Adam & Eve',
+            'addressLine2': '81 Petty France',
+            'formattedAddress': 'Adam & Eve 81 Petty France London SW1H 9EX',
+            'newPostCode': 'SW1H 9EX',
+            'postTown': 'London'
+        };
+
+        const applicantAddress = {
+            'addressLine1': 'Adam & Eve',
+            'addressLine2': '81 Petty France',
+            'formattedAddress': 'Adam & Eve 81 Petty France London SW1H 9EX',
+            'newPostCode': 'SW1H 9EX',
+            'postTown': 'London'
+        };
+
         assert.nestedPropertyVal(mappedData, 'applicantFirstName', 'Bob Richard');
         assert.nestedPropertyVal(mappedData, 'applicantLastName', 'Smith');
         assert.nestedPropertyVal(mappedData, 'applicantSameWillName', 'No');
         assert.nestedPropertyVal(mappedData, 'applicantAlias', 'Bobby Richard Smith');
         assert.nestedPropertyVal(mappedData, 'applicantAliasReason', 'other');
         assert.nestedPropertyVal(mappedData, 'applicantOtherReason', 'nickname');
-        assert.nestedPropertyVal(mappedData, 'applicantAddress', 'Adam & Eve 81 Petty France London SW1H 9EX');
+        assert.deepNestedPropertyVal(mappedData, 'applicantAddress', applicantAddress);
         assert.nestedPropertyVal(mappedData, 'applicantPostcode', 'SW1H 9EX');
         assert.nestedPropertyVal(mappedData, 'applicantPhone', '07934235245');
         assert.nestedPropertyVal(mappedData, 'applicantEmail', 'test@hotmail.com');
@@ -136,7 +155,7 @@ describe('submit-data', () => {
         assert.nestedPropertyVal(mappedData, 'deceasedAliasAssets', 'Yes');
         assert.deepNestedPropertyVal(mappedData, 'deceasedOtherNames', deceasedOtherNames);
         assert.nestedPropertyVal(mappedData, 'deceasedMarriedAfterDateOnWill', 'No');
-        assert.nestedPropertyVal(mappedData, 'deceasedAddress', 'Adam & Eve 81 Petty France London SW1H 9EX');
+        assert.deepNestedPropertyVal(mappedData, 'deceasedAddress', deceasedAddress);
         assert.nestedPropertyVal(mappedData, 'deceasedPostcode', 'SW1H 9EX');
         assert.nestedPropertyVal(mappedData, 'deceasedDod', '1 January 2018');
         assert.nestedPropertyVal(mappedData, 'deceasedDob', '1 January 1950');
