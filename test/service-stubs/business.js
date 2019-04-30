@@ -11,6 +11,16 @@ router.get('invites/allAgreed/:id', (req, res) => {
     res.send('false');
 });
 
+router.post('/invite', (req, res) => {
+    res.status(200);
+    res.send('true');
+});
+
+router.patch('/invite/:id', (req, res) => {
+    res.status(200);
+    res.send('true');
+});
+
 router.get('/health', (req, res) => {
     res.send({'status': 'UP'});
 });

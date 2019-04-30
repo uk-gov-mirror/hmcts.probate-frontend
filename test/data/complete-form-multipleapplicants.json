@@ -34,7 +34,7 @@
       "addressLine2": "81 Petty France",
       "formattedAddress":"Adam & Eve 81 Petty France London SW1H 9EX",
       "postTown": "London",
-      "newPostCode": "SW1H 9EX"
+      "postCode": "SW1H 9EX"
     }
   },
 
@@ -67,7 +67,7 @@
         "address": {
           "addressLine1": "exec_3_address",
           "postTown": "town",
-          "newPostCode": "postCode"
+          "postCode": "postCode"
         },
         "inviteId": {},
         "emailSent": true
@@ -122,7 +122,7 @@
       "addressLine2": "81 Petty France",
       "formattedAddress": "Adam & Eve 81 Petty France London SW1H 9EX",
       "postTown": "London",
-      "newPostCode": "SW1H 9EX"
+      "postCode": "SW1H 9EX"
     }
   },
   "summary": {
