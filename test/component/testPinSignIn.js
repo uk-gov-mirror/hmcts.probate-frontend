@@ -56,7 +56,7 @@ describe('pin-page', () => {
             };
 
             nock(config.services.persistence.url)
-                .get('/12')
+                .get('/forms/12?probateType=PA')
                 .reply(200, formDataReturnData);
 
             testWrapper.agent
