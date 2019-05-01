@@ -160,8 +160,7 @@ describe('executors-address', () => {
                         {fullName: 'Other Applicant', isApplying: true, isApplicant: true},
                         {fullName: 'Harvey', isApplying: true, isApplicant: true}
                     ]
-                },
-
+                }
             };
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
