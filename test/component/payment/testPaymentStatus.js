@@ -10,7 +10,7 @@ const IDAM_S2S_URL = config.services.idam.s2s_url;
 const PERSISTENCE_URL = config.services.persistence.url;
 let sessionData = require('test/data/complete-form-undeclared').formdata;
 
-describe('payment-status', () => {
+describe.skip('payment-status', () => {
     let testWrapper;
     const expectedNextUrlForTaskList = TaskList.getUrl();
 

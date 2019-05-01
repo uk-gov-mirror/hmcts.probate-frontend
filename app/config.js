@@ -18,7 +18,7 @@ const config = {
         password: process.env.PASSWORD,
         useAuth: process.env.USE_AUTH || 'false',
         useHttps: process.env.USE_HTTPS || 'false',
-        useIDAM: process.env.USE_IDAM || 'true',
+        useIDAM: process.env.USE_IDAM || 'false',
         port: process.env.PORT || '3000',
         useCSRFProtection: 'true',
         session: {
