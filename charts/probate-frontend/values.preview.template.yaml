@@ -31,6 +31,8 @@ nodejs:
     OVERSEAS_COPIES_FEE_CODE: ${PRO_OVERSEAS_COPIES_FEE_CODE}
     SERVICE_ID: ${PRO_SERVICE_ID}
     SITE_ID: ${PRO_SITE_ID}
+  image: ${IMAGE_NAME}
+  ingressHost: ${SERVICE_FQDN}
 
 rpe-feature-toggle-api:
   releaseNameOverride: ${SERVICE_NAME}-ftr-tgl-api
