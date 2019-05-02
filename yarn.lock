@@ -3636,11 +3636,6 @@ govuk-frontend@^2.11.0:
   resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-2.11.0.tgz#f9eb4497a55d22b7eab8364323266680e17be188"
   integrity sha512-kZR0ZrSju+Jqh8o5niKklj8/m5XmsNNUSQLL4M4urnMcrLypwW2dU3RkR8UCnzS2DDy4BTHb7CZw0VjQPoi3jg==
 
-govuk_template_jinja@0.23.0:
-  version "0.23.0"
-  resolved "https://registry.yarnpkg.com/govuk_template_jinja/-/govuk_template_jinja-0.23.0.tgz#9315ac403d1d85b01a62b7044cb95d8ec3e303a4"
-  integrity sha1-kxWsQD0dhbAaYrcETLldjsPjA6Q=
-
 graceful-fs@4.1.11:
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"

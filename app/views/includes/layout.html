@@ -1,17 +1,20 @@
-{% extends "govuk_template.html" %}
+{% extends "template.njk" %}
+
+{% from "header/macro.njk" import govukHeader %}
+{% from "footer/macro.njk" import govukFooter -%}
 
 {% if title === undefined %}
     {% set title = content.title %}
 {% endif %}
 
-{% block page_title %}
+{% block pageTitle %}
     {{ title | safe }}{% if serviceName %}{{ ' - ' + serviceName }}{% endif %}
 {% endblock %}
 
 {% block head %}
     {% include "includes/head.html" %}
 {% endblock %}
-
+{#
 {% block cookie_message %}
     <p>{{ cookieText | safe }}</p>
 {% endblock %}
@@ -23,12 +26,24 @@
 {% block header_class %}
     with-proposition
 {% endblock %}
+#}
 
-{% block body_end %}
-    {% include "includes/scripts.html" %}
-    <!-- GOV.UK Prototype kit {{ releaseVersion }} -->
+{% block header %}
+    {{ govukHeader({
+        homepageUrl: "#",
+        containerClasses: "govuk-width-container",
+        serviceName: 'Luca',
+        serviceUrl: "#"
+    }) }}
 {% endblock %}
 
-{% block footer_support_links %}
+{#
+{% block footer %}
     {% include "includes/footer_links.html" %}
 {% endblock %}
+#}
+
+{% block bodyEnd %}
+    {% include "includes/scripts.html" %}
+{% endblock %}
+
