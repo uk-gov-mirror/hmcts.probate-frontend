@@ -24,7 +24,6 @@ nodejs:
 
   # Don't modify below here
   image: latest
-  ingressHost: ${SERVICE_FQDN}
 
 rpe-feature-toggle-api:
   importer:
