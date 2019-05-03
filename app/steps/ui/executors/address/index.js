@@ -28,7 +28,8 @@ class ExecutorAddress extends AddressStep {
 
     handleGet(ctx) {
         super.handleGet(ctx);
-        if (ctx.list[ctx.index].address) {
+
+        if (!ctx.address) {
             ctx.address = ctx.list[ctx.index].address;
             ctx.addressLine1 = get(ctx.address, 'addressLine1', '');
             ctx.addressLine2 = get(ctx.address, 'addressLine2', '');
@@ -37,7 +38,11 @@ class ExecutorAddress extends AddressStep {
             ctx.county = get(ctx.address, 'county', '');
             ctx.newPostCode = get(ctx.address, 'postCode', '');
             ctx.country = get(ctx.address, 'country', 'United Kingdom');
+        }
+        if (!ctx.postcode) {
             ctx.postcode = ctx.list[ctx.index].postcode;
+        }
+        if (!ctx.addresses) {
             ctx.addresses = ctx.list[ctx.index].addresses;
         }
 
