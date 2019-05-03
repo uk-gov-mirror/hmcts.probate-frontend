@@ -20,6 +20,7 @@ class AddressStep extends ValidationStep {
     }
 
     handleGet(ctx, formdata) {
+
         if (ctx.errors) {
             const errors = ctx.errors;
             delete ctx.errors;
