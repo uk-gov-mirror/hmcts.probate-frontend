@@ -6,7 +6,7 @@ const logger = require('app/components/logger');
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
-const nunjucks = require('express-nunjucks');
+const nunjucks = require('nunjucks');
 const routes = require(`${__dirname}/app/routes`);
 const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
@@ -80,13 +80,20 @@ exports.init = function() {
         }
     };
 
-    const njk = nunjucks(app, {
+    const njkEnv = nunjucks.configure([
+        'app/steps',
+        'app/views',
+        'node_modules/govuk-frontend/',
+        'node_modules/govuk-frontend/components/'
+    ], {
         autoescape: true,
         watch: true,
         noCache: true,
         globals: globals
     });
-    filters(njk.env);
+
+    filters(njkEnv);
+    njkEnv.express(app);
 
     app.enable('trust proxy');
 
