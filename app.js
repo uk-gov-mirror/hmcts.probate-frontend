@@ -7,6 +7,7 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const nunjucks = require('nunjucks');
+const filters = require('app/components/filters.js');
 const routes = require(`${__dirname}/app/routes`);
 const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
@@ -65,21 +66,6 @@ exports.init = function() {
     app.set('view engine', 'html');
     app.set('views', ['app/steps', 'app/views', 'node_modules/govuk-frontend/', 'node_modules/govuk-frontend/components/']);
 
-    const filters = require('app/components/filters.js');
-    const globals = {
-        'currentYear': new Date().getFullYear(),
-        'gaTrackingId': config.gaTrackingId,
-        'enableTracking': config.enableTracking,
-        'links': config.links,
-        'helpline': config.helpline,
-        'nonce': uuid,
-        'documentUpload': {
-            validMimeTypes: config.documentUpload.validMimeTypes,
-            maxFiles: config.documentUpload.maxFiles,
-            maxSizeBytes: config.documentUpload.maxSizeBytes
-        }
-    };
-
     const njkEnv = nunjucks.configure([
         'app/steps',
         'app/views',
@@ -88,8 +74,19 @@ exports.init = function() {
     ], {
         autoescape: true,
         watch: true,
-        noCache: true,
-        globals: globals
+        noCache: true
+    });
+
+    njkEnv.addGlobal('currentYear', new Date().getFullYear());
+    njkEnv.addGlobal('gaTrackingId', config.gaTrackingId);
+    njkEnv.addGlobal('enableTracking', config.enableTracking);
+    njkEnv.addGlobal('links', config.links);
+    njkEnv.addGlobal('helpline', config.helpline);
+    njkEnv.addGlobal('nonce', uuid);
+    njkEnv.addGlobal('documentUpload', {
+        validMimeTypes: config.documentUpload.validMimeTypes,
+        maxFiles: config.documentUpload.maxFiles,
+        maxSizeBytes: config.documentUpload.maxSizeBytes
     });
 
     filters(njkEnv);
