@@ -2,11 +2,53 @@
 
 {% from "widgets/textfields.html" import textField %}
 
-{% block question %}
-    <h1 class="form-title govuk-heading-l">{{ content.question | safe }}</h1>
-{% endblock %}
+{% from "input/macro.njk" import govukInput %}
+{% from "fieldset/macro.njk" import govukFieldset %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
+    {% call govukFieldset({
+        legend: {
+            text: content.question | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+
+        <p class="govuk-hint">{{ content.explanation1 }}</p>
+
+        {{ govukInput({
+            label: {
+                html: content.firstName
+            },
+            id: "firstName",
+            name: "firstName",
+            value: fields.firstName.value | safe,
+            errorMessage: fields.firstName.error,
+            attributes: {
+                maxlength: 100
+            },
+            classes: 'govuk-!-width-three-quarters'
+        }) }}
+        {{ govukInput({
+            label: {
+                html: content.lastName
+            },
+            id: "lastName",
+            name: "lastName",
+            value: fields.lastName.value | safe,
+            errorMessage: fields.lastName.error,
+            attributes: {
+                maxlength: 100
+            },
+            classes: 'govuk-!-width-three-quarters'
+        }) }}
+    {% endcall %}
+
+
+
+
+{#
     <p class="form-hint">{{ content.explanation1 }}</p>
     <fieldset>
         <legend class="govuk-visually-hidden">
@@ -25,7 +67,10 @@
             size = 100
         ) }}
     </fieldset>
+#}
     <div class="govuk-form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+        {{ govukButton({
+            text: common.saveAndContinue
+        }) }}
     </div>
 {% endblock %}
