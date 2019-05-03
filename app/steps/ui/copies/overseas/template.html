@@ -4,7 +4,7 @@
 {% from "widgets/numbers.html" import numberField %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{ content.question }}</h1>
+    <h1 class="form-title govuk-heading-l">{{ content.question }}</h1>
 {% endblock %}
 
 {% block form_content %}
@@ -16,7 +16,7 @@
         ]) }}
 
         <fieldset>
-            <legend class="visually-hidden">
+            <legend class="govuk-visually-hidden">
                 {{ content.question | safe }}
             </legend>
             {{ numberField(
@@ -30,7 +30,7 @@
         </fieldset>
     {% else %}
         <fieldset>
-            <legend class="visually-hidden">
+            <legend class="govuk-visually-hidden">
                 {{ content.question | safe }}
             </legend>
             {{ numberField(
@@ -43,7 +43,7 @@
             ) }}
         </fieldset>
     {% endif %}
-    <div class="form-group">
+    <div class="govuk-form-group">
         <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}

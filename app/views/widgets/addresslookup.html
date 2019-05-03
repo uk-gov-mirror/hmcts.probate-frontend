@@ -1,7 +1,7 @@
 {% from "widgets/fielderror.html" import fieldError %}
 
 {% macro addressFinder(fields,content,step) %}
-    <div class="form-group {{ 'form-group-error' if fields.postcode.error }}">
+    <div class="govuk-form-group {{ 'form-group-error' if fields.postcode.error }}">
         <label for="postcode">{{ content.postcode }}</label>
 
         {{ fieldError(fields.postcode) }}
@@ -14,7 +14,7 @@
     <input type="hidden" id="addressFound" name="addressFound" value="{{ fields.addressFound.value if fields.addressFound else 'none' }}">
 
     {% if fields.addresses %}
-        <div class="form-group">
+        <div class="govuk-form-group">
             <label for="postcodeAddress">{{ content.addressLabel }}</label>
             <select id="postcodeAddress" class="form-control form-control-1-2" name="postcodeAddress" value="{{ fields.address.value }}">
                 <option value="">{{ content.selectAddress }}</option>

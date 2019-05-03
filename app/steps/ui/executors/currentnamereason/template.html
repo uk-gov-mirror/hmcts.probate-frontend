@@ -4,11 +4,11 @@
 {% from "widgets/radiobuttons.html" import optionsRadio %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{ content.question | replace('{executorName}', fields.otherExecName.value) | safe }}</h1>
+    <h1 class="form-title govuk-heading-l">{{ content.question | replace('{executorName}', fields.otherExecName.value) | safe }}</h1>
 {% endblock %}
 
 {% block form_content %}
-    <fieldset class="form-group {{ 'form-group-error' if fields['currentNameReason'].error }}">
+    <fieldset class="govuk-form-group {{ 'form-group-error' if fields['currentNameReason'].error }}">
         <legend class="govuk-visually-hidden">{{ content.question }}</legend>
 
         {% if fields['currentNameReason'].error %}
@@ -51,7 +51,7 @@
         </div>
     </fieldset>
 
-    <div class="form-group">
+    <div class="govuk-form-group">
         <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}

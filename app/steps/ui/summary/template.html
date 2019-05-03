@@ -8,55 +8,55 @@
         {% include "includes/phase_banner_beta.html" %}
         {% include "includes/error_summary.html" %}
 
-        <h1 class="heading-large">{{ content.Summary.heading }}</h1>
+        <h1 class="govuk-heading-l">{{ content.Summary.heading }}</h1>
         <p id="main-heading-content">{{ content.Summary.checkCarefully }}</p>
 
-        <h2 class="heading-medium">{{ content.Summary.deceasedHeading }}</h2>
+        <h2 class="govuk-heading-m">{{ content.Summary.deceasedHeading }}</h2>
         <table class="check-your-answers check-your-answers--long">
-            <caption class="visually-hidden">{{ content.Summary.deceasedHeading }}</caption>
+            <caption class="govuk-visually-hidden">{{ content.Summary.deceasedHeading }}</caption>
             <tbody>
                 {% include "ui/summary/includes/deceased.njk" %}
             </tbody>
         </table>
 
         {% ifAsync fields.summary.isDocumentUploadToggleEnabled.value === "true" %}
-            <h2 class="heading-medium">{{ content.Summary.uploadedDocumentsHeading }}</h2>
+            <h2 class="govuk-heading-m">{{ content.Summary.uploadedDocumentsHeading }}</h2>
             <table class="check-your-answers check-your-answers--long">
-                <caption class="visually-hidden">{{ content.Summary.uploadedDocumentsHeading }}</caption>
+                <caption class="govuk-visually-hidden">{{ content.Summary.uploadedDocumentsHeading }}</caption>
                 <tbody>
                     {% include "ui/summary/includes/documentupload.njk" %}
                 </tbody>
             </table>
         {% endif %}
 
-        <h2 class="heading-medium">{{ content.Summary.ihtHeading }}</h2>
+        <h2 class="govuk-heading-m">{{ content.Summary.ihtHeading }}</h2>
         <table class="check-your-answers check-your-answers--long">
-            <caption class="visually-hidden">{{ content.Summary.ihtHeading }}</caption>
+            <caption class="govuk-visually-hidden">{{ content.Summary.ihtHeading }}</caption>
             <tbody>
                 {% include "ui/summary/includes/iht.njk" %}
             </tbody>
         </table>
 
-        <h2 class="heading-medium">{{ content.Summary.applicantHeading }}</h2>
+        <h2 class="govuk-heading-m">{{ content.Summary.applicantHeading }}</h2>
         <table class="check-your-answers check-your-answers--long">
-            <caption class="visually-hidden">{{ content.Summary.applicantHeading }}</caption>
+            <caption class="govuk-visually-hidden">{{ content.Summary.applicantHeading }}</caption>
             <tbody>
                 {% include "ui/summary/includes/executors.njk" %}
             </tbody>
         </table>
 
-        <h3 class="heading-small">{{content.Summary.aboutYouHeading | safe}}</h3>
+        <h3 class="govuk-heading-s">{{content.Summary.aboutYouHeading | safe}}</h3>
         <table class="check-your-answers check-your-answers--long">
-            <caption class="visually-hidden">{{ content.Summary.aboutYouHeading }}</caption>
+            <caption class="govuk-visually-hidden">{{ content.Summary.aboutYouHeading }}</caption>
             <tbody>
                 {% include "ui/summary/includes/executors-applicant.njk" %}
             </tbody>
         </table>
 
         {% ifAsync fields.executors.executorsNumber.value > 1 and fields.summary.executorsAlive.value === "true" %}
-            <h3 class="heading-small">{{content.Summary.otherExecutors | safe}}</h3>
+            <h3 class="govuk-heading-s">{{content.Summary.otherExecutors | safe}}</h3>
             <table class="check-your-answers check-your-answers--long">
-                <caption class="visually-hidden">{{ content.Summary.otherExecutors }}</caption>
+                <caption class="govuk-visually-hidden">{{ content.Summary.otherExecutors }}</caption>
                 <tbody>
                     {% include "ui/summary/includes/executors-others.njk" %}
                 </tbody>
@@ -65,9 +65,9 @@
             {% set cls = cycler(common.second,common.third,common.fourth,common.fifth) %}
             {% for executor in fields.executors.list.value %}
                 {% ifAsync executor.isApplicant != true and executor.isApplying === true %}
-                    <h3 class="heading-small">{{content.Summary.executorApplyingForProbate | replace("{executorOrderNumber}", cls.next())}}</h3>
+                    <h3 class="govuk-heading-s">{{content.Summary.executorApplyingForProbate | replace("{executorOrderNumber}", cls.next())}}</h3>
                     <table class="check-your-answers check-your-answers--long">
-                        <caption class="visually-hidden">{{content.Summary.executorApplyingForProbate | replace("{executorOrderNumber}", cls.next())}}</caption>
+                        <caption class="govuk-visually-hidden">{{content.Summary.executorApplyingForProbate | replace("{executorOrderNumber}", cls.next())}}</caption>
                         <tbody>
                             {% include "ui/summary/includes/executors-others-details.njk" %}
                         </tbody>
@@ -76,9 +76,9 @@
             {% endfor %}
 
             {% ifAsync fields.summary.executorsPowerReservedOrRenounced.value === 'true' %}
-                <h3 class="heading-small">{{content.Summary.executorsNotApplyingForProbate | safe}}</h3>
+                <h3 class="govuk-heading-s">{{content.Summary.executorsNotApplyingForProbate | safe}}</h3>
                 <table class="check-your-answers check-your-answers--long">
-                    <caption class="visually-hidden">{{content.Summary.executorsNotApplyingForProbate}}</caption>
+                    <caption class="govuk-visually-hidden">{{content.Summary.executorsNotApplyingForProbate}}</caption>
                     <tbody>
                         {% include "ui/summary/includes/executors-others-not-applying.njk" %}
                     </tbody>
@@ -91,7 +91,7 @@
             <a class="anchor-margin-left" id="checkAnswerHref" href="/check-answers-pdf">{{ content.Summary.checkAnswersPdf }}</a>
         </p>
 
-        <div class="form-group">
+        <div class="govuk-form-group">
             {% if fields.summary.readyToDeclare.value === "true" %}
                 <p><a href="/declaration" class="button button-start">{{ common.saveAndContinue }}</a></p>
             {% else %}

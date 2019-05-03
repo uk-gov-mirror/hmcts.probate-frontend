@@ -9,13 +9,13 @@
         {% include "includes/phase_banner_beta.html" %}
         {% include "includes/error_summary.html" %}
 
-        <h1 class="heading-large">
+        <h1 class="govuk-heading-l">
             {{ content.CopiesSummary.heading }}
         </h1>
         <p>{{ content.CopiesSummary.extraCopies }}</p>
 
         <table class="check-your-answers check-your-answers--long">
-            <caption class="visually-hidden">{{ content.CopiesSummary.extraCopies }}</caption>
+            <caption class="govuk-visually-hidden">{{ content.CopiesSummary.extraCopies }}</caption>
             <tbody>
                 {{ checkanswer(
                     items = [
@@ -47,7 +47,7 @@
             </tbody>
         </table>
 
-        <div class="form-group">
+        <div class="govuk-form-group">
             <p><a href="/tasklist" class="button button-start">{{ common.saveAndContinue }}</a></p>
         </div>
 

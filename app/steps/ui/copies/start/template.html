@@ -4,12 +4,12 @@
     <main id="content" role="main">
         {% include "includes/phase_banner_beta.html" %}
 
-        <h1 class="form-title heading-large">{{ content.question }}</h1>
+        <h1 class="form-title govuk-heading-l">{{ content.question }}</h1>
         <p>{{ content.paragraph1 | safe }}</p>
         <p>{{ content.paragraph2 | safe }}</p>
         <p>{{ content.paragraph3 | safe }}</p>
 
-        <div class="form-group">
+        <div class="govuk-form-group">
             <p><a href="/copies-uk" class="button button-start">{{ common.start }}</a></p>
         </div>
 

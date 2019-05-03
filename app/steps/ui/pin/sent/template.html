@@ -5,19 +5,19 @@
 {% from "widgets/lists.html" import unorderedList %}
 
 {% block content %}
-    <main id="content">
+    <main id="content" role="main">
         <div class="govuk-box-highlight padding-small">
-            <h1 class="bold-large m-b-s">{{ content.banner }}<br>{{ fields.phoneNumber.value }}</h1>
+            <h1 class="govuk-!-font-size-36 govuk-!-font-weight-bold m-b-s">{{ content.banner }}<br>{{ fields.phoneNumber.value }}</h1>
         </div>
 
-        <div class="grid-row">
-            <div class="column-two-thirds">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
                 <p>{{ content.accessNotification | safe }}</p>
                 <p>
                     <a href="/sign-in" class="button">{{ content.button }}</a>
                 </p>
 
-                <h2 class="heading-medium">{{ content.header1 | safe }}</h2>
+                <h2 class="govuk-heading-m">{{ content.header1 | safe }}</h2>
                 <p>{{ content.paragraph | safe }}</p>
 
                 {{ unorderedList([

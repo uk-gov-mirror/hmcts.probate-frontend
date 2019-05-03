@@ -3,13 +3,13 @@
 {% from "widgets/textfields.html" import textField %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{ content.question | replace('{executorName}', fields.otherExecName.value) | safe }}</h1>
+    <h1 class="form-title govuk-heading-l">{{ content.question | replace('{executorName}', fields.otherExecName.value) | safe }}</h1>
 {% endblock %}
 
 {% block form_content %}
     <p class="form-hint">{{ content.questionHint | safe }}</p>
     <fieldset>
-        <legend class="visually-hidden">{{ content.title1 | safe }}</legend>
+        <legend class="govuk-visually-hidden">{{ content.title1 | safe }}</legend>
         {{ textField(
             name = 'email',
             field = fields.email,
@@ -19,7 +19,7 @@
     </fieldset>
 
     <fieldset>
-        <legend class="visually-hidden">{{ content.title2 | safe }}</legend>
+        <legend class="govuk-visually-hidden">{{ content.title2 | safe }}</legend>
         {{ textField(
             name = 'mobile',
             field = fields.mobile,
@@ -28,7 +28,7 @@
             size = 25
         ) }}
     </fieldset>
-    <div class="form-group">
+    <div class="govuk-form-group">
         <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}

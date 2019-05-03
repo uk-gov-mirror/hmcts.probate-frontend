@@ -6,7 +6,7 @@
     <main id="content" role="main">
         {% include "includes/phase_banner_beta.html" %}
 
-        <h1 class="form-title heading-large">{{ content.header | safe }}</h1>
+        <h1 class="form-title govuk-heading-l">{{ content.header | safe }}</h1>
 
         {% set tempContent = content[fields.stopReason.value] %}
         {% for placeholder in fields.linkPlaceholders.value %}

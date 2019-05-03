@@ -1,7 +1,7 @@
 {% extends "includes/two_thirds_form.html" %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{ content.question }}</h1>
+    <h1 class="form-title govuk-heading-l">{{ content.question }}</h1>
 {% endblock %}
 
 {% block form_content %}
@@ -16,7 +16,7 @@
     <div class="panel panel-border-wide">
         <p>{{ content.callout | safe }}</p>
     </div>
-    <div class="form-group">
+    <div class="govuk-form-group">
         <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}

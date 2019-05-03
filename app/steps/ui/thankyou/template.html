@@ -4,27 +4,27 @@
     <main id="content" role="main">
         {% include "includes/phase_banner_beta.html" %}
 
-        <div class="grid-row">
-            <div class="column-two-thirds">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
                 <div class="govuk-box-highlight">
-                    <h1 class="heading-xlarge">
+                    <h1 class="govuk-heading-xl">
                         {{ content.header | safe }}
                     </h1>
                     {% if fields.ccdReferenceNumber.value !== '' %}
-                        <p class="font-large">
-                            <span class="font-medium">{{ content.referenceNumber | safe }}</span><br>
-                            <strong class="bold">{{ fields.ccdReferenceNumber.value }}</strong>
+                        <p class="govuk-!-font-size-36 govuk-!-font-weight-bold">
+                            <span class="govuk-!-font-size-24 govuk-!-font-weight-bold">{{ content.referenceNumber | safe }}</span><br>
+                            <strong class="govuk-!-font-weight-bold">{{ fields.ccdReferenceNumber.value }}</strong>
                         </p>
                     {% endif %}
                 </div>
 
-                <h2 class="heading-medium">{{ content.successHeading1 | safe }}</h2>
+                <h2 class="govuk-heading-m">{{ content.successHeading1 | safe }}</h2>
                 <p>{{ content.successParagraph1 | safe }}</p>
                 <p>{{ content.successParagraph2 | safe }}</p>
                 <p>{{ content.successParagraph3 | replace('{helpLineNumber}', helpline.number) | safe }}</p>
 
                 <div class="margin-bottom50">
-                    <h2 class="heading-medium">{{ content.saveYourApplication }}</h2>
+                    <h2 class="govuk-heading-m">{{ content.saveYourApplication }}</h2>
                     <p>{{ content.saveParagraph1 }}</p>
                     {% if fields.checkAnswersSummary.value === 'true' %}
                         <p class="save-this-page-link">

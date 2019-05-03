@@ -59,15 +59,15 @@
 
 {% block question %}
     {% if fields.isDocumentUploadToggleEnabled.value === 'true' %}
-        <h1 class="form-title heading-large">{{ content.header }}</h1>
+        <h1 class="form-title govuk-heading-l">{{ content.header }}</h1>
     {% else %}
-        <h1 class="form-title heading-large">{{ content.old_header }}</h1>
+        <h1 class="form-title govuk-heading-l">{{ content.old_header }}</h1>
     {% endif %}
 {% endblock %}
 
 {% block form_content %}
     {% if fields.isDocumentUploadToggleEnabled.value === 'true' %}
-        <h2 class="heading-medium">{{ content.heading1 | safe }}</h2>
+        <h2 class="govuk-heading-m">{{ content.heading1 | safe }}</h2>
         <p>{{ content.coverSheetDownloadMessage }} <a id="coverSheetPdfHref"
                                                       href="/cover-sheet-pdf">{{ content.coverSheetPdf }}</a>.</p>
         {% if fields.ccdReferenceNumber.value !== '' %}
@@ -83,7 +83,7 @@
             <p>{{ content.warning | safe }}</p>
         </div>
 
-        <h2 class="heading-medium">{{ content.heading2 | safe }}</h2>
+        <h2 class="govuk-heading-m">{{ content.heading2 | safe }}</h2>
         <p>{{ content.text5 | safe }}</p>
 
         <div class="panel panel-border-narrow">
@@ -93,18 +93,18 @@
         <input id="sentDocuments" type="hidden" name="sentDocuments" value="true"/>
     {% else %}
         <p>{{ content.old_printPage | safe }}</p>
-        <h2 class="heading-medium">{{ content.old_heading2 | safe }}</h2>
-        <h3 class="heading-small">{{ content.old_checklist1Header | safe }}</h3>
+        <h2 class="govuk-heading-m">{{ content.old_heading2 | safe }}</h2>
+        <h3 class="govuk-heading-s">{{ content.old_checklist1Header | safe }}</h3>
 
         {{ unorderedList(checklistOneItems) }}
 
         {% if fields.hasMultipleApplicants.value === "true" %}
-            <h3 class="heading-small">{{ content.old_checklist2Header | safe }}</h3>
+            <h3 class="govuk-heading-s">{{ content.old_checklist2Header | safe }}</h3>
             {{ unorderedList(checklistTwoItems) }}
             {% set checklistThreeHeaderNumber = content.old_checklist3HeaderNumberMultipleExecutors %}
         {% endif %}
 
-        <h3 class="heading-small">{{ checklistThreeHeaderNumber }} {{ content.old_checklist3Header | safe }}</h3>
+        <h3 class="govuk-heading-s">{{ checklistThreeHeaderNumber }} {{ content.old_checklist3Header | safe }}</h3>
 
         {{ unorderedList(checklistThreeItems) }}
 
@@ -113,7 +113,7 @@
             <strong class="text">{{ content.old_warning | safe }}</strong>
         </div>
 
-        <h2 class="heading-medium">{{ content.old_heading3 | safe }}</h2>
+        <h2 class="govuk-heading-m">{{ content.old_heading3 | safe }}</h2>
         <p>{{ content.old_sendDocuments }}</p>
         <p>{{ fields.registryAddress.value | safe | nl2br }}</p>
 
@@ -125,7 +125,7 @@
         ) }}
     {% endif %}
 
-    <div class="form-group">
+    <div class="govuk-form-group">
         <input id="button" class="button" type="submit" role="button" value="{{ common.continue }}">
     </div>
 {% endblock %}

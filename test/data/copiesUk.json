@@ -625,7 +625,7 @@
   "checkAnswersSummary": {
     "sections": [
       {
-        "type": "heading-medium",
+        "type": "govuk-heading-m",
         "title": "About the person who died",
         "questionAndAnswers": [
           {
@@ -679,7 +679,7 @@
         ]
       },
       {
-        "type": "heading-medium",
+        "type": "govuk-heading-m",
         "title": "Uploaded documents",
         "questionAndAnswers": [
           {
@@ -691,7 +691,7 @@
         ]
       },
       {
-        "type": "heading-medium",
+        "type": "govuk-heading-m",
         "title": "Inheritance tax",
         "questionAndAnswers": [
           {
@@ -721,7 +721,7 @@
         ]
       },
       {
-        "type": "heading-medium",
+        "type": "govuk-heading-m",
         "title": "The executors",
         "questionAndAnswers": [
           {
@@ -739,7 +739,7 @@
         ]
       },
       {
-        "type": "heading-small",
+        "type": "govuk-heading-s",
         "title": "About you",
         "questionAndAnswers": [
           {
@@ -775,7 +775,7 @@
         ]
       },
       {
-        "type": "heading-small",
+        "type": "govuk-heading-s",
         "title": "Other executors applying for probate",
         "questionAndAnswers": [
           {
@@ -794,7 +794,7 @@
         ]
       },
       {
-        "type": "heading-small",
+        "type": "govuk-heading-s",
         "title": "Second executor applying for probate",
         "questionAndAnswers": [
           {
@@ -824,7 +824,7 @@
         ]
       },
       {
-        "type": "heading-small",
+        "type": "govuk-heading-s",
         "title": "Third executor applying for probate",
         "questionAndAnswers": [
           {

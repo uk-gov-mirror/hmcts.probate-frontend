@@ -5,9 +5,9 @@
 
 {% block question %}
     {% if fields.isFeesApiToggleEnabled.value === 'true' %}
-        <h1 class="form-title heading-large">{{ content.question }}</h1>
+        <h1 class="form-title govuk-heading-l">{{ content.question }}</h1>
     {% else %}
-        <h1 class="form-title heading-large">{{ content.questionOld }}</h1>
+        <h1 class="form-title govuk-heading-l">{{ content.questionOld }}</h1>
     {% endif %}
 {% endblock %}
 
@@ -22,7 +22,7 @@
         ]) }}
 
         <fieldset>
-            <legend class="visually-hidden">
+            <legend class="govuk-visually-hidden">
                 {{ content.question | safe }}
             </legend>
             {{ numberField(
@@ -36,7 +36,7 @@
         </fieldset>
     {% else %}
         <fieldset>
-            <legend class="visually-hidden">
+            <legend class="govuk-visually-hidden">
                 {{ content.questionOld | safe }}
             </legend>
             {{ numberField(
@@ -49,7 +49,7 @@
             ) }}
         </fieldset>
     {% endif %}
-    <div class="form-group">
+    <div class="govuk-form-group">
         <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}

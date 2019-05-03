@@ -13,7 +13,7 @@ module.exports = function (day, month, year, saveAndClose = false) {
 
     if (saveAndClose) {
         //I.waitForNavigationToComplete(`a[href="${commonContent.saveAndClose}"]`);
-        I.waitForNavigationToComplete('.column-two-thirds > p a');
+        I.waitForNavigationToComplete('.govuk-grid-column-two-thirds > p a');
     } else {
         I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 

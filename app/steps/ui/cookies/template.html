@@ -4,19 +4,19 @@
     {% from "widgets/lists.html" import unorderedList %}
 
     <main id="content" role="main">
-        <div class="column-two-thirds">
+        <div class="govuk-grid-column-two-thirds">
 
             {% include "includes/phase_banner_beta.html" %}
 
-            <h1 class="form-title heading-large">{{ content.heading1 }}</h1>
+            <h1 class="form-title govuk-heading-l">{{ content.heading1 }}</h1>
             <p>{{ content.paragraph1 | safe }}</p>
 
-            <h2 class="heading-medium">{{ content.howAreCookiesUsedHeading1 }}</h2>
+            <h2 class="govuk-heading-m">{{ content.howAreCookiesUsedHeading1 }}</h2>
             <p>{{ content.howAreCookiesUsedParagraph1 }}</p>
             {{ unorderedList([content["howAreCookiesUsed-item1"], content["howAreCookiesUsed-item2"], content["howAreCookiesUsed-item3"]]) }}
             <p>{{ content.howAreCookiesUsedParagraph2 | replace('{howToManageCookiesLink}', links.howToManageCookies) | safe }}</p>
 
-            <h2 class="heading-medium">{{ content.websiteUsageCookiesHeading1 }}</h2>
+            <h2 class="govuk-heading-m">{{ content.websiteUsageCookiesHeading1 }}</h2>
             <p>{{ content.websiteUsageCookiesParagraph1 }}</p>
             <p>{{ content.websiteUsageCookiesParagraph2 }}</p>
             {{ unorderedList([content["websiteUsageCookies-item1"], content["websiteUsageCookies-item2"], content["websiteUsageCookies-item3"], content["websiteUsageCookies-item4"]]) }}
@@ -25,7 +25,7 @@
             <p>{{ content.websiteUsageCookiesParagraph5 }}</p>
 
             <table>
-                <caption class="visually-hidden">{{ content.websiteUsageCookiesHeading1 }}</caption>
+                <caption class="govuk-visually-hidden">{{ content.websiteUsageCookiesHeading1 }}</caption>
                 <thead>
                 <tr>
                     <th>{{ content.cookieNameHeader }}</th>
@@ -47,11 +47,11 @@
                 </tbody>
             </table>
 
-            <h2 class="heading-medium">{{ content.introMessageCookiesHeading1 }}</h2>
+            <h2 class="govuk-heading-m">{{ content.introMessageCookiesHeading1 }}</h2>
             <p>{{ content.introMessageCookiesParagraph1 | safe }}</p>
 
             <table>
-                <caption class="visually-hidden">{{ content.introMessageCookiesHeading1 }}</caption>
+                <caption class="govuk-visually-hidden">{{ content.introMessageCookiesHeading1 }}</caption>
                 <thead>
                 <tr>
                     <th>{{ content.cookieNameHeader }}</th>
@@ -68,11 +68,11 @@
                 </tbody>
             </table>
 
-            <h2 class="heading-medium">{{ content.sessionCookiesHeading1 | safe }}</h2>
+            <h2 class="govuk-heading-m">{{ content.sessionCookiesHeading1 | safe }}</h2>
             <p>{{ content.sessionCookiesParagraph1 | safe }}</p>
 
             <table>
-                <caption class="visually-hidden">{{ content.sessionCookiesHeading1 | safe }}</caption>
+                <caption class="govuk-visually-hidden">{{ content.sessionCookiesHeading1 | safe }}</caption>
                 <thead>
                 <tr>
                     <th>{{ content.cookieNameHeader }}</th>
@@ -89,11 +89,11 @@
                 </tbody>
             </table>
 
-            <h2 class="heading-medium">{{ content.identityCookiesHeading1 }}</h2>
+            <h2 class="govuk-heading-m">{{ content.identityCookiesHeading1 }}</h2>
             <p>{{ content.identityCookiesParagraph1 }}</p>
 
             <table>
-                <caption class="visually-hidden">{{ content.identityCookiesHeading1 }}</caption>
+                <caption class="govuk-visually-hidden">{{ content.identityCookiesHeading1 }}</caption>
                 <thead>
                 <tr>
                     <th>{{ content.cookieNameHeader }}</th>
@@ -110,11 +110,11 @@
                 </tbody>
             </table>
 
-            <h2 class="heading-medium">{{ content.securityCookiesHeading1 }}</h2>
+            <h2 class="govuk-heading-m">{{ content.securityCookiesHeading1 }}</h2>
             <p>{{ content.securityCookiesParagraph1 }}</p>
 
             <table>
-                <caption class="visually-hidden">{{ content.securityCookiesHeading1 }}</caption>
+                <caption class="govuk-visually-hidden">{{ content.securityCookiesHeading1 }}</caption>
                 <thead>
                 <tr>
                     <th>{{ content.cookieNameHeader }}</th>

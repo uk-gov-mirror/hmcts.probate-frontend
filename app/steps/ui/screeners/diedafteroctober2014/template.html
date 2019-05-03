@@ -5,7 +5,7 @@
 {% from "widgets/radiobuttons.html" import optionsRadio %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{ content.question | safe }}</h1>
+    <h1 class="form-title govuk-heading-l">{{ content.question | safe }}</h1>
 {% endblock %}
 
 {% block form_content %}
@@ -17,7 +17,7 @@
         inline = true
     ) }}
 
-    <div class="form-group">
+    <div class="govuk-form-group">
         <input class="button" type="submit" value="{{ common.continue }}">
     </div>
 {% endblock %}

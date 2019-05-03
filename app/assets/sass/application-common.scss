@@ -6,7 +6,7 @@
   border-top: 10px solid govuk-colour("blue");
   padding-top: 5px;
 
-  .heading-medium {
+  .govuk-heading-m {
     margin-top: 0.3em;
     margin-bottom: 0.5em
   }
@@ -31,20 +31,22 @@ li.task-item {
   .task-item-header {
     overflow: hidden;
 
-    .heading-medium {
+    .govuk-heading-m {
       margin: 10px 0;
       display: flex;
 
-      //@include media(tablet) {
-      //  float: left;
-      //  width: 100%;
-      //  margin-top: 0;
-      //}
-      //@include media(desktop) {
-      //  float: left;
-      //  width: 65%;
-      //  margin-top: 0;
-      //}
+      @include govuk-media-query($from: tablet)
+      @include govuk-media-query($until: tablet) {
+        float: left;
+        width: 100%;
+        margin-top: 0;
+      }
+      @include govuk-media-query($from: desktop)
+      @include govuk-media-query($until: desktop) {
+        float: left;
+        width: 65%;
+        margin-top: 0;
+      }
 
       .task-list-section-number {
         float: left;
@@ -58,28 +60,32 @@ li.task-item {
       text-transform: none;
       letter-spacing: 0;
 
-      //@include media(tablet) {
-      //  margin-left: 35px;
-      //  margin-bottom: 15px;
-      //  float:left;
-      //}
-      //@include media(desktop) {
-      //  float: right;
-      //  margin-left: 0;
-      //}
+      @include govuk-media-query($from: tablet)
+      @include govuk-media-query($until: tablet) {
+        margin-left: 35px;
+        margin-bottom: 15px;
+        float:left;
+      }
+      @include govuk-media-query($from: desktop)
+      @include govuk-media-query($until: desktop) {
+        float: right;
+        margin-left: 0;
+      }
     }
     .task-completed {
       float: left;
       margin-bottom: 10px;
       text-transform: none;
 
-      //@include media(tablet) {
-      //  float:left;
-      //  margin-left: 35px;
-      //}
-      //@include media(desktop) {
-      //  float: right;
-      //}
+      @include govuk-media-query($from: tablet)
+      @include govuk-media-query($until: tablet) {
+        float:left;
+        margin-left: 35px;
+      }
+      @include govuk-media-query($from: desktop)
+      @include govuk-media-query($until: desktop) {
+        float: right;
+      }
     }
   }
   .task-list-items {
@@ -145,31 +151,33 @@ div.declaration-header {
   margin-bottom: 5px;
 }
 div.declaration-wrapper {
-  //@include media(tablet) {
-  //  display: grid;
-  //  grid-column-gap: 50px;
-  //  grid-template-columns: 3fr 1fr;
-  //  width: calc(133% + 50px);
-  //}
+  @include govuk-media-query($from: tablet)
+  @include govuk-media-query($until: tablet) {
+    display: grid;
+    grid-column-gap: 50px;
+    grid-template-columns: 3fr 1fr;
+    width: calc(133% + 50px);
+  }
 }
 div.declaration-grid-item {
   text-align: left;
 }
 
 #global-header .header-proposition #sign-out-header {
-  //@include bold-16;
+  @include govuk-font(16, $weight: bold);
   margin-top: 4px;
   float: right;
   color: govuk-colour("white");
   text-decoration: none;
 }
 
-//@include media(tablet) {
-//  #global-header .header-proposition #sign-out-header {
-//    //@include bold-19;
-//    margin-top: 2px;
-//  }
-//}
+@include govuk-media-query($from: tablet)
+@include govuk-media-query($until: tablet) {
+  #global-header .header-proposition #sign-out-header {
+    @include govuk-font(19, $weight: bold);
+    margin-top: 2px;
+  }
+}
 
 #global-header .header-proposition a#sign-out-header:hover {
   text-decoration: underline;
@@ -205,14 +213,14 @@ div.declaration-grid-item {
 }
 
 .govuk-box-highlight {
-  .heading-xlarge,
-  .font-large {
+  .govuk-heading-xl,
+  .govuk-\!-font-size-36 {
     margin-top: 0;
     margin-bottom: 0;
   }
 }
 
-.heading-large {
+.govuk-heading-l {
   word-break: break-word;
 }
 

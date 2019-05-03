@@ -10,7 +10,7 @@ class LegalDocumentJSONObjectBuilder {
         const legalDeclaration = {};
         legalDeclaration.headers = [];
         legalDeclaration.sections = [];
-        const pageSections = $('.declaration-header, .declaration-subheader, .declaration-item, .list-bullet');
+        const pageSections = $('.declaration-header, .declaration-subheader, .declaration-item, .govuk-list--bullet');
 
         for (const sectElement of pageSections) {
             const $element = $(sectElement);
@@ -21,7 +21,7 @@ class LegalDocumentJSONObjectBuilder {
                 legalDeclaration.sections.push(section);
             } else if ($element.hasClass('declaration-item')) {
                 buildDeclarationItem($element, legalDeclaration);
-            } else if ($element.hasClass('list-bullet')) {
+            } else if ($element.hasClass('govuk-list--bullet')) {
                 buildDeclarationItemValues($element, legalDeclaration);
             }
         }
@@ -57,7 +57,7 @@ function buildDeclarationItem($element, legalDeclaration) {
 
 function buildSection($element) {
     const section = {};
-    if ($element.hasClass('heading-medium') || $element.hasClass('heading-large')) {
+    if ($element.hasClass('govuk-heading-m') || $element.hasClass('govuk-heading-l')) {
         section.headingType = 'large';
     } else {
         section.headingType = 'small';

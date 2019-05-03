@@ -4,7 +4,7 @@
 {% from "widgets/lists.html" import unorderedList %}
 
 {% block question %}
-    <h1 class="formtitle heading-large">{{ content.question }}</h1>
+    <h1 class="formtitle govuk-heading-l">{{ content.question }}</h1>
 {% endblock %}
 
 {% block form_content %}
@@ -19,7 +19,7 @@
         legend = content.legend,
         inline = true
     ) }}
-    <div class="form-group">
+    <div class="govuk-form-group">
         <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}

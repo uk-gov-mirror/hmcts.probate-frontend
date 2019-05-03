@@ -8,14 +8,14 @@
 {% set displaySignOutLink = 'false' %}
 
 {% block form_content %}
-    <h1 class="form-title heading-large pin-main-header">{{ content.header | safe }}</h1>
-    <h2 class="form-title heading-medium pin-sub-header">{{ content.subHeader | safe }}</h2>
+    <h1 class="form-title govuk-heading-l pin-main-header">{{ content.header | safe }}</h1>
+    <h2 class="form-title govuk-heading-m pin-sub-header">{{ content.subHeader | safe }}</h2>
 
     <p>{{ content.securityCode | safe }}</p>
     <p>{{ content.phoneCode | safe }}</p>
 
     <fieldset>
-        <legend class="visually-hidden">
+        <legend class="govuk-visually-hidden">
             {{ content.pinLegend | safe }}
         </legend>
         {{ passwordField(
@@ -26,7 +26,7 @@
             width = '1-4'
         ) }}
     </fieldset>
-    <div class="form-group">
+    <div class="govuk-form-group">
         <input class="button" type="submit" value="{{ content.button }}">
     </div>
 

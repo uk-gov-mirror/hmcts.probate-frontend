@@ -3,11 +3,11 @@
 {% from "widgets/textfields.html" import textField %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{ content.question }}</h1>
+    <h1 class="form-title govuk-heading-l">{{ content.question }}</h1>
 {% endblock %}
 
 {% block form_content %}
-    <fieldset class="form-group {{ 'form-group-error' if fields['aliasReason'].error }}">
+    <fieldset class="govuk-form-group {{ 'form-group-error' if fields['aliasReason'].error }}">
         <legend class="govuk-visually-hidden">{{ content.question }}</legend>
         {% if fields['aliasReason'].error %}
             <span class="error-message">
@@ -44,7 +44,7 @@
         </div>
     </fieldset>
 
-    <div class="form-group">
+    <div class="govuk-form-group">
         <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}

@@ -3,13 +3,13 @@
 {% from "widgets/textfields.html" import textField %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{ content.question | safe }}</h1>
+    <h1 class="form-title govuk-heading-l">{{ content.question | safe }}</h1>
 {% endblock %}
 
 {% block form_content %}
     <p class="form-hint">{{ content.explanation1 }}</p>
     <fieldset>
-        <legend class="visually-hidden">
+        <legend class="govuk-visually-hidden">
             {{ content.question | safe }}
         </legend>
         {{ textField(
@@ -25,7 +25,7 @@
             size = 100
         ) }}
     </fieldset>
-    <div class="form-group">
+    <div class="govuk-form-group">
         <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}

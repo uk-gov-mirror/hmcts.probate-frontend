@@ -3,12 +3,12 @@
 {% from "widgets/numbers.html" import numberField %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{ content.question | safe }}</h1>
+    <h1 class="form-title govuk-heading-l">{{ content.question | safe }}</h1>
 {% endblock %}
 
 {% block form_content %}
     <fieldset>
-        <legend class="visually-hidden">
+        <legend class="govuk-visually-hidden">
             {{ content.title | safe }}
         </legend>
         {{ numberField(
@@ -20,7 +20,7 @@
             currency = false
         ) }}
     </fieldset>
-    <div class="form-group">
+    <div class="govuk-form-group">
         <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}

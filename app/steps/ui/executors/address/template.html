@@ -4,20 +4,20 @@
 {% from "widgets/addresslookup.html" import addressFinder %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{ content.question | replace('{executorName}', fields.otherExecName.value) | safe }}</h1>
+    <h1 class="form-title govuk-heading-l">{{ content.question | replace('{executorName}', fields.otherExecName.value) | safe }}</h1>
 {% endblock %}
 
 {% block form_content %}
     <p class="form-hint">{{ content.explanation1 | safe }}</p>
     <fieldset>
-        <legend class="visually-hidden">
+        <legend class="govuk-visually-hidden">
             {{ content.findAddress | safe }}
         </legend>
         {{ addressFinder(
             fields,
             content,
             'ExecutorAddress') }}
-        <div class="form-group">
+        <div class="govuk-form-group">
             <details {{ "open" if fields.freeTextAddress }}>
                 <summary>
                     <span class="summary">{{ content.enterManually }}</span>
@@ -32,7 +32,7 @@
             </details>
         </div>
     </fieldset>
-    <div class="form-group">
+    <div class="govuk-form-group">
         <input type="submit" class="button" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}

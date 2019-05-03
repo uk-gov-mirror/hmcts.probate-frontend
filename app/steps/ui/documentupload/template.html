@@ -3,7 +3,7 @@
 {% from "widgets/lists.html" import orderedList %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{ content.header }}</h1>
+    <h1 class="form-title govuk-heading-l">{{ content.header }}</h1>
 {% endblock %}
 
 {% block page_content %}
@@ -36,7 +36,7 @@
 {% endblock %}
 
 {% block form_content %}
-    <div class="form-group">
+    <div class="govuk-form-group">
         <input id="button" class="button" type="submit" role="button" value="{{ common.continue }}">
     </div>
 {% endblock %}

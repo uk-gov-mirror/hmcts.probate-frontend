@@ -3,13 +3,13 @@
 {% from "widgets/textfields.html" import textField %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{ content.question }}</h1>
+    <h1 class="form-title govuk-heading-l">{{ content.question }}</h1>
 {% endblock %}
 
 {% block form_content %}
     <p class="form-hint">{{ content.questionHint }}</p>
     <fieldset>
-        <legend class="visually-hidden">{{ content.legend | safe }}</legend>
+        <legend class="govuk-visually-hidden">{{ content.legend | safe }}</legend>
         {{ textField(
             name = 'grossValueField',
             field = fields.grossValueField,
@@ -23,7 +23,7 @@
             size = 13
         ) }}
     </fieldset>
-    <div class="form-group">
+    <div class="govuk-form-group">
         <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}

@@ -9,7 +9,7 @@
 {% block error_summary %}
     {% if errors %}
         <div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1">
-            <h2 class="heading-medium error-summary-heading" id="error-summary-heading">
+            <h2 class="govuk-heading-m error-summary-heading" id="error-summary-heading">
                 {{ common.errorSummaryHeading | replace('{legalProcess}', fields.legalProcess.value) | safe }}
             </h2>
             <ul class="error-summary-list">
@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{ content.question | replace('{legalProcess}', fields.legalProcess.value) | safe }}</h1>
+    <h1 class="form-title govuk-heading-l">{{ content.question | replace('{legalProcess}', fields.legalProcess.value) | safe }}</h1>
 {% endblock %}
 
 {% block form_content %}
@@ -33,7 +33,7 @@
         legend = content.legend | replace('{legalProcess}', fields.legalProcess.value),
         inline = true
     ) }}
-    <div class="form-group">
+    <div class="govuk-form-group">
         <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}

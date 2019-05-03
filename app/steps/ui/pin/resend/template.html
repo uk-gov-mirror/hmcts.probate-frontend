@@ -7,12 +7,12 @@
 {% set displaySignOutLink = 'false' %}
 
 {% block question %}
-    <h1 class="heading-large">{{ content.header1 | replace('{phoneNumber}', fields.phoneNumber.value) | safe }}</h1>
+    <h1 class="govuk-heading-l">{{ content.header1 | replace('{phoneNumber}', fields.phoneNumber.value) | safe }}</h1>
     <p>{{ content.subHeader1 | safe }}</p>
 {% endblock %}
 
 {% block form_content %}
-    <div class="form-group">
+    <div class="govuk-form-group">
         <input class="button" type="submit" value="{{ content.button }}">
     </div>
 {% endblock %}
@@ -20,6 +20,6 @@
 {% block save_and_close %}{% endblock %}
 
 {% block executor_summary %}
-    <h2 class="heading-medium">{{ content.header2 | replace('{phoneNumber}', fields.phoneNumber.value) |  safe }}</h2>
+    <h2 class="govuk-heading-m">{{ content.header2 | replace('{phoneNumber}', fields.phoneNumber.value) |  safe }}</h2>
     <p>{{ content.subHeader2ExecName | replace('{executorName}', fields.leadExecutorName.value) | safe }}</p>
 {% endblock %}
