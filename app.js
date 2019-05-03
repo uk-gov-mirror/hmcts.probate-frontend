@@ -142,9 +142,7 @@ exports.init = function() {
     app.use('/public/images', express.static(`${__dirname}/app/assets/images`));
     app.use('/public/javascripts', express.static(`${__dirname}/app/assets/javascripts`));
     app.use('/public/pdf', express.static(`${__dirname}/app/assets/pdf`));
-    app.use('/public', express.static(`${__dirname}/node_modules/govuk_template_jinja/assets`));
-    app.use('/public', express.static(`${__dirname}/node_modules/govuk_frontend_toolkit`));
-    app.use('/public/images/icons', express.static(`${__dirname}/node_modules/govuk_frontend_toolkit/images`));
+    app.use('/assets', express.static(path.join(__dirname, '/node_modules/govuk-frontend/assets')))
 
     // Elements refers to icon folder instead of images folder
     app.use(favicon(path.join(__dirname, 'node_modules', 'govuk-frontend', 'assets', 'images', 'favicon.ico')));
