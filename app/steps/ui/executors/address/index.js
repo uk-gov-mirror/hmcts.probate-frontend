@@ -23,13 +23,14 @@ class ExecutorAddress extends AddressStep {
         }
         ctx.otherExecName = ctx.list[ctx.index] && ctx.list[ctx.index].fullName;
         ctx.executorsWrapper = new ExecutorsWrapper(ctx);
+
         return ctx;
     }
 
     handleGet(ctx) {
         super.handleGet(ctx);
 
-        if (!ctx.address && ctx.list[ctx.index].address) {
+        if (!ctx.addressLine1 && ctx.list[ctx.index].address) {
             ctx.address = ctx.list[ctx.index].address;
             ctx.addressLine1 = get(ctx.address, 'addressLine1', '');
             ctx.addressLine2 = get(ctx.address, 'addressLine2', '');
@@ -89,13 +90,13 @@ class ExecutorAddress extends AddressStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.otherExecName;
-        delete ctx.address;
         delete ctx.postcode;
         delete ctx.allExecsApplying;
         delete ctx.continue;
         delete ctx.index;
         delete ctx.executorsWrapper;
         delete ctx.addressFound;
+        delete ctx.address;
         delete ctx.addresses;
         return [ctx, formdata];
     }
