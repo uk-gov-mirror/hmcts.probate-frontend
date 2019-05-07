@@ -8,10 +8,7 @@ const FieldError = (param, keyword, resourcePath, contentCtx) => {
     const errorPath = `${resourcePath.replace('/', '.')}.${key}`;
     return {
         param: param,
-        msg: {
-            summary: i18next.t(`${errorPath}.summary`, contentCtx),
-            message: i18next.t(`${errorPath}.message`, contentCtx)
-        }
+        text: i18next.t(`${errorPath}.message`, contentCtx)
     };
 };
 
@@ -45,8 +42,12 @@ const mapErrorsToFields = (fields, errors = []) => {
             fields[e.param] = {};
         }
         fields[e.param].error = true;
-        fields[e.param].errorMessage = e.msg;
+        fields[e.param].errorObject = {
+            href: `#${e.href}`,
+            text: e.text
+        };
     });
+
     return fields;
 };
 
