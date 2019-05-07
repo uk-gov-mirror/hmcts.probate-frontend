@@ -227,3 +227,13 @@ div.declaration-grid-item {
 .word-break {
   word-break: break-word;
 }
+
+.govuk-header__content {
+  nav {
+    float: right;
+
+    a {
+      @include govuk-font(19, $weight: bold);
+    }
+  }
+}
