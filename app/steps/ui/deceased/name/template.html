@@ -14,7 +14,6 @@
             isPageHeading: true
         }
     }) %}
-
         <p class="govuk-hint">{{ content.explanation1 }}</p>
 
         {{ govukInput({
@@ -24,7 +23,7 @@
             id: "firstName",
             name: "firstName",
             value: fields.firstName.value | safe,
-            errorMessage: fields.firstName.error,
+            errorMessage: fields.firstName.errorObject,
             attributes: {
                 maxlength: 100
             },
@@ -37,7 +36,7 @@
             id: "lastName",
             name: "lastName",
             value: fields.lastName.value | safe,
-            errorMessage: fields.lastName.error,
+            errorMessage: fields.lastName.errorObject,
             attributes: {
                 maxlength: 100
             },
@@ -45,29 +44,6 @@
         }) }}
     {% endcall %}
 
-
-
-
-{#
-    <p class="form-hint">{{ content.explanation1 }}</p>
-    <fieldset>
-        <legend class="govuk-visually-hidden">
-            {{ content.question | safe }}
-        </legend>
-        {{ textField(
-            name = 'firstName',
-            field = fields.firstName,
-            text = content.firstName,
-            size = 100
-        ) }}
-        {{ textField(
-            name = 'lastName',
-            field = fields.lastName,
-            text = content.lastName,
-            size = 100
-        ) }}
-    </fieldset>
-#}
     <div class="govuk-form-group">
         {{ govukButton({
             text: common.saveAndContinue

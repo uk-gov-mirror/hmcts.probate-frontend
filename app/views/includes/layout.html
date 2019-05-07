@@ -29,18 +29,27 @@
 #}
 
 {% block header %}
-    {{ govukHeader({
-        homepageUrl: "#",
-        containerClasses: "govuk-width-container",
-        serviceName: serviceName,
-        serviceUrl: "#",
-        navigation: [
-            {
-                href: "/sign-out",
-                text: "Sign out"
-            }
-        ]
-    }) }}
+    {% if not displaySignOutLink %}
+        {{ govukHeader({
+            homepageUrl: "#",
+            containerClasses: "govuk-width-container",
+            serviceName: serviceName,
+            serviceUrl: "/"
+        }) }}
+    {% else %}
+        {{ govukHeader({
+            homepageUrl: "#",
+            containerClasses: "govuk-width-container",
+            serviceName: serviceName,
+            serviceUrl: "/",
+            navigation: [
+                {
+                    href: "/sign-out",
+                    text: "Sign out"
+                }
+            ]
+        }) }}
+    {% endif %}
 {% endblock %}
 
 {% block beforeContent %}
