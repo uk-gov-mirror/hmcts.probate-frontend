@@ -1,5 +1,7 @@
 {% extends "template.njk" %}
 
+{% from "phase-banner/macro.njk" import govukPhaseBanner %}
+
 {% if title === undefined %}
     {% set title = content.title %}
 {% endif %}
@@ -24,6 +26,14 @@
     with-proposition
 {% endblock %}
 #}
+{% block beforeContent %}
+    {{ govukPhaseBanner({
+        tag: {
+            text: common.phase
+        },
+        html: common.feedback | replace('{smartSurveyFeedbackUrl}', links.survey) | replace('{currentPageUrl}', pageUrl) | safe
+    }) }}
+{% endblock %}
 
 {% block header %}
     {{ govukHeader({
