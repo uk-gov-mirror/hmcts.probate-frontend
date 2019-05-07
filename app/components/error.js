@@ -7,7 +7,7 @@ const FieldError = (param, keyword, resourcePath, contentCtx) => {
     const key = `errors.${param}.${keyword}`;
     const errorPath = `${resourcePath.replace('/', '.')}.${key}`;
     return {
-        param: param,
+        href: param,
         text: i18next.t(`${errorPath}.message`, contentCtx)
     };
 };
@@ -38,11 +38,11 @@ const generateErrors = (errs, ctx, formdata, errorPath, lang = 'en') => {
 
 const mapErrorsToFields = (fields, errors = []) => {
     forEach(errors, (e) => {
-        if (!fields[e.param]) {
-            fields[e.param] = {};
+        if (!fields[e.href]) {
+            fields[e.href] = {};
         }
-        fields[e.param].error = true;
-        fields[e.param].errorObject = {
+        fields[e.href].error = true;
+        fields[e.href].errorObject = {
             href: `#${e.href}`,
             text: e.text
         };
