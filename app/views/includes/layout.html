@@ -2,17 +2,18 @@
 
 {% from "phase-banner/macro.njk" import govukPhaseBanner %}
 
-{% if title === undefined %}
-    {% set title = content.title %}
-{% endif %}
-
 {% block pageTitle %}
+    {% if title === undefined %}
+        {% set title = content.title %}
+    {% endif %}
+
     {{ title | safe }}{% if serviceName %}{{ ' - ' + serviceName }}{% endif %}
 {% endblock %}
 
 {% block head %}
     {% include "includes/head.html" %}
 {% endblock %}
+
 {#
 {% block cookie_message %}
     <p>{{ cookieText | safe }}</p>
@@ -26,14 +27,6 @@
     with-proposition
 {% endblock %}
 #}
-{% block beforeContent %}
-    {{ govukPhaseBanner({
-        tag: {
-            text: common.phase
-        },
-        html: common.feedback | replace('{smartSurveyFeedbackUrl}', links.survey) | replace('{currentPageUrl}', pageUrl) | safe
-    }) }}
-{% endblock %}
 
 {% block header %}
     {{ govukHeader({
@@ -41,6 +34,15 @@
         containerClasses: "govuk-width-container",
         serviceName: serviceName,
         serviceUrl: "#"
+    }) }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ govukPhaseBanner({
+        tag: {
+            text: common.phase
+        },
+        html: common.feedback | replace('{smartSurveyFeedbackUrl}', links.survey) | replace('{currentPageUrl}', pageUrl) | safe
     }) }}
 {% endblock %}
 
