@@ -16,7 +16,6 @@ describe.only('summary-iht-section', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-/*
         it('test correct content loaded on the summary page iht section, when no data is entered', (done) => {
             const playbackData = {};
             playbackData.method = ihtContent.method.question;
@@ -80,7 +79,7 @@ describe.only('summary-iht-section', () => {
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
-*/
+
         it('test data is played back correctly on the summary page iht section (paper205)', (done) => {
             const sessionData = require('test/data/ihtPaper');
             sessionData.form = 'IHT205';
