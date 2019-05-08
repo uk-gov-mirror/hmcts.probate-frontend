@@ -17,7 +17,7 @@ describe('summary-iht-section', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        it.only('test correct content loaded on the summary page iht section, when no data is entered', (done) => {
+        it('test correct content loaded on the summary page iht section, when no data is entered', (done) => {
             const playbackData = {};
             playbackData.method = ihtContent.method.question;
 
