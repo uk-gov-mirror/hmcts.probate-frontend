@@ -4,7 +4,7 @@ const requireDir = require('require-directory');
 const TestWrapper = require('test/util/TestWrapper');
 const ihtContent = requireDir(module, '../../../app/resources/en/translation/iht');
 
-describe.only('summary-iht-section', () => {
+describe('summary-iht-section', () => {
     let testWrapper;
 
     beforeEach(() => {
