@@ -43,7 +43,7 @@ class Declaration extends ValidationStep {
     prepareDataForTemplate(ctx, content, formdata) {
         const applicant = formdata.applicant || {};
         const deceased = formdata.deceased || {};
-        const iht = formdata.iht || {};
+        const iht = formdata.iht || {grossValue: 0, netValue: 0};
         const hasCodicils = (new WillWrapper(formdata.will)).hasCodicils();
         const codicilsNumber = (new WillWrapper(formdata.will)).codicilsNumber();
         const applicantName = FormatName.format(applicant);
@@ -68,8 +68,8 @@ class Declaration extends ValidationStep {
             deceasedOtherNames: deceasedOtherNames ? content.deceasedOtherNames.replace('{deceasedOtherNames}', deceasedOtherNames) : '',
             executorsApplying: this.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, deceasedName, applicantName),
             deceasedEstateValue: content.deceasedEstateValue
-                .replace('{ihtGrossValue}', iht.grossValue)
-                .replace('{ihtNetValue}', iht.netValue),
+                .replace('{ihtGrossValue}', iht.grossValue.toFixed(2))
+                .replace('{ihtNetValue}', iht.netValue.toFixed(2)),
             deceasedEstateLand: content[`deceasedEstateLand${multipleApplicantSuffix}`]
                 .replace(/{deceasedName}/g, deceasedName),
             executorsNotApplying: this.executorsNotApplying(executorsNotApplying, content, deceasedName, hasCodicils)
