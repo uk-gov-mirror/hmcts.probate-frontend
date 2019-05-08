@@ -17,7 +17,7 @@ describe('summary-iht-section', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        it('test correct content loaded on the summary page iht section, when no data is entered', (done) => {
+        it.only('test correct content loaded on the summary page iht section, when no data is entered', (done) => {
             const playbackData = {};
             playbackData.method = ihtContent.method.question;
 
@@ -44,7 +44,7 @@ describe('summary-iht-section', () => {
 
         it('test correct content loaded on the summary page iht section, when section is complete (paper)', (done) => {
             const sessionData = require('test/data/ihtPaper');
-            sessionData.form = 'IHT205';
+            sessionData.iht.form = 'IHT205';
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
@@ -83,7 +83,7 @@ describe('summary-iht-section', () => {
 
         it('test data is played back correctly on the summary page iht section (paper205)', (done) => {
             const sessionData = require('test/data/ihtPaper');
-            sessionData.form = 'IHT205';
+            sessionData.iht.form = 'IHT205';
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
@@ -104,7 +104,7 @@ describe('summary-iht-section', () => {
 
         it('test data is played back correctly on the summary page iht section (paper207)', (done) => {
             const sessionData = require('test/data/ihtPaper');
-            sessionData.form = 'IHT207';
+            sessionData.iht.form = 'IHT207';
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
@@ -125,7 +125,7 @@ describe('summary-iht-section', () => {
 
         it('test data is played back correctly on the summary page iht section (paper400)', (done) => {
             const sessionData = require('test/data/ihtPaper');
-            sessionData.form = 'IHT400421';
+            sessionData.iht.form = 'IHT400421';
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
