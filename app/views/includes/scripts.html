@@ -10,7 +10,7 @@
 
 {% if enableTracking === 'true' %}
     <script nonce="{{ nonce }}">
-        var gatrackingid = "{{ gaTrackingId }}";
+        const gatrackingid = "{{ gaTrackingId }}";
     </script>
     <script src="/public/javascripts/ga-tracking.js"></script>
     <noscript>
@@ -20,25 +20,25 @@
 
 <script src="/public/javascripts/dropzone.js"></script>
 <script nonce="{{ nonce }}">
-    var documentUploadConfig = {
-        csrfToken: "{{ csrfToken }}",
-        validMimeTypes: "{{ documentUpload.validMimeTypes }}",
-        maxFiles: "{{ documentUpload.maxFiles }}",
-        maxSizeBytes: "{{ documentUpload.maxSizeBytes }}",
-        timeout: "{{ documentUpload.timeout }}",
+    const documentUploadConfig = {
+        csrfToken: '{{ csrfToken }}',
+        validMimeTypes: '{{ documentUpload.validMimeTypes }}',
+        maxFiles: '{{ documentUpload.maxFiles }}',
+        maxSizeBytes: '{{ documentUpload.maxSizeBytes }}',
+        timeout: '{{ documentUpload.timeout }}',
         content: {
-            removeFileText: "{{ common.documentUploadRemoveFile }}",
-            errorSummaryHeading: "{{ common.errorSummaryHeading }}",
-            invalidFileType: "{{ common['documentUpload-invalidFileType'] }}",
-            invalidFileTypeSummary: "{{ common['documentUpload-invalidFileTypeSummary'] }}",
-            maxFiles: "{{ common['documentUpload-maxFiles'] }}",
-            maxFilesSummary: "{{ common['documentUpload-maxFilesSummary'] }}",
-            maxSize: "{{ common['documentUpload-maxSize'] }}",
-            maxSizeSummary: "{{ common['documentUpload-maxSizeSummary'] }}",
-            uploadFailed: "{{ common['documentUpload-uploadFailed'] }}",
-            uploadFailedSummary: "{{ common['documentUpload-uploadFailedSummary'] }}",
-            uploadTimeout: "{{ common['documentUpload-uploadTimeout'] }}",
-            uploadTimeoutSummary: "{{ common['documentUpload-uploadTimeoutSummary'] }}"
+            removeFileText: '{{ common.documentUploadRemoveFile }}',
+            errorSummaryHeading: '{{ common.errorSummaryHeading }}',
+            invalidFileType: '{{ common['documentUpload-invalidFileType'] }}',
+            invalidFileTypeSummary: '{{ common['documentUpload-invalidFileTypeSummary'] }}',
+            maxFiles: '{{ common['documentUpload-maxFiles'] }}',
+            maxFilesSummary: '{{ common['documentUpload-maxFilesSummary'] }}',
+            maxSize: '{{ common['documentUpload-maxSize'] }}',
+            maxSizeSummary: '{{ common['documentUpload-maxSizeSummary'] }}',
+            uploadFailed: '{{ common['documentUpload-uploadFailed'] }}',
+            uploadFailedSummary: '{{ common['documentUpload-uploadFailedSummary'] }}',
+            uploadTimeout: '{{ common['documentUpload-uploadTimeout'] }}',
+            uploadTimeoutSummary: '{{ common['documentUpload-uploadTimeoutSummary'] }}'
         }
     };
 </script>
@@ -47,3 +47,14 @@
 <!--[if lte IE 9]>
 <script src="/public/javascripts/form-polyfill.js"></script>
 <![endif]-->
+
+<script src="/webchat/javascript/hmcts-webchat.js"></script>
+<script nonce="{{ nonce }}">
+    webchat_init({
+        uuid: 'script_4860291385c640afb2487b9.55856720',
+        tenant: 'aG1jdHNzdGFnaW5nMDE',
+        channel: 'Probate',
+        linkText: '{{ common.chatOnlineWithAnAgent }}',
+        additionalText: '{{ common.chatOnlineOpeningHours }}'
+    });
+</script>
