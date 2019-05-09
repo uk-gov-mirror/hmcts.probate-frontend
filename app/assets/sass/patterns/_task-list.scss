@@ -1,27 +1,32 @@
 // Task list pattern
 
-// Override column width for tablet and up
-//.column-minimum {
-//  @include govuk-media-query($from: tablet)
-//  @include govuk-media-query($until: tablet) {
-//    min-width: 600px;
-//  }
-//}
-
 .task-list {
-  border-bottom: 1px solid govuk-colour("grey-2");
   list-style-type: none;
   padding-left: 0;
   margin-top: 0;
   margin-bottom: govuk-spacing(8);
 
-  @include govuk-media-query($from: tablet)
-  @include govuk-media-query($until: tablet) {
-    //margin-top: ($gutter * 2);
-  }
-
   .govuk-button {
     margin-bottom: 0;
+  }
+
+  .govuk-tag {
+    margin-left: govuk-spacing(5);
+    margin-right: 0;
+
+    @include govuk-media-query($from: desktop) {
+      float: right;
+      margin-left: 0;
+      padding-top: 3px;
+    }
+
+    &.task-completed {
+    }
+
+    &.task-unavailable {
+      background-color: govuk-colour("grey-2");
+      color: govuk-colour("black");
+    }
   }
 }
 
@@ -30,139 +35,39 @@
   line-height: 1.5;
   padding: 20px 0 10px 0;
 
-  .task-item-header {
-    overflow: hidden;
-
-    .govuk-heading-m {
-      margin: 10px 0;
-      display: flex;
-
-      @include govuk-media-query($from: tablet)
-      @include govuk-media-query($until: tablet) {
-        float: left;
-        width: 100%;
-        margin-top: 0;
-      }
-      @include govuk-media-query($from: desktop)
-      @include govuk-media-query($until: desktop) {
-        float: left;
-        width: 65%;
-        margin-top: 0;
-      }
-    }
-    .task-unavailable {
-      background-color: govuk-colour("grey-2");
-      color: govuk-colour("black");
-      float: left;
-      margin-bottom: 10px;
-      text-transform: none;
-      letter-spacing: 0;
-
-      @include govuk-media-query($from: tablet)
-      @include govuk-media-query($until: tablet) {
-        margin-left: 35px;
-        margin-bottom: 15px;
-        float:left;
-      }
-      @include govuk-media-query($from: desktop)
-      @include govuk-media-query($until: desktop) {
-        float: right;
-        margin-left: 0;
-      }
-    }
-    .task-completed {
-      float: left;
-      margin-bottom: 10px;
-      text-transform: none;
-
-      @include govuk-media-query($from: tablet)
-      @include govuk-media-query($until: tablet) {
-        float:left;
-        margin-left: 35px;
-      }
-      @include govuk-media-query($from: desktop)
-      @include govuk-media-query($until: desktop) {
-        float: right;
-      }
-    }
-  }
-  .task-list-items {
-    margin-bottom: 0;
+  &:last-child {
+    border-bottom: 1px solid govuk-colour("grey-2");
   }
 }
 
 .task-list-section {
   @include govuk-font(24, $weight: bold);
-  //padding-bottom: ($gutter / 6);
-  float: left;
   display: table;
-  margin-top: 0;
-  width: 65%;
+  float: left;
   margin-bottom: govuk-spacing(3);
+  margin-top: 0;
+  width: 100%;
+
+  @include govuk-media-query($from: desktop) {
+    width: 64%;
+  }
 }
 
 .task-list-section-number {
-  width: govuk-spacing(8);
+  width: govuk-spacing(5);
   padding-right: 0;
   display: table-cell;
 
-  //@include govuk-media-query($from: tablet)
-  //@include govuk-media-query($until: tablet) {
-  //  min-width: govuk-spacing(8);
-  //  padding-right: 0;
-  //  display: table-cell;
-  //}
+  @include govuk-media-query($from: desktop) {
+    width: govuk-spacing(8);
+  }
 }
-
-
-
-
-
-
-
-
-
 
 .task-list-items {
-  //margin-bottom: $gutter;
   clear: both;
-  padding-left: govuk-spacing(8);
+  padding-left: govuk-spacing(5);
 
-  //@include govuk-media-query($from: tablet)
-  //@include govuk-media-query($until: tablet) {
-  //  //margin-bottom: ($gutter * 2);
-  //  padding-left: govuk-spacing(8);
-  //}
-}
-
-.task-list-item {
-  //@extend %contain-floats;
-
-  //border-bottom: 1px solid $border-colour;
-  //padding-top: $gutter-one-third;
-  //padding-bottom: $gutter-one-third;
-}
-
-.task-list-item:first-child {
-  //border-top: 1px solid $border-colour;
-}
-
-
-.task-name {
-  //width: $two-thirds;
-  float: left;
-}
-
-.govuk-tag {
-  float: right;
-  margin-right: 0;
-  padding-top: 3px;
-
-  &.task-completed {
-  }
-
-  &.task-unavailable {
-    background-color: govuk-colour("grey-2");
-    color: govuk-colour("black");
+  @include govuk-media-query($from: desktop) {
+    padding-left: govuk-spacing(8);
   }
 }

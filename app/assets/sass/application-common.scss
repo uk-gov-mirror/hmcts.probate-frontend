@@ -1,40 +1,7 @@
-// Related items
-// (These styles will be moved to GOV.UK elements, duplicating here for now.)
-
-.govuk-related-items {
-  //margin-top: $gutter;
-  border-top: 10px solid govuk-colour("blue");
-  padding-top: 5px;
-
-  .govuk-heading-m {
-    margin-top: 0.3em;
-    margin-bottom: 0.5em
-  }
-
-  li {
-    margin-bottom: 10px;
-    list-style-type: none;
-  }
-}
-
-// Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you
-.button-secondary {
-  //@include button($grey-3);
-}
-
-// Helper CSS start
-
-.word-wrap {
-  word-wrap: break-word;
-}
-
-// Prevent any item from being a link (e.g. numbers rendered on a cellular device)
 .no-link {
   pointer-events: none;
   text-decoration: none;
 }
-
-// Helper CSS end
 
 .notice {
   clear: left;
@@ -78,6 +45,7 @@ div.declaration-header {
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
 div.declaration-wrapper {
   @include govuk-media-query($from: tablet)
   @include govuk-media-query($until: tablet) {
@@ -89,30 +57,6 @@ div.declaration-wrapper {
 }
 div.declaration-grid-item {
   text-align: left;
-}
-
-#global-header .header-proposition #sign-out-header {
-  @include govuk-font(16, $weight: bold);
-  margin-top: 4px;
-  float: right;
-  color: govuk-colour("white");
-  text-decoration: none;
-}
-
-@include govuk-media-query($from: tablet)
-@include govuk-media-query($until: tablet) {
-  #global-header .header-proposition #sign-out-header {
-    @include govuk-font(19, $weight: bold);
-    margin-top: 2px;
-  }
-}
-
-#global-header .header-proposition a#sign-out-header:hover {
-  text-decoration: underline;
-}
-
-#global-header .header-proposition a#sign-out-header:focus {
-  color: govuk-colour("black");
 }
 
 .check-your-answers__question {
@@ -150,6 +94,10 @@ div.declaration-grid-item {
 
 .govuk-heading-l {
   word-break: break-word;
+}
+
+.word-wrap {
+  word-wrap: break-word;
 }
 
 .word-break {
