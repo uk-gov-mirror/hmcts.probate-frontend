@@ -50,6 +50,7 @@
   "dependencies": {
     "@hmcts/ctsc-web-chat": "^0.1.5",
     "@hmcts/nodejs-logging": "^3.0.0",
+    "@hmcts/os-places-client": "^1.0.4",
     "ajv": "^4.11.0",
     "applicationinsights": "^1.0.2",
     "basic-auth": "^1.0.3",
