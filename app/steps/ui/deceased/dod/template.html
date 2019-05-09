@@ -1,23 +1,46 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/dates.html" import date %}
-
-{% block question %}
-    <h1 class="form-title govuk-heading-l">{{ content.question }}</h1>
-{% endblock %}
+{% from "fieldset/macro.njk" import govukFieldset %}
+{% from "date-input/macro.njk" import govukDateInput %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    {{ date(
-        name = 'dod',
-        day = fields.dod_day,
-        month = fields.dod_month,
-        year  = fields.dod_year,
-        date = fields.dod_date,
-        maxyear = currentYear,
-        legend = content.legend,
-        hint = content.questionHint
-    ) }}
+    {{ govukDateInput({
+        id: "dod",
+        namePrefix: "dod",
+        fieldset: {
+            legend: {
+                text: content.question,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        hint: {
+            text: content.questionHint
+        },
+        errorMessage: fields["dod-date"].errorObject,
+        items: [
+            {
+                classes: "govuk-input--width-2",
+                name: "day",
+                value: fields['dod-day'].value
+            },
+            {
+                classes: "govuk-input--width-2 govuk-input--error",
+                name: "month",
+                value: fields['dod-month'].value
+            },
+            {
+                classes: "govuk-input--width-4 govuk-input--error",
+                name: "year",
+                value: fields['dod-year'].value
+            }
+        ]
+    }) }}
+
     <div class="govuk-form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+        {{ govukButton({
+            text: common.saveAndContinue
+        }) }}
     </div>
 {% endblock %}

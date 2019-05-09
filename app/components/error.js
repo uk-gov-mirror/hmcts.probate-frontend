@@ -27,6 +27,11 @@ const generateErrors = (errs, ctx, formdata, errorPath, lang = 'en') => {
                 return FieldError(param, 'required', errorPath);
             }
             [, param] = e.dataPath.split('.');
+            if (!param) {
+                param = e.dataPath
+                    .replace(/\['/, '')
+                    .replace(/']/, '');
+            }
             return FieldError(param, 'invalid', errorPath);
 
         } catch (e) {
