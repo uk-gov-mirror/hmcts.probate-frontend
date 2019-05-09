@@ -105,6 +105,7 @@ exports.init = function() {
                 '\'sha256-G29/qSW/JHHANtFhlrZVDZW1HOkCDRc78ggbqwwIJ2g=\'',
                 'www.google-analytics.com',
                 'vcc-eu4.8x8.com',
+                'vcc-eu4b.8x8.com',
                 `'nonce-${uuid}'`
             ],
             connectSrc: ['\'self\''],
@@ -116,7 +117,8 @@ exports.init = function() {
             imgSrc: [
                 '\'self\'',
                 'www.google-analytics.com',
-                'vcc-eu4.8x8.com'
+                'vcc-eu4.8x8.com',
+                'vcc-eu4b.8x8.com'
             ],
             styleSrc: [
                 '\'self\'',
