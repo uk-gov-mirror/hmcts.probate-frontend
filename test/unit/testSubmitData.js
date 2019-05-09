@@ -71,7 +71,7 @@ describe('submit-data', () => {
             'email': 'haji58@hotmail.co.uk',
             'mobile': '07963723856',
             'address': {
-                addressLine1: 'exec_3_address',
+                'addressLine1': 'exec_3_address',
                 'postCode': 'postCode',
                 'postTown': 'town'
             },
