@@ -2,6 +2,9 @@
 
 {% from "phase-banner/macro.njk" import govukPhaseBanner %}
 
+{# displaySignOutLink will need to get its value from the logged in/out status #}
+{% set displaySignOutLink = true %}
+
 {% block pageTitle %}
     {% if title === undefined %}
         {% set title = content.title %}
@@ -29,14 +32,7 @@
 #}
 
 {% block header %}
-    {% if not displaySignOutLink %}
-        {{ govukHeader({
-            homepageUrl: "#",
-            containerClasses: "govuk-width-container",
-            serviceName: serviceName,
-            serviceUrl: "/"
-        }) }}
-    {% else %}
+    {% if displaySignOutLink %}
         {{ govukHeader({
             homepageUrl: "#",
             containerClasses: "govuk-width-container",
@@ -48,6 +44,13 @@
                     text: "Sign out"
                 }
             ]
+        }) }}
+    {% else %}
+        {{ govukHeader({
+            homepageUrl: "#",
+            containerClasses: "govuk-width-container",
+            serviceName: serviceName,
+            serviceUrl: "/"
         }) }}
     {% endif %}
 {% endblock %}
