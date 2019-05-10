@@ -132,7 +132,7 @@ describe('WillLeft', () => {
         });
     });
 
-    describe('action', () => {
+    describe('action()', () => {
         it('test isIntestacyQuestionsToggleEnabled is removed from the context', () => {
             const ctx = {
                 isIntestacyQuestionsToggleEnabled: false

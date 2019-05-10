@@ -42,7 +42,9 @@ class Declaration extends ValidationStep {
 
     prepareDataForTemplate(ctx, content, formdata) {
         const applicant = formdata.applicant || {};
+        const applicantAddress = get(applicant, 'address', {});
         const deceased = formdata.deceased || {};
+        const deceasedAddress = get(deceased, 'address', {});
         const iht = formdata.iht || {grossValue: 0, netValue: 0};
         const hasCodicils = (new WillWrapper(formdata.will)).hasCodicils();
         const codicilsNumber = (new WillWrapper(formdata.will)).codicilsNumber();
@@ -57,12 +59,12 @@ class Declaration extends ValidationStep {
             intro: content[`intro${multipleApplicantSuffix}`]
                 .replace('{applicantName}', applicantName),
             applicant: content[`legalStatementApplicant${multipleApplicantSuffix}`]
-                .replace('{detailsOfApplicants}', FormatName.formatMultipleNamesAndAddress(executorsApplying, content, applicant.address))
+                .replace('{detailsOfApplicants}', FormatName.formatMultipleNamesAndAddress(executorsApplying, content, applicantAddress))
                 .replace('{applicantName}', applicantName)
-                .replace('{applicantAddress}', applicant.address),
+                .replace('{applicantAddress}', applicantAddress.formattedAddress),
             deceased: content.legalStatementDeceased
                 .replace('{deceasedName}', deceasedName)
-                .replace('{deceasedAddress}', deceased.address)
+                .replace('{deceasedAddress}', deceasedAddress.formattedAddress)
                 .replace('{deceasedDob}', deceased.dob_formattedDate)
                 .replace('{deceasedDod}', deceased.dod_formattedDate),
             deceasedOtherNames: deceasedOtherNames ? content.deceasedOtherNames.replace('{deceasedOtherNames}', deceasedOtherNames) : '',

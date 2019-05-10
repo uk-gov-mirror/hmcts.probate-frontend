@@ -31,8 +31,13 @@
       }
     ],
     "addressFound":"true",
-    "postcodeAddress":"Adam & Eve 81 Petty France London SW1H 9EX",
-    "address":"Adam & Eve 81 Petty France London SW1H 9EX"
+    "address": {
+      "addressLine1":"Adam & Eve",
+      "addressLine2": "81 Petty France",
+      "formattedAddress":"Adam & Eve 81 Petty France London SW1H 9EX",
+      "postTown": "London",
+      "postCode": "SW1H 9EX"
+    }
   },
   "executors": {
     "executorsNumber": 4,
@@ -60,8 +65,11 @@
         "currentNameReason": "Divorce",
         "email": "haji58@hotmail.co.uk",
         "mobile": "07963723856",
-        "address": "exec_3_address\r\n",
-        "freeTextAddress": "exec_3_address\r\n",
+        "address": {
+          "addressLine1": "exec_3_address",
+          "postTown": "town",
+          "postCode": "postCode"
+        },
         "inviteId": {},
         "emailSent": true
       },
@@ -110,8 +118,13 @@
       }
     ],
     "addressFound": "true",
-    "postcodeAddress": "Adam & Eve 81 Petty France London SW1H 9EX",
-    "address": "Adam & Eve 81 Petty France London SW1H 9EX"
+    "address": {
+      "addressLine1": "Adam & Eve",
+      "addressLine2": "81 Petty France",
+      "formattedAddress": "Adam & Eve 81 Petty France London SW1H 9EX",
+      "postTown": "London",
+      "postCode": "SW1H 9EX"
+    }
   },
   "summary": {
     "readyToDeclare": false
