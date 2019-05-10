@@ -37,41 +37,6 @@
   padding-top: em(35);
 }
 
-p.declaration-item {
-  text-align: left;
-}
-div.declaration-header {
-  text-align: center;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
-div.declaration-wrapper {
-  @include govuk-media-query($from: tablet)
-  @include govuk-media-query($until: tablet) {
-    display: grid;
-    grid-column-gap: 50px;
-    grid-template-columns: 3fr 1fr;
-    width: calc(133% + 50px);
-  }
-}
-div.declaration-grid-item {
-  text-align: left;
-}
-
-.check-your-answers__question {
-  font-weight: inherit;
-  word-break: break-word;
-}
-
-.check-your-answers__answer {
-  word-break: break-word;
-
-  .check-your-answers__row {
-    border-bottom: none;
-  }
-}
-
 .save-this-page-link {
   margin-top: 20px;
 }
@@ -108,8 +73,14 @@ div.declaration-grid-item {
   nav {
     float: right;
 
+    .govuk-header__navigation {
+      margin-bottom: 0;
+    }
+
     a {
       @include govuk-font(19, $weight: bold);
     }
   }
 }
+
+

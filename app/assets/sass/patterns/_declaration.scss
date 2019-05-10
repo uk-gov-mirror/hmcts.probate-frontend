@@ -1,0 +1,23 @@
+.declaration-item {
+  text-align: left;
+}
+
+.declaration-header {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.declaration-wrapper {
+  @include govuk-media-query($from: tablet)
+  @include govuk-media-query($until: tablet) {
+    display: grid;
+    grid-column-gap: 50px;
+    grid-template-columns: 3fr 1fr;
+    width: calc(133% + 50px);
+  }
+}
+
+.declaration-grid-item {
+  text-align: left;
+}

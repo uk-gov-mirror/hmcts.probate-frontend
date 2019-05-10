@@ -62,10 +62,16 @@ Check your answers
 .check-your-answers__question {
   font-weight: bold;
   margin: em(12, 19) 4em em(4,19) 0;
+  word-break: break-word;
 }
 
 .check-your-answers__answer {
   padding-bottom: em(9, 19);
+  word-break: break-word;
+
+  .check-your-answers__row {
+    border-bottom: none;
+  }
 }
 
 .check-your-answers__change {
