@@ -18,20 +18,20 @@
         hint: {
             text: content.questionHint
         },
-        errorMessage: fields["dod-date"].errorObject,
+        errorMessage: fields["dod-date"].errorObject or fields["dod-day"].errorObject or fields["dod-month"].errorObject or fields["dod-year"].errorObject,
         items: [
             {
-                classes: "govuk-input--width-2",
+                classes: "govuk-input--width-2" + (" govuk-input--error" if fields["dod-day"].error or fields["dod-date"].error),
                 name: "day",
                 value: fields['dod-day'].value
             },
             {
-                classes: "govuk-input--width-2 govuk-input--error",
+                classes: "govuk-input--width-2" + (" govuk-input--error" if fields["dod-day"].error or fields["dod-date"].error),
                 name: "month",
                 value: fields['dod-month'].value
             },
             {
-                classes: "govuk-input--width-4 govuk-input--error",
+                classes: "govuk-input--width-4" + (" govuk-input--error" if fields["dod-day"].error or fields["dod-date"].error),
                 name: "year",
                 value: fields['dod-year'].value
             }
