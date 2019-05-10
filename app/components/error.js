@@ -1,14 +1,17 @@
 'use strict';
 
 const {filter, isEqual, map, uniqWith, forEach} = require('lodash');
+const he = require('he');
 const i18next = require('i18next');
 
 const FieldError = (param, keyword, resourcePath, contentCtx) => {
     const key = `errors.${param}.${keyword}`;
     const errorPath = `${resourcePath.replace('/', '.')}.${key}`;
+
     return {
-        href: param,
-        text: i18next.t(`${errorPath}.message`, contentCtx)
+        field: param,
+        href: `#${param}`,
+        text: he.decode(i18next.t(`${errorPath}.message`, contentCtx))
     };
 };
 
@@ -43,14 +46,14 @@ const generateErrors = (errs, ctx, formdata, errorPath, lang = 'en') => {
 
 const mapErrorsToFields = (fields, errors = []) => {
     forEach(errors, (e) => {
-        if (!fields[e.href]) {
-            fields[e.href] = {};
+        if (!fields[e.field]) {
+            fields[e.field] = {};
         }
-        fields[e.href].error = true;
-        fields[e.href].errorObject = {
-            href: `#${e.href}`,
-            text: e.text
+        fields[e.field].error = true;
+        fields[e.field].errorMessage = {
+            text: he.decode(e.text)
         };
+        fields[e.field].href = e.href;
     });
 
     return fields;

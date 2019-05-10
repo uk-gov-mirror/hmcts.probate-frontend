@@ -7,7 +7,7 @@
 {% block form_content %}
     {% call govukFieldset({
         legend: {
-            text: content.question,
+            text: content.question | safe,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
@@ -21,7 +21,7 @@
             id: "firstName",
             name: "firstName",
             value: fields.firstName.value | safe,
-            errorMessage: fields.firstName.errorObject,
+            errorMessage: fields.firstName.errorMessage,
             attributes: {
                 maxlength: 100
             },
@@ -34,7 +34,7 @@
             id: "lastName",
             name: "lastName",
             value: fields.lastName.value | safe,
-            errorMessage: fields.lastName.errorObject,
+            errorMessage: fields.lastName.errorMessage,
             attributes: {
                 maxlength: 100
             },

@@ -5,6 +5,18 @@
 {% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
+    {% if errors %}
+        {% set inlineErrors = {
+            text:
+            (
+            (fields["dod-date"].errorMessage.text + "<br>" if fields["dod-date"].errorMessage.text) +
+            (fields["dod-day"].errorMessage.text + "<br>" if fields["dod-day"].errorMessage.text) +
+            (fields["dod-month"].errorMessage.text + "<br>" if fields["dod-month"].errorMessage.text) +
+            (fields["dod-year"].errorMessage.text + "<br>" if fields["dod-year"].errorMessage.text)
+            ) | safe
+        } %}
+    {% endif %}
+
     {{ govukDateInput({
         id: "dod",
         namePrefix: "dod",
@@ -18,7 +30,7 @@
         hint: {
             text: content.questionHint
         },
-        errorMessage: fields["dod-date"].errorObject or fields["dod-day"].errorObject or fields["dod-month"].errorObject or fields["dod-year"].errorObject,
+        errorMessage: inlineErrors,
         items: [
             {
                 classes: "govuk-input--width-2" + (" govuk-input--error" if fields["dod-day"].error or fields["dod-date"].error),
