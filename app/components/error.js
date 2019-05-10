@@ -41,6 +41,7 @@ const generateErrors = (errs, ctx, formdata, errorPath, lang = 'en') => {
             throw new ReferenceError(`Error messages have not been defined for Step in content.json for errors.${param}`);
         }
     });
+    console.log(errors);
     return uniqWith(errors, isEqual);
 };
 
