@@ -3,31 +3,29 @@
 {% from "error-summary/macro.njk" import govukErrorSummary %}
 
 {% block content %}
-    <div class="govuk-width-container">
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
-                {% if errors %}
-                    {{ govukErrorSummary({
-                        "titleText": common.errorSummaryHeading,
-                        "errorList": errors
-                    }) }}
-                {% endif %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            {% if errors %}
+                {{ govukErrorSummary({
+                    "titleText": common.errorSummaryHeading,
+                    "errorList": errors
+                }) }}
+            {% endif %}
 
-                {% block page_content %}{% endblock %}
+            {% block page_content %}{% endblock %}
 
-                <form class="form" method="post" action="{{ pageUrl }}" novalidate>
-                    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-                    {% block form_content %}{% endblock %}
-                </form>
+            <form class="form" method="post" action="{{ pageUrl }}" novalidate>
+                <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+                {% block form_content %}{% endblock %}
+            </form>
 
-                {% block save_and_close %}
-                    <p class="govuk-body"><a href="/sign-out">{{ common.saveAndClose }}</a></p>
-                {% endblock %}
+            {% block save_and_close %}
+                <p class="govuk-body"><a href="/sign-out">{{ common.saveAndClose }}</a></p>
+            {% endblock %}
 
-                {% block executor_summary %}{% endblock %}
+            {% block executor_summary %}{% endblock %}
 
-                {% include "includes/help_details.html" %}
-            </div>
+            {% include "includes/help_details.html" %}
         </div>
     </div>
 {% endblock %}
