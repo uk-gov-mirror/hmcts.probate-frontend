@@ -1,29 +1,20 @@
 {% extends "includes/layout.html" %}
-{% block page_title %}
-    {{ content.title }}
-{% endblock %}
 
 {% set displaySignOutLink = 'false' %}
 {% set serviceName = '' %}
 
 {% block content %}
-    {% from "widgets/lists.html" import taskAction, unorderedList %}
-
-    <main id="content" role="main">
-        {% include "includes/phase_banner_beta.html" %}
-
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
-                <h1 class="form-title govuk-heading-l">{{ content.header }}</h1>
-                <p class="govuk-!-font-size-24 govuk-!-font-weight-bold">{{ content.introduction | safe }}</p>
-                <p>{{ content.paragraph1 | safe }}</p>
-                <p>{{ content.paragraph2 | safe }}</p>
-            </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">{{ content.header }}</h1>
+            <p class="govuk-heading-m">{{ content.introduction | safe }}</p>
+            <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
+            <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
         </div>
-        <div class="govuk-form-group">
-            <p><a href="/tasklist" class="button button-start">{{ common.createAccount }}</a></p>
-        </div>
+    </div>
+    <div class="govuk-form-group">
+        <p class="govuk-body"><a href="/tasklist" role="button" class="govuk-button govuk-button--start">{{ common.createAccount }}</a></p>
+    </div>
 
-        <p>{{ content.paragraph3 | safe }}</p>
-    </main>
+    <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
 {% endblock %}
