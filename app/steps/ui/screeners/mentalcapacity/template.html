@@ -1,27 +1,45 @@
 {% extends "includes/two_thirds_form.html" %}
 
+{% from "radios/macro.njk" import govukRadios %}
+{% from "button/macro.njk" import govukButton %}
+
 {% set displaySignOutLink = 'false' %}
 
-{% from "widgets/radiobuttons.html" import optionsRadio %}
-
-{% block question %}
-    <h1 class="form-title govuk-heading-l">{{ content.question }}</h1>
-{% endblock %}
-
 {% block form_content %}
-    <p class="form-hint">{{ content.hintText1 }}</p>
-    <p class="form-hint">{{ content.hintText2 | safe }}</p>
-
-    {{ optionsRadio(content,
-        name = 'mentalCapacity',
-        field = fields.mentalCapacity,
-        options = ['optionYes', 'optionNo'],
-        legend = content.legend,
-        inline = true
-    ) }}
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "mentalCapacity",
+        name: "mentalCapacity",
+        fieldset: {
+            legend: {
+                text: content.question,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        hint: {
+            text: (content.hintText1 + '<br><br>' + content.hintText2) | safe
+        },
+        errorMessage: fields.mentalCapacity.errorMessage,
+        items: [
+            {
+                value: content['optionYes'],
+                text: content['optionYes'] | safe,
+                checked: true if fields.mentalCapacity.value == content['optionYes'] | escape
+            },
+            {
+                value: content['optionNo'],
+                text: content['optionNo'] | safe,
+                checked: true if fields.mentalCapacity.value == content['optionNo'] | escape
+            }
+        ]
+    }) }}
 
     <div class="govuk-form-group">
-        <input class="button" type="submit" value="{{ common.continue }}">
+        {{ govukButton({
+            text: common.continue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}
 
