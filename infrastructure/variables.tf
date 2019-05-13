@@ -187,6 +187,14 @@ variable "probate_google_track_id" {
   description = "Google Analytics tracking ID"
 }
 
+variable "probate_webchat_id" {
+  description = "8x8 WebChat ID"
+}
+
+variable "probate_webchat_tenant" {
+  description = "8x8 WebChat Tenant"
+}
+
 variable "probate_deployment_env" {
   type = "string"
 }

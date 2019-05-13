@@ -140,6 +140,8 @@ module "probate-frontend" {
     USE_HTTPS =  "${var.probate_frontend_https}"
     USE_AUTH = "${var.probate_frontend_use_auth}"
     GA_TRACKING_ID = "${var.probate_google_track_id}"
+    WEBCHAT_CHAT_ID = "${var.probate_webchat_id}"
+    WEBCHAT_TENANT = "${var.probate_webchat_tenant}"
 
     // REDIS
     USE_REDIS = "${var.probate_frontend_use_redis}"

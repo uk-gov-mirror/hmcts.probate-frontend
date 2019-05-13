@@ -67,16 +67,20 @@ exports.init = function() {
 
     const filters = require('app/components/filters.js');
     const globals = {
-        'currentYear': new Date().getFullYear(),
-        'gaTrackingId': config.gaTrackingId,
-        'enableTracking': config.enableTracking,
-        'links': config.links,
-        'helpline': config.helpline,
-        'nonce': uuid,
-        'documentUpload': {
+        currentYear: new Date().getFullYear(),
+        gaTrackingId: config.gaTrackingId,
+        enableTracking: config.enableTracking,
+        links: config.links,
+        helpline: config.helpline,
+        nonce: uuid,
+        documentUpload: {
             validMimeTypes: config.documentUpload.validMimeTypes,
             maxFiles: config.documentUpload.maxFiles,
             maxSizeBytes: config.documentUpload.maxSizeBytes
+        },
+        webChat: {
+            chatId: config.webChat.chatId,
+            tenant: config.webChat.tenant
         }
     };
 
