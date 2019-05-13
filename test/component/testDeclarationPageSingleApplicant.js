@@ -27,8 +27,8 @@ describe('declaration, single applicant', () => {
             deceasedAddress: deceasedData.address.formattedAddress,
             deceasedDob: deceasedData.dob_formattedDate,
             deceasedDod: deceasedData.dod_formattedDate,
-            ihtGrossValue: sessionData.iht.grossValue,
-            ihtNetValue: sessionData.iht.netValue
+            ihtGrossValue: sessionData.iht.grossValueField,
+            ihtNetValue: sessionData.iht.netValueField
         };
     });
 
