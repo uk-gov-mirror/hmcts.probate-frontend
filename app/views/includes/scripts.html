@@ -1,7 +1,7 @@
 <script src="/public/javascripts/jquery-1.11.3.js"></script>
 
 <script src="/public/javascripts/govuk-frontend/all.js"></script>
-<script>window.GOVUKFrontend.initAll()</script>
+<script nonce="{{ nonce }}">window.GOVUKFrontend.initAll()</script>
 
 {% if enableTracking === 'true' %}
     <script nonce="{{ nonce }}">
