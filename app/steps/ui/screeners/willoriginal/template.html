@@ -1,26 +1,45 @@
 {% extends "includes/two_thirds_form.html" %}
 
+{% from "radios/macro.njk" import govukRadios %}
+{% from "button/macro.njk" import govukButton %}
+
 {% set displaySignOutLink = 'false' %}
 
-{% from "widgets/radiobuttons.html" import optionsRadio %}
-
-{% block question %}
-    <h1 class="form-title govuk-heading-l">{{ content.question }}</h1>
-{% endblock %}
-
 {% block form_content %}
-    <p class="form-hint">{{ content.paragraph1 | safe }}</p>
-
-    {{ optionsRadio(content,
-        name = 'original',
-        field = fields.original,
-        options = ['optionYes', 'optionNo'],
-        legend = content.legend,
-        inline = true
-    ) }}
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "original",
+        name: "original",
+        fieldset: {
+            legend: {
+                text: content.question,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        hint: {
+            text: content.paragraph1 | safe
+        },
+        errorMessage: fields.original.errorMessage,
+        items: [
+            {
+                value: content['optionYes'],
+                text: content['optionYes'] | safe,
+                checked: true if fields.original.value == content['optionYes'] | escape
+            },
+            {
+                value: content['optionNo'],
+                text: content['optionNo'] | safe,
+                checked: true if fields.original.value == content['optionNo'] | escape
+            }
+        ]
+    }) }}
 
     <div class="govuk-form-group">
-        <input class="button" type="submit" value="{{ common.continue }}">
+        {{ govukButton({
+            text: common.continue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}
 
