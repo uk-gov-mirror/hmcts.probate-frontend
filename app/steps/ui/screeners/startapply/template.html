@@ -1,5 +1,7 @@
 {% extends "includes/layout.html" %}
 
+{% from "button/macro.njk" import govukButton %}
+
 {% set displaySignOutLink = 'false' %}
 {% set serviceName = '' %}
 
@@ -13,7 +15,12 @@
         </div>
     </div>
     <div class="govuk-form-group">
-        <p class="govuk-body"><a href="/tasklist" role="button" class="govuk-button govuk-button--start">{{ common.createAccount }}</a></p>
+        {{ govukButton({
+            text: common.createAccount,
+            preventDoubleClick: true,
+            classes: "govuk-button--start",
+            href: "/tasklist"
+        }) }}
     </div>
 
     <p class="govuk-body">{{ content.paragraph3 | safe }}</p>

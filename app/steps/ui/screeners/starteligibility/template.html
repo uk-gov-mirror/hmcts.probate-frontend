@@ -1,6 +1,7 @@
 {% extends "includes/layout.html" %}
 
 {% from "inset-text/macro.njk" import govukInsetText %}
+{% from "button/macro.njk" import govukButton %}
 
 {% set serviceName = '' %}
 
@@ -79,7 +80,12 @@
         </div>
     </div>
     <div class="govuk-form-group">
-        <p class="govuk-body"><a href="/death-certificate" role="button" class="govuk-button govuk-button--start">{{ common.checkApply }}</a></p>
+        {{ govukButton({
+            text: common.checkApply,
+            preventDoubleClick: true,
+            classes: "govuk-button--start",
+            href: "/death-certificate"
+        }) }}
     </div>
 
     <p class="govuk-body"><a href="/tasklist">{{ content.paragraph11 }}</a></p>
