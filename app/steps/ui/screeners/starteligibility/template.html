@@ -1,23 +1,20 @@
 {% extends "includes/layout.html" %}
-{#{% block page_title %}#}
-{#    {{ content.title }}#}
-{#{% endblock %}#}
 
-{#{% set displaySignOutLink = 'false' %}#}
-{#{% set serviceName = '' %}#}
+{% from "inset-text/macro.njk" import govukInsetText %}
+
+{% set serviceName = '' %}
 
 {% block content %}
-    {% from "widgets/lists.html" import taskAction, unorderedList %}
-
-
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1 class="form-title govuk-heading-l">{{ content.header }}</h1>
             <p class="govuk-body">{{ content.introduction | safe }}</p>
             <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
-            <div class="panel panel-border-wide">
-                <p class="govuk-body">{{ content.paragraph2 | replace('{applicationFormPA1P}', links.applicationFormPA1P) | replace('{applicationFormPA1A}', links.applicationFormPA1A) | safe }}</p>
-            </div>
+
+            {{ govukInsetText({
+                text: content.paragraph2 | replace('{applicationFormPA1P}', links.applicationFormPA1P) | replace('{applicationFormPA1A}', links.applicationFormPA1A) | safe
+            }) }}
+
             <h2 class="govuk-heading-m">
                 {{ content.multipleHeader | safe }}
             </h2>
