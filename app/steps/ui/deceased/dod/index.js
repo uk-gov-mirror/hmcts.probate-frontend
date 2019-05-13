@@ -20,7 +20,7 @@ class DeceasedDod extends DateStep {
             dob.setHours(0, 0, 0, 0);
         }
 
-        const dod = new Date(`${ctx['dob-year']}-${ctx['dob-month']}-${ctx['dob-day']}`);
+        const dod = new Date(`${ctx['dod-year']}-${ctx['dod-month']}-${ctx['dod-day']}`);
 
         const today = new Date();
         today.setHours(0, 0, 0, 0);

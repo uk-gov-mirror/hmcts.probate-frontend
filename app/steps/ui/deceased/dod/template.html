@@ -9,10 +9,10 @@
         {% set inlineErrors = {
             text:
             (
-            (fields["dod-date"].errorMessage.text + "<br>" if fields["dod-date"].errorMessage.text) +
-            (fields["dod-day"].errorMessage.text + "<br>" if fields["dod-day"].errorMessage.text) +
-            (fields["dod-month"].errorMessage.text + "<br>" if fields["dod-month"].errorMessage.text) +
-            (fields["dod-year"].errorMessage.text + "<br>" if fields["dod-year"].errorMessage.text)
+                (fields["dod-date"].errorMessage.text + "<br>" if fields["dod-date"].errorMessage.text) +
+                (fields["dod-day"].errorMessage.text + "<br>" if fields["dod-day"].errorMessage.text) +
+                (fields["dod-month"].errorMessage.text + "<br>" if fields["dod-month"].errorMessage.text) +
+                (fields["dod-year"].errorMessage.text + "<br>" if fields["dod-year"].errorMessage.text)
             ) | safe
         } %}
     {% endif %}
@@ -38,12 +38,12 @@
                 value: fields['dod-day'].value
             },
             {
-                classes: "govuk-input--width-2" + (" govuk-input--error" if fields["dod-day"].error or fields["dod-date"].error),
+                classes: "govuk-input--width-2" + (" govuk-input--error" if fields["dod-month"].error or fields["dod-date"].error),
                 name: "month",
                 value: fields['dod-month'].value
             },
             {
-                classes: "govuk-input--width-4" + (" govuk-input--error" if fields["dod-day"].error or fields["dod-date"].error),
+                classes: "govuk-input--width-4" + (" govuk-input--error" if fields["dod-year"].error or fields["dod-date"].error),
                 name: "year",
                 value: fields['dod-year'].value
             }
