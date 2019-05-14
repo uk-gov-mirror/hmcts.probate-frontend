@@ -1,26 +1,42 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/numbers.html" import numberField %}
+{% from "fieldset/macro.njk" import govukFieldset %}
+{% from "input/macro.njk" import govukInput %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block question %}
     <h1 class="form-title govuk-heading-l">{{ content.question | safe }}</h1>
 {% endblock %}
 
 {% block form_content %}
-    <fieldset>
-        <legend class="govuk-visually-hidden">
-            {{ content.title | safe }}
-        </legend>
-        {{ numberField(
-            name = 'codicilsNumber',
-            field = fields.codicilsNumber,
-            text = content.numberOfUpdates,
-            size = 5,
-            width= '1-8',
-            currency = false
-        ) }}
-    </fieldset>
+    {% call govukFieldset({
+        legend: {
+            text: content.question | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+        {{ govukInput({
+            label: {
+                html: content.numberOfUpdates
+            },
+            id: "codicilsNumber",
+            name: "codicilsNumber",
+            value: fields.codicilsNumber.value | safe,
+            errorMessage: fields.codicilsNumber.errorMessage,
+            attributes: {
+                maxlength: 5
+            },
+            classes: 'govuk-input--width-3',
+            type: 'number'
+        }) }}
+
+    {% endcall %}
+
     <div class="govuk-form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

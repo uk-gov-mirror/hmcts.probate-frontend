@@ -9,9 +9,9 @@
         {% elif status === 'complete' %}
             <!-- Check your answers -->
             {% if alreadyDeclared === 'false' %}
-                <p><a href="{{ checkYourAnswersURL }}">{{ content.checkYourAnswers }} <span class="govuk-visually-hidden">{{ title }}</span></a></p>
+                <p class="govuk-body"><a href="{{ checkYourAnswersURL }}">{{ content.checkYourAnswers }} <span class="govuk-visually-hidden">{{ title }}</span></a></p>
             {% else %}
-                <p>{{ content.alreadyDeclared }}</p>
+                <p class="govuk-body">{{ content.alreadyDeclared }}</p>
             {% endif %}
         {% endif %}
     {% endif %}
