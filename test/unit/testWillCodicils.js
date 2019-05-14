@@ -96,7 +96,7 @@ describe('WillCodicils', () => {
         });
     });
 
-    describe('action', () => {
+    describe('action()', () => {
         it('cleans up context', () => {
             const ctx = {
                 codicils: content.optionNo,
