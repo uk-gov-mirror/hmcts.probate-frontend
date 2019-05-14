@@ -7,10 +7,8 @@
   "lastName": "Last name(s)",
   "questionDob": "Date of birth",
   "questionHintDob": "For example, 31 03 1945",
-  "legendDob": "Please enter date of birth",
   "questionDod": "Date of death",
   "questionHintDod": "Use the date from the death certificate. For example, 30 06 2016",
-  "legendDod": "Please enter date of death",
   "errors": {
     "firstName": {
       "required": {
