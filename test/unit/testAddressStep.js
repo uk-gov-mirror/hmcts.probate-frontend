@@ -105,32 +105,29 @@ describe('AddressStep', () => {
     });
 
     describe('handlePost()', () => {
-        describe('should return formatted address', () => {
-            it('when an address exists', (done) => {
-                ctxToTest = {
-                    addressLine1: 'line1',
-                    addressLine2: 'line2',
-                    addressLine3: 'line3',
-                    postTown: 'town',
-                    county: 'county',
-                    newPostCode: 'postcode',
-                    country: 'country'
-                };
-                const addressStep = new AddressStep(steps, section, templatePath, i18next, schema);
-                const ctx = addressStep.handlePost(ctxToTest, null);
-                expect(ctx[0].address).to.deep.equal({
-                    addressLine1: 'line1',
-                    addressLine2: 'line2',
-                    addressLine3: 'line3',
-                    formattedAddress: 'line1 line2 line3 town postcode county country ',
-                    postTown: 'town',
-                    postCode: 'postcode',
-                    county: 'county',
-                    country: 'country'
-                });
-                done();
+        it('should return formatted address when an address exists', (done) => {
+            ctxToTest = {
+                addressLine1: 'line1',
+                addressLine2: 'line2',
+                addressLine3: 'line3',
+                postTown: 'town',
+                county: 'county',
+                newPostCode: 'postcode',
+                country: 'country'
+            };
+            const addressStep = new AddressStep(steps, section, templatePath, i18next, schema);
+            const ctx = addressStep.handlePost(ctxToTest, null);
+            expect(ctx[0].address).to.deep.equal({
+                addressLine1: 'line1',
+                addressLine2: 'line2',
+                addressLine3: 'line3',
+                formattedAddress: 'line1 line2 line3 town postcode county country ',
+                postTown: 'town',
+                postCode: 'postcode',
+                county: 'county',
+                country: 'country'
             });
-
+            done();
         });
     });
 });
