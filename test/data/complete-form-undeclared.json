@@ -71,8 +71,10 @@
       "completed": "Yes",
       "identifier": "12341234A12345",
       "method": "Through the HMRC online service",
-      "netValue": 100000,
-      "grossValue": 150000
+      "netValueField": "100000.10",
+      "grossValueField": "150000.34",
+      "netValue": 100000.1,
+      "grossValue": 150000.34
     },
     "executors": {
       "list": [{
