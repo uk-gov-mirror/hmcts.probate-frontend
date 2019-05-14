@@ -14,7 +14,7 @@ describe('AddressStep', () => {
 
     beforeEach(() => {
         steps = {};
-        section = 'executors';
+        section = 'deceased';
         templatePath = 'addressLookup';
         i18next = {};
         schema = {
@@ -30,12 +30,12 @@ describe('AddressStep', () => {
 
     describe('getContextData()', () => {
 
-        it('should set individual address fields when address already exists', (done) => {
+        it('should set individual address fields when addressLine1 does not exists', (done) => {
             const addressStep = new AddressStep(steps, section, templatePath, i18next, schema);
             const req = {
                 session: {
                     form: {
-                        executors: {
+                        deceased: {
                             address: {
                                 addressLine1: 'line1',
                                 addressLine2: 'line2',
@@ -59,6 +59,43 @@ describe('AddressStep', () => {
             expect(ctx.country).to.equal('country');
             done();
         });
+
+        it('should not set individual address fields when addressLine1 exists', (done) => {
+            const addressStep = new AddressStep(steps, section, templatePath, i18next, schema);
+            const req = {
+                session: {
+                    form: {
+                        deceased: {
+                            address: {
+                                addressLine1: 'line1',
+                                addressLine2: 'line2',
+                                addressLine3: 'line3',
+                                postTown: 'town',
+                                county: 'county',
+                                postCode: 'postcode',
+                                country: 'country'
+                            },
+                            addressLine1: '',
+                            addressLine2: 'diff line2',
+                            addressLine3: 'diff line3',
+                            postTown: 'diff town',
+                            county: 'diff county',
+                            newPostCode: '',
+                            country: 'diff country'
+                        }
+                    }
+                }
+            };
+            const ctx = addressStep.getContextData(req);
+            expect(ctx.addressLine1).to.equal('');
+            expect(ctx.addressLine2).to.equal('diff line2');
+            expect(ctx.addressLine3).to.equal('diff line3');
+            expect(ctx.postTown).to.equal('diff town');
+            expect(ctx.county).to.equal('diff county');
+            expect(ctx.newPostCode).to.equal('');
+            expect(ctx.country).to.equal('diff country');
+            done();
+        });
     });
 
     describe('handleGet()', () => {
@@ -71,14 +108,14 @@ describe('AddressStep', () => {
 
         it('should return ctx and errors when there are errors', (done) => {
             const formdata = {
-                executors: {errors: error}
+                deceased: {errors: error}
             };
             ctxToTest.errors = error;
             const addressStep = new AddressStep(steps, section, templatePath, i18next, schema);
             const ctx = addressStep.handleGet(ctxToTest, formdata);
             expect(ctx).to.deep.equal([ctxToTest, error]);
             expect(formdata).to.deep.equal({
-                executors: {}
+                deceased: {}
             });
             done();
         });
