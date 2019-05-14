@@ -72,6 +72,19 @@
 .find-address-button {
   margin-bottom: 0;
 }
+
+.icon {
+  display: inline-block;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+
+  &.icon-file-download {
+    width: 30px;
+    height: 39px;
+    background-image: url('/public/images/icon-file-download.png');
+  }
+}
+
 .govuk-header__content {
   nav {
     float: right;
