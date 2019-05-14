@@ -84,19 +84,3 @@
     background-image: url('/public/images/icon-file-download.png');
   }
 }
-
-.govuk-header__content {
-  nav {
-    float: right;
-
-    .govuk-header__navigation {
-      margin-bottom: 0;
-    }
-
-    a {
-      @include govuk-font(19, $weight: bold);
-    }
-  }
-}
-
-

@@ -7,6 +7,7 @@ $path: "/public/images/";
 @import 'node_modules/govuk-frontend/all';
 
 // Take a look at in app/assets/sass/patterns/ to see which files are imported.
+@import 'patterns/header';
 @import 'patterns/task-list';
 @import 'patterns/check-your-answers';
 @import 'patterns/document-upload';
