@@ -124,7 +124,7 @@ describe('IhtValue', () => {
         });
     });
 
-    describe('action', () => {
+    describe('action()', () => {
         it('test it cleans up context', () => {
             const ctx = {
                 netValue: 400000,
