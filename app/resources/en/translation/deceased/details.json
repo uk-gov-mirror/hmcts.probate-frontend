@@ -32,7 +32,7 @@
         "message": "The last name can only contain letters a to z, spaces, hyphens and apostrophes"
       }
     },
-    "dob_day": {
+    "dob-day": {
       "required": {
         "summary": "You haven&rsquo;t entered the day that they were born",
         "message": "Enter the day they were born"
@@ -42,7 +42,7 @@
         "message": "Enter a valid day of birth"
       }
     },
-    "dob_month": {
+    "dob-month": {
       "required": {
         "summary": "You haven&rsquo;t entered the month that they were born",
         "message": "Enter the month they were born"
@@ -52,7 +52,7 @@
         "message": "Enter a valid month of birth"
       }
     },
-    "dob_year": {
+    "dob-year": {
       "required": {
         "summary": "You haven&rsquo;t entered the year that they were born",
         "message": "Enter the year they were born"
@@ -62,7 +62,7 @@
         "message": "Enter a valid year of birth"
       }
     },
-    "dob_date": {
+    "dob-date": {
       "invalid": {
         "summary": "You need to enter a valid date of birth",
         "message": "Enter a valid date of birth"
@@ -76,7 +76,7 @@
         "message": "Enter a date of birth that is before the date of death"
       }
     },
-    "dod_day": {
+    "dod-day": {
       "required": {
         "summary": "You haven&rsquo;t entered the day that they died",
         "message": "Enter the day they died"
@@ -86,7 +86,7 @@
         "message": "Enter a valid day of death"
       }
     },
-    "dod_month": {
+    "dod-month": {
       "required": {
         "summary": "You haven&rsquo;t entered the month that they died",
         "message": "Enter the month they died"
@@ -96,7 +96,7 @@
         "message": "Enter a valid month of death"
       }
     },
-    "dod_year": {
+    "dod-year": {
       "required": {
         "summary": "You haven&rsquo;t entered the year that they died",
         "message": "Enter the year they died"
@@ -106,7 +106,7 @@
         "message": "Enter a valid year of death"
       }
     },
-    "dod_date": {
+    "dod-date": {
       "invalid": {
         "summary": "You need to enter a valid date of death",
         "message": "Enter a valid date of death"
