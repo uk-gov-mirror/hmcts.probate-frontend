@@ -1,5 +1,6 @@
 {% extends "includes/layout.html" %}
 
+{% from "table/macro.njk" import govukTable %}
 {% from "inset-text/macro.njk" import govukInsetText %}
 {% from "button/macro.njk" import govukButton %}
 
@@ -29,45 +30,45 @@
 
             {% if fields.isFeesApiToggleEnabled.value === 'true' %}
                 <p class="govuk-body">{{ content.paragraph7 | safe }}</p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th scope="col">{{ content.tableHeadLeft | safe }}</th>
-                            <th class="numeric" scope="col">{{ content.tableHeadRight | safe }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">{{ content.tableBodyFeeRange1 | safe }}</th>
-                            <td class="numeric">{{ content.tableBodyFeeRange1Value | safe }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">{{ content.tableBodyFeeRange2 | safe }}</th>
-                            <td class="numeric">{{ content.tableBodyFeeRange2Value | safe }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">{{ content.tableBodyFeeRange3 | safe }}</th>
-                            <td class="numeric">{{ content.tableBodyFeeRange3Value | safe }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">{{ content.tableBodyFeeRange4 | safe }}</th>
-                            <td class="numeric">{{ content.tableBodyFeeRange4Value | safe }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">{{ content.tableBodyFeeRange5 | safe }}</th>
-                            <td class="numeric">{{ content.tableBodyFeeRange5Value | safe }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">{{ content.tableBodyFeeRange6 | safe }}</th>
-                            <td class="numeric">{{ content.tableBodyFeeRange6Value | safe }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">{{ content.tableBodyFeeRange7 | safe }}</th>
-                            <td class="numeric">{{ content.tableBodyFeeRange7Value | safe }}</td>
-                        </tr>
-                    </tbody>
-                </table><br>
-                <p>{{ content.paragraph8 | safe }}</p>
+                {{ govukTable({
+                    caption: content.________________________,
+                    captionClasses: 'govuk-visually-hidden',
+                    head: [
+                        { text: content.tableHeadLeft | safe },
+                        { text: content.content.tableHeadRight | safe }
+                    ],
+                    rows: [
+                        [
+                            { text: content.tableBodyFeeRange1 | safe },
+                            { text: content.tableBodyFeeRange1Value | safe, format: "numeric" }
+                        ],
+                        [
+                            { text: content.tableBodyFeeRange2 | safe },
+                            { text: content.tableBodyFeeRange2Value | safe, format: "numeric" }
+                        ],
+                        [
+                            { text: content.tableBodyFeeRange3 | safe },
+                            { text: content.tableBodyFeeRange3Value | safe, format: "numeric" }
+                        ],
+                        [
+                            { text: content.tableBodyFeeRange4 | safe },
+                            { text: content.tableBodyFeeRange4Value | safe, format: "numeric" }
+                        ],
+                        [
+                            { text: content.tableBodyFeeRange5 | safe },
+                            { text: content.tableBodyFeeRange5Value | safe, format: "numeric" }
+                        ],
+                        [
+                            { text: content.tableBodyFeeRange6 | safe },
+                            { text: content.tableBodyFeeRange6Value | safe, format: "numeric" }
+                        ],
+                        [
+                            { text: content.tableBodyFeeRange7 | safe },
+                            { text: content.tableBodyFeeRange7Value | safe, format: "numeric" }
+                        ]
+                    ]
+                }) }}
+                <p class="govuk-body">{{ content.paragraph8 | safe }}</p>
             {% else %}
                 <p class="govuk-body">{{ content.paragraph7old | safe }}</p>
                 <p class="govuk-body">{{ content.paragraph8old | safe }}</p>
