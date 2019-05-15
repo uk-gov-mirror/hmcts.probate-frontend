@@ -20,7 +20,7 @@ class WillLeft extends EligibilityValidationStep {
     }
 
     handlePost(ctx, errors, formdata, session) {
-        session.willLeft = ctx.left;
+        session.caseType = (ctx.left === content.optionYes) ? 'gop' : 'intestacy';
         return super.handlePost(ctx, errors, formdata, session);
     }
 
