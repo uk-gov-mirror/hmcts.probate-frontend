@@ -4,6 +4,8 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const ValueAssetsOutside = steps.ValueAssetsOutside;
+const content = require('app/resources/en/translation/deceased/valueassetsoutside');
+const he = require('he');
 
 describe('ValueAssetsOutside', () => {
     describe('getUrl()', () => {
@@ -69,11 +71,10 @@ describe('ValueAssetsOutside', () => {
             });
             expect(errors).to.deep.equal([
                 {
-                    msg: {
-                        summary: 'Net value can only contain numbers',
-                        message: 'Net value must be a whole number or a number with 2 decimal places'
-                    },
-                    param: 'netValueAssetsOutsideField'
+
+                    field: 'netValueAssetsOutsideField',
+                    href: '#netValueAssetsOutsideField',
+                    text: content.errors.netValueAssetsOutsideField.invalidCurrencyFormat.message
                 }
             ]);
             done();
