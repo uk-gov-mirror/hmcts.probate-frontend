@@ -6,6 +6,29 @@
 {% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
+    {% if errors and (fields["dob-day"].error or fields["dob-month"].error or fields["dob-year"].error or fields["dob-date"].error)%}
+        {% set inlineErrorsDob = {
+            text:
+            (
+            (fields["dob-date"].errorMessage.text + "<br>" if fields["dob-date"].errorMessage.text) +
+            (fields["dob-day"].errorMessage.text + "<br>" if fields["dob-day"].errorMessage.text) +
+            (fields["dob-month"].errorMessage.text + "<br>" if fields["dob-month"].errorMessage.text) +
+            (fields["dob-year"].errorMessage.text + "<br>" if fields["dob-year"].errorMessage.text)
+            ) | safe
+        } %}
+    {% endif %}
+    {% if errors and (fields["dod-day"].error or fields["dod-month"].error or fields["dod-year"].error or fields["dod-date"].error)%}
+        {% set inlineErrorsDod = {
+            text:
+            (
+            (fields["dod-date"].errorMessage.text + "<br>" if fields["dod-date"].errorMessage.text) +
+            (fields["dod-day"].errorMessage.text + "<br>" if fields["dod-day"].errorMessage.text) +
+            (fields["dod-month"].errorMessage.text + "<br>" if fields["dod-month"].errorMessage.text) +
+            (fields["dod-year"].errorMessage.text + "<br>" if fields["dod-year"].errorMessage.text)
+            ) | safe
+        } %}
+    {% endif %}
+
     <h1 class="form-title govuk-heading-l">{{ content.question | safe }}</h1>
 
     {% call govukFieldset({
@@ -57,7 +80,7 @@
         hint: {
             text: content.questionHintDob
         },
-        errorMessage: inlineErrors,
+        errorMessage: inlineErrorsDob,
         items: [
             {
                 classes: "govuk-input--width-2" + (" govuk-input--error" if fields["dob-day"].error or fields["dob-date"].error),
@@ -89,7 +112,7 @@
         hint: {
             text: content.questionHintDod
         },
-        errorMessage: inlineErrors,
+        errorMessage: inlineErrorsDod,
         items: [
             {
                 classes: "govuk-input--width-2" + (" govuk-input--error" if fields["dod-day"].error or fields["dod-date"].error),
