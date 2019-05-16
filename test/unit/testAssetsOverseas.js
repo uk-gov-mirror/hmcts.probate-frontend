@@ -37,22 +37,6 @@ describe('AssetsOutside', () => {
         });
     });
 
-    describe('nextStepUrl()', () => {
-        it('should return the correct url when Renuncing is given', (done) => {
-            const ctx = {spouseNotApplyingReason: content.optionRenuncing};
-            const nextStepUrl = SpouseNotApplyingReason.nextStepUrl(ctx);
-            expect(nextStepUrl).to.equal('/any-other-children');
-            done();
-        });
-
-        it('should return the correct url when No is given', (done) => {
-            const ctx = {spouseNotApplyingReason: content.optionOther};
-            const nextStepUrl = SpouseNotApplyingReason.nextStepUrl(ctx);
-            expect(nextStepUrl).to.equal('/stop-page/spouseNotApplying');
-            done();
-        });
-    });
-
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
             const nextStepOptions = AssetsOverseas.nextStepOptions();
