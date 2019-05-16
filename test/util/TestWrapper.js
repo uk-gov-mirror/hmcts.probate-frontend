@@ -162,17 +162,14 @@ class TestWrapper {
     }
 
     substituteErrorsContent(data, contentToSubstitute, type) {
-        Object.entries(contentToSubstitute)
-            .forEach(([key, contentValue]) => {
-                forEach(contentValue[type], (errorMessageItem) => {
-                    forEach(errorMessageItem.match(/\{(.*?)\}/g), (placeholder) => {
-                        const placeholderRegex = new RegExp(placeholder, 'g');
-                        placeholder = placeholder.replace(/[{}]/g, '');
-                        errorMessageItem = errorMessageItem.replace(placeholderRegex, data[placeholder]);
-                        contentToSubstitute[key][type] = errorMessageItem;
-                    });
+        Object.keys(contentToSubstitute).forEach((contentKey) => {
+            Object.keys(contentToSubstitute[contentKey][type]).forEach((errorMessageKey) => {
+                forEach(contentToSubstitute[contentKey][type][errorMessageKey].match(/\{(.*?)\}/g), (placeholder) => {
+                    const placeholderRegex = new RegExp(placeholder, 'g');
+                    contentToSubstitute[contentKey][type][errorMessageKey] = contentToSubstitute[contentKey][type][errorMessageKey].replace(placeholderRegex, data[placeholder]);
                 });
             });
+        });
     }
 
     assertContentIsPresent(actualContent, expectedContent) {
