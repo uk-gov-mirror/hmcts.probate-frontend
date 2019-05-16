@@ -7,7 +7,7 @@ const setJourney = rewire('app/middleware/setJourney');
 
 describe('setJourney', () => {
     describe('isIntestacyJourney()', () => {
-        it('should return false if session.willLeft and session.form.will.left are not set', (done) => {
+        it('should return false if session.caseType and session.form.caseType are not set', (done) => {
             const session = {};
             const isIntestacyJourney = setJourney.isIntestacyJourney(session);
             expect(isIntestacyJourney).to.equal(false);
@@ -55,12 +55,12 @@ describe('setJourney', () => {
         });
     });
 
-    describe('setWillLeftFormdata()', () => {
+    describe('setCaseTypeFormdata()', () => {
         it('should return the original session if session.caseType does not exist', (done) => {
             const sessionToTest = {
                 form: {}
             };
-            const session = setJourney.setWillLeftFormdata(sessionToTest);
+            const session = setJourney.setCaseTypeFormdata(sessionToTest);
             expect(session).to.deep.equal({
                 form: {}
             });
@@ -72,7 +72,7 @@ describe('setJourney', () => {
                 form: {},
                 caseType: 'gop'
             };
-            const session = setJourney.setWillLeftFormdata(sessionToTest);
+            const session = setJourney.setCaseTypeFormdata(sessionToTest);
             expect(session).to.deep.equal({
                 form: {
                     caseType: 'gop'
@@ -87,7 +87,7 @@ describe('setJourney', () => {
                 form: {},
                 caseType: 'gop'
             };
-            const session = setJourney.setWillLeftFormdata(sessionToTest);
+            const session = setJourney.setCaseTypeFormdata(sessionToTest);
             expect(session).to.deep.equal({
                 form: {
                     caseType: 'gop'
@@ -104,7 +104,7 @@ describe('setJourney', () => {
                 },
                 caseType: 'gop'
             };
-            const session = setJourney.setWillLeftFormdata(sessionToTest);
+            const session = setJourney.setCaseTypeFormdata(sessionToTest);
             expect(session).to.deep.equal({
                 form: {
                     caseType: 'gop'

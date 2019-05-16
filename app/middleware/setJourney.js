@@ -12,7 +12,7 @@ const isIntestacyJourney = (session) => {
     return false;
 };
 
-const setWillLeftFormdata = (session) => {
+const setCaseTypeFormdata = (session) => {
     if (session.caseType) {
         if (!session.form.caseType) {
             session.form.caseType = isIntestacyJourney(session) ? 'intestacy' : 'gop';
@@ -22,7 +22,7 @@ const setWillLeftFormdata = (session) => {
 };
 
 const setJourney = (req, res, next) => {
-    req.session = setWillLeftFormdata(req.session);
+    req.session = setCaseTypeFormdata(req.session);
     req.session.journey = isIntestacyJourney(req.session) ? intestacyJourney : probateJourney;
     next();
 };
@@ -34,4 +34,4 @@ const getJourneyName = (session) => {
 module.exports = setJourney;
 module.exports.getJourneyName = getJourneyName;
 module.exports.isIntestacyJourney = isIntestacyJourney;
-module.exports.setWillLeftFormdata = setWillLeftFormdata;
+module.exports.setCaseTypeFormdata = setCaseTypeFormdata;
