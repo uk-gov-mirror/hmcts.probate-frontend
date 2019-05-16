@@ -56,6 +56,7 @@ describe('WillLeft', () => {
                 caseType: 'gop'
             });
             expect(ctx).to.deep.equal({
+                caseType: 'gop',
                 left: content.optionYes
             });
             expect(errors).to.deep.equal({});
