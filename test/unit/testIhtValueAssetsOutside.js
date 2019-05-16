@@ -4,8 +4,7 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const ValueAssetsOutside = steps.ValueAssetsOutside;
-const content = require('app/resources/en/translation/deceased/valueassetsoutside');
-const he = require('he');
+const content = require('app/resources/en/translation/iht/valueassetsoutside');
 
 describe('ValueAssetsOutside', () => {
     describe('getUrl()', () => {
