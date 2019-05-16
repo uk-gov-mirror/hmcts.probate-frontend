@@ -170,30 +170,30 @@ describe('setJourney', () => {
     });
 
     describe('getJourneyName()', () => {
-        it('should return \'probate\' if session.caseType and session.form.caseType are not set', (done) => {
+        it('should return \'gop\' if session.caseType and session.form.caseType are not set', (done) => {
             const session = {};
             const journeyName = setJourney.getJourneyName(session);
-            expect(journeyName).to.equal('probate');
+            expect(journeyName).to.equal('gop');
             done();
         });
 
-        it('should return \'probate\' as journey name if session.caseType is set to \'gop\'', (done) => {
+        it('should return \'gop\' as journey name if session.caseType is set to \'gop\'', (done) => {
             const session = {
                 caseType: 'gop'
             };
             const journeyName = setJourney.getJourneyName(session);
-            expect(journeyName).to.equal('probate');
+            expect(journeyName).to.equal('gop');
             done();
         });
 
-        it('should return \'probate\' as journey name if session.form.caseType is set to \'gop\'', (done) => {
+        it('should return \'gop\' as journey name if session.form.caseType is set to \'gop\'', (done) => {
             const session = {
                 form: {
                     caseType: 'gop'
                 }
             };
             const journeyName = setJourney.getJourneyName(session);
-            expect(journeyName).to.equal('probate');
+            expect(journeyName).to.equal('gop');
             done();
         });
 
