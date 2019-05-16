@@ -28,7 +28,7 @@ const setJourney = (req, res, next) => {
 };
 
 const getJourneyName = (session) => {
-    return isIntestacyJourney(session) ? 'intestacy' : 'probate';
+    return isIntestacyJourney(session) ? 'intestacy' : 'gop';
 };
 
 module.exports = setJourney;
