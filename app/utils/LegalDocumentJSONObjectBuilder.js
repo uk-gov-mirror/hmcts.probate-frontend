@@ -15,7 +15,7 @@ class LegalDocumentJSONObjectBuilder {
         for (const sectElement of pageSections) {
             const $element = $(sectElement);
             if ($element.hasClass('declaration-header')) {
-                legalDeclaration.headers.push($element.html());
+                legalDeclaration.headers.push($element.text());
             } else if ($element.hasClass('declaration-subheader')) {
                 const section = buildSection($element);
                 legalDeclaration.sections.push(section);
@@ -50,7 +50,7 @@ function buildDeclarationItemValues($element, legalDeclaration) {
 
 function buildDeclarationItem($element, legalDeclaration) {
     const declarationItem = {};
-    declarationItem.title = $element.html();
+    declarationItem.title = $element.text();
     const section = legalDeclaration.sections[legalDeclaration.sections.length - 1];
     section.declarationItems.push(declarationItem);
 }
@@ -62,7 +62,7 @@ function buildSection($element) {
     } else {
         section.headingType = 'small';
     }
-    section.title = $element.html();
+    section.title = $element.text();
     section.declarationItems = [];
     return section;
 }
