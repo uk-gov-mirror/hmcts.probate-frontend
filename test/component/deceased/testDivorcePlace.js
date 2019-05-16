@@ -1,8 +1,8 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const StopPage = require('app/steps/ui/stoppage/index');
-const TaskList = require('app/steps/ui/tasklist/index');
+const StopPage = require('app/steps/ui/stoppage');
+const TaskList = require('app/steps/ui/tasklist');
 const commonContent = require('app/resources/en/translation/common');
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
 const content = require('app/resources/en/translation/deceased/divorceplace');

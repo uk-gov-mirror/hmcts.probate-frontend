@@ -1,8 +1,8 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const DivorcePlace = require('app/steps/ui/deceased/divorceplace/index');
-const TaskList = require('app/steps/ui/tasklist/index');
+const DivorcePlace = require('app/steps/ui/deceased/divorceplace');
+const TaskList = require('app/steps/ui/tasklist');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const content = require('app/resources/en/translation/deceased/maritalstatus');
 const config = require('app/config');

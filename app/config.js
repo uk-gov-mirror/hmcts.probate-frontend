@@ -91,7 +91,6 @@ const config = {
             },
             ihtMinAmt: 5000
         }
-
     },
     redis: {
         host: process.env.REDIS_HOST || 'localhost',

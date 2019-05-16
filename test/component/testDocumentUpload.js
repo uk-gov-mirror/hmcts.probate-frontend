@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const IhtMethod = require('app/steps/ui/iht/method/index');
+const IhtMethod = require('app/steps/ui/iht/method');
 const commonContent = require('app/resources/en/translation/common');
 const content = require('app/resources/en/translation/documentupload');
 const config = require('app/config');
