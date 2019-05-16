@@ -1,6 +1,7 @@
 'use strict';
 
 const {JSDOM} = require('jsdom');
+const FormatName = require('app/utils/FormatName');
 
 class LegalDocumentJSONObjectBuilder {
 
@@ -26,11 +27,8 @@ class LegalDocumentJSONObjectBuilder {
             }
         }
         legalDeclaration.dateCreated = new Date().toLocaleString();
-        if (typeof formdata.deceased !== 'undefined') {
-            legalDeclaration.deceased = formdata.deceased.deceasedName;
-        } else {
-            legalDeclaration.deceased = '';
-        }
+        legalDeclaration.deceased = FormatName.format(formdata.deceased);
+
         return legalDeclaration;
     }
 }
