@@ -10,7 +10,7 @@
         name: "alias",
         fieldset: {
             legend: {
-                text: content.question | replace('{deceasedName}', fields.deceasedName.value) | safe,
+                text: content.question | replace("{deceasedName}", fields.deceasedName.value) | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
@@ -21,14 +21,14 @@
         errorMessage: fields.alias.errorMessage,
         items: [
             {
-                value: content['optionYes'],
-                text: content['optionYes'] | safe,
-                checked: true if fields.alias.value == content['optionYes'] | escape
+                value: content["optionYes"],
+                text: content["optionYes"] | safe,
+                checked: true if fields.alias.value == content["optionYes"] | escape
             },
             {
-                value: content['optionNo'],
-                text: content['optionNo'] | safe,
-                checked: true if fields.alias.value == content['optionNo'] | escape
+                value: content["optionNo"],
+                text: content["optionNo"] | safe,
+                checked: true if fields.alias.value == content["optionNo"] | escape
             }
         ]
     }) }}

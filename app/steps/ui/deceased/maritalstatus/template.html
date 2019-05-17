@@ -10,7 +10,7 @@
         name: "maritalStatus",
         fieldset: {
             legend: {
-                text: content.question | replace('{deceasedName}', fields.deceasedName.value) | safe,
+                text: content.question | replace("{deceasedName}", fields.deceasedName.value) | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
@@ -18,29 +18,29 @@
         errorMessage: fields.maritalStatus.errorMessage,
         items: [
             {
-                value: content['optionMarried'],
-                text: content['optionMarried'] | safe,
-                checked: true if fields.maritalStatus.value == content['optionMarried'] | escape
+                value: content["optionMarried"],
+                text: content["optionMarried"] | safe,
+                checked: true if fields.maritalStatus.value == content["optionMarried"] | escape
             },
             {
-                value: content['optionDivorced'],
-                text: content['optionDivorced'] | safe,
-                checked: true if fields.maritalStatus.value == content['optionDivorced'] | escape
+                value: content["optionDivorced"],
+                text: content["optionDivorced"] | safe,
+                checked: true if fields.maritalStatus.value == content["optionDivorced"] | escape
             },
             {
-                value: content['optionWidowed'],
-                text: content['optionWidowed'] | safe,
-                checked: true if fields.maritalStatus.value == content['optionWidowed'] | escape
+                value: content["optionWidowed"],
+                text: content["optionWidowed"] | safe,
+                checked: true if fields.maritalStatus.value == content["optionWidowed"] | escape
             },
             {
-                value: content['optionNotMarried'],
-                text: content['optionNotMarried'] | safe,
-                checked: true if fields.maritalStatus.value == content['optionNotMarried'] | escape
+                value: content["optionNotMarried"],
+                text: content["optionNotMarried"] | safe,
+                checked: true if fields.maritalStatus.value == content["optionNotMarried"] | escape
             },
             {
-                value: content['optionSeparated'],
-                text: content['optionSeparated'] | safe,
-                checked: true if fields.maritalStatus.value == content['optionSeparated'] | escape
+                value: content["optionSeparated"],
+                text: content["optionSeparated"] | safe,
+                checked: true if fields.maritalStatus.value == content["optionSeparated"] | escape
             }
         ]
     }) }}

@@ -109,28 +109,28 @@
         errorMessage: fields.form.errorMessage,
         items: [
             {
-                value: 'IHT205',
-                text: content['optionIHT205'] | safe,
+                value: "IHT205",
+                text: content["optionIHT205"] | safe,
                 conditional: {
                     html: iht205html
                 },
-                checked: true if fields.form.value == 'IHT205' | escape
+                checked: true if fields.form.value == "IHT205" | escape
             },
             {
-                value: 'IHT207',
-                text: content['optionIHT207'] | safe,
+                value: "IHT207",
+                text: content["optionIHT207"] | safe,
                 conditional: {
                     html: iht207html
                 },
-                checked: true if fields.form.value == 'IHT207' | escape
+                checked: true if fields.form.value == "IHT207" | escape
             },
             {
-                value: 'IHT400421',
-                text: content['optionIHT400421'] | safe,
+                value: "IHT400421",
+                text: content["optionIHT400421"] | safe,
                 conditional: {
                     html: iht400421html
                 },
-                checked: true if fields.form.value == 'IHT400421' | escape
+                checked: true if fields.form.value == "IHT400421" | escape
             }
         ]
     }) }}

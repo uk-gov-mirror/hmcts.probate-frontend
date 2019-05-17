@@ -20,14 +20,14 @@
         errorMessage: fields.method.errorMessage,
         items: [
             {
-                value: content['optionPaper'],
-                text: content['optionPaper'] | safe,
-                checked: true if fields.method.value == content['optionPaper'] | escape
+                value: content["optionPaper"],
+                text: content["optionPaper"] | safe,
+                checked: true if fields.method.value == content["optionPaper"] | escape
             },
             {
-                value: content['optionOnline'],
-                text: content['optionOnline'] | safe,
-                checked: true if fields.method.value == content['optionOnline'] | escape
+                value: content["optionOnline"],
+                text: content["optionOnline"] | safe,
+                checked: true if fields.method.value == content["optionOnline"] | escape
             }
         ]
     }) }}
