@@ -46,6 +46,8 @@ class Declaration extends ValidationStep {
         const deceased = formdata.deceased || {};
         const deceasedAddress = get(deceased, 'address', {});
         const iht = formdata.iht || {grossValue: 0, netValue: 0};
+        const ihtGrossValue = iht.grossValue ? iht.grossValue.toFixed(2) : 0;
+        const ihtNetValue = iht.netValue ? iht.netValue.toFixed(2) : 0;
         const hasCodicils = (new WillWrapper(formdata.will)).hasCodicils();
         const codicilsNumber = (new WillWrapper(formdata.will)).codicilsNumber();
         const applicantName = FormatName.format(applicant);
@@ -55,8 +57,6 @@ class Declaration extends ValidationStep {
         const deceasedOtherNames = FormatName.formatMultipleNamesAndAddress(get(deceased, 'otherNames'), content);
         const hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants();
         const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
-        const ihtGrossValue = (iht && iht.grossValue) ? iht.grossValue.toFixed(2) : 0;
-        const ihtNetValue = (iht && iht.netValue) ? iht.netValue.toFixed(2) : 0;
         const legalStatement = {
             intro: content[`intro${multipleApplicantSuffix}`]
                 .replace('{applicantName}', applicantName),
