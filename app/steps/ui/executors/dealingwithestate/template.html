@@ -7,7 +7,7 @@
 {% block form_content %}
     {{ govukCheckboxes({
         idPrefix: "executorsApplying",
-        name: "executorsApplying",
+        name: "executorsApplying[]",
         fieldset: {
             legend: {
                 text: content.question | safe,
