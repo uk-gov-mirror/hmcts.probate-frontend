@@ -1,10 +1,10 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "checkboxes/macro.njk" import govukCheckboxes %}
+{% from "radios/macro.njk" import govukRadios %}
 {% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    {{ govukCheckboxes({
+    {{ govukRadios({
         idPrefix: "notApplyingReason",
         name: "notApplyingReason",
         fieldset: {
