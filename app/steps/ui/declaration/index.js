@@ -45,7 +45,7 @@ class Declaration extends ValidationStep {
         const applicantAddress = get(applicant, 'address', {});
         const deceased = formdata.deceased || {};
         const deceasedAddress = get(deceased, 'address', {});
-        const iht = formdata.iht || {grossValue: 0, netValue: 0};
+        const iht = formdata.iht || {};
         const ihtGrossValue = iht.grossValue ? iht.grossValue.toFixed(2) : 0;
         const ihtNetValue = iht.netValue ? iht.netValue.toFixed(2) : 0;
         const hasCodicils = (new WillWrapper(formdata.will)).hasCodicils();
