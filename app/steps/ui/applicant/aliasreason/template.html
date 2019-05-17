@@ -35,27 +35,27 @@
         errorMessage: fields.aliasReason.errorMessage,
         items: [
             {
-                value: content['optionMarriage'],
-                text: content['optionMarriage'] | safe,
-                checked: true if fields.aliasReason.value == content['optionMarriage'] | escape
+                value: content["optionMarriage"],
+                text: content["optionMarriage"] | safe,
+                checked: true if fields.aliasReason.value == content["optionMarriage"] | escape
             },
             {
-                value: content['optionDivorce'],
-                text: content['optionDivorce'] | safe,
-                checked: true if fields.aliasReason.value == content['optionDivorce'] | escape
+                value: content["optionDivorce"],
+                text: content["optionDivorce"] | safe,
+                checked: true if fields.aliasReason.value == content["optionDivorce"] | escape
             },
             {
-                value: content['optionDeedPoll'],
-                text: content['optionDeedPoll'] | safe,
-                checked: true if fields.aliasReason.value == content['optionDeedPoll'] | escape
+                value: content["optionDeedPoll"],
+                text: content["optionDeedPoll"] | safe,
+                checked: true if fields.aliasReason.value == content["optionDeedPoll"] | escape
             },
             {
-                value: content['optionOther'],
-                text: content['optionOther'] | safe,
+                value: content["optionOther"],
+                text: content["optionOther"] | safe,
                 conditional: {
                     html: otherHtml
                 },
-                checked: true if fields.aliasReason.value == content['optionOther'] | escape
+                checked: true if fields.aliasReason.value == content["optionOther"] | escape
             }
         ]
     }) }}

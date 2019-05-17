@@ -3,7 +3,7 @@
 {% from "radios/macro.njk" import govukRadios %}
 {% from "button/macro.njk" import govukButton %}
 
-{% set displaySignOutLink = 'false' %}
+{% set displaySignOutLink = "false" %}
 
 {% block form_content %}
     {{ govukRadios({
@@ -23,14 +23,14 @@
         errorMessage: fields.otherApplicants.errorMessage,
         items: [
             {
-                value: content['optionYes'],
-                text: content['optionYes'] | safe,
-                checked: true if fields.otherApplicants.value == content['optionYes'] | escape
+                value: content["optionYes"],
+                text: content["optionYes"] | safe,
+                checked: true if fields.otherApplicants.value == content["optionYes"] | escape
             },
             {
-                value: content['optionNo'],
-                text: content['optionNo'] | safe,
-                checked: true if fields.otherApplicants.value == content['optionNo'] | escape
+                value: content["optionNo"],
+                text: content["optionNo"] | safe,
+                checked: true if fields.otherApplicants.value == content["optionNo"] | escape
             }
         ]
     }) }}

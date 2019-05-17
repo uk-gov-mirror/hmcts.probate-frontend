@@ -10,7 +10,7 @@
         name: "nameAsOnTheWill",
         fieldset: {
             legend: {
-                text: (content.questionWithCodicil if fields.codicilPresent.value === "true" else content.question) | replace('{applicantName}', fields.firstName.value +' '+ fields.lastName.value) | safe,
+                text: (content.questionWithCodicil if fields.codicilPresent.value === "true" else content.question) | replace("{applicantName}", fields.firstName.value +" "+ fields.lastName.value) | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
@@ -18,14 +18,14 @@
         errorMessage: fields.nameAsOnTheWill.errorMessage,
         items: [
             {
-                value: content['optionYes'],
-                text: content['optionYes'] | safe,
-                checked: true if fields.nameAsOnTheWill.value == content['optionYes'] | escape
+                value: content["optionYes"],
+                text: content["optionYes"] | safe,
+                checked: true if fields.nameAsOnTheWill.value == content["optionYes"] | escape
             },
             {
-                value: content['optionNo'],
-                text: content['optionNo'] | safe,
-                checked: true if fields.nameAsOnTheWill.value == content['optionNo'] | escape
+                value: content["optionNo"],
+                text: content["optionNo"] | safe,
+                checked: true if fields.nameAsOnTheWill.value == content["optionNo"] | escape
             }
         ]
     }) }}
