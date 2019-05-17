@@ -10,11 +10,11 @@ class LegalDocumentJSONObjectBuilder {
         const legalDeclaration = {};
         legalDeclaration.headers = [];
         legalDeclaration.sections = [];
-        const pageSections = $('.declaration-header, .declaration-subheader, .declaration-item, .govuk-list--bullet');
+        const pageSections = $('.declaration-header-item, .declaration-subheader, .declaration-item, .govuk-list--bullet');
 
         for (const sectElement of pageSections) {
             const $element = $(sectElement);
-            if ($element.hasClass('declaration-header')) {
+            if ($element.hasClass('declaration-header-item')) {
                 legalDeclaration.headers.push($element.html());
             } else if ($element.hasClass('declaration-subheader')) {
                 const section = buildSection($element);

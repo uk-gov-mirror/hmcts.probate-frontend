@@ -37,7 +37,7 @@
 <div id="global-header-bar"></div>
 <main id="content" role="main">
     <div class="phase-banner-beta">
-        <p>
+        <p class="govuk-body">
             <strong class="phase-tag">Beta</strong>
             <span>This is a new service – your <a aria-label="Feedback: this link will open in a new tab. You&rsquo;ll need to return to this tab to continue with your application." href="https://www.smartsurvey.co.uk/?pageurl=/declaration" target="_blank" rel="external noopener">feedback</a> will help us to improve it.</span>
         </p>
@@ -47,38 +47,40 @@
             <h1 class="form-title govuk-heading-l">Check the legal statement and make your declaration</h1>
             <form class="form" method="post" action="/declaration" novalidate>
                 <input type="hidden" name="_csrf" value="2z1FpoVq-4sBP_Td3IN7EOL029ZDofC_HAH0">
-                <p>This statement is based on the information you&rsquo;ve given in your application. It will be stored as a public record.</p>
+                <p class="govuk-body">This statement is based on the information you&rsquo;ve given in your application. It will be stored as a public record.</p>
                 <div class="declaration-wrapper">
                     <div class="inset-page declaration-grid-item">
-                        <div class="govuk-heading-m declaration-header">In the High Court of Justice</div>
-                        <div class="govuk-heading-s declaration-header">Family Division</div>
-                        <div class="govuk-heading-s declaration-header">(Probate)</div>
+                        <div class="declaration-header">
+                            <div class="govuk-heading-m declaration-header-item">In the High Court of Justice</div>
+                            <div class="govuk-heading-s declaration-header-item">Family Division</div>
+                            <div class="govuk-heading-s declaration-header-item">(Probate)</div>
+                        </div>
                         <h2 class="govuk-heading-m declaration-subheader">Legal statement</h2>
-                        <p class="declaration-item">I, Jason Smith of An address
+                        <p class="govuk-body declaration-item">I, Jason Smith of An address
                             somewhere in
                             england
                             postcode, make the following statement:</p>
                         <h3 class="govuk-heading-s declaration-subheader">The person who died</h3>
-                        <p class="declaration-item">Mike  Samuels was born on 1 January 1964 and died on 20 October 2018, domiciled in England and Wales. </p>
+                        <p class="govuk-body declaration-item">Mike  Samuels was born on 1 January 1964 and died on 20 October 2018, domiciled in England and Wales. </p>
                         <h3 class="govuk-heading-s declaration-subheader">The estate of the person who died</h3>
-                        <p class="declaration-item">The gross value for the estate amounts to &pound;10000 and the net value for the estate amounts to &pound;10000.</p>
-                        <p class="declaration-item">To the best of my knowledge, information and belief, there was no land vested in Mike  Samuels which was settled previously to the death (and not by the will) of Mike  Samuels and which remained settled land notwithstanding such death.</p>
+                        <p class="govuk-body declaration-item">The gross value for the estate amounts to &pound;10000 and the net value for the estate amounts to &pound;10000.</p>
+                        <p class="govuk-body declaration-item">To the best of my knowledge, information and belief, there was no land vested in Mike  Samuels which was settled previously to the death (and not by the will) of Mike  Samuels and which remained settled land notwithstanding such death.</p>
                         <h3 class="govuk-heading-s declaration-subheader">Executors applying for probate</h3>
-                        <p class="declaration-item">I am an executor named in the will as Jason Smith, and I am applying for probate.</p>
-                        <p class="declaration-item">I will send to the probate registry what I believe to be the true and original last will and testament of Mike  Samuels.</p>
+                        <p class="govuk-body declaration-item">I am an executor named in the will as Jason Smith, and I am applying for probate.</p>
+                        <p class="govuk-body declaration-item">I will send to the probate registry what I believe to be the true and original last will and testament of Mike  Samuels.</p>
                         <h2 class="govuk-heading-l declaration-subheader">Declaration</h2>
-                        <p class="declaration-item">I confirm that I will administer the estate of Mike  Samuels, according to law. I will:</p>
+                        <p class="govuk-body declaration-item">I confirm that I will administer the estate of Mike  Samuels, according to law. I will:</p>
                         <ul class="govuk-list govuk-list--bullet">
                             <li>collect the whole estate</li>
                             <li>keep full details (an inventory) of the estate</li>
                             <li>keep a full account of how the estate has been administered</li>
                         </ul>
-                        <p class="declaration-item">If the probate registry (court) asks me to do so, I will:</p>
+                        <p class="govuk-body declaration-item">If the probate registry (court) asks me to do so, I will:</p>
                         <ul class="govuk-list govuk-list--bullet">
                             <li>provide the full details of the estate and how it has been administered</li>
                             <li>return the grant of probate to the court</li>
                         </ul>
-                        <p class="declaration-item">I understand that:</p>
+                        <p class="govuk-body declaration-item">I understand that:</p>
                         <ul class="govuk-list govuk-list--bullet">
                             <li>my application will be rejected if I do not answer any questions about the information I have given</li>
                             <li>criminal proceedings for fraud may be brought against me if I am found to have been deliberately untruthful or dishonest</li>
@@ -86,7 +88,7 @@
                     </div>
                     <div class="declaration-grid-item">
                         <h2 class="govuk-heading-m">Save this page</h2>
-                        <p>
+                        <p class="govuk-body">
                             <i class="icon icon-file-download"></i>&nbsp;
                             <a id="declarationPdfHref" href="/declaration-pdf">Legal declaration (8kb PDF)</a>
                         </p>
@@ -102,19 +104,19 @@
                 </fieldset>
                 <div class="notice">
                     <em class="icon icon-important"><span class="govuk-visually-hidden">Warning</span></em>
-                    <p>Once you click &lsquo;Save and continue&rsquo;, you cannot change your answers.</p>
+                    <p class="govuk-body">Once you click &lsquo;Save and continue&rsquo;, you cannot change your answers.</p>
                 </div>
                 <div class="govuk-form-group">
                     <input class="button" type="submit" id="acceptAndSend" value="Save and continue">
                 </div>
             </form>
-            <p><a href="/sign-out">Save and close</a></p>
+            <p class="govuk-body"><a href="/sign-out">Save and close</a></p>
             <details class="help-panel help-details">
                 <summary><span class="summary help-details-summary">Do you need help?</span></summary>
                 <div class="panel panel-border-narrow">
-                    <p>You can call or email us if you&rsquo;re having problems with this service.</p>
-                    <p>Phone: 0300 303 0648 (Monday to Friday, 9am to 5pm)</p>
-                    <p>Email: <a href="mailto:oxforddprenquiries@hmcts.gsi.gov.uk">oxforddprenquiries@hmcts.gsi.gov.uk</a></p>
+                    <p class="govuk-body">You can call or email us if you&rsquo;re having problems with this service.</p>
+                    <p class="govuk-body">Phone: 0300 303 0648 (Monday to Friday, 9am to 5pm)</p>
+                    <p class="govuk-body">Email: <a href="mailto:oxforddprenquiries@hmcts.gsi.gov.uk">oxforddprenquiries@hmcts.gsi.gov.uk</a></p>
                 </div>
             </details>
         </div>

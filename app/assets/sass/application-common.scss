@@ -28,13 +28,13 @@
 }
 
 .inset-page {
-  border-width: em(3);
+  border-width: 3px;
   border-style: solid;
   background-color: govuk-colour("grey-4");
   border-color: govuk-colour("grey-2");
   margin: 0 0 30px 0;
-  padding: em(50);
-  padding-top: em(35);
+  padding: govuk-spacing(8);
+  padding-top: govuk-spacing(7);
 }
 
 .save-this-page-link {
