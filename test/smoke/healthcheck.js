@@ -10,6 +10,9 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const healthcheckRequest = (url, cb) => {
     return request
         .get(`${url}/health`)
+        .timeout({
+            response: 5000
+        })
         .end((err, res) => {
             if (err) {
                 throw err;
