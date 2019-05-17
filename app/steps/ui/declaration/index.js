@@ -55,6 +55,8 @@ class Declaration extends ValidationStep {
         const deceasedOtherNames = FormatName.formatMultipleNamesAndAddress(get(deceased, 'otherNames'), content);
         const hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants();
         const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
+        const ihtGrossValue = (iht && iht.grossValue) ? iht.grossValue.toFixed(2) : 0;
+        const ihtNetValue = (iht && iht.netValue) ? iht.netValue.toFixed(2) : 0;
         const legalStatement = {
             intro: content[`intro${multipleApplicantSuffix}`]
                 .replace('{applicantName}', applicantName),
@@ -70,8 +72,8 @@ class Declaration extends ValidationStep {
             deceasedOtherNames: deceasedOtherNames ? content.deceasedOtherNames.replace('{deceasedOtherNames}', deceasedOtherNames) : '',
             executorsApplying: this.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, deceasedName, applicantName),
             deceasedEstateValue: content.deceasedEstateValue
-                .replace('{ihtGrossValue}', iht.grossValue.toFixed(2))
-                .replace('{ihtNetValue}', iht.netValue.toFixed(2)),
+                .replace('{ihtGrossValue}', ihtGrossValue)
+                .replace('{ihtNetValue}', ihtNetValue),
             deceasedEstateLand: content[`deceasedEstateLand${multipleApplicantSuffix}`]
                 .replace(/{deceasedName}/g, deceasedName),
             executorsNotApplying: this.executorsNotApplying(executorsNotApplying, content, deceasedName, hasCodicils)
