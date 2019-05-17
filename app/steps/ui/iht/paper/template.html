@@ -111,26 +111,26 @@
             {
                 value: "IHT205",
                 text: content["optionIHT205"] | safe,
+                checked: true if fields.form.value == "IHT205" | escape,
                 conditional: {
                     html: iht205html
-                },
-                checked: true if fields.form.value == "IHT205" | escape
+                }
             },
             {
                 value: "IHT207",
                 text: content["optionIHT207"] | safe,
+                checked: true if fields.form.value == "IHT207" | escape,
                 conditional: {
                     html: iht207html
-                },
-                checked: true if fields.form.value == "IHT207" | escape
+                }
             },
             {
                 value: "IHT400421",
                 text: content["optionIHT400421"] | safe,
+                checked: true if fields.form.value == "IHT400421" | escape,
                 conditional: {
                     html: iht400421html
-                },
-                checked: true if fields.form.value == "IHT400421" | escape
+                }
             }
         ]
     }) }}

@@ -29,10 +29,10 @@
             {
                 value: content["optionNo"],
                 text: content["optionNo"] | safe,
+                checked: true if fields.executorNotified.value == content["optionNo"] | escape,
                 conditional: {
                     html: notNotifiedtml
-                },
-                checked: true if fields.executorNotified.value == content["optionNo"] | escape
+                }
             }
         ]
     }) }}

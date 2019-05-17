@@ -52,10 +52,10 @@
             {
                 value: content["optionOther"],
                 text: content["optionOther"] | safe,
+                checked: true if fields.aliasReason.value == content["optionOther"] | escape,
                 conditional: {
                     html: otherHtml
-                },
-                checked: true if fields.aliasReason.value == content["optionOther"] | escape
+                }
             }
         ]
     }) }}
