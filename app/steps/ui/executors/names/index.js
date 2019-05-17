@@ -27,7 +27,7 @@ class ExecutorsNames extends ValidationStep {
     }
 
     createExecutorFullNameArray(ctx) {
-        ctx.executorName=[];
+        ctx.executorName = [];
         forEach(ctx.list, (executor) => {
             if (executor && 'fullName' in executor) {
                 ctx.executorName.push(executor.fullName);
