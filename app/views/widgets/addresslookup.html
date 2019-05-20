@@ -10,7 +10,7 @@
         <input type="text" class="govuk-input govuk-!-width-one-quarter {{ "govuk-input--error" if fields.postcode.error }}" id="postcode" name="postcode" value="{{ fields.postcode.value }}">
         <input type="hidden" id="referrer" name="referrer" value="{{ step }}">
         <input type="submit" data-prevent-double-click="true" {% if fields.addresses %}autofocus="autofocus"{% endif %} class="govuk-button govuk-button--secondary find-address-button" formaction="/find-address" name="findaddress" value="{{ content.findAddress }}">
-        <input type="hidden" id="addressFound" name="addressFound" value="{{ fields.addressFound.value if fields.addressFound else 'none' }}">
+        <input type="hidden" id="addressFound" name="addressFound" value="{{ fields.addressFound.value if fields.addressFound else "none" }}">
     </div>
 
     {% if fields.addresses %}
@@ -30,7 +30,7 @@
         if (document.getElementById('postcodeAddress')) {
             const addresses = [
                 {% for address in fields.addresses.value %}
-                    {% set formattedAddress = address.formatted_address | replace('\n', '###') %}
+                    {% set formattedAddress = address.formatted_address | replace("\n", "###") %}
                     '{{ formattedAddress }}',
                 {% endfor %}
             ];

@@ -7,7 +7,7 @@
 {% block form_content %}
     {% call govukFieldset({
         legend: {
-            text: content.question | replace('{executorName}', fields.otherExecName.value) | safe,
+            text: content.question | replace("{executorName}", fields.otherExecName.value) | safe,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
@@ -25,7 +25,7 @@
             attributes: {
                 maxlength: 320
             },
-            classes: 'govuk-!-width-three-quarters'
+            classes: "govuk-!-width-three-quarters"
         }) }}
 
         <p class="govuk-hint">{{ content.mobileHint | safe }}</p>
@@ -41,7 +41,7 @@
             attributes: {
                 maxlength: 25
             },
-            classes: 'govuk-!-width-three-quarters'
+            classes: "govuk-!-width-three-quarters"
         }) }}
     {% endcall %}
 

@@ -4,7 +4,7 @@
 {% from "inset-text/macro.njk" import govukInsetText %}
 {% from "button/macro.njk" import govukButton %}
 
-{% set serviceName = '' %}
+{% set serviceName = "" %}
 
 {% block content %}
     <div class="govuk-grid-row">
@@ -14,7 +14,7 @@
             <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
 
             {{ govukInsetText({
-                text: content.paragraph2 | replace('{applicationFormPA1P}', links.applicationFormPA1P) | replace('{applicationFormPA1A}', links.applicationFormPA1A) | safe
+                text: content.paragraph2 | replace("{applicationFormPA1P}", links.applicationFormPA1P) | replace("{applicationFormPA1A}", links.applicationFormPA1A) | safe
             }) }}
 
             <h2 class="govuk-heading-m">
@@ -28,14 +28,14 @@
                 {{ content.feesHeader | safe }}
             </h2>
 
-            {% if fields.isFeesApiToggleEnabled.value === 'true' %}
+            {% if fields.isFeesApiToggleEnabled.value === "true" %}
                 <p class="govuk-body">{{ content.paragraph7 | safe }}</p>
                 {{ govukTable({
-                    caption: content.________________________,
-                    captionClasses: 'govuk-visually-hidden',
+                    caption: content.tableHeadLeft | safe,
+                    captionClasses: "govuk-visually-hidden",
                     head: [
                         { text: content.tableHeadLeft | safe },
-                        { text: content.content.tableHeadRight | safe }
+                        { text: content.tableHeadRight | safe, format: "numeric" }
                     ],
                     rows: [
                         [

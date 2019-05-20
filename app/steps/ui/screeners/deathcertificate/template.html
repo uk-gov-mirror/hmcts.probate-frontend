@@ -18,19 +18,19 @@
             }
         },
         hint: {
-            text: content.hintText | replace('{deathReportedToCoroner}', links.deathReportedToCoroner) | safe
+            text: content.hintText | replace("{deathReportedToCoroner}", links.deathReportedToCoroner) | safe
         },
         errorMessage: fields.deathCertificate.errorMessage,
         items: [
             {
                 value: content["optionYes"],
                 text: content["optionYes"] | safe,
-                checked: true if fields.deathCertificate.value == content["optionYes"] | escape
+                checked: true if fields.deathCertificate.value === content["optionYes"] | escape
             },
             {
                 value: content["optionNo"],
                 text: content["optionNo"] | safe,
-                checked: true if fields.deathCertificate.value == content["optionNo"] | escape
+                checked: true if fields.deathCertificate.value === content["optionNo"] | escape
             }
         ]
     }) }}

@@ -29,7 +29,7 @@
             <h3 class="govuk-heading-s declaration-subheader">{{ content.executorApplyingHeader }}</h3>
             {% for executor in fields.legalStatement.value.executorsApplying %}
                 <p class="govuk-body declaration-item">{{ executor.name | safe }}</p>
-                {% if executor.sign !== '' %}
+                {% if executor.sign !== "" %}
                     <p class="govuk-body declaration-item">{{ executor.sign | safe }}</p>
                 {% endif %}
             {% endfor %}

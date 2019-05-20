@@ -8,7 +8,7 @@
 {% block form_content %}
     {% call govukFieldset({
         legend: {
-            text: content.question | replace('{executorName}', fields.otherExecName.value) | safe,
+            text: content.question | replace("{executorName}", fields.otherExecName.value) | safe,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
@@ -17,7 +17,7 @@
         {{ addressFinder(
             fields,
             content,
-            'ExecutorAddress'
+            "ExecutorAddress"
         ) }}
 
         <details class="govuk-details" id="details-panel" {{ "open" if fields.addressLine1 }}>
@@ -36,7 +36,7 @@
                     attributes: {
                         maxlength: 150
                     },
-                    classes: 'govuk-!-width-three-quarters'
+                    classes: "govuk-!-width-three-quarters"
                 }) }}
                 {{ govukInput({
                     id: "addressLine2",
@@ -45,7 +45,7 @@
                     attributes: {
                         maxlength: 50
                     },
-                    classes: 'govuk-!-width-three-quarters'
+                    classes: "govuk-!-width-three-quarters"
                 }) }}
                 {{ govukInput({
                     id: "addressLine3",
@@ -54,7 +54,7 @@
                     attributes: {
                         maxlength: 50
                     },
-                    classes: 'govuk-!-width-three-quarters'
+                    classes: "govuk-!-width-three-quarters"
                 }) }}
                 {{ govukInput({
                     label: {
@@ -67,7 +67,7 @@
                     attributes: {
                         maxlength: 50
                     },
-                    classes: 'govuk-!-width-three-quarters'
+                    classes: "govuk-!-width-three-quarters"
                 }) }}
                 {{ govukInput({
                     label: {
@@ -80,7 +80,7 @@
                     attributes: {
                         maxlength: 14
                     },
-                    classes: 'govuk-!-width-one-quarter'
+                    classes: "govuk-!-width-one-quarter"
                 }) }}
                 {{ govukInput({
                     label: {
@@ -92,7 +92,7 @@
                     attributes: {
                         maxlength: 50
                     },
-                    classes: 'govuk-!-width-three-quarters'
+                    classes: "govuk-!-width-three-quarters"
                 }) }}
             </div>
         </details>
