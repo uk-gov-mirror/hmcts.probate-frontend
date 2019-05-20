@@ -8,7 +8,7 @@
             <p><a href="{{ nextURL }}" class="govuk-button">{{ content.taskStarted }}</a></p>
         {% elif status === 'complete' %}
             <!-- Check your answers -->
-            {% if alreadyDeclared === 'false' %}
+            {% if alreadyDeclared === "false" %}
                 <p class="govuk-body"><a href="{{ checkYourAnswersURL }}">{{ content.checkYourAnswers }} <span class="govuk-visually-hidden">{{ title }}</span></a></p>
             {% else %}
                 <p class="govuk-body">{{ content.alreadyDeclared }}</p>
