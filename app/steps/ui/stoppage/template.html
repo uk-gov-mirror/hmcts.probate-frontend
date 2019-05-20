@@ -4,13 +4,17 @@
 {% set tempContent = content[fields.stopReason.value] %}
 
 {% block content %}
-    <h1 class="govuk-heading-l">{{ content.header | safe }}</h1>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">{{ content.header | safe }}</h1>
 
-    {% for placeholder in fields.linkPlaceholders.value %}
-        {% set tempContent = tempContent | replace('{' + placeholder + '}', links[placeholder]) %}
-    {% endfor %}
+            {% for placeholder in fields.linkPlaceholders.value %}
+                {% set tempContent = tempContent | replace('{' + placeholder + '}', links[placeholder]) %}
+            {% endfor %}
 
-    <p class="govuk-body">{{ tempContent | safe }}</p>
+            <p class="govuk-body">{{ tempContent | safe }}</p>
 
-    {% include "includes/help_details.html" %}
+            {% include "includes/help_details.html" %}
+        </div>
+    </div>
 {% endblock %}
