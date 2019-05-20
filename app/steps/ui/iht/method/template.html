@@ -22,12 +22,12 @@
             {
                 value: content["optionPaper"],
                 text: content["optionPaper"] | safe,
-                checked: true if fields.method.value === content["optionPaper"] | escape
+                checked: true if fields.method.value == content["optionPaper"] | escape
             },
             {
                 value: content["optionOnline"],
                 text: content["optionOnline"] | safe,
-                checked: true if fields.method.value === content["optionOnline"] | escape
+                checked: true if fields.method.value == content["optionOnline"] | escape
             }
         ]
     }) }}

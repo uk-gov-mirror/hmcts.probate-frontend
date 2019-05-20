@@ -3,7 +3,7 @@
 <script src="/public/javascripts/govuk-frontend/all.js"></script>
 <script nonce="{{ nonce }}">window.GOVUKFrontend.initAll()</script>
 
-{% if enableTracking === "true" %}
+{% if enableTracking == "true" %}
     <script nonce="{{ nonce }}">
         var gatrackingid = "{{ gaTrackingId }}";
     </script>

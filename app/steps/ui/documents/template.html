@@ -5,24 +5,24 @@
 {% from "widgets/lists.html" import unorderedList %}
 {% from "widgets/checkboxes.html" import checkbox %}
 
-{% if fields.isDocumentUploadToggleEnabled.value === "true" %}
+{% if fields.isDocumentUploadToggleEnabled.value == "true" %}
     {% set checklistOneItems = [] %}
     {% set codicilsSuffix = "" %}
 
-    {% if fields.hasCodicils.value === "true" and fields.codicilsNumber.value > "0" %}
+    {% if fields.hasCodicils.value == "true" and fields.codicilsNumber.value > "0" %}
         {% set checklistOneItems = (checklistOneItems.push(content["checklist1-item1-codicils"]), checklistOneItems) %}
         {% set codicilsSuffix = "-codicils" %}
     {% else %}
         {% set checklistOneItems = (checklistOneItems.push(content["checklist1-item1-no-codicils"]), checklistOneItems) %}
     {% endif %}
 
-    {% if fields.uploads.value | length === 0 %}
+    {% if fields.uploads.value | length == 0 %}
         {% set checklistOneItems = (checklistOneItems.push(content["checklist2-item3-will-uploaded"]), checklistOneItems) %}
     {% endif %}
-    {% if (fields.is205.value === "true") %}
+    {% if (fields.is205.value == "true") %}
         {% set checklistOneItems = (checklistOneItems.push(content["checklist2-item4-iht205"]), checklistOneItems) %}
     {% endif %}
-    {% if fields.hasRenunciated.value === "true" %}
+    {% if fields.hasRenunciated.value == "true" %}
         {% set checklistOneItems = (checklistOneItems.push(content["checklist2-item5-renunciated"] | replace("{renunciationFormLink}", links.renunciationForm)), checklistOneItems) %}
     {% endif %}
     {% if fields.executorsNameChangedByDeedPollList.value | length > 0 %}
@@ -44,11 +44,11 @@
 
     {% set checklistThreeItems = [content["old_checklist3-item1" + codicilsSuffix], content["old_checklist3-item2"]] %}
 
-    {% if fields.hasRenunciated.value === "true" %}
+    {% if fields.hasRenunciated.value == "true" %}
         {% set checklistThreeItems = (checklistThreeItems.push(content["old_checklist3-item3"] | replace("{renunciationFormLink}", links.renunciationForm)), checklistThreeItems) %}
     {% endif %}
 
-    {% if (fields.is205.value === "true") %}
+    {% if (fields.is205.value == "true") %}
         {% set checklistThreeItems = (checklistThreeItems.push(content["old_checklist3-item4-Form205"]), checklistThreeItems) %}
     {% endif %}
 
@@ -62,12 +62,12 @@
 {% block form_content %}
     {% call govukFieldset({
         legend: {
-            text: (content.header if fields.isDocumentUploadToggleEnabled.value === "true" else content.old_header) | safe,
+            text: (content.header if fields.isDocumentUploadToggleEnabled.value == "true" else content.old_header) | safe,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
     }) %}
-        {% if fields.isDocumentUploadToggleEnabled.value === "true" %}
+        {% if fields.isDocumentUploadToggleEnabled.value == "true" %}
             <h2 class="govuk-heading-m">{{ content.heading1 | safe }}</h2>
             <p class="govuk-body">{{ content.coverSheetDownloadMessage }} <a class="govuk-link" id="coverSheetPdfHref" href="/cover-sheet-pdf">{{ content.coverSheetPdf }}</a>.</p>
             {% if fields.ccdReferenceNumber.value !== "" %}
@@ -98,7 +98,7 @@
 
             {{ unorderedList(checklistOneItems) }}
 
-            {% if fields.hasMultipleApplicants.value === "true" %}
+            {% if fields.hasMultipleApplicants.value == "true" %}
                 <h3 class="govuk-heading-s">{{ content.old_checklist2Header | safe }}</h3>
                 {{ unorderedList(checklistTwoItems) }}
                 {% set checklistThreeHeaderNumber = content.old_checklist3HeaderNumberMultipleExecutors %}

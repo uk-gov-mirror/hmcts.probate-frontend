@@ -2,7 +2,7 @@
     <h2 class="task-list-section">
         <span class="task-list-section-number">{{ number }}</span> {{ title }}
     </h2>
-    {% if status === 'complete' %}
+    {% if status == 'complete' %}
         <span class="govuk-tag task-completed">{{ content.taskComplete }}</span>
     {% else %}
         {% if (status !== 'started' ) and (previousTaskStatus !== 'complete') %}

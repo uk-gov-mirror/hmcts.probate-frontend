@@ -23,12 +23,12 @@
             {
                 value: content["optionRenouncing"],
                 text: content["optionRenouncing"] | safe,
-                checked: true if fields.spouseNotApplyingReason.value === content["optionRenouncing"] | escape
+                checked: true if fields.spouseNotApplyingReason.value == content["optionRenouncing"] | escape
             },
             {
                 value: content["optionOther"],
                 text: content["optionOther"] | safe,
-                checked: true if fields.spouseNotApplyingReason.value === content["optionOther"] | escape
+                checked: true if fields.spouseNotApplyingReason.value == content["optionOther"] | escape
             }
         ]
     }) }}

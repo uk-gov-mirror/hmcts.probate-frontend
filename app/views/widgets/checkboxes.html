@@ -7,7 +7,7 @@
         {{ fieldError(field) }}
 
         <div class="multiple-choice">
-            <input id="{{ name }}" type="checkbox" name="{{ name }}" value="true" {{ "checked='checked'" if field.value === 'true' }}>
+            <input id="{{ name }}" type="checkbox" name="{{ name }}" value="true" {{ "checked='checked'" if field.value == 'true' }}>
             <label for="{{ name }}">{{ text | safe }}</label>
         </div>
     </fieldset>

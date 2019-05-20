@@ -19,12 +19,12 @@
             {
                 value: content["optionPowerReserved"],
                 text: content["optionPowerReserved"] | safe,
-                checked: true if fields.notApplyingReason.value === content["optionPowerReserved"] | escape
+                checked: true if fields.notApplyingReason.value == content["optionPowerReserved"] | escape
             },
             {
                 value: content["optionRenunciated"],
                 text: content["optionRenunciated"] | safe,
-                checked: true if fields.notApplyingReason.value === content["optionRenunciated"] | escape
+                checked: true if fields.notApplyingReason.value == content["optionRenunciated"] | escape
             }
         ]
     }) }}

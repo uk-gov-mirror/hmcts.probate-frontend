@@ -9,7 +9,7 @@
         {% for option in options %}
             <div class="multiple-choice" data-target="{{ name }}-{{ loop.index }}-details">
                 <input id="{{ name }}-{{ option }}" type="radio" name="{{ name }}"
-                       value="{{ content[option] }}" {{ "checked='checked'" if field.value === content[option] | escape }}>
+                       value="{{ content[option] }}" {{ "checked='checked'" if field.value == content[option] | escape }}>
                 <label for="{{ name }}-{{ option }}">{{ content[option] | safe }}</label>
             </div>
         {% endfor %}
@@ -26,7 +26,7 @@
         {% for option in options %}
             <div class="multiple-choice" data-target="{{ name }}-{{ loop.index }}-details">
                 <input id="{{ name }}-{{ option }}" type="radio" name="{{ name }}"
-                       value="{{ content[option] }}" {{ "checked='checked'" if field.value === content[option] }}>
+                       value="{{ content[option] }}" {{ "checked='checked'" if field.value == content[option] }}>
                 <label for="{{ name }}-{{ option }}">{{ content[option] | safe }}</label>
             </div>
         {% endfor %}
@@ -43,7 +43,7 @@
         {% for option in options %}
             <div class="multiple-choice" data-target="{{ name }}-{{ loop.index }}-details">
                 <input id="{{ option }}" type="radio" name="{{ name }}"
-                       value="{{ content[option] }}" {{ "checked='checked'" if field.value === content[option] | escape }}>
+                       value="{{ content[option] }}" {{ "checked='checked'" if field.value == content[option] | escape }}>
                 <label for="{{ option }}">{{ content[option] | safe }}</label>
             </div>
         {% endfor %}

@@ -36,7 +36,7 @@
     <div class="document-upload__preview" id="uploaded-files">
         <h2 class="govuk-heading-m">{{ common.documentUploadPreviewTitle }}</h2>
 
-        {% if (fields.uploadedDocuments.value === undefined or fields.uploadedDocuments.value.length === 0) %}
+        {% if (fields.uploadedDocuments.value == undefined or fields.uploadedDocuments.value.length == 0) %}
             <p class="govuk-body document-upload__empty-list-text">{{ common.documentUploadEmptyList }}</p>
         {% endif %}
 

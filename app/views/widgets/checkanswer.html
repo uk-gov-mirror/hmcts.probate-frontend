@@ -18,7 +18,7 @@
                         <dd class="govuk-summary-list__value">{{ item.answer | safe }}</dd>
                     {% endif %}
                     <dd class="govuk-summary-list__actions">
-                        {% if alreadyDeclared === "false" %}
+                        {% if alreadyDeclared == "false" %}
                             {% set actionLink = common.change if complete else common.answer %}
                             <a class="govuk-link" href="{{ url }}">{{ actionLink }}</a>
                         {% endif %}

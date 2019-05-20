@@ -25,12 +25,12 @@
             {
                 value: content["optionYes"],
                 text: content["optionYes"] | safe,
-                checked: true if fields.related.value === content["optionYes"] | escape
+                checked: true if fields.related.value == content["optionYes"] | escape
             },
             {
                 value: content["optionNo"],
                 text: content["optionNo"] | safe,
-                checked: true if fields.related.value === content["optionNo"] | escape
+                checked: true if fields.related.value == content["optionNo"] | escape
             }
         ]
     }) }}

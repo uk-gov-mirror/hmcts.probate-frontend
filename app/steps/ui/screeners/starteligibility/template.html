@@ -29,7 +29,7 @@
                 {{ content.feesHeader | safe }}
             </h2>
 
-            {% if fields.isFeesApiToggleEnabled.value === "true" %}
+            {% if fields.isFeesApiToggleEnabled.value == "true" %}
                 <p class="govuk-body">{{ content.paragraph7 | safe }}</p>
                 {{ govukTable({
                     caption: content.tableHeadLeft | safe,
