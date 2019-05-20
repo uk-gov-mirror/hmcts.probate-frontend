@@ -3,7 +3,7 @@
 {% from "fieldset/macro.njk" import govukFieldset %}
 {% from "button/macro.njk" import govukButton %}
 
-{% block content %}
+{% block form_content %}
     {% call govukFieldset({
         legend: {
             text: content.pageHeader | safe,
