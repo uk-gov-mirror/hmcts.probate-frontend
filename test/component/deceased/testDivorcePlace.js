@@ -68,7 +68,7 @@ describe('divorce-place', () => {
                 .end(() => {
                     const replacementData = {
                         '{legalProcess}': 'divorce'
-                    }
+                    };
                     testWrapper.testErrors(done, replacementData, 'required', []);
                 });
         });
