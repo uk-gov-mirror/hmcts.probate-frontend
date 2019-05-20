@@ -16,7 +16,8 @@
 
         {{ govukInput({
             label: {
-                text: content.identifier
+                text: content.question,
+                classes: "govuk-visually-hidden"
             },
             id: "identifier",
             name: "identifier",
