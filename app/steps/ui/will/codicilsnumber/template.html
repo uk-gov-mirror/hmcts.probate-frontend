@@ -4,10 +4,6 @@
 {% from "input/macro.njk" import govukInput %}
 {% from "button/macro.njk" import govukButton %}
 
-{% block question %}
-    <h1 class="form-title govuk-heading-l">{{ content.question | safe }}</h1>
-{% endblock %}
-
 {% block form_content %}
     {% call govukFieldset({
         legend: {
@@ -30,7 +26,6 @@
             classes: 'govuk-input--width-3',
             type: 'number'
         }) }}
-
     {% endcall %}
 
     <div class="govuk-form-group">
