@@ -39,6 +39,10 @@
                     classes: "govuk-!-width-three-quarters"
                 }) }}
                 {{ govukInput({
+                    label: {
+                        html: content.addressLabel2,
+                        classes: "govuk-visually-hidden"
+                    },
                     id: "addressLine2",
                     name: "addressLine2",
                     value: fields.addressLine2.value | safe,
@@ -48,6 +52,10 @@
                     classes: "govuk-!-width-three-quarters"
                 }) }}
                 {{ govukInput({
+                    label: {
+                        html: content.addressLabel3,
+                        classes: "govuk-visually-hidden"
+                    },
                     id: "addressLine3",
                     name: "addressLine3",
                     value: fields.addressLine3.value | safe,
