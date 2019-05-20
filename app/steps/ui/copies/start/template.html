@@ -1,18 +1,26 @@
-{% extends "includes/layout.html" %}
+{% extends "includes/two_thirds_form.html" %}
 
-{% block content %}
-    <main id="content" role="main">
-        {% include "includes/phase_banner_beta.html" %}
+{% from "fieldset/macro.njk" import govukFieldset %}
+{% from "button/macro.njk" import govukButton %}
 
-        <h1 class="form-title govuk-heading-l">{{ content.question }}</h1>
-        <p>{{ content.paragraph1 | safe }}</p>
-        <p>{{ content.paragraph2 | safe }}</p>
-        <p>{{ content.paragraph3 | safe }}</p>
+{% block form_content %}
+    {% call govukFieldset({
+        legend: {
+            text: content.question | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+        <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
+        <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
+        <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
+    {% endcall %}
 
-        <div class="govuk-form-group">
-            <p><a href="/copies-uk" class="button button-start">{{ common.start }}</a></p>
-        </div>
-
-        {% include "includes/help_details.html" %}
-    </main>
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.start,
+            href: "/copies-uk",
+            classes: "govuk-button--start"
+        }) }}
+    </div>
 {% endblock %}
