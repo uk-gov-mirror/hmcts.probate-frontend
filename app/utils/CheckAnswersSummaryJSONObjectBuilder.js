@@ -11,12 +11,12 @@ class CheckAnswersSummaryJSONObjectBuilder {
         summary.sections = [];
         const sections = $('.govuk-heading-l, .govuk-heading-m, .govuk-heading-s, .check-your-answers__row');
         const mainParagraph = $('#main-heading-content');
-        summary.mainParagraph = mainParagraph.html();
+        summary.mainParagraph = mainParagraph.text();
         let section;
         for (const sectElement of sections) {
             const $element = $(sectElement);
             if ($element.hasClass('govuk-heading-l')) {
-                summary.pageTitle = $element.html();
+                summary.pageTitle = $element.text();
             }
             if ($element.hasClass('govuk-heading-m') || $element.hasClass('govuk-heading-s')) {
                 section = buildSection(section, $element, summary);
@@ -34,7 +34,7 @@ function buildQuestionAndAnswers($element, section) {
     const answer = $element.children('.check-your-answers__answer');
     const questionAndAnswer = {};
 
-    questionAndAnswer.question = question.html();
+    questionAndAnswer.question = question.text();
     questionAndAnswer.answers = [];
     const children = answer.children('.check-your-answers__row');
     if (children.length > 0) {
@@ -42,14 +42,14 @@ function buildQuestionAndAnswers($element, section) {
             questionAndAnswer.answers.push(answerChild.textContent);
         }
     } else {
-        questionAndAnswer.answers.push(answer.html());
+        questionAndAnswer.answers.push(answer.text());
     }
     section.questionAndAnswers.push(questionAndAnswer);
 }
 
 function buildSection(section, $element, summary) {
     section = {};
-    section.title = $element.html();
+    section.title = $element.text();
     section.type = $element.attr('class');
     section.questionAndAnswers = [];
     summary.sections.push(section);
