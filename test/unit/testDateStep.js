@@ -94,7 +94,7 @@ describe('DateStep', () => {
                 'dob-day': 15,
                 'dob-month': 13,
                 'dob-year': 1956,
-                'dob-date': null,
+                'dob-date': '',
                 'dod-day': 4,
                 'dod-month': 6,
                 'dod-year': 2018,
