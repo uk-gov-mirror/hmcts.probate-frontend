@@ -97,7 +97,6 @@ describe('payment-breakdown', () => {
                     const data = {};
                     testWrapper.testErrors(done, data, 'failure', ['authorisation']);
                 });
-
         });
     });
 });

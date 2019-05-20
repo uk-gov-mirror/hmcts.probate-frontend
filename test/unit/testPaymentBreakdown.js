@@ -383,7 +383,7 @@ describe('PaymentBreakdown', () => {
                 expect(errors).to.deep.equal([{
                     field: 'authorisation',
                     href: '#authorisation',
-                    text: 'payment.breakdown.errors.authorisation.failure.message'
+                    text: 'We could not take your payment, please try again later.'
                 }]);
                 expect(ctx).to.deep.equal(ctxTestData);
                 revertAuthorise();
