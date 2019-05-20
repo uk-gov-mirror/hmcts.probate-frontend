@@ -16,7 +16,7 @@
 
         {{ govukInput({
             label: {
-                text: content.grossValue
+                text: content.grossValue | safe
             },
             id: "grossValueField",
             name: "grossValueField",
@@ -29,7 +29,7 @@
         }) }}
         {{ govukInput({
             label: {
-                text: content.netValue
+                text: content.netValue | safe
             },
             id: "netValueField",
             name: "netValueField",
