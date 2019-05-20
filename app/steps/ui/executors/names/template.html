@@ -21,7 +21,7 @@
             <h2 class="govuk-heading-s executor-header">{{ content.executor | safe }} {{ loop.index + 1 }}</h2>
             {{ govukInput({
                 label: {
-                    html: content.fullName
+                    text: content.fullName
                 },
                 id: "executorName_" + i,
                 name: "executorName[" + i + "]",

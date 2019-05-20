@@ -21,7 +21,7 @@
 
         {{ govukInput({
             label: {
-                html: (content.copies if fields.isFeesApiToggleEnabled.value === "true" else content.copiesOld)
+                text: (content.copies if fields.isFeesApiToggleEnabled.value === "true" else content.copiesOld)
             },
             id: "overseas",
             name: "overseas",
