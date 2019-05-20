@@ -7,8 +7,6 @@
 {% set title = content.Summary.title %}
 
 {% block content %}
-{#  {% include "includes/error_summary.html" %}#}
-
     <h1 class="govuk-heading-l">{{ content.Summary.heading }}</h1>
     <p class="govuk-body" id="main-heading-content">{{ content.Summary.checkCarefully }}</p>
 
@@ -72,16 +70,14 @@
         {% if fields.summary.readyToDeclare.value === "true" %}
             {{ govukButton({
                 text: common.saveAndContinue,
-                preventDoubleClick: true,
-                classes: "govuk-button--start",
-                href: "/declaration"
+                href: "/declaration",
+                classes: "govuk-button--start"
             }) }}
         {% else %}
             {{ govukButton({
                 text: common.saveAndContinue,
-                preventDoubleClick: true,
-                classes: "govuk-button--start",
-                href: "/summary/redirect"
+                href: "/summary/redirect",
+                classes: "govuk-button--start"
             }) }}
         {% endif %}
     </div>
