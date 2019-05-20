@@ -1,10 +1,10 @@
 {% from "details/macro.njk" import govukDetails %}
 
 {% block help_info %}
-    {% set helpContent = "<h2 class=\"govuk-heading-s\">" + (common.helpHeading1 | safe) + "</h2>" %}
+    {% set helpContent = "<p class=\"govuk-heading-s\">" + (common.helpHeading1 | safe) + "</p>" %}
     {% set helpContent = helpContent + "<p>" + helpline.number | safe + "</p>" %}
     {% set helpContent = helpContent + "<p>" + (common.contactOpeningTimes | replace('{openingTimes}', helpline.hours) | safe) + "</p>" %}
-    {% set helpContent = helpContent + "<h2 class=\"govuk-heading-s\">" + (common.helpHeading2 | safe) + "</h2>" %}
+    {% set helpContent = helpContent + "<p class=\"govuk-heading-s\">" + (common.helpHeading2 | safe) + "</p>" %}
     {% set helpContent = helpContent + "<p>" + (common.helpEmailLabel | replace('{contactEmailAddress}', links.contactEmailAddress) | safe) + "</p>" %}
 
     {{ govukDetails({
