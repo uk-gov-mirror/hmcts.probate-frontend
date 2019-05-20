@@ -61,7 +61,7 @@ describe('deceased-otherNames', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it('test otherNames schema validation when invalid firstname is entered', (done) => {
+        it('test otherNames schema validation when invalid firstName is entered', (done) => {
             const data = {};
             set(data, 'otherNames.name_0.firstName', '<John');
             set(data, 'otherNames.name_0.lastName', 'Doe');
@@ -69,7 +69,7 @@ describe('deceased-otherNames', () => {
             testWrapper.testErrors(done, data, 'invalid', ['firstName']);
         });
 
-        it('test otherNames schema validation when invalid lastname is entered', (done) => {
+        it('test otherNames schema validation when invalid lastName is entered', (done) => {
             const data = {};
             set(data, 'otherNames.name_0.firstName', 'John');
             set(data, 'otherNames.name_0.lastName', '<Doe');
