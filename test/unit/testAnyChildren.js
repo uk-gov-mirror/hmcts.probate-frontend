@@ -36,8 +36,7 @@ describe('AnyChildren', () => {
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const ctx = {};
-            const nextStepOptions = AnyChildren.nextStepOptions(ctx);
+            const nextStepOptions = AnyChildren.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [
                     {key: 'anyChildren', value: content.optionYes, choice: 'hadChildren'},
