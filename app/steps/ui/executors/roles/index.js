@@ -1,6 +1,7 @@
 'use strict';
 
 const CollectionStep = require('app/core/steps/CollectionStep');
+const content = require('app/resources/en/translation/executors/roles');
 const json = require('app/resources/en/translation/executors/roles');
 const {get, isEmpty, every, findKey, findIndex, forEach} = require('lodash');
 const path = '/executor-roles/';
@@ -40,9 +41,9 @@ class ExecutorRoles extends CollectionStep {
             ctx.list[ctx.index] = this.pruneExecutorData(ctx.list[ctx.index]);
             ctx.list[ctx.index].isApplying = false;
             ctx.list[ctx.index].notApplyingReason = ctx.notApplyingReason;
-            ctx.list[ctx.index].notApplyingKey = findKey(json, o => o === ctx.notApplyingReason);
+            ctx.list[ctx.index].notApplyingKey = findKey(content, o => o === ctx.notApplyingReason);
         }
-        if (ctx.notApplyingReason !== json.optionPowerReserved) {
+        if (ctx.notApplyingReason !== content.optionPowerReserved) {
             ctx.index = this.recalcIndex(ctx, ctx.index);
         }
         return [ctx, errors];
@@ -65,8 +66,8 @@ class ExecutorRoles extends CollectionStep {
                 (
                     !isEmpty(exec.notApplyingKey) &&
                     (
-                        (exec.notApplyingKey === 'optionPowerReserved' && !isEmpty(exec.executorNotified)) ||
-                        (exec.notApplyingKey !== 'optionPowerReserved')
+                        (exec.notApplyingReason === content.optionPowerReserved && !isEmpty(exec.executorNotified)) ||
+                        (exec.notApplyingReason !== content.optionPowerReserved)
                     )
                 );
         }), 'inProgress'];
@@ -77,7 +78,7 @@ class ExecutorRoles extends CollectionStep {
 
         return {
             options: [
-                {key: 'notApplyingReason', value: json.optionPowerReserved, choice: 'powerReserved'},
+                {key: 'notApplyingReason', value: content.optionPowerReserved, choice: 'powerReserved'},
                 {key: 'continue', value: true, choice: 'continue'}
             ]
         };

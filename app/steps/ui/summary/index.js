@@ -103,7 +103,6 @@ class Summary extends Step {
         res.req.session.checkAnswersSummary = checkAnswersSummaryJSONObjBuilder.build(html);
         res.send(html);
     }
-
 }
 
 module.exports = Summary;

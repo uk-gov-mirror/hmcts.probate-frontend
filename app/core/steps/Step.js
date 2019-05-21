@@ -150,7 +150,6 @@ class Step {
     renderPage(res, html) {
         res.send(html);
     }
-
 }
 
 module.exports = Step;
