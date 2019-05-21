@@ -45,7 +45,19 @@ const generateErrors = (errs, ctx, formdata, errorPath, lang = 'en') => {
 };
 
 const mapErrorsToFields = (fields, errors = []) => {
-    forEach(errors, (e) => {
+    let err = [];
+
+    if (Array.isArray(errors[0])) {
+        forEach(errors, (error) => {
+            forEach(error[1], (e) => {
+                err.push(e);
+            });
+        });
+    } else {
+        err = errors;
+    }
+
+    forEach(err, (e) => {
         if (!fields[e.field]) {
             fields[e.field] = {};
         }

@@ -5,12 +5,14 @@
 {% block content %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            {% if errors %}
-                {{ govukErrorSummary({
-                    "titleText": common.errorSummaryHeading,
-                    "errorList": errors
-                }) }}
-            {% endif %}
+            {% block error_summary %}
+                {% if errors %}
+                    {{ govukErrorSummary({
+                        "titleText": common.errorSummaryHeading,
+                        "errorList": errors
+                    }) }}
+                {% endif %}
+            {% endblock %}
 
             {% block page_content %}{% endblock %}
 

@@ -6,23 +6,26 @@
 {% from "input/macro.njk" import govukInput %}
 {% from "button/macro.njk" import govukButton %}
 
+{% block error_summary %}
+    {% if errors %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">{{ common.errorSummaryHeading | safe }}</h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    <li>
+                        {% for index, otherNameErrors in errors %}
+                            {% for error in otherNameErrors %}
+                                <li><a href="#otherNames_{{ index }}_{{ error.field }}">{{ error.text | safe }}</a></li>
+                            {% endfor %}
+                        {% endfor %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
 
 {% block form_content %}
-{#    {% if errors %}#}
-{#        <div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1">#}
-{#            <h2 class="govuk-heading-m error-summary-heading" id="error-summary-heading">#}
-{#                {{ common.errorSummaryHeading | safe }}#}
-{#            </h2>#}
-{#            <ul class="error-summary-list">#}
-{#                {% for index, otherNameErrors in errors %}#}
-{#                    {% for error in otherNameErrors %}#}
-{#                        <li><a href="#otherNames_{{ index }}_{{ error.param }}">{{ error.msg.summary | safe }}</a></li>#}
-{#                    {% endfor %}#}
-{#                {% endfor %}#}
-{#            </ul>#}
-{#        </div>#}
-{#    {% endif %}#}
-
     {% set hasOtherNames = false %}
     {% for index, otherName in fields.otherNames.value %}
         {% call govukFieldset({
