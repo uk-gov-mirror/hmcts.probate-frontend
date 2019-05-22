@@ -51,8 +51,8 @@
 <script src="/webchat/javascript/hmcts-webchat.js"></script>
 <script nonce="{{ nonce }}">
     webchat_init({
-        uuid: {{ webChat.chatId }},
-        tenant: {{ webChat.tenant }},
+        uuid: '{{ webChat.chatId }}',
+        tenant: '{{ webChat.tenant }}',
         channel: 'Probate',
         linkText: '{{ common.chatOnlineWithAnAgent }}',
         additionalText: '{{ common.chatOnlineOpeningHours }}'
