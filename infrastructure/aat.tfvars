@@ -9,7 +9,7 @@ packages_version = "3.0.0"
 external_host_name = "probate.aat.platform.hmcts.net"
 
 probate_google_track_id = "UA-93598808-1"
-probate_webchat_id = "script_4860291385c640afb2487b9.55856720"
+probate_webchat_id = "script_7143406305ce667c21e2eb9.79440233"
 probate_webchat_tenant = "aG1jdHNzdGFnaW5nMDE"
 
 probate_frontend_https = "false"

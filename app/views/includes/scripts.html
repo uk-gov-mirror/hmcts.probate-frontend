@@ -55,7 +55,10 @@
         tenant: '{{ webChat.tenant }}',
         channel: 'Probate',
         stylesheetURL: '/webchat/css/hmcts-webchat.css',
-        linkTextAgent: '{{ common.chatOnlineWithAnAgent }}',
-        additionalText: '{{ common.chatOnlineOpeningHours }}'
+        linkTextAgent: '{{ common.chatOnlineWithAnAgent | replace('\n', '\\n') }}',
+        additionalText: '{{ common.chatOnlineOpeningHours | replace('\n', '\\n') }}',
+        additionalTextNoAgent: '{{ common.chatOnlineNoAgent | replace('\n', '\\n') }}',
+        additionalTextTooBusy: '{{ common.chatOnlineTooBusy | replace('\n', '\\n') }}',
+        additionalTextClosed: '{{ common.chatOnlineClosed | replace('\n', '\\n') }}',
     });
 </script>

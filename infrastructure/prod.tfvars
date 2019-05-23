@@ -7,7 +7,7 @@ packages_environment = "prod"
 packages_version = "3.0.0"
 
 probate_google_track_id = "UA-93598808-2"
-probate_webchat_id = "script_4860291385c640afb2487b9.55856720"
+probate_webchat_id = "script_7143406305ce667c21e2eb9.79440233"
 probate_webchat_tenant = "aG1jdHNzdGFnaW5nMDE"
 reform_envirionment_for_test = "prod"
 external_host_name = "www.apply-for-probate.service.gov.uk"
