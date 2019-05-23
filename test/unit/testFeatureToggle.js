@@ -165,6 +165,31 @@ describe('FeatureToggle', () => {
         });
     });
 
+    describe('appwideToggles()', () => {
+        it('should add all appwide toggles to ctx', (done) => {
+            const appwideToggles = ['webchat', 'testToggle'];
+            const req = {
+                session: {
+                    featureToggles: {
+                        webchat: true,
+                        testToggle: false
+                    }
+                }
+            };
+            let ctx = {};
+
+            ctx = FeatureToggle.appwideToggles(req, ctx, appwideToggles);
+
+            expect(ctx).to.deep.equal({
+                featureToggles: {
+                    webchat: 'true',
+                    testToggle: 'false'
+                }
+            });
+            done();
+        });
+    });
+
     describe('isEnabled()', () => {
         describe('should return true', () => {
             it('if the feature toggle exists and is true', (done) => {

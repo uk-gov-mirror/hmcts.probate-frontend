@@ -44,7 +44,10 @@ describe('DeceasedAddress', () => {
                 postcode: 'L23 6WW',
                 isDocumentUploadToggleEnabled: true,
                 sessionID: 'dummy_sessionId',
-                journeyType: 'probate'
+                journeyType: 'probate',
+                featureToggles: {
+                    webchat: 'false'
+                }
             });
             done();
         });
@@ -78,7 +81,10 @@ describe('DeceasedAddress', () => {
                 postcode: 'L23 6WW',
                 isDocumentUploadToggleEnabled: false,
                 sessionID: 'dummy_sessionId',
-                journeyType: 'probate'
+                journeyType: 'probate',
+                featureToggles: {
+                    webchat: 'false'
+                }
             });
             done();
         });
