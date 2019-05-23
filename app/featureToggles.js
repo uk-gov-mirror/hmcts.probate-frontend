@@ -4,6 +4,7 @@ const router = require('express').Router();
 const FeatureToggle = require('app/utils/FeatureToggle');
 const featureToggle = new FeatureToggle();
 
+router.all('/*', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'webchat', featureToggle.toggleFeature));
 router.get('/summary/*', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'document_upload', featureToggle.toggleFeature));
 
 router.get('/documents', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'document_upload', featureToggle.toggleFeature));

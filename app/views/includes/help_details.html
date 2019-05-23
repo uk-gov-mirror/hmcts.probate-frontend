@@ -7,8 +7,10 @@
             <p>{{ common.contactOpeningTimes | replace('{openingTimes}', helpline.hours) | safe }}</p>
             <h4 class="heading-small">{{common.helpHeading2 | safe}}</h4>
             <p>{{ common.helpEmailLabel | replace('{contactEmailAddress}', links.contactEmailAddress) | safe }}</p>
-            <h4 class="heading-small">{{common.helpHeading3 | safe}}</h4>
-            <div id="ctsc-web-chat"></div>
+            {% if fields.featureToggles.value.webchat == 'true' %}
+                <h4 class="heading-small">{{common.helpHeading3 | safe}}</h4>
+                <div id="ctsc-web-chat"></div>
+            {% endif %}
         </div>
     </details>
 {% endblock %}
