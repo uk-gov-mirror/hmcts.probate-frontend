@@ -14,8 +14,7 @@ class Payment extends Service {
             'Authorization': data.authToken,
             'ServiceAuthorization': data.serviceAuthToken
         };
-        //const fetchOptions = this.fetchOptions(data, 'GET', headers);
-        const fetchOptions = this.fetchOptions('{}', 'GET', headers);
+        const fetchOptions = this.fetchOptions(data, 'GET', headers);
         return this.fetchJson(url, fetchOptions);
     }
 
