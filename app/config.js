@@ -73,8 +73,7 @@ const config = {
             serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9iYXRlX2Zyb250ZW5kIiwiZXhwIjoxNTU4MDEzNTIyfQ.YEiOlFZleoA8u9fZ4iEqcrVKvOTaCRPfzM6W_DptlV63V-euNNGpJlMlz-9JWRoTQ0ZYIF9RWskTe_PlAZHJvg',
             userId: process.env.PAYMENT_USER_ID || 42,
             paths: {
-                //payments: '/payments',
-                payments: '/brokenlink-payments',
+                payments: '/payments',
                 createPayment: '/card-payments',
                 returnUrlPath: '/payment-status'
             },
