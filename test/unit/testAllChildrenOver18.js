@@ -2,7 +2,7 @@
 
 const journey = require('app/journeys/intestacy');
 const initSteps = require('app/core/initSteps');
-const expect = require('chai').expect;
+const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const AllChildrenOver18 = steps.AllChildrenOver18;
 const content = require('app/resources/en/translation/deceased/allchildrenover18');
@@ -75,6 +75,16 @@ describe('AllChildrenOver18', () => {
                 ]
             });
             done();
+        });
+    });
+
+    describe('action()', () => {
+        it('cleans up context', () => {
+            const ctx = {
+                deceasedName: 'Dee Ceased'
+            };
+            AllChildrenOver18.action(ctx);
+            assert.isUndefined(ctx.deceasedName);
         });
     });
 });
