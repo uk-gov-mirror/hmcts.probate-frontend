@@ -1,5 +1,6 @@
 'use strict';
 
+const journey = require('app/journeys/intestacy');
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
@@ -36,15 +37,29 @@ describe('AllChildrenOver18', () => {
 
     describe('nextStepUrl()', () => {
         it('should return the correct url when all children are over 18', (done) => {
-            const ctx = {allChildrenOver18: content.optionYes};
-            const nextStepUrl = AllChildrenOver18.nextStepUrl(ctx);
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                allChildrenOver18: content.optionYes
+            };
+            const nextStepUrl = AllChildrenOver18.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/any-deceased-children');
             done();
         });
 
         it('should return the correct url when some children are under 18', (done) => {
-            const ctx = {allChildrenOver18: content.optionNo};
-            const nextStepUrl = AllChildrenOver18.nextStepUrl(ctx);
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                allChildrenOver18: content.optionNo
+            };
+            const nextStepUrl = AllChildrenOver18.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/childrenUnder18');
             done();
         });
