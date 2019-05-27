@@ -21,13 +21,17 @@
     "dob_year": 1939,
     "dob_formattedDate": "12 February 1939",
     "dod_formattedDate": "12 February 2018",
-    "addressFound": "none",
-    "freeTextAddress": "12 Nowhere Road\r\nNotown"
+    "addressFound": "none"
   },
   "applicant": {
     "firstName": "Jackie",
     "lastName": "Smith",
-    "address": "12 Nowhere Avenue\r\nLondon",
+    "address": {
+      "addressLine1": "12 Nowhere Avenue",
+      "postTown": "London",
+      "postCode": "EC1 2AF",
+      "formattedAddress": "12 Nowhere Avenue London EC1 2AF"
+    },
     "phoneNumber": "07951058088",
     "nameAsOnTheWill": "Yes"
   },
