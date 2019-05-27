@@ -7,7 +7,6 @@ const html = fs.readFileSync('test/data/legalDeclationHTML.html').toString();
 const requireDir = require('require-directory');
 const translations = requireDir(module, '../../app/resources/en/translation');
 const he = require('he');
-const FormatName = require('app/utils/FormatName');
 
 let legalDocumentJSONObjectBuilder;
 let sessionData;
@@ -26,7 +25,7 @@ describe('legalDeclarationPDF', () => {
             const legalDeclaration = legalDocumentJSONObjectBuilder.build(sessionData, html);
             assert.exists(legalDeclaration);
             //assertPropertyExistsAndIsEqualTo(legalDeclaration.date_created, '');
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.deceased, FormatName.format(sessionData.deceased));
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.deceased, sessionData.deceased.deceasedName);
             assert.isArray(legalDeclaration.headers, 'Headers exists');
             assert.lengthOf(legalDeclaration.headers, 3, 'Headers array has length of 3');
             assertPropertyExistsAndIsEqualTo(legalDeclaration.headers[0], translations.declaration.highCourtHeader);
