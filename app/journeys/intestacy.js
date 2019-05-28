@@ -116,7 +116,7 @@ const stepList = {
         otherwise: 'ApplicantName'
     },
     AllChildrenOver18: {
-        allChildrenOver18: 'anyDeceasedChildren',
+        allChildrenOver18: 'AnyDeceasedChildren',
         otherwise: 'StopPage'
     },
     AnyDeceasedChildren: {

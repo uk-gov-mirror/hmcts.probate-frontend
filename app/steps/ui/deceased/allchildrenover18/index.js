@@ -17,8 +17,8 @@ class AllChildrenOver18 extends ValidationStep {
         return ctx;
     }
 
-    nextStepUrl(ctx) {
-        return this.next(ctx).constructor.getUrl('childrenUnder18');
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('childrenUnder18');
     }
 
     nextStepOptions() {
@@ -27,6 +27,12 @@ class AllChildrenOver18 extends ValidationStep {
                 {key: 'allChildrenOver18', value: content.optionYes, choice: 'allChildrenOver18'}
             ]
         };
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.deceasedName;
+        return [ctx, formdata];
     }
 }
 
