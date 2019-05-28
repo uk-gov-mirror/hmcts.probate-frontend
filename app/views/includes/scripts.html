@@ -51,7 +51,6 @@
 {% if fields.featureToggles.value.webchat == "true" %}
     <script src="/webchat/javascript/hmcts-webchat.js"></script>
     <script nonce="{{ nonce }}">
-        // stylesheetURL: '/webchat/css/hmcts-webchat.css',
         webchat_init({
             uuid: '{{ webChat.chatId }}',
             tenant: '{{ webChat.tenant }}',
@@ -62,6 +61,7 @@
             additionalTextNoAgent: '{{ common.chatOnlineNoAgent | replace("\n", "\\n") }}',
             additionalTextTooBusy: '{{ common.chatOnlineTooBusy | replace("\n", "\\n") }}',
             additionalTextClosed: '{{ common.chatOnlineClosed | replace("\n", "\\n") }}',
+            busHandlerURL: 'https://ivrsolutionsltd.com/webchat/javascript/busHandler.js'
         });
     </script>
 {% endif %}
