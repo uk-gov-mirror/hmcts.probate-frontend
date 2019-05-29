@@ -51,13 +51,13 @@
 {% if fields.featureToggles.value.webchat == "true" %}
     <script src="/webchat/javascript/hmcts-webchat.js"></script>
     <script nonce="{{ nonce }}">
+        // stylesheetURL: 'https://ivrsolutionsltd.com/webchat/css/hmcts-webchat.css',
+        // busHandlerURL: 'https://ivrsolutionsltd.com/webchat/javascript/busHandler.js',
         webchat_init({
             uuid: '{{ webChat.chatId }}',
             tenant: '{{ webChat.tenant }}',
             channel: 'Probate',
-            // stylesheetURL: 'https://ivrsolutionsltd.com/webchat/css/hmcts-webchat.css',
             stylesheetURL: '/public/stylesheets/hmcts-webchat.css',
-            // busHandlerURL: 'https://ivrsolutionsltd.com/webchat/javascript/busHandler.js',
             busHandlerURL: '/public/javascripts/hmcts-webchat-busHandler.js',
             linkTextAgent: '{{ common.chatOnlineWithAnAgent | replace("\n", "\\n") }}',
             additionalText: '{{ common.chatOnlineOpeningHours | replace("\n", "\\n") }}',
