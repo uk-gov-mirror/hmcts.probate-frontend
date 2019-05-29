@@ -65,5 +65,6 @@
   "chatOnlineOpeningHours": "Monday to Friday, 9:30am to 5pm",
   "chatOnlineNoAgent": "No agents are available, please try again later.",
   "chatOnlineTooBusy": "All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways above.",
-  "chatOnlineClosed": "Web chat is now closed.\nCome back Monday to Friday 9:30am to 5pm."
+  "chatOnlineClosed": "Web chat is now closed.\nCome back Monday to Friday 9:30am to 5pm.",
+  "additionalTextChatAlreadyOpen": "A web chat window is already open."
 }
