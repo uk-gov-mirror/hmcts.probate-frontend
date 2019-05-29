@@ -55,13 +55,15 @@
             uuid: '{{ webChat.chatId }}',
             tenant: '{{ webChat.tenant }}',
             channel: 'Probate',
-            stylesheetURL: 'https://ivrsolutionsltd.com/webchat/css/hmcts-webchat.css',
+            // stylesheetURL: 'https://ivrsolutionsltd.com/webchat/css/hmcts-webchat.css',
+            stylesheetURL: '/public/stylesheets/hmcts-webchat.css',
+            // busHandlerURL: 'https://ivrsolutionsltd.com/webchat/javascript/busHandler.js',
+            busHandlerURL: '/public/javascripts/hmcts-webchat-busHandler.js',
             linkTextAgent: '{{ common.chatOnlineWithAnAgent | replace("\n", "\\n") }}',
             additionalText: '{{ common.chatOnlineOpeningHours | replace("\n", "\\n") }}',
             additionalTextNoAgent: '{{ common.chatOnlineNoAgent | replace("\n", "\\n") }}',
             additionalTextTooBusy: '{{ common.chatOnlineTooBusy | replace("\n", "\\n") }}',
-            additionalTextClosed: '{{ common.chatOnlineClosed | replace("\n", "\\n") }}',
-            busHandlerURL: 'https://ivrsolutionsltd.com/webchat/javascript/busHandler.js'
+            additionalTextClosed: '{{ common.chatOnlineClosed | replace("\n", "\\n") }}'
         });
     </script>
 {% endif %}
