@@ -166,7 +166,22 @@ describe('FeatureToggle', () => {
     });
 
     describe('appwideToggles()', () => {
-        it('should add all appwide toggles to ctx', (done) => {
+        it('should return ctx when no appwide toggles are present', (done) => {
+            const appwideToggles = [];
+            const req = {
+                session: {
+                    featureToggles: {}
+                }
+            };
+            let ctx = {};
+
+            ctx = FeatureToggle.appwideToggles(req, ctx, appwideToggles);
+
+            expect(ctx).to.deep.equal({});
+            done();
+        });
+
+        it('should add all appwide toggles to ctx when present', (done) => {
             const appwideToggles = ['webchat', 'testToggle'];
             const req = {
                 session: {
