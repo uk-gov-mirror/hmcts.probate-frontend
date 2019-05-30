@@ -3,24 +3,21 @@
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
-const AssetsOutside = steps.AssetsOutside;
-const content = require('app/resources/en/translation/deceased/assetsoutside');
+const AnyChildren = steps.AnyChildren;
+const content = require('app/resources/en/translation/deceased/anychildren');
 
-describe('AssetsOutside', () => {
+describe('AnyChildren', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
-            const url = AssetsOutside.constructor.getUrl();
-            expect(url).to.equal('/assets-outside-england-wales');
+            const url = AnyChildren.constructor.getUrl();
+            expect(url).to.equal('/any-children');
             done();
         });
     });
 
     describe('getContextData()', () => {
-        let ctx;
-        let req;
-
         it('should return the context with the deceased name', (done) => {
-            req = {
+            const req = {
                 session: {
                     form: {
                         deceased: {
@@ -31,7 +28,7 @@ describe('AssetsOutside', () => {
                 }
             };
 
-            ctx = AssetsOutside.getContextData(req);
+            const ctx = AnyChildren.getContextData(req);
             expect(ctx.deceasedName).to.equal('John Doe');
             done();
         });
@@ -39,13 +36,11 @@ describe('AssetsOutside', () => {
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const nextStepOptions = AssetsOutside.nextStepOptions();
+            const nextStepOptions = AnyChildren.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
-                options: [{
-                    key: 'assetsOutside',
-                    value: content.optionYes,
-                    choice: 'hasAssetsOutside'
-                }]
+                options: [
+                    {key: 'anyChildren', value: content.optionYes, choice: 'hadChildren'},
+                ]
             });
             done();
         });
