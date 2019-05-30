@@ -3,15 +3,17 @@
 const {filter, isEqual, map, uniqWith, forEach} = require('lodash');
 const he = require('he');
 const i18next = require('i18next');
+const regex = RegExp('<(.*?)>|&(.*?);', 'g');
 
 const FieldError = (param, keyword, resourcePath, contentCtx) => {
     const key = `errors.${param}.${keyword}`;
     const errorPath = `${resourcePath.replace('/', '.')}.${key}`;
+    const text = i18next.t(`${errorPath}.message`, contentCtx);
 
     return {
         field: param,
         href: `#${param}`,
-        text: he.decode(i18next.t(`${errorPath}.message`, contentCtx))
+        text: (regex.test(text) ? he.decode(text) : text)
     };
 };
 
@@ -63,7 +65,7 @@ const mapErrorsToFields = (fields, errors = []) => {
         }
         fields[e.field].error = true;
         fields[e.field].errorMessage = {
-            text: he.decode(e.text)
+            text: (regex.test(e.text) ? he.decode(e.text) : e.text)
         };
         fields[e.field].href = e.href;
     });
