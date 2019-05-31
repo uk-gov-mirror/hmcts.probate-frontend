@@ -178,7 +178,6 @@ class PaymentBreakdown extends Step {
         delete ctx.authToken;
         delete ctx.paymentError;
         delete ctx.deceasedLastName;
-        delete formdata.fees;
         return [ctx, formdata];
     }
 
@@ -217,6 +216,7 @@ class PaymentBreakdown extends Step {
     }
 
     unlockPayment(session) {
+        logger.info('Unlocking payment ' + session.regId);
         session.paymentLock = 'Unlocked';
         session.save();
     }
