@@ -385,7 +385,7 @@ describe('PaymentBreakdown', () => {
                     href: '#authorisation',
                     msg: {
                         summary: 'We could not take your payment, please try again later.',
-                        message: 'payment.breakdown.errors.authorisation.failure.message'
+                        message: ''
                     }
                 }]);
                 expect(ctx).to.deep.equal(ctxTestData);
@@ -585,7 +585,7 @@ describe('PaymentBreakdown', () => {
                     href: '#payment',
                     msg: {
                         summary: 'Your payment may have failed. Do not try to pay again for 2 hours.',
-                        message: 'payment.breakdown.errors.payment.initiated.message'
+                        message: ''
                     }
                 }]);
                 getCasePaymentsStub.restore();
