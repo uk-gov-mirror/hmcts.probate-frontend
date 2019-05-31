@@ -85,17 +85,26 @@ describe('IhtValue', () => {
                 {
                     field: 'grossValueField',
                     href: '#grossValueField',
-                    text: content.errors.grossValueField.invalidCurrencyFormat.message
+                    msg: {
+                        summary: content.errors.grossValueField.invalidCurrencyFormat.summary,
+                        message: content.errors.grossValueField.invalidCurrencyFormat.message
+                    }
                 },
                 {
                     field: 'netValueField',
                     href: '#netValueField',
-                    text: content.errors.netValueField.invalidCurrencyFormat.message
+                    msg: {
+                        summary: content.errors.netValueField.invalidCurrencyFormat.summary,
+                        message: content.errors.netValueField.invalidCurrencyFormat.message
+                    }
                 },
                 {
                     field: 'netValueField',
                     href: '#netValueField',
-                    text: content.errors.netValueField.netValueGreaterThanGross.message
+                    msg: {
+                        summary: content.errors.netValueField.netValueGreaterThanGross.summary,
+                        message: content.errors.netValueField.netValueGreaterThanGross.message
+                    }
                 }
             ]);
             done();

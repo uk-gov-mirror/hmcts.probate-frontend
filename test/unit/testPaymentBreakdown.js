@@ -383,7 +383,10 @@ describe('PaymentBreakdown', () => {
                 expect(errors).to.deep.equal([{
                     field: 'authorisation',
                     href: '#authorisation',
-                    text: 'We could not take your payment, please try again later.'
+                    msg: {
+                        summary: 'We could not take your payment, please try again later.',
+                        message: 'payment.breakdown.errors.authorisation.failure.message'
+                    }
                 }]);
                 expect(ctx).to.deep.equal(ctxTestData);
                 revertAuthorise();
@@ -580,7 +583,10 @@ describe('PaymentBreakdown', () => {
                 expect(errors).to.deep.equal([{
                     field: 'payment',
                     href: '#payment',
-                    text: 'payment.breakdown.errors.payment.initiated.message'
+                    msg: {
+                        summary: 'Your payment may have failed. Do not try to pay again for 2 hours.',
+                        message: 'payment.breakdown.errors.payment.initiated.message'
+                    }
                 }]);
                 getCasePaymentsStub.restore();
                 getStub.restore();

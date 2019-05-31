@@ -64,7 +64,10 @@ describe('DivorcePlace', () => {
                 {
                     field: 'divorcePlace',
                     href: '#divorcePlace',
-                    text: content.errors.divorcePlace.required.message
+                    msg: {
+                        summary: content.errors.divorcePlace.required.summary,
+                        message: content.errors.divorcePlace.required.message
+                    }
                 }
             ];
 

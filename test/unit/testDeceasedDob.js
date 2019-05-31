@@ -67,7 +67,10 @@ describe('DeceasedDob', () => {
                 {
                     field: 'dob-date',
                     href: '#dob-date',
-                    text: content.errors['dob-date'].dateInFuture.message
+                    msg: {
+                        summary: content.errors['dob-date'].dateInFuture.summary,
+                        message: content.errors['dob-date'].dateInFuture.message
+                    }
                 }
             ]);
             done();
@@ -85,7 +88,10 @@ describe('DeceasedDob', () => {
                 {
                     field: 'dob-date',
                     href: '#dob-date',
-                    text: content.errors['dob-date'].dodBeforeDob.message
+                    msg: {
+                        summary: content.errors['dob-date'].dodBeforeDob.summary,
+                        message: content.errors['dob-date'].dodBeforeDob.message
+                    }
                 }
             ]);
             done();

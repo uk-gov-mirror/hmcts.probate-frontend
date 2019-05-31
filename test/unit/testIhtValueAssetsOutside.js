@@ -70,10 +70,12 @@ describe('ValueAssetsOutside', () => {
             });
             expect(errors).to.deep.equal([
                 {
-
                     field: 'netValueAssetsOutsideField',
                     href: '#netValueAssetsOutsideField',
-                    text: content.errors.netValueAssetsOutsideField.invalidCurrencyFormat.message
+                    msg: {
+                        summary: content.errors.netValueAssetsOutsideField.invalidCurrencyFormat.summary,
+                        message: content.errors.netValueAssetsOutsideField.invalidCurrencyFormat.message
+                    }
                 }
             ]);
             done();

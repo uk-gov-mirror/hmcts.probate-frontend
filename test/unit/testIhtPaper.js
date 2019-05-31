@@ -105,17 +105,26 @@ describe('IhtPaper', () => {
                 {
                     field: 'grossValueFieldIHT205',
                     href: '#grossValueFieldIHT205',
-                    text: content.errors.grossValueFieldIHT205.invalidCurrencyFormat.message
+                    msg: {
+                        summary: content.errors.grossValueFieldIHT205.invalidCurrencyFormat.summary,
+                        message: content.errors.grossValueFieldIHT205.invalidCurrencyFormat.message
+                    }
                 },
                 {
                     field: 'netValueFieldIHT205',
                     href: '#netValueFieldIHT205',
-                    text: content.errors.netValueFieldIHT205.invalidCurrencyFormat.message
+                    msg: {
+                        summary: content.errors.netValueFieldIHT205.invalidCurrencyFormat.summary,
+                        message: content.errors.netValueFieldIHT205.invalidCurrencyFormat.message
+                    }
                 },
                 {
                     field: 'netValueFieldIHT205',
                     href: '#netValueFieldIHT205',
-                    text: content.errors.netValueFieldIHT205.netValueGreaterThanGross.message
+                    msg: {
+                        summary: content.errors.netValueFieldIHT205.netValueGreaterThanGross.summary,
+                        message: content.errors.netValueFieldIHT205.netValueGreaterThanGross.message
+                    }
                 }
             ]);
             done();

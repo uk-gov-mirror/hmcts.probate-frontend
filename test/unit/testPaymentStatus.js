@@ -233,7 +233,10 @@ describe('PaymentStatus', () => {
                 expect(options.errors).to.deep.equal([{
                     field: 'update',
                     href: '#update',
-                    text: 'payment.status.errors.update.failure.message'
+                    msg: {
+                        summary: 'We could not submit your application. Your data has been saved, please try again later.',
+                        message: 'payment.status.errors.update.failure.message'
+                    }
                 }]);
                 revert();
                 done();

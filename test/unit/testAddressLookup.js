@@ -81,7 +81,10 @@ describe('AddressLookup', () => {
                 expect(formdata.applicant.errors[0]).to.deep.equal({
                     field: 'postcode',
                     href: '#postcode',
-                    text: 'addressLookup.errors.postcode.noAddresses.message'
+                    msg: {
+                        summary: 'addressLookup.errors.postcode.noAddresses.summary',
+                        message: 'addressLookup.errors.postcode.noAddresses.message'
+                    }
                 });
                 revert();
                 done();
