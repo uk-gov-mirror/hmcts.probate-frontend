@@ -22,10 +22,12 @@ describe('any-grandchildren-under-18', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('AnyGrandchildrenUnder18');
+        featureTogglesNock();
     });
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
