@@ -17,7 +17,7 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: fields.left.errorMessage,
+        errorMessage: { text: fields.left.errorMessage | safe } if fields.left.errorMessage,
         items: [
             {
                 value: content["optionYes"],

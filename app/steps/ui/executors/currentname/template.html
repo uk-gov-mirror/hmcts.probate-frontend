@@ -20,7 +20,7 @@
             id: "currentName",
             name: "currentName",
             value: fields.currentName.value | safe,
-            errorMessage: fields.currentName.errorMessage,
+            errorMessage: { text: fields.currentName.errorMessage | safe } if fields.currentName.errorMessage,
             attributes: {
                 maxlength: 200
             },

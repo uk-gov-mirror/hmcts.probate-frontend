@@ -20,7 +20,7 @@
         hint: {
             text: (content.hintText1 + "<br><br>" + content.hintText2) | safe
         },
-        errorMessage: fields.executor.errorMessage,
+        errorMessage: { text: fields.executor.errorMessage | safe } if fields.executor.errorMessage,
         items: [
             {
                 value: content["optionYes"],

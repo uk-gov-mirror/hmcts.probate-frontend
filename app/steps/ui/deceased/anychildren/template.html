@@ -18,7 +18,7 @@
         hint: {
             text: content.hint | safe
         },
-        errorMessage: fields.anyChildren.errorMessage,
+        errorMessage: { text: fields.anyChildren.errorMessage | safe } if fields.anyChildren.errorMessage,
         items: [
             {
               value: content["optionYes"],

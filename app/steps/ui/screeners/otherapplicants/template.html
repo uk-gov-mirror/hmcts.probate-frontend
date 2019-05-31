@@ -20,7 +20,7 @@
         hint: {
             text: content.hintText | safe
         },
-        errorMessage: fields.otherApplicants.errorMessage,
+        errorMessage: { text: fields.otherApplicants.errorMessage | safe } if fields.otherApplicants.errorMessage,
         items: [
             {
                 value: content["optionYes"],

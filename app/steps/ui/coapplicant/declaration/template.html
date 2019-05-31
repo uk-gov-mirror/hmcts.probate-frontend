@@ -89,7 +89,7 @@
                 classes: "govuk-fieldset__legend--m"
             }
         },
-        errorMessage: fields.agreement.errorMessage,
+        errorMessage: { text: fields.agreement.errorMessage | safe } if fields.agreement.errorMessage,
         items: [
             {
                 value: content["optionYes"],
