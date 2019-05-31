@@ -57,6 +57,8 @@
             channel: 'Probate',
             stylesheetURL: 'https://' + window.location.hostname + '/public/stylesheets/hmcts-webchat.css',
             busHandlerURL: 'https://' + window.location.hostname + '/public/javascripts/hmcts-webchat-busHandler.js',
+            chatDownAction: 'showMessage',
+            chatDownText: '{{ common.chatOnlineUnavailable | replace("\n", "\\n") }}',
             linkTextAgent: '{{ common.chatOnlineWithAnAgent | replace("\n", "\\n") }}',
             additionalText: '{{ common.chatOnlineOpeningHours | replace("\n", "\\n") }}',
             additionalTextNoAgent: '{{ common.chatOnlineNoAgent | replace("\n", "\\n") }}',
