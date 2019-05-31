@@ -10,6 +10,7 @@ const FieldError = (param, keyword, resourcePath, contentCtx) => {
     return {
         field: param,
         href: `#${param}`,
+        summary: i18next.t(`${errorPath}.summary`, contentCtx),
         text: i18next.t(`${errorPath}.message`, contentCtx)
     };
 };
