@@ -7,7 +7,6 @@ const content = require('app/resources/en/translation/documentupload');
 const config = require('app/config');
 const nock = require('nock');
 const expect = require('chai').expect;
-const he = require('he');
 const featureToggleUrl = config.featureToggles.url;
 const documentUploadFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
 const featureTogglesNock = (status = 'true') => {
@@ -76,7 +75,7 @@ describe('document-upload', () => {
                 .field('isUploadingDocument', 'true')
                 .attach('file', 'test/data/document-upload/invalid-type.txt')
                 .then((res) => {
-                    expect(res.text).to.contain(he.decode(content.errors.file.invalidFileType.message));
+                    expect(res.text).to.contain(content.errors.file.invalidFileType.message);
                     done();
                 })
                 .catch(done);
@@ -89,7 +88,7 @@ describe('document-upload', () => {
                 .field('isUploadingDocument', 'true')
                 .attach('file', 'test/data/document-upload/image-too-large.jpg')
                 .then((res) => {
-                    expect(res.text).to.contain(he.decode(content.errors.file.maxSize.message));
+                    expect(res.text).to.contain(content.errors.file.maxSize.message);
                     done();
                 })
                 .catch(done);
@@ -102,7 +101,7 @@ describe('document-upload', () => {
                 .field('isUploadingDocument', 'true')
                 .attach('file', 'test/data/document-upload/valid-image.png')
                 .then((res) => {
-                    expect(res.text).to.contain(he.decode(content.errors.file.uploadFailed.message));
+                    expect(res.text).to.contain(content.errors.file.uploadFailed.message);
                     done();
                 })
                 .catch(done);
@@ -114,7 +113,7 @@ describe('document-upload', () => {
                 .set('enctype', 'multipart/form-data')
                 .field('isUploadingDocument', 'true')
                 .then((res) => {
-                    expect(res.text).to.contain(he.decode(content.errors.file.nothingUploaded.message));
+                    expect(res.text).to.contain(content.errors.file.nothingUploaded.message);
                     done();
                 })
                 .catch(done);
@@ -127,7 +126,7 @@ describe('document-upload', () => {
                 .field('isUploadingDocument', 'true')
                 .attach('file', 'test/data/document-upload/invalid-type.jpg')
                 .then((res) => {
-                    expect(res.text).to.contain(he.decode(content.errors.file.invalidFileType.message));
+                    expect(res.text).to.contain(content.errors.file.invalidFileType.message);
                     done();
                 })
                 .catch(done);
@@ -140,7 +139,7 @@ describe('document-upload', () => {
                 .field('isUploadingDocument', 'true')
                 .attach('file', 'test/data/document-upload/invalid-type.jpg')
                 .then((res) => {
-                    expect(res.text).to.contain(he.decode(content.errors.file.invalidFileType.message));
+                    expect(res.text).to.contain(content.errors.file.invalidFileType.message);
                     done();
                 })
                 .catch(done);

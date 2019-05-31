@@ -1,19 +1,16 @@
 'use strict';
 
 const {filter, isEqual, map, uniqWith, forEach} = require('lodash');
-const he = require('he');
 const i18next = require('i18next');
-const regex = RegExp('<(.*?)>|&(.*?);', 'g');
 
 const FieldError = (param, keyword, resourcePath, contentCtx) => {
     const key = `errors.${param}.${keyword}`;
     const errorPath = `${resourcePath.replace('/', '.')}.${key}`;
-    const text = i18next.t(`${errorPath}.message`, contentCtx);
 
     return {
         field: param,
         href: `#${param}`,
-        text: (regex.test(text) ? he.decode(text) : text)
+        text: i18next.t(`${errorPath}.message`, contentCtx)
     };
 };
 
@@ -50,7 +47,7 @@ const mapErrorsToFields = (fields, errors = []) => {
     let err = [];
 
     if (Array.isArray(errors[0])) {
-        forEach(errors, (error) => {
+        errors.forEach((error) => {
             forEach(error[1], (e) => {
                 err.push(e);
             });
@@ -59,14 +56,12 @@ const mapErrorsToFields = (fields, errors = []) => {
         err = errors;
     }
 
-    forEach(err, (e) => {
+    err.forEach((e) => {
         if (!fields[e.field]) {
             fields[e.field] = {};
         }
         fields[e.field].error = true;
-        fields[e.field].errorMessage = {
-            text: (regex.test(e.text) ? he.decode(e.text) : e.text)
-        };
+        fields[e.field].errorMessage = e.text;
         fields[e.field].href = e.href;
     });
 

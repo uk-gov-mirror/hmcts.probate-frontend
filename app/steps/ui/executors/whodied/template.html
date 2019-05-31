@@ -14,7 +14,7 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: fields.executorsWhoDied.errorMessage,
+        errorMessage: { text: fields.executorsWhoDied.errorMessage | safe } if fields.executorsWhoDied.errorMessage,
         items: fields.options.value
     }) }}
 

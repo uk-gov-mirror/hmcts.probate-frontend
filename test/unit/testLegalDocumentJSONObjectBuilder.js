@@ -6,7 +6,6 @@ const fs = require('fs');
 const html = fs.readFileSync('test/data/legalDeclationHTML.html').toString();
 const requireDir = require('require-directory');
 const translations = requireDir(module, '../../app/resources/en/translation');
-const he = require('he');
 const FormatName = require('app/utils/FormatName');
 
 let legalDocumentJSONObjectBuilder;
@@ -39,7 +38,7 @@ describe('legalDeclarationPDF', () => {
             assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[1].declarationItems[0].title, replaceTokens(translations.declaration.legalStatementDeceased, ['Mike Samuels', '1 January 1964', '20 October 2018']));
 
             assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[2].title, translations.declaration.deceasedEstateHeader);
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[2].declarationItems[0].title, replaceTokens(he.decode(translations.declaration.deceasedEstateValue), ['10000', '10000']));
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[2].declarationItems[0].title, replaceTokens(translations.declaration.deceasedEstateValue, ['10000', '10000']));
             assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[2].declarationItems[1].title, replaceTokens(translations.declaration.deceasedEstateLand, ['Mike Samuels', 'Mike Samuels']));
 
             assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[3].title, translations.declaration.executorApplyingHeader);

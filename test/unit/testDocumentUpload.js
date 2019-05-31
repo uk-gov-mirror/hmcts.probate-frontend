@@ -4,7 +4,6 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const content = require('app/resources/en/translation/documentupload');
-const he = require('he');
 
 describe('DocumentUpload.js', () => {
     describe('getUrl()', () => {
@@ -111,7 +110,7 @@ describe('DocumentUpload.js', () => {
             expect(errors).to.deep.equal([{
                 field: 'file',
                 href: '#file',
-                text: he.decode(content.errors.file.maxSize.message)
+                text: content.errors.file.maxSize.message
             }]);
             done();
         });
@@ -130,7 +129,7 @@ describe('DocumentUpload.js', () => {
             expect(errors).to.deep.equal([{
                 field: 'file',
                 href: '#file',
-                text: he.decode(content.errors.file.maxSize.message)
+                text: content.errors.file.maxSize.message
             }]);
             done();
         });
@@ -149,7 +148,7 @@ describe('DocumentUpload.js', () => {
             expect(errors).to.deep.equal([{
                 field: 'file',
                 href: '#file',
-                text: he.decode(content.errors.file.maxSize.message)
+                text: content.errors.file.maxSize.message
             }]);
             done();
         });
@@ -168,7 +167,7 @@ describe('DocumentUpload.js', () => {
             expect(errors).to.deep.equal([{
                 field: 'file',
                 href: '#file',
-                text: he.decode(content.errors.file.maxSize.message)
+                text: content.errors.file.maxSize.message
             }]);
             done();
         });

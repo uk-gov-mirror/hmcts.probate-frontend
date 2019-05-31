@@ -15,7 +15,7 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: fields.allalive.errorMessage,
+        errorMessage: { text: fields.allalive.errorMessage | safe } if fields.allalive.errorMessage,
         items: [
             {
                 value: content["optionYes"],

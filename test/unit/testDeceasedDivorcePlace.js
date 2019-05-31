@@ -8,7 +8,6 @@ const DivorcePlace = steps.DivorcePlace;
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
 const content = require('app/resources/en/translation/deceased/divorceplace');
 const commonContent = require('app/resources/en/translation/common');
-const he = require('he');
 
 describe('DivorcePlace', () => {
     describe('getUrl()', () => {
@@ -74,9 +73,7 @@ describe('DivorcePlace', () => {
                 divorcePlace: {
                     error: true,
                     href: '#divorcePlace',
-                    errorMessage: {
-                        text: he.decode(content.errors.divorcePlace.required.message.replace('{legalProcess}', 'divorce'))
-                    }
+                    errorMessage: content.errors.divorcePlace.required.message.replace('{legalProcess}', 'divorce')
                 },
                 legalProcess: {
                     error: false,

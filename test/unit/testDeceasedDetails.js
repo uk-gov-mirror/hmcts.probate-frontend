@@ -5,7 +5,6 @@ const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const DeceasedDetails = steps.DeceasedDetails;
 const content = require('app/resources/en/translation/deceased/details');
-const he = require('he');
 
 describe('DeceasedDetails', () => {
     describe('dateName()', () => {
@@ -71,7 +70,7 @@ describe('DeceasedDetails', () => {
                 {
                     field: 'dob-date',
                     href: '#dob-date',
-                    text: he.decode(content.errors['dob-date'].dateInFuture.message)
+                    text: content.errors['dob-date'].dateInFuture.message
                 }
             ]);
             done();
@@ -94,7 +93,7 @@ describe('DeceasedDetails', () => {
                 {
                     field: 'dod-date',
                     href: '#dod-date',
-                    text: he.decode(content.errors['dod-date'].dateInFuture.message)
+                    text: content.errors['dod-date'].dateInFuture.message
                 }
             ]);
             done();
@@ -117,7 +116,7 @@ describe('DeceasedDetails', () => {
                 {
                     field: 'dob-date',
                     href: '#dob-date',
-                    text: he.decode(content.errors['dob-date'].dodBeforeDob.message)
+                    text: content.errors['dob-date'].dodBeforeDob.message
                 }
             ]);
             done();

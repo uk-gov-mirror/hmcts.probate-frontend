@@ -6,7 +6,6 @@ const contentAssetsOutside = require('app/resources/en/translation/iht/assetsout
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const IhtValue = steps.IhtValue;
 const content = require('app/resources/en/translation/iht/value');
-const he = require('he');
 
 describe('IhtValue', () => {
     describe('getUrl()', () => {
@@ -86,17 +85,17 @@ describe('IhtValue', () => {
                 {
                     field: 'grossValueField',
                     href: '#grossValueField',
-                    text: he.decode(content.errors.grossValueField.invalidCurrencyFormat.message)
+                    text: content.errors.grossValueField.invalidCurrencyFormat.message
                 },
                 {
                     field: 'netValueField',
                     href: '#netValueField',
-                    text: he.decode(content.errors.netValueField.invalidCurrencyFormat.message)
+                    text: content.errors.netValueField.invalidCurrencyFormat.message
                 },
                 {
                     field: 'netValueField',
                     href: '#netValueField',
-                    text: he.decode(content.errors.netValueField.netValueGreaterThanGross.message)
+                    text: content.errors.netValueField.netValueGreaterThanGross.message
                 }
             ]);
             done();

@@ -30,7 +30,7 @@
             id: "uk",
             name: "uk",
             value: fields.uk.value | safe,
-            errorMessage: fields.uk.errorMessage,
+            errorMessage: { text: fields.uk.errorMessage | safe } if fields.uk.errorMessage,
             attributes: {
                 maxlength: 5
             },

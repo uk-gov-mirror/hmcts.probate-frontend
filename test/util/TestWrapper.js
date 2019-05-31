@@ -9,7 +9,6 @@ const request = require('supertest');
 const JourneyMap = require('app/core/JourneyMap');
 const {steps} = require('app/core/initSteps');
 const journey = require('app/journeys/probate');
-const he = require('he');
 
 class TestWrapper {
     constructor(stepName) {
@@ -96,7 +95,7 @@ class TestWrapper {
             .expect('Content-type', 'text/html; charset=utf-8')
             .then(res => {
                 forEach(expectedErrors, (value) => {
-                    expect(res.text).to.contain(he.decode(value[type].message));
+                    expect(res.text).to.contain(value[type].message);
                 });
                 done();
             })
