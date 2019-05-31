@@ -76,7 +76,10 @@ describe('DivorcePlace', () => {
                 divorcePlace: {
                     error: true,
                     href: '#divorcePlace',
-                    errorMessage: content.errors.divorcePlace.required.message.replace('{legalProcess}', 'divorce')
+                    errorMessage: {
+                        summary: content.errors.divorcePlace.required.summary.replace('{legalProcess}', 'divorce'),
+                        message: content.errors.divorcePlace.required.message.replace('{legalProcess}', 'divorce')
+                    }
                 },
                 legalProcess: {
                     error: false,

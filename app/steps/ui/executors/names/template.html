@@ -26,7 +26,7 @@
                 id: "executorName_" + i,
                 name: "executorName[" + i + "]",
                 value: fields.executorName.value[i] | safe,
-                errorMessage: fields["executorName_" + i].errorMessage,
+                errorMessage: { text: fields["executorName_" + i].errorMessage.message | safe } if fields["executorName_" + i].errorMessage,
                 attributes: {
                     maxlength: 200
                 },

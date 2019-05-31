@@ -85,7 +85,7 @@ class ExecutorsNames extends ValidationStep {
         validationErrors.forEach((validationError) => {
             const index = self.getIndexFromErrorParameter(validationError);
             errorMessages[index] = self.composeMessage(ctx.executorName[index], parseInt(index) + 2);
-            validationError.text = errorMessages[index].text;
+            validationError.msg = errorMessages[index].msg;
             validationError.field = `executorName_${index}`;
         });
         return errorMessages;
@@ -99,7 +99,7 @@ class ExecutorsNames extends ValidationStep {
         const messageType = inputTextFieldValue === '' ? 'required' : 'invalid';
         const errorMessage = FieldError('executorName', messageType, resourcePath);
         const displayExecutor = i18next.t(`${resourcePath}.executor`);
-        errorMessage.text = `${displayExecutor} ${screenExecutorNumber}: ${errorMessage.text}`;
+        errorMessage.msg.summary = `${displayExecutor} ${screenExecutorNumber}: ${errorMessage.msg.summary}`;
         return errorMessage;
     }
 }

@@ -64,7 +64,7 @@ const mapErrorsToFields = (fields, errors = []) => {
             fields[e.field] = {};
         }
         fields[e.field].error = true;
-        fields[e.field].errorMessage = e.msg.message;
+        fields[e.field].errorMessage = e.msg;
         fields[e.field].href = e.href;
     });
 
