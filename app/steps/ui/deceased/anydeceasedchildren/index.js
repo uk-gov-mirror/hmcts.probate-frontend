@@ -2,12 +2,12 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
-const content = require('app/resources/en/translation/deceased/anychildren');
+const content = require('app/resources/en/translation/deceased/anydeceasedchildren');
 
-class AnyChildren extends ValidationStep {
+class AnyDeceasedChildren extends ValidationStep {
 
     static getUrl() {
-        return '/any-children';
+        return '/any-deceased-children';
     }
 
     getContextData(req) {
@@ -20,7 +20,7 @@ class AnyChildren extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'anyChildren', value: content.optionYes, choice: 'hadChildren'}
+                {key: 'anyDeceasedChildren', value: content.optionYes, choice: 'hadDeceasedChildren'}
             ]
         };
     }
@@ -32,4 +32,4 @@ class AnyChildren extends ValidationStep {
     }
 }
 
-module.exports = AnyChildren;
+module.exports = AnyDeceasedChildren;

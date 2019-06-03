@@ -99,7 +99,7 @@ const stepList = {
         otherwise: 'StopPage'
     },
     SpouseNotApplyingReason: {
-        renouncing: 'AnyChildren',
+        renouncing: 'AnyOtherChildren',
         otherwise: 'StopPage'
     },
     AdoptionPlace: {
@@ -114,6 +114,18 @@ const stepList = {
     AnyOtherChildren: {
         hadOtherChildren: 'AllChildrenOver18',
         otherwise: 'ApplicantName'
+    },
+    AllChildrenOver18: {
+        allChildrenOver18: 'AnyDeceasedChildren',
+        otherwise: 'StopPage'
+    },
+    AnyDeceasedChildren: {
+        hadDeceasedChildren: 'AnyGrandchildrenUnder18',
+        otherwise: 'ApplicantName'
+    },
+    AnyGrandchildrenUnder18: {
+        allGrandchildrenOver18: 'ApplicantName',
+        otherwise: 'StopPage'
     },
 
     Summary: 'TaskList',

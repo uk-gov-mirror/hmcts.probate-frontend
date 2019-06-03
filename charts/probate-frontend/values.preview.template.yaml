@@ -17,6 +17,7 @@ nodejs:
     VALIDATION_SERVICE_URL: http://probate-business-service-aat.service.core-compute-aat.internal/validate
     BUSINESS_DOCUMENT_URL: http://probate-business-service-aat.service.core-compute-aat.internal/businessDocument
     SUBMIT_SERVICE_URL: http://probate-submit-service-aat.service.core-compute-aat.internal
+    ORCHESTRATOR_SERVICE_URL : http://probate-orchestrator-service-aat.service.core-compute-aat.internal
     PERSISTENCE_SERVICE_URL: http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata
     REDIS_HOST: ${SERVICE_NAME}-redis-master
     REDIS_PORT: 6379
@@ -34,6 +35,9 @@ nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
 
+postgresql:
+  enabled: true # for rpe-feature-toggle-api
+
 rpe-feature-toggle-api:
   releaseNameOverride: ${SERVICE_NAME}-ftr-tgl-api
   java:
@@ -45,9 +49,6 @@ rpe-feature-toggle-api:
       primaryIngressHost: ${SERVICE_FQDN}
       prefix: ftr-tgl
     environment:
-      FEATURES_DB_HOST: ${SERVICE_NAME}-ft-db
-      ADMIN_USERNAME_TEST: admin@example.com
-      ADMIN_PASSWORD_TEST: Password12
       EDITOR_USERNAME_TEST: editor@example.com
       EDITOR_PASSWORD_TEST: Password12
 
