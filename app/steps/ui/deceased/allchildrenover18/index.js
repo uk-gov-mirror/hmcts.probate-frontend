@@ -4,10 +4,10 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
 const content = require('app/resources/en/translation/deceased/anychildren');
 
-class AnyChildren extends ValidationStep {
+class AllChildrenOver18 extends ValidationStep {
 
     static getUrl() {
-        return '/any-children';
+        return '/all-children-over-18';
     }
 
     getContextData(req) {
@@ -17,10 +17,14 @@ class AnyChildren extends ValidationStep {
         return ctx;
     }
 
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('childrenUnder18');
+    }
+
     nextStepOptions() {
         return {
             options: [
-                {key: 'anyChildren', value: content.optionYes, choice: 'hadChildren'}
+                {key: 'allChildrenOver18', value: content.optionYes, choice: 'allChildrenOver18'}
             ]
         };
     }
@@ -32,4 +36,4 @@ class AnyChildren extends ValidationStep {
     }
 }
 
-module.exports = AnyChildren;
+module.exports = AllChildrenOver18;
