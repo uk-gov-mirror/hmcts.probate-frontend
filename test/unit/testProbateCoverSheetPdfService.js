@@ -34,11 +34,9 @@ describe('ProbateCoverSheetPdfService', () => {
             expect(postStub.calledWith(
                 config.template.coverSheet,
                 {
-                    bulkScanCoverSheet: {
-                        applicantAddress: '1 Red Road, London, L1 1LL',
-                        caseReference: 'ccd123',
-                        submitAddress: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY'
-                    }
+                    applicantAddress: '1 Red Road, London, L1 1LL',
+                    caseReference: 'ccd123',
+                    submitAddress: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY'
                 },
                 'Post probate cover sheet pdf'
             )).to.equal(true);

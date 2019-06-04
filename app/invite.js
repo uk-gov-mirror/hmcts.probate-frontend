@@ -21,7 +21,7 @@ class InviteLink {
 
     checkLinkIsValid(request, response, success, failure) {
         const inviteId = request.params.inviteId;
-        const inviteLink = new InviteLinkService(config.services.persistence.url, request.sessionID);
+        const inviteLink = new InviteLinkService(config.services.orchestrator.url, request.sessionID);
 
         inviteLink.get(inviteId)
             .then(result => {
@@ -30,9 +30,9 @@ class InviteLink {
                     failure(response);
                 } else {
                     logger.info('Link is valid');
-                    const pinNumber = new PinNumber(config.services.validation.url, request.sessionID);
+                    const pinNumber = new PinNumber(config.services.orchestrator.url, request.sessionID);
                     pinNumber
-                        .get(result.phoneNumber)
+                        .get(result.phoneNumber, request.authToken, request.session.serviceAuthorization)
                         .then(generatedPin => {
                             request.session.pin = generatedPin;
                             request.session.phoneNumber = result.phoneNumber;
@@ -57,8 +57,8 @@ class InviteLink {
                 return res.render('errors/404');
             }
 
-            const allExecutorsAgreed = new AllExecutorsAgreed(config.services.validation.url, req.sessionID);
-            allExecutorsAgreed.get(req.session.formdataId).then(result => {
+            const allExecutorsAgreed = new AllExecutorsAgreed(config.services.orchestrator.url, req.sessionID);
+            allExecutorsAgreed.get(req.session.formdataId, req.authToken, req.serviceAuthorization).then(result => {
                 if (result.name === 'Error') {
                     logger.error(`Error checking everyone has agreed: ${result.message}`);
                     res.status(500);

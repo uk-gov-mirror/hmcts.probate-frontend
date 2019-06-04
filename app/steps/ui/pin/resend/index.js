@@ -24,7 +24,7 @@ class PinResend extends Step {
 
     * handlePost(ctx, errors, formdata, session) {
         const phoneNumber = session.phoneNumber;
-        const pinNumber = new PinNumber(config.services.validation.url, ctx.sessionID);
+        const pinNumber = new PinNumber(config.services.orchestrator.url, ctx.sessionID);
         yield pinNumber
             .get(phoneNumber)
             .then(generatedPin => {

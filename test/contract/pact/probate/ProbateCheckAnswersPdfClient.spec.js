@@ -5,6 +5,7 @@ const path = require('path');
 const chai = require('chai');
 const {Pact} = require('@pact-foundation/pact');
 const chaiAsPromised = require('chai-as-promised');
+const nock = require('nock');
 const ProbateCheckAnswersPdf = require('app/services/ProbateCheckAnswersPdf');
 const config = require('app/config');
 const getPort = require('get-port');
@@ -32,11 +33,12 @@ describe('Pact ProbateCheckAnswersPdf', () => {
         });
     });
 
+    const serviceToken = 'tok123';
+
     const req = {
         sessionID: 'someSessionId',
         authToken: 'authToken',
         session: {
-            serviceAuthorization: 'someServiceAuthorization',
             checkAnswersSummary: DOC_BODY_PAYLOAD
         }
     };
@@ -45,18 +47,9 @@ describe('Pact ProbateCheckAnswersPdf', () => {
         sessionID: 'someSessionId',
         authToken: 'authToken',
         session: {
-            serviceAuthorization: 'someServiceAuthorization',
             checkAnswersSummary: INVALID_DOC_BODY_PAYLOAD
         }
     };
-
-    function getWrappedPayload(unwrappedPayload) {
-        const fullBody = {
-            checkAnswersSummary: unwrappedPayload
-        };
-        return fullBody;
-    }
-
     // Setup a Mock Server before unit tests run.
     // This server acts as a Test Double for the real Provider API.
     // We then call addInteraction() for each test to configure the Mock Service
@@ -66,6 +59,11 @@ describe('Pact ProbateCheckAnswersPdf', () => {
     before(() =>
         provider.setup()
     );
+    beforeEach(() => {
+        nock(config.services.idam.s2s_url)
+            .post('/lease')
+            .reply(200, serviceToken);
+    });
 
     // After each individual test (one or more interactions)
     // we validate that the correct request came through.
@@ -84,12 +82,12 @@ describe('Pact ProbateCheckAnswersPdf', () => {
                         method: 'POST',
                         path: '/documents/generate/checkAnswersSummary',
                         headers: {
-                            'Content-Type': 'application/businessdocument+json',
+                            'Content-Type': 'application/json',
                             'Session-Id': req.sessionID,
                             'Authorization': req.authToken,
-                            'ServiceAuthorization': req.session.serviceAuthorization
+                            'ServiceAuthorization': serviceToken
                         },
-                        body: getWrappedPayload(DOC_BODY_PAYLOAD)
+                        body: DOC_BODY_PAYLOAD
                     },
                     willRespondWith: {
                         status: 200,
@@ -99,7 +97,7 @@ describe('Pact ProbateCheckAnswersPdf', () => {
             );
 
             it('successfully validated check answers summary', (done) => {
-                const checkAnswersPdfClient = new ProbateCheckAnswersPdf('http://localhost:'+MOCK_SERVER_PORT, req.sessionID);
+                const checkAnswersPdfClient = new ProbateCheckAnswersPdf('http://localhost:' + MOCK_SERVER_PORT, req.sessionID);
                 const verificationPromise = checkAnswersPdfClient.post(req);
                 assert.eventually.ok(verificationPromise).notify(done);
             });
@@ -117,16 +115,15 @@ describe('Pact ProbateCheckAnswersPdf', () => {
                         method: 'POST',
                         path: '/documents/generate/checkAnswersSummary',
                         headers: {
-                            'Content-Type': 'application/businessdocument+json',
+                            'Content-Type': 'application/json',
                             'Session-Id': reqInvalid.sessionID,
                             'Authorization': reqInvalid.authToken,
-                            'ServiceAuthorization': reqInvalid.session.serviceAuthorization
+                            'ServiceAuthorization': serviceToken
                         },
-                        body: getWrappedPayload(INVALID_DOC_BODY_PAYLOAD)
+                        body: INVALID_DOC_BODY_PAYLOAD
                     },
                     willRespondWith: {
-                        status: 400,
-                        headers: {'Content-Type': 'application/businessdocument+json'}
+                        status: 400
                     }
                 })
             );
@@ -140,6 +137,7 @@ describe('Pact ProbateCheckAnswersPdf', () => {
 
     // Write pact files
     after(() => {
+        nock.cleanAll();
         return provider.finalize();
     });
 

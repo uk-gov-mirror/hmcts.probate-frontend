@@ -6,7 +6,7 @@ const PinSent = require('app/steps/ui/pin/sent/index');
 const commonContent = require('app/resources/en/translation/common');
 const nock = require('nock');
 const config = require('app/config');
-const businessServiceUrl = config.services.validation.url.replace('/validate', '');
+const orchestratorServiceUrl = config.services.orchestrator.url;
 
 describe('pin-resend', () => {
     let testWrapper;
@@ -84,16 +84,16 @@ describe('pin-resend', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForPinSent}`, (done) => {
-            nock(businessServiceUrl)
-                .get('/pin?phoneNumber=undefined')
+            nock(orchestratorServiceUrl)
+                .get('/invite/pin?phoneNumber=undefined')
                 .reply(200, '12345');
 
             testWrapper.testRedirect(done, {}, expectedNextUrlForPinSent);
         });
 
         it('test error page when pin resend fails', (done) => {
-            nock(businessServiceUrl)
-                .get('/pin?phoneNumber=undefined')
+            nock(orchestratorServiceUrl)
+                .get('/invite/pin?phoneNumber=undefined')
                 .reply(500, new Error('ReferenceError'));
 
             testWrapper.agent.post('/prepare-session/form')

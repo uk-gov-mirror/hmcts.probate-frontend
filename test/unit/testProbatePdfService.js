@@ -22,7 +22,7 @@ describe('ProbatePdfService', () => {
             };
 
             const headers = {
-                'Content-Type': 'application/businessdocument+json',
+                'Content-Type': 'application/json',
                 'Session-Id': ctx.sessionID,
                 'Authorization': ctx.authToken,
                 'ServiceAuthorization': ctx.session.serviceAuthorization

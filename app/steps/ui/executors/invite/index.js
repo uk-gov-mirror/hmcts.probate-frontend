@@ -14,6 +14,8 @@ class ExecutorsInvite extends ValidationStep {
     getContextData(req) {
         const ctx = super.getContextData(req);
         ctx.inviteSuffix = ctx.executorsNumber > 2 ? '-multiple' : '';
+        ctx.authToken = req.authToken;
+        ctx.serviceAuthorization = req.session.serviceAuthorization;
         return ctx;
     }
 
@@ -26,18 +28,16 @@ class ExecutorsInvite extends ValidationStep {
             .filter(exec => exec.isApplying && !exec.isApplicant)
             .map(exec => {
                 const data = {
-                    invitation: {
-                        executorName: exec.fullName,
-                        firstName: formdata.deceased.firstName,
-                        lastName: formdata.deceased.lastName,
-                        email: exec.email,
-                        phoneNumber: exec.mobile,
-                        formdataId: session.regId,
-                        leadExecutorName: FormatName.format(formdata.applicant)
-                    }
+                    executorName: exec.fullName,
+                    firstName: formdata.deceased.firstName,
+                    lastName: formdata.deceased.lastName,
+                    email: exec.email,
+                    phoneNumber: exec.mobile,
+                    formdataId: session.regId,
+                    leadExecutorName: FormatName.format(formdata.applicant)
                 };
-                const inviteLink = new InviteLink(config.services.validation.url, ctx.sessionID);
-                return inviteLink.post(data, exec).then(result => {
+                const inviteLink = new InviteLink(config.services.orchestrator.url, ctx.sessionID);
+                return inviteLink.post(data, exec, ctx.authToken, ctx.serviceAuthorization).then(result => {
                     if (result.name === 'Error') {
                         throw new ReferenceError('Error while sending co-applicant invitation email.');
                     } else {
@@ -58,6 +58,8 @@ class ExecutorsInvite extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.inviteSuffix;
+        delete ctx.serviceAuthorization;
+        delete ctx.authToken;
         return [ctx, formdata];
     }
 }

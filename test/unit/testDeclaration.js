@@ -233,7 +233,7 @@ describe('Declaration tests', () => {
         });
     });
 
-    describe('resetAgreedFlags()', () => {
+    describe('resetAgreedFlag()', () => {
         const executorsList = {
             list: [{
                 inviteId: '1'
@@ -250,8 +250,8 @@ describe('Declaration tests', () => {
 
         it('Success - there are no Errors in the results', (done) => {
             const revert = Declaration.__set__('InviteData', class {
-                patch() {
-                    return Promise.resolve({agreed: null});
+                resetAgreedFlag() {
+                    return Promise.resolve([{agreed: null}]);
                 }
             });
             const declaration = new Declaration(steps, section, templatePath, i18next, schema);
@@ -266,8 +266,8 @@ describe('Declaration tests', () => {
 
         it('Failure - there is an Error in the results', (done) => {
             const revert = Declaration.__set__('InviteData', class {
-                patch() {
-                    return Promise.resolve(new Error('Blimey'));
+                resetAgreedFlag() {
+                    return Promise.resolve([new Error('Blimey')]);
                 }
             });
             const declaration = new Declaration(steps, section, templatePath, i18next, schema);

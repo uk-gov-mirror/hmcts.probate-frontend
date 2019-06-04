@@ -55,7 +55,6 @@ class Step {
         ctx.sessionID = req.sessionID;
         ctx.journeyType = session.journeyType;
         ctx = Object.assign(ctx, req.body);
-
         return ctx;
     }
 

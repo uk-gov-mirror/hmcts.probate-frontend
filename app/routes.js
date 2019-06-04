@@ -123,8 +123,8 @@ router.use((req, res, next) => {
         formdata.executors.invitesSent === 'true' &&
         get(formdata, 'declaration.declarationCheckbox')
     ) {
-        const allExecutorsAgreed = new AllExecutorsAgreed(config.services.validation.url, req.sessionID);
-        allExecutorsAgreed.get(req.session.regId)
+        const allExecutorsAgreed = new AllExecutorsAgreed(config.services.orchestrator.url, req.sessionID);
+        allExecutorsAgreed.get(req.session.regId, req.authToken, req.session.serviceAuthorization)
             .then(data => {
                 req.session.haveAllExecutorsDeclared = data;
                 next();

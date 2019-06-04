@@ -6,6 +6,7 @@ const chai = require('chai');
 const {Pact} = require('@pact-foundation/pact');
 const chaiAsPromised = require('chai-as-promised');
 const ProbateCoverSheetPdf = require('app/services/ProbateCoverSheetPdf');
+const nock = require('nock');
 const config = require('app/config');
 const assert = chai.assert;
 const expect = chai.expect;
@@ -32,11 +33,12 @@ describe('Pact ProbateCoverSheetPdf', () => {
             spec: 2
         });
     });
+    const serviceToken = 'tok123';
+
     const req = {
         sessionID: 'someSessionId',
         authToken: 'authToken',
         session: {
-            serviceAuthorization: 'someServiceAuthorization',
             formdata: {
                 applicant: {address: 'addressLine1'},
                 ccdCase: {id: '123454'},
@@ -48,7 +50,6 @@ describe('Pact ProbateCoverSheetPdf', () => {
         sessionID: 'someSessionId',
         authToken: 'authToken',
         session: {
-            serviceAuthorization: 'someServiceAuthorization',
             formdata: {
                 applicant: {address: ''},
                 ccdCase: {id: '123454'},
@@ -56,12 +57,6 @@ describe('Pact ProbateCoverSheetPdf', () => {
             }
         }
     };
-    function getRequestBody(payload) {
-        const fullBody = {
-            bulkScanCoverSheet: payload
-        };
-        return fullBody;
-    }
     // Setup a Mock Server before unit tests run.
     // This server acts as a Test Double for the real Provider API.
     // We then call addInteraction() for each test to configure the Mock Service
@@ -71,6 +66,13 @@ describe('Pact ProbateCoverSheetPdf', () => {
     before(() =>
         provider.setup()
     );
+
+    beforeEach(() => {
+        nock(config.services.idam.s2s_url)
+            .post('/lease')
+            .reply(200, serviceToken);
+    });
+
     // After each individual test (one or more interactions)
     // we validate that the correct request came through.
     // This ensures what we _expect_ from the provider, is actually
@@ -89,12 +91,12 @@ describe('Pact ProbateCoverSheetPdf', () => {
                         method: 'POST',
                         path: '/documents/generate/bulkScanCoversheet',
                         headers: {
-                            'Content-Type': 'application/businessdocument+json',
+                            'Content-Type': 'application/json',
                             'Session-Id': req.sessionID,
                             'Authorization': req.authToken,
-                            'ServiceAuthorization': req.session.serviceAuthorization
+                            'ServiceAuthorization': serviceToken
                         },
-                        body: getRequestBody(DOC_BODY_PAYLOAD)
+                        body: DOC_BODY_PAYLOAD
                     },
                     willRespondWith: {
                         status: 200,
@@ -126,16 +128,15 @@ describe('Pact ProbateCoverSheetPdf', () => {
                         method: 'POST',
                         path: '/documents/generate/bulkScanCoversheet',
                         headers: {
-                            'Content-Type': 'application/businessdocument+json',
+                            'Content-Type': 'application/json',
                             'Session-Id': req.sessionID,
                             'Authorization': req.authToken,
-                            'ServiceAuthorization': req.session.serviceAuthorization
+                            'ServiceAuthorization': serviceToken
                         },
-                        body: getRequestBody(DOC_BODY_INVALID_PAYLOAD)
+                        body: DOC_BODY_INVALID_PAYLOAD
                     },
                     willRespondWith: {
-                        status: 400,
-                        headers: {'Content-Type': 'application/businessdocument+json'},
+                        status: 400
                     }
                 });
             });
@@ -152,6 +153,7 @@ describe('Pact ProbateCoverSheetPdf', () => {
         });
     });
     after(() => {
+        nock.cleanAll();
         return provider.finalize();
     });
 });

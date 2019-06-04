@@ -19,7 +19,9 @@ describe('Executor-Additional-Invite-Sent', function () {
                         journeyType: 'probate'
                     },
                     journeyType: 'probate'
-                }
+                },
+                authToken: 'authToken',
+                serviceAuthorization: 'serviceAuthorization'
             };
         });
 
@@ -40,7 +42,9 @@ describe('Executor-Additional-Invite-Sent', function () {
                 header: 'header',
                 inviteSuffix: '',
                 sessionID: 'dummy_sessionId',
-                journeyType: 'probate'
+                journeyType: 'probate',
+                authToken: 'authToken',
+                serviceAuthorization: 'serviceAuthorization'
             });
         });
 
@@ -66,7 +70,9 @@ describe('Executor-Additional-Invite-Sent', function () {
                 header: 'header-multiple',
                 inviteSuffix: '-multiple',
                 sessionID: 'dummy_sessionId',
-                journeyType: 'probate'
+                journeyType: 'probate',
+                authToken: 'authToken',
+                serviceAuthorization: 'serviceAuthorization'
             });
         });
     });

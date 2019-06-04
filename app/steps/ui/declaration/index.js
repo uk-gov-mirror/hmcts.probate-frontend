@@ -37,6 +37,9 @@ class Declaration extends ValidationStep {
         ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants(get(formdata, 'executors.list'));
         ctx.executorsEmailChanged = ctx.executorsWrapper.hasExecutorsEmailChanged();
         ctx.hasExecutorsToNotify = ctx.executorsWrapper.hasExecutorsToNotify() && ctx.invitesSent === 'true';
+        ctx.formdataId = req.session.formdataId;
+        ctx.authToken = req.authToken;
+        ctx.serviceAuthorization = req.session.serviceAuthorization;
         return ctx;
     }
 
@@ -189,12 +192,9 @@ class Declaration extends ValidationStep {
     }
 
     resetAgreedFlags(ctx) {
-        const data = {agreed: null};
-        const inviteData = new InviteData(config.services.persistence.url, ctx.sessionID);
-        const promises = ctx.executorsWrapper
-            .executorsInvited()
-            .map(exec => inviteData.patch(exec.inviteId, data));
-        return Promise.all(promises);
+        const inviteData = new InviteData(config.services.orchestrator.url, ctx.sessionID);
+        const promise = inviteData.resetAgreedFlag(ctx.formdataId, ctx);
+        return promise;
     }
 
     action(ctx, formdata) {
@@ -211,6 +211,8 @@ class Declaration extends ValidationStep {
         delete ctx.executorsEmailChanged;
         delete ctx.hasDataChangedAfterEmailSent;
         delete ctx.invitesSent;
+        delete ctx.serviceAuthorization;
+        delete ctx.authToken;
         return [ctx, formdata];
     }
 

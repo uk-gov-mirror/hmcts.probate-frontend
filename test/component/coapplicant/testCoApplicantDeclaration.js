@@ -8,11 +8,13 @@ const commonContent = require('app/resources/en/translation/common');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const nock = require('nock');
 const config = require('app/config');
-const businessServiceUrl = config.services.validation.url.replace('/validate', '');
-const persistenceServiceUrl = config.services.persistence.url.replace('/formdata', '');
+const orchestratorServiceUrl = config.services.orchestrator.url;
 const invitesNock = () => {
-    nock(businessServiceUrl)
-        .get('/invites/allAgreed/undefined')
+    nock(orchestratorServiceUrl)
+        .get('/invite/allAgreed/undefined')
+        .reply(200, 'false');
+    nock(orchestratorServiceUrl)
+        .get('/invite/allAgreed/34')
         .reply(200, 'false');
 };
 let sessionData = require('test/data/complete-form-undeclared');
@@ -61,13 +63,13 @@ describe('co-applicant-declaration', () => {
         });
 
         it(`test it redirects to agree page: ${expectedNextUrlForCoAppAgree}`, (done) => {
-            nock(persistenceServiceUrl)
-                .patch('/invitedata/34')
+            nock(orchestratorServiceUrl)
+                .post('/invite/agreed/34')
                 .reply(200, 'false');
 
             sessionData = {};
 
-            testWrapper.agent.post('/prepare-session-field/inviteId/34')
+            testWrapper.agent.post('/prepare-session-field/formdataId/34')
                 .end(() => {
                     testWrapper.agent.post('/prepare-session/form')
                         .send(sessionData)
@@ -81,13 +83,13 @@ describe('co-applicant-declaration', () => {
         });
 
         it(`test it redirects to disagree page: ${expectedNextUrlForCoAppDisagree}`, (done) => {
-            nock(persistenceServiceUrl)
-                .patch('/invitedata/34')
+            nock(orchestratorServiceUrl)
+                .post('/invite/agreed/34')
                 .reply(200, 'false');
 
             sessionData = {};
 
-            testWrapper.agent.post('/prepare-session-field/inviteId/34')
+            testWrapper.agent.post('/prepare-session-field/formdataId/34')
                 .end(() => {
                     testWrapper.agent.post('/prepare-session/form')
                         .send(sessionData)

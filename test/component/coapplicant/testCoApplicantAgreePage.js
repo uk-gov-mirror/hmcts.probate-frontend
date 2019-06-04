@@ -5,7 +5,7 @@ const sessionData = require('test/data/complete-form-undeclared');
 const commonContent = require('app/resources/en/translation/common');
 const nock = require('nock');
 const config = require('app/config');
-const businessServiceUrl = config.services.validation.url.replace('/validate', '');
+const orchestratorServiceUrl = config.services.orchestrator.url;
 
 describe('co-applicant-agree-page', () => {
     let testWrapper;
@@ -25,8 +25,8 @@ describe('co-applicant-agree-page', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test correct content is loaded on the page when there are no codicils', (done) => {
-            nock(businessServiceUrl)
-                .get('/invites/allAgreed/undefined')
+            nock(orchestratorServiceUrl)
+                .get('/invite/allAgreed/undefined')
                 .reply(200, false);
 
             const contentToExclude = [
@@ -41,8 +41,8 @@ describe('co-applicant-agree-page', () => {
         });
 
         it('test correct content is loaded on the page when there are codicils', (done) => {
-            nock(businessServiceUrl)
-                .get('/invites/allAgreed/undefined')
+            nock(orchestratorServiceUrl)
+                .get('/invite/allAgreed/undefined')
                 .reply(200, false);
 
             sessionData.formdata.will.codicils = commonContent.yes;

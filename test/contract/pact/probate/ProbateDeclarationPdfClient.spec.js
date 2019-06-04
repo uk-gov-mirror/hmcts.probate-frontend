@@ -5,6 +5,7 @@ const path = require('path');
 const chai = require('chai');
 const {Pact} = require('@pact-foundation/pact');
 const chaiAsPromised = require('chai-as-promised');
+const nock = require('nock');
 const ProbateDeclarationPdf = require('app/services/ProbateDeclarationPdf');
 const config = require('app/config');
 const assert = chai.assert;
@@ -33,11 +34,12 @@ describe('Pact ProbateDeclarationPdf', () => {
         });
     });
 
+    const serviceToken = 'tok123';
+
     const req = {
         sessionID: 'someSessionId',
         authToken: 'authToken',
         session: {
-            serviceAuthorization: 'someServiceAuthorization',
             legalDeclaration: DOC_BODY_PAYLOAD
         }
     };
@@ -45,16 +47,9 @@ describe('Pact ProbateDeclarationPdf', () => {
         sessionID: 'someSessionId',
         authToken: 'authToken',
         session: {
-            serviceAuthorization: 'someServiceAuthorization',
             legalDeclaration: DOC_BODY_INVALID_PAYLOAD
         }
     };
-    function getRequestBody(payload) {
-        const fullBody = {
-            legalDeclaration: payload
-        };
-        return fullBody;
-    }
 
     // Setup a Mock Server before unit tests run.
     // This server acts as a Test Double for the real Provider API.
@@ -65,6 +60,12 @@ describe('Pact ProbateDeclarationPdf', () => {
     before(() =>
         provider.setup()
     );
+
+    beforeEach(() => {
+        nock(config.services.idam.s2s_url)
+            .post('/lease')
+            .reply(200, serviceToken);
+    });
 
     // After each individual test (one or more interactions)
     // we validate that the correct request came through.
@@ -84,12 +85,12 @@ describe('Pact ProbateDeclarationPdf', () => {
                         method: 'POST',
                         path: '/documents/generate/legalDeclaration',
                         headers: {
-                            'Content-Type': 'application/businessdocument+json',
+                            'Content-Type': 'application/json',
                             'Session-Id': req.sessionID,
                             'Authorization': req.authToken,
-                            'ServiceAuthorization': req.session.serviceAuthorization
+                            'ServiceAuthorization': serviceToken
                         },
-                        body: getRequestBody(DOC_BODY_PAYLOAD)
+                        body: DOC_BODY_PAYLOAD
                     },
                     willRespondWith: {
                         status: 200,
@@ -119,16 +120,15 @@ describe('Pact ProbateDeclarationPdf', () => {
                         method: 'POST',
                         path: '/documents/generate/legalDeclaration',
                         headers: {
-                            'Content-Type': 'application/businessdocument+json',
+                            'Content-Type': 'application/json',
                             'Session-Id': req.sessionID,
                             'Authorization': req.authToken,
-                            'ServiceAuthorization': req.session.serviceAuthorization
+                            'ServiceAuthorization': serviceToken
                         },
-                        body: getRequestBody(DOC_BODY_INVALID_PAYLOAD)
+                        body: DOC_BODY_INVALID_PAYLOAD
                     },
                     willRespondWith: {
-                        status: 400,
-                        headers: {'Content-Type': 'application/businessdocument+json'},
+                        status: 400
                     }
                 });
             });
@@ -145,6 +145,7 @@ describe('Pact ProbateDeclarationPdf', () => {
     // and shutdown the associated mock server.
     // You should do this only _once_ per Provider you are testing.
     after(() => {
+        nock.cleanAll();
         return provider.finalize();
     });
 });

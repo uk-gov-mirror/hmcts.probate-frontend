@@ -6,6 +6,7 @@ const AdditionalExecutorInvite = rewire('app/utils/AdditionalExecutorInvite');
 
 describe('AdditionalExecutorInvite', () => {
     describe('invite()', () => {
+        let req;
         let session;
         let executorsToCheck;
 
@@ -48,6 +49,7 @@ describe('AdditionalExecutorInvite', () => {
                     }
                 }
             };
+            req = {session: session};
             executorsToCheck = JSON.parse(JSON.stringify(session));
             executorsToCheck.form.executors.list[1].emailSent = true;
             executorsToCheck.form.executors.list[2].emailSent = true;
@@ -60,7 +62,7 @@ describe('AdditionalExecutorInvite', () => {
                         return Promise.resolve('Success');
                     }
                 });
-                AdditionalExecutorInvite.invite(session)
+                AdditionalExecutorInvite.invite(req)
                     .then(res => {
                         assert.isDefined(res.list[2].inviteId);
                         expect(res.list[2].emailSent).to.deep.equal(true);
@@ -79,7 +81,7 @@ describe('AdditionalExecutorInvite', () => {
                 });
                 session.form.executors.list[1].emailSent = false;
                 delete session.form.executors.list[1].inviteId;
-                AdditionalExecutorInvite.invite(session)
+                AdditionalExecutorInvite.invite(req)
                     .then(res => {
                         assert.isDefined(res.list[1].inviteId);
                         assert.isDefined(res.list[2].inviteId);
@@ -96,7 +98,7 @@ describe('AdditionalExecutorInvite', () => {
         describe('when there are no emailChanged flags to remove', () => {
             it('should return the original executors data', (done) => {
                 session.form.executors.list[2].emailSent = true;
-                AdditionalExecutorInvite.invite(session)
+                AdditionalExecutorInvite.invite(req)
                     .then(res => {
                         expect(res).to.deep.equal(executorsToCheck.form.executors);
                         done();

@@ -10,9 +10,11 @@ describe('ProbateCheckAnswersPdfService', () => {
     describe('post()', () => {
         it('should call super.post()', (done) => {
             const endpoint = 'http://localhost';
-            const req = {session: {
-                checkAnswersSummary: 'Some really interesting text'
-            }};
+            const req = {
+                session: {
+                    checkAnswersSummary: 'Some really interesting text'
+                }
+            };
             const probateCheckAnswersPdf = new ProbateCheckAnswersPdf(endpoint, 'abc123');
             const postStub = sinon.stub(ProbatePdf.prototype, 'post');
 
@@ -20,10 +22,7 @@ describe('ProbateCheckAnswersPdfService', () => {
 
             expect(postStub.calledOnce).to.equal(true);
             expect(postStub.calledWith(
-                config.template.checkAnswers,
-                {
-                    checkAnswersSummary: req.session.checkAnswersSummary
-                },
+                config.template.checkAnswers, req.session.checkAnswersSummary,
                 'Post probate check answers pdf'
             )).to.equal(true);
 

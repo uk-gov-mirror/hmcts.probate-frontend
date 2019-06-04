@@ -20,10 +20,7 @@ describe('ProbateDeclarationPdfService', () => {
 
             expect(postStub.calledOnce).to.equal(true);
             expect(postStub.calledWith(
-                config.template.declaration,
-                {
-                    legalDeclaration: req.session.legalDeclaration
-                },
+                config.template.declaration, req.session.legalDeclaration,
                 'Post probate declaration pdf'
             )).to.equal(true);
 

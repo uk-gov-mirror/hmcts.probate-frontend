@@ -5,7 +5,7 @@ const Pdf = require('./Pdf');
 class ProbatePdf extends Pdf {
     post(pdfTemplate, body, logMessage, req) {
         const headers = {
-            'Content-Type': 'application/businessdocument+json',
+            'Content-Type': 'application/json',
             'Session-Id': req.sessionID,
             'Authorization': req.authToken,
             'ServiceAuthorization': req.session.serviceAuthorization

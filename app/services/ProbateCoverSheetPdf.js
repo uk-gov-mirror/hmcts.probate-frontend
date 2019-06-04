@@ -7,11 +7,9 @@ class ProbateCoverSheetPdf extends ProbatePdf {
         const formdata = req.session.formdata;
         const pdfTemplate = this.config.pdf.template.coverSheet;
         const body = {
-            bulkScanCoverSheet: {
-                applicantAddress: formdata.applicant.address,
-                caseReference: formdata.ccdCase.id,
-                submitAddress: formdata.registry.address
-            }
+            applicantAddress: formdata.applicant.address,
+            caseReference: formdata.ccdCase.id,
+            submitAddress: formdata.registry.address
         };
         const logMessage = 'Post probate cover sheet pdf';
         return super.post(pdfTemplate, body, logMessage, req);

@@ -20,7 +20,7 @@ describe('InviteLinkService', () => {
             expect(inviteLink.log.calledOnce).to.equal(true);
             expect(inviteLink.log.calledWith('Get invite link')).to.equal(true);
             expect(inviteLink.fetchJson.calledOnce).to.equal(true);
-            expect(inviteLink.fetchJson.calledWith(`${endpoint}/invitedata/${inviteId}`, fetchOptions)).to.equal(true);
+            expect(inviteLink.fetchJson.calledWith(`${endpoint}/invite/data/${inviteId}`, fetchOptions)).to.equal(true);
 
             logSpy.restore();
             fetchJsonSpy.restore();

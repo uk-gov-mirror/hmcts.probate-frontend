@@ -157,7 +157,7 @@ describe('Service', () => {
                 .fetchBuffer('http://localhost/forms', {})
                 .catch(() => {
                     expect(service.log.calledOnce).to.equal(true);
-                    expect(service.log.calledWith('Fetch buffer error: Error: FetchError: request to http://localhost/forms failed, reason: connect ECONNREFUSED 127.0.0.1:80')).to.equal(true);
+                    expect(service.log.calledWith('Fetch buffer error: Error: Not Found')).to.equal(true);
                     expect(service.fetchBuffer).to.throw(Error);
                     done();
                 });

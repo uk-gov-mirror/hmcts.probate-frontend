@@ -7,25 +7,24 @@ const InviteLink = require('app/services/InviteLink');
 const config = require('app/config');
 
 class AdditionalExecutorInvite {
-    static invite(session) {
-        const formdata = session.form;
+    static invite(req) {
+        const session = req.session;
+        const formdata = req.session.form;
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         const executorsToNotifyList = executorsWrapper.executorsToNotify();
 
         const promises = executorsToNotifyList
             .map(exec => {
                 const data = {
-                    invitation: {
-                        executorName: exec.fullName,
-                        firstName: formdata.deceased.firstName,
-                        lastName: formdata.deceased.lastName,
-                        email: exec.email,
-                        phoneNumber: exec.mobile,
-                        formdataId: session.regId,
-                        leadExecutorName: FormatName.format(formdata.applicant)
-                    }
+                    executorName: exec.fullName,
+                    firstName: formdata.deceased.firstName,
+                    lastName: formdata.deceased.lastName,
+                    email: exec.email,
+                    phoneNumber: exec.mobile,
+                    formdataId: session.regId,
+                    leadExecutorName: FormatName.format(formdata.applicant)
                 };
-                const inviteLink = new InviteLink(config.services.validation.url, session.id);
+                const inviteLink = new InviteLink(config.services.orchestrator.url, session.id);
                 return inviteLink.post(data, exec);
             });
         return Promise.all(promises).then(result => {

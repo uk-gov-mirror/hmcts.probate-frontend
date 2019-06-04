@@ -5,7 +5,7 @@ const {assert} = require('chai');
 const ExecutorsAdditionalInviteSent = require('app/steps/ui/executors/additionalinvitesent/index');
 const nock = require('nock');
 const config = require('app/config');
-const businessServiceUrl = config.services.validation.url.replace('/validate', '');
+const orchestratorServiceUrl = config.services.orchestrator.url;
 
 describe('executors-additional-invite', () => {
     let testWrapper;
@@ -85,7 +85,7 @@ describe('executors-additional-invite', () => {
         });
 
         it('test an error page is rendered if there is an error calling invite service', (done) => {
-            nock(businessServiceUrl)
+            nock(orchestratorServiceUrl)
                 .post('/invite')
                 .reply(500, new Error('ReferenceError'));
 
@@ -105,7 +105,7 @@ describe('executors-additional-invite', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForExecutorsAdditionalInviteSent}`, (done) => {
-            nock(businessServiceUrl)
+            nock(orchestratorServiceUrl)
                 .post('/invite')
                 .reply(200, {response: 'Make it pass!'});
 

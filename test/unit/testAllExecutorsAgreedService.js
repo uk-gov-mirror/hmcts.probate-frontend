@@ -14,13 +14,15 @@ describe('AllExecutorsAgreedService', () => {
             const logSpy = sinon.spy(allExecutorsAgreed, 'log');
             const fetchTextSpy = sinon.spy(allExecutorsAgreed, 'fetchText');
             const fetchOptionsStub = sinon.stub(allExecutorsAgreed, 'fetchOptions').returns(fetchOptions);
+            const authToken = 'authToken';
+            const serviceAuth = 'serviceAuth';
 
-            allExecutorsAgreed.get(formdataId);
+            allExecutorsAgreed.get(formdataId, authToken, serviceAuth);
 
             expect(allExecutorsAgreed.log.calledOnce).to.equal(true);
             expect(allExecutorsAgreed.log.calledWith('Get all executors agreed')).to.equal(true);
             expect(allExecutorsAgreed.fetchText.calledOnce).to.equal(true);
-            expect(allExecutorsAgreed.fetchText.calledWith(`${endpoint}/invites/allAgreed/${formdataId}`, fetchOptions)).to.equal(true);
+            expect(allExecutorsAgreed.fetchText.calledWith(`${endpoint}/invite/allAgreed/${formdataId}`, fetchOptions)).to.equal(true);
 
             logSpy.restore();
             fetchTextSpy.restore();
