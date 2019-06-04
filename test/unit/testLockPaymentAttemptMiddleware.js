@@ -35,7 +35,7 @@ describe('lockPaymentAttemptMiddleware', () => {
         it('should lock payment if unlocked', (done) => {
             req.session = {
                 save: sinon.spy()
-            }
+            };
             lockPaymentAttemptMiddleware(req, res, next);
             expect(req.session.paymentLock).to.equal('Locked');
             expect(req.session.save.calledOnce).to.equal(true);
