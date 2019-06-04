@@ -4,7 +4,7 @@ const expect = require('chai').expect;
 const sinon = require('sinon');
 const lockPaymentAttemptMiddleware = require('app/middleware/lockPaymentAttempt');
 
-describe.only('lockPaymentAttemptMiddleware', () => {
+describe('lockPaymentAttemptMiddleware', () => {
     describe('lockPaymentAttempt', () => {
         let req;
         let res;
