@@ -47,17 +47,6 @@ describe('deceased-address', () => {
             testWrapper.testErrors(done, data, 'required', ['addressLine1']);
         });
 
-        it(`test it redirects to iht method page: ${expectedNextUrlForIhtMethod}`, (done) => {
-            featureTogglesNock('false');
-
-            const data = {
-                addressLine1: 'value',
-                postTown: 'value',
-                newPostCode: 'value'
-            };
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
-        });
-
         it(`test it redirects to document upload page: ${expectedNextUrlForDocumentUpload}`, (done) => {
             featureTogglesNock('true');
 
@@ -67,17 +56,6 @@ describe('deceased-address', () => {
                 newPostCode: 'value'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForDocumentUpload);
-        });
-
-        it(`test it redirects to summary page: ${expectedNextUrlForSummary}`, (done) => {
-            featureTogglesNock('false');
-
-            const data = {
-                addressLine1: 'value',
-                postTown: 'value',
-                newPostCode: 'value'
-            };
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });
     });
 });
