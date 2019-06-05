@@ -23,6 +23,7 @@ Scenario(TestConfigurator.idamInUseText('Save And Close Link Click Flow'), funct
 
     //Screeners & Pre-IDAM
     I.startApplication();
+    I.wait(10);
     I.selectDeathCertificate('Yes');
     I.selectDeceasedDomicile('Yes');
     I.selectIhtCompleted('Yes');
