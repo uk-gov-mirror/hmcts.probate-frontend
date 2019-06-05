@@ -6,8 +6,8 @@ const Helper = codecept_helper;
 class WebDriverHelper extends Helper {
 
     async waitForNavigationToComplete (locator) {
-        const helper = this.helpers['WebDriverIO'] || this.helpers['Puppeteer'];
-        const helperIsPuppeteer = this.helpers['Puppeteer'];
+        const helper = this.helpers.WebDriverIO || this.helpers.Puppeteer;
+        const helperIsPuppeteer = this.helpers.Puppeteer;
 
         helper.click(locator);
 
@@ -19,8 +19,8 @@ class WebDriverHelper extends Helper {
     }
 
     async amOnLoadedPage (url) {
-        const helper = this.helpers['WebDriverIO'] || this.helpers['Puppeteer'];
-        const helperIsPuppeteer = this.helpers['Puppeteer'];
+        const helper = this.helpers.WebDriverIO || this.helpers.Puppeteer;
+        const helperIsPuppeteer = this.helpers.Puppeteer;
 
         if (helperIsPuppeteer) {
             if (url.indexOf('http') !== 0) {
