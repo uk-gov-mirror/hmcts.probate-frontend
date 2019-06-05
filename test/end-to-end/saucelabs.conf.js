@@ -1,7 +1,29 @@
+/* eslint-disable no-console */
+
 const supportedBrowsers = require('../crossbrowser/supportedBrowsers.js');
 
 const browser = process.env.SAUCELABS_BROWSER || 'chrome';
-const tunnelName = process.env.TUNNEL_IDENTIFIER || '';
+const tunnelName = process.env.TUNNEL_IDENTIFIER || 'reformtunnel';
+
+const getBrowserConfig = (browserGroup) => {
+    const browserConfig = [];
+    for (const candidateBrowser in supportedBrowsers[browserGroup]) {
+        if (candidateBrowser) {
+            const desiredCapability = supportedBrowsers[browserGroup][candidateBrowser];
+            desiredCapability.tunnelIdentifier = tunnelName;
+            desiredCapability.tags = ['probate'];
+            console.log('browserName>>>', desiredCapability.browserName);
+            console.log('desiredCapability>>>', desiredCapability);
+            browserConfig.push({
+                browser: desiredCapability.browserName,
+                desiredCapabilities: desiredCapability
+            });
+        } else {
+            console.error('ERROR: supportedBrowsers.js is empty or incorrectly defined');
+        }
+    }
+    return browserConfig;
+};
 
 const setupConfig = {
     'tests': './paths/*.js',
@@ -9,8 +31,9 @@ const setupConfig = {
     'timeout': 20000,
     'helpers': {
         WebDriverIO: {
-            url: process.env.TEST_E2E_FRONTEND_URL || 'https://localhost:3000',
-            browser: supportedBrowsers[browser].browserName,
+            url: process.env.TEST_E2E_FRONTEND_URL || 'https://probate-frontend-aat.service.core-compute-aat.internal',
+            //'https://localhost:3000',
+            browser,
             waitforTimeout: 60000,
             cssSelectorsEnabled: 'true',
             windowSize: '1600x900',
@@ -19,17 +42,13 @@ const setupConfig = {
                 'page load': 60000,
                 implicit: 20000
             },
-            'host': 'ondemand.saucelabs.com',
+            'host': 'ondemand.eu-central-1.saucelabs.com',
             'port': 80,
-            'user': process.env.SAUCE_USERNAME,
-            'key': process.env.SAUCE_ACCESS_KEY,
-            desiredCapabilities: getDesiredCapabilities()
+            'region': 'eu',
+            'user': process.env.SAUCE_USERNAME || 'Douglas.Rice',
+            'key': process.env.SAUCE_ACCESS_KEY || '609b4570-4459-4421-a699-f3c17c61eabc',
+            desiredCapabilities: {}
         },
-
-        'JSWait': {
-            'require': './helpers/JSWait.js'
-        },
-
         'SauceLabsReportingHelper': {
             'require': './helpers/SauceLabsReportingHelper.js'
         }
@@ -45,14 +64,32 @@ const setupConfig = {
             'inlineAssets': true
         }
     },
+    'multiple': {
+        microsoftIE11: {
+            browsers: getBrowserConfig('microsoftIE11')
+        }
+        // ,
+        // microsoftEdge: {
+        //     browsers: getBrowserConfig('microsoftEdge')
+        // },
+        // chrome: {
+        //     browsers: getBrowserConfig('chrome')
+        // },
+        // firefox: {
+        //     browsers: getBrowserConfig('firefox')
+        // },
+        // safari: {
+        //     browsers: getBrowserConfig('safari')
+        // }
+    },
     'name': 'frontEnd Tests'
 };
 
-function getDesiredCapabilities() {
+/*function getDesiredCapabilities() {
     const desiredCapability = supportedBrowsers[browser];
     desiredCapability.tunnelIdentifier = tunnelName;
     desiredCapability.tags = ['probate'];
     return desiredCapability;
-}
+}*/
 
 exports.config = setupConfig;
