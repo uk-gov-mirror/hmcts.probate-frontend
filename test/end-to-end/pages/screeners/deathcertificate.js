@@ -10,6 +10,7 @@ module.exports = function (answer) {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.click(`#deathCertificate-option${answer}`);
 
-    I.click(commonContent.continue);
+    //I.click(commonContent.continue);
     //I.waitForNavigationToComplete(`input[value="${commonContent.continue}"]`);
+    I.waitForNavigationToComplete(commonContent.continue);
 };

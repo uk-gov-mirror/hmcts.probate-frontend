@@ -14,26 +14,7 @@ class WebDriverHelper extends Helper {
         if (helperIsPuppeteer) {
             await helper.page.waitForNavigation({waitUntil: 'networkidle0'});
         } else {
-            await helper.wait(2);
-        }
-    }
-
-    async amOnLoadedPage (url) {
-        const helper = this.helpers.WebDriverIO || this.helpers.Puppeteer;
-        const helperIsPuppeteer = this.helpers.Puppeteer;
-
-        if (helperIsPuppeteer) {
-            if (url.indexOf('http') !== 0) {
-                url = helper.options.url + url;
-            }
-
-            helper.page.goto(url);
-            await helper.page.waitForNavigation({waitUntil: 'networkidle0'});
-
-        } else {
-            await helper.amOnPage(url);
-            await helper.waitInUrl(url);
-            await helper.waitForElement('#content');
+            await helper.wait(4);
         }
     }
 
