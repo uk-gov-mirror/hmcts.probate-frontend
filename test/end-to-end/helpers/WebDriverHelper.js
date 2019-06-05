@@ -6,22 +6,20 @@ const helperName = 'WebDriverIO';
 class WebDriverHelper extends Helper {
 
     clickBrowserBackButton() {
-        const page = this.helpers[helperName].browser;
-
-        return page.back();
-    }
-
-    waitForNavigationToComplete(locator) {
         const browser = this.helpers[helperName].browser;
 
-        browser.click(locator);
+        return browser.back();
+    }
 
-    //async waitForNavigationToComplete(locator) {
-    //  const browser = this.helpers[helperName].browser;
-        //await browser.click(locator);
-        //const htmlElement = this.helpers[helperName]._locate(locator);
+    // waitForNavigationToComplete(locator) {
+    // const browser = this.helpers[helperName].browser;
+    //
+    // browser.click(locator);
 
-        //htmlElement.click();
+    async waitForNavigationToComplete(locator) {
+        const browser = this.helpers[helperName].browser;
+
+        await browser.click(locator);
     }
     // async waitForNavigationToComplete(locator) {
     //     const page = this.helpers[helperName].page;
