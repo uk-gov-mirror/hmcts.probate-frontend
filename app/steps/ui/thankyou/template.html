@@ -9,7 +9,7 @@
                 {% if fields.ccdReferenceNumber.value !== '' %}
                     <p class="govuk-!-font-size-36 govuk-!-font-weight-bold">
                         <span class="govuk-!-font-size-24 govuk-!-font-weight-bold">{{ content.referenceNumber | safe }}</span><br>
-                        <strong class="govuk-!-font-weight-bold">{{ fields.ccdReferenceNumber.value }}</strong>
+                        <strong class="govuk-!-font-weight-bold" aria-label="{{ fields.ccdReferenceNumberAccessible.value }}">{{ fields.ccdReferenceNumber.value }}</strong>
                     </p>
                 {% endif %}
             {% endset -%}
