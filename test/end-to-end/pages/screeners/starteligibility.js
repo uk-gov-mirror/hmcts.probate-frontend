@@ -13,5 +13,5 @@ module.exports = function (checkCookieBannerExists) {
         I.waitForElement('div#global-cookie-message', 60);
     }
 
-    I.waitForNavigationToComplete('.button.button-start');
+    I.waitForNavigationToComplete('.button');
 };

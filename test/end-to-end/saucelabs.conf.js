@@ -34,6 +34,7 @@ const setupConfig = {
             url: process.env.TEST_E2E_FRONTEND_URL || 'https://probate-frontend-aat.service.core-compute-aat.internal',
             //'https://localhost:3000',
             browser,
+            smartWait: 60000,
             waitforTimeout: 60000,
             cssSelectorsEnabled: 'true',
             windowSize: '1600x900',
@@ -52,8 +53,8 @@ const setupConfig = {
         'SauceLabsReportingHelper': {
             'require': './helpers/SauceLabsReportingHelper.js'
         },
-        'PuppeteerHelper': {
-            'require': './helpers/PuppeteerHelper.js'
+        'WebDriverHelper': {
+            'require': './helpers/WebDriverHelper.js'
         }
     },
     'include': {
