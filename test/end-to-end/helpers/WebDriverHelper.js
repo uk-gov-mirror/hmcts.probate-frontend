@@ -11,9 +11,15 @@ class WebDriverHelper extends Helper {
         return page.back();
     }
 
-    async waitForNavigationToComplete(locator) {
-        const browser = this.helpers[helperName].browser;
-        await browser.click(locator);
+    waitForNavigationToComplete(locator) {
+        const {WebDriver} = this.helpers;
+        const browser = WebDriver.browser;
+
+        browser.click(locator);
+
+    //async waitForNavigationToComplete(locator) {
+    //  const browser = this.helpers[helperName].browser;
+        //await browser.click(locator);
         //const htmlElement = this.helpers[helperName]._locate(locator);
 
         //htmlElement.click();
