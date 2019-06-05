@@ -8,7 +8,6 @@ const utils = require('app/components/step-utils');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
-const FeatureToggle = require('app/utils/FeatureToggle');
 const CheckAnswersSummaryJSONObjectBuilder = require('app/utils/CheckAnswersSummaryJSONObjectBuilder');
 const checkAnswersSummaryJSONObjBuilder = new CheckAnswersSummaryJSONObjectBuilder();
 const ValidateData = require('app/services/ValidateData');
@@ -24,7 +23,7 @@ class Summary extends Step {
         return `/summary/${redirect}`;
     }
 
-    * handleGet(ctx, formdata, featureToggles) {
+    * handleGet(ctx, formdata) {
         const result = yield this.validateFormData(ctx, formdata);
         const errors = map(result.errors, err => {
             return FieldError(err.param, err.code, this.resourcePath, ctx);

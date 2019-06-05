@@ -1,8 +1,6 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const Summary = require('app/steps/ui/summary');
-const IhtMethod = require('app/steps/ui/iht/method');
 const DocumentUpload = require('app/steps/ui/documentupload');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const config = require('app/config');
@@ -17,8 +15,6 @@ const featureTogglesNock = (status = 'true') => {
 
 describe('deceased-address', () => {
     let testWrapper;
-    const expectedNextUrlForSummary = Summary.getUrl();
-    const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
     const expectedNextUrlForDocumentUpload = DocumentUpload.getUrl();
 
     beforeEach(() => {
