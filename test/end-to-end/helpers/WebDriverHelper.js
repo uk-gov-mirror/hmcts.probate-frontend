@@ -11,10 +11,11 @@ class WebDriverHelper extends Helper {
         return page.back();
     }
 
-    waitForNavigationToComplete(locator) {
-        const htmlElement = this.helpers[helperName]._locate(locator);
+    async waitForNavigationToComplete(locator) {
+        await this.helpers[helperName]._locate(locator).then(this.click());
+        //const htmlElement = this.helpers[helperName]._locate(locator);
 
-        htmlElement.click();
+        //htmlElement.click();
     }
     // async waitForNavigationToComplete(locator) {
     //     const page = this.helpers[helperName].page;
