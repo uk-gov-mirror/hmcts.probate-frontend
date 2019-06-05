@@ -9,5 +9,6 @@ module.exports = function (answer) {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.click(`#mentalCapacity-option${answer}`);
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.continue}"]`);
+    I.click(commonContent.continue);
+    //I.waitForNavigationToComplete(`input[value="${commonContent.continue}"]`);
 };

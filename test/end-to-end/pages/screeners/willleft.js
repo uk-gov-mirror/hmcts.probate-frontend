@@ -1,6 +1,6 @@
 'use strict';
 
-//const commonContent = require('app/resources/en/translation/common');
+const commonContent = require('app/resources/en/translation/common');
 const pageUnderTest = require('app/steps/ui/screeners/willleft');
 
 module.exports = function (answer) {
@@ -9,6 +9,6 @@ module.exports = function (answer) {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.click(`#left-option${answer}`);
 
-    I.click('Continue');
+    I.click(commonContent.continue);
     //I.waitForNavigationToComplete(`input[value="${commonContent.continue}"]`);
 };
