@@ -12,7 +12,7 @@ class WebDriverHelper extends Helper {
     }
 
     async waitForNavigationToComplete(locator) {
-        await this.helpers[helperName]._locate(locator).then(this.click());
+        await this.helpers[helperName].click(locator);
         //const htmlElement = this.helpers[helperName]._locate(locator);
 
         //htmlElement.click();
