@@ -11,24 +11,10 @@ class WebDriverHelper extends Helper {
         return browser.back();
     }
 
-    // waitForNavigationToComplete(locator) {
-    // const browser = this.helpers[helperName].browser;
-    //
-    // browser.click(locator);
-
     async waitForNavigationToComplete(locator) {
         const browser = this.helpers[helperName].browser;
 
         await browser.click(locator);
     }
-    // async waitForNavigationToComplete(locator) {
-    //     const page = this.helpers[helperName].page;
-    //
-    //     await Promise.all([
-    //         page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']}), // The promise resolves after navigation has finished
-    //         page.click(locator) // Clicking the link will indirectly cause a navigation
-    //     ]);
-    //
-    // }
 }
 module.exports = WebDriverHelper;

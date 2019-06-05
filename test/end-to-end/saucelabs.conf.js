@@ -26,7 +26,7 @@ const getBrowserConfig = (browserGroup) => {
 };
 
 const setupConfig = {
-    'tests': './paths/cookieBanner.js',
+    'tests': './paths/*.js',
     'output': './output',
     'timeout': 20000,
     'helpers': {
