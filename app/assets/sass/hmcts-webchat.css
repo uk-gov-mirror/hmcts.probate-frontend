@@ -1254,6 +1254,11 @@ body.is-popup {
   margin: 0 !important;
 }
 
+.message-box #message-field:focus {
+  outline-offset: 0;
+  outline: #ffbf47 solid 3px;
+}
+
 .message-box #message-counter {
   display: none !important;
 }
