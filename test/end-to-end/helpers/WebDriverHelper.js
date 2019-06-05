@@ -1,7 +1,7 @@
 'use strict';
 
 const Helper = codecept_helper;
-const helperName = 'WebDriver';
+const helperName = 'WebDriverIO';
 
 class WebDriverHelper extends Helper {
 
@@ -12,8 +12,7 @@ class WebDriverHelper extends Helper {
     }
 
     waitForNavigationToComplete(locator) {
-        const {WebDriver} = this.helpers;
-        const browser = WebDriver.browser;
+        const browser = this.helpers[helperName].browser;
 
         browser.click(locator);
 
