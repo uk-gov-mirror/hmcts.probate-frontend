@@ -12,11 +12,11 @@ class WebDriverHelper extends Helper {
     }
 
     async waitForNavigationToComplete(locator) {
-        //const browser = this.helpers[helperName].browser;
+        const browser = this.helpers[helperName].browser;
 
-        await this.helpers[helperName]._locate(locator).click();
+        browser.click(locator);
 
-        // await browser.click(locator);
+        await browser.wait(4);
     }
 }
 module.exports = WebDriverHelper;
