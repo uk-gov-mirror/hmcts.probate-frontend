@@ -12,8 +12,8 @@ const getBrowserConfig = (browserGroup) => {
             const desiredCapability = supportedBrowsers[browserGroup][candidateBrowser];
             desiredCapability.tunnelIdentifier = tunnelName;
             desiredCapability.tags = ['probate'];
-            console.log('browserName>>>', desiredCapability.browserName);
-            console.log('desiredCapability>>>', desiredCapability);
+            // console.log('browserName>>>', desiredCapability.browserName);
+            //console.log('desiredCapability>>>', desiredCapability);
             browserConfig.push({
                 browser: desiredCapability.browserName,
                 desiredCapabilities: desiredCapability

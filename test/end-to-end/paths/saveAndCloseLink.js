@@ -34,7 +34,7 @@ Scenario(TestConfigurator.idamInUseText('Save And Close Link Click Flow'), funct
 
     // IDAM
     I.authenticateWithIdamIfAvailable();
-
+    I.wait(5);
     // Deceased Details
     I.selectATask(taskListContent.taskNotStarted);
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
