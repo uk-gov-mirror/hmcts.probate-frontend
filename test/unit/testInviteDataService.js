@@ -12,7 +12,7 @@ describe('InviteDataService', () => {
             const inviteId = 'inv123';
             const inviteData = new InviteData(endpoint, 'abc123');
             const logSpy = sinon.spy(inviteData, 'log');
-            const fetchJsonSpy = sinon.spy(inviteData, 'fetchJson');
+            const fetchJsonSpy = sinon.spy(inviteData, 'fetchText');
             const fetchOptionsStub = sinon.stub(inviteData, 'fetchOptions').returns(fetchOptions);
             const ctx = {
                 authToken: 'authToken',
@@ -24,8 +24,8 @@ describe('InviteDataService', () => {
 
             expect(inviteData.log.calledOnce).to.equal(true);
             expect(inviteData.log.calledWith('Update contact details invite data')).to.equal(true);
-            expect(inviteData.fetchJson().calledOnce).to.equal(true);
-            expect(inviteData.fetchJson.calledWith(`${endpoint}/invite/contactdetails/${inviteId}`, fetchOptions)).to.equal(true);
+            expect(inviteData.fetchText.calledOnce).to.equal(true);
+            expect(inviteData.fetchText.calledWith(`${endpoint}/invite/contactdetails/${inviteId}`, fetchOptions)).to.equal(true);
 
             logSpy.restore();
             fetchJsonSpy.restore();

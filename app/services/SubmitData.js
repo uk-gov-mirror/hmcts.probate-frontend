@@ -4,31 +4,35 @@ const Service = require('./Service');
 
 class SubmitData extends Service {
 
-    submit(data, authorisation, serviceAuthorization) {
+    submit(data, paymentDto, authorisation, serviceAuthorization) {
         data.type = this.getFormType();
         const path = this.replaceEmailInPath(this.config.services.orchestrator.paths.submissions, this.getApplicantEmail(data));
-        const logMessage = 'Post submit data';
-        const url = this.endpoint + path;
-        return this.put(logMessage, url, data, authorisation, serviceAuthorization);
+        const logMessage = 'Put submit data';
+        const url = this.endpoint + path + '?probateType='+this.getFormType();
+        return this.put(logMessage, url, paymentDto, authorisation, serviceAuthorization);
     }
 
-    put(logMessage, url, bodyData, authorization, serviceAuthorization) {
+    put(logMessage, url, paymentDto, authorization, serviceAuthorization) {
         this.log(logMessage);
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': authorization,
             'ServiceAuthorization': serviceAuthorization
         };
-        const fetchOptions = this.fetchOptions(bodyData, 'PUT', headers);
+        const fetchOptions = this.fetchOptions(paymentDto, 'PUT', headers);
         return this.fetchJson(url, fetchOptions);
     }
 
     getFormType() {
-        throw (new Error('Abstract method not implemened.'));
+        throw (new Error('Abstract method not implemented.'));
     }
 
     getApplicantEmail(data) {
-        throw (new Error('Abstract method not implemened for:' + data));
+        throw (new Error('Abstract method not implemented for:' + data));
+    }
+
+    post() {
+        throw (new Error('Abstract method not implemented.'));
     }
 }
 

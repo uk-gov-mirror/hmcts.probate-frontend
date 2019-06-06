@@ -54,7 +54,7 @@ describe('Pact IntestacyFormData', () => {
     }
 
     // Setup a Mock Server before unit tests run.
-    // This server acts as a Test Double for the real Provider API
+    // This server acts as a Test Double for the real Provider API.
     // We then call addInteraction() for each test to configure the Mock Service
     // to act like the Provider
     // It also sets up expectations for what requests are to come, and will fail

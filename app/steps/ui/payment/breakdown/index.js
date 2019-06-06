@@ -26,14 +26,14 @@ class PaymentBreakdown extends Step {
     }
 
     checkFeesStatus(fees) {
-        if (fees.status !== 'success') {
+        if (!config.services.payment.enableBackend && fees.status !== 'success') {
             throw new Error('Unable to calculate fees from Fees Api');
         }
     }
 
     createCopiesLayout(formdata) {
-        const ukCopies = formdata.fees.ukcopies;
-        const overseasCopies = formdata.fees.overseascopies;
+        const ukCopies = formdata.copies.uk;
+        const overseasCopies = formdata.copies.overseas;
         return {
             uk: {number: ukCopies, cost: formdata.fees.ukcopiesfee},
             overseas: {number: overseasCopies, cost: formdata.fees.overseascopiesfee},
@@ -52,6 +52,50 @@ class PaymentBreakdown extends Step {
     }
 
     * handlePost(ctx, errors, formdata, session, hostname) {
+        if (config.services.payment.enableBackend) {
+            const paymentSubmissions = ServiceMapper.map(
+                'PaymentSubmissions',
+                [config.services.orchestrator.url, ctx.sessionID],
+                ctx.journeyType
+            );
+
+            const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
+            const serviceAuthResult = yield authorise.post();
+            if (serviceAuthResult.name === 'Error') {
+                logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
+                const keyword = 'failure';
+                errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
+                return [ctx, errors];
+            }
+
+            const paymentSubmission = yield paymentSubmissions.post('Create payment and submit form', formdata.applicantEmail, ctx.authToken, serviceAuthResult, hostname);
+            if (paymentSubmission.name === 'Error') {
+                errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));
+                return [ctx, errors];
+            }
+            const updatedForm = paymentSubmission.form;
+            set(formdata, 'ccdCase', updatedForm.ccdCase);
+            set(formdata, 'payment', updatedForm.payment);
+            const paymentStatus = get(updatedForm, 'payment.status');
+            const caseState = get(updatedForm, 'ccdCase.state');
+
+            if (!paymentSubmission.redirect) {
+                if (paymentStatus === 'Initiated') {
+                    logger.error('As payment is still Initiated, user will need to wait for this state to expire.');
+                    errors.push(FieldError('payment', 'initiated', this.resourcePath, ctx));
+                    return [ctx, errors];
+                } else if (caseState === 'CaseCreated') {
+                    delete this.nextStepUrl;
+                } else {
+                    errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));
+                    return [ctx, errors];
+                }
+            } else {
+                this.nextStepUrl = () => paymentSubmission.redirectUrl;
+            }
+            return [ctx, errors];
+        }
+
         const feesCalculator = new FeesCalculator(config.services.feesRegister.url, ctx.sessionID);
         const confirmFees = yield feesCalculator.calc(formdata, ctx.authToken);
         this.checkFeesStatus(confirmFees);
@@ -72,7 +116,8 @@ class PaymentBreakdown extends Step {
             return [ctx, errors];
         }
 
-        const [canCreatePayment, paymentStatus] = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
+        const [canCreatePayment, paymentResponse] = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
+        const paymentStatus = paymentResponse.status;
         logger.info(`canCreatePayment result = ${canCreatePayment} with status ${paymentStatus}`);
         if (paymentStatus === 'Initiated') {
             const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
@@ -83,26 +128,13 @@ class PaymentBreakdown extends Step {
                 userId: ctx.userId,
                 paymentId: ctx.reference
             };
-            const getPaymentResponse = yield payment.get(data);
-            logger.info('Checking status of reference = ' + ctx.reference + ' with response = ' + getPaymentResponse.status);
-            if (getPaymentResponse.status === 'Initiated') {
+            const paymentResponse = yield payment.get(data);
+            logger.info('Checking status of reference = ' + ctx.reference + ' with response = ' + paymentResponse.status);
+            if (paymentResponse.status === 'Initiated') {
                 logger.error('As payment is still Initiated, user will need to wait for this state to expire.');
                 errors.push(FieldError('payment', 'initiated', this.resourcePath, ctx));
                 return [ctx, errors];
             }
-        }
-
-        if (typeof get(formdata, 'ccdCase.id') === 'undefined') {
-            const [result, submissionErrors] = yield this.sendToSubmitService(ctx, errors, formdata, ctx.total);
-            errors = errors.concat(submissionErrors);
-            if (errors.length > 0) {
-                logger.error('Failed to create case in CCD.', errors);
-                return [ctx, errors];
-            }
-            formdata.submissionReference = result.submissionReference;
-            formdata.registry = result.registry;
-            set(formdata, 'ccdCase.id', result.caseId);
-            set(formdata, 'ccdCase.state', result.caseState);
         }
 
         if (ctx.total > 0 && canCreatePayment) {
@@ -129,17 +161,24 @@ class PaymentBreakdown extends Step {
 
             const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
             const payment = new Payment(paymentCreateServiceUrl, ctx.sessionID);
-            const [response] = yield payment.post(data, hostname);
-            logger.info(`Payment creation in breakdown for ccdCaseId = ${formdata.ccdCase.id} with response = ${JSON.stringify(response)}`);
-            if (response.name === 'Error') {
+            const paymentResponse = yield payment.post(data, hostname);
+            logger.info(`Payment creation in breakdown for ccdCaseId = ${formdata.ccdCase.id} with response = ${JSON.stringify(paymentResponse)}`);
+            if (paymentResponse.name === 'Error') {
                 errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));
                 return [ctx, errors];
             }
-            set(formdata, 'payment.reference', response.reference);
-            ctx.reference = response.reference;
-            ctx.paymentCreatedDate = response.date_created;
+            const [formDataResult, submissionErrors] = yield this.submitForm(ctx, errors, formdata, paymentResponse, serviceAuthResult);
+            set(formdata, 'ccdCase', formDataResult.ccdCase);
+            set(formdata, 'payment', formDataResult.payment);
+            errors = errors.concat(submissionErrors);
+            if (errors.length > 0) {
+                logger.error('Failed to create case in CCD.', errors);
+                return [ctx, errors];
+            }
+            ctx.reference = paymentResponse.reference;
+            ctx.paymentCreatedDate = paymentResponse.date_created;
 
-            this.nextStepUrl = () => response._links.next_url.href;
+            this.nextStepUrl = () => paymentResponse._links.next_url.href;
         } else {
             delete this.nextStepUrl;
         }
@@ -151,20 +190,17 @@ class PaymentBreakdown extends Step {
         return [typeof get(formdata, 'ccdCase.id') !== 'undefined' && (get(formdata, 'payment.total') === 0 || typeof get(formdata, 'payment.reference') !== 'undefined'), 'inProgress'];
     }
 
-    * sendToSubmitService(ctx, errors, formdata, total) {
-        const softStop = this.anySoftStops(formdata, ctx) ? 'softStop' : false;
-        set(formdata, 'payment.total', total);
+    * submitForm(ctx, errors, formdata, paymentDto, serviceAuthResult) {
         const submitData = ServiceMapper.map(
             'SubmitData',
-            [config.services.submit.url, ctx.sessionID],
+            [config.services.orchestrator.url, ctx.sessionID],
             ctx.journeyType
         );
-        const result = yield submitData.post(formdata, ctx, softStop);
-        logger.info(`submitData.post result = ${JSON.stringify(result)}`);
+        const result = yield submitData.submit(formdata, paymentDto, ctx.authToken, serviceAuthResult);
+        logger.info(`submitData.submit result = ${JSON.stringify(result)}`);
 
-        if (result.name === 'Error' || result === 'DUPLICATE_SUBMISSION') {
-            const keyword = result === 'DUPLICATE_SUBMISSION' ? 'duplicate' : 'failure';
-            errors.push(FieldError('submit', keyword, this.resourcePath, ctx));
+        if (result.name === 'Error') {
+            errors.push(FieldError('submit', 'failure', this.resourcePath, ctx));
         }
 
         logger.info({tags: 'Analytics'}, 'Application Case Created');
@@ -184,7 +220,7 @@ class PaymentBreakdown extends Step {
     * canCreatePayment(ctx, formdata, serviceAuthResult) {
         const paymentReference = get(formdata, 'payment.reference');
         const caseId = get(formdata, 'ccdCase.id');
-        let paymentStatus;
+        let paymentResponse;
         let canMakePayment = true;
         if (caseId) {
             const data = {
@@ -197,22 +233,20 @@ class PaymentBreakdown extends Step {
             const payment = new Payment(paymentServiceUrl, ctx.sessionID);
             const casePaymentsArray = yield payment.getCasePayments(data);
             logger.debug(`Case payments for ${caseId} with response = ${JSON.stringify(casePaymentsArray)}`);
-            const paymentResponse = payment.identifySuccessfulOrInitiatedPayment(casePaymentsArray);
+            paymentResponse = payment.identifySuccessfulOrInitiatedPayment(casePaymentsArray);
             logger.debug(`Payment retrieval in breakdown for caseId = ${caseId} with response = ${JSON.stringify(paymentResponse)}`);
             if (!paymentResponse) {
                 logger.info('No payments of Initiated or Success found for case.');
             } else if (paymentResponse.status === 'Initiated' || paymentResponse.status === 'Success') {
-                paymentStatus = paymentResponse.status;
                 if (paymentResponse.payment_reference !== paymentReference) {
                     logger.info(`Payment with status ${paymentResponse.status} found, using reference ${paymentResponse.payment_reference}.`);
-                    set(formdata, 'payment.reference', paymentResponse.payment_reference);
                     ctx.reference = paymentResponse.payment_reference;
                     ctx.paymentCreatedDate = paymentResponse.date_created;
                 }
                 canMakePayment = false;
             }
         }
-        return [canMakePayment, paymentStatus];
+        return [canMakePayment, paymentResponse];
     }
 }
 

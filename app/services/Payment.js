@@ -33,15 +33,17 @@ class Payment extends Service {
     post(data, hostname) {
         this.log('Post payment');
         const url = this.endpoint;
+        const paymentUpdatesCallback = config.services.orchestrator.url + config.services.orchestrator.paths.payment_updates;
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': data.authToken,
             'ServiceAuthorization': data.serviceAuthToken,
-            'return-url': this.formatUrl.format(hostname, config.services.payment.paths.returnUrlPath)
+            'return-url': this.formatUrl.format(hostname, config.services.payment.paths.returnUrlPath),
+            'service-callback-url': paymentUpdatesCallback
         };
         const body = paymentData.createPaymentData(data);
         const fetchOptions = this.fetchOptions(body, 'POST', headers);
-        return [this.fetchJson(url, fetchOptions), body.reference];
+        return this.fetchJson(url, fetchOptions);
     }
 
     identifySuccessfulOrInitiatedPayment(casePayments) {

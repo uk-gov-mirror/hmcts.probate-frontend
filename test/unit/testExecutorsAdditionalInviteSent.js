@@ -18,10 +18,11 @@ describe('Executor-Additional-Invite-Sent', function () {
                         executors: {},
                         journeyType: 'probate'
                     },
+                    serviceAuthorization: 'serviceAuthorization',
                     journeyType: 'probate'
                 },
-                authToken: 'authToken',
-                serviceAuthorization: 'serviceAuthorization'
+                authToken: 'authToken'
+
             };
         });
 
