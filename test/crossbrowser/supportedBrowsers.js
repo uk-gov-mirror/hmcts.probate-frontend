@@ -35,14 +35,14 @@ const supportedBrowsers = {
             name: 'WIN_FIREFOX_LATEST',
             platform: 'Windows 10',
             version: 'latest'
-        }//,
-    //     firefox_mac_latest: {
-    //         browserName: 'firefox',
-    //         name: 'MAC_FIREFOX_LATEST',
-    //         platform: 'macOS 10.13',
-    //         version: 'latest'
-    //     }
-    // },
+        },
+        firefox_mac_latest: {
+            browserName: 'firefox',
+            name: 'MAC_FIREFOX_LATEST',
+            platform: 'macOS 10.14',
+            version: 'latest'
+        }
+    }//,
     // safari: {
     //     safari11: {
     //         browserName: 'safari',
@@ -51,7 +51,7 @@ const supportedBrowsers = {
     //         version: '12.0',
     //         avoidProxy: true
     //     }
-    }
+    //}
 };
 
 module.exports = supportedBrowsers;
