@@ -55,6 +55,14 @@ const setupConfig = {
             'require': './helpers/WebDriverHelper.js'
         }
     },
+    'plugins': {
+        'retryFailedStep': {
+            'enabled': true
+        },
+        'autoDelay': {
+            'enabled': true
+        }
+    },
     'include': {
         'I': './pages/steps.js'
     },

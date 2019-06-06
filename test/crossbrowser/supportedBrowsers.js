@@ -44,7 +44,7 @@ const supportedBrowsers = {
         }
     }//,
     // safari: {
-    //     safari11: {
+    //     safari12: {
     //         browserName: 'safari',
     //         name: 'DIV_SAFARI_12',
     //         platform: 'macOS 10.14',
