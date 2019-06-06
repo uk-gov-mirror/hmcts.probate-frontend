@@ -71,29 +71,21 @@ const setupConfig = {
     'multiple': {
         microsoftIE11: {
             browsers: getBrowserConfig('microsoftIE11')
+        },
+        microsoftEdge: {
+            browsers: getBrowserConfig('microsoftEdge')
+        },
+        chrome: {
+            browsers: getBrowserConfig('chrome')
+        },
+        firefox: {
+            browsers: getBrowserConfig('firefox')
+        },
+        safari: {
+            browsers: getBrowserConfig('safari')
         }
-        // ,
-        // microsoftEdge: {
-        //     browsers: getBrowserConfig('microsoftEdge')
-        // },
-        // chrome: {
-        //     browsers: getBrowserConfig('chrome')
-        // },
-        // firefox: {
-        //     browsers: getBrowserConfig('firefox')
-        // },
-        // safari: {
-        //     browsers: getBrowserConfig('safari')
-        // }
     },
     'name': 'frontEnd Tests'
 };
-
-/*function getDesiredCapabilities() {
-    const desiredCapability = supportedBrowsers[browser];
-    desiredCapability.tunnelIdentifier = tunnelName;
-    desiredCapability.tags = ['probate'];
-    return desiredCapability;
-}*/
 
 exports.config = setupConfig;
