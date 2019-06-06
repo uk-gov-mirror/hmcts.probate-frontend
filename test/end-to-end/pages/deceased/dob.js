@@ -11,5 +11,5 @@ module.exports = function (day, month, year) {
     I.fillField('#dob_month', month);
     I.fillField('#dob_year', year);
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.waitForNavigationToComplete(commonContent.saveAndContinue);
 };

@@ -1,21 +1,15 @@
 'use strict';
 
 const Helper = codecept_helper;
-//const helperName = 'WebDriverIO';
 
 class WebDriverHelper extends Helper {
 
     async waitForNavigationToComplete (locator) {
         const helper = this.helpers.WebDriverIO || this.helpers.Puppeteer;
-        const helperIsPuppeteer = this.helpers.Puppeteer;
 
         helper.click(locator);
 
-        if (helperIsPuppeteer) {
-            await helper.page.waitForNavigation({waitUntil: 'networkidle0'});
-        } else {
-            await helper.wait(4);
-        }
+        await helper.wait(4);
     }
 
     // clickBrowserBackButton() {

@@ -10,5 +10,5 @@ module.exports = function (firstName, lastName) {
     I.fillField('#firstName', firstName);
     I.fillField('#lastName', lastName);
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.waitForNavigationToComplete(commonContent.saveAndContinue);
 };
