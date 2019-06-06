@@ -32,6 +32,7 @@ class SubmitData extends Service {
     }
 
     post() {
+        throw (new Error('Abstract method not implemented.'));
     }
 }
 

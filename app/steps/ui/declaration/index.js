@@ -46,8 +46,6 @@ class Declaration extends ValidationStep {
         const deceased = formdata.deceased || {};
         const deceasedAddress = get(deceased, 'address', {});
         const iht = formdata.iht || {};
-        const ihtGrossValue = iht.grossValue ? iht.grossValue.toFixed(2) : 0;
-        const ihtNetValue = iht.netValue ? iht.netValue.toFixed(2) : 0;
         const hasCodicils = (new WillWrapper(formdata.will)).hasCodicils();
         const codicilsNumber = (new WillWrapper(formdata.will)).codicilsNumber();
         const applicantName = FormatName.format(applicant);
@@ -72,8 +70,8 @@ class Declaration extends ValidationStep {
             deceasedOtherNames: deceasedOtherNames ? content.deceasedOtherNames.replace('{deceasedOtherNames}', deceasedOtherNames) : '',
             executorsApplying: this.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, deceasedName, applicantName),
             deceasedEstateValue: content.deceasedEstateValue
-                .replace('{ihtGrossValue}', iht.grossValue === undefined ? '' : iht.grossValue.toFixed(2))
-                .replace('{ihtNetValue}', iht.netValue == undefined ? '' : iht.netValue.toFixed(2)),
+                .replace('{ihtGrossValue}', typeof iht.grossValue === 'undefined' ? '' : iht.grossValue.toFixed(2))
+                .replace('{ihtNetValue}', typeof iht.netValue === 'undefined' ? '' : iht.netValue.toFixed(2)),
             deceasedEstateLand: content[`deceasedEstateLand${multipleApplicantSuffix}`]
                 .replace(/{deceasedName}/g, deceasedName),
             executorsNotApplying: this.executorsNotApplying(executorsNotApplying, content, deceasedName, hasCodicils)

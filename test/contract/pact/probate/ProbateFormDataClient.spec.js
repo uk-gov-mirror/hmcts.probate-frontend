@@ -54,13 +54,13 @@ describe('Pact ProbateFormData', () => {
     // if the calls are not seen.
     before(() =>
         provider.setup()
-    )
+    );
 
     // After each individual test (one or more interactions)
     // we validate that the correct request came through.
     // This ensures what we _expect_ from the provider, is actually
     // what we've asked for (and is what gets captured in the contract)
-    afterEach(() => provider.verify())
+    afterEach(() => provider.verify());
 
     context('when formdata is requested', () => {
         describe('from a GET', () => {

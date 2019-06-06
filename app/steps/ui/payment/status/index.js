@@ -66,7 +66,7 @@ class PaymentStatus extends Step {
                 ctx.journeyType
             );
 
-            const paymentSubmission = yield paymentSubmissions.put("Update payment status", formdata.applicantEmail, ctx.authToken, serviceAuthResult)
+            const paymentSubmission = yield paymentSubmissions.put('Update payment status', formdata.applicantEmail, ctx.authToken, serviceAuthResult);
             if (paymentSubmission.name === 'Error') {
                 errors = [];
                 errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));
@@ -87,7 +87,6 @@ class PaymentStatus extends Step {
             this.setErrors(options, errors);
             return options;
         }
-
 
         if (ctx.paymentDue) {
             const data = {
@@ -115,7 +114,6 @@ class PaymentStatus extends Step {
 
             this.setErrors(options, errors);
 
-
             if (getPaymentResponse.status !== 'Success') {
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
@@ -127,7 +125,7 @@ class PaymentStatus extends Step {
                 options.redirect = false;
             }
         } else {
-            const paymentDto = {status : 'not_required'};
+            const paymentDto = {status: 'not_required'};
             const [updateCcdCaseResponse, errors] = yield this.updateForm(ctx, formdata, paymentDto, serviceAuthResult);
             set(formdata, 'ccdCase', updateCcdCaseResponse.ccdCase);
             set(formdata, 'payment', updateCcdCaseResponse.payment);

@@ -4,7 +4,6 @@ const config = require('app/config');
 const FeesCalculator = require('app/utils/FeesCalculator');
 const ServiceMapper = require('app/utils/ServiceMapper');
 
-
 const calculatePaymentFees = (req, res, next) => {
     const session = req.session;
     const formdata = session.form;

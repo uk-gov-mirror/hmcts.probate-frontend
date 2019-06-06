@@ -65,13 +65,13 @@ describe('Pact ProbateCheckAnswersPdf', () => {
     // if the calls are not seen.
     before(() =>
         provider.setup()
-    )
+    );
 
     // After each individual test (one or more interactions)
     // we validate that the correct request came through.
     // This ensures what we _expect_ from the provider, is actually
     // what we've asked for (and is what gets captured in the contract)
-    afterEach(() => provider.verify())
+    afterEach(() => provider.verify());
 
     describe('when valid check answers doc is posted', () => {
         describe('and is required to be downloaded', () => {

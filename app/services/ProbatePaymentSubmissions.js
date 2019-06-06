@@ -9,7 +9,7 @@ class ProbatePaymentSubmissions extends PaymentSubmissions {
     }
 
     put(logMessage, id, authorization, serviceAuthorization) {
-        return  super.put(logMessage, id, authorization, serviceAuthorization);
+        return super.put(logMessage, id, authorization, serviceAuthorization);
     }
 
     getFormType() {

@@ -68,7 +68,7 @@ class PaymentBreakdown extends Step {
                 return [ctx, errors];
             }
 
-            const paymentSubmission = yield paymentSubmissions.post("Create payment and submit form", formdata.applicantEmail, ctx.authToken, serviceAuthResult, hostname)
+            const paymentSubmission = yield paymentSubmissions.post('Create payment and submit form', formdata.applicantEmail, ctx.authToken, serviceAuthResult, hostname);
             if (paymentSubmission.name === 'Error') {
                 errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));
                 return [ctx, errors];
@@ -116,7 +116,7 @@ class PaymentBreakdown extends Step {
             return [ctx, errors];
         }
 
-        let [canCreatePayment, paymentResponse] = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
+        const [canCreatePayment, paymentResponse] = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
         const paymentStatus = paymentResponse.status;
         logger.info(`canCreatePayment result = ${canCreatePayment} with status ${paymentStatus}`);
         if (paymentStatus === 'Initiated') {
@@ -128,7 +128,7 @@ class PaymentBreakdown extends Step {
                 userId: ctx.userId,
                 paymentId: ctx.reference
             };
-            paymentResponse = yield payment.get(data);
+            const paymentResponse = yield payment.get(data);
             logger.info('Checking status of reference = ' + ctx.reference + ' with response = ' + paymentResponse.status);
             if (paymentResponse.status === 'Initiated') {
                 logger.error('As payment is still Initiated, user will need to wait for this state to expire.');
@@ -161,7 +161,7 @@ class PaymentBreakdown extends Step {
 
             const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
             const payment = new Payment(paymentCreateServiceUrl, ctx.sessionID);
-            paymentResponse = yield payment.post(data, hostname);
+            const paymentResponse = yield payment.post(data, hostname);
             logger.info(`Payment creation in breakdown for ccdCaseId = ${formdata.ccdCase.id} with response = ${JSON.stringify(paymentResponse)}`);
             if (paymentResponse.name === 'Error') {
                 errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));

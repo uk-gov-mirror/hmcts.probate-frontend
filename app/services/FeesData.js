@@ -8,7 +8,7 @@ class Fees extends Service {
         data.type = this.getFormType();
         const path = this.replaceEmailInPath(this.config.services.orchestrator.paths.fees, data.applicantEmail);
         const logMessage = 'Update fees';
-        const url = this.endpoint + path + '?probateType=' + this.getFormType()
+        const url = this.endpoint + path + '?probateType=' + this.getFormType();
         return this.post(logMessage, url, authorisation, serviceAuthorization);
     }
 
@@ -19,7 +19,6 @@ class Fees extends Service {
             'Authorization': authorization,
             'ServiceAuthorization': serviceAuthorization
         };
-        console.log("POST Update fees")
         const fetchOptions = this.fetchOptions({}, 'POST', headers);
         return this.fetchJson(url, fetchOptions);
     }
