@@ -1,5 +1,11 @@
+// eslint-disable-line max-lines
+/* eslint-disable no-lonely-if */
+/* eslint-disable max-depth */
+/* eslint-disable complexity */
+
 'use strict';
 
+const setJourney = require('app/middleware/setJourney');
 const ValidationStep = require('app/core/steps/ValidationStep');
 const executorNotifiedContent = require('app/resources/en/translation/executors/notified');
 const executorContent = require('app/resources/en/translation/executors/executorcontent');
@@ -12,6 +18,10 @@ const LegalDocumentJSONObjectBuilder = require('app/utils/LegalDocumentJSONObjec
 const legalDocumentJSONObjBuilder = new LegalDocumentJSONObjectBuilder();
 const InviteData = require('app/services/InviteData');
 const config = require('app/config');
+const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
+const contentRelationshipToDeceased = require('app/resources/en/translation/applicant/relationshiptodeceased');
+const contentAnyChildren = require('app/resources/en/translation/deceased/anychildren');
+const contentAnyOtherChildren = require('app/resources/en/translation/deceased/anyotherchildren');
 
 class Declaration extends ValidationStep {
     static getUrl() {
@@ -28,71 +38,190 @@ class Declaration extends ValidationStep {
     getContextData(req) {
         let ctx = super.getContextData(req);
         ctx = this.pruneFormData(req.body, ctx);
+        ctx.isIntestacyJourney = setJourney.isIntestacyJourney(req.session);
         const formdata = req.session.form;
-        ctx.executorsWrapper = new ExecutorsWrapper(formdata.executors);
+
         const templateData = this.prepareDataForTemplate(ctx, this.generateContent(ctx, formdata), formdata);
         Object.assign(ctx, templateData);
+
+        if (!ctx.isIntestacyJourney) {
+            ctx.isIntestacyJourney = false;
+            ctx.executorsWrapper = new ExecutorsWrapper(formdata.executors);
+            ctx.invitesSent = get(formdata, 'executors.invitesSent');
+            ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants(get(formdata, 'executors.list'));
+            ctx.executorsEmailChanged = ctx.executorsWrapper.hasExecutorsEmailChanged();
+            ctx.hasExecutorsToNotify = ctx.executorsWrapper.hasExecutorsToNotify() && ctx.invitesSent === 'true';
+        }
+
         ctx.softStop = this.anySoftStops(formdata, ctx);
-        ctx.invitesSent = get(formdata, 'executors.invitesSent');
-        ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants(get(formdata, 'executors.list'));
-        ctx.executorsEmailChanged = ctx.executorsWrapper.hasExecutorsEmailChanged();
-        ctx.hasExecutorsToNotify = ctx.executorsWrapper.hasExecutorsToNotify() && ctx.invitesSent === 'true';
         return ctx;
     }
 
     prepareDataForTemplate(ctx, content, formdata) {
+        let legalStatement;
+        let declaration;
         const applicant = formdata.applicant || {};
+        const applicantName = FormatName.format(applicant);
         const applicantAddress = get(applicant, 'address', {});
+
         const deceased = formdata.deceased || {};
+        const deceasedName = FormatName.format(deceased);
         const deceasedAddress = get(deceased, 'address', {});
+        const deceasedHadAlias = (get(deceased, 'alias', 'No') === 'Yes');
+
         const iht = formdata.iht || {};
         const ihtGrossValue = iht.grossValue ? iht.grossValue.toFixed(2) : 0;
-        const ihtNetValue = iht.netValue ? iht.netValue.toFixed(2) : 0;
-        const hasCodicils = (new WillWrapper(formdata.will)).hasCodicils();
-        const codicilsNumber = (new WillWrapper(formdata.will)).codicilsNumber();
-        const applicantName = FormatName.format(applicant);
-        const deceasedName = FormatName.format(deceased);
-        const executorsApplying = ctx.executorsWrapper.executorsApplying();
-        const executorsNotApplying = ctx.executorsWrapper.executorsNotApplying();
-        const deceasedOtherNames = FormatName.formatMultipleNamesAndAddress(get(deceased, 'otherNames'), content);
-        const hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants();
-        const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
-        const legalStatement = {
-            intro: content[`intro${multipleApplicantSuffix}`]
-                .replace('{applicantName}', applicantName),
-            applicant: content[`legalStatementApplicant${multipleApplicantSuffix}`]
-                .replace('{detailsOfApplicants}', FormatName.formatMultipleNamesAndAddress(executorsApplying, content, applicantAddress))
-                .replace('{applicantName}', applicantName)
-                .replace('{applicantAddress}', applicantAddress.formattedAddress),
-            deceased: content.legalStatementDeceased
-                .replace('{deceasedName}', deceasedName)
-                .replace('{deceasedAddress}', deceasedAddress.formattedAddress)
-                .replace('{deceasedDob}', deceased.dob_formattedDate)
-                .replace('{deceasedDod}', deceased.dod_formattedDate),
-            deceasedOtherNames: deceasedOtherNames ? content.deceasedOtherNames.replace('{deceasedOtherNames}', deceasedOtherNames) : '',
-            executorsApplying: this.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, deceasedName, applicantName),
-            deceasedEstateValue: content.deceasedEstateValue
-                .replace('{ihtGrossValue}', ihtGrossValue)
-                .replace('{ihtNetValue}', ihtNetValue),
-            deceasedEstateLand: content[`deceasedEstateLand${multipleApplicantSuffix}`]
-                .replace(/{deceasedName}/g, deceasedName),
-            executorsNotApplying: this.executorsNotApplying(executorsNotApplying, content, deceasedName, hasCodicils)
-        };
-        const declaration = {
-            confirm: content[`declarationConfirm${multipleApplicantSuffix}`]
-                .replace('{deceasedName}', deceasedName),
-            confirmItem1: content.declarationConfirmItem1,
-            confirmItem2: content.declarationConfirmItem2,
-            confirmItem3: content.declarationConfirmItem3,
-            requests: content[`declarationRequests${multipleApplicantSuffix}`],
-            requestsItem1: content.declarationRequestsItem1,
-            requestsItem2: content.declarationRequestsItem2,
-            understand: content[`declarationUnderstand${multipleApplicantSuffix}`],
-            understandItem1: content[`declarationUnderstandItem1${multipleApplicantSuffix}`],
-            understandItem2: content[`declarationUnderstandItem2${multipleApplicantSuffix}`],
-            accept: content.declarationCheckbox,
-            submitWarning: content[`submitWarning${multipleApplicantSuffix}`],
-        };
+        let ihtNetValue = iht.netValue ? iht.netValue.toFixed(2) : 0;
+
+        if (ctx.isIntestacyJourney) {
+            ihtNetValue += get(iht, 'netValueAssetsOutside', 0);
+
+            legalStatement = {
+                intro: content.intestacyIntro
+                    .replace('{applicantName}', applicantName)
+                    .replace('{applicantAddress}', applicantAddress.formattedAddress),
+                deceased: content.intestacyLegalStatementDeceased
+                    .replace('{deceasedName}', deceasedName)
+                    .replace('{deceasedAddress}', deceasedAddress.formattedAddress)
+                    .replace('{deceasedDob}', deceased.dob_formattedDate)
+                    .replace('{deceasedDod}', deceased.dod_formattedDate)
+                    .replace('{deceasedMaritalStatus}', deceased.maritalStatus),
+                deceasedEstateValue: content.deceasedEstateValue
+                    .replace('{ihtGrossValue}', ihtGrossValue)
+                    .replace('{ihtNetValue}', ihtNetValue),
+                deceasedEstateLand: content.intestacyDeceasedEstateLand
+                    .replace(/{deceasedName}/g, deceasedName),
+                applying: content.intestacyLettersOfAdministration
+                    .replace('{deceasedName}', deceasedName)
+            };
+
+            if (deceasedHadAlias) {
+                const deceasedAlias = FormatName.formatName(deceased, true);
+                const deceasedOtherNames = content.intestacyDeceasedOtherNames
+                    .replace('{deceasedAlias1}', deceasedAlias);
+                legalStatement.deceased.replace('{deceasedAlias}', deceasedOtherNames);
+            } else {
+                legalStatement.deceased.replace('{deceasedAlias}', '');
+            }
+
+            if (deceased.maritalStatus === contentMaritalStatus.optionMarried) {
+                if (applicant.relationshipToDeceased === contentRelationshipToDeceased.optionSpousePartner) {
+                    if ((deceased.hadChildren === contentAnyChildren.optionNo) || (ihtNetValue <= config.assetsValueThreshold)) {
+                        legalStatement.applicant = content.intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k;
+                    } else {
+                        legalStatement.applicant = content.intestacyDeceasedMarriedSpouseApplyingHadChildren;
+                    }
+                } else {
+                    if (ihtNetValue <= config.assetsValueThreshold) {
+                        if (deceased.anyOtherChildren === contentAnyOtherChildren.optionYes) {
+                            if (applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
+                                legalStatement.applicant = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted;
+                            } else {
+                                legalStatement.applicant = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted;
+                            }
+                        } else {
+                            if (applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
+                                legalStatement.applicant = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted;
+                            } else {
+                                legalStatement.applicant = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted;
+                            }
+                        }
+                    } else {
+                        if (deceased.anyOtherChildren === contentAnyOtherChildren.optionYes) {
+                            if (applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
+                                legalStatement.applicant = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted;
+                            } else {
+                                legalStatement.applicant = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted;
+                            }
+                        } else {
+                            if (applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
+                                legalStatement.applicant = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted;
+                            } else {
+                                legalStatement.applicant = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted;
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (deceased.anyOtherChildren === contentAnyOtherChildren.optionYes) {
+                    if (applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
+                        legalStatement.applicant = content.intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsAdopted;
+                    } else {
+                        legalStatement.applicant = content.intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted;
+                    }
+                } else {
+                    if (applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
+                        legalStatement.applicant = content.intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted;
+                    } else {
+                        legalStatement.applicant = content.intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted;
+                    }
+                }
+            }
+            legalStatement.applicant
+                .replace(/{deceasedName}/g, deceasedName);
+
+            declaration = {
+                confirm: content['declarationConfirm-intestacy']
+                    .replace('{deceasedName}', deceasedName),
+                confirmItem1: content.declarationConfirmItem1,
+                confirmItem2: content.declarationConfirmItem2,
+                confirmItem3: content['declarationConfirmItem3-intestacy'],
+                requests: content.declarationRequests,
+                requestsItem1: content['declarationRequestsItem1-intestacy'],
+                requestsItem2: content['declarationRequestsItem2-intestacy'],
+                understand: content[`declarationUnderstand`],
+                understandItem1: content['declarationUnderstandItem1-intestacy'],
+                understandItem2: content.declarationUnderstandItem2,
+                accept: content.declarationCheckbox,
+                submitWarning: content.submitWarning,
+            };
+        } else {
+            const hasCodicils = (new WillWrapper(formdata.will)).hasCodicils();
+            const codicilsNumber = (new WillWrapper(formdata.will)).codicilsNumber();
+            const executorsApplying = ctx.executorsWrapper.executorsApplying();
+            const executorsNotApplying = ctx.executorsWrapper.executorsNotApplying();
+            const deceasedOtherNames = FormatName.formatMultipleNamesAndAddress(get(deceased, 'otherNames'), content);
+            const hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants();
+            const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
+
+            legalStatement = {
+                intro: content[`intro${multipleApplicantSuffix}`]
+                    .replace('{applicantName}', applicantName),
+                applicant: content[`legalStatementApplicant${multipleApplicantSuffix}`]
+                    .replace('{detailsOfApplicants}', FormatName.formatMultipleNamesAndAddress(executorsApplying, content, applicantAddress))
+                    .replace('{applicantName}', applicantName)
+                    .replace('{applicantAddress}', applicantAddress.formattedAddress),
+                deceased: content.legalStatementDeceased
+                    .replace('{deceasedName}', deceasedName)
+                    .replace('{deceasedAddress}', deceasedAddress.formattedAddress)
+                    .replace('{deceasedDob}', deceased.dob_formattedDate)
+                    .replace('{deceasedDod}', deceased.dod_formattedDate),
+                deceasedOtherNames: deceasedOtherNames ? content.deceasedOtherNames.replace('{deceasedOtherNames}', deceasedOtherNames) : '',
+                executorsApplying: this.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, deceasedName, applicantName),
+                deceasedEstateValue: content.deceasedEstateValue
+                    .replace('{ihtGrossValue}', ihtGrossValue)
+                    .replace('{ihtNetValue}', ihtNetValue),
+                deceasedEstateLand: content[`deceasedEstateLand${multipleApplicantSuffix}`]
+                    .replace(/{deceasedName}/g, deceasedName),
+                executorsNotApplying: this.executorsNotApplying(executorsNotApplying, content, deceasedName, hasCodicils)
+            };
+
+            declaration = {
+                confirm: content[`declarationConfirm${multipleApplicantSuffix}`]
+                    .replace('{deceasedName}', deceasedName),
+                confirmItem1: content.declarationConfirmItem1,
+                confirmItem2: content.declarationConfirmItem2,
+                confirmItem3: content.declarationConfirmItem3,
+                requests: content[`declarationRequests${multipleApplicantSuffix}`],
+                requestsItem1: content.declarationRequestsItem1,
+                requestsItem2: content.declarationRequestsItem2,
+                understand: content[`declarationUnderstand${multipleApplicantSuffix}`],
+                understandItem1: content[`declarationUnderstandItem1${multipleApplicantSuffix}`],
+                understandItem2: content[`declarationUnderstandItem2${multipleApplicantSuffix}`],
+                accept: content.declarationCheckbox,
+                submitWarning: content[`submitWarning${multipleApplicantSuffix}`],
+            };
+        }
 
         return {legalStatement, declaration};
     }
@@ -203,6 +332,7 @@ class Declaration extends ValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
+        delete ctx.isIntestacyJourney;
         delete ctx.hasMultipleApplicants;
 
         if (ctx.hasDataChanged === true) {

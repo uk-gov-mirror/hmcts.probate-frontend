@@ -60,7 +60,6 @@ const stepList = {
         otherwise: 'StopPage'
     },
     StartApply: 'TaskList',
-
     DeceasedDetails: 'DeceasedAddress',
     DeceasedAddress: {
         documentUploadToggleOn: 'DocumentUpload',
@@ -103,7 +102,6 @@ const stepList = {
         inEnglandOrWales: 'TaskList',
         otherwise: 'StopPage'
     },
-
     RelationshipToDeceased: {
         childDeceasedMarried: 'SpouseNotApplyingReason',
         childDeceasedNotMarried: 'AnyOtherChildren',
