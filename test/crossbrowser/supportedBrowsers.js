@@ -42,16 +42,16 @@ const supportedBrowsers = {
             platform: 'macOS 10.14',
             version: 'latest'
         }
-    }//,
-    // safari: {
-    //     safari11: {
-    //         browserName: 'safari',
-    //         name: 'DIV_SAFARI_11',
-    //         platform: 'macOS 10.13',
-    //         version: '12.0',
-    //         avoidProxy: true
-    //     }
-    //}
+    },
+    safari: {
+        safari11: {
+            browserName: 'safari',
+            name: 'DIV_SAFARI_12',
+            platform: 'macOS 10.14',
+            version: '12.0',
+            avoidProxy: true
+        }
+    }
 };
 
 module.exports = supportedBrowsers;
