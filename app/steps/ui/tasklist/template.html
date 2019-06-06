@@ -10,12 +10,21 @@
             <p class="govuk-body">{{ content.introduction }}</p>
             <p class="govuk-body">{{ content.saveAndReturn }}</p>
             <ol class="task-list">
-                {% include "ui/tasklist/includes/deceased.html" %}
-                {% include "ui/tasklist/includes/executors.html" %}
-                {% include "ui/tasklist/includes/reviewAndConfirm.html" %}
-                {% include "ui/tasklist/includes/copies.html" %}
-                {% include "ui/tasklist/includes/payment.html" %}
-                {% include "ui/tasklist/includes/documents.html" %}
+                {% ifAsync fields.journeyType.value === "gop" %}
+                    {% include "ui/tasklist/includes/deceased.html" %}
+                    {% include "ui/tasklist/includes/executors.html" %}
+                    {% include "ui/tasklist/includes/reviewAndConfirm.html" %}
+                    {% include "ui/tasklist/includes/copies.html" %}
+                    {% include "ui/tasklist/includes/payment.html" %}
+                    {% include "ui/tasklist/includes/documents.html" %}
+                {% endif %}
+                {% ifAsync fields.journeyType.value === "intestacy" %}
+                    {% include "ui/tasklist/includes/deceased.html" %}
+                    {% include "ui/tasklist/includes/applicants.html" %}
+                    {% include "ui/tasklist/includes/reviewAndConfirm.html" %}
+                    {% include "ui/tasklist/includes/copies.html" %}
+                    {% include "ui/tasklist/includes/payment.html" %}
+                {% endif %}
             </ol>
 
             {% include "includes/help_details.html" %}
