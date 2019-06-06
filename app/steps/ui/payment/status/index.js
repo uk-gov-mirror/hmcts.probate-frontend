@@ -49,11 +49,6 @@ class PaymentStatus extends Step {
 
     * runnerOptions(ctx, formdata) {
         const options = {};
-        const formData = ServiceMapper.map(
-            'FormData',
-            [config.services.persistence.url, ctx.sessionID],
-            ctx.journeyType
-        );
         const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
         const serviceAuthResult = yield authorise.post();
 
@@ -62,6 +57,38 @@ class PaymentStatus extends Step {
             options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
             return options;
         }
+
+        if (config.services.payment.enableBackend) {
+            let errors;
+            const paymentSubmissions = ServiceMapper.map(
+                'PaymentSubmissions',
+                [config.services.orchestrator.url, ctx.sessionID],
+                ctx.journeyType
+            );
+
+            const paymentSubmission = yield paymentSubmissions.put("Update payment status", formdata.applicantEmail, ctx.authToken, serviceAuthResult)
+            if (paymentSubmission.name === 'Error') {
+                errors = [];
+                errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));
+                return [ctx, errors];
+            }
+            const updatedForm = paymentSubmission.form;
+            set(formdata, 'ccdCase', updatedForm.ccdCase);
+            set(formdata, 'payment', updatedForm.payment);
+
+            if (paymentSubmission.redirect) {
+                options.redirect = true;
+                options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
+                logger.error('Unable to retrieve a payment response.');
+            } else {
+                options.redirect = false;
+            }
+
+            this.setErrors(options, errors);
+            return options;
+        }
+
+
         if (ctx.paymentDue) {
             const data = {
                 authToken: ctx.authToken,
@@ -101,7 +128,7 @@ class PaymentStatus extends Step {
             }
         } else {
             const paymentDto = {status : 'not_required'};
-            const [updateCcdCaseResponse, errors] = yield this.updateForm(ctx, [], formdata, paymentDto, serviceAuthResult);
+            const [updateCcdCaseResponse, errors] = yield this.updateForm(ctx, formdata, paymentDto, serviceAuthResult);
             set(formdata, 'ccdCase', updateCcdCaseResponse.ccdCase);
             set(formdata, 'payment', updateCcdCaseResponse.payment);
             this.setErrors(options, errors);
@@ -111,16 +138,18 @@ class PaymentStatus extends Step {
         return options;
     }
 
-    * updateForm(ctx, errors, formdata, paymentDto, serviceAuthResult) {
+    * updateForm(ctx, formdata, paymentDto, serviceAuthResult) {
         const submitData = ServiceMapper.map(
             'SubmitData',
             [config.services.orchestrator.url, ctx.sessionID],
             ctx.journeyType
         );
+        let errors;
         const result = yield submitData.submit(formdata, paymentDto, ctx.authToken, serviceAuthResult);
         logger.info(`submitData.submit result = ${JSON.stringify(result)}`);
 
         if (result.name === 'Error') {
+            errors = [];
             errors.push(FieldError('update', 'failure', this.resourcePath, ctx));
         }
 

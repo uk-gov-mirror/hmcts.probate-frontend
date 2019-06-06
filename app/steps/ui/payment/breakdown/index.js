@@ -26,14 +26,14 @@ class PaymentBreakdown extends Step {
     }
 
     checkFeesStatus(fees) {
-        if (fees.status !== 'success') {
+        if (!config.services.payment.enableBackend && fees.status !== 'success') {
             throw new Error('Unable to calculate fees from Fees Api');
         }
     }
 
     createCopiesLayout(formdata) {
-        const ukCopies = formdata.fees.ukcopies;
-        const overseasCopies = formdata.fees.overseascopies;
+        const ukCopies = formdata.copies.uk;
+        const overseasCopies = formdata.copies.overseas;
         return {
             uk: {number: ukCopies, cost: formdata.fees.ukcopiesfee},
             overseas: {number: overseasCopies, cost: formdata.fees.overseascopiesfee},
@@ -52,6 +52,50 @@ class PaymentBreakdown extends Step {
     }
 
     * handlePost(ctx, errors, formdata, session, hostname) {
+        if (config.services.payment.enableBackend) {
+            const paymentSubmissions = ServiceMapper.map(
+                'PaymentSubmissions',
+                [config.services.orchestrator.url, ctx.sessionID],
+                ctx.journeyType
+            );
+
+            const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
+            const serviceAuthResult = yield authorise.post();
+            if (serviceAuthResult.name === 'Error') {
+                logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
+                const keyword = 'failure';
+                errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
+                return [ctx, errors];
+            }
+
+            const paymentSubmission = yield paymentSubmissions.post("Create payment and submit form", formdata.applicantEmail, ctx.authToken, serviceAuthResult, hostname)
+            if (paymentSubmission.name === 'Error') {
+                errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));
+                return [ctx, errors];
+            }
+            const updatedForm = paymentSubmission.form;
+            set(formdata, 'ccdCase', updatedForm.ccdCase);
+            set(formdata, 'payment', updatedForm.payment);
+            const paymentStatus = get(updatedForm, 'payment.status');
+            const caseState = get(updatedForm, 'ccdCase.state');
+
+            if (!paymentSubmission.redirect) {
+                if (paymentStatus === 'Initiated') {
+                    logger.error('As payment is still Initiated, user will need to wait for this state to expire.');
+                    errors.push(FieldError('payment', 'initiated', this.resourcePath, ctx));
+                    return [ctx, errors];
+                } else if (caseState === 'CaseCreated') {
+                    delete this.nextStepUrl;
+                } else {
+                    errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));
+                    return [ctx, errors];
+                }
+            } else {
+                this.nextStepUrl = () => paymentSubmission.redirectUrl;
+            }
+            return [ctx, errors];
+        }
+
         const feesCalculator = new FeesCalculator(config.services.feesRegister.url, ctx.sessionID);
         const confirmFees = yield feesCalculator.calc(formdata, ctx.authToken);
         this.checkFeesStatus(confirmFees);
