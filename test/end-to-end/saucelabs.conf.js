@@ -78,10 +78,10 @@ const setupConfig = {
         },
         firefox: {
             browsers: getBrowserConfig('firefox')
-        },
-        safari: {
-            browsers: getBrowserConfig('safari')
-        }
+        }//,
+        // safari: {
+        //     browsers: getBrowserConfig('safari')
+        // }
     },
     'name': 'frontEnd Tests'
 };

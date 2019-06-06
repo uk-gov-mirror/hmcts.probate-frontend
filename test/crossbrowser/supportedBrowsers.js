@@ -18,7 +18,7 @@ const supportedBrowsers = {
     chrome: {
         chrome_win_latest: {
             browserName: 'chrome',
-            name: 'DIV_WIN_CHROME_LATEST',
+            name: 'WIN_CHROME_LATEST',
             platform: 'Windows 10',
             version: 'latest'
         },
@@ -42,16 +42,16 @@ const supportedBrowsers = {
             platform: 'macOS 10.14',
             version: 'latest'
         }
-    },
-    safari: {
-        safari11: {
-            browserName: 'safari',
-            name: 'DIV_SAFARI_12',
-            platform: 'macOS 10.14',
-            version: '12.0',
-            avoidProxy: true
-        }
-    }
+    }//,
+    // safari: {
+    //     safari11: {
+    //         browserName: 'safari',
+    //         name: 'DIV_SAFARI_12',
+    //         platform: 'macOS 10.14',
+    //         version: '12.0',
+    //         avoidProxy: true
+    //     }
+    // }
 };
 
 module.exports = supportedBrowsers;
