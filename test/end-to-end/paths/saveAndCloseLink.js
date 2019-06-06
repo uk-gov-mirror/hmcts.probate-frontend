@@ -34,11 +34,11 @@ Scenario(TestConfigurator.idamInUseText('Save And Close Link Click Flow'), funct
 
     // IDAM
     I.authenticateWithIdamIfAvailable();
-    I.wait(5);
+
     // Deceased Details
     I.selectATask(taskListContent.taskNotStarted);
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
     I.enterDeceasedDateOfBirth('01', '01', '1950');
     I.enterDeceasedDateOfDeath('01', '01', '2017', true);
     I.seeCurrentUrlEquals(signOutPage.getUrl());
-});
+}).retry(TestConfigurator.getRetryScenarios());
