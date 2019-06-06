@@ -46,7 +46,7 @@ const supportedBrowsers = {
     safari: {
         safari12: {
             browserName: 'safari',
-            name: 'DIV_SAFARI_12',
+            name: 'SAFARI_12',
             platform: 'macOS 10.14',
             version: '12.0',
             avoidProxy: true
