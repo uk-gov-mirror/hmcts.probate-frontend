@@ -4,12 +4,17 @@ const Helper = codecept_helper;
 
 class WebDriverHelper extends Helper {
 
-    async waitForNavigationToComplete (locator) {
-        const helper = this.helpers.WebDriverIO || this.helpers.Puppeteer;
+    async waitForNavigationToComplete (locator, signIn = false) {
+        const helper = this.helpers.WebDriverIO;
 
         helper.click(locator);
 
-        await helper.wait(4);
+        // login from IDAM can take a bit longer so wait a little longer
+        if (signIn) {
+            await helper.wait(8);
+        } else {
+            await helper.wait(4);
+        }
     }
 
     // clickBrowserBackButton() {
