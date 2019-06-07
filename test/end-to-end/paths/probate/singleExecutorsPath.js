@@ -18,12 +18,10 @@ After(() => {
 });
 
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function (I) {
-
-    if (I.getBrowserName() !== 'internet explorer') {
-        /* eslint-disable no-console */
-        console.log('>>>', I.getBrowserName());
-        //I.click('#checkAnswerHref');
-    }
+    /* eslint-disable no-console */
+    let bname = I.getBrowserName();
+    const cname = bname;
+    bname = cname;
     // Eligibility Task (pre IdAM)
     I.startApplication();
 

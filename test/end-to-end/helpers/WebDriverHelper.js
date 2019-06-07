@@ -26,7 +26,11 @@ class WebDriverHelper extends Helper {
     getBrowserName() {
         const browser = this.helpers.WebDriverIO.browser;
 
-        return browser.browserName;
+        /* eslint-disable no-console */
+        console.log('browser>>>', browser);
+        const bname = browser.browserName;
+
+        return bname;
     }
 }
 module.exports = WebDriverHelper;
