@@ -10,7 +10,7 @@ const content = require('app/resources/en/translation/declaration');
 const rewire = require('rewire');
 const Declaration = rewire('app/steps/ui/declaration');
 
-describe('Declaration tests', () => {
+describe('Declaration', () => {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).Declaration;
     let section;
     let templatePath;
@@ -301,6 +301,7 @@ describe('Declaration tests', () => {
                 hasExecutorsToNotify: false,
                 executorsEmailChanged: false,
                 hasDataChangedAfterEmailSent: true,
+                isIntestacyJourney: true,
                 invitesSent: 'true',
             };
             formdata = {};
