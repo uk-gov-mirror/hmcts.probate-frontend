@@ -13,7 +13,7 @@ module.exports = function (noOfAliases) {
             I.fillField(`#otherNames_name_${i-1}_firstName`, `alias_firstnames_${i}`);
             I.fillField(`#otherNames_name_${i-1}_lastName`, `alias_lastnames_${i}`);
         } else {
-            I.waitForNavigationToComplete('input[value="Add another name"]');
+            I.waitForNavigationToComplete('Add another name');
             I.fillField(`#otherNames_name_${i-1}_firstName`, `alias_firstnames_${i}`);
             I.fillField(`#otherNames_name_${i-1}_lastName`, `alias_lastnames_${i}`);
         }
