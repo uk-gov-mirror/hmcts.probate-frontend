@@ -25,13 +25,14 @@ class WebDriverHelper extends Helper {
 
     getBrowserName() {
         const browser = this.helpers.WebDriverIO.browser;
+        const helper = this.helpers.WebDriverIO;
 
+        helper.desiredCapabilities.valueOf();
         /* eslint-disable no-console */
         // console.log('browser>>>', browser);
-
-        const bname = browser.value.value.browserName;
-        console.log('bname>>>', bname);
-        return bname;
+        console.log('>>>>', helper.desiredCapabilities.valueOf());
+        console.log('bname>>>', browser);
+        return browser;
     }
 }
 module.exports = WebDriverHelper;
