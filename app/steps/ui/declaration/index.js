@@ -153,7 +153,7 @@ class Declaration extends ValidationStep {
                 .replace(/{deceasedName}/g, deceasedName);
 
             declaration = {
-                confirm: content['declarationConfirm-intestacy']
+                confirm: content.declarationConfirm
                     .replace('{deceasedName}', deceasedName),
                 confirmItem1: content.declarationConfirmItem1,
                 confirmItem2: content.declarationConfirmItem2,
