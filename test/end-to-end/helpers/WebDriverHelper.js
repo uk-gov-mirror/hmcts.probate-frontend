@@ -28,7 +28,7 @@ class WebDriverHelper extends Helper {
         let isIE = false;
 
         /* eslint-disable no-console */
-        if (browser.toString().indexOf('internet explorer')) {
+        if (browser.toString().indexOf('internet explorer') !== -1) {
             isIE = true;
         }
 
