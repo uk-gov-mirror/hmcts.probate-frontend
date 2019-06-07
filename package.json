@@ -130,7 +130,7 @@
     "unirest": "^0.5.1",
     "uuid": "^3.1.0",
     "watch": "^1.0.1",
-    "webdriverio": "^5.10.0",
+    "webdriverio": "^4.14.4",
     "when": "^3.7.7"
   }
 }
