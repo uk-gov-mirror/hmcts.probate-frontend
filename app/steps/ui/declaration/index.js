@@ -41,17 +41,16 @@ class Declaration extends ValidationStep {
         ctx.isIntestacyJourney = setJourney.isIntestacyJourney(req.session);
         const formdata = req.session.form;
 
-        const templateData = this.prepareDataForTemplate(ctx, this.generateContent(ctx, formdata), formdata);
-        Object.assign(ctx, templateData);
-
         if (!ctx.isIntestacyJourney) {
-            ctx.isIntestacyJourney = false;
             ctx.executorsWrapper = new ExecutorsWrapper(formdata.executors);
             ctx.invitesSent = get(formdata, 'executors.invitesSent');
             ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants(get(formdata, 'executors.list'));
             ctx.executorsEmailChanged = ctx.executorsWrapper.hasExecutorsEmailChanged();
             ctx.hasExecutorsToNotify = ctx.executorsWrapper.hasExecutorsToNotify() && ctx.invitesSent === 'true';
         }
+
+        const templateData = this.prepareDataForTemplate(ctx, this.generateContent(ctx, formdata), formdata);
+        Object.assign(ctx, templateData);
 
         ctx.softStop = this.anySoftStops(formdata, ctx);
         return ctx;
@@ -67,25 +66,27 @@ class Declaration extends ValidationStep {
         const deceased = formdata.deceased || {};
         const deceasedName = FormatName.format(deceased);
         const deceasedAddress = get(deceased, 'address', {});
-        const deceasedHadAlias = (get(deceased, 'alias', 'No') === 'Yes');
+        const deceasedOtherNames = FormatName.formatMultipleNamesAndAddress(get(deceased, 'otherNames'), content);
 
         const iht = formdata.iht || {};
         const ihtGrossValue = iht.grossValue ? iht.grossValue.toFixed(2) : 0;
-        let ihtNetValue = iht.netValue ? iht.netValue.toFixed(2) : 0;
+        const ihtNetValue = iht.netValue ? iht.netValue.toFixed(2) : 0;
 
         if (ctx.isIntestacyJourney) {
-            ihtNetValue += get(iht, 'netValueAssetsOutside', 0);
-
             legalStatement = {
-                intro: content.intestacyIntro
+                intro: content.intro,
+                applicant: content.legalStatementApplicant
                     .replace('{applicantName}', applicantName)
                     .replace('{applicantAddress}', applicantAddress.formattedAddress),
                 deceased: content.intestacyLegalStatementDeceased
                     .replace('{deceasedName}', deceasedName)
                     .replace('{deceasedAddress}', deceasedAddress.formattedAddress)
                     .replace('{deceasedDob}', deceased.dob_formattedDate)
-                    .replace('{deceasedDod}', deceased.dod_formattedDate)
+                    .replace('{deceasedDod}', deceased.dod_formattedDate),
+                deceasedOtherNames: deceasedOtherNames ? content.deceasedOtherNames.replace('{deceasedOtherNames}', deceasedOtherNames) : '',
+                deceasedMaritalStatus: content.intestacyDeceasedMaritalStatus
                     .replace('{deceasedMaritalStatus}', deceased.maritalStatus),
+                deceasedChildren: content.intestacyDeceasedChildren,
                 deceasedEstateValue: content.deceasedEstateValue
                     .replace('{ihtGrossValue}', ihtGrossValue)
                     .replace('{ihtNetValue}', ihtNetValue),
@@ -95,49 +96,40 @@ class Declaration extends ValidationStep {
                     .replace('{deceasedName}', deceasedName)
             };
 
-            if (deceasedHadAlias) {
-                const deceasedAlias = FormatName.formatName(deceased, true);
-                const deceasedOtherNames = content.intestacyDeceasedOtherNames
-                    .replace('{deceasedAlias1}', deceasedAlias);
-                legalStatement.deceased.replace('{deceasedAlias}', deceasedOtherNames);
-            } else {
-                legalStatement.deceased.replace('{deceasedAlias}', '');
-            }
-
             if (deceased.maritalStatus === contentMaritalStatus.optionMarried) {
                 if (applicant.relationshipToDeceased === contentRelationshipToDeceased.optionSpousePartner) {
                     if ((deceased.hadChildren === contentAnyChildren.optionNo) || (ihtNetValue <= config.assetsValueThreshold)) {
-                        legalStatement.applicant = content.intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k;
+                        legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k;
                     } else {
-                        legalStatement.applicant = content.intestacyDeceasedMarriedSpouseApplyingHadChildren;
+                        legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseApplyingHadChildren;
                     }
                 } else {
                     if (ihtNetValue <= config.assetsValueThreshold) {
                         if (deceased.anyOtherChildren === contentAnyOtherChildren.optionYes) {
                             if (applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
-                                legalStatement.applicant = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted;
+                                legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted;
                             } else {
-                                legalStatement.applicant = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted;
+                                legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted;
                             }
                         } else {
                             if (applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
-                                legalStatement.applicant = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted;
+                                legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted;
                             } else {
-                                legalStatement.applicant = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted;
+                                legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted;
                             }
                         }
                     } else {
                         if (deceased.anyOtherChildren === contentAnyOtherChildren.optionYes) {
                             if (applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
-                                legalStatement.applicant = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted;
+                                legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted;
                             } else {
-                                legalStatement.applicant = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted;
+                                legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted;
                             }
                         } else {
                             if (applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
-                                legalStatement.applicant = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted;
+                                legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted;
                             } else {
-                                legalStatement.applicant = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted;
+                                legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted;
                             }
                         }
                     }
@@ -145,19 +137,19 @@ class Declaration extends ValidationStep {
             } else {
                 if (deceased.anyOtherChildren === contentAnyOtherChildren.optionYes) {
                     if (applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
-                        legalStatement.applicant = content.intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsAdopted;
+                        legalStatement.applicant2 = content.intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsAdopted;
                     } else {
-                        legalStatement.applicant = content.intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted;
+                        legalStatement.applicant2 = content.intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted;
                     }
                 } else {
                     if (applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
-                        legalStatement.applicant = content.intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted;
+                        legalStatement.applicant2 = content.intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted;
                     } else {
-                        legalStatement.applicant = content.intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted;
+                        legalStatement.applicant2 = content.intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted;
                     }
                 }
             }
-            legalStatement.applicant
+            legalStatement.applicant = legalStatement.applicant
                 .replace(/{deceasedName}/g, deceasedName);
 
             declaration = {
@@ -169,18 +161,17 @@ class Declaration extends ValidationStep {
                 requests: content.declarationRequests,
                 requestsItem1: content['declarationRequestsItem1-intestacy'],
                 requestsItem2: content['declarationRequestsItem2-intestacy'],
-                understand: content[`declarationUnderstand`],
+                understand: content.declarationUnderstand,
                 understandItem1: content['declarationUnderstandItem1-intestacy'],
                 understandItem2: content.declarationUnderstandItem2,
                 accept: content.declarationCheckbox,
-                submitWarning: content.submitWarning,
+                submitWarning: content.submitWarning
             };
         } else {
             const hasCodicils = (new WillWrapper(formdata.will)).hasCodicils();
             const codicilsNumber = (new WillWrapper(formdata.will)).codicilsNumber();
             const executorsApplying = ctx.executorsWrapper.executorsApplying();
             const executorsNotApplying = ctx.executorsWrapper.executorsNotApplying();
-            const deceasedOtherNames = FormatName.formatMultipleNamesAndAddress(get(deceased, 'otherNames'), content);
             const hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants();
             const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
 
