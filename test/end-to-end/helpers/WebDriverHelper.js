@@ -27,7 +27,12 @@ class WebDriverHelper extends Helper {
         const browser = this.helpers.WebDriverIO.browser;
 
         /* eslint-disable no-console */
-        console.log(browser.capabilities);
+        console.log('browser>>>', browser.toString());
+        console.log('==========================================');
+        console.log('==========================================');
+        console.log('==========================================');
+        console.log('==========================================');
+        console.log('io>>>', this.helpers.WebDriverIO);
     }
 }
 module.exports = WebDriverHelper;
