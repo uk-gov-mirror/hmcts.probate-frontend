@@ -27,10 +27,10 @@ class WebDriverHelper extends Helper {
         const browser = this.helpers.WebDriverIO.browser;
 
         /* eslint-disable no-console */
-        console.log('browser>>>', browser);
-        console.log('bname>>>', bname);
-        const bname = browser.value.value.browserName;
+        // console.log('browser>>>', browser);
 
+        const bname = browser.value.value.browserName;
+        console.log('bname>>>', bname);
         return bname;
     }
 }
