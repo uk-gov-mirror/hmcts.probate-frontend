@@ -17,9 +17,9 @@ After(() => {
     TestConfigurator.getAfter();
 });
 
-Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function (I) {
+Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), async function (I) {
     /* eslint-disable no-console */
-    console.log('ie>>>>', I.isInternetExplorer());
+    console.log('ie>>>>', await I.isInternetExplorer());
 
     // Eligibility Task (pre IdAM)
     I.startApplication();
