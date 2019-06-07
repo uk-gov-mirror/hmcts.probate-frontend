@@ -6,9 +6,10 @@ module.exports = function (redirect) {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl(redirect));
-    I.click('#checkAnswerHref');
 
-    I.click('Cancel');
+    if (I.getBrowserName() !== 'internet explorer') {
+        I.click('#checkAnswerHref');
+    }
 
     I.waitForNavigationToComplete('.button');
 };
