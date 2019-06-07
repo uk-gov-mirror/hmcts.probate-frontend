@@ -28,7 +28,7 @@ const setupConfig = {
     'output': './output',
     'timeout': 20000,
     'helpers': {
-        WebDriverIO: {
+        WebDriver: {
             url: process.env.TEST_E2E_FRONTEND_URL || 'https://probate-frontend-aat.service.core-compute-aat.internal',
             //'https://localhost:3000',
             browser,
