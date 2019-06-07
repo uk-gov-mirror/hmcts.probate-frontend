@@ -156,7 +156,7 @@ class Declaration extends ValidationStep {
                     .replace('{deceasedName}', deceasedName),
                 confirmItem1: content.declarationConfirmItem1,
                 confirmItem2: content.declarationConfirmItem2,
-                confirmItem3: content.declarationConfirmItem3,
+                confirmItem3: content['declarationConfirmItem3-intestacy'],
                 requests: content.declarationRequests,
                 requestsItem1: content['declarationRequestsItem1-intestacy'],
                 requestsItem2: content['declarationRequestsItem2-intestacy'],
