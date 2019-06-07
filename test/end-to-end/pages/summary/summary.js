@@ -2,14 +2,12 @@
 
 const pageUnderTest = require('app/steps/ui/summary');
 
-module.exports = async function (redirect) {
+module.exports = function (redirect) {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl(redirect));
 
-    if (!await I.isInternetExplorer()) {
-        I.click('#checkAnswerHref');
-    }
+    I.click('#checkAnswerHref');
 
     I.waitForNavigationToComplete('.button');
 };

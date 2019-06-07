@@ -25,14 +25,9 @@ class WebDriverHelper extends Helper {
 
     isInternetExplorer() {
         const browser = this.helpers.WebDriverIO.browser;
-        let isIE = false;
 
         /* eslint-disable no-console */
-        if (browser.toString().indexOf('internet explorer') !== -1) {
-            isIE = true;
-        }
-
-        return isIE;
+        console.log(browser.capabilities);
     }
 }
 module.exports = WebDriverHelper;
