@@ -26,8 +26,8 @@ class WebDriverHelper extends Helper {
     saveIt() {
         const browser = this.helpers.WebDriverIO.browser;
         /* eslint no-console: 0 no-unused-vars: 0 */
-        const handle = browser.getWindowHandle();
-        browser.switchToWindow(handle);
+        // const handle = browser.getWindowHandle();
+        // browser.switchToWindow(handle);
         console.log('>>>>', browser);
     }
 }

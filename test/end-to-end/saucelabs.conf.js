@@ -11,8 +11,6 @@ const getBrowserConfig = (browserGroup) => {
         if (candidateBrowser) {
             const desiredCapability = supportedBrowsers[browserGroup][candidateBrowser];
             desiredCapability.tunnelIdentifier = tunnelName;
-            desiredCapability.ignore_protected_mode_settings = true;
-            desiredCapability.requireWindowFocus = true;
             desiredCapability.tags = ['probate'];
             browserConfig.push({
                 browser: desiredCapability.browserName,

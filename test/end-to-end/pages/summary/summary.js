@@ -7,7 +7,7 @@ module.exports = function (redirect) {
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl(redirect));
     I.click('#checkAnswerHref');
-    I.saveIt();
+
     I.click('Cancel');
 
     I.waitForNavigationToComplete('.button');
