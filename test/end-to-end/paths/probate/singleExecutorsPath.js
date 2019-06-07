@@ -19,8 +19,6 @@ After(() => {
 
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function (I) {
 
-    I.whichBrowserIsInUse();
-
     // Eligibility Task (pre IdAM)
     I.startApplication();
 

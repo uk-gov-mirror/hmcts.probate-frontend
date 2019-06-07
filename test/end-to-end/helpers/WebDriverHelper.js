@@ -23,10 +23,12 @@ class WebDriverHelper extends Helper {
         return browser.back();
     }
 
-    whichBrowserIsInUse() {
+    saveIt() {
         const browser = this.helpers.WebDriverIO.browser;
         /* eslint no-console: 0 no-unused-vars: 0 */
-        console.log('>>>>', browser.name);
+        const handle = browser.getWindowHandle();
+        browser.switchToWindow(handle);
+        console.log('>>>>', browser);
     }
 }
 module.exports = WebDriverHelper;
