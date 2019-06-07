@@ -19,9 +19,8 @@ After(() => {
 
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function (I) {
     /* eslint-disable no-console */
-    let bname = I.getBrowserName();
-    const cname = bname;
-    bname = cname;
+    I.getBrowserName();
+
     // Eligibility Task (pre IdAM)
     I.startApplication();
 
