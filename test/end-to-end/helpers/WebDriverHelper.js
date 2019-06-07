@@ -33,6 +33,13 @@ class WebDriverHelper extends Helper {
         console.log('==========================================');
         console.log('==========================================');
         console.log('io>>>', this.helpers.WebDriverIO);
+        console.log('==========================================');
+        console.log('==========================================');
+        console.log('==========================================');
+        console.log('==========================================');
+        console.log('io>>>', this.helpers.WebDriverIO.config.browser);
+        console.log('==========================================');
+        console.log('==========================================');
     }
 }
 module.exports = WebDriverHelper;
