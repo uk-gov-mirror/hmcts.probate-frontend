@@ -9,5 +9,5 @@ module.exports = function (option) {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.click(`#codicils-option${option}`);
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.waitForNavigationToComplete(commonContent.saveAndContinue);
 };

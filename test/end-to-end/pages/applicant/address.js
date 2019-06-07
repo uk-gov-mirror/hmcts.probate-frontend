@@ -14,5 +14,5 @@ module.exports = function () {
     I.fillField('#postTown', 'test address for applicant town');
     I.fillField('#newPostCode', 'postcode');
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.waitForNavigationToComplete(commonContent.saveAndContinue);
 };

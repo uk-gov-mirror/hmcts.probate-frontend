@@ -9,5 +9,5 @@ module.exports = function () {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.click('#coverSheetPdfHref');
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.continue}"]`);
+    I.waitForNavigationToComplete(commonContent.saveAndContinue);
 };

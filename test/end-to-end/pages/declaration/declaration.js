@@ -10,5 +10,5 @@ module.exports = function () {
     I.click('#declarationPdfHref');
     I.click('#declarationCheckbox');
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.waitForNavigationToComplete(commonContent.saveAndContinue);
 };

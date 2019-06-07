@@ -8,5 +8,5 @@ module.exports = function (answer) {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.click(`#maritalStatus-option${answer}`);
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.waitForNavigationToComplete(commonContent.saveAndContinue);
 };
