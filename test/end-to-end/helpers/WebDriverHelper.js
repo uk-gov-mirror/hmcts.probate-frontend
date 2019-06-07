@@ -23,10 +23,16 @@ class WebDriverHelper extends Helper {
         return browser.back();
     }
 
-    getBrowserName() {
+    isInternetExplorer() {
         const browser = this.helpers.WebDriverIO.browser;
+        let isIE = false;
+
         /* eslint-disable no-console */
-        console.log('browser>>>', browser);
+        if (browser.contains('internet explorer')) {
+            isIE = true;
+        }
+
+        return isIE;
     }
 }
 module.exports = WebDriverHelper;
