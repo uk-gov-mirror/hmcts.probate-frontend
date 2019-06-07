@@ -149,7 +149,7 @@ class Declaration extends ValidationStep {
                     }
                 }
             }
-            legalStatement.applicant = legalStatement.applicant
+            legalStatement.applicant2 = legalStatement.applicant
                 .replace(/{deceasedName}/g, deceasedName);
 
             declaration = {
