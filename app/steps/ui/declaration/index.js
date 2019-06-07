@@ -51,7 +51,6 @@ class Declaration extends ValidationStep {
 
         const templateData = this.prepareDataForTemplate(ctx, this.generateContent(ctx, formdata), formdata);
         Object.assign(ctx, templateData);
-
         ctx.softStop = this.anySoftStops(formdata, ctx);
         return ctx;
     }
