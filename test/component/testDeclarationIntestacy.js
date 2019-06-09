@@ -6,7 +6,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const Taskist = require('app/steps/ui/tasklist');
 const content = require('app/resources/en/translation/declaration');
 const contentDeceasedMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
-const contentAnyChildren = require('app/resources/en/translation/deceased/anychildren');
+const contentAnyOtherChildren = require('app/resources/en/translation/deceased/anyotherchildren');
 const contentRelationshipToDeceased = require('app/resources/en/translation/applicant/relationshiptodeceased');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const config = require('app/config');
@@ -110,8 +110,8 @@ describe('declaration, intestacy', () => {
                 }
             };
             sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionDivorced;
-            sessionData.deceased.anyChildren = contentAnyChildren.optionYes;
-            sessionData.applicant.relationshipToDeceased = contentRelationshipToDeceased.optionAdoptedChild;
+            sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionYes;
+            sessionData.deceased.relationshipToDeceased = contentRelationshipToDeceased.optionAdoptedChild;
 
             contentData.deceasedOtherNames = 'James Miller';
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionDivorced;
