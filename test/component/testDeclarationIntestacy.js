@@ -4,11 +4,10 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const Taskist = require('app/steps/ui/tasklist');
-// const content = require('app/resources/en/translation/declaration');
 const contentDeceasedMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
+const contentAnyChildren = require('app/resources/en/translation/deceased/anychildren');
 const contentAnyOtherChildren = require('app/resources/en/translation/deceased/anyotherchildren');
 const contentRelationshipToDeceased = require('app/resources/en/translation/applicant/relationshiptodeceased');
-const contentSpouseNotApplyingReason = require('app/resources/en/translation/applicant/spousenotapplyingreason');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const config = require('app/config');
 const nock = require('nock');
@@ -42,7 +41,6 @@ describe('declaration, intestacy', () => {
             ihtGrossValue: sessionData.iht.grossValueField,
             ihtNetValue: sessionData.iht.netValueField
         };
-
     });
 
     afterEach(() => {
@@ -121,7 +119,6 @@ describe('declaration, intestacy', () => {
             sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionYes;
             sessionData.deceased.relationshipToDeceased = contentRelationshipToDeceased.optionAdoptedChild;
 
-            contentData.deceasedOtherNames = 'James Miller';
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionDivorced;
 
             testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
@@ -201,7 +198,6 @@ describe('declaration, intestacy', () => {
             sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionYes;
             sessionData.deceased.relationshipToDeceased = contentRelationshipToDeceased.optionChild;
 
-            contentData.deceasedOtherNames = 'James Miller';
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionDivorced;
 
             testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
@@ -281,7 +277,6 @@ describe('declaration, intestacy', () => {
             sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionNo;
             sessionData.deceased.relationshipToDeceased = contentRelationshipToDeceased.optionAdoptedChild;
 
-            contentData.deceasedOtherNames = 'James Miller';
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionDivorced;
 
             testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
@@ -361,7 +356,6 @@ describe('declaration, intestacy', () => {
             sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionNo;
             sessionData.deceased.relationshipToDeceased = contentRelationshipToDeceased.optionChild;
 
-            contentData.deceasedOtherNames = 'James Miller';
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionDivorced;
 
             testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
@@ -374,7 +368,7 @@ describe('declaration, intestacy', () => {
                 });
         });
 
-        it.only('test right content loaded on the page when deceased was married, the applicant is the child, has siblings and is adopted, the estate is less than or equal to £250k', (done) => {
+        it('test right content loaded on the page when deceased was married, the applicant is the child, has siblings and is adopted, the estate is less than or equal to £250k', (done) => {
             const contentToExclude = [
                 'probateHeader',
                 'legalStatementDeceased',
@@ -388,7 +382,6 @@ describe('declaration, intestacy', () => {
                 'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
-                // 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
@@ -442,8 +435,912 @@ describe('declaration, intestacy', () => {
             sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionYes;
             sessionData.deceased.relationshipToDeceased = contentRelationshipToDeceased.optionAdoptedChild;
 
-            contentData.deceasedOtherNames = 'James Miller';
-            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionDivorced;
+            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+                .end(() => {
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData)
+                        .end(() => {
+                            testWrapper.testContent(done, contentToExclude, contentData);
+                        });
+                });
+        });
+
+        it('test right content loaded on the page when deceased was married, the applicant is the child, has siblings and is not adopted, the estate is less than or equal to £250k', (done) => {
+            const contentToExclude = [
+                'probateHeader',
+                'legalStatementDeceased',
+                'deceasedEstateLand',
+                'executorApplyingHeader',
+                'applicantSend',
+                'declarationConfirmItem3',
+                'declarationRequestsItem1',
+                'declarationRequestsItem2',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseApplyingHadChildren',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'deceasedOtherNames',
+                'applicantName',
+                'applicantName-alias',
+                'applicantName-alias-codicils',
+                'applicantName-multipleApplicants-alias',
+                'applicantName-multipleApplicants-alias-codicils',
+                'applicantName-multipleApplicants-mainApplicant-alias',
+                'applicantName-multipleApplicants-mainApplicant-alias-codicils',
+                'executorApplyingName-codicils',
+                'executorNotApplyingHeader',
+                'executorNotApplyingReason',
+                'executorNotApplyingReason-codicils',
+                'optionDiedBefore',
+                'optionDiedAfter',
+                'optionPowerReserved',
+                'optionRenunciated',
+                'additionalExecutorNotified',
+                'intro-multipleApplicants',
+                'legalStatementApplicant-multipleApplicants',
+                'deceasedEstateLand-multipleApplicants',
+                'applicantName-multipleApplicants',
+                'applicantName-multipleApplicants-codicils',
+                'applicantName-multipleApplicants-mainApplicant',
+                'applicantName-multipleApplicants-mainApplicant-codicils',
+                'applicantSend-codicils',
+                'applicantSend-multipleApplicants',
+                'applicantSend-multipleApplicants-mainApplicant',
+                'applicantSend-multipleApplicants-codicils',
+                'applicantSend-multipleApplicants-mainApplicant-codicils',
+                'declarationConfirm-multipleApplicants',
+                'declarationRequests-multipleApplicants',
+                'declarationUnderstand-multipleApplicants',
+                'declarationUnderstandItem1',
+                'declarationUnderstandItem1-multipleApplicants',
+                'declarationUnderstandItem2-multipleApplicants',
+                'submitWarning-multipleApplicants',
+                'applicantName-codicils',
+                'codicil',
+                'codicils'
+            ];
+            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionYes;
+            sessionData.deceased.relationshipToDeceased = contentRelationshipToDeceased.optionChild;
+
+            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+                .end(() => {
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData)
+                        .end(() => {
+                            testWrapper.testContent(done, contentToExclude, contentData);
+                        });
+                });
+        });
+
+        it('test right content loaded on the page when deceased was married, the applicant is the child, has no siblings and is adopted, the estate is less than or equal to £250k', (done) => {
+            const contentToExclude = [
+                'probateHeader',
+                'legalStatementDeceased',
+                'deceasedEstateLand',
+                'executorApplyingHeader',
+                'applicantSend',
+                'declarationConfirmItem3',
+                'declarationRequestsItem1',
+                'declarationRequestsItem2',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseApplyingHadChildren',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'deceasedOtherNames',
+                'applicantName',
+                'applicantName-alias',
+                'applicantName-alias-codicils',
+                'applicantName-multipleApplicants-alias',
+                'applicantName-multipleApplicants-alias-codicils',
+                'applicantName-multipleApplicants-mainApplicant-alias',
+                'applicantName-multipleApplicants-mainApplicant-alias-codicils',
+                'executorApplyingName-codicils',
+                'executorNotApplyingHeader',
+                'executorNotApplyingReason',
+                'executorNotApplyingReason-codicils',
+                'optionDiedBefore',
+                'optionDiedAfter',
+                'optionPowerReserved',
+                'optionRenunciated',
+                'additionalExecutorNotified',
+                'intro-multipleApplicants',
+                'legalStatementApplicant-multipleApplicants',
+                'deceasedEstateLand-multipleApplicants',
+                'applicantName-multipleApplicants',
+                'applicantName-multipleApplicants-codicils',
+                'applicantName-multipleApplicants-mainApplicant',
+                'applicantName-multipleApplicants-mainApplicant-codicils',
+                'applicantSend-codicils',
+                'applicantSend-multipleApplicants',
+                'applicantSend-multipleApplicants-mainApplicant',
+                'applicantSend-multipleApplicants-codicils',
+                'applicantSend-multipleApplicants-mainApplicant-codicils',
+                'declarationConfirm-multipleApplicants',
+                'declarationRequests-multipleApplicants',
+                'declarationUnderstand-multipleApplicants',
+                'declarationUnderstandItem1',
+                'declarationUnderstandItem1-multipleApplicants',
+                'declarationUnderstandItem2-multipleApplicants',
+                'submitWarning-multipleApplicants',
+                'applicantName-codicils',
+                'codicil',
+                'codicils'
+            ];
+            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionNo;
+            sessionData.deceased.relationshipToDeceased = contentRelationshipToDeceased.optionAdoptedChild;
+
+            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+                .end(() => {
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData)
+                        .end(() => {
+                            testWrapper.testContent(done, contentToExclude, contentData);
+                        });
+                });
+        });
+
+        it('test right content loaded on the page when deceased was married, the applicant is the child, has no siblings and is not adopted, the estate is less than or equal to £250k', (done) => {
+            const contentToExclude = [
+                'probateHeader',
+                'legalStatementDeceased',
+                'deceasedEstateLand',
+                'executorApplyingHeader',
+                'applicantSend',
+                'declarationConfirmItem3',
+                'declarationRequestsItem1',
+                'declarationRequestsItem2',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseApplyingHadChildren',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'deceasedOtherNames',
+                'applicantName',
+                'applicantName-alias',
+                'applicantName-alias-codicils',
+                'applicantName-multipleApplicants-alias',
+                'applicantName-multipleApplicants-alias-codicils',
+                'applicantName-multipleApplicants-mainApplicant-alias',
+                'applicantName-multipleApplicants-mainApplicant-alias-codicils',
+                'executorApplyingName-codicils',
+                'executorNotApplyingHeader',
+                'executorNotApplyingReason',
+                'executorNotApplyingReason-codicils',
+                'optionDiedBefore',
+                'optionDiedAfter',
+                'optionPowerReserved',
+                'optionRenunciated',
+                'additionalExecutorNotified',
+                'intro-multipleApplicants',
+                'legalStatementApplicant-multipleApplicants',
+                'deceasedEstateLand-multipleApplicants',
+                'applicantName-multipleApplicants',
+                'applicantName-multipleApplicants-codicils',
+                'applicantName-multipleApplicants-mainApplicant',
+                'applicantName-multipleApplicants-mainApplicant-codicils',
+                'applicantSend-codicils',
+                'applicantSend-multipleApplicants',
+                'applicantSend-multipleApplicants-mainApplicant',
+                'applicantSend-multipleApplicants-codicils',
+                'applicantSend-multipleApplicants-mainApplicant-codicils',
+                'declarationConfirm-multipleApplicants',
+                'declarationRequests-multipleApplicants',
+                'declarationUnderstand-multipleApplicants',
+                'declarationUnderstandItem1',
+                'declarationUnderstandItem1-multipleApplicants',
+                'declarationUnderstandItem2-multipleApplicants',
+                'submitWarning-multipleApplicants',
+                'applicantName-codicils',
+                'codicil',
+                'codicils'
+            ];
+            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionNo;
+            sessionData.deceased.relationshipToDeceased = contentRelationshipToDeceased.optionChild;
+
+            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+                .end(() => {
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData)
+                        .end(() => {
+                            testWrapper.testContent(done, contentToExclude, contentData);
+                        });
+                });
+        });
+
+        it('test right content loaded on the page when deceased was married, the applicant is the child, has siblings and is adopted, the estate is more than £250k', (done) => {
+            const contentToExclude = [
+                'probateHeader',
+                'legalStatementDeceased',
+                'deceasedEstateLand',
+                'executorApplyingHeader',
+                'applicantSend',
+                'declarationConfirmItem3',
+                'declarationRequestsItem1',
+                'declarationRequestsItem2',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseApplyingHadChildren',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'deceasedOtherNames',
+                'applicantName',
+                'applicantName-alias',
+                'applicantName-alias-codicils',
+                'applicantName-multipleApplicants-alias',
+                'applicantName-multipleApplicants-alias-codicils',
+                'applicantName-multipleApplicants-mainApplicant-alias',
+                'applicantName-multipleApplicants-mainApplicant-alias-codicils',
+                'executorApplyingName-codicils',
+                'executorNotApplyingHeader',
+                'executorNotApplyingReason',
+                'executorNotApplyingReason-codicils',
+                'optionDiedBefore',
+                'optionDiedAfter',
+                'optionPowerReserved',
+                'optionRenunciated',
+                'additionalExecutorNotified',
+                'intro-multipleApplicants',
+                'legalStatementApplicant-multipleApplicants',
+                'deceasedEstateLand-multipleApplicants',
+                'applicantName-multipleApplicants',
+                'applicantName-multipleApplicants-codicils',
+                'applicantName-multipleApplicants-mainApplicant',
+                'applicantName-multipleApplicants-mainApplicant-codicils',
+                'applicantSend-codicils',
+                'applicantSend-multipleApplicants',
+                'applicantSend-multipleApplicants-mainApplicant',
+                'applicantSend-multipleApplicants-codicils',
+                'applicantSend-multipleApplicants-mainApplicant-codicils',
+                'declarationConfirm-multipleApplicants',
+                'declarationRequests-multipleApplicants',
+                'declarationUnderstand-multipleApplicants',
+                'declarationUnderstandItem1',
+                'declarationUnderstandItem1-multipleApplicants',
+                'declarationUnderstandItem2-multipleApplicants',
+                'submitWarning-multipleApplicants',
+                'applicantName-codicils',
+                'codicil',
+                'codicils'
+            ];
+            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionYes;
+            sessionData.deceased.relationshipToDeceased = contentRelationshipToDeceased.optionAdoptedChild;
+            sessionData.iht.grossValueField = '300000.10';
+            sessionData.iht.netValueField = '270000.34';
+            sessionData.iht.grossValue = 300000.1;
+            sessionData.iht.netValue = 270000.34;
+
+            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            contentData.ihtGrossValue = sessionData.iht.grossValueField;
+            contentData.ihtNetValue = sessionData.iht.netValueField;
+
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+                .end(() => {
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData)
+                        .end(() => {
+                            testWrapper.testContent(done, contentToExclude, contentData);
+                        });
+                });
+        });
+
+        it('test right content loaded on the page when deceased was married, the applicant is the child, has siblings and is not adopted, the estate is more than £250k', (done) => {
+            const contentToExclude = [
+                'probateHeader',
+                'legalStatementDeceased',
+                'deceasedEstateLand',
+                'executorApplyingHeader',
+                'applicantSend',
+                'declarationConfirmItem3',
+                'declarationRequestsItem1',
+                'declarationRequestsItem2',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseApplyingHadChildren',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'deceasedOtherNames',
+                'applicantName',
+                'applicantName-alias',
+                'applicantName-alias-codicils',
+                'applicantName-multipleApplicants-alias',
+                'applicantName-multipleApplicants-alias-codicils',
+                'applicantName-multipleApplicants-mainApplicant-alias',
+                'applicantName-multipleApplicants-mainApplicant-alias-codicils',
+                'executorApplyingName-codicils',
+                'executorNotApplyingHeader',
+                'executorNotApplyingReason',
+                'executorNotApplyingReason-codicils',
+                'optionDiedBefore',
+                'optionDiedAfter',
+                'optionPowerReserved',
+                'optionRenunciated',
+                'additionalExecutorNotified',
+                'intro-multipleApplicants',
+                'legalStatementApplicant-multipleApplicants',
+                'deceasedEstateLand-multipleApplicants',
+                'applicantName-multipleApplicants',
+                'applicantName-multipleApplicants-codicils',
+                'applicantName-multipleApplicants-mainApplicant',
+                'applicantName-multipleApplicants-mainApplicant-codicils',
+                'applicantSend-codicils',
+                'applicantSend-multipleApplicants',
+                'applicantSend-multipleApplicants-mainApplicant',
+                'applicantSend-multipleApplicants-codicils',
+                'applicantSend-multipleApplicants-mainApplicant-codicils',
+                'declarationConfirm-multipleApplicants',
+                'declarationRequests-multipleApplicants',
+                'declarationUnderstand-multipleApplicants',
+                'declarationUnderstandItem1',
+                'declarationUnderstandItem1-multipleApplicants',
+                'declarationUnderstandItem2-multipleApplicants',
+                'submitWarning-multipleApplicants',
+                'applicantName-codicils',
+                'codicil',
+                'codicils'
+            ];
+            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionYes;
+            sessionData.deceased.relationshipToDeceased = contentRelationshipToDeceased.optionChild;
+            sessionData.iht.grossValueField = '300000.10';
+            sessionData.iht.netValueField = '270000.34';
+            sessionData.iht.grossValue = 300000.1;
+            sessionData.iht.netValue = 270000.34;
+
+            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            contentData.ihtGrossValue = sessionData.iht.grossValueField;
+            contentData.ihtNetValue = sessionData.iht.netValueField;
+
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+                .end(() => {
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData)
+                        .end(() => {
+                            testWrapper.testContent(done, contentToExclude, contentData);
+                        });
+                });
+        });
+
+        it('test right content loaded on the page when deceased was married, the applicant is the child, has no siblings and is adopted, the estate is more than £250k', (done) => {
+            const contentToExclude = [
+                'probateHeader',
+                'legalStatementDeceased',
+                'deceasedEstateLand',
+                'executorApplyingHeader',
+                'applicantSend',
+                'declarationConfirmItem3',
+                'declarationRequestsItem1',
+                'declarationRequestsItem2',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseApplyingHadChildren',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'deceasedOtherNames',
+                'applicantName',
+                'applicantName-alias',
+                'applicantName-alias-codicils',
+                'applicantName-multipleApplicants-alias',
+                'applicantName-multipleApplicants-alias-codicils',
+                'applicantName-multipleApplicants-mainApplicant-alias',
+                'applicantName-multipleApplicants-mainApplicant-alias-codicils',
+                'executorApplyingName-codicils',
+                'executorNotApplyingHeader',
+                'executorNotApplyingReason',
+                'executorNotApplyingReason-codicils',
+                'optionDiedBefore',
+                'optionDiedAfter',
+                'optionPowerReserved',
+                'optionRenunciated',
+                'additionalExecutorNotified',
+                'intro-multipleApplicants',
+                'legalStatementApplicant-multipleApplicants',
+                'deceasedEstateLand-multipleApplicants',
+                'applicantName-multipleApplicants',
+                'applicantName-multipleApplicants-codicils',
+                'applicantName-multipleApplicants-mainApplicant',
+                'applicantName-multipleApplicants-mainApplicant-codicils',
+                'applicantSend-codicils',
+                'applicantSend-multipleApplicants',
+                'applicantSend-multipleApplicants-mainApplicant',
+                'applicantSend-multipleApplicants-codicils',
+                'applicantSend-multipleApplicants-mainApplicant-codicils',
+                'declarationConfirm-multipleApplicants',
+                'declarationRequests-multipleApplicants',
+                'declarationUnderstand-multipleApplicants',
+                'declarationUnderstandItem1',
+                'declarationUnderstandItem1-multipleApplicants',
+                'declarationUnderstandItem2-multipleApplicants',
+                'submitWarning-multipleApplicants',
+                'applicantName-codicils',
+                'codicil',
+                'codicils'
+            ];
+            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionNo;
+            sessionData.deceased.relationshipToDeceased = contentRelationshipToDeceased.optionAdoptedChild;
+            sessionData.iht.grossValueField = '300000.10';
+            sessionData.iht.netValueField = '270000.34';
+            sessionData.iht.grossValue = 300000.1;
+            sessionData.iht.netValue = 270000.34;
+
+            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            contentData.ihtGrossValue = sessionData.iht.grossValueField;
+            contentData.ihtNetValue = sessionData.iht.netValueField;
+
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+                .end(() => {
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData)
+                        .end(() => {
+                            testWrapper.testContent(done, contentToExclude, contentData);
+                        });
+                });
+        });
+
+        it('test right content loaded on the page when deceased was married, the applicant is the child, has no siblings and is not adopted, the estate is more than £250k', (done) => {
+            const contentToExclude = [
+                'probateHeader',
+                'legalStatementDeceased',
+                'deceasedEstateLand',
+                'executorApplyingHeader',
+                'applicantSend',
+                'declarationConfirmItem3',
+                'declarationRequestsItem1',
+                'declarationRequestsItem2',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseApplyingHadChildren',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'deceasedOtherNames',
+                'applicantName',
+                'applicantName-alias',
+                'applicantName-alias-codicils',
+                'applicantName-multipleApplicants-alias',
+                'applicantName-multipleApplicants-alias-codicils',
+                'applicantName-multipleApplicants-mainApplicant-alias',
+                'applicantName-multipleApplicants-mainApplicant-alias-codicils',
+                'executorApplyingName-codicils',
+                'executorNotApplyingHeader',
+                'executorNotApplyingReason',
+                'executorNotApplyingReason-codicils',
+                'optionDiedBefore',
+                'optionDiedAfter',
+                'optionPowerReserved',
+                'optionRenunciated',
+                'additionalExecutorNotified',
+                'intro-multipleApplicants',
+                'legalStatementApplicant-multipleApplicants',
+                'deceasedEstateLand-multipleApplicants',
+                'applicantName-multipleApplicants',
+                'applicantName-multipleApplicants-codicils',
+                'applicantName-multipleApplicants-mainApplicant',
+                'applicantName-multipleApplicants-mainApplicant-codicils',
+                'applicantSend-codicils',
+                'applicantSend-multipleApplicants',
+                'applicantSend-multipleApplicants-mainApplicant',
+                'applicantSend-multipleApplicants-codicils',
+                'applicantSend-multipleApplicants-mainApplicant-codicils',
+                'declarationConfirm-multipleApplicants',
+                'declarationRequests-multipleApplicants',
+                'declarationUnderstand-multipleApplicants',
+                'declarationUnderstandItem1',
+                'declarationUnderstandItem1-multipleApplicants',
+                'declarationUnderstandItem2-multipleApplicants',
+                'submitWarning-multipleApplicants',
+                'applicantName-codicils',
+                'codicil',
+                'codicils'
+            ];
+            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionNo;
+            sessionData.deceased.relationshipToDeceased = contentRelationshipToDeceased.optionChild;
+            sessionData.iht.grossValueField = '300000.10';
+            sessionData.iht.netValueField = '270000.34';
+            sessionData.iht.grossValue = 300000.1;
+            sessionData.iht.netValue = 270000.34;
+
+            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            contentData.ihtGrossValue = sessionData.iht.grossValueField;
+            contentData.ihtNetValue = sessionData.iht.netValueField;
+
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+                .end(() => {
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData)
+                        .end(() => {
+                            testWrapper.testContent(done, contentToExclude, contentData);
+                        });
+                });
+        });
+
+        it('test right content loaded on the page when deceased was married, had no children, the applicant is the spouse', (done) => {
+            const contentToExclude = [
+                'probateHeader',
+                'legalStatementDeceased',
+                'deceasedEstateLand',
+                'executorApplyingHeader',
+                'applicantSend',
+                'declarationConfirmItem3',
+                'declarationRequestsItem1',
+                'declarationRequestsItem2',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseApplyingHadChildren',
+                'deceasedOtherNames',
+                'applicantName',
+                'applicantName-alias',
+                'applicantName-alias-codicils',
+                'applicantName-multipleApplicants-alias',
+                'applicantName-multipleApplicants-alias-codicils',
+                'applicantName-multipleApplicants-mainApplicant-alias',
+                'applicantName-multipleApplicants-mainApplicant-alias-codicils',
+                'executorApplyingName-codicils',
+                'executorNotApplyingHeader',
+                'executorNotApplyingReason',
+                'executorNotApplyingReason-codicils',
+                'optionDiedBefore',
+                'optionDiedAfter',
+                'optionPowerReserved',
+                'optionRenunciated',
+                'additionalExecutorNotified',
+                'intro-multipleApplicants',
+                'legalStatementApplicant-multipleApplicants',
+                'deceasedEstateLand-multipleApplicants',
+                'applicantName-multipleApplicants',
+                'applicantName-multipleApplicants-codicils',
+                'applicantName-multipleApplicants-mainApplicant',
+                'applicantName-multipleApplicants-mainApplicant-codicils',
+                'applicantSend-codicils',
+                'applicantSend-multipleApplicants',
+                'applicantSend-multipleApplicants-mainApplicant',
+                'applicantSend-multipleApplicants-codicils',
+                'applicantSend-multipleApplicants-mainApplicant-codicils',
+                'declarationConfirm-multipleApplicants',
+                'declarationRequests-multipleApplicants',
+                'declarationUnderstand-multipleApplicants',
+                'declarationUnderstandItem1',
+                'declarationUnderstandItem1-multipleApplicants',
+                'declarationUnderstandItem2-multipleApplicants',
+                'submitWarning-multipleApplicants',
+                'applicantName-codicils',
+                'codicil',
+                'codicils'
+            ];
+            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            sessionData.deceased.anyChildren = contentAnyChildren.optionNo;
+            sessionData.deceased.relationshipToDeceased = contentRelationshipToDeceased.optionSpousePartner;
+
+            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+                .end(() => {
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData)
+                        .end(() => {
+                            testWrapper.testContent(done, contentToExclude, contentData);
+                        });
+                });
+        });
+
+        it('test right content loaded on the page when deceased was married, had children, the applicant is the spouse, the estate is less than or equal to £250k', (done) => {
+            const contentToExclude = [
+                'probateHeader',
+                'legalStatementDeceased',
+                'deceasedEstateLand',
+                'executorApplyingHeader',
+                'applicantSend',
+                'declarationConfirmItem3',
+                'declarationRequestsItem1',
+                'declarationRequestsItem2',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseApplyingHadChildren',
+                'deceasedOtherNames',
+                'applicantName',
+                'applicantName-alias',
+                'applicantName-alias-codicils',
+                'applicantName-multipleApplicants-alias',
+                'applicantName-multipleApplicants-alias-codicils',
+                'applicantName-multipleApplicants-mainApplicant-alias',
+                'applicantName-multipleApplicants-mainApplicant-alias-codicils',
+                'executorApplyingName-codicils',
+                'executorNotApplyingHeader',
+                'executorNotApplyingReason',
+                'executorNotApplyingReason-codicils',
+                'optionDiedBefore',
+                'optionDiedAfter',
+                'optionPowerReserved',
+                'optionRenunciated',
+                'additionalExecutorNotified',
+                'intro-multipleApplicants',
+                'legalStatementApplicant-multipleApplicants',
+                'deceasedEstateLand-multipleApplicants',
+                'applicantName-multipleApplicants',
+                'applicantName-multipleApplicants-codicils',
+                'applicantName-multipleApplicants-mainApplicant',
+                'applicantName-multipleApplicants-mainApplicant-codicils',
+                'applicantSend-codicils',
+                'applicantSend-multipleApplicants',
+                'applicantSend-multipleApplicants-mainApplicant',
+                'applicantSend-multipleApplicants-codicils',
+                'applicantSend-multipleApplicants-mainApplicant-codicils',
+                'declarationConfirm-multipleApplicants',
+                'declarationRequests-multipleApplicants',
+                'declarationUnderstand-multipleApplicants',
+                'declarationUnderstandItem1',
+                'declarationUnderstandItem1-multipleApplicants',
+                'declarationUnderstandItem2-multipleApplicants',
+                'submitWarning-multipleApplicants',
+                'applicantName-codicils',
+                'codicil',
+                'codicils'
+            ];
+            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            sessionData.deceased.anyChildren = contentAnyChildren.optionYes;
+            sessionData.deceased.relationshipToDeceased = contentRelationshipToDeceased.optionSpousePartner;
+
+            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+                .end(() => {
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData)
+                        .end(() => {
+                            testWrapper.testContent(done, contentToExclude, contentData);
+                        });
+                });
+        });
+
+        it('test right content loaded on the page when deceased was married, had no children, the applicant is the spouse, the estate is more £250k', (done) => {
+            const contentToExclude = [
+                'probateHeader',
+                'legalStatementDeceased',
+                'deceasedEstateLand',
+                'executorApplyingHeader',
+                'applicantSend',
+                'declarationConfirmItem3',
+                'declarationRequestsItem1',
+                'declarationRequestsItem2',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'deceasedOtherNames',
+                'applicantName',
+                'applicantName-alias',
+                'applicantName-alias-codicils',
+                'applicantName-multipleApplicants-alias',
+                'applicantName-multipleApplicants-alias-codicils',
+                'applicantName-multipleApplicants-mainApplicant-alias',
+                'applicantName-multipleApplicants-mainApplicant-alias-codicils',
+                'executorApplyingName-codicils',
+                'executorNotApplyingHeader',
+                'executorNotApplyingReason',
+                'executorNotApplyingReason-codicils',
+                'optionDiedBefore',
+                'optionDiedAfter',
+                'optionPowerReserved',
+                'optionRenunciated',
+                'additionalExecutorNotified',
+                'intro-multipleApplicants',
+                'legalStatementApplicant-multipleApplicants',
+                'deceasedEstateLand-multipleApplicants',
+                'applicantName-multipleApplicants',
+                'applicantName-multipleApplicants-codicils',
+                'applicantName-multipleApplicants-mainApplicant',
+                'applicantName-multipleApplicants-mainApplicant-codicils',
+                'applicantSend-codicils',
+                'applicantSend-multipleApplicants',
+                'applicantSend-multipleApplicants-mainApplicant',
+                'applicantSend-multipleApplicants-codicils',
+                'applicantSend-multipleApplicants-mainApplicant-codicils',
+                'declarationConfirm-multipleApplicants',
+                'declarationRequests-multipleApplicants',
+                'declarationUnderstand-multipleApplicants',
+                'declarationUnderstandItem1',
+                'declarationUnderstandItem1-multipleApplicants',
+                'declarationUnderstandItem2-multipleApplicants',
+                'submitWarning-multipleApplicants',
+                'applicantName-codicils',
+                'codicil',
+                'codicils'
+            ];
+            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            sessionData.deceased.anyChildren = contentAnyChildren.optionNo;
+            sessionData.deceased.relationshipToDeceased = contentRelationshipToDeceased.optionSpousePartner;
+            sessionData.iht.grossValueField = '300000.10';
+            sessionData.iht.netValueField = '270000.34';
+            sessionData.iht.grossValue = 300000.1;
+            sessionData.iht.netValue = 270000.34;
+
+            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            contentData.ihtGrossValue = sessionData.iht.grossValueField;
+            contentData.ihtNetValue = sessionData.iht.netValueField;
+
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+                .end(() => {
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData)
+                        .end(() => {
+                            testWrapper.testContent(done, contentToExclude, contentData);
+                        });
+                });
+        });
+
+        it('test right content loaded on the page when deceased was married, had children, the applicant is the spouse, the estate is more £250k', (done) => {
+            const contentToExclude = [
+                'probateHeader',
+                'legalStatementDeceased',
+                'deceasedEstateLand',
+                'executorApplyingHeader',
+                'applicantSend',
+                'declarationConfirmItem3',
+                'declarationRequestsItem1',
+                'declarationRequestsItem2',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'deceasedOtherNames',
+                'applicantName',
+                'applicantName-alias',
+                'applicantName-alias-codicils',
+                'applicantName-multipleApplicants-alias',
+                'applicantName-multipleApplicants-alias-codicils',
+                'applicantName-multipleApplicants-mainApplicant-alias',
+                'applicantName-multipleApplicants-mainApplicant-alias-codicils',
+                'executorApplyingName-codicils',
+                'executorNotApplyingHeader',
+                'executorNotApplyingReason',
+                'executorNotApplyingReason-codicils',
+                'optionDiedBefore',
+                'optionDiedAfter',
+                'optionPowerReserved',
+                'optionRenunciated',
+                'additionalExecutorNotified',
+                'intro-multipleApplicants',
+                'legalStatementApplicant-multipleApplicants',
+                'deceasedEstateLand-multipleApplicants',
+                'applicantName-multipleApplicants',
+                'applicantName-multipleApplicants-codicils',
+                'applicantName-multipleApplicants-mainApplicant',
+                'applicantName-multipleApplicants-mainApplicant-codicils',
+                'applicantSend-codicils',
+                'applicantSend-multipleApplicants',
+                'applicantSend-multipleApplicants-mainApplicant',
+                'applicantSend-multipleApplicants-codicils',
+                'applicantSend-multipleApplicants-mainApplicant-codicils',
+                'declarationConfirm-multipleApplicants',
+                'declarationRequests-multipleApplicants',
+                'declarationUnderstand-multipleApplicants',
+                'declarationUnderstandItem1',
+                'declarationUnderstandItem1-multipleApplicants',
+                'declarationUnderstandItem2-multipleApplicants',
+                'submitWarning-multipleApplicants',
+                'applicantName-codicils',
+                'codicil',
+                'codicils'
+            ];
+            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            sessionData.deceased.anyChildren = contentAnyChildren.optionYes;
+            sessionData.deceased.relationshipToDeceased = contentRelationshipToDeceased.optionSpousePartner;
+            sessionData.iht.grossValueField = '300000.10';
+            sessionData.iht.netValueField = '270000.34';
+            sessionData.iht.grossValue = 300000.1;
+            sessionData.iht.netValue = 270000.34;
+
+            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            contentData.ihtGrossValue = sessionData.iht.grossValueField;
+            contentData.ihtNetValue = sessionData.iht.netValueField;
 
             testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
                 .end(() => {

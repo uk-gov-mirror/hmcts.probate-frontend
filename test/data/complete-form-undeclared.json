@@ -40,9 +40,9 @@
       "alias": "No",
       "address": {
         "addressLine1": "21 Treelined Avenue,",
-        "addressLine2": "Sussex.",
+        "addressLine2": "Sussex",
         "addressLine3": "",
-        "formattedAddress": "21 Treelined Avenue, Sussex.",
+        "formattedAddress": "21 Treelined Avenue, Sussex",
         "postTown": "",
         "postCode": "",
         "Country": ""
