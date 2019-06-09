@@ -84,7 +84,7 @@ class Declaration extends ValidationStep {
                     .replace('{deceasedDod}', deceased.dod_formattedDate),
                 deceasedOtherNames: deceasedOtherNames ? content.deceasedOtherNames.replace('{deceasedOtherNames}', deceasedOtherNames) : '',
                 deceasedMaritalStatus: content.intestacyDeceasedMaritalStatus
-                    .replace('{deceasedMaritalStatus}', deceased.maritalStatus),
+                    .replace('{deceasedMaritalStatus}', deceased.maritalStatus.toLowerCase()),
                 deceasedChildren: content.intestacyDeceasedChildren,
                 deceasedEstateValue: content.deceasedEstateValue
                     .replace('{ihtGrossValue}', ihtGrossValue)
