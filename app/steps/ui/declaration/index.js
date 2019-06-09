@@ -96,7 +96,7 @@ class Declaration extends ValidationStep {
             };
 
             if (deceased.maritalStatus === contentMaritalStatus.optionMarried) {
-                if (applicant.relationshipToDeceased === contentRelationshipToDeceased.optionSpousePartner) {
+                if (deceased.relationshipToDeceased === contentRelationshipToDeceased.optionSpousePartner) {
                     if ((deceased.hadChildren === contentAnyChildren.optionNo) || (ihtNetValue <= config.assetsValueThreshold)) {
                         legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k;
                     } else {
@@ -105,13 +105,13 @@ class Declaration extends ValidationStep {
                 } else {
                     if (ihtNetValue <= config.assetsValueThreshold) {
                         if (deceased.anyOtherChildren === contentAnyOtherChildren.optionYes) {
-                            if (applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
+                            if (deceased.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
                                 legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted;
                             } else {
                                 legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted;
                             }
                         } else {
-                            if (applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
+                            if (deceased.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
                                 legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted;
                             } else {
                                 legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted;
@@ -119,13 +119,13 @@ class Declaration extends ValidationStep {
                         }
                     } else {
                         if (deceased.anyOtherChildren === contentAnyOtherChildren.optionYes) {
-                            if (applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
+                            if (deceased.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
                                 legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted;
                             } else {
                                 legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted;
                             }
                         } else {
-                            if (applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
+                            if (deceased.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
                                 legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted;
                             } else {
                                 legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted;
@@ -135,13 +135,13 @@ class Declaration extends ValidationStep {
                 }
             } else {
                 if (deceased.anyOtherChildren === contentAnyOtherChildren.optionYes) {
-                    if (applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
+                    if (deceased.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
                         legalStatement.applicant2 = content.intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsAdopted;
                     } else {
                         legalStatement.applicant2 = content.intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted;
                     }
                 } else {
-                    if (applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
+                    if (deceased.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
                         legalStatement.applicant2 = content.intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted;
                     } else {
                         legalStatement.applicant2 = content.intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted;
