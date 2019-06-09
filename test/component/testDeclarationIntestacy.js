@@ -53,7 +53,7 @@ describe('declaration, intestacy', () => {
     describe('Verify Content, Errors and Redirection', () => {
         testHelpBlockContent.runTest('Declaration', featureTogglesNock);
 
-        it.only('test right content loaded on the page when deceased has one other name', (done) => {
+        it('test right content loaded on the page when deceased has one other name', (done) => {
             const contentToExclude = [
                 'probateHeader',
                 'legalStatementDeceased',
