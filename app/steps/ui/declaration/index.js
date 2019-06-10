@@ -39,6 +39,10 @@ class Declaration extends ValidationStep {
         formdata.deceasedOtherNames = FormatName.formatMultipleNamesAndAddress(get(formdataDeceased, 'otherNames'), content);
         formdata.dob_formattedDate = formdataDeceased.dob_formattedDate;
         formdata.dod_formattedDate = formdataDeceased.dod_formattedDate;
+        formdata.maritalStatus = formdataDeceased.maritalStatus;
+        formdata.relationshipToDeceased = formdataDeceased.relationshipToDeceased;
+        formdata.hadChildren = formdataDeceased.hadChildren;
+        formdata.anyOtherChildren = formdataDeceased.anyOtherChildren;
 
         const formdataIht = formdata.iht || {};
         formdata.ihtGrossValue = formdataIht.grossValue ? formdataIht.grossValue.toFixed(2) : 0;
