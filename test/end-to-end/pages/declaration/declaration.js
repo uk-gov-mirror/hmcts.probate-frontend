@@ -7,7 +7,11 @@ module.exports = function () {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click('#declarationPdfHref');
+
+    if (!I.isInternetExplorer()) {
+        I.click('#declarationPdfHref');
+    }
+
     I.click('#declarationCheckbox');
 
     I.waitForNavigationToComplete(commonContent.saveAndContinue);
