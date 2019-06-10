@@ -31,30 +31,30 @@ const supportedBrowsers = {
     //     version: 'latest'
     // }
     // }//,
-    firefox: {
-        // firefox_win_latest: {
-        //     browserName: 'firefox',
-        //     name: 'Probate_WIN_FIREFOX_LATEST',
-        //     platform: 'Windows 10',
-        //     version: 'latest'
-        // } //,
-        firefox_mac_latest: {
-            browserName: 'firefox',
-            name: 'Probate_MAC_FIREFOX_LATEST',
-            platform: 'macOS 10.14',
-            version: 'latest'
-        }
-    }
-    // ,
-    // safari: {
-    //     safari12: {
-    //         browserName: 'safari',
-    //         name: 'Probate_SAFARI_12',
+    // firefox: {
+    // firefox_win_latest: {
+    //     browserName: 'firefox',
+    //     name: 'Probate_WIN_FIREFOX_LATEST',
+    //     platform: 'Windows 10',
+    //     version: 'latest'
+    //     // } //,
+    //     firefox_mac_latest: {
+    //         browserName: 'firefox',
+    //         name: 'Probate_MAC_FIREFOX_LATEST',
     //         platform: 'macOS 10.14',
-    //         version: '12.0',
-    //         avoidProxy: true
+    //         version: 'latest'
     //     }
     // }
+    // ,
+    safari: {
+        safari12: {
+            browserName: 'safari',
+            name: 'Probate_SAFARI_12',
+            platform: 'macOS 10.14',
+            version: '12.0',
+            avoidProxy: true
+        }
+    }
 };
 
 module.exports = supportedBrowsers;
