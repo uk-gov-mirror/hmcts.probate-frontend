@@ -43,6 +43,10 @@ class WebDriverHelper extends Helper {
 
     }
 
+    isEdge() {
+        return (this.helpers.WebDriverIO.config.browser === 'MicrosoftEdge');
+    }
+
     uploadDocument() {
         const browser = this.helpers.WebDriverIO;
 
