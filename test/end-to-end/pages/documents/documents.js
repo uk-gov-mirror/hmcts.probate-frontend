@@ -7,7 +7,10 @@ module.exports = function () {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click('#coverSheetPdfHref');
+
+    if (!I.isInternetExplorer()) {
+        I.click('#coverSheetPdfHref');
+    }
 
     I.waitForNavigationToComplete(commonContent.saveAndContinue);
 };
