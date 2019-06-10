@@ -10,10 +10,13 @@ const Declaration = rewire('app/steps/ui/declaration');
 
 describe('Declaration', () => {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).Declaration;
-    let section;
-    let templatePath;
-    let i18next;
-    let schema;
+    const section = 'declaration';
+    const templatePath = 'declaration';
+    const i18next = {};
+    const schema = {
+        $schema: 'http://json-schema.org/draft-04/schema#',
+        properties: {}
+    };
 
     describe('executorsApplying()', () => {
         let hasMultipleApplicants;
