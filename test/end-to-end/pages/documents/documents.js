@@ -12,5 +12,5 @@ module.exports = function () {
         I.click('#coverSheetPdfHref');
     }
 
-    I.waitForNavigationToComplete(commonContent.saveAndContinue);
+    I.waitForNavigationToComplete(commonContent.continue);
 };
