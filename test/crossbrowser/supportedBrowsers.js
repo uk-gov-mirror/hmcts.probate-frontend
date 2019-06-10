@@ -1,21 +1,22 @@
 const supportedBrowsers = {
-    microsoftIE11: {
-        ie11: {
-            browserName: 'internet explorer',
-            name: 'Probate_IE11',
+    // microsoftIE11: {
+    //     ie11: {
+    //         browserName: 'internet explorer',
+    //         name: 'Probate_IE11',
+    //         platform: 'Windows 10',
+    //         version: '11.285'
+    //     }
+    // }
+    // ,
+    microsoftEdge: {
+        edge: {
+            browserName: 'MicrosoftEdge',
+            name: 'Probate_Edge_Win10',
             platform: 'Windows 10',
-            version: '11.285'
+            version: '18.17763'
         }
     }
-    // ,
-    // microsoftEdge: {
-    //     edge: {
-    //         browserName: 'MicrosoftEdge',
-    //         name: 'Edge_Win10',
-    //         platform: 'Windows 10',
-    //         version: '18.17763'
-    //     }
-    // },
+    //,
     // chrome: {
     //     chrome_win_latest: {
     //         browserName: 'chrome',
