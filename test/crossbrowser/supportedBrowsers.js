@@ -18,18 +18,18 @@ const supportedBrowsers = {
     // }
     //,
     chrome: {
-        chrome_win_latest: {
+        // chrome_win_latest: {
+        //     browserName: 'chrome',
+        //     name: 'WIN_CHROME_LATEST',
+        //     platform: 'Windows 10',
+        //     version: 'latest'
+        // }//,
+        chrome_mac_latest: {
             browserName: 'chrome',
-            name: 'WIN_CHROME_LATEST',
-            platform: 'Windows 10',
+            name: 'MAC_CHROME_LATEST',
+            platform: 'macOS 10.13',
             version: 'latest'
-        }//,
-    //     chrome_mac_latest: {
-    //         browserName: 'chrome',
-    //         name: 'MAC_CHROME_LATEST',
-    //         platform: 'macOS 10.13',
-    //         version: 'latest'
-    //     }
+        }
     }//,
     // firefox: {
     //     firefox_win_latest: {
