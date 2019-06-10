@@ -24,23 +24,7 @@ class WebDriverHelper extends Helper {
     }
 
     isInternetExplorer() {
-
-        /* eslint-disable no-console */
-        console.log('==========================================');
-        console.log('==========================================');
-        console.log('==========================================');
-        console.log('==========================================');
-        console.log('io>>>', this.helpers.WebDriverIO.config.browser);
-        console.log('==========================================');
-        console.log('==========================================');
-        console.log('==========================================');
-        console.log('==========================================');
-        console.log('io>>>', this.helpers.WebDriverIO.config.desiredCapabilities.name);
-        console.log('==========================================');
-        console.log('==========================================');
-
         return (this.helpers.WebDriverIO.config.browser === 'internet explorer');
-
     }
 
     isEdge() {

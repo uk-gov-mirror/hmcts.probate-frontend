@@ -124,4 +124,4 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function (I)
 
     // Thank You
     I.seeThankYouPage();
-});
+}).retry(TestConfigurator.getRetryScenarios());
