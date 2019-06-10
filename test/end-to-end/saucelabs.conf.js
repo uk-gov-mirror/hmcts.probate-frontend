@@ -24,7 +24,7 @@ const getBrowserConfig = (browserGroup) => {
 };
 
 const setupConfig = {
-    'tests': './paths/probate/singleExecutorsPath.js',
+    'tests': './paths/probate/multipleExecutorsPath.js',
     'output': './output',
     'timeout': 20000,
     'helpers': {
