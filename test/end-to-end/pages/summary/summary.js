@@ -7,7 +7,9 @@ module.exports = function (redirect) {
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl(redirect));
 
-    I.click('#checkAnswerHref');
+    if (!I.isInternetExplorer()) {
+        I.click('#checkAnswerHref');
+    }
 
     I.waitForNavigationToComplete('.button');
 };

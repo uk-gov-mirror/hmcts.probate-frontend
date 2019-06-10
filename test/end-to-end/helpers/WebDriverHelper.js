@@ -24,15 +24,8 @@ class WebDriverHelper extends Helper {
     }
 
     isInternetExplorer() {
-        const browser = this.helpers.WebDriverIO.browser;
 
         /* eslint-disable no-console */
-        console.log('browser>>>', browser.toString());
-        console.log('==========================================');
-        console.log('==========================================');
-        console.log('==========================================');
-        console.log('==========================================');
-        console.log('io>>>', this.helpers.WebDriverIO);
         console.log('==========================================');
         console.log('==========================================');
         console.log('==========================================');
@@ -40,6 +33,14 @@ class WebDriverHelper extends Helper {
         console.log('io>>>', this.helpers.WebDriverIO.config.browser);
         console.log('==========================================');
         console.log('==========================================');
+        console.log('==========================================');
+        console.log('==========================================');
+        console.log('io>>>', this.helpers.WebDriverIO.config.desiredCapabilities.name);
+        console.log('==========================================');
+        console.log('==========================================');
+
+        return (this.helpers.WebDriverIO.config.browser === 'internet explorer');
+
     }
 }
 module.exports = WebDriverHelper;
