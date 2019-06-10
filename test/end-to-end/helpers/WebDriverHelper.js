@@ -47,12 +47,5 @@ class WebDriverHelper extends Helper {
         return (this.helpers.WebDriverIO.config.browser === 'MicrosoftEdge');
     }
 
-    uploadDocument() {
-        const browser = this.helpers.WebDriverIO;
-
-        browser.switchTo().window(browser.windowHandles.last());
-        // eslint-disable-next-line no-undef
-        browser.findElement(By.id('file')).sendKeys('/uploadDocuments/test_file_for_document_upload.png');
-    }
 }
 module.exports = WebDriverHelper;
