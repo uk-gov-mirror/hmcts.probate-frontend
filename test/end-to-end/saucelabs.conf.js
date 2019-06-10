@@ -85,13 +85,13 @@ const setupConfig = {
         // chrome: {
         //     browsers: getBrowserConfig('chrome')
         // }//,
-        firefox: {
-            browsers: getBrowserConfig('firefox')
-        }
-        // ,
-        // safari: {
-        //     browsers: getBrowserConfig('safari')
+        // firefox: {
+        //     browsers: getBrowserConfig('firefox')
         // }
+        // ,
+        safari: {
+            browsers: getBrowserConfig('safari')
+        }
     },
     'name': 'frontEnd Tests'
 };
