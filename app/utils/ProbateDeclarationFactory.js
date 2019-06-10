@@ -1,43 +1,35 @@
 'use strict';
 
 const FormatName = require('app/utils/FormatName');
-const WillWrapper = require('app/wrappers/Will');
 
 class ProbateDeclarationFactory {
 
-    static build(ctx, content, formdata) {
-        const hasCodicils = (new WillWrapper(formdata.will)).hasCodicils();
-        const codicilsNumber = (new WillWrapper(formdata.will)).codicilsNumber();
-        const executorsApplying = ctx.executorsWrapper.executorsApplying();
-        const executorsNotApplying = ctx.executorsWrapper.executorsNotApplying();
-        const hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants();
-        const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
-
+    static build(ctx, content, formdata, multipleApplicantSuffix, executorsApplying, executorsApplyingText, executorsNotApplyingText) {
         const legalStatement = {
             intro: content[`intro${multipleApplicantSuffix}`]
-                .replace('{applicantName}', formdata.applicant.applicantName),
+                .replace('{applicantName}', formdata.applicantName),
             applicant: content[`legalStatementApplicant${multipleApplicantSuffix}`]
-                .replace('{detailsOfApplicants}', FormatName.formatMultipleNamesAndAddress(executorsApplying, content, formdata.applicant.applicantAddress))
-                .replace('{applicantName}', formdata.applicant.applicantName)
-                .replace('{applicantAddress}', formdata.applicant.applicantAddress.formattedAddress),
+                .replace('{detailsOfApplicants}', FormatName.formatMultipleNamesAndAddress(executorsApplying, content, formdata.applicantAddress))
+                .replace('{applicantName}', formdata.applicantName)
+                .replace('{applicantAddress}', formdata.applicantAddress.formattedAddress),
             deceased: content.legalStatementDeceased
-                .replace('{deceasedName}', formdata.deceased.deceasedName)
-                .replace('{deceasedAddress}', formdata.deceased.deceasedAddress.formattedAddress)
-                .replace('{deceasedDob}', formdata.deceased.dob_formattedDate)
-                .replace('{deceasedDod}', formdata.deceased.dod_formattedDate),
-            deceasedOtherNames: formdata.deceased.deceasedOtherNames ? content.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceased.deceasedOtherNames) : '',
-            executorsApplying: this.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, formdata.deceased.deceasedName, formdata.applicant.applicantName),
+                .replace('{deceasedName}', formdata.deceasedName)
+                .replace('{deceasedAddress}', formdata.deceasedAddress.formattedAddress)
+                .replace('{deceasedDob}', formdata.dob_formattedDate)
+                .replace('{deceasedDod}', formdata.dod_formattedDate),
+            deceasedOtherNames: formdata.deceasedOtherNames ? content.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames) : '',
+            executorsApplying: executorsApplyingText,
             deceasedEstateValue: content.deceasedEstateValue
-                .replace('{ihtGrossValue}', formdata.iht.ihtGrossValue)
-                .replace('{ihtNetValue}', formdata.iht.ihtNetValue),
+                .replace('{ihtGrossValue}', formdata.ihtGrossValue)
+                .replace('{ihtNetValue}', formdata.ihtNetValue),
             deceasedEstateLand: content[`deceasedEstateLand${multipleApplicantSuffix}`]
-                .replace(/{deceasedName}/g, formdata.deceased.deceasedName),
-            executorsNotApplying: this.executorsNotApplying(executorsNotApplying, content, formdata.deceased.deceasedName, hasCodicils)
+                .replace(/{deceasedName}/g, formdata.deceasedName),
+            executorsNotApplying: executorsNotApplyingText
         };
 
         const declaration = {
             confirm: content[`declarationConfirm${multipleApplicantSuffix}`]
-                .replace('{deceasedName}', formdata.deceased.deceasedName),
+                .replace('{deceasedName}', formdata.deceasedName),
             confirmItem1: content.declarationConfirmItem1,
             confirmItem2: content.declarationConfirmItem2,
             confirmItem3: content.declarationConfirmItem3,

@@ -8,6 +8,7 @@ const executorNotifiedContent = require('app/resources/en/translation/executors/
 const executorContent = require('app/resources/en/translation/executors/executorcontent');
 const {get} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
+const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
 const FormatAlias = require('app/utils/FormatAlias');
 const LegalDocumentJSONObjectBuilder = require('app/utils/LegalDocumentJSONObjectBuilder');
@@ -64,7 +65,18 @@ class Declaration extends ValidationStep {
             ctx.executorsEmailChanged = ctx.executorsWrapper.hasExecutorsEmailChanged();
             ctx.hasExecutorsToNotify = ctx.executorsWrapper.hasExecutorsToNotify() && ctx.invitesSent === 'true';
 
-            templateData = probateDeclarationFactory.build(ctx, content, formDataForTemplate);
+            const hasCodicils = (new WillWrapper(formdata.will)).hasCodicils();
+            const codicilsNumber = (new WillWrapper(formdata.will)).codicilsNumber();
+            const hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants();
+            const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
+
+            const executorsApplying = ctx.executorsWrapper.executorsApplying();
+            const executorsApplyingText = this.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, formdata.deceasedName, formdata.applicantName);
+
+            const executorsNotApplying = ctx.executorsWrapper.executorsNotApplying();
+            const executorsNotApplyingText = this.executorsNotApplying(executorsNotApplying, content, formdata.deceasedName, hasCodicils)
+
+            templateData = probateDeclarationFactory.build(ctx, content, formDataForTemplate, multipleApplicantSuffix, executorsApplying, executorsApplyingText, executorsNotApplyingText);
         }
 
         Object.assign(ctx, templateData);
