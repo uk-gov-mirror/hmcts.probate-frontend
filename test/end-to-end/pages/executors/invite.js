@@ -8,5 +8,5 @@ module.exports = function () {
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
-    I.waitForNavigationToComplete(`input[value="${content.sendInvites}"]`);
+    I.waitForNavigationToComplete(content.sendInvites);
 };
