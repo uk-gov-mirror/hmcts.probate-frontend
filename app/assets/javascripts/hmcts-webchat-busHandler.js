@@ -13,8 +13,6 @@
 
     jQuery(document).ready(function() {
         jQuery('div').on('DOMNodeInserted', '.form-list', function() {
-            jQuery('div').off('DOMNodeInserted', '.form-list');
-
             const errorImages = jQuery('.pre-chat-container .error-image');
             const form = jQuery('.pre-chat-container .form-list')[0];
             const listItems = jQuery(form).find('li');
@@ -35,19 +33,31 @@
                 }
             });
 
+            const emailField = jQuery('input[data-essential="email_id"]');
+            if (emailField.val() !== '' && !isValidEmail(emailField.val())) {
+                emailField.siblings('label').children('.error-image').css('display', 'inline-block');
+            } else {
+                emailField.siblings('label').children('.error-image').css('display', 'none');
+            }
+
             jQuery.each(errorImages, function(index, item) {
                 const field = jQuery(item).parent().siblings('textarea, input')[0];
 
                 if (item.style.display === 'inline-block') {
                     jQuery(field).addClass('error');
-
-                    setTimeout(function() {
-                        jQuery(field).focus();
-                    }, 50);
                 } else {
                     jQuery(field).removeClass('error');
                 }
             });
+
+            setTimeout(function() {
+                jQuery('textarea.error, input.error').first().focus();
+            }, 50);
         });
     });
+
+    function isValidEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+    }
 })(this);
