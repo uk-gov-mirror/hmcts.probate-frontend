@@ -29,8 +29,7 @@ const setupConfig = {
     'timeout': 20000,
     'helpers': {
         WebDriverIO: {
-            url: process.env.TEST_E2E_FRONTEND_URL || 'https://probate-frontend-aat.service.core-compute-aat.internal',
-            //'https://localhost:3000',
+            url: process.env.TEST_E2E_FRONTEND_URL || 'https://localhost:3000',
             browser,
             smartWait: 60000,
             waitforTimeout: 60000,
@@ -44,8 +43,8 @@ const setupConfig = {
             'host': 'ondemand.eu-central-1.saucelabs.com',
             'port': 80,
             'region': 'eu',
-            'user': process.env.SAUCE_USERNAME || 'Douglas.Rice',
-            'key': process.env.SAUCE_ACCESS_KEY || '609b4570-4459-4421-a699-f3c17c61eabc',
+            'user': process.env.SAUCE_USERNAME,
+            'key': process.env.SAUCE_ACCESS_KEY,
             desiredCapabilities: {}
         },
         'SauceLabsReportingHelper': {
