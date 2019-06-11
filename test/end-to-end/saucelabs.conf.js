@@ -67,11 +67,21 @@ const setupConfig = {
         'I': './pages/steps.js'
     },
     'mocha': {
-        'reporterOptions': {
-            'reportDir': process.env.E2E_CROSSBROWSER_OUTPUT_DIR || './output',
-            'reportName': browser + '_report',
-            'reportTitle': 'Crossbrowser results for: ' + browser.toUpperCase(),
-            'inlineAssets': true
+        reporterOptions: {
+            'codeceptjs-cli-reporter': {
+                stdout: '-',
+                options:
+                    {steps: true}
+            },
+            'mochawesome': {
+                stdout: './functional-output/console.log',
+                'options': {
+                    'reportDir': process.env.E2E_CROSSBROWSER_OUTPUT_DIR || './output',
+                    'reportName': 'index',
+                    'reportTitle': 'Crossbrowser results',
+                    'inlineAssets': true
+                }
+            }
         }
     },
     'multiple': {
