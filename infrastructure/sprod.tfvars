@@ -8,8 +8,6 @@ packages_version = "3.0.0"
 external_host_name = "probate.sprod.platform.hmcts.net"
 
 probate_google_track_id = "UA-93598808-1"
-probate_webchat_id = "script_7143406305ce667c21e2eb9.79440233"
-probate_webchat_tenant = "aG1jdHNzdGFnaW5nMDE"
 
 probate_frontend_https = "false"
 probate_frontend_use_auth = "false"
