@@ -195,7 +195,7 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     // I.startApply();
 
     // IDAM
-    I.authenticateWithIdamIfAvailable();
+    I.authenticateWithIdamIfAvailable(true);
 
     // Extra Copies Task
     I.selectATask();
