@@ -24,7 +24,7 @@ const getBrowserConfig = (browserGroup) => {
 };
 
 const setupConfig = {
-    'tests': './paths/probate/multipleExecutorsPath.js',
+    'tests': './paths/**/*.js',
     'output': './output',
     'timeout': 20000,
     'helpers': {
@@ -75,16 +75,19 @@ const setupConfig = {
         }
     },
     'multiple': {
-        // microsoftIE11: {
-        //     browsers: getBrowserConfig('microsoftIE11')
-        // }
-        // // ,
-        // microsoftEdge: {
-        //     browsers: getBrowserConfig('microsoftEdge')
-        // }//,
-        // chrome: {
-        //     browsers: getBrowserConfig('chrome')
-        // }//,
+        'parallel': {
+            // Splits tests into 2 chunks
+            'chunks': 2
+        },
+        microsoftIE11: {
+            browsers: getBrowserConfig('microsoftIE11')
+        },
+        microsoftEdge: {
+            browsers: getBrowserConfig('microsoftEdge')
+        },
+        chrome: {
+            browsers: getBrowserConfig('chrome')
+        },
         firefox: {
             browsers: getBrowserConfig('firefox')
         }
