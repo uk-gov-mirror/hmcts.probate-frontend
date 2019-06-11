@@ -10,7 +10,7 @@ module.exports = function (multipleExecutors = false) {
         if (multipleExecutors) {
             I.amOnPage('/');
         }
-
+        I.wait(5);
         I.see('Sign in');
         I.fillField('username', process.env.testCitizenEmail);
         I.fillField('password', process.env.testCitizenPassword);
