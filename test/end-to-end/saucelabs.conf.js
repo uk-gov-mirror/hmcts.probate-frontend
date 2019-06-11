@@ -79,12 +79,12 @@ const setupConfig = {
         //     browsers: getBrowserConfig('microsoftIE11')
         // }
         // // ,
-        microsoftEdge: {
-            browsers: getBrowserConfig('microsoftEdge')
+        // microsoftEdge: {
+        //     browsers: getBrowserConfig('microsoftEdge')
+        // }//,
+        chrome: {
+            browsers: getBrowserConfig('chrome')
         }//,
-        // chrome: {
-        //     browsers: getBrowserConfig('chrome')
-        // },
         // firefox: {
         //     browsers: getBrowserConfig('firefox')
         // }
