@@ -30,18 +30,18 @@ const supportedBrowsers = {
     //     }
     // }//,
     firefox: {
-        firefox_win_latest: {
+        // firefox_win_latest: {
+        //     browserName: 'firefox',
+        //     name: 'Probate_WIN_FIREFOX_LATEST',
+        //     platform: 'Windows 10',
+        //     version: 'latest'
+        // }//,
+        firefox_mac_latest: {
             browserName: 'firefox',
-            name: 'Probate_WIN_FIREFOX_LATEST',
-            platform: 'Windows 10',
+            name: 'Probate_MAC_FIREFOX_LATEST',
+            platform: 'macOS 10.14',
             version: 'latest'
-        }//,
-    //     firefox_mac_latest: {
-    //         browserName: 'firefox',
-    //         name: 'Probate_MAC_FIREFOX_LATEST',
-    //         platform: 'macOS 10.14',
-    //         version: 'latest'
-    //     }
+        }
     }
     // ,
     // safari: {
