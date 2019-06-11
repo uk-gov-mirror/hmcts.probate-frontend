@@ -73,7 +73,7 @@ const setupConfig = {
                     {steps: true}
             },
             'mochawesome': {
-                stdout: './functional-output/console.log',
+                stdout: process.env.E2E_CROSSBROWSER_OUTPUT_DIR + 'console.log',
                 'options': {
                     'reportDir': process.env.E2E_CROSSBROWSER_OUTPUT_DIR || './output',
                     'reportName': 'index',
