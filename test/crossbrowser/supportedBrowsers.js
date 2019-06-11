@@ -15,34 +15,34 @@ const supportedBrowsers = {
     //         version: '18.17763'
     //     }
     // }//,
-    chrome: {
+    //chrome: {
     //     chrome_win_latest: {
     //         browserName: 'chrome',
     //         name: 'Probate_WIN_CHROME_LATEST',
     //         platform: 'Windows 10',
     //         version: 'latest'
     //     }//,
-        chrome_mac_latest: {
-            browserName: 'chrome',
-            name: 'Probate_MAC_CHROME_LATEST',
-            platform: 'macOS 10.13',
-            version: 'latest'
-        }
-    }//,
-    // firefox: {
-    //     firefox_win_latest: {
-    //         browserName: 'firefox',
-    //         name: 'Probate_WIN_FIREFOX_LATEST',
-    //         platform: 'Windows 10',
+    //     chrome_mac_latest: {
+    //         browserName: 'chrome',
+    //         name: 'Probate_MAC_CHROME_LATEST',
+    //         platform: 'macOS 10.13',
     //         version: 'latest'
-    //     },
+    //     }
+    // }//,
+    firefox: {
+        firefox_win_latest: {
+            browserName: 'firefox',
+            name: 'Probate_WIN_FIREFOX_LATEST',
+            platform: 'Windows 10',
+            version: 'latest'
+        }//,
     //     firefox_mac_latest: {
     //         browserName: 'firefox',
     //         name: 'Probate_MAC_FIREFOX_LATEST',
     //         platform: 'macOS 10.14',
     //         version: 'latest'
     //     }
-    //}
+    }
     // ,
     // safari: {
     //     safari12: {
