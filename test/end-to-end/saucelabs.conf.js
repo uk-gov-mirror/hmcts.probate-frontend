@@ -75,13 +75,13 @@ const setupConfig = {
         }
     },
     'multiple': {
-        microsoftIE11: {
-            browsers: getBrowserConfig('microsoftIE11')
-        }
-        // ,
-        // microsoftEdge: {
-        //     browsers: getBrowserConfig('microsoftEdge')
-        // },
+        // microsoftIE11: {
+        //     browsers: getBrowserConfig('microsoftIE11')
+        // }
+        // // ,
+        microsoftEdge: {
+            browsers: getBrowserConfig('microsoftEdge')
+        }//,
         // chrome: {
         //     browsers: getBrowserConfig('chrome')
         // },
