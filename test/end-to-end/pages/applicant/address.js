@@ -7,7 +7,7 @@ module.exports = function () {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.wait(5);
+    I.wait(10);
     I.click('.summary');
     I.fillField('#addressLine1', 'test address for applicant line 1');
     I.fillField('#addressLine2', 'test address for applicant line 2');
