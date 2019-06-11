@@ -9,7 +9,6 @@ const expect = require('chai').expect;
 const applicant2NameFactory = require('app/utils/Applicant2NameFactory');
 
 describe('Applicant2NameFactory', () => {
-
     let formdata;
 
     beforeEach (() => {
@@ -159,7 +158,7 @@ describe('Applicant2NameFactory', () => {
             formdata.maritalStatus = contentMaritalStatus.optionMarried;
             formdata.relationshipToDeceased = contentRelationshipToDeceased.optionSpousePartner;
             formdata.hadChildren = contentAnyChildren.optionNo;
-            formdata.deceasedName = 'Luca Del Buono';
+            formdata.deceasedName = 'Dee Ceased';
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
             expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k.replace(/{deceasedName}/g, formdata.deceasedName));
             done();

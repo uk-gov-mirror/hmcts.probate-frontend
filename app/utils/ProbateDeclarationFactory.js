@@ -40,7 +40,7 @@ class ProbateDeclarationFactory {
             understandItem1: content[`declarationUnderstandItem1${multipleApplicantSuffix}`],
             understandItem2: content[`declarationUnderstandItem2${multipleApplicantSuffix}`],
             accept: content.declarationCheckbox,
-            submitWarning: content[`submitWarning${multipleApplicantSuffix}`],
+            submitWarning: content[`submitWarning${multipleApplicantSuffix}`]
         };
 
         return {legalStatement, declaration};
