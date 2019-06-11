@@ -112,6 +112,7 @@ class Step {
     action(ctx, formdata) {
         delete ctx.sessionID;
         delete ctx.journeyType;
+        delete ctx.featureToggles;
         delete ctx._csrf;
         return [ctx, formdata];
     }
