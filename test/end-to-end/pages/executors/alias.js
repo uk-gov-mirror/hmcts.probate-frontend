@@ -10,5 +10,5 @@ module.exports = function () {
 
     I.click('#alias-optionYes');
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.waitForNavigationToComplete(commonContent.saveAndContinue);
 };

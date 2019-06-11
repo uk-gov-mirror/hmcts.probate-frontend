@@ -10,5 +10,5 @@ module.exports = function (netAmount) {
 
     I.fillField('#netValueAssetsOutsideField', netAmount);
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.waitForNavigationToComplete(commonContent.saveAndContinue);
 };

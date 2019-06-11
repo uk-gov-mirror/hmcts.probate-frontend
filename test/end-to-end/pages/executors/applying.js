@@ -10,5 +10,5 @@ module.exports = function () {
 
     I.click('#otherExecutorsApplying-optionYes');
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.waitForNavigationToComplete(commonContent.saveAndContinue);
 };

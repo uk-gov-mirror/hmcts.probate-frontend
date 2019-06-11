@@ -13,5 +13,5 @@ module.exports = function (executorNumber, aliasReason, aliasOther) {
         I.fillField('#otherReason', aliasOther);
     }
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.waitForNavigationToComplete(commonContent.saveAndContinue);
 };

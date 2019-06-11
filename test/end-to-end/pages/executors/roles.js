@@ -18,5 +18,5 @@ module.exports = function (executorNumber, powerReserved, firstRecord) {
         I.click('#notApplyingReason-optionRenunciated');
     }
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.waitForNavigationToComplete(commonContent.saveAndContinue);
 };

@@ -14,5 +14,5 @@ module.exports = function (executorNumber) {
     I.fillField('#postTown', 'additional executor test address town');
     I.fillField('#newPostCode', 'postcode');
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.waitForNavigationToComplete(commonContent.saveAndContinue);
 };

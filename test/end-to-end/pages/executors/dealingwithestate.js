@@ -13,5 +13,5 @@ module.exports = function (executorsApplyingList) {
         I.checkOption('#executorsApplying-'+(parseInt(executorNumber) - 1));
     });
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.waitForNavigationToComplete(commonContent.saveAndContinue);
 };
