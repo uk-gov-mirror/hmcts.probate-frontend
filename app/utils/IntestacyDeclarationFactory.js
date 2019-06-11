@@ -1,14 +1,7 @@
-/* eslint-disable no-lonely-if */
-/* eslint-disable max-depth */
-
 'use strict';
 
 const {get} = require('lodash');
-const config = require('app/config');
-const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
-const contentRelationshipToDeceased = require('app/resources/en/translation/applicant/relationshiptodeceased');
-const contentAnyChildren = require('app/resources/en/translation/deceased/anychildren');
-const contentAnyOtherChildren = require('app/resources/en/translation/deceased/anyotherchildren');
+const applicant2NameFactory = require('app/utils/Applicant2NameFactory');
 
 class IntestacyDeclarationFactory {
 
@@ -36,61 +29,7 @@ class IntestacyDeclarationFactory {
                 .replace('{deceasedName}', formdata.deceasedName)
         };
 
-        if (formdata.maritalStatus === contentMaritalStatus.optionMarried) {
-            if (formdata.relationshipToDeceased === contentRelationshipToDeceased.optionSpousePartner) {
-                if ((formdata.hadChildren === contentAnyChildren.optionNo) || (formdata.ihtNetValue <= config.assetsValueThreshold)) {
-                    legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k;
-                } else {
-                    legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseApplyingHadChildren;
-                }
-            } else {
-                if (formdata.ihtNetValue <= config.assetsValueThreshold) {
-                    if (formdata.anyOtherChildren === contentAnyOtherChildren.optionYes) {
-                        if (formdata.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
-                            legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted;
-                        } else {
-                            legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted;
-                        }
-                    } else {
-                        if (formdata.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
-                            legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted;
-                        } else {
-                            legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted;
-                        }
-                    }
-                } else {
-                    if (formdata.anyOtherChildren === contentAnyOtherChildren.optionYes) {
-                        if (formdata.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
-                            legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted;
-                        } else {
-                            legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted;
-                        }
-                    } else {
-                        if (formdata.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
-                            legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted;
-                        } else {
-                            legalStatement.applicant2 = content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted;
-                        }
-                    }
-                }
-            }
-        } else {
-            if (formdata.anyOtherChildren === contentAnyOtherChildren.optionYes) {
-                if (formdata.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
-                    legalStatement.applicant2 = content.intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsAdopted;
-                } else {
-                    legalStatement.applicant2 = content.intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted;
-                }
-            } else {
-                if (formdata.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild) {
-                    legalStatement.applicant2 = content.intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted;
-                } else {
-                    legalStatement.applicant2 = content.intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted;
-                }
-            }
-        }
-        legalStatement.applicant2 = legalStatement.applicant2
-            .replace(/{deceasedName}/g, formdata.deceasedName);
+        legalStatement.applicant2 = applicant2NameFactory.getApplicant2Name(formdata, content);
 
         const declaration = {
             confirm: content.declarationConfirm
