@@ -75,10 +75,6 @@ const setupConfig = {
         }
     },
     'multiple': {
-        'parallel': {
-            // Splits tests into 2 chunks
-            'chunks': 2
-        },
         microsoftIE11: {
             browsers: getBrowserConfig('microsoftIE11')
         },
