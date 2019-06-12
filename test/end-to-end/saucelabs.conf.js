@@ -60,7 +60,7 @@ const setupConfig = {
         },
         'autoDelay': {
             'enabled': true,
-            'delayAfter': 5000
+            'delayAfter': 2000
         }
     },
     'include': {

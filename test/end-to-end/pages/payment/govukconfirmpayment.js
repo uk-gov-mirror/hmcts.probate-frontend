@@ -8,5 +8,5 @@ module.exports = function () {
     I.waitForText('Payment summary', 20);
     I.waitForElement('#confirm', 20);
 
-    I.waitForNavigationToComplete('#confirm');
+    I.click('#confirm');
 };
