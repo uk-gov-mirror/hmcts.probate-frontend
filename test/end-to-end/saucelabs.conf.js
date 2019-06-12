@@ -24,7 +24,7 @@ const getBrowserConfig = (browserGroup) => {
 };
 
 const setupConfig = {
-    'tests': './paths/**/*.js',
+    'tests': './paths/**/singleExecutorsPath.js',
     'output': './output',
     'timeout': 20000,
     'helpers': {

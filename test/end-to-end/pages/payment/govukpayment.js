@@ -6,7 +6,7 @@ module.exports = function () {
     const I = this;
 
     I.waitForText('Enter card details', 20);
-    I.waitInUrl(testConfig.TestGovUkCardDetailsUrl);
+    I.waitInUrl(testConfig.TestGovUkPayBaseUrl + testConfig.TestGovUkCardPaymentsUrl);
 
     I.fillField('#card-no', testConfig.govPayTestCardNos.validCardNo);
     I.fillField('#expiry-month', testConfig.govPayTestCardDetails.expiryMonth);
