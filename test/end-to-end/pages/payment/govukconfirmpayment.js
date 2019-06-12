@@ -1,11 +1,12 @@
 'use strict';
 
-const testConfig = require('test/config');
+//const testConfig = require('test/config');
 
 module.exports = function () {
     const I = this;
 
-    I.waitInUrl(testConfig.TestGovUkPayBaseUrl);
+    I.waitFortext('Payment summary', 20);
+    I.waitForElement('#confirm', 20);
 
     I.waitForNavigationToComplete('#confirm');
 };
