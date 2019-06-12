@@ -19,35 +19,33 @@ After(() => {
 
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function (I) {
 
-    I.isInternetExplorer();
-
     // Eligibility Task (pre IdAM)
     I.startApplication();
 
-    // I.selectDeathCertificate('No');
-    // I.seeStopPage('deathCertificate');
+    I.selectDeathCertificate('No');
+    I.seeStopPage('deathCertificate');
     I.selectDeathCertificate('Yes');
 
-    // I.selectDeceasedDomicile('No');
-    // I.seeStopPage('notInEnglandOrWales');
+    I.selectDeceasedDomicile('No');
+    I.seeStopPage('notInEnglandOrWales');
     I.selectDeceasedDomicile('Yes');
 
-    // I.selectIhtCompleted('No');
-    // I.seeStopPage('ihtNotCompleted');
+    I.selectIhtCompleted('No');
+    I.seeStopPage('ihtNotCompleted');
     I.selectIhtCompleted('Yes');
 
     I.selectPersonWhoDiedLeftAWill('Yes');
 
-    // I.selectOriginalWill('No');
-    // I.seeStopPage('notOriginal');
+    I.selectOriginalWill('No');
+    I.seeStopPage('notOriginal');
     I.selectOriginalWill('Yes');
 
-    // I.selectApplicantIsExecutor('No');
-    // I.seeStopPage('notExecutor');
+    I.selectApplicantIsExecutor('No');
+    I.seeStopPage('notExecutor');
     I.selectApplicantIsExecutor('Yes');
 
-    // I.selectMentallyCapable('No');
-    // I.seeStopPage('mentalCapacity');
+    I.selectMentallyCapable('No');
+    I.seeStopPage('mentalCapacity');
     I.selectMentallyCapable('Yes');
 
     I.startApply();

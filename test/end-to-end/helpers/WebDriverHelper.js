@@ -15,10 +15,6 @@ class WebDriverHelper extends Helper {
         if (signIn) {
             await helper.wait(8);
         }
-        // } else {
-        //     await helper.wait(3);
-        // }
-
     }
 
     clickBrowserBackButton() {
