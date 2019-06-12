@@ -1,41 +1,42 @@
 'use strict';
+/*eslint indent: ["error", 2, { "SwitchCase": 2 }]*/
 
 const content = require('app/resources/en/translation/deceased/maritalstatus');
 
-class MartialStatusEnum {
+class MaritalStatusEnum {
 
-    static getWidowed() {
-        return 'widowed';
-    }
-    static getMarriedCivilPartnerhip() {
-        return 'marriedCivilPartnership';
-    }
-    static getDivorcedCivilPartnerShip() {
-        return 'divorcedCivilPartnership';
-    }
-    static getJudicially() {
-        return 'judicially';
-    }
-    static getNeverMarried() {
-        return 'neverMarried';
-    }
+  static getWidowed() {
+    return 'widowed';
+  }
+  static getMarriedCivilPartnerhip() {
+    return 'marriedCivilPartnership';
+  }
+  static getDivorcedCivilPartnerShip() {
+    return 'divorcedCivilPartnership';
+  }
+  static getJudicially() {
+    return 'judicially';
+  }
+  static getNeverMarried() {
+    return 'neverMarried';
+  }
 
-    static getCCDCode(value) {
-        switch (value) {
+  static getCCDCode(value) {
+    switch (value) {
         case content.optionWidowed:
-            return this.getWidowed();
+          return this.getWidowed();
         case content.optionMarried:
-            return this.getMarriedCivilPartnerhip();
+          return this.getMarriedCivilPartnerhip();
         case content.optionDivorced:
-            return this.getDivorcedCivilPartnerShip();
+          return this.getDivorcedCivilPartnerShip();
         case content.optionSeparated:
-            return this.getJudicially();
+          return this.getJudicially();
         case content.optionNotMarried:
-            return this.getNeverMarried();
+          return this.getNeverMarried();
         default:
-            throw new Error(`Enumerator MartialStatusEnum value: ${value} not found`);
-        }
+          throw new Error(`Enumerator MaritalStatusEnum value: ${value} not found`);
     }
+  }
 }
 
-module.exports = MartialStatusEnum;
+module.exports = MaritalStatusEnum;

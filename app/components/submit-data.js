@@ -3,7 +3,7 @@
 const {mapValues, get} = require('lodash');
 const steps = require('app/core/initSteps').steps;
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const MartialStatusEnum = require('app/utils/MaritalStatusEnum');
+const MaritalStatusEnum = require('app/utils/MaritalStatusEnum');
 const RelationshipToDeceasedEnum = require('app/utils/RelationshipToTheDeceasedEnum');
 const SpouseNotApplyingEnum = require('app/utils/SpouseNotApplyingEnum');
 const dataMap = {
@@ -91,7 +91,7 @@ const submitData = (ctx, data) => {
     mappedData.executorsNotApplying = executorsWrapper.executorsNotApplying(true);
 
     if (get(data, 'deceased.maritalStatus')) {
-        mappedData.deceasedMartialStatus = MartialStatusEnum.getCCDCode(get(data, 'deceased.maritalStatus'));
+        mappedData.deceasedMaritalStatus = MaritalStatusEnum.getCCDCode(get(data, 'deceased.maritalStatus'));
     }
     if (get(data, 'applicant.relationshipToDeceased')) {
         mappedData.primaryApplicantRelationshipToDeceased = RelationshipToDeceasedEnum.getCCDCode(get(data, 'applicant.relationshipToDeceased'));

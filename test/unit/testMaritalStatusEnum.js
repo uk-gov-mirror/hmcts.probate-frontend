@@ -1,32 +1,32 @@
-const MartialStatusEnum = require('app/utils/MaritalStatusEnum');
+const MaritalStatusEnum = require('app/utils/MaritalStatusEnum');
 const content = require('app/resources/en/translation/deceased/maritalstatus');
 const expect = require('chai').expect;
 
 describe('MaritalStatusEnum.js', () => {
 
-    describe('getMartialStatusCCDCode()', () => {
+    describe('getMaritalStatusCCDCode()', () => {
         it('should return Widowed value', (done) => {
-            expect(MartialStatusEnum.getCCDCode(content.optionWidowed)).to.equal(MartialStatusEnum.getWidowed());
+            expect(MaritalStatusEnum.getCCDCode(content.optionWidowed)).to.equal(MaritalStatusEnum.getWidowed());
             done();
         });
         it('should return marriedCivilPartnership value', (done) => {
-            expect(MartialStatusEnum.getCCDCode(content.optionMarried)).to.equal(MartialStatusEnum.getMarriedCivilPartnerhip());
+            expect(MaritalStatusEnum.getCCDCode(content.optionMarried)).to.equal(MaritalStatusEnum.getMarriedCivilPartnerhip());
             done();
         });
         it('should return divorcedCivilPartnership value', (done) => {
-            expect(MartialStatusEnum.getCCDCode(content.optionDivorced)).to.equal(MartialStatusEnum.getDivorcedCivilPartnerShip());
+            expect(MaritalStatusEnum.getCCDCode(content.optionDivorced)).to.equal(MaritalStatusEnum.getDivorcedCivilPartnerShip());
             done();
         });
         it('should return judicially value', (done) => {
-            expect(MartialStatusEnum.getCCDCode(content.optionSeparated)).to.equal(MartialStatusEnum.getJudicially());
+            expect(MaritalStatusEnum.getCCDCode(content.optionSeparated)).to.equal(MaritalStatusEnum.getJudicially());
             done();
         });
         it('should return never married value', (done) => {
-            expect(MartialStatusEnum.getCCDCode(content.optionNotMarried)).to.equal(MartialStatusEnum.getNeverMarried());
+            expect(MaritalStatusEnum.getCCDCode(content.optionNotMarried)).to.equal(MaritalStatusEnum.getNeverMarried());
             done();
         });
         it('should return unknown value', (done) => {
-            expect(() => MartialStatusEnum.getCCDCode('unknown')).to.throw('Enumerator MartialStatusEnum value: unknown not found');
+            expect(() => MaritalStatusEnum.getCCDCode('unknown')).to.throw('Enumerator MaritalStatusEnum value: unknown not found');
             done();
         });
     });
