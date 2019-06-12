@@ -95,13 +95,20 @@ const setupConfig = {
         },
         firefox: {
             browsers: getBrowserConfig('firefox')
+        },
+        parallel: {
+            // Splits tests into chunks
+            'chunks': 2,
+            // run all tests in chrome and firefox
+            'browsers': ['microsoftIE11', 'microsoftEdge', 'chrome', 'firefox']
+
         }
         //,
         // safari: {
         //     browsers: getBrowserConfig('safari')
         // }
     },
-    'name': 'frontEnd Tests'
+    'name': 'Probate FrontEnd Tests'
 };
 
 exports.config = setupConfig;
