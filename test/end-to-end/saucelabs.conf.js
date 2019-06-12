@@ -31,7 +31,7 @@ const setupConfig = {
         WebDriverIO: {
             url: process.env.TEST_E2E_URL || 'https://localhost:3000',
             browser,
-            smartWait: 60000,
+            smartWait: 10000,
             waitforTimeout: 60000,
             cssSelectorsEnabled: 'true',
             windowSize: '1600x900',

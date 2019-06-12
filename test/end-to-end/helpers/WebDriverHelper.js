@@ -10,11 +10,14 @@ class WebDriverHelper extends Helper {
         helper.click(locator);
 
         // login from IDAM can take a bit longer so wait a little longer
+        await helper.waitForElement('#content');
+
         if (signIn) {
-            await helper.wait(10);
-        } else {
             await helper.wait(8);
+        } else {
+            await helper.wait(6);
         }
+
     }
 
     clickBrowserBackButton() {
