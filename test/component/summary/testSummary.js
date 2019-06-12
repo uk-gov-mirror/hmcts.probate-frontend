@@ -44,7 +44,8 @@ describe('summary', () => {
                 'mobileNumber',
                 'emailAddress',
                 'uploadedDocumentsHeading',
-                'uploadedDocumentsEmpty'
+                'uploadedDocumentsEmpty',
+                'aboutPeopleApplyingHeading'
             ];
             testWrapper.testContent(done, contentToExclude);
         });
@@ -66,7 +67,8 @@ describe('summary', () => {
                 'mobileNumber',
                 'emailAddress',
                 'uploadedDocumentsHeading',
-                'uploadedDocumentsEmpty'
+                'uploadedDocumentsEmpty',
+                'aboutPeopleApplyingHeading'
             ];
 
             testWrapper.agent.post('/prepare-session/form')
