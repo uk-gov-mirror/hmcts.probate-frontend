@@ -75,15 +75,18 @@ class Summary extends Step {
                 }
             });
         fields[this.section] = super.generateFields(ctx, errors, formdata);
-        fields[this.section].deceasedMaritalStatusQuestion.value = unescape(fields[this.section].deceasedMaritalStatusQuestion.value);
-        fields[this.section].deceasedAnyChildrenQuestion.value = unescape(fields[this.section].deceasedAnyChildrenQuestion.value);
-        fields[this.section].deceasedAnyOtherChildrenQuestion.value = unescape(fields[this.section].deceasedAnyOtherChildrenQuestion.value);
-        fields[this.section].deceasedAnyDeceasedChildrenQuestion.value = unescape(fields[this.section].deceasedAnyDeceasedChildrenQuestion.value);
-        fields[this.section].deceasedAllChildrenOver18Question.value = unescape(fields[this.section].deceasedAllChildrenOver18Question.value);
-        fields[this.section].deceasedSpouseNotApplyingReasonQuestion.value = unescape(fields[this.section].deceasedSpouseNotApplyingReasonQuestion.value);
 
-        if (fields.applicant && fields.applicant.spouseNotApplyingReason) {
-            fields.applicant.spouseNotApplyingReason.value = unescape(fields.applicant.spouseNotApplyingReason.value);
+        if (ctx.journeyType === 'intestacy') {
+            fields[this.section].deceasedMaritalStatusQuestion.value = unescape(fields[this.section].deceasedMaritalStatusQuestion.value);
+            fields[this.section].deceasedAnyChildrenQuestion.value = unescape(fields[this.section].deceasedAnyChildrenQuestion.value);
+            fields[this.section].deceasedAnyOtherChildrenQuestion.value = unescape(fields[this.section].deceasedAnyOtherChildrenQuestion.value);
+            fields[this.section].deceasedAnyDeceasedChildrenQuestion.value = unescape(fields[this.section].deceasedAnyDeceasedChildrenQuestion.value);
+            fields[this.section].deceasedAllChildrenOver18Question.value = unescape(fields[this.section].deceasedAllChildrenOver18Question.value);
+            fields[this.section].deceasedSpouseNotApplyingReasonQuestion.value = unescape(fields[this.section].deceasedSpouseNotApplyingReasonQuestion.value);
+
+            if (fields.applicant && fields.applicant.spouseNotApplyingReason) {
+                fields.applicant.spouseNotApplyingReason.value = unescape(fields.applicant.spouseNotApplyingReason.value);
+            }
         }
 
         return fields;
@@ -98,30 +101,33 @@ class Summary extends Step {
         const content = this.generateContent(ctx, formdata);
         const hasCodicils = willWrapper.hasCodicils();
         ctx.journeyType = setJourney.getJourneyName(req.session);
+        ctx.ihtTotalNetValue = get(formdata, 'iht.netValue', 0);
 
         ctx.deceasedAliasQuestion = content.DeceasedAlias.question
             .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedAlias.theDeceased);
-        ctx.deceasedMarriedQuestion = (hasCodicils ? content.DeceasedMarried.questionWithCodicil : content.DeceasedMarried.question)
-            .replace('{deceasedName}', deceasedName);
-        ctx.deceasedMaritalStatusQuestion = content.DeceasedMaritalStatus.question
-            .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedMaritalStatus.theDeceased);
-        ctx.deceasedAnyChildrenQuestion = content.AnyChildren.question
-            .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyChildren.theDeceased);
-        ctx.deceasedAnyOtherChildrenQuestion = content.AnyOtherChildren.question
-            .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyOtherChildren.theDeceased);
-        ctx.deceasedAnyDeceasedChildrenQuestion = content.AnyDeceasedChildren.question
-            .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyDeceasedChildren.theDeceased)
-            .replace('{deceasedDoD}', (formdata.deceased && formdata.deceased.dod_formattedDate) ? formdata.deceased.dod_formattedDate : '');
-        ctx.deceasedAllChildrenOver18Question = content.AllChildrenOver18.question
-            .replace('{deceasedName}', deceasedName ? deceasedName : content.AllChildrenOver18.theDeceased);
-        ctx.deceasedSpouseNotApplyingReasonQuestion = content.SpouseNotApplyingReason.question
-            .replace('{deceasedName}', deceasedName ? deceasedName : content.SpouseNotApplyingReason.theDeceased);
+        if (ctx.journeyType === 'gop') {
+            ctx.deceasedMarriedQuestion = (hasCodicils ? content.DeceasedMarried.questionWithCodicil : content.DeceasedMarried.question)
+                .replace('{deceasedName}', deceasedName);
+        } else {
+            ctx.deceasedMaritalStatusQuestion = content.DeceasedMaritalStatus.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedMaritalStatus.theDeceased);
+            ctx.deceasedAnyChildrenQuestion = content.AnyChildren.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyChildren.theDeceased);
+            ctx.deceasedAnyOtherChildrenQuestion = content.AnyOtherChildren.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyOtherChildren.theDeceased);
+            ctx.deceasedAnyDeceasedChildrenQuestion = content.AnyDeceasedChildren.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyDeceasedChildren.theDeceased)
+                .replace('{deceasedDoD}', (formdata.deceased && formdata.deceased.dod_formattedDate) ? formdata.deceased.dod_formattedDate : '');
+            ctx.deceasedAllChildrenOver18Question = content.AllChildrenOver18.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.AllChildrenOver18.theDeceased);
+            ctx.deceasedSpouseNotApplyingReasonQuestion = content.SpouseNotApplyingReason.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.SpouseNotApplyingReason.theDeceased);
 
-        ctx.ihtTotalNetValue = get(formdata, 'iht.netValue', 0);
-        if (ctx.journeyType === 'intestacy' && formdata.iht && formdata.iht.assetsOutside === content.AssetsOutside.optionYes) {
-            ctx.ihtTotalNetValue += formdata.iht.netValueAssetsOutside;
+            if (ctx.journeyType === 'intestacy' && formdata.iht && formdata.iht.assetsOutside === content.AssetsOutside.optionYes) {
+                ctx.ihtTotalNetValue += formdata.iht.netValueAssetsOutside;
+            }
+            ctx.ihtTotalNetValueGreaterThan250k = (ctx.ihtTotalNetValue > config.assetsValueThreshold);
         }
-        ctx.ihtTotalNetValueGreaterThan250k = (ctx.ihtTotalNetValue > config.assetsValueThreshold);
 
         if (formdata.documents && formdata.documents.uploads) {
             ctx.uploadedDocuments = formdata.documents.uploads.map(doc => doc.filename);
