@@ -4,7 +4,7 @@ const expect = require('chai').expect;
 
 describe('MaritalStatusEnum.js', () => {
 
-    describe('getMaritalStatusCCDCode()', () => {
+    describe('getCCDCode()', () => {
         it('should return Widowed value', (done) => {
             expect(MaritalStatusEnum.getCCDCode(content.optionWidowed)).to.equal(MaritalStatusEnum.getWidowed());
             done();
