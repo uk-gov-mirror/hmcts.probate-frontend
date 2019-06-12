@@ -7,8 +7,10 @@ module.exports = function () {
     const I = this;
 
     I.waitInUrl(pageUnderTest.getUrl());
-    I.wait(10);
+    I.waitForInvisible('#addressLine1');
     I.click('.summary');
+    I.waitForVisible('#addressLine1');
+
     I.fillField('#addressLine1', 'test address for deceased line 1');
     I.fillField('#addressLine2', 'test address for deceased line 2');
     I.fillField('#addressLine3', 'test address for deceased line 3');

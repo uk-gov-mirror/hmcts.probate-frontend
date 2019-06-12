@@ -19,5 +19,5 @@ module.exports = function () {
     I.wait(5);
     I.fillField('#email', testConfig.TestEnvEmailAddress);
 
-    I.waitForNavigationToComplete('#submit-card-details');
+    I.click('#submit-card-details');
 };
