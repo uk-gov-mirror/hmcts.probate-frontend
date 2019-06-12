@@ -42,6 +42,7 @@ module.exports = {
     },
 
     govPayTestCardDetails: {
+        url: '/card_details',
         expiryMonth: '06',
         expiryYear: '99',
         cardholderName: 'Test Payment',
@@ -55,7 +56,8 @@ module.exports = {
         url: process.env.TEST_VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
     },
 
-    TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',
+    TestGovUkPayUrl: 'www.payments.service.gov.uk',
+    TestGovUkCardDetailsUrl: this.TestGovUkPayUrl + '/card_details',
 
     TestEnvEmailAddress: process.env.TEST_EMAIL_ADDRESS,
     TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER,
