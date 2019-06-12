@@ -9,6 +9,8 @@ module.exports = function () {
 
     I.waitInUrl(pageUnderTest.getUrl());
 
+    I.waitForVisible('.document-upload__dropzone-text--choose-file');
+
     if (!I.isEdge()) {
         if (I.seeElementInDOM('.dz-hidden-input')) {
             I.waitForElement('.dz-hidden-input', 60);
