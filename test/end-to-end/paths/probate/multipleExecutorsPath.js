@@ -181,19 +181,6 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
 
 Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function (I) {
 
-    // Pre-IDAM
-    // I.startApplication();
-    //
-    // I.selectDeathCertificate('Yes');
-    // I.selectDeceasedDomicile('Yes');
-    // I.selectIhtCompleted('Yes');
-    // I.selectPersonWhoDiedLeftAWill('Yes');
-    // I.selectOriginalWill('Yes');
-    // I.selectApplicantIsExecutor('Yes');
-    // I.selectMentallyCapable('Yes');
-    //
-    // I.startApply();
-
     // IDAM
     I.authenticateWithIdamIfAvailable(true);
 

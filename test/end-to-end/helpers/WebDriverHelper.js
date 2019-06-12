@@ -11,9 +11,9 @@ class WebDriverHelper extends Helper {
 
         // login from IDAM can take a bit longer so wait a little longer
         if (signIn) {
-            await helper.wait(8);
+            await helper.wait(10);
         } else {
-            await helper.wait(4);
+            await helper.wait(8);
         }
     }
 
