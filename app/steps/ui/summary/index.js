@@ -4,7 +4,7 @@ const setJourney = require('app/middleware/setJourney');
 const Step = require('app/core/steps/Step');
 const OptionGetRunner = require('app/core/runners/OptionGetRunner');
 const FieldError = require('app/components/error');
-const {isEmpty, map, includes, unescape} = require('lodash');
+const {isEmpty, map, includes, get, unescape} = require('lodash');
 const utils = require('app/components/step-utils');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
@@ -111,14 +111,14 @@ class Summary extends Step {
             .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyOtherChildren.theDeceased);
         ctx.deceasedAnyDeceasedChildrenQuestion = content.AnyDeceasedChildren.question
             .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyDeceasedChildren.theDeceased)
-            .replace('{deceasedDoD}', formdata.deceased.dod_formattedDate);
+            .replace('{deceasedDoD}', (formdata.deceased && formdata.deceased.dod_formattedDate) ? formdata.deceased.dod_formattedDate : '');
         ctx.deceasedAllChildrenOver18Question = content.AllChildrenOver18.question
             .replace('{deceasedName}', deceasedName ? deceasedName : content.AllChildrenOver18.theDeceased);
         ctx.deceasedSpouseNotApplyingReasonQuestion = content.SpouseNotApplyingReason.question
             .replace('{deceasedName}', deceasedName ? deceasedName : content.SpouseNotApplyingReason.theDeceased);
 
-        ctx.ihtTotalNetValue = formdata.iht.netValue;
-        if (ctx.journeyType === 'intestacy' && formdata.iht.assetsOutside === content.AssetsOutside.optionYes) {
+        ctx.ihtTotalNetValue = get(formdata, 'iht.netValue', 0);
+        if (ctx.journeyType === 'intestacy' && formdata.iht && formdata.iht.assetsOutside === content.AssetsOutside.optionYes) {
             ctx.ihtTotalNetValue += formdata.iht.netValueAssetsOutside;
         }
         ctx.ihtTotalNetValueGreaterThan250k = (ctx.ihtTotalNetValue > config.assetsValueThreshold);
