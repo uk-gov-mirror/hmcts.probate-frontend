@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/screeners/diedafteroctober2014');
 module.exports = function (answer) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.waitInUrl(pageUnderTest.getUrl());
     I.click(`#diedAfter-option${answer}`);
 
     I.waitForNavigationToComplete(`input[value="${commonContent.continue}"]`);

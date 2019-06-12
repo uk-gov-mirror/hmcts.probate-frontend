@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/executors/applying');
 module.exports = function () {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.waitInUrl(pageUnderTest.getUrl());
 
     I.click('#otherExecutorsApplying-optionYes');
 

@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/screeners/willoriginal');
 module.exports = function (answer) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.waitInUrl(pageUnderTest.getUrl());
     I.click(`#original-option${answer}`);
 
     I.waitForNavigationToComplete(commonContent.continue);

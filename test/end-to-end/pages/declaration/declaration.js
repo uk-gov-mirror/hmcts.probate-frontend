@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/declaration');
 module.exports = function () {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.waitInUrl(pageUnderTest.getUrl());
 
     if (!I.isInternetExplorer()) {
         I.click('#declarationPdfHref');

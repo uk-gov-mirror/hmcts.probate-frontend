@@ -8,9 +8,9 @@ module.exports = function (executorNumber, firstRecord) {
     const I = this;
 
     if (firstRecord) {
-        I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+        I.waitInUrl(pageUnderTest.getUrl());
     } else {
-        I.seeCurrentUrlEquals(pageUnderTest.getUrl(parseInt(executorNumber) - 1));
+        I.waitInUrl(pageUnderTest.getUrl(parseInt(executorNumber) - 1));
     }
 
     I.fillField('#email', testConfig.TestEnvEmailAddress);

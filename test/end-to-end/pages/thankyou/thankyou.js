@@ -5,7 +5,7 @@ const thankYouContent = require('app/resources/en/translation/thankyou');
 
 module.exports = function () {
     const I = this;
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.waitInUrl(pageUnderTest.getUrl());
     I.see(thankYouContent.header);
 
     if (!I.isInternetExplorer()) {

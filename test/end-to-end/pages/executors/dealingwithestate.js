@@ -7,7 +7,7 @@ const {forEach} = require('lodash');
 module.exports = function (executorsApplyingList) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.waitInUrl(pageUnderTest.getUrl());
 
     forEach(executorsApplyingList, executorNumber => {
         I.checkOption('#executorsApplying-'+(parseInt(executorNumber) - 1));

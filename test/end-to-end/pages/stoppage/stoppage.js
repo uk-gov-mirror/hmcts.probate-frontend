@@ -8,7 +8,7 @@ module.exports = function (url) {
 
     if (testConfig.useIdam !== 'false') {
         I.amOnPage(pageUnderTest.getUrl(url));
-        I.seeCurrentUrlEquals(pageUnderTest.getUrl(url));
+        I.waitInUrl(pageUnderTest.getUrl(url));
     }
 
     I.clickBrowserBackButton();

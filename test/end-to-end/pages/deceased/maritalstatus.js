@@ -5,7 +5,7 @@ const pageUnderTest = require('app/steps/ui/deceased/maritalstatus');
 
 module.exports = function (answer) {
     const I = this;
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.waitInUrl(pageUnderTest.getUrl());
     I.click(`#maritalStatus-option${answer}`);
 
     I.waitForNavigationToComplete(commonContent.saveAndContinue);

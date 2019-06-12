@@ -40,5 +40,5 @@ Scenario(TestConfigurator.idamInUseText('Save And Close Link Click Flow'), funct
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
     I.enterDeceasedDateOfBirth('01', '01', '1950');
     I.enterDeceasedDateOfDeath('01', '01', '2017', true);
-    I.seeCurrentUrlEquals(signOutPage.getUrl());
+    I.waitInUrl(signOutPage.getUrl());
 }).retry(TestConfigurator.getRetryScenarios());

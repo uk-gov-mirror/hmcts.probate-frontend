@@ -7,7 +7,7 @@ const testConfig = require('test/config');
 module.exports = function () {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.waitInUrl(pageUnderTest.getUrl());
 
     if (!I.isEdge()) {
         if (I.seeElementInDOM('.dz-hidden-input')) {

@@ -6,7 +6,7 @@ const commonContent = require('app/resources/en/translation/common');
 module.exports = function (formName, grossAmount, netAmount) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.waitInUrl(pageUnderTest.getUrl());
 
     I.click(`#paperIHT${formName}`);
 

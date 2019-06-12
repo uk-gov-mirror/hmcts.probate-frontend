@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/deceased/address');
 module.exports = function () {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.waitInUrl(pageUnderTest.getUrl());
     I.wait(10);
     I.click('.summary');
     I.fillField('#addressLine1', 'test address for deceased line 1');

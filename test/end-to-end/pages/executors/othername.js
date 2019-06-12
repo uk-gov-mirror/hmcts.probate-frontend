@@ -7,7 +7,7 @@ const {forEach} = require('lodash');
 module.exports = function (executorsWithDifferentNameIdList) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.waitInUrl(pageUnderTest.getUrl());
 
     forEach(executorsWithDifferentNameIdList, executorListId => {
         I.checkOption('#executorsWithOtherNames-'+ executorListId);

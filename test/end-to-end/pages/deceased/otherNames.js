@@ -5,7 +5,7 @@ const pageUnderTest = require('app/steps/ui/deceased/otherNames');
 
 module.exports = function (noOfAliases) {
     const I = this;
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.waitInUrl(pageUnderTest.getUrl());
     let i = 1;
 
     while (i <= noOfAliases) {

@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/iht/method');
 module.exports = function () {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.waitInUrl(pageUnderTest.getUrl());
     I.click('#method-optionPaper');
 
     I.waitForNavigationToComplete(commonContent.saveAndContinue);

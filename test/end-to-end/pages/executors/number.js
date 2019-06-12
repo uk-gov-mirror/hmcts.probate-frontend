@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/executors/number');
 module.exports = function (totalExecutors) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.waitInUrl(pageUnderTest.getUrl());
 
     I.fillField('#executorsNumber', totalExecutors);
 

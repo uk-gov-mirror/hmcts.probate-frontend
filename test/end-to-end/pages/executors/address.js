@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/executors/address');
 module.exports = function (executorNumber) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl(parseInt(executorNumber)-1));
+    I.waitInUrl(pageUnderTest.getUrl(parseInt(executorNumber)-1));
     I.wait(10);
     I.click('.summary');
     I.fillField('#addressLine1', 'additional executor test address line 1');
