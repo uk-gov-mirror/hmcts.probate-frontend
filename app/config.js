@@ -36,7 +36,7 @@ const config = {
             path: '/find-address'
         },
         orchestrator: {
-            url: process.env.ORCHESTRATOR_SERVICE_URL || 'http://localhost:8080',
+            url: process.env.ORCHESTRATOR_SERVICE_URL || 'http://localhost:8888',
             paths: {
                 forms: '/forms/{applicantEmail}',
                 submissions: '/forms/{applicantEmail}/submissions',
@@ -45,7 +45,7 @@ const config = {
             }
         },
         validation: {
-            url: process.env.VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
+            url: process.env.VALIDATION_SERVICE_URL || 'http://localhost:8081/validate'
         },
         submit: {
             url: process.env.SUBMIT_SERVICE_URL || 'http://localhost:8181',
@@ -70,8 +70,8 @@ const config = {
         },
         payment: {
             url: process.env.PAYMENT_API_URL || 'http://localhost:8383',
-            authorization: process.env.PAYMENT_AUTHORIZATION || 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJwa2RqdXB0ZGxrZ3NpbmFjODZqaDlnOGlrZyIsInN1YiI6IjQ2IiwiaWF0IjoxNTYwMzMzNDg4LCJleHAiOjE1NjAzNjIyODgsImRhdGEiOiJjYXNld29ya2VyLXByb2JhdGUsY2l0aXplbixjYXNld29ya2VyLGNhc2V3b3JrZXItcHJvYmF0ZS1sb2ExLGNpdGl6ZW4tbG9hMSxjYXNld29ya2VyLWxvYTEiLCJ0eXBlIjoiQUNDRVNTIiwiaWQiOiI0NiIsImZvcmVuYW1lIjoiVXNlciIsInN1cm5hbWUiOiJUZXN0IiwiZGVmYXVsdC1zZXJ2aWNlIjoiQ0NEIiwibG9hIjoxLCJkZWZhdWx0LXVybCI6Imh0dHBzOi8vbG9jYWxob3N0OjkwMDAvcG9jL2NjZCIsImdyb3VwIjoiY2FzZXdvcmtlciJ9.dOJTQaSlA3lvHYn8ZIV1A_SHh-vc1ktZODh0BBXuRP4',
-            serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9iYXRlX2Zyb250ZW5kIiwiZXhwIjoxNTYwMzQ3ODg4fQ.z8n0ykKLCdXS8OnMWezxiw8BRs_maNRFyaFVEqaFnjhht8X-D9TfaU4HMTIIFBgG990aJ6VDdLegz1uojc2apA',
+            authorization: process.env.PAYMENT_AUTHORIZATION || 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJrYzBpYmdjdGgyY2psdG0yMG12Y2pxdHNxMSIsInN1YiI6IjQ2IiwiaWF0IjoxNTYwNDE5NDI0LCJleHAiOjE1NjA0NDgyMjQsImRhdGEiOiJjYXNld29ya2VyLXByb2JhdGUsY2l0aXplbixjYXNld29ya2VyLGNhc2V3b3JrZXItcHJvYmF0ZS1sb2ExLGNpdGl6ZW4tbG9hMSxjYXNld29ya2VyLWxvYTEiLCJ0eXBlIjoiQUNDRVNTIiwiaWQiOiI0NiIsImZvcmVuYW1lIjoiVXNlciIsInN1cm5hbWUiOiJUZXN0IiwiZGVmYXVsdC1zZXJ2aWNlIjoiQ0NEIiwibG9hIjoxLCJkZWZhdWx0LXVybCI6Imh0dHBzOi8vbG9jYWxob3N0OjkwMDAvcG9jL2NjZCIsImdyb3VwIjoiY2FzZXdvcmtlciJ9.qF8ZuMKf7YcCWivFH06_JqOruky4vSAucdYPctcpT3o',
+            serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9iYXRlX2Zyb250ZW5kIiwiZXhwIjoxNTYwNDMzODI0fQ.TWt6o-WECwTfjM3wQtTFIzUR1l-JTMKZ0sAjTen_gx7k5AVy8vaj8jo50m1CdbkHKQ9E01zdmnQ4BC2Uvu0owQ',
             userId: process.env.PAYMENT_USER_ID || 46,
             paths: {
                 payments: '/payments',
