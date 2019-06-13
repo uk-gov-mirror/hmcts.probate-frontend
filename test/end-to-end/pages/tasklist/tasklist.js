@@ -6,5 +6,5 @@ module.exports = function () {
     const I = this;
     I.amOnLoadedPage(pageUnderTest.getUrl());
 
-    I.navByClick('.button');
+    I.click('.button');
 };
