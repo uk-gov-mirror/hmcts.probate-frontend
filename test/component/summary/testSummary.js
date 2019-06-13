@@ -6,13 +6,7 @@ const sessionData = require('test/data/documentupload');
 const config = require('app/config');
 const nock = require('nock');
 const featureToggleUrl = config.featureToggles.url;
-const documentUploadFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
 const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
-const featureTogglesNockDocumentUpload = (status = 'true') => {
-    nock(featureToggleUrl)
-        .get(documentUploadFeatureTogglePath)
-        .reply(200, status);
-};
 const featureTogglesNockIntestacy = (status = 'true') => {
     nock(featureToggleUrl)
         .get(intestacyQuestionsFeatureTogglePath)
@@ -32,38 +26,10 @@ describe('summary', () => {
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        it('[PROBATE] test content loaded on the page with the document upload feature toggle OFF', (done) => {
-            featureTogglesNockDocumentUpload('false');
-            featureTogglesNockIntestacy('false');
-
-            const contentToExclude = [
-                'executorsWhenDiedQuestion',
-                'otherNamesLabel',
-                'willWithCodicilHeading',
-                'otherExecutors',
-                'executorsWithOtherNames',
-                'executorApplyingForProbate',
-                'executorsNotApplyingForProbate',
-                'nameOnWill',
-                'currentName',
-                'currentNameReason',
-                'mobileNumber',
-                'emailAddress',
-                'uploadedDocumentsHeading',
-                'uploadedDocumentsEmpty',
-                'aboutPeopleApplyingHeading'
-            ];
-            testWrapper.testContent(done, contentToExclude);
-        });
-
-        it('[PROBATE] test content loaded on the page with the document upload feature toggle ON and documents uploaded', (done) => {
-            featureTogglesNockDocumentUpload('true');
-            featureTogglesNockIntestacy('false');
-
+        it('test content loaded on the page and documents uploaded', (done) => {
             const contentToExclude = [
                 'executorsWhenDiedQuestion',
                 'otherNamesLabel',
