@@ -28,5 +28,8 @@ Scenario(TestConfigurator.idamInUseText('Save And Close Link Click Flow'), funct
     I.selectATask(taskListContent.taskNotStarted);
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
     I.enterDeceasedDateOfBirth('01', '01', '1950', true);
-    I.amOnLoadedPage(signOutPage.getUrl());
+
+    I.waitForText('sign back in', 20);
+    I.seeInCurrentUrl(signOutPage.getUrl());
+
 }).retry(TestConfigurator.getRetryScenarios());
