@@ -6,8 +6,8 @@ const pageUnderTest = require('app/steps/ui/copies/overseas');
 module.exports = function (copies) {
     const I = this;
 
-    I.waitInUrl(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
     I.fillField('#overseas', copies);
 
-    I.waitForNavigationToComplete(commonContent.saveAndContinue);
+    I.navByClick(commonContent.saveAndContinue);
 };

@@ -5,12 +5,12 @@ const pageUnderTest = require('app/steps/ui/applicant/aliasreason');
 
 module.exports = function (aliasReason, aliasOther) {
     const I = this;
-    I.waitInUrl(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
     I.click(`#${aliasReason}`);
 
     if (aliasOther) {
         I.fillField('#otherReason', aliasOther);
     }
 
-    I.waitForNavigationToComplete(commonContent.saveAndContinue);
+    I.navByClick(commonContent.saveAndContinue);
 };

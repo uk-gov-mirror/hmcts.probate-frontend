@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/executors/address');
 module.exports = function (executorNumber) {
     const I = this;
 
-    I.waitInUrl(pageUnderTest.getUrl(parseInt(executorNumber)-1));
+    I.amOnLoadedPage(pageUnderTest.getUrl(parseInt(executorNumber)-1));
     I.waitForInvisible('#addressLine1');
     I.click('.summary');
     I.waitForVisible('#addressLine1');
@@ -17,5 +17,5 @@ module.exports = function (executorNumber) {
     I.fillField('#postTown', 'additional executor test address town');
     I.fillField('#newPostCode', 'postcode');
 
-    I.waitForNavigationToComplete(commonContent.saveAndContinue);
+    I.navByClick(commonContent.saveAndContinue);
 };

@@ -8,13 +8,13 @@ module.exports = function (executorNumber, firstRecord) {
     const I = this;
 
     if (firstRecord) {
-        I.waitInUrl(pageUnderTest.getUrl());
+        I.amOnLoadedPage(pageUnderTest.getUrl());
     } else {
-        I.waitInUrl(pageUnderTest.getUrl(parseInt(executorNumber) - 1));
+        I.amOnLoadedPage(pageUnderTest.getUrl(parseInt(executorNumber) - 1));
     }
 
     I.fillField('#email', testConfig.TestEnvEmailAddress);
     I.fillField('#mobile', testConfig.TestEnvMobileNumber);
 
-    I.waitForNavigationToComplete(commonContent.saveAndContinue);
+    I.navByClick(commonContent.saveAndContinue);
 };

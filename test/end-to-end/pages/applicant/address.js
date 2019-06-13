@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/applicant/address');
 module.exports = function () {
     const I = this;
 
-    I.waitInUrl(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
     I.waitForInvisible('#addressLine1');
     I.click('.summary');
     I.waitForVisible('#addressLine1');
@@ -17,5 +17,5 @@ module.exports = function () {
     I.fillField('#postTown', 'test address for applicant town');
     I.fillField('#newPostCode', 'postcode');
 
-    I.waitForNavigationToComplete(commonContent.saveAndContinue);
+    I.navByClick(commonContent.saveAndContinue);
 };

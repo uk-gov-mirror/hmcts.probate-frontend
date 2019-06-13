@@ -7,11 +7,11 @@ const {forEach} = require('lodash');
 module.exports = function (executorsApplyingList) {
     const I = this;
 
-    I.waitInUrl(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
 
     forEach(executorsApplyingList, executorNumber => {
         I.checkOption('#executorsApplying-'+(parseInt(executorNumber) - 1));
     });
 
-    I.waitForNavigationToComplete(commonContent.saveAndContinue);
+    I.navByClick(commonContent.saveAndContinue);
 };

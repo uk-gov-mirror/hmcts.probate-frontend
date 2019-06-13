@@ -6,8 +6,8 @@ const pageUnderTest = require('app/steps/ui/will/codicils');
 module.exports = function (option) {
     const I = this;
 
-    I.waitInUrl(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
     I.click(`#codicils-option${option}`);
 
-    I.waitForNavigationToComplete(commonContent.saveAndContinue);
+    I.navByClick(commonContent.saveAndContinue);
 };

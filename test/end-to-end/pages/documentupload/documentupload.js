@@ -7,7 +7,7 @@ const testConfig = require('test/config');
 module.exports = function () {
     const I = this;
 
-    I.waitInUrl(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
 
     I.waitForVisible('.document-upload__dropzone-text--choose-file');
 
@@ -19,5 +19,5 @@ module.exports = function () {
         }
     }
 
-    I.waitForNavigationToComplete(commonContent.continue);
+    I.navByClick(commonContent.continue);
 };

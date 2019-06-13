@@ -6,8 +6,8 @@ const pageUnderTest = require('app/steps/ui/applicant/phone');
 
 module.exports = function () {
     const I = this;
-    I.waitInUrl(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
     I.fillField(content.phoneNumber, '123456789');
 
-    I.waitForNavigationToComplete(commonContent.saveAndContinue);
+    I.navByClick(commonContent.saveAndContinue);
 };

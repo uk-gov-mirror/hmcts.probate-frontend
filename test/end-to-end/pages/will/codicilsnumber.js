@@ -6,8 +6,8 @@ const pageUnderTest = require('app/steps/ui/will/codicilsnumber');
 module.exports = function (totalCodicils) {
     const I = this;
 
-    I.waitInUrl(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
     I.fillField('#codicilsNumber', totalCodicils);
 
-    I.waitForNavigationToComplete(commonContent.saveAndContinue);
+    I.navByClick(commonContent.saveAndContinue);
 };

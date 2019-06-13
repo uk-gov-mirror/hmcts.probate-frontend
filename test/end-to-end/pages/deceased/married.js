@@ -5,8 +5,8 @@ const pageUnderTest = require('app/steps/ui/deceased/married');
 
 module.exports = function (answer) {
     const I = this;
-    I.waitInUrl(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
     I.click(`#married-option${answer}`);
 
-    I.waitForNavigationToComplete(commonContent.saveAndContinue);
+    I.navByClick(commonContent.saveAndContinue);
 };

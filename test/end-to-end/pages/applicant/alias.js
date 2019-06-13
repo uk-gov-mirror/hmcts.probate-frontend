@@ -5,8 +5,8 @@ const pageUnderTest = require('app/steps/ui/applicant/alias');
 
 module.exports = function (alias) {
     const I = this;
-    I.waitInUrl(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
     I.fillField('#alias', alias);
 
-    I.waitForNavigationToComplete(commonContent.saveAndContinue);
+    I.navByClick(commonContent.saveAndContinue);
 };

@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/declaration');
 module.exports = function () {
     const I = this;
 
-    I.waitInUrl(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
 
     if (!I.isInternetExplorer()) {
         I.click('#declarationPdfHref');
@@ -14,5 +14,5 @@ module.exports = function () {
 
     I.click('#declarationCheckbox');
 
-    I.waitForNavigationToComplete(commonContent.saveAndContinue);
+    I.navByClick(commonContent.saveAndContinue);
 };

@@ -6,9 +6,9 @@ const commonContent = require('app/resources/en/translation/common');
 module.exports = function (netAmount) {
     const I = this;
 
-    I.waitInUrl(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
 
     I.fillField('#netValueAssetsOutsideField', netAmount);
 
-    I.waitForNavigationToComplete(commonContent.saveAndContinue);
+    I.navByClick(commonContent.saveAndContinue);
 };

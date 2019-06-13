@@ -7,8 +7,7 @@ module.exports = function (url) {
     const I = this;
 
     if (testConfig.useIdam !== 'false') {
-        I.amOnPage(pageUnderTest.getUrl(url));
-        I.waitInUrl(pageUnderTest.getUrl(url));
+        I.amOnLoadedPage(pageUnderTest.getUrl(url));
     }
 
     I.clickBrowserBackButton();

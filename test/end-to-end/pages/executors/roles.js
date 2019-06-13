@@ -7,9 +7,9 @@ module.exports = function (executorNumber, powerReserved, firstRecord) {
     const I = this;
 
     if (firstRecord) {
-        I.waitInUrl(pageUnderTest.getUrl());
+        I.amOnLoadedPage(pageUnderTest.getUrl());
     } else {
-        I.waitInUrl(pageUnderTest.getUrl(parseInt(executorNumber) - 1));
+        I.amOnLoadedPage(pageUnderTest.getUrl(parseInt(executorNumber) - 1));
     }
 
     if (powerReserved) {
@@ -18,5 +18,5 @@ module.exports = function (executorNumber, powerReserved, firstRecord) {
         I.click('#notApplyingReason-optionRenunciated');
     }
 
-    I.waitForNavigationToComplete(commonContent.saveAndContinue);
+    I.navByClick(commonContent.saveAndContinue);
 };

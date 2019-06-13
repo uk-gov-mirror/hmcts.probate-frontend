@@ -4,7 +4,7 @@ const Helper = codecept_helper;
 
 class WebDriverHelper extends Helper {
 
-    async waitForNavigationToComplete (locator, signIn = false) {
+    async navByClick (locator, signIn = false) {
         const helper = this.helpers.WebDriverIO;
 
         helper.click(locator);
