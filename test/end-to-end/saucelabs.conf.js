@@ -93,13 +93,13 @@ const setupConfig = {
         },
         microsoftEdge: {
             browsers: getBrowserConfig('microsoftEdge')
-        }//,
-        // chrome: {
-        //     browsers: getBrowserConfig('chrome')
-        // },
-        // firefox: {
-        //     browsers: getBrowserConfig('firefox')
-        // }
+        },
+        chrome: {
+            browsers: getBrowserConfig('chrome')
+        },
+        firefox: {
+            browsers: getBrowserConfig('firefox')
+        }
     },
     'name': 'Probate FrontEnd Tests'
 };
