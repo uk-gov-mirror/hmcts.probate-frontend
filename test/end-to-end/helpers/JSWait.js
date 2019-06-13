@@ -35,7 +35,7 @@ class JSWait extends codecept_helper {
             await helper.page.waitForNavigation({waitUntil: 'networkidle0'});
         } else {
             await helper.amOnPage(url);
-            await helper.amOnLoadedPage(url);
+            await helper.waitInUrl(url);
             await helper.waitForElement('#content');
         }
     }
