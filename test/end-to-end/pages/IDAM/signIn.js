@@ -3,11 +3,11 @@
 const testConfig = require('test/config.js');
 const useIdam = testConfig.TestUseIdam;
 
-module.exports = function (multipleExecutors = false) {
+module.exports = function (noScreenerQuestions = false) {
     if (useIdam === 'true') {
         const I = this;
 
-        if (multipleExecutors) {
+        if (noScreenerQuestions) {
             I.amOnPage('/');
         }
 

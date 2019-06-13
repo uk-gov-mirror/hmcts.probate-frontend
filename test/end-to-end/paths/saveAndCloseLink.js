@@ -22,7 +22,7 @@ After(() => {
 Scenario(TestConfigurator.idamInUseText('Save And Close Link Click Flow'), function (I) {
 
     // IDAM
-    I.authenticateWithIdamIfAvailable();
+    I.authenticateWithIdamIfAvailable(true);
 
     // Deceased Details
     I.selectATask(taskListContent.taskNotStarted);
