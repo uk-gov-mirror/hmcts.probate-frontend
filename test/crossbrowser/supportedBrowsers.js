@@ -10,7 +10,7 @@ const supportedBrowsers = {
     microsoftEdge: {
         edge: {
             browserName: 'MicrosoftEdge',
-            name: 'Edge_Win10',
+            name: 'Probate: Edge_Win10',
             platform: 'Windows 10',
             version: '18.17763'
         }
@@ -18,13 +18,13 @@ const supportedBrowsers = {
     // chrome: {
     //     chrome_win_latest: {
     //         browserName: 'chrome',
-    //         name: 'DIV_WIN_CHROME_LATEST',
+    //         name: 'Probate: WIN_CHROME_LATEST',
     //         platform: 'Windows 10',
     //         version: 'latest'
     //     },
     //     chrome_mac_latest: {
     //         browserName: 'chrome',
-    //         name: 'MAC_CHROME_LATEST',
+    //         name: 'Probate: MAC_CHROME_LATEST',
     //         platform: 'macOS 10.13',
     //         version: 'latest'
     //     }
@@ -32,13 +32,13 @@ const supportedBrowsers = {
     // firefox: {
     //     firefox_win_latest: {
     //         browserName: 'firefox',
-    //         name: 'WIN_FIREFOX_LATEST',
+    //         name: 'Probate: WIN_FIREFOX_LATEST',
     //         platform: 'Windows 10',
     //         version: 'latest'
     //     },
     //     firefox_mac_latest: {
     //         browserName: 'firefox',
-    //         name: 'MAC_FIREFOX_LATEST',
+    //         name: 'Probate: MAC_FIREFOX_LATEST',
     //         platform: 'macOS 10.13',
     //         version: 'latest'
     //     }
