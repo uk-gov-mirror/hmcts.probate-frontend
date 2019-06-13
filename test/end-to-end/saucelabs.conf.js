@@ -24,7 +24,7 @@ const getBrowserConfig = (browserGroup) => {
 };
 
 const setupConfig = {
-    'tests': './paths/**/*.js',
+    'tests': './paths/**/singleExecutorsPath.js',
     'output': './output',
     'timeout': 20000,
     'helpers': {
@@ -57,19 +57,19 @@ const setupConfig = {
             require: './helpers/JSWait.js'
         }
     },
-    'plugins': {
-        'retryFailedStep': {
-            'enabled': true
+    plugins: {
+        retryFailedStep: {
+            enabled: true
         },
-        'autoDelay': {
-            'enabled': true,
-            'delayAfter': 2000
+        autoDelay: {
+            enabled: true,
+            delayAfter: 2000
         }
     },
-    'include': {
+    include: {
         'I': './pages/steps.js'
     },
-    'mocha': {
+    mocha: {
         reporterOptions: {
             'codeceptjs-cli-reporter': {
                 stdout: '-',

@@ -9,5 +9,5 @@ module.exports = function (answer) {
     I.amOnLoadedPage(pageUnderTest.getUrl());
     I.click(`#deathCertificate-option${answer}`);
 
-    I.waitForNavigationToComplete(commonContent.continue);
+    I.navByClick(commonContent.continue);
 };

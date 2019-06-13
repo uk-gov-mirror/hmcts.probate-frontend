@@ -9,5 +9,5 @@ module.exports = function (answer) {
     I.amOnLoadedPage(pageUnderTest.getUrl());
     I.click(`#diedAfter-option${answer}`);
 
-    I.navByClick(`input[value="${commonContent.continue}"]`);
+    I.navByClick(commonContent.continue);
 };
