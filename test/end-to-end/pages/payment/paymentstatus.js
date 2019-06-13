@@ -1,6 +1,6 @@
 'use strict';
 
-const content = require('app/resource/en/translation/payment/status');
+const content = require('app/resources/en/translation/payment/status');
 const pageUnderTest = require('app/steps/ui/payment/status');
 
 module.exports = function () {
