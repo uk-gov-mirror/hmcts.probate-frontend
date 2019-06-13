@@ -16,7 +16,7 @@ module.exports = {
     TestPinUrl: process.env.PIN_URL,
     TestProxy: process.env.TEST_PROXY || 'socks5:proxyout.reform.hmcts.net:8080',
     TestRetryFeatures: process.env.RETRY_FEATURES || 0,
-    TestRetryScenarios: process.env.RETRY_SCENARIOS || 0,
+    TestRetryScenarios: process.env.RETRY_SCENARIOS || 4,
     TestShowBrowser: false,
     TestUseGovPay: process.env.USE_GOV_PAY || 'true',
     TestUseIdam: process.env.USE_IDAM || 'true',
