@@ -2,7 +2,7 @@ const supportedBrowsers = {
     microsoftIE11: {
         ie11: {
             browserName: 'internet explorer',
-            name: 'IE11',
+            name: 'Probate: IE11',
             platform: 'Windows 10',
             version: '11.285'
         }
