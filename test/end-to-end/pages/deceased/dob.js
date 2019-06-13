@@ -3,7 +3,7 @@
 const commonContent = require('app/resources/en/translation/common');
 const pageUnderTest = require('app/steps/ui/deceased/dob');
 
-module.exports = function (day, month, year) {
+module.exports = function (day, month, year, saveAndClose = false) {
     const I = this;
     I.amOnLoadedPage(pageUnderTest.getUrl());
 
@@ -11,5 +11,9 @@ module.exports = function (day, month, year) {
     I.fillField('#dob_month', month);
     I.fillField('#dob_year', year);
 
-    I.navByClick(commonContent.saveAndContinue);
+    if (saveAndClose) {
+        I.navByClick('.column-two-thirds > p a');
+    } else {
+        I.navByClick(commonContent.saveAndContinue);
+    }
 };

@@ -3,7 +3,7 @@
 const commonContent = require('app/resources/en/translation/common');
 const pageUnderTest = require('app/steps/ui/deceased/dod');
 
-module.exports = function (day, month, year, saveAndClose = false) {
+module.exports = function (day, month, year) {
     const I = this;
     I.amOnLoadedPage(pageUnderTest.getUrl());
 
@@ -11,9 +11,5 @@ module.exports = function (day, month, year, saveAndClose = false) {
     I.fillField('#dod_month', month);
     I.fillField('#dod_year', year);
 
-    if (saveAndClose) {
-        I.navByClick('.column-two-thirds > p a');
-    } else {
-        I.navByClick(commonContent.saveAndContinue);
-    }
+    I.navByClick(commonContent.saveAndContinue);
 };

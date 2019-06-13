@@ -21,24 +21,12 @@ After(() => {
 // eslint-disable-next-line no-undef
 Scenario(TestConfigurator.idamInUseText('Save And Close Link Click Flow'), function (I) {
 
-    //Screeners & Pre-IDAM
-    I.startApplication();
-    I.selectDeathCertificate('Yes');
-    I.selectDeceasedDomicile('Yes');
-    I.selectIhtCompleted('Yes');
-    I.selectPersonWhoDiedLeftAWill('Yes');
-    I.selectOriginalWill('Yes');
-    I.selectApplicantIsExecutor('Yes');
-    I.selectMentallyCapable('Yes');
-    I.startApply();
-
     // IDAM
     I.authenticateWithIdamIfAvailable();
 
     // Deceased Details
     I.selectATask(taskListContent.taskNotStarted);
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
-    I.enterDeceasedDateOfBirth('01', '01', '1950');
-    I.enterDeceasedDateOfDeath('01', '01', '2017', true);
+    I.enterDeceasedDateOfBirth('01', '01', '1950', true);
     I.amOnLoadedPage(signOutPage.getUrl());
 }).retry(TestConfigurator.getRetryScenarios());
