@@ -11,10 +11,10 @@ module.exports = function (multipleExecutors = false) {
             I.amOnPage('/');
         }
 
-        I.see('Sign in');
+        I.waitForText('Sign in', 20);
         I.fillField('username', process.env.testCitizenEmail);
         I.fillField('password', process.env.testCitizenPassword);
 
-        I.navByClick('Sign in', true);
+        I.click('Sign in');
     }
 };
