@@ -6,8 +6,7 @@ const pageUnderTest = require('app/steps/ui/screeners/deathcertificate');
 module.exports = function (answer) {
     const I = this;
 
-    I.waitInUrl(pageUnderTest.getUrl());
-    I.waitInUrl(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
     I.click(`#deathCertificate-option${answer}`);
 
     I.waitForNavigationToComplete(commonContent.continue);

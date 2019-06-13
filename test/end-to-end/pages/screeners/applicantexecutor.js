@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/screeners/applicantexecutor');
 module.exports = function (answer) {
     const I = this;
 
-    I.waitInUrl(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
     I.click(`#executor-option${answer}`);
 
     I.waitForNavigationToComplete(commonContent.continue);

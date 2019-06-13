@@ -6,12 +6,11 @@ const pageUnderTest = require('app/steps/ui/screeners/starteligibility');
 module.exports = function (checkCookieBannerExists) {
     const I = this;
 
-    I.amOnPage(pageUnderTest.getUrl());
-    I.waitInUrl(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
 
     if (checkCookieBannerExists) {
         I.waitForElement('div#global-cookie-message', 60);
     }
 
-    I.waitForNavigationToComplete('.button');
+    I.navByClick('.button');
 };
