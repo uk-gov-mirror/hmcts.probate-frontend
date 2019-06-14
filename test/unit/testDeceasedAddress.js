@@ -15,7 +15,7 @@ describe('DeceasedAddress', () => {
     });
 
     describe('getContextData()', () => {
-        it('should return the ctx with the deceased address and the document_upload feature toggle on', (done) => {
+        it('should return the ctx with the deceased address', (done) => {
             const req = {
                 sessionID: 'dummy_sessionId',
                 session: {
@@ -43,40 +43,10 @@ describe('DeceasedAddress', () => {
                 newPostCode: 'L23 6WW',
                 postcode: 'L23 6WW',
                 sessionID: 'dummy_sessionId',
-                journeyType: 'gop'
-            });
-            done();
-        });
-
-        it('should return the ctx with the deceased address and the document_upload feature toggle off', (done) => {
-            const req = {
-                sessionID: 'dummy_sessionId',
-                session: {
-                    form: {
-                        journeyType: 'gop'
-                    },
-                    featureToggles: {
-                        document_upload: false
-                    },
-                    journeyType: 'gop'
-                },
-                body: {
-                    addressLine1: '143 Caerfai Bay Road',
-                    postTown: 'town',
-                    newPostCode: 'L23 6WW',
-                    country: 'United Kingdon',
-                    postcode: 'L23 6WW'
+                journeyType: 'gop',
+                featureToggles: {
+                    webchat: 'false'
                 }
-            };
-            const ctx = DeceasedAddress.getContextData(req);
-            expect(ctx).to.deep.equal({
-                addressLine1: '143 Caerfai Bay Road',
-                postTown: 'town',
-                newPostCode: 'L23 6WW',
-                country: 'United Kingdon',
-                postcode: 'L23 6WW',
-                sessionID: 'dummy_sessionId',
-                journeyType: 'gop'
             });
             done();
         });

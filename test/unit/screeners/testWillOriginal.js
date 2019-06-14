@@ -35,7 +35,10 @@ describe('WillOriginal', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 original: content.optionYes,
-                journeyType: 'gop'
+                journeyType: 'gop',
+                featureToggles: {
+                    webchat: 'false'
+                }
             });
             done();
         });

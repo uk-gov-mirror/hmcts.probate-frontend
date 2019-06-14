@@ -40,7 +40,10 @@ describe('Executor-Additional-Invite-Sent', function () {
                 header: 'header',
                 inviteSuffix: '',
                 sessionID: 'dummy_sessionId',
-                journeyType: 'gop'
+                journeyType: 'gop',
+                featureToggles: {
+                    webchat: 'false'
+                }
             });
         });
 
@@ -66,7 +69,10 @@ describe('Executor-Additional-Invite-Sent', function () {
                 header: 'header-multiple',
                 inviteSuffix: '-multiple',
                 sessionID: 'dummy_sessionId',
-                journeyType: 'gop'
+                journeyType: 'gop',
+                featureToggles: {
+                    webchat: 'false'
+                }
             });
         });
     });

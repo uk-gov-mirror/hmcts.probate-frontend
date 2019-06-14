@@ -32,7 +32,10 @@ describe('CopiesOverseas', () => {
             expect(ctx).to.deep.equal({
                 overseas: 3,
                 sessionID: 'dummy_sessionId',
-                journeyType: 'gop'
+                journeyType: 'gop',
+                featureToggles: {
+                    webchat: 'false'
+                }
             });
             done();
         });
