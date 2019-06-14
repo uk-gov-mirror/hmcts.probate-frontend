@@ -23,6 +23,8 @@ module.exports = {
     TestUseIdam: process.env.USE_IDAM || 'true',
     TestUseProxy: process.env.TEST_USE_PROXY || 'true',
     TestWaitForDocumentUpload: 60,
+    TestWaitForTextToAppear: 20,
+    TestWaitForElementToAppear: 60,
 
     postcodeLookup: {
         token: process.env.ADDRESS_TOKEN,

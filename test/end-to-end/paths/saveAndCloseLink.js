@@ -3,6 +3,7 @@
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const signOutPage = require('app/steps/ui/signout');
+const testConfig = require('test/config.js');
 
 Feature('Save And Close Link Functionality');
 
@@ -29,7 +30,7 @@ Scenario(TestConfigurator.idamInUseText('Save And Close Link Click Flow'), funct
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
     I.enterDeceasedDateOfBirth('01', '01', '1950', true);
 
-    I.waitForText('sign back in', 20);
+    I.waitForText('sign back in', testConfig.TestWaitForTextToAppear);
     I.seeInCurrentUrl(signOutPage.getUrl());
 
 }).retry(TestConfigurator.getRetryScenarios());

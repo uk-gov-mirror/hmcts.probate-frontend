@@ -5,7 +5,7 @@ const testConfig = require('test/config');
 module.exports = function () {
     const I = this;
 
-    I.retry(testConfig.TestRetrySteps).waitForText('Enter card details', 20);
+    I.retry(testConfig.TestRetrySteps).waitForText('Enter card details', testConfig.TestWaitForTextToAppear);
 
     I.seeInCurrentUrl(testConfig.TestGovUkCardPaymentsUrl);
 

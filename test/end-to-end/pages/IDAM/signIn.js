@@ -11,7 +11,7 @@ module.exports = function (noScreenerQuestions = false) {
             I.amOnPage('/');
         }
 
-        I.waitForText('Sign in', 20);
+        I.waitForText('Sign in', testConfig.TestWaitForTextToAppear);
         I.fillField('username', process.env.testCitizenEmail);
         I.fillField('password', process.env.testCitizenPassword);
 

@@ -13,7 +13,7 @@ module.exports = function () {
 
     if (!I.isEdge()) {
         if (I.seeElementInDOM('.dz-hidden-input')) {
-            I.waitForElement('.dz-hidden-input', 60);
+            I.waitForElement('.dz-hidden-input', testConfig.TestWaitForElementToAppear);
             I.attachFile('.dz-hidden-input', '/uploadDocuments/test_file_for_document_upload.png');
             I.waitForEnabled('#button', testConfig.TestDocumentToUpload);
         }
