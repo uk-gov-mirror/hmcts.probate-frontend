@@ -74,16 +74,21 @@ class Summary extends Step {
             });
         fields[this.section] = super.generateFields(ctx, errors, formdata);
 
-        if (ctx.journeyType === 'intestacy') {
-            fields[this.section].deceasedMaritalStatusQuestion.value = unescape(fields[this.section].deceasedMaritalStatusQuestion.value);
-            fields[this.section].deceasedAnyChildrenQuestion.value = unescape(fields[this.section].deceasedAnyChildrenQuestion.value);
-            fields[this.section].deceasedAnyOtherChildrenQuestion.value = unescape(fields[this.section].deceasedAnyOtherChildrenQuestion.value);
-            fields[this.section].deceasedAnyDeceasedChildrenQuestion.value = unescape(fields[this.section].deceasedAnyDeceasedChildrenQuestion.value);
-            fields[this.section].deceasedAllChildrenOver18Question.value = unescape(fields[this.section].deceasedAllChildrenOver18Question.value);
-            fields[this.section].deceasedSpouseNotApplyingReasonQuestion.value = unescape(fields[this.section].deceasedSpouseNotApplyingReasonQuestion.value);
+        if (ctx) {
+            fields.featureToggles = {};
+            fields.featureToggles.value = ctx.featureToggles;
 
-            if (fields.applicant && fields.applicant.spouseNotApplyingReason) {
-                fields.applicant.spouseNotApplyingReason.value = unescape(fields.applicant.spouseNotApplyingReason.value);
+            if (ctx.journeyType === 'intestacy') {
+                fields[this.section].deceasedMaritalStatusQuestion.value = unescape(fields[this.section].deceasedMaritalStatusQuestion.value);
+                fields[this.section].deceasedAnyChildrenQuestion.value = unescape(fields[this.section].deceasedAnyChildrenQuestion.value);
+                fields[this.section].deceasedAnyOtherChildrenQuestion.value = unescape(fields[this.section].deceasedAnyOtherChildrenQuestion.value);
+                fields[this.section].deceasedAnyDeceasedChildrenQuestion.value = unescape(fields[this.section].deceasedAnyDeceasedChildrenQuestion.value);
+                fields[this.section].deceasedAllChildrenOver18Question.value = unescape(fields[this.section].deceasedAllChildrenOver18Question.value);
+                fields[this.section].deceasedSpouseNotApplyingReasonQuestion.value = unescape(fields[this.section].deceasedSpouseNotApplyingReasonQuestion.value);
+
+                if (fields.applicant && fields.applicant.spouseNotApplyingReason) {
+                    fields.applicant.spouseNotApplyingReason.value = unescape(fields.applicant.spouseNotApplyingReason.value);
+                }
             }
         }
 
