@@ -33,7 +33,6 @@ describe('summary', () => {
             const contentToExclude = [
                 'executorsWhenDiedQuestion',
                 'otherNamesLabel',
-                'willWithCodicilHeading',
                 'otherExecutors',
                 'executorsWithOtherNames',
                 'executorApplyingForProbate',
@@ -61,7 +60,6 @@ describe('summary', () => {
             const contentToExclude = [
                 'executorsWhenDiedQuestion',
                 'otherNamesLabel',
-                'willWithCodicilHeading',
                 'otherExecutors',
                 'executorsWithOtherNames',
                 'executorApplyingForProbate',
