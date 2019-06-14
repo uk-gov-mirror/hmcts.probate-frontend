@@ -27,7 +27,7 @@
         {
             question: applicantNameAsOnWillQuestion,
             answer: fields.applicant.nameAsOnTheWill.value,
-            visible: true
+            visible: fields.summary.journeyType.value === "gop"
         }
     ],
     url = content.ApplicantNameAsOnWill.url,
@@ -35,7 +35,7 @@
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
 
-{% if fields.applicant.nameAsOnTheWill.value === 'No' %}
+{% if fields.summary.journeyType.value === "gop" and fields.applicant.nameAsOnTheWill.value === 'No' %}
     {{checkanswer(
         items = [
             {
