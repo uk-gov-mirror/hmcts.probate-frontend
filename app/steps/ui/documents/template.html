@@ -29,6 +29,15 @@
         {% endfor %}
     {% endif %}
 {% else %}
+    {% if fields %}
+        {% set checklistItems = (checklistItems.push(content["checklist-item2-spouse-renouncing"]), checklistItems) %}
+    {% endif %}
+    {% if fields.uploads.value | length === 0 %}
+        {% set checklistItems = (checklistItems.push(content["checklist-item3-will-uploaded"]), checklistItems) %}
+    {% endif %}
+    {% if (fields.is205.value === "true") %}
+        {% set checklistItems = (checklistItems.push(content["checklist-item4-iht205"]), checklistItems) %}
+    {% endif %}
 {% endif %}
 
 {% block question %}
