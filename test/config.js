@@ -45,7 +45,6 @@ module.exports = {
     },
 
     govPayTestCardDetails: {
-        url: '/card_details',
         expiryMonth: '06',
         expiryYear: '99',
         cardholderName: 'Test Payment',
