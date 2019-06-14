@@ -20,9 +20,9 @@ describe('CodicilsNumber', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        journeyType: 'probate'
+                        journeyType: 'gop'
                     },
-                    journeyType: 'probate'
+                    journeyType: 'gop'
                 },
                 body: {
                     codicilsNumber: '3'
@@ -32,7 +32,7 @@ describe('CodicilsNumber', () => {
             expect(ctx).to.deep.equal({
                 codicilsNumber: 3,
                 sessionID: 'dummy_sessionId',
-                journeyType: 'probate'
+                journeyType: 'gop'
             });
             done();
         });
@@ -42,9 +42,9 @@ describe('CodicilsNumber', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        journeyType: 'probate'
+                        journeyType: 'gop'
                     },
-                    journeyType: 'probate'
+                    journeyType: 'gop'
                 },
                 body: {
                     codicilsNumber: null
@@ -54,7 +54,7 @@ describe('CodicilsNumber', () => {
             expect(ctx).to.deep.equal({
                 codicilsNumber: null,
                 sessionID: 'dummy_sessionId',
-                journeyType: 'probate'
+                journeyType: 'gop'
             });
             done();
         });

@@ -20,12 +20,12 @@ describe('DeceasedAddress', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        journeyType: 'probate'
+                        journeyType: 'gop'
                     },
                     featureToggles: {
                         document_upload: true
                     },
-                    journeyType: 'probate'
+                    journeyType: 'gop'
                 },
                 body: {
                     addressLine1: '143 Caerfai Bay Road',
@@ -43,7 +43,7 @@ describe('DeceasedAddress', () => {
                 newPostCode: 'L23 6WW',
                 postcode: 'L23 6WW',
                 sessionID: 'dummy_sessionId',
-                journeyType: 'probate'
+                journeyType: 'gop'
             });
             done();
         });
@@ -53,12 +53,12 @@ describe('DeceasedAddress', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        journeyType: 'probate'
+                        journeyType: 'gop'
                     },
                     featureToggles: {
                         document_upload: false
                     },
-                    journeyType: 'probate'
+                    journeyType: 'gop'
                 },
                 body: {
                     addressLine1: '143 Caerfai Bay Road',
@@ -76,7 +76,7 @@ describe('DeceasedAddress', () => {
                 country: 'United Kingdon',
                 postcode: 'L23 6WW',
                 sessionID: 'dummy_sessionId',
-                journeyType: 'probate'
+                journeyType: 'gop'
             });
             done();
         });

@@ -36,13 +36,13 @@ describe('ApplicantNameAsOnWill', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        journeyType: 'probate',
+                        journeyType: 'gop',
                         deceased: {
                             firstName: 'Dee',
                             lastName: 'Ceased'
                         }
                     },
-                    journeyType: 'probate'
+                    journeyType: 'gop'
                 }
             };
             const ctx = DeceasedAlias.getContextData(req);
@@ -51,7 +51,7 @@ describe('ApplicantNameAsOnWill', () => {
                 lastName: 'Ceased',
                 deceasedName: 'Dee Ceased',
                 sessionID: 'dummy_sessionId',
-                journeyType: 'probate'
+                journeyType: 'gop'
             });
             done();
         });
