@@ -11,7 +11,7 @@
             visible: true
         }
     ],
-    url = content.DeceasedName.url,
+    url = content.DeceasedName.url if fields.summary.journeyType.value === "gop" else content.DeceasedDetails.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 
@@ -68,7 +68,7 @@
             visible: true
         }
     ],
-    url = content.DeceasedDob.url,
+    url = content.DeceasedDob.url if fields.summary.journeyType.value === "gop" else content.DeceasedDetails.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
@@ -81,7 +81,7 @@
             visible: true
         }
     ],
-    url = content.DeceasedDod.url,
+    url = content.DeceasedDod.url if fields.summary.journeyType.value === "gop" else content.DeceasedDetails.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
