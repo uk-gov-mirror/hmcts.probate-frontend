@@ -32,10 +32,6 @@ class Documents extends ValidationStep {
             ctx.executorsNameChangedByDeedPollList = executorsWrapper.executorsNameChangedByDeedPoll();
         } else {
             ctx.spouseRenouncing = formdata.deceased.maritalStatus === deceasedMaritalStatusContent.optionMarried && (formdata.applicant.relationshipToDeceased === relationshipToDeceasedContent.optionChild || formdata.applicant.relationshipToDeceased === relationshipToDeceasedContent.optionAdoptedChild);
-
-            console.log('MARRIED: ', formdata.deceased.maritalStatus === deceasedMaritalStatusContent.optionMarried);
-            console.log('RELATIONSHIP: ', formdata.applicant.relationshipToDeceased);
-            console.log('RENOUNCING: ', ctx.spouseRenouncing);
         }
 
         ctx.is205 = formdata.iht && formdata.iht.method === ihtContent.optionPaper && formdata.iht.form === 'IHT205';
