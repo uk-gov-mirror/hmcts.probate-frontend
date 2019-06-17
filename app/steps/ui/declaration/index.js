@@ -6,6 +6,7 @@ const intestacyDeclarationFactory = require('app/utils/IntestacyDeclarationFacto
 const ValidationStep = require('app/core/steps/ValidationStep');
 const executorNotifiedContent = require('app/resources/en/translation/executors/notified');
 const executorContent = require('app/resources/en/translation/executors/executorcontent');
+const assetsOutsideContent = require('app/resources/en/translation/iht/assetsoutside');
 const {get} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
@@ -62,7 +63,7 @@ class Declaration extends ValidationStep {
         const formDataForTemplate = this.getFormDataForTemplate(content, formdata);
 
         if (ctx.isIntestacyJourney && formdata.iht) {
-            ctx.showNetValueAssetsOutside = (formdata.iht.netValue + formdata.iht.netValueAssetsOutside) > config.assetsValueThreshold;
+            ctx.showNetValueAssetsOutside = (formdata.iht.assetsOutside === assetsOutsideContent.optionYes && (formdata.iht.netValue + formdata.iht.netValueAssetsOutside) > config.assetsValueThreshold);
             if (ctx.showNetValueAssetsOutside) {
                 ctx.ihtNetValueAssetsOutside = formDataForTemplate.ihtNetValueAssetsOutside;
             }
