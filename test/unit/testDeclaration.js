@@ -222,6 +222,8 @@ describe('Declaration', () => {
                 executorsEmailChanged: false,
                 hasDataChangedAfterEmailSent: true,
                 isIntestacyJourney: true,
+                showNetValueAssetsOutside: true,
+                ihtNetValueAssetsOutside: 300000,
                 invitesSent: 'true',
             };
             formdata = {};

@@ -47,6 +47,7 @@ class Declaration extends ValidationStep {
         const formdataIht = formdata.iht || {};
         formdata.ihtGrossValue = formdataIht.grossValue ? formdataIht.grossValue.toFixed(2) : 0;
         formdata.ihtNetValue = formdataIht.netValue ? formdataIht.netValue.toFixed(2) : 0;
+        formdata.ihtNetValueAssetsOutside = formdataIht.netValueAssetsOutside ? formdataIht.netValueAssetsOutside.toFixed(2) : 0;
 
         return formdata;
     }
@@ -60,7 +61,11 @@ class Declaration extends ValidationStep {
         const content = this.generateContent(ctx, formdata);
         const formDataForTemplate = this.getFormDataForTemplate(content, formdata);
 
-        if (ctx.isIntestacyJourney) {
+        if (ctx.isIntestacyJourney && formdata.iht) {
+            ctx.showNetValueAssetsOutside = (formdata.iht.netValue + formdata.iht.netValueAssetsOutside) > config.assetsValueThreshold;
+            if (ctx.showNetValueAssetsOutside) {
+                ctx.ihtNetValueAssetsOutside = formDataForTemplate.ihtNetValueAssetsOutside;
+            }
             templateData = intestacyDeclarationFactory.build(ctx, content, formDataForTemplate);
         } else {
             ctx.executorsWrapper = new ExecutorsWrapper(formdata.executors);
@@ -195,6 +200,8 @@ class Declaration extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.isIntestacyJourney;
+        delete ctx.showNetValueAssetsOutside;
+        delete ctx.ihtNetValueAssetsOutside;
         delete ctx.hasMultipleApplicants;
 
         if (ctx.hasDataChanged === true) {

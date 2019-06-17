@@ -23,6 +23,8 @@ class IntestacyDeclarationFactory {
             deceasedEstateValue: content.deceasedEstateValue
                 .replace('{ihtGrossValue}', formdata.ihtGrossValue)
                 .replace('{ihtNetValue}', formdata.ihtNetValue),
+            deceasedEstateAssetsOverseas: content.intestacyDeceasedEstateOutside
+                .replace('{ihtNetValueAssetsOutside}', formdata.ihtNetValueAssetsOutside),
             deceasedEstateLand: content.intestacyDeceasedEstateLand
                 .replace(/{deceasedName}/g, formdata.deceasedName),
             applying: content.intestacyLettersOfAdministration
