@@ -20,7 +20,7 @@ describe('Applicant2NameFactory', () => {
         it('should return intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k', (done) => {
             formdata.maritalStatus = contentMaritalStatus.optionMarried;
             formdata.relationshipToDeceased = contentRelationshipToDeceased.optionSpousePartner;
-            formdata.hadChildren = contentAnyChildren.optionNo;
+            formdata.anyChildren = contentAnyChildren.optionNo;
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
             expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k);
             done();
@@ -157,7 +157,7 @@ describe('Applicant2NameFactory', () => {
         it('should replace {deceasedName} tag', (done) => {
             formdata.maritalStatus = contentMaritalStatus.optionMarried;
             formdata.relationshipToDeceased = contentRelationshipToDeceased.optionSpousePartner;
-            formdata.hadChildren = contentAnyChildren.optionNo;
+            formdata.anyChildren = contentAnyChildren.optionNo;
             formdata.deceasedName = 'Dee Ceased';
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
             expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k.replace(/{deceasedName}/g, formdata.deceasedName));
