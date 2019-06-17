@@ -57,6 +57,8 @@ describe('IntestacyDeclarationFactory', () => {
                     deceasedEstateValue: content.deceasedEstateValue
                         .replace('{ihtGrossValue}', formdata.ihtGrossValue)
                         .replace('{ihtNetValue}', formdata.ihtNetValue),
+                    deceasedEstateAssetsOverseas: content.intestacyDeceasedEstateOutside
+                        .replace('{ihtNetValueAssetsOutside}', formdata.ihtNetValueAssetsOutside),
                     deceasedMaritalStatus: content.intestacyDeceasedMaritalStatus
                         .replace('{deceasedMaritalStatus}', get(formdata.deceased, 'maritalStatus', '').toLowerCase()),
                     deceasedOtherNames: formdata.deceasedOtherNames ? content.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames) : '',
