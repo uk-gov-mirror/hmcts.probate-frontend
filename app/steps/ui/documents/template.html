@@ -29,8 +29,8 @@
         {% endfor %}
     {% endif %}
 {% else %}
-    {% if fields %}
-        {% set checklistItems = (checklistItems.push(content["checklist-item2-spouse-renouncing"]), checklistItems) %}
+    {% if fields.spouseRenouncing.value === "true" %}
+        {% set checklistItems = (checklistItems.push(content["checklist-item2-spouse-renouncing"] | replace("{renunciationFormLink}", links.renunciationForm)), checklistItems) %}
     {% endif %}
     {% if fields.uploads.value | length === 0 %}
         {% set checklistItems = (checklistItems.push(content["checklist-item3-will-uploaded"]), checklistItems) %}
@@ -45,7 +45,6 @@
 {% endblock %}
 
 {% block form_content %}
-    <p>Journey Type: {{ fields.journeyType.value }}</p>
     <h2 class="heading-medium">{{ content.heading1 | safe }}</h2>
     <p>{{ content.coverSheetDownloadMessage }} <a id="coverSheetPdfHref" href="/cover-sheet-pdf">{{ content.coverSheetPdf }}</a>.</p>
     {% if fields.ccdReferenceNumber.value !== '' %}
