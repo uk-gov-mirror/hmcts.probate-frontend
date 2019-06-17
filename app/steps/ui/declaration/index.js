@@ -40,8 +40,8 @@ class Declaration extends ValidationStep {
         formdata.dob_formattedDate = formdataDeceased.dob_formattedDate;
         formdata.dod_formattedDate = formdataDeceased.dod_formattedDate;
         formdata.maritalStatus = formdataDeceased.maritalStatus;
-        formdata.relationshipToDeceased = formdataDeceased.relationshipToDeceased;
-        formdata.hadChildren = formdataDeceased.hadChildren;
+        formdata.relationshipToDeceased = formdataApplicant.relationshipToDeceased;
+        formdata.anyChildren = formdataDeceased.anyChildren;
         formdata.anyOtherChildren = formdataDeceased.anyOtherChildren;
 
         const formdataIht = formdata.iht || {};
