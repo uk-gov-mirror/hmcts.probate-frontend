@@ -5,8 +5,8 @@ yarn test:crossbrowser_IE11
 sleep 2s
 yarn test:crossbrowser_Edge
 sleep 2s
-test:crossbrowser_chrome
+yarn test:crossbrowser_chrome
 sleep 2s
-test:crossbrowser_firefox
+yarn test:crossbrowser_firefox
 
 
