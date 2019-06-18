@@ -10,6 +10,7 @@ module.exports = function () {
     I.amOnLoadedPage(pageUnderTest.getUrl());
 
     I.waitForVisible('.document-upload__dropzone-text--choose-file');
+    console.log('loading document 1 >>', I.isEdge());
 
     if (I.isEdge() === 'f') {
         //if (I.seeElementInDOM('.dz-hidden-input')) {
