@@ -1,6 +1,7 @@
 'use strict';
 
 const Helper = codecept_helper;
+const testConfig = require('test/config');
 
 class WebDriverHelper extends Helper {
 
@@ -15,18 +16,16 @@ class WebDriverHelper extends Helper {
     }
 
     isEdge() {
-        let ret = 'f';
-        const browserName = this.helpers.WebDriverIO.config.browser;
         /* eslint no-console: 0 no-unused-vars: 0 */
-        //console.log('browser>>>>', this.helpers.WebDriverIO.config.browser + '<<<<<<');
+        const browser = this.helpers.WebDriverIO.browser;
 
-        console.log('typeOf>>>>', typeof 'browserName');
-        if (browserName === 'MicrosoftEdge') {
-            ret = 't';
+        console.log('browser>>>>', browser.config.browser);
+        if (browser.config.browser !== 'MicrosoftEdge') {
+            console.log('browser.config.browser>>>>>>>>', browser.config.browser);
+            browser.waitForExist('.dz-hidden-input', testConfig.TestWaitForElementToAppear * testConfig.TestOneMilliSecond);
+            browser.chooseFile('.dz-hidden-input', '/uploadDocuments/test_file_for_document_upload.png');
+            browser.waitForEnabled('#button', testConfig.TestDocumentToUpload);
         }
-        /* eslint no-console: 0 no-unused-vars: 0 */
-        console.log('t or f>>>', ret);
-        return ret;
     }
 
 }
