@@ -29,7 +29,7 @@ describe('Applicant2NameFactory', () => {
         it('should return intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k', (done) => {
             formdata.maritalStatus = contentMaritalStatus.optionMarried;
             formdata.relationshipToDeceased = contentRelationshipToDeceased.optionSpousePartner;
-            formdata.ihtNetValue = 0;
+            formdata.ihtTotalNetValue = 0;
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
             expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k);
             done();
@@ -46,7 +46,7 @@ describe('Applicant2NameFactory', () => {
 
         it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted', (done) => {
             formdata.maritalStatus = contentMaritalStatus.optionMarried;
-            formdata.ihtNetValue = 0;
+            formdata.ihtTotalNetValue = 0;
             formdata.anyOtherChildren = contentAnyOtherChildren.optionYes;
             formdata.relationshipToDeceased = contentRelationshipToDeceased.optionAdoptedChild;
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
@@ -56,7 +56,7 @@ describe('Applicant2NameFactory', () => {
 
         it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted', (done) => {
             formdata.maritalStatus = contentMaritalStatus.optionMarried;
-            formdata.ihtNetValue = 0;
+            formdata.ihtTotalNetValue = 0;
             formdata.anyOtherChildren = contentAnyOtherChildren.optionYes;
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
             expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted);
@@ -65,7 +65,7 @@ describe('Applicant2NameFactory', () => {
 
         it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted', (done) => {
             formdata.maritalStatus = contentMaritalStatus.optionMarried;
-            formdata.ihtNetValue = 0;
+            formdata.ihtTotalNetValue = 0;
             formdata.anyOtherChildren = contentAnyOtherChildren.optionNo;
             formdata.relationshipToDeceased = contentRelationshipToDeceased.optionAdoptedChild;
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
@@ -75,7 +75,7 @@ describe('Applicant2NameFactory', () => {
 
         it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted', (done) => {
             formdata.maritalStatus = contentMaritalStatus.optionMarried;
-            formdata.ihtNetValue = 0;
+            formdata.ihtTotalNetValue = 0;
             formdata.anyOtherChildren = contentAnyOtherChildren.optionNo;
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
             expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted);
@@ -84,7 +84,7 @@ describe('Applicant2NameFactory', () => {
 
         it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted', (done) => {
             formdata.maritalStatus = contentMaritalStatus.optionMarried;
-            formdata.ihtNetValue = 500000;
+            formdata.ihtTotalNetValue = 500000;
             formdata.anyOtherChildren = contentAnyOtherChildren.optionYes;
             formdata.relationshipToDeceased = contentRelationshipToDeceased.optionAdoptedChild;
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
@@ -94,7 +94,7 @@ describe('Applicant2NameFactory', () => {
 
         it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted', (done) => {
             formdata.maritalStatus = contentMaritalStatus.optionMarried;
-            formdata.ihtNetValue = 500000;
+            formdata.ihtTotalNetValue = 500000;
             formdata.anyOtherChildren = contentAnyOtherChildren.optionYes;
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
             expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted);
@@ -103,7 +103,7 @@ describe('Applicant2NameFactory', () => {
 
         it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted', (done) => {
             formdata.maritalStatus = contentMaritalStatus.optionMarried;
-            formdata.ihtNetValue = 500000;
+            formdata.ihtTotalNetValue = 500000;
             formdata.anyOtherChildren = contentAnyOtherChildren.optionNo;
             formdata.relationshipToDeceased = contentRelationshipToDeceased.optionAdoptedChild;
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
@@ -113,7 +113,7 @@ describe('Applicant2NameFactory', () => {
 
         it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted', (done) => {
             formdata.maritalStatus = contentMaritalStatus.optionMarried;
-            formdata.ihtNetValue = 500000;
+            formdata.ihtTotalNetValue = 500000;
             formdata.anyOtherChildren = contentAnyOtherChildren.optionNo;
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
             expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted);

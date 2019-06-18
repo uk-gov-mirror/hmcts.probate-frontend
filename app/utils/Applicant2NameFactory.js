@@ -28,7 +28,7 @@ function getMarried(formdata, content) {
 }
 
 function getSpousePartner(formdata, content) {
-    if (formdata.anyChildren === contentAnyChildren.optionNo || formdata.ihtNetValue <= config.assetsValueThreshold) {
+    if (formdata.anyChildren === contentAnyChildren.optionNo || formdata.ihtTotalNetValue <= config.assetsValueThreshold) {
         return content.intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k;
     }
     return content.intestacyDeceasedMarriedSpouseApplyingHadChildren;
