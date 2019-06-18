@@ -35,7 +35,7 @@ function getSpousePartner(formdata, content) {
 }
 
 function getNonSpousePartner(formdata, content) {
-    if (formdata.ihtNetValue <= config.assetsValueThreshold) {
+    if (formdata.ihtTotalNetValue <= config.assetsValueThreshold) {
         return getAnyOtherChildrenBelowThreshold(formdata, content);
     }
     return getAnyOtherChildrenAboveThreshold(formdata, content);
