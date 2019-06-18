@@ -267,7 +267,7 @@ describe('Documents', () => {
         });
     });
 
-    describe.only('runnerOptions', () => {
+    describe('runnerOptions', () => {
         it('do not redirect if journey is gop', (done) => {
             const ctx = {
                 journeyType: 'gop'

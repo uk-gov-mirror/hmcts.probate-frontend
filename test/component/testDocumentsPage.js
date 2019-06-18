@@ -349,7 +349,7 @@ describe('documents', () => {
             });
         });
 
-        describe.only('Intestacy Journey', () => {
+        describe('Intestacy Journey', () => {
             it('test correct content loaded on the page', (done) => {
                 sessionData.deceased = {
                     maritalStatus: deceasedMaritalStatusContent.optionMarried
