@@ -11,12 +11,12 @@ class WebDriverHelper extends Helper {
         return browser.back();
     }
 
-    async downloadPdfIfNotIE11(pdf) {
+    async downloadPdfIfNotIE11(pdfLink) {
         const browserName = this.helpers.WebDriverIO.config.browser;
         const helper = this.helpers.WebDriverIO;
 
         if (browserName !== 'internet explorer') {
-            await helper.click(pdf);
+            await helper.click(pdfLink);
         }
     }
 
@@ -29,8 +29,6 @@ class WebDriverHelper extends Helper {
             await helper.attachFile('.dz-hidden-input', testConfig.TestDocumentToUpload);
             await helper.waitForEnabled('#button', testConfig.TestWaitForElementToAppear);
         }
-        /* eslint no-useless-return: 0 no-unused-vars: 0 */
-        return;
     }
 
 }
