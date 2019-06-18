@@ -26,8 +26,8 @@ class WebDriverHelper extends Helper {
 
         if (browserName !== 'MicrosoftEdge') {
             await helper.waitForElement('.dz-hidden-input', testConfig.TestWaitForElementToAppear * testConfig.TestOneMilliSecond);
-            await helper.attachFile('.dz-hidden-input', '/uploadDocuments/test_file_for_document_upload.png');
-            await helper.waitForEnabled('#button', testConfig.TestDocumentToUpload);
+            await helper.attachFile('.dz-hidden-input', testConfig.TestDocumentToUpload);
+            await helper.waitForEnabled('#button', testConfig.TestWaitForElementToAppear);
         }
         /* eslint no-useless-return: 0 no-unused-vars: 0 */
         return;
