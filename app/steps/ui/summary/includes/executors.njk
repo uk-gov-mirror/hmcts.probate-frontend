@@ -39,7 +39,7 @@
 )}}
 
 {% for executor in fields.executors.list.value %}
-    {% if executor.isApplicant != true and executor.isDead === true %}
+    {% if executor.isApplicant != true and executor.isDead == true %}
         {{checkanswer(
             items = [
                 {

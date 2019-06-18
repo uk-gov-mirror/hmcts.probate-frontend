@@ -86,12 +86,12 @@
     items = [
         {
             question: fields.summary.deceasedAnyChildrenQuestion.value,
-            answer: fields.applicant.anyChildren.value,
+            answer: fields.deceased.anyChildren.value,
             visible:
             (
                 fields.applicant.relationshipToDeceased.value == content.RelationshipToDeceased.optionSpousePartner
                 and
-                fields.summary.ihtTotalNetValueGreaterThan250k.value === true
+                fields.summary.ihtTotalNetValueGreaterThan250k.value == "true"
             )
         }
     ],
@@ -119,9 +119,9 @@
             (
                 fields.applicant.relationshipToDeceased.value == content.RelationshipToDeceased.optionSpousePartner
                 and
-                fields.summary.ihtTotalNetValueGreaterThan250k.value === true
+                fields.summary.ihtTotalNetValueGreaterThan250k.value == "true"
                 and
-                fields.applicant.anyChildren == content.AnyChildren.optionYes
+                fields.deceased.anyChildren.value == content.AnyChildren.optionYes
             )
         }
     ],
@@ -150,9 +150,9 @@
                 (
                     fields.applicant.relationshipToDeceased.value == content.RelationshipToDeceased.optionSpousePartner
                     and
-                    fields.summary.ihtTotalNetValueGreaterThan250k.value === true
+                    fields.summary.ihtTotalNetValueGreaterThan250k.value == "true"
                     and
-                    fields.applicant.anyChildren == content.AnyChildren.optionYes
+                    fields.deceased.anyChildren.value == content.AnyChildren.optionYes
                 )
             )
             and
@@ -184,9 +184,9 @@
                 (
                     fields.applicant.relationshipToDeceased.value == content.RelationshipToDeceased.optionSpousePartner
                     and
-                    fields.summary.ihtTotalNetValueGreaterThan250k.value === true
+                    fields.summary.ihtTotalNetValueGreaterThan250k.value == "true"
                     and
-                    fields.applicant.anyChildren == content.AnyChildren.optionYes
+                    fields.deceased.anyChildren.value == content.AnyChildren.optionYes
                 )
             )
             and
