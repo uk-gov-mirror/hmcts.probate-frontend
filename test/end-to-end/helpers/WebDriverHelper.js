@@ -16,7 +16,8 @@ class WebDriverHelper extends Helper {
 
     isEdge() {
         /* eslint no-console: 0 no-unused-vars: 0 */
-        console.log('browser>>>>', this.helpers.WebDriverIO.config.browser);
+        console.log('browser>>>>', this.helpers.WebDriverIO.config.browser + '<<<<<<');
+        console.log('true or false>>>', this.helpers.WebDriverIO.config.browser === 'MicrosoftEdge');
         return (this.helpers.WebDriverIO.config.browser === 'MicrosoftEdge');
     }
 
