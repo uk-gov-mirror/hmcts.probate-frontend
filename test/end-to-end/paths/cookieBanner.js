@@ -19,7 +19,6 @@ After(() => {
 // eslint-disable-next-line no-undef
 Scenario(TestConfigurator.idamInUseText('Check that the pages display a cookie banner with link'), function (I) {
 
-    I.isEdge();
     //Screeners & Pre-IDAM
     I.clearCookie();
     I.startApplication(true);
