@@ -1,12 +1,11 @@
 tags:
   - idam-pr
 
-memoryRequests: "1024Mi"
-cpuRequests: "100m"
-memoryLimits: "2048Mi"
-cpuLimits: "2500m"
-
 nodejs:
+  memoryRequests: "512Mi"
+  cpuRequests: "100m"
+  memoryLimits: "2048Mi"
+  cpuLimits: "2500m"
   applicationPort: 3000
   environment:
     PUBLIC_PROTOCOL: https
