@@ -11,8 +11,13 @@ class WebDriverHelper extends Helper {
         return browser.back();
     }
 
-    isInternetExplorer() {
-        return (this.helpers.WebDriverIO.config.browser === 'internet explorer');
+    async downloadPdfIfNotIE11(pdf) {
+        const browserName = this.helpers.WebDriverIO.config.browser;
+        const helper = this.helpers.WebDriverIO;
+
+        if (browserName !== 'internet explorer') {
+            await helper.click(pdf);
+        }
     }
 
     async uploadDocumentIfNotMicrosoftEdge() {
