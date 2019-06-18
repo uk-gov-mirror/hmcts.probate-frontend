@@ -15,16 +15,17 @@ class WebDriverHelper extends Helper {
     }
 
     isEdge() {
-        let ret = false;
+        let ret = 'f';
         const browserName = this.helpers.WebDriverIO.config.browser;
         /* eslint no-console: 0 no-unused-vars: 0 */
         //console.log('browser>>>>', this.helpers.WebDriverIO.config.browser + '<<<<<<');
+
         console.log('typeOf>>>>', typeof 'browserName');
         if (browserName === 'MicrosoftEdge') {
-            ret = true;
+            ret = 't';
         }
         /* eslint no-console: 0 no-unused-vars: 0 */
-        console.log('true or false>>>', ret);
+        console.log('t or f>>>', ret);
         return ret;
     }
 
