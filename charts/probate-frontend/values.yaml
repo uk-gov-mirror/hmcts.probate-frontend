@@ -4,8 +4,8 @@ tags:
 nodejs:
   memoryRequests: "512Mi"
   cpuRequests: "100m"
-  memoryLimits: "2048Mi"
-  cpuLimits: "2500m"
+  memoryLimits: "1024Mi"
+  cpuLimits: "500m"
   applicationPort: 3000
   environment:
     PUBLIC_PROTOCOL: https
