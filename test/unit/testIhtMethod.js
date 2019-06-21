@@ -50,8 +50,8 @@ describe('IhtMethod', () => {
             let ctx = {
                 method: content.optionPaper,
                 identifier: '1234567890',
-                grossValueOnline: '500000',
-                netValueOnline: '400000',
+                grossValueField: '500000',
+                netValueField: '400000',
 
                 assetsOutside: contentAssetsOutside.optionYes,
                 netValueAssetsOutsideField: '150000',
