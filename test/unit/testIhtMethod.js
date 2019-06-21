@@ -85,8 +85,8 @@ describe('IhtMethod', () => {
                 method: content.optionOnline,
                 form: 'IHT205',
                 ihtFormId: 'IHT205',
-                grossIHT205: '500000',
-                netIHT205: '400000',
+                grossValueIHT205: '500000',
+                netValueIHT205: '400000',
 
                 assetsOutside: contentAssetsOutside.optionYes,
                 netValueAssetsOutsideField: '150000',

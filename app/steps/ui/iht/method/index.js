@@ -28,12 +28,24 @@ class IhtMethod extends ValidationStep {
             } else {
                 delete ctx.form;
                 delete ctx.ihtFormId;
-                delete ctx.grossIHT205;
-                delete ctx.grossIHT207;
-                delete ctx.grossIHT400421;
-                delete ctx.netIHT205;
-                delete ctx.netIHT207;
-                delete ctx.netIHT400421;
+
+                delete ctx.grossValueIHT205;
+                delete ctx.grossValueFieldIHT205;
+
+                delete ctx.grossValueIHT207;
+                delete ctx.grossValueFieldIHT207;
+
+                delete ctx.grossValueIHT400421;
+                delete ctx.grossValueFieldIHT400421;
+
+                delete ctx.netValueIHT205;
+                delete ctx.netValueFieldIHT205;
+
+                delete ctx.netValueIHT207;
+                delete ctx.netValueFieldIHT207;
+
+                delete ctx.netValueIHT400421;
+                delete ctx.netValueFieldIHT400421;
             }
 
             delete ctx.assetsOutside;
