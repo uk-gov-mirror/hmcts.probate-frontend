@@ -11,7 +11,7 @@ class ApplicantNameAsOnWill extends ValidationStep {
         return '/applicant-name-as-on-will';
     }
 
-    isSoftStop (formdata, ctx) {
+    isSoftStop (formdata) {
         return {
             stepName: this.constructor.name,
             isSoftStop: get(formdata, 'applicant.nameAsOnTheWill') === content.optionNo

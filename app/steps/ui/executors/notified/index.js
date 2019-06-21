@@ -47,7 +47,7 @@ class ExecutorNotified extends CollectionStep {
         return [ctx, formdata];
     }
 
-    isSoftStop(formdata, ctx) {
+    isSoftStop(formdata) {
         const execList = get(formdata, 'executors.list', []);
         const softStopForNotNotified = some(execList, exec => exec.executorNotified === content.optionNo);
 
