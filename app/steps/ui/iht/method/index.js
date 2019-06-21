@@ -23,8 +23,12 @@ class IhtMethod extends ValidationStep {
         if (formdata.iht && formdata.iht.method && ctx.method !== formdata.iht.method) {
             if (ctx.method === content.optionPaper) {
                 delete ctx.identifier;
-                delete ctx.grossValueOnline;
-                delete ctx.netValueOnline;
+
+                delete ctx.grossValue;
+                delete ctx.grossValueField;
+
+                delete ctx.netValue;
+                delete ctx.netValueField;
             } else {
                 delete ctx.form;
                 delete ctx.ihtFormId;
