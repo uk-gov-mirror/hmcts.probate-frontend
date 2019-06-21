@@ -64,7 +64,7 @@ exports.init = function() {
 
     // Application settings
     app.set('view engine', 'html');
-    app.set('views', ['app/steps', 'app/views', 'node_modules/govuk-frontend/', 'node_modules/govuk-frontend/components/']);
+    app.set('views', ['app/steps', 'app/views']);
 
     const njkEnv = nunjucks.configure([
         'app/steps',
