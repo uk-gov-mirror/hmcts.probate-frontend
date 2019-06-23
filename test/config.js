@@ -28,13 +28,11 @@ module.exports = {
     TestOneMilliSecond: 1000,
 
     postcodeLookup: {
-        token: process.env.ADDRESS_TOKEN,
-        url: process.env.POSTCODE_SERVICE_URL,
-        endpoint: process.env.POSTCODE_SERVICE_ENDPOINT || '/addresses',
+        token: process.env.POSTCODE_SERVICE_TOKEN,
         contentType: 'application/json',
         singleAddressPostcode: 'SW1A 1AA',
         singleOrganisationName: 'BUCKINGHAM PALACE',
-        singleFormattedAddress: 'Buckingham Palace\nLondon\nSW1A 1AA',
+        singleFormattedAddress: 'BUCKINGHAM PALACE, LONDON, SW1A 1AA',
         multipleAddressPostcode: 'N145JY',
         partialAddressPostcode: 'N14',
         invalidAddressPostcode: 'Z99 9ZZ',
