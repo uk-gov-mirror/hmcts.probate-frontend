@@ -28,7 +28,8 @@ module.exports = {
     TestOneMilliSecond: 1000,
 
     postcodeLookup: {
-        token: process.env.POSTCODE_SERVICE_TOKEN,
+        //token: process.env.POSTCODE_SERVICE_TOKEN,
+        token: process.env.ADDRESS_TOKEN,
         contentType: 'application/json',
         singleAddressPostcode: 'SW1A 1AA',
         singleOrganisationName: 'BUCKINGHAM PALACE',
