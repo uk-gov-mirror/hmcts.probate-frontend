@@ -5,7 +5,7 @@ const logger = require('app/components/logger')('Init');
 const testConfig = require('test/config');
 const POSTCODE_SERVICE_TOKEN = testConfig.postcodeLookup.token;
 const OSPlacesClient = require('@hmcts/os-places-client').OSPlacesClient;
-const osPlacesClient = new OSPlacesClient(POSTCODE_SERVICE_TOKEN);
+const osPlacesClient = new OSPlacesClient('kaavvnfdrAPOX44RZ5OvPsHPGFaSg2KS');
 const osPlacesClientUnauthorised = new OSPlacesClient('INVALID-TOKEN');
 
 describe('Address Lookup API Tests', () => {
