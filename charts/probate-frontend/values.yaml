@@ -1,9 +1,16 @@
 tags:
   - idam-pr
 
-
 nodejs:
+  memoryRequests: "512Mi"
+  cpuRequests: "100m"
+  memoryLimits: "1024Mi"
+  cpuLimits: "500m"
   applicationPort: 3000
+  memoryRequests: "512Mi"
+  cpuRequests: "100m"
+  memoryLimits: "1024Mi"
+  cpuLimits: "500m"
   environment:
     PUBLIC_PROTOCOL: https
     REFORM_TEAM: probate
