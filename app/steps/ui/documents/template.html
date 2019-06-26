@@ -54,8 +54,10 @@
 
     {{ unorderedList(checklistItems) }}
 
-    <p>{{ content.text3 | safe }}</p>
-    <p>{{ content.text4 | safe }}</p>
+    {% if fields.journeyType.value === "gop" %}
+        <p>{{ content.text3 | safe }}</p>
+        <p>{{ content.text4 | safe }}</p>
+    {% endif %}
 
     <div class="panel panel-border-wide">
         <p>{{ content.warning | safe }}</p>

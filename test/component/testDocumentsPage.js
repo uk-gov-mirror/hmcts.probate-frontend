@@ -370,6 +370,8 @@ describe('documents', () => {
                             .send(sessionData)
                             .end(() => {
                                 const excludeKeys = [
+                                    'text3',
+                                    'text4',
                                     'text6',
                                     'checklist-item1-codicils',
                                     'checklist-item1-no-codicils',
