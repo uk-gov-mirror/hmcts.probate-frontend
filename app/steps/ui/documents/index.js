@@ -33,7 +33,7 @@ class Documents extends ValidationStep {
 
             if (!((deceasedMarried && applicantIsChild) || noDocumentsUploaded || iht205Used)) {
                 options.redirect = true;
-                options.url = '/thank-you';
+                options.url = '/thankyou';
             }
         }
 
