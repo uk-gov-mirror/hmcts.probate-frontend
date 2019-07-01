@@ -9,7 +9,7 @@
         name: "method",
         fieldset: {
             legend: {
-                text: content.question | safe,
+                text: content.question,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
@@ -21,12 +21,12 @@
         items: [
             {
                 value: content["optionPaper"],
-                text: content["optionPaper"] | safe,
+                text: content["optionPaper"],
                 checked: true if fields.method.value == content["optionPaper"] | escape
             },
             {
                 value: content["optionOnline"],
-                text: content["optionOnline"] | safe,
+                text: content["optionOnline"],
                 checked: true if fields.method.value == content["optionOnline"] | escape
             }
         ]

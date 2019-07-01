@@ -101,7 +101,7 @@
         name: "form",
         fieldset: {
             legend: {
-                text: content.question | safe,
+                text: content.question,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
@@ -110,7 +110,7 @@
         items: [
             {
                 value: "IHT205",
-                text: content["optionIHT205"] | safe,
+                text: content["optionIHT205"],
                 checked: true if fields.form.value == "IHT205" | escape,
                 conditional: {
                     html: iht205html
@@ -118,7 +118,7 @@
             },
             {
                 value: "IHT207",
-                text: content["optionIHT207"] | safe,
+                text: content["optionIHT207"],
                 checked: true if fields.form.value == "IHT207" | escape,
                 conditional: {
                     html: iht207html
@@ -126,7 +126,7 @@
             },
             {
                 value: "IHT400421",
-                text: content["optionIHT400421"] | safe,
+                text: content["optionIHT400421"],
                 checked: true if fields.form.value == "IHT400421" | escape,
                 conditional: {
                     html: iht400421html
