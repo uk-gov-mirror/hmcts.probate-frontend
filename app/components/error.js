@@ -1,6 +1,6 @@
 'use strict';
 
-const {filter, isEqual, map, uniqWith, forEach} = require('lodash');
+const {filter, isEqual, map, uniqWith} = require('lodash');
 const i18next = require('i18next');
 
 const FieldError = (param, keyword, resourcePath, contentCtx) => {
