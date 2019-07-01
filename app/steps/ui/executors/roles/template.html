@@ -18,12 +18,12 @@
         items: [
             {
                 value: content["optionPowerReserved"],
-                text: content["optionPowerReserved"] | safe,
+                text: content["optionPowerReserved"],
                 checked: true if fields.notApplyingReason.value == content["optionPowerReserved"] | escape
             },
             {
                 value: content["optionRenunciated"],
-                text: content["optionRenunciated"] | safe,
+                text: content["optionRenunciated"],
                 checked: true if fields.notApplyingReason.value == content["optionRenunciated"] | escape
             }
         ]
