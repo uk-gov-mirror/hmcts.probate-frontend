@@ -94,7 +94,6 @@ exports.init = function() {
             tenant: config.webChat.tenant
         }
     };
-
     njkEnv.addGlobal('globals', globals);
 
     filters(njkEnv);
@@ -141,6 +140,7 @@ exports.init = function() {
         browserSniff: true,
         setAllHeaders: true
     }));
+
     // Http public key pinning
     app.use(helmet.hpkp({
         maxAge: 900,
@@ -153,12 +153,10 @@ exports.init = function() {
     }));
 
     app.use(helmet.noCache());
-
     app.use(helmet.xssFilter({setOnOldIE: true}));
 
-    app.use('/webchat', express.static(`${__dirname}/node_modules/@hmcts/ctsc-web-chat/assets`));
-
     // Middleware to serve static assets
+    app.use('/webchat', express.static(`${__dirname}/node_modules/@hmcts/ctsc-web-chat/assets`));
     app.use('/public/stylesheets', express.static(`${__dirname}/public/stylesheets`));
     app.use('/public/images', express.static(`${__dirname}/app/assets/images`));
     app.use('/public/javascripts/govuk-frontend', express.static(`${__dirname}/node_modules/govuk-frontend`));
