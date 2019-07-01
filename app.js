@@ -77,21 +77,25 @@ exports.init = function() {
         noCache: true
     });
 
-    njkEnv.addGlobal('currentYear', new Date().getFullYear());
-    njkEnv.addGlobal('gaTrackingId', config.gaTrackingId);
-    njkEnv.addGlobal('enableTracking', config.enableTracking);
-    njkEnv.addGlobal('links', config.links);
-    njkEnv.addGlobal('helpline', config.helpline);
-    njkEnv.addGlobal('nonce', uuid);
-    njkEnv.addGlobal('documentUpload', {
-        validMimeTypes: config.documentUpload.validMimeTypes,
-        maxFiles: config.documentUpload.maxFiles,
-        maxSizeBytes: config.documentUpload.maxSizeBytes
-    });
-    njkEnv.addGlobal('webChat', {
-        chatId: config.webChat.chatId,
-        tenant: config.webChat.tenant
-    });
+    const globals = {
+        currentYear: new Date().getFullYear(),
+        gaTrackingId: config.gaTrackingId,
+        enableTracking: config.enableTracking,
+        links: config.links,
+        helpline: config.helpline,
+        nonce: uuid,
+        documentUpload: {
+            validMimeTypes: config.documentUpload.validMimeTypes,
+            maxFiles: config.documentUpload.maxFiles,
+            maxSizeBytes: config.documentUpload.maxSizeBytes
+        },
+        webChat: {
+            chatId: config.webChat.chatId,
+            tenant: config.webChat.tenant
+        }
+    };
+
+    njkEnv.addGlobal('globals', globals);
 
     filters(njkEnv);
     njkEnv.express(app);
