@@ -16,18 +16,18 @@
             }
         },
         hint: {
-            text: content.hint | safe
+            text: content.hint
         },
         errorMessage: { text: fields.spouseNotApplyingReason.errorMessage.message | safe } if fields.spouseNotApplyingReason.errorMessage,
         items: [
             {
                 value: content["optionRenouncing"],
-                text: content["optionRenouncing"] | safe,
+                text: content["optionRenouncing"],
                 checked: true if fields.spouseNotApplyingReason.value == content["optionRenouncing"] | escape
             },
             {
                 value: content["optionOther"],
-                text: content["optionOther"] | safe,
+                text: content["optionOther"],
                 checked: true if fields.spouseNotApplyingReason.value == content["optionOther"] | escape
             }
         ]
