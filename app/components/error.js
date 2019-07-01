@@ -34,8 +34,7 @@ const generateErrors = (errs, ctx, formdata, errorPath, lang = 'en') => {
             [, param] = e.dataPath.split('.');
             if (!param) {
                 param = e.dataPath
-                    .replace(/\['/, '')
-                    .replace(/']/, '');
+                    .replace(/\['|']/g, '');
             }
             return FieldError(param, 'invalid', errorPath);
 
@@ -51,7 +50,7 @@ const mapErrorsToFields = (fields, errors = []) => {
 
     if (Array.isArray(errors[0])) {
         errors.forEach((error) => {
-            forEach(error[1], (e) => {
+            error[1].forEach((e) => {
                 err.push(e);
             });
         });
