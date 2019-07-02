@@ -103,7 +103,6 @@ var DocumentUpload = {
         $('.dz-preview').each(function(key) {
             $(this).find('.dz-remove').attr('data-index', key);
             $(this).find('.dz-remove').attr('href', '/document-upload/remove/'+key);
-            $(this).find('.dz-remove').removeAttr('data-dz-remove');
         });
     },
     removeDocument: function(index) {
