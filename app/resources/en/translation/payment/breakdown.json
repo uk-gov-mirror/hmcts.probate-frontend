@@ -25,6 +25,9 @@
       },
       "duplicate": {
         "summary": "Your application has been submitted, please return to the tasklist to continue."
+      },
+      "validation": {
+        "summary": "There has been a problem saving your application."
       }
     }
   }

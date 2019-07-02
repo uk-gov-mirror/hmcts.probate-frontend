@@ -108,7 +108,7 @@ class PaymentStatus extends Step {
                 return options;
             }
 
-            const [updateCcdCaseResponse, errors] = yield this.updateForm(ctx, [], formdata, getPaymentResponse, serviceAuthResult);
+            const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, getPaymentResponse, serviceAuthResult);
             set(formdata, 'ccdCase', updateCcdCaseResponse.ccdCase);
             set(formdata, 'payment', updateCcdCaseResponse.payment);
 
@@ -126,7 +126,7 @@ class PaymentStatus extends Step {
             }
         } else {
             const paymentDto = {status: 'not_required'};
-            const [updateCcdCaseResponse, errors] = yield this.updateForm(ctx, formdata, paymentDto, serviceAuthResult);
+            const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, paymentDto, serviceAuthResult);
             set(formdata, 'ccdCase', updateCcdCaseResponse.ccdCase);
             set(formdata, 'payment', updateCcdCaseResponse.payment);
             this.setErrors(options, errors);
@@ -136,14 +136,18 @@ class PaymentStatus extends Step {
         return options;
     }
 
-    * updateForm(ctx, formdata, paymentDto, serviceAuthResult) {
+    * updateForm(data, ctx, paymentDto, serviceAuthResult) {
         const submitData = ServiceMapper.map(
             'SubmitData',
             [config.services.orchestrator.url, ctx.sessionID],
             ctx.journeyType
         );
         let errors;
-        const result = yield submitData.submit(formdata, paymentDto, ctx.authToken, serviceAuthResult);
+        const result = yield submitData.submit(data, paymentDto, ctx.authToken, serviceAuthResult);
+        if (result.type === 'VALIDATION') {
+            errors = [];
+            errors.push(FieldError('update', 'failure', this.resourcePath, ctx))
+        }
         logger.info(`submitData.submit result = ${JSON.stringify(result)}`);
 
         if (result.name === 'Error') {

@@ -34,6 +34,9 @@
       },
       "fieldMinSize": {
         "summary": "Must be at least {min} characters"
+      },
+      "validationError": {
+        "summary": "There’s been a problem saving your application"
       }
     }
   }

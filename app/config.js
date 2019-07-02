@@ -42,7 +42,8 @@ const config = {
                 payments: '/forms/{applicantEmail}/payments',
                 payment_updates: '/payment-updates',
                 payment_submissions: '/forms/{applicantEmail}/payment-submissions',
-                fees: '/forms/{applicantEmail}/fees'
+                fees: '/forms/{applicantEmail}/fees',
+                validations: '/forms/{applicantEmail}/validations'
             }
         },
         validation: {

@@ -69,6 +69,9 @@ class PaymentBreakdown extends Step {
             }
 
             const paymentSubmission = yield paymentSubmissions.post('Create payment and submit form', formdata.applicantEmail, ctx.authToken, serviceAuthResult, hostname);
+            if (paymentSubmission.type === 'VALIDATION') {
+                errors.push(FieldError('submit', 'validation', this.resourcePath, ctx))
+            }
             if (paymentSubmission.name === 'Error') {
                 errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));
                 return [ctx, errors];
@@ -197,6 +200,9 @@ class PaymentBreakdown extends Step {
             ctx.journeyType
         );
         const result = yield submitData.submit(formdata, paymentDto, ctx.authToken, serviceAuthResult);
+        if (result.type === 'VALIDATION') {
+            errors.push(FieldError('submit', 'validation', this.resourcePath, ctx))
+        }
         logger.info(`submitData.submit result = ${JSON.stringify(result)}`);
 
         if (result.name === 'Error') {

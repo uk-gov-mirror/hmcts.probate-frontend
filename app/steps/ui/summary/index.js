@@ -11,7 +11,8 @@ const FormatName = require('app/utils/FormatName');
 const FeatureToggle = require('app/utils/FeatureToggle');
 const CheckAnswersSummaryJSONObjectBuilder = require('app/utils/CheckAnswersSummaryJSONObjectBuilder');
 const checkAnswersSummaryJSONObjBuilder = new CheckAnswersSummaryJSONObjectBuilder();
-const ValidateData = require('app/services/ValidateData');
+const ServiceMapper = require('app/utils/ServiceMapper');
+const Authorise = require('app/services/Authorise');
 const config = require('app/config');
 
 class Summary extends Step {
@@ -25,10 +26,17 @@ class Summary extends Step {
     }
 
     * handleGet(ctx, formdata, featureToggles) {
-        const result = yield this.validateFormData(ctx, formdata);
-        const errors = map(result.errors, err => {
-            return FieldError(err.param, err.code, this.resourcePath, ctx);
-        });
+        const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
+        const serviceAuthResult = yield authorise.post();
+        if (serviceAuthResult.name === 'Error') {
+            logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
+            const keyword = 'failure';
+            let errors = [];
+            errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
+            return [ctx, errors];
+        }
+        const result = yield this.validateFormData(formdata, ctx, serviceAuthResult);
+        const errors = result.type === 'VALIDATION' ? this.createErrors(FieldError('businessError', 'validationError', this.resourcePath, ctx)) : null;
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         const executorsApplying = executorsWrapper.executorsApplying(true);
 
@@ -43,9 +51,14 @@ class Summary extends Step {
         return [ctx, !isEmpty(errors) ? errors : null];
     }
 
-    validateFormData(ctx, formdata) {
-        const validateData = new ValidateData(config.services.validation.url, ctx.sessionID);
-        return validateData.post(formdata, ctx.sessionID);
+    * validateFormData(data, ctx, serviceAuthResult) {
+        const validateData = ServiceMapper.map(
+            'ValidateData',
+            [config.services.orchestrator.url, ctx.sessionID],
+            ctx.journeyType
+        );
+        const result = yield validateData.put(data, ctx.authToken, serviceAuthResult);
+        return result;
     }
 
     generateContent(ctx, formdata) {
@@ -96,12 +109,19 @@ class Summary extends Step {
         ctx.softStop = this.anySoftStops(formdata, ctx);
         ctx.alreadyDeclared = this.alreadyDeclared(req.session);
         ctx.session = req.session;
+        ctx.authToken = req.authToken;
         return ctx;
     }
 
     renderPage(res, html) {
         res.req.session.checkAnswersSummary = checkAnswersSummaryJSONObjBuilder.build(html);
         res.send(html);
+    }
+
+    createErrors(fieldError){
+        let errors = new Array();
+        errors.push(fieldError);
+        return errors;
     }
 }
 
