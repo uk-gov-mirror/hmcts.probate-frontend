@@ -273,7 +273,7 @@ describe('DocumentUploadMiddleware', () => {
         });
     });
 
-    describe.only('removeDocument()', () => {
+    describe('removeDocument()', () => {
         let req;
 
         beforeEach(() => {
@@ -342,9 +342,11 @@ describe('DocumentUploadMiddleware', () => {
             const next = sinon.spy();
             documentUploadMiddleware.removeDocument(req, res, next);
             setTimeout(() => {
-                expect(next.calledWith(error)).to.equal(true);
-                revert();
-                done();
+                setTimeout(() => {
+                    expect(next.calledWith(error)).to.equal(true);
+                    revert();
+                    done();
+                });
             });
         });
     });
