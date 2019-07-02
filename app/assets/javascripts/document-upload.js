@@ -30,7 +30,7 @@ var DocumentUpload = {
                 .on('addedfile', function() {
                     DocumentUpload.hideEmptyListMessage();
                     DocumentUpload.disableSubmitButton();
-                    DocumentUpload.addDocumentRemoveLink();
+                    DocumentUpload.addDataIndex();
                 })
                 .on('removedfile', function(file) {
                     DocumentUpload.showEmptyListMessage();
@@ -99,9 +99,11 @@ var DocumentUpload = {
     disableSubmitButton: function() {
         $('.button').attr('disabled', 'disabled');
     },
-    addDocumentRemoveLink: function() {
+    addDataIndex: function() {
         $('.dz-preview').each(function(key) {
+            $(this).find('.dz-remove').attr('data-index', key);
             $(this).find('.dz-remove').attr('href', '/document-upload/remove/'+key);
+            $(this).find('.dz-remove').removeAttr('data-dz-remove');
         });
     },
     removeDocument: function(index) {
