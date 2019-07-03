@@ -99,7 +99,7 @@ router.use((req, res, next) => {
     ) {
         res.redirect('task-list');
     } else if (req.originalUrl.includes('summary') && isHardStop(formdata, setJourney.getJourneyName(req.session))) {
-        res.redirect('task-list');
+        res.redirect('/task-list');
     } else {
         next();
     }
