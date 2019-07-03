@@ -235,6 +235,7 @@ exports.init = function() {
     app.use('/executors-additional-invite', additionalInvite);
     app.use('/executors-update-invite', updateInvite);
     app.use('/declaration', declaration);
+
     app.use(featureToggles);
 
     if (useIDAM === 'true') {
