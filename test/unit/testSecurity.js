@@ -13,7 +13,7 @@ chai.use(sinonChai);
 describe('Security middleware', () => {
     const role = 'probate-private-beta';
     const loginUrl = 'http://localhost:8000/login';
-    const timeoutUrl = 'time-out';
+    const timeoutUrl = '/time-out';
     const loginUrlWithContinue = `${loginUrl}?response_type=code&state=57473&client_id=probate&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Foauth2%2Fcallback`;
     const token = 'dummyToken';
     const appConfig = require('../../app/config');

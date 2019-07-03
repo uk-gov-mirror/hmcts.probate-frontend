@@ -48,7 +48,7 @@ describe('Executors invite endpoints', () => {
 
         checkAsync(() => {
             sinon.assert.calledOnce(res.redirect);
-            expect(res.redirect).to.have.been.calledWith('sign-in');
+            expect(res.redirect).to.have.been.calledWith('/sign-in');
             restore();
             done();
         });
@@ -66,7 +66,7 @@ describe('Executors invite endpoints', () => {
 
         checkAsync(() => {
             sinon.assert.calledOnce(res.redirect);
-            expect(res.redirect).to.have.been.calledWith('errors/404');
+            expect(res.redirect).to.have.been.calledWith('/errors/404');
             restore();
             done();
         });

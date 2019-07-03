@@ -55,7 +55,7 @@ class Security {
                                 delete req.sessionID;
                                 delete req.session;
                                 delete req.sessionStore;
-                                return res.redirect('time-out');
+                                return res.redirect('/time-out');
                             }
                             req.log.debug('Extending session for active user.');
                             req.session.expires = Date.now() + config.app.session.expires;
