@@ -9,18 +9,14 @@ class JSWait extends codecept_helper {
         }
     }
 
-    async navByClick (text, locator) {
+    navByClick (text, locator) {
         const helper = this.helpers.WebDriverIO || this.helpers.Puppeteer;
-        const helperIsPuppeteer = this.helpers.Puppeteer;
-
-        helper.click(text, locator);
-
-        if (helperIsPuppeteer) {
-            await helper.page.waitForNavigation({waitUntil: 'networkidle0'});
-        } else {
-            await helper.wait(2);
-        }
+        return Promise.all([
+            helper.page.waitForNavigation({waitUntil: 'networkidle0'}),
+            helper.click(text, locator)
+        ]);
     }
+
 
     async amOnLoadedPage (url) {
         const helper = this.helpers.WebDriverIO || this.helpers.Puppeteer;
