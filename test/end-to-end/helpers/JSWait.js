@@ -17,7 +17,6 @@ class JSWait extends codecept_helper {
         ]);
     }
 
-
     async amOnLoadedPage (url) {
         const helper = this.helpers.WebDriverIO || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
