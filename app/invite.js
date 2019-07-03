@@ -14,8 +14,8 @@ class InviteLink {
 
         return (req, res) => {
             self.checkLinkIsValid(req, res,
-                (res) => res.redirect('/sign-in'),
-                (res) => res.redirect('/errors/404'));
+                (res) => res.redirect('sign-in'),
+                (res) => res.redirect('errors/404'));
         };
     }
 
