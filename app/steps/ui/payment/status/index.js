@@ -146,7 +146,7 @@ class PaymentStatus extends Step {
         const result = yield submitData.submit(data, paymentDto, ctx.authToken, serviceAuthResult);
         if (result.type === 'VALIDATION') {
             errors = [];
-            errors.push(FieldError('update', 'failure', this.resourcePath, ctx))
+            errors.push(FieldError('update', 'failure', this.resourcePath, ctx));
         }
         logger.info(`submitData.submit result = ${JSON.stringify(result)}`);
 

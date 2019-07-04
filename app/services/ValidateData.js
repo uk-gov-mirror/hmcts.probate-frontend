@@ -12,7 +12,7 @@ class ValidateData extends Service {
         };
         const path = this.replaceEmailInPath(this.config.services.orchestrator.paths.validations, this.getApplicantEmail(data));
         const url = this.endpoint + path + '?probateType=' + this.getFormType();
-        const fetchOptions = this.fetchOptions({},'PUT', headers);
+        const fetchOptions = this.fetchOptions({}, 'PUT', headers);
         return this.fetchJson(url, fetchOptions);
     }
 

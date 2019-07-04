@@ -27,9 +27,21 @@ describe('Summary', () => {
     describe('handleGet()', () => {
         it('ctx.executorsWithOtherNames returns array of execs with other names', (done) => {
             const expectedResponse = ['Prince', 'Cher'];
-            const revert = Summary.__set__('ValidateData', class {
-                post() {
-                    return Promise.resolve(expectedResponse);
+
+            const revertAuthorise = Summary.__set__({
+                Authorise: class {
+                    post() {
+                        return Promise.resolve({name: 'Success'});
+                    }
+                }
+            });
+            const revert = Summary.__set__('ServiceMapper', class {
+                static map() {
+                    return class {
+                        static put() {
+                            return Promise.resolve(expectedResponse);
+                        }
+                    };
                 }
             });
             let ctx = {
@@ -51,11 +63,6 @@ describe('Summary', () => {
 
         it('executorsWithOtherNames returns empty when hasOtherName is false', (done) => {
             const expectedResponse = [];
-            const revert = Summary.__set__('ValidateData', class {
-                post() {
-                    return Promise.resolve(expectedResponse);
-                }
-            });
             let ctx = {
                 session: {
                     form: {},
@@ -68,18 +75,12 @@ describe('Summary', () => {
             co(function* () {
                 [ctx] = yield summary.handleGet(ctx, formdata);
                 assert.deepEqual(ctx.executorsWithOtherNames, expectedResponse);
-                revert();
                 done();
             });
         });
 
         it('executorsWithOtherNames returns empty when list is empty', (done) => {
             const expectedResponse = [];
-            const revert = Summary.__set__('ValidateData', class {
-                post() {
-                    return Promise.resolve(expectedResponse);
-                }
-            });
             let ctx = {
                 session: {
                     form: {},
@@ -92,18 +93,12 @@ describe('Summary', () => {
             co(function* () {
                 [ctx] = yield summary.handleGet(ctx, formdata);
                 assert.deepEqual(ctx.executorsWithOtherNames, expectedResponse);
-                revert();
                 done();
             });
         });
 
         it('check feature toggles are set correctly to true', (done) => {
             const expectedResponse = true;
-            const revert = Summary.__set__('ValidateData', class {
-                post() {
-                    return Promise.resolve(expectedResponse);
-                }
-            });
             let ctx = {
                 session: {
                     form: {},
@@ -119,18 +114,12 @@ describe('Summary', () => {
             co(function* () {
                 [ctx] = yield summary.handleGet(ctx, formdata, featureToggles);
                 assert.equal(ctx.isDocumentUploadToggleEnabled, expectedResponse);
-                revert();
                 done();
             });
         });
 
         it('check feature toggles are set correctly to false', (done) => {
             const expectedResponse = false;
-            const revert = Summary.__set__('ValidateData', class {
-                post() {
-                    return Promise.resolve(expectedResponse);
-                }
-            });
             let ctx = {
                 session: {
                     form: {},
@@ -146,10 +135,123 @@ describe('Summary', () => {
             co(function* () {
                 [ctx] = yield summary.handleGet(ctx, formdata, featureToggles);
                 assert.equal(ctx.isDocumentUploadToggleEnabled, expectedResponse);
+                done();
+            });
+        });
+    });
+
+    describe('handlePost()', () => {
+        it('should return errors when validation service responds with errors ', (done) => {
+            const expectedResponse = {type : "VALIDATION", errors: [{field: 'id', message: 'not null'}]};
+
+            const revertAuthorise = Summary.__set__({
+                Authorise: class {
+                    post() {
+                        return Promise.resolve({name: 'Success'});
+                    }
+                }
+            });
+            const revert = Summary.__set__('ServiceMapper', class {
+                static map() {
+                    return class {
+                        static put() {
+                            return Promise.resolve(expectedResponse);
+                        }
+                    };
+                }
+            });
+            let ctx = {
+                session: {
+                    form: {},
+                    journey: probateJourney
+                }
+            };
+            let errors = {};
+            const summary = new Summary(steps, section, templatePath, i18next, schema);
+
+            co(function* () {
+                [ctx, errors] = yield summary.handlePost(ctx, errors);
+                assert.lengthOf(errors, 1);
+                revertAuthorise();
                 revert();
                 done();
             });
         });
+
+        it('should not return errors when validation service responds with no errors ', (done) => {
+            const expectedResponse = {};
+
+            const revertAuthorise = Summary.__set__({
+                Authorise: class {
+                    post() {
+                        return Promise.resolve({name: 'Success'});
+                    }
+                }
+            });
+            const revert = Summary.__set__('ServiceMapper', class {
+                static map() {
+                    return class {
+                        static put() {
+                            return Promise.resolve(expectedResponse);
+                        }
+                    };
+                }
+            });
+            let ctx = {
+                session: {
+                    form: {},
+                    journey: probateJourney
+                }
+            };
+            let errors = {};
+            const summary = new Summary(steps, section, templatePath, i18next, schema);
+
+            co(function* () {
+                [ctx, errors] = yield summary.handlePost(ctx, errors);
+                assert.isEmpty(errors);
+                revertAuthorise();
+                revert();
+                done();
+            });
+        });
+
+        it('should return errors when authorisation fails ', (done) => {
+            const expectedResponse = {};
+
+            const revertAuthorise = Summary.__set__({
+                Authorise: class {
+                    post() {
+                        return Promise.resolve({name: 'Error'});
+                    }
+                }
+            });
+            const revert = Summary.__set__('ServiceMapper', class {
+                static map() {
+                    return class {
+                        static put() {
+                            return Promise.resolve(expectedResponse);
+                        }
+                    };
+                }
+            });
+            let ctx = {
+                session: {
+                    form: {},
+                    journey: probateJourney
+                }
+            };
+            let errors = {};
+            const summary = new Summary(steps, section, templatePath, i18next, schema);
+
+            co(function* () {
+                [ctx, errors] = yield summary.handlePost(ctx, errors);
+                assert.lengthOf(errors, 1);
+                revertAuthorise();
+                revert();
+                done();
+            });
+        });
+
     });
 
     describe('getContextData()', () => {

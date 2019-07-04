@@ -67,7 +67,7 @@ class AsyncFetch {
             const json = JSON.stringify(body);
             log.error(json);
         } catch (e) {
-            log.error(body)
+            log.error(body);
         }
     }
 }

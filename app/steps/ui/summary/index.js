@@ -3,7 +3,8 @@
 const Step = require('app/core/steps/Step');
 const OptionGetRunner = require('app/core/runners/OptionGetRunner');
 const FieldError = require('app/components/error');
-const {isEmpty, map, includes} = require('lodash');
+const {isEmpty, includes} = require('lodash');
+const logger = require('app/components/logger')('Init');
 const utils = require('app/components/step-utils');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
@@ -25,18 +26,24 @@ class Summary extends Step {
         return `/summary/${redirect}`;
     }
 
-    * handleGet(ctx, formdata, featureToggles) {
+    * handlePost(ctx, errors, formdata, session, hostname) {
         const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
         const serviceAuthResult = yield authorise.post();
         if (serviceAuthResult.name === 'Error') {
             logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
             const keyword = 'failure';
-            let errors = [];
+            const errors = [];
             errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
             return [ctx, errors];
         }
         const result = yield this.validateFormData(formdata, ctx, serviceAuthResult);
-        const errors = result.type === 'VALIDATION' ? this.createErrors(FieldError('businessError', 'validationError', this.resourcePath, ctx)) : null;
+        if (result.type === 'VALIDATION') {
+            errors = [FieldError('businessError', 'validationError', this.resourcePath, ctx)];
+        };
+        return [ctx, errors];
+    }
+
+    * handleGet(ctx, formdata, featureToggles) {
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         const executorsApplying = executorsWrapper.executorsApplying(true);
 
@@ -48,7 +55,7 @@ class Summary extends Step {
         ctx.executorsWithOtherNames = executorsWrapper.executorsWithAnotherName().map(exec => exec.fullName);
 
         utils.updateTaskStatus(ctx, ctx, this.steps);
-        return [ctx, !isEmpty(errors) ? errors : null];
+        return [ctx, null];
     }
 
     * validateFormData(data, ctx, serviceAuthResult) {
@@ -116,12 +123,6 @@ class Summary extends Step {
     renderPage(res, html) {
         res.req.session.checkAnswersSummary = checkAnswersSummaryJSONObjBuilder.build(html);
         res.send(html);
-    }
-
-    createErrors(fieldError){
-        let errors = new Array();
-        errors.push(fieldError);
-        return errors;
     }
 }
 
