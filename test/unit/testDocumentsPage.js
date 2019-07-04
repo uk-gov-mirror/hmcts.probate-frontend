@@ -389,7 +389,7 @@ describe('Documents', () => {
 
                 expect(options).to.deep.equal({
                     redirect: true,
-                    url: '/thank-you'
+                    url: '/thankyou'
                 });
                 done();
             }).catch(err => {
