@@ -6,6 +6,7 @@
   "optionYes": "Yes",
   "optionNo": "No",
   "legend": "Are all the executors able to make their own decisions?",
+
   "errors": {
     "mentalCapacity": {
       "required": {

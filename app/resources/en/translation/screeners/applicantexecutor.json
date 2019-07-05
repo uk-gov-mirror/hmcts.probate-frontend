@@ -6,6 +6,7 @@
   "optionYes": "Yes",
   "optionNo": "No",
   "legend": "Are you named as an executor on the will?",
+
   "errors": {
     "executor": {
       "required": {

@@ -6,6 +6,7 @@
   "optionYes": "Yes",
   "optionNo": "No",
   "legend": "Did the person who died live permanently in England or Wales, or intend to return here?",
+
   "errors": {
     "domicile": {
       "required": {

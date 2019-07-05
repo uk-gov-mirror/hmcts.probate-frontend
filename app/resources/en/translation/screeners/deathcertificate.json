@@ -5,6 +5,7 @@
   "optionYes": "Yes",
   "optionNo": "No",
   "legend": "Do you have a death certificate?",
+
   "errors": {
     "deathCertificate": {
       "required": {

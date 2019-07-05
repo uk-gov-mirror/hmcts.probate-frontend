@@ -7,6 +7,7 @@
   "optionYes": "Yes",
   "optionNo": "No",
   "legend": "Are you the spouse, civil partner or child of the person who died?",
+
   "errors": {
     "related": {
       "required": {

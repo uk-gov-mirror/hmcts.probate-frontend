@@ -5,6 +5,7 @@
   "optionYes": "Yes",
   "optionNo": "No",
   "legend": "Has an Inheritance Tax (IHT) form been filled in?",
+
   "errors": {
     "completed": {
       "required": {

@@ -8,6 +8,7 @@
     "optionYes": "Yes",
     "optionNo": "No",
     "legend": "Will any of the other executors be dealing with the estate?",
+
     "errors": {
         "otherExecutorsApplying": {
             "required": {
