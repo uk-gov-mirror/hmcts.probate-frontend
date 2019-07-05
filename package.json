@@ -58,7 +58,7 @@
     "@hmcts/ctsc-web-chat": "^0.1.21",
     "@hmcts/nodejs-logging": "^3.0.0",
     "@hmcts/os-places-client": "^1.0.4",
-    "ajv": "^6.10.0",
+    "ajv": "^4.11.8",
     "applicationinsights": "^1.4.0",
     "basic-auth": "^2.0.1",
     "body-parser": "^1.19.0",
