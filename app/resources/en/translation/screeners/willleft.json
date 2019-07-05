@@ -3,7 +3,6 @@
   "question": "Did the person who died leave a will?",
   "optionYes": "Yes",
   "optionNo": "No",
-  "legend": "Did the person who died leave a will?",
 
   "errors": {
     "left": {
