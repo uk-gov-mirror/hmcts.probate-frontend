@@ -1,7 +1,7 @@
 'use strict';
 
 const i18next = require('i18next');
-const mapValues = require('lodash').mapValues;
+const {mapValues, forEach} = require('lodash');
 const JourneyMap = require('app/core/JourneyMap');
 
 const commonContent = function (lang = 'en') {
@@ -15,7 +15,7 @@ const updateTaskStatus = function (ctx, req, steps) {
     const journeyMap = new JourneyMap(req.session.journey);
     const taskList = journeyMap.taskList();
 
-    Object.keys(taskList).forEach(taskName => {
+    forEach(Object.keys(taskList), (taskName) => {
         const task = taskList[taskName];
         let status = 'notStarted';
         let step = steps[task.firstStep];
