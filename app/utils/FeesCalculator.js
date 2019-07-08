@@ -40,7 +40,7 @@ class FeesCalculator {
     }
 }
 
-async function createCallsRequired(formdata, headers) {
+const createCallsRequired = async (formdata, headers) => {
     const returnResult = {
         status: 'success',
         applicationfee: 0,
@@ -101,11 +101,11 @@ async function createCallsRequired(formdata, headers) {
  * if no fee_amount is returned, we assume an error has occured
  * this caters for 404 type messages etc.
  */
-function identifyAnyErrors(res) {
+const identifyAnyErrors = (res) => {
     if (res.fee_amount) {
         return false;
     }
     return true;
-}
+};
 
 module.exports = FeesCalculator;
