@@ -22,9 +22,9 @@ describe('WillCodicils', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        journeyType: 'probate'
+                        journeyType: 'gop'
                     },
-                    journeyType: 'probate'
+                    journeyType: 'gop'
                 },
                 body: {
                     codicils: content.optionYes
@@ -34,7 +34,10 @@ describe('WillCodicils', () => {
             expect(ctx).to.deep.equal({
                 codicils: 'Yes',
                 sessionID: 'dummy_sessionId',
-                journeyType: 'probate'
+                journeyType: 'gop',
+                featureToggles: {
+                    webchat: 'false'
+                }
             });
             done();
         });
@@ -46,12 +49,12 @@ describe('WillCodicils', () => {
                 session: {
                     journey: journey,
                     form: {
-                        journeyType: 'probate'
+                        journeyType: 'gop'
                     },
                     featureToggles: {
                         screening_questions: false
                     },
-                    journeyType: 'probate'
+                    journeyType: 'gop'
                 },
                 body: {
                     codicils: 'Yes'
@@ -77,7 +80,7 @@ describe('WillCodicils', () => {
             };
             const WillCodicils = steps.WillCodicils;
             const nextStepUrl = WillCodicils.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/tasklist');
+            expect(nextStepUrl).to.equal('/task-list');
             done();
         });
     });
@@ -97,7 +100,7 @@ describe('WillCodicils', () => {
     });
 
     describe('action()', () => {
-        it('cleans up context', () => {
+        it('test it cleans up context', () => {
             const ctx = {
                 codicils: content.optionNo,
                 codicilsNumber: 3

@@ -31,7 +31,7 @@ describe('any-deceased-children', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('AnyDeceasedChildren');
+        testHelpBlockContent.runTest('AnyDeceasedChildren', featureTogglesNock);
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
@@ -46,7 +46,7 @@ describe('any-deceased-children', () => {
                 .send(sessionData)
                 .end(() => {
                     const contentData = {deceasedName: 'John Doe', deceasedDoD: '13 October 2018'};
-                    testWrapper.testContent(done, [], contentData);
+                    testWrapper.testContent(done, ['theDeceased'], contentData);
                 });
         });
 

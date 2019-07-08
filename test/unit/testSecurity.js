@@ -53,7 +53,7 @@ describe('Security middleware', () => {
                 },
                 session: {
                     form: {
-                        journeyType: 'probate'
+                        journeyType: 'gop'
                     }
                 },
                 get: sinon.stub().returns('localhost:3000')
@@ -163,32 +163,6 @@ describe('Security middleware', () => {
                 .then(() => {
                     sinon.assert.calledOnce(res.redirect);
                     expect(res.redirect).to.have.been.calledWith(timeoutUrl);
-                    revert();
-                    done();
-                })
-                .catch((err) => {
-                    done(err);
-                });
-        });
-
-        it('should ignore redirect to time-out page if expired page is /payment-status', (done) => {
-            const revert = Security.__set__('IdamSession', class {
-                get() {
-                    return promise;
-                }
-            });
-
-            req.session = {expires: expiresTimeInThePast};
-            req.cookies[securityCookie] = token;
-            req.originalUrl = '/payment-status';
-            req.protocol = 'http';
-            const promise = when({name: 'Success', roles: ['probate-private-beta', 'citizen']});
-
-            protect(req, res, next);
-
-            promise
-                .then(() => {
-                    sinon.assert.notCalled(res.redirect);
                     revert();
                     done();
                 })

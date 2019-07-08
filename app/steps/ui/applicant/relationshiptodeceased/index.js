@@ -16,7 +16,7 @@ class RelationshipToDeceased extends ValidationStep {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
         ctx.deceasedMaritalStatus = get(formdata, 'deceased.maritalStatus');
-        ctx.assetsValue = get(formdata, 'iht.netValue', 0) + get(formdata, 'deceased.netValueAssetsOutside', 0);
+        ctx.assetsValue = get(formdata, 'iht.netValue', 0) + get(formdata, 'iht.netValueAssetsOutside', 0);
         return ctx;
     }
 
@@ -48,6 +48,20 @@ class RelationshipToDeceased extends ValidationStep {
         delete ctx.spousePartnerMoreThan250k;
         delete ctx.childDeceasedMarried;
         delete ctx.childDeceasedNotMarried;
+
+        if (formdata.applicant && formdata.applicant.relationshipToDeceased && ctx.relationshipToDeceased !== formdata.applicant.relationshipToDeceased) {
+            delete ctx.adoptionPlace;
+            delete ctx.spouseNotApplyingReason;
+
+            if (formdata.deceased) {
+                delete formdata.deceased.anyChildren;
+                delete formdata.deceased.anyOtherChildren;
+                delete formdata.deceased.allChildrenOver18;
+                delete formdata.deceased.anyDeceasedChildren;
+                delete formdata.deceased.anyGrandchildrenUnder18;
+            }
+        }
+
         return [ctx, formdata];
     }
 }

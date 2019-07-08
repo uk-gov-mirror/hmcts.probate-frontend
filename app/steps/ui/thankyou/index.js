@@ -6,7 +6,7 @@ const FormatCcdCaseId = require('app/utils/FormatCcdCaseId');
 class ThankYou extends Step {
 
     static getUrl () {
-        return '/thankyou';
+        return '/thank-you';
     }
 
     handleGet(ctx, formdata) {
@@ -24,12 +24,15 @@ class ThankYou extends Step {
     getContextData(req) {
         const ctx = super.getContextData(req);
         ctx.ccdReferenceNumber = FormatCcdCaseId.format(req.session.form.ccdCase);
+        ctx.ccdReferenceNumberAccessible = ctx.ccdReferenceNumber.split('').join(' ');
+        ctx.ccdReferenceNumberAccessible = ctx.ccdReferenceNumberAccessible.replace(/ - /g, ', -, ');
         return ctx;
     }
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.ccdReferenceNumber;
+        delete ctx.ccdReferenceNumberAccessible;
         return [ctx, formdata];
     }
 }

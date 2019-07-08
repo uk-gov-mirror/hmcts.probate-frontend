@@ -6,19 +6,21 @@ const config = {
     gitRevision: process.env.GIT_REVISION,
     frontendPublicHttpProtocol: process.env.PUBLIC_PROTOCOL || 'http',
     featureToggles: {
-        url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost:8282',
+        url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost:8292',
         path: process.env.FEATURE_TOGGLES_PATH || '/api/ff4j/check',
+        port: 8292,
         fe_shutter_toggle: 'probate-fe-shutter',
-        document_upload: 'probate-document-upload',
         intestacy_questions: 'probate-intestacy-questions',
-        fees_api: 'probate-fees-api'
+        fees_api: 'probate-fees-api',
+        webchat: 'probate-webchat',
+        appwideToggles: ['webchat']
     },
     app: {
         username: process.env.USERNAME,
         password: process.env.PASSWORD,
         useAuth: process.env.USE_AUTH || 'false',
         useHttps: process.env.USE_HTTPS || 'false',
-        useIDAM: process.env.USE_IDAM || 'true',
+        useIDAM: process.env.USE_IDAM || 'false',
         port: process.env.PORT || '3000',
         useCSRFProtection: 'true',
         session: {
@@ -28,11 +30,7 @@ const config = {
     },
     services: {
         postcode: {
-            url: process.env.POSTCODE_SERVICE_URL || 'http://localhost:8585/find-address',
-            token: process.env.POSTCODE_SERVICE_TOKEN,
-            proxy: process.env.http_proxy,
-            port: 8585,
-            path: '/find-address'
+            token: process.env.POSTCODE_SERVICE_TOKEN
         },
         orchestrator: {
             url: process.env.ORCHESTRATOR_SERVICE_URL || 'http://localhost:8888',
@@ -74,7 +72,7 @@ const config = {
             url: process.env.PAYMENT_API_URL || 'http://localhost:8383',
             authorization: process.env.PAYMENT_AUTHORIZATION || 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4aDNlbWc4dmhqazVhMjFzYWE4Y2MzM3YzZyIsInN1YiI6IjQyIiwiaWF0IjoxNTU3OTk5MTIxLCJleHAiOjE1NTgwMjc5MjEsImRhdGEiOiJjYXNld29ya2VyLXByb2JhdGUsY2l0aXplbixjYXNld29ya2VyLGNhc2V3b3JrZXItcHJvYmF0ZS1sb2ExLGNpdGl6ZW4tbG9hMSxjYXNld29ya2VyLWxvYTEiLCJ0eXBlIjoiQUNDRVNTIiwiaWQiOiI0MiIsImZvcmVuYW1lIjoiVXNlciIsInN1cm5hbWUiOiJUZXN0IiwiZGVmYXVsdC1zZXJ2aWNlIjoiQ0NEIiwibG9hIjoxLCJkZWZhdWx0LXVybCI6Imh0dHBzOi8vbG9jYWxob3N0OjkwMDAvcG9jL2NjZCIsImdyb3VwIjoiY2FzZXdvcmtlciJ9.5sT0KGtWsPC-Ol6RKV6gHFJl5b-OsL7HGKqdScFdOdQ',
             serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9iYXRlX2Zyb250ZW5kIiwiZXhwIjoxNTU4MDEzNTIyfQ.YEiOlFZleoA8u9fZ4iEqcrVKvOTaCRPfzM6W_DptlV63V-euNNGpJlMlz-9JWRoTQ0ZYIF9RWskTe_PlAZHJvg',
-            userId: process.env.PAYMENT_USER_ID || 42,
+            userId: process.env.PAYMENT_USER_ID || 46,
             enableBackend: false,
             paths: {
                 payments: '/payments',
@@ -120,6 +118,10 @@ const config = {
     payloadVersion: '4.1.1',
     gaTrackingId: process.env.GA_TRACKING_ID || 'UA-93598808-3',
     enableTracking: process.env.ENABLE_TRACKING || 'true',
+    webChat: {
+        chatId: process.env.WEBCHAT_CHAT_ID || 'script_7143406305ce667c21e2eb9.79440233',
+        tenant: process.env.WEBCHAT_TENANT || 'aG1jdHNzdGFnaW5nMDE',
+    },
     links: {
         cookies: '/cookies',
         privacy: '/privacy-policy',
@@ -180,10 +182,9 @@ const config = {
         version: process.env.version || '1',
         currency: process.env.currency || 'GBP'
     },
-    whitelistedPagesIgnoreSessionTimeout: ['/payment-status'],
-    whitelistedPagesAfterSubmission: ['/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
-    whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
-    whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
+    whitelistedPagesAfterSubmission: ['/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
+    whitelistedPagesAfterPayment: ['/task-list', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
+    whitelistedPagesAfterDeclaration: ['/task-list', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
     hardStopParams: {
         gop: [],
         intestacy: []

@@ -16,13 +16,13 @@ describe('Executor-Additional-Invite-Sent', function () {
                 session: {
                     form: {
                         executors: {},
-                        journeyType: 'probate'
+                        journeyType: 'gop'
                     },
                     serviceAuthorization: 'serviceAuthorization',
                     journeyType: 'probate'
                 },
-                authToken: 'authToken'
-
+                authToken: 'authToken',
+                journeyType: 'gop'
             };
         });
 
@@ -44,6 +44,9 @@ describe('Executor-Additional-Invite-Sent', function () {
                 inviteSuffix: '',
                 sessionID: 'dummy_sessionId',
                 journeyType: 'probate',
+                featureToggles: {
+                    webchat: 'false'
+                },
                 authToken: 'authToken',
                 serviceAuthorization: 'serviceAuthorization'
             });
@@ -71,9 +74,12 @@ describe('Executor-Additional-Invite-Sent', function () {
                 header: 'header-multiple',
                 inviteSuffix: '-multiple',
                 sessionID: 'dummy_sessionId',
-                journeyType: 'probate',
                 authToken: 'authToken',
-                serviceAuthorization: 'serviceAuthorization'
+                serviceAuthorization: 'serviceAuthorization',
+                journeyType: 'probate',
+                featureToggles: {
+                    webchat: 'false'
+                }
             });
         });
     });

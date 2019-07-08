@@ -6,8 +6,28 @@ const taskList = {
         lastStep: 'TaskList',
         summary: 'Summary'
     },
-    ExecutorsTask: {
+    ApplicantsTask: {
         firstStep: 'RelationshipToDeceased',
+        lastStep: 'TaskList',
+        summary: 'Summary'
+    },
+    ReviewAndConfirmTask: {
+        firstStep: 'Declaration',
+        lastStep: 'TaskList',
+        summary: 'Summary'
+    },
+    CopiesTask: {
+        firstStep: 'CopiesStart',
+        lastStep: 'CopiesSummary',
+        summary: 'CopiesSummary'
+    },
+    PaymentTask: {
+        firstStep: 'PaymentBreakdown',
+        lastStep: 'TaskList',
+        summary: 'Summary'
+    },
+    DocumentsTask: {
+        firstStep: 'Documents',
         lastStep: 'TaskList',
         summary: 'Summary'
     }
@@ -45,12 +65,8 @@ const stepList = {
         otherwise: 'StopPage'
     },
     StartApply: 'TaskList',
-
     DeceasedDetails: 'DeceasedAddress',
-    DeceasedAddress: {
-        documentUploadToggleOn: 'DocumentUpload',
-        otherwise: 'IhtMethod'
-    },
+    DeceasedAddress: 'DocumentUpload',
     DocumentUpload: {
         isUploadingDocument: 'DocumentUpload',
         otherwise: 'IhtMethod'
@@ -61,7 +77,6 @@ const stepList = {
     },
     IhtIdentifier: 'IhtValue',
     IhtValue: {
-
         lessThanOrEqualTo250k: 'AssetsOutside',
         otherwise: 'DeceasedAlias'
     },
@@ -89,7 +104,6 @@ const stepList = {
         inEnglandOrWales: 'TaskList',
         otherwise: 'StopPage'
     },
-
     RelationshipToDeceased: {
         childDeceasedMarried: 'SpouseNotApplyingReason',
         childDeceasedNotMarried: 'AnyOtherChildren',
@@ -127,8 +141,23 @@ const stepList = {
         allGrandchildrenOver18: 'ApplicantName',
         otherwise: 'StopPage'
     },
-
+    ApplicantName: 'ApplicantPhone',
+    ApplicantPhone: 'ApplicantAddress',
+    ApplicantAddress: 'Summary',
     Summary: 'TaskList',
+    Declaration: 'TaskList',
+    CopiesStart: 'CopiesUk',
+    CopiesUk: 'AssetsOverseas',
+    AssetsOverseas: {
+        assetsoverseas: 'CopiesOverseas',
+        otherwise: 'CopiesSummary'
+    },
+    CopiesOverseas: 'CopiesSummary',
+    CopiesSummary: 'TaskList',
+    PaymentBreakdown: 'PaymentStatus',
+    PaymentStatus: 'TaskList',
+    Documents: 'ThankYou',
+    ThankYou: 'TaskList',
     TaskList: 'TaskList',
     StopPage: 'StopPage'
 };

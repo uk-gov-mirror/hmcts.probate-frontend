@@ -6,7 +6,7 @@ const {forEach, head} = require('lodash');
 const testConfig = require('test/config.js');
 
 let grabIds;
-let retries = -1;
+let stage1retries = -1;
 
 Feature('Multiple Executors flow').retry(TestConfigurator.getRetryFeatures());
 
@@ -22,46 +22,15 @@ AfterSuite(() => {
     TestConfigurator.getAfter();
 });
 
-Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant: 1st stage of completing application'), async function (I) {
-    retries += 1;
+Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant; Stage 1: Enter deceased and executor details'), async function (I) {
+    stage1retries += 1;
 
-    if (retries >= 1) {
+    if (stage1retries >= 1) {
         TestConfigurator.getBefore();
     }
 
-    // Eligibility Task (pre IdAM)
-    I.startApplication();
-
-    I.selectDeathCertificate('No');
-    I.seeStopPage('deathCertificate');
-    I.selectDeathCertificate('Yes');
-
-    I.selectDeceasedDomicile('No');
-    I.seeStopPage('notInEnglandOrWales');
-    I.selectDeceasedDomicile('Yes');
-
-    I.selectIhtCompleted('No');
-    I.seeStopPage('ihtNotCompleted');
-    I.selectIhtCompleted('Yes');
-
-    I.selectPersonWhoDiedLeftAWill('Yes');
-
-    I.selectOriginalWill('No');
-    I.seeStopPage('notOriginal');
-    I.selectOriginalWill('Yes');
-
-    I.selectApplicantIsExecutor('No');
-    I.seeStopPage('notExecutor');
-    I.selectApplicantIsExecutor('Yes');
-
-    I.selectMentallyCapable('No');
-    I.seeStopPage('mentalCapacity');
-    I.selectMentallyCapable('Yes');
-
-    I.startApply();
-
     // IdAM
-    I.authenticateWithIdamIfAvailable();
+    I.authenticateWithIdamIfAvailable(true);
 
     // Deceased Task
     I.selectATask();
@@ -152,12 +121,12 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     //Retrieve the email urls for additional executors
     I.amOnPage(testConfig.TestInviteIdListUrl);
-
+    I.wait(10);
     grabIds = await I.grabTextFrom('pre');
 
 }).retry(TestConfigurator.getRetryScenarios());
 
-Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Statement of Truth'), async function (I) {
+Scenario(TestConfigurator.idamInUseText('Stage 2: Additional Executor(s) Agree to Statement of Truth'), async function (I) {
     const idList = JSON.parse(grabIds);
 
     for (let i=0; i < idList.ids.length; i++) {
@@ -179,23 +148,10 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
     }
 }).retry(TestConfigurator.getRetryScenarios());
 
-Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function (I) {
-
-    // Pre-IDAM
-    I.startApplication();
-
-    I.selectDeathCertificate('Yes');
-    I.selectDeceasedDomicile('Yes');
-    I.selectIhtCompleted('Yes');
-    I.selectPersonWhoDiedLeftAWill('Yes');
-    I.selectOriginalWill('Yes');
-    I.selectApplicantIsExecutor('Yes');
-    I.selectMentallyCapable('Yes');
-
-    I.startApply();
+Scenario(TestConfigurator.idamInUseText('Stage 3: Continuation of Main applicant journey: final stage of application'), function (I) {
 
     // IDAM
-    I.authenticateWithIdamIfAvailable();
+    I.authenticateWithIdamIfAvailable(true);
 
     // Extra Copies Task
     I.selectATask();
@@ -225,8 +181,8 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     I.seePaymentStatusPage();
 
     // Send Documents Task
-    I.seeDocumentsPage();
+    I.retry({retries: 5, maxTimeout: 30000}).seeDocumentsPage();
 
     // Thank You
-    I.seeThankYouPage();
+    I.retry({retries: 5, maxTimeout: 30000}).seeThankYouPage();
 }).retry(TestConfigurator.getRetryScenarios());

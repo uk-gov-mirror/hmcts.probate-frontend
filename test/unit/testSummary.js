@@ -96,166 +96,125 @@ describe('Summary', () => {
                 done();
             });
         });
-
-        it('check feature toggles are set correctly to true', (done) => {
-            const expectedResponse = true;
-            let ctx = {
-                session: {
-                    form: {},
-                    journey: probateJourney
-                }
-            };
-            const formdata = {executors: {list: []}};
-            const featureToggles = {
-                document_upload: true
-            };
-            const summary = new Summary(steps, section, templatePath, i18next, schema);
-
-            co(function* () {
-                [ctx] = yield summary.handleGet(ctx, formdata, featureToggles);
-                assert.equal(ctx.isDocumentUploadToggleEnabled, expectedResponse);
-                done();
-            });
-        });
-
-        it('check feature toggles are set correctly to false', (done) => {
-            const expectedResponse = false;
-            let ctx = {
-                session: {
-                    form: {},
-                    journey: probateJourney
-                }
-            };
-            const formdata = {executors: {list: []}};
-            const featureToggles = {
-                document_upload: false
-            };
-            const summary = new Summary(steps, section, templatePath, i18next, schema);
-
-            co(function* () {
-                [ctx] = yield summary.handleGet(ctx, formdata, featureToggles);
-                assert.equal(ctx.isDocumentUploadToggleEnabled, expectedResponse);
-                done();
-            });
-        });
-    });
-
-    describe('handlePost()', () => {
-        it('should return errors when validation service responds with errors ', (done) => {
-            const expectedResponse = {type : "VALIDATION", errors: [{field: 'id', message: 'not null'}]};
-
-            const revertAuthorise = Summary.__set__({
-                Authorise: class {
-                    post() {
-                        return Promise.resolve({name: 'Success'});
-                    }
-                }
-            });
-            const revert = Summary.__set__('ServiceMapper', class {
-                static map() {
-                    return class {
-                        static put() {
-                            return Promise.resolve(expectedResponse);
-                        }
-                    };
-                }
-            });
-            let ctx = {
-                session: {
-                    form: {},
-                    journey: probateJourney
-                }
-            };
-            let errors = {};
-            const summary = new Summary(steps, section, templatePath, i18next, schema);
-
-            co(function* () {
-                [ctx, errors] = yield summary.handlePost(ctx, errors);
-                assert.lengthOf(errors, 1);
-                revertAuthorise();
-                revert();
-                done();
-            });
-        });
-
-        it('should not return errors when validation service responds with no errors ', (done) => {
-            const expectedResponse = {};
-
-            const revertAuthorise = Summary.__set__({
-                Authorise: class {
-                    post() {
-                        return Promise.resolve({name: 'Success'});
-                    }
-                }
-            });
-            const revert = Summary.__set__('ServiceMapper', class {
-                static map() {
-                    return class {
-                        static put() {
-                            return Promise.resolve(expectedResponse);
-                        }
-                    };
-                }
-            });
-            let ctx = {
-                session: {
-                    form: {},
-                    journey: probateJourney
-                }
-            };
-            let errors = {};
-            const summary = new Summary(steps, section, templatePath, i18next, schema);
-
-            co(function* () {
-                [ctx, errors] = yield summary.handlePost(ctx, errors);
-                assert.isEmpty(errors);
-                revertAuthorise();
-                revert();
-                done();
-            });
-        });
-
-        it('should return errors when authorisation fails ', (done) => {
-            const expectedResponse = {};
-
-            const revertAuthorise = Summary.__set__({
-                Authorise: class {
-                    post() {
-                        return Promise.resolve({name: 'Error'});
-                    }
-                }
-            });
-            const revert = Summary.__set__('ServiceMapper', class {
-                static map() {
-                    return class {
-                        static put() {
-                            return Promise.resolve(expectedResponse);
-                        }
-                    };
-                }
-            });
-            let ctx = {
-                session: {
-                    form: {},
-                    journey: probateJourney
-                }
-            };
-            let errors = {};
-            const summary = new Summary(steps, section, templatePath, i18next, schema);
-
-            co(function* () {
-                [ctx, errors] = yield summary.handlePost(ctx, errors);
-                assert.lengthOf(errors, 1);
-                revertAuthorise();
-                revert();
-                done();
-            });
-        });
-
     });
 
     describe('getContextData()', () => {
-        it('ctx.uploadedDocuments returns an array of uploaded documents when there uploaded documents', (done) => {
+        it('[PROBATE] return the correct properties in ctx', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {
+                    form: {
+                        caseType: 'gop',
+                        deceased: {
+                            firstName: 'Dee',
+                            lastName: 'Ceased'
+                        },
+                        iht: {
+                            netValue: 300000
+                        }
+                    }
+                },
+                authToken: "1234"
+            };
+            const Summary = steps.Summary;
+            const ctx = Summary.getContextData(req);
+            expect(ctx).to.deep.equal({
+                authToken: "1234",
+                alreadyDeclared: false,
+                deceasedAliasQuestion: 'Did Dee Ceased have assets in another name?',
+                deceasedMarriedQuestion: 'Did Dee Ceased get married or enter into a civil partnership after the will was signed?',
+                featureToggles: {
+                    webchat: 'false'
+                },
+                ihtTotalNetValue: 300000,
+                journeyType: 'gop',
+                readyToDeclare: false,
+                session: {
+                    form: {
+                        caseType: 'gop',
+                        deceased: {
+                            firstName: 'Dee',
+                            lastName: 'Ceased'
+                        },
+                        iht: {
+                            netValue: 300000
+                        },
+                        summary: {
+                            readyToDeclare: false
+                        }
+                    }
+                },
+                sessionID: 'dummy_sessionId',
+                softStop: false
+            });
+            done();
+        });
+
+        it('[INTESTACY] return the correct properties in ctx', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {
+                    form: {
+                        caseType: 'intestacy',
+                        deceased: {
+                            firstName: 'Dee',
+                            lastName: 'Ceased',
+                            dod_formattedDate: '2 February 2015'
+                        },
+                        iht: {
+                            netValue: 300000,
+                            netValueAssetsOutside: 250000,
+                            assetsOutside: 'Yes'
+                        }
+                    }
+                },
+                authToken: "12345"
+            };
+            const Summary = steps.Summary;
+            const ctx = Summary.getContextData(req);
+            expect(ctx).to.deep.equal({
+                authToken: "12345",
+                alreadyDeclared: false,
+                deceasedAliasQuestion: 'Did Dee Ceased have assets in another name?',
+                deceasedAllChildrenOver18Question: 'Are all of Dee Ceased&rsquo;s children over 18?',
+                deceasedAnyChildrenQuestion: 'Did Dee Ceased have any children?',
+                deceasedAnyDeceasedChildrenQuestion: 'Did any of Dee Ceased&rsquo;s children die before 2 February 2015?',
+                deceasedAnyOtherChildrenQuestion: 'Did Dee Ceased have any other children?',
+                deceasedDivorcePlaceQuestion: 'Did the separation take place in England or Wales?',
+                deceasedMaritalStatusQuestion: 'What was Dee Ceased&rsquo;s marital status?',
+                deceasedSpouseNotApplyingReasonQuestion: 'Why isn&rsquo;t Dee Ceased&rsquo;s spouse applying?',
+                featureToggles: {
+                    webchat: 'false'
+                },
+                ihtTotalNetValue: 550000,
+                ihtTotalNetValueGreaterThan250k: true,
+                journeyType: 'intestacy',
+                readyToDeclare: false,
+                session: {
+                    form: {
+                        caseType: 'intestacy',
+                        deceased: {
+                            dod_formattedDate: '2 February 2015',
+                            firstName: 'Dee',
+                            lastName: 'Ceased'
+                        },
+                        iht: {
+                            assetsOutside: 'Yes',
+                            netValue: 300000,
+                            netValueAssetsOutside: 250000
+                        },
+                        summary: {
+                            readyToDeclare: false
+                        }
+                    }
+                },
+                sessionID: 'dummy_sessionId',
+                softStop: false
+            });
+            done();
+        });
+
+        it('ctx.uploadedDocuments returns an array of uploaded documents when there are uploaded documents', (done) => {
             const req = {
                 session: {
                     form: {
@@ -271,7 +230,7 @@ describe('Summary', () => {
             done();
         });
 
-        it('ctx.uploadedDocuments returns an empty array of uploaded documents when there no uploaded documents', (done) => {
+        it('ctx.uploadedDocuments returns an empty array of uploaded documents when there are no uploaded documents', (done) => {
             const req = {
                 session: {
                     form: {
