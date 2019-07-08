@@ -95,7 +95,7 @@ const createCallsRequired = async (formdata, headers) => {
     }
 
     return returnResult;
-}
+};
 
 /*
  * if no fee_amount is returned, we assume an error has occured
