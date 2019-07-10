@@ -21,7 +21,8 @@ const copiesData = {
     event: 'copies',
     jurisdiction1: 'family',
     jurisdiction2: 'probate registry',
-    service: 'probate'
+    service: 'probate',
+    keyword: 'NEW'
 };
 
 class FeesCalculator {

@@ -23,7 +23,7 @@ router.get(`/fees-register${config.services.feesRegister.paths.feesLookup}`, (re
             'code': 'FEE0003',
             'description': 'Additional copies of the grant representation',
             'version': 3,
-            'fee_amount': 0.50
+            'fee_amount': 1.50
         });
     }
     res.status(200);

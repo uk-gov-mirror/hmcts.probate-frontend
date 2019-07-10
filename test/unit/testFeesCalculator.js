@@ -45,13 +45,13 @@ describe('FeesCalculator', () => {
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
-                'fee_amount': 0.5
+                'fee_amount': 1.5
             }));
             feesLookupStub.onCall(2).returns(Promise.resolve({
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
-                'fee_amount': 1
+                'fee_amount': 3
             }));
 
             const expectedResponse = {
@@ -59,10 +59,10 @@ describe('FeesCalculator', () => {
                 applicationfee: 215,
                 applicationvalue: 6000,
                 ukcopies: 1,
-                ukcopiesfee: 0.50,
+                ukcopiesfee: 1.50,
                 overseascopies: 2,
-                overseascopiesfee: 1,
-                total: 216.50
+                overseascopiesfee: 3,
+                total: 219.50
             };
 
             fetchJsonStub.returns(Promise.resolve(''));
@@ -90,13 +90,13 @@ describe('FeesCalculator', () => {
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
-                'fee_amount': 0.5
+                'fee_amount': 1.5
             }));
             feesLookupStub.onCall(1).returns(Promise.resolve({
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
-                'fee_amount': 1
+                'fee_amount': 3
             }));
 
             const expectedResponse = {
@@ -104,10 +104,10 @@ describe('FeesCalculator', () => {
                 applicationfee: 0,
                 applicationvalue: 4000,
                 ukcopies: 1,
-                ukcopiesfee: 0.50,
+                ukcopiesfee: 1.50,
                 overseascopies: 2,
-                overseascopiesfee: 1,
-                total: 1.50
+                overseascopiesfee: 3,
+                total: 4.50
             };
 
             fetchJsonStub.returns(Promise.resolve(''));
@@ -187,7 +187,7 @@ describe('FeesCalculator', () => {
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
-                'fee_amount': 1
+                'fee_amount': 3
             }));
 
             const expectedResponse = {
@@ -197,8 +197,8 @@ describe('FeesCalculator', () => {
                 ukcopies: 1,
                 ukcopiesfee: 0,
                 overseascopies: 2,
-                overseascopiesfee: 1,
-                total: 1
+                overseascopiesfee: 3,
+                total: 3
             };
 
             fetchJsonStub.returns(Promise.resolve(''));
@@ -229,13 +229,13 @@ describe('FeesCalculator', () => {
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
-                'fee_amount': 0.50
+                'fee_amount': 1.50
             }));
             feesLookupStub.onCall(2).returns(Promise.resolve({
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
-                'fee_amount': 1
+                'fee_amount': 3
             }));
 
             const expectedResponse = {
@@ -243,10 +243,10 @@ describe('FeesCalculator', () => {
                 applicationfee: 0,
                 applicationvalue: 6000,
                 ukcopies: 1,
-                ukcopiesfee: 0.50,
+                ukcopiesfee: 1.50,
                 overseascopies: 2,
-                overseascopiesfee: 1,
-                total: 1.50
+                overseascopiesfee: 3,
+                total: 4.50
             };
 
             fetchJsonStub.returns(Promise.resolve(''));
