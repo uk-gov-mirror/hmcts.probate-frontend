@@ -59,15 +59,13 @@
             busHandlerURL: 'https://' + window.location.hostname + '/webchat/javascript/hmcts-webchat-busHandler.js',
             chatDownAction: 'showMessage',
             chatLinkFocusable: false,
-            text: {
-                chatDown: '{{ common.chatDown | replace("\n", "\\n") }}',
-                chatClosed: '{{ common.chatClosed | replace("\n", "\\n") }}',
-                chatWithAnAgent: '{{ common.chatWithAnAgent | replace("\n", "\\n") }}',
-                noAgentsAvailable: '{{ common.noallAgentsBusyAgentsAvailable | replace("\n", "\\n") }}',
-                allAgentsBusy: '{{ common.allAgentsBusy | replace("\n", "\\n") }}',
-                chatAlreadyOpen: '{{ common.chatAlreadyOpen | replace("\\n", "\\\\n") }}',
-                additionalText: '{{ common.chatOpeningHours | replace("\n", "\\n") }}',
-            }
+            textChatDown: '{{ common.chatDown | replace("\n", "\\n") }}',
+            textChatClosed: '{{ common.chatClosed | replace("\n", "\\n") }}',
+            textChatWithAnAgent: '{{ common.chatWithAnAgent | replace("\n", "\\n") }}',
+            textNoAgentsAvailable: '{{ common.noallAgentsBusyAgentsAvailable | replace("\n", "\\n") }}',
+            textAllAgentsBusy: '{{ common.allAgentsBusy | replace("\n", "\\n") }}',
+            textChatAlreadyOpen: '{{ common.chatAlreadyOpen | replace("\\n", "\\\\n") }}',
+            textAdditional: '{{ common.chatOpeningHours | replace("\n", "\\n") }}',
         });
     </script>
 {% endif %}
