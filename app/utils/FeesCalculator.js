@@ -99,7 +99,7 @@ async function createCallsRequired(formdata, headers) {
 }
 
 /*
- * if no fee_amount is returned, we assume an error has occured
+ * if no fee_amount is returned, we assume an error has occurred
  * this caters for 404 type messages etc.
  */
 function identifyAnyErrors(res) {
