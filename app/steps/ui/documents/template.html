@@ -7,7 +7,8 @@
 {% set checklistItems = [] %}
 {% set codicilsSuffix = "" %}
 
-{% if fields.journeyType.value === "gop" %}
+
+{% if fields.caseType.value === "gop" %}
     {% if fields.hasCodicils.value == "true" and fields.codicilsNumber.value > "0" %}
         {% set checklistItems = (checklistItems.push(content["checklist-item1-codicils"]), checklistItems) %}
         {% set codicilsSuffix = "-codicils" %}
@@ -58,7 +59,7 @@
 
         {{ unorderedList(checklistItems) }}
 
-        {% if fields.journeyType.value === "gop" %}
+        {% if fields.caseType.value === "gop" %}
             <p class="govuk-body">{{ content.text3 | safe }}</p>
             <p class="govuk-body">{{ content.text4 | safe }}</p>
         {% endif %}
