@@ -57,6 +57,7 @@ describe('Summary', () => {
                 [ctx] = yield summary.handleGet(ctx, formdata);
                 assert.deepEqual(ctx.executorsWithOtherNames, expectedResponse);
                 revert();
+                revertAuthorise();
                 done();
             });
         });
@@ -114,12 +115,12 @@ describe('Summary', () => {
                         }
                     }
                 },
-                authToken: "1234"
+                authToken: '1234'
             };
             const Summary = steps.Summary;
             const ctx = Summary.getContextData(req);
             expect(ctx).to.deep.equal({
-                authToken: "1234",
+                authToken: '1234',
                 alreadyDeclared: false,
                 deceasedAliasQuestion: 'Did Dee Ceased have assets in another name?',
                 deceasedMarriedQuestion: 'Did Dee Ceased get married or enter into a civil partnership after the will was signed?',
@@ -168,12 +169,12 @@ describe('Summary', () => {
                         }
                     }
                 },
-                authToken: "12345"
+                authToken: '12345'
             };
             const Summary = steps.Summary;
             const ctx = Summary.getContextData(req);
             expect(ctx).to.deep.equal({
-                authToken: "12345",
+                authToken: '12345',
                 alreadyDeclared: false,
                 deceasedAliasQuestion: 'Did Dee Ceased have assets in another name?',
                 deceasedAllChildrenOver18Question: 'Are all of Dee Ceased&rsquo;s children over 18?',

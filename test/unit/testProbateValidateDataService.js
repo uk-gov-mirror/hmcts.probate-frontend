@@ -11,7 +11,7 @@ describe('ProbateValidateData', () => {
             const url = 'http://localhost/forms/fred@example.com/validations?probateType=PA';
             const fetchOptions = {method: 'PUT'};
             const data = {applicantEmail: 'fred@example.com'};
-            const validateData = new ProbateValidateData(endpoint, "abc123");
+            const validateData = new ProbateValidateData(endpoint, 'abc123');
 
             const logSpy = sinon.spy(validateData, 'log');
             const fetchJsonSpy = sinon.spy(validateData, 'fetchJson');
@@ -24,7 +24,7 @@ describe('ProbateValidateData', () => {
             expect(validateData.fetchJson.calledOnce).to.equal(true);
             expect(validateData.fetchJson.calledWith(url, fetchOptions)).to.equal(true);
 
-            logSpy.restore();                                                                                                                                    
+            logSpy.restore();
             fetchJsonSpy.restore();
             fetchOptionsStub.restore();
             done();

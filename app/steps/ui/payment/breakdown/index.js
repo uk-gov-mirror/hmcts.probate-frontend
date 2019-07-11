@@ -32,8 +32,8 @@ class PaymentBreakdown extends Step {
     }
 
     createCopiesLayout(formdata) {
-        const ukCopies = typeof formdata.copies == 'undefined' ? 0 : formdata.copies.uk;
-        const overseasCopies = typeof formdata.copies == 'undefined' ? 0 : formdata.copies.overseas;
+        const ukCopies = typeof formdata.copies === 'undefined' ? 0 : formdata.copies.uk;
+        const overseasCopies = typeof formdata.copies === 'undefined' ? 0 : formdata.copies.overseas;
         return {
             uk: {number: ukCopies, cost: formdata.fees.ukcopiesfee},
             overseas: {number: overseasCopies, cost: formdata.fees.overseascopiesfee},

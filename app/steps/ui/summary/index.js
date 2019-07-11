@@ -4,7 +4,7 @@ const setJourney = require('app/middleware/setJourney');
 const Step = require('app/core/steps/Step');
 const OptionGetRunner = require('app/core/runners/OptionGetRunner');
 const FieldError = require('app/components/error');
-const {isEmpty, map, includes, get, unescape} = require('lodash');
+const {isEmpty, includes, get, unescape} = require('lodash');
 const logger = require('app/components/logger')('Init');
 const utils = require('app/components/step-utils');
 const ExecutorsWrapper = require('app/wrappers/Executors');
@@ -26,7 +26,7 @@ class Summary extends Step {
         return `/summary/${redirect}`;
     }
 
-    * handlePost(ctx, errors, formdata, session, hostname) {
+    * handlePost(ctx, errors, formdata) {
         const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
         const serviceAuthResult = yield authorise.post();
         if (serviceAuthResult.name === 'Error') {
@@ -39,7 +39,7 @@ class Summary extends Step {
         const result = yield this.validateFormData(formdata, ctx, serviceAuthResult);
         if (result.type === 'VALIDATION') {
             errors = [FieldError('businessError', 'validationError', this.resourcePath, ctx)];
-        };
+        }
         return [ctx, errors];
     }
 
