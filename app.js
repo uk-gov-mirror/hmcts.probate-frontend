@@ -222,6 +222,7 @@ exports.init = function() {
     if (useHttps === 'true') {
         app.use(utils.forceHttps);
     }
+
     app.get('/executors/invitation/:inviteId', inviteSecurity.verify());
     app.use('/co-applicant-*', inviteSecurity.checkCoApplicant(useIDAM));
     app.use('/health', healthcheck);
