@@ -30,6 +30,8 @@ describe('copies-overseas', () => {
                     .reply(200, status);
             };
             const excludeKeys = [
+                'questionOld',
+                'paragraph1Old',
                 'copiesOld'
             ];
             featureTogglesNock();

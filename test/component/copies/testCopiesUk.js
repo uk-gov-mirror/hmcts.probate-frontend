@@ -31,6 +31,9 @@ describe('copies-uk', () => {
             };
             const excludeKeys = [
                 'questionOld',
+                'paragraph1Old',
+                'paragraph2Old',
+                'paragraph3Old',
                 'copiesOld'
             ];
             featureTogglesNock();

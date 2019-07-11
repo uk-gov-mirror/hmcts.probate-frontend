@@ -4,7 +4,11 @@
 {% from "widgets/numbers.html" import numberField %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{ content.question }}</h1>
+    {% if fields.isFeesApiToggleEnabled.value === 'true' %}
+        <h1 class="form-title heading-large">{{ content.question }}</h1>
+    {% else %}
+        <h1 class="form-title heading-large">{{ content.questionOld }}</h1>
+    {% endif %}
 {% endblock %}
 
 {% block form_content %}
@@ -16,9 +20,7 @@
         ]) }}
 
         <fieldset>
-            <legend class="visually-hidden">
-                {{ content.question | safe }}
-            </legend>
+            <legend class="visually-hidden">{{ content.question | safe }}</legend>
             {{ numberField(
                 name = 'overseas',
                 field = fields.overseas,
@@ -29,10 +31,9 @@
             ) }}
         </fieldset>
     {% else %}
+        <p>{{ content.paragraph1Old | safe }}</p>
         <fieldset>
-            <legend class="visually-hidden">
-                {{ content.question | safe }}
-            </legend>
+            <legend class="visually-hidden">{{ content.question | safe }}</legend>
             {{ numberField(
                 name = 'overseas',
                 field = fields.overseas,

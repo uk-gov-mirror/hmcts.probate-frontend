@@ -22,9 +22,7 @@
         ]) }}
 
         <fieldset>
-            <legend class="visually-hidden">
-                {{ content.question | safe }}
-            </legend>
+            <legend class="visually-hidden">{{ content.question | safe }}</legend>
             {{ numberField(
                 name = 'uk',
                 field = fields.uk,
@@ -35,10 +33,12 @@
             ) }}
         </fieldset>
     {% else %}
+        <p>{{ content.paragraph1Old | safe }}</p>
+        <p>{{ content.paragraph2Old | safe }}</p>
+        <p>{{ content.paragraph3Old | safe }}</p>
+
         <fieldset>
-            <legend class="visually-hidden">
-                {{ content.questionOld | safe }}
-            </legend>
+            <legend class="visually-hidden">{{ content.questionOld | safe }}</legend>
             {{ numberField(
                 name = 'uk',
                 field = fields.uk,
