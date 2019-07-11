@@ -52,7 +52,7 @@
     <script src="/webchat/javascript/hmcts-webchat.js"></script>
     <script nonce="{{ nonce }}">
         webchat_init({
-            uuid: '{{ webChat.chatId }}',
+            uuid: 'script_{{ webChat.chatId }}',
             tenant: '{{ webChat.tenant }}',
             channel: 'Probate',
             stylesheetURL: 'https://' + window.location.hostname + '/public/stylesheets/hmcts-webchat.css',
