@@ -117,6 +117,9 @@ const config = {
     webChat: {
         chatId: process.env.WEBCHAT_CHAT_ID || 'script_3077733355d19fd430f23c7.02555395',
         tenant: process.env.WEBCHAT_TENANT || 'c2FuZGJveGhtY3RzMDE',
+        buttonNoAgents: process.env.WEBCHAT_BUTTON_NO_AGENTS || '7732814745cac6f4603c4d1.53357933',
+        buttonAgentsBusy: process.env.WEBCHAT_BUTTON_AGENTS_BUSY || '2042157415cc19c95669039.65793052',
+        buttonServiceClosed: process.env.WEBCHAT_BUTTON_SERVICE_CLOSED || '20199488815cc1a89e0861d5.73103009',
     },
     links: {
         cookies: '/cookies',
