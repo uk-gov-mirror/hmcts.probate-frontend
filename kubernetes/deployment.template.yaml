@@ -39,11 +39,11 @@ spec:
         - name: WEBCHAT_TENANT
           value: 'c2FuZGJveGhtY3RzMDE'
         - name: WEBCHAT_BUTTON_NO_AGENTS
-          value: '7732814745cac6f4603c4d1.53357933'
+          value: '20599210435d19f59cdc3e95.94551214'
         - name: WEBCHAT_BUTTON_AGENTS_BUSY
-          value: '2042157415cc19c95669039.65793052'
+          value: '8752254635d19f5bb21ff07.71234899'
         - name: WEBCHAT_BUTTON_SERVICE_CLOSED
-          value: '20199488815cc1a89e0861d5.73103009'
+          value: '4639879315d19f67c3c1055.15174024'
         - name: PUBLIC_PROTOCOL
           value: 'https'
         - name: FEATURE_TOGGLES_API_URL
