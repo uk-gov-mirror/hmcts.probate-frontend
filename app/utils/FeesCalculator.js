@@ -22,7 +22,7 @@ const copiesData = {
     jurisdiction1: 'family',
     jurisdiction2: 'probate registry',
     service: 'probate',
-    keyword: 'NEW'
+    keyword: 'NewFee'
 };
 
 class FeesCalculator {
