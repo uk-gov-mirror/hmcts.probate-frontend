@@ -7,6 +7,7 @@ const sinon = require('sinon');
 const rewire = require('rewire');
 const documentUploadMiddleware = rewire('app/middleware/documentUpload');
 const DocumentUpload = require('app/utils/DocumentUpload');
+const ProbateFormData = require('app/services/ProbateFormData');
 
 describe('DocumentUploadMiddleware', () => {
     describe('getDocument()', () => {
@@ -299,6 +300,13 @@ describe('DocumentUploadMiddleware', () => {
                     return Promise.resolve(true);
                 }
             });
+            const formDataPostStub = sinon.stub(ProbateFormData.prototype);
+            const revertFormData = documentUploadMiddleware.__set__('ServiceMapper', class {
+                static map() {
+                    return formDataPostStub;
+                }
+            });
+
             const res = {
                 redirect: sinon.spy()
             };
@@ -308,11 +316,12 @@ describe('DocumentUploadMiddleware', () => {
                 expect(req.session.form.documents.uploads).to.deep.equal([]);
                 expect(res.redirect.calledWith('/document-upload')).to.equal(true);
                 revert();
+                revertFormData();
                 done();
             });
         });
 
-        it('should return an error if a document cannot be remvoved', (done) => {
+        it('should return an error if a document cannot be removed', (done) => {
             const error = new Error('something');
             const revert = documentUploadMiddleware.__set__('Document', class {
                 delete() {
@@ -326,6 +335,27 @@ describe('DocumentUploadMiddleware', () => {
                 expect(next.calledWith(error)).to.equal(true);
                 revert();
                 done();
+            });
+        });
+
+        it('should return an error if formdata cannot be persisted', (done) => {
+            const error = new Error('something');
+
+            const revert = documentUploadMiddleware.__set__('persistFormData', {
+                persist() {
+                    return Promise.reject(error);
+                }
+            });
+
+            const res = {};
+            const next = sinon.spy();
+            documentUploadMiddleware.removeDocument(req, res, next);
+            setTimeout(() => {
+                setTimeout(() => {
+                    expect(next.calledWith(error)).to.equal(true);
+                    revert();
+                    done();
+                });
             });
         });
     });

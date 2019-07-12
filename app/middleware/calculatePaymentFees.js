@@ -12,7 +12,7 @@ const calculatePaymentFees = (req, res, next) => {
         const feesService = ServiceMapper.map(
             'FeesData',
             [config.services.orchestrator.url, session.id],
-            formdata.journeyType
+            formdata.caseType
         );
 
         feesService.updateFees(formdata, req.authToken, req.session.serviceAuthorization)

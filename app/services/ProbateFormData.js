@@ -1,6 +1,7 @@
 'use strict';
 
 const FormData = require('./FormData');
+const caseTypes = require('app/utils/CaseTypes');
 
 class ProbateFormData extends FormData {
 
@@ -14,6 +15,7 @@ class ProbateFormData extends FormData {
 
     post(id, data, ctx) {
         data.type = this.getFormType();
+        data.caseType = caseTypes.GOP;
         const path = this.replaceEmailInPath(this.config.services.orchestrator.paths.forms, id);
         const logMessage = 'Post probate form data';
         const url = this.endpoint + path;

@@ -16,13 +16,13 @@ describe('Executor-Additional-Invite-Sent', function () {
                 session: {
                     form: {
                         executors: {},
-                        journeyType: 'gop'
+                        caseType: 'gop'
                     },
                     serviceAuthorization: 'serviceAuthorization',
-                    journeyType: 'probate'
+                    caseType: 'probate'
                 },
                 authToken: 'authToken',
-                journeyType: 'gop'
+                caseType: 'gop'
             };
         });
 
@@ -43,7 +43,7 @@ describe('Executor-Additional-Invite-Sent', function () {
                 header: 'header',
                 inviteSuffix: '',
                 sessionID: 'dummy_sessionId',
-                journeyType: 'probate',
+                caseType: 'gop',
                 featureToggles: {
                     webchat: 'false'
                 },
@@ -74,9 +74,9 @@ describe('Executor-Additional-Invite-Sent', function () {
                 header: 'header-multiple',
                 inviteSuffix: '-multiple',
                 sessionID: 'dummy_sessionId',
+                caseType: 'gop',
                 authToken: 'authToken',
                 serviceAuthorization: 'serviceAuthorization',
-                journeyType: 'probate',
                 featureToggles: {
                     webchat: 'false'
                 }

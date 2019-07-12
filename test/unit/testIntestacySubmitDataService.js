@@ -10,12 +10,14 @@ const config = require('app/config');
 describe('IntestacySubmitDataService', () => {
     describe('put()', () => {
         it('should call super.post()', (done) => {
+            const submitData = {applicantFirstName: 'Fred'};
+            const revert = IntestacySubmitData.__set__('submitData', sinon.stub().returns(submitData));
             const endpoint = 'http://localhost';
-            const data = {applicant: {email: 'fred@example.com'}};
             const authToken = 'authToken';
             const serviceAuthorisation = 'serviceAuthorisation';
+            const data = {applicantEmail: 'fred@example.com'};
             const intestacySubmitData = new IntestacySubmitData(endpoint, 'abc123');
-            const path = intestacySubmitData.replaceEmailInPath(config.services.orchestrator.paths.submissions, data.applicant.email);
+            const path = intestacySubmitData.replaceEmailInPath(config.services.orchestrator.paths.submissions, data.applicantEmail);
             const putStub = sinon.stub(SubmitData.prototype, 'put');
             const url = endpoint + path + '?probateType=Intestacy';
 
@@ -28,6 +30,7 @@ describe('IntestacySubmitDataService', () => {
             )).to.equal(true);
 
             putStub.restore();
+            revert();
             done();
         });
     });

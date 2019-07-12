@@ -57,7 +57,7 @@ class PaymentBreakdown extends Step {
                 const paymentSubmissions = ServiceMapper.map(
                     'PaymentSubmissions',
                     [config.services.orchestrator.url, ctx.sessionID],
-                    ctx.journeyType
+                    ctx.caseType
                 );
 
                 const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
@@ -200,7 +200,7 @@ class PaymentBreakdown extends Step {
         const submitData = ServiceMapper.map(
             'SubmitData',
             [config.services.orchestrator.url, ctx.sessionID],
-            ctx.journeyType
+            ctx.caseType
         );
         const result = yield submitData.submit(formdata, paymentDto, ctx.authToken, serviceAuthResult);
         if (result.type === 'VALIDATION') {

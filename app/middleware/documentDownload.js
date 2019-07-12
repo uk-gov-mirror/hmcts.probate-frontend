@@ -8,7 +8,7 @@ const documentDownload = (req, res, service, filename) => {
     const downloadService = ServiceMapper.map(
         service,
         [config.services.orchestrator.url, req.sessionID],
-        req.session.journeyType
+        req.session.form.caseType
     );
     downloadService
         .post(req)

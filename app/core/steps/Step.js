@@ -8,6 +8,7 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 const config = require('app/config');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const FeatureToggle = require('app/utils/FeatureToggle');
+const caseTypes = require('app/utils/CaseTypes');
 
 class Step {
 
@@ -54,7 +55,7 @@ class Step {
         let ctx = {};
         Object.assign(ctx, session.form[this.section] || {});
         ctx.sessionID = req.sessionID;
-        ctx.journeyType = session.journeyType;
+        ctx.caseType = caseTypes.getCaseType(session);
         ctx = Object.assign(ctx, req.body);
         ctx = FeatureToggle.appwideToggles(req, ctx, config.featureToggles.appwideToggles);
 
@@ -106,14 +107,14 @@ class Step {
         const formData = ServiceMapper.map(
             'FormData',
             [config.services.orchestrator.url, sessionID],
-            formdata.journeyType
+            formdata.caseType
         );
         return formData.post(id, formdata, req);
     }
 
     action(ctx, formdata) {
         delete ctx.sessionID;
-        delete ctx.journeyType;
+        delete ctx.caseType;
         delete ctx.featureToggles;
         delete ctx._csrf;
         return [ctx, formdata];
