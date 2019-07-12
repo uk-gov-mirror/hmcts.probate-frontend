@@ -18,10 +18,10 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@hmcts/ctsc-web-chat@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@hmcts/ctsc-web-chat/-/ctsc-web-chat-0.2.2.tgz#bd2c0256aaa809295f17e619490fa717d5675ec1"
-  integrity sha512-uE/JCCN6ejtZ2tQ72u1IiN5KlUfr681XjR3jzVwUHMPBEL5LUmsKfkmuPXG0dGzmfxn5d8W1jmpHuPdGt+PFdg==
+"@hmcts/ctsc-web-chat@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@hmcts/ctsc-web-chat/-/ctsc-web-chat-0.2.3.tgz#c33d9ba0f720872d891d5c009feaf5ed29328e27"
+  integrity sha512-nEiClJv9nuF9oHOEJSU8N5Ze3OxUYwOuD8Pp7j89XaUB3Wj0wqEGp0c5PVLqFG7ZJDGBXwz5O5oZntQacF6HmA==
   dependencies:
     govuk-frontend "^2.12.0"
     node-sass "^4.6.1"
