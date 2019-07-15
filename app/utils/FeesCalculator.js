@@ -3,7 +3,9 @@
 const {get} = require('lodash');
 const FeesLookup = require('app/services/FeesLookup');
 const config = require('app/config');
+const featureToggle = require('app/utils/FeatureToggle');
 let feesLookup;
+
 const issuesData = {
     amount_or_volume: 0,
     applicant_type: 'personal',
@@ -21,8 +23,7 @@ const copiesData = {
     event: 'copies',
     jurisdiction1: 'family',
     jurisdiction2: 'probate registry',
-    service: 'probate',
-    keyword: 'NewFee'
+    service: 'probate'
 };
 
 class FeesCalculator {
@@ -33,15 +34,15 @@ class FeesCalculator {
         feesLookup = new FeesLookup(this.endpoint, sessionId);
     }
 
-    calc(formdata, authToken) {
+    calc(formdata, authToken, featureToggles) {
         const headers = {
             authToken: authToken
         };
-        return createCallsRequired(formdata, headers);
+        return createCallsRequired(formdata, headers, featureToggles);
     }
 }
 
-async function createCallsRequired(formdata, headers) {
+async function createCallsRequired(formdata, headers, featureToggles) {
     const returnResult = {
         status: 'success',
         applicationfee: 0,
@@ -65,6 +66,10 @@ async function createCallsRequired(formdata, headers) {
                     returnResult.total += res.fee_amount;
                 }
             });
+    }
+
+    if (featureToggle.isEnabled(featureToggles, 'copies_fees')) {
+        copiesData.keyword = 'NewFee';
     }
 
     copiesData.amount_or_volume = get(formdata, 'copies.uk', 0);
