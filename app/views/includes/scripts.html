@@ -1,46 +1,7 @@
 <script src="/public/javascripts/jquery-1.11.3.js"></script>
 
-<script src="/public/javascripts/govuk-frontend/components/button/button.js"></script>
-<script src="/public/javascripts/govuk-frontend/components/checkboxes/checkboxes.js"></script>
-<script src="/public/javascripts/govuk-frontend/components/details/details.js"></script>
-<script src="/public/javascripts/govuk-frontend/components/error-summary/error-summary.js"></script>
-<script src="/public/javascripts/govuk-frontend/components/header/header.js"></script>
-<script src="/public/javascripts/govuk-frontend/components/radios/radios.js"></script>
-<script nonce="{{ globals.nonce }}">
-    // Set the options to an empty object by default if no options are passed.
-    options = typeof options !== 'undefined' ? options : {};
-
-    // Allow the user to initialise GOV.UK Frontend in only certain sections of the page
-    // Defaults to the entire document if nothing is set.
-    var scope = typeof options.scope !== 'undefined' ? options.scope : document;
-
-    // Find all buttons with [role=button] on the scope to enhance.
-    new Button(scope).init();
-
-    // Find all global details elements to enhance.
-    var $details = scope.querySelectorAll('details');
-    nodeListForEach($details, function ($detail) {
-        new Details($detail).init();
-    });
-
-    var $checkboxes = scope.querySelectorAll('[data-module="checkboxes"]');
-    nodeListForEach($checkboxes, function ($checkbox) {
-        new Checkboxes($checkbox).init();
-    });
-
-    // Find first error summary module to enhance.
-    var $errorSummary = scope.querySelector('[data-module="error-summary"]');
-    new ErrorSummary($errorSummary).init();
-
-    // Find first header module to enhance.
-    var $toggleButton = scope.querySelector('[data-module="header"]');
-    new Header($toggleButton).init();
-
-    var $radios = scope.querySelectorAll('[data-module="radios"]');
-    nodeListForEach($radios, function ($radio) {
-        new Radios($radio).init();
-    });
-</script>
+<script src="/public/javascripts/govuk-frontend/all.js"></script>
+<script nonce="{{ globals.nonce }}">window.GOVUKFrontend.initAll()</script>
 
 {% if globals.enableTracking == "true" %}
     <script nonce="{{ globals.nonce }}">
