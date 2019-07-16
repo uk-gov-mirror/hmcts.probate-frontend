@@ -105,7 +105,7 @@ describe('CopiesUk', () => {
     });
 
     describe('action()', () => {
-        it('test applicant and deceased addresses are removed from formdata', () => {
+        it('test applicant, deceased and executors addresses are removed from formdata', () => {
             let formdata = {
                 applicant: {
                     addresses: [
@@ -150,6 +150,13 @@ describe('CopiesUk', () => {
                     ]
                 }
             });
+        });
+
+        it('test formdata is unchanged when applicant, deceased and executors properties are not present', () => {
+            let formdata = {};
+            let ctx = {};
+            [ctx, formdata] = CopiesUk.action(ctx, formdata);
+            expect(formdata).to.deep.equal({});
         });
     });
 });
