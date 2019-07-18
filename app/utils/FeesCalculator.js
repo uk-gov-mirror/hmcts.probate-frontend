@@ -4,6 +4,7 @@ const {get} = require('lodash');
 const FeesLookup = require('app/services/FeesLookup');
 const config = require('app/config');
 const featureToggle = require('app/utils/FeatureToggle');
+let feesLookup;
 
 class FeesCalculator {
 
@@ -29,18 +30,19 @@ class FeesCalculator {
             service: 'probate',
             keyword: ''
         };
-        this.feesLookup = new FeesLookup(this.endpoint, sessionId);
+
+        feesLookup = new FeesLookup(this.endpoint, sessionId);
     }
 
     calc(formdata, authToken, featureToggles) {
         const headers = {
             authToken: authToken
         };
-        return createCallsRequired(formdata, headers, featureToggles, this.feesLookup, this.issuesData, this.copiesData);
+        return createCallsRequired(formdata, headers, featureToggles, this.issuesData, this.copiesData);
     }
 }
 
-async function createCallsRequired(formdata, headers, featureToggles, feesLookup, issuesData, copiesData) {
+async function createCallsRequired(formdata, headers, featureToggles, issuesData, copiesData) {
     const returnResult = {
         status: 'success',
         applicationfee: 0,
