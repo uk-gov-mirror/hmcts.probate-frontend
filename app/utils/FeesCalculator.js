@@ -6,31 +6,32 @@ const config = require('app/config');
 const featureToggle = require('app/utils/FeatureToggle');
 let feesLookup;
 
-const issuesData = {
-    amount_or_volume: 0,
-    applicant_type: 'personal',
-    channel: 'default',
-    event: 'issue',
-    jurisdiction1: 'family',
-    jurisdiction2: 'probate registry',
-    service: 'probate'
-};
-
-const copiesData = {
-    amount_or_volume: 0,
-    applicant_type: 'all',
-    channel: 'default',
-    event: 'copies',
-    jurisdiction1: 'family',
-    jurisdiction2: 'probate registry',
-    service: 'probate'
-};
-
 class FeesCalculator {
 
     constructor(endpoint, sessionId) {
         this.endpoint = endpoint;
         this.sessionId = sessionId;
+        this.issuesData = {
+            amount_or_volume: 0,
+            applicant_type: 'personal',
+            channel: 'default',
+            event: 'issue',
+            jurisdiction1: 'family',
+            jurisdiction2: 'probate registry',
+            service: 'probate'
+        };
+
+        this.copiesData = {
+            amount_or_volume: 0,
+            applicant_type: 'all',
+            channel: 'default',
+            event: 'copies',
+            jurisdiction1: 'family',
+            jurisdiction2: 'probate registry',
+            service: 'probate',
+            keyword: ''
+        };
+
         feesLookup = new FeesLookup(this.endpoint, sessionId);
     }
 
@@ -38,11 +39,11 @@ class FeesCalculator {
         const headers = {
             authToken: authToken
         };
-        return createCallsRequired(formdata, headers, featureToggles);
+        return createCallsRequired(formdata, headers, featureToggles, this.issuesData, this.copiesData);
     }
 }
 
-async function createCallsRequired(formdata, headers, featureToggles) {
+async function createCallsRequired(formdata, headers, featureToggles, issuesData, copiesData) {
     const returnResult = {
         status: 'success',
         applicationfee: 0,
