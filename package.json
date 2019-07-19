@@ -50,11 +50,7 @@
     "persistence-stub": "NODE_PATH=. node test/service-stubs/persistence.js",
     "business-stub": "NODE_PATH=. node test/service-stubs/business.js",
     "payment-stub": "NODE_PATH=. node test/service-stubs/payment.js",
-    "feature-toggle-stub-frontend-shutter": "NODE_PATH=. node test/service-stubs/feature-toggles-frontend-shutter.js",
-    "feature-toggle-stub-intestacy-questions": "NODE_PATH=. node test/service-stubs/feature-toggle-intestacy-questions.js",
-    "feature-toggle-stub-fees-api": "NODE_PATH=. node test/service-stubs/feature-toggle-fees-api.js",
-    "feature-toggle-stub-copies-fees": "NODE_PATH=. node test/service-stubs/feature-toggle-copies-fees.js",
-    "feature-toggle-stub-webchat": "NODE_PATH=. node test/service-stubs/feature-toggle-webchat.js",
+    "feature-toggles-stub": "NODE_PATH=. node test/service-stubs/feature-toggles.js",
     "test:fullfunctional": "NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --reporter mochawesome"
   },
   "dependencies": {
