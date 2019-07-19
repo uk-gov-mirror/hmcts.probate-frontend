@@ -56,7 +56,7 @@ async function createCallsRequired(formdata, headers, featureToggles, feesLookup
     returnResult.applicationvalue = issuesData.amount_or_volume;
     if (issuesData.amount_or_volume > config.services.feesRegister.ihtMinAmt) {
         logger.info('Sending APPLICATION FEE request to API with the following payload:');
-        logger.info(issuesData);
+        logger.info(JSON.stringify(issuesData));
 
         await feesLookup.get(issuesData, headers)
             .then((res) => {
@@ -77,7 +77,7 @@ async function createCallsRequired(formdata, headers, featureToggles, feesLookup
     returnResult.ukcopies = copiesData.amount_or_volume;
     if (copiesData.amount_or_volume > 0) {
         logger.info('Sending COPIES FEE request to API with the following payload:');
-        logger.info(copiesData);
+        logger.info(JSON.stringify(copiesData));
 
         await feesLookup.get(copiesData, headers)
             .then((res) => {
