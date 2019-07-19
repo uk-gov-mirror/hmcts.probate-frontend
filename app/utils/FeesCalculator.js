@@ -4,6 +4,7 @@ const {get} = require('lodash');
 const FeesLookup = require('app/services/FeesLookup');
 const config = require('app/config');
 const featureToggle = require('app/utils/FeatureToggle');
+const logger = require('app/components/logger')('Init');
 
 class FeesCalculator {
 
@@ -54,6 +55,9 @@ async function createCallsRequired(formdata, headers, featureToggles, feesLookup
     issuesData.amount_or_volume = get(formdata, 'iht.netValue', 0);
     returnResult.applicationvalue = issuesData.amount_or_volume;
     if (issuesData.amount_or_volume > config.services.feesRegister.ihtMinAmt) {
+        logger.info('Sending APPLICATION FEE request to API with the following payload:');
+        logger.info(issuesData);
+
         await feesLookup.get(issuesData, headers)
             .then((res) => {
                 if (identifyAnyErrors(res)) {
@@ -72,6 +76,9 @@ async function createCallsRequired(formdata, headers, featureToggles, feesLookup
     copiesData.amount_or_volume = get(formdata, 'copies.uk', 0);
     returnResult.ukcopies = copiesData.amount_or_volume;
     if (copiesData.amount_or_volume > 0) {
+        logger.info('Sending COPIES FEE request to API with the following payload:');
+        logger.info(copiesData);
+
         await feesLookup.get(copiesData, headers)
             .then((res) => {
                 if (identifyAnyErrors(res)) {
