@@ -17,7 +17,7 @@ const DASHES_AND_DOTS_NUMBER_TEST_UPDATED_FORMAT_1 = '1-9 Conference Room,10.3 P
 
 const APOSTROPHE_NAME_TEST_POSTCODE_1 = 'SW1H 9AJ';
 const APOSTROPHE_NAME_TEST_SOURCE_FORMAT_1 = 'IVY LODGE, ST. JAMES\'S PARK, LONDON, SW1A 2BJ';
-const APOSTROPHE_NAME_TEST_UPDATED_FORMAT_1 = 'Ivy Lodge,St. James\'s Park,London,SW1A 2BJ';;
+const APOSTROPHE_NAME_TEST_UPDATED_FORMAT_1 = 'Ivy Lodge,St. James\'s Park,London,SW1A 2BJ';
 
 describe('updateLookupFormattedAddress()', () => {
 
@@ -42,7 +42,7 @@ describe('updateLookupFormattedAddress()', () => {
         done();
     });
 
-    it('should produce the correct capitilisation using an apostophe', (done) => {
+    it('should produce the correct capitilisation using an apostrophe', (done) => {
         const output = stringUtils
             .updateLookupFormattedAddress(APOSTROPHE_NAME_TEST_SOURCE_FORMAT_1, APOSTROPHE_NAME_TEST_POSTCODE_1);
         expect(output).to.equal(APOSTROPHE_NAME_TEST_UPDATED_FORMAT_1);
