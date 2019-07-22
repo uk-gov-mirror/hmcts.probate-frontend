@@ -2,49 +2,16 @@
 
 const {expect} = require('chai');
 const ServiceMapper = require('app/utils/ServiceMapper');
-const caseTypes = require('app/utils/CaseTypes');
-const IntestacyFormData = require('app/services/IntestacyFormData');
-const ProbateFormData = require('app/services/ProbateFormData');
+const FormData = require('app/services/FormData');
 
 describe('ServiceMapper', () => {
     describe('map()', () => {
 
         it('should return a intestacy formdata class', (done) => {
             const params = ['url', 'id'];
-            const service = ServiceMapper.map('FormData', params, caseTypes.INTESTACY);
-            expect(service).to.be.instanceof(IntestacyFormData);
+            const service = ServiceMapper.map('FormData', params);
+            expect(service).to.be.instanceof(FormData);
             done();
-        });
-
-        it('should return a intestacy formdata class', (done) => {
-            const params = ['url', 'id'];
-            const service = ServiceMapper.map('FormData', params, caseTypes.INTESTACY);
-            expect(service).not.to.be.instanceof(ProbateFormData);
-            done();
-        });
-
-        it('should return a probate formdata class', (done) => {
-            const params = ['url', 'id'];
-            const service = ServiceMapper.map('FormData', params, caseTypes.GOP);
-            expect(service).to.be.instanceof(ProbateFormData);
-            done();
-        });
-
-        it('should return a probate formdata class', (done) => {
-            const params = ['url', 'id'];
-            const service = ServiceMapper.map('FormData', params, caseTypes.GOP);
-            expect(service).not.to.be.instanceof(IntestacyFormData);
-            done();
-        });
-
-        it('should throw an exception', (done) => {
-            const params = ['url', 'id'];
-            try {
-                ServiceMapper.map('FormData', params, 'gop2');
-            } catch (err) {
-                expect(err.message).to.equal('Unable to identify caseType: gop2');
-                done();
-            }
         });
 
     });

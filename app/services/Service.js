@@ -37,8 +37,8 @@ class Service {
         logger(sessionId)[level](message);
     }
 
-    replaceEmailInPath(path, email) {
-        return path.replace('{applicantEmail}', email);
+    replaceIdInPath(path, email) {
+        return path.replace('{id}', email);
     }
 
     fetchJson(url, fetchOptions) {

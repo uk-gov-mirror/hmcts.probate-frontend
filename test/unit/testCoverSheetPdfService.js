@@ -2,11 +2,11 @@
 
 const {expect} = require('chai');
 const sinon = require('sinon');
-const ProbateCoverSheetPdf = require('app/services/ProbateCoverSheetPdf');
-const ProbatePdf = require('app/services/ProbatePdf');
+const ProbateCoverSheetPdf = require('app/services/CoverSheetPdf');
+const ProbatePdf = require('app/services/Pdf');
 const config = require('app/config').pdf;
 
-describe('ProbateCoverSheetPdfService', () => {
+describe('CoverSheetPdfService', () => {
     describe('post()', () => {
         it('should call super.post()', (done) => {
             const endpoint = 'http://localhost';

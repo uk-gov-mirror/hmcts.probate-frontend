@@ -4,11 +4,11 @@ const Service = require('./Service');
 
 class Fees extends Service {
 
-    updateFees(data, authorisation, serviceAuthorization) {
+    updateFees(data, authorisation, serviceAuthorization, caseType) {
         data.type = this.getFormType();
-        const path = this.replaceEmailInPath(this.config.services.orchestrator.paths.fees, data.applicantEmail);
+        const path = this.replaceIdInPath(this.config.services.orchestrator.paths.fees, data.applicantEmail);
         const logMessage = 'Update fees';
-        const url = this.endpoint + path + '?probateType=' + this.getFormType();
+        const url = this.endpoint + path + '?probateType=' + caseType;
         return this.post(logMessage, url, authorisation, serviceAuthorization);
     }
 

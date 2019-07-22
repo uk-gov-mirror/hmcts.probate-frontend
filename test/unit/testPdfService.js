@@ -2,79 +2,103 @@
 
 const {expect} = require('chai');
 const sinon = require('sinon');
+const nock = require('nock');
+const co = require('co');
 const rewire = require('rewire');
 const Pdf = rewire('app/services/Pdf');
-const config = require('app/config').pdf;
+const config = require('app/config');
 
 describe('PdfService', () => {
     describe('post()', () => {
-        let body;
-        let logMessage;
-        let headers;
-        let url;
-        let hostname;
 
-        beforeEach(() => {
-            body = {};
-            logMessage = 'Post probate pdf';
-            headers = {
-                'Content-Type': 'application/json'
-            };
-            hostname = 'http://localhost';
-            url = `${hostname}/${config.path}/${config.template.coverSheet}`;
+        afterEach(() => {
+            nock.cleanAll();
         });
 
-        it('should call fetchOptions and fetchBuffer if Authorise returns a successful result', (done) => {
-            const serviceToken = 'tok123';
+        it('should call super.post()', (done) => {
+            const endpoint = 'http://localhost';
+            const pdfTemplate = config.pdf.template.coverSheet;
+            const body = {hello: 'sir'};
+            const sessionId = '1234';
+            const authToken = 'auth_token';
+            const serviceToken = 'service_token';
+            const req = {
+                sessionID: sessionId,
+                authToken: authToken,
+                session: {
+                    serviceAuthorization: serviceToken
+                }
+            };
+            const headers = {
+                'Content-Type': 'application/json',
+                'Session-Id': sessionId,
+                'Authorization': authToken,
+                'ServiceAuthorization': serviceToken
+            };
+            const logMessage = 'Post probate pdf';
+            const expected = {result: 'this is the result'};
+            const path = config.pdf.path + '/' + pdfTemplate;
+            nock(endpoint, {reqheaders: headers}).post(path, body)
+                .times(1)
+                .reply(200, expected);
             const revert = Pdf.__set__('Authorise', class {
                 post() {
                     return Promise.resolve(serviceToken);
                 }
             });
-            const fetchOptions = {method: 'POST'};
-            const pdf = new Pdf(hostname, 'abc123');
+            const probatePdf = new Pdf(endpoint, 'abc123');
+            probatePdf.log = sinon.spy();
 
-            pdf.log = sinon.spy();
-            pdf.fetchOptions = sinon.stub().returns(fetchOptions);
-            pdf.fetchBuffer = sinon.spy();
-
-            pdf
-                .post(body, logMessage, headers, url)
-                .then(() => {
-                    expect(pdf.log.calledOnce).to.equal(true);
-                    expect(pdf.log.calledWith(logMessage)).to.equal(true);
-                    expect(pdf.fetchOptions.calledOnce).to.equal(true);
-                    expect(pdf.fetchOptions.calledWith({}, 'POST', {
-                        'Content-Type': 'application/json',
-                        'ServiceAuthorization': serviceToken
-                    })).to.equal(true);
-                    expect(pdf.fetchBuffer.calledOnce).to.equal(true);
-                    expect(pdf.fetchBuffer.calledWith(url, fetchOptions)).to.equal(true);
-
-                    revert();
-                    done();
-                });
+            co(function* () {
+                const actual = yield probatePdf.post(pdfTemplate, body, logMessage, req);
+                expect(actual).to.not.equal(null);
+                expect(probatePdf.log.calledWith(logMessage)).to.equal(true);
+                expect(nock.isDone()).to.equal(true);
+                revert();
+                done();
+            });
         });
 
-        it('should log an error if Authorise returns an error', (done) => {
-            const error = new Error('Internal Service Error');
+        it('should throw error when pdf service call is unsuccessful', (done) => {
+            const endpoint = 'http://localhost';
+            const pdfTemplate = config.pdf.template.coverSheet;
+            const body = {hello: 'sir'};
+            const sessionId = '1234';
+            const authToken = 'auth_token';
+            const serviceToken = 'service_token';
+            const req = {
+                sessionID: sessionId,
+                authToken: authToken,
+                session: {
+                    serviceAuthorization: serviceToken
+                }
+            };
+            const headers = {
+                'Content-Type': 'application/json',
+                'Session-Id': sessionId,
+                'Authorization': authToken,
+                'ServiceAuthorization': serviceToken
+            };
+            const logMessage = 'Post probate pdf';
+            const expected = {result: 'this is the result'};
+            const path = config.pdf.path + '/' + pdfTemplate;
+            nock(endpoint, {reqheaders: headers}).post(path, body)
+                .times(1)
+                .reply(500, expected);
             const revert = Pdf.__set__('Authorise', class {
                 post() {
-                    return Promise.reject(error);
+                    return Promise.resolve(serviceToken);
                 }
             });
-            const pdf = new Pdf(hostname, 'abc123');
+            const probatePdf = new Pdf(endpoint, 'abc123');
+            probatePdf.log = sinon.spy();
 
-            pdf.log = sinon.spy();
-
-            pdf
-                .post(body, logMessage, headers, url)
+            probatePdf
+                .post(pdfTemplate, body, logMessage, req)
                 .catch(() => {
-                    expect(pdf.log.calledTwice).to.equal(true);
-                    expect(pdf.log.calledWith(logMessage)).to.equal(true);
-                    expect(pdf.log.calledWith('Pdf error: Error: Internal Service Error', 'error')).to.equal(true);
-                    expect(pdf.post).to.throw(Error);
-
+                    expect(probatePdf.log.calledWith(logMessage)).to.equal(true);
+                    expect(probatePdf.post).to.throw(Error);
+                    expect(nock.isDone()).to.equal(true);
                     revert();
                     done();
                 });

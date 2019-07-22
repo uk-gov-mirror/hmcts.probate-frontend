@@ -1,8 +1,9 @@
 'use strict';
 
-const ProbatePdf = require('./ProbatePdf');
+const Pdf = require('./Pdf');
 
-class ProbateCoverSheetPdf extends ProbatePdf {
+class CoverSheetPdf extends Pdf {
+
     post(req) {
         const formdata = req.session.formdata;
         const pdfTemplate = this.config.pdf.template.coverSheet;
@@ -16,4 +17,4 @@ class ProbateCoverSheetPdf extends ProbatePdf {
     }
 }
 
-module.exports = ProbateCoverSheetPdf;
+module.exports = CoverSheetPdf;

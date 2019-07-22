@@ -62,8 +62,7 @@ class PaymentStatus extends Step {
             let errors;
             const paymentSubmissions = ServiceMapper.map(
                 'PaymentSubmissions',
-                [config.services.orchestrator.url, ctx.sessionID],
-                ctx.caseType
+                [config.services.orchestrator.url, ctx.sessionID]
             );
 
             const paymentSubmission = yield paymentSubmissions.put('Update payment status', formdata.applicantEmail, ctx.authToken, serviceAuthResult);
@@ -139,8 +138,7 @@ class PaymentStatus extends Step {
     * updateForm(data, ctx, paymentDto, serviceAuthResult) {
         const submitData = ServiceMapper.map(
             'SubmitData',
-            [config.services.orchestrator.url, ctx.sessionID],
-            ctx.caseType
+            [config.services.orchestrator.url, ctx.sessionID]
         );
         let errors;
         const result = yield submitData.submit(data, paymentDto, ctx.authToken, serviceAuthResult);

@@ -1,31 +1,73 @@
 'use strict';
 
 const {expect} = require('chai');
-const sinon = require('sinon');
 const FormData = require('app/services/FormData');
+const co = require('co');
+const caseTypes = require('app/utils/CaseTypes');
+const config = require('app/config');
+const nock = require('nock');
 
 describe('FormDataService', () => {
-    describe('get()', () => {
-        it('should call log() and fetchJson()', (done) => {
+
+    describe('should call', () => {
+        afterEach(() => {
+            nock.cleanAll();
+        });
+
+        it('get() successfully', (done) => {
             const endpoint = 'http://localhost';
-            const logMessage = 'Get form data';
-            const fetchOptions = {method: 'GET'};
+            const userId = 'fred@example.com';
+            const expectedForm = {id: '1234', deceased: {name: 'test'}};
+            const authToken = 'authToken';
+            const serviceAuthorisation = 'serviceAuthorisation';
             const formData = new FormData(endpoint, 'abc123');
-            const logSpy = sinon.spy(formData, 'log');
-            const fetchJsonSpy = sinon.spy(formData, 'fetchJson');
-            const fetchOptionsStub = sinon.stub(formData, 'fetchOptions').returns(fetchOptions);
+            const path = formData.replaceIdInPath(config.services.orchestrator.paths.forms, userId);
+            nock(endpoint, {
+                reqheaders: {
+                    'Content-Type': 'application/json',
+                    Authorization: authToken,
+                    ServiceAuthorization: serviceAuthorisation
+                }
+            }
+            ).get(path + '?probateType=gop')
+                .reply(200, expectedForm);
 
-            formData.get(logMessage, endpoint);
+            co(function* () {
+                const actualForm = yield formData.get(userId, authToken, serviceAuthorisation, caseTypes.GOP);
+                expect(actualForm).to.deep.equal(expectedForm);
+                done();
+            }).catch(err => {
+                done(err);
+            });
+        });
 
-            expect(formData.log.calledOnce).to.equal(true);
-            expect(formData.log.calledWith(logMessage)).to.equal(true);
-            expect(formData.fetchJson.calledOnce).to.equal(true);
-            expect(formData.fetchJson.calledWith(endpoint, fetchOptions)).to.equal(true);
+        it('should call post() successfully', (done) => {
+            const endpoint = 'http://localhost';
+            const id = 'fred@example.com';
+            const inputForm = {id: '1234', deceased: {name: 'test'}};
+            const expectedForm = {type: caseTypes.GOP, id: '1234', deceased: {name: 'test'}};
+            const authToken = 'authToken';
+            const serviceAuthorisation = 'serviceAuthorisation';
+            const formData = new FormData(endpoint, 'abc123');
+            const path = formData.replaceIdInPath(config.services.orchestrator.paths.forms, id);
+            nock(endpoint, {
+                reqheaders: {
+                    'Content-Type': 'application/json',
+                    Authorization: authToken,
+                    ServiceAuthorization: serviceAuthorisation
+                }
+            }
+            ).post(path, expectedForm)
+                .reply(200, expectedForm);
 
-            logSpy.restore();
-            fetchJsonSpy.restore();
-            fetchOptionsStub.restore();
-            done();
+            co(function* () {
+                const actualForm = yield formData.post(id, inputForm, authToken, serviceAuthorisation, caseTypes.GOP);
+                expect(actualForm).to.deep.equal(expectedForm);
+                done();
+            }).catch(err => {
+                done(err);
+            });
+
         });
     });
 });

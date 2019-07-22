@@ -7,6 +7,8 @@ const commonContent = require('app/resources/en/translation/common');
 const nock = require('nock');
 const config = require('app/config');
 const orchestratorServiceUrl = config.services.orchestrator.url;
+const S2S_URL = config.services.idam.s2s_url;
+const IDAM_URL = config.services.idam.apiUrl;
 
 describe('pin-resend', () => {
     let testWrapper;
@@ -15,6 +17,16 @@ describe('pin-resend', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('PinResend');
+
+        nock(S2S_URL).post('/lease')
+            .reply(200, 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSRUZFUkVOQ0UifQ.Z_YYn0go02ApdSMfbehsLXXbxJxLugPG' +
+                '8v_3ktCpQurK8tHkOy1qGyTo02bTdilX4fq4M5glFh80edDuhDJXPA');
+
+        nock(IDAM_URL).post('/oauth2/authorize')
+            .reply(200, {code: '12345'});
+
+        nock(IDAM_URL).post('/oauth2/token')
+            .reply(200, {'access_token': 'sdkfhdskhf'});
     });
 
     afterEach(() => {

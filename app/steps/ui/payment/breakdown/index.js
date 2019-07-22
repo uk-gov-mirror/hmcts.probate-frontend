@@ -56,8 +56,7 @@ class PaymentBreakdown extends Step {
             if (config.services.payment.enableBackend) {
                 const paymentSubmissions = ServiceMapper.map(
                     'PaymentSubmissions',
-                    [config.services.orchestrator.url, ctx.sessionID],
-                    ctx.caseType
+                    [config.services.orchestrator.url, ctx.sessionID]
                 );
 
                 const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
@@ -120,8 +119,7 @@ class PaymentBreakdown extends Step {
                 return [ctx, errors];
             }
 
-            const [canCreatePayment, paymentResponse] = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
-            const paymentStatus = paymentResponse.status;
+            const [canCreatePayment, paymentStatus] = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
             logger.info(`canCreatePayment result = ${canCreatePayment} with status ${paymentStatus}`);
             if (paymentStatus === 'Initiated') {
                 const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
@@ -171,10 +169,9 @@ class PaymentBreakdown extends Step {
                     errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));
                     return [ctx, errors];
                 }
-                const [formDataResult, submissionErrors] = yield this.submitForm(ctx, errors, formdata, paymentResponse, serviceAuthResult);
+                const formDataResult = yield this.submitForm(ctx, errors, formdata, paymentResponse, serviceAuthResult);
                 set(formdata, 'ccdCase', formDataResult.ccdCase);
                 set(formdata, 'payment', formDataResult.payment);
-                errors = errors.concat(submissionErrors);
                 if (errors.length > 0) {
                     logger.error('Failed to create case in CCD.', errors);
                     return [ctx, errors];
@@ -199,10 +196,9 @@ class PaymentBreakdown extends Step {
     * submitForm(ctx, errors, formdata, paymentDto, serviceAuthResult) {
         const submitData = ServiceMapper.map(
             'SubmitData',
-            [config.services.orchestrator.url, ctx.sessionID],
-            ctx.caseType
+            [config.services.orchestrator.url, ctx.sessionID]
         );
-        const result = yield submitData.submit(formdata, paymentDto, ctx.authToken, serviceAuthResult);
+        const result = yield submitData.submit(formdata, paymentDto, ctx.authToken, serviceAuthResult, ctx.caseType);
         if (result.type === 'VALIDATION') {
             errors.push(FieldError('submit', 'validation', this.resourcePath, ctx));
         }
@@ -214,7 +210,7 @@ class PaymentBreakdown extends Step {
 
         logger.info({tags: 'Analytics'}, 'Application Case Created');
 
-        return [result, errors];
+        return result;
     }
 
     action(ctx, formdata) {
@@ -229,7 +225,7 @@ class PaymentBreakdown extends Step {
     * canCreatePayment(ctx, formdata, serviceAuthResult) {
         const paymentReference = get(formdata, 'payment.reference');
         const caseId = get(formdata, 'ccdCase.id');
-        let paymentResponse;
+        let paymentStatus;
         let canMakePayment = true;
         if (caseId) {
             const data = {
@@ -242,20 +238,22 @@ class PaymentBreakdown extends Step {
             const payment = new Payment(paymentServiceUrl, ctx.sessionID);
             const casePaymentsArray = yield payment.getCasePayments(data);
             logger.debug(`Case payments for ${caseId} with response = ${JSON.stringify(casePaymentsArray)}`);
-            paymentResponse = payment.identifySuccessfulOrInitiatedPayment(casePaymentsArray);
+            const paymentResponse = payment.identifySuccessfulOrInitiatedPayment(casePaymentsArray);
             logger.debug(`Payment retrieval in breakdown for caseId = ${caseId} with response = ${JSON.stringify(paymentResponse)}`);
             if (!paymentResponse) {
                 logger.info('No payments of Initiated or Success found for case.');
             } else if (paymentResponse.status === 'Initiated' || paymentResponse.status === 'Success') {
+                paymentStatus = paymentResponse.status;
                 if (paymentResponse.payment_reference !== paymentReference) {
                     logger.info(`Payment with status ${paymentResponse.status} found, using reference ${paymentResponse.payment_reference}.`);
+                    set(formdata, 'payment.reference', paymentResponse.payment_reference);
                     ctx.reference = paymentResponse.payment_reference;
                     ctx.paymentCreatedDate = paymentResponse.date_created;
                 }
                 canMakePayment = false;
             }
         }
-        return [canMakePayment, paymentResponse];
+        return [canMakePayment, paymentStatus];
     }
 
     unlockPayment(session) {

@@ -4,11 +4,13 @@ const Service = require('./Service');
 
 class FormData extends Service {
 
-    get(logMessage, url, authToken, serviceAuthorisation) {
+    get(id, authToken, serviceAuthorisation, caseType) {
+        const path = this.replaceIdInPath(this.config.services.orchestrator.paths.forms, id);
+        const logMessage = 'Get probate form data';
+        const url = this.endpoint + path + '?probateType=' + caseType;
         this.log(logMessage);
         const headers = {
             'Content-Type': 'application/json',
-            'Session-Id': this.sessionId,
             'Authorization': authToken,
             'ServiceAuthorization': serviceAuthorisation
         };
@@ -16,22 +18,22 @@ class FormData extends Service {
         return this.fetchJson(url, fetchOptions);
     }
 
-    post(data, logMessage, url, req) {
+    post(id, data, authToken, serviceAuthorization, caseType) {
+        data.type = caseType;
+        const path = this.replaceIdInPath(this.config.services.orchestrator.paths.forms, id);
+        const logMessage = 'Post probate form data';
+        const url = this.endpoint + path;
         this.log(logMessage);
         const headers = {
             'Content-Type': 'application/json',
-            'Session-Id': this.sessionId,
-            'Authorization': req.authToken,
-            'ServiceAuthorization': req.session.serviceAuthorization
+            'Authorization': authToken,
+            'ServiceAuthorization': serviceAuthorization
         };
 
         const fetchOptions = this.fetchOptions(data, 'POST', headers);
         return this.fetchJson(url, fetchOptions);
     }
 
-    getFormType() {
-        throw (new Error('Abstract method not implemened.'));
-    }
 }
 
 module.exports = FormData;

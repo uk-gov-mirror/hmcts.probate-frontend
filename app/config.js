@@ -35,13 +35,13 @@ const config = {
         orchestrator: {
             url: process.env.ORCHESTRATOR_SERVICE_URL || 'http://localhost:8888',
             paths: {
-                forms: '/forms/{applicantEmail}',
-                submissions: '/forms/{applicantEmail}/submissions',
-                payments: '/forms/{applicantEmail}/payments',
+                forms: '/forms/{id}',
+                submissions: '/forms/{id}/submissions',
+                payments: '/forms/{id}/payments',
                 payment_updates: '/payment-updates',
-                payment_submissions: '/forms/{applicantEmail}/payment-submissions',
-                fees: '/forms/{applicantEmail}/fees',
-                validations: '/forms/{applicantEmail}/validations'
+                payment_submissions: '/forms/{id}/payment-submissions',
+                fees: '/forms/{id}/fees',
+                validations: '/forms/{id}/validations'
             }
         },
         validation: {
@@ -67,6 +67,9 @@ const config = {
             probate_oauth2_secret: process.env.IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE || '123456',
             probate_oauth_callback_path: '/oauth2/callback',
             probate_oauth_token_path: '/oauth2/token',
+            probate_user_email: process.env.PROBATE_USER_EMAIL || 'pacaseworker@probate.com',
+            probate_user_password: process.env.PROBATE_USER_PASSWORD || 'password',
+            probate_redirect_base_url: process.env.PROBATE_REDIRECT_BASE_URL || 'http://localhost:3000',
         },
         payment: {
             url: process.env.PAYMENT_API_URL || 'http://localhost:8383',

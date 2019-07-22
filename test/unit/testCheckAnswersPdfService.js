@@ -2,11 +2,11 @@
 
 const {expect} = require('chai');
 const sinon = require('sinon');
-const ProbateCheckAnswersPdf = require('app/services/ProbateCheckAnswersPdf');
-const ProbatePdf = require('app/services/ProbatePdf');
+const CheckAnswersPdf = require('app/services/CheckAnswersPdf');
+const Pdf = require('app/services/Pdf');
 const config = require('app/config').pdf;
 
-describe('ProbateCheckAnswersPdfService', () => {
+describe('CheckAnswersPdfService', () => {
     describe('post()', () => {
         it('should call super.post()', (done) => {
             const endpoint = 'http://localhost';
@@ -15,10 +15,10 @@ describe('ProbateCheckAnswersPdfService', () => {
                     checkAnswersSummary: 'Some really interesting text'
                 }
             };
-            const probateCheckAnswersPdf = new ProbateCheckAnswersPdf(endpoint, 'abc123');
-            const postStub = sinon.stub(ProbatePdf.prototype, 'post');
+            const checkAnswersPdf = new CheckAnswersPdf(endpoint, 'abc123');
+            const postStub = sinon.stub(Pdf.prototype, 'post');
 
-            probateCheckAnswersPdf.post(req);
+            checkAnswersPdf.post(req);
 
             expect(postStub.calledOnce).to.equal(true);
             expect(postStub.calledWith(

@@ -7,7 +7,6 @@ const sinon = require('sinon');
 const rewire = require('rewire');
 const documentUploadMiddleware = rewire('app/middleware/documentUpload');
 const DocumentUpload = require('app/utils/DocumentUpload');
-const ProbateFormData = require('app/services/ProbateFormData');
 
 describe('DocumentUploadMiddleware', () => {
     describe('getDocument()', () => {
@@ -300,10 +299,10 @@ describe('DocumentUploadMiddleware', () => {
                     return Promise.resolve(true);
                 }
             });
-            const formDataPostStub = sinon.stub(ProbateFormData.prototype);
-            const revertFormData = documentUploadMiddleware.__set__('ServiceMapper', class {
-                static map() {
-                    return formDataPostStub;
+
+            const revertFormData = documentUploadMiddleware.__set__('persistFormData', {
+                persist() {
+                    return {};
                 }
             });
 
@@ -312,11 +311,11 @@ describe('DocumentUploadMiddleware', () => {
             };
             const next = {};
             documentUploadMiddleware.removeDocument(req, res, next);
+            revert();
+            revertFormData();
             setTimeout(() => {
                 expect(req.session.form.documents.uploads).to.deep.equal([]);
                 expect(res.redirect.calledWith('/document-upload')).to.equal(true);
-                revert();
-                revertFormData();
                 done();
             });
         });
