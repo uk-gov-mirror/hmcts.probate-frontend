@@ -89,12 +89,12 @@ describe('PaymentService', () => {
             const endpoint = 'http://localhost';
             const casePayments = {
                 'payments': [{
-                    'amount': 216.50,
+                    'amount': 219.50,
                     'ccd_case_number': '1554131023277701',
                     'payment_reference': 'RC-1554-1311-2865-4101',
                     'status': 'Failed'
                 }, {
-                    'amount': 216.50,
+                    'amount': 219.50,
                     'ccd_case_number': '1554131023277701',
                     'payment_reference': 'RC-1554-1311-2865-4102',
                     'status': 'Success'
@@ -118,12 +118,12 @@ describe('PaymentService', () => {
             const endpoint = 'http://localhost';
             const casePayments = {
                 'payments': [{
-                    'amount': 216.50,
+                    'amount': 219.50,
                     'ccd_case_number': '1554131023277701',
                     'payment_reference': 'RC-1554-1311-2865-4101',
                     'status': 'Initiated'
                 }, {
-                    'amount': 216.50,
+                    'amount': 219.50,
                     'ccd_case_number': '1554131023277701',
                     'payment_reference': 'RC-1554-1311-2865-4102',
                     'status': 'Failed'
@@ -147,7 +147,7 @@ describe('PaymentService', () => {
             const endpoint = 'http://localhost';
             const casePayments = {
                 'payments': [{
-                    'amount': 216.50,
+                    'amount': 219.50,
                     'ccd_case_number': '1554131023277701',
                     'payment_reference': 'RC-1554-1311-2865-4102',
                     'status': 'Failed'
@@ -183,6 +183,5 @@ describe('PaymentService', () => {
             logSpy.restore();
             done();
         });
-
     });
 });

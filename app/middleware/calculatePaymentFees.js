@@ -11,8 +11,7 @@ const calculatePaymentFees = (req, res, next) => {
     if (config.services.payment.enableBackend) {
         const feesService = ServiceMapper.map(
             'FeesData',
-            [config.services.orchestrator.url, session.id],
-            formdata.caseType
+            [config.services.orchestrator.url, session.id]
         );
 
         feesService.updateFees(formdata, req.authToken, req.session.serviceAuthorization)
@@ -21,7 +20,7 @@ const calculatePaymentFees = (req, res, next) => {
                 next();
             });
     } else {
-        feesCalculator.calc(formdata, req.authToken)
+        feesCalculator.calc(formdata, req.authToken, req.session.featureToggles)
             .then((fees) => {
                 formdata.fees = fees;
                 session.form = formdata;
