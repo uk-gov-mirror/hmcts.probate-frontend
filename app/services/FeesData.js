@@ -1,14 +1,15 @@
 'use strict';
 
 const Service = require('./Service');
+const caseTypes = require('app/utils/CaseTypes');
 
 class Fees extends Service {
 
     updateFees(data, authorisation, serviceAuthorization, caseType) {
-        data.type = this.getFormType();
+        const probateType = caseTypes.getProbateType(caseType);
         const path = this.replaceIdInPath(this.config.services.orchestrator.paths.fees, data.applicantEmail);
         const logMessage = 'Update fees';
-        const url = this.endpoint + path + '?probateType=' + caseType;
+        const url = this.endpoint + path + '?probateType=' + probateType;
         return this.post(logMessage, url, authorisation, serviceAuthorization);
     }
 

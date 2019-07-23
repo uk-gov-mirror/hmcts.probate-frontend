@@ -60,7 +60,7 @@ describe('pin-page', () => {
             };
 
             nock(config.services.orchestrator.url)
-                .get('/forms/12?probateType=gop')
+                .get('/forms/12?probateType=PA')
                 .reply(200, formDataReturnData);
 
             nock(S2S_URL).post('/lease')

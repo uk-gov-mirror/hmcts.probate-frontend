@@ -1,13 +1,15 @@
 'use strict';
 
 const Service = require('./Service');
+const caseTypes = require('app/utils/CaseTypes');
 
 class FormData extends Service {
 
     get(id, authToken, serviceAuthorisation, caseType) {
+        const probateType = caseTypes.getProbateType(caseType);
         const path = this.replaceIdInPath(this.config.services.orchestrator.paths.forms, id);
         const logMessage = 'Get probate form data';
-        const url = this.endpoint + path + '?probateType=' + caseType;
+        const url = this.endpoint + path + '?probateType=' + probateType;
         this.log(logMessage);
         const headers = {
             'Content-Type': 'application/json',

@@ -29,7 +29,7 @@ describe('FormDataService', () => {
                     ServiceAuthorization: serviceAuthorisation
                 }
             }
-            ).get(path + '?probateType=gop')
+            ).get(path + '?probateType=PA')
                 .reply(200, expectedForm);
 
             co(function* () {
