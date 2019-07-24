@@ -38,6 +38,18 @@ describe('SanitizeRequestBody', () => {
             assert.equal('', req.body.name);
         });
 
+        it('should remove closed tag', function() {
+            req.body.name= 'hello<script/> world';
+            sanitizeRequestBody(req, res, next);
+            assert.equal('hello world', req.body.name);
+        });
+
+        it('should remove tag and its content', function() {
+            req.body.name= 'hello<script>alert("hello again!");</script> world';
+            sanitizeRequestBody(req, res, next);
+            assert.equal('hello world', req.body.name);
+        });
+
         it('should ignore close tag', function() {
             req.body.name= '>hello world';
             sanitizeRequestBody(req, res, next);
