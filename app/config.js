@@ -43,7 +43,7 @@ const config = {
             }
         },
         validation: {
-            url: process.env.VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
+            url: process.env.VALIDATION_SERVICE_URL || 'http://localhost:8081/validate'
         },
         submit: {
             url: process.env.SUBMIT_SERVICE_URL || 'http://localhost:8181',
