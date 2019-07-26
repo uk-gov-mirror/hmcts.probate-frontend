@@ -34,7 +34,7 @@ class Declaration extends ValidationStep {
         const uploadLegalDec = new UploadLegalDeclaration();
         formdata.statementOfTruthDocument =
             yield uploadLegalDec.generateAndUpload(ctx.sessionID, session.req.userId, formdata, ctx.caseType);
-
+        session.form.statementOfTruthDocument = formdata.statementOfTruthDocument;
         return [ctx, errors];
     }
 
