@@ -8,7 +8,7 @@ const Declaration = rewire('app/steps/ui/declaration');
 const co = require('co');
 const UploadLegalDeclaration = require('app/services/UploadLegalDeclaration');
 
-describe.skip('Declaration', () => {
+describe('Declaration', () => {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).Declaration;
     const section = 'declaration';
     const templatePath = 'declaration';

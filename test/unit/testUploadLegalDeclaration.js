@@ -6,7 +6,7 @@ const UploadLegalDeclaration = rewire('app/services/UploadLegalDeclaration');
 const caseTypes = require('app/utils/CaseTypes');
 const co = require('co');
 
-describe.skip('UploadLegalDeclaration', () => {
+describe('UploadLegalDeclaration', () => {
     describe('generateAndUpload()', () => {
         it('should generate and upload SOT correctly', (done) => {
             const docUrl = 'http://localhost:8080/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505';
