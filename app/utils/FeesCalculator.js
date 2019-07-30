@@ -3,7 +3,6 @@
 const {get} = require('lodash');
 const FeesLookup = require('app/services/FeesLookup');
 const config = require('app/config');
-const featureToggle = require('app/utils/FeatureToggle');
 const logger = require('app/components/logger')('Init');
 
 class FeesCalculator {
