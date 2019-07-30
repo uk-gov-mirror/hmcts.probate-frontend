@@ -8,12 +8,6 @@ class CopiesStart extends Step {
     static getUrl() {
         return '/copies-start';
     }
-
-    handleGet(ctx, formdata, featureToggles) {
-        ctx.isCopiesFeesToggleEnabled = featureToggle.isEnabled(featureToggles, 'copies_fees');
-
-        return [ctx];
-    }
 }
 
 module.exports = CopiesStart;
