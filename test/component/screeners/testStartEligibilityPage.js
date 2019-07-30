@@ -31,8 +31,7 @@ describe('start-eligibility', () => {
             const excludeKeys = [
                 'paragraph2',
                 'paragraph7old',
-                'paragraph8old_1',
-                'paragraph8old_2'
+                'paragraph8old'
             ];
             feesApiFeatureTogglesNock();
             testWrapper.testContent(done, excludeKeys);
@@ -63,8 +62,7 @@ describe('start-eligibility', () => {
                 'tableBodyFeeRange6',
                 'tableBodyFeeRange6Value',
                 'tableBodyFeeRange7',
-                'tableBodyFeeRange7Value',
-                'paragraph8old_1'
+                'tableBodyFeeRange7Value'
             ];
             feesApiFeatureTogglesNock();
             testWrapper.testContent(done, excludeKeys);

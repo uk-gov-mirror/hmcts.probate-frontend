@@ -32,8 +32,7 @@ describe('copies-overseas', () => {
             };
             const excludeKeys = [
                 'questionOld',
-                'paragraph1Old_2',
-                'copiesOld_1'
+                'paragraph1Old'
             ];
             feesApiFeatureTogglesNock();
             testWrapper.testContent(done, excludeKeys);
@@ -49,8 +48,7 @@ describe('copies-overseas', () => {
                 'paragraph1',
                 'bullet1',
                 'bullet2',
-                'copies',
-                'copiesOld_1'
+                'copies'
             ];
             feesApiFeatureTogglesNock();
             testWrapper.testContent(done, excludeKeys);

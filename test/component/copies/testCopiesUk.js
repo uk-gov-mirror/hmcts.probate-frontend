@@ -31,13 +31,11 @@ describe('copies-uk', () => {
                     .reply(200, status);
             };
             const excludeKeys = [
-                'questionOld_1',
-                'questionOld_2',
-                'paragraph1Old_2',
-                'paragraph2Old_2',
-                'paragraph3Old_2',
-                'copiesOld_1',
-                'copiesOld_2'
+                'questionOld',
+                'paragraph1Old',
+                'paragraph2Old',
+                'paragraph3Old',
+                'copiesOld'
             ];
             feesApiFeatureTogglesNock();
             testWrapper.testContent(done, excludeKeys);
