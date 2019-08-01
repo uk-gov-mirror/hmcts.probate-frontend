@@ -5,7 +5,7 @@ const sinon = require('sinon');
 const ValidateData = require('app/services/ValidateData');
 const caseTypes = require('app/utils/CaseTypes');
 
-describe.skip('ValidateData', () => {
+describe('ValidateData', () => {
     describe('put()', () => {
         it('should call log() and fetchJson()', (done) => {
             const endpoint = 'http://localhost';

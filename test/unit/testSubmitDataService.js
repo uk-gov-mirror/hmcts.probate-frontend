@@ -6,7 +6,7 @@ const SubmitData = require('app/services/SubmitData');
 const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
 
-describe.skip('SubmitDataService', () => {
+describe('SubmitDataService', () => {
     describe('submit()', () => {
         it('should call super.put()', (done) => {
             const endpoint = 'http://localhost';
