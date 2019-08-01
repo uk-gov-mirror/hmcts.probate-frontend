@@ -2,43 +2,46 @@
 
 const {expect} = require('chai');
 const sinon = require('sinon');
-const ProbateCoverSheetPdf = require('app/services/CoverSheetPdf');
-const ProbatePdf = require('app/services/Pdf');
-const config = require('app/config').pdf;
+const CoverSheetPdf = require('app/services/CoverSheetPdf');
+const Pdf = require('app/services/Pdf');
+const config = require('app/config');
 
 describe('CoverSheetPdfService', () => {
     describe('post()', () => {
         it('should call super.post()', (done) => {
             const endpoint = 'http://localhost';
-            const req = {
-                session: {
-                    formdata: {
-                        applicant: {
-                            address: '1 Red Road, London, L1 1LL'
-                        },
-                        ccdCase: {
-                            id: 'ccd123'
-                        },
-                        registry: {
-                            address: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY'
-                        }
+            const formdata = {
+                applicant: {
+                    firstName: 'Joe',
+                    lastName: 'Bloggs',
+                    address: {
+                        formattedAddress: '1 Red Road, London, L1 1LL'
                     }
+                },
+                ccdCase: {
+                    id: 'ccd123'
+                },
+                registry: {
+                    address: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY'
                 }
             };
-            const probateCoverSheetPdf = new ProbateCoverSheetPdf(endpoint, 'abc123');
-            const postStub = sinon.stub(ProbatePdf.prototype, 'post');
+            const coverSheetPdf = new CoverSheetPdf(endpoint, 'abc123');
+            const postStub = sinon.stub(Pdf.prototype, 'post');
 
-            probateCoverSheetPdf.post(req);
+            coverSheetPdf.post(formdata);
 
             expect(postStub.calledOnce).to.equal(true);
             expect(postStub.calledWith(
-                config.template.coverSheet,
+                config.pdf.template.coverSheet,
                 {
-                    applicantAddress: '1 Red Road, London, L1 1LL',
-                    caseReference: 'ccd123',
-                    submitAddress: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY'
+                    bulkScanCoverSheet: {
+                        applicantAddress: '1 Red Road, London, L1 1LL',
+                        applicantName: 'Joe Bloggs',
+                        caseReference: 'ccd123',
+                        submitAddress: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY'
+                    }
                 },
-                'Post probate cover sheet pdf'
+                'Post cover sheet pdf'
             )).to.equal(true);
 
             postStub.restore();

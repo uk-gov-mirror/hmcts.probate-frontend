@@ -1,19 +1,22 @@
 'use strict';
 
 const Pdf = require('./Pdf');
+const FormatName = require('app/utils/FormatName');
 
 class CoverSheetPdf extends Pdf {
 
-    post(req) {
-        const formdata = req.session.formdata;
+    post(formdata) {
         const pdfTemplate = this.config.pdf.template.coverSheet;
         const body = {
-            applicantAddress: formdata.applicant.address,
-            caseReference: formdata.ccdCase.id,
-            submitAddress: formdata.registry.address
+            bulkScanCoverSheet: {
+                applicantAddress: formdata.applicant.address.formattedAddress,
+                applicantName: FormatName.format(formdata.applicant),
+                caseReference: formdata.ccdCase.id,
+                submitAddress: formdata.registry.address
+            }
         };
-        const logMessage = 'Post probate cover sheet pdf';
-        return super.post(pdfTemplate, body, logMessage, req);
+        const logMessage = 'Post cover sheet pdf';
+        return super.post(pdfTemplate, body, logMessage);
     }
 }
 

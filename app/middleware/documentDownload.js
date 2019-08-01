@@ -7,8 +7,7 @@ const commonContent = require('app/resources/en/translation/common');
 const documentDownload = (req, res, service, filename) => {
     const downloadService = ServiceMapper.map(
         service,
-        [config.services.orchestrator.url, req.sessionID],
-        req.session.form.caseType
+        [config.services.orchestrator.url, req.sessionID]
     );
     downloadService
         .post(req)
