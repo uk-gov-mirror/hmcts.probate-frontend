@@ -1248,6 +1248,9 @@ describe('declaration, single applicant', () => {
                 },
                 declaration: {
                     hasDataChanged: false
+                },
+                session: {
+                    legalDeclaration: {}
                 }
             };
             testWrapper.agent.post('/prepare-session/form')

@@ -9,7 +9,7 @@ const sinon = require('sinon');
 const FeesCalculator = require('app/utils/FeesCalculator');
 let feesCalculator;
 
-describe.skip('payment-breakdown', () => {
+describe('payment-breakdown', () => {
     let testWrapper;
     let submitStub;
 

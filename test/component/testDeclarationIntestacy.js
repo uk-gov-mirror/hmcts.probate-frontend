@@ -1516,6 +1516,9 @@ describe('declaration, intestacy', () => {
                 },
                 declaration: {
                     hasDataChanged: false
+                },
+                session: {
+                    legalDeclaration: {}
                 }
             };
             testWrapper.agent.post('/prepare-session/form')
