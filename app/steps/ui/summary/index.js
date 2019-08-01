@@ -60,8 +60,7 @@ class Summary extends Step {
     * validateFormData(data, ctx, serviceAuthResult) {
         const validateData = ServiceMapper.map(
             'ValidateData',
-            [config.services.orchestrator.url, ctx.sessionID],
-            ctx.caseType
+            [config.services.orchestrator.url, ctx.sessionID]
         );
         const result = yield validateData.put(data, ctx.authToken, serviceAuthResult);
         return result;

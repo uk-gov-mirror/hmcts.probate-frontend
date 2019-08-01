@@ -106,8 +106,7 @@ class Step {
 
         const formData = ServiceMapper.map(
             'FormData',
-            [config.services.orchestrator.url, sessionID],
-            formdata.caseType
+            [config.services.orchestrator.url, sessionID]
         );
         return formData.post(id, formdata, req);
     }

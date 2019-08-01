@@ -6,12 +6,11 @@ const Document = require('app/services/Document');
 
 class UploadLegalDeclaration {
 
-    generateAndUpload(sessionId, userId, formdata, caseType) {
+    generateAndUpload(sessionId, userId, formdata) {
         const fileName = 'SOT.pdf';
         const declarationPdf = ServiceMapper.map(
             'DeclarationPdf',
-            [config.services.validation.url, sessionId],
-            caseType
+            [config.services.validation.url, sessionId]
         );
         const document = new Document(config.services.validation.url, sessionId);
         return declarationPdf.post(formdata)

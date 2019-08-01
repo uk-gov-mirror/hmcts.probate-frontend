@@ -51,8 +51,7 @@ router.get('/', (req, res) => {
 
     const formData = ServiceMapper.map(
         'FormData',
-        [config.services.orchestrator.url, req.sessionID],
-        req.session.caseType
+        [config.services.orchestrator.url, req.sessionID]
     );
     formData
         .get(req.session.regId, req.authToken, req.session.serviceAuthorization)
