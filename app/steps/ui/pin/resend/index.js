@@ -36,7 +36,8 @@ class PinResend extends Step {
             errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
             return [ctx, errors];
         }
-        const authToken = yield Security.getUserToken();
+        const security = new Security();
+        const authToken = yield security.getUserToken();
         if (authToken.name === 'Error') {
             logger.info(`failed to obtain authToken = ${serviceAuthResult}`);
             errors.push(FieldError('authorisation', 'failure', this.resourcePath, ctx));
