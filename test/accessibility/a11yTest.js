@@ -18,8 +18,8 @@ const steps = initSteps.steps;
 const nock = require('nock');
 const config = require('app/config');
 
-forEach(Object.keys(steps).filter(stepName => stepsToExclude.includes(stepName)),
-    (stepName) => delete steps[stepName]);
+Object.keys(steps).filter(stepName => stepsToExclude.includes(stepName))
+    .forEach((stepName) => delete steps[stepName]);
 
 for (const step in steps) {
     ((step) => {
