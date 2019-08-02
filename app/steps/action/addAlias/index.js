@@ -1,7 +1,7 @@
 'use strict';
 
 const DeceasedOtherNames = require('app/steps/ui/deceased/otherNames');
-const {set, isEmpty, forEach} = require('lodash');
+const {set, isEmpty} = require('lodash');
 const ActionStepRunner = require('app/core/runners/ActionStepRunner');
 
 class AddAlias extends DeceasedOtherNames {

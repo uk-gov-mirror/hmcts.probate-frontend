@@ -6,7 +6,7 @@ const a11y = require('test/util/a11y');
 const expect = require('chai').expect;
 const app = require('app');
 const initSteps = require('app/core/initSteps');
-const {endsWith, forEach} = require('lodash');
+const {endsWith} = require('lodash');
 const commonContent = require('app/resources/en/translation/common');
 const stepsToExclude = [
     'StartEligibility', 'ApplicantExecutor', 'DeceasedDomicile', 'MentalCapacity', 'IhtCompleted', 'WillLeft', 'WillOriginal', 'StartApply',

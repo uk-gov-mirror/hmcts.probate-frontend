@@ -2,7 +2,6 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const featureToggle = require('app/utils/FeatureToggle');
-const {forEach} = require('lodash');
 
 class CopiesUk extends ValidationStep {
 
