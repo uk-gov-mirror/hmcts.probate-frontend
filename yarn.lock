@@ -140,10 +140,10 @@
   dependencies:
     detox "^12.11.0"
 
-"@hmcts/ctsc-web-chat@^0.2.4":
-  version "0.2.8"
-  resolved "https://registry.yarnpkg.com/@hmcts/ctsc-web-chat/-/ctsc-web-chat-0.2.8.tgz#4c8b4a3ec7a058fb2fba8c5c0929501bc9cb307a"
-  integrity sha512-yVOu3XQAfkW67rVI1BvYBCSbTmmEpYOER8Oi2uQXxWS2qKnCyHZPKL5efBG0KP3vR1ycKlR2evy040sJv/DCuw==
+"@hmcts/ctsc-web-chat@^0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@hmcts/ctsc-web-chat/-/ctsc-web-chat-0.3.4.tgz#e1275cf436229400271959cf55e00f2c864e8ae4"
+  integrity sha512-wiaFaoMPkhmly6B0h/ocHwmbU7jm+x6/x/yThu2XHm9ukTZugPE4O1037OFMrZKZExSP8P/WhXq+t8A6oa1YQg==
   dependencies:
     "@hmcts/nodejs-logging" "^3.0.0"
     govuk-frontend "^2.13.0"
