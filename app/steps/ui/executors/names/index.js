@@ -28,11 +28,13 @@ class ExecutorsNames extends ValidationStep {
 
     createExecutorFullNameArray(ctx) {
         ctx.executorName = [];
-        ctx.list.forEach((executor) => {
-            if (executor && 'fullName' in executor) {
-                ctx.executorName.push(executor.fullName);
-            }
-        });
+        if (ctx.list) {
+            ctx.list.forEach((executor) => {
+                if (executor && 'fullName' in executor) {
+                    ctx.executorName.push(executor.fullName);
+                }
+            });
+        }
     }
 
     handlePost(ctx, errors) {

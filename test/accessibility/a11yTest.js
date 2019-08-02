@@ -23,7 +23,6 @@ Object.keys(steps).filter(stepName => stepsToExclude.includes(stepName))
 
 for (const step in steps) {
     ((step) => {
-
         let results;
 
         describe(`Verify accessibility for the page ${step.name}`, () => {
