@@ -67,4 +67,5 @@ postgresql:
 
 idam-pr:
   redirect_uris:
-    - https://${SERVICE_FQDN}/oauth2/callback
+    Probate:
+      - https://${SERVICE_FQDN}/oauth2/callback
