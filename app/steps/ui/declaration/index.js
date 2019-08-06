@@ -17,6 +17,8 @@ const InviteData = require('app/services/InviteData');
 const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
 const UploadLegalDeclaration = require('app/services/UploadLegalDeclaration');
+const ServiceMapper = require('app/utils/ServiceMapper');
+const FieldError = require('app/components/error');
 
 class Declaration extends ValidationStep {
     static getUrl() {
@@ -31,11 +33,24 @@ class Declaration extends ValidationStep {
     }
 
     * handlePost(ctx, errors, formdata, session) {
+        const result = yield this.validateFormData(formdata, ctx, session.req);
+        if (result.type === 'VALIDATION') {
+            errors = [FieldError('businessError', 'validationError', this.resourcePath, ctx)];
+        }
+
         const uploadLegalDec = new UploadLegalDeclaration();
         formdata.statementOfTruthDocument =
-            yield uploadLegalDec.generateAndUpload(ctx.sessionID, session.req.userId, formdata);
+            yield uploadLegalDec.generateAndUpload(ctx.sessionID, session.req.userId, session.req);
         session.form.statementOfTruthDocument = formdata.statementOfTruthDocument;
         return [ctx, errors];
+    }
+
+    * validateFormData(data, ctx, req) {
+        const validateData = ServiceMapper.map(
+            'ValidateData',
+            [config.services.orchestrator.url, ctx.sessionID]
+        );
+        return yield validateData.put(data, req.authToken, req.session.serviceAuthorization, caseTypes.getCaseType(req.session));
     }
 
     getFormDataForTemplate(content, formdata) {
@@ -228,7 +243,7 @@ class Declaration extends ValidationStep {
 
     renderPage(res, html) {
         const formdata = res.req.session.form;
-        res.req.session.legalDeclaration = legalDocumentJSONObjBuilder.build(formdata, html);
+        res.req.session.form.legalDeclaration = legalDocumentJSONObjBuilder.build(formdata, html);
         res.send(html);
     }
 }

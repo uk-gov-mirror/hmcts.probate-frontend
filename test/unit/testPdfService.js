@@ -31,7 +31,6 @@ describe('PdfService', () => {
             };
             const headers = {
                 'Content-Type': 'application/json',
-                'Session-Id': sessionId,
                 'Authorization': authToken,
                 'ServiceAuthorization': serviceToken
             };
@@ -75,7 +74,6 @@ describe('PdfService', () => {
             };
             const headers = {
                 'Content-Type': 'application/json',
-                'Session-Id': sessionId,
                 'Authorization': authToken,
                 'ServiceAuthorization': serviceToken
             };

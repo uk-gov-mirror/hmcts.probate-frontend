@@ -4,21 +4,26 @@ const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist');
 const nock = require('nock');
 const config = require('app/config');
-const SUBMIT_SERVICE_URL = config.services.submit.url;
 const CREATE_PAYMENT_SERVICE_URL = config.services.payment.url + config.services.payment.paths.createPayment;
 const IDAM_S2S_URL = config.services.idam.s2s_url;
 const PERSISTENCE_URL = config.services.persistence.url;
 let sessionData = require('test/data/complete-form-undeclared').formdata;
 
-describe.skip('payment-status', () => {
+describe('payment-status', () => {
     let testWrapper;
     const expectedNextUrlForTaskList = TaskList.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('PaymentStatus');
 
-        nock(SUBMIT_SERVICE_URL).post('/updatePaymentStatus')
-            .reply(200, {caseState: 'CreatedCase'});
+        nock(config.services.orchestrator.url)
+            .put(uri => uri.includes('submissions'))
+            .reply(200, {
+                ccdCase: {
+                    state: 'CaseCreated'
+                }
+            });
+
         nock(CREATE_PAYMENT_SERVICE_URL)
             .get('/1')
             .reply(200, {
@@ -47,7 +52,7 @@ describe.skip('payment-status', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        it('test right content loaded on the page when net value is greater than 5000£', (done) => {
+        it.skip('test right content loaded on the page when net value is greater than 5000£', (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {

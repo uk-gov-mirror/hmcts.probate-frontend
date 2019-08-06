@@ -28,22 +28,6 @@ describe('Summary', () => {
         it('ctx.executorsWithOtherNames returns array of execs with other names', (done) => {
             const expectedResponse = ['Prince', 'Cher'];
 
-            const revertAuthorise = Summary.__set__({
-                Authorise: class {
-                    post() {
-                        return Promise.resolve({name: 'Success'});
-                    }
-                }
-            });
-            const revert = Summary.__set__('ServiceMapper', class {
-                static map() {
-                    return class {
-                        static put() {
-                            return Promise.resolve(expectedResponse);
-                        }
-                    };
-                }
-            });
             let ctx = {
                 session: {
                     form: {},
@@ -56,8 +40,6 @@ describe('Summary', () => {
             co(function* () {
                 [ctx] = yield summary.handleGet(ctx, formdata);
                 assert.deepEqual(ctx.executorsWithOtherNames, expectedResponse);
-                revert();
-                revertAuthorise();
                 done();
             });
         });

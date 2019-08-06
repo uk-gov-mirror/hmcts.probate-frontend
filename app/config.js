@@ -208,8 +208,8 @@ const config = {
         maxFiles: 10,
         maxSizeBytes: 10485760,
         paths: {
-            upload: '/document/upload',
-            remove: '/document/delete'
+            upload: '/documents/upload',
+            remove: '/documents/delete'
         },
         error: {
             invalidFileType: 'Error: invalid file type',

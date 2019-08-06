@@ -102,13 +102,13 @@ class Step {
         return fields;
     }
 
-    persistFormData(id, formdata, sessionID, req) {
-
+    persistFormData(id, formdata, sessionID, req, caseType) {
+        formdata.type = req.caseType;
         const formData = ServiceMapper.map(
             'FormData',
             [config.services.orchestrator.url, sessionID]
         );
-        return formData.post(id, formdata, req);
+        return formData.post(id, formdata, req.authToken, req.session.serviceAuthorization, caseType);
     }
 
     action(ctx, formdata) {

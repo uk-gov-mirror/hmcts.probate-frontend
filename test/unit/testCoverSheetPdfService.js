@@ -28,18 +28,22 @@ describe('CoverSheetPdfService', () => {
             const coverSheetPdf = new CoverSheetPdf(endpoint, 'abc123');
             const postStub = sinon.stub(Pdf.prototype, 'post');
 
-            coverSheetPdf.post(formdata);
+            const req = {
+                session: {
+                    form: formdata
+                }
+            };
+
+            coverSheetPdf.post(req);
 
             expect(postStub.calledOnce).to.equal(true);
             expect(postStub.calledWith(
                 config.pdf.template.coverSheet,
                 {
-                    bulkScanCoverSheet: {
-                        applicantAddress: '1 Red Road, London, L1 1LL',
-                        applicantName: 'Joe Bloggs',
-                        caseReference: 'ccd123',
-                        submitAddress: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY'
-                    }
+                    applicantAddress: '1 Red Road, London, L1 1LL',
+                    applicantName: 'Joe Bloggs',
+                    caseReference: 'ccd123',
+                    submitAddress: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY'
                 },
                 'Post cover sheet pdf'
             )).to.equal(true);

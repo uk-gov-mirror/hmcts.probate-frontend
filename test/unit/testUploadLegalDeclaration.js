@@ -19,6 +19,13 @@ describe('UploadLegalDeclaration', () => {
                 }
             });
 
+            const req = {
+                session: {
+                    serviceAuthorization: 'serviceToken1234'
+                },
+                authToken: 'authToken123456'
+            };
+
             const revert = UploadLegalDeclaration.__set__('Document', class {
                 post() {
                     return Promise.resolve({
@@ -29,7 +36,7 @@ describe('UploadLegalDeclaration', () => {
 
             co(function* () {
                 const uploadLegalDeclaration = new UploadLegalDeclaration();
-                const sotDocument = yield uploadLegalDeclaration.generateAndUpload('sid', 'uid', {});
+                const sotDocument = yield uploadLegalDeclaration.generateAndUpload('sid', 'uid', req);
 
                 expect(sotDocument).to.deep.equal({url: docUrl, filename: 'SOT.pdf'});
                 revertUpload();

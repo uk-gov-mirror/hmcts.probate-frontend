@@ -5,18 +5,17 @@ const FormatName = require('app/utils/FormatName');
 
 class CoverSheetPdf extends Pdf {
 
-    post(formdata) {
+    post(req) {
         const pdfTemplate = this.config.pdf.template.coverSheet;
+        const formdata = req.session.form;
         const body = {
-            bulkScanCoverSheet: {
-                applicantAddress: formdata.applicant.address.formattedAddress,
-                applicantName: FormatName.format(formdata.applicant),
-                caseReference: formdata.ccdCase.id,
-                submitAddress: formdata.registry.address
-            }
+            applicantAddress: formdata.applicant.address.formattedAddress,
+            applicantName: FormatName.format(formdata.applicant),
+            caseReference: formdata.ccdCase.id,
+            submitAddress: formdata.registry.address
         };
         const logMessage = 'Post cover sheet pdf';
-        return super.post(pdfTemplate, body, logMessage);
+        return super.post(pdfTemplate, body, logMessage, req);
     }
 }
 

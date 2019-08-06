@@ -8,7 +8,6 @@ class Pdf extends Service {
     post(pdfTemplate, body, logMessage, req) {
         const headers = {
             'Content-Type': 'application/json',
-            'Session-Id': req.sessionID,
             'Authorization': req.authToken,
             'ServiceAuthorization': req.session.serviceAuthorization
         };

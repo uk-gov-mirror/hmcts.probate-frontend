@@ -3,17 +3,13 @@
 const caseTypes = require('app/utils/CaseTypes');
 const Step = require('app/core/steps/Step');
 const OptionGetRunner = require('app/core/runners/OptionGetRunner');
-const FieldError = require('app/components/error');
 const {isEmpty, includes, get, unescape} = require('lodash');
-const logger = require('app/components/logger')('Init');
 const utils = require('app/components/step-utils');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
 const CheckAnswersSummaryJSONObjectBuilder = require('app/utils/CheckAnswersSummaryJSONObjectBuilder');
 const checkAnswersSummaryJSONObjBuilder = new CheckAnswersSummaryJSONObjectBuilder();
-const ServiceMapper = require('app/utils/ServiceMapper');
-const Authorise = require('app/services/Authorise');
 const config = require('app/config');
 
 class Summary extends Step {
@@ -24,23 +20,6 @@ class Summary extends Step {
 
     static getUrl(redirect = '*') {
         return `/summary/${redirect}`;
-    }
-
-    * handlePost(ctx, errors, formdata) {
-        const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
-        const serviceAuthResult = yield authorise.post();
-        if (serviceAuthResult.name === 'Error') {
-            logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
-            const keyword = 'failure';
-            const errors = [];
-            errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
-            return [ctx, errors];
-        }
-        const result = yield this.validateFormData(formdata, ctx, serviceAuthResult);
-        if (result.type === 'VALIDATION') {
-            errors = [FieldError('businessError', 'validationError', this.resourcePath, ctx)];
-        }
-        return [ctx, errors];
     }
 
     * handleGet(ctx, formdata) {
@@ -55,15 +34,6 @@ class Summary extends Step {
 
         utils.updateTaskStatus(ctx, ctx, this.steps);
         return [ctx, null];
-    }
-
-    * validateFormData(data, ctx, serviceAuthResult) {
-        const validateData = ServiceMapper.map(
-            'ValidateData',
-            [config.services.orchestrator.url, ctx.sessionID]
-        );
-        const result = yield validateData.put(data, ctx.authToken, serviceAuthResult);
-        return result;
     }
 
     generateContent(ctx, formdata) {
@@ -165,7 +135,7 @@ class Summary extends Step {
     }
 
     renderPage(res, html) {
-        res.req.session.checkAnswersSummary = checkAnswersSummaryJSONObjBuilder.build(html);
+        res.req.session.form.checkAnswersSummary = checkAnswersSummaryJSONObjBuilder.build(html);
         res.send(html);
     }
 }

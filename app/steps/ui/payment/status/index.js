@@ -141,7 +141,7 @@ class PaymentStatus extends Step {
             [config.services.orchestrator.url, ctx.sessionID]
         );
         let errors;
-        const result = yield submitData.submit(data, paymentDto, ctx.authToken, serviceAuthResult);
+        const result = yield submitData.submit(data, paymentDto, ctx.authToken, serviceAuthResult, ctx.caseType);
         if (result.type === 'VALIDATION') {
             errors = [];
             errors.push(FieldError('update', 'failure', this.resourcePath, ctx));

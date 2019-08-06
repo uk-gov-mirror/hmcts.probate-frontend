@@ -6,7 +6,7 @@ const ExecutorsInvitesSent = require('app/steps/ui/executors/invitesent');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const nock = require('nock');
 const config = require('app/config');
-const businessServiceUrl = config.services.validation.url.replace('/validate', '');
+const businessServiceUrl = config.services.orchestrator.url;
 
 describe('executors-invite', () => {
     let testWrapper;

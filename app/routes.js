@@ -53,8 +53,7 @@ router.get('/', (req, res) => {
         'FormData',
         [config.services.orchestrator.url, req.sessionID]
     );
-    formData
-        .get(req.session.regId, req.authToken, req.session.serviceAuthorization)
+    formData.get(req.session.regId, req.authToken, req.session.serviceAuthorization, caseTypes.getCaseType(req.session))
         .then(result => {
             if (result.name === 'Error') {
                 req.log.debug('Failed to load user data');

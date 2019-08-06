@@ -53,6 +53,7 @@ class UIStepRunner {
             const session = req.session;
             let formdata = session.form;
             let ctx = step.getContextData(req, res);
+            const caseType = ctx.caseType;
             let [isValid, errors] = [];
             [isValid, errors] = step.validate(ctx, formdata);
             const hasDataChanged = (new DetectDataChange()).hasDataChanged(ctx, req, step);
@@ -73,7 +74,7 @@ class UIStepRunner {
                 }
 
                 if (!get(formdata, 'ccdCase.state') || get(formdata, 'ccdCase.state') === 'Draft' || get(formdata, 'ccdCase.state') === '') {
-                    const result = yield step.persistFormData(session.regId, formdata, session.id, req);
+                    const result = yield step.persistFormData(session.regId, formdata, session.id, req, caseType);
 
                     if (result.name === 'Error') {
                         req.log.error('Could not persist user data', result.message);
