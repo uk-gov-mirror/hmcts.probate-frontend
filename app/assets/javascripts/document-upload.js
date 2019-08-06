@@ -102,7 +102,6 @@ var DocumentUpload = {
     },
     updateLinkAttributes: function() {
         $('.dz-preview').each(function(key) {
-            $(this).find('.dz-filename').addClass('govuk-link');
             $(this).find('.dz-remove').addClass('govuk-link');
             $(this).find('.dz-remove').attr('data-index', key);
             $(this).find('.dz-remove').attr('href', '/document-upload/remove/' + key);
