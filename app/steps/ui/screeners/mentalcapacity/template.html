@@ -10,7 +10,7 @@
 
 {% block form_content %}
     <p class="form-hint">{{ content.hintText1 }}</p>
-    <p class="form-hint">{{ content.hintText2 | safe }}</p>
+    <p class="form-hint">{{ content.hintText2 | replace('{assessingMentalCapacity}', links.assessingMentalCapacity ) | safe }}</p>
 
     {{ optionsRadio(content,
         name = 'mentalCapacity',
