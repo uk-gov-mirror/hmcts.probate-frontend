@@ -28,6 +28,7 @@ nodejs:
     USE_IDAM : true
   image: 'https://hmcts.azurecr.io/hmcts/probate-frontend:latest'
 
+
 redis:
   cluster:
     enabled: false
