@@ -783,7 +783,7 @@ describe('Executors.js', () => {
                     list: [
                         {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'Divorce'},
                         {fullName: 'ed brown', isApplying: true, currentName: 'eddie jones', currentNameReason: 'Marriage'},
-                        {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'other', otherReason: 'Did not like my name'}
+                        {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'Other', otherReason: 'Did not like my name'}
                     ]
                 };
                 const executorsWrapper = new ExecutorsWrapper(data);

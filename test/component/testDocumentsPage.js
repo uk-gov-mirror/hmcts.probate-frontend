@@ -325,7 +325,7 @@ describe('documents', () => {
                     list: [
                         {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'Change by deed poll'},
                         {fullName: 'ed brown', isApplying: true, currentName: 'eddie jones', currentNameReason: 'Change by deed poll'},
-                        {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'other', otherReason: 'Did not like my name'}
+                        {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'Other', otherReason: 'Did not like my name'}
                     ]
                 };
 

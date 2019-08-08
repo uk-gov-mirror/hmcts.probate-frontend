@@ -13,7 +13,7 @@ describe('ExecutorsWithOtherNames', () => {
             const data = {
                 fullName: 'Ed Brown',
                 hasOtherName: false,
-                currentNameReason: 'other',
+                currentNameReason: 'Other',
                 otherReason: 'Stage Name',
                 currentName: 'Prince',
             };

@@ -22,7 +22,7 @@ describe('Executors-Alias', () => {
                 alias: 'No',
                 list: [
                     {fullName: 'Ronnie D', hasOtherName: true, currentName: 'Steve', currentNameReason: 'Marriage'},
-                    {fullName: 'Aggie D', hasOtherName: true, currentName: 'Danny', currentNameReason: 'other', otherReason: 'Yolo'}
+                    {fullName: 'Aggie D', hasOtherName: true, currentName: 'Danny', currentNameReason: 'Other', otherReason: 'Yolo'}
                 ]
             };
             ctx = ExecutorsAlias.pruneFormData(ctx);
@@ -41,7 +41,7 @@ describe('Executors-Alias', () => {
                 alias: 'Yes',
                 list: [
                     {currentName: 'Steve', hasOtherName: true, currentNameReason: 'Marriage'},
-                    {currentName: 'Danny', hasOtherName: true, currentNameReason: 'other', otherReason: 'Yolo'}
+                    {currentName: 'Danny', hasOtherName: true, currentNameReason: 'Other', otherReason: 'Yolo'}
                 ]
             };
             ctx = ExecutorsAlias.pruneFormData(ctx);
@@ -49,7 +49,7 @@ describe('Executors-Alias', () => {
                 alias: 'Yes',
                 list: [
                     {currentName: 'Steve', hasOtherName: true, currentNameReason: 'Marriage'},
-                    {currentName: 'Danny', hasOtherName: true, currentNameReason: 'other', otherReason: 'Yolo'}
+                    {currentName: 'Danny', hasOtherName: true, currentNameReason: 'Other', otherReason: 'Yolo'}
                 ]
             });
             done();
