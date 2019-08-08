@@ -15,6 +15,10 @@ describe('ServiceAuhoriser', () => {
             fetchTextStub = sinon.stub(Service.prototype, 'fetchText');
         });
 
+        afterEach(() => {
+            fetchTextStub.restore();
+        });
+
         it('should return service authorisation token', (done) => {
             fetchTextStub.returns(Promise.resolve('token'));
             serviceAuthoriser.determineServiceAuthorizationToken()

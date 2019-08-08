@@ -21,8 +21,6 @@ class FeatureToggle {
         const featureToggleKey = params.featureToggleKey;
         const sessionId = params.req.session.id;
         const featureToggle = new FeatureToggleService(config.featureToggles.url, params.req.sessionID);
-        const log = logger(sessionId);
-        log.info('****************** ^^^^^^^^^^^^^^^^ FEATURE TOGGLE URL: ' + config.featureToggles.url);
         return featureToggle.get(featureToggles[featureToggleKey])
             .then(isEnabled => {
                 logger(sessionId).info(`Checking feature toggle: ${featureToggleKey}, isEnabled: ${isEnabled}`);
