@@ -12,7 +12,7 @@ const caseTypes= require('app/utils/CaseTypes');
 const nock = require('nock');
 const featureToggleUrl = config.featureToggles.url;
 const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
-const featureTogglesNock = (status = 'true') => {
+const featureTogglesNock = (status = true) => {
     nock(featureToggleUrl)
         .get(intestacyQuestionsFeatureTogglePath)
         .reply(200, status);
