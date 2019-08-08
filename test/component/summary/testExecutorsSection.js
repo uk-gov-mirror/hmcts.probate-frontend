@@ -76,7 +76,7 @@ describe('summary-executor-section', () => {
         it('test correct content loaded on the summary page executors section including applicant alias (Option Other selected), when section is complete', (done) => {
             sessionData.applicant.nameAsOnTheWill = 'No';
             sessionData.applicant.alias = 'Dave Buster';
-            sessionData.applicant.aliasReason = 'Other';
+            sessionData.applicant.aliasReason = 'other';
             sessionData.applicant.otherReason = 'Because';
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

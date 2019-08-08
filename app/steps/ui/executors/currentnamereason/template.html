@@ -50,7 +50,7 @@
                 checked: true if fields.currentNameReason.value == content["optionDeedPoll"] | escape
             },
             {
-                value: content["optionOther"],
+                value: content["optionOther"] | lower,
                 text: content["optionOther"],
                 checked: true if fields.currentNameReason.value == content["optionOther"] | escape,
                 conditional: {

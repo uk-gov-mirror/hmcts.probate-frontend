@@ -76,7 +76,7 @@ const submitData = (ctx, data) => {
         mappedData.ihtForm = 'online';
     }
 
-    if (get(data, 'applicant.aliasReason') === 'Other') {
+    if (get(data, 'applicant.aliasReason') === 'other') {
         mappedData.applicantOtherReason = get(data, 'applicant.otherReason');
     }
 

@@ -51,7 +51,7 @@ class ExecutorCurrentNameReason extends ValidationStep {
         }
         ctx.list[ctx.index].currentNameReason = ctx.currentNameReason;
 
-        if (ctx.currentNameReason !== 'Other') {
+        if (ctx.currentNameReason !== 'other') {
             delete ctx.list[ctx.index].otherReason;
         }
 

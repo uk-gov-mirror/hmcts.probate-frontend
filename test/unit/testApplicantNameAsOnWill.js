@@ -40,7 +40,7 @@ describe('ApplicantNameAsOnWill', () => {
             ctx = {
                 nameAsOnTheWill: 'No',
                 alias: 'Bobby Alias',
-                aliasReason: 'Other',
+                aliasReason: 'other',
                 otherReason: 'Legally changed name'
             };
             errors = [];
@@ -48,7 +48,7 @@ describe('ApplicantNameAsOnWill', () => {
             expect(ctx).to.deep.equal({
                 nameAsOnTheWill: 'No',
                 alias: 'Bobby Alias',
-                aliasReason: 'Other',
+                aliasReason: 'other',
                 otherReason: 'Legally changed name'
             });
             done();
@@ -70,7 +70,7 @@ describe('ApplicantNameAsOnWill', () => {
             ctx = {
                 nameAsOnTheWill: 'Yes',
                 alias: 'Bobby Alias',
-                aliasReason: 'Other',
+                aliasReason: 'other',
                 otherReason: 'Legally changed name'
             };
             errors = [];
