@@ -49,6 +49,14 @@ for (const step in steps) {
                     .get(`${config.featureToggles.path}/probate-document-upload`)
                     .reply(200, 'true');
 
+                nock(config.featureToggles.url)
+                    .get(`${config.featureToggles.path}/probate-webchat`)
+                    .reply(200, 'true');
+
+                nock(config.featureToggles.url)
+                    .get(`${config.featureToggles.path}/probate-fees-api`)
+                    .reply(200, 'true');
+
                 server = app.init();
                 agent = request.agent(server.app);
                 co(function* () {
