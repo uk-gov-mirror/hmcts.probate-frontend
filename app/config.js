@@ -125,7 +125,6 @@ const config = {
         cookies: '/cookies',
         privacy: '/privacy-policy',
         terms: '/terms-conditions',
-        accessibility: '/accessibility',
         contact: '/contact-us',
         contactEmailAddress: 'contactprobate@justice.gov.uk',
         callCharges: 'https://www.gov.uk/call-charges',
@@ -190,7 +189,7 @@ const config = {
         gop: [],
         intestacy: []
     },
-    nonIdamPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'terms-conditions', 'privacy-policy', 'cookies', 'accessibility'],
+    nonIdamPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'terms-conditions', 'privacy-policy', 'cookies'],
     endpoints: {
         health: '/health',
         info: '/info'
