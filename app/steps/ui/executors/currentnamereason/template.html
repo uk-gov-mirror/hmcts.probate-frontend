@@ -52,7 +52,7 @@
             {
                 value: content["optionOther"] | lower,
                 text: content["optionOther"],
-                checked: true if fields.currentNameReason.value == content["optionOther"] | escape,
+                checked: true if fields.currentNameReason.value == content["optionOther"] | lower | escape,
                 conditional: {
                     html: otherHtml
                 }
