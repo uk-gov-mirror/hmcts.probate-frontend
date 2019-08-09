@@ -47,7 +47,7 @@ class ValidationStep extends Step {
         const removeEmptyFields = field => (typeof ctx[field] === 'string' && ctx[field].trim() === '') || ctx[field] === '';
 
         //remove empty fields as ajv expects them to be absent
-        Object.keys(ctx).filter(removeEmptyFields())
+        Object.keys(ctx).filter(removeEmptyFields)
             .forEach((field) => {
                 delete ctx[field];
             });
