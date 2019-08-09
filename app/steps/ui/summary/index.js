@@ -22,7 +22,7 @@ class Summary extends Step {
         return `/summary/${redirect}`;
     }
 
-    * handleGet(ctx, formdata) {
+    handleGet(ctx, formdata) {
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         const executorsApplying = executorsWrapper.executorsApplying(true);
 

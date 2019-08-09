@@ -58,35 +58,6 @@ class PaymentStatus extends Step {
             return options;
         }
 
-        if (config.services.payment.enableBackend) {
-            let errors;
-            const paymentSubmissions = ServiceMapper.map(
-                'PaymentSubmissions',
-                [config.services.orchestrator.url, ctx.sessionID]
-            );
-
-            const paymentSubmission = yield paymentSubmissions.put('Update payment status', formdata.applicantEmail, ctx.authToken, serviceAuthResult);
-            if (paymentSubmission.name === 'Error') {
-                errors = [];
-                errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));
-                return [ctx, errors];
-            }
-            const updatedForm = paymentSubmission.form;
-            set(formdata, 'ccdCase', updatedForm.ccdCase);
-            set(formdata, 'payment', updatedForm.payment);
-
-            if (paymentSubmission.redirect) {
-                options.redirect = true;
-                options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
-                logger.error('Unable to retrieve a payment response.');
-            } else {
-                options.redirect = false;
-            }
-
-            this.setErrors(options, errors);
-            return options;
-        }
-
         if (ctx.paymentDue) {
             const data = {
                 authToken: ctx.authToken,

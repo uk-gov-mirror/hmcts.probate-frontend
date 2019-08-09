@@ -7,7 +7,7 @@ const Service = require('app/services/Service');
 let serviceAuthoriser;
 let fetchTextStub;
 
-describe('ServiceAuhoriser', () => {
+describe('ServiceAuthoriser', () => {
     describe('determineServiceAuthorizationToken()', () => {
 
         beforeEach(() => {
