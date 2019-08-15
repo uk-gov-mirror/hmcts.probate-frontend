@@ -47,7 +47,6 @@ describe('divorce-place', () => {
                     playbackData.helpTitle = commonContent.helpTitle;
                     playbackData.helpHeading1 = commonContent.helpHeading1;
                     playbackData.helpHeading2 = commonContent.helpHeading2;
-                    playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
                     playbackData.helpEmailLabel = commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress);
 
                     testWrapper.testDataPlayback(done, playbackData);
@@ -68,7 +67,10 @@ describe('divorce-place', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testErrors(done, {}, 'required', []);
+                    const replacementData = {
+                        '{legalProcess}': 'divorce'
+                    };
+                    testWrapper.testErrors(done, replacementData, 'required', []);
                 });
         });
 
