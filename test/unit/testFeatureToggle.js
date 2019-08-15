@@ -173,9 +173,7 @@ describe('FeatureToggle', () => {
                     featureToggles: {}
                 }
             };
-            let ctx = {};
-
-            ctx = FeatureToggle.appwideToggles(req, ctx, appwideToggles);
+            const ctx = FeatureToggle.appwideToggles(req, ctx, appwideToggles);
 
             expect(ctx).to.deep.equal({});
             done();
@@ -191,9 +189,7 @@ describe('FeatureToggle', () => {
                     }
                 }
             };
-            let ctx = {};
-
-            ctx = FeatureToggle.appwideToggles(req, ctx, appwideToggles);
+            const ctx = FeatureToggle.appwideToggles(req, ctx, appwideToggles);
 
             expect(ctx).to.deep.equal({
                 featureToggles: {
