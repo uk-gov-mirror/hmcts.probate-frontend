@@ -220,7 +220,8 @@ const config = {
             declaration: 'generateLegalDeclarationPDF',
             coverSheet: 'generateBulkScanCoverSheetPDF'
         },
-        path: '/businessDocument'
+        path: '/businessDocument',
+        timeoutMs: 20000
     },
     signOutOnStopPages: ['divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales'],
     assetsValueThreshold: 250000
