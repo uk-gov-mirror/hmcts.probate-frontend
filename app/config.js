@@ -221,7 +221,7 @@ const config = {
             coverSheet: 'generateBulkScanCoverSheetPDF'
         },
         path: '/businessDocument',
-        timeoutMs: 20000
+        timeoutMs: 30000
     },
     signOutOnStopPages: ['divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales'],
     assetsValueThreshold: 250000
