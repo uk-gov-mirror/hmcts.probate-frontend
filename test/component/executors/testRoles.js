@@ -53,7 +53,6 @@ describe('executor-roles', () => {
                     playbackData.helpTitle = commonContent.helpTitle;
                     playbackData.helpHeading1 = commonContent.helpHeading1;
                     playbackData.helpHeading2 = commonContent.helpHeading2;
-                    playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
                     playbackData.helpEmailLabel = commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress);
 
                     testWrapper.testDataPlayback(done, playbackData);
@@ -153,7 +152,7 @@ describe('executor-roles', () => {
                 notApplyingReason: reasons.optionRenunciated
             };
 
-            Object.keys(reasons).forEach(key => {
+            Object.keys(reasons).forEach((key) => {
                 ctx.notApplyingReason = reasons[key];
                 [ctx] = ExecutorRoles.handlePost(ctx);
                 assert.exists(ctx.list[1].notApplyingKey, 'key not found - this key is needed for CCD data');

@@ -73,7 +73,6 @@ describe('executors-when-died', () => {
                     playbackData.helpTitle = commonContent.helpTitle;
                     playbackData.helpHeading1 = commonContent.helpHeading1;
                     playbackData.helpHeading2 = commonContent.helpHeading2;
-                    playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
                     playbackData.helpEmailLabel = commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress);
 
                     testWrapper.testDataPlayback(done, playbackData);
@@ -296,7 +295,7 @@ describe('executors-when-died', () => {
         it('Gets the reason key from the json and adds it to the context', () => {
             const ExecutorsWhenDied = steps.ExecutorsWhenDied;
 
-            Object.keys(reasons).forEach(key => {
+            Object.keys(reasons).forEach((key) => {
                 ctx.notApplyingReason = reasons[key];
                 ctx.diedbefore = 'No';
                 if (key === 'optionDiedBefore') {

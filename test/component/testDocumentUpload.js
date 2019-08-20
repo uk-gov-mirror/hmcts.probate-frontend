@@ -3,6 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const IhtMethod = require('app/steps/ui/iht/method');
 const commonContent = require('app/resources/en/translation/common');
+const content = require('app/resources/en/translation/documentupload');
 const config = require('app/config');
 const nock = require('nock');
 const expect = require('chai').expect;
@@ -25,7 +26,6 @@ describe('document-upload', () => {
                 helpTitle: commonContent.helpTitle,
                 helpHeading1: commonContent.helpHeading1,
                 helpHeading2: commonContent.helpHeading2,
-                contactOpeningTimes: commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours),
                 helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress)
             };
 
@@ -67,7 +67,7 @@ describe('document-upload', () => {
                 .field('isUploadingDocument', 'true')
                 .attach('file', 'test/data/document-upload/invalid-type.txt')
                 .then((res) => {
-                    expect(res.text).to.contain('<li><a href="#file">You have used a file type that can&rsquo;t be accepted. Save your file as a jpg, bmp, tiff, png or PDF file and try again</a></li>');
+                    expect(res.text).to.contain(content.errors.file.invalidFileType.message);
                     done();
                 })
                 .catch(done);
@@ -80,7 +80,7 @@ describe('document-upload', () => {
                 .field('isUploadingDocument', 'true')
                 .attach('file', 'test/data/document-upload/image-too-large.jpg')
                 .then((res) => {
-                    expect(res.text).to.contain('<li><a href="#file">Your file is too large to upload. Use a file that is under 10MB and try again</a></li>');
+                    expect(res.text).to.contain(content.errors.file.maxSize.message);
                     done();
                 })
                 .catch(done);
@@ -93,7 +93,7 @@ describe('document-upload', () => {
                 .field('isUploadingDocument', 'true')
                 .attach('file', 'test/data/document-upload/valid-image.png')
                 .then((res) => {
-                    expect(res.text).to.contain('<li><a href="#file">Your document failed to upload. Select your document and try again</a></li>');
+                    expect(res.text).to.contain(content.errors.file.uploadFailed.message);
                     done();
                 })
                 .catch(done);
@@ -105,7 +105,7 @@ describe('document-upload', () => {
                 .set('enctype', 'multipart/form-data')
                 .field('isUploadingDocument', 'true')
                 .then((res) => {
-                    expect(res.text).to.contain('<li><a href="#file">You need to select a file before you can upload it. Click &lsquo;browse&rsquo; to find a file to upload</a></li>');
+                    expect(res.text).to.contain(content.errors.file.nothingUploaded.message);
                     done();
                 })
                 .catch(done);
@@ -118,7 +118,7 @@ describe('document-upload', () => {
                 .field('isUploadingDocument', 'true')
                 .attach('file', 'test/data/document-upload/invalid-type.jpg')
                 .then((res) => {
-                    expect(res.text).to.contain('<li><a href="#file">You have used a file type that can&rsquo;t be accepted. Save your file as a jpg, bmp, tiff, png or PDF file and try again</a></li>');
+                    expect(res.text).to.contain(content.errors.file.invalidFileType.message);
                     done();
                 })
                 .catch(done);
@@ -131,7 +131,7 @@ describe('document-upload', () => {
                 .field('isUploadingDocument', 'true')
                 .attach('file', 'test/data/document-upload/invalid-type.jpg')
                 .then((res) => {
-                    expect(res.text).to.contain('<li><a href="#file">You have used a file type that can&rsquo;t be accepted. Save your file as a jpg, bmp, tiff, png or PDF file and try again</a></li>');
+                    expect(res.text).to.contain(content.errors.file.invalidFileType.message);
                     done();
                 })
                 .catch(done);

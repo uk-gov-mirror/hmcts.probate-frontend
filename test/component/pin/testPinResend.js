@@ -45,7 +45,7 @@ describe('pin-resend', () => {
                     phoneNumber: '07701111111',
                     validLink: true
                 })
-                .then(function() {
+                .then(() => {
                     testWrapper.testContent(done, ['subHeader2ExecName'], contentData);
                 });
         });
@@ -60,7 +60,7 @@ describe('pin-resend', () => {
                     phoneNumber: '+447701111111',
                     validLink: true
                 })
-                .then(function() {
+                .then(() => {
                     testWrapper.testContent(done, ['subHeader2ExecName'], contentData);
                 });
         });
@@ -75,7 +75,7 @@ describe('pin-resend', () => {
                     phoneNumber: '+10900111000111000111',
                     validLink: true
                 })
-                .then(function() {
+                .then(() => {
                     testWrapper.testContent(done, ['subHeader2ExecName'], contentData);
                 });
         });
@@ -90,7 +90,7 @@ describe('pin-resend', () => {
                     leadExecutorName: 'Works',
                     validLink: true
                 })
-                .then(function() {
+                .then(() => {
                     testWrapper.testContent(done, ['header1', 'header2'], contentData);
                 });
         });

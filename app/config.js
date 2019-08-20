@@ -142,8 +142,8 @@ const config = {
         subjectAccessRequest: 'https://www.gov.uk/government/publications/request-your-personal-data-from-moj',
         complaintsProcedure: 'https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure',
         informationCommissionersOffice: 'https://ico.org.uk/global/contact-us',
-        survey: process.env.SURVEY || 'https://www.smartsurvey.co.uk/',
-        surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION || 'https://www.smartsurvey.co.uk/',
+        survey: process.env.SURVEY || 'https://www.smartsurvey.co.uk/s/Probate_Feedback/',
+        surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION || 'https://www.smartsurvey.co.uk/s/Probate_ExitSurvey/',
         ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value',
         applicationFormPA15: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will',
         applicationFormPA1A: 'https://www.gov.uk/government/publications/form-pa1a-apply-for-probate-deceased-did-not-leave-a-will',
@@ -153,7 +153,8 @@ const config = {
         findOutNext: 'https://www.gov.uk/wills-probate-inheritance/once-the-grants-been-issued',
         whoInherits: 'https://www.gov.uk/inherits-someone-dies-without-will',
         ifYoureAnExecutor: 'https://www.gov.uk/wills-probate-inheritance/if-youre-an-executor',
-        renunciationForm: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will'
+        renunciationForm: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will',
+        assessingMentalCapacity: 'https://www.gov.uk/make-decisions-for-someone/assessing-mental-capacity'
     },
     helpline: {
         number: '0300 303 0648',
