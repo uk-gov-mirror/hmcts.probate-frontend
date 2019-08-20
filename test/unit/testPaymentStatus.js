@@ -246,7 +246,7 @@ describe('PaymentStatus', () => {
                     href: '#update',
                     msg: {
                         summary: 'We could not submit your application. Your data has been saved, please try again later.',
-                        message: 'payment.status.errors.update.failure.message'
+                        message: ''
                     }
                 }]);
                 revert();
