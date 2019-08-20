@@ -44,11 +44,9 @@ router.use((req, res, next) => {
 });
 
 router.use(serviceAuthorisationToken);
-
 router.use(setJourney);
 
 router.get('/', (req, res) => {
-
     const formData = ServiceMapper.map(
         'FormData',
         [config.services.orchestrator.url, req.sessionID]

@@ -32,7 +32,7 @@
         "message": ""
       },
       "validation": {
-        "summary": "There has been a problem saving your application.",
+        "summary": "There was a problem saving your application.",
         "message": ""
       }
     }

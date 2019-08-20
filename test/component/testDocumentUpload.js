@@ -57,7 +57,6 @@ describe('document-upload', () => {
                         })
                         .catch(done);
                 });
-
         });
 
         it('test it displays an error message when uploading a document with an incorrect type', (done) => {

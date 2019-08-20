@@ -35,7 +35,6 @@ class FormData extends Service {
         const fetchOptions = this.fetchOptions(data, 'POST', headers);
         return this.fetchJson(url, fetchOptions);
     }
-
 }
 
 module.exports = FormData;

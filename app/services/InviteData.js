@@ -10,7 +10,6 @@ class InviteData extends Service {
         const headers = this.constructHeaders(ctx);
         const fetchOptions = this.fetchOptions(data, 'POST', headers);
         return this.fetchJson(url, fetchOptions);
-
     }
 
     resetAgreedFlag(formdataId, ctx) {
@@ -19,7 +18,6 @@ class InviteData extends Service {
         const headers = this.constructHeaders(ctx);
         const fetchOptions = this.fetchOptions({}, 'POST', headers);
         return this.fetchJson(url, fetchOptions);
-
     }
 
     updateContactDetails(formdataId, data, ctx) {
