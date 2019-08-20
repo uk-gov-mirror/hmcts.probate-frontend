@@ -58,6 +58,10 @@ router.get('/', (req, res) => {
             if (result.name === 'Error') {
                 req.log.debug('Failed to load user data');
                 req.log.info({tags: 'Analytics'}, 'Application Started');
+                if (!result.message.startsWith('FetchError: invalid json response body')) {
+                    res.status(500).render('errors/500', {common: commonContent});
+                    return;
+                }
             } else {
                 req.log.debug('Successfully loaded user data');
                 req.session.form = result;
