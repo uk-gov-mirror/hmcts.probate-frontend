@@ -3,7 +3,6 @@
 const TestWrapper = require('test/util/TestWrapper');
 const WillOriginal = require('app/steps/ui/screeners/willoriginal');
 const DiedAfterOctober2014 = require('app/steps/ui/screeners/diedafteroctober2014');
-const StopPage = require('app/steps/ui/stoppage');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
@@ -23,7 +22,6 @@ describe('will-left', () => {
     let testWrapper;
     const expectedNextUrlForWillOriginal = WillOriginal.getUrl();
     const expectedNextUrlForDiedAfterOctober2014 = DiedAfterOctober2014.getUrl();
-    const expectedNextUrlForStopPage = StopPage.getUrl('noWill');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('WillLeft');
@@ -58,14 +56,6 @@ describe('will-left', () => {
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForDiedAfterOctober2014, cookies);
-        });
-
-        it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            const data = {
-                left: 'No'
-            };
-
-            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
         });
 
         it('test "save and close" and "sign out" links are not displayed on the page', (done) => {
