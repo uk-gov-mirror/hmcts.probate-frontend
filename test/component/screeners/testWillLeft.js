@@ -19,15 +19,6 @@ const cookies = [{
     }
 }];
 
-const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
-const featureTogglesNock = (status = 'true') => {
-    nock(featureToggleUrl)
-        .get(intestacyQuestionsFeatureTogglePath)
-        .reply(200, status);
-};
-
 describe('will-left', () => {
     let testWrapper;
     const expectedNextUrlForWillOriginal = WillOriginal.getUrl();
@@ -40,7 +31,6 @@ describe('will-left', () => {
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -63,8 +53,6 @@ describe('will-left', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForDiedAfterOctober2014}`, (done) => {
-            featureTogglesNock('true');
-
             const data = {
                 left: 'No'
             };
@@ -73,8 +61,6 @@ describe('will-left', () => {
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            featureTogglesNock('false');
-
             const data = {
                 left: 'No'
             };

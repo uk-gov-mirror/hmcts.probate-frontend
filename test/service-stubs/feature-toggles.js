@@ -9,9 +9,7 @@ const featureTogglesPort = config.featureToggles.port;
 
 const featureToggles = {
     'probate-fe-shutter': true,
-    'probate-intestacy-questions': true,
     'probate-fees-api': true,
-    'probate-webchat': true,
     'probate-webforms': true
 };
 
