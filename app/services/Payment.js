@@ -3,6 +3,7 @@
 const Service = require('./Service');
 const paymentData = require('app/components/payment-data');
 const config = require('app/config');
+const {forEach} = require('lodash');
 
 class Payment extends Service {
     get(data) {
@@ -47,7 +48,7 @@ class Payment extends Service {
 
     identifySuccessfulOrInitiatedPayment(casePayments) {
         let response = false;
-        casePayments.payments.forEach((payment) => {
+        forEach(casePayments.payments, (payment) => {
             if (payment.status === 'Success') {
                 this.log(`Found a successful payment: ${payment.payment_reference}`);
                 response = payment;
