@@ -30,8 +30,7 @@ class WillLeft extends EligibilityValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: fieldKey, value: content.optionYes, choice: 'withWill'},
-                {key: fieldKey, value: content.optionNo, choice: 'withoutWillToggleOn'}
+                {key: fieldKey, value: content.optionYes, choice: 'withWill'}
             ]
         };
     }

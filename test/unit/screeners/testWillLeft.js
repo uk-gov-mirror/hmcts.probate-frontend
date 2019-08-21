@@ -110,11 +110,6 @@ describe('WillLeft', () => {
                         key: 'left',
                         value: content.optionYes,
                         choice: 'withWill'
-                    },
-                    {
-                        key: 'left',
-                        value: content.optionNo,
-                        choice: 'withoutWillToggleOn'
                     }
                 ]
             });
