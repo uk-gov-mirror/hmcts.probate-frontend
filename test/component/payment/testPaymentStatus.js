@@ -10,6 +10,31 @@ const PERSISTENCE_URL = config.services.persistence.url;
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 let sessionData = require('test/data/complete-form-undeclared').formdata;
 
+const paymentNock = () => {
+    nock(CREATE_PAYMENT_SERVICE_URL)
+        .get('/1')
+        .reply(200, {
+            channel: 'Online',
+            id: 12345,
+            reference: 'PaymentReference12345',
+            amount: 5000,
+            status: 'Success',
+            date_updated: '2018-08-29T15:25:11.920+0000',
+            site_id: 'siteId0001',
+        });
+
+    nock(PERSISTENCE_URL)
+        .post('/')
+        .reply(201, {});
+
+    nock(IDAM_S2S_URL)
+        .post('/lease')
+        .reply(
+            200,
+            'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSRUZFUkVOQ0UifQ.Z_YYn0go02ApdSMfbehsLXXbxJxLugPG8v_3ktCpQurK8tHkOy1qGyTo02bTdilX4fq4M5glFh80edDuhDJXPA'
+        );
+};
+
 describe('payment-status', () => {
     let testWrapper;
     const expectedNextUrlForTaskList = TaskList.getUrl();
@@ -17,34 +42,7 @@ describe('payment-status', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('PaymentStatus');
 
-        nock(config.services.orchestrator.url)
-            .put(uri => uri.includes('submissions'))
-            .reply(200, {
-                ccdCase: {
-                    state: 'CaseCreated'
-                }
-            });
-
-        nock(CREATE_PAYMENT_SERVICE_URL)
-            .get('/1')
-            .reply(200, {
-                channel: 'Online',
-                id: 12345,
-                reference: 'PaymentReference12345',
-                amount: 5000,
-                status: 'Success',
-                date_updated: '2018-08-29T15:25:11.920+0000',
-                site_id: 'siteId0001',
-            });
-        nock(PERSISTENCE_URL)
-            .post('/')
-            .reply(201, {});
-        nock(IDAM_S2S_URL)
-            .post('/lease')
-            .reply(
-                200,
-                'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSRUZFUkVOQ0UifQ.Z_YYn0go02ApdSMfbehsLXXbxJxLugPG8v_3ktCpQurK8tHkOy1qGyTo02bTdilX4fq4M5glFh80edDuhDJXPA'
-            );
+        paymentNock();
     });
 
     afterEach(() => {
@@ -53,9 +51,15 @@ describe('payment-status', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('PaymentStatus');
+        testHelpBlockContent.runTest('PaymentStatus', paymentNock);
 
         it('test right content loaded on the page when net value is greater than 5000£', (done) => {
+            nock(config.services.orchestrator.url)
+                .put(uri => uri.includes('submissions'))
+                .reply(200, {
+                    ccdCase: sessionData.ccdCase,
+                    payment: sessionData.payment
+                });
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -65,7 +69,12 @@ describe('payment-status', () => {
         });
 
         it('test right content loaded on the page when net value is less than 5000£', (done) => {
-            const excludeKeys = ['paragraph'];
+            nock(config.services.orchestrator.url)
+                .put(uri => uri.includes('submissions'))
+                .reply(200, {
+                    ccdCase: sessionData.ccdCase
+                });
+            const excludeKeys = ['paragraph1'];
 
             testWrapper.testContent(done, excludeKeys);
         });
