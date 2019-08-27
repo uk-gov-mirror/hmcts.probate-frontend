@@ -2,6 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const config = require('app/config');
+const commonContent = require('app/resources/en/translation/common');
 
 describe('stop-page', () => {
     let testWrapper;
@@ -33,6 +34,13 @@ describe('stop-page', () => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('ihtNotCompleted');
             const contentData = {ihtNotCompleted: config.links.ihtNotCompleted};
             const contentToExclude = ['deathCertificate', 'notInEnglandOrWales', 'notOriginal', 'notExecutor', 'mentalCapacity', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
+            testWrapper.testContent(done, contentData, contentToExclude);
+        });
+
+        it('test right content loaded on the page - no will', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('noWill');
+            const contentData = {applicationFormPA1A: config.links.applicationFormPA1A, whoInherits: config.links.whoInherits};
+            const contentToExclude = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'notOriginal', 'notExecutor', 'mentalCapacity', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
             testWrapper.testContent(done, contentData, contentToExclude);
         });
 
@@ -125,6 +133,18 @@ describe('stop-page', () => {
             const contentData = {applicationFormPA1A: config.links.applicationFormPA1A};
             const contentToExclude = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'notOriginal', 'notExecutor', 'mentalCapacity', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18'];
             testWrapper.testContent(done, contentData, contentToExclude);
+        });
+
+        it('test "sign out" link is not displayed on the page on pages outside of IdAM', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('deathCertificate');
+            const playbackData = {signOut: commonContent.signOut};
+            testWrapper.testContentNotPresent(done, playbackData);
+        });
+
+        it('test "sign out" link is displayed on the page on pages inside IdAM', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('divorcePlace');
+            const playbackData = {signOut: commonContent.signOut};
+            testWrapper.testDataPlayback(done, playbackData);
         });
     });
 });
