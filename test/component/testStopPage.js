@@ -2,7 +2,6 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const config = require('app/config');
-const commonContent = require('app/resources/en/translation/common');
 
 describe('stop-page', () => {
     let testWrapper;
