@@ -1,10 +1,8 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const documentuploadData = require('test/data/documentupload');
 const documentuploadContent = require('app/resources/en/translation/documentupload');
 const summaryContent = require('app/resources/en/translation/summary');
-const nock = require('nock');
 
 describe('summary-documentupload-section', () => {
     let testWrapper, sessionData;
@@ -12,12 +10,11 @@ describe('summary-documentupload-section', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('Summary');
         sessionData = require('test/data/documentupload');
-
     });
 
     afterEach(() => {
+        delete require.cache[require.resolve('test/data/documentupload')];
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -31,9 +28,9 @@ describe('summary-documentupload-section', () => {
                     const playbackData = [
                         summaryContent.uploadedDocumentsHeading,
                         documentuploadContent.deathCertificate,
-                        documentuploadData.documents.uploads[0].filename,
-                        documentuploadData.documents.uploads[1].filename,
-                        documentuploadData.documents.uploads[2].filename
+                        sessionData.documents.uploads[0].filename,
+                        sessionData.documents.uploads[1].filename,
+                        sessionData.documents.uploads[2].filename
                     ];
                     testWrapper.testDataPlayback(done, playbackData);
                 });
@@ -79,7 +76,7 @@ describe('summary-documentupload-section', () => {
                     const playbackData = [
                         documentuploadContent.deathCertificate
                     ];
-                    Object.assign(playbackData, documentuploadData);
+                    Object.assign(playbackData, sessionData);
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
