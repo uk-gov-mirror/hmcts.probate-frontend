@@ -50,7 +50,6 @@
     "stub:persistence": "NODE_PATH=. node test/service-stubs/persistence.js",
     "stub:business": "NODE_PATH=. node test/service-stubs/business.js",
     "stub:payment": "NODE_PATH=. node test/service-stubs/payment.js",
-    "stub:multiple-applications": "NODE_PATH=. node test/service-stubs/multipleApplications.js",
     "stub:feature-toggles": "NODE_PATH=. node test/service-stubs/featureToggles.js"
   },
   "dependencies": {
