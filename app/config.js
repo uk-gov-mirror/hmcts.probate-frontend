@@ -13,6 +13,7 @@ const config = {
         intestacy_questions: 'probate-intestacy-questions',
         fees_api: 'probate-fees-api',
         webchat: 'probate-webchat',
+        multiple_applications: 'probate-multiple-applications',
         appwideToggles: ['webchat']
     },
     app: {
@@ -89,6 +90,11 @@ const config = {
                 feesLookup: '/fees/lookup'
             },
             ihtMinAmt: 5000
+        },
+        multipleApplicatons: {
+            urlApplications: process.env.MA_GET_APPLICATIONS || 'http://localhost:8383/ma-get-applications',
+            urlCase: process.env.MA_GET_CASE || 'http://localhost:8383/ma-get-case',
+            port: 8383
         }
     },
     redis: {
@@ -223,7 +229,6 @@ const config = {
         },
         path: '/businessDocument'
     },
-    signOutOnStopPages: ['divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales'],
     assetsValueThreshold: 250000
 };
 
