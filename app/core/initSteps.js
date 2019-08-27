@@ -31,7 +31,14 @@ const initStep = filePath => {
 };
 
 const initSteps = (stepLocations) => {
-    initI18Next();
+    const content = requireDir(module, '../', {include: /resources/});
+    i18next.createInstance();
+    i18next.init(content, (err) => {
+        if (err) {
+            logger.error(err);
+        }
+    });
+
     stepLocations.forEach((location) => {
         const calculatePath = path => {
             if ((/index.js$/).test(path)) {
@@ -47,16 +54,5 @@ const initSteps = (stepLocations) => {
     return steps;
 };
 
-const initI18Next = () => {
-    const content = requireDir(module, '../', {include: /resources/});
-    i18next.createInstance();
-    i18next.init(content, (err) => {
-        if (err) {
-            logger.error(err);
-        }
-    });
-};
-
 module.exports = initSteps;
-module.exports.initI18Next = initI18Next;
 module.exports.steps = steps;

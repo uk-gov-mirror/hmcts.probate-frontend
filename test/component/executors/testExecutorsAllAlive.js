@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsApplying = require('app/steps/ui/executors/applying');
 const ExecutorsWhoDied = require('app/steps/ui/executors/whodied');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executors-all-alive', () => {
     let testWrapper;
@@ -19,14 +19,19 @@ describe('executors-all-alive', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('ExecutorsAllAlive');
+        testHelpBlockContent.runTest('ExecutorsAllAlive');
 
         it('test right content loaded on the page', (done) => {
-            testWrapper.testContent(done);
+            const excludeKeys = [];
+
+            testWrapper.testContent(done, excludeKeys);
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required');
+            const data = {
+            };
+
+            testWrapper.testErrors(done, data, 'required');
         });
 
         it(`test it redirects to executors applying: ${expectedNextUrlForExecsApplying}`, (done) => {

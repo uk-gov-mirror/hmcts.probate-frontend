@@ -3,9 +3,18 @@
 const TestWrapper = require('test/util/TestWrapper');
 const DivorcePlace = require('app/steps/ui/deceased/divorceplace');
 const TaskList = require('app/steps/ui/tasklist');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const content = require('app/resources/en/translation/deceased/maritalstatus');
+const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
+const nock = require('nock');
+const featureToggleUrl = config.featureToggles.url;
+const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
+const featureTogglesNock = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(intestacyQuestionsFeatureTogglePath)
+        .reply(200, status);
+};
 
 describe('deceased-marital-status', () => {
     let testWrapper;
@@ -14,14 +23,16 @@ describe('deceased-marital-status', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedMaritalStatus');
+        featureTogglesNock();
     });
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('DeceasedMaritalStatus');
+        testHelpBlockContent.runTest('DeceasedMaritalStatus', featureTogglesNock);
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
@@ -35,14 +46,14 @@ describe('deceased-marital-status', () => {
                 .send(sessionData)
                 .end(() => {
                     const contentData = {deceasedName: 'John Doe'};
-                    const contentToExclude = ['divorce', 'separation'];
+                    const excludeKeys = ['divorce', 'separation'];
 
-                    testWrapper.testContent(done, contentData, contentToExclude);
+                    testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required');
+            testWrapper.testErrors(done, {}, 'required', []);
         });
 
         it(`test it redirects to divorce place page if divorced: ${expectedNextUrlForDivorcePlace}`, (done) => {

@@ -17,13 +17,15 @@ describe('applicant-alias-reason', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);
         });
 
         it('test alias reason validation when no data is entered', (done) => {
             const errorsToTest = ['aliasReason'];
-            testWrapper.testErrors(done, {}, 'required', errorsToTest);
+            const data = {};
+            testWrapper.testErrors(done, data, 'required', errorsToTest);
         });
 
         it('test alias reason validation when other is selected but no reason is entered', (done) => {

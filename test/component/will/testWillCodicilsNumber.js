@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('codicils-number', () => {
     let testWrapper;
@@ -17,7 +17,7 @@ describe('codicils-number', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('CodicilsNumber');
+        testHelpBlockContent.runTest('CodicilsNumber');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);
@@ -25,23 +25,21 @@ describe('codicils-number', () => {
 
         it('test errors message displayed for invalid data', (done) => {
             const data = {codicilsNumber: 'abd'};
-
-            testWrapper.testErrors(done, data, 'invalid');
+            testWrapper.testErrors(done, data, 'invalid', []);
         });
 
         it('test errors message displayed for invalid data - negative numbers', (done) => {
             const data = {codicilsNumber: '-1'};
-
-            testWrapper.testErrors(done, data, 'invalid');
+            testWrapper.testErrors(done, data, 'invalid', []);
         });
 
         it('test errors message displayed for no number entered', (done) => {
-            testWrapper.testErrors(done, {}, 'required');
+            const data = {};
+            testWrapper.testErrors(done, data, 'required', []);
         });
 
         it(`test it redirects to TaskList page: ${expectedNextUrlForTaskList}`, (done) => {
             const data = {codicilsNumber: '1'};
-
             testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
         });
     });

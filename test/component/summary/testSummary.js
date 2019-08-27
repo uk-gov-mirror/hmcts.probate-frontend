@@ -2,6 +2,16 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist');
+const sessionData = require('test/data/documentupload');
+const config = require('app/config');
+const nock = require('nock');
+const featureToggleUrl = config.featureToggles.url;
+const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
+const featureTogglesNockIntestacy = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(intestacyQuestionsFeatureTogglePath)
+        .reply(200, status);
+};
 
 describe('summary', () => {
     let testWrapper;
@@ -20,7 +30,6 @@ describe('summary', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test content loaded on the page and documents uploaded', (done) => {
-            const sessionData = require('test/data/documentupload');
             const contentToExclude = [
                 'executorsWhenDiedQuestion',
                 'otherNamesLabel',
@@ -41,12 +50,13 @@ describe('summary', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    delete require.cache[require.resolve('test/data/documentupload')];
-                    testWrapper.testContent(done, {}, contentToExclude);
+                    testWrapper.testContent(done, contentToExclude);
                 });
         });
 
         it('[INTESTACY] test content loaded on the page', (done) => {
+            featureTogglesNockIntestacy('true');
+
             const contentToExclude = [
                 'executorsWhenDiedQuestion',
                 'otherNamesLabel',
@@ -66,7 +76,7 @@ describe('summary', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionDataIntestacy)
                 .end(() => {
-                    testWrapper.testContent(done, {}, contentToExclude);
+                    testWrapper.testContent(done, contentToExclude);
                 });
         });
 

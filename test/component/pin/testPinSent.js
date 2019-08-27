@@ -19,9 +19,10 @@ describe('pin-sent', () => {
     describe('Verify Content, Errors and Redirection', () => {
 
         it('test right content loaded on the page', (done) => {
+            const excludeKeys = [];
             testWrapper.agent.post('/prepare-session-field/validLink/true')
                 .end(() => {
-                    testWrapper.testContent(done);
+                    testWrapper.testContent(done, excludeKeys);
                 });
         });
 
@@ -29,10 +30,10 @@ describe('pin-sent', () => {
             testWrapper.testRedirect(done, {}, expectedNextUrlForPinPage);
         });
 
-        it('test "save and close" link is not displayed on the page', (done) => {
-            const playbackData = {
-                saveAndClose: commonContent.saveAndClose
-            };
+        it('test save and close link is not displayed on the page', (done) => {
+            const playbackData = {};
+            playbackData.saveAndClose = commonContent.saveAndClose;
+            playbackData.signOut = commonContent.signOut;
 
             testWrapper.testContentNotPresent(done, playbackData);
         });

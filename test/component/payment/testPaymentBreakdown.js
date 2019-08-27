@@ -1,7 +1,10 @@
 'use strict';
 
+const nock = require('nock');
+const config = require('app/config');
 const TestWrapper = require('test/util/TestWrapper');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const IDAM_S2S_URL = config.services.idam.s2s_url;
 const sinon = require('sinon');
 const FeesCalculator = require('app/utils/FeesCalculator');
 let feesCalculator;
@@ -21,6 +24,9 @@ describe('payment-breakdown', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('PaymentBreakdown');
 
+        nock(IDAM_S2S_URL).post('/lease')
+            .reply(200, 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSRUZFUkVOQ0UifQ.Z_YYn0go02ApdSMfbehsLXXbxJxLugPG' +
+                '8v_3ktCpQurK8tHkOy1qGyTo02bTdilX4fq4M5glFh80edDuhDJXPA');
         feesCalculator = sinon.stub(FeesCalculator.prototype, 'calc');
         feesCalculator.returns(Promise.resolve({
             status: 'success',
@@ -36,16 +42,16 @@ describe('payment-breakdown', () => {
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
         feesCalculator.restore();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('PaymentBreakdown');
+        testHelpBlockContent.runTest('PaymentBreakdown');
 
         it('test content loaded on the page with no extra copies', (done) => {
             const contentToExclude = ['extraCopiesFeeUk', 'extraCopiesFeeJersey', 'extraCopiesFeeOverseas'];
-
-            testWrapper.testContent(done, {}, contentToExclude);
+            testWrapper.testContent(done, contentToExclude);
         });
 
         it('test it displays the UK copies fees', (done) => {
@@ -56,8 +62,7 @@ describe('payment-breakdown', () => {
                         throw err;
                     }
                     const contentToExclude = ['extraCopiesFeeJersey', 'extraCopiesFeeOverseas'];
-
-                    testWrapper.testContent(done, {}, contentToExclude);
+                    testWrapper.testContent(done, contentToExclude);
                 });
         });
 
@@ -69,8 +74,7 @@ describe('payment-breakdown', () => {
                         throw err;
                     }
                     const contentToExclude = ['extraCopiesFeeJersey', 'extraCopiesFeeUk'];
-
-                    testWrapper.testContent(done, {}, contentToExclude);
+                    testWrapper.testContent(done, contentToExclude);
                 });
         });
 
@@ -90,9 +94,8 @@ describe('payment-breakdown', () => {
                     if (err) {
                         throw err;
                     }
-                    const errorsToTest = ['authorisation'];
-
-                    testWrapper.testErrors(done, {}, 'failure', errorsToTest);
+                    const data = {};
+                    testWrapper.testErrors(done, data, 'failure', ['authorisation']);
                 });
         });
     });

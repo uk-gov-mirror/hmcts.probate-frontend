@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const RelatedToDeceased = require('app/steps/ui/screeners/relatedtodeceased');
 const StopPage = require('app/steps/ui/stoppage');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
@@ -20,6 +20,15 @@ const cookies = [{
     }
 }];
 
+const nock = require('nock');
+const featureToggleUrl = config.featureToggles.url;
+const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
+const featureTogglesNock = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(intestacyQuestionsFeatureTogglePath)
+        .reply(200, status);
+};
+
 describe('died-after-october-2014', () => {
     let testWrapper;
     const expectedNextUrlForRelatedToDeceased = RelatedToDeceased.getUrl();
@@ -27,17 +36,19 @@ describe('died-after-october-2014', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DiedAfterOctober2014');
+        featureTogglesNock();
     });
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('DiedAfterOctober2014', null, null, cookies, true);
+        testHelpBlockContent.runTest('DiedAfterOctober2014', featureTogglesNock, cookies);
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, {}, [], cookies);
+            testWrapper.testContent(done, [], {}, cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {
@@ -72,10 +83,9 @@ describe('died-after-october-2014', () => {
                 });
         });
 
-        it('test "save and close" link is not displayed on the page', (done) => {
-            const playbackData = {
-                saveAndClose: commonContent.saveAndClose
-            };
+        it('test save and close link is not displayed on the page', (done) => {
+            const playbackData = {};
+            playbackData.saveAndClose = commonContent.saveAndClose;
 
             testWrapper.testContentNotPresent(done, playbackData);
         });

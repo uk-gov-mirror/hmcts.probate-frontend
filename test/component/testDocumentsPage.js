@@ -9,7 +9,8 @@ const ThankYou = require('app/steps/ui/thankyou');
 const deceasedMaritalStatusContent = require('app/resources/en/translation/deceased/maritalstatus');
 const ihtContent = require('app/resources/en/translation/iht/method');
 const relationshipToDeceasedContent = require('app/resources/en/translation/applicant/relationshiptodeceased');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('documents', () => {
     let testWrapper;
@@ -36,16 +37,18 @@ describe('documents', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('Documents');
+        testHelpBlockContent.runTest('Documents');
 
         describe('Probate Journey', () => {
             it('test correct content loaded on the page, no codicils, no alias, single executor', (done) => {
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
-                        const contentToExclude = [
+                        const excludeKeys = [
+                            'text6',
                             'checklist-item1-codicils',
                             'checklist-item2-spouse-renouncing',
+                            'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
                             'checklist-item5-renunciated',
                             'checklist-item6-deed-poll',
@@ -53,7 +56,7 @@ describe('documents', () => {
                             'checkboxLabel'
                         ];
 
-                        testWrapper.testContent(done, contentData, contentToExclude);
+                        testWrapper.testContent(done, excludeKeys, contentData);
                     });
             });
 
@@ -68,17 +71,17 @@ describe('documents', () => {
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
-                        const contentToExclude = [
+                        const excludeKeys = [
                             'checklist-item1-codicils',
                             'checklist-item2-spouse-renouncing',
+                            'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
                             'checklist-item5-renunciated',
                             'checklist-item6-deed-poll',
                             'checkboxLabel-codicils',
                             'checkboxLabel'
                         ];
-
-                        testWrapper.testContent(done, contentData, contentToExclude);
+                        testWrapper.testContent(done, excludeKeys, contentData);
                     });
             });
 
@@ -93,17 +96,17 @@ describe('documents', () => {
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
-                        const contentToExclude = [
+                        const excludeKeys = [
                             'checklist-item1-codicils',
                             'checklist-item2-spouse-renouncing',
+                            'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
                             'checklist-item5-renunciated',
                             'checklist-item6-deed-poll',
                             'checkboxLabel-codicils',
                             'checkboxLabel'
                         ];
-
-                        testWrapper.testContent(done, contentData, contentToExclude);
+                        testWrapper.testContent(done, excludeKeys, contentData);
                     });
             });
 
@@ -119,9 +122,11 @@ describe('documents', () => {
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
-                        const contentToExclude = [
+                        const excludeKeys = [
+                            'text6',
                             'checklist-item1-codicils',
                             'checklist-item2-spouse-renouncing',
+                            'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
                             'checklist-item6-deed-poll',
                             'checkboxLabel-codicils',
@@ -129,7 +134,7 @@ describe('documents', () => {
                         ];
                         contentData.renunciationFormLink = config.links.renunciationForm;
 
-                        testWrapper.testContent(done, contentData, contentToExclude);
+                        testWrapper.testContent(done, excludeKeys, contentData);
                     });
             });
 
@@ -142,9 +147,11 @@ describe('documents', () => {
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
-                        const contentToExclude = [
+                        const excludeKeys = [
+                            'text6',
                             'checklist-item1-no-codicils',
                             'checklist-item2-spouse-renouncing',
+                            'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
                             'checklist-item5-renunciated',
                             'checklist-item6-deed-poll',
@@ -153,7 +160,7 @@ describe('documents', () => {
                         ];
                         contentData.codicilsNumber = 1;
 
-                        testWrapper.testContent(done, contentData, contentToExclude);
+                        testWrapper.testContent(done, excludeKeys, contentData);
                     });
             });
 
@@ -172,9 +179,10 @@ describe('documents', () => {
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
-                        const contentToExclude = [
+                        const excludeKeys = [
                             'checklist-item1-no-codicils',
                             'checklist-item2-spouse-renouncing',
+                            'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
                             'checklist-item5-renunciated',
                             'checklist-item6-deed-poll',
@@ -183,7 +191,7 @@ describe('documents', () => {
                         ];
                         contentData.codicilsNumber = 1;
 
-                        testWrapper.testContent(done, contentData, contentToExclude);
+                        testWrapper.testContent(done, excludeKeys, contentData);
                     });
             });
 
@@ -195,9 +203,11 @@ describe('documents', () => {
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
-                        const contentToExclude = [
+                        const excludeKeys = [
+                            'text6',
                             'checklist-item1-codicils',
                             'checklist-item2-spouse-renouncing',
+                            'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
                             'checklist-item5-renunciated',
                             'checklist-item6-deed-poll',
@@ -206,7 +216,7 @@ describe('documents', () => {
                             'address'
                         ];
 
-                        testWrapper.testContent(done, contentData, contentToExclude);
+                        testWrapper.testContent(done, excludeKeys, contentData);
                     });
             });
 
@@ -218,9 +228,11 @@ describe('documents', () => {
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
-                        const contentToExclude = [
+                        const excludeKeys = [
+                            'text6',
                             'checklist-item1-codicils',
                             'checklist-item2-spouse-renouncing',
+                            'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
                             'checklist-item5-renunciated',
                             'checklist-item6-deed-poll',
@@ -228,7 +240,7 @@ describe('documents', () => {
                             'checkboxLabel'
                         ];
 
-                        testWrapper.testContent(done, contentData, contentToExclude);
+                        testWrapper.testContent(done, excludeKeys, contentData);
                     });
             });
 
@@ -241,9 +253,11 @@ describe('documents', () => {
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
-                        const contentToExclude = [
+                        const excludeKeys = [
+                            'text6',
                             'checklist-item1-codicils',
                             'checklist-item2-spouse-renouncing',
+                            'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
                             'checklist-item5-renunciated',
                             'checklist-item6-deed-poll',
@@ -251,7 +265,7 @@ describe('documents', () => {
                             'checkboxLabel'
                         ];
 
-                        testWrapper.testContent(done, contentData, contentToExclude);
+                        testWrapper.testContent(done, excludeKeys, contentData);
                     });
             });
 
@@ -264,16 +278,18 @@ describe('documents', () => {
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
-                        const contentToExclude = [
+                        const excludeKeys = [
+                            'text6',
                             'checklist-item1-codicils',
                             'checklist-item2-spouse-renouncing',
+                            'checklist-item3-will-uploaded',
                             'checklist-item5-renunciated',
                             'checklist-item6-deed-poll',
                             'checkboxLabel-codicils',
                             'checkboxLabel'
                         ];
 
-                        testWrapper.testContent(done, contentData, contentToExclude);
+                        testWrapper.testContent(done, excludeKeys, contentData);
                     });
             });
 
@@ -289,9 +305,10 @@ describe('documents', () => {
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
-                        const contentToExclude = [
+                        const excludeKeys = [
                             'checklist-item1-codicils',
                             'checklist-item2-spouse-renouncing',
+                            'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
                             'checklist-item5-renunciated',
                             'checkboxLabel-codicils',
@@ -299,7 +316,7 @@ describe('documents', () => {
                         ];
                         contentData.executorCurrentName = 'eddie jones';
 
-                        testWrapper.testContent(done, contentData, contentToExclude);
+                        testWrapper.testContent(done, excludeKeys, contentData);
                     });
             });
 
@@ -315,9 +332,10 @@ describe('documents', () => {
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
-                        const contentToExclude = [
+                        const excludeKeys = [
                             'checklist-item1-codicils',
                             'checklist-item2-spouse-renouncing',
+                            'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
                             'checklist-item5-renunciated',
                             'checkboxLabel-codicils',
@@ -328,7 +346,7 @@ describe('documents', () => {
                             'eddie jones'
                         ];
 
-                        testWrapper.testContent(done, contentData, contentToExclude);
+                        testWrapper.testContent(done, excludeKeys, contentData);
                     });
             });
         });
@@ -349,21 +367,26 @@ describe('documents', () => {
 
                 contentData.renunciationFormLink = config.links.renunciationForm;
 
-                testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
+                testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
                     .end(() => {
-                        const contentToExclude = [
-                            'text3',
-                            'text4',
-                            'checklist-item1-codicils',
-                            'checklist-item1-no-codicils',
-                            'checklist-item5-renunciated',
-                            'checklist-item6-deed-poll',
-                            'checkboxLabel-codicils',
-                            'checkboxLabel'
-                        ];
+                        testWrapper.agent.post('/prepare-session/form')
+                            .send(sessionData)
+                            .end(() => {
+                                const excludeKeys = [
+                                    'text3',
+                                    'text4',
+                                    'text6',
+                                    'checklist-item1-codicils',
+                                    'checklist-item1-no-codicils',
+                                    'checklist-item3-will-uploaded',
+                                    'checklist-item5-renunciated',
+                                    'checklist-item6-deed-poll',
+                                    'checkboxLabel-codicils',
+                                    'checkboxLabel'
+                                ];
 
-                        testWrapper.testContent(done, contentData, contentToExclude);
+                                testWrapper.testContent(done, excludeKeys, contentData);
+                            });
                     });
             });
         });
@@ -382,7 +405,8 @@ describe('documents', () => {
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
-                        const contentToExclude = [
+                        const excludeKeys = [
+                            'text6',
                             'checklist-item1-codicils',
                             'checklist-item2-spouse-renouncing',
                             'checklist-item3-will-uploaded',
@@ -392,7 +416,7 @@ describe('documents', () => {
                             'checkboxLabel-codicils',
                             'checkboxLabel'
                         ];
-                        testWrapper.testContent(done, contentData, contentToExclude);
+                        testWrapper.testContent(done, excludeKeys, contentData);
                     });
             });
 
@@ -404,7 +428,8 @@ describe('documents', () => {
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
-                        const contentToExclude = [
+                        const excludeKeys = [
+                            'text6',
                             'checklist-item1-codicils',
                             'checklist-item2-spouse-renouncing',
                             'checklist-item3-will-uploaded',
@@ -414,26 +439,20 @@ describe('documents', () => {
                             'checkboxLabel-codicils',
                             'checkboxLabel'
                         ];
-                        testWrapper.testContent(done, contentData, contentToExclude);
+                        testWrapper.testContent(done, excludeKeys, contentData);
                     });
             });
 
             it('test correct content loaded on the page, CCD Case ID not present', (done) => {
-                delete sessionData.ccdCase;
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
-                        testWrapper.testDataPlayback(done);
-                    });
-            });
-
-            it('test correct content loaded on the page, CCD Case ID is present', (done) => {
-                testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
-                    .end(() => {
-                        const contentToExclude = [
+                        const excludeKeys = [
+                            'text2',
+                            'text6',
                             'checklist-item1-codicils',
                             'checklist-item2-spouse-renouncing',
+                            'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
                             'checklist-item5-renunciated',
                             'checklist-item6-deed-poll',
@@ -441,7 +460,27 @@ describe('documents', () => {
                             'checkboxLabel'
                         ];
 
-                        testWrapper.testContent(done, contentData, contentToExclude);
+                        testWrapper.testContent(done, excludeKeys, contentData);
+                    });
+            });
+
+            it('test correct content loaded on the page, CCD Case ID is present', (done) => {
+                testWrapper.agent.post('/prepare-session/form')
+                    .send(sessionData)
+                    .end(() => {
+                        const excludeKeys = [
+                            'text6',
+                            'checklist-item1-codicils',
+                            'checklist-item2-spouse-renouncing',
+                            'checklist-item3-will-uploaded',
+                            'checklist-item4-iht205',
+                            'checklist-item5-renunciated',
+                            'checklist-item6-deed-poll',
+                            'checkboxLabel-codicils',
+                            'checkboxLabel'
+                        ];
+
+                        testWrapper.testContent(done, excludeKeys, contentData);
                     });
             });
 

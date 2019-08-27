@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsWhenDied = require('app/steps/ui/executors/whendied');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executors-who-died', () => {
     let testWrapper, sessionData;
@@ -32,7 +32,7 @@ describe('executors-who-died', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('ExecutorsWhoDied');
+        testHelpBlockContent.runTest('ExecutorsWhoDied');
 
         it('test content loaded on the page', (done) => {
             testWrapper.agent.post('/prepare-session/form')
@@ -47,7 +47,8 @@ describe('executors-who-died', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testErrors(done, {}, 'required', errorsToTest);
+                    const data = {};
+                    testWrapper.testErrors(done, data, 'required', errorsToTest);
                 });
         });
 
@@ -58,7 +59,6 @@ describe('executors-who-died', () => {
                     const data = {
                         executorsWhoDied: 'harvey smith'
                     };
-
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecsWhenDied);
                 });
         });

@@ -17,13 +17,14 @@ describe('sign-out', () => {
     describe('Verify Content, Errors and Redirection', () => {
 
         it('test right content loaded on the page', (done) => {
-            testWrapper.testContent(done);
+            const excludeKeys = [];
+
+            testWrapper.testContent(done, excludeKeys, {});
         });
 
-        it('test "save and close" link is not displayed on the page', (done) => {
-            const playbackData = {
-                saveAndClose: commonContent.saveAndClose
-            };
+        it('test save and close link is not displayed on the page', (done) => {
+            const playbackData = {};
+            playbackData.saveAndClose = commonContent.saveAndClose;
 
             testWrapper.testContentNotPresent(done, playbackData);
         });

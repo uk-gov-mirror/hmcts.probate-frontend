@@ -31,7 +31,6 @@ describe('summary-iht-section', () => {
                     if (err) {
                         throw err;
                     }
-                    delete require.cache[require.resolve('test/data/ihtOnline')];
                     const playbackData = {
                         method: ihtContent.method.question,
                         identifier: ihtContent.identifier.question,
@@ -52,7 +51,6 @@ describe('summary-iht-section', () => {
                     if (err) {
                         throw err;
                     }
-                    delete require.cache[require.resolve('test/data/ihtPaper')];
                     const playbackData = {
                         method: ihtContent.method.question,
                         option: ihtContent.paper.question,
@@ -60,7 +58,7 @@ describe('summary-iht-section', () => {
                         netValue: ihtContent.value.netValue
                     };
 
-                    testWrapper.testDataPlayback(done, playbackData, ['form']);
+                    testWrapper.testDataPlayback(done, playbackData, [], ['form']);
                 });
         });
 
@@ -72,7 +70,6 @@ describe('summary-iht-section', () => {
                     if (err) {
                         throw err;
                     }
-                    delete require.cache[require.resolve('test/data/ihtOnline')];
                     const playbackData = {
                         method: ihtContent.method.question,
                         identifier: ihtContent.identifier.question,
@@ -95,7 +92,6 @@ describe('summary-iht-section', () => {
                     if (err) {
                         throw err;
                     }
-                    delete require.cache[require.resolve('test/data/ihtPaper')];
                     const playbackData = {
                         method: ihtContent.method.question,
                         option: ihtContent.paper.question,
@@ -105,7 +101,7 @@ describe('summary-iht-section', () => {
 
                     Object.assign(playbackData, sessionData.iht);
 
-                    testWrapper.testDataPlayback(done, playbackData, ['form']);
+                    testWrapper.testDataPlayback(done, playbackData, [], ['form']);
                 });
         });
 
@@ -118,7 +114,6 @@ describe('summary-iht-section', () => {
                     if (err) {
                         throw err;
                     }
-                    delete require.cache[require.resolve('test/data/ihtPaper')];
                     const playbackData = {
                         method: ihtContent.method.question,
                         option: ihtContent.paper.question,
@@ -128,7 +123,7 @@ describe('summary-iht-section', () => {
 
                     Object.assign(playbackData, sessionData.iht);
 
-                    testWrapper.testDataPlayback(done, playbackData, ['form']);
+                    testWrapper.testDataPlayback(done, playbackData, [], ['form']);
                 });
         });
 
@@ -141,7 +136,6 @@ describe('summary-iht-section', () => {
                     if (err) {
                         throw err;
                     }
-                    delete require.cache[require.resolve('test/data/ihtPaper')];
                     const playbackData = {
                         ihtMethod: ihtContent.method.question,
                         ihtOption: ihtContent.paper.question,
@@ -151,7 +145,7 @@ describe('summary-iht-section', () => {
 
                     Object.assign(playbackData, sessionData.iht);
 
-                    testWrapper.testDataPlayback(done, playbackData, ['form']);
+                    testWrapper.testDataPlayback(done, playbackData, [], ['form']);
                 });
         });
     });

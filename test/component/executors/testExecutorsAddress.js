@@ -38,7 +38,7 @@ describe('executors-address', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test correct content is loaded on the page', (done) => {
-            const contentToExclude = ['selectAddress'];
+            const excludeKeys = ['selectAddress'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -48,7 +48,7 @@ describe('executors-address', () => {
                     };
 
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testContent(done, contentData, contentToExclude);
+                    testWrapper.testContent(done, excludeKeys, contentData);
                 });
 
         });
@@ -62,10 +62,8 @@ describe('executors-address', () => {
                         postTown: 'value',
                         newPostCode: 'value'
                     };
-                    const errorsToTest = ['addressLine1'];
-
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testErrors(done, data, 'invalid', errorsToTest);
+                    testWrapper.testErrors(done, data, 'invalid', ['addressLine1']);
                 });
         });
 
@@ -78,10 +76,8 @@ describe('executors-address', () => {
                         postTown: 'value',
                         newPostCode: 'value'
                     };
-                    const errorsToTest = ['addressLine1'];
-
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testErrors(done, data, 'invalid', errorsToTest);
+                    testWrapper.testErrors(done, data, 'invalid', ['addressLine1']);
                 });
         });
 
@@ -94,10 +90,8 @@ describe('executors-address', () => {
                         postTown: '123456789012345678901234567890123456789012345678901',
                         newPostCode: 'value'
                     };
-                    const errorsToTest = ['postTown'];
-
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testErrors(done, data, 'invalid', errorsToTest);
+                    testWrapper.testErrors(done, data, 'invalid', ['postTown']);
                 });
         });
 
@@ -110,10 +104,8 @@ describe('executors-address', () => {
                         postTown: '1',
                         newPostCode: 'value'
                     };
-                    const errorsToTest = ['postTown'];
-
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testErrors(done, data, 'invalid', errorsToTest);
+                    testWrapper.testErrors(done, data, 'invalid', ['postTown']);
                 });
         });
 
@@ -126,10 +118,8 @@ describe('executors-address', () => {
                         postTown: 'value',
                         newPostCode: '012345678912345'
                     };
-                    const errorsToTest = ['newPostCode'];
-
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testErrors(done, data, 'invalid', errorsToTest);
+                    testWrapper.testErrors(done, data, 'invalid', ['newPostCode']);
                 });
         });
 
@@ -142,10 +132,8 @@ describe('executors-address', () => {
                         postTown: 'value',
                         newPostCode: '0'
                     };
-                    const errorsToTest = ['newPostCode'];
-
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testErrors(done, data, 'invalid', errorsToTest);
+                    testWrapper.testErrors(done, data, 'invalid', ['newPostCode']);
                 });
         });
 
@@ -153,10 +141,9 @@ describe('executors-address', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const errorsToTest = ['addressLine1'];
-
+                    const data = {};
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testErrors(done, {}, 'required', errorsToTest);
+                    testWrapper.testErrors(done, data, 'required', ['addressLine1']);
                 });
         });
 
@@ -175,7 +162,6 @@ describe('executors-address', () => {
                     ]
                 }
             };
-
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -185,7 +171,6 @@ describe('executors-address', () => {
                         postTown: 'town',
                         newPostCode: 'postCode',
                     };
-
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
                     testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
                 });
@@ -201,7 +186,6 @@ describe('executors-address', () => {
                         postTown: 'town',
                         newPostCode: 'postCode',
                     };
-
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecRoles);
                 });
@@ -222,7 +206,6 @@ describe('executors-address', () => {
                     ]
                 }
             };
-
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -232,7 +215,6 @@ describe('executors-address', () => {
                         postTown: 'town',
                         newPostCode: 'postCode',
                     };
-
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecContactDetails);
                 });

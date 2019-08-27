@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorCurrentName = require('app/steps/ui/executors/currentname');
 const ExecutorCurrentNameReason = require('app/steps/ui/executors/currentnamereason');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executor-current-name', () => {
     let testWrapper, sessionData;
@@ -33,7 +33,7 @@ describe('executor-current-name', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('ExecutorCurrentName');
+        testHelpBlockContent.runTest('ExecutorCurrentName');
 
         it('test content loaded on the page', (done) => {
             testWrapper.agent.post('/prepare-session/form')
@@ -42,12 +42,14 @@ describe('executor-current-name', () => {
                     const contentData = {
                         executorFullName: 'Executor Name 2',
                     };
-                    testWrapper.testContent(done, contentData);
+                    testWrapper.testContent(done, [], contentData);
                 });
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required');
+            const data = {};
+
+            testWrapper.testErrors(done, data, 'required');
         });
 
         it('test errors message displayed for invalid currentname', (done) => {

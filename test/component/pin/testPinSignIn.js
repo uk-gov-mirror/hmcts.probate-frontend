@@ -5,6 +5,7 @@ const {assert} = require('chai');
 const CoApplicantStartPage = require('app/steps/ui/coapplicant/startpage');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
+const nock = require('nock');
 
 describe('pin-page', () => {
     let testWrapper;
@@ -33,17 +34,29 @@ describe('pin-page', () => {
         });
 
         it('test right content loaded on the page', (done) => {
+            const excludeKeys = [];
             testWrapper.agent.post('/prepare-session-field/validLink/true')
                 .end(() => {
-                    testWrapper.testContent(done);
+                    testWrapper.testContent(done, excludeKeys);
                 });
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForCoAppStartPage}`, (done) => {
+            const formDataReturnData = {
+                formdata: {
+                    declaration: {
+                        declarationCheckbox: 'Yes'
+                    }
+                }
+            };
             const data = {
                 pin: '12345',
                 formdataId: '12'
             };
+
+            nock(config.services.persistence.url)
+                .get('/12')
+                .reply(200, formDataReturnData);
 
             testWrapper.agent
                 .post('/prepare-session-field')
@@ -55,16 +68,12 @@ describe('pin-page', () => {
 
         it('test error messages displayed for missing data', (done) => {
             const data = {pin: ''};
-            const errorsToTest = ['pin'];
-
-            testWrapper.testErrors(done, data, 'required', errorsToTest);
+            testWrapper.testErrors(done, data, 'required', ['pin']);
         });
 
         it('test error messages displayed for invalid data', (done) => {
             const data = {pin: 'NOT_A_PIN'};
-            const errorsToTest = ['pin'];
-
-            testWrapper.testErrors(done, data, 'invalid', errorsToTest);
+            testWrapper.testErrors(done, data, 'invalid', ['pin']);
         });
 
         it('test error messages displayed for incorrect pin data', (done) => {
@@ -72,9 +81,7 @@ describe('pin-page', () => {
             testWrapper.agent
                 .post('/prepare-session-field/pin/54321')
                 .end(() => {
-                    const errorsToTest = ['pin'];
-
-                    testWrapper.testErrors(done, data, 'incorrect', errorsToTest);
+                    testWrapper.testErrors(done, data, 'incorrect', ['pin']);
                 });
         });
 
@@ -83,6 +90,10 @@ describe('pin-page', () => {
                 pin: '12345',
                 formdataId: '12'
             };
+
+            nock(config.services.persistence.url)
+                .get('/12')
+                .reply(200, new Error('ReferenceError'));
 
             testWrapper.agent
                 .post('/prepare-session-field')
@@ -102,11 +113,11 @@ describe('pin-page', () => {
                 });
         });
 
-        it('test "save and close" link is not displayed on the page', (done) => {
+        it('test save and close link is not displayed on the page', (done) => {
             const playbackData = {
-                saveAndClose: commonContent.saveAndClose
+                saveAndClose: commonContent.saveAndClose,
+                signOut: commonContent.signOut
             };
-
             testWrapper.testContentNotPresent(done, playbackData);
         });
     });

@@ -2,7 +2,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ApplicantPhone = require('app/steps/ui/applicant/phone');
 const ApplicantAlias = require('app/steps/ui/applicant/alias');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('applicant-name-as-on-will', () => {
     let testWrapper;
@@ -18,7 +18,7 @@ describe('applicant-name-as-on-will', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('ApplicantNameAsOnWill');
+        testHelpBlockContent.runTest('ApplicantNameAsOnWill');
 
         it('test correct content is loaded on the page', (done) => {
             const sessionData = {
@@ -28,7 +28,7 @@ describe('applicant-name-as-on-will', () => {
                 }
             };
 
-            const contentToExclude = ['questionWithoutName', 'questionWithCodicil', 'legendWithCodicil'];
+            const excludeKeys = ['questionWithoutName', 'questionWithCodicil', 'legendWithCodicil'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -37,7 +37,7 @@ describe('applicant-name-as-on-will', () => {
                     const contentData = {
                         applicantName: 'John TheApplicant',
                     };
-                    testWrapper.testContent(done, contentData, contentToExclude);
+                    testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
 
@@ -52,7 +52,7 @@ describe('applicant-name-as-on-will', () => {
                 }
             };
 
-            const contentToExclude = ['question', 'questionWithoutName', 'legend'];
+            const excludeKeys = ['question', 'questionWithoutName', 'legend'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -61,7 +61,7 @@ describe('applicant-name-as-on-will', () => {
                     const contentData = {
                         applicantName: 'John TheApplicant',
                     };
-                    testWrapper.testContent(done, contentData, contentToExclude);
+                    testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
 
@@ -73,10 +73,12 @@ describe('applicant-name-as-on-will', () => {
                 }
             };
 
+            const data = {};
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testErrors(done, {}, 'required');
+                    testWrapper.testErrors(done, data, 'required', []);
                 });
 
         });

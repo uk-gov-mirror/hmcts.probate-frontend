@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedDomicile = require('app/steps/ui/screeners/deceaseddomicile');
 const StopPage = require('app/steps/ui/stoppage');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 
@@ -21,16 +21,14 @@ describe('death-certificate', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('DeathCertificate', null, null, [], true);
+        testHelpBlockContent.runTest('DeathCertificate');
 
         it('test content loaded on the page', (done) => {
-            const contentData = {deathReportedToCoroner: config.links.deathReportedToCoroner};
-
-            testWrapper.testContent(done, contentData);
+            testWrapper.testContent(done, [], {deathReportedToCoroner: config.links.deathReportedToCoroner});
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required');
+            testWrapper.testErrors(done, {}, 'required', []);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForDeceasedDomicile}`, (done) => {
@@ -49,10 +47,10 @@ describe('death-certificate', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
         });
 
-        it('test "save and close" link is not displayed on the page', (done) => {
-            const playbackData = {
-                saveAndClose: commonContent.saveAndClose
-            };
+        it('test "save and close" and "sign out" links are not displayed on the page', (done) => {
+            const playbackData = {};
+            playbackData.saveAndClose = commonContent.saveAndClose;
+            playbackData.signOut = commonContent.signOut;
 
             testWrapper.testContentNotPresent(done, playbackData);
         });

@@ -2,22 +2,33 @@
 
 const requireDir = require('require-directory');
 const TestWrapper = require('test/util/TestWrapper');
+const deceasedData = require('test/data/deceased');
 const deceasedContent = requireDir(module, '../../../app/resources/en/translation/deceased');
 const applicantContent = requireDir(module, '../../../app/resources/en/translation/applicant');
 const FormatName = require('app/utils/FormatName');
 
+const config = require('app/config');
+const nock = require('nock');
+const featureToggleUrl = config.featureToggles.url;
+const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
+const featureTogglesNock = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(intestacyQuestionsFeatureTogglePath)
+        .reply(200, status);
+};
+
 describe('summary-applicants-section', () => {
-    let testWrapper;
-    let sessionData;
+    let testWrapper, sessionData;
 
     beforeEach(() => {
         testWrapper = new TestWrapper('Summary');
         sessionData = require('test/data/applicants');
+        featureTogglesNock();
     });
 
     afterEach(() => {
-        delete require.cache[require.resolve('test/data/applicants')];
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -39,14 +50,12 @@ describe('summary-applicants-section', () => {
         });
 
         it('test correct content loaded on the applicants section of the summary page, when section is complete', (done) => {
-            const deceasedData = require('test/data/deceased');
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
                     if (err) {
                         throw err;
                     }
-                    delete require.cache[require.resolve('test/data/deceased')];
                     const deceasedName = FormatName.format(deceasedData.deceased);
                     const playbackData = {
                         relationshipToDeceased: applicantContent.relationshiptodeceased.question,

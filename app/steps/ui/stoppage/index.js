@@ -27,7 +27,6 @@ class StopPage extends Step {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
-        delete ctx.stopReason;
         delete ctx.linkPlaceholders;
         return [ctx, formdata];
     }

@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const StartApply = require('app/steps/ui/screeners/startapply');
 const StopPage = require('app/steps/ui/stoppage');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 const cookies = [{
@@ -35,14 +35,10 @@ describe('mental-capacity', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('MentalCapacity', null, null, cookies, true);
+        testHelpBlockContent.runTest('MentalCapacity', null, cookies);
 
         it('test content loaded on the page', (done) => {
-            const contentData = {
-                assessingMentalCapacity: config.links.assessingMentalCapacity
-            };
-
-            testWrapper.testContent(done, contentData, [], cookies);
+            testWrapper.testContent(done, [], {assessingMentalCapacity: config.links.assessingMentalCapacity}, cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {
@@ -65,10 +61,10 @@ describe('mental-capacity', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
         });
 
-        it('test "save and close" link is not displayed on the page', (done) => {
-            const playbackData = {
-                saveAndClose: commonContent.saveAndClose
-            };
+        it('test "save and close" and "sign out" links are not displayed on the page', (done) => {
+            const playbackData = {};
+            playbackData.saveAndClose = commonContent.saveAndClose;
+            playbackData.signOut = commonContent.signOut;
 
             testWrapper.testContentNotPresent(done, playbackData);
         });
