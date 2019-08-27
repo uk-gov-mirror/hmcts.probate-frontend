@@ -2,6 +2,7 @@
 
 const requireDir = require('require-directory');
 const TestWrapper = require('test/util/TestWrapper');
+const executorsData = require('test/data/summary-executors');
 const applicantContent = requireDir(module, '../../../app/resources/en/translation/applicant');
 const FormatName = require('app/utils/FormatName');
 
@@ -98,7 +99,6 @@ describe('summary-executor-section', () => {
         });
 
         it('test data is played back correctly on the summary page executors section', (done) => {
-            const executorsData = require('test/data/summary-executors');
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
@@ -106,7 +106,6 @@ describe('summary-executor-section', () => {
                         throw err;
                     }
 
-                    delete require.cache[require.resolve('test/data/summary-executors')];
                     const playbackData = {
                         firstName: applicantContent.name.firstName,
                         lastName: applicantContent.name.lastName,

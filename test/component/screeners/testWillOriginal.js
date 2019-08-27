@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ApplicantExecutor = require('app/steps/ui/screeners/applicantexecutor');
 const StopPage = require('app/steps/ui/stoppage');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 const cookies = [{
@@ -33,10 +33,10 @@ describe('will-original', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('WillOriginal', null, null, cookies, true);
+        testHelpBlockContent.runTest('WillOriginal', null, cookies);
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, {}, [], cookies);
+            testWrapper.testContent(done, [], {}, cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {
@@ -59,10 +59,10 @@ describe('will-original', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
         });
 
-        it('test "save and close" link is not displayed on the page', (done) => {
-            const playbackData = {
-                saveAndClose: commonContent.saveAndClose
-            };
+        it('test "save and close" and "sign out" links are not displayed on the page', (done) => {
+            const playbackData = {};
+            playbackData.saveAndClose = commonContent.saveAndClose;
+            playbackData.signOut = commonContent.signOut;
 
             testWrapper.testContentNotPresent(done, playbackData);
         });

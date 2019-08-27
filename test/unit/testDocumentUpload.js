@@ -83,7 +83,7 @@ describe('DocumentUpload.js', () => {
             const errorsToTest = [];
             const formdata = {
                 documents: {
-                    error: 'invalidFileType'
+                    error: 'type'
                 }
             };
             const DocumentUpload = steps.DocumentUpload;
@@ -93,8 +93,8 @@ describe('DocumentUpload.js', () => {
                 field: 'file',
                 href: '#file',
                 msg: {
-                    summary: content.errors.file.invalidFileType.summary,
-                    message: content.errors.file.invalidFileType.message
+                    summary: 'documentupload.errors.file.type.summary',
+                    message: 'documentupload.errors.file.type.message'
                 }
             }]);
             done();
@@ -190,6 +190,7 @@ describe('DocumentUpload.js', () => {
     });
 
     describe('isComplete()', () => {
+
         let testCtx;
 
         beforeEach(() => {

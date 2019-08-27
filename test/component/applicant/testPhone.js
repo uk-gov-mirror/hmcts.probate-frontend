@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const ApplicantAddress = require('app/steps/ui/applicant/address');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('applicant-phone', () => {
     let testWrapper;
@@ -17,14 +17,15 @@ describe('applicant-phone', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('ApplicantPhone');
+        testHelpBlockContent.runTest('ApplicantPhone');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);
         });
 
         it('test errors message displayed for missing Phone Number', (done) => {
-            testWrapper.testErrors(done, {}, 'required');
+            const data = {};
+            testWrapper.testErrors(done, data, 'required');
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForApplicantAddress}`, (done) => {

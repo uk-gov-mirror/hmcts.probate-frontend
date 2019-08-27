@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist');
 const CodicilsNumber = require('app/steps/ui/will/codicilsnumber');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('will-codicils', () => {
     let testWrapper;
@@ -19,14 +19,18 @@ describe('will-codicils', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('WillCodicils');
+        testHelpBlockContent.runTest('WillCodicils');
 
         it('test correct content loaded on the page', (done) => {
-            testWrapper.testContent(done);
+            const excludeKeys = [];
+
+            testWrapper.testContent(done, excludeKeys);
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required');
+            const data = {};
+
+            testWrapper.testErrors(done, data, 'required', []);
         });
 
         it(`test it redirects to TaskList page: ${expectedNextUrlForTaskList}`, (done) => {

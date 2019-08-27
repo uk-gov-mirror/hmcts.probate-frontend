@@ -3,6 +3,7 @@ const content = require('app/resources/en/translation/deceased/maritalstatus');
 const expect = require('chai').expect;
 
 describe('MaritalStatusEnum.js', () => {
+
     describe('getCCDCode()', () => {
         it('should return Widowed value', (done) => {
             expect(MaritalStatusEnum.getCCDCode(content.optionWidowed)).to.equal(MaritalStatusEnum.getWidowed());

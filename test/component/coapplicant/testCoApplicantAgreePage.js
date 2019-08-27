@@ -1,24 +1,17 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
+const sessionData = require('test/data/complete-form-undeclared');
 const commonContent = require('app/resources/en/translation/common');
 const nock = require('nock');
 const config = require('app/config');
 const businessServiceUrl = config.services.validation.url.replace('/validate', '');
-const afterEachNocks = (done) => {
-    return () => {
-        done();
-        nock.cleanAll();
-    };
-};
 
 describe('co-applicant-agree-page', () => {
     let testWrapper;
-    let sessionData;
     let contentData;
 
     beforeEach(() => {
-        sessionData = require('test/data/complete-form-undeclared').formdata;
         testWrapper = new TestWrapper('CoApplicantAgreePage');
         contentData = {
             leadExecFullName: 'Bob Smith'
@@ -26,7 +19,7 @@ describe('co-applicant-agree-page', () => {
     });
 
     afterEach(() => {
-        delete require.cache[require.resolve('test/data/complete-form-undeclared')];
+        nock.cleanAll();
         testWrapper.destroy();
     });
 
@@ -41,9 +34,9 @@ describe('co-applicant-agree-page', () => {
             ];
 
             testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
+                .send(sessionData.formdata)
                 .end(() => {
-                    testWrapper.testContent(afterEachNocks(done), contentData, contentToExclude);
+                    testWrapper.testContent(done, contentToExclude, contentData);
                 });
         });
 
@@ -52,26 +45,24 @@ describe('co-applicant-agree-page', () => {
                 .get('/invites/allAgreed/undefined')
                 .reply(200, false);
 
-            sessionData.will.codicils = commonContent.yes;
+            sessionData.formdata.will.codicils = commonContent.yes;
 
             const contentToExclude = [
                 'paragraph4'
             ];
 
             testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
+                .send(sessionData.formdata)
                 .end(() => {
-                    testWrapper.testContent(afterEachNocks(done), contentData, contentToExclude);
+                    testWrapper.testContent(done, contentToExclude, contentData);
                 });
         });
 
-        it('test "save and close", "my account" and "sign out" links are not displayed on the page', (done) => {
+        it('test save and close link is not displayed on the page', (done) => {
             const playbackData = {
                 saveAndClose: commonContent.saveAndClose,
-                myApplications: commonContent.myApplications,
                 signOut: commonContent.signOut
             };
-
             testWrapper.testContentNotPresent(done, playbackData);
         });
     });

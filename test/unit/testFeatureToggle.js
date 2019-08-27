@@ -21,7 +21,7 @@ describe('FeatureToggle', () => {
                 },
                 res: {},
                 next: () => true,
-                featureToggleKey: 'fe_shutter_toggle',
+                featureToggleKey: 'intestacy_questions',
                 callback: sinon.spy()
             };
             const featureToggle = new FeatureToggle();
@@ -47,7 +47,7 @@ describe('FeatureToggle', () => {
                 },
                 res: {},
                 next: sinon.spy(),
-                featureToggleKey: 'fe_shutter_toggle',
+                featureToggleKey: 'intestacy_questions',
                 callback: () => true
             };
             const featureToggle = new FeatureToggle();
@@ -132,7 +132,7 @@ describe('FeatureToggle', () => {
             it('when the session contains a featureToggles object and call next()', (done) => {
                 const params = {
                     req: {session: {featureToggles: {}}},
-                    featureToggleKey: 'fe_shutter_toggle',
+                    featureToggleKey: 'intestacy_questions',
                     isEnabled: true,
                     next: sinon.spy()
                 };
@@ -140,7 +140,7 @@ describe('FeatureToggle', () => {
 
                 featureToggle.toggleFeature(params);
 
-                expect(params.req.session.featureToggles).to.deep.equal({fe_shutter_toggle: true});
+                expect(params.req.session.featureToggles).to.deep.equal({intestacy_questions: true});
                 expect(params.next.calledOnce).to.equal(true);
                 expect(params.next.calledWith()).to.equal(true);
                 done();
@@ -149,7 +149,7 @@ describe('FeatureToggle', () => {
             it('when the session does not contain a featureToggles object and call next()', (done) => {
                 const params = {
                     req: {session: {}},
-                    featureToggleKey: 'fe_shutter_toggle',
+                    featureToggleKey: 'intestacy_questions',
                     isEnabled: true,
                     next: sinon.spy()
                 };
@@ -157,7 +157,7 @@ describe('FeatureToggle', () => {
 
                 featureToggle.toggleFeature(params);
 
-                expect(params.req.session.featureToggles).to.deep.equal({fe_shutter_toggle: true});
+                expect(params.req.session.featureToggles).to.deep.equal({intestacy_questions: true});
                 expect(params.next.calledOnce).to.equal(true);
                 expect(params.next.calledWith()).to.equal(true);
                 done();
@@ -182,10 +182,11 @@ describe('FeatureToggle', () => {
         });
 
         it('should add all appwide toggles to ctx when present', (done) => {
-            const appwideToggles = ['testToggle'];
+            const appwideToggles = ['webchat', 'testToggle'];
             const req = {
                 session: {
                     featureToggles: {
+                        webchat: true,
                         testToggle: false
                     }
                 }
@@ -196,6 +197,7 @@ describe('FeatureToggle', () => {
 
             expect(ctx).to.deep.equal({
                 featureToggles: {
+                    webchat: 'true',
                     testToggle: 'false'
                 }
             });
@@ -206,8 +208,8 @@ describe('FeatureToggle', () => {
     describe('isEnabled()', () => {
         describe('should return true', () => {
             it('if the feature toggle exists and is true', (done) => {
-                const featureToggles = {fe_shutter_toggle: true};
-                const key = 'fe_shutter_toggle';
+                const featureToggles = {intestacy_questions: true};
+                const key = 'intestacy_questions';
                 const isEnabled = FeatureToggle.isEnabled(featureToggles, key);
                 expect(isEnabled).to.equal(true);
                 done();
@@ -216,8 +218,8 @@ describe('FeatureToggle', () => {
 
         describe('should return false', () => {
             it('if the feature toggle exists and is false', (done) => {
-                const featureToggles = {fe_shutter_toggle: false};
-                const key = 'fe_shutter_toggle';
+                const featureToggles = {intestacy_questions: false};
+                const key = 'intestacy_questions';
                 const isEnabled = FeatureToggle.isEnabled(featureToggles, key);
                 expect(isEnabled).to.equal(false);
                 done();
@@ -225,7 +227,7 @@ describe('FeatureToggle', () => {
 
             it('if the feature toggle does not exist', (done) => {
                 const featureToggles = {};
-                const key = 'fe_shutter_toggle';
+                const key = 'intestacy_questions';
                 const isEnabled = FeatureToggle.isEnabled(featureToggles, key);
                 expect(isEnabled).to.equal(false);
                 done();
@@ -233,14 +235,14 @@ describe('FeatureToggle', () => {
 
             it('if there are no feature toggles', (done) => {
                 const featureToggles = '';
-                const key = 'fe_shutter_toggle';
+                const key = 'intestacy_questions';
                 const isEnabled = FeatureToggle.isEnabled(featureToggles, key);
                 expect(isEnabled).to.equal(false);
                 done();
             });
 
             it('if the key is not specified', (done) => {
-                const featureToggles = {fe_shutter_toggle: false};
+                const featureToggles = {intestacy_questions: false};
                 const key = '';
                 const isEnabled = FeatureToggle.isEnabled(featureToggles, key);
                 expect(isEnabled).to.equal(false);

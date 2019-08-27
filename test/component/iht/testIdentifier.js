@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const IhtValue = require('app/steps/ui/iht/value');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('iht-identifier', () => {
     let testWrapper;
@@ -17,14 +17,17 @@ describe('iht-identifier', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('IhtIdentifier');
+        testHelpBlockContent.runTest('IhtIdentifier');
 
         it('test correct iht identifier page content is loaded', (done) => {
-            testWrapper.testContent(done);
+            const contentToExclude = [];
+            testWrapper.testContent(done, contentToExclude);
         });
 
         it('test iht identifier schema validation when no input is entered', (done) => {
-            testWrapper.testErrors(done, {}, 'required');
+            const errorsToTest = [];
+            const data = {};
+            testWrapper.testErrors(done, data, 'required', errorsToTest);
         });
 
         it(`test it accepts hyphen separated values, and redirects to next page: ${expectedNextUrlForIhtValue}`, (done) => {

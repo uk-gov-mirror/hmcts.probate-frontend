@@ -16,6 +16,7 @@ describe('terms-conditions', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test right content loaded on the page', (done) => {
+            const excludeKeys = [];
             const contentData = {
                 privacyLink: config.links.privacy,
                 cookiesLink: config.links.cookies,
@@ -24,7 +25,7 @@ describe('terms-conditions', () => {
                 callChargesLink: config.links.callCharges
             };
 
-            testWrapper.testContent(done, contentData);
+            testWrapper.testContent(done, excludeKeys, contentData);
         });
     });
 });

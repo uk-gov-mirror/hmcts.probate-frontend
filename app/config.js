@@ -200,8 +200,7 @@ const config = {
     documentUpload: {
         validMimeTypes: ['image/jpeg', 'image/bmp', 'image/tiff', 'image/png', 'application/pdf'],
         maxFiles: 10,
-        maxSizeBytes: 10485760, // 10 MB
-        maxSizeBytesTest: 10240, // 10 KB
+        maxSizeBytes: 10485760,
         paths: {
             upload: '/document/upload',
             remove: '/document/delete'

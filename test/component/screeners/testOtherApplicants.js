@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const StartApply = require('app/steps/ui/screeners/startapply');
 const StopPage = require('app/steps/ui/stoppage');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
@@ -22,6 +22,15 @@ const cookies = [{
     }
 }];
 
+const nock = require('nock');
+const featureToggleUrl = config.featureToggles.url;
+const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
+const featureTogglesNock = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(intestacyQuestionsFeatureTogglePath)
+        .reply(200, status);
+};
+
 describe('other-applicants', () => {
     let testWrapper;
     const expectedNextUrlForStartApply = StartApply.getUrl();
@@ -29,17 +38,19 @@ describe('other-applicants', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('OtherApplicants');
+        featureTogglesNock();
     });
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('OtherApplicants', null, null, cookies, true);
+        testHelpBlockContent.runTest('OtherApplicants', featureTogglesNock, cookies);
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, {}, [], cookies);
+            testWrapper.testContent(done, [], {}, cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {
@@ -74,10 +85,9 @@ describe('other-applicants', () => {
                 });
         });
 
-        it('test "save and close" link is not displayed on the page', (done) => {
-            const playbackData = {
-                saveAndClose: commonContent.saveAndClose
-            };
+        it('test save and close link is not displayed on the page', (done) => {
+            const playbackData = {};
+            playbackData.saveAndClose = commonContent.saveAndClose;
 
             testWrapper.testContentNotPresent(done, playbackData);
         });

@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const ApplicantNameAsOnWill = require('app/steps/ui/applicant/nameasonwill');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('applicant-name', () => {
     let testWrapper;
@@ -17,7 +17,7 @@ describe('applicant-name', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('ApplicantName');
+        testHelpBlockContent.runTest('ApplicantName');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);

@@ -15,12 +15,14 @@ describe('executors-update-invite-sent', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForTaskList}`, (done) => {
-            testWrapper.testRedirect(done, {}, expectedNextUrlForTaskList);
+            const data = {};
+            testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
         });
     });
 });

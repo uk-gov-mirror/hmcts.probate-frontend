@@ -47,14 +47,15 @@ describe('executors-contact-details', () => {
         });
 
         it('test correct content is loaded on the page', (done) => {
+            const excludeKeys = [];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
                         executorName: 'Other Applicant'
                     };
-
-                    testWrapper.testContent(done, contentData);
+                    testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
 
@@ -68,7 +69,6 @@ describe('executors-contact-details', () => {
                         email: '',
                         mobile: ''
                     };
-
                     testWrapper.testErrors(done, data, 'required', errorsToTest);
                 });
         });
@@ -83,9 +83,7 @@ describe('executors-contact-details', () => {
                         email: '',
                         mobile: '07336622022'
                     };
-                    const errorsToTest = ['email'];
-
-                    testWrapper.testErrors(done, data, 'required', errorsToTest);
+                    testWrapper.testErrors(done, data, 'required', ['email']);
                 });
         });
 
@@ -99,9 +97,7 @@ describe('executors-contact-details', () => {
                         email: 'test@hotmail.com',
                         mobile: ''
                     };
-                    const errorsToTest = ['mobile'];
-
-                    testWrapper.testErrors(done, data, 'required', errorsToTest);
+                    testWrapper.testErrors(done, data, 'required', ['mobile']);
                 });
         });
 
@@ -115,9 +111,7 @@ describe('executors-contact-details', () => {
                         email: 'test@.com',
                         mobile: '+447663382082'
                     };
-                    const errorsToTest = ['email'];
-
-                    testWrapper.testErrors(done, data, 'invalid', errorsToTest);
+                    testWrapper.testErrors(done, data, 'invalid', ['email']);
                 });
         });
 
@@ -131,9 +125,7 @@ describe('executors-contact-details', () => {
                         email: 'test@hotmail.com',
                         mobile: '+rr53t6463'
                     };
-                    const errorsToTest = ['mobile'];
-
-                    testWrapper.testErrors(done, data, 'invalid', errorsToTest);
+                    testWrapper.testErrors(done, data, 'invalid', ['mobile']);
                 });
         });
 
@@ -147,7 +139,6 @@ describe('executors-contact-details', () => {
                         email: 'b@.m',
                         mobile: '075r5r5r5r'
                     };
-
                     testWrapper.testErrors(done, data, 'invalid');
                 });
         });
@@ -161,7 +152,6 @@ describe('executors-contact-details', () => {
                         email: 'test@hotmail.com',
                         mobile: '+447663382082'
                     };
-
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecAddress);
                 });
         });

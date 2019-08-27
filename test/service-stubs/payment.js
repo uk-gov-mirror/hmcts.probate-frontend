@@ -1,10 +1,11 @@
 'use strict';
 
-const express = require('express');
-const app = express();
-const router = require('express').Router();
-const bodyParser = require('body-parser');
-const logger = require('app/components/logger');
+/* eslint no-console: 0 */
+
+const express = require('express'),
+    app = express(),
+    router = require('express').Router(),
+    bodyParser = require('body-parser');
 let lastId;
 
 const UNDEFINED_PAY_ID = 'undefined';
@@ -18,7 +19,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 router.all('*', (req, res, next) => {
-    logger().info(req.url);
+    console.log(req.url);
     next();
 });
 
@@ -30,8 +31,8 @@ router.post('/users/:userId/payments', (req, res) => {
     } else {
         lastId = data.id;
     }
-    logger().info(201);
-    logger().info(data);
+    console.log(201);
+    console.log(data);
     res.status(201);
     res.send(data);
     delete require.cache[require.resolve('test/data/payments/create.json')];
@@ -41,24 +42,24 @@ router.get('/users/:userId/payments/:paymentId', (req, res) => {
     const data = require('test/data/payments/find.json');
     if (req.params.paymentId === UNDEFINED_PAY_ID) {
         res.status(500);
-        logger().info(500);
+        console.log(500);
     } else if (req.params.paymentId === FAILURE_PAY_ID) {
         data.state.status = 'failed';
         res.status(200);
         res.send(data);
-        logger().info(data);
+        console.log(data);
     } else {
         res.status(200);
         res.send(data);
-        logger().info(200);
-        logger().info(data);
+        console.log(200);
+        console.log(data);
     }
     delete require.cache[require.resolve('test/data/payments/find.json')];
 });
 
 app.use(router);
 
-logger().info(`Listening on: ${PAYMENT_STUB_PORT}`);
+console.log(`Listening on: ${PAYMENT_STUB_PORT}`);
 const server = app.listen(PAYMENT_STUB_PORT);
 
 module.exports = server;

@@ -3,6 +3,7 @@ const content = require('app/resources/en/translation/applicant/relationshiptode
 const expect = require('chai').expect;
 
 describe('RelationshipToDeceasedEnum.js', () => {
+
     describe('getCCDCode()', () => {
         it('should return partner value', (done) => {
             expect(RelationshipToDeceasedEnum.getCCDCode(content.optionSpousePartner)).to.equal(RelationshipToDeceasedEnum.getPartner());

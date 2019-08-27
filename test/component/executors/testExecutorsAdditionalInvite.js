@@ -6,12 +6,6 @@ const ExecutorsAdditionalInviteSent = require('app/steps/ui/executors/additional
 const nock = require('nock');
 const config = require('app/config');
 const businessServiceUrl = config.services.validation.url.replace('/validate', '');
-const afterEachNocks = (done) => {
-    return () => {
-        done();
-        nock.cleanAll();
-    };
-};
 
 describe('executors-additional-invite', () => {
     let testWrapper;
@@ -24,37 +18,34 @@ describe('executors-additional-invite', () => {
     });
 
     afterEach(() => {
-        delete require.cache[require.resolve('test/data/executors-invites')];
         testWrapper.destroy();
+        delete require.cache[require.resolve('test/data/executors-invites')];
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
         it('test correct content loaded on the page when only 1 other executor has been added and needs to be emailed', (done) => {
-            const contentToExclude = ['header-multiple'];
             sessionData.executors.list = [
                 {fullName: 'Applicant', isApplying: true, isApplicant: true},
                 {fullName: 'Andrew Wiles', isApplying: true, emailSent: false}
             ];
-
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, {}, contentToExclude);
+                    testWrapper.testContent(done, ['header-multiple']);
                 });
         });
 
         it('test correct content loaded on the page when more than 1 other executor has been added and needs to be emailed', (done) => {
-            const contentToExclude = ['header'];
             sessionData.executors.list = [
                 {fullName: 'Applicant', isApplying: true, isApplicant: true},
                 {fullName: 'Andrew Wiles', isApplying: true, emailSent: false},
                 {fullName: 'Leonhard Euler', isApplying: true, emailSent: false}
             ];
-
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, {}, contentToExclude);
+                    testWrapper.testContent(done, ['header']);
                 });
         });
 
@@ -64,7 +55,6 @@ describe('executors-additional-invite', () => {
                 {fullName: 'Andrew Wiles', isApplying: true, emailSent: false},
                 {fullName: 'Leonhard Euler', isApplying: true, emailSent: false}
             ];
-
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -83,7 +73,6 @@ describe('executors-additional-invite', () => {
                 {fullName: 'Andrew Wiles', isApplying: true, emailSent: false},
                 {fullName: 'Leonhard Euler', isApplying: true, emailSent: true}
             ];
-
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -107,11 +96,9 @@ describe('executors-additional-invite', () => {
                         .then(response => {
                             assert(response.status === 500);
                             assert(response.text.includes('Sorry, we&rsquo;re having technical problems'));
-                            nock.cleanAll();
                             done();
                         })
                         .catch(err => {
-                            nock.cleanAll();
                             done(err);
                         });
                 });
@@ -122,15 +109,15 @@ describe('executors-additional-invite', () => {
                 .post('/invite')
                 .reply(200, {response: 'Make it pass!'});
 
+            const data = {};
             sessionData.executors.list = [
                 {fullName: 'Applicant', isApplying: true, isApplicant: true},
                 {fullName: 'Andrew Wiles', isApplying: true, emailSent: false}
             ];
-
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testRedirect(afterEachNocks(done), {}, expectedNextUrlForExecutorsAdditionalInviteSent);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForExecutorsAdditionalInviteSent);
                 });
         });
     });

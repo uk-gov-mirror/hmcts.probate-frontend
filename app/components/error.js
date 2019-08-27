@@ -3,7 +3,7 @@
 const {filter, isEqual, map, uniqWith} = require('lodash');
 const i18next = require('i18next');
 
-const FieldError = (param, keyword, resourcePath) => {
+const FieldError = (param, keyword, resourcePath, contentCtx) => {
     const key = `errors.${param}.${keyword}`;
     const errorPath = `${resourcePath.replace('/', '.')}.${key}`;
 
@@ -11,13 +11,13 @@ const FieldError = (param, keyword, resourcePath) => {
         field: param,
         href: `#${param}`,
         msg: {
-            summary: i18next.t(`${errorPath}.summary`),
-            message: i18next.t(`${errorPath}.message`)
+            summary: i18next.t(`${errorPath}.summary`, contentCtx),
+            message: i18next.t(`${errorPath}.message`, contentCtx)
         }
     };
 };
 
-const generateErrors = (errs, ctx, formdata, errorPath, lang='en') => {
+const generateErrors = (errs, ctx, formdata, errorPath, lang = 'en') => {
     i18next.changeLanguage(lang);
     const contentCtx = Object.assign({}, formdata, ctx, {});
     if (errs.find((e) => e.keyword === 'oneOf')) {

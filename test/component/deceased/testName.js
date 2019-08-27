@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedDob = require('app/steps/ui/deceased/dob');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('deceased-name', () => {
     let testWrapper;
@@ -17,14 +17,19 @@ describe('deceased-name', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('DeceasedName');
+        testHelpBlockContent.runTest('DeceasedName');
 
         it('test right content loaded on the page', (done) => {
-            testWrapper.testContent(done);
+
+            testWrapper.testContent(done, []);
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required');
+
+            const data = {};
+
+            testWrapper.testErrors(done, data, 'required', []);
+
         });
 
         it('test errors message displayed for invalid firstName', (done) => {
@@ -52,5 +57,6 @@ describe('deceased-name', () => {
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDob);
         });
+
     });
 });

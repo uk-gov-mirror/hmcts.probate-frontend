@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const WillCodicils = require('app/steps/ui/will/codicils');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('deceased-married', () => {
     let testWrapper;
@@ -17,7 +17,7 @@ describe('deceased-married', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('DeceasedMarried');
+        testHelpBlockContent.runTest('DeceasedMarried');
 
         it('test correct content is loaded on the page', (done) => {
             const sessionData = {
@@ -26,15 +26,16 @@ describe('deceased-married', () => {
                     lastName: 'Manah'
                 }
             };
-            const contentToExclude = ['questionWithCodicil', 'legendWithCodicil'];
+            const excludeKeys = ['questionWithCodicil', 'legendWithCodicil'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {deceasedName: 'Mana Manah'};
 
-                    testWrapper.testContent(done, contentData, contentToExclude);
+                    testWrapper.testContent(done, excludeKeys, contentData);
                 });
+
         });
 
         it('test correct content is loaded on the page when there are codicils', (done) => {
@@ -47,27 +48,30 @@ describe('deceased-married', () => {
                     codicils: 'Yes'
                 }
             };
-            const contentToExclude = ['question', 'legend'];
+
+            const excludeKeys = ['question', 'legend'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
+
                     const contentData = {deceasedName: 'Mana Manah'};
 
-                    testWrapper.testContent(done, contentData, contentToExclude);
+                    testWrapper.testContent(done, excludeKeys, contentData);
                 });
 
         });
 
         it('test deceased married schema validation when no data is entered', (done) => {
-            testWrapper.testErrors(done, {}, 'required');
+            const data = {};
+
+            testWrapper.testErrors(done, data, 'required', []);
         });
 
         it(`test it redirects to Will Codicils page: ${expectedNextUrlForWillCodicils}`, (done) => {
             const data = {
                 married: 'No'
             };
-
             testWrapper.testRedirect(done, data, expectedNextUrlForWillCodicils);
         });
     });

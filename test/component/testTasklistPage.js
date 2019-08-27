@@ -1,29 +1,26 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
+const singleApplicantData = require('test/data/singleApplicant');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('task-list', () => {
-    let testWrapper;
-    let singleApplicantData;
-    let sessionData;
+    let testWrapper, sessionData;
 
     beforeEach(() => {
         testWrapper = new TestWrapper('TaskList');
 
-        singleApplicantData = require('test/data/singleApplicant');
         sessionData = require('test/data/complete-form').formdata;
     });
 
     afterEach(() => {
-        delete require.cache[require.resolve('test/data/singleApplicant')];
         delete require.cache[require.resolve('test/data/complete-form')];
         testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
         it('[PROBATE] test right content loaded on the page', (done) => {
-            const contentToExclude = [
+            const excludeKeys = [
                 'applicantsTask',
                 'copiesTaskIntestacy',
                 'introduction',
@@ -41,12 +38,12 @@ describe('task-list', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testDataPlayback(done, {}, contentToExclude);
+                    testWrapper.testContent(done, excludeKeys);
                 });
         });
 
         it('[INTESTACY] test right content loaded on the page', (done) => {
-            const contentToExclude = [
+            const excludeKeys = [
                 'executorsTask',
                 'copiesTaskProbate',
                 'documentTask',
@@ -65,7 +62,7 @@ describe('task-list', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testDataPlayback(done, {}, contentToExclude);
+                    testWrapper.testContent(done, excludeKeys);
                 });
         });
 
@@ -79,7 +76,7 @@ describe('task-list', () => {
                 executors: sessionData.executors,
                 declaration: sessionData.declaration
             };
-            const contentToExclude = [
+            const excludeKeys = [
                 'applicantsTask',
                 'copiesTaskIntestacy',
                 'taskNotStarted',
@@ -93,7 +90,7 @@ describe('task-list', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(multipleApplicantSessionData)
                 .end(() => {
-                    testWrapper.testDataPlayback(done, {}, contentToExclude);
+                    testWrapper.testContent(done, excludeKeys);
                 });
         });
 
@@ -107,7 +104,7 @@ describe('task-list', () => {
                 executors: singleApplicantData.executors,
                 declaration: sessionData.declaration
             };
-            const contentToExclude = [
+            const excludeKeys = [
                 'applicantsTask',
                 'copiesTaskIntestacy',
                 'reviewAndConfirmTaskMultiplesParagraph1',
@@ -123,7 +120,7 @@ describe('task-list', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(singleApplicantSessionData)
                 .end(() => {
-                    testWrapper.testDataPlayback(done, {}, contentToExclude);
+                    testWrapper.testContent(done, excludeKeys);
                 });
         });
 
@@ -137,7 +134,7 @@ describe('task-list', () => {
                 executors: singleApplicantData.executors,
                 declaration: sessionData.declaration
             };
-            const contentToExclude = [
+            const excludeKeys = [
                 'executorsTask',
                 'copiesTaskProbate',
                 'documentTask',
@@ -155,7 +152,7 @@ describe('task-list', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(singleApplicantSessionData)
                 .end(() => {
-                    testWrapper.testDataPlayback(done, {}, contentToExclude);
+                    testWrapper.testContent(done, excludeKeys);
                 });
         });
     });

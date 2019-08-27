@@ -2,8 +2,17 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedAddress = require('app/steps/ui/deceased/address');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
+const nock = require('nock');
+const featureToggleUrl = config.featureToggles.url;
+const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
+const featureTogglesNock = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(intestacyQuestionsFeatureTogglePath)
+        .reply(200, status);
+};
 
 describe('deceased-details', () => {
     let testWrapper;
@@ -11,23 +20,26 @@ describe('deceased-details', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedDetails');
+        featureTogglesNock();
     });
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('DeceasedDetails');
+        testHelpBlockContent.runTest('DeceasedDetails', featureTogglesNock);
 
         it('test right content loaded on the page', (done) => {
-            testWrapper.testContent(done);
+            testWrapper.testContent(done, []);
         });
 
         it('test errors message displayed for missing data', (done) => {
             const errorsToTest = ['firstName', 'lastName', 'dob-day', 'dob-month', 'dob-year', 'dod-day', 'dod-month', 'dod-year'];
+            const data = {};
 
-            testWrapper.testErrors(done, {}, 'required', errorsToTest);
+            testWrapper.testErrors(done, data, 'required', errorsToTest);
         });
 
         it('test errors message displayed for invalid firstName', (done) => {
