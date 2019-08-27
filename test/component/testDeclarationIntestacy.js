@@ -9,17 +9,35 @@ const contentAssetsOutside = require('app/resources/en/translation/iht/assetsout
 const contentAnyChildren = require('app/resources/en/translation/deceased/anychildren');
 const contentAnyOtherChildren = require('app/resources/en/translation/deceased/anyotherchildren');
 const contentRelationshipToDeceased = require('app/resources/en/translation/applicant/relationshiptodeceased');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const config = require('app/config');
 const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
-const featureTogglesNock = (status = 'true') => {
-    nock(featureToggleUrl)
-        .get(intestacyQuestionsFeatureTogglePath)
-        .reply(200, status);
-};
 const caseTypes = require('app/utils/CaseTypes');
+const beforeEachNocks = () => {
+    nock(config.services.idam.s2s_url)
+        .post('/lease')
+        .reply(
+            200,
+            'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSRUZFUkVOQ0UifQ.Z_YYn0go02ApdSMfbehsLXXbxJxLugPG8v_3kt' +
+            'CpQurK8tHkOy1qGyTo02bTdilX4fq4M5glFh80edDuhDJXPA'
+        );
+
+    nock(config.services.validation.url.replace('/validate', ''))
+        .post(config.pdf.path + '/'+ config.pdf.template.declaration)
+        .reply(200, {});
+
+    nock(config.services.validation.url.replace('/validate', ''))
+        .post(config.documentUpload.paths.upload)
+        .reply(200, [
+            'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
+        ]);
+};
+const afterEachNocks = (done) => {
+    return () => {
+        done();
+        nock.cleanAll();
+    };
+};
 
 describe('declaration, intestacy', () => {
     let testWrapper, contentData, sessionData;
@@ -27,25 +45,6 @@ describe('declaration, intestacy', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('Declaration');
-        featureTogglesNock();
-
-        nock(config.services.idam.s2s_url)
-            .post('/lease')
-            .reply(
-                200,
-                'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSRUZFUkVOQ0UifQ.Z_YYn0go02ApdSMfbehsLXXbxJxLugPG8v_3kt' +
-                'CpQurK8tHkOy1qGyTo02bTdilX4fq4M5glFh80edDuhDJXPA'
-            );
-
-        nock(config.services.validation.url.replace('/validate', ''))
-            .post(config.pdf.path + '/'+ config.pdf.template.declaration)
-            .reply(200, {});
-
-        nock(config.services.validation.url.replace('/validate', ''))
-            .post(config.documentUpload.paths.upload)
-            .reply(200, [
-                'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
-            ]);
 
         sessionData = require('test/data/complete-form-undeclared').formdata;
         sessionData.caseType = caseTypes.INTESTACY;
@@ -67,11 +66,10 @@ describe('declaration, intestacy', () => {
     afterEach(() => {
         delete require.cache[require.resolve('test/data/complete-form-undeclared')];
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('Declaration', featureTogglesNock);
+        testCommonContent.runTest('Declaration');
 
         it('test right content loaded on the page when deceased has assets overseas and the total net value is more than £250k', (done) => {
             const contentToExclude = [
@@ -153,13 +151,9 @@ describe('declaration, intestacy', () => {
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionDivorced;
 
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, contentToExclude, contentData);
-                        });
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -234,13 +228,9 @@ describe('declaration, intestacy', () => {
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionDivorced;
 
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, contentToExclude, contentData);
-                        });
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -315,13 +305,9 @@ describe('declaration, intestacy', () => {
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionDivorced;
 
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, contentToExclude, contentData);
-                        });
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -396,13 +382,9 @@ describe('declaration, intestacy', () => {
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionDivorced;
 
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, contentToExclude, contentData);
-                        });
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -477,13 +459,9 @@ describe('declaration, intestacy', () => {
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionDivorced;
 
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, contentToExclude, contentData);
-                        });
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -558,13 +536,9 @@ describe('declaration, intestacy', () => {
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
 
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, contentToExclude, contentData);
-                        });
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -639,13 +613,9 @@ describe('declaration, intestacy', () => {
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
 
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, contentToExclude, contentData);
-                        });
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -720,13 +690,9 @@ describe('declaration, intestacy', () => {
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
 
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, contentToExclude, contentData);
-                        });
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -801,13 +767,9 @@ describe('declaration, intestacy', () => {
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
 
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, contentToExclude, contentData);
-                        });
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -888,13 +850,9 @@ describe('declaration, intestacy', () => {
             contentData.ihtNetValue = sessionData.iht.netValueField;
 
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, contentToExclude, contentData);
-                        });
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -975,13 +933,9 @@ describe('declaration, intestacy', () => {
             contentData.ihtNetValue = sessionData.iht.netValueField;
 
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, contentToExclude, contentData);
-                        });
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -1062,13 +1016,9 @@ describe('declaration, intestacy', () => {
             contentData.ihtNetValue = sessionData.iht.netValueField;
 
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, contentToExclude, contentData);
-                        });
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -1149,13 +1099,9 @@ describe('declaration, intestacy', () => {
             contentData.ihtNetValue = sessionData.iht.netValueField;
 
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, contentToExclude, contentData);
-                        });
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -1230,13 +1176,9 @@ describe('declaration, intestacy', () => {
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
 
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, contentToExclude, contentData);
-                        });
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -1311,13 +1253,9 @@ describe('declaration, intestacy', () => {
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
 
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, contentToExclude, contentData);
-                        });
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -1398,13 +1336,9 @@ describe('declaration, intestacy', () => {
             contentData.ihtNetValue = sessionData.iht.netValueField;
 
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, contentToExclude, contentData);
-                        });
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -1485,28 +1419,24 @@ describe('declaration, intestacy', () => {
             contentData.ihtNetValue = sessionData.iht.netValueField;
 
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, contentToExclude, contentData);
-                        });
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const data = {};
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testErrors(done, data, 'required', [
-                        'declarationCheckbox'
-                    ]);
+                    const errorsToTest = ['declarationCheckbox'];
+
+                    testWrapper.testErrors(done, {}, 'required', errorsToTest);
                 });
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForExecInvite}`, (done) => {
+            beforeEachNocks();
             sessionData = {
                 executors: {
                     list: [
@@ -1518,13 +1448,15 @@ describe('declaration, intestacy', () => {
                     hasDataChanged: false
                 }
             };
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const data = {
                         declarationCheckbox: true
                     };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecInvite);
+
+                    testWrapper.testRedirect(afterEachNocks(done), data, expectedNextUrlForExecInvite);
                 });
         });
     });

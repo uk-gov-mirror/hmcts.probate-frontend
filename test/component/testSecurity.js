@@ -30,12 +30,13 @@ describe('security', () => {
             .expect(302)
             .end((err, res) => {
                 server.http.close();
-                nock.cleanAll();
                 if (err) {
                     done(err);
+                    nock.cleanAll();
                 } else {
                     expect(res.headers.location).to.contain(LOGIN_URL);
                     done();
+                    nock.cleanAll();
                 }
             });
     }).timeout(5000);
@@ -96,9 +97,11 @@ describe('security', () => {
                 config.app.useIDAM = 'false';
                 if (err) {
                     done(err);
+                    nock.cleanAll();
                 } else {
                     expect(res.headers.location).to.contain(expectedUrlForTimeoutPage);
                     done();
+                    nock.cleanAll();
                 }
             });
     }).timeout(5000);

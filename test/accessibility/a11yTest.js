@@ -41,15 +41,11 @@ for (const step in steps) {
                     .reply(200, 'false');
 
                 nock(config.featureToggles.url)
-                    .get(`${config.featureToggles.path}/probate-intestacy-questions`)
-                    .reply(200, 'true');
-
-                nock(config.featureToggles.url)
-                    .get(`${config.featureToggles.path}/probate-webchat`)
-                    .reply(200, 'true');
-
-                nock(config.featureToggles.url)
                     .get(`${config.featureToggles.path}/probate-fees-api`)
+                    .reply(200, 'true');
+
+                nock(config.featureToggles.url)
+                    .get(`${config.featureToggles.path}/probate-multiple-applications`)
                     .reply(200, 'true');
 
                 server = app.init();
