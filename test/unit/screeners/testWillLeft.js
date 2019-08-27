@@ -36,6 +36,7 @@ describe('WillLeft', () => {
                 sessionID: 'dummy_sessionId',
                 left: content.optionYes,
                 caseType: 'gop',
+                userLoggedIn: false,
                 featureToggles: {
                     webchat: 'false'
                 }

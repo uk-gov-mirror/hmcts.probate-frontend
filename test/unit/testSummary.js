@@ -126,6 +126,7 @@ describe('Summary', () => {
                 },
                 ihtTotalNetValue: 300000,
                 caseType: 'gop',
+                userLoggedIn: false,
                 readyToDeclare: false,
                 session: {
                     form: {
@@ -185,6 +186,7 @@ describe('Summary', () => {
                 ihtTotalNetValue: 550000,
                 ihtTotalNetValueGreaterThan250k: true,
                 caseType: 'intestacy',
+                userLoggedIn: false,
                 readyToDeclare: false,
                 session: {
                     form: {

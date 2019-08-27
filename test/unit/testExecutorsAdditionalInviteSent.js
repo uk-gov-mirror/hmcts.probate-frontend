@@ -41,6 +41,7 @@ describe('Executor-Additional-Invite-Sent', () => {
                 inviteSuffix: '',
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
+                userLoggedIn: false,
                 featureToggles: {
                     webchat: 'false'
                 }
@@ -70,6 +71,7 @@ describe('Executor-Additional-Invite-Sent', () => {
                 inviteSuffix: '-multiple',
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
+                userLoggedIn: false,
                 featureToggles: {
                     webchat: 'false'
                 }

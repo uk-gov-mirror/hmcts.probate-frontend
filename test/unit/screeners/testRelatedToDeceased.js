@@ -36,6 +36,7 @@ describe('RelatedToDeceased', () => {
                 sessionID: 'dummy_sessionId',
                 related: content.optionYes,
                 caseType: 'gop',
+                userLoggedIn: false,
                 featureToggles: {
                     webchat: 'false'
                 }

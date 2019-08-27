@@ -33,6 +33,7 @@ describe('CopiesOverseas', () => {
                 overseas: 3,
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
+                userLoggedIn: false,
                 featureToggles: {
                     webchat: 'false'
                 }

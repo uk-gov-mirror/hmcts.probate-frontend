@@ -25,8 +25,8 @@ describe('GetCaseMiddleware', () => {
         };
 
         const res = {redirect: () => {
-                // Do nothing
-            }};
+            // Do nothing
+        }};
         const redirectSpy = sinon.spy(res, 'redirect');
 
         const multipleAppGetCaseStub = sinon.stub(MultipleApplications.prototype, 'getCase')
@@ -63,8 +63,8 @@ describe('GetCaseMiddleware', () => {
         };
 
         const res = {redirect: () => {
-                // Do nothing
-            }};
+            // Do nothing
+        }};
         const redirectSpy = sinon.spy(res, 'redirect');
 
         const multipleAppGetCaseStub = sinon.stub(MultipleApplications.prototype, 'getCase')

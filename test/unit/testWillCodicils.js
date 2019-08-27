@@ -35,6 +35,7 @@ describe('WillCodicils', () => {
                 codicils: 'Yes',
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
+                userLoggedIn: false,
                 featureToggles: {
                     webchat: 'false'
                 }

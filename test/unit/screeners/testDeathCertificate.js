@@ -36,6 +36,7 @@ describe('DeathCertificate', () => {
                 sessionID: 'dummy_sessionId',
                 deathCertificate: content.optionYes,
                 caseType: 'gop',
+                userLoggedIn: false,
                 featureToggles: {
                     webchat: 'false'
                 }

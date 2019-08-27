@@ -36,6 +36,7 @@ describe('MentalCapacity', () => {
                 sessionID: 'dummy_sessionId',
                 mentalCapacity: content.optionYes,
                 caseType: 'gop',
+                userLoggedIn: false,
                 featureToggles: {
                     webchat: 'false'
                 }
