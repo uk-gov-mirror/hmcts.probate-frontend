@@ -4,13 +4,12 @@ const {expect} = require('chai');
 const co = require('co');
 const rewire = require('rewire');
 const AddressLookup = rewire('app/steps/action/addressLookup');
-const logger = require('app/components/logger')('Init');
+const content = require('app/resources/en/translation/addressLookup');
 
 const expectedResponse = [{
     formattedAddress: 'Ministry Of Justice,Seventh Floor,103 Petty France,London,SW1H 9AJ',
     postcode: 'SW1H 9AJ'
-},
-{
+}, {
     formattedAddress: 'Ministry Of Justice,Seventh Floor,102 Petty France,London,SW1H 9AJ',
     postcode: 'SW1H 9AJ'
 }];
@@ -43,7 +42,7 @@ describe('AddressLookup', () => {
             referrer: 'ApplicantAddress',
             postcode: 'SW1H 9AJ'
         };
-        errorsToTest = {};
+        errorsToTest = [];
         formdata = {
             applicant: {
                 someThingToLookFor: 'someThingToLookFor'
@@ -71,9 +70,6 @@ describe('AddressLookup', () => {
             co(function* () {
                 yield addressLookup.handlePost(ctxToTest, errorsToTest, formdata, req);
 
-                logger.error(`ACTUAL: ${JSON.stringify(formdata.applicant.addresses)}`);
-                logger.error(`EXPECTED: ${JSON.stringify(expectedResponse)}`);
-
                 expect(formdata.applicant.addresses).to.deep.equal(expectedResponse);
                 expect(formdata.applicant.addressFound).to.equal('true');
                 revert();
@@ -89,17 +85,24 @@ describe('AddressLookup', () => {
             });
             const addressLookup = new AddressLookup(steps, section, templatePath, i18next, schema);
 
+            ctxToTest = {
+                referrer: 'ApplicantAddress',
+                postcode: 'N55'
+            };
+            errorsToTest = {
+                field: 'postcode',
+                href: '#postcode',
+                msg: {
+                    summary: content.errors.postcode.noAddresses.summary,
+                    message: content.errors.postcode.noAddresses.message
+                }
+            };
+
             co(function* () {
-                yield addressLookup.handlePost(ctxToTest, errorsToTest, formdata, req);
+                yield addressLookup.handlePost(ctxToTest, [errorsToTest], formdata, req);
+
                 expect(formdata.applicant.addressFound).to.equal('false');
-                expect(formdata.applicant.errors[0]).to.deep.equal({
-                    field: 'postcode',
-                    href: '#postcode',
-                    msg: {
-                        summary: 'addressLookup.errors.postcode.noAddresses.summary',
-                        message: 'addressLookup.errors.postcode.noAddresses.message'
-                    }
-                });
+                expect(formdata.applicant.errors[0]).to.deep.equal(errorsToTest);
                 revert();
                 done();
             }).catch((err) => {
