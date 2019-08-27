@@ -21,13 +21,13 @@ describe('thank-you', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const contentData = {
+                    const playbackData = {
                         referenceNumber: content.referenceNumber,
                         checkSummaryLink: content.checkAnswersPdf,
                         declarationLink: content.declarationPdf
                     };
 
-                    testWrapper.testContentNotPresent(done, contentData);
+                    testWrapper.testContentNotPresent(done, playbackData);
                 });
         });
 
@@ -86,10 +86,10 @@ describe('thank-you', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const excludedData = {
+                    const playbackData = {
                         declarationLink: content.declarationPdf
                     };
-                    testWrapper.testContentNotPresent(done, excludedData);
+                    testWrapper.testContentNotPresent(done, playbackData);
                 });
         });
 
@@ -127,11 +127,11 @@ describe('thank-you', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const excludedData = {
+                    const playbackData = {
                         checkSummaryLink: content.checkAnswersPdf
                     };
 
-                    testWrapper.testContentNotPresent(done, excludedData);
+                    testWrapper.testContentNotPresent(done, playbackData);
                 });
         });
 

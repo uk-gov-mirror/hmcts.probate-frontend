@@ -34,7 +34,7 @@ class TestWrapper {
         this.agent = request.agent(this.server.app);
     }
 
-    testContent(done, data, excludeKeys = [], cookies = []) {
+    testContent(done, data = {}, excludeKeys = [], cookies = []) {
         const contentToCheck = cloneDeep(filter(this.content, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
         const substitutedContent = this.substituteContent(data, contentToCheck);
         const res = this.agent.get(this.pageUrl);
@@ -54,7 +54,7 @@ class TestWrapper {
             });
     }
 
-    testDataPlayback(done, data, excludeKeys = [], cookies = []) {
+    testDataPlayback(done, data = {}, excludeKeys = [], cookies = []) {
         const res = this.agent.get(this.pageUrl);
         const dataToCheck = cloneDeep(filter(data, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
 
