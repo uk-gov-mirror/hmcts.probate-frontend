@@ -141,7 +141,7 @@ class TestWrapper {
         Object.entries(contentToSubstitute)
             .forEach(([key, contentValue]) => {
                 contentValue = contentValue.replace(/\n/g, '<br />\n');
-                const contentValueMatch = contentValue.match(/\{(.*?)\}/g);
+                const contentValueMatch = contentValue.match(/{(.*?)}/g);
                 if (contentValueMatch) {
                     contentValueMatch.forEach(placeholder => {
                         const placeholderRegex = new RegExp(placeholder, 'g');
@@ -167,9 +167,9 @@ class TestWrapper {
     substituteErrorsContent(data, contentToSubstitute, type) {
         Object.entries(contentToSubstitute).forEach(([contentKey, contentValue]) => {
             Object.entries(contentValue[type]).forEach(([errorMessageKey, errorMessageValue]) => {
-                const errorMessageValueMatch = errorMessageValue.match(/\{(.*?)\}/g);
+                const errorMessageValueMatch = errorMessageValue.match(/{(.*?)}/g);
                 if (errorMessageValueMatch) {
-                    (errorMessageValue.match(/\{(.*?)\}/g)).forEach(placeholder => {
+                    (errorMessageValue.match(/{(.*?)}/g)).forEach(placeholder => {
                         const placeholderRegex = new RegExp(placeholder, 'g');
                         contentToSubstitute[contentKey][type][errorMessageKey] = contentToSubstitute[contentKey][type][errorMessageKey].replace(placeholderRegex, data[placeholder]);
                     });
