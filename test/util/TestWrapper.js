@@ -144,16 +144,14 @@ class TestWrapper {
                 const contentValueMatch = contentValue.match(/{(.*?)}/g);
                 if (contentValueMatch) {
                     contentValueMatch.forEach(placeholder => {
-                        const placeholderRegex = new RegExp(placeholder, 'g');
-                        placeholder = placeholder.replace(/[{}]/g, '');
                         if (Array.isArray(data[placeholder])) {
                             data[placeholder].forEach(contentData => {
-                                const contentValueReplace = contentValue.replace(placeholderRegex, contentData);
+                                const contentValueReplace = contentValue.replace(placeholder, contentData);
                                 contentToSubstitute.push(contentValueReplace);
                             });
                             contentToSubstitute[key] = 'undefined';
                         } else {
-                            contentValue = contentValue.replace(placeholderRegex, data[placeholder]);
+                            contentValue = contentValue.replace(placeholder, data[placeholder]);
                             contentToSubstitute[key] = contentValue;
                         }
                     });
