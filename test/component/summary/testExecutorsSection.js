@@ -111,19 +111,18 @@ describe('summary-executor-section', () => {
                         firstName: applicantContent.name.firstName,
                         lastName: applicantContent.name.lastName,
                         phoneNumber: applicantContent.phone.phoneNumber,
-                        applicantAddress: applicantContent.address.question
+                        applicantAddress: applicantContent.address.question,
+                        address: executorsData.applicant.address.formattedAddress,
+                        exec2fullName: executorsData.executors.list[1].fullName,
+                        exec2IsApplying: executorsData.executors.list[1].isApplying ? 'Yes' : 'No',
+                        exec2HasAlias: executorsData.executors.list[1].hasOtherName ? 'Yes': 'No',
+                        exec2Alias: executorsData.executors.list[1].currentName,
+                        exec2AliasReason: executorsData.executors.list[1].currentNameReason,
+                        exec3fullName: executorsData.executors.list[2].fullName,
+                        exec3IsApplying: executorsData.executors.list[2].isApplying ? 'Yes' : 'No',
+                        exec3NotApplyingReason: executorsData.executors.list[2].notApplyingReason
                     };
-
                     Object.assign(playbackData, executorsData.applicant);
-                    playbackData.address = executorsData.applicant.address.formattedAddress;
-                    playbackData.exec2fullName = executorsData.executors.list[1].fullName;
-                    playbackData.exec2IsApplying = executorsData.executors.list[1].isApplying ? 'Yes' : 'No';
-                    playbackData.exec2HasAlias = executorsData.executors.list[1].hasOtherName ? 'Yes': 'No';
-                    playbackData.exec2Alias = executorsData.executors.list[1].currentName;
-                    playbackData.exec2AliasReason = executorsData.executors.list[1].currentNameReason;
-                    playbackData.exec3fullName = executorsData.executors.list[2].fullName;
-                    playbackData.exec3IsApplying = executorsData.executors.list[2].isApplying ? 'Yes' : 'No';
-                    playbackData.exec3NotApplyingReason = executorsData.executors.list[2].notApplyingReason;
 
                     testWrapper.testDataPlayback(done, playbackData);
                 });
