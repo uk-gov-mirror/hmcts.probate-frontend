@@ -32,6 +32,7 @@ describe('summary-documentupload-section', () => {
                         sessionData.documents.uploads[1].filename,
                         sessionData.documents.uploads[2].filename
                     ];
+
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
@@ -48,6 +49,7 @@ describe('summary-documentupload-section', () => {
                         documentuploadContent.deathCertificate,
                         summaryContent.uploadedDocumentsEmpty
                     ];
+
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
@@ -62,6 +64,7 @@ describe('summary-documentupload-section', () => {
                     const playbackData = {
                         deathCertificate: documentuploadContent.deathCertificate,
                     };
+
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
@@ -77,14 +80,13 @@ describe('summary-documentupload-section', () => {
                         documentuploadContent.deathCertificate
                     ];
                     Object.assign(playbackData, sessionData);
+
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
 
         it('test correct content loaded on document upload section of the summary page, when no data is entered', (done) => {
-            const playbackData = {
-            };
-            testWrapper.testDataPlayback(done, playbackData);
+            testWrapper.testDataPlayback(done);
         });
     });
 });

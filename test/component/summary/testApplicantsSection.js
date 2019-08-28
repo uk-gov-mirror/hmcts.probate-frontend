@@ -25,6 +25,7 @@ describe('summary-applicants-section', () => {
             sessionData = {
                 caseType: 'intestacy',
             };
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
@@ -34,6 +35,7 @@ describe('summary-applicants-section', () => {
                     const playbackData = {
                         relationshipToDeceased: applicantContent.relationshiptodeceased.question
                     };
+
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
@@ -57,6 +59,7 @@ describe('summary-applicants-section', () => {
                         anyDeceasedChildren: deceasedContent.anydeceasedchildren.question.replace('{deceasedName}', deceasedName).replace('{deceasedDoD}', deceasedData.deceased['dod-formattedDate']),
                         anyGrandchildrenUnder18: deceasedContent.anygrandchildrenunder18.question
                     };
+
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });

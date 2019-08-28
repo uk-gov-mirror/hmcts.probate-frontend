@@ -29,11 +29,13 @@ describe('summary-deceased-section', () => {
                 address: deceasedContent.address.question,
                 willCodicils: willContent.codicils.question
             };
+
             testWrapper.testDataPlayback(done, playbackData);
         });
 
         it('test correct content loaded on the deceased section of the summary page, when section is complete', (done) => {
             const deceasedData = require('test/data/deceased');
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
@@ -52,12 +54,14 @@ describe('summary-deceased-section', () => {
                         address: deceasedContent.address.question,
                         willCodicils: willContent.codicils.question
                     };
+
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
 
         it('test data is played back correctly on the deceased section of the summary page', (done) => {
             const deceasedData = require('test/data/deceased');
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
@@ -73,11 +77,11 @@ describe('summary-deceased-section', () => {
                         married: deceasedContent.married.question.replace('{deceasedName}', deceasedName),
                         dob: deceasedContent.dob.question,
                         dod: deceasedContent.dod.question,
-                        address: deceasedContent.address.question,
+                        address: deceasedData.deceased.address.formattedAddress,
                         willCodicils: willContent.codicils.question
                     };
                     Object.assign(playbackData, deceasedData.deceased, deceasedData.will);
-                    playbackData.address = deceasedData.deceased.address.formattedAddress;
+
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
