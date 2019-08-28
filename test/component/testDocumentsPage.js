@@ -392,6 +392,7 @@ describe('documents', () => {
                             'checkboxLabel-codicils',
                             'checkboxLabel'
                         ];
+
                         testWrapper.testContent(done, contentData, contentToExclude);
                     });
             });
@@ -414,12 +415,14 @@ describe('documents', () => {
                             'checkboxLabel-codicils',
                             'checkboxLabel'
                         ];
+
                         testWrapper.testContent(done, contentData, contentToExclude);
                     });
             });
 
             it('test correct content loaded on the page, CCD Case ID not present', (done) => {
                 delete sessionData.ccdCase;
+
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {

@@ -20,6 +20,7 @@ describe('stop-page', () => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('deathCertificate');
             const contentData = {deathReportedToCoroner: config.links.deathReportedToCoroner};
             const contentToExclude = ['notInEnglandOrWales', 'ihtNotCompleted', 'notOriginal', 'notExecutor', 'mentalCapacity', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
+
             testWrapper.testContent(done, contentData, contentToExclude);
         });
 
@@ -27,6 +28,7 @@ describe('stop-page', () => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('notInEnglandOrWales');
             const contentData = {applicationFormPA1P: config.links.applicationFormPA1P, applicationFormPA1A: config.links.applicationFormPA1A};
             const contentToExclude = ['deathCertificate', 'ihtNotCompleted', 'notOriginal', 'notExecutor', 'mentalCapacity', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
+
             testWrapper.testContent(done, contentData, contentToExclude);
         });
 
@@ -34,6 +36,7 @@ describe('stop-page', () => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('ihtNotCompleted');
             const contentData = {ihtNotCompleted: config.links.ihtNotCompleted};
             const contentToExclude = ['deathCertificate', 'notInEnglandOrWales', 'notOriginal', 'notExecutor', 'mentalCapacity', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
+
             testWrapper.testContent(done, contentData, contentToExclude);
         });
 
@@ -41,6 +44,7 @@ describe('stop-page', () => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('noWill');
             const contentData = {applicationFormPA1A: config.links.applicationFormPA1A, whoInherits: config.links.whoInherits};
             const contentToExclude = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'notOriginal', 'notExecutor', 'mentalCapacity', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
+
             testWrapper.testContent(done, contentData, contentToExclude);
         });
 
@@ -48,6 +52,7 @@ describe('stop-page', () => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('notOriginal');
             const contentData = {applicationFormPA1P: config.links.applicationFormPA1P, applicationFormPA1A: config.links.applicationFormPA1A};
             const contentToExclude = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'notExecutor', 'mentalCapacity', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
+
             testWrapper.testContent(done, contentData, contentToExclude);
         });
 
@@ -55,6 +60,7 @@ describe('stop-page', () => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('notExecutor');
             const contentData = {applicationFormPA1P: config.links.applicationFormPA1P};
             const contentToExclude = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'notOriginal', 'mentalCapacity', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
+
             testWrapper.testContent(done, contentData, contentToExclude);
         });
 
@@ -62,6 +68,7 @@ describe('stop-page', () => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('mentalCapacity');
             const contentData = {applicationFormPA1P: config.links.applicationFormPA1P, ifYoureAnExecutor: config.links.ifYoureAnExecutor};
             const contentToExclude = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'notOriginal', 'notExecutor', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
+
             testWrapper.testContent(done, contentData, contentToExclude);
         });
 
@@ -69,6 +76,7 @@ describe('stop-page', () => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('notDiedAfterOctober2014');
             const contentData = {applicationFormPA1A: config.links.applicationFormPA1A};
             const contentToExclude = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'notOriginal', 'notExecutor', 'mentalCapacity', 'notRelated', 'otherApplicants', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
+
             testWrapper.testContent(done, contentData, contentToExclude);
         });
 
@@ -76,6 +84,7 @@ describe('stop-page', () => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('notRelated');
             const contentData = {applicationFormPA1A: config.links.applicationFormPA1A};
             const contentToExclude = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'notOriginal', 'notExecutor', 'mentalCapacity', 'notDiedAfterOctober2014', 'otherApplicants', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
+
             testWrapper.testContent(done, contentData, contentToExclude);
         });
 
@@ -83,6 +92,7 @@ describe('stop-page', () => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('otherApplicants');
             const contentData = {applicationFormPA1A: config.links.applicationFormPA1A};
             const contentToExclude = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'notOriginal', 'notExecutor', 'mentalCapacity', 'notDiedAfterOctober2014', 'notRelated', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
+
             testWrapper.testContent(done, contentData, contentToExclude);
         });
 
@@ -90,6 +100,7 @@ describe('stop-page', () => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('divorcePlace');
             const contentData = {applicationFormPA1A: config.links.applicationFormPA1A};
             const contentToExclude = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'notOriginal', 'notExecutor', 'mentalCapacity', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
+
             testWrapper.testContent(done, contentData, contentToExclude);
         });
 
@@ -97,6 +108,7 @@ describe('stop-page', () => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('separationPlace');
             const contentData = {applicationFormPA1A: config.links.applicationFormPA1A};
             const contentToExclude = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'notOriginal', 'notExecutor', 'mentalCapacity', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'divorcePlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
+
             testWrapper.testContent(done, contentData, contentToExclude);
         });
 
@@ -104,6 +116,7 @@ describe('stop-page', () => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('otherRelationship');
             const contentData = {applicationFormPA1A: config.links.applicationFormPA1A};
             const contentToExclude = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'notOriginal', 'notExecutor', 'mentalCapacity', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'divorcePlace', 'separationPlace', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
+
             testWrapper.testContent(done, contentData, contentToExclude);
         });
 
@@ -111,6 +124,7 @@ describe('stop-page', () => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('adoptionNotEnglandOrWales');
             const contentData = {applicationFormPA1A: config.links.applicationFormPA1A};
             const contentToExclude = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'notOriginal', 'notExecutor', 'mentalCapacity', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'divorcePlace', 'separationPlace', 'otherRelationship', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
+
             testWrapper.testContent(done, contentData, contentToExclude);
         });
 
@@ -118,6 +132,7 @@ describe('stop-page', () => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('spouseNotApplying');
             const contentData = {applicationFormPA1A: config.links.applicationFormPA1A};
             const contentToExclude = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'notOriginal', 'notExecutor', 'mentalCapacity', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'childrenUnder18', 'grandchildrenUnder18'];
+
             testWrapper.testContent(done, contentData, contentToExclude);
         });
 
@@ -125,6 +140,7 @@ describe('stop-page', () => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('childrenUnder18');
             const contentData = {applicationFormPA1A: config.links.applicationFormPA1A};
             const contentToExclude = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'notOriginal', 'notExecutor', 'mentalCapacity', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'grandchildrenUnder18'];
+
             testWrapper.testContent(done, contentData, contentToExclude);
         });
 
@@ -132,18 +148,21 @@ describe('stop-page', () => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('grandchildrenUnder18');
             const contentData = {applicationFormPA1A: config.links.applicationFormPA1A};
             const contentToExclude = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'notOriginal', 'notExecutor', 'mentalCapacity', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18'];
+
             testWrapper.testContent(done, contentData, contentToExclude);
         });
 
         it('test "sign out" link is not displayed on the page on pages outside of IdAM', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('deathCertificate');
             const playbackData = {signOut: commonContent.signOut};
+
             testWrapper.testContentNotPresent(done, playbackData);
         });
 
         it('test "sign out" link is displayed on the page on pages inside IdAM', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('divorcePlace');
             const playbackData = {signOut: commonContent.signOut};
+
             testWrapper.testDataPlayback(done, playbackData);
         });
     });

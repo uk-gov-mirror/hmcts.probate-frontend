@@ -38,6 +38,7 @@ describe('task-list', () => {
                 'alreadyDeclared'
             ];
             sessionData.caseType = caseTypes.GOP;
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -62,6 +63,7 @@ describe('task-list', () => {
                 'alreadyDeclared'
             ];
             sessionData.caseType = caseTypes.INTESTACY;
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -150,8 +152,8 @@ describe('task-list', () => {
                 'checkYourAnswers',
                 'alreadyDeclared'
             ];
-
             singleApplicantSessionData.caseType = caseTypes.INTESTACY;
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(singleApplicantSessionData)
                 .end(() => {

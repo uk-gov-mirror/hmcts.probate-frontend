@@ -66,6 +66,7 @@ describe('security', () => {
         config.app.useIDAM = 'true';
         const server = app.init();
         const agent = request.agent(server.app);
+
         agent.get(expectedNextUrlForTaskList)
             .set('Cookie', ['__auth-token-v2.5.0=dummyToken'])
             .expect(302)
@@ -89,6 +90,7 @@ describe('security', () => {
         config.app.useIDAM = 'true';
         const server = app.init();
         const agent = request.agent(server.app);
+
         agent.get(expectedNextUrlForTaskList)
             .set('Cookie', SECURITY_COOKIE + '=dummyToken')
             .expect(302)

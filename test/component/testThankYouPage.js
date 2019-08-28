@@ -17,18 +17,13 @@ describe('thank-you', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test content loaded on the page when CCD Case ID not present', (done) => {
-            const sessionData = {};
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const playbackData = {
-                        referenceNumber: content.referenceNumber,
-                        checkSummaryLink: content.checkAnswersPdf,
-                        declarationLink: content.declarationPdf
-                    };
+            const playbackData = {
+                referenceNumber: content.referenceNumber,
+                checkSummaryLink: content.checkAnswersPdf,
+                declarationLink: content.declarationPdf
+            };
 
-                    testWrapper.testContentNotPresent(done, playbackData);
-                });
+            testWrapper.testContentNotPresent(done, playbackData);
         });
 
         it('test content loaded on the page when CCD Case ID present', (done) => {
@@ -39,6 +34,7 @@ describe('thank-you', () => {
                 }
             };
             const contentToExclude = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf', 'coverSheetPdf'];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -60,6 +56,7 @@ describe('thank-you', () => {
                 checkAnswersSummary: '{test: "data"}'
             };
             const contentToExclude = ['declarationPdf', 'coverSheetPdf'];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -71,7 +68,6 @@ describe('thank-you', () => {
                     };
 
                     testWrapper.testContent(done, contentData, contentToExclude);
-
                 });
         });
 
@@ -83,12 +79,14 @@ describe('thank-you', () => {
                 },
                 checkAnswersSummary: '{test: "data"}'
             };
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const playbackData = {
                         declarationLink: content.declarationPdf
                     };
+
                     testWrapper.testContentNotPresent(done, playbackData);
                 });
         });
@@ -102,6 +100,7 @@ describe('thank-you', () => {
                 legalDeclaration: '{test: "data"}'
             };
             const contentToExclude = ['checkAnswersPdf'];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -124,6 +123,7 @@ describe('thank-you', () => {
                 },
                 legalDeclaration: '{test: "data"}'
             };
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -144,6 +144,7 @@ describe('thank-you', () => {
                 checkAnswersSummary: '{test: "data"}',
                 legalDeclaration: '{test: "data"}'
             };
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -167,6 +168,7 @@ describe('thank-you', () => {
                 }
             };
             const contentToExclude = ['checkAnswersPdf', 'declarationPdf'];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
