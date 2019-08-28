@@ -17,7 +17,7 @@ const FieldError = (param, keyword, resourcePath, contentCtx = {}) => {
     };
 };
 
-const generateErrors = (errs, ctx, formdata, errorPath, lang='en') => {
+const generateErrors = (errs, ctx, formdata, errorPath, lang = 'en') => {
     i18next.changeLanguage(lang);
     const contentCtx = Object.assign({}, formdata, ctx, {});
     if (errs.find((e) => e.keyword === 'oneOf')) {
