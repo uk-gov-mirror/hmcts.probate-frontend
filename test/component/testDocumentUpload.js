@@ -51,8 +51,8 @@ describe('document-upload', () => {
                 .expect('location', testWrapper.pageUrl)
                 .expect(302)
                 .then(() => {
-                    done();
                     nock.cleanAll();
+                    done();
                 })
                 .catch(done);
         });

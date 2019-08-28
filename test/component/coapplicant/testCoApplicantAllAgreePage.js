@@ -7,8 +7,8 @@ const config = require('app/config');
 const businessServiceUrl = config.services.validation.url.replace('/validate', '');
 const afterEachNocks = (done) => {
     return () => {
-        done();
         nock.cleanAll();
+        done();
     };
 };
 

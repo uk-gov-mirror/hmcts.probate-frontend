@@ -14,8 +14,8 @@ const beforeEachNocks = (status = 'true') => {
 };
 const afterEachNocks = (done) => {
     return () => {
-        done();
         nock.cleanAll();
+        done();
     };
 };
 

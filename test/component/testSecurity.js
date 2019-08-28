@@ -31,12 +31,12 @@ describe('security', () => {
             .end((err, res) => {
                 server.http.close();
                 if (err) {
-                    done(err);
                     nock.cleanAll();
+                    done(err);
                 } else {
                     expect(res.headers.location).to.contain(LOGIN_URL);
-                    done();
                     nock.cleanAll();
+                    done();
                 }
             });
     }).timeout(5000);
@@ -96,12 +96,12 @@ describe('security', () => {
                 server.http.close();
                 config.app.useIDAM = 'false';
                 if (err) {
-                    done(err);
                     nock.cleanAll();
+                    done(err);
                 } else {
                     expect(res.headers.location).to.contain(expectedUrlForTimeoutPage);
-                    done();
                     nock.cleanAll();
+                    done();
                 }
             });
     }).timeout(5000);
