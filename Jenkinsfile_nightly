@@ -63,7 +63,6 @@ withNightlyPipeline("nodejs", product, component) {
     env.TEST_URL = params.URL_TO_TEST
     env.TEST_E2E_URL = params.URL_TO_TEST
     env.PATH_TO_TEST_FILES =  params.test_path
-    setVaultName('probate')
     loadVaultSecrets(secrets)
     //enableFullFunctionalTest()
     enableCrossBrowserTest()
