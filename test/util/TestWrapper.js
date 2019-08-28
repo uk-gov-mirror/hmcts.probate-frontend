@@ -167,7 +167,7 @@ class TestWrapper {
             Object.entries(contentValue[type]).forEach(([errorMessageKey, errorMessageValue]) => {
                 const errorMessageValueMatch = errorMessageValue.match(/{(.*?)}/g);
                 if (errorMessageValueMatch) {
-                    (errorMessageValue.match(/{(.*?)}/g)).forEach(placeholder => {
+                    errorMessageValueMatch.forEach(placeholder => {
                         const placeholderRegex = new RegExp(placeholder, 'g');
                         contentToSubstitute[contentKey][type][errorMessageKey] = contentToSubstitute[contentKey][type][errorMessageKey].replace(placeholderRegex, data[placeholder]);
                     });
