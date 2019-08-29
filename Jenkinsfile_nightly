@@ -15,7 +15,7 @@ String product = "probate"
 String component = "frontend"
 
 def secrets = [
-  'probate-${params.ENVIRONMENT}': [
+  'probate-aat': [
     secret('testIdamBaseUrl', 'IDAM_API_URL'),
     secret('testIdamLoginUrl', 'IDAM_LOGIN_URL'),
     secret('testUseIdam', 'USE_IDAM'),
