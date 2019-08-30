@@ -101,7 +101,6 @@ describe('AddressLookup', () => {
             co(function* () {
                 yield addressLookup.handlePost(ctxToTest, [errorsToTest], formdata, req);
 
-                expect(formdata.applicant.addressFound).to.equal('false');
                 expect(formdata.applicant.errors[0]).to.deep.equal(errorsToTest);
                 revert();
                 done();
