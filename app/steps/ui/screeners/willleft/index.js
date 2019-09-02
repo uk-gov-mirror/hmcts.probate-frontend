@@ -12,6 +12,10 @@ class WillLeft extends EligibilityValidationStep {
         return pageUrl;
     }
 
+    getContextData(req, res) {
+        return super.getContextData(req, res, pageUrl, fieldKey);
+    }
+
     handlePost(ctx, errors, formdata, session) {
         const pageCaseType = (ctx.left === content.optionYes) ? caseTypes.GOP : caseTypes.INTESTACY;
         if (ctx.caseType && ctx.caseType !== pageCaseType) {
