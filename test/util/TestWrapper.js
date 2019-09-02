@@ -49,9 +49,7 @@ class TestWrapper {
                 this.assertContentIsPresent(response.text, substitutedContent);
                 done();
             })
-            .catch(() => {
-                done();
-            });
+            .catch(() => done());
     }
 
     testDataPlayback(done, data = {}, excludeKeys = [], cookies = []) {
