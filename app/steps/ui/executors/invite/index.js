@@ -24,10 +24,11 @@ class ExecutorsInvite extends ValidationStep {
     }
 
     * handlePost(ctx, errors, formdata, session) {
-        yield ctx.list
+        const inviteLink = new InviteLink(config.services.orchestrator.url, ctx.sessionID);
+        const executorsList = ctx.list
             .filter(exec => exec.isApplying && !exec.isApplicant)
             .map(exec => {
-                const data = {
+                return {
                     executorName: exec.fullName,
                     firstName: formdata.deceased.firstName,
                     lastName: formdata.deceased.lastName,
@@ -36,17 +37,47 @@ class ExecutorsInvite extends ValidationStep {
                     formdataId: session.regId,
                     leadExecutorName: FormatName.format(formdata.applicant)
                 };
-                const inviteLink = new InviteLink(config.services.orchestrator.url, ctx.sessionID);
-                return inviteLink.post(data, exec, ctx.authToken, ctx.serviceAuthorization).then(result => {
-                    if (result.name === 'Error') {
-                        throw new ReferenceError('Error while sending co-applicant invitation email.');
-                    } else {
-                        exec.inviteId = result;
-                        exec.emailSent = true;
-                        return exec;
-                    }
-                });
             });
+
+        yield inviteLink.post(executorsList, ctx.authToken, ctx.serviceAuthorization)
+            .then(result => {
+                if (result.name === 'Error') {
+                    throw new ReferenceError('Error while sending co-applicant invitation email.');
+                } else {
+                    result.forEach((execResult) => {
+                        const result = {
+                            inviteId: execResult.inviteId,
+                            emailSent: true
+                        };
+
+                        Object.assign(ctx.list.find(execList => execList.email = execResult.email), result);
+                    });
+                }
+            });
+
+        // yield ctx.list
+        //     .filter(exec => exec.isApplying && !exec.isApplicant)
+        //     .map(exec => {
+        //         const data = {
+        //             executorName: exec.fullName,
+        //             firstName: formdata.deceased.firstName,
+        //             lastName: formdata.deceased.lastName,
+        //             email: exec.email,
+        //             phoneNumber: exec.mobile,
+        //             formdataId: session.regId,
+        //             leadExecutorName: FormatName.format(formdata.applicant)
+        //         };
+        //         return inviteLink.post(data, exec, ctx.authToken, ctx.serviceAuthorization).then(result => {
+        //             if (result.name === 'Error') {
+        //                 throw new ReferenceError('Error while sending co-applicant invitation email.');
+        //             } else {
+        //                 exec.inviteId = result;
+        //                 exec.emailSent = true;
+        //                 return exec;
+        //             }
+        //         });
+        //     });
+
         ctx.invitesSent = 'true';
         return [ctx, errors];
     }
