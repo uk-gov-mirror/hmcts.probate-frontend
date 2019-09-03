@@ -10,10 +10,9 @@ class InviteLink extends Service {
         return this.fetchJson(url, fetchOptions);
     }
 
-    post(data, exec, authToken, serviceAuthorization) {
+    post(data, authToken, serviceAuthorization) {
         this.log('Post invite link');
-        const urlParam = exec.inviteId ? `/${exec.inviteId}` : '';
-        const url = this.formatUrl.format(this.endpoint, `/invite${urlParam}`);
+        const url = this.formatUrl.format(this.endpoint, '/invite');
         const headers = {
             'Content-Type': 'application/json',
             'Session-Id': this.sessionId,
@@ -21,7 +20,7 @@ class InviteLink extends Service {
             'ServiceAuthorization': serviceAuthorization
         };
         const fetchOptions = this.fetchOptions(data, 'POST', headers);
-        return this.fetchText(url, fetchOptions);
+        return this.fetchJson(url, fetchOptions);
     }
 }
 

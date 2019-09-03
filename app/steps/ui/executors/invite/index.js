@@ -44,13 +44,13 @@ class ExecutorsInvite extends ValidationStep {
                 if (result.name === 'Error') {
                     throw new ReferenceError('Error while sending co-applicant invitation email.');
                 } else {
-                    result.forEach((execResult) => {
+                    result.invites.forEach((execResult) => {
                         const result = {
                             inviteId: execResult.inviteId,
                             emailSent: true
                         };
 
-                        Object.assign(ctx.list.find(execList => execList.email = execResult.email), result);
+                        Object.assign(ctx.list.find(execList => execList.email === execResult.email), result);
                     });
                 }
             });
