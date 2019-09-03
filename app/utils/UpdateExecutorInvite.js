@@ -7,35 +7,71 @@ const InviteLink = require('app/services/InviteLink');
 const config = require('app/config');
 
 class UpdateExecutorInvite {
-    static update(session) {
+    static update(req) {
+        const session = req.session;
         const formdata = session.form;
+        const inviteLink = new InviteLink(config.services.orchestrator.url, session.id);
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
-        const executorsEmailChangedList = executorsWrapper.executorsEmailChangedList();
+        const executorsToNotifyList = executorsWrapper.executorsEmailChangedList();
 
-        const promises = executorsEmailChangedList
+        executorsToNotifyList
             .map(exec => {
-                const data = {
-                    invitation: {
-                        executorName: exec.fullName,
-                        firstName: formdata.deceased.firstName,
-                        lastName: formdata.deceased.lastName,
-                        email: exec.email,
-                        phoneNumber: exec.mobile,
-                        formdataId: session.regId,
-                        leadExecutorName: FormatName.format(formdata.applicant)
-                    }
+                return {
+                    executorName: exec.fullName,
+                    firstName: formdata.deceased.firstName,
+                    lastName: formdata.deceased.lastName,
+                    email: exec.email,
+                    phoneNumber: exec.mobile,
+                    formdataId: session.regId,
+                    leadExecutorName: FormatName.format(formdata.applicant)
                 };
-                const inviteLink = new InviteLink(config.services.orchestrator.url, session.id);
-                return inviteLink.post(data, exec);
             });
-        return Promise.all(promises).then(result => {
-            if (result.some(r => r.name === 'Error')) {
-                logger.error(`Error while sending emails to updated email address: ${result}`);
-                throw new ReferenceError('Error while sending co-applicant invitation email.');
-            }
-            formdata.executors.list = executorsWrapper.removeExecutorsEmailChangedFlag();
-            return formdata.executors;
-        });
+
+        inviteLink.post(executorsToNotifyList, req.authToken, req.session.serviceAuthorization)
+            .then(result => {
+                if (result.name === 'Error') {
+                    logger.error(`Error while sending executor email invites: ${result}`);
+                    throw new ReferenceError('Error while sending co-applicant invitation emails.');
+                } else {
+                    result.invites.forEach((execResult) => {
+                        const result = {
+                            inviteId: execResult.inviteId,
+                            emailSent: true
+                        };
+
+                        Object.assign(formdata.executors.list.find(execList => execList.email === execResult.email), result);
+                    });
+
+                    formdata.executors.list = executorsWrapper.removeExecutorsEmailChangedFlag();
+
+                    return formdata.executors;
+                }
+            });
+
+        // const promises = executorsEmailChangedList
+        //     .map(exec => {
+        //         const data = {
+        //             invitation: {
+        //                 executorName: exec.fullName,
+        //                 firstName: formdata.deceased.firstName,
+        //                 lastName: formdata.deceased.lastName,
+        //                 email: exec.email,
+        //                 phoneNumber: exec.mobile,
+        //                 formdataId: session.regId,
+        //                 leadExecutorName: FormatName.format(formdata.applicant)
+        //             }
+        //         };
+        //         const inviteLink = new InviteLink(config.services.orchestrator.url, session.id);
+        //         return inviteLink.post(data, exec);
+        //     });
+        // return Promise.all(promises).then(result => {
+        //     if (result.some(r => r.name === 'Error')) {
+        //         logger.error(`Error while sending emails to updated email address: ${result}`);
+        //         throw new ReferenceError('Error while sending co-applicant invitation email.');
+        //     }
+        //     formdata.executors.list = executorsWrapper.removeExecutorsEmailChangedFlag();
+        //     return formdata.executors;
+        // });
     }
 }
 
