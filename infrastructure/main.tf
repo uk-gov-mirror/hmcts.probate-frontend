@@ -13,6 +13,7 @@ locals {
   //localBusinessServiceUrl = "http://probate-business-service-${var.env}.service.${local.aseName}.internal"
   //businessServiceUrl = "${var.env == "preview" ? "http://probate-business-service-aat.service.core-compute-aat.internal" : local.localClaimStoreUrl}"
   // add other services
+  probate_internal_base_url = "http://probate-frontend-${local.localenv}.service.core-compute-${local.localenv}.internal"
 }
 
 data "azurerm_subnet" "core_infra_redis_subnet" {
@@ -109,6 +110,16 @@ data "azurerm_key_vault_secret" "probate_webchat_button_service_closed" {
 
 data "azurerm_key_vault_secret" "idam_secret_probate" {
   name = "ccidam-idam-api-secrets-probate"
+  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+}
+
+data "azurerm_key_vault_secret" "caveat_user_name" {
+  name      = "caveat-user-name"
+  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+}
+
+data "azurerm_key_vault_secret" "caveat_user_password" {
+  name      = "caveat-user-password"
   vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
 }
 
@@ -215,6 +226,10 @@ module "probate-frontend" {
        // Cache
     WEBSITE_LOCAL_CACHE_OPTION = "${var.website_local_cache_option}"
     WEBSITE_LOCAL_CACHE_SIZEINMB = "${var.website_local_cache_sizeinmb}"
+
+    PROBATE_USER_EMAIL = "${data.azurerm_key_vault_secret.caveat_user_name.value}"
+    PROBATE_USER_PASSWORD = "${data.azurerm_key_vault_secret.caveat_user_password.value}"
+    PROBATE_REDIRECT_BASE_URL = "${local.probate_internal_base_url}"
   }
 }
 
