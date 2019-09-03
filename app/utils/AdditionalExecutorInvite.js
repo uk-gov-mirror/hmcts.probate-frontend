@@ -33,7 +33,7 @@ class AdditionalExecutorInvite {
                     logger.error(`Error while sending executor email invites: ${result}`);
                     throw new ReferenceError('Error while sending co-applicant invitation emails.');
                 } else {
-                    result.invites.forEach((execResult) => {
+                    result.invitations.forEach((execResult) => {
                         const result = {
                             inviteId: execResult.inviteId,
                             emailSent: true
