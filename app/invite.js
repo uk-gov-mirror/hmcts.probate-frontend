@@ -32,7 +32,7 @@ class InviteLink {
                     logger.info('Link is valid');
                     const pinNumber = new PinNumber(config.services.orchestrator.url, request.sessionID);
                     pinNumber
-                        .get(result.phoneNumber, request.authToken, request.session.serviceAuthorization)
+                        .get(result.phoneNumber)
                         .then(generatedPin => {
                             request.session.pin = generatedPin;
                             request.session.phoneNumber = result.phoneNumber;
