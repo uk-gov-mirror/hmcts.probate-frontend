@@ -36,6 +36,7 @@ describe('copies-uk', () => {
 
         it('test right content loaded on the page with the fees_api toggle ON', (done) => {
             beforeEachNocks('true');
+
             const contentToExclude = [
                 'questionOld',
                 'paragraph1Old',
@@ -48,6 +49,7 @@ describe('copies-uk', () => {
 
         it('test right content loaded on the page with the fees_api toggle OFF', (done) => {
             beforeEachNocks('false');
+
             const contentToExclude = [
                 'question',
                 'paragraph1',
@@ -59,6 +61,7 @@ describe('copies-uk', () => {
                 'questionOld_1',
                 'copiesOld_1'
             ];
+
             testWrapper.testContent(afterEachNocks(done), {}, contentToExclude);
         });
 
@@ -89,10 +92,12 @@ describe('copies-uk', () => {
         it(`test it redirects to next page: ${expectedNextUrlForAssetsOverseas}`, (done) => {
             const data = {uk: '0'};
             const sessionData = require('test/data/copiesUk');
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     delete require.cache[require.resolve('test/data/copiesUk')];
+
                     testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOverseas);
                 });
         });
@@ -105,6 +110,7 @@ describe('copies-uk', () => {
                 .send(sessionData)
                 .end(() => {
                     delete require.cache[require.resolve('test/data/copiesUk')];
+
                     testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOverseas);
                 });
         });

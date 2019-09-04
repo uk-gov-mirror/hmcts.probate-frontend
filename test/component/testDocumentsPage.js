@@ -426,7 +426,7 @@ describe('documents', () => {
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
-                        testWrapper.testDataPlayback(done);
+                        testWrapper.testContentNotPresent(done, contentData);
                     });
             });
 

@@ -49,12 +49,12 @@ class TestWrapper {
                 this.assertContentIsPresent(response.text, substitutedContent);
                 done();
             })
-            .catch(() => done());
+            .catch(done);
     }
 
     testDataPlayback(done, data = {}, excludeKeys = [], cookies = []) {
-        const res = this.agent.get(this.pageUrl);
         const dataToCheck = cloneDeep(filter(data, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
+        const res = this.agent.get(this.pageUrl);
 
         if (cookies.length) {
             const cookiesString = this.setCookiesString(res, cookies);
@@ -66,7 +66,7 @@ class TestWrapper {
                 this.assertContentIsPresent(response.text, dataToCheck);
                 done();
             })
-            .catch(() => done());
+            .catch((err) => done(err));
     }
 
     testContentNotPresent(done, data) {
@@ -75,7 +75,7 @@ class TestWrapper {
                 this.assertContentIsNotPresent(response.text, data);
                 done();
             })
-            .catch(() => done());
+            .catch((err) => done(err));
     }
 
     testErrors(done, data, type, onlyKeys = [], cookies = []) {
@@ -100,7 +100,7 @@ class TestWrapper {
                 });
                 done();
             })
-            .catch(() => done());
+            .catch((err) => done(err));
     }
 
     testContentAfterError(data, contentToCheck, done) {
@@ -111,7 +111,7 @@ class TestWrapper {
                 this.assertContentIsPresent(res.text, contentToCheck);
                 done();
             })
-            .catch(() => done());
+            .catch((err) => done(err));
     }
 
     testRedirect(done, data, expectedNextUrl, cookies = []) {
@@ -127,7 +127,7 @@ class TestWrapper {
             .expect('location', expectedNextUrl)
             .expect(302)
             .then(() => done())
-            .catch(() => done());
+            .catch((err) => done(err));
     }
 
     nextStep(data = {}) {
@@ -142,14 +142,16 @@ class TestWrapper {
                 const contentValueMatch = contentValue.match(/{(.*?)}/g);
                 if (contentValueMatch) {
                     contentValueMatch.forEach(placeholder => {
+                        const placeholderRegex = new RegExp(placeholder, 'g');
+                        placeholder = placeholder.replace(/[{}]/g, '');
                         if (Array.isArray(data[placeholder])) {
                             data[placeholder].forEach(contentData => {
-                                const contentValueReplace = contentValue.replace(placeholder, contentData);
+                                const contentValueReplace = contentValue.replace(placeholderRegex, contentData);
                                 contentToSubstitute.push(contentValueReplace);
                             });
                             contentToSubstitute[key] = 'undefined';
                         } else {
-                            contentValue = contentValue.replace(placeholder, data[placeholder]);
+                            contentValue = contentValue.replace(placeholderRegex, data[placeholder]);
                             contentToSubstitute[key] = contentValue;
                         }
                     });
@@ -175,13 +177,13 @@ class TestWrapper {
     }
 
     assertContentIsPresent(actualContent, expectedContent) {
-        expectedContent.forEach(value => {
-            expect(actualContent.toLowerCase()).to.contain(value.toString().toLowerCase());
+        expectedContent.forEach(contentValue => {
+            expect(actualContent.toLowerCase()).to.contain(contentValue.toString().toLowerCase());
         });
     }
 
     assertContentIsNotPresent(actualContent, expectedContent) {
-        Object.entries(expectedContent).forEach(contentValue => {
+        forEach(expectedContent, (contentValue) => {
             expect(actualContent.toLowerCase()).to.not.contain(contentValue.toString().toLowerCase());
         });
     }
@@ -207,7 +209,6 @@ class TestWrapper {
     destroy() {
         this.server.http.close();
     }
-
 }
 
 module.exports = TestWrapper;

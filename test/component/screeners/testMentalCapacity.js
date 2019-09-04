@@ -35,7 +35,7 @@ describe('mental-capacity', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('MentalCapacity', null, null, cookies, true);
+        testCommonContent.runTest('MentalCapacity', null, null, cookies);
 
         it('test content loaded on the page', (done) => {
             const contentData = {

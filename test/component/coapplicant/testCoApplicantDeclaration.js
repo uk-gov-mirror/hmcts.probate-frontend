@@ -5,6 +5,20 @@ const content = require('app/resources/en/translation/coapplicant/declaration.js
 const CoApplicantAgreePage = require('app/steps/ui/coapplicant/agreepage');
 const CoApplicantDisagreePage = require('app/steps/ui/coapplicant/disagreepage');
 const testCommonContent = require('test/component/common/testCommonContent.js');
+const nock = require('nock');
+const config = require('app/config');
+const businessServiceUrl = config.services.validation.url.replace('/validate', '');
+const persistenceServiceUrl = config.services.persistence.url.replace('/formdata', '');
+const invitesUndefinedNock = () => {
+    nock(businessServiceUrl)
+        .get('/invites/allAgreed/undefined')
+        .reply(200, 'false');
+};
+const invitesDefinedNock = () => {
+    nock(persistenceServiceUrl)
+        .patch('/invitedata/34')
+        .reply(200, 'false');
+};
 
 describe('co-applicant-declaration', () => {
     let testWrapper;
@@ -13,12 +27,14 @@ describe('co-applicant-declaration', () => {
     const expectedNextUrlForCoAppDisagree = CoApplicantDisagreePage.getUrl();
 
     beforeEach(() => {
+        invitesUndefinedNock();
         sessionData = require('test/data/complete-form-undeclared').formdata;
         testWrapper = new TestWrapper('CoApplicantDeclaration');
     });
 
     afterEach(() => {
         delete require.cache[require.resolve('test/data/complete-form-undeclared')];
+        nock.cleanAll();
         testWrapper.destroy();
     });
 
@@ -50,6 +66,8 @@ describe('co-applicant-declaration', () => {
         });
 
         it(`test it redirects to agree page: ${expectedNextUrlForCoAppAgree}`, (done) => {
+            invitesDefinedNock();
+
             sessionData = {};
 
             testWrapper.agent.post('/prepare-session-field/inviteId/34')
@@ -66,6 +84,8 @@ describe('co-applicant-declaration', () => {
         });
 
         it(`test it redirects to disagree page: ${expectedNextUrlForCoAppDisagree}`, (done) => {
+            invitesDefinedNock();
+
             sessionData = {};
 
             testWrapper.agent.post('/prepare-session-field/inviteId/34')

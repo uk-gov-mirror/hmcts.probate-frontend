@@ -6,6 +6,8 @@ const TestWrapper = require('test/util/TestWrapper');
 const Taskist = require('app/steps/ui/tasklist');
 const content = require('app/resources/en/translation/declaration');
 const testCommonContent = require('test/component/common/testCommonContent.js');
+const nock = require('nock');
+const config = require('app/config');
 
 describe('declaration, single applicant', () => {
     let testWrapper, contentData, sessionData;
@@ -31,10 +33,29 @@ describe('declaration, single applicant', () => {
             ihtGrossValue: sessionData.iht.grossValueField,
             ihtNetValue: sessionData.iht.netValueField
         };
+
+        nock(config.services.idam.s2s_url)
+            .post('/lease')
+            .reply(
+                200,
+                'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSRUZFUkVOQ0UifQ.Z_YYn0go02ApdSMfbehsLXXbxJxLugPG8v_3kt' +
+                'CpQurK8tHkOy1qGyTo02bTdilX4fq4M5glFh80edDuhDJXPA'
+            );
+
+        nock(config.services.validation.url.replace('/validate', ''))
+            .post(config.pdf.path + '/'+ config.pdf.template.declaration)
+            .reply(200, {});
+
+        nock(config.services.validation.url.replace('/validate', ''))
+            .post(config.documentUpload.paths.upload)
+            .reply(200, [
+                'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
+            ]);
     });
 
     afterEach(() => {
         delete require.cache[require.resolve('test/data/complete-form-undeclared')];
+        nock.cleanAll();
         testWrapper.destroy();
     });
 

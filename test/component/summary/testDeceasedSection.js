@@ -34,8 +34,6 @@ describe('summary-deceased-section', () => {
         });
 
         it('test correct content loaded on the deceased section of the summary page, when section is complete', (done) => {
-            const deceasedData = require('test/data/deceased');
-
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
@@ -43,7 +41,7 @@ describe('summary-deceased-section', () => {
                         throw err;
                     }
                     delete require.cache[require.resolve('test/data/deceased')];
-                    const deceasedName = FormatName.format(deceasedData.deceased);
+                    const deceasedName = FormatName.format(sessionData.deceased);
                     const playbackData = {
                         firstName: deceasedContent.name.firstName,
                         lastName: deceasedContent.name.lastName,
@@ -60,8 +58,6 @@ describe('summary-deceased-section', () => {
         });
 
         it('test data is played back correctly on the deceased section of the summary page', (done) => {
-            const deceasedData = require('test/data/deceased');
-
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
@@ -69,18 +65,19 @@ describe('summary-deceased-section', () => {
                         throw err;
                     }
                     delete require.cache[require.resolve('test/data/deceased')];
-                    const deceasedName = FormatName.format(deceasedData.deceased);
+                    const deceasedName = FormatName.format(sessionData.deceased);
                     const playbackData = {
-                        firstName: deceasedContent.name.firstName,
-                        lastName: deceasedContent.name.lastName,
-                        alias: deceasedContent.alias.question,
-                        married: deceasedContent.married.question.replace('{deceasedName}', deceasedName),
-                        dob: deceasedContent.dob.question,
-                        dod: deceasedContent.dod.question,
-                        address: deceasedData.deceased.address.formattedAddress,
-                        willCodicils: willContent.codicils.question
+                        questionFirstName: deceasedContent.name.firstName,
+                        questionLastName: deceasedContent.name.lastName,
+                        questionAlias: deceasedContent.alias.question.replace('{deceasedName}', deceasedName),
+                        questionMarried: deceasedContent.married.question.replace('{deceasedName}', deceasedName),
+                        questionDob: deceasedContent.dob.question,
+                        questionDod: deceasedContent.dod.question,
+                        questionAddress: deceasedContent.address.question,
+                        questionWillCodicils: willContent.codicils.question
                     };
-                    Object.assign(playbackData, deceasedData.deceased, deceasedData.will);
+                    Object.assign(playbackData, sessionData.deceased);
+                    playbackData.address = sessionData.deceased.address.formattedAddress;
 
                     testWrapper.testDataPlayback(done, playbackData);
                 });

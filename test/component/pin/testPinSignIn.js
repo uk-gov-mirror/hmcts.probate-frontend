@@ -5,6 +5,13 @@ const {assert} = require('chai');
 const CoApplicantStartPage = require('app/steps/ui/coapplicant/startpage');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
+const nock = require('nock');
+const afterEachNocks = (done) => {
+    return () => {
+        nock.cleanAll();
+        done();
+    };
+};
 
 describe('pin-page', () => {
     let testWrapper;
@@ -40,16 +47,27 @@ describe('pin-page', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForCoAppStartPage}`, (done) => {
+            const formDataReturnData = {
+                formdata: {
+                    declaration: {
+                        declarationCheckbox: 'Yes'
+                    }
+                }
+            };
             const data = {
                 pin: '12345',
                 formdataId: '12'
             };
 
+            nock(config.services.persistence.url)
+                .get('/12')
+                .reply(200, formDataReturnData);
+
             testWrapper.agent
                 .post('/prepare-session-field')
                 .send(data)
                 .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCoAppStartPage);
+                    testWrapper.testRedirect(afterEachNocks(done), data, expectedNextUrlForCoAppStartPage);
                 });
         });
 
@@ -84,6 +102,10 @@ describe('pin-page', () => {
                 formdataId: '12'
             };
 
+            nock(config.services.persistence.url)
+                .get('/12')
+                .reply(200, new Error('ReferenceError'));
+
             testWrapper.agent
                 .post('/prepare-session-field')
                 .send(data)
@@ -94,9 +116,11 @@ describe('pin-page', () => {
                         .then(response => {
                             assert(response.status === 500);
                             assert(response.text.includes('having technical problems'));
+                            nock.cleanAll();
                             done();
                         })
                         .catch(err => {
+                            nock.cleanAll();
                             done(err);
                         });
                 });

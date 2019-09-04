@@ -34,6 +34,7 @@ describe('start-eligibility', () => {
     describe('Verify Content, Errors and Redirection', () => {
         it('test right content loaded on the page with the fees_api toggle ON', (done) => {
             beforeEachNocks('true');
+
             const contentToExclude = [
                 'paragraph2',
                 'paragraph7old',
@@ -45,6 +46,7 @@ describe('start-eligibility', () => {
 
         it('test right content loaded on the page with the fees_api toggle OFF', (done) => {
             beforeEachNocks('false');
+
             const contentToExclude = [
                 'paragraph2',
                 'paragraph7',

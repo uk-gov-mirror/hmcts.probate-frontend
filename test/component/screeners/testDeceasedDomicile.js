@@ -30,7 +30,7 @@ describe('deceased-domicile', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('DeceasedDomicile', null, null, cookies, true);
+        testCommonContent.runTest('DeceasedDomicile', null, null, cookies);
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, {}, [], cookies);

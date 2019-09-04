@@ -3,7 +3,7 @@ const assert = require('chai').assert,
     {isNil} = require('lodash');
 
 describe('Co-Applicant', () => {
-    const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui/`]);
+    const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 
     it('test pin has been removed from the session', () => {
         const CoApp = steps.CoApplicantStartPage;

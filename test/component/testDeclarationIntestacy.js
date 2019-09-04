@@ -10,6 +10,8 @@ const contentAnyChildren = require('app/resources/en/translation/deceased/anychi
 const contentAnyOtherChildren = require('app/resources/en/translation/deceased/anyotherchildren');
 const contentRelationshipToDeceased = require('app/resources/en/translation/applicant/relationshiptodeceased');
 const testCommonContent = require('test/component/common/testCommonContent.js');
+const config = require('app/config');
+const nock = require('nock');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('declaration, intestacy', () => {
@@ -18,6 +20,24 @@ describe('declaration, intestacy', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('Declaration');
+
+        nock(config.services.idam.s2s_url)
+            .post('/lease')
+            .reply(
+                200,
+                'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSRUZFUkVOQ0UifQ.Z_YYn0go02ApdSMfbehsLXXbxJxLugPG8v_3kt' +
+                'CpQurK8tHkOy1qGyTo02bTdilX4fq4M5glFh80edDuhDJXPA'
+            );
+
+        nock(config.services.validation.url.replace('/validate', ''))
+            .post(config.pdf.path + '/'+ config.pdf.template.declaration)
+            .reply(200, {});
+
+        nock(config.services.validation.url.replace('/validate', ''))
+            .post(config.documentUpload.paths.upload)
+            .reply(200, [
+                'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
+            ]);
 
         sessionData = require('test/data/complete-form-undeclared').formdata;
         sessionData.caseType = caseTypes.INTESTACY;
@@ -38,6 +58,7 @@ describe('declaration, intestacy', () => {
 
     afterEach(() => {
         delete require.cache[require.resolve('test/data/complete-form-undeclared')];
+        nock.cleanAll();
         testWrapper.destroy();
     });
 

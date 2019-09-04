@@ -21,7 +21,6 @@ describe('AddressLookup', () => {
     let i18next;
     let schema;
     let ctxToTest;
-    let errorsToTest;
     let formdata;
     let req;
 
@@ -42,7 +41,6 @@ describe('AddressLookup', () => {
             referrer: 'ApplicantAddress',
             postcode: 'SW1H 9AJ'
         };
-        errorsToTest = [];
         formdata = {
             applicant: {
                 someThingToLookFor: 'someThingToLookFor'
@@ -68,7 +66,7 @@ describe('AddressLookup', () => {
             const addressLookup = new AddressLookup(steps, section, templatePath, i18next, schema);
 
             co(function* () {
-                yield addressLookup.handlePost(ctxToTest, errorsToTest, formdata, req);
+                yield addressLookup.handlePost(ctxToTest, [], formdata, req);
 
                 expect(formdata.applicant.addresses).to.deep.equal(expectedResponse);
                 expect(formdata.applicant.addressFound).to.equal('true');
@@ -84,18 +82,18 @@ describe('AddressLookup', () => {
                 }
             });
             const addressLookup = new AddressLookup(steps, section, templatePath, i18next, schema);
-
-            ctxToTest = {
-                referrer: 'ApplicantAddress',
-                postcode: 'N55'
-            };
-            errorsToTest = {
+            const errorsToTest = {
                 field: 'postcode',
                 href: '#postcode',
                 msg: {
                     summary: content.errors.postcode.noAddresses.summary,
                     message: content.errors.postcode.noAddresses.message
                 }
+            };
+
+            ctxToTest = {
+                referrer: 'ApplicantAddress',
+                postcode: 'N55'
             };
 
             co(function* () {

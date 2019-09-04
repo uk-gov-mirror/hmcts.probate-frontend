@@ -21,7 +21,7 @@ describe('death-certificate', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('DeathCertificate', null, null, [], true);
+        testCommonContent.runTest('DeathCertificate');
 
         it('test content loaded on the page', (done) => {
             const contentData = {deathReportedToCoroner: config.links.deathReportedToCoroner};

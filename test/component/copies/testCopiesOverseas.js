@@ -36,21 +36,25 @@ describe('copies-overseas', () => {
 
         it('test right content loaded on the page with the fees_api toggle ON', (done) => {
             beforeEachNocks('true');
+
             const contentToExclude = [
                 'questionOld',
                 'paragraph1Old'
             ];
+
             testWrapper.testContent(afterEachNocks(done), {}, contentToExclude);
         });
 
         it('test right content loaded on the page with the fees_api toggle OFF', (done) => {
             beforeEachNocks('false');
+
             const contentToExclude = [
                 'paragraph1',
                 'bullet1',
                 'bullet2',
                 'copies'
             ];
+
             testWrapper.testContent(afterEachNocks(done), {}, contentToExclude);
         });
 
