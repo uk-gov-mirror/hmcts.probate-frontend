@@ -8,6 +8,12 @@ const config = require('app/config');
 const nock = require('nock');
 const S2S_URL = config.services.idam.s2s_url;
 const IDAM_URL = config.services.idam.apiUrl;
+const afterEachNocks = (done) => {
+    return () => {
+        nock.cleanAll();
+        done();
+    };
+};
 
 describe('pin-page', () => {
     let testWrapper;
@@ -37,10 +43,9 @@ describe('pin-page', () => {
         });
 
         it('test right content loaded on the page', (done) => {
-            const excludeKeys = [];
             testWrapper.agent.post('/prepare-session-field/validLink/true')
                 .end(() => {
-                    testWrapper.testContent(done, excludeKeys);
+                    testWrapper.testContent(done);
                 });
         });
 
@@ -74,18 +79,22 @@ describe('pin-page', () => {
                 .post('/prepare-session-field')
                 .send(data)
                 .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCoAppStartPage);
+                    testWrapper.testRedirect(afterEachNocks(done), data, expectedNextUrlForCoAppStartPage);
                 });
         });
 
         it('test error messages displayed for missing data', (done) => {
             const data = {pin: ''};
-            testWrapper.testErrors(done, data, 'required', ['pin']);
+            const errorsToTest = ['pin'];
+
+            testWrapper.testErrors(done, data, 'required', errorsToTest);
         });
 
         it('test error messages displayed for invalid data', (done) => {
             const data = {pin: 'NOT_A_PIN'};
-            testWrapper.testErrors(done, data, 'invalid', ['pin']);
+            const errorsToTest = ['pin'];
+
+            testWrapper.testErrors(done, data, 'invalid', errorsToTest);
         });
 
         it('test error messages displayed for incorrect pin data', (done) => {
@@ -93,7 +102,9 @@ describe('pin-page', () => {
             testWrapper.agent
                 .post('/prepare-session-field/pin/54321')
                 .end(() => {
-                    testWrapper.testErrors(done, data, 'incorrect', ['pin']);
+                    const errorsToTest = ['pin'];
+
+                    testWrapper.testErrors(done, data, 'incorrect', errorsToTest);
                 });
         });
 
@@ -127,19 +138,21 @@ describe('pin-page', () => {
                         .then(response => {
                             assert(response.status === 500);
                             assert(response.text.includes('having technical problems'));
+                            nock.cleanAll();
                             done();
                         })
                         .catch(err => {
+                            nock.cleanAll();
                             done(err);
                         });
                 });
         });
 
-        it('test save and close link is not displayed on the page', (done) => {
+        it('test "save and close" link is not displayed on the page', (done) => {
             const playbackData = {
-                saveAndClose: commonContent.saveAndClose,
-                signOut: commonContent.signOut
+                saveAndClose: commonContent.saveAndClose
             };
+
             testWrapper.testContentNotPresent(done, playbackData);
         });
     });

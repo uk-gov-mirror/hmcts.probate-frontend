@@ -8,14 +8,6 @@ const contentMaritalStatus = require('app/resources/en/translation/deceased/mari
 const content = require('app/resources/en/translation/deceased/divorceplace');
 const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
-const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
-const featureTogglesNock = (status = 'true') => {
-    nock(featureToggleUrl)
-        .get(intestacyQuestionsFeatureTogglePath)
-        .reply(200, status);
-};
 
 describe('divorce-place', () => {
     let testWrapper;
@@ -30,12 +22,10 @@ describe('divorce-place', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DivorcePlace');
-        featureTogglesNock();
     });
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -59,7 +49,7 @@ describe('divorce-place', () => {
                 .end(() => {
                     const contentData = {legalProcess: contentMaritalStatus.divorce};
 
-                    testWrapper.testContent(done, [], contentData);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 
@@ -67,10 +57,10 @@ describe('divorce-place', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const replacementData = {
+                    const data = {
                         '{legalProcess}': 'divorce'
                     };
-                    testWrapper.testErrors(done, replacementData, 'required', []);
+                    testWrapper.testErrors(done, data, 'required');
                 });
         });
 
