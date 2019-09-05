@@ -1,6 +1,8 @@
+'use strict';
+
 const initSteps = require('app/core/initSteps');
-const assert = require('chai').assert,
-    {isNil} = require('lodash');
+const assert = require('chai').assert;
+const {isNil} = require('lodash');
 
 describe('Co-Applicant', () => {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
@@ -17,5 +19,4 @@ describe('Co-Applicant', () => {
         CoApp.getContextData(req);
         assert.isTrue(isNil(req.session.pin));
     });
-
 });

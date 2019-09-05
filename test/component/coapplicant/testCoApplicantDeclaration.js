@@ -39,7 +39,7 @@ describe('co-applicant-declaration', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('CoApplicantDeclaration', null, null, [], true);
+        testCommonContent.runTest('CoApplicantDeclaration');
 
         it('test right content loaded on the page', (done) => {
             const contentToExclude = [
