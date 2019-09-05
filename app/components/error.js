@@ -4,7 +4,7 @@ const {filter, isEqual, map, uniqWith} = require('lodash');
 const i18next = require('i18next');
 const init18next = require('app/core/initSteps').initI18Next;
 
-const FieldError = (param, keyword, resourcePath, contentCtx, lang='en') => {
+const FieldError = (param, keyword, resourcePath, contentCtx = {}, lang='en') => {
     if (!i18next.isInitialized) {
         init18next();
         i18next.changeLanguage(lang);
@@ -17,8 +17,8 @@ const FieldError = (param, keyword, resourcePath, contentCtx, lang='en') => {
         field: param,
         href: `#${param}`,
         msg: {
-            summary: i18next.t(`${errorPath}.summary`),
-            message: i18next.t(`${errorPath}.message`)
+            summary: i18next.t(`${errorPath}.summary`, contentCtx),
+            message: i18next.t(`${errorPath}.message`, contentCtx)
         }
     };
 };
@@ -35,13 +35,13 @@ const generateErrors = (errs, ctx, formdata, errorPath, lang='en') => {
         try {
             if (e.keyword === 'required' || e.keyword === 'switch') {
                 param = e.params.missingProperty;
-                return FieldError(param, 'required', errorPath);
+                return FieldError(param, 'required', errorPath, ctx);
             }
             [, param] = e.dataPath.split('.');
 
             param = stripBrackets(param, e);
 
-            return FieldError(param, 'invalid', errorPath);
+            return FieldError(param, 'invalid', errorPath, ctx);
 
         } catch (e) {
             throw new ReferenceError(`Error messages have not been defined for Step in content.json for errors.${param}`);

@@ -30,7 +30,7 @@ class StopPage extends Step {
     }
 
     replaceLinkPlaceholders(templateContent) {
-        const linkPlaceholders = templateContent.match(/{[^}]+}/g);
+        const linkPlaceholders = templateContent.match(/{(.*?)}/g);
 
         if (linkPlaceholders) {
             return linkPlaceholders.map(placeholder => placeholder.substr(1, placeholder.length - 2));

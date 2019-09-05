@@ -9,13 +9,14 @@ const CREATE_PAYMENT_SERVICE_URL = config.services.payment.url + config.services
 const IDAM_S2S_URL = config.services.idam.s2s_url;
 const PERSISTENCE_URL = config.services.persistence.url;
 const testCommonContent = require('test/component/common/testCommonContent.js');
-let sessionData = require('test/data/complete-form-undeclared').formdata;
 
 describe('payment-status', () => {
     let testWrapper;
+    let sessionData;
     const expectedNextUrlForTaskList = TaskList.getUrl();
 
     beforeEach(() => {
+        sessionData = require('test/data/complete-form-undeclared').formdata;
         testWrapper = new TestWrapper('PaymentStatus');
 
         nock(SUBMIT_SERVICE_URL).post('/updatePaymentStatus')
@@ -43,8 +44,9 @@ describe('payment-status', () => {
     });
 
     afterEach(() => {
-        testWrapper.destroy();
+        delete require.cache[require.resolve('test/data/complete-form-undeclared')];
         nock.cleanAll();
+        testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -54,15 +56,16 @@ describe('payment-status', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const excludeKeys = ['paragraph2', 'paragraph3'];
-                    testWrapper.testContent(done, excludeKeys);
+                    const contentToExclude = ['paragraph2', 'paragraph3'];
+
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 
         it('test right content loaded on the page when net value is less than 5000£', (done) => {
-            const excludeKeys = ['paragraph'];
+            const contentToExclude = ['paragraph1'];
 
-            testWrapper.testContent(done, excludeKeys);
+            testWrapper.testContent(done, {}, contentToExclude);
         });
 
         it(`test it redirects to next page with no input: ${expectedNextUrlForTaskList}`, (done) => {

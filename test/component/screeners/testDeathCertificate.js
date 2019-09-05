@@ -24,11 +24,13 @@ describe('death-certificate', () => {
         testCommonContent.runTest('DeathCertificate');
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, [], {deathReportedToCoroner: config.links.deathReportedToCoroner});
+            const contentData = {deathReportedToCoroner: config.links.deathReportedToCoroner};
+
+            testWrapper.testContent(done, contentData);
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForDeceasedDomicile}`, (done) => {
@@ -47,10 +49,10 @@ describe('death-certificate', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
         });
 
-        it('test "save and close" and "sign out" links are not displayed on the page', (done) => {
-            const playbackData = {};
-            playbackData.saveAndClose = commonContent.saveAndClose;
-            playbackData.signOut = commonContent.signOut;
+        it('test "save and close" link is not displayed on the page', (done) => {
+            const playbackData = {
+                saveAndClose: commonContent.saveAndClose
+            };
 
             testWrapper.testContentNotPresent(done, playbackData);
         });

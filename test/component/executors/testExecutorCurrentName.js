@@ -42,14 +42,12 @@ describe('executor-current-name', () => {
                     const contentData = {
                         executorFullName: 'Executor Name 2',
                     };
-                    testWrapper.testContent(done, [], contentData);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required');
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it('test errors message displayed for invalid currentname', (done) => {
