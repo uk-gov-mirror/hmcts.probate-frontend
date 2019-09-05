@@ -7,8 +7,7 @@ const config = require('app/config');
 const CREATE_PAYMENT_SERVICE_URL = config.services.payment.url + config.services.payment.paths.createPayment;
 const IDAM_S2S_URL = config.services.idam.s2s_url;
 const PERSISTENCE_URL = config.services.persistence.url;
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
-let sessionData = require('test/data/complete-form-undeclared').formdata;
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 const paymentNock = () => {
     nock(CREATE_PAYMENT_SERVICE_URL)
@@ -37,21 +36,24 @@ const paymentNock = () => {
 
 describe('payment-status', () => {
     let testWrapper;
+    let sessionData;
     const expectedNextUrlForTaskList = TaskList.getUrl();
 
     beforeEach(() => {
+        sessionData = require('test/data/complete-form-undeclared').formdata;
         testWrapper = new TestWrapper('PaymentStatus');
 
         paymentNock();
     });
 
     afterEach(() => {
-        testWrapper.destroy();
+        delete require.cache[require.resolve('test/data/complete-form-undeclared')];
         nock.cleanAll();
+        testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('PaymentStatus', paymentNock);
+        testCommonContent.runTest('PaymentStatus');
 
         it('test right content loaded on the page when net value is greater than 5000£', (done) => {
             nock(config.services.orchestrator.url)
@@ -63,8 +65,9 @@ describe('payment-status', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const excludeKeys = ['paragraph2', 'paragraph3'];
-                    testWrapper.testContent(done, excludeKeys);
+                    const contentToExclude = ['paragraph2', 'paragraph3'];
+
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 
@@ -74,9 +77,9 @@ describe('payment-status', () => {
                 .reply(200, {
                     ccdCase: sessionData.ccdCase
                 });
-            const excludeKeys = ['paragraph1'];
+            const contentToExclude = ['paragraph1'];
 
-            testWrapper.testContent(done, excludeKeys);
+            testWrapper.testContent(done, {}, contentToExclude);
         });
 
         it(`test it redirects to next page with no input: ${expectedNextUrlForTaskList}`, (done) => {

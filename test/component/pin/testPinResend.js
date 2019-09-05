@@ -9,11 +9,16 @@ const config = require('app/config');
 const orchestratorServiceUrl = config.services.orchestrator.url;
 const S2S_URL = config.services.idam.s2s_url;
 const IDAM_URL = config.services.idam.apiUrl;
+const afterEachNocks = (done) => {
+    return () => {
+        nock.cleanAll();
+        done();
+    };
+};
 
 describe('pin-resend', () => {
     let testWrapper;
     const expectedNextUrlForPinSent = PinSent.getUrl();
-    const sessionData = require('test/data/multipleApplicant');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('PinResend');
@@ -30,15 +35,16 @@ describe('pin-resend', () => {
     });
 
     afterEach(() => {
-        nock.cleanAll();
         testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test uk local phone number loads on the page', (done) => {
+            const contentToExclude = ['subHeader2ExecName'];
             const contentData = {
                 phoneNumber: '07701111111',
             };
+
             testWrapper.agent
                 .post('/prepare-session-field')
                 .send({
@@ -46,14 +52,16 @@ describe('pin-resend', () => {
                     validLink: true
                 })
                 .then(() => {
-                    testWrapper.testContent(done, ['subHeader2ExecName'], contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
         it('test uk phone number with int prefix loads on the page', (done) => {
+            const contentToExclude = ['subHeader2ExecName'];
             const contentData = {
                 phoneNumber: '+447701111111',
             };
+
             testWrapper.agent
                 .post('/prepare-session-field')
                 .send({
@@ -61,14 +69,16 @@ describe('pin-resend', () => {
                     validLink: true
                 })
                 .then(() => {
-                    testWrapper.testContent(done, ['subHeader2ExecName'], contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
         it('test international long phone number loads on the page', (done) => {
+            const contentToExclude = ['subHeader2ExecName'];
             const contentData = {
                 phoneNumber: '+10900111000111000111',
             };
+
             testWrapper.agent
                 .post('/prepare-session-field')
                 .send({
@@ -76,14 +86,16 @@ describe('pin-resend', () => {
                     validLink: true
                 })
                 .then(() => {
-                    testWrapper.testContent(done, ['subHeader2ExecName'], contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
         it('test lead executor name loads on the page', (done) => {
+            const contentToExclude = ['header1', 'header2'];
             const contentData = {
                 executorName: 'Works',
             };
+
             testWrapper.agent
                 .post('/prepare-session-field')
                 .send({
@@ -91,7 +103,7 @@ describe('pin-resend', () => {
                     validLink: true
                 })
                 .then(() => {
-                    testWrapper.testContent(done, ['header1', 'header2'], contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -100,7 +112,7 @@ describe('pin-resend', () => {
                 .get('/invite/pin?phoneNumber=undefined')
                 .reply(200, '12345');
 
-            testWrapper.testRedirect(done, {}, expectedNextUrlForPinSent);
+            testWrapper.testRedirect(afterEachNocks(done), {}, expectedNextUrlForPinSent);
         });
 
         it('test error page when pin resend fails', (done) => {
@@ -108,26 +120,31 @@ describe('pin-resend', () => {
                 .get('/invite/pin?phoneNumber=undefined')
                 .reply(500, new Error('ReferenceError'));
 
+            const sessionData = require('test/data/multipleApplicant');
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
+                    delete require.cache[require.resolve('test/data/multipleApplicant')];
                     testWrapper.agent.post(testWrapper.pageUrl)
                         .then(response => {
                             assert(response.status === 500);
                             assert(response.text.includes('having technical problems'));
+                            nock.cleanAll();
                             done();
                         })
                         .catch(err => {
+                            nock.cleanAll();
                             done(err);
                         });
                 });
         });
 
-        it('test save and close link is not displayed on the page', (done) => {
+        it('test "save and close" link is not displayed on the page', (done) => {
             const playbackData = {
-                saveAndClose: commonContent.saveAndClose,
-                signOut: commonContent.signOut
+                saveAndClose: commonContent.saveAndClose
             };
+
             testWrapper.testContentNotPresent(done, playbackData);
         });
     });

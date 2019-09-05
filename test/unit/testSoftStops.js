@@ -5,7 +5,7 @@ const {assert, expect} = require('chai');
 const stopPagesContent = require('../../app/resources/en/translation/stoppage.json');
 
 describe('Soft Stops', () => {
-    const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui/']);
+    const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
     const stopPage = steps.StopPage;
 
     let ctx;
@@ -77,7 +77,6 @@ describe('Soft Stops', () => {
                 deathCertificate: {placeHolders: ['deathReportedToCoroner']},
                 notInEnglandOrWales: {placeHolders: ['applicationFormPA1P', 'applicationFormPA1A']},
                 ihtNotCompleted: {placeHolders: ['ihtNotCompleted']},
-                noWill: {placeHolders: ['applicationFormPA1A', 'whoInherits']},
                 notOriginal: {placeHolders: ['applicationFormPA1P', 'applicationFormPA1A']},
                 notExecutor: {placeHolders: ['applicationFormPA1P']},
                 mentalCapacity: {placeHolders: ['applicationFormPA1P', 'ifYoureAnExecutor']},
@@ -98,9 +97,11 @@ describe('Soft Stops', () => {
     describe('action()', () => {
         it('removes the correct values from the context', (done) => {
             const ctx = {
+                stopReason: 'someReason',
                 linkPlaceholders: ['applicationFormPA1A']
             };
             const testFormdata = {
+                stopReason: 'someReason',
                 linkPlaceholders: ['applicationFormPA1A']
             };
             const action = stopPage.action(ctx, testFormdata);
