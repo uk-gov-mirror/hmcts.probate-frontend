@@ -67,7 +67,7 @@ describe('co-applicant-declaration', () => {
                 });
         });
 
-        it.only(`test it redirects to agree page: ${expectedNextUrlForCoAppAgree}`, (done) => {
+        it(`test it redirects to agree page: ${expectedNextUrlForCoAppAgree}`, (done) => {
             inviteAgreedNock();
 
             testWrapper.agent.post('/prepare-session-field/formdataId/34')
