@@ -7,7 +7,7 @@ const config = require('app/config');
 const orchestratorServiceUrl = config.services.orchestrator.url;
 const beforeEachNocks = () => {
     nock(orchestratorServiceUrl)
-        .get('/invites/allAgreed/undefined')
+        .get('/invite/allAgreed/undefined')
         .reply(200, false);
 };
 const afterEachNocks = (done) => {
