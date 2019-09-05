@@ -38,7 +38,7 @@ class CoApplicantDeclaration extends ValidationStep {
         };
         const inviteData = new InviteData(config.services.orchestrator.url, ctx.sessionID);
 
-        yield inviteData.setAgreedFlag(ctx.formdataId, data, ctx)
+        yield inviteData.setAgreedFlag(ctx.formdataId, data)
             .then(result => {
                 if (result.name === 'Error') {
                     throw new ReferenceError('Error updating co-applicant\'s data');

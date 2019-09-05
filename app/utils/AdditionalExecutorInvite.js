@@ -36,14 +36,11 @@ class AdditionalExecutorInvite {
                         logger.error(`Error while sending executor email invites: ${result}`);
                         throw new ReferenceError('Error while sending co-applicant invitation emails.');
                     } else {
-                        console.log(result);
-                        result.invites.forEach((execResult) => {
+                        result.invitations.forEach((execResult) => {
                             const result = {
                                 inviteId: execResult.inviteId,
                                 emailSent: true
                             };
-
-                            console.log(result);
 
                             Object.assign(formdata.executors.list.find(execList => execList.id === execResult.id), result);
                         });

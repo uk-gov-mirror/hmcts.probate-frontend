@@ -119,7 +119,7 @@ describe('Pact InviteDataClient', () => {
                     inviteId: '54321',
                     agreed: 'Yes'
                 };
-                const verificationPromise = inviteDataClient.setAgreedFlag('123456', data, ctx);
+                const verificationPromise = inviteDataClient.setAgreedFlag('123456', data);
                 assert.eventually.ok(verificationPromise).notify(done);
             });
         });

@@ -4,12 +4,14 @@ const Service = require('./Service');
 
 class InviteData extends Service {
 
-    setAgreedFlag(formdataId, data, ctx) {
+    setAgreedFlag(formdataId, data) {
         this.log('Set agreed flag invite data');
         const url = this.formatUrl.format(this.endpoint, `/invite/agreed/${formdataId}`);
-        const headers = this.constructHeaders(ctx);
+        const headers = {
+            'Content-Type': 'application/json'
+        };
         const fetchOptions = this.fetchOptions(data, 'POST', headers);
-        return this.fetchJson(url, fetchOptions);
+        return this.fetchText(url, fetchOptions);
     }
 
     resetAgreedFlag(formdataId, ctx) {
