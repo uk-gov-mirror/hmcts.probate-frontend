@@ -48,8 +48,8 @@ class PinPage extends ValidationStep {
                     if (result.name === 'Error') {
                         throw new ReferenceError('Error getting data for the co-applicant');
                     } else {
-                        delete result.formdata.declaration.declarationCheckbox;
-                        session.form = result.formdata;
+                        delete result.declaration.declarationCheckbox;
+                        session.form = result;
                     }
                 });
         }

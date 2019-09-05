@@ -73,7 +73,7 @@ class UIStepRunner {
                     formdata.declaration.hasDataChanged = true;
                 }
 
-                if (!get(formdata, 'ccdCase.state') || get(formdata, 'ccdCase.state') === 'Draft' || get(formdata, 'ccdCase.state') === '') {
+                if ((!get(formdata, 'ccdCase.state') || get(formdata, 'ccdCase.state') === 'Draft' || get(formdata, 'ccdCase.state') === '') && (session.regId) ) {
                     const result = yield step.persistFormData(session.regId, formdata, session.id, req, caseType);
 
                     if (result.name === 'Error') {
