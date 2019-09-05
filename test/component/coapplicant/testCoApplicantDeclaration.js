@@ -8,14 +8,17 @@ const testCommonContent = require('test/component/common/testCommonContent.js');
 const nock = require('nock');
 const config = require('app/config');
 const orchestratorServiceUrl = config.services.orchestrator.url;
-const invitesUndefinedNock = () => {
+const invitesAllAgreedNock = () => {
     nock(orchestratorServiceUrl)
         .get('/invite/allAgreed/undefined')
         .reply(200, 'false');
-};
-const invitesDefinedNock = () => {
     nock(orchestratorServiceUrl)
         .get('/invite/allAgreed/34')
+        .reply(200, 'false');
+};
+const inviteAgreedNock = () => {
+    nock(orchestratorServiceUrl)
+        .post('/invite/agreed/34')
         .reply(200, 'false');
 };
 
@@ -26,7 +29,7 @@ describe('co-applicant-declaration', () => {
     const expectedNextUrlForCoAppDisagree = CoApplicantDisagreePage.getUrl();
 
     beforeEach(() => {
-        invitesUndefinedNock();
+        invitesAllAgreedNock();
         sessionData = require('test/data/complete-form-undeclared').formdata;
         testWrapper = new TestWrapper('CoApplicantDeclaration');
     });
@@ -65,7 +68,7 @@ describe('co-applicant-declaration', () => {
         });
 
         it.only(`test it redirects to agree page: ${expectedNextUrlForCoAppAgree}`, (done) => {
-            invitesDefinedNock();
+            inviteAgreedNock();
 
             testWrapper.agent.post('/prepare-session-field/formdataId/34')
                 .end(() => {
@@ -77,7 +80,7 @@ describe('co-applicant-declaration', () => {
         });
 
         it(`test it redirects to disagree page: ${expectedNextUrlForCoAppDisagree}`, (done) => {
-            invitesDefinedNock();
+            inviteAgreedNock();
 
             testWrapper.agent.post('/prepare-session-field/formdataId/34')
                 .end(() => {
