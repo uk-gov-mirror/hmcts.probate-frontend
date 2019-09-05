@@ -12,11 +12,13 @@ class AdditionalExecutorInvite {
         const formdata = req.session.form;
         const inviteLink = new InviteLink(config.services.orchestrator.url, session.id);
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
-        const executorsToNotifyList = executorsWrapper.executorsToNotify();
+        formdata.executors.list = executorsWrapper.addExecutorIds();
+        let executorsToNotifyList = executorsWrapper.executorsToNotify();
 
-        executorsToNotifyList
+        executorsToNotifyList = executorsToNotifyList
             .map(exec => {
                 return {
+                    id: exec.id,
                     executorName: exec.fullName,
                     firstName: formdata.deceased.firstName,
                     lastName: formdata.deceased.lastName,
@@ -27,23 +29,36 @@ class AdditionalExecutorInvite {
                 };
             });
 
-        inviteLink.post(executorsToNotifyList, req.authToken, req.session.serviceAuthorization)
-            .then(result => {
-                if (result.name === 'Error') {
-                    logger.error(`Error while sending executor email invites: ${result}`);
-                    throw new ReferenceError('Error while sending co-applicant invitation emails.');
-                } else {
-                    result.invites.forEach((execResult) => {
-                        const result = {
-                            inviteId: execResult.inviteId,
-                            emailSent: true
-                        };
+        if (executorsToNotifyList.length) {
+            return inviteLink.post(executorsToNotifyList, req.authToken, req.session.serviceAuthorization)
+                .then(result => {
+                    if (result.name === 'Error') {
+                        logger.error(`Error while sending executor email invites: ${result}`);
+                        throw new ReferenceError('Error while sending co-applicant invitation emails.');
+                    } else {
+                        console.log(result);
+                        result.invites.forEach((execResult) => {
+                            const result = {
+                                inviteId: execResult.inviteId,
+                                emailSent: true
+                            };
 
-                        Object.assign(formdata.executors.list.find(execList => execList.email === execResult.email), result);
-                    });
+                            console.log(result);
 
-                    return formdata.executors;
-                }
+                            Object.assign(formdata.executors.list.find(execList => execList.id === execResult.id), result);
+                        });
+
+                        formdata.executors.list = executorsWrapper.removeExecutorIds();
+
+                        return formdata.executors;
+                    }
+                });
+        }
+
+        return new Promise((resolve) => resolve())
+            .then(() => {
+                formdata.executors.list = executorsWrapper.removeExecutorIds();
+                return formdata.executors;
             });
     }
 }
