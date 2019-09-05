@@ -10,7 +10,7 @@ const config = require('app/config');
 const orchestratorServiceUrl = config.services.orchestrator.url;
 const invitesNock = () => {
     nock(orchestratorServiceUrl)
-        .get('/invites/allAgreed/undefined')
+        .get('/invite/allAgreed/undefined')
         .reply(200, 'false');
     nock(orchestratorServiceUrl)
         .get('/invite/allAgreed/34')
@@ -38,7 +38,7 @@ describe('co-applicant-declaration', () => {
     describe('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('CoApplicantDeclaration', invitesNock);
 
-        it.only('test right content loaded on the page', (done) => {
+        it('test right content loaded on the page', (done) => {
             const contentToExclude = [
                 'executorNotApplyingHeader'
             ];
