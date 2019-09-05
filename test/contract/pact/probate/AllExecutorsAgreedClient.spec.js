@@ -79,7 +79,7 @@ describe('Pact AllExecutorsAgreedClient', () => {
 
             it('successfully returns true', (done) => {
                 const allExecutorsAgreedClient = new AllExecutorsAgreed('http://localhost:' + MOCK_SERVER_PORT, ctx.sessionID);
-                const verificationPromise = allExecutorsAgreedClient.get('123456', ctx.authToken, ctx.session.serviceAuthorization);
+                const verificationPromise = allExecutorsAgreedClient.get('123456');
                 assert.eventually.ok(verificationPromise).notify(done);
             });
         });
@@ -96,9 +96,7 @@ describe('Pact AllExecutorsAgreedClient', () => {
                         method: 'GET',
                         path: '/invite/allAgreed/123457',
                         headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': ctx.authToken,
-                            'ServiceAuthorization': ctx.session.serviceAuthorization
+                            'Content-Type': 'application/json'
                         }
                     },
                     willRespondWith: {

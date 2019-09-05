@@ -2,6 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
+const logger = require('app/components/logger')('Init');
 const InviteLink = require('app/services/InviteLink');
 const config = require('app/config');
 
@@ -24,10 +25,11 @@ class ExecutorsInvite extends ValidationStep {
     }
 
     * handlePost(ctx, errors, formdata, session) {
-        yield ctx.list
+        const inviteLink = new InviteLink(config.services.orchestrator.url, ctx.sessionID);
+        const executorsToNotifyList = ctx.list
             .filter(exec => exec.isApplying && !exec.isApplicant)
             .map(exec => {
-                const data = {
+                return {
                     executorName: exec.fullName,
                     firstName: formdata.deceased.firstName,
                     lastName: formdata.deceased.lastName,
@@ -36,17 +38,25 @@ class ExecutorsInvite extends ValidationStep {
                     formdataId: session.regId,
                     leadExecutorName: FormatName.format(formdata.applicant)
                 };
-                const inviteLink = new InviteLink(config.services.orchestrator.url, ctx.sessionID);
-                return inviteLink.post(data, exec, ctx.authToken, ctx.serviceAuthorization).then(result => {
-                    if (result.name === 'Error') {
-                        throw new ReferenceError('Error while sending co-applicant invitation email.');
-                    } else {
-                        exec.inviteId = result;
-                        exec.emailSent = true;
-                        return exec;
-                    }
-                });
             });
+
+        yield inviteLink.post(executorsToNotifyList, ctx.authToken, ctx.serviceAuthorization)
+            .then(result => {
+                if (result.name === 'Error') {
+                    logger.error(`Error while sending executor email invites: ${result}`);
+                    throw new ReferenceError('Error while sending co-applicant invitation emails.');
+                } else {
+                    result.invitations.forEach((execResult) => {
+                        const result = {
+                            inviteId: execResult.inviteId,
+                            emailSent: true
+                        };
+
+                        Object.assign(ctx.list.find(execList => execList.email === execResult.email), result);
+                    });
+                }
+            });
+
         ctx.invitesSent = 'true';
         return [ctx, errors];
     }
