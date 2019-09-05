@@ -9,14 +9,16 @@ const config = require('app/config');
 class UpdateExecutorInvite {
     static update(req) {
         const session = req.session;
-        const formdata = session.form;
+        const formdata = req.session.form;
         const inviteLink = new InviteLink(config.services.orchestrator.url, session.id);
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
-        const executorsToNotifyList = executorsWrapper.executorsEmailChangedList();
+        formdata.executors.list = executorsWrapper.addExecutorIds();
+        let executorsToNotifyList = executorsWrapper.executorsEmailChangedList();
 
-        executorsToNotifyList
+        executorsToNotifyList = executorsToNotifyList
             .map(exec => {
                 return {
+                    id: exec.id,
                     executorName: exec.fullName,
                     firstName: formdata.deceased.firstName,
                     lastName: formdata.deceased.lastName,
@@ -27,25 +29,33 @@ class UpdateExecutorInvite {
                 };
             });
 
-        inviteLink.post(executorsToNotifyList, req.authToken, req.session.serviceAuthorization)
-            .then(result => {
-                if (result.name === 'Error') {
-                    logger.error(`Error while sending executor email invites: ${result}`);
-                    throw new ReferenceError('Error while sending co-applicant invitation emails.');
-                } else {
-                    result.invitations.forEach((execResult) => {
-                        const result = {
-                            inviteId: execResult.inviteId,
-                            emailSent: true
-                        };
+        if (executorsToNotifyList.length) {
+            return inviteLink.post(executorsToNotifyList, req.authToken, req.session.serviceAuthorization)
+                .then(result => {
+                    if (result.name === 'Error') {
+                        logger.error(`Error while sending executor email invites: ${result}`);
+                        throw new ReferenceError('Error while sending co-applicant invitation emails.');
+                    } else {
+                        result.invitations.forEach((execResult) => {
+                            const result = {
+                                inviteId: execResult.inviteId
+                            };
 
-                        Object.assign(formdata.executors.list.find(execList => execList.email === execResult.email), result);
-                    });
+                            Object.assign(formdata.executors.list.find(execList => execList.id === execResult.id), result);
+                        });
 
-                    formdata.executors.list = executorsWrapper.removeExecutorsEmailChangedFlag();
+                        formdata.executors.list = executorsWrapper.removeExecutorIds();
+                        formdata.executors.list = executorsWrapper.removeExecutorsEmailChangedFlag();
 
-                    return formdata.executors;
-                }
+                        return formdata.executors;
+                    }
+                });
+        }
+
+        return new Promise((resolve) => resolve())
+            .then(() => {
+                formdata.executors.list = executorsWrapper.removeExecutorIds();
+                return formdata.executors;
             });
     }
 }

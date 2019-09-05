@@ -62,7 +62,7 @@ describe('AdditionalExecutorInvite', () => {
                 AdditionalExecutorInvite.__set__('InviteLink', class {
                     post() {
                         return Promise.resolve({
-                            invites: [
+                            invitations: [
                                 {
                                     inviteId: '1234',
                                     id: 2
@@ -73,7 +73,6 @@ describe('AdditionalExecutorInvite', () => {
                 });
                 AdditionalExecutorInvite.invite(req)
                     .then(res => {
-                        console.log(res);
                         assert.isDefined(res.list[2].inviteId);
                         expect(res.list[2].emailSent).to.deep.equal(true);
                         done();
@@ -87,14 +86,14 @@ describe('AdditionalExecutorInvite', () => {
                 AdditionalExecutorInvite.__set__('InviteLink', class {
                     post() {
                         return Promise.resolve({
-                            invites: [
-                                {
-                                    inviteId: '1234',
-                                    id: 2
-                                },
+                            invitations: [
                                 {
                                     inviteId: '5678',
                                     id: 1
+                                },
+                                {
+                                    inviteId: '1234',
+                                    id: 2
                                 }
                             ]
                         });
@@ -116,7 +115,7 @@ describe('AdditionalExecutorInvite', () => {
             });
         });
 
-        describe.only('when there are no emailChanged flags to remove', () => {
+        describe('when there are no emailChanged flags to remove', () => {
             it('should return the original executors data', (done) => {
                 session.form.executors.list[2].emailSent = true;
                 AdditionalExecutorInvite.invite(req)

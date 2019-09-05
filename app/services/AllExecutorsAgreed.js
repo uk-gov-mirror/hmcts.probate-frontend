@@ -3,7 +3,7 @@
 const Service = require('./Service');
 
 class AllExecutorsAgreed extends Service {
-    get(formdataId, authToken, serviceAuthorisation) {
+    get(formdataId) {
         const headers = {
             'Content-Type': 'application/json',
             'Session-Id': this.sessionId
