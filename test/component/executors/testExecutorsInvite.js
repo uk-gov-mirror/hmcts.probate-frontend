@@ -6,7 +6,7 @@ const ExecutorsInvitesSent = require('app/steps/ui/executors/invitesent');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const nock = require('nock');
 const config = require('app/config');
-const businessServiceUrl = config.services.orchestrator.url;
+const orchestratorServiceUrl = config.services.orchestrator.url;
 
 describe('executors-invite', () => {
     let testWrapper;
@@ -59,9 +59,15 @@ describe('executors-invite', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForExecInvites}`, (done) => {
-            nock(businessServiceUrl)
+            nock(orchestratorServiceUrl)
                 .post('/invite')
-                .reply(200, {response: 'Make it pass!'});
+                .reply(200, {
+                    invitations: [
+                        {
+                            inviteId: '1234'
+                        }
+                    ]
+                });
 
             const data = {
                 list: [
@@ -77,7 +83,7 @@ describe('executors-invite', () => {
         });
 
         it('test an error page is rendered if there is an error calling invite service', (done) => {
-            nock(businessServiceUrl)
+            nock(orchestratorServiceUrl)
                 .post('/invite')
                 .reply(500, new Error('ReferenceError'));
 

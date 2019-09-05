@@ -40,21 +40,28 @@ class ExecutorsInvite extends ValidationStep {
                 };
             });
 
-        yield inviteLink.post(executorsToNotifyList, ctx.authToken, ctx.serviceAuthorization)
-            .then(result => {
-                if (result.name === 'Error') {
-                    logger.error(`Error while sending executor email invites: ${result}`);
-                    throw new ReferenceError('Error while sending co-applicant invitation emails.');
-                } else {
-                    result.invitations.forEach((execResult) => {
-                        const result = {
-                            inviteId: execResult.inviteId,
-                            emailSent: true
-                        };
+        if (executorsToNotifyList.length) {
+            yield inviteLink.post(executorsToNotifyList, ctx.authToken, ctx.serviceAuthorization)
+                .then(result => {
+                    if (result.name === 'Error') {
+                        logger.error(`Error while sending executor email invites: ${result}`);
+                        throw new ReferenceError('Error while sending co-applicant invitation emails.');
+                    } else {
+                        result.invitations.forEach((execResult) => {
+                            const result = {
+                                inviteId: execResult.inviteId,
+                                emailSent: true
+                            };
 
-                        Object.assign(ctx.list.find(execList => execList.email === execResult.email), result);
-                    });
-                }
+                            Object.assign(ctx.list.find(execList => execList.email === execResult.email), result);
+                        });
+                    }
+                });
+        }
+
+        yield new Promise((resolve) => resolve())
+            .then(() => {
+                return true;
             });
 
         ctx.invitesSent = 'true';
