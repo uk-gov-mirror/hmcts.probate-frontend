@@ -8,9 +8,8 @@ const FormatUrl = require('app/utils/FormatUrl');
 
 class Security {
 
-    getUserToken() {
-        const redirect_url = FormatUrl.format(config.services.idam.probate_redirect_base_url,
-            config.services.idam.probate_oauth_callback_path);
+    getUserToken(hostname) {
+        const redirect_url = FormatUrl.format(hostname, config.services.idam.probate_oauth_callback_path);
         return this.getOauth2Code(redirect_url)
             .then((result) => {
                 this.checkForError(result);

@@ -26,7 +26,7 @@ class PinResend extends Step {
         return ctx;
     }
 
-    * handlePost(ctx, errors, formdata, session) {
+    * handlePost(ctx, errors, formdata, session, hostname) {
         const phoneNumber = session.phoneNumber;
         const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
         const serviceAuthResult = yield authorise.post();
@@ -37,7 +37,7 @@ class PinResend extends Step {
             return [ctx, errors];
         }
         const security = new Security();
-        const authToken = yield security.getUserToken();
+        const authToken = yield security.getUserToken(hostname);
         if (authToken.name === 'Error') {
             logger.info(`failed to obtain authToken = ${serviceAuthResult}`);
             errors.push(FieldError('authorisation', 'failure', this.resourcePath, ctx));
