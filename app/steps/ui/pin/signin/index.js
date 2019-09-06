@@ -19,7 +19,7 @@ class PinPage extends ValidationStep {
         return new WithLinkStepRunner();
     }
 
-    * handlePost(ctx, errors, formdata, session) {
+    * handlePost(ctx, errors, formdata, session, hostname) {
         if (parseInt(session.pin) !== parseInt(ctx.pin)) {
             errors.push(FieldError('pin', 'incorrect', this.resourcePath, this.generateContent()));
         } else {
@@ -32,7 +32,7 @@ class PinPage extends ValidationStep {
                 return [ctx, errors];
             }
             const security = new Security();
-            const authToken = yield security.getUserToken();
+            const authToken = yield security.getUserToken(hostname);
             if (authToken.name === 'Error') {
                 logger.info(`failed to obtain authToken = ${serviceAuthResult}`);
                 errors.push(FieldError('authorisation', 'failure', this.resourcePath, ctx));
