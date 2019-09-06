@@ -125,7 +125,7 @@ router.use((req, res, next) => {
     const hasMultipleApplicants = (new ExecutorsWrapper(formdata.executors)).hasMultipleApplicants();
 
     if (hasMultipleApplicants &&
-        formdata.executors.invitesSent === 'true' &&
+        formdata.executors.invitesSent === true &&
         get(formdata, 'declaration.declarationCheckbox')
     ) {
         const allExecutorsAgreed = new AllExecutorsAgreed(config.services.orchestrator.url, req.sessionID);
