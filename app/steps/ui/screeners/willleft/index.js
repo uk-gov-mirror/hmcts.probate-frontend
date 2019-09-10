@@ -25,6 +25,8 @@ class WillLeft extends EligibilityValidationStep {
                     delete formdata[key];
                 }
             });
+            formdata.deceased = {};
+            formdata.applicant = {};
         }
         formdata.caseType = pageCaseType;
 
