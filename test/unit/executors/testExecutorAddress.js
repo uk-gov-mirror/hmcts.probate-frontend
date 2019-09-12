@@ -28,23 +28,6 @@ describe('ExecutorAddress', () => {
     });
 
     describe('getContextData()', () => {
-        it('doesn\'t set the index if params is not set', (done) => {
-            const req = {
-                session: {
-                    form: {
-                        executors: {
-                            list: []
-                        }
-                    },
-                    indexPosition: 1
-                }
-            };
-            const ctx = ExecutorAddress.getContextData(req);
-
-            expect(ctx.index).to.be.undefined;
-            done();
-        });
-
         it('sets the index and indexPosition when there is a numeric url param', (done) => {
             const req = {
                 session: {
@@ -81,24 +64,6 @@ describe('ExecutorAddress', () => {
             done();
         });
 
-        it('doesn\'t set the index to the indexPosition when there is a url param that is not numeric or *', (done) => {
-            const req = {
-                session: {
-                    form: {
-                        executors: {
-                            list: []
-                        }
-                    },
-                    indexPosition: 1
-                },
-                params: ['randomparam']
-            };
-            const ctx = ExecutorAddress.getContextData(req);
-
-            expect(ctx.index).to.be.undefined;
-            done();
-        });
-
         it('sets the index to the recalculated index when the req.path starts with the path', (done) => {
             const req = {
                 session: {
@@ -116,26 +81,6 @@ describe('ExecutorAddress', () => {
             const ctx = ExecutorAddress.getContextData(req);
 
             expect(ctx.index).to.equal(1);
-            done();
-        });
-
-        it('doesn\'t set the index to the recalculated index when the req.path doesn\'t start with the path', (done) => {
-            const req = {
-                session: {
-                    form: {
-                        executors: {
-                            list: [
-                                {isApplying: true},
-                                {isApplying: true}
-                            ]
-                        }
-                    }
-                },
-                path: 'somerandompath'
-            };
-            const ctx = ExecutorAddress.getContextData(req);
-
-            expect(ctx.index).to.be.undefined;
             done();
         });
 
