@@ -29,7 +29,6 @@ describe('AddressStep', () => {
     });
 
     describe('isComplete()', () => {
-
         it('should return true if address exists on context', (done) => {
             const addressStep = new AddressStep(steps, section, templatePath, i18next, schema);
             const ctx = {address: {}};
@@ -50,17 +49,16 @@ describe('AddressStep', () => {
     });
 
     describe('handleGet()', () => {
-
         it('should break address type into separate fields for display', (done) => {
             const addressStep = new AddressStep(steps, section, templatePath, i18next, schema);
             ctxToTest = {address: {
-                addressLine1: 'line1',
-                addressLine2: 'line2',
-                addressLine3: 'line3',
-                postTown: 'town',
-                postCode: 'postCode',
-                country: 'country'
-            }};
+                    addressLine1: 'line1',
+                    addressLine2: 'line2',
+                    addressLine3: 'line3',
+                    postTown: 'town',
+                    postCode: 'postCode',
+                    country: 'country'
+                }};
             const ctx = addressStep.handleGet(ctxToTest, null);
             expect(ctx).to.deep.equal([{
                 address: {
@@ -78,14 +76,15 @@ describe('AddressStep', () => {
                 postTown: 'town',
                 newPostCode: 'postCode',
                 country: 'country'
-            }]);
+            },
+                []]);
             done();
         });
 
         it('should return ctx when there are no errors', (done) => {
             const addressStep = new AddressStep(steps, section, templatePath, i18next, schema);
             const ctx = addressStep.handleGet(ctxToTest, null);
-            expect(ctx).to.deep.equal([ctxToTest]);
+            expect(ctx).to.deep.equal([ctxToTest, []]);
             done();
         });
 
