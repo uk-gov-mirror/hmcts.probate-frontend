@@ -81,6 +81,24 @@ describe('ExecutorAddress', () => {
             done();
         });
 
+        it('doesn\'t set the index to the indexPosition when there is a url param that is not numeric or *', (done) => {
+            const req = {
+                session: {
+                    form: {
+                        executors: {
+                            list: []
+                        }
+                    },
+                    indexPosition: 1
+                },
+                params: ['randomparam']
+            };
+            const ctx = ExecutorAddress.getContextData(req);
+
+            expect(ctx.index).to.be.undefined;
+            done();
+        });
+
         it('sets the index to the recalculated index when the req.path starts with the path', (done) => {
             const req = {
                 session: {

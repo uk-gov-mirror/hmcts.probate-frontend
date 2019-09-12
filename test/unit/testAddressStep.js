@@ -96,11 +96,11 @@ describe('AddressStep', () => {
             const addressStep = new AddressStep(steps, section, templatePath, i18next, schema);
             const ctx = addressStep.handleGet(ctxToTest, formdata);
             expect(ctx).to.deep.equal([ctxToTest, error]);
-            expect(formdata).to.deep.equal({deceased: {}
+            expect(formdata).to.deep.equal({
+                deceased: {}
             });
             done();
         });
-
     });
 
     describe('handlePost()', () => {
