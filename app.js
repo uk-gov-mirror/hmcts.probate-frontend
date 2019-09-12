@@ -68,12 +68,14 @@ exports.init = function() {
     app.set('view engine', 'html');
     app.set('views', ['app/steps', 'app/views']);
 
+    const isDev = app.get('env') === 'development';
+
     const njkEnv = nunjucks.configure([
         'app/steps',
         'app/views',
         'node_modules/govuk-frontend/'
     ], {
-        noCache: false,
+        noCache: isDev,
         express: app
     });
 
