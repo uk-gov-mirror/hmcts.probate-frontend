@@ -186,8 +186,7 @@ describe('ExecutorAddress', () => {
                         address: 'the address',
                         postcode: 'the postcode'
                     }],
-                    index: 0,
-                    errors: []
+                    index: 0
                 };
                 const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
@@ -211,8 +210,7 @@ describe('ExecutorAddress', () => {
                             country: 'country'
                         },
                     }],
-                    index: 0,
-                    errors: []
+                    index: 0
                 };
                 const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
@@ -231,8 +229,7 @@ describe('ExecutorAddress', () => {
             it('does not set the address when executor\'s address does not exist', (done) => {
                 const testCtx = {
                     list: [{}],
-                    index: 0,
-                    errors: []
+                    index: 0
                 };
                 const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
@@ -256,8 +253,7 @@ describe('ExecutorAddress', () => {
                         address: 'the address',
                         postcode: 'the postcode'
                     }],
-                    index: 0,
-                    errors: []
+                    index: 0
                 };
                 const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
@@ -271,8 +267,7 @@ describe('ExecutorAddress', () => {
                     list: [{
                         address: 'the address'
                     }],
-                    index: 0,
-                    errors: []
+                    index: 0
                 };
                 const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
@@ -292,8 +287,7 @@ describe('ExecutorAddress', () => {
                             'address3'
                         ]
                     }],
-                    index: 0,
-                    errors: []
+                    index: 0
                 };
                 const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
@@ -312,7 +306,6 @@ describe('ExecutorAddress', () => {
                         ]
                     }],
                     index: 0,
-                    errors: [],
                     addresses: [
                         'address4',
                         'address5',
@@ -329,8 +322,7 @@ describe('ExecutorAddress', () => {
             it('does not set the list of addresses when executor\'s list of addresses doesn\'t exist and main list of addresses also doesn\'t exist', (done) => {
                 const testCtx = {
                     list: [{}],
-                    index: 0,
-                    errors: []
+                    index: 0
                 };
                 const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
@@ -343,7 +335,6 @@ describe('ExecutorAddress', () => {
                 const testCtx = {
                     list: [{}],
                     index: 0,
-                    errors: [],
                     addresses: [
                         'address4',
                         'address5',
@@ -361,8 +352,7 @@ describe('ExecutorAddress', () => {
         it('does not set an address when address does not exist', (done) => {
             const testCtx = {
                 list: [{}],
-                index: 0,
-                errors: []
+                index: 0
             };
             const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
