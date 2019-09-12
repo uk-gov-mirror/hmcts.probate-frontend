@@ -107,19 +107,6 @@ describe('ExecutorAddress', () => {
     });
 
     describe('handleGet()', () => {
-            });
-
-            it('return errors and context when the error array is empty', (done) => {
-                const testCtx = {
-                    list: [{
-                        address: 'the address',
-                        postcode: 'the postcode'
-                    }],
-                    index: 0
-                };
-                const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
-
-                expect(ctx).to.equal(testCtx);
         it('sets the address to executor\'s address when it exist', (done) => {
             const testCtx = {
                 list: [{
