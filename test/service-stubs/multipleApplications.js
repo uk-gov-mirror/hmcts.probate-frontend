@@ -12,17 +12,20 @@ const url = require('url');
 router.get('/ma-get-applications', (req, res) => {
     res.status(200);
     res.send({
-        applications: [{
-            ccdCaseId: '1234-5678-9012-3456',
-            deceasedFullName: 'Bob Jones',
-            dateCreated: '7 October 2018',
-            status: content.statusInProgress
-        }, {
-            ccdCaseId: '9012-3456-1234-5678',
-            deceasedFullName: 'Tom Smith',
-            dateCreated: '24 February 2019',
-            status: content.statusSubmitted
-        }]
+        applications: [
+            {
+                ccdCaseId: '1234-5678-9012-3456',
+                deceasedFullName: 'Bob Jones',
+                dateCreated: '7 October 2018',
+                status: content.statusInProgress
+            },
+            {
+                ccdCaseId: '9012-3456-1234-5678',
+                deceasedFullName: 'Tom Smith',
+                dateCreated: '24 February 2019',
+                status: content.statusSubmitted
+            }
+        ]
     });
 });
 
