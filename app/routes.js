@@ -69,7 +69,7 @@ router.get('/', (req, res) => {
                 req.log.debug('Successfully loaded user data');
                 req.session.form = result;
             }
-            res.redirect('task-list');
+            res.redirect('dashboard');
         });
 });
 
