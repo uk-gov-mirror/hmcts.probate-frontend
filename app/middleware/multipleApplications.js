@@ -3,6 +3,7 @@
 const config = require('app/config');
 const MultipleApplications = require('app/services/MultipleApplications');
 const logger = require('app/components/logger')('Init');
+const content = require('app/resources/en/translation/dashboard');
 
 const getApplications = (req, res, next) => {
     const session = req.session;
@@ -22,6 +23,25 @@ const getApplications = (req, res, next) => {
         });
 };
 
+const getCase = (req, res) => {
+    const session = req.session;
+    const multipleApplications = new MultipleApplications(config.services.multipleApplicatons.urlCase, session.id);
+    const ccdCaseId = req.originalUrl.split('/')[2];
+
+    multipleApplications.getCase(req.authToken, req.session.serviceAuthorization, session.form.applicantEmail, ccdCaseId)
+        .then(result => {
+            session.form = result.formdata;
+            if (result.status === content.statusInProgress) {
+                res.redirect('/task-list');
+            } else {
+                res.redirect('/thank-you');
+            }
+        })
+        .catch(err => {
+            logger.error(`Error while getting the case: ${err}`);
+        });
+};
+
 const cleanupFormdata = (formdata) => {
     delete formdata.applicant;
     delete formdata.checkAnswersSummary;
@@ -34,4 +54,5 @@ const cleanupFormdata = (formdata) => {
     delete formdata.will;
 };
 
-module.exports = getApplications;
+module.exports.getApplications = getApplications;
+module.exports.getCase = getCase;
