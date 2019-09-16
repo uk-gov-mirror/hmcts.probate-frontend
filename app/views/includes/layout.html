@@ -24,10 +24,13 @@
 
     {% set navigationItems = [] %}
     {% if fields.userLoggedIn.value === "true" %}
-        {% set navigationItems = (navigationItems.push({
-            href: "/dashboard",
-            text: common.myApplications
-        }), navigationItems) %}
+        {% if fields.isDashboard.value !== "true" %}
+            {% set navigationItems = (navigationItems.push({
+                href: "/dashboard",
+                text: common.myApplications
+            }), navigationItems) %}
+        {% endif %}
+
         {% set navigationItems = (navigationItems.push({
             href: "/sign-out",
             text: common.signOut

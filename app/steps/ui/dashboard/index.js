@@ -14,6 +14,11 @@ class Dashboard extends Step {
         return ctx;
     }
 
+    handleGet(ctx) {
+        ctx.isDashboard = true;
+        return [ctx];
+    }
+
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.applications;
