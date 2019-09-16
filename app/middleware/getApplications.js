@@ -10,12 +10,28 @@ const getApplications = (req, res, next) => {
 
     multipleApplications.getApplications(session.form.applicantEmail)
         .then(result => {
+            if (result.applications && result.applications.length) {
+                cleanupFormdata(session.form);
+            }
+
             session.form.applications = result.applications;
             next();
         })
         .catch(err => {
             logger.error(`Error while getting applications: ${err}`);
         });
+};
+
+const cleanupFormdata = (formdata) => {
+    delete formdata.applicant;
+    delete formdata.checkAnswersSummary;
+    delete formdata.deceased;
+    delete formdata.documents;
+    delete formdata.executors;
+    delete formdata.iht;
+    delete formdata.legalDeclaration;
+    delete formdata.summary;
+    delete formdata.will;
 };
 
 module.exports = getApplications;

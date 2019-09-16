@@ -6,7 +6,7 @@
     {% set applicationRows = [] %}
     {% for application in fields.applications.value %}
         {% set actionUrl = "/get-case/" + application.ccdCaseId %}
-        {% set actionText = content.actionContinue if application.status == content.statusInProgress else content.actionView %}
+        {% set actionText = content.actionContinue if application.status == content.statusDraft or application.status == content.statusInProgress else content.actionView %}
 
         {% set applicationRows = (applicationRows.push([
             { text: application.ccdCaseId },

@@ -15,15 +15,21 @@ router.get('/ma-get-applications', (req, res) => {
         applications: [
             {
                 ccdCaseId: '1234-5678-9012-3456',
-                deceasedFullName: 'Bob Jones',
-                dateCreated: '7 October 2018',
+                deceasedFullName: 'David Cameron',
+                dateCreated: '13 July 2016',
                 status: content.statusInProgress
             },
             {
-                ccdCaseId: '9012-3456-1234-5678',
-                deceasedFullName: 'Tom Smith',
-                dateCreated: '24 February 2019',
+                ccdCaseId: '5678-9012-3456-1234',
+                deceasedFullName: 'Theresa May',
+                dateCreated: '24 July 2019',
                 status: content.statusSubmitted
+            },
+            {
+                ccdCaseId: '9012-3456-1234-5678',
+                deceasedFullName: 'Boris Johnson',
+                dateCreated: '31 October 2019',
+                status: content.statusDraft
             }
         ]
     });
@@ -37,8 +43,11 @@ router.get('/ma-get-case', (req, res) => {
     case '1234-5678-9012-3456':
         status = content.statusInProgress;
         break;
-    case '9012-3456-1234-5678':
+    case '5678-9012-3456-1234':
         status = content.statusSubmitted;
+        break;
+    case '9012-3456-1234-5678':
+        status = content.statusDraft;
         break;
     default:
         status = '';
