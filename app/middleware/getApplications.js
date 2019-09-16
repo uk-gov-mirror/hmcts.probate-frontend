@@ -8,7 +8,7 @@ const getApplications = (req, res, next) => {
     const session = req.session;
     const multipleApplications = new MultipleApplications(config.services.multipleApplicatons.urlApplications, session.id);
 
-    multipleApplications.getApplications(session.form.applicantEmail)
+    multipleApplications.getApplications(req.authToken, req.session.serviceAuthorization, session.form.applicantEmail)
         .then(result => {
             if (result.applications && result.applications.length) {
                 cleanupFormdata(session.form);

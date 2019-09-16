@@ -10,7 +10,7 @@ const getCase = (req, res) => {
     const multipleApplications = new MultipleApplications(config.services.multipleApplicatons.urlCase, session.id);
     const ccdCaseId = req.originalUrl.split('/')[2];
 
-    multipleApplications.getCase(session.form.applicantEmail, ccdCaseId)
+    multipleApplications.getCase(req.authToken, req.session.serviceAuthorization, session.form.applicantEmail, ccdCaseId)
         .then(result => {
             session.form = result.formdata;
             if (result.status === content.statusDraft || result.status === content.statusInProgress) {
