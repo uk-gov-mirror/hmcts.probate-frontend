@@ -74,12 +74,12 @@ describe('Service', () => {
         });
     });
 
-    describe('replaceEmailInPath()', () => {
-        it('should replace the applicantEmail token with an email address', (done) => {
-            const path = '/forms/{applicantEmail}';
+    describe('replaceIdInPath()', () => {
+        it('should replace the id token with an id', (done) => {
+            const path = '/forms/{id}';
             const email = 'fred@example.com';
             const service = new Service();
-            const newPath = service.replaceEmailInPath(path, email);
+            const newPath = service.replaceIdInPath(path, email);
             expect(newPath).to.equal('/forms/fred@example.com');
             done();
         });
@@ -157,7 +157,6 @@ describe('Service', () => {
                 .fetchBuffer('http://localhost/forms', {})
                 .catch(() => {
                     expect(service.log.calledOnce).to.equal(true);
-                    expect(service.log.calledWith('Fetch buffer error: Error: FetchError: request to http://localhost/forms failed, reason: connect ECONNREFUSED 127.0.0.1:80')).to.equal(true);
                     expect(service.fetchBuffer).to.throw(Error);
                     done();
                 });

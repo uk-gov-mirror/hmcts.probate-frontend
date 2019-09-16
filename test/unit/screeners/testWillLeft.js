@@ -91,7 +91,9 @@ describe('WillLeft', () => {
                 payloadVersion: '1.0.1',
                 screeners: {
                     screen1: 'yes'
-                }
+                },
+                applicant: {},
+                deceased: {}
             });
             done();
         });

@@ -33,10 +33,13 @@ const config = {
         orchestrator: {
             url: process.env.ORCHESTRATOR_SERVICE_URL || 'http://localhost:8888',
             paths: {
-                forms: '/forms/{applicantEmail}',
-                submissions: '/forms/{applicantEmail}/submissions',
-                payments: '/forms/{applicantEmail}/payments',
-                payment_updates: '/payment-updates'
+                forms: '/forms/{id}',
+                submissions: '/forms/{id}/submissions',
+                payments: '/forms/{id}/payments',
+                payment_updates: '/payment-updates',
+                payment_submissions: '/forms/{id}/payment-submissions',
+                fees: '/forms/{id}/fees',
+                validations: '/forms/{id}/validations'
             }
         },
         validation: {
@@ -62,11 +65,14 @@ const config = {
             probate_oauth2_secret: process.env.IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE || '123456',
             probate_oauth_callback_path: '/oauth2/callback',
             probate_oauth_token_path: '/oauth2/token',
+            probate_user_email: process.env.PROBATE_USER_EMAIL || 'pacaseworker@probate.com',
+            probate_user_password: process.env.PROBATE_USER_PASSWORD || 'password',
+            probate_redirect_base_url: process.env.PROBATE_REDIRECT_BASE_URL || 'http://localhost:3000',
         },
         payment: {
             url: process.env.PAYMENT_API_URL || 'http://localhost:8383',
-            authorization: process.env.PAYMENT_AUTHORIZATION || 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJrYzBpYmdjdGgyY2psdG0yMG12Y2pxdHNxMSIsInN1YiI6IjQ2IiwiaWF0IjoxNTYwNDE5NDI0LCJleHAiOjE1NjA0NDgyMjQsImRhdGEiOiJjYXNld29ya2VyLXByb2JhdGUsY2l0aXplbixjYXNld29ya2VyLGNhc2V3b3JrZXItcHJvYmF0ZS1sb2ExLGNpdGl6ZW4tbG9hMSxjYXNld29ya2VyLWxvYTEiLCJ0eXBlIjoiQUNDRVNTIiwiaWQiOiI0NiIsImZvcmVuYW1lIjoiVXNlciIsInN1cm5hbWUiOiJUZXN0IiwiZGVmYXVsdC1zZXJ2aWNlIjoiQ0NEIiwibG9hIjoxLCJkZWZhdWx0LXVybCI6Imh0dHBzOi8vbG9jYWxob3N0OjkwMDAvcG9jL2NjZCIsImdyb3VwIjoiY2FzZXdvcmtlciJ9.qF8ZuMKf7YcCWivFH06_JqOruky4vSAucdYPctcpT3o',
-            serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9iYXRlX2Zyb250ZW5kIiwiZXhwIjoxNTYwNDMzODI0fQ.TWt6o-WECwTfjM3wQtTFIzUR1l-JTMKZ0sAjTen_gx7k5AVy8vaj8jo50m1CdbkHKQ9E01zdmnQ4BC2Uvu0owQ',
+            authorization: process.env.PAYMENT_AUTHORIZATION || 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4aDNlbWc4dmhqazVhMjFzYWE4Y2MzM3YzZyIsInN1YiI6IjQyIiwiaWF0IjoxNTU3OTk5MTIxLCJleHAiOjE1NTgwMjc5MjEsImRhdGEiOiJjYXNld29ya2VyLXByb2JhdGUsY2l0aXplbixjYXNld29ya2VyLGNhc2V3b3JrZXItcHJvYmF0ZS1sb2ExLGNpdGl6ZW4tbG9hMSxjYXNld29ya2VyLWxvYTEiLCJ0eXBlIjoiQUNDRVNTIiwiaWQiOiI0MiIsImZvcmVuYW1lIjoiVXNlciIsInN1cm5hbWUiOiJUZXN0IiwiZGVmYXVsdC1zZXJ2aWNlIjoiQ0NEIiwibG9hIjoxLCJkZWZhdWx0LXVybCI6Imh0dHBzOi8vbG9jYWxob3N0OjkwMDAvcG9jL2NjZCIsImdyb3VwIjoiY2FzZXdvcmtlciJ9.5sT0KGtWsPC-Ol6RKV6gHFJl5b-OsL7HGKqdScFdOdQ',
+            serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9iYXRlX2Zyb250ZW5kIiwiZXhwIjoxNTU4MDEzNTIyfQ.YEiOlFZleoA8u9fZ4iEqcrVKvOTaCRPfzM6W_DptlV63V-euNNGpJlMlz-9JWRoTQ0ZYIF9RWskTe_PlAZHJvg',
             userId: process.env.PAYMENT_USER_ID || 46,
             paths: {
                 payments: '/payments',
@@ -206,8 +212,8 @@ const config = {
         maxSizeBytes: 10485760, // 10 MB
         maxSizeBytesTest: 10240, // 10 KB
         paths: {
-            upload: '/document/upload',
-            remove: '/document/delete'
+            upload: '/documents/upload',
+            remove: '/documents/delete'
         },
         error: {
             invalidFileType: 'Error: invalid file type',
@@ -221,11 +227,11 @@ const config = {
     },
     pdf: {
         template: {
-            checkAnswers: 'generateCheckAnswersSummaryPDF',
-            declaration: 'generateLegalDeclarationPDF',
-            coverSheet: 'generateBulkScanCoverSheetPDF'
+            checkAnswers: 'checkAnswersSummary',
+            declaration: 'legalDeclaration',
+            coverSheet: 'bulkScanCoversheet'
         },
-        path: '/businessDocument'
+        path: '/documents/generate'
     },
     assetsValueThreshold: 250000
 };

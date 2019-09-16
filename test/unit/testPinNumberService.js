@@ -20,7 +20,7 @@ describe('PinNumberService', () => {
             expect(pinNumber.log.calledOnce).to.equal(true);
             expect(pinNumber.log.calledWith('Get pin number')).to.equal(true);
             expect(pinNumber.fetchJson.calledOnce).to.equal(true);
-            expect(pinNumber.fetchJson.calledWith(`${endpoint}/pin?phoneNumber=${phoneNumber}`, fetchOptions)).to.equal(true);
+            expect(pinNumber.fetchJson.calledWith(`${endpoint}/invite/pin?phoneNumber=${phoneNumber}`, fetchOptions)).to.equal(true);
 
             logSpy.restore();
             fetchJsonSpy.restore();

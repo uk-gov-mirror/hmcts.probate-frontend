@@ -4,7 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const commonContent = require('app/resources/en/translation/common');
 const nock = require('nock');
 const config = require('app/config');
-const businessServiceUrl = config.services.validation.url.replace('/validate', '');
+const orchestratorServiceUrl = config.services.orchestrator.url;
 const afterEachNocks = (done) => {
     return () => {
         nock.cleanAll();
@@ -21,12 +21,13 @@ describe('co-applicant-start-page', () => {
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test correct content is loaded on the page', (done) => {
-            nock(businessServiceUrl)
-                .get('/invites/allAgreed/undefined')
+            nock(orchestratorServiceUrl)
+                .get('/invite/allAgreed/undefined')
                 .reply(200, 'false');
 
             const sessionData = {

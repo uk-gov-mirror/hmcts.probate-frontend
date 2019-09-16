@@ -20,7 +20,7 @@ describe('AllExecutorsAgreedService', () => {
             expect(allExecutorsAgreed.log.calledOnce).to.equal(true);
             expect(allExecutorsAgreed.log.calledWith('Get all executors agreed')).to.equal(true);
             expect(allExecutorsAgreed.fetchText.calledOnce).to.equal(true);
-            expect(allExecutorsAgreed.fetchText.calledWith(`${endpoint}/invites/allAgreed/${formdataId}`, fetchOptions)).to.equal(true);
+            expect(allExecutorsAgreed.fetchText.calledWith(`${endpoint}/invite/allAgreed/${formdataId}`, fetchOptions)).to.equal(true);
 
             logSpy.restore();
             fetchTextSpy.restore();

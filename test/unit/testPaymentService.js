@@ -69,13 +69,12 @@ describe('PaymentService', () => {
                 })
             });
 
-            const result = payment.post(data, endpoint);
+            payment.post(data, endpoint);
 
             expect(payment.log.calledOnce).to.equal(true);
             expect(payment.log.calledWith('Post payment')).to.equal(true);
             expect(payment.fetchJson.calledOnce).to.equal(true);
             expect(payment.fetchJson.calledWith(endpoint, fetchOptions)).to.equal(true);
-            expect(result[1]).to.equal('ref123');
 
             logSpy.restore();
             fetchJsonSpy.restore();

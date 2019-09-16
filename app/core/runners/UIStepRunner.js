@@ -5,6 +5,7 @@ const {curry, set, isEmpty, forEach} = require('lodash');
 const DetectDataChange = require('app/wrappers/DetectDataChange');
 const FormatUrl = require('app/utils/FormatUrl');
 const commonContent = require('app/resources/en/translation/common');
+const {get} = require('lodash');
 
 class UIStepRunner {
 
@@ -51,6 +52,7 @@ class UIStepRunner {
             const session = req.session;
             let formdata = session.form;
             let ctx = step.getContextData(req, res);
+            const caseType = ctx.caseType;
             let [isValid, errors] = [];
             [isValid, errors] = step.validate(ctx, formdata);
             const hasDataChanged = (new DetectDataChange()).hasDataChanged(ctx, req, step);
@@ -70,12 +72,15 @@ class UIStepRunner {
                     formdata.declaration.hasDataChanged = true;
                 }
 
-                const result = yield step.persistFormData(session.regId, formdata, session.id);
+                if ((!get(formdata, 'ccdCase.state') || get(formdata, 'ccdCase.state') === 'Draft' || get(formdata, 'ccdCase.state') === '') && (session.regId)) {
+                    const result = yield step.persistFormData(session.regId, formdata, session.id, req, caseType);
 
-                if (result.name === 'Error') {
-                    req.log.error('Could not persist user data', result.message);
-                } else if (result.formdata) {
-                    req.log.info('Successfully persisted user data');
+                    if (result.name === 'Error') {
+                        req.log.error('Could not persist user data', result.message);
+                    } else if (result) {
+                        session.form = Object.assign(session.form, result);
+                        req.log.info('Successfully persisted user data');
+                    }
                 }
 
                 if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {

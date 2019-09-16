@@ -12,6 +12,7 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 const documentUpload = require('app/documentUpload');
 const documentDownload = require('app/documentDownload');
 const multipleApplications = require('app/multipleApplications');
+const serviceAuthorisationToken = require('app/serviceAuthorisation');
 const paymentFees = require('app/paymentFees');
 const setJourney = require('app/middleware/setJourney');
 const AllExecutorsAgreed = require('app/services/AllExecutorsAgreed');
@@ -30,7 +31,9 @@ router.use((req, res, next) => {
     if (!req.session.form) {
         req.session.form = {
             payloadVersion: config.payloadVersion,
-            applicantEmail: req.session.regId
+            applicantEmail: req.session.regId,
+            applicant: {},
+            deceased: {}
         };
         req.session.back = [];
     }
@@ -45,23 +48,26 @@ router.use((req, res, next) => {
     next();
 });
 
+router.use(serviceAuthorisationToken);
 router.use(setJourney);
 
 router.get('/', (req, res) => {
     const formData = ServiceMapper.map(
         'FormData',
-        [config.services.persistence.url, req.sessionID],
-        req.session.form.caseType
+        [config.services.orchestrator.url, req.sessionID]
     );
-    formData
-        .get(req.session.regId)
+    formData.get(req.session.regId, req.authToken, req.session.serviceAuthorization, caseTypes.getCaseType(req.session))
         .then(result => {
             if (result.name === 'Error') {
                 req.log.debug('Failed to load user data');
                 req.log.info({tags: 'Analytics'}, 'Application Started');
+                if (!result.message.startsWith('FetchError: invalid json response body')) {
+                    res.status(500).render('errors/500', {common: commonContent});
+                    return;
+                }
             } else {
                 req.log.debug('Successfully loaded user data');
-                req.session.form = result.formdata;
+                req.session.form = result;
             }
             res.redirect('task-list');
         });
@@ -125,10 +131,10 @@ router.use((req, res, next) => {
     const hasMultipleApplicants = (new ExecutorsWrapper(formdata.executors)).hasMultipleApplicants();
 
     if (hasMultipleApplicants &&
-        formdata.executors.invitesSent === 'true' &&
+        formdata.executors.invitesSent === true &&
         get(formdata, 'declaration.declarationCheckbox')
     ) {
-        const allExecutorsAgreed = new AllExecutorsAgreed(config.services.validation.url, req.sessionID);
+        const allExecutorsAgreed = new AllExecutorsAgreed(config.services.orchestrator.url, req.sessionID);
         allExecutorsAgreed.get(req.session.regId)
             .then(data => {
                 req.session.haveAllExecutorsDeclared = data;

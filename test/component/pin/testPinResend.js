@@ -6,7 +6,9 @@ const PinSent = require('app/steps/ui/pin/sent');
 const commonContent = require('app/resources/en/translation/common');
 const nock = require('nock');
 const config = require('app/config');
-const businessServiceUrl = config.services.validation.url.replace('/validate', '');
+const orchestratorServiceUrl = config.services.orchestrator.url;
+const S2S_URL = config.services.idam.s2s_url;
+const IDAM_URL = config.services.idam.apiUrl;
 const afterEachNocks = (done) => {
     return () => {
         nock.cleanAll();
@@ -20,6 +22,16 @@ describe('pin-resend', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('PinResend');
+
+        nock(S2S_URL).post('/lease')
+            .reply(200, 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSRUZFUkVOQ0UifQ.Z_YYn0go02ApdSMfbehsLXXbxJxLugPG' +
+                '8v_3ktCpQurK8tHkOy1qGyTo02bTdilX4fq4M5glFh80edDuhDJXPA');
+
+        nock(IDAM_URL).post('/oauth2/authorize')
+            .reply(200, {code: '12345'});
+
+        nock(IDAM_URL).post('/oauth2/token')
+            .reply(200, {'access_token': 'sdkfhdskhf'});
     });
 
     afterEach(() => {
@@ -96,16 +108,16 @@ describe('pin-resend', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForPinSent}`, (done) => {
-            nock(businessServiceUrl)
-                .get('/pin?phoneNumber=undefined')
+            nock(orchestratorServiceUrl)
+                .get('/invite/pin?phoneNumber=undefined')
                 .reply(200, '12345');
 
             testWrapper.testRedirect(afterEachNocks(done), {}, expectedNextUrlForPinSent);
         });
 
         it('test error page when pin resend fails', (done) => {
-            nock(businessServiceUrl)
-                .get('/pin?phoneNumber=undefined')
+            nock(orchestratorServiceUrl)
+                .get('/invite/pin?phoneNumber=undefined')
                 .reply(500, new Error('ReferenceError'));
 
             const sessionData = require('test/data/multipleApplicant');

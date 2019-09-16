@@ -158,7 +158,7 @@ describe('Contact-Details', () => {
 
         it('test emailChanged flag is correctly set, executorToBeNotifiedList is empty, contact details updated and the InviteData.patch() service is called', (done) => {
             const revert = ContactDetails.__set__('InviteData', class {
-                patch() {
+                updateContactDetails() {
                     return Promise.resolve({response: 'Make it pass!'});
                 }
             });

@@ -7,16 +7,18 @@ const CoApplicantDisagreePage = require('app/steps/ui/coapplicant/disagreepage')
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const nock = require('nock');
 const config = require('app/config');
-const businessServiceUrl = config.services.validation.url.replace('/validate', '');
-const persistenceServiceUrl = config.services.persistence.url.replace('/formdata', '');
-const invitesUndefinedNock = () => {
-    nock(businessServiceUrl)
-        .get('/invites/allAgreed/undefined')
+const orchestratorServiceUrl = config.services.orchestrator.url;
+const invitesAllAgreedNock = () => {
+    nock(orchestratorServiceUrl)
+        .get('/invite/allAgreed/undefined')
+        .reply(200, 'false');
+    nock(orchestratorServiceUrl)
+        .get('/invite/allAgreed/34')
         .reply(200, 'false');
 };
-const invitesDefinedNock = () => {
-    nock(persistenceServiceUrl)
-        .patch('/invitedata/34')
+const inviteAgreedNock = () => {
+    nock(orchestratorServiceUrl)
+        .post('/invite/agreed/34')
         .reply(200, 'false');
 };
 
@@ -27,7 +29,7 @@ describe('co-applicant-declaration', () => {
     const expectedNextUrlForCoAppDisagree = CoApplicantDisagreePage.getUrl();
 
     beforeEach(() => {
-        invitesUndefinedNock();
+        invitesAllAgreedNock();
         sessionData = require('test/data/complete-form-undeclared').formdata;
         testWrapper = new TestWrapper('CoApplicantDeclaration');
     });
@@ -66,38 +68,26 @@ describe('co-applicant-declaration', () => {
         });
 
         it(`test it redirects to agree page: ${expectedNextUrlForCoAppAgree}`, (done) => {
-            invitesDefinedNock();
+            inviteAgreedNock();
 
-            sessionData = {};
-
-            testWrapper.agent.post('/prepare-session-field/inviteId/34')
+            testWrapper.agent.post('/prepare-session-field/formdataId/34')
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            const data = {
-                                agreement: content.optionYes
-                            };
-                            testWrapper.testRedirect(done, data, expectedNextUrlForCoAppAgree);
-                        });
+                    const data = {
+                        agreement: content.optionYes
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForCoAppAgree);
                 });
         });
 
         it(`test it redirects to disagree page: ${expectedNextUrlForCoAppDisagree}`, (done) => {
-            invitesDefinedNock();
+            inviteAgreedNock();
 
-            sessionData = {};
-
-            testWrapper.agent.post('/prepare-session-field/inviteId/34')
+            testWrapper.agent.post('/prepare-session-field/formdataId/34')
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            const data = {
-                                agreement: content.optionNo
-                            };
-                            testWrapper.testRedirect(done, data, expectedNextUrlForCoAppDisagree);
-                        });
+                    const data = {
+                        agreement: content.optionNo
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForCoAppDisagree);
                 });
         });
     });

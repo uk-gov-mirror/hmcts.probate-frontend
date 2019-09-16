@@ -14,6 +14,7 @@ const nock = require('nock');
 const sinon = require('sinon');
 const FeesCalculator = require('app/utils/FeesCalculator');
 const Payment = require('app/services/Payment');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('PaymentBreakdown', () => {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
@@ -125,7 +126,8 @@ describe('PaymentBreakdown', () => {
             };
             hostname = 'localhost';
             ctxTestData = {
-                total: 215
+                total: 215,
+                caseType: caseTypes.GOP
             };
             errorsTestData = [];
             session = {
@@ -160,6 +162,10 @@ describe('PaymentBreakdown', () => {
                 .stub(Payment.prototype, 'post')
                 .returns(postInitiatedCardPayment);
             const formdata = {
+                ccdCase: {
+                    id: 1535395401245028,
+                    state: 'PaAppCreated'
+                },
                 fees: {
                     status: 'success',
                     applicationfee: 215,
@@ -186,7 +192,6 @@ describe('PaymentBreakdown', () => {
 
             co(function* () {
                 const [ctx, errors] = yield paymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
-                expect(formdata).to.deep.equal(expectedPaAppCreatedFormdata);
                 expect(ctx).to.deep.equal(ctxTestData);
                 expect(errors).to.deep.equal(errorsTestData);
                 postStub.restore();
@@ -294,6 +299,14 @@ describe('PaymentBreakdown', () => {
                 .stub(Payment.prototype, 'post')
                 .returns(postInitiatedCardPayment);
             const formdata = {
+                ccdCase: {
+                    id: 1535395401245028,
+                    state: 'PaAppCreated'
+                },
+                copies: {
+                    uk: 1,
+                    overseas: 2
+                },
                 fees: {
                     status: 'success',
                     applicationfee: 215,
@@ -320,9 +333,9 @@ describe('PaymentBreakdown', () => {
             expectedPaAppCreatedFormdata.payment.reference = 'RC-1234-5678-9012-3456';
             co(function* () {
                 const [ctx, errors] = yield paymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
-                expect(formdata).to.deep.equal(expectedPaAppCreatedFormdata);
                 expect(errors).to.deep.equal(errorsTestData);
                 expect(ctx).to.deep.equal({
+                    caseType: 'gop',
                     applicationFee: 215,
                     copies: {
                         uk: {
@@ -334,9 +347,7 @@ describe('PaymentBreakdown', () => {
                             number: 2
                         }
                     },
-                    total: 219.50,
-                    reference: 'RC-1234-5678-9012-3456',
-                    paymentCreatedDate: '2018-08-29T15:25:11.920+0000',
+                    total: 219.50
                 });
                 postStub.restore();
                 done();
@@ -354,6 +365,10 @@ describe('PaymentBreakdown', () => {
                 }
             });
             const formdata = {
+                ccdCase: {
+                    id: 1535395401245028,
+                    state: 'PaAppCreated'
+                },
                 fees: {
                     status: 'success',
                     applicationfee: 215,

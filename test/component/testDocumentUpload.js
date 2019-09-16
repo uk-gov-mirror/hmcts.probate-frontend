@@ -37,24 +37,27 @@ describe('document-upload', () => {
         });
 
         it('test it remains on the document upload page after uploading a document', (done) => {
-            nock(config.services.validation.url.replace('/validate', ''))
+            nock(config.services.orchestrator.url)
                 .post(config.documentUpload.paths.upload)
                 .reply(200, [
                     'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
                 ]);
 
-            testWrapper.agent
-                .post(testWrapper.pageUrl)
-                .set('enctype', 'multipart/form-data')
-                .field('isUploadingDocument', 'true')
-                .attach('file', 'test/data/document-upload/valid-image.png')
-                .expect('location', testWrapper.pageUrl)
-                .expect(302)
-                .then(() => {
-                    nock.cleanAll();
-                    done();
-                })
-                .catch(done);
+            testWrapper.agent.post('/prepare-session-field/serviceAuthorization/SERVICE_AUTH_123')
+                .end(() => {
+                    testWrapper.agent
+                        .post(testWrapper.pageUrl)
+                        .set('enctype', 'multipart/form-data')
+                        .field('isUploadingDocument', 'true')
+                        .attach('file', 'test/data/document-upload/valid-image.png')
+                        .expect('location', testWrapper.pageUrl)
+                        .expect(302)
+                        .then(() => {
+                            nock.cleanAll();
+                            done();
+                        })
+                        .catch(done);
+                });
         });
 
         it('test it displays an error message when uploading a document with an incorrect type', (done) => {

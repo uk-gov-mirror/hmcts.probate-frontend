@@ -6,6 +6,7 @@ const connectTimeout = require('connect-timeout');
 const multer = require('multer');
 const Document = require('app/services/Document');
 const ServiceMapper = require('app/utils/ServiceMapper');
+const caseTypes = require('app/utils/CaseTypes');
 
 const storage = multer.memoryStorage();
 const upload = multer({storage: storage});
@@ -49,8 +50,8 @@ const uploadDocument = (req, res, next) => {
 
     if (error === null) {
         req.log.info('Uploaded document passed frontend validation');
-        const document = new Document(config.services.validation.url, req.sessionID);
-        document.post(req.session.regId, uploadedDocument)
+        const document = new Document(config.services.orchestrator.url, req.sessionID);
+        document.post(req.session.regId, uploadedDocument, req.authToken, req.session.serviceAuthorization)
             .then(result => {
                 const resultBody = result.body[0];
                 const filename = uploadedDocument.originalname;
@@ -80,11 +81,11 @@ const removeDocument = (req, res, next) => {
     const uploads = req.session.form.documents.uploads;
     const {url} = uploads[index];
     const documentId = documentUpload.findDocumentId(url);
-    const document = new Document(config.services.validation.url, req.sessionID);
-    document.delete(documentId, req.session.regId)
+    const document = new Document(config.services.orchestrator.url, req.sessionID);
+    document.delete(documentId, req.session.regId, req.authToken, req.session.serviceAuthorization)
         .then(() => {
             req.session.form.documents.uploads = documentUpload.removeDocument(index, uploads);
-            persistFormData(req.session.regId, req.session.form, req.sessionID);
+            persistFormData(req.session.regId, req.session.form, req.sessionID, req.authToken, req.session.serviceAuthorization, caseTypes.getCaseType(req.session));
             res.redirect('/document-upload');
         })
         .catch((err) => {
@@ -92,13 +93,12 @@ const removeDocument = (req, res, next) => {
         });
 };
 
-const persistFormData = (id, formdata, sessionID) => {
+const persistFormData = (id, formdata, sessionID, authToken, serviceAuthorization, caseType) => {
     const formData = ServiceMapper.map(
         'FormData',
-        [config.services.persistence.url, sessionID],
-        formdata.caseType
+        [config.services.orchestrator.url, sessionID]
     );
-    return formData.post(id, formdata, sessionID);
+    return formData.post(id, formdata, authToken, serviceAuthorization, caseType);
 };
 
 module.exports = {

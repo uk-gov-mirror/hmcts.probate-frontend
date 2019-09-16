@@ -299,15 +299,23 @@ describe('DocumentUploadMiddleware', () => {
                     return Promise.resolve(true);
                 }
             });
+
+            const revertFormData = documentUploadMiddleware.__set__('persistFormData', {
+                persist() {
+                    return {};
+                }
+            });
+
             const res = {
                 redirect: sinon.spy()
             };
             const next = {};
             documentUploadMiddleware.removeDocument(req, res, next);
+            revert();
+            revertFormData();
             setTimeout(() => {
                 expect(req.session.form.documents.uploads).to.deep.equal([]);
                 expect(res.redirect.calledWith('/document-upload')).to.equal(true);
-                revert();
                 done();
             });
         });

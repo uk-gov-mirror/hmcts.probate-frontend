@@ -18,8 +18,11 @@ describe('Executor-Additional-Invite-Sent', () => {
                         executors: {},
                         caseType: 'gop'
                     },
-                    caseType: 'gop'
-                }
+                    serviceAuthorization: 'serviceAuthorization',
+                    caseType: 'probate'
+                },
+                authToken: 'authToken',
+                caseType: 'gop'
             };
         });
 
@@ -41,7 +44,9 @@ describe('Executor-Additional-Invite-Sent', () => {
                 inviteSuffix: '',
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
-                userLoggedIn: false
+                userLoggedIn: false,
+                authToken: 'authToken',
+                serviceAuthorization: 'serviceAuthorization'
             });
         });
 
@@ -68,7 +73,9 @@ describe('Executor-Additional-Invite-Sent', () => {
                 inviteSuffix: '-multiple',
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
-                userLoggedIn: false
+                userLoggedIn: false,
+                authToken: 'authToken',
+                serviceAuthorization: 'serviceAuthorization',
             });
         });
     });
