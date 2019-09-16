@@ -13,7 +13,7 @@ const getCase = (req, res) => {
     multipleApplications.getCase(req.authToken, req.session.serviceAuthorization, session.form.applicantEmail, ccdCaseId)
         .then(result => {
             session.form = result.formdata;
-            if (result.status === content.statusDraft || result.status === content.statusInProgress) {
+            if (result.status === content.statusInProgress) {
                 res.redirect('/task-list');
             } else {
                 res.redirect('/thank-you');

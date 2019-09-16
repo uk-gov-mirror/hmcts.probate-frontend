@@ -6,13 +6,15 @@
     {% set applicationRows = [] %}
     {% for application in fields.applications.value %}
         {% set actionUrl = "/get-case/" + application.ccdCaseId %}
-        {% set actionText = content.actionContinue if application.status == content.statusDraft or application.status == content.statusInProgress else content.actionView %}
+        {% set actionText = content.actionContinue if application.status == content.statusInProgress else content.actionView %}
+        {% set caseClasses = "case draft" if application.deceasedFullName == content.statusDraft %}
+        {% set caseStatusClasses = "case-status in-progress" if application.status == content.statusInProgress else "case-status submitted" %}
 
         {% set applicationRows = (applicationRows.push([
-            { text: application.ccdCaseId },
-            { text: application.deceasedFullName },
-            { text: application.dateCreated},
-            { text: application.status },
+            { text: application.ccdCaseId, classes: caseClasses },
+            { text: application.deceasedFullName, classes: caseClasses },
+            { text: application.dateCreated, classes: caseClasses},
+            { text: application.status, classes: caseStatusClasses },
             { text: ("<a href=\"" + actionUrl + "\" class=\"govuk-link\">" + actionText + "</a>") | safe  }
         ]), applicationRows) %}
     {% endfor %}

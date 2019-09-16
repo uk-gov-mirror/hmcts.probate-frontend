@@ -29,7 +29,13 @@ router.get('/ma-get-applications', (req, res) => {
                 ccdCaseId: '9012-3456-1234-5678',
                 deceasedFullName: 'Boris Johnson',
                 dateCreated: '31 October 2019',
-                status: content.statusDraft
+                status: content.statusInProgress
+            },
+            {
+                ccdCaseId: '3456-1234-5678-9012',
+                deceasedFullName: content.statusDraft,
+                dateCreated: '31 October 2019',
+                status: content.statusInProgress
             }
         ]
     });
@@ -47,6 +53,9 @@ router.get('/ma-get-case', (req, res) => {
         status = content.statusSubmitted;
         break;
     case '9012-3456-1234-5678':
+        status = content.statusInProgress;
+        break;
+    case '3456-1234-5678-9012':
         status = content.statusDraft;
         break;
     default:
