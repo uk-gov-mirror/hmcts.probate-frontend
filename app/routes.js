@@ -68,8 +68,7 @@ router.use((req, res, next) => {
 
     if (req.originalUrl !== '/dashboard' && !get(formdata, 'ccdCase.id')) {
         res.redirect('dashboard');
-    } else
-        if (get(formdata, 'ccdCase.state') === 'CaseCreated' && (get(formdata, 'documents.sentDocuments', 'false') === 'false') && (get(formdata, 'payment.status') === 'Success' || get(formdata, 'payment.status') === 'not_required') &&
+    } else if (get(formdata, 'ccdCase.state') === 'CaseCreated' && (get(formdata, 'documents.sentDocuments', 'false') === 'false') && (get(formdata, 'payment.status') === 'Success' || get(formdata, 'payment.status') === 'not_required') &&
         !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
     ) {
         res.redirect('documents');
