@@ -5,16 +5,17 @@
 {% block content %}
     {% set applicationRows = [] %}
     {% for application in fields.applications.value %}
-        {% set actionUrl = "/get-case/" + application.ccdCaseId %}
-        {% set actionText = content.actionContinue if application.status == content.statusInProgress else content.actionView %}
-        {% set caseClasses = "case draft" if application.deceasedFullName == content.statusDraft %}
-        {% set caseStatusClasses = "case-status in-progress" if application.status == content.statusInProgress else "case-status submitted" %}
+        {% set actionUrl = "/get-case/" + application.ccdCase.id %}
+        {% set actionText = content.actionContinue if (application.ccdCase.state == "Draft" or application.ccdCase.state == "PAAppCreated" or application.ccdCase.state == "CasePaymentFailed") else content.actionView %}
+
+        {% set caseClasses = "case draft" if not application.deceasedFullName and application.ccdCase.state == "Draft" %}
+        {% set caseStatusClasses = "case-status in-progress" if (application.ccdCase.state == "Draft" or application.ccdCase.state == "PAAppCreated" or application.ccdCase.state == "CasePaymentFailed") else "case-status submitted" %}
 
         {% set applicationRows = (applicationRows.push([
-            { text: application.ccdCaseId, classes: caseClasses },
-            { text: application.deceasedFullName, classes: caseClasses },
+            { text: application.ccdCase.id, classes: caseClasses },
+            { text: application.deceasedFullName if application.deceasedFullName else content.statusDraft, classes: caseClasses },
             { text: application.dateCreated, classes: caseClasses},
-            { text: application.status, classes: caseStatusClasses },
+            { text: content.statusInProgress if (application.ccdCase.state == "Draft" or application.ccdCase.state == "PAAppCreated" or application.ccdCase.state == "CasePaymentFailed") else content.statusSubmitted, classes: caseStatusClasses },
             { text: ("<a href=\"" + actionUrl + "\" class=\"govuk-link\">" + actionText + "</a>") | safe  }
         ]), applicationRows) %}
     {% endfor %}

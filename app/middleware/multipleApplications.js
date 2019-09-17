@@ -1,21 +1,40 @@
 'use strict';
 
 const config = require('app/config');
-const MultipleApplications = require('app/services/MultipleApplications');
 const logger = require('app/components/logger')('Init');
-const content = require('app/resources/en/translation/dashboard');
+const ServiceMapper = require('app/utils/ServiceMapper');
 
-const getApplications = (req, res, next) => {
+const initDashboard = (req, res, next) => {
     const session = req.session;
-    const multipleApplications = new MultipleApplications(config.services.multipleApplicatons.urlApplications, session.id);
+    const formdata = session.form;
+    const formData = ServiceMapper.map(
+        'FormData',
+        [config.services.orchestrator.url, req.sessionID]
+    );
 
-    multipleApplications.getApplications(req.authToken, req.session.serviceAuthorization, session.form.applicantEmail)
+    if (formdata.screeners) {
+        cleanupFormdata(req.session.form, true);
+
+        formData.postNew(req.authToken, req.session.serviceAuthorization)
+            .then(() => {
+                getApplications(req, res, next, formData);
+            })
+            .catch(err => {
+                logger.error(`Error while getting applications: ${err}`);
+            });
+    } else {
+        getApplications(req, res, next, formData);
+    }
+};
+
+const getApplications = (req, res, next, formData) => {
+    formData.getAll(req.authToken, req.session.serviceAuthorization)
         .then(result => {
             if (result.applications && result.applications.length) {
-                cleanupFormdata(session.form);
+                cleanupFormdata(req.session.form);
             }
 
-            session.form.applications = result.applications;
+            req.session.form.applications = result.applications;
             next();
         })
         .catch(err => {
@@ -25,13 +44,18 @@ const getApplications = (req, res, next) => {
 
 const getCase = (req, res) => {
     const session = req.session;
-    const multipleApplications = new MultipleApplications(config.services.multipleApplicatons.urlCase, session.id);
     const ccdCaseId = req.originalUrl.split('/')[2];
 
-    multipleApplications.getCase(req.authToken, req.session.serviceAuthorization, session.form.applicantEmail, ccdCaseId)
+    const formData = ServiceMapper.map(
+        'FormData',
+        [config.services.orchestrator.url, req.sessionID]
+    );
+
+    formData.get(req.authToken, req.session.serviceAuthorization, ccdCaseId)
         .then(result => {
             session.form = result.formdata;
-            if (result.status === content.statusInProgress) {
+
+            if (session.form.ccdCase.state === 'Draft' || session.form.ccdCase.state === 'PAAppCreated' || session.form.ccdCase.state === 'CasePaymentFailed') {
                 res.redirect('/task-list');
             } else {
                 res.redirect('/thank-you');
@@ -42,17 +66,21 @@ const getCase = (req, res) => {
         });
 };
 
-const cleanupFormdata = (formdata) => {
-    delete formdata.applicant;
-    delete formdata.checkAnswersSummary;
-    delete formdata.deceased;
-    delete formdata.documents;
-    delete formdata.executors;
-    delete formdata.iht;
-    delete formdata.legalDeclaration;
-    delete formdata.summary;
-    delete formdata.will;
+const cleanupFormdata = (formdata, retainCaseType = false) => {
+    const retainedList = [
+        'applicantEmail',
+        'payloadVersion',
+        'userLoggedIn'
+    ];
+    if (retainCaseType) {
+        retainedList.push('caseType');
+    }
+    Object.keys(formdata).forEach((key) => {
+        if (!retainedList.includes(key)) {
+            delete formdata[key];
+        }
+    });
 };
 
-module.exports.getApplications = getApplications;
+module.exports.initDashboard = initDashboard;
 module.exports.getCase = getCase;

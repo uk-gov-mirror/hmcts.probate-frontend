@@ -105,18 +105,19 @@ class Step {
         return fields;
     }
 
-    persistFormData(id, formdata, sessionID, req, caseType) {
+    persistFormData(ccdCaseId, formdata, sessionID, req) {
         formdata.type = req.caseType;
         const formData = ServiceMapper.map(
             'FormData',
             [config.services.orchestrator.url, sessionID]
         );
-        return formData.post(id, formdata, req.authToken, req.session.serviceAuthorization, caseType);
+        return formData.post(req.authToken, req.session.serviceAuthorization, ccdCaseId, formdata);
     }
 
     action(ctx, formdata) {
         delete ctx.sessionID;
         delete ctx.caseType;
+        delete ctx.userLoggedIn;
         delete ctx.featureToggles;
         delete ctx._csrf;
         return [ctx, formdata];

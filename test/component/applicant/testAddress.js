@@ -4,6 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsNumber = require('app/steps/ui/executors/number');
 const formatAddress = address => address.replace(/,/g, ', ');
 const testCommonContent = require('test/component/common/testCommonContent.js');
+const sessionData = {ccdCase: {state: 'Draft', id: '1234-5678-9012-3456'}};
 
 describe('applicant-address', () => {
     let testWrapper;
@@ -23,10 +24,14 @@ describe('applicant-address', () => {
     describe('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('ApplicantAddress');
 
-        it('test right content loaded on the page', (done) => {
+        it.only('test right content loaded on the page', (done) => {
             const contentToExclude = ['selectAddress'];
 
-            testWrapper.testContent(done, {}, contentToExclude);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, {}, contentToExclude);
+                });
         });
 
         it('test error messages displayed for missing data', (done) => {

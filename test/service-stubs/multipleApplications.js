@@ -5,77 +5,136 @@ const express = require('express');
 const logger = require('app/components/logger');
 const app = express();
 const router = require('express').Router();
-const MULTIPLE_APPLICATIONS_PORT = config.services.multipleApplicatons.port;
-const content = require('app/resources/en/translation/dashboard');
-const url = require('url');
+const ORCHESTRATOR_PORT = config.services.orchestrator.port;
+const caseTypes = require('app/utils/CaseTypes');
 
-router.get('/ma-get-applications', (req, res) => {
+router.get('/forms/cases', (req, res) => {
     res.status(200);
     res.send({
         applications: [
             {
-                ccdCaseId: '1234-5678-9012-3456',
                 deceasedFullName: 'David Cameron',
                 dateCreated: '13 July 2016',
-                status: content.statusInProgress
+                ccdCase: {
+                    id: '1234-5678-9012-3456',
+                    state: 'Draft'
+                }
             },
             {
-                ccdCaseId: '5678-9012-3456-1234',
                 deceasedFullName: 'Theresa May',
                 dateCreated: '24 July 2019',
-                status: content.statusSubmitted
+                ccdCase: {
+                    id: '5678-9012-3456-1234',
+                    state: 'CaseCreated'
+                }
             },
             {
-                ccdCaseId: '9012-3456-1234-5678',
                 deceasedFullName: 'Boris Johnson',
                 dateCreated: '31 October 2019',
-                status: content.statusInProgress
+                ccdCase: {
+                    id: '9012-3456-1234-5678',
+                    state: 'Draft'
+                }
             },
             {
-                ccdCaseId: '3456-1234-5678-9012',
-                deceasedFullName: content.statusDraft,
                 dateCreated: '31 October 2019',
-                status: content.statusInProgress
+                ccdCase: {
+                    id: '3456-1234-5678-9012',
+                    state: 'Draft'
+                }
             }
         ]
     });
 });
 
-router.get('/ma-get-case', (req, res) => {
-    const urlParts = url.parse(req.originalUrl, true);
-    let status;
+router.get('/forms/case/*', (req, res) => {
+    const ccdCaseId = req.originalUrl.split('/')[3];
+    let formdata;
 
-    switch (urlParts.query.ccdCaseId) {
+    switch (ccdCaseId) {
     case '1234-5678-9012-3456':
-        status = content.statusInProgress;
+        formdata = {
+            caseType: caseTypes.GOP,
+            ccdCase: {
+                id: '1234-5678-9012-3456',
+                state: 'Draft'
+            },
+            executors: {},
+            deceased: {
+                firstName: 'David',
+                lastName: 'Cameron',
+                'dob-day': 9,
+                'dob-month': 10,
+                'dob-year': 1966,
+                'dob-date': '1966-10-09T00:00:00.000Z',
+                'dob-formattedDate': '9 October 1966',
+                'dod-day': 13,
+                'dod-month': 7,
+                'dod-year': 2016,
+                'dod-date': '2016-07-13T00:00:00.000Z',
+                'dod-formattedDate': '13 July 2016'
+            }
+        };
         break;
     case '5678-9012-3456-1234':
-        status = content.statusSubmitted;
+        formdata = {
+            caseType: caseTypes.GOP,
+            ccdCase: {
+                id: '5678-9012-3456-1234',
+                state: 'CaseCreated'
+            },
+            executors: {},
+        };
         break;
     case '9012-3456-1234-5678':
-        status = content.statusInProgress;
+        formdata = {
+            caseType: caseTypes.GOP,
+            ccdCase: {
+                id: '9012-3456-1234-5678',
+                state: 'Draft'
+            },
+            executors: {},
+        };
         break;
     case '3456-1234-5678-9012':
-        status = content.statusDraft;
+        formdata = {
+            caseType: caseTypes.INTESTACY,
+            ccdCase: {
+                id: '3456-1234-5678-9012',
+                state: 'Draft'
+            },
+            executors: {},
+        };
         break;
     default:
-        status = '';
+        formdata = {
+            executors: {},
+        };
         break;
     }
 
     res.status(200);
     res.send({
-        status: status,
+        formdata: formdata
+    });
+});
+
+router.post('/forms/newcase', (req, res) => {
+    res.status(200);
+    res.send({
         formdata: {
-            executors: {}
+            ccdCase: {
+                id: '3456-1234-5678-9012',
+                state: 'Draft'
+            }
         }
     });
 });
 
 app.use(router);
 
-logger().info(`Listening on: ${MULTIPLE_APPLICATIONS_PORT}`);
+logger().info(`Listening on: ${ORCHESTRATOR_PORT}`);
 
-const server = app.listen(MULTIPLE_APPLICATIONS_PORT);
+const server = app.listen(ORCHESTRATOR_PORT);
 
 module.exports = server;

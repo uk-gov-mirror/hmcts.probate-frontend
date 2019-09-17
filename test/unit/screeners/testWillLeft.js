@@ -2,7 +2,7 @@
 
 const journey = require('app/journeys/probate');
 const initSteps = require('../../../app/core/initSteps');
-const {expect, assert} = require('chai');
+const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const WillLeft = steps.WillLeft;
 const content = require('app/resources/en/translation/screeners/willleft');
@@ -89,9 +89,6 @@ describe('WillLeft', () => {
                 applicantEmail: 'test@email.com',
                 caseType: 'gop',
                 payloadVersion: '1.0.1',
-                screeners: {
-                    screen1: 'yes'
-                },
                 applicant: {},
                 deceased: {}
             });
@@ -142,16 +139,6 @@ describe('WillLeft', () => {
                 ]
             });
             done();
-        });
-    });
-
-    describe('action()', () => {
-        it('test \'left\' is removed from the context', () => {
-            const ctx = {
-                left: 'Yes'
-            };
-            WillLeft.action(ctx);
-            assert.isUndefined(ctx.left);
         });
     });
 });

@@ -74,12 +74,12 @@ describe('Service', () => {
         });
     });
 
-    describe('replaceIdInPath()', () => {
-        it('should replace the id token with an id', (done) => {
-            const path = '/forms/{id}';
+    describe('replacePlaceholderInPath()', () => {
+        it('should replace the placeholder with a value', (done) => {
+            const path = '/forms/{emailAddress}';
             const email = 'fred@example.com';
             const service = new Service();
-            const newPath = service.replaceIdInPath(path, email);
+            const newPath = service.replacePlaceholderInPath(path, 'emailAddress', email);
             expect(newPath).to.equal('/forms/fred@example.com');
             done();
         });

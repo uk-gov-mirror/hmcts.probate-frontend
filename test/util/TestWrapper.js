@@ -18,6 +18,7 @@ class TestWrapper {
         this.content = require(`app/resources/en/translation/${this.pageToTest.resourcePath}`);
         routes.post('/prepare-session/:path', (req, res) => {
             set(req.session, req.params.path, req.body);
+            console.log(req.session.form);
             res.send('OK');
         });
         routes.post('/prepare-session-field', (req, res) => {

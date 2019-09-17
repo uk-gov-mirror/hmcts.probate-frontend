@@ -16,7 +16,6 @@ const serviceAuthorisationToken = require('app/serviceAuthorisation');
 const paymentFees = require('app/paymentFees');
 const setJourney = require('app/middleware/setJourney');
 const AllExecutorsAgreed = require('app/services/AllExecutorsAgreed');
-const ServiceMapper = require('app/utils/ServiceMapper');
 const lockPaymentAttempt = require('app/middleware/lockPaymentAttempt');
 const caseTypes = require('app/utils/CaseTypes');
 const emailValidator = require('email-validator');
@@ -42,6 +41,8 @@ router.use((req, res, next) => {
         req.session.form.applicantEmail = req.session.regId;
     }
 
+    req.session.form.applicantEmail = 'luc@fefe.com';
+
     req.session.form.userLoggedIn = emailValidator.validate(req.session.form.applicantEmail);
     req.log.info(`User logged in: ${req.session.form.userLoggedIn}`);
 
@@ -50,33 +51,14 @@ router.use((req, res, next) => {
 
 router.use(serviceAuthorisationToken);
 router.use(setJourney);
-
-router.get('/', (req, res) => {
-    const formData = ServiceMapper.map(
-        'FormData',
-        [config.services.orchestrator.url, req.sessionID]
-    );
-    formData.get(req.session.regId, req.authToken, req.session.serviceAuthorization, caseTypes.getCaseType(req.session))
-        .then(result => {
-            if (result.name === 'Error') {
-                req.log.debug('Failed to load user data');
-                req.log.info({tags: 'Analytics'}, 'Application Started');
-                if (!result.message.startsWith('FetchError: invalid json response body')) {
-                    res.status(500).render('errors/500', {common: commonContent});
-                    return;
-                }
-            } else {
-                req.log.debug('Successfully loaded user data');
-                req.session.form = result;
-            }
-            res.redirect('dashboard');
-        });
-});
-
-router.use(documentDownload);
 router.use(multipleApplications);
+router.use(documentDownload);
 router.use(paymentFees);
 router.post('/payment-breakdown', lockPaymentAttempt);
+
+router.get('/health/liveness', (req, res) => {
+    res.json({status: 'UP'});
+});
 
 router.use((req, res, next) => {
     const formdata = req.session.form;
@@ -84,7 +66,10 @@ router.use((req, res, next) => {
     const executorsWrapper = new ExecutorsWrapper(formdata.executors);
     const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
 
-    if (get(formdata, 'ccdCase.state') === 'CaseCreated' && (get(formdata, 'documents.sentDocuments', 'false') === 'false') && (get(formdata, 'payment.status') === 'Success' || get(formdata, 'payment.status') === 'not_required') &&
+    if (req.originalUrl !== '/dashboard' && !get(formdata, 'ccdCase.id')) {
+        res.redirect('dashboard');
+    } else
+        if (get(formdata, 'ccdCase.state') === 'CaseCreated' && (get(formdata, 'documents.sentDocuments', 'false') === 'false') && (get(formdata, 'payment.status') === 'Success' || get(formdata, 'payment.status') === 'not_required') &&
         !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
     ) {
         res.redirect('documents');
@@ -153,10 +138,6 @@ const steps = initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui`])
 Object.entries(steps).forEach(([, step]) => {
     router.get(step.constructor.getUrl(), step.runner().GET(step));
     router.post(step.constructor.getUrl(), step.runner().POST(step));
-});
-
-router.get('/health/liveness', (req, res) => {
-    res.json({status: 'UP'});
 });
 
 router.get('/payment', (req, res) => {

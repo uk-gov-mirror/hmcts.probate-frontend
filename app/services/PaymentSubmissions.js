@@ -6,7 +6,7 @@ const caseTypes = require('app/utils/CaseTypes');
 
 class PaymentSubmissions extends Service {
 
-    post(logMessage, id, authorization, serviceAuthorization, hostname, caseType) {
+    post(logMessage, emailAddress, authorization, serviceAuthorization, hostname, caseType) {
         const probateType = caseTypes.getProbateType(caseType);
         this.log(logMessage);
         const paymentUpdatesCallback = config.services.orchestrator.url + config.services.orchestrator.paths.payment_updates;
@@ -17,13 +17,13 @@ class PaymentSubmissions extends Service {
             'return-url': this.formatUrl.format(hostname, config.services.payment.paths.returnUrlPath),
             'service-callback-url': paymentUpdatesCallback
         };
-        const path = this.replaceIdInPath(this.config.services.orchestrator.paths.payment_submissions, id);
+        const path = this.replacePlaceholderInPath(this.config.services.orchestrator.paths.payment_submissions, 'emailAddress', emailAddress);
         const url = this.endpoint + path + '?probateType=' + probateType;
         const fetchOptions = this.fetchOptions({}, 'POST', headers);
         return this.fetchJson(url, fetchOptions);
     }
 
-    put(logMessage, id, authorization, serviceAuthorization, caseType) {
+    put(logMessage, emailAddress, authorization, serviceAuthorization, caseType) {
         const probateType = caseTypes.getProbateType(caseType);
         this.log(logMessage);
         const headers = {
@@ -31,7 +31,7 @@ class PaymentSubmissions extends Service {
             'Authorization': authorization,
             'ServiceAuthorization': serviceAuthorization
         };
-        const path = this.replaceIdInPath(this.config.services.orchestrator.paths.payment_submissions, id);
+        const path = this.replacePlaceholderInPath(this.config.services.orchestrator.paths.payment_submissions, 'emailAddress', emailAddress);
         const url = this.endpoint + path + '?probateType=' + probateType;
         const fetchOptions = this.fetchOptions({}, 'PUT', headers);
         return this.fetchJson(url, fetchOptions);

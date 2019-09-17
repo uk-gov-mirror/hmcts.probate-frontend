@@ -98,7 +98,7 @@ const persistFormData = (id, formdata, sessionID, authToken, serviceAuthorizatio
         'FormData',
         [config.services.orchestrator.url, sessionID]
     );
-    return formData.post(id, formdata, authToken, serviceAuthorization, caseType);
+    return formData.post(authToken, serviceAuthorization, id, caseType, formdata);
 };
 
 module.exports = {

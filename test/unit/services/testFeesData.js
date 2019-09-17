@@ -8,7 +8,6 @@ const config = require('app/config');
 const nock = require('nock');
 
 describe('FeesData', () => {
-
     describe('should call', () => {
         afterEach(() => {
             nock.cleanAll();
@@ -16,13 +15,13 @@ describe('FeesData', () => {
 
         it('updateFees successfully', (done) => {
             const endpoint = 'http://localhost';
-            const userId = 'fred@example.com';
+            const ccdCaseId = '1234-5678-9012-3456';
             const result = {id: 'fees123'};
-            const data = {applicantEmail: userId};
+            const data = {ccdCaseId: ccdCaseId};
             const authToken = 'authToken';
             const serviceAuthorisation = 'serviceAuthorisation';
             const fees = new Fees(endpoint, 'abc123');
-            const path = fees.replaceIdInPath(config.services.orchestrator.paths.fees, userId);
+            const path = fees.replacePlaceholderInPath(config.services.orchestrator.paths.fees, 'ccdCaseId', ccdCaseId);
             nock(endpoint, {
                 reqheaders: {
                     'Content-Type': 'application/json',

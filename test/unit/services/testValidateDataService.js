@@ -9,9 +9,9 @@ describe('ValidateData', () => {
     describe('put()', () => {
         it('should call log() and fetchJson()', (done) => {
             const endpoint = 'http://localhost';
-            const url = 'http://localhost/forms/fred@example.com/validations?probateType=PA';
+            const url = 'http://localhost/forms/1234-5678-9012-3456/validations?probateType=PA';
             const fetchOptions = {method: 'PUT'};
-            const data = {applicantEmail: 'fred@example.com'};
+            const data = {ccdCase: {id: '1234-5678-9012-3456'}};
             const validateData = new ValidateData(endpoint, 'abc123');
 
             const logSpy = sinon.spy(validateData, 'log');

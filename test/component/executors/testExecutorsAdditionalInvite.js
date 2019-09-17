@@ -117,7 +117,7 @@ describe('executors-additional-invite', () => {
                 });
         });
 
-        it.skip(`test it redirects to next page: ${expectedNextUrlForExecutorsAdditionalInviteSent}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForExecutorsAdditionalInviteSent}`, (done) => {
             nock(orchestratorServiceUrl)
                 .post('/invite')
                 .reply(200, {

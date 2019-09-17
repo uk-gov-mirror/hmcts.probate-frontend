@@ -33,14 +33,17 @@ const config = {
         orchestrator: {
             url: process.env.ORCHESTRATOR_SERVICE_URL || 'http://localhost:8888',
             paths: {
-                forms: '/forms/{id}',
-                submissions: '/forms/{id}/submissions',
-                payments: '/forms/{id}/payments',
+                forms: '/forms/case/{ccdCaseId}',
+                create: '/forms/newcase/',
+                submissions: '/forms/{ccdCaseId}/submissions',
+                payments: '/forms/{ccdCaseId}/payments',
                 payment_updates: '/payment-updates',
-                payment_submissions: '/forms/{id}/payment-submissions',
-                fees: '/forms/{id}/fees',
-                validations: '/forms/{id}/validations'
-            }
+                payment_submissions: '/forms/{ccdCaseId}/payment-submissions',
+                fees: '/forms/{ccdCaseId}/fees',
+                validations: '/forms/{ccdCaseId}/validations',
+                applications: '/forms/cases'
+            },
+            port: 8888
         },
         validation: {
             url: process.env.VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
@@ -93,11 +96,6 @@ const config = {
                 feesLookup: '/fees/lookup'
             },
             ihtMinAmt: 5000
-        },
-        multipleApplicatons: {
-            urlApplications: process.env.MA_GET_APPLICATIONS || 'http://localhost:8383/ma-get-applications',
-            urlCase: process.env.MA_GET_CASE || 'http://localhost:8383/ma-get-case',
-            port: 8383
         }
     },
     redis: {

@@ -16,7 +16,7 @@ describe('SubmitDataService', () => {
             const authToken = 'authToken';
             const serviceAuthorisation = 'serviceAuthorisation';
             const submitData = new SubmitData(endpoint, 'abc123');
-            const path = submitData.replaceIdInPath(config.services.orchestrator.paths.submissions, data.applicantEmail);
+            const path = submitData.replacePlaceholderInPath(config.services.orchestrator.paths.submissions, 'emailAddress', data.applicantEmail);
 
             const logSpy = sinon.spy(submitData, 'log');
             const fetchJsonSpy = sinon.spy(submitData, 'fetchJson');
