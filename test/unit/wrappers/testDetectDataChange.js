@@ -1,4 +1,7 @@
 /*eslint max-lines: ["error", 310]*/
+
+'use strict';
+
 const DetectDataChange = require('app/wrappers/DetectDataChange');
 const expect = require('chai').expect;
 

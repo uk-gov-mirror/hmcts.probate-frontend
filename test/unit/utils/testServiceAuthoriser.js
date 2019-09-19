@@ -9,7 +9,6 @@ let fetchTextStub;
 
 describe('ServiceAuthoriser', () => {
     describe('determineServiceAuthorizationToken()', () => {
-
         beforeEach(() => {
             serviceAuthoriser = new ServiceAuthoriser('http://localhost', 'dummyId');
             fetchTextStub = sinon.stub(Service.prototype, 'fetchText');
@@ -26,9 +25,6 @@ describe('ServiceAuthoriser', () => {
                     expect(res).to.deep.equal('token');
                     done();
                 });
-
         });
-
     });
-
 });

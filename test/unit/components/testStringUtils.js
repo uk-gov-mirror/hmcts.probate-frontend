@@ -20,7 +20,6 @@ const APOSTROPHE_NAME_TEST_SOURCE_FORMAT_1 = 'IVY LODGE, ST. JAMES\'S PARK, LOND
 const APOSTROPHE_NAME_TEST_UPDATED_FORMAT_1 = 'Ivy Lodge,St. James\'s Park,London,SW1A 2BJ';
 
 describe('updateLookupFormattedAddress()', () => {
-
     it('should produce the correct use of alphanumeric characters', (done) => {
         const output = stringUtils
             .updateLookupFormattedAddress(ALPHANUMERIC_NUMBER_TEST_SOURCE_FORMAT_1, ALPHANUMERIC_NUMBER_TEST_POSTCODE_1);

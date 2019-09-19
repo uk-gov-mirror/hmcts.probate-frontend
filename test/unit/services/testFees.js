@@ -13,7 +13,6 @@ let fetchJsonStub;
 
 describe('Fees', () => {
     describe('get Fees ()', () => {
-
         beforeEach(() => {
             expectedResponse = require('test/data/paymentfees/paymentfees-response');
             fees = new Fees('http://localhost', 'dummyId');
@@ -33,7 +32,6 @@ describe('Fees', () => {
         });
 
         it('should return the correct response when fees service available', (done) => {
-
             fetchJsonStub = sinon.stub(Service.prototype, 'fetchJson').returns(Promise.resolve(expectedResponse));
 
             fees.get(data, headers)
@@ -60,5 +58,4 @@ describe('Fees', () => {
             done();
         });
     });
-
 });

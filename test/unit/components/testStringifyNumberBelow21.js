@@ -1,3 +1,5 @@
+'use strict';
+
 const utils = require('app/components/utils');
 const assert = require('chai').assert;
 

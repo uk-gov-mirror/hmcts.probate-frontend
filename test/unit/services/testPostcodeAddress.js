@@ -7,27 +7,30 @@ const PostcodeAddress = require('app/services/PostcodeAddress');
 const OSPlacesClient = require('@hmcts/os-places-client').OSPlacesClient;
 const postcodeAddress = new PostcodeAddress();
 
-const osPlacesClientResponse =
-    {
-        valid: true,
-        addresses: [{
+const osPlacesClientResponse = {
+    valid: true,
+    addresses: [
+        {
             formattedAddress: 'MINISTRY OF JUSTICE,SEVENTH FLOOR,103 PETTY FRANCE,LONDON,SW1H 9AJ',
             postcode: 'SW1H 9AJ'
         },
         {
             formattedAddress: 'MINISTRY OF JUSTICE,SEVENTH FLOOR,102 PETTY FRANCE,LONDON,SW1H 9AJ',
             postcode: 'SW1H 9AJ'
-        }]
-    };
+        }
+    ]
+};
 
-const expectedResponse = [{
-    formattedAddress: 'MINISTRY OF JUSTICE,SEVENTH FLOOR,103 PETTY FRANCE,LONDON,SW1H 9AJ',
-    postcode: 'SW1H 9AJ'
-},
-{
-    formattedAddress: 'MINISTRY OF JUSTICE,SEVENTH FLOOR,102 PETTY FRANCE,LONDON,SW1H 9AJ',
-    postcode: 'SW1H 9AJ'
-}];
+const expectedResponse = [
+    {
+        formattedAddress: 'MINISTRY OF JUSTICE,SEVENTH FLOOR,103 PETTY FRANCE,LONDON,SW1H 9AJ',
+        postcode: 'SW1H 9AJ'
+    },
+    {
+        formattedAddress: 'MINISTRY OF JUSTICE,SEVENTH FLOOR,102 PETTY FRANCE,LONDON,SW1H 9AJ',
+        postcode: 'SW1H 9AJ'
+    }
+];
 
 const expectedError = 'Error: Failed to retrieve address list';
 
@@ -82,5 +85,4 @@ describe('addressLookup service tests', () => {
                 done();
             });
     });
-
 });

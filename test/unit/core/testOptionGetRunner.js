@@ -1,3 +1,5 @@
+'use strict';
+
 const OptionGetRunner = require('app/core/runners/OptionGetRunner');
 const sinon = require('sinon');
 const chai = require('chai');
@@ -7,7 +9,6 @@ const sinonChai = require('sinon-chai');
 chai.use(sinonChai);
 
 describe('OptionGetRunner', () => {
-
     it('Test POST', () => {
         const step = {name: 'test'};
 

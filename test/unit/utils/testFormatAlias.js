@@ -1,3 +1,5 @@
+'use strict';
+
 const FormatAlias = require('app/utils/FormatAlias');
 const expect = require('chai').expect;
 
