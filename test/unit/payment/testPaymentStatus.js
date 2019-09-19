@@ -10,7 +10,7 @@ const caseTypes = require('app/utils/CaseTypes');
 const content = require('app/resources/en/translation/payment/status');
 
 describe('PaymentStatus', () => {
-    const steps = initSteps([`${__dirname}/../../app/steps/ui`]);
+    const steps = initSteps([`${__dirname}/../../../app/steps/ui`]);
     let section;
     let templatePath;
     let i18next;

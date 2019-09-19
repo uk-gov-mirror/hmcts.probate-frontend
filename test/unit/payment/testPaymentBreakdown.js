@@ -17,7 +17,7 @@ const Payment = require('app/services/Payment');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('PaymentBreakdown', () => {
-    const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
+    const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
     const section = 'paymentBreakdown';
     const templatePath = 'payment/breakdown';
     const i18next = {};
