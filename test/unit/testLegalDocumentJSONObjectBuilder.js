@@ -5,7 +5,7 @@ const {assert} = require('chai');
 const fs = require('fs');
 const html = fs.readFileSync('test/data/legalDeclationHTML.html').toString();
 const requireDir = require('require-directory');
-const translations = requireDir(module, '../../../app/resources/en/translation');
+const translations = requireDir(module, '../../app/resources/en/translation');
 const he = require('he');
 const FormatName = require('app/utils/FormatName');
 
