@@ -314,4 +314,28 @@ describe('EligibilityCookie.js', () => {
             done();
         });
     });
+
+    describe('clearCookie()', () => {
+        it('should clear the cookie ', (done) => {
+            const req = {};
+            const res = {};
+            const eligibilityCookie = new EligibilityCookie();
+            const writeCookieStub = sinon.stub(eligibilityCookie, 'writeCookie');
+
+            eligibilityCookie.clearCookie(req, res);
+
+            expect(eligibilityCookie.writeCookie.calledOnce).to.equal(true);
+            expect(eligibilityCookie.writeCookie.calledWith(
+                {},
+                {},
+                {
+                    nextStepUrl: '',
+                    pages: {}
+                }
+            )).to.equal(true);
+
+            writeCookieStub.restore();
+            done();
+        });
+    });
 });
