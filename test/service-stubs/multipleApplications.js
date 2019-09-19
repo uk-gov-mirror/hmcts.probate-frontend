@@ -16,7 +16,7 @@ router.get('/forms/cases', (req, res) => {
                 deceasedFullName: 'David Cameron',
                 dateCreated: '13 July 2016',
                 ccdCase: {
-                    id: '1234-5678-9012-3456',
+                    id: 1234567890123456,
                     state: 'Draft'
                 }
             },
@@ -24,7 +24,7 @@ router.get('/forms/cases', (req, res) => {
                 deceasedFullName: 'Theresa May',
                 dateCreated: '24 July 2019',
                 ccdCase: {
-                    id: '5678-9012-3456-1234',
+                    id: 5678901234561234,
                     state: 'CaseCreated'
                 }
             },
@@ -32,14 +32,14 @@ router.get('/forms/cases', (req, res) => {
                 deceasedFullName: 'Boris Johnson',
                 dateCreated: '31 October 2019',
                 ccdCase: {
-                    id: '9012-3456-1234-5678',
+                    id: 9012345612345678,
                     state: 'Draft'
                 }
             },
             {
                 dateCreated: '31 October 2019',
                 ccdCase: {
-                    id: '3456-1234-5678-9012',
+                    id: 3456123456789012,
                     state: 'Draft'
                 }
             }
@@ -52,11 +52,11 @@ router.get('/forms/case/*', (req, res) => {
     let formdata;
 
     switch (ccdCaseId) {
-    case '1234-5678-9012-3456':
+    case '1234567890123456':
         formdata = {
             caseType: caseTypes.GOP,
             ccdCase: {
-                id: '1234-5678-9012-3456',
+                id: 1234567890123456,
                 state: 'Draft'
             },
             executors: {},
@@ -76,31 +76,31 @@ router.get('/forms/case/*', (req, res) => {
             }
         };
         break;
-    case '5678-9012-3456-1234':
+    case '5678901234561234':
         formdata = {
             caseType: caseTypes.GOP,
             ccdCase: {
-                id: '5678-9012-3456-1234',
+                id: 5678901234561234,
                 state: 'CaseCreated'
             },
             executors: {},
         };
         break;
-    case '9012-3456-1234-5678':
+    case '9012345612345678':
         formdata = {
             caseType: caseTypes.GOP,
             ccdCase: {
-                id: '9012-3456-1234-5678',
+                id: 9012345612345678,
                 state: 'Draft'
             },
             executors: {},
         };
         break;
-    case '3456-1234-5678-9012':
+    case '3456123456789012':
         formdata = {
             caseType: caseTypes.INTESTACY,
             ccdCase: {
-                id: '3456-1234-5678-9012',
+                id: 3456123456789012,
                 state: 'Draft'
             },
             executors: {},
@@ -124,7 +124,7 @@ router.post('/forms/newcase', (req, res) => {
     res.send({
         formdata: {
             ccdCase: {
-                id: '3456-1234-5678-9012',
+                id: 3456123456789012,
                 state: 'Draft'
             }
         }

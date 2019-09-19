@@ -17,11 +17,21 @@ describe('pin-sent', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         it('test right content loaded on the page', (done) => {
-            testWrapper.agent.post('/prepare-session-field/validLink/true')
+            const sessionData = {
+                ccdCase: {
+                    state: 'Draft',
+                    id: 1234567890123456
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done);
+                    testWrapper.agent.post('/prepare-session-field/validLink/true')
+                        .end(() => {
+                            testWrapper.testContent(done);
+                        });
                 });
         });
 

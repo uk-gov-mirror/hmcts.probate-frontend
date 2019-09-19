@@ -4,7 +4,6 @@ const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsNumber = require('app/steps/ui/executors/number');
 const formatAddress = address => address.replace(/,/g, ', ');
 const testCommonContent = require('test/component/common/testCommonContent.js');
-const sessionData = {ccdCase: {state: 'Draft', id: '1234-5678-9012-3456'}};
 
 describe('applicant-address', () => {
     let testWrapper;
@@ -24,7 +23,13 @@ describe('applicant-address', () => {
     describe('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('ApplicantAddress');
 
-        it.only('test right content loaded on the page', (done) => {
+        it('test right content loaded on the page', (done) => {
+            const sessionData = {
+                ccdCase: {
+                    state: 'Draft',
+                    id: 1234567890123456
+                }
+            };
             const contentToExclude = ['selectAddress'];
 
             testWrapper.agent.post('/prepare-session/form')
@@ -53,24 +58,35 @@ describe('applicant-address', () => {
 
         it('test the address dropdown box displays all addresses when the user returns to the page', (done) => {
             const sessionData = {
-                postcode: testAddressData[1].postcode,
-                postcodeAddress: formatAddress(testAddressData[1].formattedAddress),
-                addresses: testAddressData,
-                addressLine1: 'value',
-                postTown: 'value',
-                newPostCode: 'value'
+                ccdCase: {
+                    state: 'Draft',
+                    id: 1234567890123456
+                }
             };
 
-            testWrapper.agent
-                .post(testWrapper.pageUrl)
+            testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const playbackData = testAddressData.map((address, index) => {
-                        const formattedAddress = formatAddress(address.formattedAddress);
-                        return `<option value="${index}" ${formattedAddress === sessionData.postcodeAddress ? 'selected' : ''}>${formattedAddress}</option>`;
-                    });
+                    const sessionData = {
+                        postcode: testAddressData[1].postcode,
+                        postcodeAddress: formatAddress(testAddressData[1].formattedAddress),
+                        addresses: testAddressData,
+                        addressLine1: 'value',
+                        postTown: 'value',
+                        newPostCode: 'value'
+                    };
 
-                    testWrapper.testDataPlayback(done, playbackData);
+                    testWrapper.agent
+                        .post(testWrapper.pageUrl)
+                        .send(sessionData)
+                        .end(() => {
+                            const playbackData = testAddressData.map((address, index) => {
+                                const formattedAddress = formatAddress(address.formattedAddress);
+                                return `<option value="${index}" ${formattedAddress === sessionData.postcodeAddress ? 'selected' : ''}>${formattedAddress}</option>`;
+                            });
+
+                            testWrapper.testDataPlayback(done, playbackData);
+                        });
                 });
         });
     });

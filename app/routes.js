@@ -19,6 +19,7 @@ const AllExecutorsAgreed = require('app/services/AllExecutorsAgreed');
 const lockPaymentAttempt = require('app/middleware/lockPaymentAttempt');
 const caseTypes = require('app/utils/CaseTypes');
 const emailValidator = require('email-validator');
+const steps = initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui`]);
 
 router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
@@ -40,8 +41,6 @@ router.use((req, res, next) => {
     if (!req.session.form.applicantEmail) {
         req.session.form.applicantEmail = req.session.regId;
     }
-
-    req.session.form.applicantEmail = 'luc@fefe.com';
 
     req.session.form.userLoggedIn = emailValidator.validate(req.session.form.applicantEmail);
     req.log.info(`User logged in: ${req.session.form.userLoggedIn}`);
@@ -66,7 +65,15 @@ router.use((req, res, next) => {
     const executorsWrapper = new ExecutorsWrapper(formdata.executors);
     const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
 
-    if (req.originalUrl !== '/dashboard' && !get(formdata, 'ccdCase.id')) {
+    const allPageUrls = [];
+    Object.entries(steps).forEach(([, step]) => {
+        allPageUrls.push(step.constructor.getUrl());
+    });
+
+    const noCcdCaseIdPages = config.nonIdamPages.map(item => '/' + item);
+    noCcdCaseIdPages.push('/dashboard');
+
+    if (includes(allPageUrls, req.originalUrl) && req.method === 'GET' && !includes(noCcdCaseIdPages, req.originalUrl) && !get(formdata, 'ccdCase.id')) {
         res.redirect('dashboard');
     } else if (get(formdata, 'ccdCase.state') === 'CaseCreated' && (get(formdata, 'documents.sentDocuments', 'false') === 'false') && (get(formdata, 'payment.status') === 'Success' || get(formdata, 'payment.status') === 'not_required') &&
         !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
@@ -131,8 +138,6 @@ router.use((req, res, next) => {
         next();
     }
 });
-
-const steps = initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui`]);
 
 Object.entries(steps).forEach(([, step]) => {
     router.get(step.constructor.getUrl(), step.runner().GET(step));

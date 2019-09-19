@@ -15,7 +15,6 @@ describe('sign-out', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         it('test right content loaded on the page', (done) => {
             testWrapper.testContent(done);
         });

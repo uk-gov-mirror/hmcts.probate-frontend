@@ -19,7 +19,7 @@ class UIStepRunner {
             let errors = null;
             const session = req.session;
             const formdata = session.form;
-            let ctx = step.getContextData(req);
+            let ctx = step.getContextData(req, res);
             const featureToggles = session.featureToggles;
             [ctx, errors] = yield step.handleGet(ctx, formdata, featureToggles);
             forEach(errors, (error) =>

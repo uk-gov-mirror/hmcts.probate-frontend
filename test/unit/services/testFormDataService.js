@@ -15,8 +15,8 @@ describe('FormDataService', () => {
 
         it('get() successfully', (done) => {
             const endpoint = 'http://localhost';
-            const ccdCaseId = '1234-5678-9012-3456';
-            const expectedForm = {caseType: caseTypes.GOP, ccdCase: {state: 'Draft', id: '1234-5678-9012-3456'}, deceased: {name: 'test'}};
+            const ccdCaseId = 1234567890123456;
+            const expectedForm = {caseType: caseTypes.GOP, ccdCase: {state: 'Draft', id: 1234567890123456}, deceased: {name: 'test'}};
             const authToken = 'authToken';
             const serviceAuthorisation = 'serviceAuthorisation';
             const formData = new FormData(endpoint, 'abc123');
@@ -41,7 +41,7 @@ describe('FormDataService', () => {
 
         it('should call post() successfully', (done) => {
             const endpoint = 'http://localhost';
-            const ccdCaseId = '1234-5678-9012-3456';
+            const ccdCaseId = 1234567890123456;
             const inputForm = {caseType: caseTypes.GOP, deceased: {name: 'test'}};
             const expectedForm = {caseType: caseTypes.GOP, deceased: {name: 'test'}};
             const authToken = 'authToken';

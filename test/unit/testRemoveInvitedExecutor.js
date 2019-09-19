@@ -3,6 +3,7 @@
 const expect = require('chai').expect;
 const rewire = require('rewire');
 const RemoveInvitedExecutor = rewire('app/utils/RemoveInvitedExecutor');
+const executorRolesContent = require('app/resources/en/translation/executors/executorcontent');
 
 describe('RemoveInvitedExecutor', () => {
     describe('remove()', () => {
@@ -30,7 +31,7 @@ describe('RemoveInvitedExecutor', () => {
                                 fullName: 'executor_2_name',
                                 isDead: true,
                                 diedBefore: 'Yes',
-                                notApplyingReason: 'This executor died (before the person who has died)',
+                                notApplyingReason: executorRolesContent.optionDiedBefore,
                                 notApplyingKey: 'optionDiedBefore',
                                 isApplying: false,
                                 hasOtherName: false,
@@ -51,7 +52,7 @@ describe('RemoveInvitedExecutor', () => {
                                 isDead: false,
                                 isApplying: false,
                                 hasOtherName: false,
-                                notApplyingReason: 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)',
+                                notApplyingReason: executorRolesContent.optionRenunciated,
                                 notApplyingKey: 'optionRenunciated',
                                 inviteId: 'dummy_inviteId_3',
                                 emailSent: true
@@ -64,7 +65,7 @@ describe('RemoveInvitedExecutor', () => {
                                 fullName: 'executor_2_name',
                                 isDead: true,
                                 diedBefore: 'Yes',
-                                notApplyingReason: 'This executor died (before the person who has died)',
+                                notApplyingReason: executorRolesContent.optionDiedBefore,
                                 notApplyingKey: 'optionDiedBefore',
                                 isApplying: false,
                                 hasOtherName: false,
@@ -75,7 +76,7 @@ describe('RemoveInvitedExecutor', () => {
                                 isDead: false,
                                 isApplying: false,
                                 hasOtherName: false,
-                                notApplyingReason: 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)',
+                                notApplyingReason: executorRolesContent.optionRenunciated,
                                 notApplyingKey: 'optionRenunciated',
                                 inviteId: 'dummy_inviteId_3',
                                 emailSent: true
@@ -114,7 +115,7 @@ describe('RemoveInvitedExecutor', () => {
                                     isApplying: false,
                                     isDead: true,
                                     notApplyingKey: 'optionDiedBefore',
-                                    notApplyingReason: 'This executor died (before the person who has died)'
+                                    notApplyingReason: executorRolesContent.optionDiedBefore
                                 },
                                 {
                                     address: 'exec_3_address\r\n',
@@ -133,7 +134,7 @@ describe('RemoveInvitedExecutor', () => {
                                     isApplying: false,
                                     isDead: false,
                                     notApplyingKey: 'optionRenunciated',
-                                    notApplyingReason: 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)'
+                                    notApplyingReason: executorRolesContent.optionRenunciated
                                 }
                             ],
                             otherExecutorsApplying: 'Yes'

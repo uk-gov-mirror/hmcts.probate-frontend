@@ -15,7 +15,7 @@ describe('FeesData', () => {
 
         it('updateFees successfully', (done) => {
             const endpoint = 'http://localhost';
-            const ccdCaseId = '1234-5678-9012-3456';
+            const ccdCaseId = 1234567890123456;
             const result = {id: 'fees123'};
             const data = {ccdCaseId: ccdCaseId};
             const authToken = 'authToken';

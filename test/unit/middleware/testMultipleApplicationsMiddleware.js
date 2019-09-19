@@ -12,7 +12,7 @@ const allApplicationsExpectedResponse = [
         deceasedFullName: 'David Cameron',
         dateCreated: '13 July 2016',
         ccdCase: {
-            id: '1234-5678-9012-3456',
+            id: 1234567890123456,
             state: 'Draft'
         }
     },
@@ -20,7 +20,7 @@ const allApplicationsExpectedResponse = [
         deceasedFullName: 'Theresa May',
         dateCreated: '24 July 2019',
         ccdCase: {
-            id: '5678-9012-3456-1234',
+            id: 5678901234561234,
             state: 'CaseCreated'
         }
     },
@@ -28,14 +28,14 @@ const allApplicationsExpectedResponse = [
         deceasedFullName: 'Boris Johnson',
         dateCreated: '31 October 2019',
         ccdCase: {
-            id: '9012-3456-1234-5678',
+            id: 9012345612345678,
             state: 'Draft'
         }
     },
     {
         dateCreated: '31 October 2019',
         ccdCase: {
-            id: '3456-1234-5678-9012',
+            id: 3456123456789012,
             state: 'Draft'
         }
     }
@@ -50,11 +50,7 @@ describe.skip('multipleApplicationsMiddleware', () => {
             const req = {
                 session: {
                     form: {
-                        applicantEmail: 'test@email.com',
-                        caseType: 'gop',
-                        screeners: {
-                            willLeft: 'Yes'
-                        }
+                        applicantEmail: 'test@email.com'
                     }
                 }
             };

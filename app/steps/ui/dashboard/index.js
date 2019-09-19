@@ -1,6 +1,10 @@
 'use strict';
 
+const {forEach} = require('lodash');
 const Step = require('app/core/steps/Step');
+const FormatCcdCaseId = require('app/utils/FormatCcdCaseId');
+const EligibilityCookie = require('app/utils/EligibilityCookie');
+const eligibilityCookie = new EligibilityCookie();
 
 class Dashboard extends Step {
 
@@ -8,9 +12,14 @@ class Dashboard extends Step {
         return '/dashboard';
     }
 
-    getContextData(req) {
-        const ctx = super.getContextData(req);
+    getContextData(req, res) {
+        const ctx = super.getContextData(req, res);
         ctx.applications = req.session.form.applications;
+        forEach(ctx.applications, application => {
+            application.ccdCase.idFormatted = FormatCcdCaseId.format(application.ccdCase);
+            application.ccdCase.idFormattedAccessible = FormatCcdCaseId.formatAccessible(application.ccdCase);
+        });
+        eligibilityCookie.clearCookie(req, res);
         return ctx;
     }
 

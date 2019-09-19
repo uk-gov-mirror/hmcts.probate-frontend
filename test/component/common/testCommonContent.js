@@ -3,6 +3,12 @@
 const TestWrapper = require('test/util/TestWrapper');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
+const sessionData = {
+    ccdCase: {
+        state: 'Draft',
+        id: 1234567890123456
+    }
+};
 
 class TestCommonContent {
     static runTest(page, beforeEach, afterEach, cookies = [], pageOutsideIdam = false) {
@@ -21,7 +27,11 @@ class TestCommonContent {
                     helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress)
                 };
 
-                testWrapper.testDataPlayback(done, playbackData, [], cookies);
+                testWrapper.agent.post('/prepare-session/form')
+                    .send(sessionData)
+                    .end(() => {
+                        testWrapper.testDataPlayback(done, playbackData, [], cookies);
+                    });
             });
 
             testWrapper.destroy();
@@ -51,9 +61,7 @@ class TestCommonContent {
                     beforeEach();
                 }
 
-                const sessionData = {
-                    applicantEmail: 'test@email.com'
-                };
+                sessionData.applicantEmail = 'test@email.com';
 
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)

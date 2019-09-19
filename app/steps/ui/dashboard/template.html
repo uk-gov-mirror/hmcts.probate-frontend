@@ -12,7 +12,7 @@
         {% set caseStatusClasses = "case-status in-progress" if (application.ccdCase.state == "Draft" or application.ccdCase.state == "PAAppCreated" or application.ccdCase.state == "CasePaymentFailed") else "case-status submitted" %}
 
         {% set applicationRows = (applicationRows.push([
-            { text: application.ccdCase.id, classes: caseClasses },
+            { text: application.ccdCase.idFormatted, classes: caseClasses, attributes: {'aria-label': application.ccdCase.idFormattedAccessible } },
             { text: application.deceasedFullName if application.deceasedFullName else content.statusDraft, classes: caseClasses },
             { text: application.dateCreated, classes: caseClasses},
             { text: content.statusInProgress if (application.ccdCase.state == "Draft" or application.ccdCase.state == "PAAppCreated" or application.ccdCase.state == "CasePaymentFailed") else content.statusSubmitted, classes: caseStatusClasses },
@@ -32,7 +32,7 @@
                     { text: content.tableHeaderDeceasedName },
                     { text: content.tableHeaderCreateDate },
                     { text: content.tableHeaderCaseStatus },
-                    ""
+                    { html: "<span class=\"govuk-visually-hidden\">" + content.tableHeaderActions + "</span>" }
                 ],
                 rows: applicationRows
             }) }}

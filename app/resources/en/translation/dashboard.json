@@ -5,6 +5,7 @@
   "tableHeaderDeceasedName": "Name of deceased",
   "tableHeaderCreateDate": "Date created",
   "tableHeaderCaseStatus": "Status",
+  "tableHeaderActions": "Actions",
   "statusDraft": "Draft",
   "statusInProgress": "In progress",
   "statusSubmitted": "Submitted",
