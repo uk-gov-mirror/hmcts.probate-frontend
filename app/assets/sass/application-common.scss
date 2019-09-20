@@ -68,3 +68,7 @@
     background-image: url("/public/images/icon-file-download.png");
   }
 }
+
+a[href^="tel"] {
+  @extend %govuk-link;
+}
