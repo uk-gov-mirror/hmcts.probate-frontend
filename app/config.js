@@ -120,6 +120,7 @@ const config = {
         buttonServiceClosed: process.env.WEBCHAT_BUTTON_SERVICE_CLOSED || '4639879315d19f67c3c1055.15174024',
     },
     links: {
+        accessibility: '/accessibility',
         cookies: '/cookies',
         privacy: '/privacy-policy',
         terms: '/terms-conditions',
