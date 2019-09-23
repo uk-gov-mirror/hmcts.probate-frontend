@@ -16,8 +16,8 @@
   "paragraph6": "Following our internal test, the following areas were recommended for further DAC testing:",
   "list2-item1": "Navigating using character shortcuts - While we&rsquo;ve tested with free screen readers for Mac and Chrome, different screen reader services will have different shortcuts and we haven&rsquo;t been able to conclusively verify all of them.",
   "list2-item2": "Text spacing - We haven&rsquo;t been able to verify that the service works for all users requiring larger text spacing.",
-  "list2-item3": "Content on Hover or Focus - We haven&rsquo;t been able to test that this works with users that have motor skill issues.",
-  "list2-item4": "Focus Visible - Some users may struggle to notice the focus indicator.",
+  "list2-item3": "Content on hover or focus - We haven&rsquo;t been able to test that this works with users that have motor skill issues.",
+  "list2-item4": "Focus visible - Some users may struggle to notice the focus indicator.",
 
   "heading3": "What to do if you cannot access parts of this website",
   "paragraph7": "If you need information on this website in a different format like accessible PDF, large print, easy read or braille then email <a href=\"mailto:HMCTSforms@justice.gov.uk\" class=\"govuk-link\">HMCTSforms@justice.gov.uk</a> or phone:",
@@ -41,10 +41,10 @@
 
   "heading8": "Non-accessible content",
   "paragraph17": "The content listed below is non-accessible for the following reasons. We haven&rsquo;t been able to verify that we are fully compliant in the following areas, due to constraints with our internal testing tools:",
-  "list3-item1": "Navigating using character shortcuts - While we tested with MAC VoiceOver and ChromeVox, different screen reader services will have different shortcuts and we haven&rsquo;t been able to conclusively verify all of them. This may not meet WCAG 2.1 success criterion 2.1.4 (character key shortcuts).",
-  "list3-item2": "Text spacing - We cannot confirm that the service works for those requiring larger text spacing. This may not meet WCAG 2.1 success criterion 1.4.12 (Text spacing).",
-  "list3-item3": "Content on Hover or Focus - We have not been able to verify with users that have motor skill issues. This may not meet WCAG 2.1 success criterion 1.4.13 (Content on Hover or Focus).",
-  "list3-item4": "Focus Visible - Some users may struggle to notice the focus indicator. This may not meet WCAG 2.1 success criterion 2.4.7 (Focus Visible).",
+  "list3-item1": "Navigating using character shortcuts - While we tested with MAC VoiceOver and ChromeVox, different screen reader services will have different shortcuts and we haven&rsquo;t been able to conclusively verify all of them. This may not meet WCAG 2.1 success criterion 2.1.4.",
+  "list3-item2": "Text spacing - We cannot confirm that the service works for those requiring larger text spacing. This may not meet WCAG 2.1 success criterion 1.4.12.",
+  "list3-item3": "Content on hover or focus - We have not been able to verify with users that have motor skill issues. This may not meet WCAG 2.1 success criterion 1.4.13.",
+  "list3-item4": "Focus visible - Some users may struggle to notice the focus indicator. This may not meet WCAG 2.1 success criterion 2.4.7.",
   "paragraph18": "DAC testing will take place in October 2019 and we commit to fixing any issues raised by October 2020.",
 
   "heading9": "Content that&rsquo;s not within the scope of the accessibility regulations",
