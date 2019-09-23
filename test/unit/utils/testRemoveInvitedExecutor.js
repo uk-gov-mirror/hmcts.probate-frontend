@@ -3,7 +3,6 @@
 const expect = require('chai').expect;
 const rewire = require('rewire');
 const RemoveInvitedExecutor = rewire('app/utils/RemoveInvitedExecutor');
-const executorRolesContent = require('app/resources/en/translation/executors/executorcontent');
 
 describe('RemoveInvitedExecutor', () => {
     describe('remove()', () => {
@@ -31,7 +30,7 @@ describe('RemoveInvitedExecutor', () => {
                                 fullName: 'executor_2_name',
                                 isDead: true,
                                 diedBefore: 'Yes',
-                                notApplyingReason: executorRolesContent.optionDiedBefore,
+                                notApplyingReason: 'optionDiedBefore',
                                 notApplyingKey: 'optionDiedBefore',
                                 isApplying: false,
                                 hasOtherName: false,
@@ -52,7 +51,7 @@ describe('RemoveInvitedExecutor', () => {
                                 isDead: false,
                                 isApplying: false,
                                 hasOtherName: false,
-                                notApplyingReason: executorRolesContent.optionRenunciated,
+                                notApplyingReason: 'optionRenunciated',
                                 notApplyingKey: 'optionRenunciated',
                                 inviteId: 'dummy_inviteId_3',
                                 emailSent: true
@@ -65,7 +64,7 @@ describe('RemoveInvitedExecutor', () => {
                                 fullName: 'executor_2_name',
                                 isDead: true,
                                 diedBefore: 'Yes',
-                                notApplyingReason: executorRolesContent.optionDiedBefore,
+                                notApplyingReason: 'optionDiedBefore',
                                 notApplyingKey: 'optionDiedBefore',
                                 isApplying: false,
                                 hasOtherName: false,
@@ -76,7 +75,7 @@ describe('RemoveInvitedExecutor', () => {
                                 isDead: false,
                                 isApplying: false,
                                 hasOtherName: false,
-                                notApplyingReason: executorRolesContent.optionRenunciated,
+                                notApplyingReason: 'optionRenunciated',
                                 notApplyingKey: 'optionRenunciated',
                                 inviteId: 'dummy_inviteId_3',
                                 emailSent: true
@@ -115,7 +114,7 @@ describe('RemoveInvitedExecutor', () => {
                                     isApplying: false,
                                     isDead: true,
                                     notApplyingKey: 'optionDiedBefore',
-                                    notApplyingReason: executorRolesContent.optionDiedBefore
+                                    notApplyingReason: 'optionDiedBefore'
                                 },
                                 {
                                     address: 'exec_3_address\r\n',
@@ -134,7 +133,7 @@ describe('RemoveInvitedExecutor', () => {
                                     isApplying: false,
                                     isDead: false,
                                     notApplyingKey: 'optionRenunciated',
-                                    notApplyingReason: executorRolesContent.optionRenunciated
+                                    notApplyingReason: 'optionRenunciated'
                                 }
                             ],
                             otherExecutorsApplying: 'Yes'

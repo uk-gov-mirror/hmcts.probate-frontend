@@ -5,7 +5,6 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const IhtCompleted = steps.IhtCompleted;
-const content = require('app/resources/en/translation/screeners/ihtcompleted');
 
 describe('IhtCompleted', () => {
     describe('getUrl()', () => {
@@ -26,7 +25,7 @@ describe('IhtCompleted', () => {
                     caseType: 'gop'
                 },
                 body: {
-                    completed: content.optionYes
+                    completed: 'optionYes'
                 }
             };
             const res = {};
@@ -34,7 +33,7 @@ describe('IhtCompleted', () => {
             const ctx = IhtCompleted.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
-                completed: content.optionYes,
+                completed: 'optionYes',
                 caseType: 'gop',
                 userLoggedIn: false
             });
@@ -50,7 +49,7 @@ describe('IhtCompleted', () => {
                 }
             };
             const ctx = {
-                completed: content.optionYes
+                completed: 'optionYes'
             };
             const nextStepUrl = IhtCompleted.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/will-left');
@@ -64,7 +63,7 @@ describe('IhtCompleted', () => {
                 }
             };
             const ctx = {
-                completed: content.optionNo
+                completed: 'optionNo'
             };
             const nextStepUrl = IhtCompleted.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/ihtNotCompleted');
@@ -78,7 +77,7 @@ describe('IhtCompleted', () => {
             expect(nextStepOptions).to.deep.equal({
                 options: [{
                     key: 'completed',
-                    value: content.optionYes,
+                    value: 'optionYes',
                     choice: 'completed'
                 }]
             });

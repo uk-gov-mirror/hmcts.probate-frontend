@@ -1,7 +1,6 @@
 'use strict';
 
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
-const content = require('app/resources/en/translation/screeners/relatedtodeceased');
 const pageUrl = '/related-to-deceased';
 const fieldKey = 'related';
 
@@ -22,7 +21,7 @@ class RelatedToDeceased extends EligibilityValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: fieldKey, value: content.optionYes, choice: 'related'}
+                {key: fieldKey, value: 'optionYes', choice: 'related'}
             ]
         };
     }

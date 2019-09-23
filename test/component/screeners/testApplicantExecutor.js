@@ -46,7 +46,7 @@ describe('applicant-executor', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForMentalCapacity}`, (done) => {
             const data = {
-                executor: 'Yes'
+                executor: 'optionYes'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForMentalCapacity, cookies);
@@ -54,7 +54,7 @@ describe('applicant-executor', () => {
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
-                executor: 'No'
+                executor: 'optionNo'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);

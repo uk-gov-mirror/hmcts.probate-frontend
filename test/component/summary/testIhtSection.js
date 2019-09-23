@@ -66,7 +66,7 @@ describe('summary-iht-section', () => {
                 state: 'Draft',
                 id: 1234567890123456
             };
-            sessionData.iht.form = 'IHT205';
+            sessionData.iht.form = 'optionIHT205';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -107,6 +107,7 @@ describe('summary-iht-section', () => {
                         netValue: ihtContent.value.netValue
                     };
                     Object.assign(playbackData, sessionData.iht);
+                    playbackData.method = ihtContent.method[playbackData.method];
 
                     testWrapper.testDataPlayback(done, playbackData);
                 });
@@ -118,7 +119,7 @@ describe('summary-iht-section', () => {
                 state: 'Draft',
                 id: 1234567890123456
             };
-            sessionData.iht.form = 'IHT205';
+            sessionData.iht.form = 'optionIHT205';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -134,6 +135,7 @@ describe('summary-iht-section', () => {
                         netValue: ihtContent.value.netValue
                     };
                     Object.assign(playbackData, sessionData.iht);
+                    playbackData.method = ihtContent.method[playbackData.method];
 
                     testWrapper.testDataPlayback(done, playbackData, ['form']);
                 });
@@ -145,7 +147,7 @@ describe('summary-iht-section', () => {
                 state: 'Draft',
                 id: 1234567890123456
             };
-            sessionData.iht.form = 'IHT207';
+            sessionData.iht.form = 'optionIHT207';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -161,6 +163,7 @@ describe('summary-iht-section', () => {
                         netValue: ihtContent.value.netValue
                     };
                     Object.assign(playbackData, sessionData.iht);
+                    playbackData.method = ihtContent.method[playbackData.method];
 
                     testWrapper.testDataPlayback(done, playbackData, ['form']);
                 });
@@ -172,7 +175,7 @@ describe('summary-iht-section', () => {
                 state: 'Draft',
                 id: 1234567890123456
             };
-            sessionData.iht.form = 'IHT400421';
+            sessionData.iht.form = 'optionIHT400421';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -188,6 +191,7 @@ describe('summary-iht-section', () => {
                         ihtNetValue: ihtContent.value.netValue
                     };
                     Object.assign(playbackData, sessionData.iht);
+                    playbackData.method = ihtContent.method[playbackData.method];
 
                     testWrapper.testDataPlayback(done, playbackData, ['form']);
                 });

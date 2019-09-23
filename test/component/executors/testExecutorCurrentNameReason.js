@@ -58,7 +58,7 @@ describe('/executor-current-name-reason/', () => {
         it('test alias reason validation when other is selected but no reason is entered', (done) => {
             const errorsToTest = ['otherReason'];
             const data = {
-                currentNameReason: 'other',
+                currentNameReason: 'optionOther',
                 otherReason: ''
             };
 
@@ -67,7 +67,7 @@ describe('/executor-current-name-reason/', () => {
 
         it(`test redirects from ExecutorCurrentNameReason to next ExecutorCurrentName, ${firstNameReasonUrl}`, (done) => {
             sessionData.declaration = {
-                declarationCheckbox: 'Yes',
+                declarationCheckbox: 'true',
                 hasDataChanged: false
             };
 
@@ -86,7 +86,7 @@ describe('/executor-current-name-reason/', () => {
 
         it(`test it redirects last executor to Executor Contact Details step: ${expectedNextUrlForExecContactDetails}`, (done) => {
             sessionData.declaration = {
-                declarationCheckbox: 'Yes',
+                declarationCheckbox: 'true',
                 hasDataChanged: false
             };
 

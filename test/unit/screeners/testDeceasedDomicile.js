@@ -5,7 +5,6 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const DeceasedDomicile = steps.DeceasedDomicile;
-const content = require('app/resources/en/translation/screeners/deceaseddomicile');
 
 describe('DeceasedDomicile', () => {
     describe('getUrl()', () => {
@@ -26,7 +25,7 @@ describe('DeceasedDomicile', () => {
                     caseType: 'gop'
                 },
                 body: {
-                    domicile: content.optionYes
+                    domicile: 'optionYes'
                 }
             };
             const res = {};
@@ -34,7 +33,7 @@ describe('DeceasedDomicile', () => {
             const ctx = DeceasedDomicile.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
-                domicile: content.optionYes,
+                domicile: 'optionYes',
                 caseType: 'gop',
                 userLoggedIn: false
             });
@@ -50,7 +49,7 @@ describe('DeceasedDomicile', () => {
                 }
             };
             const ctx = {
-                domicile: content.optionYes
+                domicile: 'optionYes'
             };
             const nextStepUrl = DeceasedDomicile.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/iht-completed');
@@ -64,7 +63,7 @@ describe('DeceasedDomicile', () => {
                 }
             };
             const ctx = {
-                domicile: content.optionNo
+                domicile: 'optionNo'
             };
             const nextStepUrl = DeceasedDomicile.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/notInEnglandOrWales');
@@ -78,7 +77,7 @@ describe('DeceasedDomicile', () => {
             expect(nextStepOptions).to.deep.equal({
                 options: [{
                     key: 'domicile',
-                    value: content.optionYes,
+                    value: 'optionYes',
                     choice: 'inEnglandOrWales'
                 }]
             });

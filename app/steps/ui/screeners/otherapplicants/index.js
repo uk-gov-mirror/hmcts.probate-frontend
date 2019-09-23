@@ -1,7 +1,6 @@
 'use strict';
 
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
-const content = require('app/resources/en/translation/screeners/otherapplicants');
 const pageUrl = '/other-applicants';
 const fieldKey = 'otherApplicants';
 
@@ -22,7 +21,7 @@ class OtherApplicants extends EligibilityValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: fieldKey, value: content.optionNo, choice: 'noOthers'}
+                {key: fieldKey, value: 'optionNo', choice: 'noOthers'}
             ]
         };
     }

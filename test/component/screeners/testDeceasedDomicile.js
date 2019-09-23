@@ -42,7 +42,7 @@ describe('deceased-domicile', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForIhtCompleted}`, (done) => {
             const data = {
-                domicile: 'Yes'
+                domicile: 'optionYes'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtCompleted, cookies);
@@ -50,7 +50,7 @@ describe('deceased-domicile', () => {
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
-                domicile: 'No'
+                domicile: 'optionNo'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);

@@ -12,7 +12,7 @@ const i18next = {};
 const pageUrl = '/death-certificate';
 const nextStepUrl = '/deceased-domicile';
 const fieldKey = 'deathCertificate';
-const fieldValue = 'Yes';
+const fieldValue = 'optionYes';
 
 describe('EligibilityValidationStep', () => {
     describe('setFeatureTogglesOnCtx()', () => {
@@ -68,7 +68,7 @@ describe('EligibilityValidationStep', () => {
         });
 
         it('a GET request should set ctx.answerValue when an answer value is given', (done) => {
-            const revert = EligibilityValidationStep.__set__('eligibilityCookie', {getAnswer: sinon.stub().returns('Yes')});
+            const revert = EligibilityValidationStep.__set__('eligibilityCookie', {getAnswer: sinon.stub().returns('optionYes')});
             const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
             const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey);
 
@@ -76,7 +76,7 @@ describe('EligibilityValidationStep', () => {
                 sessionID: 'abc123',
                 caseType: 'gop',
                 userLoggedIn: false,
-                deathCertificate: 'Yes'
+                deathCertificate: 'optionYes'
             });
 
             revert();
@@ -87,7 +87,7 @@ describe('EligibilityValidationStep', () => {
             req.method = 'POST';
             req.session.form = {
                 deceased: {
-                    deathCertificate: 'Yes'
+                    deathCertificate: 'optionYes'
                 },
                 caseType: 'gop'
             };
@@ -100,14 +100,14 @@ describe('EligibilityValidationStep', () => {
             const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey, featureToggles);
 
             expect(nextStepUrlStub.calledOnce).to.equal(true);
-            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', caseType: 'gop', deathCertificate: 'Yes', isTestToggleEnabled: true, userLoggedIn: false})).to.equal(true);
+            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', caseType: 'gop', deathCertificate: 'optionYes', isTestToggleEnabled: true, userLoggedIn: false})).to.equal(true);
             expect(setEligibilityCookieStub.calledOnce).to.equal(true);
             expect(setEligibilityCookieStub.calledWith(req, res, nextStepUrl, fieldKey, fieldValue)).to.equal(true);
             expect(ctx).to.deep.equal({
                 sessionID: 'abc123',
                 caseType: 'gop',
                 userLoggedIn: false,
-                deathCertificate: 'Yes',
+                deathCertificate: 'optionYes',
                 isTestToggleEnabled: true
             });
 

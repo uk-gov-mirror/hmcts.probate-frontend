@@ -5,7 +5,6 @@ const initSteps = require('../../../app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const OtherApplicants = steps.OtherApplicants;
-const content = require('app/resources/en/translation/screeners/otherapplicants');
 
 describe('OtherApplicants', () => {
     describe('getUrl()', () => {
@@ -26,7 +25,7 @@ describe('OtherApplicants', () => {
                     caseType: 'gop'
                 },
                 body: {
-                    otherApplicants: content.optionYes
+                    otherApplicants: 'optionYes'
                 }
             };
             const res = {};
@@ -34,7 +33,7 @@ describe('OtherApplicants', () => {
             const ctx = OtherApplicants.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
-                otherApplicants: content.optionYes,
+                otherApplicants: 'optionYes',
                 caseType: 'gop',
                 userLoggedIn: false
             });
@@ -50,7 +49,7 @@ describe('OtherApplicants', () => {
                 }
             };
             const ctx = {
-                otherApplicants: content.optionYes
+                otherApplicants: 'optionYes'
             };
             const nextStepUrl = OtherApplicants.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/otherApplicants');
@@ -64,7 +63,7 @@ describe('OtherApplicants', () => {
                 }
             };
             const ctx = {
-                otherApplicants: content.optionNo
+                otherApplicants: 'optionNo'
             };
             const nextStepUrl = OtherApplicants.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/start-apply');
@@ -78,7 +77,7 @@ describe('OtherApplicants', () => {
             expect(nextStepOptions).to.deep.equal({
                 options: [{
                     key: 'otherApplicants',
-                    value: content.optionNo,
+                    value: 'optionNo',
                     choice: 'noOthers'
                 }]
             });

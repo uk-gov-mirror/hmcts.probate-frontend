@@ -23,7 +23,7 @@ const config = {
         port: process.env.PORT || '3000',
         useCSRFProtection: 'true',
         session: {
-            expires: 3600000, // ms (60 mins)
+            expires: 3600000, // ms (60 minutes)
             ttl: 28800 // ms (8 hours)
         }
     },
@@ -35,13 +35,13 @@ const config = {
             url: process.env.ORCHESTRATOR_SERVICE_URL || 'http://localhost:8888',
             paths: {
                 forms: '/forms/case/{ccdCaseId}',
-                create: '/forms/newcase/',
                 submissions: '/forms/{ccdCaseId}/submissions',
                 payments: '/forms/{ccdCaseId}/payments',
                 payment_updates: '/payment-updates',
                 payment_submissions: '/forms/{ccdCaseId}/payment-submissions',
                 fees: '/forms/{ccdCaseId}/fees',
                 validations: '/forms/{ccdCaseId}/validations',
+                create: '/forms/newcase/',
                 applications: '/forms/cases'
             },
             port: 8888

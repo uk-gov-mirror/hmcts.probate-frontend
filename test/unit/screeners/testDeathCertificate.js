@@ -5,7 +5,6 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const DeathCertificate = steps.DeathCertificate;
-const content = require('app/resources/en/translation/screeners/deathcertificate');
 
 describe('DeathCertificate', () => {
     describe('getUrl()', () => {
@@ -26,7 +25,7 @@ describe('DeathCertificate', () => {
                     caseType: 'gop'
                 },
                 body: {
-                    deathCertificate: content.optionYes
+                    deathCertificate: 'optionYes'
                 }
             };
             const res = {};
@@ -34,7 +33,7 @@ describe('DeathCertificate', () => {
             const ctx = DeathCertificate.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
-                deathCertificate: content.optionYes,
+                deathCertificate: 'optionYes',
                 caseType: 'gop',
                 userLoggedIn: false
             });
@@ -50,7 +49,7 @@ describe('DeathCertificate', () => {
                 }
             };
             const ctx = {
-                deathCertificate: content.optionYes
+                deathCertificate: 'optionYes'
             };
             const nextStepUrl = DeathCertificate.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/deceased-domicile');
@@ -64,7 +63,7 @@ describe('DeathCertificate', () => {
                 }
             };
             const ctx = {
-                deathCertificate: content.optionNo
+                deathCertificate: 'optionNo'
             };
             const nextStepUrl = DeathCertificate.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/deathCertificate');
@@ -78,7 +77,7 @@ describe('DeathCertificate', () => {
             expect(nextStepOptions).to.deep.equal({
                 options: [{
                     key: 'deathCertificate',
-                    value: content.optionYes,
+                    value: 'optionYes',
                     choice: 'hasCertificate'
                 }]
             });

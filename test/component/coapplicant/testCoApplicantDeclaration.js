@@ -1,7 +1,6 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const content = require('app/resources/en/translation/coapplicant/declaration.json');
 const CoApplicantAgreePage = require('app/steps/ui/coapplicant/agreepage');
 const CoApplicantDisagreePage = require('app/steps/ui/coapplicant/disagreepage');
 const testCommonContent = require('test/component/common/testCommonContent.js');
@@ -73,7 +72,7 @@ describe('co-applicant-declaration', () => {
             testWrapper.agent.post('/prepare-session-field/formdataId/34')
                 .end(() => {
                     const data = {
-                        agreement: content.optionYes
+                        agreement: 'optionYes'
                     };
                     testWrapper.testRedirect(done, data, expectedNextUrlForCoAppAgree);
                 });
@@ -85,7 +84,7 @@ describe('co-applicant-declaration', () => {
             testWrapper.agent.post('/prepare-session-field/formdataId/34')
                 .end(() => {
                     const data = {
-                        agreement: content.optionNo
+                        agreement: 'optionNo'
                     };
                     testWrapper.testRedirect(done, data, expectedNextUrlForCoAppDisagree);
                 });

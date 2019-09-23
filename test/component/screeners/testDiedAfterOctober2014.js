@@ -53,7 +53,7 @@ describe('died-after-october-2014', () => {
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        diedAfter: 'Yes'
+                        diedAfter: 'optionYes'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForRelatedToDeceased, cookies);
@@ -65,7 +65,7 @@ describe('died-after-october-2014', () => {
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        diedAfter: 'No'
+                        diedAfter: 'optionNo'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);

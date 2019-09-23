@@ -53,7 +53,7 @@ describe('related-to-deceased', () => {
                 .send({caseType: 'intestacy'})
                 .end(() => {
                     const data = {
-                        related: 'Yes'
+                        related: 'optionYes'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForOtherApplicants, cookies);
@@ -65,7 +65,7 @@ describe('related-to-deceased', () => {
                 .send({caseType: 'intestacy'})
                 .end(() => {
                     const data = {
-                        related: 'No'
+                        related: 'optionNo'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);

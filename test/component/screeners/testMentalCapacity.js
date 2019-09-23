@@ -51,7 +51,7 @@ describe('mental-capacity', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForStartApply}`, (done) => {
             const data = {
-                mentalCapacity: 'Yes'
+                mentalCapacity: 'optionYes'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForStartApply, cookies);
@@ -59,7 +59,7 @@ describe('mental-capacity', () => {
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
-                mentalCapacity: 'No'
+                mentalCapacity: 'optionNo'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);

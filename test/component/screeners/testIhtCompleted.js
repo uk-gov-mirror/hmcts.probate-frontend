@@ -43,7 +43,7 @@ describe('iht-completed', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForWillLeft}`, (done) => {
             const data = {
-                completed: 'Yes'
+                completed: 'optionYes'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForWillLeft, cookies);
@@ -51,7 +51,7 @@ describe('iht-completed', () => {
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
-                completed: 'No'
+                completed: 'optionNo'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);

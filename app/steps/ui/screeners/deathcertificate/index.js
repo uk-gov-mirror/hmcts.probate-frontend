@@ -1,7 +1,6 @@
 'use strict';
 
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
-const content = require('app/resources/en/translation/screeners/deathcertificate');
 const pageUrl = '/death-certificate';
 const fieldKey = 'deathCertificate';
 
@@ -22,7 +21,7 @@ class DeathCertificate extends EligibilityValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: fieldKey, value: content.optionYes, choice: 'hasCertificate'}
+                {key: fieldKey, value: 'optionYes', choice: 'hasCertificate'}
             ]
         };
     }

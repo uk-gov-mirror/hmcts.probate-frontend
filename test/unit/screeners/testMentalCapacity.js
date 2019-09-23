@@ -5,7 +5,6 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const MentalCapacity = steps.MentalCapacity;
-const content = require('app/resources/en/translation/screeners/mentalcapacity');
 
 describe('MentalCapacity', () => {
     describe('getUrl()', () => {
@@ -26,7 +25,7 @@ describe('MentalCapacity', () => {
                     caseType: 'gop'
                 },
                 body: {
-                    mentalCapacity: content.optionYes
+                    mentalCapacity: 'optionYes'
                 }
             };
             const res = {};
@@ -34,7 +33,7 @@ describe('MentalCapacity', () => {
             const ctx = MentalCapacity.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
-                mentalCapacity: content.optionYes,
+                mentalCapacity: 'optionYes',
                 caseType: 'gop',
                 userLoggedIn: false
             });
@@ -50,7 +49,7 @@ describe('MentalCapacity', () => {
                 }
             };
             const ctx = {
-                mentalCapacity: content.optionYes
+                mentalCapacity: 'optionYes'
             };
             const nextStepUrl = MentalCapacity.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/start-apply');
@@ -64,7 +63,7 @@ describe('MentalCapacity', () => {
                 }
             };
             const ctx = {
-                mentalCapacity: content.optionNo
+                mentalCapacity: 'optionNo'
             };
             const nextStepUrl = MentalCapacity.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/mentalCapacity');
@@ -78,7 +77,7 @@ describe('MentalCapacity', () => {
             expect(nextStepOptions).to.deep.equal({
                 options: [{
                     key: 'mentalCapacity',
-                    value: content.optionYes,
+                    value: 'optionYes',
                     choice: 'isCapable'
                 }]
             });

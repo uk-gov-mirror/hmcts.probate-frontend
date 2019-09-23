@@ -1,7 +1,6 @@
 'use strict';
 
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
-const content = require('app/resources/en/translation/screeners/diedafteroctober2014');
 const pageUrl = '/died-after-october-2014';
 const fieldKey = 'diedAfter';
 
@@ -22,7 +21,7 @@ class DiedAfterOctober2014 extends EligibilityValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: fieldKey, value: content.optionYes, choice: 'diedAfter'}
+                {key: fieldKey, value: 'optionYes', choice: 'diedAfter'}
             ]
         };
     }

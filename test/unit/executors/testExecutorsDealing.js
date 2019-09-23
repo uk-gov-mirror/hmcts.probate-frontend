@@ -2,7 +2,6 @@
 
 const initSteps = require('app/core/initSteps');
 const {expect, assert} = require('chai');
-const executorRolesContent = require('app/resources/en/translation/executors/executorcontent');
 
 describe('Executors-Applying', () => {
     let ctx;
@@ -125,7 +124,7 @@ describe('Executors-Applying', () => {
                     'currentName': 'Prince',
                     'isApplying': false,
                     'notApplyingKey': 'optionRenunciated',
-                    'notApplyingReason': executorRolesContent.optionRenunciated,
+                    'notApplyingReason': 'optionRenunciated',
                     'currentNameReason': 'Divorce',
                 }
             ]
@@ -192,7 +191,7 @@ describe('Executors-Applying', () => {
                         fullName: 'Cher',
                         isApplying: false,
                         notApplyingKey: 'optionRenunciated',
-                        notApplyingReason: executorRolesContent.optionRenunciated
+                        notApplyingReason: 'optionRenunciated'
                     }
                 ],
                 executorsApplying: ['Dave Miller'],

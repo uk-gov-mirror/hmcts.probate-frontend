@@ -145,7 +145,7 @@ describe('Summary', () => {
                         iht: {
                             netValue: 300000,
                             netValueAssetsOutside: 250000,
-                            assetsOutside: 'Yes'
+                            assetsOutside: 'optionYes'
                         }
                     }
                 },
@@ -178,7 +178,7 @@ describe('Summary', () => {
                             'lastName': 'Ceased'
                         },
                         iht: {
-                            assetsOutside: 'Yes',
+                            assetsOutside: 'optionYes',
                             netValue: 300000,
                             netValueAssetsOutside: 250000
                         },

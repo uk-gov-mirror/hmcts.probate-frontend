@@ -5,7 +5,6 @@ const initSteps = require('../../../app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const RelatedToDeceased = steps.RelatedToDeceased;
-const content = require('app/resources/en/translation/screeners/relatedtodeceased');
 
 describe('RelatedToDeceased', () => {
     describe('getUrl()', () => {
@@ -26,7 +25,7 @@ describe('RelatedToDeceased', () => {
                     caseType: 'gop'
                 },
                 body: {
-                    related: content.optionYes
+                    related: 'optionYes'
                 }
             };
             const res = {};
@@ -34,7 +33,7 @@ describe('RelatedToDeceased', () => {
             const ctx = RelatedToDeceased.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
-                related: content.optionYes,
+                related: 'optionYes',
                 caseType: 'gop',
                 userLoggedIn: false
             });
@@ -50,7 +49,7 @@ describe('RelatedToDeceased', () => {
                 }
             };
             const ctx = {
-                related: content.optionYes
+                related: 'optionYes'
             };
             const nextStepUrl = RelatedToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/other-applicants');
@@ -64,7 +63,7 @@ describe('RelatedToDeceased', () => {
                 }
             };
             const ctx = {
-                related: content.optionNo
+                related: 'optionNo'
             };
             const nextStepUrl = RelatedToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/notRelated');
@@ -78,7 +77,7 @@ describe('RelatedToDeceased', () => {
             expect(nextStepOptions).to.deep.equal({
                 options: [{
                     key: 'related',
-                    value: content.optionYes,
+                    value: 'optionYes',
                     choice: 'related'
                 }]
             });

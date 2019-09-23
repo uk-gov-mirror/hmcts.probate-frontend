@@ -55,7 +55,7 @@ describe('other-applicants', () => {
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        otherApplicants: 'No'
+                        otherApplicants: 'optionNo'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStartApply, cookies);
@@ -67,7 +67,7 @@ describe('other-applicants', () => {
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        otherApplicants: 'Yes'
+                        otherApplicants: 'optionYes'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
