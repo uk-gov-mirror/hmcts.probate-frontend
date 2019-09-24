@@ -18,10 +18,9 @@ class FormData extends Service {
         return this.fetchJson(url, fetchOptions);
     }
 
-    get(authToken, serviceAuthorisation, ccdCaseId, caseType) {
-        const probateType = caseTypes.getProbateType(caseType);
+    get(authToken, serviceAuthorisation, ccdCaseId) {
         const path = this.replacePlaceholderInPath(this.config.services.orchestrator.paths.forms, 'ccdCaseId', ccdCaseId);
-        const url = this.endpoint + path + '?probateType=' + probateType;
+        const url = this.endpoint + path;
         this.log('Get application form data');
         const headers = {
             'Content-Type': 'application/json',

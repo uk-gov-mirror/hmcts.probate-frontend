@@ -53,7 +53,7 @@ const getCase = (req, res) => {
 
     formData.get(req.authToken, req.session.serviceAuthorization, ccdCaseId)
         .then(result => {
-            session.form = result.formdata;
+            session.form = result.form;
 
             if (session.form.ccdCase.state === 'Draft' || session.form.ccdCase.state === 'PAAppCreated' || session.form.ccdCase.state === 'CasePaymentFailed') {
                 res.redirect('/task-list');
