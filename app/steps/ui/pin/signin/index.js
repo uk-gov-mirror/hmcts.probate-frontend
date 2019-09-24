@@ -43,7 +43,7 @@ class PinPage extends ValidationStep {
                 'FormData',
                 [config.services.orchestrator.url, ctx.sessionID]
             );
-            yield formData.get(authToken, serviceAuthResult, ctx.ccdCase.id)
+            yield formData.get(authToken, serviceAuthResult, ctx.ccdCase.id, ctx.caseType)
                 .then(result => {
                     if (result.name === 'Error') {
                         throw new ReferenceError('Error getting data for the co-applicant');

@@ -15,7 +15,7 @@ const initDashboard = (req, res, next) => {
     if (formdata.screeners) {
         cleanupFormdata(req.session.form, true);
 
-        formData.postNew(req.authToken, req.session.serviceAuthorization)
+        formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
             .then(() => {
                 getApplications(req, res, next, formData);
             })
