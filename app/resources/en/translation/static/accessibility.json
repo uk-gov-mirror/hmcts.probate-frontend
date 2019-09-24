@@ -59,7 +59,7 @@
   "list4-item5": "The webchat application which provides live service support for users",
 
   "heading10": "How we tested this website",
-  "paragraph21": "This Apply for probate websites was last tested by the Digital Accessibility Centre (DAC) in May 2018.",
+  "paragraph21": "This &lsquo;Apply for probate&rsquo; website was last tested by the Digital Accessibility Centre (DAC) in May 2018.",
   "paragraph22": "The following is the Executive summary of the DAC Report from May 2018.",
   "paragraph23": "&ldquo;During the process of testing, a small number of high priority issues were identified in relation to form fields, focus issues and in-page error links. Some form fields were found to be unlabelled, while some links were ambiguous when browsing out of context. The focus issue affected both screen readers and keyboard-only users, as focus jumped to the top of the page once a button had been initiated; this did not affect any other user groups. Overall, our analysts felt that they could navigate through the service independently in the testing environment&rdquo;.",
   "paragraph23_2": "Many of the issues mentioned in the DAC report have now been resolved.",
