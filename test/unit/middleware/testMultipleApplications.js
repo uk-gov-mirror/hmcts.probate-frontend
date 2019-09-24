@@ -90,7 +90,7 @@ describe('multipleApplicationsMiddleware', () => {
             }};
 
             const multipleAppGetCaseStubResponse = {
-                form: {
+                formdata: {
                     applicantEmail: 'test@email.com',
                     ccdCase: {
                         id: 1234567890123456,
@@ -133,7 +133,7 @@ describe('multipleApplicationsMiddleware', () => {
             }};
 
             const multipleAppGetCaseStubResponse = {
-                form: {
+                formdata: {
                     applicantEmail: 'test@email.com',
                     ccdCase: {
                         id: 9012345678901234,
