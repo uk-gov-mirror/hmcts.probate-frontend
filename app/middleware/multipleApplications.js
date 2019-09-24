@@ -51,7 +51,7 @@ const getCase = (req, res) => {
         [config.services.orchestrator.url, req.sessionID]
     );
 
-    formData.get(req.authToken, req.session.serviceAuthorization, ccdCaseId)
+    formData.get(req.authToken, req.session.serviceAuthorization, ccdCaseId, req.session.form.caseType)
         .then(result => {
             session.form = result.formdata;
 

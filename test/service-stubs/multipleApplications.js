@@ -15,6 +15,7 @@ router.get('/forms/cases', (req, res) => {
             {
                 deceasedFullName: 'David Cameron',
                 dateCreated: '13 July 2016',
+                caseType: 'PA',
                 ccdCase: {
                     id: 1234567890123456,
                     state: 'Draft'
@@ -23,6 +24,7 @@ router.get('/forms/cases', (req, res) => {
             {
                 deceasedFullName: 'Theresa May',
                 dateCreated: '24 July 2019',
+                caseType: 'PA',
                 ccdCase: {
                     id: 5678901234561234,
                     state: 'CaseCreated'
@@ -31,6 +33,7 @@ router.get('/forms/cases', (req, res) => {
             {
                 deceasedFullName: 'Boris Johnson',
                 dateCreated: '31 October 2019',
+                caseType: 'PA',
                 ccdCase: {
                     id: 9012345612345678,
                     state: 'Draft'
@@ -38,6 +41,7 @@ router.get('/forms/cases', (req, res) => {
             },
             {
                 dateCreated: '31 October 2019',
+                caseType: 'INTESTACY',
                 ccdCase: {
                     id: 3456123456789012,
                     state: 'Draft'
@@ -48,7 +52,10 @@ router.get('/forms/cases', (req, res) => {
 });
 
 router.get('/forms/case/*', (req, res) => {
-    const ccdCaseId = req.originalUrl.split('/')[3];
+    const ccdCaseId = req.originalUrl
+        .split('/')[3]
+        .split('?')[0];
+
     let formdata;
 
     switch (ccdCaseId) {
