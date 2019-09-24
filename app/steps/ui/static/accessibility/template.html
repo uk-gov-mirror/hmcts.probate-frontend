@@ -59,9 +59,9 @@
             {{ govukInsetText({
                 text: content.paragraph23 | safe
             }) }}
+            <p class="govuk-body">{{ content.paragraph23_2 }}</p>
             <p class="govuk-body">{{ content.paragraph24 }}</p>
             <p class="govuk-body">{{ content.paragraph25 }}</p>
-            {{ unorderedList([content["list5-item1"] | replace("{probateStartApplyLink}", globals.links.probateStartApplyLink), content["list5-item2"] | replace("{caveatsStartApplyLink}", globals.links.caveatsStartApplyLink)]) }}
             <p class="govuk-body">{{ content.paragraph26 }}</p>
             <p class="govuk-body">{{ content.paragraph27 }}</p>
 
