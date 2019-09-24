@@ -1,11 +1,12 @@
 'use strict';
 
 const Service = require('./Service');
+const caseTypes = require('app/utils/CaseTypes');
 
 class FormData extends Service {
     getAll(authToken, serviceAuthorisation) {
         const path = this.config.services.orchestrator.paths.applications;
-        const logMessage = 'Get probate form data';
+        const logMessage = 'Get all applications';
         const url = this.endpoint + path;
         this.log(logMessage);
         const headers = {
@@ -17,10 +18,11 @@ class FormData extends Service {
         return this.fetchJson(url, fetchOptions);
     }
 
-    get(authToken, serviceAuthorisation, ccdCaseId) {
+    get(authToken, serviceAuthorisation, ccdCaseId, caseType) {
+        const probateType = caseTypes.getProbateType(caseType);
         const path = this.replacePlaceholderInPath(this.config.services.orchestrator.paths.forms, 'ccdCaseId', ccdCaseId);
-        const url = this.endpoint + path;
-        this.log('Get form data');
+        const url = this.endpoint + path + '?probateType=' + probateType;
+        this.log('Get application form data');
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': authToken,
@@ -33,7 +35,7 @@ class FormData extends Service {
     post(authToken, serviceAuthorization, ccdCaseId, data = {}) {
         const path = this.replacePlaceholderInPath(this.config.services.orchestrator.paths.forms, 'ccdCaseId', ccdCaseId);
         const url = this.endpoint + path;
-        this.log('Post form data');
+        this.log('Post application form data');
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': authToken,
@@ -44,9 +46,10 @@ class FormData extends Service {
         return this.fetchJson(url, fetchOptions);
     }
 
-    postNew(authToken, serviceAuthorization, data = {}) {
+    postNew(authToken, serviceAuthorization, caseType) {
+        const probateType = caseTypes.getProbateType(caseType);
         const path = this.config.services.orchestrator.paths.create;
-        const url = this.endpoint + path;
+        const url = this.endpoint + path + '?probateType=' + probateType;
         this.log('Post new form data');
         const headers = {
             'Content-Type': 'application/json',
@@ -54,7 +57,7 @@ class FormData extends Service {
             'ServiceAuthorization': serviceAuthorization
         };
 
-        const fetchOptions = this.fetchOptions(data, 'POST', headers);
+        const fetchOptions = this.fetchOptions({}, 'POST', headers);
         return this.fetchJson(url, fetchOptions);
     }
 }

@@ -15,7 +15,7 @@ const initDashboard = (req, res, next) => {
     if (formdata.screeners) {
         cleanupFormdata(req.session.form, true);
 
-        formData.postNew(req.authToken, req.session.serviceAuthorization)
+        formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
             .then(() => {
                 getApplications(req, res, next, formData);
             })
@@ -51,7 +51,7 @@ const getCase = (req, res) => {
         [config.services.orchestrator.url, req.sessionID]
     );
 
-    formData.get(req.authToken, req.session.serviceAuthorization, ccdCaseId)
+    formData.get(req.authToken, req.session.serviceAuthorization, ccdCaseId, req.session.form.caseType)
         .then(result => {
             session.form = result.formdata;
 

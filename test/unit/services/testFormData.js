@@ -8,62 +8,61 @@ const config = require('app/config');
 const nock = require('nock');
 
 describe('FormDataService', () => {
-    describe('should call', () => {
-        afterEach(() => {
-            nock.cleanAll();
+    afterEach(() => {
+        nock.cleanAll();
+    });
+
+    it('should call get() successfully', (done) => {
+        const endpoint = 'http://localhost';
+        const ccdCaseId = 1234567890123456;
+        const caseType = 'gop';
+        const expectedForm = {caseType: caseTypes.GOP, ccdCase: {state: 'Draft', id: 1234567890123456}, deceased: {name: 'test'}};
+        const authToken = 'authToken';
+        const serviceAuthorisation = 'serviceAuthorisation';
+        const formData = new FormData(endpoint, 'abc123');
+        const path = formData.replacePlaceholderInPath(config.services.orchestrator.paths.forms, 'ccdCaseId', ccdCaseId);
+        nock(endpoint, {
+            reqheaders: {
+                'Content-Type': 'application/json',
+                Authorization: authToken,
+                ServiceAuthorization: serviceAuthorisation
+            }
+        }).get(path + '?probateType=PA')
+            .reply(200, expectedForm);
+
+        co(function* () {
+            const actualForm = yield formData.get(authToken, serviceAuthorisation, ccdCaseId, caseType);
+            expect(actualForm).to.deep.equal(expectedForm);
+            done();
+        }).catch(err => {
+            done(err);
         });
+    });
 
-        it('get() successfully', (done) => {
-            const endpoint = 'http://localhost';
-            const ccdCaseId = 1234567890123456;
-            const expectedForm = {caseType: caseTypes.GOP, ccdCase: {state: 'Draft', id: 1234567890123456}, deceased: {name: 'test'}};
-            const authToken = 'authToken';
-            const serviceAuthorisation = 'serviceAuthorisation';
-            const formData = new FormData(endpoint, 'abc123');
-            const path = formData.replacePlaceholderInPath(config.services.orchestrator.paths.forms, 'ccdCaseId', ccdCaseId);
-            nock(endpoint, {
-                reqheaders: {
-                    'Content-Type': 'application/json',
-                    Authorization: authToken,
-                    ServiceAuthorization: serviceAuthorisation
-                }
-            }).get(path)
-                .reply(200, expectedForm);
+    it('should call post() successfully', (done) => {
+        const endpoint = 'http://localhost';
+        const ccdCaseId = 1234567890123456;
+        const inputForm = {caseType: caseTypes.GOP, deceased: {name: 'test'}};
+        const expectedForm = {caseType: caseTypes.GOP, deceased: {name: 'test'}};
+        const authToken = 'authToken';
+        const serviceAuthorisation = 'serviceAuthorisation';
+        const formData = new FormData(endpoint, 'abc123');
+        const path = formData.replacePlaceholderInPath(config.services.orchestrator.paths.forms, 'ccdCaseId', ccdCaseId);
+        nock(endpoint, {
+            reqheaders: {
+                'Content-Type': 'application/json',
+                Authorization: authToken,
+                ServiceAuthorization: serviceAuthorisation
+            }
+        }).post(path, expectedForm)
+            .reply(200, expectedForm);
 
-            co(function* () {
-                const actualForm = yield formData.get(authToken, serviceAuthorisation, ccdCaseId);
-                expect(actualForm).to.deep.equal(expectedForm);
-                done();
-            }).catch(err => {
-                done(err);
-            });
-        });
-
-        it('should call post() successfully', (done) => {
-            const endpoint = 'http://localhost';
-            const ccdCaseId = 1234567890123456;
-            const inputForm = {caseType: caseTypes.GOP, deceased: {name: 'test'}};
-            const expectedForm = {caseType: caseTypes.GOP, deceased: {name: 'test'}};
-            const authToken = 'authToken';
-            const serviceAuthorisation = 'serviceAuthorisation';
-            const formData = new FormData(endpoint, 'abc123');
-            const path = formData.replacePlaceholderInPath(config.services.orchestrator.paths.forms, 'ccdCaseId', ccdCaseId);
-            nock(endpoint, {
-                reqheaders: {
-                    'Content-Type': 'application/json',
-                    Authorization: authToken,
-                    ServiceAuthorization: serviceAuthorisation
-                }
-            }).post(path, expectedForm)
-                .reply(200, expectedForm);
-
-            co(function* () {
-                const actualForm = yield formData.post(authToken, serviceAuthorisation, ccdCaseId, inputForm);
-                expect(actualForm).to.deep.equal(expectedForm);
-                done();
-            }).catch(err => {
-                done(err);
-            });
+        co(function* () {
+            const actualForm = yield formData.post(authToken, serviceAuthorisation, ccdCaseId, inputForm);
+            expect(actualForm).to.deep.equal(expectedForm);
+            done();
+        }).catch(err => {
+            done(err);
         });
     });
 });

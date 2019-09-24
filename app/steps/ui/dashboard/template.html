@@ -5,7 +5,7 @@
 {% block content %}
     {% set applicationRows = [] %}
     {% for application in fields.applications.value %}
-        {% set actionUrl = "/get-case/" + application.ccdCase.id %}
+        {% set actionUrl = "/get-case/" + application.ccdCase.id + '?probateType=' + application.caseType %}
         {% set actionText = content.actionContinue if (application.ccdCase.state == "Draft" or application.ccdCase.state == "PAAppCreated" or application.ccdCase.state == "CasePaymentFailed") else content.actionView %}
 
         {% set caseClasses = "case draft" if not application.deceasedFullName and application.ccdCase.state == "Draft" %}
