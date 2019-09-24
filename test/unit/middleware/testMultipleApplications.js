@@ -41,7 +41,7 @@ const allApplicationsExpectedResponse = [
     }
 ];
 
-describe.skip('multipleApplicationsMiddleware', () => {
+describe('multipleApplicationsMiddleware', () => {
     describe('initDashboardMiddleware', () => {
         it('should return an array of applications', (done) => {
             const revert = multipleApplicationsMiddleware.__set__('getApplications', () => {
