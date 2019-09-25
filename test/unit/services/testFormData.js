@@ -15,7 +15,7 @@ describe('FormDataService', () => {
     it('should call get() successfully', (done) => {
         const endpoint = 'http://localhost';
         const ccdCaseId = 1234567890123456;
-        const caseType = 'gop';
+        const probateType = 'PA';
         const expectedForm = {caseType: caseTypes.GOP, ccdCase: {state: 'Draft', id: 1234567890123456}, deceased: {name: 'test'}};
         const authToken = 'authToken';
         const serviceAuthorisation = 'serviceAuthorisation';
@@ -31,7 +31,7 @@ describe('FormDataService', () => {
             .reply(200, expectedForm);
 
         co(function* () {
-            const actualForm = yield formData.get(authToken, serviceAuthorisation, ccdCaseId, caseType);
+            const actualForm = yield formData.get(authToken, serviceAuthorisation, ccdCaseId, probateType);
             expect(actualForm).to.deep.equal(expectedForm);
             done();
         }).catch(err => {

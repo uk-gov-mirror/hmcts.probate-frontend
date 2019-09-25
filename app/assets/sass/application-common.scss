@@ -72,3 +72,7 @@
 a[href^="tel"] {
   @extend %govuk-link;
 }
+
+.no-bottom-border {
+  border-bottom: none;
+}

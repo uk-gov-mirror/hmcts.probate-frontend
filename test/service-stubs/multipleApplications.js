@@ -40,6 +40,7 @@ router.get('/forms/cases', (req, res) => {
                 }
             },
             {
+                deceasedFullName: '',
                 dateCreated: '31 October 2019',
                 caseType: 'INTESTACY',
                 ccdCase: {

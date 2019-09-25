@@ -106,7 +106,6 @@ class Step {
     }
 
     persistFormData(ccdCaseId, formdata, sessionID, req) {
-        formdata.type = req.caseType;
         const formData = ServiceMapper.map(
             'FormData',
             [config.services.orchestrator.url, sessionID]

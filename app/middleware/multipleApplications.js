@@ -3,6 +3,7 @@
 const config = require('app/config');
 const logger = require('app/components/logger')('Init');
 const ServiceMapper = require('app/utils/ServiceMapper');
+const caseTypes = require('app/utils/CaseTypes');
 
 const initDashboard = (req, res, next) => {
     const session = req.session;
@@ -44,26 +45,47 @@ const getApplications = (req, res, next, formData) => {
 
 const getCase = (req, res) => {
     const session = req.session;
-    const ccdCaseId = req.originalUrl.split('/')[2];
 
-    const formData = ServiceMapper.map(
-        'FormData',
-        [config.services.orchestrator.url, req.sessionID]
-    );
+    let ccdCaseId = req.originalUrl.split('/')[2];
+    if (ccdCaseId) {
+        ccdCaseId = ccdCaseId.split('?')[0];
+    }
 
-    formData.get(req.authToken, req.session.serviceAuthorization, ccdCaseId, req.session.form.caseType)
-        .then(result => {
-            session.form = result.formdata;
+    let probateType = req.originalUrl.split('/')[2];
+    if (probateType) {
+        probateType = probateType.split('?')[1];
 
-            if (session.form.ccdCase.state === 'Draft' || session.form.ccdCase.state === 'PAAppCreated' || session.form.ccdCase.state === 'CasePaymentFailed') {
-                res.redirect('/task-list');
-            } else {
-                res.redirect('/thank-you');
-            }
-        })
-        .catch(err => {
-            logger.error(`Error while getting the case: ${err}`);
-        });
+        if (probateType) {
+            probateType = probateType.split('=')[1];
+        }
+    }
+
+    if (!probateType && req.session.form.caseType) {
+        probateType = caseTypes.getProbateType(req.session.form.caseType);
+    }
+
+    if (ccdCaseId && probateType) {
+        const formData = ServiceMapper.map(
+            'FormData',
+            [config.services.orchestrator.url, req.sessionID]
+        );
+
+        formData.get(req.authToken, req.session.serviceAuthorization, ccdCaseId, probateType)
+            .then(result => {
+                session.form = result.formdata;
+
+                if (session.form.ccdCase.state === 'Draft' || session.form.ccdCase.state === 'PAAppCreated' || session.form.ccdCase.state === 'CasePaymentFailed') {
+                    res.redirect('/task-list');
+                } else {
+                    res.redirect('/thank-you');
+                }
+            })
+            .catch(err => {
+                logger.error(`Error while getting the case: ${err}`);
+            });
+    } else {
+        res.redirect('/dashboard');
+    }
 };
 
 const cleanupFormdata = (formdata, retainCaseType = false) => {
