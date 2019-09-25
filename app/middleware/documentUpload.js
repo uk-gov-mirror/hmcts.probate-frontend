@@ -6,7 +6,6 @@ const connectTimeout = require('connect-timeout');
 const multer = require('multer');
 const Document = require('app/services/Document');
 const ServiceMapper = require('app/utils/ServiceMapper');
-const caseTypes = require('app/utils/CaseTypes');
 
 const storage = multer.memoryStorage();
 const upload = multer({storage: storage});
