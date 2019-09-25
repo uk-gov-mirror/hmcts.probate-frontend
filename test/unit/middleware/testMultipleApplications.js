@@ -143,8 +143,8 @@ describe('multipleApplicationsMiddleware', () => {
                 }
             };
             const res = {redirect: () => {
-                    // Do nothing
-                }};
+                // Do nothing
+            }};
 
             const multipleAppGetCaseStubResponse = {
                 formdata: {
