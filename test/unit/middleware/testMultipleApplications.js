@@ -77,7 +77,7 @@ describe('multipleApplicationsMiddleware', () => {
     describe('GetCaseMiddleware', () => {
         it('should return a case in progress and redirect to task-list', (done) => {
             const req = {
-                originalUrl: '/get-case/1234567890123456',
+                originalUrl: '/get-case/1234567890123456?probateType=PA',
                 session: {
                     id: 'fb2e77d.47a0479900504cb3ab4a1f626d174d2d',
                     form: {
@@ -120,7 +120,7 @@ describe('multipleApplicationsMiddleware', () => {
 
         it('should return a submitted case and redirect to thank-you', (done) => {
             const req = {
-                originalUrl: '/get-case/9012345678901234',
+                originalUrl: '/get-case/9012345678901234?probateType=PA',
                 session: {
                     id: 'fb2e77d.47a0479900504cb3ab4a1f626d174d2d',
                     form: {
@@ -163,7 +163,7 @@ describe('multipleApplicationsMiddleware', () => {
 
         it('should return an error if the case is unable to be retrieved', (done) => {
             const req = {
-                originalUrl: '/get-case/3456789012345678',
+                originalUrl: '/get-case/3456789012345678?probateType=PA',
                 session: {
                     id: 'fb2e77d.47a0479900504cb3ab4a1f626d174d2d',
                     form: {
