@@ -64,24 +64,28 @@ const getCase = (req, res) => {
         probateType = caseTypes.getProbateType(req.session.form.caseType);
     }
 
-    const formData = ServiceMapper.map(
-        'FormData',
-        [config.services.orchestrator.url, req.sessionID]
-    );
+    if (ccdCaseId && probateType) {
+        const formData = ServiceMapper.map(
+            'FormData',
+            [config.services.orchestrator.url, req.sessionID]
+        );
 
-    formData.get(req.authToken, req.session.serviceAuthorization, ccdCaseId, probateType)
-        .then(result => {
-            session.form = result.formdata;
+        formData.get(req.authToken, req.session.serviceAuthorization, ccdCaseId, probateType)
+            .then(result => {
+                session.form = result.formdata;
 
-            if (session.form.ccdCase.state === 'Draft' || session.form.ccdCase.state === 'PAAppCreated' || session.form.ccdCase.state === 'CasePaymentFailed') {
-                res.redirect('/task-list');
-            } else {
-                res.redirect('/thank-you');
-            }
-        })
-        .catch(err => {
-            logger.error(`Error while getting the case: ${err}`);
-        });
+                if (session.form.ccdCase.state === 'Draft' || session.form.ccdCase.state === 'PAAppCreated' || session.form.ccdCase.state === 'CasePaymentFailed') {
+                    res.redirect('/task-list');
+                } else {
+                    res.redirect('/thank-you');
+                }
+            })
+            .catch(err => {
+                logger.error(`Error while getting the case: ${err}`);
+            });
+    } else {
+        res.redirect('/dashboard');
+    }
 };
 
 const cleanupFormdata = (formdata, retainCaseType = false) => {
