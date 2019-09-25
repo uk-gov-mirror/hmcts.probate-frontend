@@ -75,12 +75,56 @@ describe('multipleApplicationsMiddleware', () => {
     });
 
     describe('GetCaseMiddleware', () => {
-        it('should return a case in progress and redirect to task-list', (done) => {
+        it('should return a case in progress and redirect to task-list using probateType from the URL', (done) => {
             const req = {
                 originalUrl: '/get-case/1234567890123456?probateType=PA',
                 session: {
                     id: 'fb2e77d.47a0479900504cb3ab4a1f626d174d2d',
                     form: {
+                        applicantEmail: 'test@email.com'
+                    }
+                }
+            };
+            const res = {redirect: () => {
+                // Do nothing
+            }};
+
+            const multipleAppGetCaseStubResponse = {
+                formdata: {
+                    applicantEmail: 'test@email.com',
+                    ccdCase: {
+                        id: 1234567890123456,
+                        state: 'Draft'
+                    }
+                },
+                status: content.statusInProgress
+            };
+
+            const redirectSpy = sinon.spy(res, 'redirect');
+            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+                .returns(Promise.resolve(multipleAppGetCaseStubResponse));
+
+            multipleApplicationsMiddleware.getCase(req, res);
+
+            setTimeout(() => {
+                expect(serviceStub.calledOnce).to.equal(true);
+                expect(redirectSpy.calledOnce).to.equal(true);
+                expect(redirectSpy.calledWith('/task-list')).to.equal(true);
+
+                serviceStub.restore();
+                redirectSpy.restore();
+
+                done();
+            });
+        });
+
+        it('should return a case in progress and redirect to task-list using probateType from the session', (done) => {
+            const req = {
+                originalUrl: '/get-case/1234567890123456',
+                session: {
+                    id: 'fb2e77d.47a0479900504cb3ab4a1f626d174d2d',
+                    form: {
+                        caseType: 'gop',
                         applicantEmail: 'test@email.com'
                     }
                 }

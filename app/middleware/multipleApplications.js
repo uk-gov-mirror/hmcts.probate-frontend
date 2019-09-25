@@ -3,6 +3,7 @@
 const config = require('app/config');
 const logger = require('app/components/logger')('Init');
 const ServiceMapper = require('app/utils/ServiceMapper');
+const caseTypes = require('app/utils/CaseTypes');
 
 const initDashboard = (req, res, next) => {
     const session = req.session;
@@ -44,16 +45,23 @@ const getApplications = (req, res, next, formData) => {
 
 const getCase = (req, res) => {
     const session = req.session;
-    const ccdCaseId = req.originalUrl
-        .split('/')[2]
-        .split('?')[0];
-    let probateType = req.originalUrl
-        .split('/')[2]
-        .split('?')[1]
-        .split('=')[1];
+
+    let ccdCaseId = req.originalUrl.split('/')[2];
+    if (ccdCaseId) {
+        ccdCaseId = ccdCaseId.split('?')[0];
+    }
+
+    let probateType = req.originalUrl.split('/')[2];
+    if (probateType) {
+        probateType = probateType.split('?')[1];
+
+        if (probateType) {
+            probateType = probateType.split('=')[1];
+        }
+    }
 
     if (!probateType && req.session.form.caseType) {
-        probateType = req.session.form.caseType;
+        probateType = caseTypes.getProbateType(req.session.form.caseType);
     }
 
     const formData = ServiceMapper.map(
