@@ -44,14 +44,24 @@ const getApplications = (req, res, next, formData) => {
 
 const getCase = (req, res) => {
     const session = req.session;
-    const ccdCaseId = req.originalUrl.split('/')[2];
+    const ccdCaseId = req.originalUrl
+        .split('/')[2]
+        .split('?')[0];
+    let probateType = req.originalUrl
+        .split('/')[2]
+        .split('?')[1]
+        .split('=')[1];
+
+    if (!probateType && req.session.form.caseType) {
+        probateType = req.session.form.caseType;
+    }
 
     const formData = ServiceMapper.map(
         'FormData',
         [config.services.orchestrator.url, req.sessionID]
     );
 
-    formData.get(req.authToken, req.session.serviceAuthorization, ccdCaseId, req.session.form.caseType)
+    formData.get(req.authToken, req.session.serviceAuthorization, ccdCaseId, probateType)
         .then(result => {
             session.form = result.formdata;
 
