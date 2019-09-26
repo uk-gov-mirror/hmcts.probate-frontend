@@ -5,7 +5,6 @@ const sinon = require('sinon');
 const rewire = require('rewire');
 const multipleApplicationsMiddleware = rewire('app/middleware/multipleApplications');
 const Service = require('app/services/Service');
-const content = require('app/resources/en/translation/dashboard');
 
 const allApplicationsExpectedResponse = [
     {
