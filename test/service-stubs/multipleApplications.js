@@ -128,11 +128,9 @@ router.get('/forms/case/*', (req, res) => {
 router.post('/forms/newcase', (req, res) => {
     res.status(200);
     res.send({
-        formdata: {
-            ccdCase: {
-                id: 3456123456789012,
-                state: 'Draft'
-            }
+        ccdCase: {
+            id: 3456123456789012,
+            state: 'Draft'
         }
     });
 });
