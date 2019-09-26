@@ -21,9 +21,6 @@ const caseTypes = require('app/utils/CaseTypes');
 const emailValidator = require('email-validator');
 const steps = initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui`]);
 
-const noCcdCaseIdPages = config.nonIdamPages.map(item => '/' + item);
-noCcdCaseIdPages.push('/dashboard');
-
 router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
     req.log.info(`Processing ${req.method} for ${req.originalUrl}`);
@@ -65,8 +62,9 @@ router.get('/health/liveness', (req, res) => {
 router.get('/start-apply', (req, res, next) => {
     if (req.session.form.userLoggedIn) {
         res.redirect(301, '/dashboard');
+    } else {
+        next();
     }
-    next();
 });
 
 router.use((req, res, next) => {
@@ -79,6 +77,9 @@ router.use((req, res, next) => {
     Object.entries(steps).forEach(([, step]) => {
         allPageUrls.push(step.constructor.getUrl());
     });
+
+    const noCcdCaseIdPages = config.nonIdamPages.map(item => '/' + item);
+    noCcdCaseIdPages.push('/dashboard');
 
     if (config.app.requreCcdCaseId === 'true' && includes(allPageUrls, req.originalUrl) && req.method === 'GET' && !includes(noCcdCaseIdPages, req.originalUrl) && !get(formdata, 'ccdCase.id')) {
         res.redirect('dashboard');
