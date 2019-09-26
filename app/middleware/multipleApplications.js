@@ -6,6 +6,7 @@ const ServiceMapper = require('app/utils/ServiceMapper');
 const caseTypes = require('app/utils/CaseTypes');
 
 const initDashboard = (req, res, next) => {
+    const promises = [];
     const session = req.session;
     const formdata = session.form;
     const formData = ServiceMapper.map(
@@ -16,27 +17,30 @@ const initDashboard = (req, res, next) => {
     if (formdata.screeners) {
         cleanupFormdata(req.session.form, true);
 
-        formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
-            .then(() => {
-                getApplications(req, res, next, formData);
-            })
-            .catch(err => {
-                logger.error(`Error while getting applications: ${err}`);
-            });
+        promises.push(
+            formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
+                .then(() => {
+                    promises.push(getApplications(req, res, formData));
+                })
+                .catch(err => {
+                    logger.error(`Error while getting applications: ${err}`);
+                })
+        );
     } else {
-        getApplications(req, res, next, formData);
+        promises.push(getApplications(req, res, formData));
     }
+
+    Promise.all(promises).then(() => next());
 };
 
-const getApplications = (req, res, next, formData) => {
-    formData.getAll(req.authToken, req.session.serviceAuthorization)
+const getApplications = (req, res, formData) => {
+    return formData.getAll(req.authToken, req.session.serviceAuthorization)
         .then(result => {
             if (result.applications && result.applications.length) {
                 cleanupFormdata(req.session.form);
             }
 
             req.session.form.applications = result.applications;
-            next();
         })
         .catch(err => {
             logger.error(`Error while getting applications: ${err}`);
