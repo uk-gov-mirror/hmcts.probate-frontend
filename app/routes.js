@@ -38,6 +38,8 @@ router.use((req, res, next) => {
         req.session.back = [];
     }
 
+    req.session.form.applicantEmail = 'lsffew@cee.com';
+
     if (!req.session.form.applicantEmail) {
         req.session.form.applicantEmail = req.session.regId;
     }
@@ -57,6 +59,12 @@ router.post('/payment-breakdown', lockPaymentAttempt);
 
 router.get('/health/liveness', (req, res) => {
     res.json({status: 'UP'});
+});
+
+router.get('/start-apply', (req, res) => {
+    if (req.session.form.userLoggedIn) {
+        res.redirect(301, '/dashboard');
+    }
 });
 
 router.use((req, res, next) => {
