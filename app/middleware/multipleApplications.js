@@ -6,7 +6,6 @@ const ServiceMapper = require('app/utils/ServiceMapper');
 const caseTypes = require('app/utils/CaseTypes');
 
 const initDashboard = (req, res, next) => {
-    const promises = [];
     const session = req.session;
     const formdata = session.form;
     const formData = ServiceMapper.map(
@@ -17,34 +16,27 @@ const initDashboard = (req, res, next) => {
     if (formdata.screeners) {
         cleanupFormdata(req.session.form, true);
 
-        promises.push(
-            formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
-                .then(() => {
-                    promises.push(getApplications(req, res, formData));
-                })
-                .catch(err => {
-                    logger.error(`Error while getting applications: ${err}`);
-                })
-        );
+        formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
+            .then(result => renderDashboard(req, next, result))
+            .catch(err => {
+                logger.error(`Error while getting applications: ${err}`);
+            });
     } else {
-        promises.push(getApplications(req, res, formData));
+        formData.getAll(req.authToken, req.session.serviceAuthorization)
+            .then(result => renderDashboard(req, next, result))
+            .catch(err => {
+                logger.error(`Error while getting applications: ${err}`);
+            });
     }
-
-    Promise.all(promises).then(() => next());
 };
 
-const getApplications = (req, res, formData) => {
-    return formData.getAll(req.authToken, req.session.serviceAuthorization)
-        .then(result => {
-            if (result.applications && result.applications.length) {
-                cleanupFormdata(req.session.form);
-            }
+const renderDashboard = (req, next, result) => {
+    if (result.applications && result.applications.length) {
+        cleanupFormdata(req.session.form);
+    }
 
-            req.session.form.applications = result.applications;
-        })
-        .catch(err => {
-            logger.error(`Error while getting applications: ${err}`);
-        });
+    req.session.form.applications = result.applications;
+    next();
 };
 
 const getCase = (req, res) => {

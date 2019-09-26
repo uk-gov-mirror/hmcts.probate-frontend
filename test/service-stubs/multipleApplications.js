@@ -40,7 +40,7 @@ router.get('/forms/cases', (req, res) => {
                 }
             },
             {
-                deceasedFullName: '',
+                deceasedFullName: 'Margareth Thatcher',
                 dateCreated: '31 October 2019',
                 caseType: 'INTESTACY',
                 ccdCase: {
@@ -128,10 +128,52 @@ router.get('/forms/case/*', (req, res) => {
 router.post('/forms/newcase', (req, res) => {
     res.status(200);
     res.send({
-        ccdCase: {
-            id: 3456123456789012,
-            state: 'Draft'
-        }
+        applications: [
+            {
+                deceasedFullName: 'David Cameron',
+                dateCreated: '13 July 2016',
+                caseType: 'PA',
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                }
+            },
+            {
+                deceasedFullName: 'Theresa May',
+                dateCreated: '24 July 2019',
+                caseType: 'PA',
+                ccdCase: {
+                    id: 5678901234561234,
+                    state: 'CaseCreated'
+                }
+            },
+            {
+                deceasedFullName: 'Boris Johnson',
+                dateCreated: '31 October 2019',
+                caseType: 'PA',
+                ccdCase: {
+                    id: 9012345612345678,
+                    state: 'Draft'
+                }
+            },
+            {
+                deceasedFullName: 'Margareth Thatcher',
+                dateCreated: '31 October 2019',
+                caseType: 'INTESTACY',
+                ccdCase: {
+                    id: 3456123456789012,
+                    state: 'Draft'
+                }
+            },
+            {
+                dateCreated: '13 July 2016',
+                caseType: 'PA',
+                ccdCase: {
+                    id: 3456123456789012,
+                    state: 'Draft'
+                }
+            }
+        ]
     });
 });
 
