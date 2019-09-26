@@ -147,14 +147,11 @@ describe('multipleApplicationsMiddleware', () => {
             }};
 
             const multipleAppGetCaseStubResponse = {
-                formdata: {
-                    applicantEmail: 'test@email.com',
-                    ccdCase: {
-                        id: 1234567890123456,
-                        state: 'Draft'
-                    }
-                },
-                status: content.statusInProgress
+                applicantEmail: 'test@email.com',
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                }
             };
 
             const redirectSpy = sinon.spy(res, 'redirect');
@@ -191,14 +188,11 @@ describe('multipleApplicationsMiddleware', () => {
             }};
 
             const multipleAppGetCaseStubResponse = {
-                formdata: {
-                    applicantEmail: 'test@email.com',
-                    ccdCase: {
-                        id: 1234567890123456,
-                        state: 'Draft'
-                    }
-                },
-                status: content.statusInProgress
+                applicantEmail: 'test@email.com',
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                }
             };
 
             const redirectSpy = sinon.spy(res, 'redirect');
@@ -234,14 +228,11 @@ describe('multipleApplicationsMiddleware', () => {
             }};
 
             const multipleAppGetCaseStubResponse = {
-                formdata: {
-                    applicantEmail: 'test@email.com',
-                    ccdCase: {
-                        id: 9012345678901234,
-                        state: 'CaseCreated'
-                    }
-                },
-                status: content.statusSubmitted
+                applicantEmail: 'test@email.com',
+                ccdCase: {
+                    id: 9012345678901234,
+                    state: 'CaseCreated'
+                }
             };
 
             const redirectSpy = sinon.spy(res, 'redirect');
