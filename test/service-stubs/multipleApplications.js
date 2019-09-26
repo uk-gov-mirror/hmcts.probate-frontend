@@ -122,9 +122,7 @@ router.get('/forms/case/*', (req, res) => {
     }
 
     res.status(200);
-    res.send({
-        formdata: formdata
-    });
+    res.send(formdata);
 });
 
 router.post('/forms/newcase', (req, res) => {
