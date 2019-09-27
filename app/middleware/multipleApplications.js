@@ -17,20 +17,20 @@ const initDashboard = (req, res, next) => {
         cleanupFormdata(req.session.form, true);
 
         formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
-            .then(result => renderDashboard(req, next, result))
+            .then(result => renderDashboard(req, result, next))
             .catch(err => {
                 logger.error(`Error while getting applications: ${err}`);
             });
     } else {
         formData.getAll(req.authToken, req.session.serviceAuthorization)
-            .then(result => renderDashboard(req, next, result))
+            .then(result => renderDashboard(req, result, next))
             .catch(err => {
                 logger.error(`Error while getting applications: ${err}`);
             });
     }
 };
 
-const renderDashboard = (req, next, result) => {
+const renderDashboard = (req, result, next) => {
     if (result.applications && result.applications.length) {
         cleanupFormdata(req.session.form);
     }

@@ -43,7 +43,7 @@ const allApplicationsExpectedResponse = [
 describe('multipleApplicationsMiddleware', () => {
     describe('initDashboardMiddleware', () => {
         it('should return an array of applications', (done) => {
-            const revert = multipleApplicationsMiddleware.__set__('getApplications', () => {
+            const revert = multipleApplicationsMiddleware.__set__('renderDashboard', () => {
                 req.session.form.applications = allApplicationsExpectedResponse;
                 return Promise.resolve();
             });
@@ -57,9 +57,13 @@ describe('multipleApplicationsMiddleware', () => {
             const res = {};
             const next = sinon.spy();
 
+            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+                .returns(Promise.resolve(allApplicationsExpectedResponse));
+
             multipleApplicationsMiddleware.initDashboard(req, res, next);
 
             setTimeout(() => {
+                expect(serviceStub.calledOnce).to.equal(true);
                 expect(req.session).to.deep.equal({
                     form: {
                         applicantEmail: 'test@email.com',
@@ -67,6 +71,7 @@ describe('multipleApplicationsMiddleware', () => {
                     }
                 });
 
+                serviceStub.restore();
                 revert();
                 done();
             });
