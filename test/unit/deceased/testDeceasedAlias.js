@@ -37,6 +37,10 @@ describe('DeceasedAlias', () => {
                 session: {
                     form: {
                         caseType: 'gop',
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Draft'
+                        },
                         deceased: {
                             firstName: 'Dee',
                             lastName: 'Ceased'
@@ -52,7 +56,11 @@ describe('DeceasedAlias', () => {
                 deceasedName: 'Dee Ceased',
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
-                userLoggedIn: false
+                userLoggedIn: false,
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                }
             });
             done();
         });

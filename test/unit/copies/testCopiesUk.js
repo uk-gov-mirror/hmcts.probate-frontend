@@ -20,7 +20,11 @@ describe('CopiesUk', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        caseType: 'gop'
+                        caseType: 'gop',
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Draft'
+                        }
                     },
                     caseType: 'gop'
                 },
@@ -33,7 +37,11 @@ describe('CopiesUk', () => {
                 uk: 3,
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
-                userLoggedIn: false
+                userLoggedIn: false,
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                }
             });
             done();
         });

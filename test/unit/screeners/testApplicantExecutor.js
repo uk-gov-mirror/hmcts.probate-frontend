@@ -22,7 +22,12 @@ describe('ApplicantExecutor', () => {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
-                    form: {},
+                    form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Draft'
+                        }
+                    },
                     caseType: 'gop'
                 },
                 body: {
@@ -36,7 +41,11 @@ describe('ApplicantExecutor', () => {
                 sessionID: 'dummy_sessionId',
                 executor: content.optionYes,
                 caseType: 'gop',
-                userLoggedIn: false
+                userLoggedIn: false,
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                }
             });
             done();
         });

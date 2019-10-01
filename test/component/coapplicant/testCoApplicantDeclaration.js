@@ -13,12 +13,12 @@ const invitesAllAgreedNock = () => {
         .get('/invite/allAgreed/undefined')
         .reply(200, 'false');
     nock(orchestratorServiceUrl)
-        .get('/invite/allAgreed/34')
+        .get('/invite/allAgreed/1234567890123456')
         .reply(200, 'false');
 };
 const inviteAgreedNock = () => {
     nock(orchestratorServiceUrl)
-        .post('/invite/agreed/34')
+        .post('/invite/agreed/1234567890123456')
         .reply(200, 'false');
 };
 
@@ -70,7 +70,13 @@ describe('co-applicant-declaration', () => {
         it(`test it redirects to agree page: ${expectedNextUrlForCoAppAgree}`, (done) => {
             inviteAgreedNock();
 
-            testWrapper.agent.post('/prepare-session-field/formdataId/34')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({
+                    ccdCase: {
+                        id: 1234567890123456,
+                        state: 'Draft'
+                    }
+                })
                 .end(() => {
                     const data = {
                         agreement: content.optionYes
@@ -82,7 +88,13 @@ describe('co-applicant-declaration', () => {
         it(`test it redirects to disagree page: ${expectedNextUrlForCoAppDisagree}`, (done) => {
             inviteAgreedNock();
 
-            testWrapper.agent.post('/prepare-session-field/formdataId/34')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({
+                    ccdCase: {
+                        id: 1234567890123456,
+                        state: 'Draft'
+                    }
+                })
                 .end(() => {
                     const data = {
                         agreement: content.optionNo

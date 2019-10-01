@@ -56,6 +56,7 @@ class Step {
         ctx.sessionID = req.sessionID;
         ctx.caseType = caseTypes.getCaseType(session);
         ctx.userLoggedIn = false;
+        ctx.ccdCase = req.session.form.ccdCase;
         if (typeof session.form.userLoggedIn === 'boolean') {
             ctx.userLoggedIn = session.form.userLoggedIn;
         }

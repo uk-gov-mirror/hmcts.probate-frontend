@@ -20,7 +20,11 @@ describe('DeceasedAddress', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        caseType: 'gop'
+                        caseType: 'gop',
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Draft'
+                        }
                     },
                     caseType: 'gop'
                 },
@@ -41,7 +45,11 @@ describe('DeceasedAddress', () => {
                 postcode: 'L23 6WW',
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
-                userLoggedIn: false
+                userLoggedIn: false,
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                }
             });
             done();
         });
