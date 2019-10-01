@@ -57,7 +57,7 @@ class InviteLink {
                 return res.render('errors/404');
             }
 
-            const ccdCaseId = req.session.form.ccdCase ? req.session.form.ccdCase.id : '';
+            const ccdCaseId = req.session.form && req.session.form.ccdCase ? req.session.form.ccdCase.id : 'undefined';
             const allExecutorsAgreed = new AllExecutorsAgreed(config.services.orchestrator.url, req.sessionID);
             allExecutorsAgreed.get(ccdCaseId).then(result => {
                 if (result.name === 'Error') {

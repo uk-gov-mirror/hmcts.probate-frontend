@@ -127,7 +127,7 @@ router.use((req, res, next) => {
 
 router.use((req, res, next) => {
     const formdata = req.session.form;
-    const ccdCaseId = formdata.ccdCase ? formdata.ccdCase.id : '';
+    const ccdCaseId = formdata.ccdCase ? formdata.ccdCase.id : 'undefined';
     const hasMultipleApplicants = (new ExecutorsWrapper(formdata.executors)).hasMultipleApplicants();
 
     if (hasMultipleApplicants &&
