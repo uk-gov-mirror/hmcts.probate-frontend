@@ -35,7 +35,7 @@ class ExecutorsInvite extends ValidationStep {
                     lastName: formdata.deceased.lastName,
                     email: exec.email,
                     phoneNumber: exec.mobile,
-                    ccdCaseId: formdata.ccdCase.id,
+                    formdataId: formdata.ccdCase.id,
                     leadExecutorName: FormatName.format(formdata.applicant)
                 };
             });
