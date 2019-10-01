@@ -134,7 +134,7 @@ router.use((req, res, next) => {
         get(formdata, 'declaration.declarationCheckbox')
     ) {
         const allExecutorsAgreed = new AllExecutorsAgreed(config.services.orchestrator.url, req.sessionID);
-        allExecutorsAgreed.get(req.session.regId)
+        allExecutorsAgreed.get(req.session.ccdCaseId)
             .then(data => {
                 req.session.haveAllExecutorsDeclared = data;
                 next();
