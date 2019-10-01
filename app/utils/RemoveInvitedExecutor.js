@@ -8,7 +8,7 @@ const config = require('app/config');
 class RemoveInvitedExecutor {
     static remove(req) {
         const formdata = req.session.form;
-        const ccdCaseId = req.session.form.ccdCase.id;
+        const ccdCaseId = formdata.ccdCase ? formdata.ccdCase.id : '';
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         const executorsRemoved = executorsWrapper.executorsRemoved();
         const executorsToRemoveFromInviteData = executorsRemoved.concat(executorsWrapper.executorsToRemove());

@@ -127,6 +127,7 @@ router.use((req, res, next) => {
 
 router.use((req, res, next) => {
     const formdata = req.session.form;
+    const ccdCaseId = formdata.ccdCase ? formdata.ccdCase.id : '';
     const hasMultipleApplicants = (new ExecutorsWrapper(formdata.executors)).hasMultipleApplicants();
 
     if (hasMultipleApplicants &&
@@ -134,7 +135,7 @@ router.use((req, res, next) => {
         get(formdata, 'declaration.declarationCheckbox')
     ) {
         const allExecutorsAgreed = new AllExecutorsAgreed(config.services.orchestrator.url, req.sessionID);
-        allExecutorsAgreed.get(req.session.ccdCaseId)
+        allExecutorsAgreed.get(ccdCaseId)
             .then(data => {
                 req.session.haveAllExecutorsDeclared = data;
                 next();
