@@ -45,7 +45,7 @@ class PinPage extends ValidationStep {
                 [config.services.orchestrator.url, ctx.sessionID]
             );
             const probateType = caseTypes.getProbateType(ctx.caseType);
-            yield formData.get(authToken, serviceAuthResult, ctx.ccdCase.id, probateType)
+            yield formData.get(authToken, serviceAuthResult, session.formdataId, probateType)
                 .then(result => {
                     if (result.name === 'Error') {
                         throw new ReferenceError('Error getting data for the co-applicant');
