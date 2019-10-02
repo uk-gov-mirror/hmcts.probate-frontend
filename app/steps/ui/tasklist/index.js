@@ -20,7 +20,7 @@ class TaskList extends Step {
 
     copiesPreviousTaskStatus(session, ctx) {
         if (ctx.caseType === caseTypes.GOP) {
-            if (ctx.hasMultipleApplicants && session.haveAllExecutorsDeclared === 'false') {
+            if (ctx.hasMultipleApplicants && session.haveAllExecutorsDeclared !== 'true') {
                 return 'locked';
             }
 
