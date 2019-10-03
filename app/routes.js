@@ -42,7 +42,7 @@ router.use((req, res, next) => {
         req.session.form.applicantEmail = req.session.regId;
     }
 
-    req.session.form.userLoggedIn = req.originalUrl === '/sign-out' ? false : emailValidator.validate(req.session.form.applicantEmail);
+    req.session.form.userLoggedIn = config.noHeaderLinksPages.includes(req.originalUrl) ? false : emailValidator.validate(req.session.form.applicantEmail);
     req.log.info(`User logged in: ${req.session.form.userLoggedIn}`);
 
     next();
