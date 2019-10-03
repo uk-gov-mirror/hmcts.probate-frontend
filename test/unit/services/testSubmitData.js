@@ -10,13 +10,13 @@ describe('SubmitDataService', () => {
     describe('submit()', () => {
         it('should call super.put()', (done) => {
             const endpoint = 'http://localhost';
-            const data = {applicantEmail: 'fred@example.com'};
+            const data = {ccdCase: {id: 1234567890123456, state: 'Draft'}};
             const paymentDto = {id: '123'};
             const fetchOptions = {method: 'PUT'};
             const authToken = 'authToken';
             const serviceAuthorisation = 'serviceAuthorisation';
             const submitData = new SubmitData(endpoint, 'abc123');
-            const path = submitData.replacePlaceholderInPath(config.services.orchestrator.paths.submissions, 'emailAddress', data.applicantEmail);
+            const path = submitData.replacePlaceholderInPath(config.services.orchestrator.paths.submissions, 'ccdCaseId', data.ccdCase.id);
 
             const logSpy = sinon.spy(submitData, 'log');
             const fetchJsonSpy = sinon.spy(submitData, 'fetchJson');
