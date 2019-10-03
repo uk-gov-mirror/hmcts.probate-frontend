@@ -4,7 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const content = require('app/resources/en/translation/coapplicant/declaration.json');
 const CoApplicantAgreePage = require('app/steps/ui/coapplicant/agreepage');
 const CoApplicantDisagreePage = require('app/steps/ui/coapplicant/disagreepage');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const commonContent = require('app/resources/en/translation/common');
 const nock = require('nock');
 const config = require('app/config');
 const orchestratorServiceUrl = config.services.orchestrator.url;
@@ -41,8 +41,6 @@ describe('co-applicant-declaration', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('CoApplicantDeclaration');
-
         it('test right content loaded on the page', (done) => {
             const contentToExclude = [
                 'executorNotApplyingHeader'
@@ -101,6 +99,16 @@ describe('co-applicant-declaration', () => {
                     };
                     testWrapper.testRedirect(done, data, expectedNextUrlForCoAppDisagree);
                 });
+        });
+
+        it('test "save and close", "my applications" and "sign out" links are not displayed on the page', (done) => {
+            const playbackData = {
+                saveAndClose: commonContent.saveAndClose,
+                myApplications: commonContent.myApplications,
+                signOut: commonContent.signOut
+            };
+
+            testWrapper.testContentNotPresent(done, playbackData);
         });
     });
 });
