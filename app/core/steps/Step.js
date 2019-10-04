@@ -146,10 +146,10 @@ class Step {
     alreadyDeclared(session) {
         const hasMultipleApplicants = (new ExecutorsWrapper(get(session, 'form.executors'))).hasMultipleApplicants();
 
-        logger.info('LUCA hasMultipleApplicants: ', hasMultipleApplicants);
-        logger.info('LUCA session.haveAllExecutorsDeclared: ', session.haveAllExecutorsDeclared);
-        logger.info('LUCA form.executors.invitesSent: ', get(session, 'form.executors.invitesSent'));
-        logger.info('LUCA form.declaration.declarationCheckbox: ', get(session, 'form.declaration.declarationCheckbox'));
+        logger.error('LUCA hasMultipleApplicants: ', hasMultipleApplicants);
+        logger.error('LUCA session.haveAllExecutorsDeclared: ', session.haveAllExecutorsDeclared);
+        logger.error('LUCA form.executors.invitesSent: ', get(session, 'form.executors.invitesSent'));
+        logger.error('LUCA form.declaration.declarationCheckbox: ', get(session, 'form.declaration.declarationCheckbox'));
 
         if (hasMultipleApplicants === false) {
             return get(session, 'form.declaration.declarationCheckbox') === 'true';
