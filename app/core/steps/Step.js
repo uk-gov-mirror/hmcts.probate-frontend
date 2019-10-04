@@ -9,6 +9,7 @@ const config = require('app/config');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const FeatureToggle = require('app/utils/FeatureToggle');
 const caseTypes = require('app/utils/CaseTypes');
+const logger = require('app/components/logger')('Init');
 
 class Step {
 
@@ -147,6 +148,11 @@ class Step {
         if (hasMultipleApplicants === false) {
             return get(session, 'form.declaration.declarationCheckbox') === 'true';
         }
+
+        logger.info('LUCA session.haveAllExecutorsDeclared: ', session.haveAllExecutorsDeclared);
+        logger.info('LUCA form.executors.invitesSent: ', get(session, 'form.executors.invitesSent'));
+        logger.info('LUCA form.declaration.declarationCheckbox: ', get(session, 'form.declaration.declarationCheckbox'));
+
         return [
             session.haveAllExecutorsDeclared,
             get(session, 'form.executors.invitesSent'),
