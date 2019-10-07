@@ -40,6 +40,7 @@ class TaskList extends Step {
         if (ctx.caseType === caseTypes.GOP) {
             const executorsWrapper = new ExecutorsWrapper(formdata.executors);
             ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
+            ctx.declarationStatuses = formdata.executors.declarations;
 
             ctx.previousTaskStatus = {
                 DeceasedTask: ctx.DeceasedTask.status,

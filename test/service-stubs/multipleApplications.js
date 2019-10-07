@@ -177,6 +177,22 @@ router.post('/forms/newcase', (req, res) => {
     });
 });
 
+router.get('/declarations/*', (req, res) => {
+    res.status(200);
+    res.send({
+        declarations: [
+            {
+                fullName: 'Bob Jones',
+                declared: true
+            },
+            {
+                fullName: 'Tom Smith',
+                declared: false
+            }
+        ]
+    });
+});
+
 app.use(router);
 
 logger().info(`Listening on: ${ORCHESTRATOR_PORT}`);
