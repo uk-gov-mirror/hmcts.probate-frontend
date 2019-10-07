@@ -43,7 +43,7 @@ const config = {
                 fees: '/forms/{ccdCaseId}/fees',
                 validations: '/forms/{ccdCaseId}/validations',
                 applications: '/forms/cases',
-                declarationStatuses: '/declarations/{ccdCaseId}'
+                declarationStatuses: '/invites/declarations/{ccdCaseId}'
             },
             port: 8888
         },

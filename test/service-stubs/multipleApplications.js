@@ -177,7 +177,7 @@ router.post('/forms/newcase', (req, res) => {
     });
 });
 
-router.get('/declarations/*', (req, res) => {
+router.get('/invites/declarations/*', (req, res) => {
     res.status(200);
     res.send({
         declarations: [
