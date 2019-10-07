@@ -66,7 +66,10 @@ describe('Tasklist', () => {
                     deceased: completedForm.deceased,
                     will: completedForm.will,
                     iht: completedForm.iht,
-                    documentupload: completedForm.documentupload
+                    documentupload: {},
+                    documents: {
+                        uploads: completedForm.documents.uploads
+                    }
                 };
                 req.session.form = formdata;
                 ctx = taskList.getContextData(req);
@@ -82,7 +85,10 @@ describe('Tasklist', () => {
                     deceased: completedForm.deceased,
                     will: completedForm.will,
                     iht: completedForm.iht,
-                    documentupload: completedForm.documentupload,
+                    documentupload: {},
+                    documents: {
+                        uploads: completedForm.documents.uploads
+                    },
                     applicant: {
                         firstName: completedForm.applicant.firstName,
                         lastName: completedForm.applicant.lastName
@@ -119,7 +125,10 @@ describe('Tasklist', () => {
                 const formdata = {
                     will: completedForm.will,
                     iht: completedForm.iht,
-                    documentupload: completedForm.documentupload,
+                    documentupload: {},
+                    documents: {
+                        uploads: completedForm.documents.uploads
+                    },
                     applicant: completedForm.applicant,
                     deceased: completedForm.deceased,
                     executors: completedForm.executors
@@ -282,9 +291,8 @@ describe('Tasklist', () => {
 
             it('Updates the context: DeceasedTask, Executors, Review and confirm, Copies and Document tasks complete', () => {
                 req.session.form = completedForm;
-                req.session.form.documents = {
-                    sentDocuments: 'true'
-                };
+                req.session.form.documentupload = {};
+                req.session.form.documents.sentDocuments = 'true';
                 req.body = {};
                 ctx = taskList.getContextData(req);
 
@@ -361,7 +369,10 @@ describe('Tasklist', () => {
                     deceased: completedForm.deceased,
                     will: completedForm.will,
                     iht: completedForm.iht,
-                    documentupload: completedForm.documentupload
+                    documentupload: {},
+                    documents: {
+                        uploads: completedForm.documents.uploads
+                    }
                 };
                 req.session.form = formdata;
                 ctx = taskList.getContextData(req);
@@ -377,7 +388,10 @@ describe('Tasklist', () => {
                     caseType: caseTypes.INTESTACY,
                     deceased: completedForm.deceased,
                     iht: completedForm.iht,
-                    documentupload: completedForm.documentupload,
+                    documentupload: {},
+                    documents: {
+                        uploads: completedForm.documents.uploads
+                    },
                     applicant: {
                         relationshipToDeceased: completedForm.applicant.relationshipToDeceased,
                         assetsValue: 300000.6
@@ -427,7 +441,10 @@ describe('Tasklist', () => {
                     caseType: caseTypes.INTESTACY,
                     will: completedForm.will,
                     iht: completedForm.iht,
-                    documentupload: completedForm.documentupload,
+                    documentupload: {},
+                    documents: {
+                        uploads: completedForm.documents.uploads
+                    },
                     applicant: completedForm.applicant,
                     deceased: completedForm.deceased,
                     executors: completedForm.executors

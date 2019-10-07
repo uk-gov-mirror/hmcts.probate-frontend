@@ -36,8 +36,8 @@ for (const step in steps) {
                 .replace(/\)/g, '\\)');
 
             before((done) => {
-                nock(config.services.validation.url.replace('/validate', ''))
-                    .get('/invites/allAgreed/undefined')
+                nock(config.services.orchestrator.url)
+                    .get('/invite/allAgreed/undefined')
                     .reply(200, 'false');
 
                 nock(config.featureToggles.url)
