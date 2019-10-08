@@ -27,8 +27,8 @@
                 {% set declarationStatusRows = [] %}
                 {% for executor in fields.declarationStatuses.value %}
                     {% set declarationStatusRows = (declarationStatusRows.push([
-                        { text: executor.fullName | safe },
-                        { text: content.declared if executor.declared else content.notDeclared }
+                        { text: executor.executorName | safe },
+                        { text: content.declared if executor.agreed else content.notDeclared }
                     ]), declarationStatusRows) %}
                 {% endfor %}
 

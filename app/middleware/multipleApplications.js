@@ -1,6 +1,6 @@
 'use strict';
 
-const {get} = require('lodash');
+const {get, forEach} = require('lodash');
 const config = require('app/config');
 const logger = require('app/components/logger')('Init');
 const ServiceMapper = require('app/utils/ServiceMapper');
@@ -102,7 +102,14 @@ const getDeclarationStatuses = (req, res, next) => {
 
         formData.getDeclarationStatuses(req.authToken, req.session.serviceAuthorization, ccdCaseId)
             .then(result => {
-                Object.assign(session.form.executors, result);
+                session.form.executorsDeclarations = [];
+                forEach(result, executor => (
+                    session.form.executorsDeclarations.push({
+                        executorName: executor.executorName,
+                        agreed: executor.agreed
+                    })
+                ));
+
                 next();
             })
             .catch(err => {

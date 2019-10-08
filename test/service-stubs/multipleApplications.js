@@ -177,20 +177,18 @@ router.post('/forms/newcase', (req, res) => {
     });
 });
 
-router.get('/invites/declarations/*', (req, res) => {
+router.get('/invites/*', (req, res) => {
     res.status(200);
-    res.send({
-        declarations: [
-            {
-                fullName: 'Bob Jones',
-                declared: true
-            },
-            {
-                fullName: 'Tom Smith',
-                declared: false
-            }
-        ]
-    });
+    res.send([
+        {
+            executorName: 'Bob Jones',
+            agreed: true
+        },
+        {
+            executorName: 'Tom Smith',
+            agreed: false
+        }
+    ]);
 });
 
 app.use(router);
