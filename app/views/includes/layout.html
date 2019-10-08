@@ -35,6 +35,11 @@
             href: "/sign-out",
             text: common.signOut
         }), navigationItems) %}
+    {% else %}
+        {% set navigationItems = (navigationItems.push({
+            href: "/dashboard",
+            text: common.signIn
+        }), navigationItems) %}
     {% endif %}
 
     {{ govukHeader({
