@@ -34,15 +34,19 @@ class Declaration extends ValidationStep {
 
     * handlePost(ctx, errors, formdata, session) {
         const result = yield this.validateFormData(formdata, ctx, session.req);
+        let returnErrors;
+
         if (result.type === 'VALIDATION') {
-            errors = [FieldError('businessError', 'validationError', this.resourcePath, ctx)];
+            returnErrors = [FieldError('businessError', 'validationError', this.resourcePath, ctx)];
+        } else {
+            returnErrors = errors;
         }
 
         const uploadLegalDec = new UploadLegalDeclaration();
         formdata.statementOfTruthDocument =
             yield uploadLegalDec.generateAndUpload(ctx.sessionID, session.req.userId, session.req);
         session.form.statementOfTruthDocument = formdata.statementOfTruthDocument;
-        return [ctx, errors];
+        return [ctx, returnErrors];
     }
 
     * validateFormData(data, ctx, req) {
