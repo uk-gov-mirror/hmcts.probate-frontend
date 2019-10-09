@@ -146,10 +146,11 @@ class Step {
     alreadyDeclared(session) {
         const hasMultipleApplicants = (new ExecutorsWrapper(get(session, 'form.executors'))).hasMultipleApplicants();
 
-        logger.error(`LUCA (${session.form.ccdCase.id}) - hasMultipleApplicants: `, hasMultipleApplicants);
-        logger.error(`LUCA (${session.form.ccdCase.id}) - session.haveAllExecutorsDeclared: `, session.haveAllExecutorsDeclared);
-        logger.error(`LUCA (${session.form.ccdCase.id}) - form.executors.invitesSent: `, get(session, 'form.executors.invitesSent'));
-        logger.error(`LUCA (${session.form.ccdCase.id}) - form.declaration.declarationCheckbox: `, get(session, 'form.declaration.declarationCheckbox'));
+        const ccdCaseId = session.form.ccdCase && session.form.ccdCase.id ? session.form.ccdCase.id : 'N/A';
+        logger.error(`LUCA (${ccdCaseId}) - hasMultipleApplicants: `, hasMultipleApplicants);
+        logger.error(`LUCA (${ccdCaseId}) - session.haveAllExecutorsDeclared: `, session.haveAllExecutorsDeclared);
+        logger.error(`LUCA (${ccdCaseId}) - form.executors.invitesSent: `, get(session, 'form.executors.invitesSent'));
+        logger.error(`LUCA (${ccdCaseId}) - form.declaration.declarationCheckbox: `, get(session, 'form.declaration.declarationCheckbox'));
 
         if (hasMultipleApplicants === false) {
             return get(session, 'form.declaration.declarationCheckbox') === 'true';
