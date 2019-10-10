@@ -134,9 +134,17 @@ router.use((req, res, next) => {
         formdata.executors.invitesSent === true &&
         get(formdata, 'declaration.declarationCheckbox')
     ) {
+        logger.error('===================================================');
+        logger.error(`LUCA ROUTES (${ccdCaseId}) - hasMultipleApplicants: `, hasMultipleApplicants);
+        logger.error(`LUCA ROUTES (${ccdCaseId}) - session.haveAllExecutorsDeclared: `, req.session.haveAllExecutorsDeclared);
+        logger.error(`LUCA ROUTES (${ccdCaseId}) - form.executors.invitesSent: `, get(req.session, 'form.executors.invitesSent'));
+        logger.error(`LUCA ROUTES (${ccdCaseId}) - form.declaration.declarationCheckbox: `, get(req.session, 'form.declaration.declarationCheckbox'));
+
         const allExecutorsAgreed = new AllExecutorsAgreed(config.services.orchestrator.url, req.sessionID);
         allExecutorsAgreed.get(ccdCaseId)
             .then(data => {
+                logger.error(`LUCA (${ccdCaseId}) - data: `, data);
+                logger.error('===================================================');
                 req.session.haveAllExecutorsDeclared = data;
                 next();
             })
