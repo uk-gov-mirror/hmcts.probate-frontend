@@ -280,6 +280,9 @@ describe('DocumentUploadMiddleware', () => {
             req = {
                 session: {
                     form: {
+                        ccdCase: {
+                            id: 1234567890123456
+                        },
                         documents: {
                             uploads: [
                                 'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'

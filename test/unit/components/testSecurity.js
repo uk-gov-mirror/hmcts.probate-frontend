@@ -10,7 +10,7 @@ const expect = chai.expect;
 
 chai.use(sinonChai);
 
-describe('Security middleware', () => {
+describe('Security component', () => {
     const role = 'probate-private-beta';
     const loginUrl = 'http://localhost:8000/login';
     const timeoutUrl = '/time-out';
