@@ -231,7 +231,7 @@ module "probate-frontend" {
     PROBATE_USER_PASSWORD = "${data.azurerm_key_vault_secret.payCaseWorkerPass.value}"
     PROBATE_REDIRECT_BASE_URL = "${local.probate_internal_base_url}"
 	  
-    REQUIRE_CCD_CASE_ID = true
+    REQUIRE_CCD_CASE_ID = "true"
   }
 }
 

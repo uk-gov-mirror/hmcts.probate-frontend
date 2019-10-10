@@ -2,6 +2,14 @@
 Header
 */
 
+.govuk-header__link--homepage {
+  &:hover,
+  &:active {
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+}
+
 .govuk-header__content {
   .govuk-header__menu-button {
     display: none;
