@@ -83,6 +83,10 @@ class Step {
         return [this.validate()[0], 'noProgress'];
     }
 
+    shouldPersistFormData() {
+        return true;
+    }
+
     generateContent(ctx, formdata, lang = 'en') {
         if (!this.content) {
             throw new ReferenceError(`Step ${this.name} has no content.json in its resource folder`);
