@@ -24,7 +24,7 @@ class ExecutorsInvite extends ValidationStep {
         return this.next(req, ctx).constructor.getUrl();
     }
 
-    shouldPersistFormData(){
+    shouldPersistFormData() {
         return false;
     }
 

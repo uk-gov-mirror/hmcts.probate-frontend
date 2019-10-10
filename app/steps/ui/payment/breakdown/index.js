@@ -17,11 +17,11 @@ class PaymentBreakdown extends Step {
 
     handleGet(ctx, formdata) {
         const fees = formdata.fees;
-        //this.checkFeesStatus(fees);
+        this.checkFeesStatus(fees);
 
         ctx.copies = this.createCopiesLayout(formdata);
         ctx.applicationFee = fees.applicationfee;
-        ctx.total = 100.00 //Number.isInteger(fees.total) ? fees.total : parseFloat(fees.total).toFixed(2);
+        ctx.total = Number.isInteger(fees.total) ? fees.total : parseFloat(fees.total).toFixed(2);
         return [ctx, ctx.errors];
     }
 

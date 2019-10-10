@@ -20,7 +20,7 @@ class PinPage extends ValidationStep {
         return new WithLinkStepRunner();
     }
 
-    shouldPersistFormData(){
+    shouldPersistFormData() {
         return false;
     }
 

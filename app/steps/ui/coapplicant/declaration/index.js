@@ -31,7 +31,7 @@ class CoApplicantDeclaration extends ValidationStep {
         return nextStepOptions;
     }
 
-    shouldPersistFormData(){
+    shouldPersistFormData() {
         return false;
     }
 

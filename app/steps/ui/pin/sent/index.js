@@ -12,7 +12,7 @@ class PinSent extends Step {
         return new WithLinkStepRunner();
     }
 
-    shouldPersistFormData(){
+    shouldPersistFormData() {
         return false;
     }
 

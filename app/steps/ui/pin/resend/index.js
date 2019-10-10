@@ -26,7 +26,7 @@ class PinResend extends Step {
         return ctx;
     }
 
-    shouldPersistFormData(){
+    shouldPersistFormData() {
         return false;
     }
 
