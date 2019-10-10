@@ -16,7 +16,7 @@ describe('Security middleware', () => {
     const timeoutUrl = '/time-out';
     const loginUrlWithContinue = `${loginUrl}?response_type=code&state=57473&client_id=probate&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Foauth2%2Fcallback`;
     const token = 'dummyToken';
-    const appConfig = require('../../../app/config');
+    const appConfig = require('../../app/config');
     const securityCookie = `__auth-token-${appConfig.payloadVersion}`;
     const expiresTime = new Date() + 999999;
     const expiresTimeInThePast = Date.now() - 1;
@@ -72,52 +72,52 @@ describe('Security middleware', () => {
             revertOauth2Token();
         });
 
-        // it('should redirect to login page when security cookie not defined', () => {
-        //     req.protocol = 'http';
-        //     req.originalUrl = '/';
+        it('should redirect to login page when security cookie not defined', () => {
+            req.protocol = 'http';
+            req.originalUrl = '/';
 
-        //     protect(req, res, next);
+            protect(req, res, next);
 
-        //     sinon.assert.calledOnce(res.redirect);
-        //     expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
-        // });
+            sinon.assert.calledOnce(res.redirect);
+            expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
+        });
 
-        // it('should redirect to login page when cookies null or undefined', () => {
-        //     req.cookies = null;
-        //     req.protocol = 'http';
-        //     req.originalUrl = '/';
+        it('should redirect to login page when cookies null or undefined', () => {
+            req.cookies = null;
+            req.protocol = 'http';
+            req.originalUrl = '/';
 
-        //     protect(req, res, next);
+            protect(req, res, next);
 
-        //     sinon.assert.calledOnce(res.redirect);
-        //     expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
-        // });
+            sinon.assert.calledOnce(res.redirect);
+            expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
+        });
 
-        // it('should redirect to login page when IdamSession.get() returns Unauthorized', (done) => {
-        //     const revert = Security.__set__('IdamSession', class {
-        //         get() {
-        //             return promise;
-        //         }
-        //     });
+        it('should redirect to login page when IdamSession.get() returns Unauthorized', (done) => {
+            const revert = Security.__set__('IdamSession', class {
+                get() {
+                    return promise;
+                }
+            });
 
-        //     req.session = {expires: expiresTime};
-        //     req.cookies[securityCookie] = token;
-        //     req.protocol = 'http';
-        //     const promise = when({name: 'Error', message: 'Unauthorized'});
+            req.session = {expires: expiresTime};
+            req.cookies[securityCookie] = token;
+            req.protocol = 'http';
+            const promise = when({name: 'Error', message: 'Unauthorized'});
 
-        //     protect(req, res, next);
+            protect(req, res, next);
 
-        //     promise
-        //         .then(() => {
-        //             sinon.assert.calledOnce(res.redirect);
-        //             expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
-        //             revert();
-        //             done();
-        //         })
-        //         .catch((err) => {
-        //             done(err);
-        //         });
-        // });
+            promise
+                .then(() => {
+                    sinon.assert.calledOnce(res.redirect);
+                    expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
+                    revert();
+                    done();
+                })
+                .catch((err) => {
+                    done(err);
+                });
+        });
 
         it('should redirect to time-out page when session is lost', (done) => {
             const revert = Security.__set__('IdamSession', class {
