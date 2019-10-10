@@ -63,7 +63,7 @@ class Summary extends Step {
 
         if (ctx) {
             fields.userLoggedIn = {};
-            fields.userLoggedIn.value = ctx.userLoggedIn.toString();
+            fields.userLoggedIn.value = ctx.userLoggedIn ? ctx.userLoggedIn.toString() : 'true';
             fields.featureToggles = {};
             fields.featureToggles.value = ctx.featureToggles;
 
