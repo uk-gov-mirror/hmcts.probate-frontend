@@ -55,7 +55,7 @@ class PaymentBreakdown extends Step {
         try {
             const feesCalculator = new FeesCalculator(config.services.feesRegister.url, ctx.sessionID);
             const confirmFees = yield feesCalculator.calc(formdata, ctx.authToken, session.featureToggles);
-           // this.checkFeesStatus(confirmFees);
+            this.checkFeesStatus(confirmFees);
             const originalFees = formdata.fees;
             if (confirmFees.total !== originalFees.total) {
                 throw new Error(`Error calculated fees totals have changed from ${originalFees.total} to ${confirmFees.total}`);
