@@ -16,7 +16,7 @@ describe('Security middleware', () => {
     const timeoutUrl = '/time-out';
     const loginUrlWithContinue = `${loginUrl}?response_type=code&state=57473&client_id=probate&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Foauth2%2Fcallback`;
     const token = 'dummyToken';
-    const appConfig = require('../../app/config');
+    const appConfig = require('../../../app/config');
     const securityCookie = `__auth-token-${appConfig.payloadVersion}`;
     const expiresTime = new Date() + 999999;
     const expiresTimeInThePast = Date.now() - 1;
