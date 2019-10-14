@@ -91,7 +91,7 @@
       "overseas": 2
     },
     "payment": {
-      "total": 5001,
+      "amount": 5001,
       "reference": 1
     },
     "caseType": "gop"
