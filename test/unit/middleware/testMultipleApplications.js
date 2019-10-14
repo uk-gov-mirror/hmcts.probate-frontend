@@ -6,45 +6,47 @@ const rewire = require('rewire');
 const multipleApplicationsMiddleware = rewire('app/middleware/multipleApplications');
 const Service = require('app/services/Service');
 
-const allApplicationsExpectedResponse = [
-    {
-        deceasedFullName: 'David Cameron',
-        dateCreated: '13 July 2016',
-        ccdCase: {
-            id: 1234567890123456,
-            state: 'Draft'
+const allApplicationsExpectedResponse = {
+    applications: [
+        {
+            deceasedFullName: 'David Cameron',
+            dateCreated: '13 July 2016',
+            ccdCase: {
+                id: 1234567890123456,
+                state: 'Draft'
+            }
+        },
+        {
+            deceasedFullName: 'Theresa May',
+            dateCreated: '24 July 2019',
+            ccdCase: {
+                id: 5678901234561234,
+                state: 'CaseCreated'
+            }
+        },
+        {
+            deceasedFullName: 'Boris Johnson',
+            dateCreated: '31 October 2019',
+            ccdCase: {
+                id: 9012345612345678,
+                state: 'Draft'
+            }
+        },
+        {
+            dateCreated: '31 October 2019',
+            ccdCase: {
+                id: 3456123456789012,
+                state: 'Draft'
+            }
         }
-    },
-    {
-        deceasedFullName: 'Theresa May',
-        dateCreated: '24 July 2019',
-        ccdCase: {
-            id: 5678901234561234,
-            state: 'CaseCreated'
-        }
-    },
-    {
-        deceasedFullName: 'Boris Johnson',
-        dateCreated: '31 October 2019',
-        ccdCase: {
-            id: 9012345612345678,
-            state: 'Draft'
-        }
-    },
-    {
-        dateCreated: '31 October 2019',
-        ccdCase: {
-            id: 3456123456789012,
-            state: 'Draft'
-        }
-    }
-];
+    ]
+};
 
 describe('multipleApplicationsMiddleware', () => {
     describe('initDashboardMiddleware', () => {
         it('should return an array of applications', (done) => {
             const revert = multipleApplicationsMiddleware.__set__('renderDashboard', () => {
-                req.session.form.applications = allApplicationsExpectedResponse;
+                req.session.form.applications = allApplicationsExpectedResponse.applications;
                 return Promise.resolve();
             });
             const req = {
@@ -54,7 +56,9 @@ describe('multipleApplicationsMiddleware', () => {
                     }
                 }
             };
-            const res = {};
+            const res = {redirect: () => {
+                // Do nothing
+            }};
             const next = sinon.spy();
 
             const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
@@ -67,7 +71,7 @@ describe('multipleApplicationsMiddleware', () => {
                 expect(req.session).to.deep.equal({
                     form: {
                         applicantEmail: 'test@email.com',
-                        applications: allApplicationsExpectedResponse
+                        applications: allApplicationsExpectedResponse.applications
                     }
                 });
 

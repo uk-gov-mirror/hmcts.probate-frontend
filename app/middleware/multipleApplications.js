@@ -23,7 +23,13 @@ const initDashboard = (req, res, next) => {
             });
     } else {
         formData.getAll(req.authToken, req.session.serviceAuthorization)
-            .then(result => renderDashboard(req, result, next))
+            .then(result => {
+                if (result.applications) {
+                    renderDashboard(req, result, next);
+                } else {
+                    res.redirect('/start-eligbility');
+                }
+            })
             .catch(err => {
                 logger.error(`Error while getting applications: ${err}`);
             });
