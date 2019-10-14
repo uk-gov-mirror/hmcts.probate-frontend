@@ -31,10 +31,6 @@ class PaymentStatus extends Step {
         }
         ctx.paymentDue = get(formdata, 'payment.amount') > 0;
 
-        logger.info('Payment amount: ', get(formdata, 'payment.amount'));
-        logger.info('Payment total: ', get(formdata, 'payment.total'));
-        logger.info('Payment due: ', ctx.paymentDue);
-
         ctx.regId = req.session.regId;
         ctx.sessionId = req.session.id;
         ctx.errors = req.errors;

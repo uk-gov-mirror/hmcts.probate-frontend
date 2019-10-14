@@ -126,7 +126,6 @@ class PaymentBreakdown extends Step {
                 const formDataResult = yield this.submitForm(ctx, errors, formdata, paymentResponse, serviceAuthResult);
                 set(formdata, 'ccdCase', formDataResult.ccdCase);
                 set(formdata, 'payment', formDataResult.payment);
-                logger.info('Payment returned by orchestrator: ', formDataResult.payment);
                 if (errors.length > 0) {
                     logger.error('Failed to create case in CCD.', errors);
                     return [ctx, errors];
