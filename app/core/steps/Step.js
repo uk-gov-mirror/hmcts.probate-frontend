@@ -153,7 +153,7 @@ class Step {
         const ccdCaseId = session.form.ccdCase && session.form.ccdCase.id ? session.form.ccdCase.id : 'N/A';
         logger.error('===================================================');
         logger.error(`LUCA STEP (${ccdCaseId}) - hasMultipleApplicants: ${hasMultipleApplicants} (${typeof hasMultipleApplicants})`);
-        logger.error(`LUCA STEP (${ccdCaseId}) - session.haveAllExecutorsDeclared: ${session.haveAllExecutorsDeclared} (${typeof session.haveAllExecutorsDeclared})`);
+        logger.error(`LUCA STEP (${ccdCaseId}) - session.haveAllExecutorsDeclared: ${get(session, 'haveAllExecutorsDeclared', false)} (${typeof get(session, 'haveAllExecutorsDeclared', false)})`);
         logger.error(`LUCA STEP (${ccdCaseId}) - form.executors.invitesSent: ${get(session, 'form.executors.invitesSent', false)} (${typeof get(session, 'form.executors.invitesSent', false)})`);
         logger.error(`LUCA STEP (${ccdCaseId}) - form.declaration.declarationCheckbox: ${get(session, 'form.declaration.declarationCheckbox', false)} (${typeof get(session, 'form.declaration.declarationCheckbox', false)})`);
         logger.error('===================================================');
@@ -163,7 +163,7 @@ class Step {
         }
 
         return [
-            session.haveAllExecutorsDeclared.toString(),
+            get(session, 'haveAllExecutorsDeclared', false).toString(),
             get(session, 'form.executors.invitesSent', false).toString(),
             get(session, 'form.declaration.declarationCheckbox', false).toString()
         ].every(param => param === 'true');
