@@ -152,18 +152,10 @@ class Step {
 
         const ccdCaseId = session.form.ccdCase && session.form.ccdCase.id ? session.form.ccdCase.id : 'N/A';
         logger.error('===================================================');
-        logger.error(`LUCA STEP (${ccdCaseId}) - hasMultipleApplicants: `, hasMultipleApplicants);
-        logger.error(`LUCA STEP (${ccdCaseId}) - hasMultipleApplicants TYPE: `, typeof hasMultipleApplicants);
-
-        logger.error(`LUCA STEP (${ccdCaseId}) - session.haveAllExecutorsDeclared: `, session.haveAllExecutorsDeclared);
-        logger.error(`LUCA STEP (${ccdCaseId}) - session.haveAllExecutorsDeclared TYPE: `, typeof session.haveAllExecutorsDeclared);
-
-        logger.error(`LUCA STEP (${ccdCaseId}) - form.executors.invitesSent: `, get(session, 'form.executors.invitesSent'));
-        logger.error(`LUCA STEP (${ccdCaseId}) - form.executors.invitesSent TYPE: `, typeof get(session, 'form.executors.invitesSent'));
-        logger.error(`LUCA STEP (${ccdCaseId}) - form.executors.invitesSent TYPE STRINGIFIED: `, typeof get(session, 'form.executors.invitesSent', false).toString());
-
-        logger.error(`LUCA STEP (${ccdCaseId}) - form.declaration.declarationCheckbox: `, get(session, 'form.declaration.declarationCheckbox'));
-        logger.error(`LUCA STEP (${ccdCaseId}) - form.declaration.declarationCheckbox TPYE: `, typeof get(session, 'form.declaration.declarationCheckbox'));
+        logger.error(`LUCA STEP (${ccdCaseId}) - hasMultipleApplicants: ${hasMultipleApplicants} (${typeof hasMultipleApplicants})`);
+        logger.error(`LUCA STEP (${ccdCaseId}) - session.haveAllExecutorsDeclared: ${session.haveAllExecutorsDeclared} (${typeof session.haveAllExecutorsDeclared})`);
+        logger.error(`LUCA STEP (${ccdCaseId}) - form.executors.invitesSent: ${get(session, 'form.executors.invitesSent', false)} (${typeof get(session, 'form.executors.invitesSent', false)})`);
+        logger.error(`LUCA STEP (${ccdCaseId}) - form.declaration.declarationCheckbox: ${get(session, 'form.declaration.declarationCheckbox', false)} (${typeof get(session, 'form.declaration.declarationCheckbox', false)})`);
         logger.error('===================================================');
 
         if (hasMultipleApplicants === false) {
@@ -171,9 +163,9 @@ class Step {
         }
 
         return [
-            session.haveAllExecutorsDeclared,
-            get(session, 'form.executors.invitesSent', 'false').toString(),
-            get(session, 'form.declaration.declarationCheckbox')
+            session.haveAllExecutorsDeclared.toString(),
+            get(session, 'form.executors.invitesSent', false).toString(),
+            get(session, 'form.declaration.declarationCheckbox').toString()
         ].every(param => param === 'true');
     }
 
