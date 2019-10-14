@@ -106,8 +106,8 @@ const cleanupSession = (session, retainCaseType = false) => {
     });
     logger.error('///////////////////////////////////////////////////');
     logger.error('LUCA SESSION:');
-    Object.keys(session.form).forEach((key, value) => {
-        logger.error(key, value);
+    Object.keys(session.form).forEach((key) => {
+        logger.error(key, session.form[key]);
     });
     logger.error('///////////////////////////////////////////////////');
 };

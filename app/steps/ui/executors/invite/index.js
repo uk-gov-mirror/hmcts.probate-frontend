@@ -68,6 +68,9 @@ class ExecutorsInvite extends ValidationStep {
                 return true;
             });
 
+        logger.error('~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~');
+        logger.error('LUCA SETTING INVITE SENT TO TRUE');
+        logger.error('~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~');
         ctx.invitesSent = 'true';
         return [ctx, errors];
     }
