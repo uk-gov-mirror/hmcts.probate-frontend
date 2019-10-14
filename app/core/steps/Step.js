@@ -160,6 +160,7 @@ class Step {
 
         logger.error(`LUCA STEP (${ccdCaseId}) - form.executors.invitesSent: `, get(session, 'form.executors.invitesSent'));
         logger.error(`LUCA STEP (${ccdCaseId}) - form.executors.invitesSent TYPE: `, typeof get(session, 'form.executors.invitesSent'));
+        logger.error(`LUCA STEP (${ccdCaseId}) - form.executors.invitesSent TYPE STRINGIFIED: `, typeof get(session, 'form.executors.invitesSent', false).toString());
 
         logger.error(`LUCA STEP (${ccdCaseId}) - form.declaration.declarationCheckbox: `, get(session, 'form.declaration.declarationCheckbox'));
         logger.error(`LUCA STEP (${ccdCaseId}) - form.declaration.declarationCheckbox TPYE: `, typeof get(session, 'form.declaration.declarationCheckbox'));
@@ -171,9 +172,9 @@ class Step {
 
         return [
             session.haveAllExecutorsDeclared,
-            get(session, 'form.executors.invitesSent'),
+            get(session, 'form.executors.invitesSent', 'false').toString(),
             get(session, 'form.declaration.declarationCheckbox')
-        ].every(param => param === true);
+        ].every(param => param === 'true');
     }
 
     renderPage(res, html) {
