@@ -26,7 +26,7 @@ class PaymentStatus extends Step {
         ctx.reference = get(formdata, 'payment.reference');
         ctx.userId = req.userId;
         ctx.authToken = req.authToken;
-        ctx.paymentDue = get(formdata, 'payment.total') > 0;
+        ctx.paymentDue = get(formdata, 'payment.amount') > 0;
 
         logger.info('Payment amount: ', get(formdata, 'payment.amount'));
         logger.info('Payment total: ', get(formdata, 'payment.total'));

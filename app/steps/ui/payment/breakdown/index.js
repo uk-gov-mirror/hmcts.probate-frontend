@@ -144,7 +144,7 @@ class PaymentBreakdown extends Step {
     }
 
     isComplete(ctx, formdata) {
-        return [typeof get(formdata, 'ccdCase.id') !== 'undefined' && (get(formdata, 'payment.total') === 0 || typeof get(formdata, 'payment.reference') !== 'undefined'), 'inProgress'];
+        return [typeof get(formdata, 'ccdCase.id') !== 'undefined' && (get(formdata, 'payment.amount') === 0 || typeof get(formdata, 'payment.reference') !== 'undefined'), 'inProgress'];
     }
 
     * submitForm(ctx, errors, formdata, paymentDto, serviceAuthResult) {
