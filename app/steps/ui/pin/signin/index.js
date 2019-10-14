@@ -20,6 +20,10 @@ class PinPage extends ValidationStep {
         return new WithLinkStepRunner();
     }
 
+    shouldPersistFormData() {
+        return false;
+    }
+
     * handlePost(ctx, errors, formdata, session, hostname) {
         if (parseInt(session.pin) !== parseInt(ctx.pin)) {
             errors.push(FieldError('pin', 'incorrect', this.resourcePath, this.generateContent()));

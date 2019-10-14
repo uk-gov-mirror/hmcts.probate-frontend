@@ -31,6 +31,10 @@ class CoApplicantDeclaration extends ValidationStep {
         return nextStepOptions;
     }
 
+    shouldPersistFormData() {
+        return false;
+    }
+
     * handlePost(ctx, errors) {
         const data = {
             inviteId: ctx.inviteId,

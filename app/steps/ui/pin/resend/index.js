@@ -26,6 +26,10 @@ class PinResend extends Step {
         return ctx;
     }
 
+    shouldPersistFormData() {
+        return false;
+    }
+
     * handlePost(ctx, errors, formdata, session, hostname) {
         const phoneNumber = session.phoneNumber;
         const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);

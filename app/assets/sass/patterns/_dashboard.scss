@@ -8,12 +8,16 @@ Dashboard
   }
 }
 
+.case-id {
+  text-align: left;
+}
+
+.case-date {
+  text-align: right;
+}
+
 .case-status {
   font-weight: bold;
-
-  &.in-progress {
-    color: govuk-colour("red");
-  }
 
   &.submitted {
     color: govuk-colour("green");
