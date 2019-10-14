@@ -130,21 +130,22 @@ router.use((req, res, next) => {
     const ccdCaseId = formdata.ccdCase ? formdata.ccdCase.id : 'undefined';
     const hasMultipleApplicants = (new ExecutorsWrapper(formdata.executors)).hasMultipleApplicants();
 
+    req.log.error('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-');
+    req.log.error(`LUCA ROUTES (${ccdCaseId}) - hasMultipleApplicants: ${hasMultipleApplicants} (${typeof hasMultipleApplicants})`);
+    req.log.error(`LUCA ROUTES (${ccdCaseId}) - session.haveAllExecutorsDeclared: ${get(req.session, 'haveAllExecutorsDeclared', false)} (${typeof get(req.session, 'haveAllExecutorsDeclared', false)})`);
+    req.log.error(`LUCA ROUTES (${ccdCaseId}) - form.executors.invitesSent: ${get(req.session, 'form.executors.invitesSent', false)} (${typeof get(req.session, 'form.executors.invitesSent', false)})`);
+    req.log.error(`LUCA ROUTES (${ccdCaseId}) - form.declaration.declarationCheckbox: ${get(req.session, 'form.declaration.declarationCheckbox', false)} (${typeof get(req.session, 'form.declaration.declarationCheckbox', false)})`);
+    req.log.error('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-');
+
     if (hasMultipleApplicants &&
         get(req.session, 'form.executors.invitesSent', false).toString() === 'true' &&
         get(formdata, 'declaration.declarationCheckbox', false).toString() === 'true'
     ) {
-        req.log.error('===================================================');
-        req.log.error(`LUCA ROUTES (${ccdCaseId}) - hasMultipleApplicants: ${hasMultipleApplicants} (${typeof hasMultipleApplicants})`);
-        req.log.error(`LUCA ROUTES (${ccdCaseId}) - session.haveAllExecutorsDeclared: ${get(req.session, 'haveAllExecutorsDeclared', false)} (${typeof get(req.session, 'haveAllExecutorsDeclared', false)})`);
-        req.log.error(`LUCA ROUTES (${ccdCaseId}) - form.executors.invitesSent: ${get(req.session, 'form.executors.invitesSent', false)} (${typeof get(req.session, 'form.executors.invitesSent', false)})`);
-        req.log.error(`LUCA ROUTES (${ccdCaseId}) - form.declaration.declarationCheckbox: ${get(req.session, 'form.declaration.declarationCheckbox', false)} (${typeof get(req.session, 'form.declaration.declarationCheckbox', false)})`);
-
         const allExecutorsAgreed = new AllExecutorsAgreed(config.services.orchestrator.url, req.sessionID);
         allExecutorsAgreed.get(ccdCaseId)
             .then(data => {
-                req.log.error(`LUCA (${ccdCaseId}) - data: ${data} (${typeof data})`);
-                req.log.error('===================================================');
+                req.log.error(`LUCA ROUTES (${ccdCaseId}) - allExecutorsAgreed data: ${data} (${typeof data})`);
+                req.log.error('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-');
                 req.session.haveAllExecutorsDeclared = data;
                 next();
             })

@@ -14,7 +14,7 @@ const initDashboard = (req, res, next) => {
     );
 
     if (formdata.screeners) {
-        cleanupFormdata(req.session.form, true);
+        cleanupSession(req.session, true);
 
         formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
             .then(result => renderDashboard(req, result, next))
@@ -38,7 +38,7 @@ const initDashboard = (req, res, next) => {
 
 const renderDashboard = (req, result, next) => {
     if (result.applications && result.applications.length) {
-        cleanupFormdata(req.session.form);
+        cleanupSession(req.session);
     }
 
     req.session.form.applications = result.applications;
@@ -90,7 +90,7 @@ const getCase = (req, res) => {
     }
 };
 
-const cleanupFormdata = (formdata, retainCaseType = false) => {
+const cleanupSession = (session, retainCaseType = false) => {
     const retainedList = [
         'applicantEmail',
         'payloadVersion',
@@ -99,11 +99,17 @@ const cleanupFormdata = (formdata, retainCaseType = false) => {
     if (retainCaseType) {
         retainedList.push('caseType');
     }
-    Object.keys(formdata).forEach((key) => {
+    Object.keys(session.form).forEach((key) => {
         if (!retainedList.includes(key)) {
-            delete formdata[key];
+            delete session.form[key];
         }
     });
+    logger.error('///////////////////////////////////////////////////');
+    logger.error('LUCA SESSION:');
+    Object.keys(session.form).forEach((key, value) => {
+        logger.error(key, value);
+    });
+    logger.error('///////////////////////////////////////////////////');
 };
 
 module.exports.initDashboard = initDashboard;
