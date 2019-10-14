@@ -1,6 +1,4 @@
 {% macro taskAction(prevTaskStatus, status, nextURL, checkYourAnswersURL, content, title, alreadyDeclared) %}
-    <p>ALREADY DECLARED: {{ alreadyDeclared }}</p>
-
     {% if prevTaskStatus == "complete" %}
         {% if status == "notStarted" %}
             <!-- Start link -->
