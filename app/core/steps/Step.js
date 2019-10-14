@@ -165,7 +165,7 @@ class Step {
         return [
             session.haveAllExecutorsDeclared.toString(),
             get(session, 'form.executors.invitesSent', false).toString(),
-            get(session, 'form.declaration.declarationCheckbox').toString()
+            get(session, 'form.declaration.declarationCheckbox', false).toString()
         ].every(param => param === 'true');
     }
 
