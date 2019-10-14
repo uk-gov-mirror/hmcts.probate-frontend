@@ -88,7 +88,7 @@ describe('PaymentBreakdown', () => {
                     state: 'PaAppCreated'
                 },
                 payment: {
-                    amount: 219.50
+                    total: 219.50
                 },
                 fees: {
                     status: 'success',
@@ -111,7 +111,7 @@ describe('PaymentBreakdown', () => {
             };
             expectedPaymentFormdata = {
                 payment: {
-                    amount: 219.50
+                    total: 219.50
                 },
                 fees: {
                     status: 'success',
@@ -432,7 +432,7 @@ describe('PaymentBreakdown', () => {
                 },
                 payment: {
                     reference: 'RC-1234-5678-9012-3456',
-                    amount: 219.5
+                    total: 219.5
                 },
                 registry: {
                     registry: {
@@ -515,7 +515,7 @@ describe('PaymentBreakdown', () => {
                 },
                 payment: {
                     reference: 'RC-12345',
-                    amount: 219.50
+                    total: 219.50
                 },
                 registry: {
                     registry: {

@@ -257,7 +257,7 @@ describe('Tasklist', () => {
             it('Updates the context: PaymentTask started (No Fee)', () => {
                 req.session.form = {
                     payment: {
-                        amount: 0,
+                        total: 0,
                     },
                     ccdCase: {
                         state: 'PAAppCreated',
@@ -539,7 +539,7 @@ describe('Tasklist', () => {
             it('Updates the context: PaymentTask started (No Fee)', () => {
                 req.session.form = {
                     payment: {
-                        amount: 0,
+                        total: 0,
                     },
                     ccdCase: {
                         state: 'PAAppCreated',
