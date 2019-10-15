@@ -104,12 +104,6 @@ const cleanupSession = (session, retainCaseType = false) => {
             delete session.form[key];
         }
     });
-    logger.error('///////////////////////////////////////////////////');
-    logger.error('LUCA SESSION:');
-    Object.keys(session.form).forEach((key) => {
-        logger.error(key, session.form[key]);
-    });
-    logger.error('///////////////////////////////////////////////////');
 };
 
 module.exports.initDashboard = initDashboard;
