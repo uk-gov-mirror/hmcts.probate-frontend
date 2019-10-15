@@ -138,7 +138,7 @@ router.use((req, res, next) => {
     req.log.error('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-');
 
     if (hasMultipleApplicants &&
-        get(req.session, 'form.executors.invitesSent', false).toString() === 'true' &&
+        get(formdata, 'executors.invitesSent', false).toString() === 'true' &&
         get(formdata, 'declaration.declarationCheckbox', false).toString() === 'true'
     ) {
         const allExecutorsAgreed = new AllExecutorsAgreed(config.services.orchestrator.url, req.sessionID);
