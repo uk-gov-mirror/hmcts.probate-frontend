@@ -3,12 +3,14 @@ Dashboard
 */
 
 .dashboard {
-  td {
-    white-space: nowrap;
+  @include govuk-media-query($from: desktop) {
+    td {
+      white-space: nowrap;
 
-    &:nth-child(2) {
-      white-space: normal;
-      word-break: break-word;
+      &:nth-child(2) {
+        white-space: normal;
+        word-break: break-word;
+      }
     }
   }
 
