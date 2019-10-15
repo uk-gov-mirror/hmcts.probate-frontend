@@ -9,7 +9,6 @@ const config = require('app/config');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const FeatureToggle = require('app/utils/FeatureToggle');
 const caseTypes = require('app/utils/CaseTypes');
-const logger = require('app/components/logger')('Init');
 
 class Step {
 
