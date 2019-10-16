@@ -4,6 +4,7 @@ const config = require('app/config');
 const logger = require('app/components/logger')('Init');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const caseTypes = require('app/utils/CaseTypes');
+const contentWillLeft = require('app/resources/en/translation/screeners/willleft');
 
 const initDashboard = (req, res, next) => {
     const session = req.session;
@@ -13,7 +14,12 @@ const initDashboard = (req, res, next) => {
         [config.services.orchestrator.url, req.sessionID]
     );
 
-    if (formdata.screeners) {
+    let eligibilityQuestionsList = config.eligibilityQuestionsProbate;
+    if (formdata.screeners && formdata.screeners.left && formdata.screeners.left === contentWillLeft.optionNo) {
+        eligibilityQuestionsList = config.eligibilityQuestionsIntestacy;
+    }
+
+    if (formdata.screeners && eligibilityQuestionsList.every(item => Object.keys(formdata.screeners).indexOf(item) > -1)) {
         cleanupSession(req.session, true);
 
         formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
@@ -84,6 +90,7 @@ const getCase = (req, res) => {
             })
             .catch(err => {
                 logger.error(`Error while getting the case: ${err}`);
+                res.redirect('/errors/404');
             });
     } else {
         res.redirect('/dashboard');
