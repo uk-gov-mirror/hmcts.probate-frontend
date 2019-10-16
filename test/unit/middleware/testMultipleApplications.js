@@ -12,7 +12,7 @@ const allApplicationsExpectedResponse = {
             deceasedFullName: 'David Cameron',
             dateCreated: '13 July 2016',
             ccdCase: {
-                id: 1234567890123456,
+                id: '1234567890123456',
                 state: 'Draft'
             }
         },
@@ -20,22 +20,31 @@ const allApplicationsExpectedResponse = {
             deceasedFullName: 'Theresa May',
             dateCreated: '24 July 2019',
             ccdCase: {
-                id: 5678901234561234,
+                id: '5678901234561234',
                 state: 'CaseCreated'
             }
         },
         {
             deceasedFullName: 'Boris Johnson',
-            dateCreated: '31 October 2019',
+            dateCreated: '14 September 2019',
             ccdCase: {
-                id: 9012345612345678,
+                id: '9012345612345678',
                 state: 'Draft'
             }
         },
         {
-            dateCreated: '31 October 2019',
+            deceasedFullName: 'Margareth Thatcher',
+            dateCreated: '2 October 2019',
             ccdCase: {
-                id: 3456123456789012,
+                id: '3456123456789012',
+                state: 'Draft'
+            }
+        },
+        {
+            dateCreated: '9 November 2019',
+            caseType: 'PA',
+            ccdCase: {
+                id: '9999999999999999',
                 state: 'Draft'
             }
         }
@@ -283,7 +292,8 @@ describe('multipleApplicationsMiddleware', () => {
 
             setTimeout(() => {
                 expect(serviceStub.calledOnce).to.equal(true);
-                expect(redirectSpy.calledOnce).to.equal(false);
+                expect(redirectSpy.calledOnce).to.equal(true);
+                expect(redirectSpy.calledWith('/errors/404')).to.equal(true);
 
                 serviceStub.restore();
                 redirectSpy.restore();
