@@ -14,32 +14,38 @@ const initDashboard = (req, res, next) => {
         [config.services.orchestrator.url, req.sessionID]
     );
 
-    let eligibilityQuestionsList = config.eligibilityQuestionsProbate;
-    if (formdata.screeners && formdata.screeners.left && formdata.screeners.left === contentWillLeft.optionNo) {
-        eligibilityQuestionsList = config.eligibilityQuestionsIntestacy;
-    }
+    formData.getAll(req.authToken, req.session.serviceAuthorization)
+        .then(result => {
+            if (result.applications) {
+                if (formdata.screeners && formdata.screeners.left) {
+                    if (!result.applications.some(application => application.ccdCase.state === 'Draft' && !application.deceasedFullName && application.caseType === caseTypes.getProbateType(formdata.caseType))) {
+                        let eligibilityQuestionsList = config.eligibilityQuestionsProbate;
+                        if (formdata.screeners.left === contentWillLeft.optionNo) {
+                            eligibilityQuestionsList = config.eligibilityQuestionsIntestacy;
+                        }
 
-    if (formdata.screeners && eligibilityQuestionsList.every(item => Object.keys(formdata.screeners).indexOf(item) > -1)) {
-        cleanupSession(req.session, true);
+                        if (formdata.screeners && eligibilityQuestionsList.every(item => Object.keys(formdata.screeners).indexOf(item) > -1)) {
+                            cleanupSession(req.session, true);
 
-        formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
-            .then(result => renderDashboard(req, result, next))
-            .catch(err => {
-                logger.error(`Error while getting applications: ${err}`);
-            });
-    } else {
-        formData.getAll(req.authToken, req.session.serviceAuthorization)
-            .then(result => {
-                if (result.applications) {
-                    renderDashboard(req, result, next);
+                            formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
+                                .then(result => renderDashboard(req, result, next))
+                                .catch(err => {
+                                    logger.error(`Error while getting applications: ${err}`);
+                                });
+                        }
+                    } else {
+                        renderDashboard(req, result, next);
+                    }
                 } else {
-                    res.redirect('/start-eligibility');
+                    renderDashboard(req, result, next);
                 }
-            })
-            .catch(err => {
-                logger.error(`Error while getting applications: ${err}`);
-            });
-    }
+            } else {
+                res.redirect('/start-eligibility');
+            }
+        })
+        .catch(err => {
+            logger.error(`Error while getting applications: ${err}`);
+        });
 };
 
 const renderDashboard = (req, result, next) => {
