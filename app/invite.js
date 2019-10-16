@@ -95,7 +95,7 @@ class InviteLink {
     getAuth(req, res) {
         const authorise = new Authorise(config.services.idam.s2s_url, req.sessionID);
 
-        authorise.post()
+        return authorise.post()
             .then((serviceAuthorisation) => {
                 if (serviceAuthorisation.name === 'Error') {
                     logger.info(`serviceAuthResult Error = ${serviceAuthorisation}`);
