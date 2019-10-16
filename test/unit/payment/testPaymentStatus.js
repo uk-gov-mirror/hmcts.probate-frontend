@@ -1,7 +1,7 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const {expect} = require('chai');
+const expect = require('chai').expect;
 const co = require('co');
 const rewire = require('rewire');
 const PaymentStatus = rewire('app/steps/ui/payment/status');

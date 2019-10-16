@@ -1,6 +1,6 @@
 'use strict';
 
-const {expect} = require('chai');
+const expect = require('chai').expect;
 const sinon = require('sinon');
 const Oauth2Token = require('app/services/Oauth2Token');
 const config = require('app/config');
