@@ -9,7 +9,6 @@ const config = require('app/config');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const FeatureToggle = require('app/utils/FeatureToggle');
 const caseTypes = require('app/utils/CaseTypes');
-const logger = require('app/components/logger')('Init');
 
 class Step {
 
@@ -150,22 +149,14 @@ class Step {
     alreadyDeclared(session) {
         const hasMultipleApplicants = (new ExecutorsWrapper(get(session, 'form.executors'))).hasMultipleApplicants();
 
-        const ccdCaseId = session.form.ccdCase && session.form.ccdCase.id ? session.form.ccdCase.id : 'N/A';
-        logger.error('===================================================');
-        logger.error(`LUCA STEP (${ccdCaseId}) - hasMultipleApplicants: `, hasMultipleApplicants);
-        logger.error(`LUCA STEP (${ccdCaseId}) - session.haveAllExecutorsDeclared: `, session.haveAllExecutorsDeclared);
-        logger.error(`LUCA STEP (${ccdCaseId}) - form.executors.invitesSent: `, get(session, 'form.executors.invitesSent'));
-        logger.error(`LUCA STEP (${ccdCaseId}) - form.declaration.declarationCheckbox: `, get(session, 'form.declaration.declarationCheckbox'));
-        logger.error('===================================================');
-
         if (hasMultipleApplicants === false) {
             return get(session, 'form.declaration.declarationCheckbox') === 'true';
         }
 
         return [
-            session.haveAllExecutorsDeclared,
-            get(session, 'form.executors.invitesSent'),
-            get(session, 'form.declaration.declarationCheckbox')
+            get(session, 'haveAllExecutorsDeclared', false).toString(),
+            get(session, 'form.executors.invitesSent', false).toString(),
+            get(session, 'form.declaration.declarationCheckbox', false).toString()
         ].every(param => param === 'true');
     }
 

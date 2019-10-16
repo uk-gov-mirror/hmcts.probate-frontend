@@ -16,7 +16,7 @@ const initDashboard = (req, res, next) => {
     );
 
     if (formdata.screeners) {
-        cleanupFormdata(req.session.form, true);
+        cleanupSession(req.session, true);
 
         formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
             .then(result => renderDashboard(req, result, next))
@@ -25,7 +25,13 @@ const initDashboard = (req, res, next) => {
             });
     } else {
         formData.getAll(req.authToken, req.session.serviceAuthorization)
-            .then(result => renderDashboard(req, result, next))
+            .then(result => {
+                if (result.applications) {
+                    renderDashboard(req, result, next);
+                } else {
+                    res.redirect('/start-eligbility');
+                }
+            })
             .catch(err => {
                 logger.error(`Error while getting applications: ${err}`);
             });
@@ -34,7 +40,7 @@ const initDashboard = (req, res, next) => {
 
 const renderDashboard = (req, result, next) => {
     if (result.applications && result.applications.length) {
-        cleanupFormdata(req.session.form);
+        cleanupSession(req.session);
     }
 
     req.session.form.applications = result.applications;
@@ -120,7 +126,7 @@ const getDeclarationStatuses = (req, res, next) => {
     }
 };
 
-const cleanupFormdata = (formdata, retainCaseType = false) => {
+const cleanupSession = (session, retainCaseType = false) => {
     const retainedList = [
         'applicantEmail',
         'payloadVersion',
@@ -129,9 +135,9 @@ const cleanupFormdata = (formdata, retainCaseType = false) => {
     if (retainCaseType) {
         retainedList.push('caseType');
     }
-    Object.keys(formdata).forEach((key) => {
+    Object.keys(session.form).forEach((key) => {
         if (!retainedList.includes(key)) {
-            delete formdata[key];
+            delete session.form[key];
         }
     });
 };

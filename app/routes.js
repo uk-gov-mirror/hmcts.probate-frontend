@@ -131,20 +131,12 @@ router.use((req, res, next) => {
     const hasMultipleApplicants = (new ExecutorsWrapper(formdata.executors)).hasMultipleApplicants();
 
     if (hasMultipleApplicants &&
-        formdata.executors.invitesSent === true &&
-        get(formdata, 'declaration.declarationCheckbox')
+        get(formdata, 'executors.invitesSent', false).toString() === 'true' &&
+        get(formdata, 'declaration.declarationCheckbox', false).toString() === 'true'
     ) {
-        req.log.error('===================================================');
-        req.log.error(`LUCA ROUTES (${ccdCaseId}) - hasMultipleApplicants: `, hasMultipleApplicants);
-        req.log.error(`LUCA ROUTES (${ccdCaseId}) - session.haveAllExecutorsDeclared: `, req.session.haveAllExecutorsDeclared);
-        req.log.error(`LUCA ROUTES (${ccdCaseId}) - form.executors.invitesSent: `, get(req.session, 'form.executors.invitesSent'));
-        req.log.error(`LUCA ROUTES (${ccdCaseId}) - form.declaration.declarationCheckbox: `, get(req.session, 'form.declaration.declarationCheckbox'));
-
         const allExecutorsAgreed = new AllExecutorsAgreed(config.services.orchestrator.url, req.sessionID);
         allExecutorsAgreed.get(ccdCaseId)
             .then(data => {
-                req.log.error(`LUCA (${ccdCaseId}) - data: `, data);
-                req.log.error('===================================================');
                 req.session.haveAllExecutorsDeclared = data;
                 next();
             })

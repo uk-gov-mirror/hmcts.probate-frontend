@@ -2,24 +2,37 @@
 Dashboard
 */
 
-.case {
-  &.draft {
-    color: govuk-colour("dark-grey");
+.dashboard {
+  @include govuk-media-query($from: desktop) {
+    td {
+      white-space: nowrap;
+
+      &:nth-child(2) {
+        white-space: normal;
+        word-break: break-word;
+      }
+    }
   }
-}
 
-.case-id {
-  text-align: left;
-}
+  .case {
+    &.draft {
+      color: govuk-colour("dark-grey");
+    }
+  }
 
-.case-date {
-  text-align: right;
-}
+  .case-id {
+    text-align: left;
+  }
 
-.case-status {
-  font-weight: bold;
+  .case-date {
+    text-align: right;
+  }
 
-  &.submitted {
-    color: govuk-colour("green");
+  .case-status {
+    font-weight: bold;
+
+    &.submitted {
+      color: govuk-colour("green");
+    }
   }
 }
