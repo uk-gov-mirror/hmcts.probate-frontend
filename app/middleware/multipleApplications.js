@@ -31,7 +31,7 @@ const initDashboard = (req, res, next) => {
                                 .then(result => {
                                     delete formdata.caseType;
                                     delete formdata.screeners;
-                                    renderDashboard(req, result, next)
+                                    renderDashboard(req, result, next);
                                 })
                                 .catch(err => {
                                     logger.error(`Error while getting applications: ${err}`);

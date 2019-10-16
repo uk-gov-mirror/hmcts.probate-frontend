@@ -294,8 +294,8 @@ describe('multipleApplicationsMiddleware', () => {
                 }
             };
             const res = {redirect: () => {
-                    // Do nothing
-                }};
+                // Do nothing
+            }};
             const next = sinon.spy();
 
             const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
