@@ -1,6 +1,6 @@
 'use strict';
 
-const {expect} = require('chai');
+const expect = require('chai').expect;
 const initSteps = require('app/core/initSteps');
 const sinon = require('sinon');
 const rewire = require('rewire');

@@ -1,6 +1,6 @@
 'use strict';
 
-const {expect} = require('chai');
+const expect = require('chai').expect;
 const rewire = require('rewire');
 const UploadLegalDeclaration = rewire('app/services/UploadLegalDeclaration');
 const co = require('co');

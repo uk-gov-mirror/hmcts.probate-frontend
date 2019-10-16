@@ -199,6 +199,8 @@ const config = {
     whitelistedPagesAfterSubmission: ['/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
     whitelistedPagesAfterPayment: ['/task-list', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
     whitelistedPagesAfterDeclaration: ['/task-list', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
+    eligibilityQuestionsProbate: ['deathCertificate', 'domicile', 'completed', 'left', 'original', 'executor', 'mentalCapacity'],
+    eligibilityQuestionsIntestacy: ['deathCertificate', 'domicile', 'completed', 'left', 'diedAfter', 'related', 'otherApplicants'],
     hardStopParams: {
         gop: [],
         intestacy: []
