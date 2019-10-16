@@ -2,10 +2,10 @@
 
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
+const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
+const Declaration = steps.CoApplicantDeclaration;
 
 describe('Coapplicant-Declaration', () => {
-    const Declaration = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]).CoApplicantDeclaration;
-
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = Declaration.constructor.getUrl();

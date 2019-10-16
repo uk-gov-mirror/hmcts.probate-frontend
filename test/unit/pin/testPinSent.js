@@ -2,10 +2,10 @@
 
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
+const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
+const PinSent = steps.PinSent;
 
 describe('Pin-Sent', () => {
-    const PinSent = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]).PinSent;
-
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = PinSent.constructor.getUrl();

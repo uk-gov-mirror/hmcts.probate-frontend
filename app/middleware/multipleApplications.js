@@ -16,7 +16,7 @@ const initDashboard = (req, res, next) => {
 
     formData.getAll(req.authToken, req.session.serviceAuthorization)
         .then(result => {
-            if (result.applications) {
+            if (result.applications && result.applications.length) {
                 if (formdata.screeners && formdata.screeners.left) {
                     if (!result.applications.some(application => application.ccdCase.state === 'Draft' && !application.deceasedFullName && application.caseType === caseTypes.getProbateType(formdata.caseType))) {
                         let eligibilityQuestionsList = config.eligibilityQuestionsProbate;
@@ -28,15 +28,23 @@ const initDashboard = (req, res, next) => {
                             cleanupSession(req.session, true);
 
                             formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
-                                .then(result => renderDashboard(req, result, next))
+                                .then(result => {
+                                    delete formdata.caseType;
+                                    delete formdata.screeners;
+                                    renderDashboard(req, result, next)
+                                })
                                 .catch(err => {
                                     logger.error(`Error while getting applications: ${err}`);
                                 });
                         }
                     } else {
+                        delete formdata.caseType;
+                        delete formdata.screeners;
                         renderDashboard(req, result, next);
                     }
                 } else {
+                    delete formdata.caseType;
+                    delete formdata.screeners;
                     renderDashboard(req, result, next);
                 }
             } else {
