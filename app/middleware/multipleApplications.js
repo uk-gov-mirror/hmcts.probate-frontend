@@ -29,6 +29,8 @@ const initDashboard = (req, res, next) => {
 
                             formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
                                 .then(result => {
+                                    delete formdata.caseType;
+                                    delete formdata.screeners;
                                     renderDashboard(req, result, next);
                                 })
                                 .catch(err => {
@@ -36,9 +38,13 @@ const initDashboard = (req, res, next) => {
                                 });
                         }
                     } else {
+                        delete formdata.caseType;
+                        delete formdata.screeners;
                         renderDashboard(req, result, next);
                     }
                 } else {
+                    delete formdata.caseType;
+                    delete formdata.screeners;
                     renderDashboard(req, result, next);
                 }
             } else {
