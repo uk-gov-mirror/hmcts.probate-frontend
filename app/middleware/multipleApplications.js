@@ -29,7 +29,7 @@ const initDashboard = (req, res, next) => {
                 if (result.applications) {
                     renderDashboard(req, result, next);
                 } else {
-                    res.redirect('/start-eligbility');
+                    res.redirect('/start-eligibility');
                 }
             })
             .catch(err => {
