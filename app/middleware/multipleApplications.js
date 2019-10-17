@@ -60,7 +60,7 @@ const createNewApplication = (req, formdata, formData, next) => {
                 logger.error(`Error while getting applications: ${err}`);
             });
     }
-}
+};
 
 const renderDashboard = (req, result, next) => {
     delete req.session.form.caseType;
