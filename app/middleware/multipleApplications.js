@@ -19,7 +19,7 @@ const initDashboard = (req, res, next) => {
             if (result.applications && result.applications.length) {
                 if (formdata.screeners && formdata.screeners.left) {
                     if (!result.applications.some(application => application.ccdCase.state === 'Draft' && !application.deceasedFullName && application.caseType === caseTypes.getProbateType(formdata.caseType))) {
-                        createNewApplication(req, formdata, formData, next);
+                        createNewApplication(req, formdata, formData, result, next);
                     } else {
                         delete formdata.caseType;
                         delete formdata.screeners;
@@ -31,7 +31,7 @@ const initDashboard = (req, res, next) => {
                     renderDashboard(req, result, next);
                 }
             } else if (formdata.screeners && formdata.screeners.left) {
-                createNewApplication(req, formdata, formData, next);
+                createNewApplication(req, formdata, formData, result, next);
             } else {
                 res.redirect('/start-eligibility');
             }
@@ -41,7 +41,7 @@ const initDashboard = (req, res, next) => {
         });
 };
 
-const createNewApplication = (req, formdata, formData, next) => {
+const createNewApplication = (req, formdata, formData, result, next) => {
     let eligibilityQuestionsList = config.eligibilityQuestionsProbate;
     if (formdata.screeners.left === contentWillLeft.optionNo) {
         eligibilityQuestionsList = config.eligibilityQuestionsIntestacy;
@@ -59,6 +59,10 @@ const createNewApplication = (req, formdata, formData, next) => {
             .catch(err => {
                 logger.error(`Error while getting applications: ${err}`);
             });
+    } else {
+        delete formdata.caseType;
+        delete formdata.screeners;
+        renderDashboard(req, result, next);
     }
 };
 
