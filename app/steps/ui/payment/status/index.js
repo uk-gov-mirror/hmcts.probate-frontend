@@ -26,17 +26,18 @@ class PaymentStatus extends Step {
         ctx.reference = get(formdata, 'payment.reference');
         ctx.userId = req.userId;
         ctx.authToken = req.authToken;
-        logger.error('LUCA ============================================================');
-        if (!get(formdata, 'payment.amount')) {
-            set(formdata, 'payment.amount', 0);
-            logger.error('LUCA payment.amount initialised to 0');
-        }
-        if (formdata.payment && formdata.payment.total) {
-            set(formdata, 'payment.amount', formdata.payment.total);
-            logger.error('LUCA payment.total: ', formdata.payment.total);
-            logger.error('LUCA copy payment.total into payment.amount: ', formdata.payment.total);
-        }
-        ctx.paymentDue = get(formdata, 'payment.amount') > 0;
+        ctx.paymentDue = get(formdata, 'payment.total') > 0;
+        // logger.error('LUCA ============================================================');
+        // if (!get(formdata, 'payment.amount')) {
+        //     set(formdata, 'payment.amount', 0);
+        //     logger.error('LUCA payment.amount initialised to 0');
+        // }
+        // if (formdata.payment && formdata.payment.total) {
+        //     set(formdata, 'payment.amount', formdata.payment.total);
+        //     logger.error('LUCA payment.total: ', formdata.payment.total);
+        //     logger.error('LUCA copy payment.total into payment.amount: ', formdata.payment.total);
+        // }
+        // ctx.paymentDue = get(formdata, 'payment.amount') > 0;
 
         logger.error('LUCA payment.amount: ', formdata.payment.amount);
         logger.error('LUCA paymentDue: ', ctx.paymentDue);
