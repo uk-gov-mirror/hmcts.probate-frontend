@@ -38,6 +38,8 @@ router.use((req, res, next) => {
         req.session.back = [];
     }
 
+    req.session.form.applicantEmail = 'luc.del@cee.com';
+
     if (!req.session.form.applicantEmail) {
         req.session.form.applicantEmail = req.session.regId;
     }
@@ -79,7 +81,10 @@ router.use((req, res, next) => {
     });
 
     const noCcdCaseIdPages = config.nonIdamPages.map(item => '/' + item);
-    noCcdCaseIdPages.push('/dashboard');
+    noCcdCaseIdPages
+        .push('/dashboard')
+        .push('/sign-out')
+        .push('/time-out');
 
     if (config.app.requreCcdCaseId === 'true' && includes(allPageUrls, req.originalUrl) && req.method === 'GET' && !includes(noCcdCaseIdPages, req.originalUrl) && !get(formdata, 'ccdCase.id')) {
         res.redirect('dashboard');
