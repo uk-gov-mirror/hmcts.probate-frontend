@@ -1,9 +1,11 @@
 'use strict';
 
+const {get, forEach} = require('lodash');
 const config = require('app/config');
 const logger = require('app/components/logger')('Init');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const caseTypes = require('app/utils/CaseTypes');
+const ExecutorsWrapper = require('app/wrappers/Executors');
 const contentWillLeft = require('app/resources/en/translation/screeners/willleft');
 
 const initDashboard = (req, res, next) => {
@@ -124,6 +126,40 @@ const getCase = (req, res) => {
     }
 };
 
+const getDeclarationStatuses = (req, res, next) => {
+    const session = req.session;
+    const formdata = session.form;
+    const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+    const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
+
+    if (get(formdata, 'declaration.declarationCheckbox') && hasMultipleApplicants) {
+        const ccdCaseId = formdata.ccdCase.id;
+
+        const formData = ServiceMapper.map(
+            'FormData',
+            [config.services.orchestrator.url, req.sessionID]
+        );
+
+        formData.getDeclarationStatuses(req.authToken, req.session.serviceAuthorization, ccdCaseId)
+            .then(result => {
+                session.form.executorsDeclarations = [];
+                forEach(result.invitations, executor => (
+                    session.form.executorsDeclarations.push({
+                        executorName: executor.executorName,
+                        agreed: executor.agreed
+                    })
+                ));
+
+                next();
+            })
+            .catch(err => {
+                logger.error(`Error while getting the declaration statuses: ${err}`);
+            });
+    } else {
+        next();
+    }
+};
+
 const cleanupSession = (session, retainCaseType = false) => {
     const retainedList = [
         'applicantEmail',
@@ -142,3 +178,4 @@ const cleanupSession = (session, retainCaseType = false) => {
 
 module.exports.initDashboard = initDashboard;
 module.exports.getCase = getCase;
+module.exports.getDeclarationStatuses = getDeclarationStatuses;
