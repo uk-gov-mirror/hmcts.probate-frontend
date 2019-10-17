@@ -133,7 +133,7 @@ const getDeclarationStatuses = (req, res, next) => {
         formData.getDeclarationStatuses(req.authToken, req.session.serviceAuthorization, ccdCaseId)
             .then(result => {
                 session.form.executorsDeclarations = [];
-                forEach(result, executor => (
+                forEach(result.invitations, executor => (
                     session.form.executorsDeclarations.push({
                         executorName: executor.executorName,
                         agreed: executor.agreed
