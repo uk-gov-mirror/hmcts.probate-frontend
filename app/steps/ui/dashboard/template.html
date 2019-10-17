@@ -11,7 +11,7 @@
         {% set caseClasses = "case draft" if not application.deceasedFullName and application.ccdCase.state == "Draft" else "" %}
         {% set caseIdClasses = caseClasses + " govuk-table__cell--numeric case-id" %}
         {% set caseDateClasses = caseClasses + " govuk-table__cell--numeric" %}
-        {% set caseStatusClasses = "case-status submitted" if application.ccdCase.state == "CaseCreated" %}
+        {% set caseStatusClasses = caseClasses + (" case-status submitted" if application.ccdCase.state == "CaseCreated" else "") %}
 
         {% set applicationRows = (applicationRows.push([
             { text: application.ccdCase.idFormatted, classes: caseIdClasses, attributes: {'aria-label': application.ccdCase.idFormattedAccessible } },
