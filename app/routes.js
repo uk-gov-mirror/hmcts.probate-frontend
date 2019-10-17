@@ -78,7 +78,9 @@ router.use((req, res, next) => {
         allPageUrls.push(step.constructor.getUrl());
     });
 
-    if (config.app.requreCcdCaseId === 'true' && includes(allPageUrls, req.originalUrl) && req.method === 'GET' && !includes(config.noCcdCaseIdPages, req.originalUrl) && !get(formdata, 'ccdCase.id')) {
+    const noCcdCaseIdPages = config.noCcdCaseIdPages.map(item => '/' + item);
+
+    if (config.app.requreCcdCaseId === 'true' && includes(allPageUrls, req.originalUrl) && req.method === 'GET' && !includes(noCcdCaseIdPages, req.originalUrl) && !get(formdata, 'ccdCase.id')) {
         res.redirect('dashboard');
     } else if (get(formdata, 'ccdCase.state') === 'CaseCreated' && (get(formdata, 'documents.sentDocuments', 'false') === 'false') && (get(formdata, 'payment.status') === 'Success' || get(formdata, 'payment.status') === 'not_required') &&
         !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
