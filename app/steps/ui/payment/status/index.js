@@ -39,7 +39,7 @@ class PaymentStatus extends Step {
         // }
         // ctx.paymentDue = get(formdata, 'payment.amount') > 0;
 
-        logger.error('LUCA payment.amount: ', formdata.payment.amount);
+        // logger.error('LUCA payment.amount: ', formdata.payment.amount);
         logger.error('LUCA paymentDue: ', ctx.paymentDue);
 
         ctx.regId = req.session.regId;
