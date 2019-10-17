@@ -38,8 +38,6 @@ router.use((req, res, next) => {
         req.session.back = [];
     }
 
-    req.session.form.applicantEmail = 'luc.del@cee.com';
-
     if (!req.session.form.applicantEmail) {
         req.session.form.applicantEmail = req.session.regId;
     }
