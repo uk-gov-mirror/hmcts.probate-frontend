@@ -27,7 +27,9 @@ class PaymentStatus extends Step {
         ctx.userId = req.userId;
         ctx.authToken = req.authToken;
         logger.error('LUCA ============================================================');
-        set(formdata, 'payment.amount', 0);
+        if (!get(formdata, 'payment.amount')) {
+            set(formdata, 'payment.amount', 0);
+        }
         if (formdata.payment && formdata.payment.total) {
             logger.error('LUCA payment.total: ', formdata.payment.total);
             set(formdata, 'payment.amount', formdata.payment.total);
