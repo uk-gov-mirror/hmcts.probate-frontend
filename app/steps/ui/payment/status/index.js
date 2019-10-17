@@ -29,10 +29,12 @@ class PaymentStatus extends Step {
         logger.error('LUCA ============================================================');
         if (!get(formdata, 'payment.amount')) {
             set(formdata, 'payment.amount', 0);
+            logger.error('LUCA payment.amount initialised to 0');
         }
         if (formdata.payment && formdata.payment.total) {
-            logger.error('LUCA payment.total: ', formdata.payment.total);
             set(formdata, 'payment.amount', formdata.payment.total);
+            logger.error('LUCA payment.total: ', formdata.payment.total);
+            logger.error('LUCA copy payment.total into payment.amount: ', formdata.payment.total);
         }
         ctx.paymentDue = get(formdata, 'payment.amount') > 0;
 
