@@ -19,24 +19,7 @@ const initDashboard = (req, res, next) => {
             if (result.applications && result.applications.length) {
                 if (formdata.screeners && formdata.screeners.left) {
                     if (!result.applications.some(application => application.ccdCase.state === 'Draft' && !application.deceasedFullName && application.caseType === caseTypes.getProbateType(formdata.caseType))) {
-                        let eligibilityQuestionsList = config.eligibilityQuestionsProbate;
-                        if (formdata.screeners.left === contentWillLeft.optionNo) {
-                            eligibilityQuestionsList = config.eligibilityQuestionsIntestacy;
-                        }
-
-                        if (formdata.screeners && eligibilityQuestionsList.every(item => Object.keys(formdata.screeners).indexOf(item) > -1)) {
-                            cleanupSession(req.session, true);
-
-                            formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
-                                .then(result => {
-                                    delete formdata.caseType;
-                                    delete formdata.screeners;
-                                    renderDashboard(req, result, next);
-                                })
-                                .catch(err => {
-                                    logger.error(`Error while getting applications: ${err}`);
-                                });
-                        }
+                        createNewApplication(req, formdata, formData, next);
                     } else {
                         delete formdata.caseType;
                         delete formdata.screeners;
@@ -47,6 +30,8 @@ const initDashboard = (req, res, next) => {
                     delete formdata.screeners;
                     renderDashboard(req, result, next);
                 }
+            } else if (formdata.screeners && formdata.screeners.left) {
+                createNewApplication(req, formdata, formData, next);
             } else {
                 res.redirect('/start-eligibility');
             }
@@ -55,6 +40,27 @@ const initDashboard = (req, res, next) => {
             logger.error(`Error while getting applications: ${err}`);
         });
 };
+
+const createNewApplication = (req, formdata, formData, next) => {
+    let eligibilityQuestionsList = config.eligibilityQuestionsProbate;
+    if (formdata.screeners.left === contentWillLeft.optionNo) {
+        eligibilityQuestionsList = config.eligibilityQuestionsIntestacy;
+    }
+
+    if (eligibilityQuestionsList.every(item => Object.keys(formdata.screeners).indexOf(item) > -1)) {
+        cleanupSession(req.session, true);
+
+        formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
+            .then(result => {
+                delete formdata.caseType;
+                delete formdata.screeners;
+                renderDashboard(req, result, next);
+            })
+            .catch(err => {
+                logger.error(`Error while getting applications: ${err}`);
+            });
+    }
+}
 
 const renderDashboard = (req, result, next) => {
     delete req.session.form.caseType;
