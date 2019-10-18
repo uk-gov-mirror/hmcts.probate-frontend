@@ -26,7 +26,7 @@ class InviteLink {
         this.getAuth(req, res)
             .then(([authToken, serviceAuthorisation]) => {
                 if (authToken === null || serviceAuthorisation === null) {
-                    logger.error(`Error while getting the authToken and serviceAuthorisation`);
+                    logger.error('Error while getting the authToken and serviceAuthorisation');
                     failure(res);
                 } else {
                     const inviteId = req.params.inviteId;
