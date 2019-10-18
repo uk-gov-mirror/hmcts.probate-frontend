@@ -1,6 +1,6 @@
 'use strict';
 
-const {expect} = require('chai');
+const expect = require('chai').expect;
 const Fees = require('app/services/FeesData');
 const co = require('co');
 const caseTypes = require('app/utils/CaseTypes');

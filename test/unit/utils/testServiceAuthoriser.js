@@ -1,6 +1,6 @@
 'use strict';
 
-const {expect} = require('chai');
+const expect = require('chai').expect;
 const ServiceAuthoriser = require('app/utils/ServiceAuthoriser');
 const sinon = require('sinon');
 const Service = require('app/services/Service');

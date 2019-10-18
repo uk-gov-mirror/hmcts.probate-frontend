@@ -1,7 +1,7 @@
 // eslint-disable-line max-lines
 'use strict';
 
-const {expect} = require('chai');
+const expect = require('chai').expect;
 const FeesCalculator = require('app/utils/FeesCalculator');
 const FeesLookup = require('app/services/FeesLookup');
 const sinon = require('sinon');

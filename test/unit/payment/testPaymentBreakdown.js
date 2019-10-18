@@ -3,7 +3,7 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const {expect} = require('chai');
+const expect = require('chai').expect;
 const co = require('co');
 const submitResponse = require('test/data/send-to-submit-service');
 const journey = require('app/journeys/probate');

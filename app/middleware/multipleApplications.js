@@ -1,9 +1,12 @@
 'use strict';
 
+const {get, forEach} = require('lodash');
 const config = require('app/config');
 const logger = require('app/components/logger')('Init');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const caseTypes = require('app/utils/CaseTypes');
+const ExecutorsWrapper = require('app/wrappers/Executors');
+const contentWillLeft = require('app/resources/en/translation/screeners/willleft');
 
 const initDashboard = (req, res, next) => {
     const session = req.session;
@@ -13,30 +16,66 @@ const initDashboard = (req, res, next) => {
         [config.services.orchestrator.url, req.sessionID]
     );
 
-    if (formdata.screeners) {
-        cleanupSession(req.session, true);
-
-        formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
-            .then(result => renderDashboard(req, result, next))
-            .catch(err => {
-                logger.error(`Error while getting applications: ${err}`);
-            });
-    } else {
-        formData.getAll(req.authToken, req.session.serviceAuthorization)
-            .then(result => {
-                if (result.applications) {
-                    renderDashboard(req, result, next);
+    formData.getAll(req.authToken, req.session.serviceAuthorization)
+        .then(result => {
+            if (result.applications && result.applications.length) {
+                if (allEligibilityQuestionsPresent(formdata)) {
+                    if (!result.applications.some(application => application.ccdCase.state === 'Draft' && !application.deceasedFullName && application.caseType === caseTypes.getProbateType(formdata.caseType))) {
+                        createNewApplication(req, res, formdata, formData, result, next);
+                    } else {
+                        delete formdata.caseType;
+                        delete formdata.screeners;
+                        renderDashboard(req, result, next);
+                    }
                 } else {
-                    res.redirect('/start-eligibility');
+                    delete formdata.caseType;
+                    delete formdata.screeners;
+                    renderDashboard(req, result, next);
                 }
-            })
-            .catch(err => {
-                logger.error(`Error while getting applications: ${err}`);
-            });
+            } else if (allEligibilityQuestionsPresent(formdata)) {
+                createNewApplication(req, res, formdata, formData, result, next);
+            } else {
+                res.redirect('/start-eligibility');
+            }
+        })
+        .catch(err => {
+            logger.error(`Error while getting applications: ${err}`);
+        });
+};
+
+const createNewApplication = (req, res, formdata, formData, result, next) => {
+    cleanupSession(req.session, true);
+
+    formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
+        .then(result => {
+            delete formdata.caseType;
+            delete formdata.screeners;
+            renderDashboard(req, result, next);
+        })
+        .catch(err => {
+            logger.error(`Error while getting applications: ${err}`);
+        });
+};
+
+const allEligibilityQuestionsPresent = (formdata) => {
+    if (formdata.screeners && formdata.screeners.left) {
+        let eligibilityQuestionsList = config.eligibilityQuestionsProbate;
+        if (formdata.screeners.left === contentWillLeft.optionNo) {
+            eligibilityQuestionsList = config.eligibilityQuestionsIntestacy;
+        }
+
+        if (eligibilityQuestionsList.every(item => Object.keys(formdata.screeners).indexOf(item) > -1)) {
+            return true;
+        }
     }
+
+    return false;
 };
 
 const renderDashboard = (req, result, next) => {
+    delete req.session.form.caseType;
+    delete req.session.form.screeners;
+
     if (result.applications && result.applications.length) {
         cleanupSession(req.session);
     }
@@ -84,9 +123,44 @@ const getCase = (req, res) => {
             })
             .catch(err => {
                 logger.error(`Error while getting the case: ${err}`);
+                res.redirect('/errors/404');
             });
     } else {
         res.redirect('/dashboard');
+    }
+};
+
+const getDeclarationStatuses = (req, res, next) => {
+    const session = req.session;
+    const formdata = session.form;
+    const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+    const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
+
+    if (get(formdata, 'declaration.declarationCheckbox') && hasMultipleApplicants) {
+        const ccdCaseId = formdata.ccdCase.id;
+
+        const formData = ServiceMapper.map(
+            'FormData',
+            [config.services.orchestrator.url, req.sessionID]
+        );
+
+        formData.getDeclarationStatuses(req.authToken, req.session.serviceAuthorization, ccdCaseId)
+            .then(result => {
+                session.form.executorsDeclarations = [];
+                forEach(result.invitations, executor => (
+                    session.form.executorsDeclarations.push({
+                        executorName: executor.executorName,
+                        agreed: executor.agreed
+                    })
+                ));
+
+                next();
+            })
+            .catch(err => {
+                logger.error(`Error while getting the declaration statuses: ${err}`);
+            });
+    } else {
+        next();
     }
 };
 
@@ -108,3 +182,4 @@ const cleanupSession = (session, retainCaseType = false) => {
 
 module.exports.initDashboard = initDashboard;
 module.exports.getCase = getCase;
+module.exports.getDeclarationStatuses = getDeclarationStatuses;

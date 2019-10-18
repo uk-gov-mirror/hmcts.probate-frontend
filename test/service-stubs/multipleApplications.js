@@ -17,7 +17,7 @@ router.get('/forms/cases', (req, res) => {
                 dateCreated: '13 July 2016',
                 caseType: 'PA',
                 ccdCase: {
-                    id: 1234567890123456,
+                    id: '1234567890123456',
                     state: 'Draft'
                 }
             },
@@ -26,25 +26,33 @@ router.get('/forms/cases', (req, res) => {
                 dateCreated: '24 July 2019',
                 caseType: 'PA',
                 ccdCase: {
-                    id: 5678901234561234,
+                    id: '5678901234561234',
                     state: 'CaseCreated'
                 }
             },
             {
                 deceasedFullName: 'Boris Johnson',
-                dateCreated: '31 October 2019',
+                dateCreated: '14 September 2019',
                 caseType: 'PA',
                 ccdCase: {
-                    id: 9012345612345678,
+                    id: '9012345612345678',
                     state: 'Draft'
                 }
             },
             {
                 deceasedFullName: 'Margareth Thatcher',
-                dateCreated: '31 October 2019',
+                dateCreated: '2 October 2019',
                 caseType: 'INTESTACY',
                 ccdCase: {
-                    id: 3456123456789012,
+                    id: '3456123456789012',
+                    state: 'Draft'
+                }
+            },
+            {
+                dateCreated: '9 November 2019',
+                caseType: 'PA',
+                ccdCase: {
+                    id: '9999999999999999',
                     state: 'Draft'
                 }
             }
@@ -64,7 +72,7 @@ router.get('/forms/case/*', (req, res) => {
         formdata = {
             caseType: caseTypes.GOP,
             ccdCase: {
-                id: 1234567890123456,
+                id: '1234567890123456',
                 state: 'Draft'
             },
             executors: {},
@@ -88,7 +96,7 @@ router.get('/forms/case/*', (req, res) => {
         formdata = {
             caseType: caseTypes.GOP,
             ccdCase: {
-                id: 5678901234561234,
+                id: '5678901234561234',
                 state: 'CaseCreated'
             },
             executors: {},
@@ -98,7 +106,7 @@ router.get('/forms/case/*', (req, res) => {
         formdata = {
             caseType: caseTypes.GOP,
             ccdCase: {
-                id: 9012345612345678,
+                id: '9012345612345678',
                 state: 'Draft'
             },
             executors: {},
@@ -108,7 +116,17 @@ router.get('/forms/case/*', (req, res) => {
         formdata = {
             caseType: caseTypes.INTESTACY,
             ccdCase: {
-                id: 3456123456789012,
+                id: '3456123456789012',
+                state: 'Draft'
+            },
+            executors: {},
+        };
+        break;
+    case '9999999999999999':
+        formdata = {
+            caseType: caseTypes.GOP,
+            ccdCase: {
+                id: '9999999999999999',
                 state: 'Draft'
             },
             executors: {},
@@ -169,12 +187,26 @@ router.post('/forms/newcase', (req, res) => {
                 dateCreated: '13 July 2016',
                 caseType: 'PA',
                 ccdCase: {
-                    id: 3456123456789012,
+                    id: 8888888888888888,
                     state: 'Draft'
                 }
             }
         ]
     });
+});
+
+router.get('/invites/*', (req, res) => {
+    res.status(200);
+    res.send([
+        {
+            executorName: 'Bob Jones',
+            agreed: true
+        },
+        {
+            executorName: 'Tom Smith',
+            agreed: false
+        }
+    ]);
 });
 
 app.use(router);
