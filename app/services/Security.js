@@ -22,7 +22,7 @@ class Security {
             .catch((err) => err);
     }
 
-    getOauth2Code(redirect_url) {
+    getOauth2Code(redirect_uri) {
         logger.info('calling getOauth2Code to get code');
         const client_id = config.services.idam.probate_oauth2_client;
         const idam_api_url = config.services.idam.apiUrl;
@@ -34,7 +34,7 @@ class Security {
         };
         const params = new URLSearchParams();
         params.append('client_id', client_id);
-        params.append('redirect_uri', redirect_url);
+        params.append('redirect_uri', redirect_uri);
         params.append('response_type', 'code');
 
         return utils.fetchJson(`${idam_api_url}/oauth2/authorize`, {
