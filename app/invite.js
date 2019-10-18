@@ -25,34 +25,39 @@ class InviteLink {
     checkLinkIsValid(req, res, success, failure) {
         this.getAuth(req, res)
             .then(([authToken, serviceAuthorisation]) => {
-                const inviteId = req.params.inviteId;
-                const inviteLink = new InviteLinkService(config.services.orchestrator.url, req.sessionID);
+                if (authToken === null || serviceAuthorisation === null) {
+                    logger.error(`Error while getting the authToken and serviceAuthorisation`);
+                    failure(res);
+                } else {
+                    const inviteId = req.params.inviteId;
+                    const inviteLink = new InviteLinkService(config.services.orchestrator.url, req.sessionID);
 
-                inviteLink.get(inviteId, authToken, serviceAuthorisation)
-                    .then(result => {
-                        if (result.name === 'Error') {
-                            logger.error(`Error while verifying the token: ${result.message}`);
+                    inviteLink.get(inviteId, authToken, serviceAuthorisation)
+                        .then(result => {
+                            if (result.name === 'Error') {
+                                logger.error(`Error while verifying the token: ${result.message}`);
+                                failure(res);
+                            } else {
+                                logger.info('Link is valid');
+                                const pinNumber = new PinNumber(config.services.orchestrator.url, req.sessionID);
+                                pinNumber
+                                    .get(result.phoneNumber, authToken, serviceAuthorisation)
+                                    .then(generatedPin => {
+                                        req.session.pin = generatedPin;
+                                        req.session.phoneNumber = result.phoneNumber;
+                                        req.session.leadExecutorName = result.mainExecutorName;
+                                        req.session.formdataId = result.formdataId;
+                                        req.session.inviteId = inviteId;
+                                        req.session.validLink = true;
+                                        success(res);
+                                    });
+                            }
+                        })
+                        .catch(err => {
+                            logger.error(`Error while checking the link or sending the pin: ${err}`);
                             failure(res);
-                        } else {
-                            logger.info('Link is valid');
-                            const pinNumber = new PinNumber(config.services.orchestrator.url, req.sessionID);
-                            pinNumber
-                                .get(result.phoneNumber, authToken, serviceAuthorisation)
-                                .then(generatedPin => {
-                                    req.session.pin = generatedPin;
-                                    req.session.phoneNumber = result.phoneNumber;
-                                    req.session.leadExecutorName = result.mainExecutorName;
-                                    req.session.formdataId = result.formdataId;
-                                    req.session.inviteId = inviteId;
-                                    req.session.validLink = true;
-                                    success(res);
-                                });
-                        }
-                    })
-                    .catch(err => {
-                        logger.error(`Error while checking the link or sending the pin: ${err}`);
-                        failure(res);
-                    });
+                        });
+                }
             })
             .catch(err => {
                 logger.error(`Error while getting the authToken and serviceAuthorisation: ${err}`);
@@ -120,15 +125,13 @@ class InviteLink {
                         })
                         .catch((err) => {
                             logger.info(`failed to obtain authToken = ${err}`);
-                            res.status(500);
-                            res.render('errors/500');
+                            return [null, null];
                         });
                 }
             })
             .catch((err) => {
                 logger.info(`serviceAuthResult Error = ${err}`);
-                res.status(500);
-                res.render('errors/500');
+                return [null, null];
             });
     }
 }
