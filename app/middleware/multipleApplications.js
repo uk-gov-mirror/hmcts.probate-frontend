@@ -19,9 +19,9 @@ const initDashboard = (req, res, next) => {
     formData.getAll(req.authToken, req.session.serviceAuthorization)
         .then(result => {
             if (result.applications && result.applications.length) {
-                if (formdata.screeners && formdata.screeners.left) {
+                if (allEligibilityQuestionsPresent(formdata)) {
                     if (!result.applications.some(application => application.ccdCase.state === 'Draft' && !application.deceasedFullName && application.caseType === caseTypes.getProbateType(formdata.caseType))) {
-                        createNewApplication(req, formdata, formData, result, next);
+                        createNewApplication(req, res, formdata, formData, result, next);
                     } else {
                         delete formdata.caseType;
                         delete formdata.screeners;
@@ -32,8 +32,8 @@ const initDashboard = (req, res, next) => {
                     delete formdata.screeners;
                     renderDashboard(req, result, next);
                 }
-            } else if (formdata.screeners && formdata.screeners.left) {
-                createNewApplication(req, formdata, formData, result, next);
+            } else if (allEligibilityQuestionsPresent(formdata)) {
+                createNewApplication(req, res, formdata, formData, result, next);
             } else {
                 res.redirect('/start-eligibility');
             }
@@ -43,29 +43,33 @@ const initDashboard = (req, res, next) => {
         });
 };
 
-const createNewApplication = (req, formdata, formData, result, next) => {
-    let eligibilityQuestionsList = config.eligibilityQuestionsProbate;
-    if (formdata.screeners.left === contentWillLeft.optionNo) {
-        eligibilityQuestionsList = config.eligibilityQuestionsIntestacy;
+const createNewApplication = (req, res, formdata, formData, result, next) => {
+    cleanupSession(req.session, true);
+
+    formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
+        .then(result => {
+            delete formdata.caseType;
+            delete formdata.screeners;
+            renderDashboard(req, result, next);
+        })
+        .catch(err => {
+            logger.error(`Error while getting applications: ${err}`);
+        });
+};
+
+const allEligibilityQuestionsPresent = (formdata) => {
+    if (formdata.screeners && formdata.screeners.left) {
+        let eligibilityQuestionsList = config.eligibilityQuestionsProbate;
+        if (formdata.screeners.left === contentWillLeft.optionNo) {
+            eligibilityQuestionsList = config.eligibilityQuestionsIntestacy;
+        }
+
+        if (eligibilityQuestionsList.every(item => Object.keys(formdata.screeners).indexOf(item) > -1)) {
+            return true;
+        }
     }
 
-    if (eligibilityQuestionsList.every(item => Object.keys(formdata.screeners).indexOf(item) > -1)) {
-        cleanupSession(req.session, true);
-
-        formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
-            .then(result => {
-                delete formdata.caseType;
-                delete formdata.screeners;
-                renderDashboard(req, result, next);
-            })
-            .catch(err => {
-                logger.error(`Error while getting applications: ${err}`);
-            });
-    } else {
-        delete formdata.caseType;
-        delete formdata.screeners;
-        renderDashboard(req, result, next);
-    }
+    return false;
 };
 
 const renderDashboard = (req, result, next) => {
