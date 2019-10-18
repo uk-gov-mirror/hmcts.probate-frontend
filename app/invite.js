@@ -53,6 +53,10 @@ class InviteLink {
                         logger.error(`Error while checking the link or sending the pin: ${err}`);
                         failure(res);
                     });
+            })
+            .catch(err => {
+                logger.error(`Error while getting the authToken and serviceAuthorisation: ${err}`);
+                failure(res);
             });
     }
 
