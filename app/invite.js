@@ -23,7 +23,7 @@ class InviteLink {
     }
 
     checkLinkIsValid(req, res, success, failure) {
-        this.getAuth(req, res)
+        this.getAuth(req)
             .then(([authToken, serviceAuthorisation]) => {
                 if (authToken === null || serviceAuthorisation === null) {
                     logger.error('Error while getting the authToken and serviceAuthorisation');
@@ -40,8 +40,7 @@ class InviteLink {
                             } else {
                                 logger.info('Link is valid');
                                 const pinNumber = new PinNumber(config.services.orchestrator.url, req.sessionID);
-                                pinNumber
-                                    .get(result.phoneNumber, authToken, serviceAuthorisation)
+                                pinNumber.get(result.phoneNumber, authToken, serviceAuthorisation)
                                     .then(generatedPin => {
                                         req.session.pin = generatedPin;
                                         req.session.phoneNumber = result.phoneNumber;
@@ -101,33 +100,32 @@ class InviteLink {
         };
     }
 
-    getAuth(req, res) {
+    getAuth(req) {
         const authorise = new Authorise(config.services.idam.s2s_url, req.sessionID);
 
         return authorise.post()
             .then((serviceAuthorisation) => {
                 if (serviceAuthorisation.name === 'Error') {
                     logger.info(`serviceAuthResult Error = ${serviceAuthorisation}`);
-                    res.status(500);
-                    res.render('errors/500');
-                } else {
-                    const security = new Security();
-                    const hostname = FormatUrl.createHostname(req);
-                    security.getUserToken(hostname)
-                        .then((authToken) => {
-                            if (authToken.name === 'Error') {
-                                logger.info(`failed to obtain authToken = ${serviceAuthorisation}`);
-                                res.status(500);
-                                res.render('errors/500');
-                            } else {
-                                return [authToken, serviceAuthorisation];
-                            }
-                        })
-                        .catch((err) => {
-                            logger.info(`failed to obtain authToken = ${err}`);
-                            return [null, null];
-                        });
+                    return [null, null];
                 }
+
+                const security = new Security();
+                const hostname = FormatUrl.createHostname(req);
+
+                return security.getUserToken(hostname)
+                    .then((authToken) => {
+                        if (authToken.name === 'Error') {
+                            logger.info(`failed to obtain authToken = ${serviceAuthorisation}`);
+                            return [null, null];
+                        }
+
+                        return [authToken, serviceAuthorisation];
+                    })
+                    .catch((err) => {
+                        logger.info(`failed to obtain authToken = ${err}`);
+                        return [null, null];
+                    });
             })
             .catch((err) => {
                 logger.info(`serviceAuthResult Error = ${err}`);
