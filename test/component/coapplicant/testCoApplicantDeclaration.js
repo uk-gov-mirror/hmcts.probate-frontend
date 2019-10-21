@@ -65,7 +65,7 @@ describe('co-applicant-declaration', () => {
                 });
         });
 
-        it(`test it redirects to agree page: ${expectedNextUrlForCoAppAgree}`, (done) => {
+        it.skip(`test it redirects to agree page: ${expectedNextUrlForCoAppAgree}`, (done) => {
             inviteAgreedNock();
 
             testWrapper.agent.post('/prepare-session/form')
@@ -83,7 +83,7 @@ describe('co-applicant-declaration', () => {
                 });
         });
 
-        it(`test it redirects to disagree page: ${expectedNextUrlForCoAppDisagree}`, (done) => {
+        it.skip(`test it redirects to disagree page: ${expectedNextUrlForCoAppDisagree}`, (done) => {
             inviteAgreedNock();
 
             testWrapper.agent.post('/prepare-session/form')
