@@ -1,8 +1,10 @@
 'use strict';
 
+const config = require('app/config');
 const ValidationStep = require('app/core/steps/ValidationStep');
 const EligibilityCookie = require('app/utils/EligibilityCookie');
 const eligibilityCookie = new EligibilityCookie();
+const Dashboard = require('app/steps/ui/dashboard');
 
 class EligibilityValidationStep extends ValidationStep {
 
@@ -22,9 +24,40 @@ class EligibilityValidationStep extends ValidationStep {
                 ctx[fieldKey] = answerValue;
             }
         } else {
-            ctx = this.setFeatureTogglesOnCtx(ctx, featureToggles);
-            const nextStepUrl = this.nextStepUrl(req, ctx);
-            this.setEligibilityCookie(req, res, nextStepUrl, fieldKey, ctx[fieldKey]);
+            let nextStepUrl;
+            let eligibilityQuestionsList;
+
+            if (Object.keys(config.eligibilityQuestionsProbate).includes(fieldKey)) {
+                eligibilityQuestionsList = config.eligibilityQuestionsProbate;
+            } else if (Object.keys(config.eligibilityQuestionsIntestacy).includes(fieldKey)) {
+                eligibilityQuestionsList = config.eligibilityQuestionsIntestacy;
+            }
+
+            if (eligibilityQuestionsList) {
+                let allPreviousEligibilityQuestionsAnswered = true;
+
+                for (const itemKey of Object.keys(eligibilityQuestionsList)) {
+                    if (itemKey === fieldKey) {
+                        break;
+                    }
+
+                    if (!req.session.form.screeners || !req.session.form.screeners[itemKey] || req.session.form.screeners[itemKey] !== eligibilityQuestionsList[itemKey]) {
+                        allPreviousEligibilityQuestionsAnswered = false;
+                    }
+                }
+
+                if (!allPreviousEligibilityQuestionsAnswered) {
+                    nextStepUrl = Dashboard.getUrl();
+                }
+            } else {
+                nextStepUrl = Dashboard.getUrl();
+            }
+
+            if (!nextStepUrl) {
+                ctx = this.setFeatureTogglesOnCtx(ctx, featureToggles);
+                nextStepUrl = this.nextStepUrl(req, ctx);
+                this.setEligibilityCookie(req, res, nextStepUrl, fieldKey, ctx[fieldKey]);
+            }
         }
 
         return ctx;
