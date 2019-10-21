@@ -1,6 +1,6 @@
 'use strict';
 
-const {get, forEach} = require('lodash');
+const {get, forEach, isEqual} = require('lodash');
 const config = require('app/config');
 const logger = require('app/components/logger')('Init');
 const ServiceMapper = require('app/utils/ServiceMapper');
@@ -64,7 +64,7 @@ const allEligibilityQuestionsPresent = (formdata) => {
             eligibilityQuestionsList = config.eligibilityQuestionsIntestacy;
         }
 
-        if (eligibilityQuestionsList.every(item => Object.keys(formdata.screeners).indexOf(item) > -1)) {
+        if (isEqual(eligibilityQuestionsList, formdata.screeners)) {
             return true;
         }
     }
