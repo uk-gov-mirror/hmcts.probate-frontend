@@ -59,14 +59,6 @@ router.get('/health/liveness', (req, res) => {
     res.json({status: 'UP'});
 });
 
-router.get('/start-apply', (req, res, next) => {
-    if (req.session.form.userLoggedIn) {
-        res.redirect(301, '/dashboard');
-    } else {
-        next();
-    }
-});
-
 router.use((req, res, next) => {
     const formdata = req.session.form;
     const isHardStop = (formdata, journey) => config.hardStopParams[journey].some(param => get(formdata, param) === commonContent.no);
