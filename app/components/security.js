@@ -88,7 +88,7 @@ class Security {
         const redirectUrl = URL.parse(this.loginUrl, true);
         redirectUrl.query.response_type = 'code';
         redirectUrl.query.state = state;
-        redirectUrl.query.client_id = 'probate';
+        redirectUrl.query.client_id = 'ccd_gateway';
         redirectUrl.query.redirect_uri = callbackUrl;
 
         res.redirect(redirectUrl.format());
