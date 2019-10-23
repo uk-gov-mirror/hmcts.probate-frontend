@@ -58,7 +58,7 @@ const createNewApplication = (req, res, formdata, formData, result, next) => {
 };
 
 const allEligibilityQuestionsPresent = (formdata) => {
-    let allQuestionsPresent = true;
+    let allQuestionsPresent;
 
     if (formdata.screeners && formdata.screeners.left) {
         let eligibilityQuestionsList = config.eligibilityQuestionsProbate;
@@ -71,6 +71,8 @@ const allEligibilityQuestionsPresent = (formdata) => {
                 allQuestionsPresent = false;
             }
         });
+    } else {
+        allQuestionsPresent = false;
     }
 
     return allQuestionsPresent;

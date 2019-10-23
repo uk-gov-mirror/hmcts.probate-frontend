@@ -257,7 +257,7 @@ describe('multipleApplicationsMiddleware', () => {
             multipleApplicationsMiddleware.initDashboard(req, res, next);
 
             setTimeout(() => {
-                expect(serviceStub.callCount).to.equal(2);
+                expect(serviceStub.callCount).to.equal(1);
                 expect(req.session).to.deep.equal({
                     form: {
                         applicantEmail: 'test@email.com',
@@ -304,7 +304,7 @@ describe('multipleApplicationsMiddleware', () => {
             multipleApplicationsMiddleware.initDashboard(req, res, next);
 
             setTimeout(() => {
-                expect(serviceStub.callCount).to.equal(2);
+                expect(serviceStub.callCount).to.equal(1);
                 expect(req.session).to.deep.equal({
                     form: {
                         applicantEmail: 'test@email.com',
