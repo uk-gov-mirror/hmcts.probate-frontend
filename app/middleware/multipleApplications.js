@@ -1,6 +1,6 @@
 'use strict';
 
-const {get, forEach} = require('lodash');
+const {get, forEach, sortBy} = require('lodash');
 const config = require('app/config');
 const logger = require('app/components/logger')('Init');
 const ServiceMapper = require('app/utils/ServiceMapper');
@@ -86,7 +86,7 @@ const renderDashboard = (req, result, next) => {
         cleanupSession(req.session);
     }
 
-    req.session.form.applications = result.applications;
+    req.session.form.applications = sortBy(result.applications, 'ccdCase.id');
     next();
 };
 
