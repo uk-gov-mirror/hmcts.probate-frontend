@@ -1,6 +1,6 @@
 'use strict';
 
-const {get, forEach, isEqual} = require('lodash');
+const {get, forEach} = require('lodash');
 const config = require('app/config');
 const logger = require('app/components/logger')('Init');
 const ServiceMapper = require('app/utils/ServiceMapper');
@@ -58,18 +58,22 @@ const createNewApplication = (req, res, formdata, formData, result, next) => {
 };
 
 const allEligibilityQuestionsPresent = (formdata) => {
+    let allQuestionsPresent = true;
+
     if (formdata.screeners && formdata.screeners.left) {
         let eligibilityQuestionsList = config.eligibilityQuestionsProbate;
         if (formdata.screeners.left === contentWillLeft.optionNo) {
             eligibilityQuestionsList = config.eligibilityQuestionsIntestacy;
         }
 
-        if (isEqual(eligibilityQuestionsList, formdata.screeners)) {
-            return true;
-        }
+        Object.entries(eligibilityQuestionsList).forEach(([key, value]) => {
+            if (!Object.keys(formdata.screeners).includes(key) || formdata.screeners[key] !== value) {
+                allQuestionsPresent = false;
+            }
+        });
     }
 
-    return false;
+    return allQuestionsPresent;
 };
 
 const renderDashboard = (req, result, next) => {
