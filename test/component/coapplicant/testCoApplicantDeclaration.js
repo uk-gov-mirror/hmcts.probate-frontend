@@ -19,28 +19,22 @@ const invitesAllAgreedNock = () => {
         .reply(200, 'false');
 };
 const inviteAgreedNock = () => {
-    nock(orchestratorServiceUrl)
-        .post('/invite/agreed/1234567890123456')
-        .times(2)
-        .reply(200, 'false');
-};
-const authoriseNock = () => {
     nock(idamS2sUrl)
         .post('/lease')
         .times(2)
         .reply(200, '123');
-};
-const getOauth2CodeNock = () => {
     nock(idamApiUrl)
         .post('/oauth2/authorize')
         .times(2)
         .reply(200, {code: '456'});
-};
-const getOauth2TokenNock = () => {
     nock(idamApiUrl)
         .post('/oauth2/token')
         .times(2)
         .reply(200, {access_token: '789'});
+    nock(orchestratorServiceUrl)
+        .post('/invite/agreed/1234567890123456')
+        .times(5)
+        .reply(200, 'dummy_invite_id');
 };
 
 describe('co-applicant-declaration', () => {
@@ -87,9 +81,6 @@ describe('co-applicant-declaration', () => {
         });
 
         it.skip(`test it redirects to agree page: ${expectedNextUrlForCoAppAgree}`, (done) => {
-            authoriseNock();
-            getOauth2CodeNock();
-            getOauth2TokenNock();
             inviteAgreedNock();
 
             testWrapper.agent.post('/prepare-session/form')
@@ -101,6 +92,7 @@ describe('co-applicant-declaration', () => {
                 })
                 .end(() => {
                     const data = {
+                        inviteId: 'dummy_id',
                         agreement: content.optionYes
                     };
                     testWrapper.testRedirect(done, data, expectedNextUrlForCoAppAgree);
@@ -108,9 +100,6 @@ describe('co-applicant-declaration', () => {
         });
 
         it.skip(`test it redirects to disagree page: ${expectedNextUrlForCoAppDisagree}`, (done) => {
-            authoriseNock();
-            getOauth2CodeNock();
-            getOauth2TokenNock();
             inviteAgreedNock();
 
             testWrapper.agent.post('/prepare-session/form')
