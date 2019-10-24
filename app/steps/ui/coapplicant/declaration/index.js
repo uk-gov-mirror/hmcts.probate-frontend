@@ -41,44 +41,36 @@ class CoApplicantDeclaration extends ValidationStep {
 
     * handlePost(ctx, errors, formdata, session, hostname) {
         const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
+        const serviceAuthorisation = yield authorise.post();
+        if (serviceAuthorisation.name === 'Error') {
+            logger.info(`serviceAuthResult Error = ${serviceAuthorisation}`);
+            const keyword = 'failure';
+            errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
+            return [ctx, errors];
+        }
 
-        yield authorise.post()
-            .then((serviceAuthorisation) => {
-                if (serviceAuthorisation.name === 'Error') {
-                    logger.info(`serviceAuthResult Error = ${serviceAuthorisation}`);
-                    const keyword = 'failure';
-                    errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
-                    return [ctx, errors];
+        const security = new Security();
+        const authToken = yield security.getUserToken(hostname);
+        if (authToken.name === 'Error') {
+            logger.info(`failed to obtain authToken = ${authToken}`);
+            errors.push(FieldError('authorisation', 'failure', this.resourcePath, ctx));
+            return;
+        }
+
+        const data = {
+            inviteId: ctx.inviteId,
+            agreed: this.content.optionYes === ctx.agreement
+        };
+        const inviteData = new InviteData(config.services.orchestrator.url, ctx.sessionID);
+
+        yield inviteData.setAgreedFlag(authToken, serviceAuthorisation, ctx.ccdCase.id, data)
+            .then((result) => {
+                if (result.name === 'Error') {
+                    throw new ReferenceError('Error updating co-applicant\'s data');
                 }
-
-                const security = new Security();
-                security.getUserToken(hostname)
-                    .then((authToken) => {
-                        if (authToken.name === 'Error') {
-                            logger.info(`failed to obtain authToken = ${serviceAuthorisation}`);
-                            errors.push(FieldError('authorisation', 'failure', this.resourcePath, ctx));
-                            return;
-                        }
-
-                        const data = {
-                            inviteId: ctx.inviteId,
-                            agreed: this.content.optionYes === ctx.agreement
-                        };
-                        const inviteData = new InviteData(config.services.orchestrator.url, ctx.sessionID);
-
-                        inviteData.setAgreedFlag(authToken, serviceAuthorisation, ctx.ccdCase.id, data)
-                            .then(result => {
-                                if (result.name === 'Error') {
-                                    throw new ReferenceError('Error updating co-applicant\'s data');
-                                }
-
-                                return [ctx, errors];
-                            })
-                            .catch(() => {
-                                throw new ReferenceError('Error updating co-applicant\'s data');
-                            });
-                    });
             });
+
+        return [ctx, errors];
     }
 
     action(ctx, formdata) {
