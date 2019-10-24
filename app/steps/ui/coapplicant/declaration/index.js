@@ -3,6 +3,10 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const InviteData = require('app/services/InviteData');
 const config = require('app/config');
+const FieldError = require('app/components/error');
+const Security = require('app/services/Security');
+const Authorise = require('app/services/Authorise');
+const logger = require('app/components/logger')('Init');
 
 class CoApplicantDeclaration extends ValidationStep {
 
@@ -35,21 +39,46 @@ class CoApplicantDeclaration extends ValidationStep {
         return false;
     }
 
-    * handlePost(ctx, errors) {
-        const data = {
-            inviteId: ctx.inviteId,
-            agreed: this.content.optionYes === ctx.agreement
-        };
-        const inviteData = new InviteData(config.services.orchestrator.url, ctx.sessionID);
+    * handlePost(ctx, errors, formdata, session, hostname) {
+        const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
 
-        yield inviteData.setAgreedFlag(ctx.ccdCase.id, data)
-            .then(result => {
-                if (result.name === 'Error') {
-                    throw new ReferenceError('Error updating co-applicant\'s data');
+        yield authorise.post()
+            .then((serviceAuthorisation) => {
+                if (serviceAuthorisation.name === 'Error') {
+                    logger.info(`serviceAuthResult Error = ${serviceAuthorisation}`);
+                    const keyword = 'failure';
+                    errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
+                    return [ctx, errors];
                 }
-            });
 
-        return [ctx, errors];
+                const security = new Security();
+                security.getUserToken(hostname)
+                    .then((authToken) => {
+                        if (authToken.name === 'Error') {
+                            logger.info(`failed to obtain authToken = ${serviceAuthorisation}`);
+                            errors.push(FieldError('authorisation', 'failure', this.resourcePath, ctx));
+                            return;
+                        }
+
+                        const data = {
+                            inviteId: ctx.inviteId,
+                            agreed: this.content.optionYes === ctx.agreement
+                        };
+                        const inviteData = new InviteData(config.services.orchestrator.url, ctx.sessionID);
+
+                        inviteData.setAgreedFlag(authToken, serviceAuthorisation, ctx.ccdCase.id, data)
+                            .then(result => {
+                                if (result.name === 'Error') {
+                                    throw new ReferenceError('Error updating co-applicant\'s data');
+                                }
+
+                                return [ctx, errors];
+                            })
+                            .catch(() => {
+                                throw new ReferenceError('Error updating co-applicant\'s data');
+                            });
+                    });
+            });
     }
 
     action(ctx, formdata) {
