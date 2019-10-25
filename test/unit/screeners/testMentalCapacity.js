@@ -21,7 +21,12 @@ describe('MentalCapacity', () => {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
-                    form: {},
+                    form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Draft'
+                        }
+                    },
                     caseType: 'gop'
                 },
                 body: {
@@ -35,7 +40,11 @@ describe('MentalCapacity', () => {
                 sessionID: 'dummy_sessionId',
                 mentalCapacity: 'optionYes',
                 caseType: 'gop',
-                userLoggedIn: false
+                userLoggedIn: false,
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                }
             });
             done();
         });
@@ -45,7 +54,17 @@ describe('MentalCapacity', () => {
         it('should return the correct url when Yes is given', (done) => {
             const req = {
                 session: {
-                    journey: journey
+                    journey: journey,
+                    form: {
+                        screeners: {
+                            deathCertificate: 'Yes',
+                            domicile: 'Yes',
+                            completed: 'Yes',
+                            left: 'Yes',
+                            original: 'Yes',
+                            executor: 'Yes'
+                        }
+                    }
                 }
             };
             const ctx = {
@@ -59,7 +78,17 @@ describe('MentalCapacity', () => {
         it('should return the correct url when No is given', (done) => {
             const req = {
                 session: {
-                    journey: journey
+                    journey: journey,
+                    form: {
+                        screeners: {
+                            deathCertificate: 'Yes',
+                            domicile: 'Yes',
+                            completed: 'Yes',
+                            left: 'Yes',
+                            original: 'Yes',
+                            executor: 'Yes'
+                        }
+                    }
                 }
             };
             const ctx = {

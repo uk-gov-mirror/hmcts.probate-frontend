@@ -3,6 +3,7 @@
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
 const pageUrl = '/death-certificate';
 const fieldKey = 'deathCertificate';
+const Dashboard = require('app/steps/ui/dashboard');
 
 class DeathCertificate extends EligibilityValidationStep {
 
@@ -15,6 +16,10 @@ class DeathCertificate extends EligibilityValidationStep {
     }
 
     nextStepUrl(req, ctx) {
+        if (!this.previousQuestionsAnswered(req, ctx, fieldKey)) {
+            return Dashboard.getUrl();
+        }
+
         return this.next(req, ctx).constructor.getUrl('deathCertificate');
     }
 

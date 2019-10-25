@@ -14,6 +14,8 @@ class Dashboard extends Step {
 
     getContextData(req, res) {
         const ctx = super.getContextData(req, res);
+        delete ctx.caseType;
+        delete ctx.ccdCase;
         ctx.applications = req.session.form.applications;
         forEach(ctx.applications, application => {
             application.ccdCase.idFormatted = FormatCcdCaseId.format(application.ccdCase);

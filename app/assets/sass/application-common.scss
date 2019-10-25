@@ -76,3 +76,13 @@ a[href^="tel"] {
 .no-bottom-border {
   border-bottom: none;
 }
+
+.inline-dl {
+  display: inline;
+
+  dt,
+  dd {
+    display: inline;
+    margin-inline-start: unset;
+  }
+}

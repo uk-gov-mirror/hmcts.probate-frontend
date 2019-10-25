@@ -56,6 +56,7 @@ class Step {
         ctx.sessionID = req.sessionID;
         ctx.caseType = caseTypes.getCaseType(session);
         ctx.userLoggedIn = false;
+        ctx.ccdCase = req.session.form.ccdCase;
         if (typeof session.form.userLoggedIn === 'boolean') {
             ctx.userLoggedIn = session.form.userLoggedIn;
         }
@@ -79,6 +80,10 @@ class Step {
 
     isComplete() {
         return [this.validate()[0], 'noProgress'];
+    }
+
+    shouldPersistFormData() {
+        return true;
     }
 
     generateContent(ctx, formdata, lang = 'en') {
@@ -143,13 +148,15 @@ class Step {
 
     alreadyDeclared(session) {
         const hasMultipleApplicants = (new ExecutorsWrapper(get(session, 'form.executors'))).hasMultipleApplicants();
+
         if (hasMultipleApplicants === false) {
             return get(session, 'form.declaration.declarationCheckbox') === 'true';
         }
+
         return [
-            session.haveAllExecutorsDeclared,
-            get(session, 'form.executors.invitesSent'),
-            get(session, 'form.declaration.declarationCheckbox')
+            get(session, 'haveAllExecutorsDeclared', false).toString(),
+            get(session, 'form.executors.invitesSent', false).toString(),
+            get(session, 'form.declaration.declarationCheckbox', false).toString()
         ].every(param => param === 'true');
     }
 

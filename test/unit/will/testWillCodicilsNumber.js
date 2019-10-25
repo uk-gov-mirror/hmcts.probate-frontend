@@ -20,7 +20,11 @@ describe('CodicilsNumber', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        caseType: 'gop'
+                        caseType: 'gop',
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Draft'
+                        }
                     },
                     caseType: 'gop'
                 },
@@ -33,7 +37,11 @@ describe('CodicilsNumber', () => {
                 codicilsNumber: 3,
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
-                userLoggedIn: false
+                userLoggedIn: false,
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                }
             });
             done();
         });
@@ -43,7 +51,11 @@ describe('CodicilsNumber', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        caseType: 'gop'
+                        caseType: 'gop',
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Draft'
+                        }
                     },
                     caseType: 'gop'
                 },
@@ -56,7 +68,11 @@ describe('CodicilsNumber', () => {
                 codicilsNumber: null,
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
-                userLoggedIn: false
+                userLoggedIn: false,
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                }
             });
             done();
         });

@@ -35,6 +35,10 @@ describe('DeceasedAlias', () => {
                 session: {
                     form: {
                         caseType: 'gop',
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Draft'
+                        },
                         deceased: {
                             firstName: 'Dee',
                             lastName: 'Ceased'
@@ -50,7 +54,11 @@ describe('DeceasedAlias', () => {
                 deceasedName: 'Dee Ceased',
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
-                userLoggedIn: false
+                userLoggedIn: false,
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                }
             });
             done();
         });
@@ -60,7 +68,7 @@ describe('DeceasedAlias', () => {
         let ctx;
         let errors;
 
-        it('should delete otherNames if the deceased had no aliases', (done) => {
+        it('should othernames to empty object if the deceased removed aliases', (done) => {
             ctx = {
                 alias: 'optionNo',
                 otherNames: [
@@ -73,7 +81,8 @@ describe('DeceasedAlias', () => {
             errors = [];
             [ctx, errors] = DeceasedAlias.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
-                alias: 'optionNo'
+                alias: 'optionNo',
+                otherNames: {}
             });
             done();
         });

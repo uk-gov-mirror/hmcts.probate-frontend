@@ -44,19 +44,45 @@ describe('will-original', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForApplicantExecutor}`, (done) => {
-            const data = {
-                original: 'optionYes'
+            const sessionData = {
+                screeners: {
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes',
+                    left: 'optionYes'
+                }
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForApplicantExecutor, cookies);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        original: 'optionYes'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantExecutor, cookies);
+                });
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            const data = {
-                original: 'optionNo'
+            const sessionData = {
+                screeners: {
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes',
+                    left: 'optionYes'
+                }
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        original: 'optionNo'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+                });
         });
 
         it('test "save and close" link is not displayed on the page', (done) => {

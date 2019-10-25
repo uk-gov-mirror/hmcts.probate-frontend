@@ -50,19 +50,49 @@ describe('mental-capacity', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForStartApply}`, (done) => {
-            const data = {
-                mentalCapacity: 'optionYes'
+            const sessionData = {
+                screeners: {
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes',
+                    left: 'optionYes',
+                    original: 'optionYes',
+                    executor: 'optionYes'
+                }
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForStartApply, cookies);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        mentalCapacity: 'optionYes'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForStartApply, cookies);
+                });
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            const data = {
-                mentalCapacity: 'optionNo'
+            const sessionData = {
+                screeners: {
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes',
+                    left: 'optionYes',
+                    original: 'optionYes',
+                    executor: 'optionYes'
+                }
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        mentalCapacity: 'optionNo'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+                });
         });
 
         it('test "save and close" link is not displayed on the page', (done) => {

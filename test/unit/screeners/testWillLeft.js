@@ -21,7 +21,12 @@ describe('WillLeft', () => {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
-                    form: {},
+                    form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Draft'
+                        }
+                    },
                     caseType: 'gop'
                 },
                 body: {
@@ -35,7 +40,11 @@ describe('WillLeft', () => {
                 sessionID: 'dummy_sessionId',
                 left: 'optionYes',
                 caseType: 'gop',
-                userLoggedIn: false
+                userLoggedIn: false,
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                }
             });
             done();
         });
@@ -71,8 +80,11 @@ describe('WillLeft', () => {
                 key2: 'value',
                 applicantEmail: 'test@email.com',
                 payloadVersion: '1.0.1',
+                userLoggedIn: true,
                 screeners: {
-                    screen1: 'yes'
+                    deathCertificate: 'Yes',
+                    domicile: 'Yes',
+                    completed: 'Yes'
                 }
             };
             const session = {};
@@ -89,7 +101,13 @@ describe('WillLeft', () => {
                 caseType: 'gop',
                 payloadVersion: '1.0.1',
                 applicant: {},
-                deceased: {}
+                deceased: {},
+                userLoggedIn: true,
+                screeners: {
+                    deathCertificate: 'Yes',
+                    domicile: 'Yes',
+                    completed: 'Yes'
+                }
             });
             done();
         });
@@ -99,7 +117,14 @@ describe('WillLeft', () => {
         it('should return the correct url when Yes is given', (done) => {
             const req = {
                 session: {
-                    journey: journey
+                    journey: journey,
+                    form: {
+                        screeners: {
+                            deathCertificate: 'Yes',
+                            domicile: 'Yes',
+                            completed: 'Yes'
+                        }
+                    }
                 }
             };
             const ctx = {
@@ -113,7 +138,14 @@ describe('WillLeft', () => {
         it('should return the correct url when No is given', (done) => {
             const req = {
                 session: {
-                    journey: journey
+                    journey: journey,
+                    form: {
+                        screeners: {
+                            deathCertificate: 'Yes',
+                            domicile: 'Yes',
+                            completed: 'Yes'
+                        }
+                    }
                 }
             };
             const ctx = {

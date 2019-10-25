@@ -3,6 +3,7 @@
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
 const pageUrl = '/deceased-domicile';
 const fieldKey = 'domicile';
+const Dashboard = require('app/steps/ui/dashboard');
 
 class DeceasedDomicile extends EligibilityValidationStep {
 
@@ -15,6 +16,10 @@ class DeceasedDomicile extends EligibilityValidationStep {
     }
 
     nextStepUrl(req, ctx) {
+        if (!this.previousQuestionsAnswered(req, ctx, fieldKey)) {
+            return Dashboard.getUrl();
+        }
+
         return this.next(req, ctx).constructor.getUrl('notInEnglandOrWales');
     }
 

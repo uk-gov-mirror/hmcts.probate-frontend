@@ -3,6 +3,7 @@
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
 const pageUrl = '/other-applicants';
 const fieldKey = 'otherApplicants';
+const Dashboard = require('app/steps/ui/dashboard');
 
 class OtherApplicants extends EligibilityValidationStep {
 
@@ -15,6 +16,10 @@ class OtherApplicants extends EligibilityValidationStep {
     }
 
     nextStepUrl(req, ctx) {
+        if (!this.previousQuestionsAnswered(req, ctx, fieldKey)) {
+            return Dashboard.getUrl();
+        }
+
         return this.next(req, ctx).constructor.getUrl('otherApplicants');
     }
 

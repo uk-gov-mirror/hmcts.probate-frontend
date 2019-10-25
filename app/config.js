@@ -35,14 +35,15 @@ const config = {
             url: process.env.ORCHESTRATOR_SERVICE_URL || 'http://localhost:8888',
             paths: {
                 forms: '/forms/case/{ccdCaseId}',
+                create: '/forms/newcase/',
                 submissions: '/forms/{ccdCaseId}/submissions',
                 payments: '/forms/{ccdCaseId}/payments',
                 payment_updates: '/payment-updates',
                 payment_submissions: '/forms/{ccdCaseId}/payment-submissions',
                 fees: '/forms/{ccdCaseId}/fees',
                 validations: '/forms/{ccdCaseId}/validations',
-                create: '/forms/newcase/',
-                applications: '/forms/cases'
+                applications: '/forms/cases',
+                declarationStatuses: '/invites/{ccdCaseId}'
             },
             port: 8888
         },
@@ -194,14 +195,34 @@ const config = {
         version: process.env.version || '1',
         currency: process.env.currency || 'GBP'
     },
+    noHeaderLinksPages: ['/sign-out', '/co-applicant-start-page', '/co-applicant-declaration', '/co-applicant-agree-page', '/co-applicant-disagree-page', '/co-applicant-all-agreed-page', '/pin-resend', '/pin-sent', '/sign-in'],
     whitelistedPagesAfterSubmission: ['/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
     whitelistedPagesAfterPayment: ['/task-list', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
     whitelistedPagesAfterDeclaration: ['/task-list', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
+    eligibilityQuestionsProbate: {
+        deathCertificate: 'optionYes',
+        domicile: 'optionYes',
+        completed: 'optionYes',
+        left: 'optionYes',
+        original: 'optionYes',
+        executor: 'optionYes',
+        mentalCapacity: 'optionYes'
+    },
+    eligibilityQuestionsIntestacy: {
+        deathCertificate: 'optionYes',
+        domicile: 'optionYes',
+        completed: 'optionYes',
+        left: 'optionNo',
+        diedAfter: 'optionYes',
+        related: 'optionYes',
+        otherApplicants: 'optionNo'
+    },
     hardStopParams: {
         gop: [],
         intestacy: []
     },
-    nonIdamPages: ['health/*', 'stop-page/*', 'time-out', 'error', 'sign-in', 'sign-out', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies'],
+    nonIdamPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies'],
+    noCcdCaseIdPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies', 'dashboard', 'sign-out', 'time-out'],
     endpoints: {
         health: '/health',
         info: '/info'

@@ -41,7 +41,11 @@ describe('EligibilityValidationStep', () => {
                 method: 'GET',
                 session: {
                     form: {
-                        caseType: 'gop'
+                        caseType: 'gop',
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Draft'
+                        }
                     },
                     caseType: 'gop'
                 },
@@ -60,7 +64,11 @@ describe('EligibilityValidationStep', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'abc123',
                 caseType: 'gop',
-                userLoggedIn: false
+                userLoggedIn: false,
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                }
             });
 
             revert();
@@ -76,7 +84,11 @@ describe('EligibilityValidationStep', () => {
                 sessionID: 'abc123',
                 caseType: 'gop',
                 userLoggedIn: false,
-                deathCertificate: 'optionYes'
+                deathCertificate: 'optionYes',
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                }
             });
 
             revert();
@@ -86,6 +98,10 @@ describe('EligibilityValidationStep', () => {
         it('a POST request should call nextStepUrl() and setEligibilityCookie()', (done) => {
             req.method = 'POST';
             req.session.form = {
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                },
                 deceased: {
                     deathCertificate: 'optionYes'
                 },
@@ -100,7 +116,7 @@ describe('EligibilityValidationStep', () => {
             const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey, featureToggles);
 
             expect(nextStepUrlStub.calledOnce).to.equal(true);
-            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', caseType: 'gop', deathCertificate: 'optionYes', isTestToggleEnabled: true, userLoggedIn: false})).to.equal(true);
+            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', caseType: 'gop', deathCertificate: 'optionYes', isTestToggleEnabled: true, userLoggedIn: false, ccdCase: {id: 1234567890123456, state: 'Draft'}})).to.equal(true);
             expect(setEligibilityCookieStub.calledOnce).to.equal(true);
             expect(setEligibilityCookieStub.calledWith(req, res, nextStepUrl, fieldKey, fieldValue)).to.equal(true);
             expect(ctx).to.deep.equal({
@@ -108,7 +124,11 @@ describe('EligibilityValidationStep', () => {
                 caseType: 'gop',
                 userLoggedIn: false,
                 deathCertificate: 'optionYes',
-                isTestToggleEnabled: true
+                isTestToggleEnabled: true,
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                }
             });
 
             nextStepUrlStub.restore();

@@ -41,19 +41,39 @@ describe('deceased-domicile', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForIhtCompleted}`, (done) => {
-            const data = {
-                domicile: 'optionYes'
+            const sessionData = {
+                screeners: {
+                    deathCertificate: 'optionYes'
+                }
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtCompleted, cookies);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        domicile: 'optionYes'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForIhtCompleted, cookies);
+                });
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            const data = {
-                domicile: 'optionNo'
+            const sessionData = {
+                screeners: {
+                    deathCertificate: 'optionYes'
+                }
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        domicile: 'optionNo'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+                });
         });
 
         it('test "save and close" link is not displayed on the page', (done) => {

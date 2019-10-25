@@ -3,6 +3,7 @@
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
 const pageUrl = '/related-to-deceased';
 const fieldKey = 'related';
+const Dashboard = require('app/steps/ui/dashboard');
 
 class RelatedToDeceased extends EligibilityValidationStep {
 
@@ -15,6 +16,10 @@ class RelatedToDeceased extends EligibilityValidationStep {
     }
 
     nextStepUrl(req, ctx) {
+        if (!this.previousQuestionsAnswered(req, ctx, fieldKey)) {
+            return Dashboard.getUrl();
+        }
+
         return this.next(req, ctx).constructor.getUrl('notRelated');
     }
 

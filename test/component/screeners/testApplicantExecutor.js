@@ -45,19 +45,47 @@ describe('applicant-executor', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForMentalCapacity}`, (done) => {
-            const data = {
-                executor: 'optionYes'
+            const sessionData = {
+                screeners: {
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes',
+                    left: 'optionYes',
+                    original: 'optionYes'
+                }
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForMentalCapacity, cookies);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        executor: 'optionYes'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForMentalCapacity, cookies);
+                });
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            const data = {
-                executor: 'optionNo'
+            const sessionData = {
+                screeners: {
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes',
+                    left: 'optionYes',
+                    original: 'optionYes'
+                }
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        executor: 'optionNo'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+                });
         });
 
         it('test "save and close" link is not displayed on the page', (done) => {

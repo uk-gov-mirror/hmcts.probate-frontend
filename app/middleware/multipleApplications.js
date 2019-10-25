@@ -1,9 +1,12 @@
 'use strict';
 
+const {get, forEach, sortBy} = require('lodash');
 const config = require('app/config');
 const logger = require('app/components/logger')('Init');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const caseTypes = require('app/utils/CaseTypes');
+const ExecutorsWrapper = require('app/wrappers/Executors');
+const contentWillLeft = require('app/resources/en/translation/screeners/willleft');
 
 const initDashboard = (req, res, next) => {
     const session = req.session;
@@ -13,34 +16,78 @@ const initDashboard = (req, res, next) => {
         [config.services.orchestrator.url, req.sessionID]
     );
 
-    if (formdata.screeners) {
-        cleanupFormdata(req.session.form, true);
-
-        formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
-            .then(() => {
-                getApplications(req, res, next, formData);
-            })
-            .catch(err => {
-                logger.error(`Error while getting applications: ${err}`);
-            });
-    } else {
-        getApplications(req, res, next, formData);
-    }
-};
-
-const getApplications = (req, res, next, formData) => {
     formData.getAll(req.authToken, req.session.serviceAuthorization)
         .then(result => {
             if (result.applications && result.applications.length) {
-                cleanupFormdata(req.session.form);
+                if (allEligibilityQuestionsPresent(formdata)) {
+                    if (!result.applications.some(application => application.ccdCase.state === 'Draft' && !application.deceasedFullName && application.caseType === caseTypes.getProbateType(formdata.caseType))) {
+                        createNewApplication(req, res, formdata, formData, result, next);
+                    } else {
+                        delete formdata.caseType;
+                        delete formdata.screeners;
+                        renderDashboard(req, result, next);
+                    }
+                } else {
+                    delete formdata.caseType;
+                    delete formdata.screeners;
+                    renderDashboard(req, result, next);
+                }
+            } else if (allEligibilityQuestionsPresent(formdata)) {
+                createNewApplication(req, res, formdata, formData, result, next);
+            } else {
+                res.redirect('/start-eligibility');
             }
-
-            req.session.form.applications = result.applications;
-            next();
         })
         .catch(err => {
             logger.error(`Error while getting applications: ${err}`);
         });
+};
+
+const createNewApplication = (req, res, formdata, formData, result, next) => {
+    cleanupSession(req.session, true);
+
+    formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
+        .then(result => {
+            delete formdata.caseType;
+            delete formdata.screeners;
+            renderDashboard(req, result, next);
+        })
+        .catch(err => {
+            logger.error(`Error while getting applications: ${err}`);
+        });
+};
+
+const allEligibilityQuestionsPresent = (formdata) => {
+    let allQuestionsPresent = true;
+
+    if (formdata.screeners && formdata.screeners.left) {
+        let eligibilityQuestionsList = config.eligibilityQuestionsProbate;
+        if (formdata.screeners.left === contentWillLeft.optionNo) {
+            eligibilityQuestionsList = config.eligibilityQuestionsIntestacy;
+        }
+
+        Object.entries(eligibilityQuestionsList).forEach(([key, value]) => {
+            if (!Object.keys(formdata.screeners).includes(key) || formdata.screeners[key] !== value) {
+                allQuestionsPresent = false;
+            }
+        });
+    } else {
+        allQuestionsPresent = false;
+    }
+
+    return allQuestionsPresent;
+};
+
+const renderDashboard = (req, result, next) => {
+    delete req.session.form.caseType;
+    delete req.session.form.screeners;
+
+    if (result.applications && result.applications.length) {
+        cleanupSession(req.session);
+    }
+
+    req.session.form.applications = sortBy(result.applications, 'ccdCase.id');
+    next();
 };
 
 const getCase = (req, res) => {
@@ -72,7 +119,7 @@ const getCase = (req, res) => {
 
         formData.get(req.authToken, req.session.serviceAuthorization, ccdCaseId, probateType)
             .then(result => {
-                session.form = result.formdata;
+                session.form = result;
 
                 if (session.form.ccdCase.state === 'Draft' || session.form.ccdCase.state === 'PAAppCreated' || session.form.ccdCase.state === 'CasePaymentFailed') {
                     res.redirect('/task-list');
@@ -82,13 +129,48 @@ const getCase = (req, res) => {
             })
             .catch(err => {
                 logger.error(`Error while getting the case: ${err}`);
+                res.redirect('/errors/404');
             });
     } else {
         res.redirect('/dashboard');
     }
 };
 
-const cleanupFormdata = (formdata, retainCaseType = false) => {
+const getDeclarationStatuses = (req, res, next) => {
+    const session = req.session;
+    const formdata = session.form;
+    const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+    const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
+
+    if (get(formdata, 'declaration.declarationCheckbox') && hasMultipleApplicants) {
+        const ccdCaseId = formdata.ccdCase.id;
+
+        const formData = ServiceMapper.map(
+            'FormData',
+            [config.services.orchestrator.url, req.sessionID]
+        );
+
+        formData.getDeclarationStatuses(req.authToken, req.session.serviceAuthorization, ccdCaseId)
+            .then(result => {
+                session.form.executorsDeclarations = [];
+                forEach(result.invitations, executor => (
+                    session.form.executorsDeclarations.push({
+                        executorName: executor.executorName,
+                        agreed: executor.agreed
+                    })
+                ));
+
+                next();
+            })
+            .catch(err => {
+                logger.error(`Error while getting the declaration statuses: ${err}`);
+            });
+    } else {
+        next();
+    }
+};
+
+const cleanupSession = (session, retainCaseType = false) => {
     const retainedList = [
         'applicantEmail',
         'payloadVersion',
@@ -97,12 +179,13 @@ const cleanupFormdata = (formdata, retainCaseType = false) => {
     if (retainCaseType) {
         retainedList.push('caseType');
     }
-    Object.keys(formdata).forEach((key) => {
+    Object.keys(session.form).forEach((key) => {
         if (!retainedList.includes(key)) {
-            delete formdata[key];
+            delete session.form[key];
         }
     });
 };
 
 module.exports.initDashboard = initDashboard;
 module.exports.getCase = getCase;
+module.exports.getDeclarationStatuses = getDeclarationStatuses;

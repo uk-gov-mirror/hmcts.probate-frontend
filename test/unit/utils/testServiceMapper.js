@@ -1,6 +1,6 @@
 'use strict';
 
-const {expect} = require('chai');
+const expect = require('chai').expect;
 const ServiceMapper = require('app/utils/ServiceMapper');
 const FormData = require('app/services/FormData');
 

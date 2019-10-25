@@ -1,6 +1,6 @@
 'use strict';
 
-const {expect} = require('chai');
+const expect = require('chai').expect;
 const sinon = require('sinon');
 const ProbateDeclarationPdf = require('app/services/DeclarationPdf');
 const ProbatePdf = require('app/services/Pdf');

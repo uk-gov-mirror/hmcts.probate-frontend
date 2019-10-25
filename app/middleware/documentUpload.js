@@ -84,7 +84,7 @@ const removeDocument = (req, res, next) => {
     document.delete(documentId, req.session.regId, req.authToken, req.session.serviceAuthorization)
         .then(() => {
             req.session.form.documents.uploads = documentUpload.removeDocument(index, uploads);
-            persistFormData(req.session.form.ccdCaseId, req.session.form, req.session.regId, req);
+            persistFormData(req.session.form.ccdCase.id, req.session.form, req.session.regId, req);
             res.redirect('/document-upload');
         })
         .catch((err) => {

@@ -19,6 +19,10 @@ describe('RemoveInvitedExecutor', () => {
             req = {
                 session: {
                     form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Draft'
+                        },
                         executors: {
                             executorsNumber: 4,
                             list: [{

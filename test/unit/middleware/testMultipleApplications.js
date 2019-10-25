@@ -1,3 +1,5 @@
+// eslint-disable-line max-lines
+
 'use strict';
 
 const expect = require('chai').expect;
@@ -5,47 +7,320 @@ const sinon = require('sinon');
 const rewire = require('rewire');
 const multipleApplicationsMiddleware = rewire('app/middleware/multipleApplications');
 const Service = require('app/services/Service');
-const content = require('app/resources/en/translation/dashboard');
 
-const allApplicationsExpectedResponse = [
-    {
-        deceasedFullName: 'David Cameron',
-        dateCreated: '13 July 2016',
-        ccdCase: {
-            id: 1234567890123456,
-            state: 'Draft'
+const allApplicationsExpectedResponse = {
+    applications: [
+        {
+            deceasedFullName: 'David Cameron',
+            dateCreated: '13 July 2016',
+            caseType: 'PA',
+            ccdCase: {
+                id: '1234567890123456',
+                state: 'Draft'
+            }
+        },
+        {
+            deceasedFullName: 'Theresa May',
+            dateCreated: '24 July 2019',
+            caseType: 'PA',
+            ccdCase: {
+                id: '5678901234561234',
+                state: 'CaseCreated'
+            }
+        },
+        {
+            deceasedFullName: 'Boris Johnson',
+            dateCreated: '14 September 2019',
+            caseType: 'PA',
+            ccdCase: {
+                id: '9012345612345678',
+                state: 'Draft'
+            }
+        },
+        {
+            deceasedFullName: 'Margareth Thatcher',
+            dateCreated: '2 October 2019',
+            caseType: 'INTESTACY',
+            ccdCase: {
+                id: '3456123456789012',
+                state: 'Draft'
+            }
+        },
+        {
+            dateCreated: '9 November 2019',
+            caseType: 'PA',
+            ccdCase: {
+                id: '9999999999999999',
+                state: 'Draft'
+            }
         }
-    },
-    {
-        deceasedFullName: 'Theresa May',
-        dateCreated: '24 July 2019',
-        ccdCase: {
-            id: 5678901234561234,
-            state: 'CaseCreated'
-        }
-    },
-    {
-        deceasedFullName: 'Boris Johnson',
-        dateCreated: '31 October 2019',
-        ccdCase: {
-            id: 9012345612345678,
-            state: 'Draft'
-        }
-    },
-    {
-        dateCreated: '31 October 2019',
-        ccdCase: {
-            id: 3456123456789012,
-            state: 'Draft'
-        }
-    }
-];
+    ]
+};
 
 describe('multipleApplicationsMiddleware', () => {
     describe('initDashboardMiddleware', () => {
+        it('should redirect to Start Eligibility if no applications found', (done) => {
+            const req = {
+                session: {
+                    form: {
+                        applicantEmail: 'test@email.com'
+                    }
+                }
+            };
+            const res = {redirect: () => {
+                // Do nothing
+            }};
+            const next = sinon.spy();
+
+            const redirectSpy = sinon.spy(res, 'redirect');
+            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+                .returns(Promise.resolve({
+                    applications: []
+                }));
+
+            multipleApplicationsMiddleware.initDashboard(req, res, next);
+
+            setTimeout(() => {
+                expect(serviceStub.calledOnce).to.equal(true);
+                expect(redirectSpy.calledOnce).to.equal(true);
+                expect(redirectSpy.calledWith('/start-eligibility')).to.equal(true);
+
+                serviceStub.restore();
+                redirectSpy.restore();
+
+                done();
+            });
+        });
+
+        it('should not create a new application if screeners are found but not WillLeft - should just render the existing applications instead', (done) => {
+            const revert = multipleApplicationsMiddleware.__set__('renderDashboard', () => {
+                req.session.form.applications = allApplicationsExpectedResponse.applications;
+                return Promise.resolve();
+            });
+            const req = {
+                session: {
+                    form: {
+                        applicantEmail: 'test@email.com',
+                        screeners: {
+                            deathCertificate: 'Yes'
+                        }
+                    }
+                }
+            };
+            const res = {redirect: () => {
+                // Do nothing
+            }};
+            const next = sinon.spy();
+
+            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+                .returns(Promise.resolve(allApplicationsExpectedResponse));
+
+            multipleApplicationsMiddleware.initDashboard(req, res, next);
+
+            setTimeout(() => {
+                expect(serviceStub.calledOnce).to.equal(true);
+                expect(req.session).to.deep.equal({
+                    form: {
+                        applicantEmail: 'test@email.com',
+                        applications: allApplicationsExpectedResponse.applications
+                    }
+                });
+
+                serviceStub.restore();
+                revert();
+                done();
+            });
+        });
+
+        it('should not create a new application if screeners are found including WillLeft and a Draft application of the same caseType is already present - should just render the existing applications instead', (done) => {
+            const revert = multipleApplicationsMiddleware.__set__('renderDashboard', () => {
+                req.session.form.applications = allApplicationsExpectedResponse.applications;
+                return Promise.resolve();
+            });
+            const req = {
+                session: {
+                    form: {
+                        applicantEmail: 'test@email.com',
+                        caseType: 'gop',
+                        screeners: {
+                            deathCertificate: 'Yes',
+                            domicile: 'Yes',
+                            completed: 'Yes',
+                            left: 'Yes',
+                            original: 'Yes',
+                            executor: 'Yes',
+                            mentalCapacity: 'Yes'
+                        }
+                    }
+                }
+            };
+            const res = {redirect: () => {
+                // Do nothing
+            }};
+            const next = sinon.spy();
+
+            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+                .returns(Promise.resolve(allApplicationsExpectedResponse));
+
+            multipleApplicationsMiddleware.initDashboard(req, res, next);
+
+            setTimeout(() => {
+                expect(serviceStub.calledOnce).to.equal(true);
+                expect(req.session).to.deep.equal({
+                    form: {
+                        applicantEmail: 'test@email.com',
+                        applications: allApplicationsExpectedResponse.applications
+                    }
+                });
+
+                serviceStub.restore();
+                revert();
+                done();
+            });
+        });
+
+        it('should not create a new application if screeners are found including WillLeft and a Draft application of the same caseType is already present but not all screeners are present - should just render the existing applications instead', (done) => {
+            const revert = multipleApplicationsMiddleware.__set__('renderDashboard', () => {
+                req.session.form.applications = allApplicationsExpectedResponse.applications;
+                return Promise.resolve();
+            });
+            const req = {
+                session: {
+                    form: {
+                        applicantEmail: 'test@email.com',
+                        caseType: 'gop',
+                        screeners: {
+                            deathCertificate: 'Yes',
+                            domicile: 'Yes',
+                            completed: 'Yes',
+                            left: 'Yes'
+                        }
+                    }
+                }
+            };
+            const res = {redirect: () => {
+                // Do nothing
+            }};
+            const next = sinon.spy();
+
+            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+                .returns(Promise.resolve(allApplicationsExpectedResponse));
+
+            multipleApplicationsMiddleware.initDashboard(req, res, next);
+
+            setTimeout(() => {
+                expect(serviceStub.calledOnce).to.equal(true);
+                expect(req.session).to.deep.equal({
+                    form: {
+                        applicantEmail: 'test@email.com',
+                        applications: allApplicationsExpectedResponse.applications
+                    }
+                });
+
+                serviceStub.restore();
+                revert();
+                done();
+            });
+        });
+
+        it('should create a new draft application if all screeners are present and no Draft applications of same case type found', (done) => {
+            delete allApplicationsExpectedResponse.applications[4];
+            const revert = multipleApplicationsMiddleware.__set__('renderDashboard', () => {
+                req.session.form.applications = allApplicationsExpectedResponse.applications;
+                return Promise.resolve();
+            });
+            const req = {
+                session: {
+                    form: {
+                        applicantEmail: 'test@email.com',
+                        caseType: 'gop',
+                        screeners: {
+                            deathCertificate: 'Yes',
+                            domicile: 'Yes',
+                            completed: 'Yes',
+                            left: 'Yes',
+                            original: 'Yes',
+                            executor: 'Yes',
+                            mentalCapacity: 'Yes'
+                        }
+                    }
+                }
+            };
+            const res = {redirect: () => {
+                // Do nothing
+            }};
+            const next = sinon.spy();
+
+            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+                .returns(Promise.resolve(allApplicationsExpectedResponse));
+
+            multipleApplicationsMiddleware.initDashboard(req, res, next);
+
+            setTimeout(() => {
+                expect(serviceStub.callCount).to.equal(2);
+                expect(req.session).to.deep.equal({
+                    form: {
+                        applicantEmail: 'test@email.com',
+                        applications: allApplicationsExpectedResponse.applications
+                    }
+                });
+
+                serviceStub.restore();
+                revert();
+                done();
+            });
+        });
+
+        it('should create a new draft application if all screeners are present and a Draft applications found but of different caseType', (done) => {
+            const revert = multipleApplicationsMiddleware.__set__('renderDashboard', () => {
+                req.session.form.applications = allApplicationsExpectedResponse.applications;
+                return Promise.resolve();
+            });
+            const req = {
+                session: {
+                    form: {
+                        applicantEmail: 'test@email.com',
+                        caseType: 'intestacy',
+                        screeners: {
+                            deathCertificate: 'Yes',
+                            domicile: 'Yes',
+                            completed: 'Yes',
+                            left: 'No',
+                            diedAfter: 'Yes',
+                            related: 'Yes',
+                            otherApplicants: 'No'
+                        }
+                    }
+                }
+            };
+            const res = {redirect: () => {
+                // Do nothing
+            }};
+            const next = sinon.spy();
+
+            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+                .returns(Promise.resolve(allApplicationsExpectedResponse));
+
+            multipleApplicationsMiddleware.initDashboard(req, res, next);
+
+            setTimeout(() => {
+                expect(serviceStub.callCount).to.equal(2);
+                expect(req.session).to.deep.equal({
+                    form: {
+                        applicantEmail: 'test@email.com',
+                        applications: allApplicationsExpectedResponse.applications
+                    }
+                });
+
+                serviceStub.restore();
+                revert();
+                done();
+            });
+        });
+
         it('should return an array of applications', (done) => {
-            const revert = multipleApplicationsMiddleware.__set__('getApplications', () => {
-                req.session.form.applications = allApplicationsExpectedResponse;
+            const revert = multipleApplicationsMiddleware.__set__('renderDashboard', () => {
+                req.session.form.applications = allApplicationsExpectedResponse.applications;
                 return Promise.resolve();
             });
             const req = {
@@ -55,19 +330,26 @@ describe('multipleApplicationsMiddleware', () => {
                     }
                 }
             };
-            const res = {};
+            const res = {redirect: () => {
+                // Do nothing
+            }};
             const next = sinon.spy();
+
+            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+                .returns(Promise.resolve(allApplicationsExpectedResponse));
 
             multipleApplicationsMiddleware.initDashboard(req, res, next);
 
             setTimeout(() => {
+                expect(serviceStub.calledOnce).to.equal(true);
                 expect(req.session).to.deep.equal({
                     form: {
                         applicantEmail: 'test@email.com',
-                        applications: allApplicationsExpectedResponse
+                        applications: allApplicationsExpectedResponse.applications
                     }
                 });
 
+                serviceStub.restore();
                 revert();
                 done();
             });
@@ -147,14 +429,11 @@ describe('multipleApplicationsMiddleware', () => {
             }};
 
             const multipleAppGetCaseStubResponse = {
-                formdata: {
-                    applicantEmail: 'test@email.com',
-                    ccdCase: {
-                        id: 1234567890123456,
-                        state: 'Draft'
-                    }
-                },
-                status: content.statusInProgress
+                applicantEmail: 'test@email.com',
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                }
             };
 
             const redirectSpy = sinon.spy(res, 'redirect');
@@ -191,14 +470,11 @@ describe('multipleApplicationsMiddleware', () => {
             }};
 
             const multipleAppGetCaseStubResponse = {
-                formdata: {
-                    applicantEmail: 'test@email.com',
-                    ccdCase: {
-                        id: 1234567890123456,
-                        state: 'Draft'
-                    }
-                },
-                status: content.statusInProgress
+                applicantEmail: 'test@email.com',
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                }
             };
 
             const redirectSpy = sinon.spy(res, 'redirect');
@@ -234,14 +510,11 @@ describe('multipleApplicationsMiddleware', () => {
             }};
 
             const multipleAppGetCaseStubResponse = {
-                formdata: {
-                    applicantEmail: 'test@email.com',
-                    ccdCase: {
-                        id: 9012345678901234,
-                        state: 'CaseCreated'
-                    }
-                },
-                status: content.statusSubmitted
+                applicantEmail: 'test@email.com',
+                ccdCase: {
+                    id: 9012345678901234,
+                    state: 'CaseCreated'
+                }
             };
 
             const redirectSpy = sinon.spy(res, 'redirect');
@@ -284,7 +557,8 @@ describe('multipleApplicationsMiddleware', () => {
 
             setTimeout(() => {
                 expect(serviceStub.calledOnce).to.equal(true);
-                expect(redirectSpy.calledOnce).to.equal(false);
+                expect(redirectSpy.calledOnce).to.equal(true);
+                expect(redirectSpy.calledWith('/errors/404')).to.equal(true);
 
                 serviceStub.restore();
                 redirectSpy.restore();
