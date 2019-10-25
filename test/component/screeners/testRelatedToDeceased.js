@@ -53,11 +53,11 @@ describe('related-to-deceased', () => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 screeners: {
-                    deathCertificate: 'Yes',
-                    domicile: 'Yes',
-                    completed: 'Yes',
-                    left: 'No',
-                    diedAfter: 'Yes'
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes',
+                    left: 'optionNo',
+                    diedAfter: 'optionYes'
                 }
             };
 
@@ -76,11 +76,11 @@ describe('related-to-deceased', () => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 screeners: {
-                    deathCertificate: 'Yes',
-                    domicile: 'Yes',
-                    completed: 'Yes',
-                    left: 'No',
-                    diedAfter: 'Yes'
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes',
+                    left: 'optionNo',
+                    diedAfter: 'optionYes'
                 }
             };
 
