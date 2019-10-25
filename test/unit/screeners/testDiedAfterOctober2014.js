@@ -57,10 +57,10 @@ describe('DiedAfterOctober2014', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'No'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionNo'
                         }
                     }
                 }
@@ -79,10 +79,10 @@ describe('DiedAfterOctober2014', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'No'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionNo'
                         }
                     }
                 }

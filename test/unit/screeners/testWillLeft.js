@@ -82,9 +82,9 @@ describe('WillLeft', () => {
                 payloadVersion: '1.0.1',
                 userLoggedIn: true,
                 screeners: {
-                    deathCertificate: 'Yes',
-                    domicile: 'Yes',
-                    completed: 'Yes'
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes'
                 }
             };
             const session = {};
@@ -104,9 +104,9 @@ describe('WillLeft', () => {
                 deceased: {},
                 userLoggedIn: true,
                 screeners: {
-                    deathCertificate: 'Yes',
-                    domicile: 'Yes',
-                    completed: 'Yes'
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes'
                 }
             });
             done();
@@ -120,9 +120,9 @@ describe('WillLeft', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes'
                         }
                     }
                 }
@@ -141,9 +141,9 @@ describe('WillLeft', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes'
                         }
                     }
                 }

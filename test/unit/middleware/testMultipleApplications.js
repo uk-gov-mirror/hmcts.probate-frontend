@@ -102,7 +102,7 @@ describe('multipleApplicationsMiddleware', () => {
                     form: {
                         applicantEmail: 'test@email.com',
                         screeners: {
-                            deathCertificate: 'Yes'
+                            deathCertificate: 'optionYes'
                         }
                     }
                 }
@@ -143,13 +143,13 @@ describe('multipleApplicationsMiddleware', () => {
                         applicantEmail: 'test@email.com',
                         caseType: 'gop',
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'Yes',
-                            original: 'Yes',
-                            executor: 'Yes',
-                            mentalCapacity: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionYes',
+                            original: 'optionYes',
+                            executor: 'optionYes',
+                            mentalCapacity: 'optionYes'
                         }
                     }
                 }
@@ -190,10 +190,10 @@ describe('multipleApplicationsMiddleware', () => {
                         applicantEmail: 'test@email.com',
                         caseType: 'gop',
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionYes'
                         }
                     }
                 }
@@ -235,13 +235,13 @@ describe('multipleApplicationsMiddleware', () => {
                         applicantEmail: 'test@email.com',
                         caseType: 'gop',
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'Yes',
-                            original: 'Yes',
-                            executor: 'Yes',
-                            mentalCapacity: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionYes',
+                            original: 'optionYes',
+                            executor: 'optionYes',
+                            mentalCapacity: 'optionYes'
                         }
                     }
                 }
@@ -282,13 +282,13 @@ describe('multipleApplicationsMiddleware', () => {
                         applicantEmail: 'test@email.com',
                         caseType: 'intestacy',
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'No',
-                            diedAfter: 'Yes',
-                            related: 'Yes',
-                            otherApplicants: 'No'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionNo',
+                            diedAfter: 'optionYes',
+                            related: 'optionYes',
+                            otherApplicants: 'optionNo'
                         }
                     }
                 }

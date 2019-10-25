@@ -57,11 +57,11 @@ describe('RelatedToDeceased', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'No',
-                            diedAfter: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionNo',
+                            diedAfter: 'optionYes'
                         }
                     }
                 }
@@ -80,11 +80,11 @@ describe('RelatedToDeceased', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'No',
-                            diedAfter: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionNo',
+                            diedAfter: 'optionYes'
                         }
                     }
                 }

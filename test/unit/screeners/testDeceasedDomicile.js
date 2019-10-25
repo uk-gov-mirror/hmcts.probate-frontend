@@ -57,7 +57,7 @@ describe('DeceasedDomicile', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'Yes'
+                            deathCertificate: 'optionYes'
                         }
                     }
                 }
@@ -76,7 +76,7 @@ describe('DeceasedDomicile', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'Yes'
+                            deathCertificate: 'optionYes'
                         }
                     }
                 }

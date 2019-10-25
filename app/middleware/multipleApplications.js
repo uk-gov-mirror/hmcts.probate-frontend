@@ -62,7 +62,7 @@ const allEligibilityQuestionsPresent = (formdata) => {
 
     if (formdata.screeners && formdata.screeners.left) {
         let eligibilityQuestionsList = config.eligibilityQuestionsProbate;
-        if (formdata.screeners.left === contentWillLeft.optionNo) {
+        if (formdata.screeners.left === 'optionNo') {
             eligibilityQuestionsList = config.eligibilityQuestionsIntestacy;
         }
 

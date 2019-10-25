@@ -62,7 +62,7 @@ describe('WillCodicils', () => {
                     caseType: 'gop'
                 },
                 body: {
-                    codicils: 'Yes'
+                    codicils: 'optionYes'
                 }
             };
             const ctx = {

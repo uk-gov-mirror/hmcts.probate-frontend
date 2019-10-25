@@ -33,7 +33,7 @@ describe('RemoveInvitedExecutor', () => {
                             }, {
                                 fullName: 'executor_2_name',
                                 isDead: true,
-                                diedBefore: 'Yes',
+                                diedBefore: 'optionYes',
                                 notApplyingReason: 'optionDiedBefore',
                                 notApplyingKey: 'optionDiedBefore',
                                 isApplying: false,
@@ -60,14 +60,14 @@ describe('RemoveInvitedExecutor', () => {
                                 inviteId: 'dummy_inviteId_3',
                                 emailSent: true
                             }],
-                            allalive: 'No',
-                            otherExecutorsApplying: 'Yes',
-                            alias: 'Yes',
+                            allalive: 'optionNo',
+                            otherExecutorsApplying: 'optionYes',
+                            alias: 'optionYes',
                             invitesSent: 'true',
                             executorsRemoved: [{
                                 fullName: 'executor_2_name',
                                 isDead: true,
-                                diedBefore: 'Yes',
+                                diedBefore: 'optionYes',
                                 notApplyingReason: 'optionDiedBefore',
                                 notApplyingKey: 'optionDiedBefore',
                                 isApplying: false,
@@ -100,8 +100,8 @@ describe('RemoveInvitedExecutor', () => {
                 RemoveInvitedExecutor.remove(req)
                     .then(res => {
                         expect(res).to.deep.equal({
-                            alias: 'Yes',
-                            allalive: 'No',
+                            alias: 'optionYes',
+                            allalive: 'optionNo',
                             executorsNumber: 4,
                             invitesSent: 'true',
                             list: [
@@ -112,7 +112,7 @@ describe('RemoveInvitedExecutor', () => {
                                     lastName: 'Smith'
                                 },
                                 {
-                                    diedBefore: 'Yes',
+                                    diedBefore: 'optionYes',
                                     fullName: 'executor_2_name',
                                     hasOtherName: false,
                                     isApplying: false,
@@ -140,7 +140,7 @@ describe('RemoveInvitedExecutor', () => {
                                     notApplyingReason: 'optionRenunciated'
                                 }
                             ],
-                            otherExecutorsApplying: 'Yes'
+                            otherExecutorsApplying: 'optionYes'
                         });
                         done();
                     })

@@ -68,9 +68,9 @@ describe('ExecutorWhenDied', () => {
     describe('action()', () => {
         it('test it cleans up context', () => {
             const ctx = {
-                diedbefore: 'No',
+                diedbefore: 'optionNo',
                 continue: true,
-                allDead: 'No',
+                allDead: 'optionNo',
             };
             ExecutorWhenDied.action(ctx);
             assert.isUndefined(ctx.diedbefore);

@@ -94,7 +94,7 @@ describe('co-applicant-declaration', () => {
                     testWrapper.agent.post('/prepare-session-field/inviteId/98562349756342563456349695634593')
                         .end(() => {
                             const data = {
-                                agreement: content.optionYes
+                                agreement: 'optionYes'
                             };
                             testWrapper.testRedirect(done, data, expectedNextUrlForCoAppAgree);
                         });
@@ -113,7 +113,7 @@ describe('co-applicant-declaration', () => {
                 })
                 .end(() => {
                     const data = {
-                        agreement: content.optionNo
+                        agreement: 'optionNo'
                     };
                     testWrapper.testRedirect(done, data, expectedNextUrlForCoAppDisagree);
                 });

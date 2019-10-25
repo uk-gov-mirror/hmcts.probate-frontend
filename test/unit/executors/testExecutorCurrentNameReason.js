@@ -244,7 +244,7 @@ describe('ExecutorCurrentNameReason', () => {
         });
 
         it('sets the currentNameReasonUpdated after declaration and changes to the currentNameReason', (done) => {
-            formdata.declaration = {declarationCheckbox: 'Yes'};
+            formdata.declaration = {declarationCheckbox: 'optionYes'};
             testCtx.currentNameReason = 'optionMarriage';
             const [ctx, errors] = ExecutorCurrentNameReason.handlePost(testCtx, testErrors, formdata);
             expect(ctx).to.deep.equal({

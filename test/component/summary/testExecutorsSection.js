@@ -7,6 +7,7 @@ const applicantAddressContent = require('app/resources/en/translation/applicant/
 const applicantAliasContent = require('app/resources/en/translation/applicant/alias');
 const applicantAliasReasonContent = require('app/resources/en/translation/applicant/aliasreason');
 const applicantNameAsOnWillContent = require('app/resources/en/translation/applicant/nameasonwill');
+const executorsApplyingContent = require('app/resources/en/translation/executors/applying');
 const executorsAllAliveContent = require('app/resources/en/translation/executors/allalive');
 const executorsRoles = require('app/resources/en/translation/executors/roles');
 const executorsAliasReason = require('app/resources/en/translation/executors/currentnamereason');
@@ -152,18 +153,18 @@ describe('summary-executor-section', () => {
                         allAlive: executorsAllAliveContent[executorsData.executors.allAlive],
 
                         exec2fullName: executorsData.executors.list[1].fullName,
-                        exec2IsApplying: executorsData.executors.list[1].isApplying ? 'Yes' : 'No',
-                        exec2HasAlias: executorsData.executors.list[1].hasOtherName ? 'Yes': 'No',
+                        exec2IsApplying: executorsData.executors.list[1].isApplying ? executorsApplyingContent.optionYes : executorsApplyingContent.optionNo,
+                        exec2HasAlias: executorsData.executors.list[1].hasOtherName ? executorsApplyingContent.optionYes : executorsApplyingContent.optionNo,
                         exec2Alias: executorsData.executors.list[1].currentName,
                         exec2AliasReason: executorsAliasReason[executorsData.executors.list[1].currentNameReason],
 
                         exec3fullName: executorsData.executors.list[2].fullName,
-                        exec3IsApplying: executorsData.executors.list[2].isApplying ? 'Yes' : 'No',
+                        exec3IsApplying: executorsData.executors.list[2].isApplying ? executorsApplyingContent.optionYes : executorsApplyingContent.optionNo,
                         exec3NotApplyingReason: executorsRoles[executorsData.executors.list[2].notApplyingReason],
 
                         exec4fullName: executorsData.executors.list[3].fullName,
-                        exec4IsApplying: executorsData.executors.list[3].isApplying ? 'Yes' : 'No',
-                        exec4IsDead: executorsData.executors.list[3].isDead ? 'Yes' : 'No',
+                        exec4IsApplying: executorsData.executors.list[3].isApplying ? executorsApplyingContent.optionYes : executorsApplyingContent.optionNo,
+                        exec4IsDead: executorsData.executors.list[3].isDead ? executorsApplyingContent.optionYes : executorsApplyingContent.optionNo,
                         exec4DiedBefore: executorsDiedBefore[executorsData.executors.list[3].diedbefore]
                     };
                     Object.assign(playbackData, executorsData.applicant);

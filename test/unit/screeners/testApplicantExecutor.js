@@ -57,11 +57,11 @@ describe('ApplicantExecutor', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'Yes',
-                            original: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionYes',
+                            original: 'optionYes'
                         }
                     }
                 }
@@ -80,11 +80,11 @@ describe('ApplicantExecutor', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'Yes',
-                            original: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionYes',
+                            original: 'optionYes'
                         }
                     }
                 }

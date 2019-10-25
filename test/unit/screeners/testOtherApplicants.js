@@ -57,12 +57,12 @@ describe('OtherApplicants', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'No',
-                            diedAfter: 'Yes',
-                            related: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionNo',
+                            diedAfter: 'optionYes',
+                            related: 'optionYes'
                         }
                     }
                 }
@@ -81,12 +81,12 @@ describe('OtherApplicants', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'No',
-                            diedAfter: 'Yes',
-                            related: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionNo',
+                            diedAfter: 'optionYes',
+                            related: 'optionYes'
                         }
                     }
                 }

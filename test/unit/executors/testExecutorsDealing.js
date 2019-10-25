@@ -19,7 +19,7 @@ describe('Executors-Applying', () => {
                         applicant: {
                             firstName: 'Robert',
                             lastName: 'Bruce',
-                            nameAsOnTheWill: 'Yes',
+                            nameAsOnTheWill: 'optionYes',
                             phone: '075345435345',
                             address: '102 Petty France'
                         },
@@ -28,7 +28,7 @@ describe('Executors-Applying', () => {
                                 {
                                     'lastName': 'Bruce',
                                     'firstName': 'Robert',
-                                    'isApplying': 'Yes',
+                                    'isApplying': 'optionYes',
                                     'isApplicant': true
                                 }, {
                                     isApplying: true,
@@ -173,7 +173,7 @@ describe('Executors-Applying', () => {
                     {
                         'lastName': 'the',
                         'firstName': 'applicant',
-                        'isApplying': 'Yes',
+                        'isApplying': 'optionYes',
                         'isApplicant': true
                     },
                     {

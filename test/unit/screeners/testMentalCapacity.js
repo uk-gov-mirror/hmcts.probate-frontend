@@ -57,12 +57,12 @@ describe('MentalCapacity', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'Yes',
-                            original: 'Yes',
-                            executor: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionYes',
+                            original: 'optionYes',
+                            executor: 'optionYes'
                         }
                     }
                 }
@@ -81,12 +81,12 @@ describe('MentalCapacity', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'Yes',
-                            original: 'Yes',
-                            executor: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionYes',
+                            original: 'optionYes',
+                            executor: 'optionYes'
                         }
                     }
                 }

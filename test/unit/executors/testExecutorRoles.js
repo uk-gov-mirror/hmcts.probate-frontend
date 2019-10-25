@@ -127,7 +127,7 @@ describe('ExecutorRoles', () => {
                     {
                         'lastName': 'the',
                         'firstName': 'applicant',
-                        'isApplying': 'Yes',
+                        'isApplying': 'optionYes',
                         'isApplicant': true
                     }, {
                         isApplying: true,
@@ -151,7 +151,7 @@ describe('ExecutorRoles', () => {
                     {
                         'lastName': 'the',
                         'firstName': 'applicant',
-                        'isApplying': 'Yes',
+                        'isApplying': 'optionYes',
                         'isApplicant': true
                     }, {
                         isApplying: false,
@@ -175,13 +175,13 @@ describe('ExecutorRoles', () => {
                     {
                         'lastName': 'the',
                         'firstName': 'applicant',
-                        'isApplying': 'Yes',
+                        'isApplying': 'optionYes',
                         'isApplicant': true
                     }, {
                         isApplying: false,
                         notApplyingReason: 'optionPowerReserved',
                         notApplyingKey: 'optionPowerReserved',
-                        executorNotified: 'Yes',
+                        executorNotified: 'optionYes',
                         fullName: 'Ed Brown',
                         address: '20 Green Street, London, L12 9LN'
                     }, {
@@ -202,7 +202,7 @@ describe('ExecutorRoles', () => {
                     {
                         'lastName': 'the',
                         'firstName': 'applicant',
-                        'isApplying': 'Yes',
+                        'isApplying': 'optionYes',
                         'isApplicant': true
                     }, {
                         isApplying: false,
@@ -228,7 +228,7 @@ describe('ExecutorRoles', () => {
                     {
                         'lastName': 'the',
                         'firstName': 'applicant',
-                        'isApplying': 'Yes',
+                        'isApplying': 'optionYes',
                         'isApplicant': true
                     }, {
                         isApplying: false,
