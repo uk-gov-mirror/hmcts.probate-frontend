@@ -1,7 +1,6 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const content = require('app/resources/en/translation/coapplicant/declaration.json');
 const CoApplicantAgreePage = require('app/steps/ui/coapplicant/agreepage');
 const CoApplicantDisagreePage = require('app/steps/ui/coapplicant/disagreepage');
 const commonContent = require('app/resources/en/translation/common');
