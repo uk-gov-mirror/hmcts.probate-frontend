@@ -217,7 +217,7 @@ module "probate-frontend" {
     SITE_ID = "${data.azurerm_key_vault_secret.probate_site_id.value}"
 
     REFORM_ENVIRONMENT = "${var.reform_envirionment_for_test}"
-
+    REQUIRE_CCD_CASE_ID = "true"
     FEATURE_TOGGLES_API_URL = "${var.feature_toggles_api_url}"
 
 #     TESTING = "TESTING"
@@ -229,6 +229,6 @@ module "probate-frontend" {
     PROBATE_USER_EMAIL = "${data.azurerm_key_vault_secret.payCaseWorkerUser.value}"
     PROBATE_USER_PASSWORD = "${data.azurerm_key_vault_secret.payCaseWorkerPass.value}"
 #     PROBATE_REDIRECT_BASE_URL = "${local.probate_internal_base_url}"
-    REQUIRE_CCD_CASE_ID = "true"
+
   }
 }
