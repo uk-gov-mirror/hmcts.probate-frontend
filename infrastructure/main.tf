@@ -217,17 +217,16 @@ module "probate-frontend" {
     SITE_ID = "${data.azurerm_key_vault_secret.probate_site_id.value}"
 
     REFORM_ENVIRONMENT = "${var.reform_envirionment_for_test}"
-    REQUIRE_CCD_CASE_ID = "${var.require_ccd_case_id}"
+    //REQUIRE_CCD_CASE_ID = "${var.require_ccd_case_id}"
     FEATURE_TOGGLES_API_URL = "${var.feature_toggles_api_url}"
     // Cache
     WEBSITE_LOCAL_CACHE_OPTION = "${var.website_local_cache_option}"
     WEBSITE_LOCAL_CACHE_SIZEINMB = "${var.website_local_cache_sizeinmb}"
     IDAM_CLIENT_NAME = "probate"
-    
+
     PROBATE_USER_EMAIL = "${data.azurerm_key_vault_secret.payCaseWorkerUser.value}"
     PROBATE_USER_PASSWORD = "${data.azurerm_key_vault_secret.payCaseWorkerPass.value}"
     // testing
     TESTING = "TESTING"
-
   }
 }
