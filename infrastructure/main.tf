@@ -105,7 +105,15 @@ data "azurerm_key_vault_secret" "probate_webchat_button_service_closed" {
   vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
 }
 
+data "azurerm_key_vault_secret" "payCaseWorkerUser" {	
+  name = "payCaseWorkerUser"	
+  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"	
+}	
 
+data "azurerm_key_vault_secret" "payCaseWorkerPass" {	
+  name = "payCaseWorkerPass"	
+  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"	
+}
 
 data "azurerm_key_vault_secret" "idam_secret_probate" {
   name = "ccidam-idam-api-secrets-probate"
@@ -216,5 +224,11 @@ module "probate-frontend" {
     WEBSITE_LOCAL_CACHE_OPTION = "${var.website_local_cache_option}"
     WEBSITE_LOCAL_CACHE_SIZEINMB = "${var.website_local_cache_sizeinmb}"
     IDAM_CLIENT_NAME = "probate"
+    
+    PROBATE_USER_EMAIL = "${data.azurerm_key_vault_secret.payCaseWorkerUser.value}"	
+    PROBATE_USER_PASSWORD = "${data.azurerm_key_vault_secret.payCaseWorkerPass.value}"	
+    PROBATE_REDIRECT_BASE_URL = "${local.probate_internal_base_url}"	
+
+    REQUIRE_CCD_CASE_ID = "true"
   }
 }
