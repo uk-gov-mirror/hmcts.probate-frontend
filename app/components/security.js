@@ -85,7 +85,6 @@ class Security {
         req.log = logger(req.sessionID);
         req.log.error('LUCA ========================================================');
         req.log.error('LUCA Login');
-        req.log.error('LUCA ========================================================');
         this._storeRedirectCookie(req, res, returnUrl, state);
         const idamConfig = config.services.idam;
 
@@ -96,6 +95,8 @@ class Security {
         redirectUrl.query.client_id = idamConfig.probate_oauth2_client;
         redirectUrl.query.redirect_uri = callbackUrl;
 
+        req.log.error('LUCA redirectUrl.query.client_id: ', redirectUrl.query.client_id);
+        req.log.error('LUCA ========================================================');
         res.redirect(redirectUrl.format());
     }
 
