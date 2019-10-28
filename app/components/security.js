@@ -95,6 +95,7 @@ class Security {
         redirectUrl.query.redirect_uri = callbackUrl;
 
         req.log.error('LUCA redirectUrl.query.client_id: ', redirectUrl.query.client_id);
+        req.log.error('LUCA redirectUrl.query.redirect_uri: ', redirectUrl.query.redirect_uri);
         res.redirect(redirectUrl.format());
     }
 
