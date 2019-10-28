@@ -82,6 +82,7 @@ class Security {
     _login(req, res) {
         const state = this._generateState();
         const returnUrl = FormatUrl.createHostname(req);
+        req.log = logger(req.sessionID);
         req.log.error('LUCA ========================================================');
         req.log.error('LUCA Login');
         req.log.error('LUCA ========================================================');
@@ -162,6 +163,7 @@ class Security {
     }
 
     _getRedirectCookie(req) {
+        req.log = logger(req.sessionID);
         req.log.error('LUCA ========================================================');
         req.log.error('LUCA Getting redirect cookie');
         req.log.error('LUCA ', req.cookies[REDIRECT_COOKIE]);
@@ -177,6 +179,7 @@ class Security {
         const url = URL.parse(continue_url);
         const cookieValue = {continue_url: url.path, state: state};
 
+        req.log = logger(req.sessionID);
         req.log.error('LUCA ========================================================');
         req.log.error('LUCA Setting redirect cookie');
         req.log.error('LUCA ', cookieValue);
