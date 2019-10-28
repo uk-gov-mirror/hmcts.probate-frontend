@@ -83,7 +83,6 @@ class Security {
         const state = this._generateState();
         const returnUrl = FormatUrl.createHostname(req);
         req.log = logger(req.sessionID);
-        req.log.error('LUCA ========================================================');
         req.log.error('LUCA Login');
         this._storeRedirectCookie(req, res, returnUrl, state);
         const idamConfig = config.services.idam;
@@ -96,7 +95,6 @@ class Security {
         redirectUrl.query.redirect_uri = callbackUrl;
 
         req.log.error('LUCA redirectUrl.query.client_id: ', redirectUrl.query.client_id);
-        req.log.error('LUCA ========================================================');
         res.redirect(redirectUrl.format());
     }
 
@@ -165,10 +163,7 @@ class Security {
 
     _getRedirectCookie(req) {
         req.log = logger(req.sessionID);
-        req.log.error('LUCA ========================================================');
-        req.log.error('LUCA Getting redirect cookie');
-        req.log.error('LUCA ', req.cookies[REDIRECT_COOKIE]);
-        req.log.error('LUCA ========================================================');
+        req.log.error('LUCA Getting redirect cookie: ', req.cookies[REDIRECT_COOKIE]);
 
         if (!req.cookies[REDIRECT_COOKIE]) {
             return null;
@@ -181,10 +176,7 @@ class Security {
         const cookieValue = {continue_url: url.path, state: state};
 
         req.log = logger(req.sessionID);
-        req.log.error('LUCA ========================================================');
-        req.log.error('LUCA Setting redirect cookie');
-        req.log.error('LUCA ', cookieValue);
-        req.log.error('LUCA ========================================================');
+        req.log.error('LUCA Setting redirect cookie: ', cookieValue);
 
         this._storeCookie(req, res, JSON.stringify(cookieValue), REDIRECT_COOKIE);
     }
