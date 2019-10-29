@@ -31,12 +31,12 @@ class Step {
         return `${this.templatePath}/template`;
     }
 
-    constructor(steps, section = null, resourcePath, i18next) {
+    constructor(steps, section = null, resourcePath, i18next, schema, language) {
         this.steps = steps;
         this.section = section;
         this.resourcePath = resourcePath;
         this.templatePath = `ui/${resourcePath}`;
-        this.content = require(`app/resources/en/translation/${resourcePath}`);
+        this.content = require(`app/resources/${language}/translation/${resourcePath}`);
         this.i18next = i18next;
     }
 
@@ -87,12 +87,12 @@ class Step {
         return true;
     }
 
-    generateContent(ctx, formdata, lang = 'en') {
+    generateContent(ctx, formdata, language = 'en') {
         if (!this.content) {
             throw new ReferenceError(`Step ${this.name} has no content.json in its resource folder`);
         }
         const contentCtx = Object.assign({}, formdata, ctx, this.commonProps);
-        this.i18next.changeLanguage(lang);
+        this.i18next.changeLanguage(language);
 
         return mapValues(this.content, (value, key) => this.i18next.t(`${this.resourcePath.replace(/\//g, '.')}.${key}`, contentCtx));
     }

@@ -4,9 +4,9 @@ const i18next = require('i18next');
 const {mapValues} = require('lodash');
 const JourneyMap = require('app/core/JourneyMap');
 
-const commonContent = (lang = 'en') => {
-    i18next.changeLanguage(lang);
-    const common = require('app/resources/en/translation/common');
+const commonContent = (language = 'en') => {
+    i18next.changeLanguage(language);
+    const common = require(`app/resources/${language}/translation/common`);
     return mapValues(common, (value, key) => i18next.t(`common.${key}`));
 };
 

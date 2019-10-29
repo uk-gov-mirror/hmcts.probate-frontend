@@ -15,8 +15,8 @@ class ValidationStep extends Step {
         return this.schemaFile;
     }
 
-    constructor(steps, section, templatePath, i18next, schema) {
-        super(steps, section, templatePath, i18next);
+    constructor(steps, section, templatePath, i18next, schema, language) {
+        super(steps, section, templatePath, i18next, schema, language);
 
         this.schemaFile = schema;
         this.validateSchema = validator.compile(this.schema);

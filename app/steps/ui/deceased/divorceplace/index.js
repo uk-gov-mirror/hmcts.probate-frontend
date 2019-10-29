@@ -1,9 +1,6 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
-const content = require('app/resources/en/translation/deceased/divorceplace');
-const commonContent = require('app/resources/en/translation/common');
 
 class DivorcePlace extends ValidationStep {
 
@@ -12,6 +9,7 @@ class DivorcePlace extends ValidationStep {
     }
 
     getContextData(req) {
+        const contentMaritalStatus = require(`app/resources/${req.session.language}/translation/deceased/maritalstatus`);
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
 
@@ -23,6 +21,8 @@ class DivorcePlace extends ValidationStep {
     }
 
     generateFields(ctx, errors) {
+        const commonContent = require(`app/resources/${ctx.language}/translation/common`);
+        const content = require(`app/resources/${ctx.language}/translation/deceased/divorceplace`);
         const fields = super.generateFields(ctx, errors);
 
         fields.title = `${content.title} - ${commonContent.serviceName}`;

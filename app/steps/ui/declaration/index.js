@@ -3,7 +3,6 @@
 const probateDeclarationFactory = require('app/utils/ProbateDeclarationFactory');
 const intestacyDeclarationFactory = require('app/utils/IntestacyDeclarationFactory');
 const ValidationStep = require('app/core/steps/ValidationStep');
-const executorContent = require('app/resources/en/translation/executors/executorcontent');
 const {get} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
@@ -111,7 +110,7 @@ class Declaration extends ValidationStep {
             const executorsApplyingText = this.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, formdata.deceasedName, formdata.applicantName);
 
             const executorsNotApplying = ctx.executorsWrapper.executorsNotApplying();
-            const executorsNotApplyingText = this.executorsNotApplying(executorsNotApplying, content, formdata.deceasedName, hasCodicils);
+            const executorsNotApplyingText = this.executorsNotApplying(executorsNotApplying, content, formdata.deceasedName, hasCodicils, req.session.language);
 
             templateData = probateDeclarationFactory.build(ctx, content, formDataForTemplate, multipleApplicantSuffix, executorsApplying, executorsApplyingText, executorsNotApplyingText);
         }
@@ -181,16 +180,18 @@ class Declaration extends ValidationStep {
         return content;
     }
 
-    executorsNotApplying(executorsNotApplying, content, deceasedName, hasCodicils) {
+    executorsNotApplying(executorsNotApplying, content, deceasedName, hasCodicils, language) {
         return executorsNotApplying.map(executor => {
             return content[`executorNotApplyingReason${this.codicilsSuffix(hasCodicils)}`]
                 .replace('{otherExecutorName}', FormatName.formatName(executor))
-                .replace('{otherExecutorApplying}', this.executorsNotApplyingText(executor, content))
+                .replace('{otherExecutorApplying}', this.executorsNotApplyingText(executor, content, language))
                 .replace('{deceasedName}', deceasedName);
         });
     }
 
-    executorsNotApplyingText(executor, content) {
+    executorsNotApplyingText(executor, content, language) {
+        const executorContent = require(`app/resources/${language}/translation/executors/executorcontent`);
+
         if (Object.keys(executorContent).includes(executor.notApplyingKey)) {
             let executorApplyingText = content[executor.notApplyingKey];
 

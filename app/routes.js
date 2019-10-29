@@ -18,7 +18,6 @@ const AllExecutorsAgreed = require('app/services/AllExecutorsAgreed');
 const lockPaymentAttempt = require('app/middleware/lockPaymentAttempt');
 const caseTypes = require('app/utils/CaseTypes');
 const emailValidator = require('email-validator');
-const steps = initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui`]);
 const Security = require('app/services/Security');
 const Authorise = require('app/services/Authorise');
 const FormatUrl = require('app/utils/FormatUrl');
@@ -70,6 +69,7 @@ router.get('/start-apply', (req, res, next) => {
 });
 
 router.use((req, res, next) => {
+    const steps = initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui`], req.session.language);
     const formdata = req.session.form;
     const isHardStop = (formdata, journey) => config.hardStopParams[journey].some(param => get(formdata, param) === 'optionNo');
     const executorsWrapper = new ExecutorsWrapper(formdata.executors);
@@ -81,6 +81,9 @@ router.use((req, res, next) => {
         if (!includes(allPageUrls, stepUrl)) {
             allPageUrls.push(stepUrl);
         }
+
+        router.get(step.constructor.getUrl(), step.runner().GET(step));
+        router.post(step.constructor.getUrl(), step.runner().POST(step));
     });
 
     const noCcdCaseIdPages = config.noCcdCaseIdPages.map(item => '/' + item);
@@ -190,11 +193,6 @@ router.use((req, res, next) => {
     } else {
         next();
     }
-});
-
-Object.entries(steps).forEach(([, step]) => {
-    router.get(step.constructor.getUrl(), step.runner().GET(step));
-    router.post(step.constructor.getUrl(), step.runner().POST(step));
 });
 
 router.get('/payment', (req, res) => {

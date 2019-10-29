@@ -26,7 +26,7 @@ class UIStepRunner {
             forEach(errors, (error) =>
                 req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
             );
-            const content = step.generateContent(ctx, formdata);
+            const content = step.generateContent(ctx, formdata, req.session.language);
             const fields = step.generateFields(ctx, errors, formdata);
             if (req.query.source === 'back') {
                 session.back.pop();
@@ -95,7 +95,7 @@ class UIStepRunner {
                 forEach(errors, (error) =>
                     req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
                 );
-                const content = step.generateContent(ctx, formdata);
+                const content = step.generateContent(ctx, formdata, req.session.language);
                 const fields = step.generateFields(ctx, errors, formdata);
                 const common = step.commonContent(req.session.language);
                 res.render(step.template, {content, fields, errors, common});

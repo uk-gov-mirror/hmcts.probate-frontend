@@ -6,8 +6,8 @@ const path = '/executor-notified/';
 
 class ExecutorNotified extends CollectionStep {
 
-    constructor(steps, section, templatePath, i18next, schema) {
-        super(steps, section, templatePath, i18next, schema);
+    constructor(steps, section, templatePath, i18next, schema, language) {
+        super(steps, section, templatePath, i18next, schema, language);
         this.path = path;
     }
 
