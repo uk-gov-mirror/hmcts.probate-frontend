@@ -60,6 +60,7 @@ class Step {
         if (typeof session.form.userLoggedIn === 'boolean') {
             ctx.userLoggedIn = session.form.userLoggedIn;
         }
+        ctx.language = session.language;
         ctx = Object.assign(ctx, req.body);
         ctx = FeatureToggle.appwideToggles(req, ctx, config.featureToggles.appwideToggles);
 
@@ -96,9 +97,9 @@ class Step {
         return mapValues(this.content, (value, key) => this.i18next.t(`${this.resourcePath.replace(/\//g, '.')}.${key}`, contentCtx));
     }
 
-    commonContent(lang = 'en') {
-        this.i18next.changeLanguage(lang);
-        const common = require('app/resources/en/translation/common');
+    commonContent(language = 'en') {
+        this.i18next.changeLanguage(language);
+        const common = require(`app/resources/${language}/translation/common`);
         return mapValues(common, (value, key) => this.i18next.t(`common.${key}`));
     }
 
@@ -122,6 +123,7 @@ class Step {
         delete ctx.sessionID;
         delete ctx.caseType;
         delete ctx.userLoggedIn;
+        delete ctx.language;
         delete ctx.featureToggles;
         delete ctx._csrf;
         return [ctx, formdata];

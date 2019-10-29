@@ -4,7 +4,6 @@ const co = require('co');
 const {curry, set, isEmpty, forEach} = require('lodash');
 const DetectDataChange = require('app/wrappers/DetectDataChange');
 const FormatUrl = require('app/utils/FormatUrl');
-const commonContent = require('app/resources/en/translation/common');
 const {get} = require('lodash');
 
 class UIStepRunner {
@@ -15,6 +14,8 @@ class UIStepRunner {
     }
 
     handleGet(step, req, res) {
+        const commonContent = require(`app/resources/${req.session.language}/translation/common`);
+
         return co(function * () {
             let errors = null;
             const session = req.session;
@@ -32,7 +33,7 @@ class UIStepRunner {
             } else if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
                 session.back.push(step.constructor.getUrl());
             }
-            const common = step.commonContent();
+            const common = step.commonContent(req.session.language);
             res.render(step.template, {content, fields, errors, common}, (err, html) => {
                 if (err) {
                     req.log.error(err);
@@ -48,6 +49,8 @@ class UIStepRunner {
     }
 
     handlePost(step, req, res) {
+        const commonContent = require(`app/resources/${req.session.language}/translation/common`);
+
         return co(function * () {
             const session = req.session;
             let formdata = session.form;
@@ -94,7 +97,7 @@ class UIStepRunner {
                 );
                 const content = step.generateContent(ctx, formdata);
                 const fields = step.generateFields(ctx, errors, formdata);
-                const common = step.commonContent();
+                const common = step.commonContent(req.session.language);
                 res.render(step.template, {content, fields, errors, common});
             }
         }).catch((error) => {
