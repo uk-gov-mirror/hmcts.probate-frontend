@@ -24,7 +24,10 @@ class TestCommonContent {
                     helpTitle: commonContent.helpTitle,
                     helpHeading1: commonContent.helpHeading1,
                     helpHeading2: commonContent.helpHeading2,
-                    helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress)
+                    helpHeading3: commonContent.helpHeading3,
+                    helpTelephoneNumber: commonContent.helpTelephoneNumber,
+                    helpTelephoneOpeningHours: commonContent.helpTelephoneOpeningHours,
+                    helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, commonContent.helpEmail)
                 };
 
                 testWrapper.agent.post('/prepare-session/form')

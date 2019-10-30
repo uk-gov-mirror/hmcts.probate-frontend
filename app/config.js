@@ -163,10 +163,6 @@ const config = {
         equalityAdvisorLink: 'https://www.equalityadvisoryservice.com/',
         wcag21Link: 'https://www.w3.org/TR/WCAG21/'
     },
-    helpline: {
-        number: '0300 303 0648',
-        email: 'contactprobate@justice.gov.uk'
-    },
     utils: {
         api: {
             retries: process.env.RETRIES_NUMBER || 10,
