@@ -45,7 +45,7 @@ describe('executors-when-died', () => {
         testWrapper = new TestWrapper('ExecutorsWhenDied');
         sessionData = {
             ccdCase: {
-                state: 'Draft',
+                state: 'Pending',
                 id: 1234567890123456
             },
             index: 1,

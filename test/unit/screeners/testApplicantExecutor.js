@@ -24,7 +24,7 @@ describe('ApplicantExecutor', () => {
                     form: {
                         ccdCase: {
                             id: 1234567890123456,
-                            state: 'Draft'
+                            state: 'Pending'
                         }
                     },
                     caseType: 'gop'
@@ -43,7 +43,7 @@ describe('ApplicantExecutor', () => {
                 userLoggedIn: false,
                 ccdCase: {
                     id: 1234567890123456,
-                    state: 'Draft'
+                    state: 'Pending'
                 }
             });
             done();
