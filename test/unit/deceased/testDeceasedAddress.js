@@ -24,7 +24,7 @@ describe('DeceasedAddress', () => {
                         caseType: 'gop',
                         ccdCase: {
                             id: 1234567890123456,
-                            state: 'Draft'
+                            state: 'Pending'
                         }
                     },
                     caseType: 'gop'
@@ -50,7 +50,7 @@ describe('DeceasedAddress', () => {
                 userLoggedIn: false,
                 ccdCase: {
                     id: 1234567890123456,
-                    state: 'Draft'
+                    state: 'Pending'
                 }
             });
             done();

@@ -24,7 +24,7 @@ describe('CodicilsNumber', () => {
                         caseType: 'gop',
                         ccdCase: {
                             id: 1234567890123456,
-                            state: 'Draft'
+                            state: 'Pending'
                         }
                     },
                     caseType: 'gop'
@@ -42,7 +42,7 @@ describe('CodicilsNumber', () => {
                 userLoggedIn: false,
                 ccdCase: {
                     id: 1234567890123456,
-                    state: 'Draft'
+                    state: 'Pending'
                 }
             });
             done();
@@ -57,7 +57,7 @@ describe('CodicilsNumber', () => {
                         caseType: 'gop',
                         ccdCase: {
                             id: 1234567890123456,
-                            state: 'Draft'
+                            state: 'Pending'
                         }
                     },
                     caseType: 'gop'
@@ -75,7 +75,7 @@ describe('CodicilsNumber', () => {
                 userLoggedIn: false,
                 ccdCase: {
                     id: 1234567890123456,
-                    state: 'Draft'
+                    state: 'Pending'
                 }
             });
             done();

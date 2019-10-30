@@ -20,7 +20,7 @@ describe('Executor-Additional-Invite-Sent', () => {
                         caseType: 'gop',
                         ccdCase: {
                             id: 1234567890123456,
-                            state: 'Draft'
+                            state: 'Pending'
                         }
                     },
                     serviceAuthorization: 'serviceAuthorization',
@@ -55,7 +55,7 @@ describe('Executor-Additional-Invite-Sent', () => {
                 serviceAuthorization: 'serviceAuthorization',
                 ccdCase: {
                     id: 1234567890123456,
-                    state: 'Draft'
+                    state: 'Pending'
                 }
             });
         });
@@ -89,7 +89,7 @@ describe('Executor-Additional-Invite-Sent', () => {
                 serviceAuthorization: 'serviceAuthorization',
                 ccdCase: {
                     id: 1234567890123456,
-                    state: 'Draft'
+                    state: 'Pending'
                 }
             });
         });
