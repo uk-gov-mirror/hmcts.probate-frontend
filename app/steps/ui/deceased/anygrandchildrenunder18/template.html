@@ -16,7 +16,7 @@
             }
         },
         hint: {
-            text: content.hint | replace('{deceasedName}', fields.deceasedName.value) | safe
+            text: content.hint | replace("{deceasedName}", fields.deceasedName.value) | safe
         },
         errorMessage: { text: fields.anyGrandchildrenUnder18.errorMessage.message | safe } if fields.anyGrandchildrenUnder18.errorMessage,
         items: [
