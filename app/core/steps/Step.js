@@ -103,7 +103,7 @@ class Step {
         return mapValues(common, (value, key) => this.i18next.t(`common.${key}`));
     }
 
-    generateFields(ctx, errors) {
+    generateFields(language, ctx, errors) {
         let fields = mapValues(ctx, (value) => ({value: isObject(value) ? value : escape(value), error: false}));
         if (!isEmpty(errors)) {
             fields = mapErrorsToFields(fields, errors);

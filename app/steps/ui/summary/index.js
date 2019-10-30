@@ -50,16 +50,16 @@ class Summary extends Step {
         return content;
     }
 
-    generateFields(ctx, errors, formdata) {
+    generateFields(language, ctx, errors, formdata) {
         const fields = {};
         Object.keys(this.steps).filter((stepName) => stepName !== this.name)
             .forEach((stepName) => {
                 const step = this.steps[stepName];
                 if (isEmpty(fields[step.section])) {
-                    fields[step.section] = step.generateFields(formdata[step.section], errors, formdata);
+                    fields[step.section] = step.generateFields(language, formdata[step.section], errors, formdata);
                 }
             });
-        fields[this.section] = super.generateFields(ctx, errors, formdata);
+        fields[this.section] = super.generateFields(language, ctx, errors, formdata);
 
         if (ctx) {
             fields.userLoggedIn = {};

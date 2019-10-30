@@ -20,10 +20,10 @@ class DivorcePlace extends ValidationStep {
         return ctx;
     }
 
-    generateFields(ctx, errors) {
-        const commonContent = require(`app/resources/${ctx.language}/translation/common`);
-        const content = require(`app/resources/${ctx.language}/translation/deceased/divorceplace`);
-        const fields = super.generateFields(ctx, errors);
+    generateFields(language, ctx, errors) {
+        const commonContent = require(`app/resources/${language}/translation/common`);
+        const content = require(`app/resources/${language}/translation/deceased/divorceplace`);
+        const fields = super.generateFields(language, ctx, errors);
 
         fields.title = `${content.title} - ${commonContent.serviceName}`;
 

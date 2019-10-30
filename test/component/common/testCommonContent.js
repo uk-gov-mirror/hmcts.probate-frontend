@@ -2,7 +2,6 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const commonContent = require('app/resources/en/translation/common');
-const config = require('app/config');
 const sessionData = {
     ccdCase: {
         state: 'Draft',

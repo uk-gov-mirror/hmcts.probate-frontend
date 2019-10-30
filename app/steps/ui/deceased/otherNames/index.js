@@ -59,15 +59,15 @@ class DeceasedOtherNames extends ValidationStep {
         return [allValid, allErrors];
     }
 
-    generateFields(ctx, errors) {
-        const fields = super.generateFields(ctx, errors);
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
 
         if (get(ctx, 'otherNames')) {
             errors = new Map(errors);
             set(fields, 'otherNames.value', new Map());
             Object.entries(ctx.otherNames).forEach(([index, otherName]) => {
                 const otherNameErrors = isEmpty(errors) ? [] : errors.get(index);
-                fields.otherNames.value.set(index, super.generateFields(otherName, otherNameErrors));
+                fields.otherNames.value.set(index, super.generateFields(language, otherName, otherNameErrors));
             });
             set(errors, 'otherNames', Array.from(errors));
             set(fields, 'otherNames.value', Array.from(fields.otherNames.value));

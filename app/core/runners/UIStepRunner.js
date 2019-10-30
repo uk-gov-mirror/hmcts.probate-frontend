@@ -27,7 +27,7 @@ class UIStepRunner {
                 req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
             );
             const content = step.generateContent(ctx, formdata, req.session.language);
-            const fields = step.generateFields(ctx, errors, formdata);
+            const fields = step.generateFields(req.session.language, ctx, errors, formdata);
             if (req.query.source === 'back') {
                 session.back.pop();
             } else if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
@@ -96,14 +96,14 @@ class UIStepRunner {
                     req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
                 );
                 const content = step.generateContent(ctx, formdata, req.session.language);
-                const fields = step.generateFields(ctx, errors, formdata);
+                const fields = step.generateFields(req.session.language, ctx, errors, formdata);
                 const common = step.commonContent(req.session.language);
                 res.render(step.template, {content, fields, errors, common});
             }
         }).catch((error) => {
             req.log.error(error);
             const ctx = step.getContextData(req, res);
-            const fields = step.generateFields(ctx, [], {});
+            const fields = step.generateFields(req.session.language, ctx, [], {});
             res.status(500).render('errors/500', {fields, common: commonContent});
         });
     }
