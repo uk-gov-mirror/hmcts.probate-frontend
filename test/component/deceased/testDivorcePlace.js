@@ -5,7 +5,6 @@ const StopPage = require('app/steps/ui/stoppage');
 const TaskList = require('app/steps/ui/tasklist');
 const commonContent = require('app/resources/en/translation/common');
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
-const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('divorce-place', () => {

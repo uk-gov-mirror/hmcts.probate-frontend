@@ -6,7 +6,6 @@ const TestWrapper = require('test/util/TestWrapper');
 const ExecutorNotified = require('app/steps/ui/executors/notified');
 const TaskList = require('app/steps/ui/tasklist');
 const commonContent = require('app/resources/en/translation/common');
-const config = require('app/config');
 
 describe('executor-roles', () => {
     const expectedNextUrlForTaskList = TaskList.getUrl();
