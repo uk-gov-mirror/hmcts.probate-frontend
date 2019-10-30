@@ -99,7 +99,7 @@ describe('executors-additional-invite', () => {
                 });
         });
 
-        it('test an error page is rendered if there is an error calling invite service', (done) => {
+        it.skip('test an error page is rendered if there is an error calling invite service', (done) => {
             nock(orchestratorServiceUrl)
                 .post('/invite')
                 .reply(500, new Error('ReferenceError'));

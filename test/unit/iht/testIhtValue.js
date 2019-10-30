@@ -57,7 +57,7 @@ describe('IhtValue', () => {
                 netValueField: '400,000.345'
             };
             errors = [];
-            [ctx, errors] = IhtValue.handlePost(ctx, errors);
+            [ctx, errors] = IhtValue.handlePost(ctx, errors, {}, {language: 'en'});
             expect(ctx).to.deep.equal({
                 grossValueField: '500,000.123',
                 grossValue: 500000.12,
@@ -73,7 +73,7 @@ describe('IhtValue', () => {
                 netValueField: '50a0000'
             };
             errors = [];
-            [ctx, errors] = IhtValue.handlePost(ctx, errors);
+            [ctx, errors] = IhtValue.handlePost(ctx, errors, {}, {language: 'en'});
             expect(ctx).to.deep.equal({
                 grossValueField: '40a0000',
                 grossValue: 400000,

@@ -65,7 +65,7 @@ describe('DeceasedDetails', () => {
                 'dod-year': '2000'
             };
             errors = [];
-            [ctx, errors] = DeceasedDetails.handlePost(ctx, errors);
+            [ctx, errors] = DeceasedDetails.handlePost(ctx, errors, {}, {language: 'en'});
             expect(errors).to.deep.equal([
                 {
                     field: 'dob-date',
@@ -91,7 +91,7 @@ describe('DeceasedDetails', () => {
                 'dod-year': '3000'
             };
             errors = [];
-            [ctx, errors] = DeceasedDetails.handlePost(ctx, errors);
+            [ctx, errors] = DeceasedDetails.handlePost(ctx, errors, {}, {language: 'en'});
             expect(errors).to.deep.equal([
                 {
                     field: 'dod-date',
@@ -117,7 +117,7 @@ describe('DeceasedDetails', () => {
                 'dod-year': '2012'
             };
             errors = [];
-            [ctx, errors] = DeceasedDetails.handlePost(ctx, errors);
+            [ctx, errors] = DeceasedDetails.handlePost(ctx, errors, {}, {language: 'en'});
             expect(errors).to.deep.equal([
                 {
                     field: 'dob-date',

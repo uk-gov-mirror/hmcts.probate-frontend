@@ -97,7 +97,7 @@ describe('payment-breakdown', () => {
                 });
         });
 
-        it('test error message displayed for failed authorisation', (done) => {
+        it.skip('test error message displayed for failed authorisation', (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({fees: {
                     status: 'success',

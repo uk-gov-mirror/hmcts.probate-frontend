@@ -68,7 +68,7 @@ describe('IhtPaper', () => {
                 netValueFieldIHT205: '400,000.345'
             };
             errors = [];
-            [ctx, errors] = IhtPaper.handlePost(ctx, errors);
+            [ctx, errors] = IhtPaper.handlePost(ctx, errors, {}, {language: 'en'});
             expect(ctx).to.deep.equal({
                 form: 'optionIHT205',
                 ihtFormId: 'optionIHT205',
@@ -89,7 +89,7 @@ describe('IhtPaper', () => {
                 netValueFieldIHT205: '50a0000'
             };
             errors = [];
-            [ctx, errors] = IhtPaper.handlePost(ctx, errors);
+            [ctx, errors] = IhtPaper.handlePost(ctx, errors, {}, {language: 'en'});
             expect(ctx).to.deep.equal({
                 form: 'optionIHT205',
                 ihtFormId: 'optionIHT205',

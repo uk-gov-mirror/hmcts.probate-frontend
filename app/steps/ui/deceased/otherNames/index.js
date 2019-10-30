@@ -33,16 +33,14 @@ class DeceasedOtherNames extends ValidationStep {
         return ctx;
     }
 
-    validate(ctx, formdata) {
+    validate(ctx, formdata, language) {
         let allValid = true;
         let allErrors = [];
         const otherNameErrors = new Map();
 
         if (Object.keys(ctx.otherNames).length >= 100) {
             otherNameErrors.set('name_101', [
-                FieldError('numberOfOtherNames',
-                    'maxLength',
-                    `${this.resourcePath}`, ctx)
+                FieldError('numberOfOtherNames', 'maxLength', `${this.resourcePath}`, ctx, language)
             ]);
         }
 

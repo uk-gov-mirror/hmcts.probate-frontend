@@ -50,7 +50,7 @@ describe('ValueAssetsOutside', () => {
                 netValueAssetsOutsideField: '500,000.345'
             };
             errors = [];
-            [ctx, errors] = ValueAssetsOutside.handlePost(ctx, errors);
+            [ctx, errors] = ValueAssetsOutside.handlePost(ctx, errors, {}, {language: 'en'});
             expect(ctx).to.deep.equal({
                 netValueAssetsOutside: 500000.35,
                 netValueAssetsOutsideField: '500,000.345'
@@ -63,7 +63,7 @@ describe('ValueAssetsOutside', () => {
                 netValueAssetsOutsideField: '50a0000'
             };
             errors = [];
-            [ctx, errors] = ValueAssetsOutside.handlePost(ctx, errors);
+            [ctx, errors] = ValueAssetsOutside.handlePost(ctx, errors, {}, {language: 'en'});
             expect(ctx).to.deep.equal({
                 netValueAssetsOutside: 500000,
                 netValueAssetsOutsideField: '50a0000'

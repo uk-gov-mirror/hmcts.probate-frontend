@@ -1,29 +1,29 @@
 {
-  "title": "Deceased name",
-  "question": "What&rsquo;s the full name of the person who died?",
-  "explanation1": "Use the name on the death certificate.",
-  "firstName": "First name and any middle names",
-  "lastName": "Last name",
+  "title": "Enw ymadawedig",
+  "question": "Beth yw enw llawn y person a fu farw?",
+  "explanation1": "Defnyddiwch yr enw ar y dystysgrif marwolaeth.",
+  "firstName": "Enw cyntaf ac unrhyw enwau canol",
+  "lastName": "Enw olaf",
 
   "errors": {
     "firstName": {
       "required": {
-        "summary": "You haven&rsquo;t entered the first name of the person who has died",
-        "message": "Please enter the person who died&rsquo;s first name"
+        "summary": "Nid ydych wedi nodi enw cyntaf y person sydd wedi marw",
+        "message": "Rhowch enw cyntaf y person a fu farw"
       },
       "invalid": {
-        "summary": "The first name can only contain letters a to z, spaces, hyphens and apostrophes",
-        "message": "The first name can only contain letters a to z, spaces, hyphens and apostrophes"
+        "summary": "Dim ond llythrennau a i z, bylchau, cysylltnodau ac collnodau y gall yr enw cyntaf eu cynnwys",
+        "message": "Dim ond llythrennau a i z, bylchau, cysylltnodau ac collnodau y gall yr enw cyntaf eu cynnwys"
       }
     },
     "lastName": {
       "required": {
-        "summary": "You haven&rsquo;t entered the last name of the person who has died",
-        "message": "Please enter the person who died&rsquo;s last name"
+        "summary": "Nid ydych wedi nodi enw olaf y person sydd wedi marw",
+        "message": "Rhowch enw olaf y person a fu farw"
       },
       "invalid": {
-        "summary": "The last name can only contain letters a to z, spaces, hyphens and apostrophes",
-        "message": "The last name can only contain letters a to z, spaces, hyphens and apostrophes"
+        "summary": "Dim ond llythrennau a i z, bylchau, cysylltnodau ac collnodau y gall yr enw olaf eu cynnwys",
+        "message": "Dim ond llythrennau a i z, bylchau, cysylltnodau ac collnodau y gall yr enw olaf eu cynnwys"
       }
     }
   }

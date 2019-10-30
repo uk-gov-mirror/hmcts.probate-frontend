@@ -13,7 +13,7 @@ class IhtPaper extends ValidationStep {
         return '/iht-paper';
     }
 
-    handlePost(ctx, errors) {
+    handlePost(ctx, errors, formdata, session) {
         const form = ctx.form.replace('option', '');
         ctx.grossValuePaper = ctx[`grossValueField${form}`];
         ctx.netValuePaper = ctx[`netValueField${form}`];
@@ -22,15 +22,15 @@ class IhtPaper extends ValidationStep {
         ctx.netValue = parseFloat(numeral(ctx.netValuePaper).format('0.00'));
 
         if (!validator.isCurrency(ctx.grossValuePaper, {symbol: '£', allow_negatives: false})) {
-            errors.push(FieldError(`grossValueField${form}`, 'invalidCurrencyFormat', this.resourcePath, this.generateContent()));
+            errors.push(FieldError(`grossValueField${form}`, 'invalidCurrencyFormat', this.resourcePath, this.generateContent(), session.language));
         }
 
         if (!validator.isCurrency(ctx.netValuePaper, {symbol: '£', allow_negatives: false})) {
-            errors.push(FieldError(`netValueField${form}`, 'invalidCurrencyFormat', this.resourcePath, this.generateContent()));
+            errors.push(FieldError(`netValueField${form}`, 'invalidCurrencyFormat', this.resourcePath, this.generateContent(), session.language));
         }
 
         if (ctx.netValue > ctx.grossValue) {
-            errors.push(FieldError(`netValueField${form}`, 'netValueGreaterThanGross', this.resourcePath, this.generateContent()));
+            errors.push(FieldError(`netValueField${form}`, 'netValueGreaterThanGross', this.resourcePath, this.generateContent(), session.language));
         }
 
         ctx.ihtFormId = ctx.form;

@@ -16,7 +16,7 @@ class RedirectRunner extends UIStepRunner {
             }
 
             req.session.form.applicantEmail = req.session.regId;
-            const options = yield step.runnerOptions(ctx, req.session.form);
+            const options = yield step.runnerOptions(ctx, req.session.form, req.session.language);
             if (options.redirect) {
                 res.redirect(options.url);
             } else {

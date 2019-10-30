@@ -45,7 +45,7 @@ class CoApplicantDeclaration extends ValidationStep {
         if (serviceAuthorisation.name === 'Error') {
             logger.info(`serviceAuthResult Error = ${serviceAuthorisation}`);
             const keyword = 'failure';
-            errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
+            errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx, session.language));
             return [ctx, errors];
         }
 
@@ -53,7 +53,7 @@ class CoApplicantDeclaration extends ValidationStep {
         const authToken = yield security.getUserToken(hostname);
         if (authToken.name === 'Error') {
             logger.info(`failed to obtain authToken = ${authToken}`);
-            errors.push(FieldError('authorisation', 'failure', this.resourcePath, ctx));
+            errors.push(FieldError('authorisation', 'failure', this.resourcePath, ctx, session.language));
             return;
         }
 

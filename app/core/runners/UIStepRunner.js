@@ -56,7 +56,7 @@ class UIStepRunner {
             let formdata = session.form;
             let ctx = step.getContextData(req, res);
             let [isValid, errors] = [];
-            [isValid, errors] = step.validate(ctx, formdata);
+            [isValid, errors] = step.validate(ctx, formdata, session.language);
             const hasDataChanged = (new DetectDataChange()).hasDataChanged(ctx, req, step);
             const featureToggles = session.featureToggles;
             if (isValid) {

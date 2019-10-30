@@ -34,7 +34,7 @@ class Declaration extends ValidationStep {
         let returnErrors;
 
         if (result.type === 'VALIDATION') {
-            returnErrors = [FieldError('businessError', 'validationError', this.resourcePath, ctx)];
+            returnErrors = [FieldError('businessError', 'validationError', this.resourcePath, ctx, session.language)];
         } else {
             returnErrors = errors;
         }
