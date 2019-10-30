@@ -26,14 +26,14 @@ class UIStepRunner {
             forEach(errors, (error) =>
                 req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
             );
-            const content = step.generateContent(ctx, formdata, req.session.language);
-            const fields = step.generateFields(req.session.language, ctx, errors, formdata);
+            const content = step.generateContent(ctx, formdata, session.language);
+            const fields = step.generateFields(session.language, ctx, errors, formdata);
             if (req.query.source === 'back') {
                 session.back.pop();
             } else if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
                 session.back.push(step.constructor.getUrl());
             }
-            const common = step.commonContent(req.session.language);
+            const common = step.commonContent(session.language);
             res.render(step.template, {content, fields, errors, common}, (err, html) => {
                 if (err) {
                     req.log.error(err);
@@ -95,9 +95,9 @@ class UIStepRunner {
                 forEach(errors, (error) =>
                     req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
                 );
-                const content = step.generateContent(ctx, formdata, req.session.language);
-                const fields = step.generateFields(req.session.language, ctx, errors, formdata);
-                const common = step.commonContent(req.session.language);
+                const content = step.generateContent(ctx, formdata, session.language);
+                const fields = step.generateFields(session.language, ctx, errors, formdata);
+                const common = step.commonContent(session.language);
                 res.render(step.template, {content, fields, errors, common});
             }
         }).catch((error) => {
