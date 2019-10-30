@@ -74,7 +74,7 @@ describe('DivorcePlace', () => {
                 }
             ];
 
-            const fields = DivorcePlace.generateFields(ctx, errors);
+            const fields = DivorcePlace.generateFields('en', ctx, errors);
             expect(fields).to.deep.equal({
                 language: {
                     error: false,
