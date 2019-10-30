@@ -80,7 +80,7 @@ describe('co-applicant-declaration', () => {
                 });
         });
 
-        it.skip(`test it redirects to agree page: ${expectedNextUrlForCoAppAgree}`, (done) => {
+        it(`test it redirects to agree page: ${expectedNextUrlForCoAppAgree}`, (done) => {
             inviteAgreedNock();
 
             testWrapper.agent.post('/prepare-session/form')
@@ -91,15 +91,17 @@ describe('co-applicant-declaration', () => {
                     }
                 })
                 .end(() => {
-                    const data = {
-                        inviteId: 'dummy_id',
-                        agreement: content.optionYes
-                    };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCoAppAgree);
+                    testWrapper.agent.post('/prepare-session-field/inviteId/98562349756342563456349695634593')
+                        .end(() => {
+                            const data = {
+                                agreement: content.optionYes
+                            };
+                            testWrapper.testRedirect(done, data, expectedNextUrlForCoAppAgree);
+                        });
                 });
         });
 
-        it.skip(`test it redirects to disagree page: ${expectedNextUrlForCoAppDisagree}`, (done) => {
+        it(`test it redirects to disagree page: ${expectedNextUrlForCoAppDisagree}`, (done) => {
             inviteAgreedNock();
 
             testWrapper.agent.post('/prepare-session/form')

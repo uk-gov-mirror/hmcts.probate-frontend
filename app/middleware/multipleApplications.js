@@ -150,9 +150,10 @@ const getDeclarationStatuses = (req, res, next) => {
             [config.services.orchestrator.url, req.sessionID]
         );
 
+        session.form.executorsDeclarations = [];
+
         formData.getDeclarationStatuses(req.authToken, req.session.serviceAuthorization, ccdCaseId)
             .then(result => {
-                session.form.executorsDeclarations = [];
                 forEach(result.invitations, executor => (
                     session.form.executorsDeclarations.push({
                         executorName: executor.executorName,

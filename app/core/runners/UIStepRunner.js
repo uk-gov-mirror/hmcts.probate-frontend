@@ -99,7 +99,9 @@ class UIStepRunner {
             }
         }).catch((error) => {
             req.log.error(error);
-            res.status(500).render('errors/500', {common: commonContent});
+            const ctx = step.getContextData(req, res);
+            const fields = step.generateFields(ctx, [], {});
+            res.status(500).render('errors/500', {fields, common: commonContent});
         });
     }
 }
