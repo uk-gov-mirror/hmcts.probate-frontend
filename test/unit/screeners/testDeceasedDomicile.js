@@ -21,6 +21,7 @@ describe('DeceasedDomicile', () => {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
+                    language: 'en',
                     form: {
                         ccdCase: {
                             id: 1234567890123456,
@@ -37,6 +38,7 @@ describe('DeceasedDomicile', () => {
 
             const ctx = DeceasedDomicile.getContextData(req, res);
             expect(ctx).to.deep.equal({
+                language: 'en',
                 sessionID: 'dummy_sessionId',
                 domicile: 'optionYes',
                 caseType: 'gop',

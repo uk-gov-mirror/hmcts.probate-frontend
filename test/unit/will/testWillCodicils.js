@@ -20,6 +20,7 @@ describe('WillCodicils', () => {
             const req = {
                 sessionID: 'dummy_sessionId',
                 session: {
+                    language: 'en',
                     form: {
                         caseType: 'gop',
                         ccdCase: {
@@ -35,6 +36,7 @@ describe('WillCodicils', () => {
             };
             const ctx = WillCodicils.getContextData(req);
             expect(ctx).to.deep.equal({
+                language: 'en',
                 codicils: 'optionYes',
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',

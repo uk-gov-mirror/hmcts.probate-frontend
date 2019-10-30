@@ -25,6 +25,7 @@ describe('DivorcePlace', () => {
         it('should return the context with the legal process string in case of divorce', (done) => {
             req = {
                 session: {
+                    language: 'en',
                     form: {
                         deceased: {
                             maritalStatus: 'optionDivorced'
@@ -41,6 +42,7 @@ describe('DivorcePlace', () => {
         it('should return the context with the legal process string in case of separation', (done) => {
             req = {
                 session: {
+                    language: 'en',
                     form: {
                         deceased: {
                             maritalStatus: 'optionSeparated'
@@ -58,6 +60,7 @@ describe('DivorcePlace', () => {
     describe('generateFields()', () => {
         it('should return the correct content fields', (done) => {
             const ctx = {
+                language: 'en',
                 legalProcess: 'divorce'
             };
             const errors = [
@@ -73,6 +76,10 @@ describe('DivorcePlace', () => {
 
             const fields = DivorcePlace.generateFields(ctx, errors);
             expect(fields).to.deep.equal({
+                language: {
+                    error: false,
+                    value: 'en'
+                },
                 divorcePlace: {
                     error: true,
                     href: '#divorcePlace',

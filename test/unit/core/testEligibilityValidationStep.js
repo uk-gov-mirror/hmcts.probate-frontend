@@ -40,6 +40,7 @@ describe('EligibilityValidationStep', () => {
             req = {
                 method: 'GET',
                 session: {
+                    language: 'en',
                     form: {
                         caseType: 'gop',
                         ccdCase: {
@@ -62,6 +63,7 @@ describe('EligibilityValidationStep', () => {
             expect(EligibilityValidationStep.__get__('eligibilityCookie.getAnswer').calledOnce).to.equal(true);
             expect(EligibilityValidationStep.__get__('eligibilityCookie.getAnswer').calledWith(req, pageUrl, fieldKey)).to.equal(true);
             expect(ctx).to.deep.equal({
+                language: 'en',
                 sessionID: 'abc123',
                 caseType: 'gop',
                 userLoggedIn: false,
@@ -81,6 +83,7 @@ describe('EligibilityValidationStep', () => {
             const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey);
 
             expect(ctx).to.deep.equal({
+                language: 'en',
                 sessionID: 'abc123',
                 caseType: 'gop',
                 userLoggedIn: false,
@@ -116,10 +119,11 @@ describe('EligibilityValidationStep', () => {
             const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey, featureToggles);
 
             expect(nextStepUrlStub.calledOnce).to.equal(true);
-            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', caseType: 'gop', deathCertificate: 'optionYes', isTestToggleEnabled: true, userLoggedIn: false, ccdCase: {id: 1234567890123456, state: 'Draft'}})).to.equal(true);
+            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', language: 'en', caseType: 'gop', deathCertificate: 'optionYes', isTestToggleEnabled: true, userLoggedIn: false, ccdCase: {id: 1234567890123456, state: 'Draft'}})).to.equal(true);
             expect(setEligibilityCookieStub.calledOnce).to.equal(true);
             expect(setEligibilityCookieStub.calledWith(req, res, nextStepUrl, fieldKey, fieldValue)).to.equal(true);
             expect(ctx).to.deep.equal({
+                language: 'en',
                 sessionID: 'abc123',
                 caseType: 'gop',
                 userLoggedIn: false,

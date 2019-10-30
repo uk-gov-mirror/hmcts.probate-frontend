@@ -19,6 +19,7 @@ describe('DeceasedAddress', () => {
             const req = {
                 sessionID: 'dummy_sessionId',
                 session: {
+                    language: 'en',
                     form: {
                         caseType: 'gop',
                         ccdCase: {
@@ -38,6 +39,7 @@ describe('DeceasedAddress', () => {
             };
             const ctx = DeceasedAddress.getContextData(req);
             expect(ctx).to.deep.equal({
+                language: 'en',
                 addressLine1: '143 Caerfai Bay Road',
                 postTown: 'town',
                 country: 'United Kingdon',

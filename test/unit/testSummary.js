@@ -86,6 +86,7 @@ describe('Summary', () => {
             const req = {
                 sessionID: 'dummy_sessionId',
                 session: {
+                    language: 'en',
                     form: {
                         ccdCase: {
                             id: 1234567890123456,
@@ -106,6 +107,7 @@ describe('Summary', () => {
             const Summary = steps.Summary;
             const ctx = Summary.getContextData(req);
             expect(ctx).to.deep.equal({
+                language: 'en',
                 ccdCase: {
                     id: 1234567890123456,
                     state: 'Draft'
@@ -119,6 +121,7 @@ describe('Summary', () => {
                 userLoggedIn: false,
                 readyToDeclare: false,
                 session: {
+                    language: 'en',
                     form: {
                         ccdCase: {
                             id: 1234567890123456,
@@ -147,6 +150,7 @@ describe('Summary', () => {
             const req = {
                 sessionID: 'dummy_sessionId',
                 session: {
+                    language: 'en',
                     form: {
                         ccdCase: {
                             id: 1234567890123456,
@@ -170,6 +174,7 @@ describe('Summary', () => {
             const Summary = steps.Summary;
             const ctx = Summary.getContextData(req);
             expect(ctx).to.deep.equal({
+                language: 'en',
                 ccdCase: {
                     id: 1234567890123456,
                     state: 'Draft'
@@ -190,6 +195,7 @@ describe('Summary', () => {
                 userLoggedIn: false,
                 readyToDeclare: false,
                 session: {
+                    language: 'en',
                     form: {
                         ccdCase: {
                             id: 1234567890123456,

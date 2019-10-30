@@ -14,6 +14,7 @@ describe('Executor-Additional-Invite-Sent', () => {
             req = {
                 sessionID: 'dummy_sessionId',
                 session: {
+                    language: 'en',
                     form: {
                         executors: {},
                         caseType: 'gop',
@@ -38,6 +39,7 @@ describe('Executor-Additional-Invite-Sent', () => {
             };
             ctx = executorsAdditionalInviteSent.getContextData(req);
             expect(ctx).to.deep.equal({
+                language: 'en',
                 executorsToNotifyList: [
                     {
                         fullName: 'other applicant',
@@ -67,6 +69,7 @@ describe('Executor-Additional-Invite-Sent', () => {
             };
             ctx = executorsAdditionalInviteSent.getContextData(req);
             expect(ctx).to.deep.equal({
+                language: 'en',
                 executorsToNotifyList: [
                     {
                         fullName: 'other applicant',

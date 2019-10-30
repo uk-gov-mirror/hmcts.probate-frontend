@@ -192,7 +192,7 @@ describe('Security component', () => {
                 }
             });
 
-            req.session = {expires: expiresTime};
+            req.session = {expires: expiresTime, language: 'en'};
             req.cookies[securityCookie] = token;
 
             const promise = when({

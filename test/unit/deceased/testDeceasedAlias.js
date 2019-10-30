@@ -33,6 +33,7 @@ describe('DeceasedAlias', () => {
             const req = {
                 sessionID: 'dummy_sessionId',
                 session: {
+                    language: 'en',
                     form: {
                         caseType: 'gop',
                         ccdCase: {
@@ -49,6 +50,7 @@ describe('DeceasedAlias', () => {
             };
             const ctx = DeceasedAlias.getContextData(req);
             expect(ctx).to.deep.equal({
+                language: 'en',
                 firstName: 'Dee',
                 lastName: 'Ceased',
                 deceasedName: 'Dee Ceased',

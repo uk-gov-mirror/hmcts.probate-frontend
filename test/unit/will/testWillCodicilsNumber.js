@@ -19,6 +19,7 @@ describe('CodicilsNumber', () => {
             const req = {
                 sessionID: 'dummy_sessionId',
                 session: {
+                    language: 'en',
                     form: {
                         caseType: 'gop',
                         ccdCase: {
@@ -34,6 +35,7 @@ describe('CodicilsNumber', () => {
             };
             const ctx = CodicilsNumber.getContextData(req);
             expect(ctx).to.deep.equal({
+                language: 'en',
                 codicilsNumber: 3,
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
@@ -50,6 +52,7 @@ describe('CodicilsNumber', () => {
             const req = {
                 sessionID: 'dummy_sessionId',
                 session: {
+                    language: 'en',
                     form: {
                         caseType: 'gop',
                         ccdCase: {
@@ -65,6 +68,7 @@ describe('CodicilsNumber', () => {
             };
             const ctx = CodicilsNumber.getContextData(req);
             expect(ctx).to.deep.equal({
+                language: 'en',
                 codicilsNumber: null,
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',

@@ -19,6 +19,7 @@ describe('CopiesUk', () => {
             const req = {
                 sessionID: 'dummy_sessionId',
                 session: {
+                    language: 'en',
                     form: {
                         caseType: 'gop',
                         ccdCase: {
@@ -34,6 +35,7 @@ describe('CopiesUk', () => {
             };
             const ctx = CopiesUk.getContextData(req);
             expect(ctx).to.deep.equal({
+                language: 'en',
                 uk: 3,
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',

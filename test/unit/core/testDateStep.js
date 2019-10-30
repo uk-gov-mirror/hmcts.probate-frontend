@@ -5,14 +5,16 @@ const DateStep = require('app/core/steps/DateStep');
 const moment = require('moment');
 const config = require('app/config');
 const sinon = require('sinon');
+const i18next = require('i18next');
 
 describe('DateStep', () => {
     const steps = {};
     const section = 'deceased';
     const resourcePath = 'deceased/dob';
-    const i18next = {};
+    // const i18next = {};
     const schema = require('app/steps/ui/deceased/dob/schema');
-    const dateStep = new DateStep(steps, section, resourcePath, i18next, schema);
+    const language = 'en';
+    const dateStep = new DateStep(steps, section, resourcePath, i18next, schema, language);
 
     describe('dateName()', () => {
         it('should return null', (done) => {
@@ -27,6 +29,7 @@ describe('DateStep', () => {
         it('should return the correct ctx with a parsed date', (done) => {
             const req = {
                 session: {
+                    language: 'en',
                     form: {
                         deceased: {
                             'firstName': 'Dee',
@@ -89,7 +92,7 @@ describe('DateStep', () => {
                 'dod-month': '6',
                 'dod-year': '2018'
             };
-            const ctx = dateStep.parseDate(testCtx, dateNames);
+            const ctx = dateStep.parseDate(testCtx, dateNames, 'en');
             expect(ctx).to.deep.equal({
                 'dob-day': 15,
                 'dob-month': 13,
@@ -114,7 +117,7 @@ describe('DateStep', () => {
                 'dod-month': '6',
                 'dod-year': '2018'
             };
-            const ctx = dateStep.parseDate(testCtx, dateNames);
+            const ctx = dateStep.parseDate(testCtx, dateNames, 'en');
             expect(ctx).to.deep.equal({
                 'dob-day': 15,
                 'dob-month': 12,
@@ -134,7 +137,7 @@ describe('DateStep', () => {
     describe('formattedDate()', () => {
         it('should return a formatted date', (done) => {
             const testDate = moment('12/12/2018', config.dateFormat);
-            const returnDate = dateStep.formattedDate(testDate);
+            const returnDate = dateStep.formattedDate(testDate, 'en');
 
             expect(returnDate).to.equal('12 December 2018');
             done();
