@@ -158,8 +158,7 @@ router.use((req, res, next) => {
                 .then((serviceAuthorisation) => {
                     if (serviceAuthorisation.name === 'Error') {
                         logger.info(`serviceAuthResult Error = ${serviceAuthorisation}`);
-                        res.status(500);
-                        res.render('errors/500');
+                        res.status(500).render('errors/500');
                     } else {
                         const security = new Security();
                         const hostname = FormatUrl.createHostname(req);
@@ -167,8 +166,7 @@ router.use((req, res, next) => {
                             .then((authToken) => {
                                 if (authToken.name === 'Error') {
                                     logger.info(`failed to obtain authToken = ${serviceAuthorisation}`);
-                                    res.status(500);
-                                    res.render('errors/500');
+                                    res.status(500).render('errors/500');
                                 } else {
                                     allExecutorsAgreed.get(authToken, serviceAuthorisation, ccdCaseId)
                                         .then(data => {

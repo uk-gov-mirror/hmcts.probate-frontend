@@ -80,8 +80,7 @@ class InviteLink {
                         .then(result => {
                             if (result.name === 'Error') {
                                 logger.error(`Error checking everyone has agreed: ${result.message}`);
-                                res.status(500);
-                                return res.render('errors/500');
+                                return res.status(500).render('errors/500');
                             }
 
                             logger.info('Checking if all applicants have already agreed');
