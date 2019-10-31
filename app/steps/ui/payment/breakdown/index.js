@@ -69,7 +69,7 @@ class PaymentBreakdown extends Step {
             if (serviceAuthResult.name === 'Error') {
                 logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
                 const keyword = 'failure';
-                errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx, session.language));
+                errors.push(FieldError('authorisation', keyword, this.resourcePath, this.generateContent(ctx, formdata, session.language), session.language));
                 return [ctx, errors];
             }
 
@@ -88,7 +88,7 @@ class PaymentBreakdown extends Step {
                 logger.info('Checking status of reference = ' + ctx.reference + ' with response = ' + paymentResponse.status);
                 if (paymentResponse.status === 'Initiated') {
                     logger.error('As payment is still Initiated, user will need to wait for this state to expire.');
-                    errors.push(FieldError('payment', 'initiated', this.resourcePath, ctx, session.language));
+                    errors.push(FieldError('payment', 'initiated', this.resourcePath, this.generateContent(ctx, formdata, session.language), session.language));
                     return [ctx, errors];
                 }
             }
@@ -100,7 +100,7 @@ class PaymentBreakdown extends Step {
                 if (serviceAuthResult.name === 'Error') {
                     logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
                     const keyword = 'failure';
-                    errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx, session.language));
+                    errors.push(FieldError('authorisation', keyword, this.resourcePath, this.generateContent(ctx, formdata, session.language), session.language));
                     return [ctx, errors];
                 }
 
@@ -120,7 +120,7 @@ class PaymentBreakdown extends Step {
                 const paymentResponse = yield payment.post(data, hostname);
                 logger.info(`Payment creation in breakdown for ccdCaseId = ${formdata.ccdCase.id} with response = ${JSON.stringify(paymentResponse)}`);
                 if (paymentResponse.name === 'Error') {
-                    errors.push(FieldError('payment', 'failure', this.resourcePath, ctx, session.language));
+                    errors.push(FieldError('payment', 'failure', this.resourcePath, this.generateContent(ctx, formdata, session.language), session.language));
                     return [ctx, errors];
                 }
                 const formDataResult = yield this.submitForm(ctx, errors, formdata, paymentResponse, serviceAuthResult, session.language);
@@ -154,12 +154,12 @@ class PaymentBreakdown extends Step {
         );
         const result = yield submitData.submit(formdata, paymentDto, ctx.authToken, serviceAuthResult, ctx.caseType);
         if (result.type === 'VALIDATION') {
-            errors.push(FieldError('submit', 'validation', this.resourcePath, ctx, language));
+            errors.push(FieldError('submit', 'validation', this.resourcePath, this.generateContent(ctx, formdata, language), language));
         }
         logger.info(`submitData.submit result = ${JSON.stringify(result)}`);
 
         if (result.name === 'Error') {
-            errors.push(FieldError('submit', 'failure', this.resourcePath, ctx, language));
+            errors.push(FieldError('submit', 'failure', this.resourcePath, this.generateContent(ctx, formdata, language), language));
         }
 
         logger.info({tags: 'Analytics'}, 'Application Case Created');
