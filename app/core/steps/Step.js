@@ -122,7 +122,6 @@ class Step {
         delete ctx.sessionID;
         delete ctx.caseType;
         delete ctx.userLoggedIn;
-        delete ctx.language;
         delete ctx.featureToggles;
         delete ctx._csrf;
         return [ctx, formdata];

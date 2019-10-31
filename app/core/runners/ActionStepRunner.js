@@ -22,7 +22,7 @@ class ActionStepRunner {
             const formdata = session.form;
 
             let ctx = yield step.getContextData(req);
-            let [, errors] = step.validate(ctx, formdata);
+            let [, errors] = step.validate(ctx, formdata, session.language);
 
             [ctx, errors] = yield step.handlePost(ctx, errors, formdata, session);
 

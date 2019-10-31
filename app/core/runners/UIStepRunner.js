@@ -14,12 +14,12 @@ class UIStepRunner {
     }
 
     handleGet(step, req, res) {
-        const commonContent = require(`app/resources/${req.session.language}/translation/common`);
+        let errors = null;
+        const session = req.session;
+        const formdata = session.form;
+        const commonContent = require(`app/resources/${session.language}/translation/common`);
 
         return co(function * () {
-            let errors = null;
-            const session = req.session;
-            const formdata = session.form;
             let ctx = step.getContextData(req, res);
             const featureToggles = session.featureToggles;
             [ctx, errors] = yield step.handleGet(ctx, formdata, featureToggles, session.language);
@@ -49,11 +49,11 @@ class UIStepRunner {
     }
 
     handlePost(step, req, res) {
-        const commonContent = require(`app/resources/${req.session.language}/translation/common`);
+        const session = req.session;
+        let formdata = session.form;
+        const commonContent = require(`app/resources/${session.language}/translation/common`);
 
         return co(function * () {
-            const session = req.session;
-            let formdata = session.form;
             let ctx = step.getContextData(req, res);
             let [isValid, errors] = [];
             [isValid, errors] = step.validate(ctx, formdata, session.language);

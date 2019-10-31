@@ -45,7 +45,7 @@ class DeceasedOtherNames extends ValidationStep {
         }
 
         Object.entries(ctx.otherNames).forEach(([index, otherName]) => {
-            const [isValid, errors] = super.validate(otherName, formdata);
+            const [isValid, errors] = super.validate(otherName, formdata, language);
             allValid = isValid && allValid;
             if (!isEmpty(errors)) {
                 otherNameErrors.set(index, errors);

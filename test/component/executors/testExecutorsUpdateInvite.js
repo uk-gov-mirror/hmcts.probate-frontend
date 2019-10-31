@@ -94,7 +94,7 @@ describe('executors-update-invite', () => {
                 });
         });
 
-        it.skip('test an error page is rendered if there is an error calling invite service', (done) => {
+        it('test an error page is rendered if there is an error calling invite service', (done) => {
             sessionData.executors.list[1].emailChanged = true;
 
             testWrapper.agent.post('/prepare-session/form')
