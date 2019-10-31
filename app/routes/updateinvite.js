@@ -10,8 +10,8 @@ router.post('/', (req, res, next) => {
             delete req.session.form.executors.hasEmailChanged;
             next();
         })
-        .catch(err => {
-            next(err);
+        .catch(() => {
+            res.status(500).render('errors/500');
         });
 });
 

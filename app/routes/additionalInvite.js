@@ -9,8 +9,8 @@ router.post('/', (req, res, next) => {
             req.session.form.executors = result;
             next();
         })
-        .catch(err => {
-            next(err);
+        .catch(() => {
+            res.status(500).render('errors/500');
         });
 });
 
