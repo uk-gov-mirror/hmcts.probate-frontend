@@ -203,6 +203,13 @@ exports.init = function() {
     }));
 
     app.use((req, res, next) => {
+        if (!req.session) {
+            return next(new Error('Unable to reach redis'));
+        }
+        next(); // otherwise continue
+    });
+
+    app.use((req, res, next) => {
         req.session.cookie.secure = req.protocol === 'https';
         next();
     });
@@ -217,13 +224,6 @@ exports.init = function() {
         }
 
         next();
-    });
-
-    app.use((req, res, next) => {
-        if (!req.session) {
-            return next(new Error('Unable to reach redis'));
-        }
-        next(); // otherwise continue
     });
 
     app.use(config.services.idam.probate_oauth_callback_path, security.oAuth2CallbackEndpoint());
