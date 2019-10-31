@@ -315,7 +315,7 @@ exports.init = function() {
         res.status(404).render('errors/404', {common: commonContent});
     });
 
-    app.use((err, req, res) => {
+    app.use((err, req, res, next) => {
         const commonContent = require(`app/resources/${req.session.language}/translation/common`);
 
         logger(req.sessionID).error(err);
