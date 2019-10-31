@@ -38,7 +38,6 @@ describe('DeathCertificate', () => {
 
             const ctx = DeathCertificate.getContextData(req, res);
             expect(ctx).to.deep.equal({
-                language: 'en',
                 sessionID: 'dummy_sessionId',
                 deathCertificate: 'optionYes',
                 caseType: 'gop',

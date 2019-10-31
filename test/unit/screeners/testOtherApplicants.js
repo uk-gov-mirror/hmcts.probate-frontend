@@ -38,7 +38,6 @@ describe('OtherApplicants', () => {
 
             const ctx = OtherApplicants.getContextData(req, res);
             expect(ctx).to.deep.equal({
-                language: 'en',
                 sessionID: 'dummy_sessionId',
                 otherApplicants: 'optionYes',
                 caseType: 'gop',

@@ -26,7 +26,7 @@ class PinPage extends ValidationStep {
 
     * handlePost(ctx, errors, formdata, session, hostname) {
         if (parseInt(session.pin) !== parseInt(ctx.pin)) {
-            errors.push(FieldError('pin', 'incorrect', this.resourcePath, this.generateContent(), session.language));
+            errors.push(FieldError('pin', 'incorrect', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         } else {
             const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
             const serviceAuthorisation = yield authorise.post();

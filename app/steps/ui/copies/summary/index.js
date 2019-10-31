@@ -10,16 +10,16 @@ class CopiesSummary extends Step {
         return '/copies-summary';
     }
 
-    generateContent (ctx, formdata) {
+    generateContent (ctx, formdata, language) {
         const content = {};
 
         Object.keys(this.steps).filter(stepName => copiesSteps.includes(stepName))
             .forEach((stepName) => {
                 const step = this.steps[stepName];
-                content[stepName] = step.generateContent(formdata[step.section], formdata);
+                content[stepName] = step.generateContent(formdata[step.section], formdata, language);
                 content[stepName].url = step.constructor.getUrl();
             });
-        content[this.name] = super.generateContent(ctx, formdata);
+        content[this.name] = super.generateContent(ctx, formdata, language);
         content[this.name].url = CopiesSummary.getUrl();
         return content;
     }
@@ -49,7 +49,7 @@ class CopiesSummary extends Step {
         const formdata = req.session.form;
         const ctx = super.getContextData(req);
         const deceasedName = FormatName.format(formdata.deceased);
-        const content = this.generateContent(ctx, formdata);
+        const content = this.generateContent(ctx, formdata, req.session.language);
 
         ctx.assetsOverseasQuestion = content.AssetsOverseas.question.replace('{deceasedName}', deceasedName);
 

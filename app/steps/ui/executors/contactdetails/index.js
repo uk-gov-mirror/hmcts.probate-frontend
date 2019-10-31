@@ -42,11 +42,11 @@ class ExecutorContactDetails extends ValidationStep {
         const executorsWrapper = new ExecutorsWrapper(ctx);
         const executor = ctx.list[ctx.index];
         if (!emailValidator.validate(ctx.email)) {
-            errors.push(FieldError('email', 'invalid', this.resourcePath, this.generateContent(), session.language));
+            errors.push(FieldError('email', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
 
         if (!this.validatePhoneNumber(ctx.mobile)) {
-            errors.push(FieldError('mobile', 'invalid', this.resourcePath, this.generateContent(), session.language));
+            errors.push(FieldError('mobile', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
 
         if (ctx.email !== executor.email && executor.emailSent) {

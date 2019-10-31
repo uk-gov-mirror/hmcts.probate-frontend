@@ -60,7 +60,6 @@ class Step {
         if (typeof session.form.userLoggedIn === 'boolean') {
             ctx.userLoggedIn = session.form.userLoggedIn;
         }
-        ctx.language = session.language;
         ctx = Object.assign(ctx, req.body);
         ctx = FeatureToggle.appwideToggles(req, ctx, config.featureToggles.appwideToggles);
 

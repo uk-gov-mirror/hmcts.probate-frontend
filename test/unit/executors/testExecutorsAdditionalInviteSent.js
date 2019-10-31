@@ -39,7 +39,6 @@ describe('Executor-Additional-Invite-Sent', () => {
             };
             ctx = executorsAdditionalInviteSent.getContextData(req);
             expect(ctx).to.deep.equal({
-                language: 'en',
                 executorsToNotifyList: [
                     {
                         fullName: 'other applicant',
@@ -69,7 +68,6 @@ describe('Executor-Additional-Invite-Sent', () => {
             };
             ctx = executorsAdditionalInviteSent.getContextData(req);
             expect(ctx).to.deep.equal({
-                language: 'en',
                 executorsToNotifyList: [
                     {
                         fullName: 'other applicant',

@@ -38,7 +38,6 @@ describe('DeceasedDomicile', () => {
 
             const ctx = DeceasedDomicile.getContextData(req, res);
             expect(ctx).to.deep.equal({
-                language: 'en',
                 sessionID: 'dummy_sessionId',
                 domicile: 'optionYes',
                 caseType: 'gop',

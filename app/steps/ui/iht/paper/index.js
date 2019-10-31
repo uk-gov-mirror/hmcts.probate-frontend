@@ -22,15 +22,15 @@ class IhtPaper extends ValidationStep {
         ctx.netValue = parseFloat(numeral(ctx.netValuePaper).format('0.00'));
 
         if (!validator.isCurrency(ctx.grossValuePaper, {symbol: '£', allow_negatives: false})) {
-            errors.push(FieldError(`grossValueField${form}`, 'invalidCurrencyFormat', this.resourcePath, this.generateContent(), session.language));
+            errors.push(FieldError(`grossValueField${form}`, 'invalidCurrencyFormat', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
 
         if (!validator.isCurrency(ctx.netValuePaper, {symbol: '£', allow_negatives: false})) {
-            errors.push(FieldError(`netValueField${form}`, 'invalidCurrencyFormat', this.resourcePath, this.generateContent(), session.language));
+            errors.push(FieldError(`netValueField${form}`, 'invalidCurrencyFormat', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
 
         if (ctx.netValue > ctx.grossValue) {
-            errors.push(FieldError(`netValueField${form}`, 'netValueGreaterThanGross', this.resourcePath, this.generateContent(), session.language));
+            errors.push(FieldError(`netValueField${form}`, 'netValueGreaterThanGross', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
 
         ctx.ihtFormId = ctx.form;

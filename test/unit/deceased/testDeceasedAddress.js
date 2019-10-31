@@ -39,7 +39,6 @@ describe('DeceasedAddress', () => {
             };
             const ctx = DeceasedAddress.getContextData(req);
             expect(ctx).to.deep.equal({
-                language: 'en',
                 addressLine1: '143 Caerfai Bay Road',
                 postTown: 'town',
                 country: 'United Kingdon',

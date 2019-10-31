@@ -39,7 +39,6 @@ describe('Dashboard', () => {
 
             const ctx = Dashboard.getContextData(req, res);
             expect(ctx).to.deep.equal({
-                language: 'en',
                 sessionID: 'dummy_sessionId',
                 applications: [
                     {ccdCase: {id: 1234567890123456, idFormatted: '1234-5678-9012-3456', idFormattedAccessible: '1 2 3 4, -, 5 6 7 8, -, 9 0 1 2, -, 3 4 5 6'}},

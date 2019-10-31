@@ -38,7 +38,6 @@ describe('MentalCapacity', () => {
 
             const ctx = MentalCapacity.getContextData(req, res);
             expect(ctx).to.deep.equal({
-                language: 'en',
                 sessionID: 'dummy_sessionId',
                 mentalCapacity: 'optionYes',
                 caseType: 'gop',

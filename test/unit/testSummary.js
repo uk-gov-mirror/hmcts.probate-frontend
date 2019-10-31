@@ -107,7 +107,6 @@ describe('Summary', () => {
             const Summary = steps.Summary;
             const ctx = Summary.getContextData(req);
             expect(ctx).to.deep.equal({
-                language: 'en',
                 ccdCase: {
                     id: 1234567890123456,
                     state: 'Pending'
@@ -174,7 +173,6 @@ describe('Summary', () => {
             const Summary = steps.Summary;
             const ctx = Summary.getContextData(req);
             expect(ctx).to.deep.equal({
-                language: 'en',
                 ccdCase: {
                     id: 1234567890123456,
                     state: 'Pending'

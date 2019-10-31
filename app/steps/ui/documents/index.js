@@ -36,11 +36,11 @@ class Documents extends ValidationStep {
         return options;
     }
 
-    handleGet(ctx, formdata) {
+    handleGet(ctx, formdata, featureToggles, language) {
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         const willWrapper = new WillWrapper(formdata.will);
         const registryAddress = (new RegistryWrapper(formdata.registry)).address();
-        const content = this.generateContent(ctx, formdata);
+        const content = this.generateContent(ctx, formdata, language);
 
         ctx.registryAddress = registryAddress ? registryAddress : content.address;
 

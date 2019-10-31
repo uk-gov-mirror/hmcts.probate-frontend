@@ -24,7 +24,7 @@ class DocumentUpload extends ValidationStep {
         const error = formdata.documents && formdata.documents.error;
         if (error) {
             errors = errors || [];
-            errors.push(FieldError('file', error, this.resourcePath, this.generateContent(), session.language));
+            errors.push(FieldError('file', error, this.resourcePath, this.generateContent({}, {}, session.language), session.language));
             delete formdata.documents.error;
         }
         return [ctx, errors];

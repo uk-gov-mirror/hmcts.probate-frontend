@@ -38,7 +38,6 @@ describe('WillOriginal', () => {
 
             const ctx = WillOriginal.getContextData(req, res);
             expect(ctx).to.deep.equal({
-                language: 'en',
                 sessionID: 'dummy_sessionId',
                 original: 'optionYes',
                 caseType: 'gop',

@@ -38,7 +38,6 @@ describe('IhtCompleted', () => {
 
             const ctx = IhtCompleted.getContextData(req, res);
             expect(ctx).to.deep.equal({
-                language: 'en',
                 sessionID: 'dummy_sessionId',
                 completed: 'optionYes',
                 caseType: 'gop',

@@ -23,13 +23,13 @@ class DeceasedDetails extends DateStep {
         today.setHours(0, 0, 0, 0);
 
         if (dob >= today) {
-            errors.push(FieldError('dob-date', 'dateInFuture', this.resourcePath, this.generateContent(), session.language));
+            errors.push(FieldError('dob-date', 'dateInFuture', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         } else if (dob >= dod) {
-            errors.push(FieldError('dob-date', 'dodBeforeDob', this.resourcePath, this.generateContent(), session.language));
+            errors.push(FieldError('dob-date', 'dodBeforeDob', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
 
         if (dod > today) {
-            errors.push(FieldError('dod-date', 'dateInFuture', this.resourcePath, this.generateContent(), session.language));
+            errors.push(FieldError('dod-date', 'dateInFuture', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
 
         return [ctx, errors];

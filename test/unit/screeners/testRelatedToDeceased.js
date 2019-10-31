@@ -38,7 +38,6 @@ describe('RelatedToDeceased', () => {
 
             const ctx = RelatedToDeceased.getContextData(req, res);
             expect(ctx).to.deep.equal({
-                language: 'en',
                 sessionID: 'dummy_sessionId',
                 related: 'optionYes',
                 caseType: 'gop',

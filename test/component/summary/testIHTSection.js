@@ -107,7 +107,6 @@ describe('summary-iht-section', () => {
                         netValue: ihtContent.value.netValue
                     };
                     Object.assign(playbackData, sessionData.iht);
-                    console.log(playbackData);
                     playbackData.method = playbackData.method.replace('optionOnline', ihtContent.method.optionOnline);
 
                     testWrapper.testDataPlayback(done, playbackData);

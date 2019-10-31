@@ -40,7 +40,7 @@ describe('ExecutorNotified', () => {
                 }
             };
             errors = [];
-            [ctx, errors] = ExecutorNotified.handlePost(ctx, errors, formdata);
+            [ctx, errors] = ExecutorNotified.handlePost(ctx, errors, formdata, {language: 'en'});
             expect(ctx).to.deep.equal({
                 index: -1,
                 executorNotified: 'optionYes'

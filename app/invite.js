@@ -89,8 +89,8 @@ class InviteLink {
                             if (result === 'true') {
                                 logger.info('All applicants have agreed');
                                 const step = steps.CoApplicantAllAgreedPage;
-                                const content = step.generateContent();
-                                const common = step.commonContent();
+                                const content = step.generateContent({}, {}, req.session.language);
+                                const common = step.commonContent(req.session.language);
                                 res.render(steps.CoApplicantAllAgreedPage.template, {content, common});
                             } else {
                                 next();

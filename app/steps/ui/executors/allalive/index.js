@@ -12,8 +12,8 @@ class ExecutorsAllAlive extends ValidationStep {
         return this.next(req, ctx).constructor.getUrl(1);
     }
 
-    handlePost(ctx, errors) {
-        if (ctx.allalive === this.commonContent().yes) {
+    handlePost(ctx, errors, formdata, session) {
+        if (ctx.allalive === this.commonContent(session.language).yes) {
             for (let i = 1; i < ctx.executorsNumber; i++) {
                 if (ctx.list[i].isDead) {
                     ctx.list[i].isDead = false;

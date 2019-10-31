@@ -85,7 +85,7 @@ class Declaration extends ValidationStep {
         let ctx = super.getContextData(req);
         ctx = this.pruneFormData(req.body, ctx);
         const formdata = req.session.form;
-        const content = this.generateContent(ctx, formdata);
+        const content = this.generateContent(ctx, formdata, req.session.language);
         const formDataForTemplate = this.getFormDataForTemplate(content, formdata);
 
         if (ctx.caseType === caseTypes.INTESTACY && formdata.iht) {

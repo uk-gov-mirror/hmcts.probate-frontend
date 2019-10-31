@@ -25,9 +25,9 @@ class ExecutorNotified extends CollectionStep {
         };
     }
 
-    handlePost(ctx, errors, formdata) {
+    handlePost(ctx, errors, formdata, session) {
         formdata.executors.list[ctx.index].executorNotified = ctx.executorNotified;
-        ctx.index = this.recalcIndex(ctx);
+        ctx.index = this.recalcIndex(ctx, 0, session.language);
         return [ctx, errors];
     }
 
@@ -56,8 +56,8 @@ class ExecutorNotified extends CollectionStep {
         };
     }
 
-    recalcIndex(ctx) {
-        return findIndex(ctx.list, exec => !exec.isDead && (ctx.otherExecutorsApplying === this.commonContent().no || !exec.isApplying), ctx.index + 1);
+    recalcIndex(ctx, index, language) {
+        return findIndex(ctx.list, exec => !exec.isDead && (ctx.otherExecutorsApplying === this.commonContent(language).no || !exec.isApplying), ctx.index + 1);
     }
 }
 

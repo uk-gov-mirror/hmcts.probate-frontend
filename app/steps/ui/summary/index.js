@@ -36,16 +36,16 @@ class Summary extends Step {
         return [ctx, null];
     }
 
-    generateContent(ctx, formdata) {
+    generateContent(ctx, formdata, language) {
         const content = {};
 
         Object.keys(this.steps).filter((stepName) => stepName !== this.name)
             .forEach((stepName) => {
                 const step = this.steps[stepName];
-                content[stepName] = step.generateContent(formdata[step.section], formdata);
+                content[stepName] = step.generateContent(formdata[step.section], formdata, language);
                 content[stepName].url = step.constructor.getUrl();
             });
-        content[this.name] = super.generateContent(ctx, formdata);
+        content[this.name] = super.generateContent(ctx, formdata, language);
         content[this.name].url = Summary.getUrl();
         return content;
     }
@@ -91,7 +91,7 @@ class Summary extends Step {
         const ctx = super.getContextData(req);
         const willWrapper = new WillWrapper(formdata.will);
         const deceasedName = FormatName.format(formdata.deceased);
-        const content = this.generateContent(ctx, formdata);
+        const content = this.generateContent(ctx, formdata, req.session.language);
         const hasCodicils = willWrapper.hasCodicils();
         ctx.ihtTotalNetValue = get(formdata, 'iht.netValue', 0);
 

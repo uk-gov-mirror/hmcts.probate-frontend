@@ -17,15 +17,15 @@ class IhtValue extends ValidationStep {
         ctx.netValue = parseFloat(numeral(ctx.netValueField).format('0.00'));
 
         if (!validator.isCurrency(ctx.grossValueField, {symbol: '£', allow_negatives: false})) {
-            errors.push(FieldError('grossValueField', 'invalidCurrencyFormat', this.resourcePath, this.generateContent(), session.language));
+            errors.push(FieldError('grossValueField', 'invalidCurrencyFormat', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
 
         if (!validator.isCurrency(ctx.netValueField, {symbol: '£', allow_negatives: false})) {
-            errors.push(FieldError('netValueField', 'invalidCurrencyFormat', this.resourcePath, this.generateContent(), session.language));
+            errors.push(FieldError('netValueField', 'invalidCurrencyFormat', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
 
         if (ctx.netValue > ctx.grossValue) {
-            errors.push(FieldError('netValueField', 'netValueGreaterThanGross', this.resourcePath, this.generateContent(), session.language));
+            errors.push(FieldError('netValueField', 'netValueGreaterThanGross', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
 
         return [ctx, errors];

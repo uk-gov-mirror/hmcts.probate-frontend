@@ -35,7 +35,6 @@ describe('CopiesOverseas', () => {
             };
             const ctx = CopiesOverseas.getContextData(req);
             expect(ctx).to.deep.equal({
-                language: 'en',
                 overseas: 3,
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
