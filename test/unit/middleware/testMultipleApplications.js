@@ -101,6 +101,9 @@ describe('multipleApplicationsMiddleware', () => {
                 session: {
                     form: {
                         applicantEmail: 'test@email.com',
+                        caseType: 'gop',
+                        payloadVersion: 'dummy',
+                        userLoggedIn: true,
                         screeners: {
                             deathCertificate: 'Yes'
                         }
@@ -122,6 +125,8 @@ describe('multipleApplicationsMiddleware', () => {
                 expect(req.session).to.deep.equal({
                     form: {
                         applicantEmail: 'test@email.com',
+                        payloadVersion: 'dummy',
+                        userLoggedIn: true,
                         applications: allApplicationsExpectedResponse.applications
                     }
                 });
@@ -142,6 +147,8 @@ describe('multipleApplicationsMiddleware', () => {
                     form: {
                         applicantEmail: 'test@email.com',
                         caseType: 'gop',
+                        payloadVersion: 'dummy',
+                        userLoggedIn: true,
                         screeners: {
                             deathCertificate: 'Yes',
                             domicile: 'Yes',
@@ -169,6 +176,8 @@ describe('multipleApplicationsMiddleware', () => {
                 expect(req.session).to.deep.equal({
                     form: {
                         applicantEmail: 'test@email.com',
+                        payloadVersion: 'dummy',
+                        userLoggedIn: true,
                         applications: allApplicationsExpectedResponse.applications
                     }
                 });
@@ -189,6 +198,8 @@ describe('multipleApplicationsMiddleware', () => {
                     form: {
                         applicantEmail: 'test@email.com',
                         caseType: 'gop',
+                        payloadVersion: 'dummy',
+                        userLoggedIn: true,
                         screeners: {
                             deathCertificate: 'Yes',
                             domicile: 'Yes',
@@ -213,7 +224,78 @@ describe('multipleApplicationsMiddleware', () => {
                 expect(req.session).to.deep.equal({
                     form: {
                         applicantEmail: 'test@email.com',
+                        payloadVersion: 'dummy',
+                        userLoggedIn: true,
                         applications: allApplicationsExpectedResponse.applications
+                    }
+                });
+
+                serviceStub.restore();
+                revert();
+                done();
+            });
+        });
+
+        it('should create a new draft application if all screeners are present and no applications found', (done) => {
+            const revert = multipleApplicationsMiddleware.__set__('renderDashboard', () => {
+                req.session.form.applications = [
+                    {
+                        dateCreated: '9 November 2019',
+                        caseType: 'PA',
+                        ccdCase: {
+                            id: '9999999999999999',
+                            state: 'Pending'
+                        }
+                    }
+                ];
+                return Promise.resolve();
+            });
+            const req = {
+                session: {
+                    form: {
+                        applicantEmail: 'test@email.com',
+                        caseType: 'gop',
+                        payloadVersion: 'dummy',
+                        userLoggedIn: true,
+                        screeners: {
+                            deathCertificate: 'Yes',
+                            domicile: 'Yes',
+                            completed: 'Yes',
+                            left: 'Yes',
+                            original: 'Yes',
+                            executor: 'Yes',
+                            mentalCapacity: 'Yes'
+                        }
+                    }
+                }
+            };
+            const res = {redirect: () => {
+                // Do nothing
+            }};
+            const next = sinon.spy();
+
+            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+                .returns(Promise.resolve({applications: []}));
+
+            multipleApplicationsMiddleware.initDashboard(req, res, next);
+
+            setTimeout(() => {
+                expect(serviceStub.callCount).to.equal(2);
+                expect(req.session).to.deep.equal({
+                    form: {
+                        applicantEmail: 'test@email.com',
+                        payloadVersion: 'dummy',
+                        userLoggedIn: true,
+                        applications: [
+                            {
+                                dateCreated: '9 November 2019',
+                                caseType: 'PA',
+                                ccdCase: {
+                                    id: '9999999999999999',
+                                    state: 'Pending'
+                                }
+                            }
+                        ]
                     }
                 });
 
@@ -234,6 +316,8 @@ describe('multipleApplicationsMiddleware', () => {
                     form: {
                         applicantEmail: 'test@email.com',
                         caseType: 'gop',
+                        payloadVersion: 'dummy',
+                        userLoggedIn: true,
                         screeners: {
                             deathCertificate: 'Yes',
                             domicile: 'Yes',
@@ -261,6 +345,8 @@ describe('multipleApplicationsMiddleware', () => {
                 expect(req.session).to.deep.equal({
                     form: {
                         applicantEmail: 'test@email.com',
+                        payloadVersion: 'dummy',
+                        userLoggedIn: true,
                         applications: allApplicationsExpectedResponse.applications
                     }
                 });
@@ -281,6 +367,8 @@ describe('multipleApplicationsMiddleware', () => {
                     form: {
                         applicantEmail: 'test@email.com',
                         caseType: 'intestacy',
+                        payloadVersion: 'dummy',
+                        userLoggedIn: true,
                         screeners: {
                             deathCertificate: 'Yes',
                             domicile: 'Yes',
@@ -308,6 +396,8 @@ describe('multipleApplicationsMiddleware', () => {
                 expect(req.session).to.deep.equal({
                     form: {
                         applicantEmail: 'test@email.com',
+                        payloadVersion: 'dummy',
+                        userLoggedIn: true,
                         applications: allApplicationsExpectedResponse.applications
                     }
                 });
@@ -326,7 +416,9 @@ describe('multipleApplicationsMiddleware', () => {
             const req = {
                 session: {
                     form: {
-                        applicantEmail: 'test@email.com'
+                        applicantEmail: 'test@email.com',
+                        payloadVersion: 'dummy',
+                        userLoggedIn: true,
                     }
                 }
             };
@@ -345,6 +437,8 @@ describe('multipleApplicationsMiddleware', () => {
                 expect(req.session).to.deep.equal({
                     form: {
                         applicantEmail: 'test@email.com',
+                        payloadVersion: 'dummy',
+                        userLoggedIn: true,
                         applications: allApplicationsExpectedResponse.applications
                     }
                 });
@@ -571,9 +665,7 @@ describe('multipleApplicationsMiddleware', () => {
     describe('GetDeclarationStatuses', () => {
         it('should return a list of coapplicants and their declaration statuses', (done) => {
             const req = {
-                originalUrl: '/get-case/9012345678901234?probateType=PA',
                 session: {
-                    id: 'fb2e77d.47a0479900504cb3ab4a1f626d174d2d',
                     form: {
                         applicantEmail: 'test@email.com',
                         ccdCase: {
@@ -649,7 +741,6 @@ describe('multipleApplicationsMiddleware', () => {
                 ]);
 
                 serviceStub.restore();
-
                 done();
             });
         });
