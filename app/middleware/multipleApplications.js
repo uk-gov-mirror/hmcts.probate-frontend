@@ -150,26 +150,28 @@ const getDeclarationStatuses = (req, res, next) => {
             [config.services.orchestrator.url, req.sessionID]
         );
 
-        session.form.executorsDeclarations = [];
-
         formData.getDeclarationStatuses(req.authToken, req.session.serviceAuthorization, ccdCaseId)
             .then(result => {
-                session.form.executorsDeclarations = result.invitations.map(executor => {
-                    let agreed;
+                session.form.executorsDeclarations = [];
 
-                    if (executor.agreed === null) {
-                        agreed = 'notDeclared';
-                    } else if (executor.agreed) {
-                        agreed = 'agreed';
-                    } else {
-                        agreed = 'disagreed';
-                    }
+                if (result.invitations && result.invitations.lenth) {
+                    session.form.executorsDeclarations = result.invitations.map(executor => {
+                        let agreed;
 
-                    return {
-                        executorName: executor.executorName,
-                        agreed: agreed
-                    };
-                });
+                        if (executor.agreed === null) {
+                            agreed = 'notDeclared';
+                        } else if (executor.agreed) {
+                            agreed = 'agreed';
+                        } else {
+                            agreed = 'disagreed';
+                        }
+
+                        return {
+                            executorName: executor.executorName,
+                            agreed: agreed
+                        };
+                    });
+                }
 
                 next();
             })
