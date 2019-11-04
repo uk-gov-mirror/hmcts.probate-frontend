@@ -154,12 +154,22 @@ const getDeclarationStatuses = (req, res, next) => {
 
         formData.getDeclarationStatuses(req.authToken, req.session.serviceAuthorization, ccdCaseId)
             .then(result => {
-                forEach(result.invitations, executor => (
+                forEach(result.invitations, executor => {
+                    let agreed;
+
+                    if (executor.agreed === null) {
+                        agreed = 'notDeclared';
+                    } else if (executor.agreed) {
+                        agreed = 'agreed';
+                    } else {
+                        agreed = 'disagreed';
+                    }
+
                     session.form.executorsDeclarations.push({
                         executorName: executor.executorName,
-                        agreed: executor.agreed
-                    })
-                ));
+                        agreed: agreed
+                    });
+                });
 
                 next();
             })
