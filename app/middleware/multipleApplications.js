@@ -142,7 +142,7 @@ const getDeclarationStatuses = (req, res, next) => {
     const executorsWrapper = new ExecutorsWrapper(formdata.executors);
     const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
 
-    if (get(formdata, 'declaration.declarationCheckbox') && hasMultipleApplicants) {
+    if ((get(formdata, 'declaration.declarationCheckbox', false)).toString() === 'true' && hasMultipleApplicants) {
         const ccdCaseId = formdata.ccdCase.id;
 
         const formData = ServiceMapper.map(
@@ -154,7 +154,7 @@ const getDeclarationStatuses = (req, res, next) => {
 
         formData.getDeclarationStatuses(req.authToken, req.session.serviceAuthorization, ccdCaseId)
             .then(result => {
-                forEach(result.invitations, executor => {
+                session.form.executorsDeclarations = result.invitations.map(executor => {
                     let agreed;
 
                     if (executor.agreed === null) {
@@ -165,10 +165,10 @@ const getDeclarationStatuses = (req, res, next) => {
                         agreed = 'disagreed';
                     }
 
-                    session.form.executorsDeclarations.push({
+                    return {
                         executorName: executor.executorName,
                         agreed: agreed
-                    });
+                    };
                 });
 
                 next();
