@@ -154,7 +154,7 @@ const getDeclarationStatuses = (req, res, next) => {
             .then(result => {
                 session.form.executorsDeclarations = [];
 
-                if (result.invitations && result.invitations.lenth) {
+                if (result.invitations && result.invitations.length) {
                     session.form.executorsDeclarations = result.invitations.map(executor => {
                         let agreed;
 
