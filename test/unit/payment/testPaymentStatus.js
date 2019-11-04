@@ -196,11 +196,11 @@ describe('PaymentStatus', () => {
                 payment: {
                     status: 'not_required'
                 },
-                'registry': {
-                    'name': 'ctsc',
-                    'email': 'ctsc@email.com',
-                    'address': 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
-                    'sequenceNumber': 3
+                registry: {
+                    name: 'ctsc',
+                    email: 'ctsc@email.com',
+                    address: 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
+                    sequenceNumber: 3
                 }
             };
 
