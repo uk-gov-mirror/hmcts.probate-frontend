@@ -567,4 +567,91 @@ describe('multipleApplicationsMiddleware', () => {
             });
         });
     });
+
+    describe('GetDeclarationStatuses', () => {
+        it('should return a list of coapplicants and their declaration statuses', (done) => {
+            const req = {
+                originalUrl: '/get-case/9012345678901234?probateType=PA',
+                session: {
+                    id: 'fb2e77d.47a0479900504cb3ab4a1f626d174d2d',
+                    form: {
+                        applicantEmail: 'test@email.com',
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Pending'
+                        },
+                        declaration: {
+                            declarationCheckbox: 'true',
+                        },
+                        executors: {
+                            list: [
+                                {
+                                    fullName: 'Bob Jones',
+                                    isApplicant: false,
+                                    isApplying: true
+                                },
+                                {
+                                    fullName: 'Tom Smith',
+                                    isApplicant: false,
+                                    isApplying: true
+                                },
+                                {
+                                    fullName: 'James Taylor',
+                                    isApplicant: false,
+                                    isApplying: true
+                                }
+                            ]
+                        }
+                    }
+                }
+            };
+            const res = {};
+
+            const multipleAppDeclarationStatusesStubResponse = {
+                invitations: [
+                    {
+                        executorName: 'Bob Jones',
+                        agreed: true
+                    },
+                    {
+                        executorName: 'Tom Smith',
+                        agreed: false
+                    },
+                    {
+                        executorName: 'James Taylor',
+                        agreed: null
+                    }
+                ]
+            };
+
+            const next = sinon.spy();
+            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+                .returns(Promise.resolve(multipleAppDeclarationStatusesStubResponse));
+
+            multipleApplicationsMiddleware.getDeclarationStatuses(req, res, next);
+
+            setTimeout(() => {
+                expect(serviceStub.calledOnce).to.equal(true);
+                expect(next.calledOnce).to.equal(true);
+                expect(req.session.form.executorsDeclarations).to.deep.equal([
+                    {
+                        executorName: 'Bob Jones',
+                        agreed: 'agreed'
+                    },
+                    {
+                        executorName: 'Tom Smith',
+                        agreed: 'disagreed'
+                    },
+                    {
+                        executorName: 'James Taylor',
+                        agreed: 'notDeclared'
+                    }
+                ]);
+
+                serviceStub.restore();
+
+                done();
+            });
+        });
+    });
 });
