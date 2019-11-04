@@ -1,6 +1,6 @@
 'use strict';
 
-const {get, forEach, sortBy} = require('lodash');
+const {get, sortBy} = require('lodash');
 const config = require('app/config');
 const logger = require('app/components/logger')('Init');
 const ServiceMapper = require('app/utils/ServiceMapper');
