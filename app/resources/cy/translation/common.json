@@ -62,6 +62,7 @@
   "helpHeading2": "E-bost",
   "helpHeading3": "Sgwrs ar y we",
   "helpEmailLabel" : "E-bostiwch ni yn <a href=\"mailto:{contactEmailAddress}\" class=\"govuk-link\" tabindex=\"-1\">{contactEmailAddress}</a>.",
+  "helpEmail": "contactprobate@justice.gov.uk",
   "helpTelephoneNumber": "0300 303 0648",
   "helpTelephoneOpeningHours": "Dydd Llun i ddydd Gwener, 9:30am i 5pm",
   "helpChatDown": "The web chat service is temporarily unavailable, please try again later.",
