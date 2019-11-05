@@ -69,7 +69,8 @@ class InviteLink {
             if (useIDAM === 'true' && isEmpty(req.session.inviteId)) {
                 const commonContent = require(`app/resources/${req.session.language}/translation/common`);
 
-                return res.status(404).render('errors/404', {common: commonContent});
+                res.status(404);
+                return res.render('errors/404', {common: commonContent});
             }
 
             this.getAuth(req, res)
