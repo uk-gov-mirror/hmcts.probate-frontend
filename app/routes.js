@@ -157,16 +157,20 @@ router.use((req, res, next) => {
             authorise.post()
                 .then((serviceAuthorisation) => {
                     if (serviceAuthorisation.name === 'Error') {
+                        const commonContent = require(`app/resources/${req.session.language}/translation/common`);
+
                         logger.info(`serviceAuthResult Error = ${serviceAuthorisation}`);
-                        res.status(500).render('errors/500');
+                        res.status(500).render('errors/500', {common: commonContent});
                     } else {
                         const security = new Security();
                         const hostname = FormatUrl.createHostname(req);
                         security.getUserToken(hostname)
                             .then((authToken) => {
                                 if (authToken.name === 'Error') {
+                                    const commonContent = require(`app/resources/${req.session.language}/translation/common`);
+
                                     logger.info(`failed to obtain authToken = ${serviceAuthorisation}`);
-                                    res.status(500).render('errors/500');
+                                    res.status(500).render('errors/500', {common: commonContent});
                                 } else {
                                     allExecutorsAgreed.get(authToken, serviceAuthorisation, ccdCaseId)
                                         .then(data => {

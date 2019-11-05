@@ -67,8 +67,9 @@ class InviteLink {
     checkCoApplicant(useIDAM) {
         return (req, res, next) => {
             if (useIDAM === 'true' && isEmpty(req.session.inviteId)) {
-                res.status(404);
-                return res.render('errors/404');
+                const commonContent = require(`app/resources/${req.session.language}/translation/common`);
+
+                return res.status(404).render('errors/404', {common: commonContent});
             }
 
             this.getAuth(req, res)
@@ -79,8 +80,10 @@ class InviteLink {
                     allExecutorsAgreed.get(authToken, serviceAuthorisation, ccdCaseId)
                         .then(result => {
                             if (result.name === 'Error') {
+                                const commonContent = require(`app/resources/${req.session.language}/translation/common`);
+
                                 logger.error(`Error checking everyone has agreed: ${result.message}`);
-                                return res.status(500).render('errors/500');
+                                return res.status(500).render('errors/500', {common: commonContent});
                             }
 
                             logger.info('Checking if all applicants have already agreed');
