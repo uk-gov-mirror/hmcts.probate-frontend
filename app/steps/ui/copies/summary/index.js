@@ -10,7 +10,7 @@ class CopiesSummary extends Step {
         return '/copies-summary';
     }
 
-    generateContent (ctx, formdata, language) {
+    generateContent(ctx, formdata, language) {
         const content = {};
 
         Object.keys(this.steps).filter(stepName => copiesSteps.includes(stepName))
@@ -24,7 +24,7 @@ class CopiesSummary extends Step {
         return content;
     }
 
-    generateFields (language, ctx, errors, formdata) {
+    generateFields(language, ctx, errors, formdata) {
         const fields = {};
         Object.keys(this.steps).filter(stepName => copiesSteps.includes(stepName))
             .forEach((stepName) => {
