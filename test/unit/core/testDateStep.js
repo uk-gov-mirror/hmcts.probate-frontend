@@ -11,7 +11,6 @@ describe('DateStep', () => {
     const steps = {};
     const section = 'deceased';
     const resourcePath = 'deceased/dob';
-    // const i18next = {};
     const schema = require('app/steps/ui/deceased/dob/schema');
     const language = 'en';
     const dateStep = new DateStep(steps, section, resourcePath, i18next, schema, language);

@@ -1,7 +1,7 @@
 'use strict';
 
 const i18next = require('i18next');
-const {mapValues} = require('lodash');
+const mapValues = require('lodash').mapValues;
 const JourneyMap = require('app/core/JourneyMap');
 
 const commonContent = (language = 'en') => {
