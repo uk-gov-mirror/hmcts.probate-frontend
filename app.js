@@ -83,7 +83,6 @@ exports.init = function() {
         gaTrackingId: config.gaTrackingId,
         enableTracking: config.enableTracking,
         links: config.links,
-        helpline: config.helpline,
         nonce: uuid,
         documentUpload: {
             validMimeTypes: config.documentUpload.validMimeTypes,
