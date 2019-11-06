@@ -100,17 +100,17 @@ router.use((req, res, next) => {
         !includes(config.whitelistedPagesAfterPayment, req.originalUrl)
     ) {
         res.redirect('/task-list');
-    } else if (get(formdata, 'declaration.declarationCheckbox') &&
+    } else if ((get(formdata, 'declaration.declarationCheckbox', false)).toString() === 'true' &&
         !includes(config.whitelistedPagesAfterDeclaration, req.originalUrl) &&
-            (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent') && req.session.haveAllExecutorsDeclared === 'true'))
+        (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent') && req.session.haveAllExecutorsDeclared === 'true'))
     ) {
         res.redirect('/task-list');
-    } else if (get(formdata, 'declaration.declarationCheckbox') &&
+    } else if ((get(formdata, 'declaration.declarationCheckbox', false)).toString() === 'true' &&
         (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent'))) &&
             isEqual('/executors-invite', req.originalUrl)
     ) {
         res.redirect('/task-list');
-    } else if (get(formdata, 'declaration.declarationCheckbox') &&
+    } else if ((get(formdata, 'declaration.declarationCheckbox', false)).toString() === 'true' &&
         (!hasMultipleApplicants || !(get(formdata, 'executors.executorsEmailChanged'))) &&
             isEqual('/executors-update-invite', req.originalUrl)
     ) {
