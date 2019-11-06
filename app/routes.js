@@ -67,7 +67,7 @@ router.get('/health/liveness', (req, res) => {
 });
 
 router.get('/start-apply', (req, res, next) => {
-    if (req.session.form.userLoggedIn) {
+    if (config.app.useIDAM === 'true' && req.session.form.userLoggedIn) {
         res.redirect(301, '/dashboard');
     } else {
         next();

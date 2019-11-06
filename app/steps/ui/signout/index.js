@@ -13,7 +13,7 @@ class SignOut extends Step {
     }
 
     getContextData(req, res) {
-        const ctx = super.getContextData(req, res);
+        const ctx = super.getContextData(req);
         ctx.authToken = req.authToken;
         const access_token = req.cookies[SECURITY_COOKIE];
         const errorCodes = [400, 401, 403];

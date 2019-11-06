@@ -46,7 +46,7 @@ describe('Sign-Out', () => {
             },
             sessionStore: {
                 applicantID: 'test@email.com'
-            },
+            }
         };
         const res = {
             clearCookie: sinon.spy()
