@@ -47,7 +47,7 @@ router.use((req, res, next) => {
 
     if (config.app.useIDAM === 'true') {
         req.session.form.userLoggedIn = config.noHeaderLinksPages.includes(req.originalUrl) ? false : emailValidator.validate(req.session.form.applicantEmail);
-    } else {
+    } else if (!config.noHeaderLinksPages.includes(req.originalUrl)) {
         req.session.form.userLoggedIn = true;
     }
     req.log.info(`User logged in: ${req.session.form.userLoggedIn}`);
