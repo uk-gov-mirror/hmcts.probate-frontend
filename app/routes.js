@@ -45,7 +45,11 @@ router.use((req, res, next) => {
         req.session.form.applicantEmail = req.session.regId;
     }
 
-    req.session.form.userLoggedIn = config.noHeaderLinksPages.includes(req.originalUrl) ? false : emailValidator.validate(req.session.form.applicantEmail);
+    if (config.app.useIDAM === 'true') {
+        req.session.form.userLoggedIn = config.noHeaderLinksPages.includes(req.originalUrl) ? false : emailValidator.validate(req.session.form.applicantEmail);
+    } else {
+        req.session.form.userLoggedIn = true;
+    }
     req.log.info(`User logged in: ${req.session.form.userLoggedIn}`);
 
     next();
