@@ -45,7 +45,11 @@ router.use((req, res, next) => {
         req.session.form.applicantEmail = req.session.regId;
     }
 
-    req.session.form.userLoggedIn = config.noHeaderLinksPages.includes(req.originalUrl) ? false : emailValidator.validate(req.session.form.applicantEmail);
+    if (config.app.useIDAM === 'true') {
+        req.session.form.userLoggedIn = config.noHeaderLinksPages.includes(req.originalUrl) ? false : emailValidator.validate(req.session.form.applicantEmail);
+    } else if (!config.noHeaderLinksPages.includes(req.originalUrl)) {
+        req.session.form.userLoggedIn = true;
+    }
     req.log.info(`User logged in: ${req.session.form.userLoggedIn}`);
 
     next();
@@ -63,7 +67,7 @@ router.get('/health/liveness', (req, res) => {
 });
 
 router.get('/start-apply', (req, res, next) => {
-    if (req.session.form.userLoggedIn) {
+    if (config.app.useIDAM === 'true' && req.session.form.userLoggedIn) {
         res.redirect(301, '/dashboard');
     } else {
         next();
