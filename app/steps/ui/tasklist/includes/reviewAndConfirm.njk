@@ -42,7 +42,7 @@
                     {% for executor in fields.declarationStatuses.value %}
                         {% set declarationStatusRows = (declarationStatusRows.push([
                             { text: executor.executorName | safe },
-                            { text: (content.declared if executor.agreed else content.notDeclared) | safe }
+                            { text: content.agreed if executor.agreed == "agreed" else (content.disagreed if executor.agreed == "disagreed" else content.notDeclared) }
                         ]), declarationStatusRows) %}
                     {% endfor %}
                     <h3 class="govuk-heading-s">{{ content.reviewAndConfirmTaskMultiplesParagraph3Heading | safe }}</h3>
