@@ -70,7 +70,7 @@ class UIStepRunner {
                 set(formdata, step.section, ctx);
 
                 if (hasDataChanged) {
-                    delete formdata.declaration.declarationCheckbox;
+                    formdata.declaration.declarationCheckbox = 'false';
                     formdata.declaration.hasDataChanged = true;
                 }
 
