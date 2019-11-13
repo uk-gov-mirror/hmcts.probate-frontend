@@ -134,6 +134,10 @@ class Executors {
             return executor;
         });
     }
+
+    invitesSent() {
+        return this.executorsData.invitesSent || false;
+    }
 }
 
 module.exports = Executors;
