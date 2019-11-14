@@ -1,9 +1,10 @@
 'use strict';
 
+const isEmpty = require('lodash').isEmpty;
 const TestWrapper = require('test/util/TestWrapper');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
-const sessionData = {
+let localSessionData = {
     ccdCase: {
         state: 'Pending',
         id: 1234567890123456
@@ -11,8 +12,12 @@ const sessionData = {
 };
 
 class TestCommonContent {
-    static runTest(page, beforeEach, afterEach, cookies = [], pageOutsideIdam = false) {
+    static runTest(page, beforeEach, afterEach, cookies = [], pageOutsideIdam = false, sessionData = {}) {
         const testWrapper = new TestWrapper(page);
+
+        if (!isEmpty(sessionData)) {
+            localSessionData = Object.assign(localSessionData, sessionData);
+        }
 
         describe('Test the help content', () => {
             it('test help block content is loaded on page', (done) => {
@@ -28,7 +33,7 @@ class TestCommonContent {
                 };
 
                 testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
+                    .send(localSessionData)
                     .end(() => {
                         testWrapper.testDataPlayback(done, playbackData, [], cookies);
                     });
@@ -61,10 +66,10 @@ class TestCommonContent {
                     beforeEach();
                 }
 
-                sessionData.applicantEmail = 'test@email.com';
+                localSessionData.applicantEmail = 'test@email.com';
 
                 testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
+                    .send(localSessionData)
                     .end(() => {
                         const playbackData = {
                             myApplications: commonContent.myApplications,

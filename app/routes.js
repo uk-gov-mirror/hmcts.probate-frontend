@@ -6,7 +6,7 @@ const config = require('app/config');
 const router = require('express').Router();
 const initSteps = require('app/core/initSteps');
 const logger = require('app/components/logger');
-const {get, isEqual} = require('lodash');
+const get = require('lodash').get;
 const commonContent = require('app/resources/en/translation/common');
 const ApplicantWrapper = require('app/wrappers/Applicant');
 const CcdCaseWrapper = require('app/wrappers/CcdCase');
@@ -113,18 +113,34 @@ router.use((req, res, next) => {
 
     if (config.app.requreCcdCaseId === 'true' && allPageUrls.includes(req.originalUrl.split('/')[1]) && req.method === 'GET' && !noCcdCaseIdPages.includes(req.originalUrl.split('/')[1]) && !get(formdata, 'ccdCase.id')) {
         res.redirect('/dashboard');
+
+
+
+    } else if (!applicationCompleted && config.whitelistedPagesAfterSubmission.includes(req.originalUrl)) {
+        res.redirect('/task-list');
     } else if (applicationCompleted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(req.originalUrl) && !documentsSent) {
         res.redirect('/documents');
     } else if (applicationCompleted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(req.originalUrl) && documentsSent) {
         res.redirect('/thank-you');
+
+
+
     } else if ((paymentTotalIsZero || paymentIsSuccessful) && !config.whitelistedPagesAfterPayment.includes(req.originalUrl)) {
+        res.redirect('/task-list');
+
+
+
+    } else if (!applicantHasDeclared && config.whitelistedPagesAfterDeclaration.includes(req.originalUrl)) {
         res.redirect('/task-list');
     } else if (applicantHasDeclared && (!hasMultipleApplicants || (invitesSent && req.session.haveAllExecutorsDeclared === 'true')) && !config.whitelistedPagesAfterDeclaration.includes(req.originalUrl)) {
         res.redirect('/task-list');
-    } else if (applicantHasDeclared && (!hasMultipleApplicants || invitesSent) && isEqual('/executors-invite', req.originalUrl)) {
+    } else if (applicantHasDeclared && (!hasMultipleApplicants || invitesSent) && req.originalUrl === '/executors-invite') {
         res.redirect('/task-list');
-    } else if (applicantHasDeclared && (!hasMultipleApplicants || !hasExecutorsEmailChanged) && isEqual('/executors-update-invite', req.originalUrl)) {
+    } else if (applicantHasDeclared && (!hasMultipleApplicants || !hasExecutorsEmailChanged) && req.originalUrl === '/executors-update-invite') {
         res.redirect('/task-list');
+
+
+
     } else if (req.originalUrl.includes('summary') && isHardStop(formdata, caseTypes.getCaseType(req.session))) {
         res.redirect('/task-list');
     } else {

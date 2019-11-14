@@ -18,6 +18,11 @@ const afterEachNocks = (done) => {
         done();
     };
 };
+const sessionData = {
+    declaration: {
+        declarationCheckbox: 'true'
+    }
+};
 
 describe('copies-uk', () => {
     let testWrapper;
@@ -66,27 +71,43 @@ describe('copies-uk', () => {
         });
 
         it('test errors message displayed for invalid data, text values', (done) => {
-            const data = {uk: 'abcd'};
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {uk: 'abcd'};
 
-            testWrapper.testErrors(done, data, 'invalid');
+                    testWrapper.testErrors(done, data, 'invalid');
+                });
         });
 
         it('test errors message displayed for invalid data, special characters', (done) => {
-            const data = {uk: '//1234//'};
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {uk: '//1234//'};
 
-            testWrapper.testErrors(done, data, 'invalid');
+                    testWrapper.testErrors(done, data, 'invalid');
+                });
         });
 
         it('test errors message displayed for missing data, nothing entered', (done) => {
-            const data = {uk: ''};
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {uk: ''};
 
-            testWrapper.testErrors(done, data, 'required');
+                    testWrapper.testErrors(done, data, 'required');
+                });
         });
 
         it('test errors message displayed for invalid data, negative numbers', (done) => {
-            const data = {uk: '-1'};
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {uk: '-1'};
 
-            testWrapper.testErrors(done, data, 'invalid');
+                    testWrapper.testErrors(done, data, 'invalid');
+                });
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForAssetsOverseas}`, (done) => {

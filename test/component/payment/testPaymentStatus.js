@@ -41,6 +41,9 @@ describe('payment-status', () => {
 
     beforeEach(() => {
         sessionData = require('test/data/complete-form-undeclared').formdata;
+        sessionData.declaration = {
+            declarationCheckbox: 'true'
+        };
 
         testWrapper = new TestWrapper('PaymentStatus');
 
@@ -54,7 +57,7 @@ describe('payment-status', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('PaymentStatus');
+        testCommonContent.runTest('PaymentStatus', null, null, [], false, {declaration: {declarationCheckbox: 'true'}});
 
         it('test right content loaded on the page when net value is greater than 5000£', (done) => {
             nock(config.services.orchestrator.url)
@@ -85,6 +88,9 @@ describe('payment-status', () => {
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456
+                },
+                declaration: {
+                    declarationCheckbox: 'true'
                 }
             };
 
