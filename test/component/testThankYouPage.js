@@ -31,6 +31,9 @@ describe('thank-you', () => {
                 ccdCase: {
                     id: 1234567890123456,
                     state: 'CaseCreated'
+                },
+                declaration: {
+                    declarationCheckbox: 'true'
                 }
             };
             const contentToExclude = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf', 'coverSheetPdf'];
@@ -52,6 +55,9 @@ describe('thank-you', () => {
                 ccdCase: {
                     id: 1234567890123456,
                     state: 'CaseCreated'
+                },
+                declaration: {
+                    declarationCheckbox: 'true'
                 },
                 checkAnswersSummary: '{test: "data"}'
             };
@@ -97,6 +103,9 @@ describe('thank-you', () => {
                     id: 1234567890123456,
                     state: 'CaseCreated'
                 },
+                declaration: {
+                    declarationCheckbox: 'true'
+                },
                 legalDeclaration: '{test: "data"}'
             };
             const contentToExclude = ['checkAnswersPdf'];
@@ -141,6 +150,9 @@ describe('thank-you', () => {
                     id: 1234567890123456,
                     state: 'CaseCreated'
                 },
+                declaration: {
+                    declarationCheckbox: 'true'
+                },
                 checkAnswersSummary: '{test: "data"}',
                 legalDeclaration: '{test: "data"}'
             };
@@ -165,6 +177,9 @@ describe('thank-you', () => {
                 ccdCase: {
                     id: 1234567890123456,
                     state: 'CaseCreated'
+                },
+                declaration: {
+                    declarationCheckbox: 'true'
                 }
             };
             const contentToExclude = ['checkAnswersPdf', 'declarationPdf'];

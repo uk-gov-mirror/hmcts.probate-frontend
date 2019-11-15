@@ -22,7 +22,10 @@ describe('documents', () => {
             caseType: caseTypes.GOP,
             ccdCase: {
                 state: 'CaseCreated',
-                id: '1234-1235-1236-1237'
+                id: 1234123512361237
+            },
+            declaration: {
+                declarationCheckbox: 'true'
             }
         };
         contentData = {
@@ -36,7 +39,7 @@ describe('documents', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('Documents');
+        testCommonContent.runTest('Documents', null, null, [], false, {ccdCase: {state: 'CaseCreated'}, declaration: {declarationCheckbox: 'true'}});
 
         describe('Probate Journey', () => {
             it('test correct content loaded on the page, no codicils, no alias, single executor', (done) => {

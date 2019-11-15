@@ -37,7 +37,7 @@ describe('copies-uk', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('CopiesUk');
+        testCommonContent.runTest('CopiesUk', null, null, [], false, {ccdCase: {state: 'CaseCreated'}, declaration: {declarationCheckbox: 'true'}});
 
         it('test right content loaded on the page with the fees_api toggle ON', (done) => {
             beforeEachNocks('true');

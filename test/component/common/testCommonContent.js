@@ -4,26 +4,34 @@ const isEmpty = require('lodash').isEmpty;
 const TestWrapper = require('test/util/TestWrapper');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
-let localSessionData = {
-    ccdCase: {
-        state: 'Pending',
-        id: 1234567890123456
-    }
-};
+let localSessionData;
 
 class TestCommonContent {
-    static runTest(page, beforeEach, afterEach, cookies = [], pageOutsideIdam = false, sessionData = {}) {
+    static runTest(page, beforeEachParam, afterEachParam, cookies = [], pageOutsideIdam = false, sessionData = {}) {
         const testWrapper = new TestWrapper(page);
 
-        if (!isEmpty(sessionData)) {
-            localSessionData = Object.assign(localSessionData, sessionData);
-        }
-
         describe('Test the help content', () => {
-            it('test help block content is loaded on page', (done) => {
-                if (typeof beforeEach === 'function') {
-                    beforeEach();
+            beforeEach(() => {
+                localSessionData = {
+                    ccdCase: {
+                        state: 'Pending',
+                        id: 1234567890123456
+                    }
+                };
+
+                if (!isEmpty(sessionData)) {
+                    localSessionData = Object.assign(localSessionData, sessionData);
                 }
+            });
+
+            it('test help block content is loaded on page', (done) => {
+                if (typeof beforeEachParam === 'function') {
+                    beforeEachParam();
+                }
+
+                // console.log('--------------------------------------------------------------------------');
+                // console.log(localSessionData);
+                // console.log('--------------------------------------------------------------------------');
 
                 const playbackData = {
                     helpTitle: commonContent.helpTitle,
@@ -40,16 +48,16 @@ class TestCommonContent {
             });
 
             testWrapper.destroy();
-            if (typeof afterEach === 'function') {
-                afterEach();
+            if (typeof afterEachParam === 'function') {
+                afterEachParam();
             }
         });
 
         describe('Test the navigation links', () => {
             if (pageOutsideIdam) {
                 it('test "my account" and "sign out" links are not displayed on the page when the user is not logged in', (done) => {
-                    if (typeof beforeEach === 'function') {
-                        beforeEach();
+                    if (typeof beforeEachParam === 'function') {
+                        beforeEachParam();
                     }
 
                     const playbackData = {
@@ -59,11 +67,23 @@ class TestCommonContent {
 
                     testWrapper.testContentNotPresent(done, playbackData);
                 });
+
+                it('test "sign in" is displayed on the page when the user is not logged in', (done) => {
+                    if (typeof beforeEachParam === 'function') {
+                        beforeEachParam();
+                    }
+
+                    const playbackData = {
+                        signIn: commonContent.signIn
+                    };
+
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
             }
 
             it('test "my account" and "sign out" links are displayed on the page when the user is logged in', (done) => {
-                if (typeof beforeEach === 'function') {
-                    beforeEach();
+                if (typeof beforeEachParam === 'function') {
+                    beforeEachParam();
                 }
 
                 localSessionData.applicantEmail = 'test@email.com';
@@ -80,9 +100,27 @@ class TestCommonContent {
                     });
             });
 
+            it('test "sign in" is not displayed on the page when the user is logged in', (done) => {
+                if (typeof beforeEachParam === 'function') {
+                    beforeEachParam();
+                }
+
+                localSessionData.applicantEmail = 'test@email.com';
+
+                testWrapper.agent.post('/prepare-session/form')
+                    .send(localSessionData)
+                    .end(() => {
+                        const playbackData = {
+                            signIn: commonContent.signIn
+                        };
+
+                        testWrapper.testContentNotPresent(done, playbackData);
+                    });
+            });
+
             testWrapper.destroy();
-            if (typeof afterEach === 'function') {
-                afterEach();
+            if (typeof afterEachParam === 'function') {
+                afterEachParam();
             }
         });
     }
