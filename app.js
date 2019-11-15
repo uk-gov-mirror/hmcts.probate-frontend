@@ -205,7 +205,7 @@ exports.init = function() {
         if (!req.session) {
             return next(new Error('Unable to reach redis'));
         }
-        next(); // otherwise continue
+        next();
     });
 
     app.use((req, res, next) => {
@@ -217,11 +217,14 @@ exports.init = function() {
         if (!req.session.language) {
             req.session.language = 'en';
         }
-
         if (req.query && req.query.locale && config.languages.includes(req.query.locale)) {
             req.session.language = req.query.locale;
         }
+        next();
+    });
 
+    app.use((req, res, next) => {
+        req.session.cookie.secure = req.protocol === 'https';
         next();
     });
 
