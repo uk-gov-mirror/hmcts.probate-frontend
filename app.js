@@ -34,8 +34,9 @@ const eligibilityCookie = new EligibilityCookie();
 const caseTypes = require('app/utils/CaseTypes');
 const featureToggles = require('app/featureToggles');
 const sanitizeRequestBody = require('app/middleware/sanitizeRequestBody');
+const isEmpty = require('lodash').isEmpty;
 
-exports.init = function() {
+exports.init = function(isA11yTest = false, a11yTestSession = {}) {
     const app = express();
     const port = config.app.port;
     const releaseVersion = packageJson.version;
@@ -204,15 +205,20 @@ exports.init = function() {
     }));
 
     app.use((req, res, next) => {
-        req.session.cookie.secure = req.protocol === 'https';
-        next();
-    });
-
-    app.use((req, res, next) => {
         if (!req.session) {
             return next(new Error('Unable to reach redis'));
         }
+
+        if (isA11yTest && !isEmpty(a11yTestSession)) {
+            req.session = Object.assign(req.session, a11yTestSession);
+        }
+
         next(); // otherwise continue
+    });
+
+    app.use((req, res, next) => {
+        req.session.cookie.secure = req.protocol === 'https';
+        next();
     });
 
     app.use(config.services.idam.probate_oauth_callback_path, security.oAuth2CallbackEndpoint());
