@@ -11,13 +11,7 @@ describe('ActionStepRunner', () => {
         const stepName = 'test';
         const step = {name: stepName};
 
-        const req = {
-            session: {
-                form: {
-                    userLoggedIn: true
-                }
-            }
-        };
+        const req = {};
         req.log = sinon.spy();
         req.log.error = sinon.spy();
         const res = {};

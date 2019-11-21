@@ -12,13 +12,7 @@ describe('OptionGetRunner', () => {
     it('Test POST', () => {
         const step = {name: 'test'};
 
-        const req = {
-            session: {
-                form: {
-                    userLoggedIn: true
-                }
-            }
-        };
+        const req = {};
         req.log = sinon.spy();
         req.log.error = sinon.spy();
         const res = {};
