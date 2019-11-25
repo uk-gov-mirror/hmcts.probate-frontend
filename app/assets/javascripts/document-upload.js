@@ -100,7 +100,7 @@ var DocumentUpload = {
     },
     disableButtonAndLinks: function() {
         $('.govuk-button').attr('disabled', 'disabled');
-        $('.dz-remove').attr('style', 'pointer-events:none');
+        $('.dz-remove').attr('style', 'display:none');
     },
     updateLinkAttributes: function() {
         $('.dz-preview').each(function(key) {
