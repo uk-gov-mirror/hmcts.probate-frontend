@@ -24,12 +24,12 @@
             {
                 value: "optionYes",
                 text: content["optionYes"],
-                checked: true if fields.executorNotified.value == "optionYes" | escape
+                checked: true if fields.executorNotified.value == "optionYes"
             },
             {
                 value: "optionNo",
                 text: content["optionNo"],
-                checked: true if fields.executorNotified.value == "optionNo" | escape,
+                checked: true if fields.executorNotified.value == "optionNo",
                 conditional: {
                     html: notNotifiedtml
                 }
