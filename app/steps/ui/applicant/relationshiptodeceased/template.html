@@ -8,23 +8,23 @@
     {% set answers = (answers.push({
         value: "optionSpousePartner",
         text: content["optionSpousePartner"],
-        checked: true if fields.relationshipToDeceased.value == "optionSpousePartner" | escape
+        checked: true if fields.relationshipToDeceased.value == "optionSpousePartner"
     }), answers) %}
 {% endif %}
 {% set answers = (answers.push({
     value: "optionChild",
     text: content["optionChild"],
-    checked: true if fields.relationshipToDeceased.value == "optionChild" | escape
+    checked: true if fields.relationshipToDeceased.value == "optionChild"
 }), answers) %}
 {% set answers = (answers.push({
     value: "optionAdoptedChild",
     text: content["optionAdoptedChild"],
-    checked: true if fields.relationshipToDeceased.value == "optionAdoptedChild" | escape
+    checked: true if fields.relationshipToDeceased.value == "optionAdoptedChild"
 }), answers) %}
 {% set answers = (answers.push({
     value: "optionOther",
     text: content["optionOther"],
-    checked: true if fields.relationshipToDeceased.value == "optionOther" | escape
+    checked: true if fields.relationshipToDeceased.value == "optionOther"
 }), answers) %}
 
 {% block form_content %}
