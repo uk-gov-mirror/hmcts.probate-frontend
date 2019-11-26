@@ -96,11 +96,11 @@ var DocumentUpload = {
     },
     enableButtonAndLinks: function() {
         $('.govuk-button').removeAttr('disabled');
-        $('.dz-remove').removeClass('gov-uk-visually-hidden');
+        $('.dz-remove').removeClass('govuk-visually-hidden');
     },
     disableButtonAndLinks: function() {
         $('.govuk-button').attr('disabled', 'disabled');
-        $('.dz-remove').addClass('gov-uk-visually-hidden');
+        $('.dz-remove').addClass('govuk-visually-hidden');
     },
     updateLinkAttributes: function() {
         $('.dz-preview').each(function(key) {
