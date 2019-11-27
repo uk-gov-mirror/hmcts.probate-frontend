@@ -1,4 +1,7 @@
 {
+  "language": {
+    "bilingual": "optionNo"
+  },
   "deceased": {
     "firstName": "Joe",
     "lastName": "Bloggs",
