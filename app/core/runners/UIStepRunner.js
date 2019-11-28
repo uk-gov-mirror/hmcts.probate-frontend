@@ -34,17 +34,16 @@ class UIStepRunner {
                 session.back.push(step.constructor.getUrl());
             }
             const common = step.commonContent(session.language);
-            res.render(step.template, {content, fields, errors, common}, (err, html) => {
+            res.render(step.template, {content, fields, errors, common, userLoggedIn: req.userLoggedIn}, (err, html) => {
                 if (err) {
                     req.log.error(err);
-                    return res.status(500).render('errors/500', {common: commonContent});
+                    return res.status(500).render('errors/500', {common: commonContent, userLoggedIn: req.userLoggedIn});
                 }
                 step.renderPage(res, html);
-
             });
         }).catch((error) => {
             req.log.error(error);
-            res.status(500).render('errors/500', {common: commonContent});
+            res.status(500).render('errors/500', {common: commonContent, userLoggedIn: req.userLoggedIn});
         });
     }
 
@@ -98,13 +97,13 @@ class UIStepRunner {
                 const content = step.generateContent(ctx, formdata, session.language);
                 const fields = step.generateFields(session.language, ctx, errors, formdata);
                 const common = step.commonContent(session.language);
-                res.render(step.template, {content, fields, errors, common});
+                res.render(step.template, {content, fields, errors, common, userLoggedIn: req.userLoggedIn});
             }
         }).catch((error) => {
             req.log.error(error);
             const ctx = step.getContextData(req, res);
             const fields = step.generateFields(req.session.language, ctx, [], {});
-            res.status(500).render('errors/500', {fields, common: commonContent});
+            res.status(500).render('errors/500', {fields, common: commonContent, userLoggedIn: req.userLoggedIn});
         });
     }
 }
