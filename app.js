@@ -314,14 +314,14 @@ exports.init = function() {
         const commonContent = require(`app/resources/${req.session.language}/translation/common`);
 
         logger(req.sessionID).error(`Unhandled request ${req.url}`);
-        res.status(404).render('errors/404', {common: commonContent});
+        res.status(404).render('errors/404', {common: commonContent, userLoggedIn: req.userLoggedIn});
     });
 
     app.use((err, req, res, next) => {
         const commonContent = require(`app/resources/${req.session.language}/translation/common`);
 
         logger(req.sessionID).error(err);
-        res.status(500).render('errors/500', {common: commonContent});
+        res.status(500).render('errors/500', {common: commonContent, userLoggedIn: req.userLoggedIn});
     });
 
     return {app, http};

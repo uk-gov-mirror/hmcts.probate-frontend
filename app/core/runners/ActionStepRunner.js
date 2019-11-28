@@ -15,7 +15,7 @@ class ActionStepRunner {
 
         req.log.error(`GET operation not defined for ${step.name} step`);
         res.status(404);
-        res.render('errors/404', {common: commonContent});
+        res.render('errors/404', {common: commonContent, userLoggedIn: req.userLoggedIn});
     }
 
     handlePost(step, req, res) {
@@ -35,7 +35,7 @@ class ActionStepRunner {
             const commonContent = require(`app/resources/${req.session.language}/translation/common`);
 
             req.log.error(error);
-            res.status(500).render('errors/500', {common: commonContent});
+            res.status(500).render('errors/500', {common: commonContent, userLoggedIn: req.userLoggedIn});
         });
     }
 }
