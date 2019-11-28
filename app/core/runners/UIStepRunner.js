@@ -2,10 +2,10 @@
 
 const co = require('co');
 const {curry, set, isEmpty, forEach} = require('lodash');
-const mapErrorsToFields = require('app/components/error').mapErrorsToFields;
 const DetectDataChange = require('app/wrappers/DetectDataChange');
 const FormatUrl = require('app/utils/FormatUrl');
 const commonContent = require('app/resources/en/translation/common');
+const {get} = require('lodash');
 
 class UIStepRunner {
 
@@ -19,7 +19,7 @@ class UIStepRunner {
             let errors = null;
             const session = req.session;
             const formdata = session.form;
-            let ctx = step.getContextData(req);
+            let ctx = step.getContextData(req, res);
             const featureToggles = session.featureToggles;
             [ctx, errors] = yield step.handleGet(ctx, formdata, featureToggles);
             forEach(errors, (error) =>
@@ -67,16 +67,20 @@ class UIStepRunner {
                 set(formdata, step.section, ctx);
 
                 if (hasDataChanged) {
-                    delete formdata.declaration.declarationCheckbox;
+                    formdata.declaration.declarationCheckbox = 'false';
                     formdata.declaration.hasDataChanged = true;
                 }
 
-                const result = yield step.persistFormData(session.regId, formdata, session.id);
+                if ((get(formdata, 'ccdCase.state') === 'Pending' || get(formdata, 'ccdCase.state') === 'CasePaymentFailed') && session.regId && step.shouldPersistFormData()) {
+                    const ccdCaseId = formdata.ccdCase.id;
+                    const result = yield step.persistFormData(ccdCaseId, formdata, session.id, req);
 
-                if (result.name === 'Error') {
-                    req.log.error('Could not persist user data', result.message);
-                } else if (result.formdata) {
-                    req.log.info('Successfully persisted user data');
+                    if (result.name === 'Error') {
+                        req.log.error('Could not persist user data', result.message);
+                    } else if (result) {
+                        session.form = Object.assign(session.form, result);
+                        req.log.info('Successfully persisted user data');
+                    }
                 }
 
                 if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
@@ -89,14 +93,15 @@ class UIStepRunner {
                     req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
                 );
                 const content = step.generateContent(ctx, formdata);
-                let fields = step.generateFields(ctx, errors, formdata);
-                fields = mapErrorsToFields(fields, errors);
+                const fields = step.generateFields(ctx, errors, formdata);
                 const common = step.commonContent();
                 res.render(step.template, {content, fields, errors, common});
             }
         }).catch((error) => {
             req.log.error(error);
-            res.status(500).render('errors/500', {common: commonContent});
+            const ctx = step.getContextData(req, res);
+            const fields = step.generateFields(ctx, [], {});
+            res.status(500).render('errors/500', {fields, common: commonContent});
         });
     }
 }

@@ -4,6 +4,7 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const DocumentUpload = steps.DocumentUpload;
+const content = require('app/resources/en/translation/documentupload');
 
 describe('DocumentUpload.js', () => {
     describe('getUrl()', () => {
@@ -82,17 +83,18 @@ describe('DocumentUpload.js', () => {
             const errorsToTest = [];
             const formdata = {
                 documents: {
-                    error: 'type'
+                    error: 'invalidFileType'
                 }
             };
             const DocumentUpload = steps.DocumentUpload;
             const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata);
             expect(ctx).to.deep.equal({});
             expect(errors).to.deep.equal([{
-                param: 'file',
+                field: 'file',
+                href: '#file',
                 msg: {
-                    summary: 'documentupload.errors.file.type.summary',
-                    message: 'documentupload.errors.file.type.message'
+                    summary: content.errors.file.invalidFileType.summary,
+                    message: content.errors.file.invalidFileType.message
                 }
             }]);
             done();
@@ -110,10 +112,11 @@ describe('DocumentUpload.js', () => {
             const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata);
             expect(ctx).to.deep.equal({});
             expect(errors).to.deep.equal([{
-                param: 'file',
+                field: 'file',
+                href: '#file',
                 msg: {
-                    summary: 'Your file is too large to upload. Use a file that is under 10MB and try again',
-                    message: ''
+                    summary: content.errors.file.maxSize.summary,
+                    message: content.errors.file.maxSize.message
                 }
             }]);
             done();
@@ -131,10 +134,11 @@ describe('DocumentUpload.js', () => {
             const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata);
             expect(ctx).to.deep.equal({});
             expect(errors).to.deep.equal([{
-                param: 'file',
+                field: 'file',
+                href: '#file',
                 msg: {
-                    summary: 'Your file is too large to upload. Use a file that is under 10MB and try again',
-                    message: ''
+                    summary: content.errors.file.maxSize.summary,
+                    message: content.errors.file.maxSize.message
                 }
             }]);
             done();
@@ -152,10 +156,11 @@ describe('DocumentUpload.js', () => {
             const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata);
             expect(ctx).to.deep.equal({});
             expect(errors).to.deep.equal([{
-                param: 'file',
+                field: 'file',
+                href: '#file',
                 msg: {
-                    summary: 'Your file is too large to upload. Use a file that is under 10MB and try again',
-                    message: ''
+                    summary: content.errors.file.maxSize.summary,
+                    message: content.errors.file.maxSize.message
                 }
             }]);
             done();
@@ -173,10 +178,11 @@ describe('DocumentUpload.js', () => {
             const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata);
             expect(ctx).to.deep.equal({});
             expect(errors).to.deep.equal([{
-                param: 'file',
+                field: 'file',
+                href: '#file',
                 msg: {
-                    summary: 'Your file is too large to upload. Use a file that is under 10MB and try again',
-                    message: ''
+                    summary: content.errors.file.maxSize.summary,
+                    message: content.errors.file.maxSize.message
                 }
             }]);
             done();
@@ -184,7 +190,6 @@ describe('DocumentUpload.js', () => {
     });
 
     describe('isComplete()', () => {
-
         let testCtx;
 
         beforeEach(() => {
@@ -193,7 +198,8 @@ describe('DocumentUpload.js', () => {
 
         it('returns true if formdata has documentupload field', (done) => {
             const testFormdata = {
-                documentupload: ''
+                documentupload: {},
+
             };
             const isComplete = DocumentUpload.isComplete(testCtx, testFormdata);
             expect(isComplete).to.deep.equal([true, 'inProgress']);

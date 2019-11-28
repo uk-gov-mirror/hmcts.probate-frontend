@@ -3,18 +3,9 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ValueAssetsOutside = require('app/steps/ui/iht/valueassetsoutside');
 const DeceasedAlias = require('app/steps/ui/deceased/alias');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const content = require('app/resources/en/translation/iht/assetsoutside');
-const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
-const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
-const featureTogglesNock = (status = 'true') => {
-    nock(featureToggleUrl)
-        .get(featureTogglePath)
-        .reply(200, status);
-};
 
 describe('assets-outside-england-wales', () => {
     let testWrapper;
@@ -23,19 +14,21 @@ describe('assets-outside-england-wales', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('AssetsOutside');
-        featureTogglesNock();
     });
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('AssetsOutside', featureTogglesNock);
+        testCommonContent.runTest('AssetsOutside');
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
                 deceased: {
                     firstName: 'John',
                     lastName: 'Doe'
@@ -47,12 +40,12 @@ describe('assets-outside-england-wales', () => {
                 .end(() => {
                     const contentData = {deceasedName: 'John Doe'};
 
-                    testWrapper.testContent(done, [], contentData);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to value of assets outside page: ${expectedNextUrlForValueAssetsOutside}`, (done) => {

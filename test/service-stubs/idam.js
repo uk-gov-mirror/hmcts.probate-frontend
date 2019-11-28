@@ -1,14 +1,12 @@
 'use strict';
 
-/* eslint no-console: 0 */
-// idam service-service auth stub
-
-const express = require('express'),
-    config = require('test/config'),
-    app = express(),
-    router = require('express').Router(),
-    bodyParser = require('body-parser'),
-    S2S_STUB_PORT = process.env.S2S_STUB_PORT || 4502;
+const express = require('express');
+const config = require('test/config');
+const app = express();
+const router = require('express').Router();
+const bodyParser = require('body-parser');
+const S2S_STUB_PORT = process.env.S2S_STUB_PORT || 4502;
+const logger = require('app/components/logger');
 
 const errorSequence = config.s2sStubErrorSequence;
 let iterator = 0;
@@ -17,9 +15,9 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-router.post('/lease', function (req, res) {
-    console.log(req.headers);
-    console.log(req.body);
+router.post('/lease', (req, res) => {
+    logger().info(req.headers);
+    logger().info(req.body);
 
     if (!getShowErrorFromSeq()) {
         res.status(200);
@@ -34,7 +32,6 @@ router.post('/lease', function (req, res) {
     if (iterator === errorSequence.length) {
         iterator = 0;
     }
-
 });
 
 router.get('/health', (req, res) => {
@@ -45,18 +42,17 @@ router.get('/health', (req, res) => {
 
 app.use(router);
 
-// start the app
-console.log(`Listening on: ${S2S_STUB_PORT}`);
+logger().info(`Listening on: ${S2S_STUB_PORT}`);
 const server = app.listen(S2S_STUB_PORT);
 
 module.exports = server;
 
-function getShowErrorFromSeq() {
+const getShowErrorFromSeq = () => {
     let showError = false;
     if (errorSequence.charAt(iterator) === '1') {
         showError = true;
     }
 
-    console.log(`showError for s2s-stub: ${showError}`);
+    logger().info(`showError for s2s-stub: ${showError}`);
     return showError;
-}
+};

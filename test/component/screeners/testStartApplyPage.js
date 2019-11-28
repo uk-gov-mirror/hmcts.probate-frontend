@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const TaskList = require('app/steps/ui/tasklist');
+const Dashboard = require('app/steps/ui/dashboard');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 const cookies = [{
@@ -22,7 +22,7 @@ const cookies = [{
 
 describe('start-apply', () => {
     let testWrapper;
-    const expectedNextUrlForTaskList = TaskList.getUrl();
+    const expectedNextUrlForDashboard = Dashboard.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('StartApply');
@@ -34,17 +34,17 @@ describe('start-apply', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, [], {}, cookies);
+            testWrapper.testContent(done, {}, [], cookies);
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForTaskList}`, (done) => {
-            testWrapper.testRedirect(done, {}, expectedNextUrlForTaskList, cookies);
+        it(`test it redirects to next page: ${expectedNextUrlForDashboard}`, (done) => {
+            testWrapper.testRedirect(done, {}, expectedNextUrlForDashboard, cookies);
         });
 
-        it('test "save and close" and "sign out" links are not displayed on the page', (done) => {
-            const playbackData = {};
-            playbackData.saveAndClose = commonContent.saveAndClose;
-            playbackData.signOut = commonContent.signOut;
+        it('test "save and close" link is not displayed on the page', (done) => {
+            const playbackData = {
+                saveAndClose: commonContent.saveAndClose
+            };
 
             testWrapper.testContentNotPresent(done, playbackData);
         });

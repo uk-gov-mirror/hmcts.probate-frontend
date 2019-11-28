@@ -4,19 +4,10 @@ const TestWrapper = require('test/util/TestWrapper');
 const SpouseNotApplyingReason = require('app/steps/ui/applicant/spousenotapplyingreason');
 const AnyOtherChildren = require('app/steps/ui/deceased/anyotherchildren');
 const StopPage = require('app/steps/ui/stoppage');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const content = require('app/resources/en/translation/applicant/adoptionplace');
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
-const config = require('app/config');
 const caseTypes= require('app/utils/CaseTypes');
-const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
-const featureTogglesNock = (status = 'true') => {
-    nock(featureToggleUrl)
-        .get(intestacyQuestionsFeatureTogglePath)
-        .reply(200, status);
-};
 
 describe('adoption-place', () => {
     let testWrapper;
@@ -26,23 +17,32 @@ describe('adoption-place', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('AdoptionPlace');
-        featureTogglesNock();
     });
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('AdoptionPlace', featureTogglesNock);
+        testCommonContent.runTest('AdoptionPlace');
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, [], {});
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done);
+                });
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to Spouse Not Applying Reason page if adoption took place in England or Wales and deceased was married: ${expectedNextUrlForSpouseNotApplyingReason}`, (done) => {

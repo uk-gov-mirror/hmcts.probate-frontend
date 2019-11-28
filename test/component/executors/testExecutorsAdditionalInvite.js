@@ -5,7 +5,13 @@ const {assert} = require('chai');
 const ExecutorsAdditionalInviteSent = require('app/steps/ui/executors/additionalinvitesent');
 const nock = require('nock');
 const config = require('app/config');
-const businessServiceUrl = config.services.validation.url.replace('/validate', '');
+const orchestratorServiceUrl = config.services.orchestrator.url;
+const afterEachNocks = (done) => {
+    return () => {
+        nock.cleanAll();
+        done();
+    };
+};
 
 describe('executors-additional-invite', () => {
     let testWrapper;
@@ -15,24 +21,29 @@ describe('executors-additional-invite', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsAdditionalInvite');
         sessionData = require('test/data/executors-invites');
+        sessionData.ccdCase = {
+            state: 'Pending',
+            id: 1234567890123456
+        };
     });
 
     afterEach(() => {
-        testWrapper.destroy();
         delete require.cache[require.resolve('test/data/executors-invites')];
+        testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         it('test correct content loaded on the page when only 1 other executor has been added and needs to be emailed', (done) => {
             sessionData.executors.list = [
                 {fullName: 'Applicant', isApplying: true, isApplicant: true},
                 {fullName: 'Andrew Wiles', isApplying: true, emailSent: false}
             ];
+            const contentToExclude = ['header-multiple'];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, ['header-multiple']);
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 
@@ -42,10 +53,12 @@ describe('executors-additional-invite', () => {
                 {fullName: 'Andrew Wiles', isApplying: true, emailSent: false},
                 {fullName: 'Leonhard Euler', isApplying: true, emailSent: false}
             ];
+            const contentToExclude = ['header'];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, ['header']);
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 
@@ -55,6 +68,7 @@ describe('executors-additional-invite', () => {
                 {fullName: 'Andrew Wiles', isApplying: true, emailSent: false},
                 {fullName: 'Leonhard Euler', isApplying: true, emailSent: false}
             ];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -73,6 +87,7 @@ describe('executors-additional-invite', () => {
                 {fullName: 'Andrew Wiles', isApplying: true, emailSent: false},
                 {fullName: 'Leonhard Euler', isApplying: true, emailSent: true}
             ];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -85,7 +100,7 @@ describe('executors-additional-invite', () => {
         });
 
         it('test an error page is rendered if there is an error calling invite service', (done) => {
-            nock(businessServiceUrl)
+            nock(orchestratorServiceUrl)
                 .post('/invite')
                 .reply(500, new Error('ReferenceError'));
 
@@ -96,28 +111,36 @@ describe('executors-additional-invite', () => {
                         .then(response => {
                             assert(response.status === 500);
                             assert(response.text.includes('Sorry, we&rsquo;re having technical problems'));
+                            nock.cleanAll();
                             done();
                         })
                         .catch(err => {
+                            nock.cleanAll();
                             done(err);
                         });
                 });
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForExecutorsAdditionalInviteSent}`, (done) => {
-            nock(businessServiceUrl)
+            nock(orchestratorServiceUrl)
                 .post('/invite')
-                .reply(200, {response: 'Make it pass!'});
+                .reply(200, {
+                    invitations: [
+                        {
+                            inviteId: '1234'
+                        }
+                    ]
+                });
 
-            const data = {};
             sessionData.executors.list = [
                 {fullName: 'Applicant', isApplying: true, isApplicant: true},
                 {fullName: 'Andrew Wiles', isApplying: true, emailSent: false}
             ];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecutorsAdditionalInviteSent);
+                    testWrapper.testRedirect(afterEachNocks(done), {}, expectedNextUrlForExecutorsAdditionalInviteSent);
                 });
         });
     });

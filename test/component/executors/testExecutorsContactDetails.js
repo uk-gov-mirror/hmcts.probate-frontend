@@ -12,6 +12,10 @@ describe('executors-contact-details', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorContactDetails');
         sessionData = {
+            ccdCase: {
+                state: 'Pending',
+                id: 1234567890123456
+            },
             applicant: {
                 firstName: 'John',
                 lastName: 'TheApplicant'
@@ -36,27 +40,26 @@ describe('executors-contact-details', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const playbackData = {};
-                    playbackData.helpTitle = commonContent.helpTitle;
-                    playbackData.helpHeading1 = commonContent.helpHeading1;
-                    playbackData.helpHeading2 = commonContent.helpHeading2;
-                    playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
-                    playbackData.helpEmailLabel = commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress);
+                    const playbackData = {
+                        helpTitle: commonContent.helpTitle,
+                        helpHeading1: commonContent.helpHeading1,
+                        helpHeading2: commonContent.helpHeading2,
+                        helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress)
+                    };
 
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
 
         it('test correct content is loaded on the page', (done) => {
-            const excludeKeys = [];
-
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
                         executorName: 'Other Applicant'
                     };
-                    testWrapper.testContent(done, excludeKeys, contentData);
+
+                    testWrapper.testContent(done, contentData);
                 });
         });
 
@@ -70,6 +73,7 @@ describe('executors-contact-details', () => {
                         email: '',
                         mobile: ''
                     };
+
                     testWrapper.testErrors(done, data, 'required', errorsToTest);
                 });
         });
@@ -84,7 +88,9 @@ describe('executors-contact-details', () => {
                         email: '',
                         mobile: '07336622022'
                     };
-                    testWrapper.testErrors(done, data, 'required', ['email']);
+                    const errorsToTest = ['email'];
+
+                    testWrapper.testErrors(done, data, 'required', errorsToTest);
                 });
         });
 
@@ -98,7 +104,9 @@ describe('executors-contact-details', () => {
                         email: 'test@hotmail.com',
                         mobile: ''
                     };
-                    testWrapper.testErrors(done, data, 'required', ['mobile']);
+                    const errorsToTest = ['mobile'];
+
+                    testWrapper.testErrors(done, data, 'required', errorsToTest);
                 });
         });
 
@@ -112,7 +120,9 @@ describe('executors-contact-details', () => {
                         email: 'test@.com',
                         mobile: '+447663382082'
                     };
-                    testWrapper.testErrors(done, data, 'invalid', ['email']);
+                    const errorsToTest = ['email'];
+
+                    testWrapper.testErrors(done, data, 'invalid', errorsToTest);
                 });
         });
 
@@ -126,7 +136,9 @@ describe('executors-contact-details', () => {
                         email: 'test@hotmail.com',
                         mobile: '+rr53t6463'
                     };
-                    testWrapper.testErrors(done, data, 'invalid', ['mobile']);
+                    const errorsToTest = ['mobile'];
+
+                    testWrapper.testErrors(done, data, 'invalid', errorsToTest);
                 });
         });
 
@@ -140,6 +152,7 @@ describe('executors-contact-details', () => {
                         email: 'b@.m',
                         mobile: '075r5r5r5r'
                     };
+
                     testWrapper.testErrors(done, data, 'invalid');
                 });
         });
@@ -153,6 +166,7 @@ describe('executors-contact-details', () => {
                         email: 'test@hotmail.com',
                         mobile: '+447663382082'
                     };
+
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecAddress);
                 });
         });

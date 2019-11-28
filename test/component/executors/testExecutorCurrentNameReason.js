@@ -12,6 +12,10 @@ describe('/executor-current-name-reason/', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorCurrentNameReason');
         sessionData = {
+            ccdCase: {
+                state: 'Pending',
+                id: 1234567890123456
+            },
             executors: {
                 list: [
                     {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
@@ -39,16 +43,16 @@ describe('/executor-current-name-reason/', () => {
                         executorFullName: 'Executor Name2',
                         executorName: 'Name2 Executor'
                     };
+
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
-                    testWrapper.testContent(done, [], contentData);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 
         it('test alias reason validation when no data is entered', (done) => {
             const errorsToTest = ['currentNameReason'];
-            const data = {};
 
-            testWrapper.testErrors(done, data, 'required', errorsToTest);
+            testWrapper.testErrors(done, {}, 'required', errorsToTest);
         });
 
         it('test alias reason validation when other is selected but no reason is entered', (done) => {
@@ -63,7 +67,7 @@ describe('/executor-current-name-reason/', () => {
 
         it(`test redirects from ExecutorCurrentNameReason to next ExecutorCurrentName, ${firstNameReasonUrl}`, (done) => {
             sessionData.declaration = {
-                declarationCheckbox: 'Yes',
+                declarationCheckbox: 'true',
                 hasDataChanged: false
             };
 
@@ -74,6 +78,7 @@ describe('/executor-current-name-reason/', () => {
                         index: 1,
                         currentNameReason: 'Marriage'
                     };
+
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
                     testWrapper.testRedirect(done, data, firstNameReasonUrl);
                 });
@@ -81,7 +86,7 @@ describe('/executor-current-name-reason/', () => {
 
         it(`test it redirects last executor to Executor Contact Details step: ${expectedNextUrlForExecContactDetails}`, (done) => {
             sessionData.declaration = {
-                declarationCheckbox: 'Yes',
+                declarationCheckbox: 'true',
                 hasDataChanged: false
             };
 
@@ -92,6 +97,7 @@ describe('/executor-current-name-reason/', () => {
                         index: 4,
                         currentNameReason: 'Marriage',
                     };
+
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(4);
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecContactDetails);
                 });

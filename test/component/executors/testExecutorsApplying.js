@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsDealingWithEstate = require('app/steps/ui/executors/dealingwithestate');
 const ExecutorRoles = require('app/steps/ui/executors/roles');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('executors-applying', () => {
     let testWrapper;
@@ -19,16 +19,25 @@ describe('executors-applying', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('ExecutorsApplying');
+        testCommonContent.runTest('ExecutorsApplying');
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done);
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done);
+                });
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required');
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to ExecutorsDealingWithEstate if there are other executors dealing with the estate: ${expectedNextUrlForExecDealingWith}`, (done) => {

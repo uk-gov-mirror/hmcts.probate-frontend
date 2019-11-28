@@ -12,6 +12,10 @@ describe('executors-update-invite', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsUpdateInvite');
         sessionData = require('test/data/executors-invites');
+        sessionData.ccdCase = {
+            state: 'Pending',
+            id: 1234567890123456
+        };
     });
 
     afterEach(() => {
@@ -20,15 +24,16 @@ describe('executors-update-invite', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         it('test correct content loaded on the page when only 1 other executor has had their email changed', (done) => {
             sessionData.executors.list[1].emailChanged = true;
             sessionData.executors.list[2].isApplying = true;
             sessionData.executors.list[2].emailChanged = false;
+            const contentToExclude = ['header-multiple'];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, ['header-multiple']);
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 
@@ -36,10 +41,12 @@ describe('executors-update-invite', () => {
             sessionData.executors.list[1].emailChanged = true;
             sessionData.executors.list[2].isApplying = true;
             sessionData.executors.list[2].emailChanged = true;
+            const contentToExclude = ['header'];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, ['header']);
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 
@@ -47,6 +54,7 @@ describe('executors-update-invite', () => {
             sessionData.executors.list[1].emailChanged = true;
             sessionData.executors.list[2].isApplying = true;
             sessionData.executors.list[2].emailChanged = true;
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -64,6 +72,7 @@ describe('executors-update-invite', () => {
             sessionData.executors.list[1].emailChanged = true;
             sessionData.executors.list[2].isApplying = true;
             sessionData.executors.list[2].emailChanged = false;
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -78,16 +87,16 @@ describe('executors-update-invite', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForExecutorsUpdateInviteSent}`, (done) => {
-            const data = {};
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecutorsUpdateInviteSent);
+                    testWrapper.testRedirect(done, {}, expectedNextUrlForExecutorsUpdateInviteSent);
                 });
         });
 
         it('test an error page is rendered if there is an error calling invite service', (done) => {
             sessionData.executors.list[1].emailChanged = true;
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {

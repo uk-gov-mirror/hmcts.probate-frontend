@@ -8,7 +8,7 @@ const {expect, assert} = require('chai');
 const completedForm = require('test/data/complete-form').formdata;
 const journeyProbate = require('app/journeys/probate');
 const journeyIntestacy = require('app/journeys/intestacy');
-const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui/`]);
+const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const taskList = steps.TaskList;
 const caseTypes = require('app/utils/CaseTypes');
 
@@ -66,7 +66,10 @@ describe('Tasklist', () => {
                     deceased: completedForm.deceased,
                     will: completedForm.will,
                     iht: completedForm.iht,
-                    documentupload: completedForm.documentupload
+                    documentupload: {},
+                    documents: {
+                        uploads: completedForm.documents.uploads
+                    }
                 };
                 req.session.form = formdata;
                 ctx = taskList.getContextData(req);
@@ -82,7 +85,10 @@ describe('Tasklist', () => {
                     deceased: completedForm.deceased,
                     will: completedForm.will,
                     iht: completedForm.iht,
-                    documentupload: completedForm.documentupload,
+                    documentupload: {},
+                    documents: {
+                        uploads: completedForm.documents.uploads
+                    },
                     applicant: {
                         firstName: completedForm.applicant.firstName,
                         lastName: completedForm.applicant.lastName
@@ -119,7 +125,10 @@ describe('Tasklist', () => {
                 const formdata = {
                     will: completedForm.will,
                     iht: completedForm.iht,
-                    documentupload: completedForm.documentupload,
+                    documentupload: {},
+                    documents: {
+                        uploads: completedForm.documents.uploads
+                    },
                     applicant: completedForm.applicant,
                     deceased: completedForm.deceased,
                     executors: completedForm.executors
@@ -282,9 +291,8 @@ describe('Tasklist', () => {
 
             it('Updates the context: DeceasedTask, Executors, Review and confirm, Copies and Document tasks complete', () => {
                 req.session.form = completedForm;
-                req.session.form.documents = {
-                    sentDocuments: 'true'
-                };
+                req.session.form.documentupload = {};
+                req.session.form.documents.sentDocuments = 'true';
                 req.body = {};
                 ctx = taskList.getContextData(req);
 
@@ -330,18 +338,18 @@ describe('Tasklist', () => {
             it('Updates the context: DeceasedTask started', () => {
                 const formdata = {
                     deceased: {
-                        firstName: 'Test first name',
-                        lastName: 'Test last name',
-                        dob_day: 1,
-                        dob_month: 2,
-                        dob_year: 1900,
-                        dob_date: '1900-02-01T00:00:00.000Z',
-                        dob_formattedDate: '1 February 1900',
-                        dod_day: 2,
-                        dod_month: 3,
-                        dod_year: 2010,
-                        dod_date: '2010-03-02T00:00:00.000Z',
-                        dod_formattedDate: '1 February 2000'
+                        'firstName': 'Test first name',
+                        'lastName': 'Test last name',
+                        'dob-day': 1,
+                        'dob-month': 2,
+                        'dob-year': 1900,
+                        'dob-date': '1900-02-01T00:00:00.000Z',
+                        'dob-formattedDate': '1 February 1900',
+                        'dod-day': 2,
+                        'dod-month': 3,
+                        'dod-year': 2010,
+                        'dod-date': '2010-03-02T00:00:00.000Z',
+                        'dod-formattedDate': '1 February 2000'
                     }
                 };
                 req.session.form = formdata;
@@ -361,7 +369,10 @@ describe('Tasklist', () => {
                     deceased: completedForm.deceased,
                     will: completedForm.will,
                     iht: completedForm.iht,
-                    documentupload: completedForm.documentupload
+                    documentupload: {},
+                    documents: {
+                        uploads: completedForm.documents.uploads
+                    }
                 };
                 req.session.form = formdata;
                 ctx = taskList.getContextData(req);
@@ -377,7 +388,10 @@ describe('Tasklist', () => {
                     caseType: caseTypes.INTESTACY,
                     deceased: completedForm.deceased,
                     iht: completedForm.iht,
-                    documentupload: completedForm.documentupload,
+                    documentupload: {},
+                    documents: {
+                        uploads: completedForm.documents.uploads
+                    },
                     applicant: {
                         relationshipToDeceased: completedForm.applicant.relationshipToDeceased,
                         assetsValue: 300000.6
@@ -397,16 +411,16 @@ describe('Tasklist', () => {
                     deceased: {
                         firstName: 'Test first name',
                         lastName: 'Test last name',
-                        dob_day: 1,
-                        dob_month: 2,
-                        dob_year: 1900,
-                        dob_date: '1900-02-01T00:00:00.000Z',
-                        dob_formattedDate: '1 February 1900',
-                        dod_day: 2,
-                        dod_month: 3,
-                        dod_year: 2010,
-                        dod_date: '2010-03-02T00:00:00.000Z',
-                        dod_formattedDate: '1 February 2000'
+                        'dob-day': 1,
+                        'dob-month': 2,
+                        'dob-year': 1900,
+                        'dob-date': '1900-02-01T00:00:00.000Z',
+                        'dob-formattedDate': '1 February 1900',
+                        'dod-day': 2,
+                        'dod-month': 3,
+                        'dod-year': 2010,
+                        'dod-date': '2010-03-02T00:00:00.000Z',
+                        'dod-formattedDate': '1 February 2000'
                     },
                     applicant: {
                         relationshipToDeceased: completedForm.applicant.relationshipToDeceased
@@ -427,7 +441,10 @@ describe('Tasklist', () => {
                     caseType: caseTypes.INTESTACY,
                     will: completedForm.will,
                     iht: completedForm.iht,
-                    documentupload: completedForm.documentupload,
+                    documentupload: {},
+                    documents: {
+                        uploads: completedForm.documents.uploads
+                    },
                     applicant: completedForm.applicant,
                     deceased: completedForm.deceased,
                     executors: completedForm.executors
@@ -578,13 +595,24 @@ describe('Tasklist', () => {
             const ctx = {
                 hasMultipleApplicants: true,
                 alreadyDeclared: true,
-                previousTaskStatus: 'complete'
+                previousTaskStatus: 'complete',
+                declarationStatuses: [
+                    {
+                        executorName: 'exec 1',
+                        agreed: true
+                    },
+                    {
+                        executorName: 'exec 2',
+                        agreed: false
+                    }
+                ]
             };
 
             taskList.action(ctx);
             assert.isUndefined(ctx.hasMultipleApplicants);
             assert.isUndefined(ctx.alreadyDeclared);
             assert.isUndefined(ctx.previousTaskStatus);
+            assert.isUndefined(ctx.declarationStatuses);
         });
     });
 });

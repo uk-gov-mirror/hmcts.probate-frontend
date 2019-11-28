@@ -3,7 +3,7 @@
 const requireDirectory = require('require-directory');
 const steps = requireDirectory(module);
 
-module.exports = function () {
+module.exports = () => {
     return actor({
         // Stop page
         seeStopPage: steps.stoppage.stoppage,
@@ -114,9 +114,5 @@ module.exports = function () {
         selectDeceasedDivorcePlace: steps.deceased.divorceplace,
         selectRelationshipToDeceased: steps.applicant.relationshiptodeceased,
         selectSpouseNotApplyingReason: steps.applicant.spousenotapplyingreason,
-
-        // Tasks
-        completeEligibilityTask: steps.tasks.tasks.completeEligibilityTask,
-        completeExecutorsTask: steps.tasks.tasks.completeExecutorsTask
     });
 };

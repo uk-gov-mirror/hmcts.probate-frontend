@@ -1,6 +1,6 @@
 {% macro fieldError(field) %}
     {% if field.error %}
-        <span class="error-message">
+        <span class="govuk-error-message">
             {{ field.errorMessage.message | safe }}
         </span>
     {% endif %}

@@ -3,8 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const WillOriginal = require('app/steps/ui/screeners/willoriginal');
 const DiedAfterOctober2014 = require('app/steps/ui/screeners/diedafteroctober2014');
-const StopPage = require('app/steps/ui/stoppage');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 const cookies = [{
@@ -19,20 +18,10 @@ const cookies = [{
     }
 }];
 
-const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
-const featureTogglesNock = (status = 'true') => {
-    nock(featureToggleUrl)
-        .get(intestacyQuestionsFeatureTogglePath)
-        .reply(200, status);
-};
-
 describe('will-left', () => {
     let testWrapper;
     const expectedNextUrlForWillOriginal = WillOriginal.getUrl();
     const expectedNextUrlForDiedAfterOctober2014 = DiedAfterOctober2014.getUrl();
-    const expectedNextUrlForStopPage = StopPage.getUrl('noWill');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('WillLeft');
@@ -40,14 +29,13 @@ describe('will-left', () => {
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('WillLeft', null, cookies);
+        testCommonContent.runTest('WillLeft', null, null, cookies);
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, [], {}, cookies);
+            testWrapper.testContent(done, {}, [], cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {
@@ -55,37 +43,49 @@ describe('will-left', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForWillOriginal}`, (done) => {
-            const data = {
-                left: 'Yes'
+            const sessionData = {
+                screeners: {
+                    deathCertificate: 'Yes',
+                    domicile: 'Yes',
+                    completed: 'Yes'
+                }
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForWillOriginal, cookies);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        left: 'Yes'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForWillOriginal, cookies);
+                });
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForDiedAfterOctober2014}`, (done) => {
-            featureTogglesNock('true');
-
-            const data = {
-                left: 'No'
+            const sessionData = {
+                screeners: {
+                    deathCertificate: 'Yes',
+                    domicile: 'Yes',
+                    completed: 'Yes'
+                }
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForDiedAfterOctober2014, cookies);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        left: 'No'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDiedAfterOctober2014, cookies);
+                });
         });
 
-        it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            featureTogglesNock('false');
-
-            const data = {
-                left: 'No'
+        it('test "save and close" link is not displayed on the page', (done) => {
+            const playbackData = {
+                saveAndClose: commonContent.saveAndClose
             };
-
-            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
-        });
-
-        it('test "save and close" and "sign out" links are not displayed on the page', (done) => {
-            const playbackData = {};
-            playbackData.saveAndClose = commonContent.saveAndClose;
-            playbackData.signOut = commonContent.signOut;
 
             testWrapper.testContentNotPresent(done, playbackData);
         });

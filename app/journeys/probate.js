@@ -49,8 +49,7 @@ const stepList = {
     },
     WillLeft: {
         withWill: 'WillOriginal',
-        withoutWillToggleOn: 'DiedAfterOctober2014',
-        otherwise: 'StopPage'
+        otherwise: 'DiedAfterOctober2014'
     },
     WillOriginal: {
         isOriginal: 'ApplicantExecutor',
@@ -64,7 +63,7 @@ const stepList = {
         isCapable: 'StartApply',
         otherwise: 'StopPage'
     },
-    StartApply: 'TaskList',
+    StartApply: 'Dashboard',
     DeceasedName: 'DeceasedDob',
     DeceasedDob: 'DeceasedDod',
     DeceasedDod: 'DeceasedAddress',
@@ -182,8 +181,8 @@ const stepList = {
     PaymentStatus: 'TaskList',
     AddressLookup: 'AddressLookup',
     TaskList: 'TaskList',
+    Dashboard: 'TaskList',
     StopPage: 'StopPage',
-    TermsConditions: 'TermsConditions',
     PinPage: 'CoApplicantStartPage',
     PinResend: 'PinSent',
     PinSent: 'PinPage',

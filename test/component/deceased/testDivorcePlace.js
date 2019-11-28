@@ -8,20 +8,16 @@ const contentMaritalStatus = require('app/resources/en/translation/deceased/mari
 const content = require('app/resources/en/translation/deceased/divorceplace');
 const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
-const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
-const featureTogglesNock = (status = 'true') => {
-    nock(featureToggleUrl)
-        .get(intestacyQuestionsFeatureTogglePath)
-        .reply(200, status);
-};
 
 describe('divorce-place', () => {
     let testWrapper;
     const expectedNextUrlForStopPage = StopPage.getUrl('divorcePlace');
     const expectedNextUrlForTaskList = TaskList.getUrl();
     const sessionData = {
+        ccdCase: {
+            state: 'Pending',
+            id: 1234567890123456
+        },
         caseType: caseTypes.INTESTACY,
         deceased: {
             maritalStatus: contentMaritalStatus.optionDivorced
@@ -30,12 +26,10 @@ describe('divorce-place', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DivorcePlace');
-        featureTogglesNock();
     });
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -47,7 +41,6 @@ describe('divorce-place', () => {
                     playbackData.helpTitle = commonContent.helpTitle;
                     playbackData.helpHeading1 = commonContent.helpHeading1;
                     playbackData.helpHeading2 = commonContent.helpHeading2;
-                    playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
                     playbackData.helpEmailLabel = commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress);
 
                     testWrapper.testDataPlayback(done, playbackData);
@@ -60,7 +53,7 @@ describe('divorce-place', () => {
                 .end(() => {
                     const contentData = {legalProcess: contentMaritalStatus.divorce};
 
-                    testWrapper.testContent(done, [], contentData);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 
@@ -68,7 +61,11 @@ describe('divorce-place', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testErrors(done, {}, 'required', []);
+                    const data = {
+                        '{legalProcess}': 'divorce'
+                    };
+
+                    testWrapper.testErrors(done, data, 'required');
                 });
         });
 

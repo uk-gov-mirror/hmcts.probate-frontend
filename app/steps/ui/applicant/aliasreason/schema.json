@@ -5,15 +5,15 @@
   "properties": {},
   "switch": [
     {
-      "if": {"properties": { "aliasReason": { "enum": [""] } }},
-      "then": {"required": ["aliasReason"]},
+      "if": { "properties": { "aliasReason": { "enum": [""] } } },
+      "then": { "required": ["aliasReason"] },
       "continue": false
     },
     {
       "if": { "properties": { "aliasReason": { "enum": ["other"] } } },
       "then": {
         "properties": {
-          "other": {
+          "otherReason": {
             "type": "string",
             "minLength": 1,
             "maxLength": 50

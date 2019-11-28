@@ -35,6 +35,7 @@ const returnError = (req, res, next, error) => {
 
 const uploadDocument = (req, res, next) => {
     const isUploadingDocument = req.body && req.body.isUploadingDocument;
+    const maxFileSize = (req.body && req.body.maxFileSize) || config.documentUpload.maxSizeBytes;
 
     if (!isUploadingDocument) {
         return next();
@@ -44,12 +45,12 @@ const uploadDocument = (req, res, next) => {
     let formdata = req.session.form;
     formdata = documentUpload.initDocuments(formdata);
     const uploads = formdata.documents.uploads;
-    const error = documentUpload.validate(uploadedDocument, uploads);
+    const error = documentUpload.validate(uploadedDocument, uploads, maxFileSize);
 
     if (error === null) {
         req.log.info('Uploaded document passed frontend validation');
-        const document = new Document(config.services.validation.url, req.sessionID);
-        document.post(req.session.regId, uploadedDocument)
+        const document = new Document(config.services.orchestrator.url, req.sessionID);
+        document.post(req.session.regId, uploadedDocument, req.authToken, req.session.serviceAuthorization)
             .then(result => {
                 const resultBody = result.body[0];
                 const filename = uploadedDocument.originalname;
@@ -79,11 +80,11 @@ const removeDocument = (req, res, next) => {
     const uploads = req.session.form.documents.uploads;
     const {url} = uploads[index];
     const documentId = documentUpload.findDocumentId(url);
-    const document = new Document(config.services.validation.url, req.sessionID);
-    document.delete(documentId, req.session.regId)
+    const document = new Document(config.services.orchestrator.url, req.sessionID);
+    document.delete(documentId, req.session.regId, req.authToken, req.session.serviceAuthorization)
         .then(() => {
             req.session.form.documents.uploads = documentUpload.removeDocument(index, uploads);
-            persistFormData(req.session.regId, req.session.form, req.sessionID);
+            persistFormData(req.session.form.ccdCase.id, req.session.form, req.session.regId, req);
             res.redirect('/document-upload');
         })
         .catch((err) => {
@@ -91,13 +92,12 @@ const removeDocument = (req, res, next) => {
         });
 };
 
-const persistFormData = (id, formdata, sessionID) => {
+const persistFormData = (ccdCaseId, formdata, sessionID, req) => {
     const formData = ServiceMapper.map(
         'FormData',
-        [config.services.persistence.url, sessionID],
-        formdata.journeyType
+        [config.services.orchestrator.url, sessionID]
     );
-    return formData.post(id, formdata, sessionID);
+    return formData.post(req.authToken, req.session.serviceAuthorization, ccdCaseId, formdata);
 };
 
 module.exports = {

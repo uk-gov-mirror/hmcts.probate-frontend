@@ -3,15 +3,14 @@
 const TestWrapper = require('test/util/TestWrapper');
 const {set} = require('lodash');
 const DeceasedMarried = require('app/steps/ui/deceased/married');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('deceased-otherNames', () => {
-    let testWrapper, sessionData;
+    let testWrapper;
     const expectedNextUrlForDeceasedMarried = DeceasedMarried.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedOtherNames');
-        sessionData = {};
     });
 
     afterEach(() => {
@@ -19,71 +18,100 @@ describe('deceased-otherNames', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('DeceasedOtherNames');
+        testCommonContent.runTest('DeceasedOtherNames');
 
         it('test right content loaded on the page', (done) => {
-
-            set(sessionData, 'deceased.firstName', 'John');
-            set(sessionData, 'deceased.lastName', 'Doe');
-
-            const excludeKeys = ['otherName', 'removeName'];
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
+                deceased: {
+                    firstName: 'John',
+                    lastName: 'Doe'
+                }
+            };
+            const contentToExclude = ['otherName', 'removeName'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-
                     const contentData = {deceasedName: 'John Doe'};
 
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
         it('test right content loaded on the page when deceased has other names', (done) => {
-            set(sessionData, 'deceased.firstName', 'John');
-            set(sessionData, 'deceased.lastName', 'Doe');
-            set(sessionData, 'deceased.otherNames.name_0.firstName', 'James');
-            set(sessionData, 'deceased.otherNames.name_0.lastName', 'Miller');
-            set(sessionData, 'deceased.otherNames.name_1.firstName', 'Henry');
-            set(sessionData, 'deceased.otherNames.name_1.lastName', 'Hat');
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
+                deceased: {
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    otherNames: {
+                        name_0: {
+                            firstName: 'James',
+                            lastName: 'Miller'
+                        },
+                        name_1: {
+                            firstName: 'Henry',
+                            lastName: 'Hat'
+                        }
+                    }
+                }
+            };
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-
                     const contentData = {
                         deceasedName: 'John Doe'
                     };
 
-                    testWrapper.testContent(done, [], contentData);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 
         it('test otherNames schema validation when no data is entered', (done) => {
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
-        it('test otherNames schema validation when invalid firstname is entered', (done) => {
+        it('test otherNames schema validation when invalid firstName is entered', (done) => {
+            const errorsToTest = ['firstName'];
             const data = {};
             set(data, 'otherNames.name_0.firstName', '>John');
             set(data, 'otherNames.name_0.lastName', 'Doe');
 
-            testWrapper.testErrors(done, data, 'invalid', ['firstName']);
+            testWrapper.testErrors(done, data, 'invalid', errorsToTest);
         });
 
-        it('test otherNames schema validation when invalid lastname is entered', (done) => {
+        it('test otherNames schema validation when invalid lastName is entered', (done) => {
+            const errorsToTest = ['lastName'];
             const data = {};
             set(data, 'otherNames.name_0.firstName', 'John');
             set(data, 'otherNames.name_0.lastName', '>Doe');
 
-            testWrapper.testErrors(done, data, 'invalid', ['lastName']);
+            testWrapper.testErrors(done, data, 'invalid', errorsToTest);
         });
 
         it(`test it redirects to deceased married page: ${expectedNextUrlForDeceasedMarried}`, (done) => {
-            const data = {};
-            set(data, 'otherNames.name_0.firstName', 'John');
-            set(data, 'otherNames.name_0.lastName', 'Doe');
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                }
+            };
+            const data = {
+                otherNames: {
+                    name_0: {
+                        firstName: 'John',
+                        lastName: 'Doe'
+                    }
+                }
+            };
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

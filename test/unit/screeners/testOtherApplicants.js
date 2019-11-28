@@ -22,7 +22,12 @@ describe('OtherApplicants', () => {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
-                    form: {},
+                    form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Pending'
+                        }
+                    },
                     caseType: 'gop'
                 },
                 body: {
@@ -36,8 +41,10 @@ describe('OtherApplicants', () => {
                 sessionID: 'dummy_sessionId',
                 otherApplicants: content.optionYes,
                 caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
+                userLoggedIn: false,
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Pending'
                 }
             });
             done();
@@ -48,7 +55,17 @@ describe('OtherApplicants', () => {
         it('should return the correct url when Yes is given', (done) => {
             const req = {
                 session: {
-                    journey: journey
+                    journey: journey,
+                    form: {
+                        screeners: {
+                            deathCertificate: 'Yes',
+                            domicile: 'Yes',
+                            completed: 'Yes',
+                            left: 'No',
+                            diedAfter: 'Yes',
+                            related: 'Yes'
+                        }
+                    }
                 }
             };
             const ctx = {
@@ -62,7 +79,17 @@ describe('OtherApplicants', () => {
         it('should return the correct url when No is given', (done) => {
             const req = {
                 session: {
-                    journey: journey
+                    journey: journey,
+                    form: {
+                        screeners: {
+                            deathCertificate: 'Yes',
+                            domicile: 'Yes',
+                            completed: 'Yes',
+                            left: 'No',
+                            diedAfter: 'Yes',
+                            related: 'Yes'
+                        }
+                    }
                 }
             };
             const ctx = {

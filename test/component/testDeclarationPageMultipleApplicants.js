@@ -8,7 +8,7 @@ const ExecutorsUpdateInvite = require('app/steps/ui/executors/updateinvite');
 const ExecutorsAdditionalInvite = require('app/steps/ui/executors/additionalinvite');
 const ExecutorsChangeMade = require('app/steps/ui/executors/changemade');
 const Tasklist = require('app/steps/ui/tasklist');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const {assert} = require('chai');
 const nock = require('nock');
 const config = require('app/config');
@@ -33,8 +33,8 @@ describe('declaration, multiple applicants', () => {
             applicantAddress: applicantData.address.formattedAddress,
             deceasedName: `${deceasedData.firstName} ${deceasedData.lastName}`,
             deceasedAddress: deceasedData.address.formattedAddress,
-            deceasedDob: deceasedData.dob_formattedDate,
-            deceasedDod: deceasedData.dod_formattedDate,
+            deceasedDob: deceasedData['dob-formattedDate'],
+            deceasedDod: deceasedData['dod-formattedDate'],
             ihtGrossValue: sessionData.iht.grossValueField,
             ihtNetValue: sessionData.iht.netValueField,
             detailsOfApplicants: 'Bob Smith of flat 1, somewhere rd, nowhere., fname1other sname1other of 1 qwe\r\n1 asd\r\n1 zxc and fname4 sname4 of 4 qwe\r\n4 asd\r\n4 zxc',
@@ -46,7 +46,9 @@ describe('declaration, multiple applicants', () => {
         sessionData.executors.list = [
             {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true},
             {fullName: 'fname1 sname1', isDead: false, isApplying: true, hasOtherName: true, currentName: 'fname1other sname1other', email: 'fname1@example.com', mobile: '07900123456', address: {formattedAddress: '1 qwe\r\n1 asd\r\n1 zxc'}, addressFlag: true},
-            {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: {formattedAddress: '4 qwe\r\n4 asd\r\n4 zxc'}, addressFlag: true}];
+            {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: {formattedAddress: '4 qwe\r\n4 asd\r\n4 zxc'}, addressFlag: true}
+        ];
+
         nock(config.services.idam.s2s_url)
             .post('/lease')
             .reply(
@@ -54,24 +56,32 @@ describe('declaration, multiple applicants', () => {
                 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSRUZFUkVOQ0UifQ.Z_YYn0go02ApdSMfbehsLXXbxJxLugPG8v_3kt' +
                 'CpQurK8tHkOy1qGyTo02bTdilX4fq4M5glFh80edDuhDJXPA'
             );
-        nock(config.services.validation.url.replace('/validate', ''))
-            .post(config.pdf.path + '/'+ config.pdf.template.declaration)
+
+        nock(config.services.orchestrator.url)
+            .post(uri => uri.includes('forms'))
             .reply(200, {});
-        nock(config.services.validation.url.replace('/validate', ''))
+
+        nock(config.services.orchestrator.url)
+            .put(uri => uri.includes('validations'))
+            .reply(200, {});
+
+        nock(config.services.orchestrator.url)
+            .post(config.pdf.path + '/' + config.pdf.template.declaration)
+            .reply(200, {buffer: {}, originalname: {}});
+
+        nock(config.services.orchestrator.url)
             .post(config.documentUpload.paths.upload)
-            .reply(200, [
-                'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
-            ]);
+            .reply(200, {});
     });
 
     afterEach(() => {
         delete require.cache[require.resolve('test/data/complete-form-undeclared')];
-        testWrapper.destroy();
         nock.cleanAll();
+        testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('Declaration');
+        testCommonContent.runTest('Declaration');
 
         it('test right content loaded on the page with multiple applicants, deceased has three other names, no codicils', (done) => {
             const contentToExclude = [
@@ -152,7 +162,7 @@ describe('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -233,7 +243,7 @@ describe('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -319,7 +329,7 @@ describe('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -402,7 +412,7 @@ describe('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -481,7 +491,7 @@ describe('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -568,7 +578,7 @@ describe('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -648,7 +658,7 @@ describe('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -731,7 +741,7 @@ describe('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -893,53 +903,79 @@ describe('declaration, multiple applicants', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const data = {};
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testErrors(done, data, 'required', [
-                        'declarationCheckbox'
-                    ]);
+                    const errorsToTest = ['declarationCheckbox'];
+
+                    testWrapper.testErrors(done, {}, 'required', errorsToTest);
                 });
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForExecInvite}`, (done) => {
             sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
                 executors: {
                     list: [
                         {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true},
                         {fullName: 'fname1 sname1', isDead: false, isApplying: true, hasOtherName: true, currentName: 'fname1other sname1other', email: 'fname1@example.com', mobile: '07900123456', address: '1 qwe\r\n1 asd\r\n1 zxc', addressFlag: true},
                         {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: '4 qwe\r\n4 asd\r\n4 zxc', addressFlag: true}
                     ]
+                },
+                session: {
+                    legalDeclaration: {}
                 }
             };
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
+
+            testWrapper.agent.post('/prepare-session-field/serviceAuthorization/SERVICE_AUTH_123')
                 .end(() => {
-                    const data = {
-                        declarationCheckbox: true
-                    };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecInvite);
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData)
+                        .end(() => {
+                            const data = {
+                                declarationCheckbox: true
+                            };
+                            testWrapper.testRedirect(done, data, expectedNextUrlForExecInvite);
+                        });
                 });
         });
 
         it(`test it redirects to next page when the applicant has made a change: ${expectedNextUrlForExecChangeMade}`, (done) => {
             sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
                 declaration: {hasDataChanged: true},
-                executors: {invitesSent: 'true'}
+                executors: {invitesSent: 'true'},
+                session: {
+                    legalDeclaration: {}
+                }
             };
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
+
+            testWrapper.agent.post('/prepare-session-field/serviceAuthorization/SERVICE_AUTH_123')
                 .end(() => {
-                    const data = {
-                        declarationCheckbox: true
-                    };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecChangeMade);
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData)
+                        .end(() => {
+                            const data = {
+                                declarationCheckbox: true
+                            };
+                            testWrapper.testRedirect(done, data, expectedNextUrlForExecChangeMade);
+                        });
                 });
+
         });
 
         it(`test it redirects to next page when executor has been added: ${expectedNextUrlForAdditionalExecInvite}`, (done) => {
             sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
                 executors: {
                     list: [
                         {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true},
@@ -947,20 +983,31 @@ describe('declaration, multiple applicants', () => {
                         {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: '4 qwe\r\n4 asd\r\n4 zxc', addressFlag: true, emailSent: false}
                     ],
                     invitesSent: 'true'
+                },
+                session: {
+                    legalDeclaration: {}
                 }
             };
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
+
+            testWrapper.agent.post('/prepare-session-field/serviceAuthorization/SERVICE_AUTH_123')
                 .end(() => {
-                    const data = {
-                        declarationCheckbox: true
-                    };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAdditionalExecInvite);
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData)
+                        .end(() => {
+                            const data = {
+                                declarationCheckbox: true
+                            };
+                            testWrapper.testRedirect(done, data, expectedNextUrlForAdditionalExecInvite);
+                        });
                 });
         });
 
         it(`test it redirects to next page when executor email has been changed: ${expectedNextUrlForUpdateExecInvite}`, (done) => {
             sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
                 executors: {
                     list: [
                         {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true},
@@ -968,20 +1015,31 @@ describe('declaration, multiple applicants', () => {
                         {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: '4 qwe\r\n4 asd\r\n4 zxc', addressFlag: true, emailChanged: true, emailSent: true}
                     ],
                     invitesSent: 'true'
+                },
+                session: {
+                    legalDeclaration: {}
                 }
             };
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
+
+            testWrapper.agent.post('/prepare-session-field/serviceAuthorization/SERVICE_AUTH_123')
                 .end(() => {
-                    const data = {
-                        declarationCheckbox: true
-                    };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForUpdateExecInvite);
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData)
+                        .end(() => {
+                            const data = {
+                                declarationCheckbox: true
+                            };
+                            testWrapper.testRedirect(done, data, expectedNextUrlForUpdateExecInvite);
+                        });
                 });
         });
 
         it(`test it redirects to next page when the applicant has changed to a single applicant: ${expectedNextUrlForChangeToSingleApplicant}`, (done) => {
             sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
                 executors: {
                     list: [
                         {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true}
@@ -989,15 +1047,22 @@ describe('declaration, multiple applicants', () => {
                 },
                 declaration: {
                     hasDataChanged: true
+                },
+                session: {
+                    legalDeclaration: {}
                 }
             };
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
+
+            testWrapper.agent.post('/prepare-session-field/serviceAuthorization/SERVICE_AUTH_123')
                 .end(() => {
-                    const data = {
-                        declarationCheckbox: true
-                    };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForChangeToSingleApplicant);
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData)
+                        .end(() => {
+                            const data = {
+                                declarationCheckbox: true
+                            };
+                            testWrapper.testRedirect(done, data, expectedNextUrlForChangeToSingleApplicant);
+                        });
                 });
         });
     });

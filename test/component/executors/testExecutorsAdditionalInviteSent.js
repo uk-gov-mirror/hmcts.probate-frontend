@@ -11,6 +11,10 @@ describe('executors-additional-invite-sent', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsAdditionalInviteSent');
         sessionData = require('test/data/executors-invites');
+        sessionData.ccdCase = {
+            state: 'Pending',
+            id: 1234567890123456
+        };
     });
 
     afterEach(() => {
@@ -23,11 +27,12 @@ describe('executors-additional-invite-sent', () => {
             sessionData.executors.executorsToNotifyList = [
                 {fullName: 'Other Applicant', isApplying: true, emailSent: false},
             ];
+            const contentToExclude = ['title-multiple', 'header-multiple'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, ['title-multiple', 'header-multiple']);
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 
@@ -36,16 +41,16 @@ describe('executors-additional-invite-sent', () => {
                 {fullName: 'Other Applicant', isApplying: true, emailSent: false},
                 {fullName: 'Harvey', isApplying: true, emailSent: false}
             ];
+            const contentToExclude = ['title', 'header'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, ['title', 'header']);
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForTaskList}`, (done) => {
-            const data = {};
             sessionData.executors.executorsToNotifyList = [
                 {fullName: 'Other Applicant', isApplying: true, emailSent: false},
             ];
@@ -53,7 +58,7 @@ describe('executors-additional-invite-sent', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
+                    testWrapper.testRedirect(done, {}, expectedNextUrlForTaskList);
                 });
         });
     });

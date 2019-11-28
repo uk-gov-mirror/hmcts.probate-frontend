@@ -49,8 +49,7 @@ const stepList = {
     },
     WillLeft: {
         withWill: 'WillOriginal',
-        withoutWillToggleOn: 'DiedAfterOctober2014',
-        otherwise: 'StopPage'
+        otherwise: 'DiedAfterOctober2014'
     },
     DiedAfterOctober2014: {
         diedAfter: 'RelatedToDeceased',
@@ -64,7 +63,7 @@ const stepList = {
         noOthers: 'StartApply',
         otherwise: 'StopPage'
     },
-    StartApply: 'TaskList',
+    StartApply: 'Dashboard',
     DeceasedDetails: 'DeceasedAddress',
     DeceasedAddress: 'DocumentUpload',
     DocumentUpload: {
@@ -159,6 +158,7 @@ const stepList = {
     Documents: 'ThankYou',
     ThankYou: 'TaskList',
     TaskList: 'TaskList',
+    Dashboard: 'TaskList',
     StopPage: 'StopPage'
 };
 

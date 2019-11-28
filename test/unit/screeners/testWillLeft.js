@@ -2,7 +2,7 @@
 
 const journey = require('app/journeys/probate');
 const initSteps = require('../../../app/core/initSteps');
-const {expect, assert} = require('chai');
+const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const WillLeft = steps.WillLeft;
 const content = require('app/resources/en/translation/screeners/willleft');
@@ -22,7 +22,12 @@ describe('WillLeft', () => {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
-                    form: {},
+                    form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Pending'
+                        }
+                    },
                     caseType: 'gop'
                 },
                 body: {
@@ -36,8 +41,10 @@ describe('WillLeft', () => {
                 sessionID: 'dummy_sessionId',
                 left: content.optionYes,
                 caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
+                userLoggedIn: false,
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Pending'
                 }
             });
             done();
@@ -74,8 +81,11 @@ describe('WillLeft', () => {
                 key2: 'value',
                 applicantEmail: 'test@email.com',
                 payloadVersion: '1.0.1',
+                userLoggedIn: true,
                 screeners: {
-                    screen1: 'yes'
+                    deathCertificate: 'Yes',
+                    domicile: 'Yes',
+                    completed: 'Yes'
                 }
             };
             const session = {};
@@ -91,8 +101,13 @@ describe('WillLeft', () => {
                 applicantEmail: 'test@email.com',
                 caseType: 'gop',
                 payloadVersion: '1.0.1',
+                applicant: {},
+                deceased: {},
+                userLoggedIn: true,
                 screeners: {
-                    screen1: 'yes'
+                    deathCertificate: 'Yes',
+                    domicile: 'Yes',
+                    completed: 'Yes'
                 }
             });
             done();
@@ -103,7 +118,14 @@ describe('WillLeft', () => {
         it('should return the correct url when Yes is given', (done) => {
             const req = {
                 session: {
-                    journey: journey
+                    journey: journey,
+                    form: {
+                        screeners: {
+                            deathCertificate: 'Yes',
+                            domicile: 'Yes',
+                            completed: 'Yes'
+                        }
+                    }
                 }
             };
             const ctx = {
@@ -117,64 +139,38 @@ describe('WillLeft', () => {
         it('should return the correct url when No is given', (done) => {
             const req = {
                 session: {
-                    journey: journey
+                    journey: journey,
+                    form: {
+                        screeners: {
+                            deathCertificate: 'Yes',
+                            domicile: 'Yes',
+                            completed: 'Yes'
+                        }
+                    }
                 }
             };
             const ctx = {
                 left: content.optionNo
             };
             const nextStepUrl = WillLeft.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/stop-page/noWill');
+            expect(nextStepUrl).to.equal('/died-after-october-2014');
             done();
         });
     });
 
     describe('nextStepOptions()', () => {
-        it('should return the correct options when the FT is off', (done) => {
-            const ctx = {
-                isIntestacyQuestionsToggleEnabled: false
-            };
-            const nextStepOptions = WillLeft.nextStepOptions(ctx);
-            expect(nextStepOptions).to.deep.equal({
-                options: [{
-                    key: 'left',
-                    value: content.optionYes,
-                    choice: 'withWill'
-                }]
-            });
-            done();
-        });
-
-        it('should return the correct options when the FT is on', (done) => {
-            const ctx = {
-                isIntestacyQuestionsToggleEnabled: true
-            };
-            const nextStepOptions = WillLeft.nextStepOptions(ctx);
+        it('should return the correct options', (done) => {
+            const nextStepOptions = WillLeft.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [
                     {
                         key: 'left',
                         value: content.optionYes,
                         choice: 'withWill'
-                    },
-                    {
-                        key: 'left',
-                        value: content.optionNo,
-                        choice: 'withoutWillToggleOn'
                     }
                 ]
             });
             done();
-        });
-    });
-
-    describe('action()', () => {
-        it('test isIntestacyQuestionsToggleEnabled is removed from the context', () => {
-            const ctx = {
-                isIntestacyQuestionsToggleEnabled: false
-            };
-            WillLeft.action(ctx);
-            assert.isUndefined(ctx.isIntestacyQuestionsToggleEnabled);
         });
     });
 });

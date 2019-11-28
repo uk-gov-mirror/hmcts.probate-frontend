@@ -1,10 +1,11 @@
-const initSteps = require('app/core/initSteps'),
-    assert = require('chai').assert,
-    {isNil} = require('lodash');
+'use strict';
 
-describe('Co-Applicant', function () {
+const initSteps = require('app/core/initSteps');
+const assert = require('chai').assert;
+const {isNil} = require('lodash');
 
-    const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']);
+describe('Co-Applicant', () => {
+    const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 
     it('test pin has been removed from the session', () => {
         const CoApp = steps.CoApplicantStartPage;
@@ -18,5 +19,4 @@ describe('Co-Applicant', function () {
         CoApp.getContextData(req);
         assert.isTrue(isNil(req.session.pin));
     });
-
 });

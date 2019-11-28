@@ -3,9 +3,10 @@
 const TestWrapper = require('test/util/TestWrapper');
 const OtherApplicants = require('app/steps/ui/screeners/otherapplicants');
 const StopPage = require('app/steps/ui/stoppage');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
+const caseTypes = require('app/utils/CaseTypes');
 const cookies = [{
     name: config.redis.eligibilityCookie.name,
     content: {
@@ -20,15 +21,6 @@ const cookies = [{
     }
 }];
 
-const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
-const featureTogglesNock = (status = 'true') => {
-    nock(featureToggleUrl)
-        .get(intestacyQuestionsFeatureTogglePath)
-        .reply(200, status);
-};
-
 describe('related-to-deceased', () => {
     let testWrapper;
     const expectedNextUrlForOtherApplicants = OtherApplicants.getUrl();
@@ -36,32 +28,41 @@ describe('related-to-deceased', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('RelatedToDeceased');
-        featureTogglesNock();
     });
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('RelatedToDeceased', featureTogglesNock, cookies);
+        testCommonContent.runTest('RelatedToDeceased', null, null, cookies);
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, [], {}, cookies);
+            testWrapper.testContent(done, {}, [], cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: 'intestacy'})
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     testWrapper.testErrors(done, {}, 'required', [], cookies);
                 });
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForOtherApplicants}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                screeners: {
+                    deathCertificate: 'Yes',
+                    domicile: 'Yes',
+                    completed: 'Yes',
+                    left: 'No',
+                    diedAfter: 'Yes'
+                }
+            };
+
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: 'intestacy'})
+                .send(sessionData)
                 .end(() => {
                     const data = {
                         related: 'Yes'
@@ -72,8 +73,19 @@ describe('related-to-deceased', () => {
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                screeners: {
+                    deathCertificate: 'Yes',
+                    domicile: 'Yes',
+                    completed: 'Yes',
+                    left: 'No',
+                    diedAfter: 'Yes'
+                }
+            };
+
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: 'intestacy'})
+                .send(sessionData)
                 .end(() => {
                     const data = {
                         related: 'No'
@@ -83,9 +95,10 @@ describe('related-to-deceased', () => {
                 });
         });
 
-        it('test save and close link is not displayed on the page', (done) => {
-            const playbackData = {};
-            playbackData.saveAndClose = commonContent.saveAndClose;
+        it('test "save and close" link is not displayed on the page', (done) => {
+            const playbackData = {
+                saveAndClose: commonContent.saveAndClose
+            };
 
             testWrapper.testContentNotPresent(done, playbackData);
         });

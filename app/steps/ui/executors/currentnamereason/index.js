@@ -4,6 +4,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const {findIndex, get, startsWith} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const AliasData = require('app/utils/AliasData.js');
+const content = require('app/resources/en/translation/executors/currentnamereason');
 
 const path = '/executor-current-name-reason/';
 
@@ -40,7 +41,7 @@ class ExecutorCurrentNameReason extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata) {
-        if (get(formdata, 'declaration.declarationCheckbox') &&
+        if ((get(formdata, 'declaration.declarationCheckbox', false)).toString() === 'true' &&
             formdata.executors.list[ctx.index].currentNameReason !== ctx.currentNameReason
         ) {
             ctx.currentNameReasonUpdated = true;
@@ -51,7 +52,7 @@ class ExecutorCurrentNameReason extends ValidationStep {
         }
         ctx.list[ctx.index].currentNameReason = ctx.currentNameReason;
 
-        if (ctx.currentNameReason !== 'other') {
+        if (ctx.currentNameReason !== content.optionOther.toLowerCase()) {
             delete ctx.list[ctx.index].otherReason;
         }
 

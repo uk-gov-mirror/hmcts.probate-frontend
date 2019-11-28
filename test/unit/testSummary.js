@@ -8,7 +8,7 @@ const Summary = rewire('app/steps/ui/summary');
 const probateJourney = require('app/journeys/probate');
 
 describe('Summary', () => {
-    const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']);
+    const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
     let section;
     let templatePath;
     let i18next;
@@ -27,11 +27,7 @@ describe('Summary', () => {
     describe('handleGet()', () => {
         it('ctx.executorsWithOtherNames returns array of execs with other names', (done) => {
             const expectedResponse = ['Prince', 'Cher'];
-            const revert = Summary.__set__('ValidateData', class {
-                post() {
-                    return Promise.resolve(expectedResponse);
-                }
-            });
+
             let ctx = {
                 session: {
                     form: {},
@@ -44,18 +40,12 @@ describe('Summary', () => {
             co(function* () {
                 [ctx] = yield summary.handleGet(ctx, formdata);
                 assert.deepEqual(ctx.executorsWithOtherNames, expectedResponse);
-                revert();
                 done();
             });
         });
 
         it('executorsWithOtherNames returns empty when hasOtherName is false', (done) => {
             const expectedResponse = [];
-            const revert = Summary.__set__('ValidateData', class {
-                post() {
-                    return Promise.resolve(expectedResponse);
-                }
-            });
             let ctx = {
                 session: {
                     form: {},
@@ -68,18 +58,12 @@ describe('Summary', () => {
             co(function* () {
                 [ctx] = yield summary.handleGet(ctx, formdata);
                 assert.deepEqual(ctx.executorsWithOtherNames, expectedResponse);
-                revert();
                 done();
             });
         });
 
         it('executorsWithOtherNames returns empty when list is empty', (done) => {
             const expectedResponse = [];
-            const revert = Summary.__set__('ValidateData', class {
-                post() {
-                    return Promise.resolve(expectedResponse);
-                }
-            });
             let ctx = {
                 session: {
                     form: {},
@@ -92,7 +76,6 @@ describe('Summary', () => {
             co(function* () {
                 [ctx] = yield summary.handleGet(ctx, formdata);
                 assert.deepEqual(ctx.executorsWithOtherNames, expectedResponse);
-                revert();
                 done();
             });
         });
@@ -104,6 +87,10 @@ describe('Summary', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Pending'
+                        },
                         caseType: 'gop',
                         deceased: {
                             firstName: 'Dee',
@@ -114,21 +101,29 @@ describe('Summary', () => {
                         }
                     }
                 },
+                authToken: '1234'
             };
             const Summary = steps.Summary;
             const ctx = Summary.getContextData(req);
             expect(ctx).to.deep.equal({
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Pending'
+                },
+                authToken: '1234',
                 alreadyDeclared: false,
                 deceasedAliasQuestion: 'Did Dee Ceased have assets in another name?',
                 deceasedMarriedQuestion: 'Did Dee Ceased get married or enter into a civil partnership after the will was signed?',
-                featureToggles: {
-                    webchat: 'false'
-                },
                 ihtTotalNetValue: 300000,
                 caseType: 'gop',
+                userLoggedIn: false,
                 readyToDeclare: false,
                 session: {
                     form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Pending'
+                        },
                         caseType: 'gop',
                         deceased: {
                             firstName: 'Dee',
@@ -153,11 +148,15 @@ describe('Summary', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Pending'
+                        },
                         caseType: 'intestacy',
                         deceased: {
-                            firstName: 'Dee',
-                            lastName: 'Ceased',
-                            dod_formattedDate: '2 February 2015'
+                            'firstName': 'Dee',
+                            'lastName': 'Ceased',
+                            'dod-formattedDate': '2 February 2015'
                         },
                         iht: {
                             netValue: 300000,
@@ -166,10 +165,16 @@ describe('Summary', () => {
                         }
                     }
                 },
+                authToken: '12345'
             };
             const Summary = steps.Summary;
             const ctx = Summary.getContextData(req);
             expect(ctx).to.deep.equal({
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Pending'
+                },
+                authToken: '12345',
                 alreadyDeclared: false,
                 deceasedAliasQuestion: 'Did Dee Ceased have assets in another name?',
                 deceasedAllChildrenOver18Question: 'Are all of Dee Ceased&rsquo;s children over 18?',
@@ -179,20 +184,22 @@ describe('Summary', () => {
                 deceasedDivorcePlaceQuestion: 'Did the separation take place in England or Wales?',
                 deceasedMaritalStatusQuestion: 'What was Dee Ceased&rsquo;s marital status?',
                 deceasedSpouseNotApplyingReasonQuestion: 'Why isn&rsquo;t Dee Ceased&rsquo;s spouse applying?',
-                featureToggles: {
-                    webchat: 'false'
-                },
                 ihtTotalNetValue: 550000,
                 ihtTotalNetValueGreaterThan250k: true,
                 caseType: 'intestacy',
+                userLoggedIn: false,
                 readyToDeclare: false,
                 session: {
                     form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Pending'
+                        },
                         caseType: 'intestacy',
                         deceased: {
-                            dod_formattedDate: '2 February 2015',
-                            firstName: 'Dee',
-                            lastName: 'Ceased'
+                            'dod-formattedDate': '2 February 2015',
+                            'firstName': 'Dee',
+                            'lastName': 'Ceased'
                         },
                         iht: {
                             assetsOutside: 'Yes',

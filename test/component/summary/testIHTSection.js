@@ -17,25 +17,44 @@ describe('summary-iht-section', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test correct content loaded on the summary page iht section, when no data is entered', (done) => {
-            const playbackData = {};
-            playbackData.method = ihtContent.method.question;
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                }
+            };
 
-            testWrapper.testDataPlayback(done, playbackData);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const playbackData = {
+                        method: ihtContent.method.question
+                    };
+
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
         });
 
         it('test correct content loaded on the summary page iht section, when section is complete (online)', (done) => {
             const sessionData = require('test/data/ihtOnline');
+            sessionData.ccdCase = {
+                state: 'Pending',
+                id: 1234567890123456
+            };
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
                     if (err) {
                         throw err;
                     }
-                    const playbackData = {};
-                    playbackData.method = ihtContent.method.question;
-                    playbackData.identifier = ihtContent.identifier.question;
-                    playbackData.grossValue = ihtContent.value.grossValue;
-                    playbackData.netValue = ihtContent.value.netValue;
+                    delete require.cache[require.resolve('test/data/ihtOnline')];
+                    const playbackData = {
+                        method: ihtContent.method.question,
+                        identifier: ihtContent.identifier.question,
+                        grossValue: ihtContent.value.grossValue,
+                        netValue: ihtContent.value.netValue
+                    };
 
                     testWrapper.testDataPlayback(done, playbackData);
                 });
@@ -43,37 +62,50 @@ describe('summary-iht-section', () => {
 
         it('test correct content loaded on the summary page iht section, when section is complete (paper)', (done) => {
             const sessionData = require('test/data/ihtPaper');
+            sessionData.ccdCase = {
+                state: 'Pending',
+                id: 1234567890123456
+            };
             sessionData.iht.form = 'IHT205';
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
                     if (err) {
                         throw err;
                     }
-                    const playbackData = {};
-                    playbackData.method = ihtContent.method.question;
-                    playbackData.option = ihtContent.paper.question;
-                    playbackData.grossValue = ihtContent.value.grossValue;
-                    playbackData.netValue = ihtContent.value.netValue;
+                    delete require.cache[require.resolve('test/data/ihtPaper')];
+                    const playbackData = {
+                        method: ihtContent.method.question,
+                        option: ihtContent.paper.question,
+                        grossValue: ihtContent.value.grossValue,
+                        netValue: ihtContent.value.netValue
+                    };
 
-                    testWrapper.testDataPlayback(done, playbackData, [], ['form']);
+                    testWrapper.testDataPlayback(done, playbackData, ['form']);
                 });
         });
 
         it('test data is played back correctly on the summary page iht section (online)', (done) => {
             const sessionData = require('test/data/ihtOnline');
+            sessionData.ccdCase = {
+                state: 'Pending',
+                id: 1234567890123456
+            };
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
                     if (err) {
                         throw err;
                     }
-                    const playbackData = {};
-                    playbackData.method = ihtContent.method.question;
-                    playbackData.identifier = ihtContent.identifier.question;
-                    playbackData.grossValue = ihtContent.value.grossValue;
-                    playbackData.netValue = ihtContent.value.netValue;
-
+                    delete require.cache[require.resolve('test/data/ihtOnline')];
+                    const playbackData = {
+                        method: ihtContent.method.question,
+                        identifier: ihtContent.identifier.question,
+                        grossValue: ihtContent.value.grossValue,
+                        netValue: ihtContent.value.netValue
+                    };
                     Object.assign(playbackData, sessionData.iht);
 
                     testWrapper.testDataPlayback(done, playbackData);
@@ -82,64 +114,82 @@ describe('summary-iht-section', () => {
 
         it('test data is played back correctly on the summary page iht section (paper205)', (done) => {
             const sessionData = require('test/data/ihtPaper');
+            sessionData.ccdCase = {
+                state: 'Pending',
+                id: 1234567890123456
+            };
             sessionData.iht.form = 'IHT205';
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
                     if (err) {
                         throw err;
                     }
-                    const playbackData = {};
-                    playbackData.method = ihtContent.method.question;
-                    playbackData.option = ihtContent.paper.question;
-                    playbackData.grossValue = ihtContent.value.grossValue;
-                    playbackData.netValue = ihtContent.value.netValue;
-
+                    delete require.cache[require.resolve('test/data/ihtPaper')];
+                    const playbackData = {
+                        method: ihtContent.method.question,
+                        option: ihtContent.paper.question,
+                        grossValue: ihtContent.value.grossValue,
+                        netValue: ihtContent.value.netValue
+                    };
                     Object.assign(playbackData, sessionData.iht);
 
-                    testWrapper.testDataPlayback(done, playbackData, [], ['form']);
+                    testWrapper.testDataPlayback(done, playbackData, ['form']);
                 });
         });
 
         it('test data is played back correctly on the summary page iht section (paper207)', (done) => {
             const sessionData = require('test/data/ihtPaper');
+            sessionData.ccdCase = {
+                state: 'Pending',
+                id: 1234567890123456
+            };
             sessionData.iht.form = 'IHT207';
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
                     if (err) {
                         throw err;
                     }
-                    const playbackData = {};
-                    playbackData.method = ihtContent.method.question;
-                    playbackData.option = ihtContent.paper.question;
-                    playbackData.grossValue = ihtContent.value.grossValue;
-                    playbackData.netValue = ihtContent.value.netValue;
-
+                    delete require.cache[require.resolve('test/data/ihtPaper')];
+                    const playbackData = {
+                        method: ihtContent.method.question,
+                        option: ihtContent.paper.question,
+                        grossValue: ihtContent.value.grossValue,
+                        netValue: ihtContent.value.netValue
+                    };
                     Object.assign(playbackData, sessionData.iht);
 
-                    testWrapper.testDataPlayback(done, playbackData, [], ['form']);
+                    testWrapper.testDataPlayback(done, playbackData, ['form']);
                 });
         });
 
         it('test data is played back correctly on the summary page iht section (paper400)', (done) => {
             const sessionData = require('test/data/ihtPaper');
+            sessionData.ccdCase = {
+                state: 'Pending',
+                id: 1234567890123456
+            };
             sessionData.iht.form = 'IHT400421';
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
                     if (err) {
                         throw err;
                     }
-                    const playbackData = {};
-                    playbackData.ihtMethod = ihtContent.method.question;
-                    playbackData.ihtOption = ihtContent.paper.question;
-                    playbackData.ihtGrossValue = ihtContent.value.grossValue;
-                    playbackData.ihtNetValue = ihtContent.value.netValue;
-
+                    delete require.cache[require.resolve('test/data/ihtPaper')];
+                    const playbackData = {
+                        ihtMethod: ihtContent.method.question,
+                        ihtOption: ihtContent.paper.question,
+                        ihtGrossValue: ihtContent.value.grossValue,
+                        ihtNetValue: ihtContent.value.netValue
+                    };
                     Object.assign(playbackData, sessionData.iht);
 
-                    testWrapper.testDataPlayback(done, playbackData, [], ['form']);
+                    testWrapper.testDataPlayback(done, playbackData, ['form']);
                 });
         });
     });

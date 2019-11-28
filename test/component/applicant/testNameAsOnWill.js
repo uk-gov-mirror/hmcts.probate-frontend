@@ -2,7 +2,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ApplicantPhone = require('app/steps/ui/applicant/phone');
 const ApplicantAlias = require('app/steps/ui/applicant/alias');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('applicant-name-as-on-will', () => {
     let testWrapper;
@@ -18,31 +18,38 @@ describe('applicant-name-as-on-will', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('ApplicantNameAsOnWill');
+        testCommonContent.runTest('ApplicantNameAsOnWill');
 
         it('test correct content is loaded on the page', (done) => {
             const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
                 applicant: {
                     firstName: 'John',
                     lastName: 'TheApplicant'
                 }
             };
-
-            const excludeKeys = ['questionWithoutName', 'questionWithCodicil', 'legendWithCodicil'];
+            const contentToExclude = ['questionWithoutName', 'questionWithCodicil', 'legendWithCodicil'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-
                     const contentData = {
                         applicantName: 'John TheApplicant',
                     };
-                    testWrapper.testContent(done, excludeKeys, contentData);
+
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
         it('test correct content is loaded on the page when there is a codicil', (done) => {
             const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
                 applicant: {
                     firstName: 'John',
                     lastName: 'TheApplicant'
@@ -51,8 +58,7 @@ describe('applicant-name-as-on-will', () => {
                     codicils: 'Yes'
                 }
             };
-
-            const excludeKeys = ['question', 'questionWithoutName', 'legend'];
+            const contentToExclude = ['question', 'questionWithoutName', 'legend'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -61,7 +67,7 @@ describe('applicant-name-as-on-will', () => {
                     const contentData = {
                         applicantName: 'John TheApplicant',
                     };
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -73,14 +79,11 @@ describe('applicant-name-as-on-will', () => {
                 }
             };
 
-            const data = {};
-
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testErrors(done, data, 'required', []);
+                    testWrapper.testErrors(done, {}, 'required');
                 });
-
         });
 
         it(`test it redirects to next page when Yes selected: ${expectedNextUrlForApplicantPhone}`, (done) => {

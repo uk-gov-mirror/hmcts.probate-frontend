@@ -1,7 +1,6 @@
 'use strict';
 
 const Step = require('app/core/steps/Step');
-const config = require('app/config');
 
 class StopPage extends Step {
 
@@ -12,8 +11,6 @@ class StopPage extends Step {
     getContextData(req) {
         const ctx = super.getContextData(req);
         ctx.stopReason = req.params[0];
-
-        ctx.signOutLink = config.signOutOnStopPages.includes(ctx.stopReason);
 
         const formdata = req.session.form;
         const templateContent = this.generateContent(ctx, formdata)[ctx.stopReason];
@@ -27,12 +24,13 @@ class StopPage extends Step {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
+        delete ctx.stopReason;
         delete ctx.linkPlaceholders;
         return [ctx, formdata];
     }
 
     replaceLinkPlaceholders(templateContent) {
-        const linkPlaceholders = templateContent.match(/{[^}]+}/g);
+        const linkPlaceholders = templateContent.match(/{(.*?)}/g);
 
         if (linkPlaceholders) {
             return linkPlaceholders.map(placeholder => placeholder.substr(1, placeholder.length - 2));

@@ -10,10 +10,8 @@ const config = {
         path: process.env.FEATURE_TOGGLES_PATH || '/api/ff4j/check',
         port: 8292,
         fe_shutter_toggle: 'probate-fe-shutter',
-        intestacy_questions: 'probate-intestacy-questions',
         fees_api: 'probate-fees-api',
-        webchat: 'probate-webchat',
-        appwideToggles: ['webchat']
+        appwideToggles: []
     },
     app: {
         username: process.env.USERNAME,
@@ -21,6 +19,7 @@ const config = {
         useAuth: process.env.USE_AUTH || 'false',
         useHttps: process.env.USE_HTTPS || 'false',
         useIDAM: process.env.USE_IDAM || 'false',
+        requreCcdCaseId: process.env.REQUIRE_CCD_CASE_ID || 'false',
         port: process.env.PORT || '3000',
         useCSRFProtection: 'true',
         session: {
@@ -35,14 +34,21 @@ const config = {
         orchestrator: {
             url: process.env.ORCHESTRATOR_SERVICE_URL || 'http://localhost:8888',
             paths: {
-                forms: '/forms/{applicantEmail}',
-                submissions: '/forms/{applicantEmail}/submissions',
-                payments: '/forms/{applicantEmail}/payments',
-                payment_updates: '/payment-updates'
-            }
+                forms: '/forms/case/{ccdCaseId}',
+                create: '/forms/newcase/',
+                submissions: '/forms/{ccdCaseId}/submissions',
+                payments: '/forms/{ccdCaseId}/payments',
+                payment_updates: '/payment-updates',
+                payment_submissions: '/forms/{ccdCaseId}/payment-submissions',
+                fees: '/forms/{ccdCaseId}/fees',
+                validations: '/forms/{ccdCaseId}/validations',
+                applications: '/forms/cases',
+                declarationStatuses: '/invites/{ccdCaseId}'
+            },
+            port: 8888
         },
         validation: {
-            url: process.env.VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
+            url: process.env.VALIDATION_SERVICE_URL || 'http://localhost:8081/validate'
         },
         submit: {
             url: process.env.SUBMIT_SERVICE_URL || 'http://localhost:8181',
@@ -54,21 +60,24 @@ const config = {
             path: '/formdata'
         },
         idam: {
-            loginUrl: process.env.IDAM_LOGIN_URL || 'https://localhost:8000/login',
-            apiUrl: process.env.IDAM_API_URL || 'http://localhost:4501',
+            loginUrl: process.env.IDAM_LOGIN_URL || 'http://localhost:3501/login',
+            apiUrl: process.env.IDAM_API_URL || 'http://localhost:5000',
             roles: ['probate-private-beta', 'citizen'],
             s2s_url: process.env.IDAM_S2S_URL || 'http://localhost:4502',
             service_name: 'probate_frontend',
             service_key: process.env.IDAM_SERVICE_KEY || 'AAAAAAAAAAAAAAAA',
-            probate_oauth2_client: 'probate',
-            probate_oauth2_secret: process.env.IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE || '123456',
+            probate_oauth2_client: process.env.IDAM_CLIENT_NAME || 'ccd_gateway',
+            probate_oauth2_secret: process.env.IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE || 'ccd_gateway_secret',
             probate_oauth_callback_path: '/oauth2/callback',
             probate_oauth_token_path: '/oauth2/token',
+            probate_user_email: process.env.PROBATE_USER_EMAIL || 'pacaseworker@probate.com',
+            probate_user_password: process.env.PROBATE_USER_PASSWORD || 'password',
+            probate_redirect_base_url: process.env.PROBATE_REDIRECT_BASE_URL || 'http://localhost:3000',
         },
         payment: {
             url: process.env.PAYMENT_API_URL || 'http://localhost:8383',
-            authorization: process.env.PAYMENT_AUTHORIZATION || 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJrYzBpYmdjdGgyY2psdG0yMG12Y2pxdHNxMSIsInN1YiI6IjQ2IiwiaWF0IjoxNTYwNDE5NDI0LCJleHAiOjE1NjA0NDgyMjQsImRhdGEiOiJjYXNld29ya2VyLXByb2JhdGUsY2l0aXplbixjYXNld29ya2VyLGNhc2V3b3JrZXItcHJvYmF0ZS1sb2ExLGNpdGl6ZW4tbG9hMSxjYXNld29ya2VyLWxvYTEiLCJ0eXBlIjoiQUNDRVNTIiwiaWQiOiI0NiIsImZvcmVuYW1lIjoiVXNlciIsInN1cm5hbWUiOiJUZXN0IiwiZGVmYXVsdC1zZXJ2aWNlIjoiQ0NEIiwibG9hIjoxLCJkZWZhdWx0LXVybCI6Imh0dHBzOi8vbG9jYWxob3N0OjkwMDAvcG9jL2NjZCIsImdyb3VwIjoiY2FzZXdvcmtlciJ9.qF8ZuMKf7YcCWivFH06_JqOruky4vSAucdYPctcpT3o',
-            serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9iYXRlX2Zyb250ZW5kIiwiZXhwIjoxNTYwNDMzODI0fQ.TWt6o-WECwTfjM3wQtTFIzUR1l-JTMKZ0sAjTen_gx7k5AVy8vaj8jo50m1CdbkHKQ9E01zdmnQ4BC2Uvu0owQ',
+            authorization: process.env.PAYMENT_AUTHORIZATION || 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4aDNlbWc4dmhqazVhMjFzYWE4Y2MzM3YzZyIsInN1YiI6IjQyIiwiaWF0IjoxNTU3OTk5MTIxLCJleHAiOjE1NTgwMjc5MjEsImRhdGEiOiJjYXNld29ya2VyLXByb2JhdGUsY2l0aXplbixjYXNld29ya2VyLGNhc2V3b3JrZXItcHJvYmF0ZS1sb2ExLGNpdGl6ZW4tbG9hMSxjYXNld29ya2VyLWxvYTEiLCJ0eXBlIjoiQUNDRVNTIiwiaWQiOiI0MiIsImZvcmVuYW1lIjoiVXNlciIsInN1cm5hbWUiOiJUZXN0IiwiZGVmYXVsdC1zZXJ2aWNlIjoiQ0NEIiwibG9hIjoxLCJkZWZhdWx0LXVybCI6Imh0dHBzOi8vbG9jYWxob3N0OjkwMDAvcG9jL2NjZCIsImdyb3VwIjoiY2FzZXdvcmtlciJ9.5sT0KGtWsPC-Ol6RKV6gHFJl5b-OsL7HGKqdScFdOdQ',
+            serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9iYXRlX2Zyb250ZW5kIiwiZXhwIjoxNTU4MDEzNTIyfQ.YEiOlFZleoA8u9fZ4iEqcrVKvOTaCRPfzM6W_DptlV63V-euNNGpJlMlz-9JWRoTQ0ZYIF9RWskTe_PlAZHJvg',
             userId: process.env.PAYMENT_USER_ID || 46,
             paths: {
                 payments: '/payments',
@@ -122,6 +131,7 @@ const config = {
         buttonServiceClosed: process.env.WEBCHAT_BUTTON_SERVICE_CLOSED || '4639879315d19f67c3c1055.15174024',
     },
     links: {
+        accessibility: '/accessibility-statement',
         cookies: '/cookies',
         privacy: '/privacy-policy',
         terms: '/terms-conditions',
@@ -147,7 +157,11 @@ const config = {
         findOutNext: 'https://www.gov.uk/wills-probate-inheritance/once-the-grants-been-issued',
         whoInherits: 'https://www.gov.uk/inherits-someone-dies-without-will',
         ifYoureAnExecutor: 'https://www.gov.uk/wills-probate-inheritance/if-youre-an-executor',
-        renunciationForm: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will'
+        renunciationForm: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will',
+        assessingMentalCapacity: 'https://www.gov.uk/make-decisions-for-someone/assessing-mental-capacity',
+        myAbilityLink: 'https://mcmw.abilitynet.org.uk/',
+        equalityAdvisorLink: 'https://www.equalityadvisoryservice.com/',
+        wcag21Link: 'https://www.w3.org/TR/WCAG21/'
     },
     helpline: {
         number: '0300 303 0648',
@@ -181,14 +195,34 @@ const config = {
         version: process.env.version || '1',
         currency: process.env.currency || 'GBP'
     },
+    noHeaderLinksPages: ['/time-out', '/sign-out', '/co-applicant-start-page', '/co-applicant-declaration', '/co-applicant-agree-page', '/co-applicant-disagree-page', '/co-applicant-all-agreed-page', '/pin-resend', '/pin-sent', '/sign-in'],
     whitelistedPagesAfterSubmission: ['/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
     whitelistedPagesAfterPayment: ['/task-list', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
     whitelistedPagesAfterDeclaration: ['/task-list', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
+    eligibilityQuestionsProbate: {
+        deathCertificate: 'Yes',
+        domicile: 'Yes',
+        completed: 'Yes',
+        left: 'Yes',
+        original: 'Yes',
+        executor: 'Yes',
+        mentalCapacity: 'Yes'
+    },
+    eligibilityQuestionsIntestacy: {
+        deathCertificate: 'Yes',
+        domicile: 'Yes',
+        completed: 'Yes',
+        left: 'No',
+        diedAfter: 'Yes',
+        related: 'Yes',
+        otherApplicants: 'No'
+    },
     hardStopParams: {
         gop: [],
         intestacy: []
     },
-    nonIdamPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'terms-conditions', 'privacy-policy', 'cookies'],
+    nonIdamPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies'],
+    noCcdCaseIdPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies', 'dashboard', 'sign-out', 'time-out'],
     endpoints: {
         health: '/health',
         info: '/info'
@@ -199,10 +233,11 @@ const config = {
     documentUpload: {
         validMimeTypes: ['image/jpeg', 'image/bmp', 'image/tiff', 'image/png', 'application/pdf'],
         maxFiles: 10,
-        maxSizeBytes: 10485760,
+        maxSizeBytes: 10485760, // 10 MB
+        maxSizeBytesTest: 10240, // 10 KB
         paths: {
-            upload: '/document/upload',
-            remove: '/document/delete'
+            upload: '/documents/upload',
+            remove: '/documents/delete'
         },
         error: {
             invalidFileType: 'Error: invalid file type',
@@ -216,14 +251,13 @@ const config = {
     },
     pdf: {
         template: {
-            checkAnswers: 'generateCheckAnswersSummaryPDF',
-            declaration: 'generateLegalDeclarationPDF',
-            coverSheet: 'generateBulkScanCoverSheetPDF'
+            checkAnswers: 'checkAnswersSummary',
+            declaration: 'legalDeclaration',
+            coverSheet: 'bulkScanCoversheet'
         },
-        path: '/businessDocument',
+        path: '/documents/generate',
         timeoutMs: 30000
     },
-    signOutOnStopPages: ['divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales'],
     assetsValueThreshold: 250000
 };
 

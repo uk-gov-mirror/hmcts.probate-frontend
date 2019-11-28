@@ -3,18 +3,9 @@
 const TestWrapper = require('test/util/TestWrapper');
 const AnyGrandchildrenUnder18 = require('app/steps/ui/deceased/anygrandchildrenunder18/index');
 const ApplicantName = require('app/steps/ui/applicant/name/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const content = require('app/resources/en/translation/deceased/anychildren');
-const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
-const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
-const featureTogglesNock = (status = 'true') => {
-    nock(featureToggleUrl)
-        .get(intestacyQuestionsFeatureTogglePath)
-        .reply(200, status);
-};
 
 describe('any-deceased-children', () => {
     let testWrapper;
@@ -23,36 +14,40 @@ describe('any-deceased-children', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('AnyDeceasedChildren');
-        featureTogglesNock();
     });
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('AnyDeceasedChildren', featureTogglesNock);
+        testCommonContent.runTest('AnyDeceasedChildren');
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
                 deceased: {
-                    firstName: 'John',
-                    lastName: 'Doe',
-                    dod_formattedDate: '13 October 2018'
+                    'firstName': 'John',
+                    'lastName': 'Doe',
+                    'dod-formattedDate': '13 October 2018'
                 }
             };
+            const contentToExclude = ['theDeceased'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {deceasedName: 'John Doe', deceasedDoD: '13 October 2018'};
-                    testWrapper.testContent(done, ['theDeceased'], contentData);
+
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to Any Grandchildren Under 18 page if deceased had children who died before them: ${expectedNextUrlForAnyGrandchildrenUnder18}`, (done) => {

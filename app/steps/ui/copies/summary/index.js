@@ -16,7 +16,6 @@ class CopiesSummary extends Step {
         Object.keys(this.steps).filter(stepName => copiesSteps.includes(stepName))
             .forEach((stepName) => {
                 const step = this.steps[stepName];
-
                 content[stepName] = step.generateContent(formdata[step.section], formdata);
                 content[stepName].url = step.constructor.getUrl();
             });
@@ -28,7 +27,7 @@ class CopiesSummary extends Step {
     generateFields (ctx, errors, formdata) {
         const fields = {};
         Object.keys(this.steps).filter(stepName => copiesSteps.includes(stepName))
-            .forEach(stepName => {
+            .forEach((stepName) => {
                 const step = this.steps[stepName];
                 if (!fields[step.section]) {
                     fields[step.section] = step.generateFields(formdata[step.section], errors, formdata);
@@ -37,6 +36,8 @@ class CopiesSummary extends Step {
         fields[this.section] = super.generateFields(ctx, errors, formdata);
 
         if (ctx) {
+            fields.userLoggedIn = {};
+            fields.userLoggedIn.value = ctx.userLoggedIn ? ctx.userLoggedIn.toString() : 'true';
             fields.featureToggles = {};
             fields.featureToggles.value = ctx.featureToggles;
         }

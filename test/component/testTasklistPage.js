@@ -1,26 +1,29 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const singleApplicantData = require('test/data/singleApplicant');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('task-list', () => {
-    let testWrapper, sessionData;
+    let testWrapper;
+    let singleApplicantData;
+    let sessionData;
 
     beforeEach(() => {
         testWrapper = new TestWrapper('TaskList');
 
+        singleApplicantData = require('test/data/singleApplicant');
         sessionData = require('test/data/complete-form').formdata;
     });
 
     afterEach(() => {
+        delete require.cache[require.resolve('test/data/singleApplicant')];
         delete require.cache[require.resolve('test/data/complete-form')];
         testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
         it('[PROBATE] test right content loaded on the page', (done) => {
-            const excludeKeys = [
+            const contentToExclude = [
                 'applicantsTask',
                 'copiesTaskIntestacy',
                 'introduction',
@@ -35,15 +38,17 @@ describe('task-list', () => {
                 'alreadyDeclared'
             ];
             sessionData.caseType = caseTypes.GOP;
+            sessionData.applicantEmail = 'test@email.com';
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, excludeKeys);
+                    testWrapper.testDataPlayback(done, {}, contentToExclude);
                 });
         });
 
         it('[INTESTACY] test right content loaded on the page', (done) => {
-            const excludeKeys = [
+            const contentToExclude = [
                 'executorsTask',
                 'copiesTaskProbate',
                 'documentTask',
@@ -59,24 +64,31 @@ describe('task-list', () => {
                 'alreadyDeclared'
             ];
             sessionData.caseType = caseTypes.INTESTACY;
+            sessionData.applicantEmail = 'test@email.com';
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, excludeKeys);
+                    testWrapper.testDataPlayback(done, {}, contentToExclude);
                 });
         });
 
         it('[PROBATE] test right content loaded in Review and Confirm section (Multiple Applicants)', (done) => {
             const multipleApplicantSessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
                 caseType: caseTypes.GOP,
                 will: sessionData.will,
                 iht: sessionData.iht,
                 applicant: sessionData.applicant,
                 deceased: sessionData.deceased,
                 executors: sessionData.executors,
-                declaration: sessionData.declaration
+                declaration: sessionData.declaration,
+                applicantEmail: 'test@email.com'
             };
-            const excludeKeys = [
+            const contentToExclude = [
                 'applicantsTask',
                 'copiesTaskIntestacy',
                 'taskNotStarted',
@@ -90,21 +102,26 @@ describe('task-list', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(multipleApplicantSessionData)
                 .end(() => {
-                    testWrapper.testContent(done, excludeKeys);
+                    testWrapper.testDataPlayback(done, {}, contentToExclude);
                 });
         });
 
         it('[PROBATE] test right content loaded in Review and Confirm section (Single Applicant)', (done) => {
             const singleApplicantSessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
                 caseType: caseTypes.GOP,
                 will: sessionData.will,
                 iht: sessionData.iht,
                 applicant: sessionData.applicant,
                 deceased: sessionData.deceased,
                 executors: singleApplicantData.executors,
-                declaration: sessionData.declaration
+                declaration: sessionData.declaration,
+                applicantEmail: 'test@email.com'
             };
-            const excludeKeys = [
+            const contentToExclude = [
                 'applicantsTask',
                 'copiesTaskIntestacy',
                 'reviewAndConfirmTaskMultiplesParagraph1',
@@ -120,12 +137,16 @@ describe('task-list', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(singleApplicantSessionData)
                 .end(() => {
-                    testWrapper.testContent(done, excludeKeys);
+                    testWrapper.testDataPlayback(done, {}, contentToExclude);
                 });
         });
 
         it('[INTESTACY] test right content loaded in Review and Confirm section', (done) => {
             const singleApplicantSessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
                 caseType: caseTypes.INTESTACY,
                 will: sessionData.will,
                 iht: sessionData.iht,
@@ -134,7 +155,7 @@ describe('task-list', () => {
                 executors: singleApplicantData.executors,
                 declaration: sessionData.declaration
             };
-            const excludeKeys = [
+            const contentToExclude = [
                 'executorsTask',
                 'copiesTaskProbate',
                 'documentTask',
@@ -147,12 +168,12 @@ describe('task-list', () => {
                 'checkYourAnswers',
                 'alreadyDeclared'
             ];
-
             singleApplicantSessionData.caseType = caseTypes.INTESTACY;
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(singleApplicantSessionData)
                 .end(() => {
-                    testWrapper.testContent(done, excludeKeys);
+                    testWrapper.testDataPlayback(done, {}, contentToExclude);
                 });
         });
     });

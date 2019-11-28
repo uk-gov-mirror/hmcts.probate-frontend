@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const DocumentUpload = require('app/steps/ui/documentupload');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('deceased-address', () => {
     let testWrapper;
@@ -17,20 +17,31 @@ describe('deceased-address', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('DeceasedAddress');
+        testCommonContent.runTest('DeceasedAddress');
 
         it('test right content loaded on the page', (done) => {
-            const excludeKeys = ['selectAddress'];
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                }
+            };
+            const contentToExclude = ['selectAddress'];
 
-            testWrapper.testContent(done, excludeKeys);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, {}, contentToExclude);
+                });
         });
 
         it('test address schema validation when address search is unsuccessful', (done) => {
             const data = {
                 addressFound: 'false'
             };
+            const errorsToTest = ['addressLine1'];
 
-            testWrapper.testErrors(done, data, 'required', ['addressLine1']);
+            testWrapper.testErrors(done, data, 'required', errorsToTest);
         });
 
         it(`test it redirects to document upload page: ${expectedNextUrlForDocumentUpload}`, (done) => {
@@ -39,6 +50,7 @@ describe('deceased-address', () => {
                 postTown: 'value',
                 newPostCode: 'value'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForDocumentUpload);
         });
     });

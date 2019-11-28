@@ -34,7 +34,7 @@ class Security {
 
             if (securityCookie) {
                 const lostSession = !req.session.expires;
-                const sessionExpired = req.session.expires?req.session.expires <= Date.now():false;
+                const sessionExpired = req.session.expires ? req.session.expires <= Date.now() : false;
                 const idamSession = new IdamSession(config.services.idam.apiUrl, req.sessionID);
                 idamSession
                     .get(securityCookie)
@@ -83,12 +83,13 @@ class Security {
         const state = this._generateState();
         const returnUrl = FormatUrl.createHostname(req);
         this._storeRedirectCookie(req, res, returnUrl, state);
+        const idamConfig = config.services.idam;
 
-        const callbackUrl = FormatUrl.format(returnUrl, config.services.idam.probate_oauth_callback_path);
+        const callbackUrl = FormatUrl.format(returnUrl, idamConfig.probate_oauth_callback_path);
         const redirectUrl = URL.parse(this.loginUrl, true);
         redirectUrl.query.response_type = 'code';
         redirectUrl.query.state = state;
-        redirectUrl.query.client_id = 'probate';
+        redirectUrl.query.client_id = idamConfig.probate_oauth2_client;
         redirectUrl.query.redirect_uri = callbackUrl;
 
         res.redirect(redirectUrl.format());

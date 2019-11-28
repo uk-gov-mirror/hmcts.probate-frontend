@@ -13,6 +13,7 @@ locals {
   //localBusinessServiceUrl = "http://probate-business-service-${var.env}.service.${local.aseName}.internal"
   //businessServiceUrl = "${var.env == "preview" ? "http://probate-business-service-aat.service.core-compute-aat.internal" : local.localClaimStoreUrl}"
   // add other services
+  probate_internal_base_url = "http://probate-frontend-${local.localenv}.service.core-compute-${local.localenv}.internal"
 }
 
 data "azurerm_subnet" "core_infra_redis_subnet" {
@@ -22,7 +23,7 @@ data "azurerm_subnet" "core_infra_redis_subnet" {
 }
 
 module "probate-frontend-redis-cache" {
-  source   = "git@github.com:hmcts/moj-module-redis?ref=master"
+  source   = "git@github.com:hmcts/cnp-module-redis?ref=master"
   product     = "${(var.env == "preview" || var.env == "spreview") ? "${var.product}-${var.microservice}-pr-redis" : "${var.product}-${var.microservice}-redis-cache"}"
   location = "${var.location}"
   env      = "${var.env}"
@@ -105,7 +106,15 @@ data "azurerm_key_vault_secret" "probate_webchat_button_service_closed" {
   vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
 }
 
+data "azurerm_key_vault_secret" "payCaseWorkerUser" {
+  name = "payCaseWorkerUser"
+  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+}
 
+data "azurerm_key_vault_secret" "payCaseWorkerPass" {
+  name = "payCaseWorkerPass"
+  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+}
 
 data "azurerm_key_vault_secret" "idam_secret_probate" {
   name = "ccidam-idam-api-secrets-probate"
@@ -117,7 +126,7 @@ data "azurerm_key_vault_secret" "s2s_key" {
   vault_uri = "https://s2s-${local.localenv}.vault.azure.net/"
 }
 module "probate-frontend" {
-  source = "git@github.com:hmcts/moj-module-webapp.git?ref=master"
+  source = "git@github.com:hmcts/cnp-module-webapp?ref=master"
   product = "${var.product}-${var.microservice}"
   location = "${var.location}"
   env = "${var.env}"
@@ -208,13 +217,16 @@ module "probate-frontend" {
     SITE_ID = "${data.azurerm_key_vault_secret.probate_site_id.value}"
 
     REFORM_ENVIRONMENT = "${var.reform_envirionment_for_test}"
-
+    REQUIRE_CCD_CASE_ID = "${var.require_ccd_case_id}"
     FEATURE_TOGGLES_API_URL = "${var.feature_toggles_api_url}"
-
-    //TESTING = "TESTING"
-       // Cache
+    // Cache
     WEBSITE_LOCAL_CACHE_OPTION = "${var.website_local_cache_option}"
     WEBSITE_LOCAL_CACHE_SIZEINMB = "${var.website_local_cache_sizeinmb}"
+    IDAM_CLIENT_NAME = "probate"
+
+    PROBATE_USER_EMAIL = "${data.azurerm_key_vault_secret.payCaseWorkerUser.value}"
+    PROBATE_USER_PASSWORD = "${data.azurerm_key_vault_secret.payCaseWorkerPass.value}"
+    // testing
+    TESTING = "TESTING"
   }
 }
-

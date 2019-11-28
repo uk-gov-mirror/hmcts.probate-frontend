@@ -17,28 +17,24 @@ describe('thank-you', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test content loaded on the page when CCD Case ID not present', (done) => {
-            const sessionData = {};
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const contentData = {
-                        referenceNumber: content.referenceNumber,
-                        checkSummaryLink: content.checkAnswersPdf,
-                        declarationLink: content.declarationPdf
-                    };
+            const playbackData = {
+                referenceNumber: content.referenceNumber,
+                checkSummaryLink: content.checkAnswersPdf,
+                declarationLink: content.declarationPdf
+            };
 
-                    testWrapper.testContentNotPresent(done, contentData);
-                });
+            testWrapper.testContentNotPresent(done, playbackData);
         });
 
         it('test content loaded on the page when CCD Case ID present', (done) => {
             const sessionData = {
                 ccdCase: {
-                    id: '1234-5678-9012-3456',
+                    id: 1234567890123456,
                     state: 'CaseCreated'
                 }
             };
-            const excludeKeys = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf', 'coverSheetPdf'];
+            const contentToExclude = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf', 'coverSheetPdf'];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -47,19 +43,20 @@ describe('thank-you', () => {
                         findOutNext: config.links.findOutNext
                     };
 
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
         it('test content loaded on the page when CheckAnswers present', (done) => {
             const sessionData = {
                 ccdCase: {
-                    id: '1234-5678-9012-3456',
+                    id: 1234567890123456,
                     state: 'CaseCreated'
                 },
                 checkAnswersSummary: '{test: "data"}'
             };
-            const excludeKeys = ['declarationPdf', 'coverSheetPdf'];
+            const contentToExclude = ['declarationPdf', 'coverSheetPdf'];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -70,38 +67,40 @@ describe('thank-you', () => {
                         checkSummaryLink: content.checkAnswersPdf
                     };
 
-                    testWrapper.testContent(done, excludeKeys, contentData);
-
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
         it('test content not loaded on the page when exclusively CheckAnswers present', (done) => {
             const sessionData = {
                 ccdCase: {
-                    id: '1234-5678-9012-3456',
+                    id: 1234567890123456,
                     state: 'CaseCreated'
                 },
                 checkAnswersSummary: '{test: "data"}'
             };
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const excludedData = {
+                    const playbackData = {
                         declarationLink: content.declarationPdf
                     };
-                    testWrapper.testContentNotPresent(done, excludedData);
+
+                    testWrapper.testContentNotPresent(done, playbackData);
                 });
         });
 
         it('test content loaded on the page when LegalDeclaration present', (done) => {
             const sessionData = {
                 ccdCase: {
-                    id: '1234-5678-9012-3456',
+                    id: 1234567890123456,
                     state: 'CaseCreated'
                 },
                 legalDeclaration: '{test: "data"}'
             };
-            const excludeKeys = ['checkAnswersPdf'];
+            const contentToExclude = ['checkAnswersPdf'];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -112,39 +111,40 @@ describe('thank-you', () => {
                         declarationLink: content.declarationPdf
                     };
 
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
         it('test content loaded on the page when exclusively LegalDeclaration present', (done) => {
             const sessionData = {
                 ccdCase: {
-                    id: '1234-5678-9012-3456',
+                    id: 1234567890123456,
                     state: 'CaseCreated'
                 },
                 legalDeclaration: '{test: "data"}'
             };
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const excludedData = {
+                    const playbackData = {
                         checkSummaryLink: content.checkAnswersPdf
                     };
 
-                    testWrapper.testContentNotPresent(done, excludedData);
+                    testWrapper.testContentNotPresent(done, playbackData);
                 });
         });
 
         it('test content loaded on the page when CheckAnswers and LegalDeclaration present', (done) => {
             const sessionData = {
                 ccdCase: {
-                    id: '1234-5678-9012-3456',
+                    id: 1234567890123456,
                     state: 'CaseCreated'
                 },
                 checkAnswersSummary: '{test: "data"}',
                 legalDeclaration: '{test: "data"}'
             };
-            const excludeKeys = [];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -156,18 +156,19 @@ describe('thank-you', () => {
                         declarationLink: content.declarationPdf
                     };
 
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 
         it('test content loaded on the page so Cover Sheet download is present', (done) => {
             const sessionData = {
                 ccdCase: {
-                    id: '1234-5678-9012-3456',
+                    id: 1234567890123456,
                     state: 'CaseCreated'
                 }
             };
-            const excludeKeys = ['checkAnswersPdf', 'declarationPdf'];
+            const contentToExclude = ['checkAnswersPdf', 'declarationPdf'];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -178,7 +179,7 @@ describe('thank-you', () => {
                         coverSheetLink: content.coverSheetPdf
                     };
 
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
     });

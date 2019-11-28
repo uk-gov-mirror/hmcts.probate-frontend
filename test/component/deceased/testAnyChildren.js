@@ -3,18 +3,9 @@
 const TestWrapper = require('test/util/TestWrapper');
 const AllChildrenOver18 = require('app/steps/ui/deceased/allchildrenover18/index');
 const ApplicantName = require('app/steps/ui/applicant/name/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const content = require('app/resources/en/translation/deceased/anychildren');
-const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
-const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
-const featureTogglesNock = (status = 'true') => {
-    nock(featureToggleUrl)
-        .get(intestacyQuestionsFeatureTogglePath)
-        .reply(200, status);
-};
 
 describe('any-children', () => {
     let testWrapper;
@@ -23,19 +14,21 @@ describe('any-children', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('AnyChildren');
-        featureTogglesNock();
     });
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('AnyChildren', featureTogglesNock);
+        testCommonContent.runTest('AnyChildren');
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
                 deceased: {
                     firstName: 'John',
                     lastName: 'Doe'
@@ -46,12 +39,13 @@ describe('any-children', () => {
                 .send(sessionData)
                 .end(() => {
                     const contentData = {deceasedName: 'John Doe'};
-                    testWrapper.testContent(done, [], contentData);
+
+                    testWrapper.testContent(done, contentData);
                 });
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to All Children Over 18 page if deceased had children: ${expectedNextUrlForAllChildrenOver18}`, (done) => {

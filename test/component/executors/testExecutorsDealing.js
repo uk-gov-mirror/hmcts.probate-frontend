@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsAlias = require('app/steps/ui/executors/alias');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('executors-dealing-with-estate', () => {
     let testWrapper, sessionData;
@@ -11,6 +11,10 @@ describe('executors-dealing-with-estate', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsDealingWithEstate');
         sessionData = {
+            ccdCase: {
+                state: 'Pending',
+                id: 1234567890123456
+            },
             executors: {
                 executorsNumber: 3,
                 list: [
@@ -18,7 +22,8 @@ describe('executors-dealing-with-estate', () => {
                     {fullName: 'Many Clouds', isApplying: true},
                     {fullName: 'Harvey Smith', isApplying: false}
                 ]
-            }
+            },
+            applicant: {}
         };
     });
 
@@ -27,7 +32,7 @@ describe('executors-dealing-with-estate', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('ExecutorsDealingWithEstate');
+        testCommonContent.runTest('ExecutorsDealingWithEstate');
 
         it('test correct content loaded on the page when lead applicant does not have an alias', (done) => {
             testWrapper.agent.post('/prepare-session/form')
@@ -38,7 +43,7 @@ describe('executors-dealing-with-estate', () => {
         });
 
         it('test correct content loaded on the page when lead applicant does have an alias', (done) => {
-            sessionData.executors.list[0].alias = 'Bobby Alias';
+            sessionData.applicant.alias = 'Bobby Alias';
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -48,11 +53,11 @@ describe('executors-dealing-with-estate', () => {
 
         it('test errors message displayed for missing data', (done) => {
             const errorsToTest = ['executorsApplying'];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const data = {};
-                    testWrapper.testErrors(done, data, 'required', errorsToTest);
+                    testWrapper.testErrors(done, {}, 'required', errorsToTest);
                 });
         });
 
@@ -63,6 +68,7 @@ describe('executors-dealing-with-estate', () => {
                     const data = {
                         executorsApplying: ['many clouds']
                     };
+
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl();
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecAlias);
                 });
@@ -70,12 +76,14 @@ describe('executors-dealing-with-estate', () => {
 
         it('test errors message displayed for more than 3 additional applicants', (done) => {
             const errorsToTest = ['executorsApplying'];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const data = {
                         executorsApplying: ['many clouds', 'many clouds', 'many clouds', 'many clouds']
                     };
+
                     testWrapper.testErrors(done, data, 'invalid', errorsToTest);
                 });
         });

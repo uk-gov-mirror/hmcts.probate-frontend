@@ -22,7 +22,12 @@ describe('DeceasedDomicile', () => {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
-                    form: {},
+                    form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Pending'
+                        }
+                    },
                     caseType: 'gop'
                 },
                 body: {
@@ -36,8 +41,10 @@ describe('DeceasedDomicile', () => {
                 sessionID: 'dummy_sessionId',
                 domicile: content.optionYes,
                 caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
+                userLoggedIn: false,
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Pending'
                 }
             });
             done();
@@ -48,7 +55,12 @@ describe('DeceasedDomicile', () => {
         it('should return the correct url when Yes is given', (done) => {
             const req = {
                 session: {
-                    journey: journey
+                    journey: journey,
+                    form: {
+                        screeners: {
+                            deathCertificate: 'Yes'
+                        }
+                    }
                 }
             };
             const ctx = {
@@ -62,7 +74,12 @@ describe('DeceasedDomicile', () => {
         it('should return the correct url when No is given', (done) => {
             const req = {
                 session: {
-                    journey: journey
+                    journey: journey,
+                    form: {
+                        screeners: {
+                            deathCertificate: 'Yes'
+                        }
+                    }
                 }
             };
             const ctx = {

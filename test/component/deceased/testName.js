@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedDob = require('app/steps/ui/deceased/dob');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('deceased-name', () => {
     let testWrapper;
@@ -17,19 +17,25 @@ describe('deceased-name', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('DeceasedName');
+        testCommonContent.runTest('DeceasedName');
 
         it('test right content loaded on the page', (done) => {
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                }
+            };
 
-            testWrapper.testContent(done, []);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done);
+                });
         });
 
         it('test errors message displayed for missing data', (done) => {
-
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required', []);
-
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it('test errors message displayed for invalid firstName', (done) => {
@@ -57,6 +63,5 @@ describe('deceased-name', () => {
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDob);
         });
-
     });
 });

@@ -43,7 +43,7 @@ class Payment extends Service {
         };
         const body = paymentData.createPaymentData(data);
         const fetchOptions = this.fetchOptions(body, 'POST', headers);
-        return [this.fetchJson(url, fetchOptions), body.reference];
+        return this.fetchJson(url, fetchOptions);
     }
 
     identifySuccessfulOrInitiatedPayment(casePayments) {

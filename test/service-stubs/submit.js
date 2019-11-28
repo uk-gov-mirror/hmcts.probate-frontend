@@ -1,15 +1,14 @@
 'use strict';
 
-/* eslint no-console: 0 */
-
 const config = require('app/config');
 const express = require('express');
 const app = express();
 const router = require('express').Router();
 const SUBMIT_SERVICE_PORT = config.services.submit.port;
+const logger = require('app/components/logger');
 
-router.all('*', function (req, res, next) {
-    console.log('Submit Service URL being called: ' + req.url);
+router.all('*', (req, res, next) => {
+    logger().info(`Submit Service URL being called: ${req.url}`);
     next();
 });
 
@@ -40,7 +39,7 @@ router.get('/health', (req, res) => {
     res.send({'status': 'UP'});
 });
 
-router.get('/info', function (req, res) {
+router.get('/info', (req, res) => {
     res.send({
         'git': {
             'commit': {
@@ -53,8 +52,7 @@ router.get('/info', function (req, res) {
 
 app.use(router);
 
-// start the app
-console.log(`Listening on: ${SUBMIT_SERVICE_PORT}`);
+logger().info(`Listening on: ${SUBMIT_SERVICE_PORT}`);
 const server = app.listen(SUBMIT_SERVICE_PORT);
 
 module.exports = server;

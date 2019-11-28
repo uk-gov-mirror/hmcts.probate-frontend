@@ -7,19 +7,10 @@ const AnyOtherChildren = require('app/steps/ui/deceased/anyotherchildren');
 const AdoptionPlace = require('app/steps/ui/applicant/adoptionplace');
 const ApplicantName = require('app/steps/ui/applicant/name');
 const StopPage = require('app/steps/ui/stoppage');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const content = require('app/resources/en/translation/applicant/relationshiptodeceased');
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
-const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
-const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
-const featureTogglesNock = (status = 'true') => {
-    nock(featureToggleUrl)
-        .get(intestacyQuestionsFeatureTogglePath)
-        .reply(200, status);
-};
 
 describe('relationship-to-deceased', () => {
     let testWrapper;
@@ -32,19 +23,21 @@ describe('relationship-to-deceased', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('RelationshipToDeceased');
-        featureTogglesNock();
     });
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('RelationshipToDeceased', featureTogglesNock);
+        testCommonContent.runTest('RelationshipToDeceased');
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
                 deceased: {
                     maritalStatus: contentMaritalStatus.optionMarried
                 }
@@ -53,12 +46,12 @@ describe('relationship-to-deceased', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, [], {});
+                    testWrapper.testContent(done);
                 });
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to Spouse Not Applying Reason page if relationship is Child and deceased was married: ${expectedNextUrlForSpouseNotApplyingReason}`, (done) => {
