@@ -66,6 +66,7 @@ class UIStepRunner {
                 const nextStepUrl = step.nextStepUrl(req, ctx);
                 [ctx, formdata] = step.action(ctx, formdata);
 
+                delete ctx.ccdCase;
                 set(formdata, step.section, ctx);
 
                 if (hasDataChanged) {
