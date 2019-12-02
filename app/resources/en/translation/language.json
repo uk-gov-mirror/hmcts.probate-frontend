@@ -1,5 +1,5 @@
 {
-  "title": "Grant language",
+  "title": "Select the language for the Grant",
   "question": "Do you require a bilingual grant in English and Welsh?",
   "optionYes": "Yes",
   "optionNo": "No",
@@ -7,8 +7,8 @@
   "errors": {
     "bilingual": {
       "required": {
-        "summary": "You need to choose whether you need a bilingual (English/Welsh) grant or not",
-        "message": "Answer &lsquo;yes&rsquo; if you need a bilingual (English/Welsh) grant"
+        "summary": "You need to choose whether you require a bilingual (English/Welsh) grant or an English grant",
+        "message": "Answer &lsquo;yes&rsquo; if you require a bilingual (English/Welsh) grant"
       }
     }
   }
