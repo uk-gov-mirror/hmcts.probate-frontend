@@ -5,7 +5,7 @@ class CcdCase {
         this.ccdCaseData = ccdCaseData || {};
     }
 
-    applicationCompleted() {
+    applicationSubmitted() {
         return this.ccdCaseData.state === 'CaseCreated';
     }
 }

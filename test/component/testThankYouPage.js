@@ -34,6 +34,9 @@ describe('thank-you', () => {
                 },
                 declaration: {
                     declarationCheckbox: 'true'
+                },
+                payment: {
+                    total: 0
                 }
             };
             const contentToExclude = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf', 'coverSheetPdf'];
@@ -58,6 +61,9 @@ describe('thank-you', () => {
                 },
                 declaration: {
                     declarationCheckbox: 'true'
+                },
+                payment: {
+                    total: 0
                 },
                 checkAnswersSummary: '{test: "data"}'
             };
@@ -106,6 +112,9 @@ describe('thank-you', () => {
                 declaration: {
                     declarationCheckbox: 'true'
                 },
+                payment: {
+                    total: 0
+                },
                 legalDeclaration: '{test: "data"}'
             };
             const contentToExclude = ['checkAnswersPdf'];
@@ -153,6 +162,9 @@ describe('thank-you', () => {
                 declaration: {
                     declarationCheckbox: 'true'
                 },
+                payment: {
+                    total: 0
+                },
                 checkAnswersSummary: '{test: "data"}',
                 legalDeclaration: '{test: "data"}'
             };
@@ -180,6 +192,9 @@ describe('thank-you', () => {
                 },
                 declaration: {
                     declarationCheckbox: 'true'
+                },
+                payment: {
+                    total: 0
                 }
             };
             const contentToExclude = ['checkAnswersPdf', 'declarationPdf'];

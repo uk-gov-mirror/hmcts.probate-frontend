@@ -1,5 +1,7 @@
 'use strict';
 
+const isEmpty = require('lodash').isEmpty;
+
 class Payment {
     constructor(payment) {
         this.payment = payment || {};
@@ -15,6 +17,10 @@ class Payment {
 
     paymentTotalIsZero() {
         return this.payment.status === 0;
+    }
+
+    hasPassedPayment() {
+        return !isEmpty(this.payment);
     }
 }
 

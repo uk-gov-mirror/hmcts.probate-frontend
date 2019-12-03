@@ -79,6 +79,7 @@ router.get('/start-apply', (req, res, next) => {
 });
 
 router.use((req, res, next) => {
+    const currentPageCleanUrl = FormatUrl.getCleanPageUrl(req.originalUrl, 1);
     const formdata = req.session.form;
     const isHardStop = (formdata, journey) => config.hardStopParams[journey].some(param => get(formdata, param) === commonContent.no);
 
@@ -86,7 +87,7 @@ router.use((req, res, next) => {
     const applicantHasDeclared = applicantWrapper.applicantHasDeclared();
 
     const ccdCaseWrapper = new CcdCaseWrapper(formdata.ccdCase);
-    const applicationCompleted = ccdCaseWrapper.applicationCompleted();
+    const applicationSubmitted = ccdCaseWrapper.applicationSubmitted();
 
     const documentsWrapper = new DocumentsWrapper(formdata);
     const documentsSent = documentsWrapper.documentsSent();
@@ -97,39 +98,42 @@ router.use((req, res, next) => {
     const hasExecutorsEmailChanged = executorsWrapper.hasExecutorsEmailChanged();
 
     const paymentWrapper = new PaymentWrapper(formdata.payment);
+    const applicantHasPassedPayment = paymentWrapper.hasPassedPayment();
     const paymentIsSuccessful = paymentWrapper.paymentIsSuccessful();
     const paymentIsNotRequired = paymentWrapper.paymentIsNotRequired();
     const paymentTotalIsZero = paymentWrapper.paymentTotalIsZero();
 
     const allPageUrls = [];
     Object.entries(steps).forEach(([, step]) => {
-        const stepUrl = step.constructor.getUrl().split('/')[1];
+        const stepUrl = FormatUrl.getCleanPageUrl(step.constructor.getUrl(), 1);
         if (!allPageUrls.includes(stepUrl)) {
             allPageUrls.push(stepUrl);
         }
     });
 
-    const noCcdCaseIdPages = config.noCcdCaseIdPages.map(item => item.split('/')[0]);
+    const noCcdCaseIdPages = config.noCcdCaseIdPages.map(item => FormatUrl.getCleanPageUrl(item, 0));
 
-    if (config.app.requreCcdCaseId === 'true' && allPageUrls.includes(req.originalUrl.split('/')[1]) && req.method === 'GET' && !noCcdCaseIdPages.includes(req.originalUrl.split('/')[1]) && !get(formdata, 'ccdCase.id')) {
+    if (config.app.requreCcdCaseId === 'true' && allPageUrls.includes(currentPageCleanUrl) && req.method === 'GET' && !noCcdCaseIdPages.includes(currentPageCleanUrl) && !get(formdata, 'ccdCase.id')) {
         res.redirect('/dashboard');
-    } else if (!applicationCompleted && config.whitelistedPagesAfterSubmission.includes(req.originalUrl)) {
+    } else if (!applicationSubmitted && config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl)) {
         res.redirect('/task-list');
-    } else if (applicationCompleted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(req.originalUrl) && !documentsSent) {
+    } else if (!applicantHasPassedPayment && config.whitelistedPagesAfterPayment.includes(currentPageCleanUrl)) {
+        res.redirect('/task-list');
+    } else if (!applicantHasDeclared && config.blacklistedPagesBeforeDeclaration.includes(currentPageCleanUrl)) {
+        res.redirect('/task-list');
+    } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl) && !documentsSent) {
         res.redirect('/documents');
-    } else if (applicationCompleted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(req.originalUrl) && documentsSent) {
+    } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl) && documentsSent) {
         res.redirect('/thank-you');
-    } else if ((paymentTotalIsZero || paymentIsSuccessful) && !config.whitelistedPagesAfterPayment.includes(req.originalUrl)) {
+    } else if (applicantHasPassedPayment && (paymentTotalIsZero || paymentIsSuccessful) && !config.whitelistedPagesAfterPayment.includes(currentPageCleanUrl)) {
         res.redirect('/task-list');
-    } else if (!applicantHasDeclared && config.whitelistedPagesAfterDeclaration.includes(req.originalUrl)) {
+    } else if (applicantHasDeclared && (!hasMultipleApplicants || (invitesSent && req.session.haveAllExecutorsDeclared === 'true')) && !config.whitelistedPagesAfterDeclaration.includes(currentPageCleanUrl)) {
         res.redirect('/task-list');
-    } else if (applicantHasDeclared && (!hasMultipleApplicants || (invitesSent && req.session.haveAllExecutorsDeclared === 'true')) && !config.whitelistedPagesAfterDeclaration.includes(req.originalUrl)) {
+    } else if (applicantHasDeclared && (!hasMultipleApplicants || invitesSent) && currentPageCleanUrl === '/executors-invite') {
         res.redirect('/task-list');
-    } else if (applicantHasDeclared && (!hasMultipleApplicants || invitesSent) && req.originalUrl === '/executors-invite') {
+    } else if (applicantHasDeclared && (!hasMultipleApplicants || !hasExecutorsEmailChanged) && currentPageCleanUrl === '/executors-update-invite') {
         res.redirect('/task-list');
-    } else if (applicantHasDeclared && (!hasMultipleApplicants || !hasExecutorsEmailChanged) && req.originalUrl === '/executors-update-invite') {
-        res.redirect('/task-list');
-    } else if (req.originalUrl.includes('summary') && isHardStop(formdata, caseTypes.getCaseType(req.session))) {
+    } else if (currentPageCleanUrl === '/summary' && isHardStop(formdata, caseTypes.getCaseType(req.session))) {
         res.redirect('/task-list');
     } else {
         next();

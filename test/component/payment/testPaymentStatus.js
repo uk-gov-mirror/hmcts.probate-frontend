@@ -57,7 +57,7 @@ describe('payment-status', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('PaymentStatus', null, null, [], false, {declaration: {declarationCheckbox: 'true'}});
+        testCommonContent.runTest('PaymentStatus', null, null, [], false, {declaration: {declarationCheckbox: 'true'}, payment: {total: 0}});
 
         it('test right content loaded on the page when net value is greater than 5000£', (done) => {
             nock(config.services.orchestrator.url)
@@ -91,6 +91,9 @@ describe('payment-status', () => {
                 },
                 declaration: {
                     declarationCheckbox: 'true'
+                },
+                payment: {
+                    total: 0
                 }
             };
 

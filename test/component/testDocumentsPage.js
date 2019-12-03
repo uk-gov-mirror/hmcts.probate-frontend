@@ -26,6 +26,9 @@ describe('documents', () => {
             },
             declaration: {
                 declarationCheckbox: 'true'
+            },
+            payment: {
+                total: 0
             }
         };
         contentData = {
@@ -39,7 +42,7 @@ describe('documents', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('Documents', null, null, [], false, {ccdCase: {state: 'CaseCreated'}, declaration: {declarationCheckbox: 'true'}});
+        testCommonContent.runTest('Documents', null, null, [], false, {ccdCase: {state: 'CaseCreated'}, declaration: {declarationCheckbox: 'true'}, payment: {total: 0}});
 
         describe('Probate Journey', () => {
             it('test correct content loaded on the page, no codicils, no alias, single executor', (done) => {
