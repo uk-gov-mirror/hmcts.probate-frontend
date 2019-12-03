@@ -41,6 +41,9 @@ for (const step in steps) {
                     declaration: {
                         declarationCheckbox: 'true'
                     },
+                    payment: {
+                        total: 0
+                    },
                     ccdCase: {
                         state: 'CaseCreated'
                     }
