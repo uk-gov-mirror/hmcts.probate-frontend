@@ -25,8 +25,7 @@ class PaymentStatus extends Step {
         const formdata = req.session.form;
         ctx.payment = get(formdata, 'payment');
         ctx.paymentNotRequired = get(ctx.payment, 'total') === 0;
-        ctx.paymentStatus = get(ctx.payment, 'status');
-        ctx.paymentDue = typeof ctx.paymentStatus !== 'undefined' && !ctx.paymentNotRequired;
+        ctx.paymentDue = typeof get(ctx.payment, 'status')!== 'undefined' && !ctx.paymentNotRequired;
         ctx.reference = get(formdata, 'payment.reference');
         ctx.userId = req.userId;
         ctx.authToken = req.authToken;
