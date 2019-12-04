@@ -93,7 +93,8 @@ class PaymentBreakdown extends Step {
                 }
             }
 
-            if (ctx.total > 0 && canCreatePayment) {
+            const paymentDue = ctx.total > 0;
+            if (paymentDue && canCreatePayment) {
                 session.save();
 
                 const serviceAuthResult = yield authorise.post();
@@ -135,6 +136,10 @@ class PaymentBreakdown extends Step {
 
                 this.nextStepUrl = () => paymentResponse._links.next_url.href;
             } else {
+                if (!paymentDue) {
+                    set(formdata, 'payment', {status: 'not_required'});
+                }
+
                 delete this.nextStepUrl;
             }
             return [ctx, errors];
