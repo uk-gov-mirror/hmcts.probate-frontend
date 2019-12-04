@@ -62,7 +62,11 @@ class Declaration extends ValidationStep {
         const formdataDeceased = formdata.deceased || {};
         formdata.deceasedName = FormatName.format(formdataDeceased);
         formdata.deceasedAddress = get(formdataDeceased, 'address', {});
-        formdata.deceasedOtherNames = FormatName.formatMultipleNamesAndAddress(get(formdataDeceased, 'otherNames'), content);
+        formdata.deceasedOtherNames = {
+            en: FormatName.formatMultipleNamesAndAddress(get(formdataDeceased, 'otherNames'), content.en),
+            cy: FormatName.formatMultipleNamesAndAddress(get(formdataDeceased, 'otherNames'), content.cy)
+        };
+
         formdata.dobFormattedDate = formdataDeceased['dob-formattedDate'];
         formdata.dodFormattedDate = formdataDeceased['dod-formattedDate'];
         formdata.maritalStatus = formdataDeceased.maritalStatus;
@@ -85,6 +89,8 @@ class Declaration extends ValidationStep {
         let ctx = super.getContextData(req);
         ctx = this.pruneFormData(req.body, ctx);
         const formdata = req.session.form;
+        ctx.bilingual = (get(formdata, 'language.bilingual', 'optionNo') === 'optionYes').toString();
+        ctx.language = req.session.language;
         const content = this.generateContent(ctx, formdata, req.session.language);
         const formDataForTemplate = this.getFormDataForTemplate(content, formdata);
 
@@ -106,10 +112,16 @@ class Declaration extends ValidationStep {
             const multipleApplicantSuffix = this.multipleApplicantSuffix(ctx.hasMultipleApplicants);
 
             const executorsApplying = ctx.executorsWrapper.executorsApplying();
-            const executorsApplyingText = this.executorsApplying(ctx.hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, formdata.deceasedName, formdata.applicantName);
+            const executorsApplyingText = {
+                en: this.executorsApplying(ctx.hasMultipleApplicants, executorsApplying, content.en, hasCodicils, codicilsNumber, formdata.deceasedName, formdata.applicantName),
+                cy: this.executorsApplying(ctx.hasMultipleApplicants, executorsApplying, content.cy, hasCodicils, codicilsNumber, formdata.deceasedName, formdata.applicantName)
+            };
 
             const executorsNotApplying = ctx.executorsWrapper.executorsNotApplying();
-            const executorsNotApplyingText = this.executorsNotApplying(executorsNotApplying, content, formdata.deceasedName, hasCodicils, req.session.language);
+            const executorsNotApplyingText = {
+                en: this.executorsNotApplying(executorsNotApplying, content.en, formdata.deceasedName, hasCodicils, req.session.language),
+                cy: this.executorsNotApplying(executorsNotApplying, content.cy, formdata.deceasedName, hasCodicils, req.session.language)
+            };
 
             templateData = probateDeclarationFactory.build(ctx, content, formDataForTemplate, multipleApplicantSuffix, executorsApplying, executorsApplyingText, executorsNotApplyingText);
         }
@@ -240,6 +252,8 @@ class Declaration extends ValidationStep {
         delete ctx.invitesSent;
         delete ctx.serviceAuthorization;
         delete ctx.authToken;
+        delete ctx.bilingual;
+        delete ctx.language;
         return [ctx, formdata];
     }
 

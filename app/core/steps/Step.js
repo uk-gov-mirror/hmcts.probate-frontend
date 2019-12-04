@@ -36,7 +36,14 @@ class Step {
         this.section = section;
         this.resourcePath = resourcePath;
         this.templatePath = `ui/${resourcePath}`;
-        this.content = require(`app/resources/${language}/translation/${resourcePath}`);
+        if (resourcePath === 'declaration') {
+            this.content = {
+                en: require(`app/resources/en/translation/${resourcePath}`),
+                cy: require(`app/resources/cy/translation/${resourcePath}`)
+            };
+        } else {
+            this.content = require(`app/resources/${language}/translation/${resourcePath}`);
+        }
         this.i18next = i18next;
     }
 
@@ -92,6 +99,13 @@ class Step {
         }
         const contentCtx = Object.assign({}, formdata, ctx, this.commonProps);
         this.i18next.changeLanguage(language);
+
+        if (this.name === 'Declaration') {
+            mapValues(this.content.en, (value, key) => this.i18next.t(`${this.resourcePath.replace(/\//g, '.')}.${key}`, contentCtx));
+            mapValues(this.content.cy, (value, key) => this.i18next.t(`${this.resourcePath.replace(/\//g, '.')}.${key}`, contentCtx));
+
+            return this.content;
+        }
 
         return mapValues(this.content, (value, key) => this.i18next.t(`${this.resourcePath.replace(/\//g, '.')}.${key}`, contentCtx));
     }
