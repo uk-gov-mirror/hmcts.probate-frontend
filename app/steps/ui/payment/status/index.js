@@ -23,8 +23,10 @@ class PaymentStatus extends Step {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        ctx.paymentStatus = get(formdata, 'payment.status');
-        ctx.paymentDue = typeof ctx.paymentStatus !== 'undefined' && ctx.paymentStatus !== 'not_required';
+        ctx.payment = get(formdata, 'payment');
+        ctx.paymentNotRequired = get(ctx.payment, 'total') === 0;
+        ctx.paymentStatus = get(ctx.payment, 'status');
+        ctx.paymentDue = typeof ctx.paymentStatus !== 'undefined' && !ctx.paymentNotRequired;
         ctx.reference = get(formdata, 'payment.reference');
         ctx.userId = req.userId;
         ctx.authToken = req.authToken;
@@ -41,6 +43,9 @@ class PaymentStatus extends Step {
         delete ctx.regId;
         delete ctx.sessionId;
         delete ctx.errors;
+        delete ctx.paymentNotRequired;
+        delete ctx.paymentDue;
+        delete ctx.payment;
         return [ctx, formdata];
     }
 
@@ -97,10 +102,12 @@ class PaymentStatus extends Step {
                 options.redirect = false;
             }
         } else {
-            const paymentDto = get(formdata, 'payment');
-            const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, paymentDto, serviceAuthResult);
+            if (ctx.paymentNotRequired) {
+                set(ctx.payment, 'status', 'not_required');
+            }
+            const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, ctx.payment, serviceAuthResult);
 
-            if (ctx.paymentStatus === 'not_required') {
+            if (ctx.paymentNotRequired) {
                 set(formdata, 'ccdCase', updateCcdCaseResponse.ccdCase);
                 set(formdata, 'payment', updateCcdCaseResponse.payment);
                 set(formdata, 'registry', updateCcdCaseResponse.registry);
