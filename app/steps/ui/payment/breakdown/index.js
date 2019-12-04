@@ -136,10 +136,6 @@ class PaymentBreakdown extends Step {
 
                 this.nextStepUrl = () => paymentResponse._links.next_url.href;
             } else {
-                if (!paymentDue) {
-                    set(formdata, 'payment', {status: 'not_required'});
-                }
-
                 delete this.nextStepUrl;
             }
             return [ctx, errors];
