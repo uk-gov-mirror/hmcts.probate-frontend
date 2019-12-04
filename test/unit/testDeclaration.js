@@ -228,6 +228,8 @@ describe('Declaration', () => {
                 hasDataChangedAfterEmailSent: true,
                 showNetValueAssetsOutside: true,
                 ihtNetValueAssetsOutside: 300000,
+                bilingual: 'true',
+                language: 'cy',
                 invitesSent: 'true',
             };
             formdata = {};
