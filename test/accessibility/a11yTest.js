@@ -8,8 +8,7 @@ const app = require('app');
 const initSteps = require('app/core/initSteps');
 const {endsWith} = require('lodash');
 const commonContent = {
-    en: require('app/resources/en/translation/common'),
-    cy: require('app/resources/cy/translation/common')
+    en: require('app/resources/en/translation/common')
 };
 const stepsToExclude = [
     'Dashboard', 'Summary', 'TaskList', 'PinPage', 'PinSent', 'PinResend', 'AddressLookup', 'ExecutorAddress', 'ExecutorContactDetails', 'ExecutorName',
@@ -38,9 +37,9 @@ for (const step in steps) {
         let results;
         let sessionData = {};
 
-        if (stepUrl === '/declaration') {
+        if (step.name === 'Declaration') {
             sessionData = Object.assign(commonSessionData, {
-                language: 'cy'
+                language: 'en'
             });
         }
 
@@ -53,7 +52,7 @@ for (const step in steps) {
             } else if (step.name === 'StartApply') {
                 title = `${commonContent.en.serviceName} - Create account`;
             } else if (step.name === 'Declaration') {
-                title = `${step.content.cy.title} - ${commonContent.cy.serviceName}`
+                title = `${step.content.en.title} - ${commonContent.en.serviceName}`
                     .replace(/&lsquo;/g, '‘')
                     .replace(/&rsquo;/g, '’')
                     .replace(/\(/g, '\\(')
