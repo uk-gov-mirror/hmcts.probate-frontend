@@ -3,7 +3,7 @@
 const probateDeclarationFactory = require('app/utils/ProbateDeclarationFactory');
 const intestacyDeclarationFactory = require('app/utils/IntestacyDeclarationFactory');
 const ValidationStep = require('app/core/steps/ValidationStep');
-const {get} = require('lodash');
+const {mapValues, get} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
@@ -20,6 +20,14 @@ const FieldError = require('app/components/error');
 class Declaration extends ValidationStep {
     static getUrl() {
         return '/declaration';
+    }
+
+    constructor(steps, section = null, resourcePath, i18next, schema, language = 'en') {
+        super(steps, section, resourcePath, i18next, schema, language);
+        this.content = {
+            en: require(`app/resources/en/translation/${resourcePath}`),
+            cy: require(`app/resources/cy/translation/${resourcePath}`)
+        };
     }
 
     pruneFormData(body, ctx) {
@@ -82,6 +90,15 @@ class Declaration extends ValidationStep {
         formdata.ihtTotalNetValue += formdataIht.netValueAssetsOutside ? formdataIht.netValueAssetsOutside : 0;
 
         return formdata;
+    }
+
+    generateContent(ctx, formdata) {
+        const contentCtx = Object.assign({}, formdata, ctx, this.commonProps);
+
+        mapValues(this.content.en, (value, key) => this.i18next.t(`${this.resourcePath.replace(/\//g, '.')}.${key}`, contentCtx));
+        mapValues(this.content.cy, (value, key) => this.i18next.t(`${this.resourcePath.replace(/\//g, '.')}.${key}`, contentCtx));
+
+        return this.content;
     }
 
     getContextData(req) {
