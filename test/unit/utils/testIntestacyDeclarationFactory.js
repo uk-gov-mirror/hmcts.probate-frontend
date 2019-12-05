@@ -3,10 +3,13 @@
 const applicant2NameFactory = require('app/utils/Applicant2NameFactory');
 const FormatName = require('app/utils/FormatName');
 const {get} = require('lodash');
-const content = require('app/resources/en/translation/declaration');
 const expect = require('chai').expect;
 const intestacyDeclarationFactory = require('app/utils/IntestacyDeclarationFactory');
 const formdata = require('test/data/complete-form');
+const content = {
+    en: require('app/resources/en/translation/declaration'),
+    cy: require('app/resources/cy/translation/declaration')
+};
 
 describe('IntestacyDeclarationFactory', () => {
     let ctx;
@@ -40,44 +43,48 @@ describe('IntestacyDeclarationFactory', () => {
 
             expect(templateData).to.deep.equal({
                 legalStatement: {
-                    applicant: content.legalStatementApplicant
-                        .replace('{applicantName}', formdata.applicantName)
-                        .replace('{applicantAddress}', formdata.applicantAddress.formattedAddress),
-                    applicant2: applicant2NameFactory.getApplicant2Name(formdata, content),
-                    applying: content.intestacyLettersOfAdministration
-                        .replace('{deceasedName}', formdata.deceasedName),
-                    deceased: content.intestacyLegalStatementDeceased
-                        .replace('{deceasedName}', formdata.deceasedName)
-                        .replace('{deceasedAddress}', formdata.deceasedAddress.formattedAddress)
-                        .replace('{deceasedDob}', formdata.dobFormattedDate)
-                        .replace('{deceasedDod}', formdata.dodFormattedDate),
-                    deceasedChildren: content.intestacyDeceasedChildren,
-                    deceasedEstateLand: content.intestacyDeceasedEstateLand
-                        .replace(/{deceasedName}/g, formdata.deceasedName),
-                    deceasedEstateValue: content.deceasedEstateValue
-                        .replace('{ihtGrossValue}', formdata.ihtGrossValue)
-                        .replace('{ihtNetValue}', formdata.ihtNetValue),
-                    deceasedEstateAssetsOverseas: content.intestacyDeceasedEstateOutside
-                        .replace('{ihtNetValueAssetsOutside}', formdata.ihtNetValueAssetsOutside),
-                    deceasedMaritalStatus: content.intestacyDeceasedMaritalStatus
-                        .replace('{deceasedMaritalStatus}', get(formdata.deceased, 'maritalStatus', '').toLowerCase()),
-                    deceasedOtherNames: formdata.deceasedOtherNames ? content.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames) : '',
-                    intro: content.intro
+                    en: {
+                        applicant: content.en.legalStatementApplicant
+                            .replace('{applicantName}', formdata.applicantName)
+                            .replace('{applicantAddress}', formdata.applicantAddress.formattedAddress),
+                        applicant2: applicant2NameFactory.getApplicant2Name(formdata, content.en),
+                        applying: content.en.intestacyLettersOfAdministration
+                            .replace('{deceasedName}', formdata.deceasedName),
+                        deceased: content.en.intestacyLegalStatementDeceased
+                            .replace('{deceasedName}', formdata.deceasedName)
+                            .replace('{deceasedAddress}', formdata.deceasedAddress.formattedAddress)
+                            .replace('{deceasedDob}', formdata.dobFormattedDate)
+                            .replace('{deceasedDod}', formdata.dodFormattedDate),
+                        deceasedChildren: content.en.intestacyDeceasedChildren,
+                        deceasedEstateLand: content.en.intestacyDeceasedEstateLand
+                            .replace(/{deceasedName}/g, formdata.deceasedName),
+                        deceasedEstateValue: content.en.deceasedEstateValue
+                            .replace('{ihtGrossValue}', formdata.ihtGrossValue)
+                            .replace('{ihtNetValue}', formdata.ihtNetValue),
+                        deceasedEstateAssetsOverseas: content.en.intestacyDeceasedEstateOutside
+                            .replace('{ihtNetValueAssetsOutside}', formdata.ihtNetValueAssetsOutside),
+                        deceasedMaritalStatus: content.en.intestacyDeceasedMaritalStatus
+                            .replace('{deceasedMaritalStatus}', get(formdata.deceased, 'maritalStatus', '').toLowerCase()),
+                        deceasedOtherNames: formdata.deceasedOtherNames ? content.en.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames) : '',
+                        intro: content.en.intro
+                    }
                 },
                 declaration: {
-                    accept: content.declarationCheckbox,
-                    confirm: content.declarationConfirm
-                        .replace('{deceasedName}', formdata.deceasedName),
-                    confirmItem1: content.declarationConfirmItem1,
-                    confirmItem2: content.declarationConfirmItem2,
-                    confirmItem3: content['declarationConfirmItem3-intestacy'],
-                    requests: content.declarationRequests,
-                    requestsItem1: content['declarationRequestsItem1-intestacy'],
-                    requestsItem2: content['declarationRequestsItem2-intestacy'],
-                    submitWarning: content.submitWarning,
-                    understand: content.declarationUnderstand,
-                    understandItem1: content['declarationUnderstandItem1-intestacy'],
-                    understandItem2: content.declarationUnderstandItem2,
+                    en: {
+                        accept: content.en.declarationCheckbox,
+                        confirm: content.en.declarationConfirm
+                            .replace('{deceasedName}', formdata.deceasedName),
+                        confirmItem1: content.en.declarationConfirmItem1,
+                        confirmItem2: content.en.declarationConfirmItem2,
+                        confirmItem3: content.en['declarationConfirmItem3-intestacy'],
+                        requests: content.en.declarationRequests,
+                        requestsItem1: content.en['declarationRequestsItem1-intestacy'],
+                        requestsItem2: content.en['declarationRequestsItem2-intestacy'],
+                        submitWarning: content.en.submitWarning,
+                        understand: content.en.declarationUnderstand,
+                        understandItem1: content.en['declarationUnderstandItem1-intestacy'],
+                        understandItem2: content.en.declarationUnderstandItem2,
+                    }
                 }
             });
             done();

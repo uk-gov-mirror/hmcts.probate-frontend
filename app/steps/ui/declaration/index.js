@@ -112,7 +112,7 @@ class Declaration extends ValidationStep {
         const formDataForTemplate = this.getFormDataForTemplate(content, formdata);
 
         if (ctx.caseType === caseTypes.INTESTACY && formdata.iht) {
-            ctx.showNetValueAssetsOutside = (formdata.iht.assetsOutside === 'optionYes' && (formdata.iht.netValue + formdata.iht.netValueAssetsOutside) > config.assetsValueThreshold);
+            ctx.showNetValueAssetsOutside = ((formdata.iht.assetsOutside === 'optionYes' && (formdata.iht.netValue + formdata.iht.netValueAssetsOutside) > config.assetsValueThreshold)).toString();
             if (ctx.showNetValueAssetsOutside) {
                 ctx.ihtNetValueAssetsOutside = formDataForTemplate.ihtNetValueAssetsOutside;
             }

@@ -34,7 +34,7 @@ class IntestacyDeclarationFactory {
                 .replace('{deceasedName}', formdata.deceasedName)
         };
 
-        legalStatement.applicant2 = applicant2NameFactory.getApplicant2Name(formdata, content);
+        legalStatement.en.applicant2 = applicant2NameFactory.getApplicant2Name(formdata, content.en);
 
         declaration.en = {
             confirm: content.en.declarationConfirm
@@ -78,7 +78,7 @@ class IntestacyDeclarationFactory {
                     .replace('{deceasedName}', formdata.deceasedName)
             };
 
-            legalStatement.applicant2 = applicant2NameFactory.getApplicant2Name(formdata, content);
+            legalStatement.cy.applicant2 = applicant2NameFactory.getApplicant2Name(formdata, content.cy);
 
             declaration.cy = {
                 confirm: content.cy.declarationConfirm
