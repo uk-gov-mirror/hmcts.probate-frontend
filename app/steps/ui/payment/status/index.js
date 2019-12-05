@@ -23,10 +23,13 @@ class PaymentStatus extends Step {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
+
         ctx.payment = get(formdata, 'payment');
         ctx.paymentNotRequired = get(ctx.payment, 'total') === 0;
-        ctx.paymentDue = typeof get(ctx.payment, 'status')!== 'undefined' && !ctx.paymentNotRequired;
         ctx.reference = get(formdata, 'payment.reference');
+        ctx.paymentBreakdownSkipped = typeof ctx.reference === 'undefined';
+        ctx.paymentDue = !ctx.paymentBreakdownSkipped && !ctx.paymentNotRequired;
+
         ctx.userId = req.userId;
         ctx.authToken = req.authToken;
         ctx.regId = req.session.regId;
@@ -45,6 +48,7 @@ class PaymentStatus extends Step {
         delete ctx.paymentNotRequired;
         delete ctx.paymentDue;
         delete ctx.payment;
+        delete ctx.paymentBreakdownSkipped;
         return [ctx, formdata];
     }
 
