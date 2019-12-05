@@ -7,6 +7,8 @@
 {% from "./includes/lists.html" import lists %}
 {% from "./includes/download.html" import download %}
 
+{% set title = content[fields.language.value].title %}
+
 {% block form_content %}
     {% if fields.bilingual.value === "true" %}
         <h1 class="govuk-heading-l">{{ content.cy.title }}</h1>

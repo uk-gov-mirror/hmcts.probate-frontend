@@ -7,7 +7,10 @@ const expect = require('chai').expect;
 const app = require('app');
 const initSteps = require('app/core/initSteps');
 const {endsWith} = require('lodash');
-const commonContent = require('app/resources/en/translation/common');
+const commonContent = {
+    en: require('app/resources/en/translation/common'),
+    cy: require('app/resources/cy/translation/common')
+};
 const stepsToExclude = [
     'Dashboard', 'Summary', 'TaskList', 'PinPage', 'PinSent', 'PinResend', 'AddressLookup', 'ExecutorAddress', 'ExecutorContactDetails', 'ExecutorName',
     'ExecutorNotified', 'ExecutorNameAsOnWill', 'ExecutorApplying', 'DeleteExecutor', 'PaymentStatus', 'AddAlias', 'RemoveAlias', 'ExecutorRoles', 'ExecutorsWhenDied'
@@ -15,6 +18,15 @@ const stepsToExclude = [
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`], 'en');
 const nock = require('nock');
 const config = require('app/config');
+const commonSessionData = {
+    form: {
+        payloadVersion: config.payloadVersion,
+        applicantEmail: 'test@email.com',
+        applicant: {},
+        deceased: {}
+    },
+    back: []
+};
 
 Object.keys(steps)
     .filter(stepName => stepsToExclude.includes(stepName))
@@ -22,18 +34,32 @@ Object.keys(steps)
 
 for (const step in steps) {
     ((step) => {
+        const stepUrl = step.constructor.getUrl();
         let results;
+        let sessionData = {};
+
+        if (stepUrl === '/declaration') {
+            sessionData = Object.assign(commonSessionData, {
+                language: 'cy'
+            });
+        }
 
         describe(`Verify accessibility for the page ${step.name}`, () => {
             let server = null;
             let agent = null;
             let title;
             if (step.name === 'StartEligibility') {
-                title = `${commonContent.serviceName} - Eligibility`;
+                title = `${commonContent.en.serviceName} - Eligibility`;
             } else if (step.name === 'StartApply') {
-                title = `${commonContent.serviceName} - Create account`;
+                title = `${commonContent.en.serviceName} - Create account`;
+            } else if (step.name === 'Declaration') {
+                title = `${step.content.cy.title} - ${commonContent.cy.serviceName}`
+                    .replace(/&lsquo;/g, '‘')
+                    .replace(/&rsquo;/g, '’')
+                    .replace(/\(/g, '\\(')
+                    .replace(/\)/g, '\\)');
             } else {
-                title = `${step.content.title} - ${commonContent.serviceName}`
+                title = `${step.content.title} - ${commonContent.en.serviceName}`
                     .replace(/&lsquo;/g, '‘')
                     .replace(/&rsquo;/g, '’')
                     .replace(/\(/g, '\\(')
@@ -49,14 +75,14 @@ for (const step in steps) {
                     .get(`${config.featureToggles.path}/probate-fees-api`)
                     .reply(200, 'true');
 
-                server = app.init();
+                server = app.init(true, sessionData);
                 agent = request.agent(server.app);
                 co(function* () {
                     let urlSuffix = '';
                     if (endsWith(agent.get(step.constructor.getUrl()), '*')) {
                         urlSuffix = '/0';
                     }
-                    results = yield a11y(agent.get(step.constructor.getUrl()).url + urlSuffix, title);
+                    results = yield a11y(agent.get(stepUrl).url + urlSuffix, title);
                 })
                     .then(done, done)
                     .catch((error) => {
