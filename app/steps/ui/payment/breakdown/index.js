@@ -92,9 +92,7 @@ class PaymentBreakdown extends Step {
                     return [ctx, errors];
                 }
             }
-
-            const paymentDue = ctx.total > 0;
-            if (paymentDue && canCreatePayment) {
+            if (ctx.total > 0 && canCreatePayment) {
                 session.save();
 
                 const serviceAuthResult = yield authorise.post();
