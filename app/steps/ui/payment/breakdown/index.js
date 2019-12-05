@@ -92,6 +92,7 @@ class PaymentBreakdown extends Step {
                     return [ctx, errors];
                 }
             }
+
             if (ctx.total > 0 && canCreatePayment) {
                 session.save();
 
