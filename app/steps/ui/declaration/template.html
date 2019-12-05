@@ -14,7 +14,7 @@
         <h1 class="govuk-heading-l">{{ content.cy.title }}</h1>
         <p class="govuk-body word-break">{{ fields.legalStatement.value.cy.intro | safe }}</p>
         {% ifAsync fields.caseType.value === globals.caseTypes.gop %}
-            <div class="declaration-wrapper word-break margin-bottom100">
+            <div class="declaration-wrapper word-break declaration-language language-cy margin-bottom100">
                 <div class="inset-page declaration-grid-item">
                     <div class="declaration-header">
                         <div class="govuk-heading-m declaration-header-item">{{ content.cy.highCourtHeader }}</div>
@@ -52,7 +52,7 @@
         {% endif %}
 
         {% ifAsync fields.caseType.value === globals.caseTypes.intestacy %}
-            <div class="declaration-wrapper word-break margin-bottom100">
+            <div class="declaration-wrapper word-break declaration-language language-cy margin-bottom100">
                 <div class="inset-page declaration-grid-item">
                     <div class="declaration-header">
                         <div class="govuk-heading-m declaration-header-item">{{ content.cy.highCourtHeader }}</div>
@@ -83,7 +83,7 @@
     <h1 class="govuk-heading-l">{{ content.en.title }}</h1>
     <p class="govuk-body word-break">{{ fields.legalStatement.value.en.intro | safe }}</p>
     {% ifAsync fields.caseType.value === globals.caseTypes.gop %}
-        <div class="declaration-wrapper word-break">
+        <div class="declaration-wrapper word-break declaration-language language-en">
             <div class="inset-page declaration-grid-item">
                 <div class="declaration-header">
                     <div class="govuk-heading-m declaration-header-item">{{ content.en.highCourtHeader }}</div>
@@ -121,7 +121,7 @@
     {% endif %}
 
     {% ifAsync fields.caseType.value === globals.caseTypes.intestacy %}
-        <div class="declaration-wrapper word-break">
+        <div class="declaration-wrapper word-break declaration-language language-en">
             <div class="inset-page declaration-grid-item">
                 <div class="declaration-header">
                     <div class="govuk-heading-m declaration-header-item">{{ content.en.highCourtHeader }}</div>
