@@ -1,5 +1,6 @@
 'use strict';
 
+const forEach = require('lodash').forEach;
 const cheerio = require('cheerio');
 const FormatName = require('app/utils/FormatName');
 
@@ -7,15 +8,17 @@ class LegalDocumentJSONObjectBuilder {
 
     build(formdata, html) {
         const $ = cheerio.load(html);
-        const legalDeclaration = {};
+        const legalDeclaration = {
+            declarations: []
+        };
         const languages = $('.declaration-language');
 
-        for (const langElement of Object.entries(languages)) {
+        forEach(languages, langElement => {
             const $langElement = $(langElement);
             const language = $langElement.hasClass('language-cy') ? 'cy' : 'en';
             const pageSections = $(`.language-${language} .declaration-header-item, .language-${language} .declaration-subheader, .language-${language} .declaration-item, .language-${language} .govuk-list--bullet`);
 
-            legalDeclaration[language] = {
+            const declaration = {
                 headers: [],
                 sections: []
             };
@@ -23,17 +26,19 @@ class LegalDocumentJSONObjectBuilder {
             for (const sectElement of Object.entries(pageSections)) {
                 const $sectElement = $(sectElement);
                 if ($sectElement.hasClass('declaration-header-item')) {
-                    legalDeclaration[language].headers.push($sectElement.text());
+                    declaration.headers.push($sectElement.text());
                 } else if ($sectElement.hasClass('declaration-subheader')) {
                     const section = buildSection($sectElement);
-                    legalDeclaration[language].sections.push(section);
+                    declaration.sections.push(section);
                 } else if ($sectElement.hasClass('declaration-item')) {
-                    buildDeclarationItem($sectElement, legalDeclaration[language]);
+                    buildDeclarationItem($sectElement, declaration);
                 } else if ($sectElement.hasClass('govuk-list--bullet')) {
-                    buildDeclarationItemValues($sectElement, legalDeclaration[language]);
+                    buildDeclarationItemValues($sectElement, declaration);
                 }
             }
-        }
+
+            legalDeclaration.declarations.push(declaration);
+        });
 
         legalDeclaration.dateCreated = new Date().toLocaleString();
         legalDeclaration.deceased = FormatName.format(formdata.deceased);
