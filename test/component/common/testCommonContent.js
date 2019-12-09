@@ -29,10 +29,6 @@ class TestCommonContent {
                     beforeEachParam();
                 }
 
-                // console.log('--------------------------------------------------------------------------');
-                // console.log(localSessionData);
-                // console.log('--------------------------------------------------------------------------');
-
                 const playbackData = {
                     helpTitle: commonContent.helpTitle,
                     helpHeading1: commonContent.helpHeading1,
