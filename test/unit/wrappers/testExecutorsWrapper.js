@@ -815,4 +815,5 @@ describe('Executors.js', () => {
             expect(executorsWrapper.invitesSent()).to.equal(false);
             done();
         });
-    });});
+    });
+});
