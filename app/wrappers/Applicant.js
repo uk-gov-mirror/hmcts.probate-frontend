@@ -1,12 +1,14 @@
 'use strict';
 
+const isEmpty = require('lodash').isEmpty;
+
 class Applicant {
     constructor(formdata) {
         this.formdata = formdata || {};
     }
 
     applicantHasDeclared() {
-        return this.formdata.declaration && this.formdata.declaration.declarationCheckbox === 'true';
+        return !isEmpty(this.formdata.declaration) && this.formdata.declaration.declarationCheckbox === 'true';
     }
 }
 

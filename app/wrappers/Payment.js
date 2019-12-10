@@ -16,7 +16,7 @@ class Payment {
     }
 
     paymentTotalIsZero() {
-        return this.payment.status === 0;
+        return this.payment.total === 0;
     }
 
     hasPassedPayment() {

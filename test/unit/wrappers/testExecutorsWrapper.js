@@ -800,4 +800,19 @@ describe('Executors.js', () => {
             });
         });
     });
-});
+
+    describe('invitesSent()', () => {
+        it('should return true if the coapplicant invites have been sent', (done) => {
+            const data = {invitesSent: true};
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.invitesSent()).to.equal(true);
+            done();
+        });
+
+        it('should return false if the coapplicant invites have not been sent', (done) => {
+            const data = {};
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.invitesSent()).to.equal(false);
+            done();
+        });
+    });});
