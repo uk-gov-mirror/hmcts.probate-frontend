@@ -36,22 +36,6 @@ describe('Payment.js', () => {
         });
     });
 
-    describe('paymentTotalIsZero()', () => {
-        it('should return true if the payment total is zero', (done) => {
-            const data = {total: 0};
-            const paymentWrapper = new PaymentWrapper(data);
-            expect(paymentWrapper.paymentTotalIsZero()).to.equal(true);
-            done();
-        });
-
-        it('should return false if the payment total is not zero', (done) => {
-            const data = {total: 215};
-            const paymentWrapper = new PaymentWrapper(data);
-            expect(paymentWrapper.paymentTotalIsZero()).to.equal(false);
-            done();
-        });
-    });
-
     describe('hasPassedPayment()', () => {
         it('should return true if the user has passed the payment stage', (done) => {
             const data = {total: 215};

@@ -101,7 +101,6 @@ router.use((req, res, next) => {
     const applicantHasPassedPayment = paymentWrapper.hasPassedPayment();
     const paymentIsSuccessful = paymentWrapper.paymentIsSuccessful();
     const paymentIsNotRequired = paymentWrapper.paymentIsNotRequired();
-    const paymentTotalIsZero = paymentWrapper.paymentTotalIsZero();
 
     const allPageUrls = [];
     Object.entries(steps).forEach(([, step]) => {
@@ -125,8 +124,6 @@ router.use((req, res, next) => {
         res.redirect('/documents');
     } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl) && documentsSent) {
         res.redirect('/thank-you');
-    } else if (applicantHasPassedPayment && (paymentTotalIsZero || paymentIsSuccessful) && !config.whitelistedPagesAfterPayment.includes(currentPageCleanUrl)) {
-        res.redirect('/task-list');
     } else if (applicantHasDeclared && (!hasMultipleApplicants || (invitesSent && req.session.haveAllExecutorsDeclared === 'true')) && !config.whitelistedPagesAfterDeclaration.includes(currentPageCleanUrl)) {
         res.redirect('/task-list');
     } else if (applicantHasDeclared && (!hasMultipleApplicants || invitesSent) && currentPageCleanUrl === '/executors-invite') {

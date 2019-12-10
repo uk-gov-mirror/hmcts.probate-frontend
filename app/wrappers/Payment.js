@@ -15,10 +15,6 @@ class Payment {
         return this.payment.status === 'not_required';
     }
 
-    paymentTotalIsZero() {
-        return this.payment.total === 0;
-    }
-
     hasPassedPayment() {
         return !isEmpty(this.payment);
     }
