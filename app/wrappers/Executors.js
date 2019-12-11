@@ -1,8 +1,9 @@
 'use strict';
 
 class Executors {
-    constructor(executorsData) {
+    constructor(executorsData, haveAllExecutorsDeclared) {
         this.executorsData = executorsData || {};
+        this.allExecutorsHaveDeclared = haveAllExecutorsDeclared || 'false';
         this.executorsList = this.executorsData.list || [];
     }
 
@@ -137,6 +138,10 @@ class Executors {
 
     invitesSent() {
         return this.executorsData.invitesSent || false;
+    }
+
+    haveAllExecutorsDeclared() {
+        return this.allExecutorsHaveDeclared === 'true';
     }
 }
 

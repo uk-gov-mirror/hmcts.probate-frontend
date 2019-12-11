@@ -816,4 +816,20 @@ describe('Executors.js', () => {
             done();
         });
     });
+
+    describe('haveAllExecutorsDeclared()', () => {
+        it('should return true if the all executors have declared', (done) => {
+            const data = 'true';
+            const executorsWrapper = new ExecutorsWrapper({}, data);
+            expect(executorsWrapper.haveAllExecutorsDeclared()).to.equal(true);
+            done();
+        });
+
+        it('should return false if not all executors have declared', (done) => {
+            const data = 'false';
+            const executorsWrapper = new ExecutorsWrapper({}, data);
+            expect(executorsWrapper.haveAllExecutorsDeclared()).to.equal(false);
+            done();
+        });
+    });
 });
