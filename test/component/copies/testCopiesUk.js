@@ -112,9 +112,12 @@ describe('copies-uk', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForAssetsOverseas}`, (done) => {
             const data = {uk: '0'};
-            const sessionData = require('test/data/copiesUk');
+            const sessionData = {
+                haveAllExecutorsDeclared: 'true',
+                form: require('test/data/copiesUk')
+            };
 
-            testWrapper.agent.post('/prepare-session/form')
+            testWrapper.agent.post('/prepare-session-field')
                 .send(sessionData)
                 .end(() => {
                     delete require.cache[require.resolve('test/data/copiesUk')];
@@ -125,9 +128,12 @@ describe('copies-uk', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForAssetsOverseas}`, (done) => {
             const data = {uk: '1'};
-            const sessionData = require('test/data/copiesUk');
+            const sessionData = {
+                haveAllExecutorsDeclared: 'true',
+                form: require('test/data/copiesUk')
+            };
 
-            testWrapper.agent.post('/prepare-session/form')
+            testWrapper.agent.post('/prepare-session-field')
                 .send(sessionData)
                 .end(() => {
                     delete require.cache[require.resolve('test/data/copiesUk')];

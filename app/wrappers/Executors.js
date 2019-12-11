@@ -137,7 +137,7 @@ class Executors {
     }
 
     invitesSent() {
-        return this.executorsData.invitesSent || false;
+        return this.executorsData.invitesSent === 'true';
     }
 
     haveAllExecutorsDeclared() {
