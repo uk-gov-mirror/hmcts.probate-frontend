@@ -1,7 +1,7 @@
 {% from "widgets/lists.html" import unorderedList %}
 
 {% macro lists(content, declaration) %}
-    <h2 class="govuk-heading-l declaration-subheader">{{ content.declarationHeader }}</h2>
+    <h2 class="govuk-heading-l declaration-subheader">{{ content.declarationHeader | safe }}</h2>
     <p class="govuk-body declaration-item">{{ declaration.confirm | safe }}</p>
 
     {{ unorderedList([
