@@ -9,7 +9,7 @@
         name: "method",
         fieldset: {
             legend: {
-                text: content.question,
+                text: content.question | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
@@ -17,16 +17,16 @@
         hint: {
             text: content.paragraph1 | safe
         },
-        errorMessage: { text: fields.method.errorMessage.message } if fields.method.errorMessage,
+        errorMessage: { text: fields.method.errorMessage.message | safe } if fields.method.errorMessage,
         items: [
             {
                 value: "optionPaper",
-                text: content["optionPaper"],
+                text: content["optionPaper"] | safe,
                 checked: true if fields.method.value == "optionPaper"
             },
             {
                 value: "optionOnline",
-                text: content["optionOnline"],
+                text: content["optionOnline"] | safe,
                 checked: true if fields.method.value == "optionOnline"
             }
         ]

@@ -9,12 +9,12 @@
         name: "executorsWhoDied",
         fieldset: {
             legend: {
-                text: content.question,
+                text: content.question | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.executorsWhoDied.errorMessage.message } if fields.executorsWhoDied.errorMessage,
+        errorMessage: { text: fields.executorsWhoDied.errorMessage.message | safe } if fields.executorsWhoDied.errorMessage,
         items: fields.options.value
     }) }}
 

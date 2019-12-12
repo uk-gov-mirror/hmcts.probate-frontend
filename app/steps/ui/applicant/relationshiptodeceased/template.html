@@ -7,23 +7,23 @@
 {% if fields.deceasedMaritalStatus.value == "optionMarried" %}
     {% set answers = (answers.push({
         value: "optionSpousePartner",
-        text: content["optionSpousePartner"],
+        text: content["optionSpousePartner"] | safe,
         checked: true if fields.relationshipToDeceased.value == "optionSpousePartner"
     }), answers) %}
 {% endif %}
 {% set answers = (answers.push({
     value: "optionChild",
-    text: content["optionChild"],
+    text: content["optionChild"] | safe,
     checked: true if fields.relationshipToDeceased.value == "optionChild"
 }), answers) %}
 {% set answers = (answers.push({
     value: "optionAdoptedChild",
-    text: content["optionAdoptedChild"],
+    text: content["optionAdoptedChild"] | safe,
     checked: true if fields.relationshipToDeceased.value == "optionAdoptedChild"
 }), answers) %}
 {% set answers = (answers.push({
     value: "optionOther",
-    text: content["optionOther"],
+    text: content["optionOther"] | safe,
     checked: true if fields.relationshipToDeceased.value == "optionOther"
 }), answers) %}
 
@@ -39,7 +39,7 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.relationshipToDeceased.errorMessage.message } if fields.relationshipToDeceased.errorMessage,
+        errorMessage: { text: fields.relationshipToDeceased.errorMessage.message | safe } if fields.relationshipToDeceased.errorMessage,
         items: answers
     }) }}
 

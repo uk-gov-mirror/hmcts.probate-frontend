@@ -22,13 +22,13 @@
         namePrefix: "dob",
         fieldset: {
             legend: {
-                text: content.question,
+                text: content.question | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
         },
         hint: {
-            text: content.questionHint
+            text: content.questionHint | safe
         },
         errorMessage: inlineErrors,
         items: [

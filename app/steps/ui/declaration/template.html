@@ -6,27 +6,27 @@
 {% from "widgets/lists.html" import unorderedList %}
 
 {% block form_content %}
-    <h1 class="govuk-heading-l">{{ content.title }}</h1>
+    <h1 class="govuk-heading-l">{{ content.title | safe }}</h1>
     <p class="govuk-body word-break">{{ fields.legalStatement.value.intro | safe }}</p>
 
     {% ifAsync fields.caseType.value === globals.caseTypes.gop %}
         <div class="declaration-wrapper word-break">
             <div class="inset-page declaration-grid-item">
                 <div class="declaration-header">
-                    <div class="govuk-heading-m declaration-header-item">{{ content.highCourtHeader }}</div>
-                    <div class="govuk-heading-s declaration-header-item">{{ content.familyDivisionHeader }}</div>
-                    <div class="govuk-heading-s declaration-header-item">{{ content.probateHeader }}</div>
+                    <div class="govuk-heading-m declaration-header-item">{{ content.highCourtHeader | safe }}</div>
+                    <div class="govuk-heading-s declaration-header-item">{{ content.familyDivisionHeader | safe }}</div>
+                    <div class="govuk-heading-s declaration-header-item">{{ content.probateHeader | safe }}</div>
                 </div>
 
-                <h2 class="govuk-heading-m declaration-subheader">{{ content.legalStatementHeader }}</h2>
+                <h2 class="govuk-heading-m declaration-subheader">{{ content.legalStatementHeader | safe }}</h2>
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.applicant | safe }}</p>
 
-                <h3 class="govuk-heading-s declaration-subheader">{{ content.deceasedHeader }}</h3>
-                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.deceased | safe }} {{ fields.legalStatement.value.deceasedOtherNames }}</p>
+                <h3 class="govuk-heading-s declaration-subheader">{{ content.deceasedHeader | safe }}</h3>
+                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.deceased | safe }} {{ fields.legalStatement.value.deceasedOtherNames | safe }}</p>
 
                 {% include "ui/declaration/includes/estate.njk" %}
 
-                <h3 class="govuk-heading-s declaration-subheader">{{ content.executorApplyingHeader }}</h3>
+                <h3 class="govuk-heading-s declaration-subheader">{{ content.executorApplyingHeader | safe }}</h3>
                 {% for executor in fields.legalStatement.value.executorsApplying %}
                     <p class="govuk-body declaration-item">{{ executor.name | safe }}</p>
                     {% if executor.sign !== "" %}
@@ -35,7 +35,7 @@
                 {% endfor %}
 
                 {% if fields.legalStatement.value.executorsNotApplying.length > 0 %}
-                    <h3 class="govuk-heading-s declaration-subheader">{{ content.executorNotApplyingHeader }}</h3>
+                    <h3 class="govuk-heading-s declaration-subheader">{{ content.executorNotApplyingHeader | safe }}</h3>
                     {% for executor in fields.legalStatement.value.executorsNotApplying %}
                         <p class="govuk-body declaration-item">{{ executor | safe }}</p>
                     {% endfor %}
@@ -50,18 +50,18 @@
         <div class="declaration-wrapper word-break">
             <div class="inset-page declaration-grid-item">
                 <div class="declaration-header">
-                    <div class="govuk-heading-m declaration-header-item">{{ content.highCourtHeader }}</div>
-                    <div class="govuk-heading-s declaration-header-item">{{ content.familyDivisionHeader }}</div>
-                    <div class="govuk-heading-s declaration-header-item">{{ content.intestacyHeader }}</div>
+                    <div class="govuk-heading-m declaration-header-item">{{ content.highCourtHeader | safe }}</div>
+                    <div class="govuk-heading-s declaration-header-item">{{ content.familyDivisionHeader | safe }}</div>
+                    <div class="govuk-heading-s declaration-header-item">{{ content.intestacyHeader | safe }}</div>
                 </div>
 
-                <h2 class="govuk-heading-m declaration-subheader">{{ content.legalStatementHeader }}</h2>
+                <h2 class="govuk-heading-m declaration-subheader">{{ content.legalStatementHeader | safe }}</h2>
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.applicant | safe }}</p>
 
-                <h3 class="govuk-heading-s declaration-subheader">{{ content.deceasedHeader }}</h3>
-                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.deceased | safe }} {{ fields.legalStatement.value.deceasedOtherNames }}</p>
-                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.deceasedMaritalStatus }}</p>
-                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.deceasedChildren }}</p>
+                <h3 class="govuk-heading-s declaration-subheader">{{ content.deceasedHeader | safe }}</h3>
+                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.deceased | safe }} {{ fields.legalStatement.value.deceasedOtherNames | safe }}</p>
+                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.deceasedMaritalStatus | safe }}</p>
+                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.deceasedChildren | safe }}</p>
 
                 {% include "ui/declaration/includes/estate.njk" %}
 
@@ -79,22 +79,22 @@
         name: "declarationCheckbox",
         fieldset: {
             legend: {
-                text: content.title,
+                text: content.title | safe,
                 classes: "govuk-visually-hidden"
             }
         },
-        errorMessage: { text: fields.declarationCheckbox.errorMessage.message } if fields.declarationCheckbox.errorMessage,
+        errorMessage: { text: fields.declarationCheckbox.errorMessage.message | safe } if fields.declarationCheckbox.errorMessage,
         items: [
             {
                 value: true,
-                text: fields.declaration.value.accept
+                text: fields.declaration.value.accept | safe
             }
         ]
     }) }}
 
     {{ govukWarningText({
         text: fields.declaration.value.submitWarning | safe,
-        iconFallbackText: "Warning"
+        iconFallbackText: "Warning" | safe
     }) }}
 
     <div class="govuk-form-group">

@@ -9,7 +9,7 @@
 {% block page_content %}
     {% call govukFieldset({
         legend: {
-            text: content.header,
+            text: content.header | safe,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
@@ -21,7 +21,7 @@
         }) }}
 
         {{ govukDetails({
-            summaryText: content.stepsTitle,
+            summaryText: content.stepsTitle | safe,
             text: orderedList([
                 content["steps-item1"],
                 content["steps-item2"],
@@ -44,7 +44,7 @@
 {% block form_content %}
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.continue,
+            text: common.continue | safe,
             preventDoubleClick: true
         }) }}
     </div>

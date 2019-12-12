@@ -16,7 +16,7 @@
             }
         },
         hint: {
-            text: content.hint
+            text: content.hint | safe
         },
         errorMessage: { text: fields.spouseNotApplyingReason.errorMessage.message | safe } if fields.spouseNotApplyingReason.errorMessage,
         items: [
@@ -27,7 +27,7 @@
             },
             {
                 value: "optionOther",
-                text: content["optionOther"],
+                text: content["optionOther"] | safe,
                 checked: true if fields.spouseNotApplyingReason.value == "optionOther"
             }
         ]

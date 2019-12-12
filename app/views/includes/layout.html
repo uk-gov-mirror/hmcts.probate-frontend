@@ -29,18 +29,18 @@
             {% if fields.isDashboard.value !== "true" %}
                 {% set navigationItems = (navigationItems.push({
                     href: "/dashboard",
-                    text: common.myApplications
+                    text: common.myApplications | safe
                 }), navigationItems) %}
             {% endif %}
 
             {% set navigationItems = (navigationItems.push({
                 href: "/sign-out",
-                text: common.signOut
+                text: common.signOut | safe
             }), navigationItems) %}
         {% else %}
             {% set navigationItems = (navigationItems.push({
                 href: "/dashboard",
-                text: common.signIn
+                text: common.signIn | safe
             }), navigationItems) %}
         {% endif %}
     {% endif %}
@@ -67,7 +67,7 @@
                             {% if item.href and item.text %}
                                 <li class="govuk-header__navigation-item{{ " govuk-header__navigation-item--active" if item.active }}">
                                     <a class="govuk-header__link" href="{{ item.href }}"{% for attribute, value in item.attributes %} {{attribute}}="{{value}}"{% endfor %}>
-                                        {{ item.text }}
+                                        {{ item.text | safe }}
                                     </a>
                                 </li>
                             {% endif %}
@@ -82,7 +82,7 @@
 {% block beforeContent %}
     {{ govukPhaseBanner({
         tag: {
-            text: common.phase
+            text: common.phase | safe
         },
         html: common.feedback | replace("{smartSurveyFeedbackUrl}", globals.links.survey) | replace("{currentPageUrl}", pageUrl) | safe
     }) }}

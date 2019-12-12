@@ -15,31 +15,31 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.maritalStatus.errorMessage.message } if fields.maritalStatus.errorMessage,
+        errorMessage: { text: fields.maritalStatus.errorMessage.message | safe } if fields.maritalStatus.errorMessage,
         items: [
             {
                 value: "optionMarried",
-                text: content["optionMarried"],
+                text: content["optionMarried"] | safe,
                 checked: true if fields.maritalStatus.value == "optionMarried"
             },
             {
                 value: "optionDivorced",
-                text: content["optionDivorced"],
+                text: content["optionDivorced"] | safe,
                 checked: true if fields.maritalStatus.value == "optionDivorced"
             },
             {
                 value: "optionWidowed",
-                text: content["optionWidowed"],
+                text: content["optionWidowed"] | safe,
                 checked: true if fields.maritalStatus.value == "optionWidowed"
             },
             {
                 value: "optionNotMarried",
-                text: content["optionNotMarried"],
+                text: content["optionNotMarried"] | safe,
                 checked: true if fields.maritalStatus.value == "optionNotMarried"
             },
             {
                 value: "optionSeparated",
-                text: content["optionSeparated"],
+                text: content["optionSeparated"] | safe,
                 checked: true if fields.maritalStatus.value == "optionSeparated"
             }
         ]

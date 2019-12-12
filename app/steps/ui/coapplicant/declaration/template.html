@@ -10,37 +10,37 @@
 {% set hideNavigation = true %}
 
 {% block form_content %}
-    <h1 class="govuk-heading-l">{{ content.pageHeader }}</h1>
+    <h1 class="govuk-heading-l">{{ content.pageHeader | safe }}</h1>
     <p class="govuk-body">{{ content.legalStatementIntro | replace("{mainApplicantName}", fields.applicant.value.firstName + " " +  fields.applicant.value.lastName) | safe }}</p>
     <div class="inset-page">
-        <div class="govuk-heading-m declaration-header">{{ content.highCourtHeader }}</div>
-        <div class="govuk-heading-s declaration-header">{{ content.familyDivisionHeader }}</div>
-        <div class="govuk-heading-s declaration-header">{{ content.probateHeader }}</div>
+        <div class="govuk-heading-m declaration-header">{{ content.highCourtHeader | safe }}</div>
+        <div class="govuk-heading-s declaration-header">{{ content.familyDivisionHeader | safe }}</div>
+        <div class="govuk-heading-s declaration-header">{{ content.probateHeader | safe }}</div>
 
         <h2 class="govuk-heading-m">{{ content.legalStatementHeader | safe }}</h2>
         <p class="govuk-body">{{ fields.legalStatement.value.applicant | safe }}</p>
 
-        <h3 class="govuk-heading-s">{{ content.deceasedHeader }}</h3>
-        <p class="govuk-body">{{ fields.legalStatement.value.deceased | safe }} {{ fields.legalStatement.value.deceasedOtherNames }}</p>
+        <h3 class="govuk-heading-s">{{ content.deceasedHeader | safe }}</h3>
+        <p class="govuk-body">{{ fields.legalStatement.value.deceased | safe }} {{ fields.legalStatement.value.deceasedOtherNames | safe }}</p>
 
-        <h3 class="govuk-heading-s">{{ content.deceasedEstateHeader }}</h3>
+        <h3 class="govuk-heading-s">{{ content.deceasedEstateHeader | safe }}</h3>
         <p class="govuk-body">{{ fields.legalStatement.value.deceasedEstateValue | safe }}</p>
         <p class="govuk-body">{{ fields.legalStatement.value.deceasedEstateLand | safe }}</p>
 
-        <h3 class="govuk-heading-s">{{ content.executorApplyingHeader }}</h3>
+        <h3 class="govuk-heading-s">{{ content.executorApplyingHeader | safe }}</h3>
         {% for executor in fields.legalStatement.value.executorsApplying %}
             <p class="govuk-body">{{ executor.name | safe }}</p>
             <p class="govuk-body">{{ executor.sign | safe }}</p>
         {% endfor %}
 
         {% if fields.legalStatement.value.executorsNotApplying.length > 0 %}
-            <h3 class="govuk-heading-s">{{ content.executorNotApplyingHeader }}</h3>
+            <h3 class="govuk-heading-s">{{ content.executorNotApplyingHeader | safe }}</h3>
             {% for executor in fields.legalStatement.value.executorsNotApplying %}
                 <p class="govuk-body">{{ executor | safe }}</p>
             {% endfor %}
         {% endif %}
 
-        <h2 class="govuk-heading-l">{{ content.declarationHeader }}</h2>
+        <h2 class="govuk-heading-l">{{ content.declarationHeader | safe }}</h2>
         <p class="govuk-body">{{ fields.declaration.value.confirm | safe }}</p>
 
         {{ unorderedList([
@@ -83,7 +83,7 @@
         name: "agreement",
         fieldset: {
             legend: {
-                text: content.agreementHeader,
+                text: content.agreementHeader | safe,
                 classes: "govuk-fieldset__legend--m"
             }
         },
@@ -91,12 +91,12 @@
         items: [
             {
                 value: "optionYes",
-                text: content["optionYes"],
+                text: content["optionYes"] | safe,
                 checked: true if fields.agreement.value == "optionYes"
             },
             {
                 value: "optionNo",
-                text: content["optionNo"],
+                text: content["optionNo"] | safe,
                 checked: true if fields.agreement.value == "optionNo"
             }
         ]
@@ -112,7 +112,7 @@
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: content.submit,
+            text: content.submit | safe,
             preventDoubleClick: true,
             attributes: {
                 id: "acceptAndSend"
