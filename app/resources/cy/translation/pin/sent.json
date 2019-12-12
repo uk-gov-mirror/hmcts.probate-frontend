@@ -1,11 +1,11 @@
 {
-  "title": "SMS Verification Code Sent",
-  "banner": "A new security code has been sent to ",
-  "accessNotification": "You&rsquo;ll be able to access the service with the new code as soon as you receive it.",
-  "header1": "If you still haven&rsquo;t received the code",
-  "paragraph": "If you haven&rsquo;t got the code yet, make sure that:",
-  "listItem1": "your mobile has a signal",
-  "listItem2": "the mobile phone number we have is correct",
-  "listItem3": "you wait up to an hour to receive it - during busy periods, texts can be delayed",
-  "button": "Sign in"
+  "title": "Anfonwyd y Cod Dilysu SMS",
+  "banner": "Mae cod diogelwch newydd wedi&rsquo;i anfon i",
+  "accessNotification": "Byddwch yn gallu defnyddio&rsquo;r gwasanaeth ar &ocirc;l ichi gael y cod newydd.",
+  "header1": "Os ydych dal heb gael y cod",
+  "paragraph": "Os nad ydych eisoes wedi cael y cod newydd, gwnewch yn si&wcirc;r:",
+  "listItem1": "fod gan eich ffon symudol signal",
+  "listItem2": "fod y rhif sydd gennym ar gyfer eich ff&ocirc;n symudol yn gywir",
+  "listItem3": "eich bod wedi aros am hyd at awr - gall negeseuon testun gymryd yn hirach i gyrraedd yn ystod cyfnodau prysur",
+  "button": "Mewngofnodi"
 }

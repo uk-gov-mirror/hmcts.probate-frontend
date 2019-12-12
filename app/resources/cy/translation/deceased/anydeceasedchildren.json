@@ -1,15 +1,15 @@
 {
-  "title": "Any deceased children",
-  "question": "Did any of {deceasedName}&rsquo;s children die before {deceasedDoD}?",
-  "optionYes": "Yes",
-  "optionNo": "No",
-  "theDeceased": "the deceased",
+  "title": "Unrhyw blant sydd wedi marw",
+  "question": "A wnaeth unrhyw un o blant {deceasedName} farw cyn {deceasedDoD}?",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
+  "theDeceased": "yr unigolyn sydd wedi marw",
 
   "errors": {
     "anyDeceasedChildren": {
       "required": {
-        "summary": "You must say whether the person who died had children who died before them",
-        "message": "Answer &lsquo;yes&rsquo; if the person who died had children who died before them"
+        "summary": "Mae&rsquo;n rhaid ichi ddweud p&rsquo;un a oedd gan yr unigolyn sydd wedi marw blant a wnaeth farw o&rsquo;u blaen",
+        "message": "Atebwch &lsquo;do&rsquo; os oedd gan yr unigolyn sydd wedi marw blant a wnaeth farw o&rsquo;u blaen"
       }
     }
   }

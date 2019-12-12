@@ -1,15 +1,15 @@
 {
-  "title": "Do you have the original will",
-  "question": "Do you have the original will?",
-  "optionYes": "Yes",
-  "optionNo": "No",
-  "paragraph1": "You need the original, not a photocopy.",
+  "title": "A oes gennych chi&rsquo;r ewyllys wreiddiol",
+  "question": "A oes gennych chi&rsquo;r ewyllys wreiddiol?",
+  "optionYes": "Oes",
+  "optionNo": "Nag oes",
+  "paragraph1": "Rydych angen y gwreiddiol, nid llungopi.",
 
   "errors": {
     "original": {
       "required": {
-        "summary": "You haven&rsquo;t answered the question about whether you have the original will",
-        "message": "Answer &lsquo;yes&rsquo; if you have the original will"
+        "summary": "Nid ydych wedi ateb y cwestiwn am a oes gennych chi&rsquo;r ewyllys wreiddiol",
+        "message": "Atebwch &lsquo;oes&rsquo; os oes gennych chi&rsquo;r ewyllys wreiddiol"
       }
     }
   }

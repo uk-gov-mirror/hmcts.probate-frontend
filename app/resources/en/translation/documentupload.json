@@ -13,6 +13,7 @@
   "cantUploadDocumentsTitle": "If you are not able to upload your file or photo",
   "cantUploadDocumentsText": "Continue with your application. When you&rsquo;re finished you&rsquo;ll be given a reference number and details of where to send the original document by post.",
   "deathCertificate": "Death Certificate",
+
   "errors": {
     "file": {
       "invalidFileType": {

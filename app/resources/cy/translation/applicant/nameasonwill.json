@@ -1,16 +1,16 @@
 {
-  "title": "Applicant name on the will",
-  "question": "Is your name &lsquo;{applicantName}&rsquo; exactly what appears on the will?",
-  "questionWithoutName": "Is your name exactly what appears on the will?",
-  "questionWithCodicil": "Is your name &lsquo;{applicantName}&rsquo; exactly what appears on the will or codicil?",
-  "optionYes": "Yes",
-  "optionNo": "No",
+  "title": "Enw&rsquo;r ceisydd ar yr ewyllys",
+  "question": "A yw eich enw &lsquo;{applicantName}&rsquo; union beth sy&rsquo;n ymddangos ar yr ewyllys?",
+  "questionWithoutName": "A yw eich enw union beth sy&rsquo;n ymddangos ar yr ewyllys?",
+  "questionWithCodicil": "A yw eich enw &lsquo;{applicantName}&rsquo; union beth sy&rsquo;n ymddangos ar yr ewyllys neu&rsquo;r codisil?",
+  "optionYes": "Ydi",
+  "optionNo": "Nac ydi",
 
   "errors": {
     "nameAsOnTheWill": {
       "required": {
-        "summary": "Answer the question about your name matching the will or codicil",
-        "message": "Answer &lsquo;yes&rsquo; if your name is exactly the same on the will or codicil"
+        "summary": "Atebwch y cwestiwn am eich enw union beth sy&rsquo;n ymddangos ar yr ewyllys neu&rsquo;r codisil",
+        "message": "Atebwch &lsquo;ydi&rsquo; os yw eich enw union beth sy&rsquo;n ymddangos ar yr ewyllys neu&rsquo;r codisil"
       }
     }
   }

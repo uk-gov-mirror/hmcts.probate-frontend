@@ -1,14 +1,14 @@
 {
-  "title": "Where the {legalProcess} took place",
-  "question": "Did the {legalProcess} take place in England or Wales?",
-  "optionYes": "Yes",
-  "optionNo": "No",
+  "title": "Lle ddigwyddodd {legalProcess}",
+  "question": "A ddigwyddodd {legalProcess} yng Nghymru neu Lloegr?",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
 
   "errors": {
     "divorcePlace": {
       "required": {
-        "summary": "You haven&rsquo;t answered the question about where the {legalProcess} took place",
-        "message": "Answer &lsquo;yes&rsquo; if the {legalProcess} took place in England or Wales"
+        "summary": "Nid ydych wedi ateb y cwestiwn ynghylch ymhle ddigwyddodd {legalProcess}",
+        "message": "Atebwch &lsquo;do&rsquo; os digwyddodd {legalProcess} yng Nghymru neu Lloegr"
       }
     }
   }

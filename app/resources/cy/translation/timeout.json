@@ -1,6 +1,6 @@
 {
-  "title": " You&rsquo;ve been signed out to protect your information",
-  "header": " You&rsquo;ve been signed out to protect your information",
-  "paragraph1": "As you weren&rsquo;t active for 60 minutes we&rsquo;ve saved your application and signed you out.",
-  "paragraph2": "You&rsquo;ll need to <a href=\"/\" class=\"govuk-link\">sign back in</a> to complete your application."
+  "title": "Rydych wedi cael eich allgofnodi i amddiffyn eich gwybodaeth",
+  "header": "Rydych wedi cael eich allgofnodi i amddiffyn eich gwybodaeth",
+  "paragraph1": "Gan na wnaethoch ddefnyddio&rsquo;r gwasanaeth am 60 munud, rydym wedi arbed eich cais a&rsquo;ch allgofnodi.",
+  "paragraph2": "Bydd angen ichi <a href=\"/\" class=\"govuk-link\">fewngofnodi eto</a> i gwblhau eich cais."
 }

@@ -1,15 +1,15 @@
 {
-  "title": "Has an Inheritance Tax (IHT) form been filled in",
-  "hintText": "This could be an Inheritance Tax estate report or a paper Inheritance Tax form.",
-  "question": "Has an Inheritance Tax (IHT) form been filled in?",
-  "optionYes": "Yes",
-  "optionNo": "No",
+  "title": "A oes ffurflen Treth Etifeddiant (IHT) wedi cael ei llenwi",
+  "hintText": "Gallai hyn fod yn adroddiad ystad Treth Etifeddiant neu ffurflen bapur Treth Etifeddiant.",
+  "question": "A oes ffurflen Treth Etifeddiant (IHT) wedi cael ei llenwi?",
+  "optionYes": "Oes",
+  "optionNo": "Nag oes",
 
   "errors": {
     "completed": {
       "required": {
-        "summary": "You haven&rsquo;t answered the question about filling in the Inheritance Tax form",
-        "message": "Answer &lsquo;yes&rsquo; if an Inheritance Tax form has been completed"
+        "summary": "Nid ydych wedi ateb y cwestiwn am lenwi&rsquo;r ffurflen Treth Etifeddiant",
+        "message": "Atebwch &lsquo;oes&rsquo; os oes ffurflen treth etifeddiant wedi cael ei llenwi"
       }
     }
   }
