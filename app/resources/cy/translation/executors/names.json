@@ -1,22 +1,21 @@
 {
-  "title": "Executors&rsquo; names",
-  "question": "What are the executors&rsquo; names?",
-  "paragraph": "Write the names of all the executors, exactly as they appear on the will.",
-  "executor": "Executor",
-  "fullName": "Full name",
-  "numberOfExecutorsPage": "Change number of executors",
+  "title": "Enwau&rsquo;r ysgutorion",
+  "question": "Beth yw enwau&rsquo;r ysgutorion?",
+  "paragraph": "Nodwch enwau&rsquo;r holl ysgutorion, yn union fel y maent yn ymddangos yn yr ewyllys.",
+  "executor": "Ysgutor",
+  "fullName": "Enw Llawn",
+  "numberOfExecutorsPage": "Newid y nifer o ysgutorion",
 
   "errors": {
     "executorName": {
       "required": {
-        "summary": "You haven&rsquo;t entered an executor&rsquo;s name",
-        "message": "Please enter the executor&rsquo;s name"
+        "summary": "Nid ydych wedi nodi enw&rsquo;r ysgutor",
+        "message": "Nodwch enw&rsquo;r ysgutor"
       },
       "invalid": {
-        "summary": "The names you enter can only contain letters a to z, spaces, hyphens and apostrophes",
-        "message": "The names you enter can only contain letters a to z, spaces, hyphens and apostrophes"
+        "summary": "Gall yr enwau rydych yn ei nodi ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau",
+        "message": "Gall yr enwau rydych yn ei nodi ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau"
       }
     }
   }
 }
-

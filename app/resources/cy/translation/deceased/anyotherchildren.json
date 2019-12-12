@@ -1,15 +1,15 @@
 {
-  "title": "Did the deceased have any other children",
-  "question": "Did {deceasedName} have any other children?",
-  "optionYes": "Yes",
-  "optionNo": "No",
-  "theDeceased": "the deceased",
+  "title": "A oedd gan yr unigolyn sydd wedi marw blant eraill",
+  "question": "A oedd gan {deceasedName} blant eraill?",
+  "optionYes": "Oedd",
+  "optionNo": "Nag oedd",
+  "theDeceased": "yr unigolyn sydd wedi marw",
 
   "errors": {
     "anyOtherChildren": {
       "required": {
-        "summary": "You haven&rsquo;t answered the question about whether the person who died had any other children",
-        "message": "Answer &lsquo;yes&rsquo; if the person who died had any other children"
+        "summary": "Nid ydych wedi ateb y cwestiwn ynghylch p&rsquo;un a oedd gan yr unigolyn sydd wedi marw blant eraill",
+        "message": "Atebwch &lsquo;oedd&rsquo; os oedd gan yr unigolyn sydd wedi marw blant eraill"
       }
     }
   }

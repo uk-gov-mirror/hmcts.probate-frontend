@@ -1,15 +1,15 @@
 {
-  "title": "Did the person who died have assets outside the UK",
-  "question": "Did {deceasedName} have assets outside the UK?",
-  "hint": "This could be shares or property outside the UK. If so, you may need a copy of the grant of probate for use outside the UK.",
-  "optionYes": "Yes",
-  "optionNo": "No",
+  "title": "A oedd gan yr unigolyn sydd wedi marw asedau y tu allan i&rsquo;r DU",
+  "question": "A oedd gan {deceasedName} asedau y tu allan i&rsquo;r DU?",
+  "hint": "Gallai hyn fod yn gyfranddaliadau neu&rsquo;n eiddo y tu allan i&rsquo;r DU. Os felly, efallai y byddwch angen copi o&rsquo;r grant profiant i&rsquo;w ddefnyddio y tu allan i&rsquo;r DU.",
+  "optionYes": "Oedd",
+  "optionNo": "Nag oedd",
 
   "errors": {
     "assetsoverseas": {
       "required": {
-        "summary": "You haven&rsquo;t answered the question about assets being held outside the UK",
-        "message": "Answer &lsquo;yes&rsquo; if the person who died had assets outside the UK"
+        "summary": "Nid ydych wedi ateb y cwestiwn am asedau y tu allan i&rsquo;r DU",
+        "message": "Atebwch &lsquo;oedd&rsquo; os oedd gan yr unigolyn sydd wedi marw asedau y tu allan i&rsquo;r DU"
       }
     }
   }

@@ -1,20 +1,21 @@
 {
-    "title": "Pay and submit - status",
-    "question": "Thank you",
-    "paragraph1": "We&rsquo;ve received your payment and your application.",
-    "paragraph2": "We&rsquo;ve received your application.",
-    "paragraph3": "You don&rsquo;t need to pay as the net value of the estate is less than &pound;5,000.",
-    "callout": "Before your application can be processed, you need to send your documents by post.",
-    "errors": {
-        "update": {
-            "failure": {
-                "summary": "We could not submit your application. Your data has been saved, please try again later.",
-                "message": ""
-            }
-        },
-        "validation": {
-            "summary": "There has been a problem saving your application.",
-            "message": ""
-        }
+  "title": "Talu a chyflwyno - statws",
+  "question": "Diolch yn fawr",
+  "paragraph1": "Rydym wedi cael eich taliad a&rsquo;ch cais.",
+  "paragraph2": "Rydym wedi cael eich cais.",
+  "paragraph3": "Nid oes angen ichi dalu gan fod gwerth net yr ystad yn llai na &pound;5,000.",
+  "callout": "Cyn y gellir prosesu eich cais, mae angen ichi anfon eich dogfennau drwy&rsquo;r post.",
+
+  "errors": {
+    "update": {
+      "failure": {
+        "summary": "Nid oedd modd inni gyflwyno eich cais. Mae eich data wedi cael ei arbed, rhowch gynnig arall arni yn nes ymlaen.",
+        "message": ""
+      }
+    },
+    "validation": {
+      "summary": "Roedd problem wrth geisio arbed eich cais.",
+      "message": ""
     }
+  }
 }

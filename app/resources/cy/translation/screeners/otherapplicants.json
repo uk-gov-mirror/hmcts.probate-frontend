@@ -1,15 +1,15 @@
 {
-  "title": "Are you planning to make a joint application",
-  "question": "Are you planning to make a joint application?",
-  "hintText": "You may want to apply with someone in your family, for example your sister or brother.",
-  "optionYes": "Yes",
-  "optionNo": "No",
+  "title": "A ydych chi&rsquo;n bwriadu gwneud cais ar y cyd",
+  "question": "A ydych chi&rsquo;n bwriadu gwneud cais ar y cyd?",
+  "hintText": "Efallai yr hoffech wneud cais gydag aelod o&rsquo;ch teulu, er enghraifft eich chwaer neu frawd.",
+  "optionYes": "Ydw",
+  "optionNo": "Nac ydw",
 
   "errors": {
     "otherApplicants": {
       "required": {
-        "summary": "You haven&rsquo;t answered the question about applying with someone else",
-        "message": "Answer &lsquo;yes&rsquo; if you want to apply with someone else"
+        "summary": "Nid ydych wedi ateb y cwestiwn am wneud cais gyda rhywun arall",
+        "message": "Atebwch &lsquo;ydw&rsquo; os ydych eisiau gwneud cais gyda rhywun arall"
       }
     }
   }

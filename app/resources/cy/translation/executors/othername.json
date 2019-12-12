@@ -1,13 +1,13 @@
 {
-  "title": "Which executors have different names",
-  "question": "Which executors have different names?",
+  "title": "Pa ysgutorion sydd ag enwau gwahanol",
+  "question": "Pa ysgutorion sydd ag enwau gwahanol?",
 
   "errors": {
     "executorsWithOtherNames": {
       "required": {
-          "summary": "Select the executors who have different names",
-          "message": "Select the executors who have different names"
-        }
+        "summary": "Dewiswch yr ysgutorion sydd ag enwau gwahanol",
+        "message": "Dewiswch yr ysgutorion sydd ag enwau gwahanol"
+      }
     }
   }
 }

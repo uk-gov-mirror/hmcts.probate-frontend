@@ -1,16 +1,16 @@
 {
-  "title": "Did the deceased have any children",
-  "question": "Did {deceasedName} have any children?",
-  "hint": "This includes adopted children but not stepchildren.",
-  "optionYes": "Yes",
-  "optionNo": "No",
-  "theDeceased": "the deceased",
+  "title": "A oedd gan yr unigolyn sydd wedi marw blant",
+  "question": "A oedd gan {deceasedName} blant?",
+  "hint": "Mae hyn yn cynnwys plant sydd wedi cael eu mabwysiadu ond nid llysblant.",
+  "optionYes": "Oedd",
+  "optionNo": "Nag oedd",
+  "theDeceased": "yr unigolyn sydd wedi marw",
 
   "errors": {
     "anyChildren": {
       "required": {
-        "summary": "You haven&rsquo;t answered the question about whether the person who died had any children",
-        "message": "Answer &lsquo;yes&rsquo; if the person who died had any children"
+        "summary": "Nid ydych wedi ateb y cwestiwn ynghylch p&rsquo;un a oedd gan yr unigolyn sydd wedi marw blant",
+        "message": "Atebwch &lsquo;oedd&rsquo; os oedd gan yr unigolyn sydd wedi marw blant"
       }
     }
   }

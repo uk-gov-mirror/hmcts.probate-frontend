@@ -1,18 +1,18 @@
 {
-  "title": "Current name",
-  "question": "What is {executorFullName}&rsquo;s current name?",
-  "currentNameHint": "Their current names will be included on the grant of probate",
-  "currentName": "Current name",
+  "title": "Enw cyfredol",
+  "question": "Beth yw enw cyfredol {executorFullName}?",
+  "currentNameHint": "Bydd eu henwau cyfredol yn cael eu cynnwys ar y grant profiant",
+  "currentName": "Enw cyfredol",
 
   "errors": {
     "currentName": {
       "required": {
-        "summary": "Enter the executor&rsquo;s current name",
-        "message": "Enter the executor&rsquo;s current name"
+        "summary": "Nodwch enw cyfredol yr ysgutor",
+        "message": "Nodwch enw cyfredol yr ysgutor"
       },
       "invalid": {
-        "summary": "The name can only contain letters a to z, spaces, hyphens and apostrophes",
-        "message": "The name can only contain letters a to z, spaces, hyphens and apostrophes"
+        "summary": "Gall yr enw ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau",
+        "message": "Gall yr enw ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau"
       }
     }
   }

@@ -1,29 +1,29 @@
 {
-  "title": "Enw ymadawedig",
-  "question": "Beth yw enw llawn y person a fu farw?",
-  "explanation1": "Defnyddiwch yr enw ar y dystysgrif marwolaeth.",
+  "title": "Enw&rsquo;r unigolyn sydd wedi marw",
+  "question": "Beth yw enw llawn yr unigolyn sydd wedi marw?",
+  "explanation1": "Defnyddiwch yr enw sydd ar y dystysgrif marwolaeth.",
   "firstName": "Enw cyntaf ac unrhyw enwau canol",
-  "lastName": "Enw olaf",
+  "lastName": "Cyfenw",
 
   "errors": {
     "firstName": {
       "required": {
-        "summary": "Nid ydych wedi nodi enw cyntaf y person sydd wedi marw",
-        "message": "Rhowch enw cyntaf y person a fu farw"
+        "summary": "Nid ydych wedi nodi enw cyntaf yr unigolyn sydd wedi marw",
+        "message": "Nodwch enw cyntaf yr unigolyn sydd wedi marw"
       },
       "invalid": {
-        "summary": "Dim ond llythrennau a i z, bylchau, cysylltnodau ac collnodau y gall yr enw cyntaf eu cynnwys",
-        "message": "Dim ond llythrennau a i z, bylchau, cysylltnodau ac collnodau y gall yr enw cyntaf eu cynnwys"
+        "summary": "Gall yr enw cyntaf ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau",
+        "message": "Gall yr enw cyntaf ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau"
       }
     },
     "lastName": {
       "required": {
-        "summary": "Nid ydych wedi nodi enw olaf y person sydd wedi marw",
-        "message": "Rhowch enw olaf y person a fu farw"
+        "summary": "Nid ydych wedi nodi cyfenw&rsquo;r unigolyn sydd wedi marw",
+        "message": "Nodwch gyfenw&rsquo;r unigolyn sydd wedi marw"
       },
       "invalid": {
-        "summary": "Dim ond llythrennau a i z, bylchau, cysylltnodau ac collnodau y gall yr enw olaf eu cynnwys",
-        "message": "Dim ond llythrennau a i z, bylchau, cysylltnodau ac collnodau y gall yr enw olaf eu cynnwys"
+        "summary": "Gall y cyfenw ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau",
+        "message": "Gall y cyfenw ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau"
       }
     }
   }

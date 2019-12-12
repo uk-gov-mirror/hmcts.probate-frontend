@@ -1,19 +1,19 @@
 {
-    "title": "Will any of the other executors be dealing with the estate",
-    "question": "Will any of the other executors be dealing with the estate?",
-    "paragraph1": "These executors will be given the legal right to:",
-    "applicant-rights1": "collect the estate&rsquo;s assets (property, money and possessions)",
-    "applicant-rights2": "pay any taxes and debts",
-    "applicant-rights3": "distribute what&rsquo;s left to the people entitled to it (the &lsquo;beneficiaries&rsquo;)",
-    "optionYes": "Yes",
-    "optionNo": "No",
+  "title": "A fydd unrhyw un o&rsquo;r ysgutorion eraill yn delio &acirc;&rsquo;r ystad",
+  "question": "A fydd unrhyw un o&rsquo;r ysgutorion eraill yn delio &acirc;&rsquo;r ystad?",
+  "paragraph1": "Bydd yr ysgutorion hyn yn cael hawl gyfreithiol i:",
+  "applicant-rights1": "gasglu asedau&rsquo;r ystad (eiddo ac arian)",
+  "applicant-rights2": "talu unrhyw drethi a dyledion",
+  "applicant-rights3": "dosrannu beth sydd ar &ocirc;l i&rsquo;r bobl sydd &acirc; hawl iddo (y &lsquo;buddiolwyr&rsquo;)",
+  "optionYes": "Bydd",
+  "optionNo": "Na fydd",
 
-    "errors": {
-        "otherExecutorsApplying": {
-            "required": {
-                "summary": "Answer &lsquo;yes&rsquo; if any of the other executors are dealing with the estate",
-                "message": "Answer &lsquo;yes&rsquo; if any of the other executors are dealing with the estate"
-            }
-        }
+  "errors": {
+    "otherExecutorsApplying": {
+      "required": {
+        "summary": "Atebwch &lsquo;bydd&rsquo; os yw unrhyw un o&rsquo;r ysgutorion eraill yn delio &acirc;&rsquo;r ystad",
+        "message": "Atebwch &lsquo;bydd&rsquo; os yw unrhyw un o&rsquo;r ysgutorion eraill yn delio &acirc;&rsquo;r ystad"
+      }
     }
+  }
 }

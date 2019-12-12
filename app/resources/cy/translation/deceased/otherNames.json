@@ -1,31 +1,31 @@
 {
-  "title": "Deceased name",
-  "question": "What other names did {deceasedName} use?",
-  "firstName": "First name and any middle names",
-  "lastName": "Last name",
-  "addAnotherName": "Add another name",
-  "otherName": "Other name",
-  "removeName": "Remove",
-  
+  "title": "Enw&rsquo;r unigolyn sydd wedi marw",
+  "question": "Pa enwau eraill wnaeth {deceasedName} eu defnyddio?",
+  "firstName": "Enw cyntaf ac unrhyw enwau canol",
+  "lastName": "Cyfenw",
+  "addAnotherName": "Ychwanegu enw arall",
+  "otherName": "Enw arall",
+  "removeName": "Dileu",
+
   "errors": {
     "firstName": {
       "required": {
-        "summary": "You haven&rsquo;t entered the first name of the person who has died",
-        "message": "Please enter the person who died&rsquo;s first name"
+        "summary": "Nid ydych wedi nodi enw cyntaf yr unigolyn sydd wedi marw",
+        "message": "Nodwch enw cyntaf yr unigolyn sydd wedi marw"
       },
       "invalid": {
-        "summary": "The first name can only contain letters a to z, spaces, hyphens and apostrophes",
-        "message": "The first name can only contain letters a to z, spaces, hyphens and apostrophes"
+        "summary": "Gall yr enw cyntaf ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau",
+        "message": "Gall yr enw cyntaf ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau"
       }
     },
     "lastName": {
       "required": {
-        "summary": "You haven&rsquo;t entered the last name of the person who has died",
-        "message": "Please enter the person who died&rsquo;s last name"
+        "summary": "Nid ydych wedi nodi cyfenw&rsquo;r unigolyn sydd wedi marw",
+        "message": "Nodwch gyfenw&rsquo;r unigolyn sydd wedi marw"
       },
       "invalid": {
-        "summary": "The last name can only contain letters a to z, spaces, hyphens and apostrophes",
-        "message": "The last name can only contain letters a to z, spaces, hyphens and apostrophes"
+        "summary": "Gall y cyfenw ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau",
+        "message": "Gall y cyfenw ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau"
       }
     }
   }

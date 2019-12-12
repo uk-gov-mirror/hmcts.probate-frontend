@@ -1,32 +1,32 @@
 {
-    "title": "Check legal statement and make declaration",
-    "pageHeader": "Check legal statement and make declaration",
-    "legalStatementHeader": "Legal statement",
-    "legalStatementIntro": "This statement is based on the information {mainApplicantName} has given in their application. It will be stored as a public record.",
-    "highCourtHeader": "In the High Court of Justice",
-    "familyDivisionHeader": "Family Division",
-    "probateHeader": "(Probate)",
-    "deceasedHeader": "The person who died",
-    "deceasedEstateHeader": "The estate of the person who died",
-    "executorApplyingHeader": "Executors applying for probate",
-    "executorNotApplyingHeader": "Executors not applying for probate",
-    "declarationHeader": "Declaration",
-    "agreementHeader": "Do you agree with this information?",
-    "agreementParagraph" :"By answering &lsquo;yes&rsquo; you will be confirming that:",
-    "agreementItem1":"the information in your application is correct to the best of your knowledge",
-    "agreementItem2": "you will administer the estate of the person who died according to law",
-    "agreementItem3": "your application is truthful",
-    "optionYes": "Yes, I agree that the information is correct",
-    "optionNo": "No, something is wrong with the information",
-    "optionNoText": "If you&rsquo;re not sure about any of the information in the legal statement, you should contact {mainApplicantName} before saving and continuing.",
-    "submit": "Submit your response",
+  "title": "Gwirio&rsquo;r datganiad cyfreithiol a gwneud datganiad",
+  "pageHeader": "Gwirio&rsquo;r datganiad cyfreithiol a gwneud datganiad",
+  "legalStatementHeader": "Datganiad Cyfreithiol",
+  "legalStatementIntro": "Mae&rsquo;r datganiad hwn wedi&rsquo;i seilio ar yr wybodaeth y mae {mainApplicantName} wedi&rsquo;i rhoi yn eu cais. Bydd yn cael ei storio fel cofnod cyhoeddus.",
+  "highCourtHeader": "Yn yr Uchel Lys Barn",
+  "familyDivisionHeader": "Yr Adran Teulu",
+  "probateHeader": "(Profiant)",
+  "deceasedHeader": "Yr unigolyn sydd wedi marw",
+  "deceasedEstateHeader": "Ystad yr unigolyn sydd wedi marw",
+  "executorApplyingHeader": "Ysgutorion sy&rsquo;n gwneud cais am brofiant",
+  "executorNotApplyingHeader": "Ysgutorion sydd ddim yn gwneud cais am brofiant",
+  "declarationHeader": "Datganiad",
+  "agreementHeader": "Ydych chi&rsquo;n cytuno &acirc;&rsquo;r wybodaeth hon?",
+  "agreementParagraph":"Drwy ateb &lsquo;ydw&rsquo; byddwch yn cadarnhau:",
+  "agreementItem1":"bod yr wybodaeth yn eich cais yn gywir hyd eithaf eich gwybodaeth",
+  "agreementItem2": "eich bod yn gweinyddu ystad yr unigolyn sydd wedi marw, yn &ocirc;l y gyfraith",
+  "agreementItem3": "bod eich cais yn wir",
+  "optionYes": "Ydw, rwy&rsquo;n cytuno bod yr wybodaeth yn gywir",
+  "optionNo": "Na, mae rhywbeth o&rsquo;i le &acirc;&rsquo;r wybodaeth",
+  "optionNoText": "Os nad ydych yn si&wcirc;r am unrhyw wybodaeth sydd yn y datganiad cyfreithiol, dylech gysylltu &acirc; {mainApplicantName} cyn arbed y cais a pharhau.",
+  "submit": "Cyflwyno eich ymateb",
 
-    "errors": {
-      "agreement": {
-        "required": {
-          "summary": "Answer &lsquo;yes&rsquo; if you agree with the legal statement",
-          "message": "Answer &lsquo;yes&rsquo; if you agree with the legal statement"
-        }
+  "errors": {
+    "agreement": {
+      "required": {
+        "summary": "Atebwch &lsquo;ydw&rsquo; os ydych yn cytuno &acirc;&rsquo;r datganiad cyfreithiol",
+        "message": "Atebwch &lsquo;ydw&rsquo; os ydych yn cytuno &acirc;&rsquo;r datganiad cyfreithiol"
       }
     }
   }
+}
