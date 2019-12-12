@@ -82,13 +82,13 @@
         <div class="govuk-form-group">
             {% if fields.summary.readyToDeclare.value == "true" %}
                 {{ govukButton({
-                    text: common.saveAndContinue,
+                    text: common.saveAndContinue | safe,
                     href: "/declaration",
                     isStartButton: true
                 }) }}
             {% else %}
                 {{ govukButton({
-                    text: common.saveAndContinue,
+                    text: common.saveAndContinue | safe,
                     href: "/summary/redirect",
                     isStartButton: true
                 }) }}
