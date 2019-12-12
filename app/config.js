@@ -66,8 +66,8 @@ const config = {
             probate_oauth2_secret: process.env.IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE || 'ccd_gateway_secret',
             probate_oauth_callback_path: '/oauth2/callback',
             probate_oauth_token_path: '/oauth2/token',
-            probate_user_email: process.env.PROBATE_USER_EMAIL || 'pacaseworker@probate.com',
-            probate_user_password: process.env.PROBATE_USER_PASSWORD || 'password',
+            probate_user_email: process.env.PROBATE_USER_EMAIL || 'ProbateSuperuser@gmail.com',
+            probate_user_password: process.env.PROBATE_USER_PASSWORD || 'Pa55word11',
             probate_redirect_base_url: process.env.PROBATE_REDIRECT_BASE_URL || 'http://localhost:3000',
         },
         payment: {
