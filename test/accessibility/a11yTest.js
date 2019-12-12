@@ -51,7 +51,7 @@ for (const step in steps) {
                 title = `${commonContent.en.serviceName} - Eligibility`;
             } else if (step.name === 'StartApply') {
                 title = `${commonContent.en.serviceName} - Create account`;
-            } else if (step.name === 'Declaration') {
+            } else if (step.name === 'Declaration' || step.name == 'CoApplicantDeclaration') {
                 title = `${step.content.en.title} - ${commonContent.en.serviceName}`
                     .replace(/&lsquo;/g, '‘')
                     .replace(/&rsquo;/g, '’')
