@@ -1,15 +1,15 @@
 {
-  "title": "Executor notified",
-  "question": "Have you notified {executorName} in writing that you are applying?",
-  "optionYes": "Yes",
-  "optionNo": "No",
-  "informInWriting": "You must inform the executor in writing that you are applying for probate",
+  "title": "Ysgutor wedi&rsquo;i hysbysu",
+  "question": "Ydych chi wedi hysbysu {executorName} yn ysgrifenedig eich bod yn gwneud cais?",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
+  "informInWriting": "Mae&rsquo;n rhaid ichi hysbysu&rsquo;r ysgutor yn ysgrifenedig eich bod yn gwneud cais am brofiant",
 
   "errors": {
     "executorNotified": {
       "required": {
-        "summary": "You haven&rsquo;t selected whether you have notified the executor in writing or not",
-        "message": "Answer &lsquo;yes&rsquo; if you have have notified the executor in writing"
+        "summary": "Nid ydych wedi datgan os ydych wedi hysbysu&rsquo;r ysgutor yn ysgrifenedig ai peidio",
+        "message": "Atebwch &lsquo;do&rsquo; os ydych wedi hysbysu&rsquo;r ysgutor yn ysgrifenedig "
       }
     }
   }

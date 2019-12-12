@@ -10,7 +10,7 @@
     {% set helpContent = helpContent + "<div id=\"ctsc-web-chat\"></div>" %}
 
     {{ govukDetails({
-        summaryText: common.helpTitle,
+        summaryText: common.helpTitle | safe,
         text: helpContent | safe,
         id: "contact-us-for-help"
     }) }}

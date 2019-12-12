@@ -1,14 +1,14 @@
 {
-  "title": "Were any updates (&lsquo;codicils&rsquo;) made to the will",
-  "question": "Were any updates (&lsquo;codicils&rsquo;) made to the will?",
-  "optionYes": "Yes",
-  "optionNo": "No",
+  "title": "A wnaed unrhyw ddiweddariadau (&lsquo;codisiliau&rsquo;) i&rsquo;r ewyllys",
+  "question": "A wnaed unrhyw ddiweddariadau (&lsquo;codisiliau&rsquo;) i&rsquo;r ewyllys?",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
 
   "errors": {
     "codicils": {
       "required": {
-        "summary": "Answer the question about updates (&lsquo;codicils&rsquo;)",
-        "message": "Answer &lsquo;yes&rsquo; if there are updates to the will"
+        "summary": "Atebwch y cwestiwn am ddiweddariadau (&lsquo;codisiliau&rsquo;)",
+        "message": "Atebwch &lsquo;do&rsquo; os oes unrhyw ddiweddariadau wedi&rsquo;u gwneud i&rsquo;r ewyllys"
       }
     }
   }

@@ -1,23 +1,23 @@
 {
-  "title": "Executor Alias Reason",
-  "question": "What is the reason for {executorName}&rsquo;s name change?",
-  "optionMarriage": "Marriage",
-  "optionDivorce": "Divorce",
-  "optionDeedPoll": "Change by deed poll",
-  "optionOther": "Other",
-  "optionOtherHint": "Reason for name change",
+  "title": "Rheswm dros yr Enw Arall",
+  "question": "Pam bod gan {executorName} enw arall?",
+  "optionMarriage": "Wedi priodi",
+  "optionDivorce": "Wedi ysgaru",
+  "optionDeedPoll": "Gweithred newid enw",
+  "optionOther": "Arall",
+  "optionOtherHint": "Rheswm dros y newid enw",
 
   "errors": {
     "currentNameReason": {
       "required": {
-        "summary": "You haven&rsquo;t selected a reason for the change of name",
-        "message": "Select a reason for the change of name"
+        "summary": "Nid ydych wedi dewis rheswm dros y newid enw",
+        "message": "Dewiswch reswm dros y newid enw"
       }
     },
     "otherReason": {
       "required": {
-        "summary": "You haven&rsquo;t entered the reason for the change of name",
-        "message": "Enter the reason for the change of name"
+        "summary": "Nid ydych wedi nodi&rsquo;r rheswm dros y newid enw",
+        "message": "Nodwch y rheswm dros y newid enw"
       }
     }
   }

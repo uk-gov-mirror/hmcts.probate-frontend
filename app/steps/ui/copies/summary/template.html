@@ -8,8 +8,8 @@
 
 {% block content %}
     <div id="check-your-answers">
-        <h1 class="govuk-heading-l">{{ content.CopiesSummary.heading }}</h1>
-        <p class="govuk-body">{{ content.CopiesSummary.extraCopies }}</p>
+        <h1 class="govuk-heading-l">{{ content.CopiesSummary.heading | safe }}</h1>
+        <p class="govuk-body">{{ content.CopiesSummary.extraCopies | safe }}</p>
         <dl class="govuk-summary-list">
             {{ checkanswer(
                 items = [
@@ -42,7 +42,7 @@
 
         <div class="govuk-form-group">
             {{ govukButton({
-                text: common.saveAndContinue,
+                text: common.saveAndContinue | safe,
                 href: "/task-list",
                 isStartButton: true
             }) }}

@@ -5,6 +5,7 @@
   "extraCopiesFeeUk" : "UK copies",
   "extraCopiesFeeOverseas" : "copies for use outside the UK",
   "total": "Total due",
+
   "errors": {
     "authorisation": {
       "failure": {

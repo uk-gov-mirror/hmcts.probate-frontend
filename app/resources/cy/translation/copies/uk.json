@@ -1,29 +1,27 @@
 {
-  "title": "Copies - UK",
-
-  "question": "How many copies of the grant do you need for use in the UK?",
-  "paragraph1": "You&rsquo;ll receive a grant of probate when your application has been processed.",
-  "paragraph2": "You may need extra copies of the grant to send to different asset holders, for example, a copy for shares and a copy for a property.",
-  "paragraph3": "For extra copies you&rsquo;ll pay:",
-  "bullet1": "&pound;10 for the first copy",
-  "bullet2": "50 pence for every copy after that",
-  "copies": "Number of UK copies",
-
-  "questionOld": "How many extra copies of the grant do you need for use in the UK?",
-  "paragraph1Old": "You&rsquo;ll receive a grant of probate when your application has been processed.",
-  "paragraph2Old": "You may need extra copies of the grant to send to different asset holders, for example, a copy for shares and a copy for a property.",
-  "paragraph3Old": "Extra copies cost &pound;1.50 each.",
-  "copiesOld": "Number of extra UK copies",
+  "title": "Cop&iuml;au - DU",
+  "question": "Faint o gop&iuml;au o&rsquo;r grant ydych chi eu hangen i&rsquo;w defnyddio yn y DU?",
+  "paragraph1": "Byddwch yn cael grant profiant pan fydd eich cais wedi&rsquo;i brosesu.",
+  "paragraph2": "Efallai y byddwch angen cop&iuml;au ychwanegol o&rsquo;r grant i&rsquo;w hanfon at ddalwyr asedau gwahanol, er enghraifft, copi ar gyfer cyfranddaliadau a chopi ar gyfer eiddo.",
+  "paragraph3": "Ar gyfer cop&iuml;au ychwanegol bydd rhaid ichi dalu:",
+  "bullet1": "&pound;10 am y copi cyntaf",
+  "bullet2": "50 ceiniog am bob copi ar &ocirc;l hynny",
+  "copies": "Nifer o gop&iuml;au DU",
+  "questionOld": "Faint o gop&iuml;au ychwanegol o&rsquo;r grant ydych chi eu hangen i&rsquo;w defnyddio yn y DU?",
+  "paragraph1Old": "Byddwch yn cael grant profiant pan fydd eich cais wedi&rsquo;i brosesu.",
+  "paragraph2Old": "Efallai y byddwch angen cop&iuml;au ychwanegol o&rsquo;r grant i&rsquo;w hanfon at ddalwyr asedau gwahanol, er enghraifft, copi ar gyfer cyfranddaliadau a chopi ar gyfer eiddo.",
+  "paragraph3Old": "Mae cop&iuml;au ychwanegol yn costio &pound;1.50 yr un.",
+  "copiesOld": "Nifer o gop&iuml;au DU ychwanegol",
 
   "errors": {
     "uk": {
       "invalid": {
-          "summary": "You haven&rsquo;t entered a valid number",
-          "message": "Enter a valid number"
+        "summary": "Nid ydych wedi nodi rhif dilys",
+        "message": "Nodwch rif dilys"
       },
       "required": {
-        "summary": "Enter the number of UK copies you need",
-        "message": "Enter the number of UK copies you need. Enter &lsquo;0&rsquo; if you don&rsquo;t need any copies."
+        "summary": "Nodwch y nifer o gop&iuml;au DU rydych eu hangen",
+        "message": "Nodwch y nifer o gop&iuml;au DU rydych eu hangen. Rhowch &lsquo;0&rsquo; os nad ydych angen unrhyw gop&iuml;au."
       }
     }
   }

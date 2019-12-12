@@ -1,15 +1,15 @@
 {
-  "title": "When did the executor die?",
-  "question": "Did {executorFullName} die before the person who died?",
-  "optionYes": "Yes",
-  "optionNo": "No",
+  "title": "Pryd farwodd yr ysgutor?",
+  "question": "A wnaeth {executorFullName} farw cyn yr unigolyn sydd wedi marw?",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
   "executorFullName": "",
 
   "errors": {
     "diedbefore": {
       "required": {
-        "summary": "Answer the question about the executor&rsquo;s time of death",
-        "message": "Answer &lsquo;yes&rsquo; if the executor died before the person who died"
+        "summary": "Atebwch y cwestiwn am pryd farwodd yr ysgutor",
+        "message": "Atebwch &lsquo;do&rsquo; os farwodd yr ysgutor cyn yr unigolyn sydd wedi marw"
       }
     }
   }

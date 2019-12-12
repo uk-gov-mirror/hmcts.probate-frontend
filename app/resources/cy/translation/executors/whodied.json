@@ -1,12 +1,12 @@
 {
-  "title": "Which executors have died",
-  "question": "Which executors have died?",
+  "title": "Pa ysgutorion sydd wedi marw",
+  "question": "Pa ysgutorion sydd wedi marw?",
 
   "errors": {
     "executorsWhoDied": {
       "required": {
-        "summary": "Select at least one executor",
-        "message": "Select at least one executor"
+        "summary": "Dewiswch o leiaf un ysgutor",
+        "message": "Dewiswch o leiaf un ysgutor"
       }
     }
   }

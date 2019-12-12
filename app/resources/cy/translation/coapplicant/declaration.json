@@ -1,32 +1,33 @@
 {
-    "title": "Gwirio&rsquo;r datganiad cyfreithiol a gwneud datganiad",
-    "pageHeader": "Gwirio&rsquo;r datganiad cyfreithiol a gwneud datganiad",
-    "legalStatementHeader": "Datganiad cyfreithiol",
-    "legalStatementIntro": "Mae&rsquo;r datganiad hwn yn seiliedig ar y wybodaeth y mae {mainApplicantName} wedi&rsquo;i rhoi yn eu cais. Bydd yn cael ei storio fel cofnod cyhoeddus.",
-    "highCourtHeader": "Yn yr Uchel Lys Cyfiawnder",
-    "familyDivisionHeader": "Adran Teulu",
-    "probateHeader": "(Profiant)",
-    "deceasedHeader": "Y person a fu farw",
-    "deceasedEstateHeader": "Ystâd y person a fu farw",
-    "executorApplyingHeader": "Ysgutorion yn gwneud cais am brofiant",
-    "executorNotApplyingHeader": "Ysgutorion ddim yn gwneud cais am brofiant",
-    "declarationHeader": "Datganiad",
-    "agreementHeader": "Ydych chi&rsquo;n cytuno â&rsquo;r wybodaeth hon?",
-    "agreementParagraph" :"Trwy ateb &lsquo;ie&rsquo; byddwch yn cadarnhau:",
-    "agreementItem1":"mae&rsquo;r wybodaeth yn eich cais yn gywir hyd eithaf eich gwybodaeth",
-    "agreementItem2": "byddwch yn gweinyddu ystâd y person a fu farw yn unol â&rsquo;r gyfraith",
-    "agreementItem3": "mae eich cais yn wir",
-    "optionYes": "Ydw, rwy&rsquo;n cytuno bod y wybodaeth yn gywir",
-    "optionNo": "Na, mae rhywbeth o&rsquo;i le ar y wybodaeth",
-    "optionNoText": "Os nad ydych yn siŵr am unrhyw ran o&rsquo;r wybodaeth yn y datganiad cyfreithiol, dylech gysylltu â {mainApplicantName} cyn cynilo a pharhau.",
-    "submit": "Cyflwyno&rsquo;ch ymateb",
+  "title": "Gwirio&rsquo;r datganiad cyfreithiol a gwneud datganiad",
+  "pageHeader": "Gwirio&rsquo;r datganiad cyfreithiol a gwneud datganiad",
+  "legalStatementHeader": "Datganiad Cyfreithiol",
+  "legalStatementIntro": "Mae&rsquo;r datganiad hwn wedi&rsquo;i seilio ar yr wybodaeth y mae {mainApplicantName} wedi&rsquo;i rhoi yn eu cais. Bydd yn cael ei storio fel cofnod cyhoeddus.",
+  "highCourtHeader": "Yn yr Uchel Lys Barn",
+  "familyDivisionHeader": "Yr Adran Teulu",
+  "probateHeader": "(Profiant)",
+  "deceasedHeader": "Yr unigolyn sydd wedi marw",
+  "deceasedEstateHeader": "Ystad yr unigolyn sydd wedi marw",
+  "executorApplyingHeader": "Ysgutorion sy&rsquo;n gwneud cais am brofiant",
+  "executorNotApplyingHeader": "Ysgutorion sydd ddim yn gwneud cais am brofiant",
+  "declarationHeader": "Datganiad",
+  "agreementHeader": "Ydych chi&rsquo;n cytuno &acirc;&rsquo;r wybodaeth hon?",
+  "agreementParagraph":"Drwy ateb &lsquo;ydw&rsquo; byddwch yn cadarnhau:",
+  "agreementItem1":"bod yr wybodaeth yn eich cais yn gywir hyd eithaf eich gwybodaeth",
+  "agreementItem2": "eich bod yn gweinyddu ystad yr unigolyn sydd wedi marw, yn &ocirc;l y gyfraith",
+  "agreementItem3": "bod eich cais yn wir",
+  "optionYes": "Ydw, rwy&rsquo;n cytuno bod yr wybodaeth yn gywir",
+  "optionNo": "Na, mae rhywbeth o&rsquo;i le &acirc;&rsquo;r wybodaeth",
+  "optionNoText": "Os nad ydych yn si&wcirc;r am unrhyw wybodaeth sydd yn y datganiad cyfreithiol, dylech gysylltu &acirc; {mainApplicantName} cyn arbed y cais a pharhau.",
+  "submit": "Cyflwyno eich ymateb",
+  "warning": "[MISSING]",
 
-    "errors": {
-      "agreement": {
-        "required": {
-          "summary": "Atebwch &lsquo;ydw&rsquo; os ydych chi&rsquo;n cytuno â&rsquo;r datganiad cyfreithiol",
-          "message": "Atebwch &lsquo;ydw&rsquo; os ydych chi&rsquo;n cytuno â&rsquo;r datganiad cyfreithiol"
-        }
+  "errors": {
+    "agreement": {
+      "required": {
+        "summary": "Atebwch &lsquo;ydw&rsquo; os ydych yn cytuno &acirc;&rsquo;r datganiad cyfreithiol",
+        "message": "Atebwch &lsquo;ydw&rsquo; os ydych yn cytuno &acirc;&rsquo;r datganiad cyfreithiol"
       }
     }
   }
+}

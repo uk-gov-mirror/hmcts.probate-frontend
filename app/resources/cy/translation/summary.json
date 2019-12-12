@@ -1,44 +1,44 @@
 {
-  "title": "Summary page",
-  "heading": "Check your answers",
-  "checkCarefully": "Check the information below carefully. This will form a record of your application for probate. It will also be stored as a public record, and will be able to be viewed online.",
-  "uploadedDocumentsHeading": "Uploaded documents",
-  "uploadedDocumentsEmpty": "No documents have been uploaded",
-  "applicantHeading": "The executors",
-  "deceasedHeading": "About the person who died",
-  "ihtHeading": "Inheritance tax",
-  "otherExecutors": "Other executors applying for probate",
-  "executorsWhenDiedQuestion" : "Did {executorFullName} die before the person who died?",
-  "otherNamesLabel": "Names used by the deceased",
-  "aboutPeopleApplyingHeading": "About the people applying",
-  "aboutYouHeading": "About you",
-  "executorApplyingForProbate": "{executorOrderNumber} executor applying for probate",
-  "executorsNotApplyingForProbate": "Executors not applying for probate",
-  "executorsWithOtherNames": "Which executors have different names?",
-  "nameOnWill": "Name on will",
-  "currentName": "Current name",
-  "currentNameReason": "Reason for name change",
-  "address": "Address",
-  "mobileNumber": "Mobile number",
-  "emailAddress": "Email address",
-  "checkAnswersPdf": "Save this page (10kb PDF)",
+  "title": "Crynodeb o&rsquo;ch atebion",
+  "heading": "Gwiriwch eich atebion",
+  "checkCarefully": "Gwiriwch yr wybodaeth isod yn ofalus. Hwn fydd y cofnod eich bod wedi gwneud cais am brofiant. Bydd hefyd yn cael ei storio fel cofnod cyhoeddus a bydd modd ei weld ar-lein.",
+  "uploadedDocumentsHeading": "Dogfennau sydd wedi&rsquo;u huwchlwytho",
+  "uploadedDocumentsEmpty": "Nid oes dogfennau wedi&rsquo;u huwchlwytho",
+  "applicantHeading": "Yr ysgutorion",
+  "deceasedHeading": "Ynghylch yr unigolyn sydd wedi marw",
+  "ihtHeading": "Treth Etifeddiant",
+  "otherExecutors": "Ysgutorion eraill sy&rsquo;n gwneud cais am brofiant",
+  "executorsWhenDiedQuestion": "A wnaeth {executorFullName} farw cyn yr unigolyn sydd wedi marw?",
+  "otherNamesLabel": "Enwau a ddefnyddiwyd gan yr unigolyn sydd wedi marw",
+  "aboutPeopleApplyingHeading": "Ynghylch y bobl sy&rsquo;n gwneud cais",
+  "aboutYouHeading": "Amdanoch chi",
+  "executorApplyingForProbate": "{executorOrderNumber} ysgutor sy&rsquo;n gwneud cais am brofiant",
+  "executorsNotApplyingForProbate": "Ysgutorion sydd ddim yn gwneud cais am brofiant",
+  "executorsWithOtherNames": "Pa ysgutorion sydd ag enwau gwahanol?",
+  "nameOnWill": "Enw ar yr ewyllys",
+  "currentName": "Enw cyfredol",
+  "currentNameReason": "Rheswm dros newid enw",
+  "address": "Cyfeiriad",
+  "mobileNumber": "Rhif ff&ocirc;n symudol",
+  "emailAddress": "Cyfeiriad e-bost",
+  "checkAnswersPdf": "Arbed y dudalen hon (10kb PDF)",
 
   "errors": {
     "businessError": {
       "dodBeforeDob": {
-        "summary": "Date of death cannot be before date of birth",
+        "summary": "Ni all dyddiad marwolaeth yr unigolyn fod cyn ei ddyddiad geni",
         "message": ""
       },
       "ihtNetGreaterThanGross": {
-        "summary": "Net IHT value cannot be greater than the Gross value",
+        "summary": "Ni all gwerth net IHT fod yn fwy na&rsquo;r gwerth gros",
         "message": ""
       },
       "fieldMinSize": {
-        "summary": "Must be at least {min} characters",
+        "summary": "Mae&rsquo;n rhaid ichi ddefnyddio o leiaf {min} nod",
         "message": ""
       },
       "validationError": {
-        "summary": "There was a problem saving your application",
+        "summary": "Roedd problem wrth geisio arbed eich cais",
         "message": ""
       }
     }

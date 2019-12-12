@@ -1,15 +1,15 @@
 {
-  "title": "Why isn&rsquo;t the spouse applying",
-  "question": "Why isn&rsquo;t {deceasedName}&rsquo;s spouse applying?",
-  "optionRenouncing": "They don&rsquo;t want to apply and they give up the right to apply in the future (this is known as &lsquo;renunciation&rsquo;)",
-  "optionOther": "Other",
-  "theDeceased": "the deceased",
+  "title": "Pam nad yw&rsquo;r g&wcirc;r/gwraig yn gwneud cais",
+  "question": "Pam nad yw g&wcirc;r/gwraig {deceasedName} yn gwneud cais?",
+  "optionRenouncing": "Nid ydynt eisiau gwneud cais ac maent yn rhoi fyny yr hawl i wneud cais yn y dyfodol (gelwir hyn yn &lsquo;ymwrthod&rsquo;)",
+  "optionOther": "Arall",
+  "theDeceased": "yr unigolyn sydd wedi marw",
 
   "errors": {
     "spouseNotApplyingReason": {
       "required": {
-        "summary": "You haven&rsquo;t answered the question about why the spouse or civil partner isn&rsquo;t applying",
-        "message": "Answer the question about why the spouse or civil partner isn&rsquo;t applying"
+        "summary": "Nid ydych wedi ateb y cwestiwn pam nad yw&rsquo;r g&wcirc;r/gwraig neu bartner sifil yn gwneud cais",
+        "message": "Atebwch y cwestiwn pam nad yw&rsquo;r g&wcirc;r/gwraig neu bartner sifil yn gwneud cais"
       }
     }
   }
