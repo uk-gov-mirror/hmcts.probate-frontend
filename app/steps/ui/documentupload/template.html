@@ -14,7 +14,7 @@
             isPageHeading: true
         }
     }) %}
-        <p class="govuk-body">{{ content.paragraph1 }}</p>
+        <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
 
         {{ govukInsetText({
             text: ("<p class=\"govuk-body\">" + content.help1 + "</p><p class=\"govuk-body\">" + content.help2 + "</p>") | safe
@@ -30,7 +30,7 @@
             ])
         }) }}
 
-        <p class="govuk-body">{{ content.paragraph2 }}</p>
+        <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
 
         {% include "includes/document-upload.html" %}
 
