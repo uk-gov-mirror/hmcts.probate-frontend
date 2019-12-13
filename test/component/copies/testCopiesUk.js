@@ -5,8 +5,14 @@ const AssetsOverseas = require('app/steps/ui/assets/overseas');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const config = require('app/config');
 const featureToggleUrl = config.featureToggles.url;
+const orchestratorServiceUrl = config.services.orchestrator.url;
 const feesApiFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.fees_api}`;
 const nock = require('nock');
+const invitesAllAgreedNock = () => {
+    nock(orchestratorServiceUrl)
+        .get('/invite/allAgreed/undefined')
+        .reply(200, 'true');
+};
 const beforeEachNocks = (status = 'true') => {
     nock(featureToggleUrl)
         .get(feesApiFeatureTogglePath)
@@ -111,13 +117,12 @@ describe('copies-uk', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForAssetsOverseas}`, (done) => {
-            const data = {uk: '0'};
-            const sessionData = {
-                haveAllExecutorsDeclared: 'true',
-                form: require('test/data/copiesUk')
-            };
+            invitesAllAgreedNock();
 
-            testWrapper.agent.post('/prepare-session-field')
+            const data = {uk: '0'};
+            const sessionData = require('test/data/copiesUk');
+
+            testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     delete require.cache[require.resolve('test/data/copiesUk')];
@@ -127,13 +132,12 @@ describe('copies-uk', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForAssetsOverseas}`, (done) => {
-            const data = {uk: '1'};
-            const sessionData = {
-                haveAllExecutorsDeclared: 'true',
-                form: require('test/data/copiesUk')
-            };
+            invitesAllAgreedNock();
 
-            testWrapper.agent.post('/prepare-session-field')
+            const data = {uk: '1'};
+            const sessionData = require('test/data/copiesUk');
+
+            testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     delete require.cache[require.resolve('test/data/copiesUk')];
