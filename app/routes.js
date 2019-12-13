@@ -79,6 +79,72 @@ router.get('/start-apply', (req, res, next) => {
 });
 
 router.use((req, res, next) => {
+    const formdata = req.session.form;
+    const ccdCaseId = formdata.ccdCase ? formdata.ccdCase.id : 'undefined';
+
+    const applicantWrapper = new ApplicantWrapper(formdata);
+    const applicantHasDeclared = applicantWrapper.applicantHasDeclared();
+
+    const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+    const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
+    const invitesSent = executorsWrapper.invitesSent();
+
+    if (hasMultipleApplicants && invitesSent && applicantHasDeclared) {
+        const allExecutorsAgreed = new AllExecutorsAgreed(config.services.orchestrator.url, req.sessionID);
+
+        if (req.userLoggedIn) {
+            allExecutorsAgreed.get(req.authToken, req.session.serviceAuthorization, ccdCaseId)
+                .then(data => {
+                    req.session.haveAllExecutorsDeclared = data;
+                    next();
+                })
+                .catch(err => {
+                    next(err);
+                });
+        } else {
+            const authorise = new Authorise(config.services.idam.s2s_url, req.sessionID);
+            authorise.post()
+                .then((serviceAuthorisation) => {
+                    if (serviceAuthorisation.name === 'Error') {
+                        logger.info(`serviceAuthResult Error = ${serviceAuthorisation}`);
+                        res.status(500);
+                        res.render('errors/500', {userLoggedIn: false});
+                    } else {
+                        const security = new Security();
+                        const hostname = FormatUrl.createHostname(req);
+                        security.getUserToken(hostname)
+                            .then((authToken) => {
+                                if (authToken.name === 'Error') {
+                                    logger.info(`failed to obtain authToken = ${serviceAuthorisation}`);
+                                    res.status(500);
+                                    res.render('errors/500', {userLoggedIn: false});
+                                } else {
+                                    allExecutorsAgreed.get(authToken, serviceAuthorisation, ccdCaseId)
+                                        .then(data => {
+                                            req.session.haveAllExecutorsDeclared = data;
+                                            next();
+                                        })
+                                        .catch(err => {
+                                            next(err);
+                                        });
+                                }
+                            })
+                            .catch((err) => {
+                                logger.info(`failed to obtain authToken = ${err}`);
+                            });
+                    }
+                })
+                .catch((err) => {
+                    logger.info(`serviceAuthResult Error = ${err}`);
+                    next(err);
+                });
+        }
+    } else {
+        next();
+    }
+});
+
+router.use((req, res, next) => {
     const currentPageCleanUrl = FormatUrl.getCleanPageUrl(req.originalUrl, 1);
     const formdata = req.session.form;
     const isHardStop = (formdata, journey) => config.hardStopParams[journey].some(param => get(formdata, param) === commonContent.no);
@@ -152,72 +218,6 @@ router.use((req, res, next) => {
     res.locals.session = req.session;
     res.locals.pageUrl = req.url;
     next();
-});
-
-router.use((req, res, next) => {
-    const formdata = req.session.form;
-    const ccdCaseId = formdata.ccdCase ? formdata.ccdCase.id : 'undefined';
-
-    const applicantWrapper = new ApplicantWrapper(formdata);
-    const applicantHasDeclared = applicantWrapper.applicantHasDeclared();
-
-    const executorsWrapper = new ExecutorsWrapper(formdata.executors);
-    const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
-    const invitesSent = executorsWrapper.invitesSent();
-
-    if (hasMultipleApplicants && invitesSent && applicantHasDeclared) {
-        const allExecutorsAgreed = new AllExecutorsAgreed(config.services.orchestrator.url, req.sessionID);
-
-        if (req.userLoggedIn) {
-            allExecutorsAgreed.get(req.authToken, req.session.serviceAuthorization, ccdCaseId)
-                .then(data => {
-                    req.session.haveAllExecutorsDeclared = data;
-                    next();
-                })
-                .catch(err => {
-                    next(err);
-                });
-        } else {
-            const authorise = new Authorise(config.services.idam.s2s_url, req.sessionID);
-            authorise.post()
-                .then((serviceAuthorisation) => {
-                    if (serviceAuthorisation.name === 'Error') {
-                        logger.info(`serviceAuthResult Error = ${serviceAuthorisation}`);
-                        res.status(500);
-                        res.render('errors/500', {userLoggedIn: false});
-                    } else {
-                        const security = new Security();
-                        const hostname = FormatUrl.createHostname(req);
-                        security.getUserToken(hostname)
-                            .then((authToken) => {
-                                if (authToken.name === 'Error') {
-                                    logger.info(`failed to obtain authToken = ${serviceAuthorisation}`);
-                                    res.status(500);
-                                    res.render('errors/500', {userLoggedIn: false});
-                                } else {
-                                    allExecutorsAgreed.get(authToken, serviceAuthorisation, ccdCaseId)
-                                        .then(data => {
-                                            req.session.haveAllExecutorsDeclared = data;
-                                            next();
-                                        })
-                                        .catch(err => {
-                                            next(err);
-                                        });
-                                }
-                            })
-                            .catch((err) => {
-                                logger.info(`failed to obtain authToken = ${err}`);
-                            });
-                    }
-                })
-                .catch((err) => {
-                    logger.info(`serviceAuthResult Error = ${err}`);
-                    next(err);
-                });
-        }
-    } else {
-        next();
-    }
 });
 
 Object.entries(steps).forEach(([, step]) => {
