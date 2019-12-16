@@ -3,7 +3,7 @@
 const caseTypes = require('app/utils/CaseTypes');
 const Step = require('app/core/steps/Step');
 const OptionGetRunner = require('app/core/runners/OptionGetRunner');
-const {isEmpty, includes, get, unescape} = require('lodash');
+const {isEmpty, includes, get, unescape, forEach} = require('lodash');
 const utils = require('app/components/step-utils');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
@@ -62,24 +62,22 @@ class Summary extends Step {
         fields[this.section] = super.generateFields(language, ctx, errors, formdata);
 
         if (ctx) {
-            fields.userLoggedIn = {};
-            fields.userLoggedIn.value = ctx.userLoggedIn ? ctx.userLoggedIn.toString() : 'true';
-            fields.featureToggles = {};
-            fields.featureToggles.value = ctx.featureToggles;
+            fields.userLoggedIn = {
+                value: ctx.userLoggedIn ? ctx.userLoggedIn.toString() : 'true'
+            };
+            fields.featureToggles = {
+                value: ctx.featureToggles
+            };
 
-            if (ctx.caseType === caseTypes.INTESTACY) {
-                fields[this.section].deceasedMaritalStatusQuestion.value = unescape(fields[this.section].deceasedMaritalStatusQuestion.value);
-                fields[this.section].deceasedDivorcePlaceQuestion.value = unescape(fields[this.section].deceasedDivorcePlaceQuestion.value);
-                fields[this.section].deceasedAnyChildrenQuestion.value = unescape(fields[this.section].deceasedAnyChildrenQuestion.value);
-                fields[this.section].deceasedAnyOtherChildrenQuestion.value = unescape(fields[this.section].deceasedAnyOtherChildrenQuestion.value);
-                fields[this.section].deceasedAnyDeceasedChildrenQuestion.value = unescape(fields[this.section].deceasedAnyDeceasedChildrenQuestion.value);
-                fields[this.section].deceasedAllChildrenOver18Question.value = unescape(fields[this.section].deceasedAllChildrenOver18Question.value);
-                fields[this.section].deceasedSpouseNotApplyingReasonQuestion.value = unescape(fields[this.section].deceasedSpouseNotApplyingReasonQuestion.value);
+            const skipItems = ['sessionID', 'authToken', 'caseType', 'userLoggedIn', 'uploadedDocuments'];
 
-                if (fields.applicant && fields.applicant.spouseNotApplyingReason) {
-                    fields.applicant.spouseNotApplyingReason.value = unescape(fields.applicant.spouseNotApplyingReason.value);
+            forEach(fields[this.section], (item, itemKey) => {
+                if (!skipItems.includes(itemKey) && typeof item.value === 'string' && item.value !== 'true' && item.value !== 'false') {
+                    item.value = unescape(item.value);
                 }
-            }
+
+                return item;
+            });
         }
 
         return fields;

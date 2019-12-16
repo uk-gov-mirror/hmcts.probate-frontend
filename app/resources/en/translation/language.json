@@ -9,6 +9,10 @@
       "required": {
         "summary": "You need to choose whether you require a bilingual (English/Welsh) grant or an English grant",
         "message": "Answer &lsquo;yes&rsquo; if you require a bilingual (English/Welsh) grant"
+      },
+      "invalid": {
+        "summary": "You need to choose whether you require a bilingual (English/Welsh) grant or an English grant",
+        "message": "Answer &lsquo;yes&rsquo; if you require a bilingual (English/Welsh) grant"
       }
     }
   }

@@ -5,7 +5,7 @@
 
 {% block form_content %}
     {% set notNotifiedtml %}
-        <p class="govuk-body">{{ content.informInWriting }}</p>
+        <p class="govuk-body">{{ content.informInWriting | safe }}</p>
     {% endset -%}
 
     {{ govukRadios({
