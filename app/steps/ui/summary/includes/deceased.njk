@@ -103,7 +103,7 @@
     items = [
         {
             question: fields.summary.deceasedMaritalStatusQuestion.value,
-            answer: fields.deceased.maritalStatus.value,
+            answer: content.DeceasedMaritalStatus[fields.deceased.maritalStatus.value],
             visible: fields.summary.caseType.value == "intestacy"
         }
     ],
@@ -116,7 +116,7 @@
     items = [
         {
             question: fields.summary.deceasedDivorcePlaceQuestion.value,
-            answer: fields.deceased.divorcePlace.value,
+            answer: content.DivorcePlace[fields.deceased.divorcePlace.value],
             visible:
                 fields.summary.caseType.value == "intestacy"
                 and
@@ -127,7 +127,7 @@
                 )
         }
     ],
-    url = content.DeceasedMaritalStatus.url,
+    url = content.DivorcePlace.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}

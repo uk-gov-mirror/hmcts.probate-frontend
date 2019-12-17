@@ -2,7 +2,7 @@
     items = [
         {
             question: content.RelationshipToDeceased.question,
-            answer: fields.applicant.relationshipToDeceased.value,
+            answer: content.RelationshipToDeceased[fields.applicant.relationshipToDeceased.value],
             visible: true
         }
     ],
@@ -15,7 +15,7 @@
     items = [
         {
             question: content.AdoptionPlace.question,
-            answer: fields.applicant.adoptionPlace.value,
+            answer: content.AdoptionPlace[fields.applicant.adoptionPlace.value],
             visible: fields.applicant.relationshipToDeceased.value == "optionAdoptedChild"
         }
     ],
@@ -28,7 +28,7 @@
     items = [
         {
             question: fields.summary.deceasedSpouseNotApplyingReasonQuestion.value,
-            answer: fields.applicant.spouseNotApplyingReason.value,
+            answer: content.SpouseNotApplyingReason[fields.applicant.spouseNotApplyingReason.value],
             visible:
             (
                 fields.applicant.relationshipToDeceased.value == "optionChild"
@@ -52,7 +52,7 @@
     items = [
         {
             question: fields.summary.deceasedAnyOtherChildrenQuestion.value,
-            answer: fields.deceased.anyOtherChildren.value,
+            answer: content.AnyOtherChildren[fields.deceased.anyOtherChildren.value],
             visible:
             (
                 (
@@ -86,7 +86,7 @@
     items = [
         {
             question: fields.summary.deceasedAnyChildrenQuestion.value,
-            answer: fields.deceased.anyChildren.value,
+            answer: content.AnyChildren[fields.deceased.anyChildren.value],
             visible:
             (
                 fields.applicant.relationshipToDeceased.value == "optionSpousePartner"
@@ -104,7 +104,7 @@
     items = [
         {
             question: fields.summary.deceasedAllChildrenOver18Question.value,
-            answer: fields.deceased.allChildrenOver18.value,
+            answer: content.AllChildrenOver18[fields.deceased.allChildrenOver18.value],
             visible:
             (
                 (
@@ -134,7 +134,7 @@
     items = [
         {
             question: fields.summary.deceasedAnyDeceasedChildrenQuestion.value,
-            answer: fields.deceased.anyDeceasedChildren.value,
+            answer: content.AnyDeceasedChildren[fields.deceased.anyDeceasedChildren.value],
             visible:
             (
                 (
@@ -168,7 +168,7 @@
     items = [
         {
             question: content.AnyGrandchildrenUnder18.question,
-            answer: fields.deceased.anyGrandchildrenUnder18.value,
+            answer: content.AnyGrandchildrenUnder18[fields.deceased.anyGrandchildrenUnder18.value],
             visible:
             (
                 (
