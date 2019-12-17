@@ -3,6 +3,7 @@
 const Step = require('app/core/steps/Step');
 const copiesSteps = ['CopiesUk', 'AssetsJEGG', 'CopiesJEGG', 'AssetsOverseas', 'CopiesOverseas'];
 const FormatName = require('app/utils/FormatName');
+const {unescape, forEach} = require('lodash');
 
 class CopiesSummary extends Step {
 
@@ -36,10 +37,22 @@ class CopiesSummary extends Step {
         fields[this.section] = super.generateFields(language, ctx, errors, formdata);
 
         if (ctx) {
-            fields.userLoggedIn = {};
-            fields.userLoggedIn.value = ctx.userLoggedIn ? ctx.userLoggedIn.toString() : 'true';
-            fields.featureToggles = {};
-            fields.featureToggles.value = ctx.featureToggles;
+            fields.userLoggedIn = {
+                value: ctx.userLoggedIn ? ctx.userLoggedIn.toString() : 'true'
+            };
+            fields.featureToggles = {
+                value: ctx.featureToggles
+            };
+
+            const skipItems = ['sessionID', 'authToken', 'caseType', 'userLoggedIn', 'uploadedDocuments'];
+
+            forEach(fields[this.section], (item, itemKey) => {
+                if (!skipItems.includes(itemKey) && typeof item.value === 'string' && item.value !== 'true' && item.value !== 'false') {
+                    item.value = unescape(item.value);
+                }
+
+                return item;
+            });
         }
 
         return fields;
