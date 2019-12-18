@@ -33,8 +33,9 @@ const eligibilityCookie = new EligibilityCookie();
 const caseTypes = require('app/utils/CaseTypes');
 const featureToggles = require('app/featureToggles');
 const sanitizeRequestBody = require('app/middleware/sanitizeRequestBody');
+const isEmpty = require('lodash').isEmpty;
 
-exports.init = function() {
+exports.init = function(isA11yTest = false, a11yTestSession = {}) {
     const app = express();
     const port = config.app.port;
     const releaseVersion = packageJson.version;
@@ -209,18 +210,18 @@ exports.init = function() {
     });
 
     app.use((req, res, next) => {
-        req.session.cookie.secure = req.protocol === 'https';
-        next();
-    });
-
-    app.use((req, res, next) => {
         if (!req.session.language) {
             req.session.language = 'en';
         }
         if (req.query && req.query.locale && config.languages.includes(req.query.locale)) {
             req.session.language = req.query.locale;
         }
-        next();
+
+        if (isA11yTest && !isEmpty(a11yTestSession)) {
+            req.session = Object.assign(req.session, a11yTestSession);
+        }
+
+        next(); // otherwise continue
     });
 
     app.use((req, res, next) => {
