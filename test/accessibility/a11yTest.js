@@ -37,9 +37,27 @@ for (const step in steps) {
         let results;
         let sessionData = {};
 
-        if (step.name === 'Declaration') {
+        if (config.whitelistedPagesAfterSubmission.includes(stepUrl)) {
             sessionData = Object.assign(commonSessionData, {
-                language: 'en'
+                form: {
+                    declaration: {
+                        declarationCheckbox: 'true'
+                    },
+                    payment: {
+                        total: 0
+                    },
+                    ccdCase: {
+                        state: 'CaseCreated'
+                    }
+                }
+            });
+        } else if (config.whitelistedPagesAfterDeclaration.includes(stepUrl)) {
+            sessionData = Object.assign(commonSessionData, {
+                form: {
+                    declaration: {
+                        declarationCheckbox: 'true'
+                    }
+                }
             });
         }
 
