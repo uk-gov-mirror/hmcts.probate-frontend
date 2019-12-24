@@ -21,7 +21,7 @@
 
   "heading3": "Beth i&rsquo;w wneud os na allwch ddefnyddio rhai rhannau o&rsquo;r wefan hon",
   "paragraph7": "Os ydych angen gwybodaeth sydd ar y wefan hon mewn fformat arall megis ar ffurf PDF hygyrch, print bras, fformat  hawdd ei ddarllen neu braille, yna e-bostiwch <a href=\"mailto:HMCTSforms@justice.gov.uk\" class=\"govuk-link\">HMCTSforms@justice.gov.uk</a> neu ffoniwch:",
-  "paragraph8": "<strong>Llinell gymorth profiant:</strong><br>Telephone: {helpLineNumber}<br>{helpLineHours}",
+  "paragraph8": "<strong>Llinell Gymorth Profiant:</strong><br>Rhif ff&ocirc;n: {helpLineNumber}<br>{helpLineHours}",
   "paragraph9": "<a target=\"_blank\" rel=\"external noopener\" href=\"{callChargesLink}\" class=\"govuk-link\">Gwybodaeth am brisiau galwadau</a>",
   "paragraph10": "Byddwn yn ystyried eich cais ac yn ymateb o fewn 10 diwrnod gwaith.",
 

@@ -5,7 +5,7 @@
 
   "whoManagesThisServiceHeading": "Pwy sy&rsquo;n rheoli&rsquo;r gwasanaeth hwn",
   "whoManagesThisServiceParagraph1": "Gwasanaeth Llysoedd a Thribiwnlysoedd EM (GLlTEM) sy&rsquo;n rheoli&rsquo;r gwasanaeth hwn, sef  un o asiantaethau gweithredol y Weinyddiaeth Gyfiawnder (MoJ).",
-  "whoManagesThisServiceParagraph2": "MoJ yw&rsquo;r rheolydd data at ddibenion diogelu data. Mae <a target=\"_blank\" rel=\"external noopener\" href=\"{mojPersonalInformationCharterLink}\" class=\"govuk-link\">siarter gwybodaeth bersonol MoJ</a> yn egluro sut mae&rsquo;r MoJ yn prosesu data personol.",
+  "whoManagesThisServiceParagraph2": "MoJ yw&rsquo;r rheolydd data at ddibenion diogelu data. Mae <a href=\"{mojPersonalInformationCharterLink}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"siarter gwybodaeth bersonol MoJ\">siarter gwybodaeth bersonol MoJ</a> yn egluro sut mae&rsquo;r MoJ yn prosesu data personol.",
   "whoManagesThisServiceParagraph3": "Fel rhan o&rsquo;r MoJ, mae GLlTEM yn gyfrifol am benderfynu sut mae eich data personol yn cael ei ddefnyddio ac mae&rsquo;n gyfrifol am ddiogelu&rsquo;r data personol rydych yn ei ddarparu.",
   "whoManagesThisServiceParagraph4": "Ceir rhagor o wybodaeth am ddefnyddio&rsquo;r gwasanaeth hwn yn y <a href=\"{termsLink}\" class=\"govuk-link\">telerau ac amodau</a>.",
 
@@ -64,12 +64,12 @@
   "yourRights-item9": "ein cyfarwyddiadau i staff ynghylch sut i gasglu, defnyddio neu ddileu eich gwybodaeth bersonol",
   "yourRights-item10": "sut rydym yn sicrhau bod yr wybodaeth sydd gennym yn gywir ac yn gyfredol",
   "yourRightsParagraph4": "Gallwch gysylltu &acirc; swyddog diogelu data MoJ drwy:",
-  "yourRights-item11": "ysgrifennu atom yn: Pwynt post 10.38, 102 Petty France, Llundain SW1H 9AJ",
+  "yourRights-item11": "ysgrifennu atom yn: Post point 10.38, 102 Petty France, Llundain SW1H 9AJ",
   "yourRights-item12": "anfon neges e-bost i: <a href=\"mailto:data.compliance@justice.gov.uk\" class=\"govuk-link\">data.compliance@justice.gov.uk</a>",
 
   "howToComplainHeading": "Sut i wneud cwyn",
   "howToComplainParagraph1": "Gweler ein <a target=\"_blank\" rel=\"external noopener\" href=\"{complaintsProcedureLink}\" class=\"govuk-link\">trefn gwyno</a> os ydych eisiau cwyno am sut rydym wedi trin eich data personol.",
-  "howToComplainParagraph2": "Ysgrifennwch at: Pwynt post 10.38, 102 Petty France, Llundain SW1H 9AJ",
+  "howToComplainParagraph2": "Ysgrifennwch at: Post Point 10.38, 102 Petty France, Llundain SW1H 9AJ",
   "howToComplainParagraph3": "E-bost: <a href=\"mailto:data.compliance@justice.gov.uk\" class=\"govuk-link\">data.compliance@justice.gov.uk</a>",
   "howToComplainParagraph4": "Gallwch hefyd gyflwyno cwyn i <a target=\"_blank\" rel=\"external noopener\" href=\"{informationCommissionersOfficeLink}\" class=\"govuk-link\">Swyddfa&rsquo;r Comisiynydd Gwybodaeth </a>os ydych yn anfodlon &acirc;&rsquo;n hymateb neu&rsquo;n credu nad ydym yn prosesu eich data personol yn gyfreithlon."
 }

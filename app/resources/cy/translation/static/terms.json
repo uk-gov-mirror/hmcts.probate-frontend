@@ -42,7 +42,7 @@
   "personalInformation-item6": "data genetig neu ddata biometrig",
   "personalInformation-item7": "gwybodaeth am eich iechyd",
   "personalInformationParagraph3": "Rydych yn rhoi caniat&acirc;d inni brosesu&rsquo;r wybodaeth hon er mwyn inni allu ymdrin &acirc;&rsquo;ch cais.",
-  "personalInformationParagraph4": "I gael rhagor o wybodaeth am sut rydym yn casglu a storio eich data personol, gweler y <a href=\"{privacyLink}\" class=\"govuk-link\">polisi preifatrwyddy</a>.",
+  "personalInformationParagraph4": "I gael rhagor o wybodaeth am sut rydym yn casglu a storio eich data personol, gweler y <a href=\"{privacyLink}\" class=\"govuk-link\" aria-label=\"polisi preifatrwyddy\">polisi preifatrwyddy</a>.",
 
   "disclaimerHeading": "Ymwrthodiad",
   "disclaimerParagraph1": "Er ein bod yn ymdrechu i gadw GOV.UK yn gyfredol, nid ydym yn darparu unrhyw warantau, amodau neu sicrwydd bod y wybodaeth:",
@@ -75,7 +75,7 @@
   "disclaimer-item22": "unrhyw atebolrwydd arall na ellir ei eithrio neu ei gyfyngu dan y gyfraith berthnasol",
 
   "contactHeading": "Cysylltu &acirc; ni",
-  "contactParagraph1": "Ff&ocirc;n: {helpLineNumber}",
+  "contactParagraph1": "Rhif ff&ocirc;n: {helpLineNumber}",
   "contactParagraph2": "{helpLineHours}",
   "contactParagraph3": "<a target=\"_blank\" rel=\"external noopener\" href=\"{callChargesLink}\" class=\"govuk-link\">Gwybodaeth am brisiau galwadau</a>"
 }
