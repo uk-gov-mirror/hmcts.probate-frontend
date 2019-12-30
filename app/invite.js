@@ -40,7 +40,9 @@ class InviteLink {
                             } else {
                                 logger.info('Link is valid');
                                 const pinNumber = new PinNumber(config.services.orchestrator.url, req.sessionID);
-                                pinNumber.get(result.phoneNumber, authToken, serviceAuthorisation)
+                                const bilingual = result.bilingual === 'optionYes';
+
+                                pinNumber.get(result.phoneNumber, bilingual, authToken, serviceAuthorisation)
                                     .then(generatedPin => {
                                         req.session.pin = generatedPin;
                                         req.session.phoneNumber = result.phoneNumber;

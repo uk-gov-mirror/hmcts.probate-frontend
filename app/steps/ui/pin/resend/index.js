@@ -8,6 +8,7 @@ const FieldError = require('app/components/error');
 const Authorise = require('app/services/Authorise');
 const Security = require('app/services/Security');
 const logger = require('app/components/logger')('Init');
+const get = require('lodash').get;
 
 class PinResend extends Step {
 
@@ -50,7 +51,9 @@ class PinResend extends Step {
         }
 
         const pinNumber = new PinNumber(config.services.orchestrator.url, ctx.sessionID);
-        yield pinNumber.get(phoneNumber)
+        const bilingual = get(formdata, 'language.bilingual', 'optionNo') === 'optionYes';
+
+        yield pinNumber.get(phoneNumber, bilingual)
             .then(generatedPin => {
                 if (generatedPin.name === 'Error') {
                     throw new ReferenceError('Error when trying to resend pin');
