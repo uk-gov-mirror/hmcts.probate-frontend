@@ -9,7 +9,7 @@ router.get('/copies-uk', (req, res, next) => featureToggle.callCheckToggle(req, 
 router.get('/copies-overseas', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'fees_api', featureToggle.toggleFeature));
 router.all('/payment-breakdown', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'fees_api', featureToggle.toggleFeature));
 
-router.get('/bilingual-gop', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'welsh_ft', featureToggle.togglePage, '/deceased-name'));
+router.get('/bilingual-gop', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'welsh_ft', featureToggle.togglePage, {gop: '/deceased-name', intestacy: '/deceased-details'}));
 router.all('*', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'welsh_ft', featureToggle.toggleFeature));
 
 module.exports = router;
