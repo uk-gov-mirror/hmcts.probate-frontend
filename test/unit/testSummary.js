@@ -140,7 +140,10 @@ describe('Summary', () => {
                     }
                 },
                 sessionID: 'dummy_sessionId',
-                softStop: false
+                softStop: false,
+                featureToggles: {
+                    welsh_ft: 'false'
+                }
             });
             done();
         });
@@ -216,7 +219,10 @@ describe('Summary', () => {
                     }
                 },
                 sessionID: 'dummy_sessionId',
-                softStop: false
+                softStop: false,
+                featureToggles: {
+                    welsh_ft: 'false'
+                }
             });
             done();
         });

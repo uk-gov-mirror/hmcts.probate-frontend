@@ -55,6 +55,9 @@ describe('Executor-Additional-Invite-Sent', () => {
                 ccdCase: {
                     id: 1234567890123456,
                     state: 'Pending'
+                },
+                featureToggles: {
+                    welsh_ft: 'false'
                 }
             });
         });
@@ -88,6 +91,9 @@ describe('Executor-Additional-Invite-Sent', () => {
                 ccdCase: {
                     id: 1234567890123456,
                     state: 'Pending'
+                },
+                featureToggles: {
+                    welsh_ft: 'false'
                 }
             });
         });

@@ -45,6 +45,9 @@ describe('IhtCompleted', () => {
                 ccdCase: {
                     id: 1234567890123456,
                     state: 'Pending'
+                },
+                featureToggles: {
+                    welsh_ft: 'false'
                 }
             });
             done();

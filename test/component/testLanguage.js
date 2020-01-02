@@ -5,6 +5,21 @@ const DeceasedName = require('app/steps/ui/deceased/name');
 const DeceasedDetails = require('app/steps/ui/deceased/details');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
+const config = require('app/config');
+const featureToggleUrl = config.featureToggles.url;
+const welshFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.welsh_ft}`;
+const nock = require('nock');
+const beforeEachNocks = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(welshFeatureTogglePath)
+        .reply(200, status);
+};
+const afterEachNocks = (done) => {
+    return () => {
+        nock.cleanAll();
+        done();
+    };
+};
 
 describe('bilingual-gop', () => {
     let testWrapper;
@@ -12,6 +27,7 @@ describe('bilingual-gop', () => {
     const expectedNextUrlForDeceasedDetails = DeceasedDetails.getUrl();
 
     beforeEach(() => {
+        beforeEachNocks('true');
         testWrapper = new TestWrapper('BilingualGOP');
     });
 
@@ -20,10 +36,10 @@ describe('bilingual-gop', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('BilingualGOP');
+        testCommonContent.runTest('BilingualGOP', beforeEachNocks, afterEachNocks);
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done);
+            testWrapper.testContent(afterEachNocks(done));
         });
 
         it('test errors message displayed for missing data', (done) => {
