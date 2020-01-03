@@ -79,17 +79,36 @@
       "netValueAssetsOutside": 200000.5
     },
     "executors": {
-      "list": [{"firstName":"asd","lastName":"dsa","isApplying":true,"isApplicant":true},
-                {"fullName":"Number 2","isApplying":true,"email":"test@email.com",
-                  "mobile":"07234156431", "address":{"addressLine1": "21 Treelined Avenue",
-                    "addressLine2": "", "addressLine3": "", "postTown": "London", "postCode": "NW1 8SS",
-                    "county": "Sussex", "country": ""},
-                  "inviteId":"dee-ceased-6da20103-4c99-4346-8a30-0df173e543b7","emailSent":true}],
-      "executorsNumber" : 2,
+      "list": [
+        {
+          "firstName": "asd",
+          "lastName": "dsa",
+          "isApplying": true,
+          "isApplicant": true
+        },
+        {
+          "fullName": "Number 2",
+          "isApplying": true,
+          "email": "test@email.com",
+          "mobile": "07234156431",
+          "address": {
+            "addressLine1": "21 Treelined Avenue",
+            "addressLine2": "",
+            "addressLine3": "",
+            "postTown": "London",
+            "postCode": "NW1 8SS",
+            "county": "Sussex",
+            "country": ""
+          },
+          "inviteId": "dee-ceased-6da20103-4c99-4346-8a30-0df173e543b7",
+          "emailSent": true
+        }
+      ],
+      "executorsNumber": 2,
       "invitesSent": "true",
-      "allalive":"optionYes",
-      "otherExecutorsApplying":"optionYes",
-      "alias":"optionNo",
+      "allalive": "optionYes",
+      "otherExecutorsApplying": "optionYes",
+      "alias": "optionNo",
       "mentalCapacity": "optionYes"
     },
     "declaration": {

@@ -73,15 +73,15 @@
     },
     "executors": {
       "list": [{
-        "firstName":"Bob",
-        "lastName":"Smith",
-        "isApplicant":true,
-        "isApplying":true,
+        "firstName": "Bob",
+        "lastName": "Smith",
+        "isApplicant": true,
+        "isApplying": true,
         "aliasReason": "optionDeedPoll",
         "alias": "Bobby Smithy",
         "inviteId": "abc123"
       }],
-      "executorsNumber" : 1
+      "executorsNumber": 1
     },
     "assets": {
       "assetsoverseas": "optionYes"

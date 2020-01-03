@@ -9,7 +9,7 @@
   },
 
   "executors": {
-   "executorsNumber" : 3,
+   "executorsNumber": 3,
     "otherExecutorsApplying": "optionYes",
     "allAlive": "optionNo",
     "list": [
@@ -32,8 +32,8 @@
         "fullName": "sam2 simms2",
         "isApplying": false,
         "notApplyingKey": "optionRenunciated",
-        "notApplyingReason" : "optionRenunciated",
-        "executorNotified" : "optionYes"
+        "notApplyingReason": "optionRenunciated",
+        "executorNotified": "optionYes"
       },
       {
         "fullName": "dean2 plummer2",
@@ -42,6 +42,6 @@
         "diedbefore": "optionYes"
       }
     ],
-    "otherExecutors" : "optionNo"
+    "otherExecutors": "optionNo"
   }
 }
