@@ -2,12 +2,14 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedAddress = require('app/steps/ui/deceased/address');
+const StopPage = require('app/steps/ui/stoppage');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('deceased-details', () => {
     let testWrapper;
     const expectedNextUrlForDeceasedAddress = DeceasedAddress.getUrl();
+    const expectedNextUrlForStopPage = StopPage.getUrl('notDiedAfterOctober2014');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedDetails');
@@ -206,6 +208,24 @@ describe('deceased-details', () => {
                         'dod-year': '2018'
                     };
                     testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAddress);
+                });
+        });
+
+        it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
+                .end(() => {
+                    const data = {
+                        'firstName': 'Bob',
+                        'lastName': 'Smith',
+                        'dob-day': '12',
+                        'dob-month': '9',
+                        'dob-year': '2000',
+                        'dod-day': '12',
+                        'dod-month': '9',
+                        'dod-year': '2014'
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
                 });
         });
     });
