@@ -1,3 +1,4 @@
+// eslint-disable-line max-lines
 'use strict';
 
 const config = {
