@@ -40,7 +40,13 @@ const updateTaskStatus = (ctx, req, steps) => {
     });
 };
 
+const formattedDate = (date, language) => {
+    const month = commonContent(language).months.split(',')[date.month()].trim();
+    return `${date.date()} ${month} ${date.year()}`;
+};
+
 module.exports = {
     commonContent,
-    updateTaskStatus
+    updateTaskStatus,
+    formattedDate
 };
