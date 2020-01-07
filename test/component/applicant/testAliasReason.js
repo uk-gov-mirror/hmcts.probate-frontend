@@ -3,6 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ApplicantPhone = require('app/steps/ui/applicant/phone');
 const content = require('app/resources/en/translation/applicant/aliasreason');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('applicant-alias-reason', () => {
     let testWrapper;
@@ -19,6 +20,7 @@ describe('applicant-alias-reason', () => {
     describe('Verify Content, Errors and Redirection', () => {
         it('test content loaded on the page', (done) => {
             const sessionData = {
+                type: caseTypes.GOP,
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456

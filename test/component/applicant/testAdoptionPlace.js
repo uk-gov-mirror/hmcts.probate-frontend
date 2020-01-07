@@ -7,7 +7,7 @@ const StopPage = require('app/steps/ui/stoppage');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const content = require('app/resources/en/translation/applicant/adoptionplace');
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
-const caseTypes= require('app/utils/CaseTypes');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('adoption-place', () => {
     let testWrapper;
@@ -24,10 +24,11 @@ describe('adoption-place', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('AdoptionPlace');
+        testCommonContent.runTest('AdoptionPlace', null, null, [], false, {type: caseTypes.INTESTACY});
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
+                type: caseTypes.INTESTACY,
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456

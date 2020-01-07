@@ -8,6 +8,7 @@ const TaskList = require('app/steps/ui/tasklist');
 const executorRolesContent = require('app/resources/en/translation/executors/executorcontent');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('executor-roles', () => {
     const expectedNextUrlForTaskList = TaskList.getUrl();
@@ -23,6 +24,7 @@ describe('executor-roles', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorRoles');
         sessionData = {
+            type: caseTypes.GOP,
             ccdCase: {
                 state: 'Pending',
                 id: 1234567890123456

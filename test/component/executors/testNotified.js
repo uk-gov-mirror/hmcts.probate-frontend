@@ -5,6 +5,7 @@ const TaskList = require('app/steps/ui/tasklist');
 const ExecutorRoles = require('app/steps/ui/executors/roles');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('executor-notified', () => {
     let testWrapper, sessionData;
@@ -15,6 +16,7 @@ describe('executor-notified', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorNotified');
         sessionData = {
+            type: caseTypes.GOP,
             ccdCase: {
                 state: 'Pending',
                 id: 1234567890123456
