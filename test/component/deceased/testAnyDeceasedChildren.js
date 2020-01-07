@@ -31,6 +31,9 @@ describe('any-deceased-children', () => {
                 deceased: {
                     'firstName': 'John',
                     'lastName': 'Doe',
+                    'dod-day': 13,
+                    'dod-month': 10,
+                    'dod-year': 2018,
                     'dod-formattedDate': '13 October 2018'
                 }
             };
