@@ -16,6 +16,8 @@ const caseTypes = require('app/utils/CaseTypes');
 const UploadLegalDeclaration = require('app/services/UploadLegalDeclaration');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const FieldError = require('app/components/error');
+const utils = require('app/components/step-utils');
+const moment = require('moment');
 
 class Declaration extends ValidationStep {
     static getUrl() {
@@ -54,7 +56,7 @@ class Declaration extends ValidationStep {
         return yield validateData.put(data, req.authToken, req.session.serviceAuthorization, caseTypes.getCaseType(req.session));
     }
 
-    getFormDataForTemplate(content, formdata) {
+    getFormDataForTemplate(content, formdata, language) {
         const formdataApplicant = formdata.applicant || {};
         formdata.applicantName = FormatName.format(formdataApplicant);
         formdata.applicantAddress = get(formdataApplicant, 'address', {});
@@ -63,8 +65,9 @@ class Declaration extends ValidationStep {
         formdata.deceasedName = FormatName.format(formdataDeceased);
         formdata.deceasedAddress = get(formdataDeceased, 'address', {});
         formdata.deceasedOtherNames = FormatName.formatMultipleNamesAndAddress(get(formdataDeceased, 'otherNames'), content);
-        formdata.dobFormattedDate = formdataDeceased['dob-formattedDate'];
-        formdata.dodFormattedDate = formdataDeceased['dod-formattedDate'];
+        formdata.dobFormattedDate = formdataDeceased['dob-day'] ? utils.formattedDate(moment(formdataDeceased['dob-day'] + '/' + formdataDeceased['dob-month'] + '/' + formdataDeceased['dob-year'], config.dateFormat).parseZone(), language) : '';
+        formdata.dodFormattedDate = formdataDeceased['dod-day'] ? utils.formattedDate(moment(formdataDeceased['dod-day'] + '/' + formdataDeceased['dod-month'] + '/' + formdataDeceased['dod-year'], config.dateFormat).parseZone(), language) : '';
+
         formdata.maritalStatus = formdataDeceased.maritalStatus;
         formdata.relationshipToDeceased = formdataApplicant.relationshipToDeceased;
         formdata.anyChildren = formdataDeceased.anyChildren;
@@ -86,7 +89,7 @@ class Declaration extends ValidationStep {
         ctx = this.pruneFormData(req.body, ctx);
         const formdata = req.session.form;
         const content = this.generateContent(ctx, formdata, req.session.language);
-        const formDataForTemplate = this.getFormDataForTemplate(content, formdata);
+        const formDataForTemplate = this.getFormDataForTemplate(content, formdata, req.session.language);
 
         if (ctx.caseType === caseTypes.INTESTACY && formdata.iht) {
             ctx.showNetValueAssetsOutside = (formdata.iht.assetsOutside === 'optionYes' && (formdata.iht.netValue + formdata.iht.netValueAssetsOutside) > config.assetsValueThreshold);
