@@ -17,8 +17,8 @@ class IntestacyDeclarationFactory {
             deceased: content.en.intestacyLegalStatementDeceased
                 .replace('{deceasedName}', formdata.deceasedName)
                 .replace('{deceasedAddress}', formdata.deceasedAddress.formattedAddress)
-                .replace('{deceasedDob}', formdata.dobFormattedDate)
-                .replace('{deceasedDod}', formdata.dodFormattedDate),
+                .replace('{deceasedDob}', formdata.dobFormattedDate.en)
+                .replace('{deceasedDod}', formdata.dodFormattedDate.en),
             deceasedOtherNames: formdata.deceasedOtherNames ? content.en.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames) : '',
             deceasedMaritalStatus: content.en.intestacyDeceasedMaritalStatus
                 .replace('{deceasedMaritalStatus}', get(formdata.deceased, 'maritalStatus', '').toLowerCase()),
@@ -61,8 +61,8 @@ class IntestacyDeclarationFactory {
                 deceased: content.cy.intestacyLegalStatementDeceased
                     .replace('{deceasedName}', formdata.deceasedName)
                     .replace('{deceasedAddress}', formdata.deceasedAddress.formattedAddress)
-                    .replace('{deceasedDob}', formdata.dobFormattedDate)
-                    .replace('{deceasedDod}', formdata.dodFormattedDate),
+                    .replace('{deceasedDob}', formdata.dobFormattedDate.cy)
+                    .replace('{deceasedDod}', formdata.dodFormattedDate.cy),
                 deceasedOtherNames: formdata.deceasedOtherNames ? content.cy.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames) : '',
                 deceasedMaritalStatus: content.cy.intestacyDeceasedMaritalStatus
                     .replace('{deceasedMaritalStatus}', get(formdata.deceased, 'maritalStatus', '').toLowerCase()),

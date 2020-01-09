@@ -64,7 +64,7 @@ class Declaration extends ValidationStep {
         return yield validateData.put(data, req.authToken, req.session.serviceAuthorization, caseTypes.getCaseType(req.session));
     }
 
-    getFormDataForTemplate(content, formdata, language) {
+    getFormDataForTemplate(content, formdata) {
         const formdataApplicant = formdata.applicant || {};
         formdata.applicantName = FormatName.format(formdataApplicant);
         formdata.applicantAddress = get(formdataApplicant, 'address', {});
@@ -76,8 +76,17 @@ class Declaration extends ValidationStep {
             en: FormatName.formatMultipleNamesAndAddress(get(formdataDeceased, 'otherNames'), content.en),
             cy: FormatName.formatMultipleNamesAndAddress(get(formdataDeceased, 'otherNames'), content.cy)
         };
-        formdata.dobFormattedDate = formdataDeceased['dob-day'] ? utils.formattedDate(moment(formdataDeceased['dob-day'] + '/' + formdataDeceased['dob-month'] + '/' + formdataDeceased['dob-year'], config.dateFormat).parseZone(), language) : '';
-        formdata.dodFormattedDate = formdataDeceased['dod-day'] ? utils.formattedDate(moment(formdataDeceased['dod-day'] + '/' + formdataDeceased['dod-month'] + '/' + formdataDeceased['dod-year'], config.dateFormat).parseZone(), language) : '';
+
+        formdata.dobFormattedDate = {};
+        formdata.dodFormattedDate = {};
+        formdata.dobFormattedDate.en = formdataDeceased['dob-day'] ? utils.formattedDate(moment(formdataDeceased['dob-day'] + '/' + formdataDeceased['dob-month'] + '/' + formdataDeceased['dob-year'], config.dateFormat).parseZone(), 'en') : '';
+        formdata.dodFormattedDate.en = formdataDeceased['dod-day'] ? utils.formattedDate(moment(formdataDeceased['dod-day'] + '/' + formdataDeceased['dod-month'] + '/' + formdataDeceased['dod-year'], config.dateFormat).parseZone(), 'en') : '';
+
+        if (get(formdata, 'language.bilingual', 'optionNo') === 'optionYes') {
+            formdata.dobFormattedDate.cy = formdataDeceased['dob-day'] ? utils.formattedDate(moment(formdataDeceased['dob-day'] + '/' + formdataDeceased['dob-month'] + '/' + formdataDeceased['dob-year'], config.dateFormat).parseZone(), 'cy') : '';
+            formdata.dodFormattedDate.cy = formdataDeceased['dod-day'] ? utils.formattedDate(moment(formdataDeceased['dod-day'] + '/' + formdataDeceased['dod-month'] + '/' + formdataDeceased['dod-year'], config.dateFormat).parseZone(), 'cy') : '';
+        }
+
         formdata.maritalStatus = formdataDeceased.maritalStatus;
         formdata.relationshipToDeceased = formdataApplicant.relationshipToDeceased;
         formdata.anyChildren = formdataDeceased.anyChildren;
@@ -110,7 +119,7 @@ class Declaration extends ValidationStep {
         ctx.bilingual = (get(formdata, 'language.bilingual', 'optionNo') === 'optionYes').toString();
         ctx.language = req.session.language;
         const content = this.generateContent(ctx, formdata, req.session.language);
-        const formDataForTemplate = this.getFormDataForTemplate(content, formdata, req.session.language);
+        const formDataForTemplate = this.getFormDataForTemplate(content, formdata);
 
         if (ctx.caseType === caseTypes.INTESTACY && formdata.iht) {
             ctx.showNetValueAssetsOutside = ((formdata.iht.assetsOutside === 'optionYes' && (formdata.iht.netValue + formdata.iht.netValueAssetsOutside) > config.assetsValueThreshold)).toString();

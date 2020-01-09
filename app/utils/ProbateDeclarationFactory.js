@@ -18,8 +18,8 @@ class ProbateDeclarationFactory {
             deceased: content.en.legalStatementDeceased
                 .replace('{deceasedName}', formdata.deceasedName)
                 .replace('{deceasedAddress}', formdata.deceasedAddress.formattedAddress)
-                .replace('{deceasedDob}', formdata.dobFormattedDate)
-                .replace('{deceasedDod}', formdata.dodFormattedDate),
+                .replace('{deceasedDob}', formdata.dobFormattedDate.en)
+                .replace('{deceasedDod}', formdata.dodFormattedDate.en),
             deceasedOtherNames: formdata.deceasedOtherNames.en ? content.en.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames.en) : '',
             executorsApplying: executorsApplyingText.en,
             deceasedEstateValue: content.en.deceasedEstateValue
@@ -57,8 +57,8 @@ class ProbateDeclarationFactory {
                 deceased: content.cy.legalStatementDeceased
                     .replace('{deceasedName}', formdata.deceasedName)
                     .replace('{deceasedAddress}', formdata.deceasedAddress.formattedAddress)
-                    .replace('{deceasedDob}', formdata.dobFormattedDate)
-                    .replace('{deceasedDod}', formdata.dodFormattedDate),
+                    .replace('{deceasedDob}', formdata.dobFormattedDate.cy)
+                    .replace('{deceasedDod}', formdata.dodFormattedDate.cy),
                 deceasedOtherNames: formdata.deceasedOtherNames.cy ? content.cy.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames.cy) : '',
                 executorsApplying: executorsApplyingText.cy,
                 deceasedEstateValue: content.cy.deceasedEstateValue

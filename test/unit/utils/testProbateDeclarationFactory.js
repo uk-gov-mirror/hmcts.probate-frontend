@@ -4,8 +4,11 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 const FormatName = require('app/utils/FormatName');
 const {get} = require('lodash');
 const expect = require('chai').expect;
+const config = require('app/config');
+const utils = require('app/components/step-utils');
+const moment = require('moment');
 const probateDeclarationFactory = require('app/utils/ProbateDeclarationFactory');
-const formdata = require('test/data/complete-form');
+const formdata = require('test/data/complete-form').formdata;
 const content = {
     en: require('app/resources/en/translation/declaration'),
     cy: require('app/resources/cy/translation/declaration')
@@ -33,8 +36,8 @@ describe('ProbateDeclarationFactory', () => {
             en: FormatName.formatMultipleNamesAndAddress(get(formdataDeceased, 'otherNames'), content.en),
             cy: FormatName.formatMultipleNamesAndAddress(get(formdataDeceased, 'otherNames'), content.cy)
         };
-        formdata.dobFormattedDate = formdataDeceased['dob-formattedDate'];
-        formdata.dodFormattedDate = formdataDeceased['dod-formattedDate'];
+        formdata.dobFormattedDate = utils.formattedDate(moment(formdataDeceased['dob-day'] + '/' + formdataDeceased['dob-month'] + '/' + formdataDeceased['dob-year'], config.dateFormat).parseZone(), 'en');
+        formdata.dodFormattedDate = utils.formattedDate(moment(formdataDeceased['dod-day'] + '/' + formdataDeceased['dod-month'] + '/' + formdataDeceased['dod-year'], config.dateFormat).parseZone(), 'en');
         formdata.maritalStatus = formdataDeceased.maritalStatus;
         formdata.relationshipToDeceased = formdataDeceased.relationshipToDeceased;
         formdata.hadChildren = formdataDeceased.hadChildren;
@@ -70,8 +73,8 @@ describe('ProbateDeclarationFactory', () => {
                         deceased: content.en.legalStatementDeceased
                             .replace('{deceasedName}', formdata.deceasedName)
                             .replace('{deceasedAddress}', formdata.deceasedAddress.formattedAddress)
-                            .replace('{deceasedDob}', formdata.dobFormattedDate)
-                            .replace('{deceasedDod}', formdata.dodFormattedDate),
+                            .replace('{deceasedDob}', formdata.dobFormattedDate.en)
+                            .replace('{deceasedDod}', formdata.dodFormattedDate.en),
                         deceasedEstateLand: content.en[`deceasedEstateLand${multipleApplicantSuffix}`]
                             .replace(/{deceasedName}/g, formdata.deceasedName),
                         deceasedEstateValue: content.en.deceasedEstateValue
