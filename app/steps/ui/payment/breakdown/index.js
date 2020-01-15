@@ -73,7 +73,7 @@ class PaymentBreakdown extends Step {
                 return [ctx, errors];
             }
 
-            const [canCreatePayment, paymentStatus] = yield this.canCreatePayment(ctx, formdata, serviceAuthResult, session.language);
+            const [canCreatePayment, paymentStatus] = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
             logger.info(`canCreatePayment result = ${canCreatePayment} with status ${paymentStatus}`);
             if (paymentStatus === 'Initiated') {
                 const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
