@@ -77,7 +77,7 @@ class PaymentStatus extends Step {
 
             const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
             const payment = new Payment(paymentCreateServiceUrl, ctx.sessionID);
-            const getPaymentResponse = yield payment.get(data);
+            const getPaymentResponse = yield payment.get(data, language);
             logger.info('Payment retrieval in status for reference = ' + ctx.reference + ' with response = ' + JSON.stringify(getPaymentResponse));
             if (getPaymentResponse.name === 'Error' || getPaymentResponse.status === 'Initiated') {
                 logger.error('Payment retrieval failed for reference = ' + ctx.reference + ' with status = ' + getPaymentResponse.status);

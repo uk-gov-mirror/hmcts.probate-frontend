@@ -73,7 +73,7 @@ class PaymentBreakdown extends Step {
                 return [ctx, errors];
             }
 
-            const [canCreatePayment, paymentStatus] = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
+            const [canCreatePayment, paymentStatus] = yield this.canCreatePayment(ctx, formdata, serviceAuthResult, session.language);
             logger.info(`canCreatePayment result = ${canCreatePayment} with status ${paymentStatus}`);
             if (paymentStatus === 'Initiated') {
                 const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
@@ -84,7 +84,7 @@ class PaymentBreakdown extends Step {
                     userId: ctx.userId,
                     paymentId: ctx.reference
                 };
-                const paymentResponse = yield payment.get(data);
+                const paymentResponse = yield payment.get(data, session.language);
                 logger.info('Checking status of reference = ' + ctx.reference + ' with response = ' + paymentResponse.status);
                 if (paymentResponse.status === 'Initiated') {
                     logger.error('As payment is still Initiated, user will need to wait for this state to expire.');
@@ -117,7 +117,7 @@ class PaymentBreakdown extends Step {
 
                 const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
                 const payment = new Payment(paymentCreateServiceUrl, ctx.sessionID);
-                const paymentResponse = yield payment.post(data, hostname);
+                const paymentResponse = yield payment.post(data, hostname, session.language);
                 logger.info(`Payment creation in breakdown for ccdCaseId = ${formdata.ccdCase.id} with response = ${JSON.stringify(paymentResponse)}`);
                 if (paymentResponse.name === 'Error') {
                     errors.push(FieldError('payment', 'failure', this.resourcePath, this.generateContent(ctx, formdata, session.language), session.language));
@@ -176,7 +176,7 @@ class PaymentBreakdown extends Step {
         return [ctx, formdata];
     }
 
-    * canCreatePayment(ctx, formdata, serviceAuthResult) {
+    * canCreatePayment(ctx, formdata, serviceAuthResult, language) {
         const paymentReference = get(formdata, 'payment.reference');
         const caseId = get(formdata, 'ccdCase.id');
         let paymentStatus;
@@ -190,7 +190,7 @@ class PaymentBreakdown extends Step {
             };
             const paymentServiceUrl = config.services.payment.url + config.services.payment.paths.payments;
             const payment = new Payment(paymentServiceUrl, ctx.sessionID);
-            const casePaymentsArray = yield payment.getCasePayments(data);
+            const casePaymentsArray = yield payment.getCasePayments(data, language);
             logger.debug(`Case payments for ${caseId} with response = ${JSON.stringify(casePaymentsArray)}`);
             const paymentResponse = payment.identifySuccessfulOrInitiatedPayment(casePaymentsArray);
             logger.debug(`Payment retrieval in breakdown for caseId = ${caseId} with response = ${JSON.stringify(paymentResponse)}`);

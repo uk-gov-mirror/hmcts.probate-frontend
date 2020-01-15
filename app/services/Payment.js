@@ -6,31 +6,33 @@ const config = require('app/config');
 const {forEach} = require('lodash');
 
 class Payment extends Service {
-    get(data) {
+    get(data, language) {
         this.log('Get payment');
         const url = `${this.endpoint}/${data.paymentId}`;
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': data.authToken,
-            'ServiceAuthorization': data.serviceAuthToken
+            'ServiceAuthorization': data.serviceAuthToken,
+            'language': language
         };
         const fetchOptions = this.fetchOptions(data, 'GET', headers);
         return this.fetchJson(url, fetchOptions);
     }
 
-    getCasePayments(data) {
+    getCasePayments(data, language) {
         this.log('Getting all payments from case');
         const url = `${this.endpoint}?service_name=Probate&ccd_case_number=${data.caseId}`;
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': data.authToken,
-            'ServiceAuthorization': data.serviceAuthToken
+            'ServiceAuthorization': data.serviceAuthToken,
+            'language': language
         };
         const fetchOptions = this.fetchOptions(data, 'GET', headers);
         return this.fetchJson(url, fetchOptions);
     }
 
-    post(data, hostname) {
+    post(data, hostname, language) {
         this.log('Post payment');
         const url = this.endpoint;
         const paymentUpdatesCallback = config.services.orchestrator.url + config.services.orchestrator.paths.payment_updates;
@@ -39,7 +41,8 @@ class Payment extends Service {
             'Authorization': data.authToken,
             'ServiceAuthorization': data.serviceAuthToken,
             'return-url': this.formatUrl.format(hostname, config.services.payment.paths.returnUrlPath),
-            'service-callback-url': paymentUpdatesCallback
+            'service-callback-url': paymentUpdatesCallback,
+            'language': language
         };
         const body = paymentData.createPaymentData(data);
         const fetchOptions = this.fetchOptions(body, 'POST', headers);
