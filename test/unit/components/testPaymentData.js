@@ -20,7 +20,7 @@ describe('payment-data.js', () => {
                     }
                 }
             };
-            const result = paymentData.createPaymentData(data);
+            const result = paymentData.createPaymentData(data, 'en');
             expect(result).to.deep.equal({
                 amount: 0,
                 description: 'Probate Fees',
@@ -28,7 +28,8 @@ describe('payment-data.js', () => {
                 service: 'PROBATE',
                 currency: 'GBP',
                 site_id: 'P223',
-                fees: []
+                fees: [],
+                language: 'en'
             });
             done();
         });
@@ -51,7 +52,7 @@ describe('payment-data.js', () => {
                 },
                 userId: '11111'
             };
-            const result = paymentData.createPaymentData(data);
+            const result = paymentData.createPaymentData(data, 'en');
             expect(result).to.deep.equal({
                 amount: 215,
                 description: 'Probate Fees',
@@ -67,7 +68,8 @@ describe('payment-data.js', () => {
                     reference: '11111',
                     version: '1',
                     volume: 1
-                }]
+                }],
+                language: 'en'
             });
             done();
         });
@@ -90,7 +92,7 @@ describe('payment-data.js', () => {
                 },
                 userId: '11111'
             };
-            const result = paymentData.createPaymentData(data);
+            const result = paymentData.createPaymentData(data, 'en');
             expect(result).to.deep.equal({
                 amount: 1.50,
                 description: 'Probate Fees',
@@ -106,7 +108,8 @@ describe('payment-data.js', () => {
                     reference: '11111',
                     version: '3',
                     volume: 1
-                }]
+                }],
+                language: 'en'
             });
             done();
         });
@@ -129,7 +132,7 @@ describe('payment-data.js', () => {
                 },
                 userId: '11111'
             };
-            const result = paymentData.createPaymentData(data);
+            const result = paymentData.createPaymentData(data, 'en');
             expect(result).to.deep.equal({
                 amount: 3,
                 description: 'Probate Fees',
@@ -145,7 +148,8 @@ describe('payment-data.js', () => {
                     reference: '11111',
                     version: '3',
                     volume: 2
-                }]
+                }],
+                language: 'en'
             });
             done();
         });
@@ -168,7 +172,7 @@ describe('payment-data.js', () => {
                 },
                 userId: '11111'
             };
-            const result = paymentData.createPaymentData(data);
+            const result = paymentData.createPaymentData(data, 'en');
             expect(result).to.deep.equal({
                 amount: 219.50,
                 description: 'Probate Fees',
@@ -200,7 +204,8 @@ describe('payment-data.js', () => {
                     reference: '11111',
                     version: '3',
                     volume: 2
-                }]
+                }],
+                language: 'en'
             });
             done();
         });
