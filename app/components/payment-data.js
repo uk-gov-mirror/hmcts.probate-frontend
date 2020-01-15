@@ -53,7 +53,7 @@ const createPaymentData = (data, language) => {
             amount: data.copies.overseas.cost,
             ccdCaseId: data.ccdCaseId,
             code: ADDITIONAL_COPY_FEE_CODE_OVERSEAS,
-            memoLine: 'Additional UK copies',
+            memoLine: 'Additional overseas copies',
             reference: data.userId,
             version: versionCopiesOverseas,
             volume: data.copies.overseas.number
