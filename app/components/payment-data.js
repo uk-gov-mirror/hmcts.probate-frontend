@@ -29,7 +29,7 @@ const createPaymentData = (data, language) => {
             amount: data.applicationFee,
             ccdCaseId: data.ccdCaseId,
             code: APPLICATION_FEE_CODE,
-            memoLine: commonContent.paymentProbateFees,
+            memoLine: 'Probate Fees',
             reference: data.userId,
             version: version,
             volume: 1
@@ -41,7 +41,7 @@ const createPaymentData = (data, language) => {
             amount: data.copies.uk.cost,
             ccdCaseId: data.ccdCaseId,
             code: ADDITIONAL_COPY_FEE_CODE_UK,
-            memoLine: commonContent.paymentAdditionalCopiesUk,
+            memoLine: 'Additional UK copies',
             reference: data.userId,
             version: versionCopiesUk,
             volume: data.copies.uk.number
@@ -53,7 +53,7 @@ const createPaymentData = (data, language) => {
             amount: data.copies.overseas.cost,
             ccdCaseId: data.ccdCaseId,
             code: ADDITIONAL_COPY_FEE_CODE_OVERSEAS,
-            memoLine: commonContent.paymentAdditionalCopiesOverseas,
+            memoLine: 'Additional UK copies',
             reference: data.userId,
             version: versionCopiesOverseas,
             volume: data.copies.overseas.number
