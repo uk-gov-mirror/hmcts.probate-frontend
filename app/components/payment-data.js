@@ -7,19 +7,21 @@ const APPLICATION_FEE_CODE = config.payment.applicationFeeCode;
 const ADDITIONAL_COPY_FEE_CODE_UK = config.payment.copies.uk.code;
 const ADDITIONAL_COPY_FEE_CODE_OVERSEAS = config.payment.copies.overseas.code;
 
-const createPaymentData = (data) => {
+const createPaymentData = (data, language) => {
+    const commonContent = require(`app/resources/${language}/translation/common`);
     const version = config.payment.version;
     const versionCopiesOverseas = config.payment.copies.overseas.version;
     const versionCopiesUk = config.payment.copies.uk.version;
     const currency = config.payment.currency;
     const paymentData = {
         amount: data.amount,
-        description: 'Probate Fees',
+        description: commonContent.paymentProbateFees,
         ccd_case_number: data.ccdCaseId,
         service: SERVICE_ID,
         currency: currency,
         site_id: SITE_ID,
-        fees: []
+        fees: [],
+        language: language
     };
 
     if (data.applicationFee > 0) {
@@ -27,7 +29,7 @@ const createPaymentData = (data) => {
             amount: data.applicationFee,
             ccdCaseId: data.ccdCaseId,
             code: APPLICATION_FEE_CODE,
-            memoLine: 'Probate Fees',
+            memoLine: commonContent.paymentProbateFees,
             reference: data.userId,
             version: version,
             volume: 1
@@ -39,7 +41,7 @@ const createPaymentData = (data) => {
             amount: data.copies.uk.cost,
             ccdCaseId: data.ccdCaseId,
             code: ADDITIONAL_COPY_FEE_CODE_UK,
-            memoLine: 'Additional UK copies',
+            memoLine: commonContent.paymentAdditionalCopiesUk,
             reference: data.userId,
             version: versionCopiesUk,
             volume: data.copies.uk.number
@@ -51,7 +53,7 @@ const createPaymentData = (data) => {
             amount: data.copies.overseas.cost,
             ccdCaseId: data.ccdCaseId,
             code: ADDITIONAL_COPY_FEE_CODE_OVERSEAS,
-            memoLine: 'Additional overseas copies',
+            memoLine: commonContent.paymentAdditionalCopiesOverseas,
             reference: data.userId,
             version: versionCopiesOverseas,
             volume: data.copies.overseas.number
