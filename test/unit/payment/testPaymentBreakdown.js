@@ -216,7 +216,10 @@ describe('PaymentBreakdown', () => {
             let errors = [];
             const formdata = {
                 fees: {
-                    total: 0.0
+                    total: 0,
+                    ukcopiesfee: 0,
+                    overseascopiesfee: 0,
+                    applicationfee: 0
                 }
             };
 
