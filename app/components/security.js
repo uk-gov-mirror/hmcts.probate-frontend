@@ -104,10 +104,11 @@ class Security {
 
     _denyAccess(req, res) {
         const commonContent = require(`app/resources/${req.session.language}/translation/common`);
+        const content = require(`app/resources/${req.session.language}/translation/errors/403`);
 
         res.clearCookie(SECURITY_COOKIE);
         res.status(403);
-        res.render('errors/403', {common: commonContent, userLoggedIn: false});
+        res.render('errors/error', {common: commonContent, content: content, userLoggedIn: false});
     }
 
     _generateState() {

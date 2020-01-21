@@ -204,7 +204,7 @@ describe('Security component', () => {
             promise
                 .then(() => {
                     expect(res.status).to.have.been.calledWith(403);
-                    expect(res.render).to.have.been.calledWith('errors/403');
+                    expect(res.render).to.have.been.calledWith('errors/error');
                     revert();
                     done();
                 })
