@@ -318,16 +318,18 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}) {
 
     app.all('*', (req, res) => {
         const commonContent = require(`app/resources/${req.session.language}/translation/common`);
+        const content = require(`app/resources/${req.session.language}/translation/errors/404`);
 
         logger(req.sessionID).error(`Unhandled request ${req.url}`);
-        res.status(404).render('errors/404', {common: commonContent, userLoggedIn: req.userLoggedIn});
+        res.status(404).render('errors/error', {common: commonContent, content: content, userLoggedIn: req.userLoggedIn});
     });
 
     app.use((err, req, res, next) => {
         const commonContent = require(`app/resources/${req.session.language}/translation/common`);
+        const content = require(`app/resources/${req.session.language}/translation/errors/500`);
 
         logger(req.sessionID).error(err);
-        res.status(500).render('errors/500', {common: commonContent, userLoggedIn: req.userLoggedIn});
+        res.status(500).render('errors/error', {common: commonContent, content: content, userLoggedIn: req.userLoggedIn});
     });
 
     return {app, http};
