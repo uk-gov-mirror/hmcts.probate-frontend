@@ -108,7 +108,7 @@ class Security {
 
         res.clearCookie(SECURITY_COOKIE);
         res.status(403);
-        res.render('errors/error', {common: commonContent, content: content, userLoggedIn: false});
+        res.render('errors/error', {common: commonContent, content: content, error: '403', userLoggedIn: false});
     }
 
     _generateState() {
