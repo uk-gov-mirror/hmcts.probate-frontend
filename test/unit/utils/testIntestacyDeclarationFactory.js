@@ -70,6 +70,31 @@ describe('IntestacyDeclarationFactory', () => {
                             .replace('{deceasedMaritalStatus}', get(formdata.deceased, 'maritalStatus', '').toLowerCase()),
                         deceasedOtherNames: formdata.deceasedOtherNames ? content.en.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames) : '',
                         intro: content.en.intro
+                    },
+                    cy: {
+                        applicant: content.cy.legalStatementApplicant
+                            .replace('{applicantName}', formdata.applicantName)
+                            .replace('{applicantAddress}', formdata.applicantAddress.formattedAddress),
+                        applicant2: applicant2NameFactory.getApplicant2Name(formdata, content.cy),
+                        applying: content.cy.intestacyLettersOfAdministration
+                            .replace('{deceasedName}', formdata.deceasedName),
+                        deceased: content.cy.intestacyLegalStatementDeceased
+                            .replace('{deceasedName}', formdata.deceasedName)
+                            .replace('{deceasedAddress}', formdata.deceasedAddress.formattedAddress)
+                            .replace('{deceasedDob}', formdata.dobFormattedDate.cy)
+                            .replace('{deceasedDod}', formdata.dodFormattedDate.cy),
+                        deceasedChildren: content.cy.intestacyDeceasedChildren,
+                        deceasedEstateLand: content.cy.intestacyDeceasedEstateLand
+                            .replace(/{deceasedName}/g, formdata.deceasedName),
+                        deceasedEstateValue: content.cy.deceasedEstateValue
+                            .replace('{ihtGrossValue}', formdata.ihtGrossValue)
+                            .replace('{ihtNetValue}', formdata.ihtNetValue),
+                        deceasedEstateAssetsOverseas: content.cy.intestacyDeceasedEstateOutside
+                            .replace('{ihtNetValueAssetsOutside}', formdata.ihtNetValueAssetsOutside),
+                        deceasedMaritalStatus: content.cy.intestacyDeceasedMaritalStatus
+                            .replace('{deceasedMaritalStatus}', get(formdata.deceased, 'maritalStatus', '').toLowerCase()),
+                        deceasedOtherNames: formdata.deceasedOtherNames ? content.cy.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames) : '',
+                        intro: content.cy.intro
                     }
                 },
                 declaration: {
@@ -87,6 +112,21 @@ describe('IntestacyDeclarationFactory', () => {
                         understand: content.en.declarationUnderstand,
                         understandItem1: content.en['declarationUnderstandItem1-intestacy'],
                         understandItem2: content.en.declarationUnderstandItem2,
+                    },
+                    cy: {
+                        accept: content.cy.declarationCheckbox,
+                        confirm: content.cy.declarationConfirm
+                            .replace('{deceasedName}', formdata.deceasedName),
+                        confirmItem1: content.cy.declarationConfirmItem1,
+                        confirmItem2: content.cy.declarationConfirmItem2,
+                        confirmItem3: content.cy['declarationConfirmItem3-intestacy'],
+                        requests: content.cy.declarationRequests,
+                        requestsItem1: content.cy['declarationRequestsItem1-intestacy'],
+                        requestsItem2: content.cy['declarationRequestsItem2-intestacy'],
+                        submitWarning: content.cy.submitWarning,
+                        understand: content.cy.declarationUnderstand,
+                        understandItem1: content.cy['declarationUnderstandItem1-intestacy'],
+                        understandItem2: content.cy.declarationUnderstandItem2,
                     }
                 }
             });
