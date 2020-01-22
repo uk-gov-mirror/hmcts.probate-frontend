@@ -11,7 +11,7 @@
         {% set caseClasses = "case draft" if not application.deceasedFullName and application.ccdCase.state == "Pending" else "" %}
         {% set caseIdClasses = caseClasses + " govuk-table__cell--numeric case-id" %}
         {% set caseDateClasses = caseClasses + " govuk-table__cell--numeric" %}
-        {% set caseStatusClasses = caseClasses + (" case-status submitted" if application.ccdCase.state == "CaseCreated" else "") %}
+        {% set caseStatusClasses = caseClasses + (" case-status submitted" if (application.ccdCase.state != "Pending" and application.ccdCase.state != "PAAppCreated" and application.ccdCase.state != "CasePaymentFailed") else "") %}
 
         {% set applicationRows = (applicationRows.push([
             { text: application.ccdCase.idFormatted, classes: caseIdClasses, attributes: {'aria-label': application.ccdCase.idFormattedAccessible } },
