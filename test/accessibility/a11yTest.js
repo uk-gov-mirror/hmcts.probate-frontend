@@ -118,12 +118,12 @@ for (const step in steps) {
             });
 
             it('should not generate any errors', () => {
-                const errors = results.filter((res) => res.type === 'error');
+                const errors = results.issues.filter((res) => res.type === 'error');
                 expect(errors.length).to.equal(0, JSON.stringify(errors, null, 2));
             });
 
             it('should not generate any warnings', () => {
-                const warnings = results.filter((res) => res.type === 'warning');
+                const warnings = results.issues.filter((res) => res.type === 'warning');
                 expect(warnings.length).to.equal(0, JSON.stringify(warnings, null, 2));
             });
         });
