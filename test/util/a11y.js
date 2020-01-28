@@ -2,16 +2,19 @@
 
 const pa11y = require('pa11y');
 const console = require('console');
+const pa11yRun = pa11y({
+    hideElements: '.govuk-box-highlight, .govuk-header__logo, .govuk-footer, link[rel=mask-icon], .govuk-skip-link, .govuk-button--start, .govuk-visually-hidden, .govuk-warning-text__assistive',
+    log: {
+        error: console.error.bind(console)
+    }
+});
 
-module.exports = (testPage) => {
+module.exports = (testPage, title) => {
     return new Promise((resolve, reject) => {
-        pa11y(testPage, {
-            hideElements: '.govuk-box-highlight, .govuk-header__logo, .govuk-footer, link[rel=mask-icon], .govuk-skip-link, .govuk-button--start, .govuk-visually-hidden, .govuk-warning-text__assistive, iframe, #ctsc-web-chat',
-            log: {
-                error: console.error.bind(console),
-                info: console.error.bind(console),
-                debug: console.error.bind(console)
-            },
+        pa11yRun.run(testPage, {
+            verifyPage: [
+                title
+            ],
         }, (err, results) => {
             if (err) {
                 reject(err);
