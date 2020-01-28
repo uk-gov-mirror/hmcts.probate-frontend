@@ -12,9 +12,6 @@ module.exports = (testPage, title) => {
                 info: console.error.bind(console),
                 debug: console.error.bind(console)
             },
-            verifyPage: [
-                title
-            ],
         }, (err, results) => {
             if (err) {
                 reject(err);
