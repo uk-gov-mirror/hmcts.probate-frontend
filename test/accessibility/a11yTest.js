@@ -7,9 +7,6 @@ const expect = require('chai').expect;
 const app = require('app');
 const initSteps = require('app/core/initSteps');
 const {endsWith} = require('lodash');
-const commonContent = {
-    en: require('app/resources/en/translation/common')
-};
 const stepsToExclude = [
     'Dashboard', 'Summary', 'TaskList', 'PinPage', 'PinSent', 'PinResend', 'AddressLookup', 'ExecutorAddress', 'ExecutorContactDetails', 'ExecutorName',
     'ExecutorNotified', 'ExecutorNameAsOnWill', 'ExecutorApplying', 'DeleteExecutor', 'PaymentStatus', 'AddAlias', 'RemoveAlias', 'ExecutorRoles', 'ExecutorsWhenDied'
@@ -64,24 +61,6 @@ for (const step in steps) {
         describe(`Verify accessibility for the page ${step.name}`, () => {
             let server = null;
             let agent = null;
-            let title;
-            if (step.name === 'StartEligibility') {
-                title = `${commonContent.en.serviceName} - Eligibility`;
-            } else if (step.name === 'StartApply') {
-                title = `${commonContent.en.serviceName} - Create account`;
-            } else if (step.name === 'Declaration' || step.name === 'CoApplicantDeclaration') {
-                title = `${step.content.en.title} - ${commonContent.en.serviceName}`
-                    .replace(/&lsquo;/g, '‘')
-                    .replace(/&rsquo;/g, '’')
-                    .replace(/\(/g, '\\(')
-                    .replace(/\)/g, '\\)');
-            } else {
-                title = `${step.content.title} - ${commonContent.en.serviceName}`
-                    .replace(/&lsquo;/g, '‘')
-                    .replace(/&rsquo;/g, '’')
-                    .replace(/\(/g, '\\(')
-                    .replace(/\)/g, '\\)');
-            }
 
             before((done) => {
                 nock(config.services.orchestrator.url)
@@ -103,7 +82,7 @@ for (const step in steps) {
                     if (endsWith(agent.get(step.constructor.getUrl()), '*')) {
                         urlSuffix = '/0';
                     }
-                    results = yield a11y(agent.get(stepUrl).url + urlSuffix, title);
+                    results = yield a11y(agent.get(stepUrl).url + urlSuffix);
                 })
                     .then(done, done)
                     .catch((error) => {
