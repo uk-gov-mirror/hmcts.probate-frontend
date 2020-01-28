@@ -65,7 +65,10 @@ const stepList = {
     },
     StartApply: 'Dashboard',
     BilingualGOP: 'DeceasedDetails',
-    DeceasedDetails: 'DeceasedAddress',
+    DeceasedDetails: {
+        diedAfter: 'DeceasedAddress',
+        otherwise: 'StopPage'
+    },
     DeceasedAddress: 'DocumentUpload',
     DocumentUpload: {
         isUploadingDocument: 'DocumentUpload',
