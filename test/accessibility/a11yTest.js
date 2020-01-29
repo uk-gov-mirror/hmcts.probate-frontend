@@ -65,22 +65,15 @@ for (const step in steps) {
             let server = null;
             let agent = null;
             let title;
-            if (step.name === 'StartEligibility') {
-                title = `${commonContent.en.serviceName} - Eligibility`;
-            } else if (step.name === 'StartApply') {
-                title = `${commonContent.en.serviceName} - Create account`;
-            } else if (step.name === 'Declaration' || step.name === 'CoApplicantDeclaration') {
+
+            if (step.name === 'Declaration' || step.name === 'CoApplicantDeclaration') {
                 title = `${step.content.en.title} - ${commonContent.en.serviceName}`
                     .replace(/&lsquo;/g, '‘')
-                    .replace(/&rsquo;/g, '’')
-                    .replace(/\(/g, '\\(')
-                    .replace(/\)/g, '\\)');
+                    .replace(/&rsquo;/g, '’');
             } else {
                 title = `${step.content.title} - ${commonContent.en.serviceName}`
                     .replace(/&lsquo;/g, '‘')
-                    .replace(/&rsquo;/g, '’')
-                    .replace(/\(/g, '\\(')
-                    .replace(/\)/g, '\\)');
+                    .replace(/&rsquo;/g, '’');
             }
 
             before((done) => {
@@ -118,12 +111,15 @@ for (const step in steps) {
             });
 
             it('should not generate any errors', () => {
-                const errors = results.filter((res) => res.type === 'error');
+                const errors = results.issues.filter((res) => res.type === 'error');
+
+                expect(results.documentTitle).to.equal(title);
                 expect(errors.length).to.equal(0, JSON.stringify(errors, null, 2));
             });
 
             it('should not generate any warnings', () => {
-                const warnings = results.filter((res) => res.type === 'warning');
+                const warnings = results.issues.filter((res) => res.type === 'warning');
+
                 expect(warnings.length).to.equal(0, JSON.stringify(warnings, null, 2));
             });
         });
