@@ -18,8 +18,8 @@
     "test": "npm run test-unit -- $@ && npm run test-accessibility -- $@ && npm run test-component -- $@",
     "test-unit": "NODE_PATH=. LOG_LEVEL=error mocha test/unit --reporter spec --recursive --timeout 10000",
     "test-component": "NODE_PATH=. LOG_LEVEL=error mocha test/component --reporter spec --recursive --timeout 10000",
-    "test:a11y": "NODE_PATH=. LOG_LEVEL=error ENABLE_TRACKING=false mocha test/accessibility --timeout 20000",
-    "test-accessibility": "NODE_PATH=. LOG_LEVEL=error ENABLE_TRACKING=false mocha test/accessibility --timeout 20000",
+    "test:a11y": "NODE_PATH=. LOG_LEVEL=error ENABLE_TRACKING=false mocha test/accessibility --timeout 30000",
+    "test-accessibility": "NODE_PATH=. LOG_LEVEL=error ENABLE_TRACKING=false mocha test/accessibility --timeout 30000",
     "test-e2e": "NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
     "test:crossbrowser_IE11": "NODE_PATH=. codeceptjs run-multiple microsoftIE11 -c test/end-to-end/saucelabs.conf.js --plugins retryFailedStep --steps --reporter mocha-multi",
     "test:crossbrowser_Edge": "NODE_PATH=. codeceptjs run-multiple microsoftEdge -c test/end-to-end/saucelabs.conf.js --plugins retryFailedStep --steps --reporter mocha-multi",
@@ -52,6 +52,9 @@
     "stub:feature-toggles": "NODE_PATH=. node test/service-stubs/featureToggles.js",
     "test:fullfunctional": "NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --reporter mochawesome"
   },
+  "pre-commit": [
+    "lint"
+  ],
   "dependencies": {
     "@hmcts/ctsc-web-chat": "^0.3.9",
     "@hmcts/nodejs-logging": "^3.0.0",
@@ -126,6 +129,7 @@
     "nsp": "^3.2.1",
     "pa11y": "^5.3.0",
     "phantomjs-prebuilt": "^2.1.16",
+    "pre-commit": "^1.2.2",
     "proxyquire": "^2.1.2",
     "puppeteer": "^1.19.0",
     "rewire": "^4.0.1",
