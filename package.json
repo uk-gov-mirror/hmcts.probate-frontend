@@ -52,6 +52,9 @@
     "stub:feature-toggles": "NODE_PATH=. node test/service-stubs/featureToggles.js",
     "test:fullfunctional": "NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --reporter mochawesome"
   },
+  "pre-commit": [
+    "lint"
+  ],
   "dependencies": {
     "@hmcts/ctsc-web-chat": "^0.3.9",
     "@hmcts/nodejs-logging": "^3.0.0",
@@ -126,6 +129,7 @@
     "nsp": "^3.2.1",
     "pa11y": "^4.13.2",
     "phantomjs-prebuilt": "^2.1.16",
+    "pre-commit": "^1.2.2",
     "proxyquire": "^2.1.2",
     "puppeteer": "^1.19.0",
     "rewire": "^4.0.1",
