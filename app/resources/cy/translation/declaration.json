@@ -91,6 +91,7 @@
   "intestacyDeceasedMarriedSpouseApplyingHadChildren": "Fi yw  g&wcirc;r/gwraig neu bartner sifil cyfreithiol {deceasedName} ac rwy&rsquo;n un o&rsquo;r bobl sydd nawr &acirc; hawl i gyfran o&rsquo;r ystad.",
   "intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k": "Fi yw g&wcirc;r/gwraig neu bartner sifil cyfreithiol {deceasedName} a&rsquo;r unig unigolyn sydd nawr &acirc; hawl i gyfran o&rsquo;r ystad.",
   "intestacyLettersOfAdministration": "Rwy&rsquo;n gwneud cais am lythyrau gweinyddu. Rwyf wedi darparu&rsquo;r hyn a gredaf i fod yn wybodaeth gywir a gwir am {deceasedName}.",
+  "warning": "Rhybudd",
   "saveThisPage": "Arbed y dudalen hon",
 
   "errors": {
