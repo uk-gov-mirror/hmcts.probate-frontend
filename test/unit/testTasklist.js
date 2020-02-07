@@ -28,7 +28,10 @@ describe('Tasklist', () => {
             let ctx = {};
             const req = {
                 session: {
-                    form: {}
+                    form: {},
+                    featureToggles: {
+                        welsh_ft: true
+                    }
                 },
                 query: {}
             };
@@ -320,7 +323,10 @@ describe('Tasklist', () => {
             let ctx = {};
             const req = {
                 session: {
-                    form: {}
+                    form: {},
+                    featureToggles: {
+                        welsh_ft: true
+                    }
                 },
                 query: {}
             };
