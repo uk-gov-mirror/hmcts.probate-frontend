@@ -9,8 +9,7 @@ const featureTogglesPort = config.featureToggles.port;
 
 const featureToggles = {
     'probate-fe-shutter': false,
-    'probate-fees-api': true,
-    'probate-welsh': true
+    'probate-fees-api': true
 };
 
 Object.entries(featureToggles).forEach(([key, value]) => {

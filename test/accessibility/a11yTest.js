@@ -82,10 +82,6 @@ for (const step in steps) {
                     .reply(200, 'false');
 
                 nock(config.featureToggles.url)
-                    .get(`${config.featureToggles.path}/${config.featureToggles.welsh_ft}`)
-                    .reply(200, 'true');
-
-                nock(config.featureToggles.url)
                     .get(`${config.featureToggles.path}/${config.featureToggles.fees_api}`)
                     .reply(200, 'true');
 

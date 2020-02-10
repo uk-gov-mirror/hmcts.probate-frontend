@@ -12,8 +12,7 @@ const config = {
         port: 8292,
         fe_shutter_toggle: 'probate-fe-shutter',
         fees_api: 'probate-fees-api',
-        welsh_ft: 'probate-welsh',
-        appwideToggles: ['welsh_ft']
+        appwideToggles: []
     },
     app: {
         username: process.env.USERNAME,

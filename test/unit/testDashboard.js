@@ -45,10 +45,7 @@ describe('Dashboard', () => {
                     {ccdCase: {id: 5678901234567890, idFormatted: '5678-9012-3456-7890', idFormattedAccessible: '5 6 7 8, -, 9 0 1 2, -, 3 4 5 6, -, 7 8 9 0'}},
                     {ccdCase: {id: 9012345678901234, idFormatted: '9012-3456-7890-1234', idFormattedAccessible: '9 0 1 2, -, 3 4 5 6, -, 7 8 9 0, -, 1 2 3 4'}}
                 ],
-                userLoggedIn: false,
-                featureToggles: {
-                    welsh_ft: 'false'
-                }
+                userLoggedIn: false
             });
             revert();
             done();
