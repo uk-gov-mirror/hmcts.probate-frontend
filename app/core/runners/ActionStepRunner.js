@@ -35,7 +35,7 @@ class ActionStepRunner {
             const commonContent = require(`app/resources/${req.session.language}/translation/common`);
 
             req.log.error(error);
-            res.status(500).render('errors/500', {common: commonContent, userLoggedIn: req.userLoggedIn});
+            res.status(500).render('errors/error', {common: commonContent, error: '500', userLoggedIn: req.userLoggedIn});
         });
     }
 }

@@ -4,7 +4,6 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const RedirectRunner = require('app/core/runners/RedirectRunner');
 const config = require('app/config');
 const get = require('lodash').get;
-const EqualityService = require('app/services/Equality');
 
 class Equality extends ValidationStep {
 
@@ -16,21 +15,22 @@ class Equality extends ValidationStep {
         return '/equality-and-diversity';
     }
 
-    runnerOptions(ctx, formdata, language, sessionID) {
-        const serviceUrl = config.services.equalityAndDiversity.url + ':' + config.services.equalityAndDiversity.port + config.services.equalityAndDiversity.path;
-        const equality = new EqualityService(serviceUrl, sessionID);
+    runnerOptions(ctx, formdata, language) {
+        const params = {
+            serviceId: 'PROBATE',
+            ccdCaseId: formdata.ccdCase.id,
+            returnUrl: `http://localhost:${config.app.port}/task-list`,
+            language: language
+        };
 
+        const qs = Object.keys(params)
+            .map(key => key + '=' + params[key])
+            .join('&');
+
+        const serviceUrl = config.services.equalityAndDiversity.url + ':' + config.services.equalityAndDiversity.port + config.services.equalityAndDiversity.path + '?' + qs;
         const options = {
             redirect: true,
-            method: 'POST',
-            service: equality,
-            url: serviceUrl,
-            body: {
-                serviceId: 'PROBATE',
-                ccdCaseId: formdata.ccdCase.id,
-                returnUrl: 'http://localhost:3000/task-list',
-                language: language
-            }
+            url: serviceUrl
         };
 
         formdata.equality = {
