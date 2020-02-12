@@ -37,13 +37,13 @@ class UIStepRunner {
             res.render(step.template, {content, fields, errors, common, userLoggedIn: req.userLoggedIn}, (err, html) => {
                 if (err) {
                     req.log.error(err);
-                    return res.status(500).render('errors/error', {common: commonContent, error: '500', userLoggedIn: req.userLoggedIn});
+                    return res.status(500).render('errors/500', {common: commonContent, userLoggedIn: req.userLoggedIn});
                 }
                 step.renderPage(res, html);
             });
         }).catch((error) => {
             req.log.error(error);
-            res.status(500).render('errors/error', {common: commonContent, error: '500', userLoggedIn: req.userLoggedIn});
+            res.status(500).render('errors/500', {common: commonContent, userLoggedIn: req.userLoggedIn});
         });
     }
 
@@ -104,7 +104,7 @@ class UIStepRunner {
             req.log.error(error);
             const ctx = step.getContextData(req, res);
             const fields = step.generateFields(req.session.language, ctx, [], {});
-            res.status(500).render('errors/error', {fields, common: commonContent, error: '500', userLoggedIn: req.userLoggedIn});
+            res.status(500).render('errors/500', {fields, common: commonContent, userLoggedIn: req.userLoggedIn});
         });
     }
 }
