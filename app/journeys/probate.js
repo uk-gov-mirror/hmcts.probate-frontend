@@ -21,6 +21,11 @@ const taskList = {
         lastStep: 'CopiesSummary',
         summary: 'CopiesSummary'
     },
+    EqualityTask: {
+        firstStep: 'Equality',
+        lastStep: 'TaskList',
+        summary: 'Summary'
+    },
     PaymentTask: {
         firstStep: 'PaymentBreakdown',
         lastStep: 'TaskList',
@@ -193,7 +198,8 @@ const stepList = {
         otherwise: 'CoApplicantDisagreePage'
     },
     CoApplicantAgreePage: 'CoApplicantAgreePage',
-    CoApplicantDisagreePage: 'CoApplicantDisagreePage'
+    CoApplicantDisagreePage: 'CoApplicantDisagreePage',
+    Equality: 'TaskList'
 };
 
 module.exports.stepList = stepList;

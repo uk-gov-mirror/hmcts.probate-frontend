@@ -72,7 +72,7 @@ class InviteLink {
                 const commonContent = require(`app/resources/${req.session.language}/translation/common`);
 
                 res.status(404);
-                return res.render('errors/404', {common: commonContent, userLoggedIn: req.userLoggedIn});
+                return res.render('errors/error', {common: commonContent, error: '404', userLoggedIn: req.userLoggedIn});
             }
 
             this.getAuth(req, res)

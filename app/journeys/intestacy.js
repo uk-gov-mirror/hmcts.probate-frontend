@@ -21,6 +21,11 @@ const taskList = {
         lastStep: 'CopiesSummary',
         summary: 'CopiesSummary'
     },
+    EqualityTask: {
+        firstStep: 'Equality',
+        lastStep: 'TaskList',
+        summary: 'Summary'
+    },
     PaymentTask: {
         firstStep: 'PaymentBreakdown',
         lastStep: 'TaskList',
@@ -163,7 +168,8 @@ const stepList = {
     ThankYou: 'TaskList',
     TaskList: 'TaskList',
     Dashboard: 'TaskList',
-    StopPage: 'StopPage'
+    StopPage: 'StopPage',
+    Equality: 'TaskList'
 };
 
 module.exports.stepList = stepList;

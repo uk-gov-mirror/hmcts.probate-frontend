@@ -94,6 +94,11 @@ const config = {
                 feesLookup: '/fees/lookup'
             },
             ihtMinAmt: 5000
+        },
+        equalityAndDiversity: {
+            url: process.env.EQUALITY_URL || 'http://localhost',
+            path: process.env_EQUALITY_PATH || '/service-endpoint',
+            port: process.env_EQUALITY_PORT || 4000
         }
     },
     redis: {
@@ -189,7 +194,7 @@ const config = {
     alwaysWhitelistedPages: ['/time-out', '/sign-out', '/contact-us', '/accessibility-statement', '/terms-conditions', '/privacy-policy', '/cookies', '/health', '/stop-page', '/error'],
     whitelistedPagesAfterSubmission: ['/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf'],
     whitelistedPagesAfterPayment: ['/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf'],
-    whitelistedPagesAfterDeclaration: ['/task-list', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf'],
+    whitelistedPagesAfterDeclaration: ['/task-list', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/equality-and-diversity'],
     blacklistedPagesBeforeDeclaration: ['/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf'],
     eligibilityQuestionsProbate: {
         deathCertificate: 'optionYes',
