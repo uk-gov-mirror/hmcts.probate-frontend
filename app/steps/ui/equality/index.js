@@ -15,11 +15,11 @@ class Equality extends ValidationStep {
         return '/equality-and-diversity';
     }
 
-    runnerOptions(ctx, formdata, language) {
+    runnerOptions(ctx, formdata, language, host) {
         const params = {
             serviceId: 'PROBATE',
             ccdCaseId: formdata.ccdCase.id,
-            returnUrl: `http://localhost:${config.app.port}/task-list`,
+            returnUrl: `${host}/task-list`,
             language: language
         };
 
