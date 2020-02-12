@@ -58,7 +58,7 @@ class TaskList extends Step {
                 ApplicantsTask: ctx.DeceasedTask.status,
                 ReviewAndConfirmTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask]),
                 CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
-                EqualityTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
+                EqualityTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
                 PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask, ctx.EqualityTask]),
             };
         }
