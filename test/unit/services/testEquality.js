@@ -5,7 +5,7 @@ const sinon = require('sinon');
 const rewire = require('rewire');
 const Equality = rewire('app/services/Equality');
 
-describe.only('EqualityService', () => {
+describe('EqualityService', () => {
     describe('post()', () => {
         it('should call log() and fetchJson()', (done) => {
             const endpoint = 'http://localhost';

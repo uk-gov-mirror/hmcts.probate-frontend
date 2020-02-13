@@ -39,4 +39,30 @@ describe('Equality', () => {
             });
         });
     });
+
+    describe('isComplete()', () => {
+        it('should return the completion status correctly if question already asked', (done) => {
+            const ctx = {};
+            const formdata = {
+                equality: {
+                    equality: true
+                }
+            };
+            const complete = Equality.isComplete(ctx, formdata);
+            expect(complete).to.deep.equal([true, 'inProgress']);
+            done();
+        });
+
+        it('should return the completion status correctly if question not asked but payment completed', (done) => {
+            const ctx = {};
+            const formdata = {
+                payment: {
+                    status: 'Success'
+                }
+            };
+            const complete = Equality.isComplete(ctx, formdata);
+            expect(complete).to.deep.equal([true, 'inProgress']);
+            done();
+        });
+    });
 });

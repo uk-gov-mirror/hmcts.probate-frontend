@@ -41,7 +41,7 @@ class Equality extends ValidationStep {
     }
 
     isComplete(ctx, formdata) {
-        const complete = get(formdata, 'equality.equality', false) || get(formdata, 'payment.reference', false);
+        const complete = get(formdata, 'equality.equality', false) || get(formdata, 'payment.status', false) === 'Success';
         return [complete, 'inProgress'];
     }
 }
