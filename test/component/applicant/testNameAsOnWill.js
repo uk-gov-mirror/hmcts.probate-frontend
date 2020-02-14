@@ -58,7 +58,7 @@ describe('applicant-name-as-on-will', () => {
                     lastName: 'TheApplicant'
                 },
                 will: {
-                    codicils: 'Yes'
+                    codicils: 'optionYes'
                 }
             };
             const contentToExclude = ['question', 'questionWithoutName', 'legend'];
@@ -101,7 +101,7 @@ describe('applicant-name-as-on-will', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        nameAsOnTheWill: 'Yes'
+                        nameAsOnTheWill: 'optionYes'
                     };
                     testWrapper.testRedirect(done, data, expectedNextUrlForApplicantPhone);
                 });
@@ -119,7 +119,7 @@ describe('applicant-name-as-on-will', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        nameAsOnTheWill: 'No'
+                        nameAsOnTheWill: 'optionNo'
                     };
                     testWrapper.testRedirect(done, data, expectedNextUrlForApplicantAlias);
                 });

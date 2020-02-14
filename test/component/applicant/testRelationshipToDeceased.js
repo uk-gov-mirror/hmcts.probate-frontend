@@ -8,8 +8,6 @@ const AdoptionPlace = require('app/steps/ui/applicant/adoptionplace');
 const ApplicantName = require('app/steps/ui/applicant/name');
 const StopPage = require('app/steps/ui/stoppage');
 const testCommonContent = require('test/component/common/testCommonContent.js');
-const content = require('app/resources/en/translation/applicant/relationshiptodeceased');
-const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('relationship-to-deceased', () => {
@@ -40,7 +38,7 @@ describe('relationship-to-deceased', () => {
                     id: 1234567890123456
                 },
                 deceased: {
-                    maritalStatus: contentMaritalStatus.optionMarried
+                    maritalStatus: 'optionMarried'
                 }
             };
 
@@ -59,7 +57,7 @@ describe('relationship-to-deceased', () => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
-                    maritalStatus: contentMaritalStatus.optionMarried
+                    maritalStatus: 'optionMarried'
                 }
             };
 
@@ -67,7 +65,7 @@ describe('relationship-to-deceased', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        relationshipToDeceased: content.optionChild
+                        relationshipToDeceased: 'optionChild'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForSpouseNotApplyingReason);
@@ -78,7 +76,7 @@ describe('relationship-to-deceased', () => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
-                    maritalStatus: contentMaritalStatus.optionDivorced
+                    maritalStatus: 'optionDivorced'
                 }
             };
 
@@ -86,7 +84,7 @@ describe('relationship-to-deceased', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        relationshipToDeceased: content.optionChild
+                        relationshipToDeceased: 'optionChild'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForAnyOtherChildren);
@@ -98,7 +96,7 @@ describe('relationship-to-deceased', () => {
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        relationshipToDeceased: content.optionAdoptedChild
+                        relationshipToDeceased: 'optionAdoptedChild'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForAdoptionPlace);
@@ -109,7 +107,7 @@ describe('relationship-to-deceased', () => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
-                    maritalStatus: contentMaritalStatus.optionMarried
+                    maritalStatus: 'optionMarried'
                 },
                 iht: {
                     netValue: 450000
@@ -120,7 +118,7 @@ describe('relationship-to-deceased', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        relationshipToDeceased: content.optionSpousePartner
+                        relationshipToDeceased: 'optionSpousePartner'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForAnyChildren);
@@ -131,7 +129,7 @@ describe('relationship-to-deceased', () => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
-                    maritalStatus: contentMaritalStatus.optionMarried
+                    maritalStatus: 'optionMarried'
                 },
                 iht: {
                     netValue: 200000
@@ -142,7 +140,7 @@ describe('relationship-to-deceased', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        relationshipToDeceased: content.optionSpousePartner
+                        relationshipToDeceased: 'optionSpousePartner'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
@@ -154,7 +152,7 @@ describe('relationship-to-deceased', () => {
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        relationshipToDeceased: content.optionOther
+                        relationshipToDeceased: 'optionOther'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);

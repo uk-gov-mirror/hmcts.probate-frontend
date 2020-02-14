@@ -55,7 +55,7 @@ describe('deceased-married', () => {
                     lastName: 'Manah'
                 },
                 will: {
-                    codicils: 'Yes'
+                    codicils: 'optionYes'
                 }
             };
             const contentToExclude = ['question', 'legend'];
@@ -76,7 +76,7 @@ describe('deceased-married', () => {
 
         it(`test it redirects to Will Codicils page: ${expectedNextUrlForWillCodicils}`, (done) => {
             const data = {
-                married: 'No'
+                married: 'optionNo'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForWillCodicils);

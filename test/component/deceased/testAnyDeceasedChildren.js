@@ -4,7 +4,6 @@ const TestWrapper = require('test/util/TestWrapper');
 const AnyGrandchildrenUnder18 = require('app/steps/ui/deceased/anygrandchildrenunder18/index');
 const ApplicantName = require('app/steps/ui/applicant/name/index');
 const testCommonContent = require('test/component/common/testCommonContent.js');
-const content = require('app/resources/en/translation/deceased/anychildren');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('any-deceased-children', () => {
@@ -33,6 +32,9 @@ describe('any-deceased-children', () => {
                 deceased: {
                     'firstName': 'John',
                     'lastName': 'Doe',
+                    'dod-day': 13,
+                    'dod-month': 10,
+                    'dod-year': 2018,
                     'dod-formattedDate': '13 October 2018'
                 }
             };
@@ -56,7 +58,7 @@ describe('any-deceased-children', () => {
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        anyDeceasedChildren: content.optionYes
+                        anyDeceasedChildren: 'optionYes'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForAnyGrandchildrenUnder18);
@@ -68,7 +70,7 @@ describe('any-deceased-children', () => {
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        anyDeceasedChildren: content.optionNo
+                        anyDeceasedChildren: 'optionNo'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);

@@ -4,7 +4,6 @@ const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist');
 const ExecutorRoles = require('app/steps/ui/executors/roles');
 const commonContent = require('app/resources/en/translation/common');
-const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('executor-notified', () => {
@@ -23,7 +22,7 @@ describe('executor-notified', () => {
             },
             executors: {
                 list: [
-                    {firstName: 'John', lastName: 'TheApplicant', isApplying: 'Yes', isApplicant: true},
+                    {firstName: 'John', lastName: 'TheApplicant', isApplying: 'optionYes', isApplicant: true},
                     {fullName: 'Manah Mana'},
                     {fullName: 'Dave Bass'},
                     {fullName: 'Ann Watt'}
@@ -45,7 +44,10 @@ describe('executor-notified', () => {
                         helpTitle: commonContent.helpTitle,
                         helpHeading1: commonContent.helpHeading1,
                         helpHeading2: commonContent.helpHeading2,
-                        helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress)
+                        helpHeading3: commonContent.helpHeading3,
+                        helpTelephoneNumber: commonContent.helpTelephoneNumber,
+                        helpTelephoneOpeningHours: commonContent.helpTelephoneOpeningHours,
+                        helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, commonContent.helpEmail)
                     };
 
                     testWrapper.testDataPlayback(done, playbackData);
@@ -79,7 +81,7 @@ describe('executor-notified', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        executorNotified: 'Yes',
+                        executorNotified: 'optionYes',
                     };
                     testWrapper.testRedirect(done, data, expectedNextUrlForFirstExec);
                 });
@@ -90,7 +92,7 @@ describe('executor-notified', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        executorNotified: 'Yes'
+                        executorNotified: 'optionYes'
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
                     testWrapper.testRedirect(done, data, expectedNextUrlForSecondExec);
@@ -102,7 +104,7 @@ describe('executor-notified', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        executorNotified: 'No'
+                        executorNotified: 'optionNo'
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(3);
                     testWrapper.testRedirect(done, data, expectedNextUrlForThirdExec);

@@ -44,7 +44,7 @@ describe('executors-applying', () => {
 
         it(`test it redirects to ExecutorsDealingWithEstate if there are other executors dealing with the estate: ${expectedNextUrlForExecDealingWith}`, (done) => {
             const data = {
-                otherExecutorsApplying: 'Yes'
+                otherExecutorsApplying: 'optionYes'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForExecDealingWith);
@@ -52,7 +52,7 @@ describe('executors-applying', () => {
 
         it(`test it redirects to executors roles if there are no other executors dealing with the estate: ${expectedNextUrlForExecRoles}`, (done) => {
             const data = {
-                otherExecutorsApplying: 'No'
+                otherExecutorsApplying: 'optionNo'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForExecRoles);

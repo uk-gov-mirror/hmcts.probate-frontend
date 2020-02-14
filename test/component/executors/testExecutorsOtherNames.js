@@ -19,7 +19,7 @@ describe('executors-other-names', () => {
             executors: {
                 executorsNumber: 2,
                 list: [
-                    {firstName: 'John', lastName: 'TheApplicant', isApplying: 'Yes', isApplicant: true},
+                    {firstName: 'John', lastName: 'TheApplicant', isApplying: 'optionYes', isApplicant: true},
                     {fullName: 'Wibble Wobble-Woo', isApplying: true}
                 ]
             }
