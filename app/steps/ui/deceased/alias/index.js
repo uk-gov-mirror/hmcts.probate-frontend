@@ -3,7 +3,6 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const DeceasedWrapper = require('app/wrappers/Deceased');
 const FormatName = require('app/utils/FormatName');
-const content = require('app/resources/en/translation/deceased/alias');
 
 class DeceasedAlias extends ValidationStep {
 
@@ -12,12 +11,11 @@ class DeceasedAlias extends ValidationStep {
     }
 
     nextStepOptions() {
-        const nextStepOptions = {
+        return {
             options: [
-                {key: 'alias', value: this.content.optionYes, choice: 'assetsInOtherNames'},
+                {key: 'alias', value: 'optionYes', choice: 'assetsInOtherNames'},
             ]
         };
-        return nextStepOptions;
     }
 
     getContextData(req) {
@@ -39,7 +37,7 @@ class DeceasedAlias extends ValidationStep {
         super.action(ctx, formdata);
         delete ctx.deceasedName;
 
-        if (ctx.alias === content.optionNo) {
+        if (ctx.alias === 'optionNo') {
             delete ctx.otherNames;
         }
 

@@ -10,9 +10,6 @@ const TaskList = require('app/steps/ui/tasklist');
 const ExecutorsApplying = require('app/steps/ui/executors/applying');
 const contentData = {executorFullName: 'many clouds'};
 const commonContent = require('app/resources/en/translation/common');
-const content = require('app/resources/en/translation/executors/whendied');
-const executorRolesContent = require('app/resources/en/translation/executors/executorcontent');
-const config = require('app/config');
 
 describe('executors-when-died', () => {
     let testWrapper, sessionData;
@@ -21,15 +18,15 @@ describe('executors-when-died', () => {
     const expectedNextUrlForExecsApplying = ExecutorsApplying.getUrl(2);
     const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
     const reasons = {
-        optionDiedBefore: executorRolesContent.optionDiedBefore,
-        optionDiedAfter: executorRolesContent.optionDiedAfter
+        optionDiedBefore: 'optionDiedBefore',
+        optionDiedAfter: 'optionDiedAfter'
     };
     let ctx = {
         list: [
             {
                 lastName: 'The',
                 firstName: 'Applicant',
-                isApplying: 'Yes',
+                isApplying: 'optionYes',
                 isApplicant: true
             },
             {
@@ -38,9 +35,9 @@ describe('executors-when-died', () => {
             }
         ],
         index: 1,
-        isApplying: 'No',
+        isApplying: 'optionNo',
         notApplyingReason: reasons.optionDiedBefore,
-        diedbefore: content.optionYes
+        diedbefore: 'optionYes'
     };
 
     beforeEach(() => {
@@ -58,7 +55,7 @@ describe('executors-when-died', () => {
             executors: {
                 executorsNumber: 3,
                 list: [
-                    {firstName: 'John', lastName: 'TheApplicant', isApplying: 'Yes', isApplicant: true},
+                    {firstName: 'John', lastName: 'TheApplicant', isApplying: 'optionYes', isApplicant: true},
                     {fullName: 'many clouds', isDead: true},
                     {fullName: 'harvey smith', isDead: false}
                 ]
@@ -75,11 +72,15 @@ describe('executors-when-died', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const playbackData = {};
-                    playbackData.helpTitle = commonContent.helpTitle;
-                    playbackData.helpHeading1 = commonContent.helpHeading1;
-                    playbackData.helpHeading2 = commonContent.helpHeading2;
-                    playbackData.helpEmailLabel = commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress);
+                    const playbackData = {
+                        helpTitle: commonContent.helpTitle,
+                        helpHeading1: commonContent.helpHeading1,
+                        helpHeading2: commonContent.helpHeading2,
+                        helpHeading3: commonContent.helpHeading3,
+                        helpTelephoneNumber: commonContent.helpTelephoneNumber,
+                        helpTelephoneOpeningHours: commonContent.helpTelephoneOpeningHours,
+                        helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, commonContent.helpEmail)
+                    };
 
                     testWrapper.testDataPlayback(done, playbackData);
                 });
@@ -115,7 +116,7 @@ describe('executors-when-died', () => {
                 executors: {
                     executorsNumber: 3,
                     list: [
-                        {firstName: 'John', lastName: 'TheApplicant', isApplying: 'Yes', isApplicant: true},
+                        {firstName: 'John', lastName: 'TheApplicant', isApplying: 'optionYes', isApplicant: true},
                         {fullName: 'Many Clouds', isDead: true},
                         {fullName: 'Bob Too', isDead: true}
                     ]
@@ -125,7 +126,7 @@ describe('executors-when-died', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        diedbefore: content.optionYes
+                        diedbefore: 'optionYes'
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecsWhenDied);
@@ -142,7 +143,7 @@ describe('executors-when-died', () => {
                 executors: {
                     executorsNumber: 3,
                     list: [
-                        {firstName: 'John', lastName: 'TheApplicant', isApplying: 'Yes', isApplicant: true},
+                        {firstName: 'John', lastName: 'TheApplicant', isApplying: 'optionYes', isApplicant: true},
                         {fullName: 'Many Clouds', isDead: true},
                         {fullName: 'Bob Too', isDead: true}
                     ]
@@ -152,7 +153,7 @@ describe('executors-when-died', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        diedbefore: 'No'
+                        diedbefore: 'optionNo'
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecsWhenDied);
@@ -164,7 +165,7 @@ describe('executors-when-died', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        diedbefore: content.optionYes
+                        diedbefore: 'optionYes'
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecsApplying);
@@ -176,7 +177,7 @@ describe('executors-when-died', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        diedbefore: 'No'
+                        diedbefore: 'optionNo'
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecsApplying);
@@ -193,7 +194,7 @@ describe('executors-when-died', () => {
                 executors: {
                     executorsNumber: 3,
                     list: [
-                        {firstName: 'John', lastName: 'TheApplicant', isApplying: 'Yes', isApplicant: true},
+                        {firstName: 'John', lastName: 'TheApplicant', isApplying: 'optionYes', isApplicant: true},
                         {fullName: 'Many Clouds', isDead: true},
                     ]
                 }
@@ -202,7 +203,7 @@ describe('executors-when-died', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        diedbefore: content.optionYes
+                        diedbefore: 'optionYes'
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
                     testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
@@ -219,7 +220,7 @@ describe('executors-when-died', () => {
                 executors: {
                     executorsNumber: 3,
                     list: [
-                        {firstName: 'John', lastName: 'TheApplicant', isApplying: 'Yes', isApplicant: true},
+                        {firstName: 'John', lastName: 'TheApplicant', isApplying: 'optionYes', isApplicant: true},
                         {fullName: 'Many Clouds', isDead: true},
                     ]
                 }
@@ -228,7 +229,7 @@ describe('executors-when-died', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        diedbefore: 'No'
+                        diedbefore: 'optionNo'
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
                     testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
@@ -245,7 +246,7 @@ describe('executors-when-died', () => {
                 executors: {
                     executorsNumber: 3,
                     list: [
-                        {firstName: 'John', lastName: 'TheApplicant', isApplying: 'Yes', isApplicant: true},
+                        {firstName: 'John', lastName: 'TheApplicant', isApplying: 'optionYes', isApplicant: true},
                         {fullName: 'Many Clouds', isDead: true},
                         {fullName: 'Bob Too', isDead: true}
                     ]
@@ -255,7 +256,7 @@ describe('executors-when-died', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        diedbefore: content.optionYes
+                        diedbefore: 'optionYes'
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
                     testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
@@ -272,7 +273,7 @@ describe('executors-when-died', () => {
                 executors: {
                     executorsNumber: 3,
                     list: [
-                        {firstName: 'John', lastName: 'TheApplicant', isApplying: 'Yes', isApplicant: true},
+                        {firstName: 'John', lastName: 'TheApplicant', isApplying: 'optionYes', isApplicant: true},
                         {fullName: 'Many Clouds', isDead: true},
                         {fullName: 'Bob Too', isDead: true}
                     ]
@@ -282,7 +283,7 @@ describe('executors-when-died', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        diedbefore: 'No'
+                        diedbefore: 'optionNo'
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
                     testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
@@ -303,9 +304,9 @@ describe('executors-when-died', () => {
 
             Object.keys(reasons).forEach((key) => {
                 ctx.notApplyingReason = reasons[key];
-                ctx.diedbefore = 'No';
+                ctx.diedbefore = 'optionNo';
                 if (key === 'optionDiedBefore') {
-                    ctx.diedbefore = content.optionYes;
+                    ctx.diedbefore = 'optionYes';
                 }
                 ctx.index = 1;
                 [ctx] = ExecutorsWhenDied.handlePost(ctx);

@@ -5,9 +5,6 @@ const expect = require('chai').expect;
 const journey = require('app/journeys/probate');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ExecutorsAllAlive = steps.ExecutorsAllAlive;
-const content = require('app/resources/en/translation/executors/allalive');
-const contentWhenDied = require('app/resources/en/translation/executors/whendied');
-const contentRoles = require('app/resources/en/translation/executors/roles');
 
 describe('ExecutorsAllAlive', () => {
     describe('nextStepUrl()', () => {
@@ -18,7 +15,7 @@ describe('ExecutorsAllAlive', () => {
                 }
             };
             const ctx = {
-                allalive: 'Yes'
+                allalive: 'optionYes'
             };
             const nextStepUrl = ExecutorsAllAlive.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/other-executors-applying');
@@ -32,7 +29,7 @@ describe('ExecutorsAllAlive', () => {
                 }
             };
             const ctx = {
-                allalive: 'No'
+                allalive: 'optionNo'
             };
             const nextStepUrl = ExecutorsAllAlive.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/executors-who-died');
@@ -44,24 +41,24 @@ describe('ExecutorsAllAlive', () => {
         it('removes the correct values from the context when some executors have died', (done) => {
             let formdata = {};
             let ctx = {
-                allalive: content.optionNo,
+                allalive: 'optionNo',
                 executorsNumber: 4,
                 list: [
                     {firstName: 'Applicant FN', lastName: 'Applicant LN', isApplicant: true},
-                    {firstName: 'FN1', lastName: 'LN1', isDead: true, diedBefore: contentWhenDied.optionYes, notApplyingKey: 'optionPowerReserved', notApplyingReason: contentRoles.optionPowerReserved},
+                    {firstName: 'FN1', lastName: 'LN1', isDead: true, diedBefore: 'optionYes', notApplyingKey: 'optionPowerReserved', notApplyingReason: 'optionPowerReserved'},
                     {firstName: 'FN2', lastName: 'LN2', isDead: false},
-                    {firstName: 'FN3', lastName: 'LN3', isDead: false, notApplyingKey: 'optionPowerReserved', notApplyingReason: contentRoles.optionPowerReserved}
+                    {firstName: 'FN3', lastName: 'LN3', isDead: false, notApplyingKey: 'optionPowerReserved', notApplyingReason: 'optionPowerReserved'}
                 ]
             };
             [ctx, formdata] = ExecutorsAllAlive.action(ctx, formdata);
             expect(ctx).to.deep.equal({
-                allalive: content.optionNo,
+                allalive: 'optionNo',
                 executorsNumber: 4,
                 list: [
                     {firstName: 'Applicant FN', lastName: 'Applicant LN', isApplicant: true},
-                    {firstName: 'FN1', lastName: 'LN1', isDead: true, diedBefore: contentWhenDied.optionYes, notApplyingKey: 'optionPowerReserved', notApplyingReason: contentRoles.optionPowerReserved},
+                    {firstName: 'FN1', lastName: 'LN1', isDead: true, diedBefore: 'optionYes', notApplyingKey: 'optionPowerReserved', notApplyingReason: 'optionPowerReserved'},
                     {firstName: 'FN2', lastName: 'LN2', isDead: false},
-                    {firstName: 'FN3', lastName: 'LN3', isDead: false, notApplyingKey: 'optionPowerReserved', notApplyingReason: contentRoles.optionPowerReserved}
+                    {firstName: 'FN3', lastName: 'LN3', isDead: false, notApplyingKey: 'optionPowerReserved', notApplyingReason: 'optionPowerReserved'}
                 ]
             });
             done();
@@ -70,24 +67,24 @@ describe('ExecutorsAllAlive', () => {
         it('removes the correct values from the context when all the executors are alive', (done) => {
             let formdata = {};
             let ctx = {
-                allalive: content.optionYes,
+                allalive: 'optionYes',
                 executorsNumber: 4,
                 list: [
                     {firstName: 'Applicant FN', lastName: 'Applicant LN', isApplicant: true},
-                    {firstName: 'FN1', lastName: 'LN1', isDead: true, diedBefore: contentWhenDied.optionYes, notApplyingKey: 'optionPowerReserved', notApplyingReason: contentRoles.optionPowerReserved},
+                    {firstName: 'FN1', lastName: 'LN1', isDead: true, diedBefore: 'optionYes', notApplyingKey: 'optionPowerReserved', notApplyingReason: 'optionPowerReserved'},
                     {firstName: 'FN2', lastName: 'LN2', isDead: false},
-                    {firstName: 'FN3', lastName: 'LN3', isDead: false, notApplyingKey: 'optionPowerReserved', notApplyingReason: contentRoles.optionPowerReserved}
+                    {firstName: 'FN3', lastName: 'LN3', isDead: false, notApplyingKey: 'optionPowerReserved', notApplyingReason: 'optionPowerReserved'}
                 ]
             };
             [ctx, formdata] = ExecutorsAllAlive.action(ctx, formdata);
             expect(ctx).to.deep.equal({
-                allalive: content.optionYes,
+                allalive: 'optionYes',
                 executorsNumber: 4,
                 list: [
                     {firstName: 'Applicant FN', lastName: 'Applicant LN', isApplicant: true},
                     {firstName: 'FN1', lastName: 'LN1', isDead: false},
                     {firstName: 'FN2', lastName: 'LN2', isDead: false},
-                    {firstName: 'FN3', lastName: 'LN3', isDead: false, notApplyingKey: 'optionPowerReserved', notApplyingReason: contentRoles.optionPowerReserved}
+                    {firstName: 'FN3', lastName: 'LN3', isDead: false, notApplyingKey: 'optionPowerReserved', notApplyingReason: 'optionPowerReserved'}
                 ]
             });
             done();
