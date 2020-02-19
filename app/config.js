@@ -97,8 +97,8 @@ const config = {
         },
         equalityAndDiversity: {
             url: process.env.EQUALITY_URL || 'http://localhost',
-            path: process.env_EQUALITY_PATH || '/service-endpoint',
-            port: process.env_EQUALITY_PORT || 4000
+            path: process.env.EQUALITY_PATH || '/service-endpoint',
+            port: process.env.EQUALITY_PORT || 4000
         }
     },
     redis: {
