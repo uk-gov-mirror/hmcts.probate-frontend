@@ -39,7 +39,25 @@ const applicationSubmittedNock = () => {
             ]
         });
 };
-describe.only('dashboard', () => {
+const applicationProgressedNock = () => {
+    nock(orchestratorServiceUrl)
+        .get('/forms/cases')
+        .reply(200, {
+            applications: [
+                {
+                    deceasedFullName: 'David Cameron',
+                    dateCreated: '13 July 2016',
+                    caseType: 'PA',
+                    ccdCase: {
+                        id: '1234567890123456',
+                        state: 'CasePrinted'
+                    }
+                }
+            ]
+        });
+};
+
+describe('dashboard', () => {
     let testWrapper;
 
     beforeEach(() => {
@@ -76,6 +94,12 @@ describe.only('dashboard', () => {
 
         it('test content loaded on the page - application submitted', (done) => {
             applicationSubmittedNock();
+
+            testWrapper.testContentPresent(done, ['case-status submitted']);
+        });
+
+        it('test content loaded on the page - application progressed by caseworker', (done) => {
+            applicationProgressedNock();
 
             testWrapper.testContentPresent(done, ['case-status submitted']);
         });
