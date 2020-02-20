@@ -33,6 +33,7 @@ const config = {
             token: process.env.POSTCODE_SERVICE_TOKEN
         },
         orchestrator: {
+            name: 'Orchestrator Service',
             url: process.env.ORCHESTRATOR_SERVICE_URL || 'http://localhost:8888',
             paths: {
                 forms: '/forms/case/{ccdCaseId}',
@@ -49,9 +50,11 @@ const config = {
             port: 8888
         },
         validation: {
+            name: 'Business Service',
             url: process.env.VALIDATION_SERVICE_URL || 'http://localhost:8081/validate'
         },
         submit: {
+            name: 'Submit Service',
             url: process.env.SUBMIT_SERVICE_URL || 'http://localhost:8181',
             port: 8181
         },
@@ -96,7 +99,8 @@ const config = {
             ihtMinAmt: 5000
         },
         equalityAndDiversity: {
-            url: process.env.EQUALITY_URL || 'http://localhost',
+            name: 'Equality and Diversity Service',
+            url: process.env.EQUALITY_URL || 'http://localhost:4000',
             path: process.env.EQUALITY_PATH || '/service-endpoint',
             port: process.env.EQUALITY_PORT || 4000
         }

@@ -50,7 +50,8 @@
     "stub:payment": "NODE_PATH=. node test/service-stubs/payment.js",
     "stub:multiple-applications": "NODE_PATH=. node test/service-stubs/multipleApplications.js",
     "stub:feature-toggles": "NODE_PATH=. node test/service-stubs/featureToggles.js",
-    "stub:equality-and-diversity": "NODE_PATH=. node test/service-stubs/equality.js",
+    "stub:equality-and-diversity-endpoint": "NODE_PATH=. node test/service-stubs/equalityAndDiversityEndpoint.js",
+    "stub:equality-and-diversity-health": "NODE_PATH=. node test/service-stubs/equalityAndDiversityHealth.js",
     "test:fullfunctional": "NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --reporter mochawesome"
   },
   "pre-commit": [

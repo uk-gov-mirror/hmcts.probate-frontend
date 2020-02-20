@@ -33,6 +33,9 @@ class TaskList extends Step {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
+
+        ctx.equalityHealth = req.session.equalityHealth;
+
         utils.updateTaskStatus(ctx, req, this.steps);
 
         ctx.alreadyDeclared = this.alreadyDeclared(req.session);
@@ -43,24 +46,45 @@ class TaskList extends Step {
             ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
             ctx.declarationStatuses = formdata.executorsDeclarations || [];
 
-            ctx.previousTaskStatus = {
-                DeceasedTask: ctx.DeceasedTask.status,
-                ExecutorsTask: ctx.DeceasedTask.status,
-                ReviewAndConfirmTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask]),
-                CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
-                EqualityTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
-                PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask, ctx.EqualityTask]),
-                DocumentsTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask, ctx.EqualityTask, ctx.PaymentTask])
-            };
-        } else {
-            ctx.previousTaskStatus = {
-                DeceasedTask: ctx.DeceasedTask.status,
-                ApplicantsTask: ctx.DeceasedTask.status,
-                ReviewAndConfirmTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask]),
-                CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
-                EqualityTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
-                PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask, ctx.EqualityTask]),
-            };
+            if (ctx.equalityHealth === 'UP') {
+                ctx.previousTaskStatus = {
+                    DeceasedTask: ctx.DeceasedTask.status,
+                    ExecutorsTask: ctx.DeceasedTask.status,
+                    ReviewAndConfirmTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask]),
+                    CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
+                    EqualityTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
+                    PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask, ctx.EqualityTask]),
+                    DocumentsTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask, ctx.EqualityTask, ctx.PaymentTask])
+                };
+            } else {
+                ctx.previousTaskStatus = {
+                    DeceasedTask: ctx.DeceasedTask.status,
+                    ExecutorsTask: ctx.DeceasedTask.status,
+                    ReviewAndConfirmTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask]),
+                    CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
+                    PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
+                    DocumentsTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask, ctx.PaymentTask])
+                };
+            }
+        } else if (ctx.caseType === caseTypes.INTESTACY) {
+            if (ctx.equalityHealth === 'UP') {
+                ctx.previousTaskStatus = {
+                    DeceasedTask: ctx.DeceasedTask.status,
+                    ApplicantsTask: ctx.DeceasedTask.status,
+                    ReviewAndConfirmTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask]),
+                    CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
+                    EqualityTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
+                    PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask, ctx.EqualityTask]),
+                };
+            } else {
+                ctx.previousTaskStatus = {
+                    DeceasedTask: ctx.DeceasedTask.status,
+                    ApplicantsTask: ctx.DeceasedTask.status,
+                    ReviewAndConfirmTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask]),
+                    CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
+                    PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
+                };
+            }
         }
 
         return ctx;

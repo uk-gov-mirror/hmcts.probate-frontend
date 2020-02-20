@@ -27,7 +27,7 @@ class Equality extends ValidationStep {
             .map(key => key + '=' + params[key])
             .join('&');
 
-        const serviceUrl = config.services.equalityAndDiversity.url + ':' + config.services.equalityAndDiversity.port + config.services.equalityAndDiversity.path + '?' + qs;
+        const serviceUrl = config.services.equalityAndDiversity.url + config.services.equalityAndDiversity.path + '?' + qs;
         const options = {
             redirect: true,
             url: serviceUrl

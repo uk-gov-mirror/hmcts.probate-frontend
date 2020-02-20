@@ -8,11 +8,19 @@ const commonContent = require('app/resources/en/translation/common');
 const gitRevision = process.env.GIT_REVISION;
 const osHostname = os.hostname();
 const gitCommitId = gitProperties.git.commit.id;
+const config = require('app/config');
 
 router.get('/', (req, res) => {
     const healthcheck = new Healthcheck();
-    healthcheck.getDownstream(healthcheck.health, healthDownstream => {
-        healthcheck.getDownstream(healthcheck.info, infoDownstream => {
+    const services = [
+        {name: config.services.validation.name, url: config.services.validation.url},
+        {name: config.services.submit.name, url: config.services.submit.url},
+        {name: config.services.orchestrator.name, url: config.services.orchestrator.url},
+        {name: config.services.equalityAndDiversity.name, url: config.services.equalityAndDiversity.url}
+    ];
+
+    healthcheck.getDownstream(services, healthcheck.health, healthDownstream => {
+        healthcheck.getDownstream(services, healthcheck.info, infoDownstream => {
             return res.json({
                 name: commonContent.serviceName,
                 // status: healthcheck.status(healthDownstream),

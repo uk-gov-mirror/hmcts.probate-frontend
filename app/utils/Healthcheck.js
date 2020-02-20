@@ -11,12 +11,17 @@ class Healthcheck {
         return url => FormatUrl.format(url, endpoint);
     }
 
-    createServicesList(urlFormatter, servicesConfig) {
-        return [
-            {name: 'Business Service', url: urlFormatter(servicesConfig.validation.url)},
-            {name: 'Submit Service', url: urlFormatter(servicesConfig.submit.url)},
-            {name: 'Orchestrator Service', url: urlFormatter(servicesConfig.orchestrator.url)}
-        ];
+    createServicesList(urlFormatter, services) {
+        const servicesList = [];
+
+        services.forEach(service => {
+            servicesList.push({
+                name: service.name,
+                url: urlFormatter(service.url)
+            });
+        });
+
+        return servicesList;
     }
 
     createPromisesList(services, callback) {
@@ -44,9 +49,9 @@ class Healthcheck {
         return {gitCommitId: json.git.commit.id};
     }
 
-    getDownstream(type, callback) {
-        const url = this.formatUrl(config.endpoints[type.name]);
-        const services = this.createServicesList(url, config.services);
+    getDownstream(services, type, callback) {
+        const urlFormatter = this.formatUrl(config.endpoints[type.name]);
+        services = this.createServicesList(urlFormatter, services);
         const promises = this.createPromisesList(services, type);
         Promise.all(promises).then(downstream => callback(downstream));
     }
