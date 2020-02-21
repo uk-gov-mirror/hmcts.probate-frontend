@@ -11,7 +11,8 @@ const config = {
         path: process.env.FEATURE_TOGGLES_PATH || '/api/ff4j/check',
         port: 8292,
         fe_shutter_toggle: 'probate-fe-shutter',
-        fees_api: 'probate-fees-api',
+        fees_api_toggle: 'probate-fees-api',
+        pcq_toggle: 'probate-pcq',
         appwideToggles: []
     },
     app: {
@@ -30,6 +31,7 @@ const config = {
     },
     services: {
         postcode: {
+            name: 'Postcode Lookup Service',
             token: process.env.POSTCODE_SERVICE_TOKEN
         },
         orchestrator: {
@@ -59,6 +61,7 @@ const config = {
             port: 8181
         },
         idam: {
+            name: 'IdAM Service',
             loginUrl: process.env.IDAM_LOGIN_URL || 'http://localhost:3501/login',
             apiUrl: process.env.IDAM_API_URL || 'http://localhost:5000',
             roles: ['probate-private-beta', 'citizen'],
@@ -74,6 +77,7 @@ const config = {
             probate_redirect_base_url: process.env.PROBATE_REDIRECT_BASE_URL || 'http://localhost:3000',
         },
         payment: {
+            name: 'Payment Service',
             url: process.env.PAYMENT_API_URL || 'http://localhost:8383',
             authorization: process.env.PAYMENT_AUTHORIZATION || 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4aDNlbWc4dmhqazVhMjFzYWE4Y2MzM3YzZyIsInN1YiI6IjQyIiwiaWF0IjoxNTU3OTk5MTIxLCJleHAiOjE1NTgwMjc5MjEsImRhdGEiOiJjYXNld29ya2VyLXByb2JhdGUsY2l0aXplbixjYXNld29ya2VyLGNhc2V3b3JrZXItcHJvYmF0ZS1sb2ExLGNpdGl6ZW4tbG9hMSxjYXNld29ya2VyLWxvYTEiLCJ0eXBlIjoiQUNDRVNTIiwiaWQiOiI0MiIsImZvcmVuYW1lIjoiVXNlciIsInN1cm5hbWUiOiJUZXN0IiwiZGVmYXVsdC1zZXJ2aWNlIjoiQ0NEIiwibG9hIjoxLCJkZWZhdWx0LXVybCI6Imh0dHBzOi8vbG9jYWxob3N0OjkwMDAvcG9jL2NjZCIsImdyb3VwIjoiY2FzZXdvcmtlciJ9.5sT0KGtWsPC-Ol6RKV6gHFJl5b-OsL7HGKqdScFdOdQ',
             serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9iYXRlX2Zyb250ZW5kIiwiZXhwIjoxNTU4MDEzNTIyfQ.YEiOlFZleoA8u9fZ4iEqcrVKvOTaCRPfzM6W_DptlV63V-euNNGpJlMlz-9JWRoTQ0ZYIF9RWskTe_PlAZHJvg',
@@ -85,11 +89,13 @@ const config = {
             },
         },
         pact: {
-            brokerUrl: process.env.PACT_BROKER_URL || 'http://localhost:80',
+            name: 'PACT Service',
+            url: process.env.PACT_BROKER_URL || 'http://localhost:80',
             tag: process.env.PACT_BRANCH_NAME || 'Dev',
             pactDirectory: 'pacts'
         },
         feesRegister: {
+            name: 'Fees Register Service',
             url: process.env.FEES_REGISTRY_URL || 'http://localhost:4411/fees-register',
             port: 4411,
             paths: {

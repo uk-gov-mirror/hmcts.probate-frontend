@@ -14,6 +14,17 @@ app.get('/health', (req, res) => {
     res.send({status: 'UP'});
 });
 
+router.get('/info', (req, res) => {
+    res.send({
+        'git': {
+            'commit': {
+                'time': '2018-06-05T16:31+0000',
+                'id': 'e210e75b38c6b8da03551b9f83fd909fe80832e4'
+            }
+        }
+    });
+});
+
 app.use(router);
 
 logger.info(`Listening on: ${equalityPort}`);

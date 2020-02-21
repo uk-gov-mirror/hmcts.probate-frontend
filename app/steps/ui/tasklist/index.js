@@ -4,6 +4,7 @@ const Step = require('app/core/steps/Step');
 const utils = require('app/components/step-utils');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const caseTypes = require('app/utils/CaseTypes');
+const featureToggle = require('app/utils/FeatureToggle');
 
 class TaskList extends Step {
 
@@ -30,11 +31,17 @@ class TaskList extends Step {
         return this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask, ctx.ReviewAndConfirmTask]);
     }
 
-    getContextData(req) {
+    getContextData(req, res, featureToggles) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
 
-        ctx.equalityHealth = req.session.equalityHealth;
+        ctx.isPCQToggleEnabled = featureToggle.isEnabled(featureToggles, 'pcq_toggle');
+
+        if (ctx.isPCQToggleEnabled) {
+            ctx.equalityHealth = req.session.equalityHealth;
+        } else {
+            ctx.equalityHealth = 'DOWN';
+        }
 
         utils.updateTaskStatus(ctx, req, this.steps);
 

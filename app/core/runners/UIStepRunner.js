@@ -20,8 +20,8 @@ class UIStepRunner {
         const commonContent = require(`app/resources/${session.language}/translation/common`);
 
         return co(function * () {
-            let ctx = step.getContextData(req, res);
             const featureToggles = session.featureToggles;
+            let ctx = step.getContextData(req, res, featureToggles);
             [ctx, errors] = yield step.handleGet(ctx, formdata, featureToggles, session.language);
             forEach(errors, (error) =>
                 req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))

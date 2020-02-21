@@ -5,7 +5,7 @@ const DeathCertificate = require('app/steps/ui/screeners/deathcertificate');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 const featureToggleUrl = config.featureToggles.url;
-const feesApiFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.fees_api}`;
+const feesApiFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.fees_api_toggle}`;
 const nock = require('nock');
 const beforeEachNocks = (status = 'true') => {
     nock(featureToggleUrl)

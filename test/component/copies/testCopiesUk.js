@@ -6,7 +6,7 @@ const testCommonContent = require('test/component/common/testCommonContent.js');
 const config = require('app/config');
 const featureToggleUrl = config.featureToggles.url;
 const orchestratorServiceUrl = config.services.orchestrator.url;
-const feesApiFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.fees_api}`;
+const feesApiFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.fees_api_toggle}`;
 const nock = require('nock');
 const invitesAllAgreedNock = () => {
     nock(orchestratorServiceUrl)

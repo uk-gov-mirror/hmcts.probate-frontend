@@ -19,7 +19,7 @@ describe('StartEligibility', () => {
             const ctxToTest = {};
             const formdata = {};
             const featureToggles = {
-                fees_api: true
+                fees_api_toggle: true
             };
             const [ctx] = startEligibility.handleGet(ctxToTest, formdata, featureToggles);
             expect(ctx.isFeesApiToggleEnabled).to.equal(true);

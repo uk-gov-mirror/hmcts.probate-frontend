@@ -82,7 +82,7 @@ for (const step in steps) {
                     .reply(200, 'false');
 
                 nock(config.featureToggles.url)
-                    .get(`${config.featureToggles.path}/${config.featureToggles.fees_api}`)
+                    .get(`${config.featureToggles.path}/${config.featureToggles.fees_api_toggle}`)
                     .reply(200, 'true');
 
                 server = app.init(true, sessionData);

@@ -53,7 +53,7 @@ describe('CopiesUk', () => {
             const ctxToTest = {};
             const formdata = {};
             const featureToggles = {
-                fees_api: true
+                fees_api_toggle: true
             };
             const [ctx] = CopiesUk.handleGet(ctxToTest, formdata, featureToggles);
             expect(ctx.isFeesApiToggleEnabled).to.equal(true);

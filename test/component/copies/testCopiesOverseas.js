@@ -5,7 +5,7 @@ const CopiesSummary = require('app/steps/ui/copies/summary');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const config = require('app/config');
 const featureToggleUrl = config.featureToggles.url;
-const feesApiFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.fees_api}`;
+const feesApiFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.fees_api_toggle}`;
 const nock = require('nock');
 const beforeEachNocks = (status = 'true') => {
     nock(featureToggleUrl)
