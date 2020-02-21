@@ -24,7 +24,7 @@ describe('task-list', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        it('[PROBATE] test right content loaded on the page when no declaration statuses check needed', (done) => {
+        it('[PROBATE] test right content loaded on the page when either declaration checkbox is false or single applicant', (done) => {
             const contentToExclude = [
                 'applicantsTask',
                 'copiesTaskIntestacy',
@@ -50,7 +50,7 @@ describe('task-list', () => {
                 });
         });
 
-        it('[PROBATE] test right content loaded on the page when declaration statuses check needed', (done) => {
+        it('[PROBATE] test right content loaded on the page when declaration checkbox is true and has multiple applicants', (done) => {
             nock(config.services.orchestrator.url)
                 .get(config.services.orchestrator.paths.forms.replace('{ccdCaseId}', sessionData.ccdCase.id) + '?probateType=PA')
                 .reply(200, sessionData);
