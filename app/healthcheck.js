@@ -10,7 +10,7 @@ const osHostname = os.hostname();
 const gitCommitId = gitProperties.git.commit.id;
 const config = require('app/config');
 
-router.get('/', (req, res) => {
+router.get('/health', (req, res) => {
     const healthcheck = new Healthcheck();
     const services = [
         {name: config.services.validation.name, url: config.services.validation.url},
@@ -20,8 +20,8 @@ router.get('/', (req, res) => {
     ];
 
     healthcheck.getDownstream(services, healthcheck.health, healthDownstream => {
-        healthcheck.getDownstream(services, healthcheck.info, infoDownstream => {
-            return res.json({
+        return healthcheck.getDownstream(services, healthcheck.info, infoDownstream => {
+            res.json({
                 name: commonContent.serviceName,
                 // status: healthcheck.status(healthDownstream),
                 status: 'UP',
@@ -31,6 +31,8 @@ router.get('/', (req, res) => {
                 gitCommitId,
                 downstream: healthcheck.mergeInfoAndHealthData(healthDownstream, infoDownstream)
             });
+
+            return res.end();
         });
     });
 });

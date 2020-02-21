@@ -262,7 +262,7 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}) {
 
     app.get('/executors/invitation/:inviteId', inviteSecurity.verify());
     app.use('/co-applicant-*', inviteSecurity.checkCoApplicant(useIDAM));
-    app.use('/health', healthcheck);
+    app.use(healthcheck);
     app.use('/executors-additional-invite', additionalInvite);
     app.use('/executors-update-invite', updateInvite);
     app.use('/declaration', declaration);
