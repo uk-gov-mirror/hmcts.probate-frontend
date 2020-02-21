@@ -18,9 +18,6 @@ class Healthcheck {
                 url: urlFormatter(service.url)
             };
         });
-        });
-
-        return servicesList;
     }
 
     createPromisesList(services, callback) {
