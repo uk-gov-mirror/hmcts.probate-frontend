@@ -21,7 +21,7 @@ router.get('/health', (req, res) => {
 
     healthcheck.getDownstream(services, healthcheck.health, healthDownstream => {
         return healthcheck.getDownstream(services, healthcheck.info, infoDownstream => {
-            res.json({
+            return res.json({
                 name: commonContent.serviceName,
                 // status: healthcheck.status(healthDownstream),
                 status: 'UP',
@@ -31,8 +31,6 @@ router.get('/health', (req, res) => {
                 gitCommitId,
                 downstream: healthcheck.mergeInfoAndHealthData(healthDownstream, infoDownstream)
             });
-
-            return res.end();
         });
     });
 });

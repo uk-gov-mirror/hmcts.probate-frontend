@@ -12,13 +12,12 @@ class Healthcheck {
     }
 
     createServicesList(urlFormatter, services) {
-        const servicesList = [];
-
-        services.forEach(service => {
-            servicesList.push({
+        return services.map(service => {
+            return {
                 name: service.name,
                 url: urlFormatter(service.url)
-            });
+            };
+        });
         });
 
         return servicesList;
