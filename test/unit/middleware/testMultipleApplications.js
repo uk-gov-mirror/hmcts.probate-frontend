@@ -711,13 +711,13 @@ describe('multipleApplicationsMiddleware', () => {
                             fullName: 'Bob Jones',
                             isApplicant: false,
                             isApplying: true,
-                            executorAgreed: true
+                            executorAgreed: 'optionYes'
                         },
                         {
                             fullName: 'Tom Smith',
                             isApplicant: false,
                             isApplying: true,
-                            executorAgreed: false
+                            executorAgreed: 'optionNo'
                         },
                         {
                             fullName: 'James Taylor',
@@ -751,13 +751,13 @@ describe('multipleApplicationsMiddleware', () => {
                                 fullName: 'Bob Jones',
                                 isApplicant: false,
                                 isApplying: true,
-                                executorAgreed: true
+                                executorAgreed: 'optionYes'
                             },
                             {
                                 fullName: 'Tom Smith',
                                 isApplicant: false,
                                 isApplying: true,
-                                executorAgreed: false
+                                executorAgreed: 'optionNo'
                             },
                             {
                                 fullName: 'James Taylor',
