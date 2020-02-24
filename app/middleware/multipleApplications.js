@@ -167,6 +167,7 @@ const populateDeclarationFlags = (result, formdata) => {
                 if (typeof executorAgreed === 'undefined') {
                     agreed = 'notDeclared';
                 } else {
+                    console.log('MEGAN +' + executorAgreed);
                     formdata.executors.list[index].executorAgreed = executorAgreed;
                     agreed = executorAgreed ? 'agreed' : 'disagreed';
                 }
