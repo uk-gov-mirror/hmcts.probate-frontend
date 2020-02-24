@@ -168,7 +168,7 @@ const populateDeclarationFlags = (result, formdata) => {
                     agreed = 'notDeclared';
                 } else {
                     formdata.executors.list[index].executorAgreed = executorAgreed;
-                    agreed = executorAgreed === 'Yes' ? 'agreed' : 'disagreed';
+                    agreed = executorAgreed ? 'agreed' : 'disagreed';
                 }
                 formdata.executorsDeclarations.push({
                     executorName: executor.fullName,
