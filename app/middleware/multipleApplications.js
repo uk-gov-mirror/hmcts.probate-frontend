@@ -162,9 +162,9 @@ const populateDeclarationFlags = (result, formdata) => {
     result.executors.list
         .forEach((executor, index) => {
             if (!executor.isApplicant) {
-                const executorAgreed = get(executor, 'executorAgreed');
+                const executorAgreed = get(executor, 'executorAgreed', null);
                 let agreed;
-                if (typeof executorAgreed === 'undefined') {
+                if (executorAgreed === null) {
                     agreed = 'notDeclared';
                 } else {
                     formdata.executors.list[index].executorAgreed = executorAgreed;
