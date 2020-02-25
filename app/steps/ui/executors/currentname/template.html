@@ -19,6 +19,9 @@
             },
             id: "currentName",
             name: "currentName",
+            hint: {
+                text: content.currentNameHint | safe
+            },
             value: fields.currentName.value | safe,
             errorMessage: { text: fields.currentName.errorMessage.message | safe } if fields.currentName.errorMessage,
             attributes: {
