@@ -689,6 +689,20 @@ describe('multipleApplicationsMiddleware', () => {
                                     fullName: 'James Taylor',
                                     isApplicant: false,
                                     isApplying: true
+                                },
+                                {
+                                    fullName: 'Died Before',
+                                    isApplying: false,
+                                    isDead: true,
+                                    diedBefore: 'optionYes',
+                                    notApplyingKey: 'optionDiedBefore'
+                                },
+                                {
+                                    fullName: 'Power Reserved',
+                                    isApplying: false,
+                                    isDead: false,
+                                    notApplyingKey: 'optionPowerReserved',
+                                    executorNotified: 'optionYes'
                                 }
                             ]
                         }
@@ -723,6 +737,20 @@ describe('multipleApplicationsMiddleware', () => {
                             fullName: 'James Taylor',
                             isApplicant: false,
                             isApplying: true
+                        },
+                        {
+                            fullName: 'Died Before',
+                            isApplying: false,
+                            isDead: true,
+                            diedBefore: 'optionYes',
+                            notApplyingKey: 'optionDiedBefore'
+                        },
+                        {
+                            fullName: 'Power Reserved',
+                            isApplying: false,
+                            isDead: false,
+                            notApplyingKey: 'optionPowerReserved',
+                            executorNotified: 'optionYes'
                         }
                     ]
                 }
@@ -763,6 +791,20 @@ describe('multipleApplicationsMiddleware', () => {
                                 fullName: 'James Taylor',
                                 isApplicant: false,
                                 isApplying: true
+                            },
+                            {
+                                fullName: 'Died Before',
+                                isApplying: false,
+                                isDead: true,
+                                diedBefore: 'optionYes',
+                                notApplyingKey: 'optionDiedBefore'
+                            },
+                            {
+                                fullName: 'Power Reserved',
+                                isApplying: false,
+                                isDead: false,
+                                notApplyingKey: 'optionPowerReserved',
+                                executorNotified: 'optionYes'
                             }
                         ]
                     },
