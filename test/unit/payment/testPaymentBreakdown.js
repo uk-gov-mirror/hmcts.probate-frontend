@@ -718,7 +718,7 @@ describe('PaymentBreakdown', () => {
                 applicationFee: 200.00,
                 total: 207.50,
                 copies: {
-                    uk: {cost: 3},
+                    uk: {cost: 3.00},
                     overseas: {cost: 4.50}
                 }
             };
