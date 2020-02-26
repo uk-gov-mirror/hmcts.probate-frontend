@@ -678,6 +678,59 @@ describe('PaymentBreakdown', () => {
         });
     });
 
+    describe('Tests formatting of fee and copies amounts', () => {
+        it('test that fees and copies that are whole numbers have trailing .00', () => {
+            let ctx = {
+                applicationFee: 200,
+                total: 209,
+                copies: {
+                    uk: {cost: 3},
+                    overseas: {cost: 6}
+                }
+            };
+            const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
+            ctx = paymentBreakdown.formatAmounts(ctx);
+            expect(ctx.applicationFee).to.equal('200.00');
+            expect(ctx.total).to.equal('209.00');
+            expect(ctx.copies.uk.cost).to.equal('3.00');
+            expect(ctx.copies.overseas.cost).to.equal('6.00');
+        });
+
+        it('test that if fees and copies have a single decimal point they are convert to 2 decimal places', () => {
+            let ctx = {
+                applicationFee: 200.0,
+                total: 207.5,
+                copies: {
+                    uk: {cost: 3},
+                    overseas: {cost: 4.5}
+                }
+            };
+            const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
+            ctx = paymentBreakdown.formatAmounts(ctx);
+            expect(ctx.applicationFee).to.equal('200.00');
+            expect(ctx.total).to.equal('207.50');
+            expect(ctx.copies.uk.cost).to.equal('3.00');
+            expect(ctx.copies.overseas.cost).to.equal('4.50');
+        });
+
+        it('test that if fees and copies have two decimal places they are retured with two decimal places', () => {
+            let ctx = {
+                applicationFee: 200.00,
+                total: 207.50,
+                copies: {
+                    uk: {cost: 3},
+                    overseas: {cost: 4.50}
+                }
+            };
+            const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
+            ctx = paymentBreakdown.formatAmounts(ctx);
+            expect(ctx.applicationFee).to.equal('200.00');
+            expect(ctx.total).to.equal('207.50');
+            expect(ctx.copies.uk.cost).to.equal('3.00');
+            expect(ctx.copies.overseas.cost).to.equal('4.50');
+        });
+    });
+
     describe('action', () => {
         beforeEach(() => {
             feesCalculator = sinon.stub(FeesCalculator.prototype, 'calc');
