@@ -4,7 +4,6 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const RedirectRunner = require('app/core/runners/RedirectRunner');
 const config = require('app/config');
 const get = require('lodash').get;
-const uuidv4 = require('uuid/v4');
 
 class Equality extends ValidationStep {
 
