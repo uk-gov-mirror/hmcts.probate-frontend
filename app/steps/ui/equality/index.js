@@ -4,6 +4,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const RedirectRunner = require('app/core/runners/RedirectRunner');
 const config = require('app/config');
 const get = require('lodash').get;
+const uuidv4 = require('uuid/v4');
 
 class Equality extends ValidationStep {
 
@@ -15,12 +16,15 @@ class Equality extends ValidationStep {
         return '/equality-and-diversity';
     }
 
-    runnerOptions(ctx, formdata, language, host) {
+    runnerOptions(ctx, session, host) {
         const params = {
             serviceId: 'PROBATE',
-            ccdCaseId: formdata.ccdCase.id,
+            actor: 'CITIZEN',
+            pcqId: session.uuid,
+            ccdCaseId: session.form.ccdCase.id,
+            partyId: session.form.applicantEmail,
             returnUrl: `${host}/task-list`,
-            language: language
+            language: session.language
         };
 
         const qs = Object.keys(params)
@@ -33,7 +37,7 @@ class Equality extends ValidationStep {
             url: serviceUrl
         };
 
-        formdata.equality = {
+        session.form.equality = {
             equality: true
         };
 
