@@ -67,7 +67,7 @@ describe('IntestacyDeclarationFactory', () => {
                         deceasedEstateAssetsOverseas: content.en.intestacyDeceasedEstateOutside
                             .replace('{ihtNetValueAssetsOutside}', formdata.ihtNetValueAssetsOutside),
                         deceasedMaritalStatus: content.en.intestacyDeceasedMaritalStatus
-                            .replace('{deceasedMaritalStatus}', get(formdata.deceased, 'maritalStatus', '').toLowerCase()),
+                            .replace('{deceasedMaritalStatus}', content.en[get(formdata.deceased, 'maritalStatus', '')].toLowerCase()),
                         deceasedOtherNames: formdata.deceasedOtherNames ? content.en.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames) : '',
                         intro: content.en.intro
                     },
@@ -92,7 +92,7 @@ describe('IntestacyDeclarationFactory', () => {
                         deceasedEstateAssetsOverseas: content.cy.intestacyDeceasedEstateOutside
                             .replace('{ihtNetValueAssetsOutside}', formdata.ihtNetValueAssetsOutside),
                         deceasedMaritalStatus: content.cy.intestacyDeceasedMaritalStatus
-                            .replace('{deceasedMaritalStatus}', get(formdata.deceased, 'maritalStatus', '').toLowerCase()),
+                            .replace('{deceasedMaritalStatus}', content.cy[get(formdata.deceased, 'maritalStatus', '')].toLowerCase()),
                         deceasedOtherNames: formdata.deceasedOtherNames ? content.cy.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames) : '',
                         intro: content.cy.intro
                     }

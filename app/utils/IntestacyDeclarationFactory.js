@@ -19,7 +19,7 @@ class IntestacyDeclarationFactory {
                 .replace('{deceasedAddress}', formdata.deceasedAddress.formattedAddress)
                 .replace('{deceasedDob}', formdata.dobFormattedDate.en)
                 .replace('{deceasedDod}', formdata.dodFormattedDate.en),
-            deceasedOtherNames: formdata.deceasedOtherNames.en ? content.en.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames.en) : '',
+            deceasedOtherNames: (formdata.deceasedOtherNames && formdata.deceasedOtherNames.en) ? content.en.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames.en) : '',
             deceasedMaritalStatus: content.en.intestacyDeceasedMaritalStatus
                 .replace('{deceasedMaritalStatus}', content.en[get(formdata.deceased, 'maritalStatus', '')].toLowerCase()),
             deceasedChildren: content.en.intestacyDeceasedChildren,
@@ -60,7 +60,7 @@ class IntestacyDeclarationFactory {
                 .replace('{deceasedAddress}', formdata.deceasedAddress.formattedAddress)
                 .replace('{deceasedDob}', formdata.dobFormattedDate.cy)
                 .replace('{deceasedDod}', formdata.dodFormattedDate.cy),
-            deceasedOtherNames: formdata.deceasedOtherNames.cy ? content.cy.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames.cy) : '',
+            deceasedOtherNames: (formdata.deceasedOtherNames && formdata.deceasedOtherNames.cy) ? content.cy.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames.cy) : '',
             deceasedMaritalStatus: content.cy.intestacyDeceasedMaritalStatus
                 .replace('{deceasedMaritalStatus}', content.cy[get(formdata.deceased, 'maritalStatus', '')].toLowerCase()),
             deceasedChildren: content.cy.intestacyDeceasedChildren,
