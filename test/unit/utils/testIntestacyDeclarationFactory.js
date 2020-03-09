@@ -133,4 +133,14 @@ describe('IntestacyDeclarationFactory', () => {
             done();
         });
     });
+
+    describe('getMaritalStatus()', () => {
+        it('should return the formatted deceased marital status', (done) => {
+            const maritalStatus = intestacyDeclarationFactory.getMaritalStatus(formdata, content.en);
+
+            expect(maritalStatus).to.equal('married or in a civil partnership');
+
+            done();
+        });
+    });
 });
