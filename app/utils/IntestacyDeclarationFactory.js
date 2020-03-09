@@ -21,7 +21,7 @@ class IntestacyDeclarationFactory {
                 .replace('{deceasedDod}', formdata.dodFormattedDate.en),
             deceasedOtherNames: (formdata.deceasedOtherNames && formdata.deceasedOtherNames.en) ? content.en.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames.en) : '',
             deceasedMaritalStatus: content.en.intestacyDeceasedMaritalStatus
-                .replace('{deceasedMaritalStatus}', content.en[get(formdata.deceased, 'maritalStatus', '')].toLowerCase()),
+                .replace('{deceasedMaritalStatus}', this.getMaritalStatus(formdata, content.en)),
             deceasedChildren: content.en.intestacyDeceasedChildren,
             deceasedEstateValue: content.en.deceasedEstateValue
                 .replace('{ihtGrossValue}', formdata.ihtGrossValue)
@@ -62,7 +62,7 @@ class IntestacyDeclarationFactory {
                 .replace('{deceasedDod}', formdata.dodFormattedDate.cy),
             deceasedOtherNames: (formdata.deceasedOtherNames && formdata.deceasedOtherNames.cy) ? content.cy.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames.cy) : '',
             deceasedMaritalStatus: content.cy.intestacyDeceasedMaritalStatus
-                .replace('{deceasedMaritalStatus}', content.cy[get(formdata.deceased, 'maritalStatus', '')].toLowerCase()),
+                .replace('{deceasedMaritalStatus}', this.getMaritalStatus(formdata, content.cy)),
             deceasedChildren: content.cy.intestacyDeceasedChildren,
             deceasedEstateValue: content.cy.deceasedEstateValue
                 .replace('{ihtGrossValue}', formdata.ihtGrossValue)
@@ -92,6 +92,10 @@ class IntestacyDeclarationFactory {
         };
 
         return {legalStatement, declaration};
+    }
+
+    static getMaritalStatus(formdata, content) {
+        return get(content, get(formdata.deceased, 'maritalStatus', ''), '').toLowerCase();
     }
 }
 
