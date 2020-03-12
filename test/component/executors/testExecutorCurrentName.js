@@ -4,6 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const ExecutorCurrentName = require('app/steps/ui/executors/currentname');
 const ExecutorCurrentNameReason = require('app/steps/ui/executors/currentnamereason');
 const commonContent = require('app/resources/en/translation/common');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('executor-current-name', () => {
     let testWrapper, sessionData;
@@ -14,6 +15,7 @@ describe('executor-current-name', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorCurrentName');
         sessionData = {
+            type: caseTypes.GOP,
             ccdCase: {
                 state: 'Pending',
                 id: 1234567890123456
