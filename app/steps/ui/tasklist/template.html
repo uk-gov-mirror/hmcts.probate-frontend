@@ -26,11 +26,6 @@
                     {% set taskNumber = taskNumber + 1 %}
                     {% include "ui/tasklist/includes/copies.njk" %}
 
-                    {% if fields.equalityHealth.value == "UP" %}
-                        {% set taskNumber = taskNumber + 1 %}
-                        {% include "ui/tasklist/includes/equality.njk" %}
-                    {% endif %}
-
                     {% set taskNumber = taskNumber + 1 %}
                     {% include "ui/tasklist/includes/payment.njk" %}
 
@@ -49,11 +44,6 @@
 
                     {% set taskNumber = taskNumber + 1 %}
                     {% include "ui/tasklist/includes/copies.njk" %}
-
-                    {% if fields.equalityHealth.value == "UP" %}
-                        {% set taskNumber = taskNumber + 1 %}
-                        {% include "ui/tasklist/includes/equality.njk" %}
-                    {% endif %}
 
                     {% set taskNumber = taskNumber + 1 %}
                     {% include "ui/tasklist/includes/payment.njk" %}

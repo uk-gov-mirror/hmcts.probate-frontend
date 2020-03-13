@@ -21,11 +21,6 @@ const taskList = {
         lastStep: 'CopiesSummary',
         summary: 'CopiesSummary'
     },
-    EqualityTask: {
-        firstStep: 'Equality',
-        lastStep: 'TaskList',
-        summary: 'Summary'
-    },
     PaymentTask: {
         firstStep: 'PaymentBreakdown',
         lastStep: 'TaskList',
@@ -151,7 +146,8 @@ const stepList = {
     },
     ApplicantName: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',
-    ApplicantAddress: 'Summary',
+    ApplicantAddress: 'Equality',
+    Equality: 'Summary',
     Summary: 'TaskList',
     Declaration: 'TaskList',
     CopiesStart: 'CopiesUk',
@@ -168,8 +164,7 @@ const stepList = {
     ThankYou: 'TaskList',
     TaskList: 'TaskList',
     Dashboard: 'TaskList',
-    StopPage: 'StopPage',
-    Equality: 'TaskList'
+    StopPage: 'StopPage'
 };
 
 module.exports.stepList = stepList;

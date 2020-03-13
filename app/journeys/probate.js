@@ -21,11 +21,6 @@ const taskList = {
         lastStep: 'CopiesSummary',
         summary: 'CopiesSummary'
     },
-    EqualityTask: {
-        firstStep: 'Equality',
-        lastStep: 'TaskList',
-        summary: 'Summary'
-    },
     PaymentTask: {
         firstStep: 'PaymentBreakdown',
         lastStep: 'TaskList',
@@ -108,7 +103,7 @@ const stepList = {
     ApplicantPhone: 'ApplicantAddress',
     ApplicantAddress: 'ExecutorsNumber',
     ExecutorsNumber: {
-        oneExecutor: 'TaskList',
+        oneExecutor: 'Equality',
         otherwise: 'ExecutorsNames'
     },
     ExecutorsNames: 'ExecutorsAllAlive',
@@ -119,7 +114,7 @@ const stepList = {
     ExecutorsWhoDied: 'ExecutorsWhenDied',
     ExecutorsWhenDied: {
         continue: 'ExecutorsWhenDied',
-        allDead: 'TaskList',
+        allDead: 'Equality',
         otherwise: 'ExecutorsApplying'
     },
     ExecutorsApplying: {
@@ -143,19 +138,20 @@ const stepList = {
     ExecutorContactDetails: 'ExecutorAddress',
     ExecutorAddress: {
         continue: 'ExecutorContactDetails',
-        allExecsApplying: 'TaskList',
+        allExecsApplying: 'Equality',
         otherwise: 'ExecutorRoles'
     },
     ExecutorRoles: {
         continue: 'ExecutorRoles',
         powerReserved: 'ExecutorNotified',
-        otherwise: 'TaskList'
+        otherwise: 'Equality'
     },
     ExecutorNameAsOnWill: 'OtherExecutors',
     ExecutorNotified: {
         roles: 'ExecutorRoles',
-        otherwise: 'TaskList'
+        otherwise: 'Equality'
     },
+    Equality: 'TaskList',
     DeleteExecutor: 'OtherExecutors',
     Summary: 'TaskList',
     Declaration: {
@@ -198,8 +194,7 @@ const stepList = {
         otherwise: 'CoApplicantDisagreePage'
     },
     CoApplicantAgreePage: 'CoApplicantAgreePage',
-    CoApplicantDisagreePage: 'CoApplicantDisagreePage',
-    Equality: 'TaskList'
+    CoApplicantDisagreePage: 'CoApplicantDisagreePage'
 };
 
 module.exports.stepList = stepList;
