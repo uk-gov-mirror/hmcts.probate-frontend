@@ -3,7 +3,7 @@
 const router = require('express').Router();
 const Healthcheck = require('app/utils/Healthcheck');
 const completeEqualityTask = require('app/middleware/completeEqualityTask');
-const config = require('app/config');
+const config = require('config');
 const logger = require('app/components/logger')('Init');
 
 router.get('/task-list', (req, res, next) => {
