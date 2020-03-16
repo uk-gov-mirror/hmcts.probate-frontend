@@ -17,7 +17,7 @@ const schema = {
     properties: {}
 };
 
-describe.only('Pin-Resend', () => {
+describe('Pin-Resend', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = PinResend.getUrl();
