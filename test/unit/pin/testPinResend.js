@@ -35,7 +35,7 @@ describe('Pin-Resend', () => {
         });
     });
 
-    describe('getContextData', () => {
+    describe('getContextData()', () => {
         it('should return the ctx with lead exec name and phone number', (done) => {
             const req = {
                 sessionID: 'dummy_sessionId',
@@ -72,7 +72,7 @@ describe('Pin-Resend', () => {
         });
     });
 
-    describe('handlePost', () => {
+    describe('handlePost()', () => {
         const ctxTestData = {
             caseType: caseTypes.GOP
         };
