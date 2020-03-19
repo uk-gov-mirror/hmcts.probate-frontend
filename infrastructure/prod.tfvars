@@ -41,8 +41,6 @@ probate_submit_service_url = "http://probate-submit-service-prod.service.core-co
 
 probate_orchestrator_service_url = "http://probate-orchestrator-service-prod.service.core-compute-prod.internal"
 
-probate_persistence_service_url = "http://probate-persistence-service-prod.service.core-compute-prod.internal/formdata"
-
 probate_fees_registry_service_url = "https://fees-register-api.platform.hmcts.net/fees-register"
 
 probate_equality_service_url = "http://pcq-frontend-staging.service.core-compute-aat.internal"

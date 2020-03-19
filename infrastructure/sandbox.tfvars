@@ -39,8 +39,6 @@ probate_submit_service_url = "http://probate-submit-service-sandbox.service.core
 
 probate_orchestrator_service_url = "http://probate-orchestrator-service-sandbox.service.core-compute-sandbox.internal"
 
-probate_persistence_service_url = " http://probate-persistence-service-sandbox.service.core-compute-sandbox.internal/formdata"
-
 probate_fees_registry_service_url = "http://fees-register-api-sandbox.service.core-compute-sandbox.internal/fees-register"
 
 probate_equality_service_url = "http://pcq-frontend-staging.service.core-compute-aat.internal"
