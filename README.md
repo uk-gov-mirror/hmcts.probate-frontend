@@ -8,21 +8,24 @@ The Frontend Application delegates a number of backend logic to the underlying s
 ## Getting Started
 ### Prerequisites
 
-- [Node.js](nodejs.org) >= 8.9.0
+- [Node.js](nodejs.org) >= 12.5.0
 - [yarn](yarnpkg.com)
 
 ### Installation
 
 Install dependencies by executing the following command:
-
 ```
 $ yarn install
 ```
 
-Sass:
-
+Compile SASS stylesheets by running the following command:
 ```
 $ yarn setup
+```
+
+Build a `git.properties.json` by running the following command:
+```
+$ yarn git-info
 ```
 
 Git hooks:
@@ -32,50 +35,26 @@ We have git hooks that enforce rules for commit messages.
 These can be activated by running the following commands:
 ```
 $ ln -s ../../pre-commit.sh .git/hooks/pre-commit
-```
-
-```
 $ ln -s ../../commit-msg.sh .git/hooks/commit-msg
 ```
 
 ### Running the application
 
 Run the application local server:
-
 ```
 $ yarn start
 ```
 
-By navigating to [https://localhost:3000](https://localhost:3000) you can partially complete an application locally.
+The application will be available locally at [https://localhost:3000](https://localhost:3000) but you will need to clone and have the following repositories up and running in the background:
 
-To complete an end to end journey on the application locally without building the other services, you can run the following command which utilises stubs to mimic certain actions carried out during an end to end journey:
-
-`$ yarn start & yarn submit-stub & yarn persistence-stub & yarn business-stub & yarn payment-stub & yarn find-address-stub`
-
-As before, the application can be completed locally at [https://localhost:3000](https://localhost:3000).
-
-### Running the application in Docker
-
-Once you `cd ..` out of the repository you can run the following command:
-```
-$ docker build -t frontend-app .
-```
-This command will build the Frontend Docker image using the *Dockerfile*.
-
-To run the Docker container:
-```
-$ docker run -p 3000:3000 frontend-app
-```
-
-### Running the application with other services
-
-To run probate-frontend with the other services locally you will need to clone the probate-back-office repo: `https://github.com/hmcts/probate-back-office`. Follow the instructions in `probate-back-office/compose/README.md`. 
+- probate-back-office: `https://github.com/hmcts/probate-back-office` - Follow the instructions in `probate-back-office/compose/README.md`.
+- probate-orchestrator-service: `https://github.com/hmcts/probate-orchestrator-service` - Follow the instructions in `probate-orchestrator-service/README.md`
+- probate-submit-service: `https://github.com/hmcts/probate-submit-service` - Follow the instructions in `probate-submit-service/README.md`
 
 ## Developing
 ### Code style
 
-Before submitting a Pull Request you will be required to run:
-`$ yarn eslint`
+Before submitting a Pull Request you will be required to run `$ yarn eslint` (which is also run automatically when trying to commit anyway).
 
 We have a number of rules relating to code style that can be found in [.eslintrc.js](https://github.com/hmcts/probate-frontend/blob/develop/.eslintrc.js).
 
@@ -96,7 +75,7 @@ For accessibility tests:
 `$ yarn test-accessibility`
 
 For test coverage:
-`$ yarn test-coverage`
+`$ yarn test:coverage`
 
 ## License
 
