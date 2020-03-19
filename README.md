@@ -2,7 +2,7 @@
 
 This is the frontend application for the Probate Personal Applicants online service. The service provides a clear interface for citizens, presented as sequence of HTML 5 web pages designed to GDS Service Design guidelines, so that they can apply for Probate online. The service provides functionality for both single and multiple applicant journeys.
 
-The Frontend Application delegates a number of backend logic to the underlying services, including Orchestrator, Business and Submit services.
+The Frontend Application uses Orchestrator to route specific requests to the underlying services such as Business Service and Submit Service.
 
 
 ## Getting Started
@@ -50,7 +50,7 @@ The application can be completed locally at [https://localhost:3000](https://loc
 
 ### Running the other services in Docker
 
-To run probate-frontend with the other services locally you will need to clone the probate-back-office repo: `https://github.com/hmcts/probate-back-office`. Follow the instructions in `probate-back-office/compose/README.md`. 
+To run probate-frontend with the other services locally you will need to clone the probate-back-office repo: `https://github.com/hmcts/probate-back-office`. Follow the instructions in `probate-back-office/compose/README.md`.
 
 ## Developing
 ### Code style
