@@ -25,7 +25,6 @@ idam_user_host = "https://idam-api.platform.hmcts.net"
 
 probate_deployment_env = "test"
 
-
 probate_frontend_port = "3101"
 
 probate_frontend_use_idam = "true"
@@ -37,11 +36,7 @@ probate_business_service_url = "http://probate-business-service-prod.service.cor
 
 probate_business_service_document_url = "http://probate-business-service-prod.service.core-compute-prod.internal/businessDocument"
 
-probate_submit_service_url = "http://probate-submit-service-prod.service.core-compute-prod.internal"
-
 probate_orchestrator_service_url = "http://probate-orchestrator-service-prod.service.core-compute-prod.internal"
-
-probate_persistence_service_url = "http://probate-persistence-service-prod.service.core-compute-prod.internal/formdata"
 
 probate_fees_registry_service_url = "https://fees-register-api.platform.hmcts.net/fees-register"
 

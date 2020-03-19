@@ -24,7 +24,6 @@ idam_user_host = "http://betaDevBccidamAppLB.reform.hmcts.net"
 
 probate_deployment_env = "test"
 
-
 probate_frontend_port = "3101"
 
 probate_frontend_use_idam = "true"
@@ -38,11 +37,7 @@ probate_business_service_url = "http://probate-business-service-sprod.service.co
 
 probate_business_service_document_url = "http://probate-business-service-sprod.service.core-compute-sprod.internal/businessDocument"
 
-probate_submit_service_url = "http://probate-submit-service-sprod.service.core-compute-sprod.internal"
-
 probate_orchestrator_service_url = "http://probate-orchestrator-service-sprod.service.core-compute-sprod.internal"
-
-probate_persistence_service_url = "http://probate-persistence-service-sprod.service.core-compute-sprod.internal/formdata"
 
 probate_fees_registry_service_url = "http://fees-register-api-sprod.service.core-compute-sprod.internal/fees-register"
 

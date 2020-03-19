@@ -24,7 +24,6 @@ idam_user_host = "https://preprod-idamapi.reform.hmcts.net:3511"
 
 probate_deployment_env = "test"
 
-
 probate_frontend_port = "3101"
 
 probate_frontend_use_idam = "true"
@@ -35,11 +34,7 @@ reform_envirionment_for_test = "demo"
 
 probate_business_service_url = "http://probate-business-service-hmctsdemo.service.core-compute-demo.internal/validate"
 
-probate_submit_service_url = "http://probate-submit-service-hmctsdemo.service.core-compute-demo.internal"
-
 probate_orchestrator_service_url = "http://probate-orchestrator-service-hmctsdemo.service.core-compute-demo.internal"
-
-probate_persistence_service_url = "http://probate-persistence-service-hmctsdemo.service.core-compute-demo.internal/formdata"
 
 probate_fees_registry_service_url = "http://fees-register-api-hmctsdemo.service.core-compute-hmctsdemo.internal/fees-register"
 

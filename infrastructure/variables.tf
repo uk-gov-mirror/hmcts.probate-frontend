@@ -139,10 +139,6 @@ variable "probate_business_service_document_url" {
   type = "string"
 }
 
-variable "probate_submit_service_url" {
-  type = "string"
-}
-
 variable "probate_orchestrator_service_url" {
   type = "string"
 }

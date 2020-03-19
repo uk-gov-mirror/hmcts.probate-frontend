@@ -29,7 +29,6 @@ idam_user_host = "https://idam-api.ithc.platform.hmcts.net"
 
 probate_deployment_env = "test"
 
-
 probate_frontend_port = "3101"
 
 probate_frontend_use_idam = "true"
@@ -42,11 +41,7 @@ probate_business_service_url = "http://probate-business-service-ithc.service.cor
 
 probate_business_service_document_url = "http://probate-business-service-ithc.service.core-compute-ithc.internal/businessDocument"
 
-probate_submit_service_url = "http://probate-submit-service-ithc.service.core-compute-ithc.internal"
-
 probate_orchestrator_service_url = "http://probate-orchestrator-service-ithc.service.core-compute-ithc.internal"
-
-probate_persistence_service_url = "http://probate-persistence-service-ithc.service.core-compute-ithc.internal/formdata"
 
 probate_fees_registry_service_url = "http://fees-register-api-ithc.service.core-compute-ithc.internal/fees-register"
 

@@ -25,7 +25,6 @@ idam_user_host = "http://idam-api-idam-saat.service.core-compute-idam-saat.inter
 
 probate_deployment_env = "test"
 
-
 probate_frontend_port = "3101"
 
 probate_frontend_use_idam = "true"
@@ -39,11 +38,7 @@ probate_business_service_url = "http://probate-business-service-saat.service.cor
 
 probate_business_service_document_url = "http://probate-business-service-saat.service.core-compute-saat.internal/businessDocument"
 
-probate_submit_service_url = "http://probate-submit-service-saat.service.core-compute-saat.internal"
-
 probate_orchestrator_service_url = "http://probate-orchestrator-service-saat.service.core-compute-saat.internal"
-
-probate_persistence_service_url = "http://probate-persistence-service-saat.service.core-compute-saat.internal/formdata"
 
 probate_fees_registry_service_url = "http://fees-register-api-saat.service.core-compute-saat.internal/fees-register"
 

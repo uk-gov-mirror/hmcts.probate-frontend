@@ -25,7 +25,6 @@ idam_user_host = "https://preprod-idamapi.reform.hmcts.net:3511"
 
 probate_deployment_env = "test"
 
-
 probate_frontend_port = "3101"
 
 probate_frontend_use_idam = "true"
@@ -36,11 +35,7 @@ probate_business_service_url = "http://probate-business-service-aat.service.core
 
 probate_business_service_document_url = "http://probate-business-service-aat.service.core-compute-aat.internal/businessDocument"
 
-probate_submit_service_url = "http://probate-submit-service-aat.service.core-compute-aat.internal"
-
 probate_orchestrator_service_url = "http://probate-orchestrator-service-aat.service.core-compute-aat.internal"
-
-probate_persistence_service_url = "http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata"
 
 probate_fees_registry_service_url = "http://fees-register-api-aat.service.core-compute-aat.internal/fees-register"
 
