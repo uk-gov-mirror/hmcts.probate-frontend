@@ -87,7 +87,7 @@ module.exports = () => {
 
         // Additional executors Agree/Disagree with Statement of Truth
         seeCoApplicantStartPage: steps.coapplicant.startPage,
-        agreeDisagreeDeclaration: steps.coapplicant.declaration,
+        agreeDeclaration: steps.coapplicant.declaration,
         seeAgreePage: steps.coapplicant.agree,
 
         // Asset pages

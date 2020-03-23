@@ -5,7 +5,6 @@ const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'
 const optionYes = '';
 const ihtPost = '';
 const optionNo = '-2';
-const applicantAliasOtherReason = '-4';
 const bilingualGOP = false;
 const uploadingDocuments = false;
 
@@ -67,18 +66,14 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), (I) => {
         I.enterGrossAndNet('205', '500', '400');
     }
 
-    I.selectDeceasedAlias(optionYes);
-    I.selectOtherNames('2');
+    I.selectDeceasedAlias(optionNo);
     I.selectDeceasedMarriedAfterDateOnWill(optionNo);
-    I.selectWillCodicils(optionYes);
-    I.selectWillNoOfCodicils('3');
+    I.selectWillCodicils(optionNo);
 
     // ExecutorsTask
     I.selectATask(taskListContent.taskNotStarted);
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
-    I.selectNameAsOnTheWill('-2');
-    I.enterApplicantAlias('Applicant Alias');
-    I.enterApplicantAliasReason(applicantAliasOtherReason, 'Applicant alias reason');
+    I.selectNameAsOnTheWill(optionYes);
     I.enterApplicantPhone();
     I.enterAddressManually();
 
