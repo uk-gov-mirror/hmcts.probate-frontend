@@ -66,7 +66,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
     I.enterDeceasedDateOfBirth('01', '01', '1950');
     I.enterDeceasedDateOfDeath('01', '01', '2017');
-    I.enterDeceasedAddress(optionNo);
+    I.enterDeceasedAddress();
 
     I.selectDocumentsToUpload(uploadingDocuments);
     I.selectInheritanceMethod(ihtPost);
@@ -88,12 +88,14 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.enterApplicantPhone();
     I.enterAddressManually();
 
-    const totalExecutors = '7';
+    //const totalExecutors = '7';
+    const totalExecutors = '4';
     I.enterTotalExecutors(totalExecutors);
     I.enterExecutorNames(totalExecutors);
     I.selectExecutorsAllAlive(optionNo);
 
-    const executorsWhoDiedList = ['2', '7']; // exec2 and exec7
+    //const executorsWhoDiedList = ['2', '7']; // exec2 and exec7
+    const executorsWhoDiedList = ['2']; // exec2
     let diedBefore = optionYes;
     I.selectExecutorsWhoDied(executorsWhoDiedList);
 
@@ -105,7 +107,8 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     I.selectExecutorsApplying(optionYes);
 
-    const executorsApplyingList = ['3', '5']; // exec3 and exec5
+    //const executorsApplyingList = ['3', '5']; // exec3 and exec5
+    const executorsApplyingList = ['3']; // exec3
     I.selectExecutorsDealingWithEstate(executorsApplyingList);
 
     //I.selectExecutorsWithDifferentNameOnWill(optionYes);
@@ -122,9 +125,12 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
         I.enterExecutorManualAddress(i);
     }
 
-    const executorsAliveList = ['4', '6'];
-    let powerReserved = true;
-    let answer = optionYes;
+    //const executorsAliveList = ['4', '6'];
+    const executorsAliveList = ['4'];
+    // let powerReserved = true;
+    // let answer = optionYes;
+    let powerReserved = false;
+    let answer = optionNo;
     executorsAliveList.forEach((executorNumber) => {
         I.selectExecutorRoles(executorNumber, answer, head(executorsAliveList) === executorNumber);
 

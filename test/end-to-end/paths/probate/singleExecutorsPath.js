@@ -55,7 +55,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), (I) => {
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
     I.enterDeceasedDateOfBirth('01', '01', '1950');
     I.enterDeceasedDateOfDeath('01', '01', '2017');
-    I.enterDeceasedAddress(optionNo);
+    I.enterDeceasedAddress();
 
     I.selectDocumentsToUpload(uploadingDocuments);
     I.selectInheritanceMethod(ihtPost);
