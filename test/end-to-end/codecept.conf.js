@@ -55,5 +55,5 @@ exports.config = {
             'inlineAssets': true
         }
     },
-    'name': 'Codecept Tests'
+    'name': 'Probate FE Tests'
 };
