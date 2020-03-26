@@ -118,5 +118,8 @@ module.exports = () => {
         selectDeceasedDivorcePlace: steps.deceased.divorceplace,
         selectRelationshipToDeceased: steps.applicant.relationshiptodeceased,
         selectSpouseNotApplyingReason: steps.applicant.spousenotapplyingreason,
+
+        // Sign Out
+        seeSignOut: steps.signout.signout
     });
 };
