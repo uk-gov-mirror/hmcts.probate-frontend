@@ -98,7 +98,7 @@ class TestCommonContent {
                     });
             });
 
-            it('test "sign in" is not displayed on the page when the user is logged in', (done) => {
+            it.skip('test "sign in" is not displayed on the page when the user is logged in', (done) => {
                 if (typeof beforeEachParam === 'function') {
                     beforeEachParam();
                 }
