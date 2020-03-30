@@ -166,7 +166,7 @@ module "probate-frontend" {
     SUBMIT_SERVICE_URL = "${var.probate_submit_service_url}"
     ORCHESTRATOR_SERVICE_URL = "${var.probate_orchestrator_service_url}"
     FEES_REGISTRY_URL = "${var.probate_fees_registry_service_url}"
-    EQUALITY_URL = "${local.probate_equality_service_url}"
+    EQUALITY_URL = "${var.probate_equality_service_url}"
     USE_HTTPS =  "${var.probate_frontend_https}"
     USE_AUTH = "${var.probate_frontend_use_auth}"
     GA_TRACKING_ID = "${var.probate_google_track_id}"
