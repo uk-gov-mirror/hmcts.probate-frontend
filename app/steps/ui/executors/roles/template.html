@@ -5,7 +5,7 @@
 
 {% block form_content %}
     {% set optionRenunciatedHint %}
-        <p class="govuk-body">{{ content.optionRenunciatedHint | safe }}</p>
+        <p class="govuk-body">{{ content.optionRenunciatedHint | replace("{applicationFormPA15}", globals.links.applicationFormPA15) | safe }}</p>
         <ul class="govuk-body">
             <li>{{ content.optionRenunciatedHintBullet1 | safe }}</li>
             <li>{{ content.optionRenunciatedHintBullet2 | safe }}</li>
