@@ -545,6 +545,7 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
+            sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.deceased.anyOtherChildren = 'optionYes';
             sessionData.applicant.relationshipToDeceased = 'optionAdoptedChild';
@@ -626,6 +627,7 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
+            sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.deceased.anyOtherChildren = 'optionYes';
             sessionData.applicant.relationshipToDeceased = 'optionChild';
@@ -707,6 +709,7 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
+            sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.deceased.anyOtherChildren = 'optionNo';
             sessionData.applicant.relationshipToDeceased = 'optionAdoptedChild';
@@ -788,6 +791,7 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
+            sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.deceased.anyOtherChildren = 'optionNo';
             sessionData.applicant.relationshipToDeceased = 'optionChild';
@@ -1217,6 +1221,7 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
+            sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.applicant.anyChildren = 'optionNo';
             sessionData.applicant.relationshipToDeceased = 'optionSpousePartner';
@@ -1298,6 +1303,7 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
+            sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.applicant.anyChildren = 'optionYes';
             sessionData.applicant.relationshipToDeceased = 'optionSpousePartner';
@@ -1379,6 +1385,7 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
+            sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.applicant.anyChildren = 'optionNo';
             sessionData.applicant.relationshipToDeceased = 'optionSpousePartner';

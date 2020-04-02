@@ -129,7 +129,8 @@ describe('relationship-to-deceased', () => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
-                    maritalStatus: 'optionMarried'
+                    'dod-date': '2016-05-12',
+                    'maritalStatus': 'optionMarried'
                 },
                 iht: {
                     netValue: 200000
