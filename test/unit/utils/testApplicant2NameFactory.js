@@ -13,7 +13,7 @@ describe('Applicant2NameFactory', () => {
     });
 
     describe('getApplicant2Name()', () => {
-        it('should return intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k', (done) => {
+        it('should return intestacyDeceasedMarriedSpouseApplyingHadNoChildren', (done) => {
             formdata.maritalStatus = 'optionMarried';
             formdata.relationshipToDeceased = 'optionSpousePartner';
             formdata.anyChildren = 'optionNo';
@@ -22,11 +22,12 @@ describe('Applicant2NameFactory', () => {
             done();
         });
 
-        it('should return intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k', (done) => {
+        it('should return intestacyDeceasedMarriedSpouseApplyingEstateLessThan250k', (done) => {
             formdata.maritalStatus = 'optionMarried';
             formdata.relationshipToDeceased = 'optionSpousePartner';
             formdata.ihtTotalNetValue = 0;
-            const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
+            const threshold = 250000;
+            const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content, threshold);
             expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k);
             done();
         });
@@ -45,7 +46,8 @@ describe('Applicant2NameFactory', () => {
             formdata.ihtTotalNetValue = 0;
             formdata.anyOtherChildren = 'optionYes';
             formdata.relationshipToDeceased = 'optionAdoptedChild';
-            const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
+            const threshold = 250000;
+            const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content, threshold);
             expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted);
             done();
         });
@@ -54,7 +56,8 @@ describe('Applicant2NameFactory', () => {
             formdata.maritalStatus = 'optionMarried';
             formdata.ihtTotalNetValue = 0;
             formdata.anyOtherChildren = 'optionYes';
-            const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
+            const threshold = 250000;
+            const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content, threshold);
             expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted);
             done();
         });
@@ -64,7 +67,8 @@ describe('Applicant2NameFactory', () => {
             formdata.ihtTotalNetValue = 0;
             formdata.anyOtherChildren = 'optionNo';
             formdata.relationshipToDeceased = 'optionAdoptedChild';
-            const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
+            const threshold = 250000;
+            const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content, threshold);
             expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted);
             done();
         });
@@ -73,7 +77,8 @@ describe('Applicant2NameFactory', () => {
             formdata.maritalStatus = 'optionMarried';
             formdata.ihtTotalNetValue = 0;
             formdata.anyOtherChildren = 'optionNo';
-            const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
+            const threshold = 250000;
+            const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content, threshold);
             expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted);
             done();
         });

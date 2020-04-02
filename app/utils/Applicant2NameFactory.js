@@ -1,13 +1,11 @@
 'use strict';
 
-const config = require('config');
-
 class Applicant2NameFactory {
 
-    static getApplicant2Name(formdata, content) {
+    static getApplicant2Name(formdata, content, ihtThreshold) {
         let applicant2 = '';
         if (formdata.maritalStatus === 'optionMarried') {
-            applicant2 = getMarried(formdata, content);
+            applicant2 = getMarried(formdata, content, ihtThreshold);
         } else {
             applicant2 = getNotMarried(formdata, content);
         }
@@ -15,22 +13,22 @@ class Applicant2NameFactory {
     }
 }
 
-const getMarried = (formdata, content) => {
+const getMarried = (formdata, content, ihtThreshold) => {
     if (formdata.relationshipToDeceased === 'optionSpousePartner') {
-        return getSpousePartner(formdata, content);
+        return getSpousePartner(formdata, content, ihtThreshold);
     }
-    return getNonSpousePartner(formdata, content);
+    return getNonSpousePartner(formdata, content, ihtThreshold);
 };
 
-const getSpousePartner = (formdata, content) => {
-    if (formdata.anyChildren === 'optionNo' || formdata.ihtTotalNetValue <= config.assetsValueThreshold) {
+const getSpousePartner = (formdata, content, ihtThreshold) => {
+    if (formdata.anyChildren === 'optionNo' || formdata.ihtTotalNetValue <= ihtThreshold) {
         return content.intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k;
     }
     return content.intestacyDeceasedMarriedSpouseApplyingHadChildren;
 };
 
-const getNonSpousePartner = (formdata, content) => {
-    if (formdata.ihtTotalNetValue <= config.assetsValueThreshold) {
+const getNonSpousePartner = (formdata, content, ihtThreshold) => {
+    if (formdata.ihtTotalNetValue <= ihtThreshold) {
         return getAnyOtherChildrenBelowThreshold(formdata, content);
     }
     return getAnyOtherChildrenAboveThreshold(formdata, content);

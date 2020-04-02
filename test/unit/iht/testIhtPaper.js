@@ -15,6 +15,27 @@ describe('IhtPaper', () => {
         });
     });
 
+    describe('getContextData()', () => {
+        let ctx;
+        let req;
+
+        it('should return the context with the IHT threshold', (done) => {
+            req = {
+                session: {
+                    form: {
+                        deceased: {
+                            'dod-date': '2016-10-12'
+                        }
+                    }
+                }
+            };
+
+            ctx = IhtPaper.getContextData(req);
+            expect(ctx.ihtThreshold).to.equal(250000);
+            done();
+        });
+    });
+
     describe('handlePost()', () => {
         let ctx;
         let errors;
@@ -138,9 +159,9 @@ describe('IhtPaper', () => {
             const result = IhtPaper.nextStepOptions(ctx);
             expect(result).to.deep.equal({
                 options: [{
-                    key: 'lessThanOrEqualTo250k',
+                    key: 'lessThanOrEqualToIhtThreshold',
                     value: true,
-                    choice: 'lessThanOrEqualTo250k'
+                    choice: 'lessThanOrEqualToIhtThreshold'
                 }]
             });
             done();
@@ -150,8 +171,9 @@ describe('IhtPaper', () => {
     describe('action()', () => {
         it('test it cleans up context when netValue > £250k', () => {
             const ctx = {
+                ihtThreshold: 250000,
                 netValue: 400000,
-                lessThanOrEqualTo250k: false,
+                lessThanOrEqualToIhtThreshold: false,
                 grossValuePaper: 500000,
                 netValuePaper: 400000,
                 assetsOutside: 'optionYes',
@@ -169,8 +191,9 @@ describe('IhtPaper', () => {
 
         it('test it cleans up context and formdata when netValue <= £250k', () => {
             const ctx = {
+                ihtThreshold: 250000,
                 netValue: 200000,
-                lessThanOrEqualTo250k: true,
+                lessThanOrEqualToIhtThreshold: true,
                 grossValuePaper: 300000,
                 netValuePaper: 200000
             };
