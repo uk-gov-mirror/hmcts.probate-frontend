@@ -22,7 +22,7 @@ const getMarried = (formdata, content, ihtThreshold) => {
 
 const getSpousePartner = (formdata, content, ihtThreshold) => {
     if (formdata.anyChildren === 'optionNo' || formdata.ihtTotalNetValue <= ihtThreshold) {
-        return content.intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k;
+        return content.intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold;
     }
     return content.intestacyDeceasedMarriedSpouseApplyingHadChildren;
 };
@@ -37,29 +37,29 @@ const getNonSpousePartner = (formdata, content, ihtThreshold) => {
 const getAnyOtherChildrenBelowThreshold = (formdata, content) => {
     if (formdata.anyOtherChildren === 'optionYes') {
         if (formdata.relationshipToDeceased === 'optionAdoptedChild') {
-            return content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted;
+            return content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsAdopted;
         }
-        return content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted;
+        return content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsNotAdopted;
 
     }
     if (formdata.relationshipToDeceased === 'optionAdoptedChild') {
-        return content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted;
+        return content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsAdopted;
     }
-    return content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted;
+    return content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsNotAdopted;
 };
 
 const getAnyOtherChildrenAboveThreshold = (formdata, content) => {
     if (formdata.anyOtherChildren === 'optionYes') {
         if (formdata.relationshipToDeceased === 'optionAdoptedChild') {
-            return content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted;
+            return content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsAdopted;
         }
-        return content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted;
+        return content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsNotAdopted;
 
     }
     if (formdata.relationshipToDeceased === 'optionAdoptedChild') {
-        return content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted;
+        return content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsAdopted;
     }
-    return content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted;
+    return content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted;
 };
 
 const getNotMarried = (formdata, content) => {

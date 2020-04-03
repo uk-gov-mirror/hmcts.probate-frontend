@@ -87,7 +87,7 @@ describe('RelationshipToDeceased', () => {
             done();
         });
 
-        it('should return the correct url when relationship is Spouse/Partner and estate value is <= £250k', (done) => {
+        it('should return the correct url when relationship is Spouse/Partner and estate value is less than or equal to the IHT threshold', (done) => {
             const req = {
                 session: {
                     journey: journey
@@ -103,7 +103,7 @@ describe('RelationshipToDeceased', () => {
             done();
         });
 
-        it('should return the correct url when relationship is Spouse/Partner and estate value is > £250k', (done) => {
+        it('should return the correct url when relationship is Spouse/Partner and estate value is more than the IHT threshold', (done) => {
             const req = {
                 session: {
                     journey: journey

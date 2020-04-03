@@ -169,7 +169,7 @@ describe('IhtPaper', () => {
     });
 
     describe('action()', () => {
-        it('test it cleans up context when netValue > £250k', () => {
+        it('test it cleans up context when netValue is more than the IHT threshold', () => {
             const ctx = {
                 ihtThreshold: 250000,
                 netValue: 400000,
@@ -189,7 +189,7 @@ describe('IhtPaper', () => {
             });
         });
 
-        it('test it cleans up context and formdata when netValue <= £250k', () => {
+        it('test it cleans up context and formdata when netValue is less than or equal to the IHT threshold', () => {
             const ctx = {
                 ihtThreshold: 250000,
                 netValue: 200000,

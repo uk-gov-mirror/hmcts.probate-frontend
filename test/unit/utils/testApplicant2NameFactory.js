@@ -18,17 +18,17 @@ describe('Applicant2NameFactory', () => {
             formdata.relationshipToDeceased = 'optionSpousePartner';
             formdata.anyChildren = 'optionNo';
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
-            expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k);
+            expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold);
             done();
         });
 
-        it('should return intestacyDeceasedMarriedSpouseApplyingEstateLessThan250k', (done) => {
+        it('should return intestacyDeceasedMarriedSpouseApplyingEstateLessThanIhtThreshold', (done) => {
             formdata.maritalStatus = 'optionMarried';
             formdata.relationshipToDeceased = 'optionSpousePartner';
             formdata.ihtTotalNetValue = 0;
             const threshold = 250000;
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content, threshold);
-            expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k);
+            expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold);
             done();
         });
 
@@ -41,83 +41,83 @@ describe('Applicant2NameFactory', () => {
             done();
         });
 
-        it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted', (done) => {
+        it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsAdopted', (done) => {
             formdata.maritalStatus = 'optionMarried';
             formdata.ihtTotalNetValue = 0;
             formdata.anyOtherChildren = 'optionYes';
             formdata.relationshipToDeceased = 'optionAdoptedChild';
             const threshold = 250000;
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content, threshold);
-            expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted);
+            expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsAdopted);
             done();
         });
 
-        it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted', (done) => {
+        it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsNotAdopted', (done) => {
             formdata.maritalStatus = 'optionMarried';
             formdata.ihtTotalNetValue = 0;
             formdata.anyOtherChildren = 'optionYes';
             const threshold = 250000;
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content, threshold);
-            expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted);
+            expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsNotAdopted);
             done();
         });
 
-        it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted', (done) => {
+        it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsAdopted', (done) => {
             formdata.maritalStatus = 'optionMarried';
             formdata.ihtTotalNetValue = 0;
             formdata.anyOtherChildren = 'optionNo';
             formdata.relationshipToDeceased = 'optionAdoptedChild';
             const threshold = 250000;
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content, threshold);
-            expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted);
+            expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsAdopted);
             done();
         });
 
-        it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted', (done) => {
+        it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsNotAdopted', (done) => {
             formdata.maritalStatus = 'optionMarried';
             formdata.ihtTotalNetValue = 0;
             formdata.anyOtherChildren = 'optionNo';
             const threshold = 250000;
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content, threshold);
-            expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted);
+            expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsNotAdopted);
             done();
         });
 
-        it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted', (done) => {
+        it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsAdopted', (done) => {
             formdata.maritalStatus = 'optionMarried';
             formdata.ihtTotalNetValue = 500000;
             formdata.anyOtherChildren = 'optionYes';
             formdata.relationshipToDeceased = 'optionAdoptedChild';
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
-            expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted);
+            expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsAdopted);
             done();
         });
 
-        it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted', (done) => {
+        it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsNotAdopted', (done) => {
             formdata.maritalStatus = 'optionMarried';
             formdata.ihtTotalNetValue = 500000;
             formdata.anyOtherChildren = 'optionYes';
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
-            expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted);
+            expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsNotAdopted);
             done();
         });
 
-        it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted', (done) => {
+        it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsAdopted', (done) => {
             formdata.maritalStatus = 'optionMarried';
             formdata.ihtTotalNetValue = 500000;
             formdata.anyOtherChildren = 'optionNo';
             formdata.relationshipToDeceased = 'optionAdoptedChild';
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
-            expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted);
+            expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsAdopted);
             done();
         });
 
-        it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted', (done) => {
+        it('should return intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted', (done) => {
             formdata.maritalStatus = 'optionMarried';
             formdata.ihtTotalNetValue = 500000;
             formdata.anyOtherChildren = 'optionNo';
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
-            expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted);
+            expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted);
             done();
         });
 
@@ -161,7 +161,7 @@ describe('Applicant2NameFactory', () => {
             formdata.anyChildren = 'optionNo';
             formdata.deceasedName = 'Dee Ceased';
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
-            expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k.replace(/{deceasedName}/g, formdata.deceasedName));
+            expect(applicant2Name).to.equal(content.intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold.replace(/{deceasedName}/g, formdata.deceasedName));
             done();
         });
     });

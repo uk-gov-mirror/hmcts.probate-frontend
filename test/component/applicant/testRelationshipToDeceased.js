@@ -103,7 +103,7 @@ describe('relationship-to-deceased', () => {
                 });
         });
 
-        it(`test it redirects to Any Children page if relationship is Spouse/Partner and the estate value is greater than the IHT threshold for DoD between 1 Oct 2014 and 5 Feb 2020: ${expectedNextUrlForAnyChildren}`, (done) => {
+        it(`test it redirects to Any Children page if relationship is Spouse/Partner and the estate value is more than the IHT threshold for DoD between 1 Oct 2014 and 5 Feb 2020: ${expectedNextUrlForAnyChildren}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -126,7 +126,7 @@ describe('relationship-to-deceased', () => {
                 });
         });
 
-        it(`test it redirects to Any Children page if relationship is Spouse/Partner and the estate value is greater than the IHT threshold for DoD after 5 Feb 2020: ${expectedNextUrlForAnyChildren}`, (done) => {
+        it(`test it redirects to Any Children page if relationship is Spouse/Partner and the estate value is more than the IHT threshold for DoD after 5 Feb 2020: ${expectedNextUrlForAnyChildren}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {

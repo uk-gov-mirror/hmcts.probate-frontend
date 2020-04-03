@@ -104,7 +104,7 @@ describe('ValueAssetsOutside', () => {
     });
 
     describe('action()', () => {
-        it('test it cleans up formdata if netValue + netValueAssetsOutside <= £250k', () => {
+        it('test it cleans up formdata if netValue + netValueAssetsOutside is less than or equal to the IHT threshold', () => {
             const ctx = {
                 ihtThreshold: 250000,
                 netValue: 150000,
