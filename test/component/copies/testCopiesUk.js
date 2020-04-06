@@ -45,7 +45,7 @@ describe('copies-uk', () => {
     describe('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('CopiesUk', null, null, [], false, {ccdCase: {state: 'CaseCreated'}, declaration: {declarationCheckbox: 'true'}});
 
-        it('test right content loaded on the page with the fees_api toggle ON', (done) => {
+        it('test right content loaded on the page with the ft_fees_api toggle ON', (done) => {
             beforeEachNocks('true');
 
             const contentToExclude = [
@@ -58,7 +58,7 @@ describe('copies-uk', () => {
             testWrapper.testContent(afterEachNocks(done), {}, contentToExclude);
         });
 
-        it('test right content loaded on the page with the fees_api toggle OFF', (done) => {
+        it('test right content loaded on the page with the ft_fees_api toggle OFF', (done) => {
             beforeEachNocks('false');
 
             const contentToExclude = [
