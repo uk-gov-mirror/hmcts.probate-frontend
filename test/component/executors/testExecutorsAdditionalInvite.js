@@ -124,7 +124,8 @@ describe('executors-additional-invite', () => {
                 .reply(200, {
                     invitations: [
                         {
-                            inviteId: 1
+                            inviteId: '1234',
+                            id: 1
                         }
                     ]
                 });

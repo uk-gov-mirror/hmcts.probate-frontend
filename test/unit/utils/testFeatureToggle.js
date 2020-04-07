@@ -7,7 +7,7 @@ const rewire = require('rewire');
 const FeatureToggle = rewire('app/utils/FeatureToggle');
 
 describe('FeatureToggle', () => {
-    describe('checkToggle()', () => {
+    describe.skip('checkToggle()', () => {
         it('should call the callback function when the api returns successfully', (done) => {
             const revert = FeatureToggle.__set__('FeatureToggleService', class {
                 get() {
