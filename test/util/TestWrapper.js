@@ -51,7 +51,6 @@ class TestWrapper {
                 done();
             })
             .catch((err) => done(err));
-
     }
 
     testDataPlayback(done, data = {}, excludeKeys = [], cookies = []) {

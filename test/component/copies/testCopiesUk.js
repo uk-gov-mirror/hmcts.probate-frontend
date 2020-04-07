@@ -11,7 +11,6 @@ const invitesAllAgreedNock = () => {
         .get('/invite/allAgreed/1234567890123456')
         .reply(200, 'true');
 };
-
 const sessionData = {
     declaration: {
         declarationCheckbox: 'true'
