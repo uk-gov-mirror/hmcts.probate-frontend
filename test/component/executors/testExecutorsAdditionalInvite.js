@@ -7,12 +7,6 @@ const caseTypes = require('app/utils/CaseTypes');
 const nock = require('nock');
 const config = require('config');
 const orchestratorServiceUrl = config.services.orchestrator.url;
-const afterEachNocks = (done) => {
-    return () => {
-        nock.cleanAll();
-        done();
-    };
-};
 
 describe('executors-additional-invite', () => {
     let testWrapper;
@@ -31,6 +25,7 @@ describe('executors-additional-invite', () => {
 
     afterEach(() => {
         delete require.cache[require.resolve('test/data/executors-invites')];
+        nock.cleanAll();
         testWrapper.destroy();
     });
 
@@ -129,7 +124,7 @@ describe('executors-additional-invite', () => {
                 .reply(200, {
                     invitations: [
                         {
-                            inviteId: '1234'
+                            inviteId: 1
                         }
                     ]
                 });
@@ -142,7 +137,7 @@ describe('executors-additional-invite', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testRedirect(afterEachNocks(done), {}, expectedNextUrlForExecutorsAdditionalInviteSent);
+                    testWrapper.testRedirect(done, {}, expectedNextUrlForExecutorsAdditionalInviteSent);
                 });
         });
     });

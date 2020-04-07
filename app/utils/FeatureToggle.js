@@ -18,16 +18,11 @@ class FeatureToggle {
     }
 
     checkToggle(params) {
-        const launchDarklyFeatureToggleKey = config.featureToggles[params.featureToggleKey];
+        const featureToggleKey = config.featureToggles[params.featureToggleKey];
+        const ldUser = config.featureToggles.launchDarklyUser;
         const sessionId = params.req.session.id;
 
-        const user = {
-            firstName: 'Probate',
-            lastName: 'Frontend',
-            key: '35222af3-7867-44ea-a2a0-f8e533ad12de'
-        };
-
-        params.ldClient.variation(launchDarklyFeatureToggleKey, user, false, (err, showFeature) => {
+        params.ldClient.variation(featureToggleKey, ldUser, false, (err, showFeature) => {
             if (!err) {
                 logger(sessionId).info(`Checking feature toggle: ${params.featureToggleKey}, isEnabled: ${showFeature}`);
                 params.callback({

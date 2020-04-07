@@ -42,7 +42,7 @@ class AdditionalExecutorInvite {
                                 emailSent: true
                             };
 
-                            Object.assign(formdata.executors.list.find(execList => execList.id === execResult.id), result);
+                            Object.assign(formdata.executors.list.find(execList => execList.id === execResult.inviteId), result);
                         });
 
                         formdata.executors.list = executorsWrapper.removeExecutorIds();
