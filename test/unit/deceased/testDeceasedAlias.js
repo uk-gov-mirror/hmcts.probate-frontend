@@ -99,7 +99,8 @@ describe('DeceasedAlias', () => {
             };
             [ctx, formdata] = DeceasedAlias.action(ctx, formdata);
             expect(ctx).to.deep.equal({
-                alias: 'optionNo'
+                alias: 'optionNo',
+                otherNames: {}
             });
             done();
         });

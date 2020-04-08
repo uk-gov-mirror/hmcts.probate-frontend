@@ -38,7 +38,7 @@ class DeceasedAlias extends ValidationStep {
         delete ctx.deceasedName;
 
         if (ctx.alias === 'optionNo') {
-            delete ctx.otherNames;
+            ctx.otherNames = {};
         }
 
         return [ctx, formdata];

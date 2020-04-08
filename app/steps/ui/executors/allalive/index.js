@@ -22,6 +22,7 @@ class ExecutorsAllAlive extends ValidationStep {
     }
 
     action(ctx, formdata) {
+        super.action(ctx, formdata);
         if (ctx.allalive === 'optionYes') {
             for (let i = 1; i < ctx.executorsNumber; i++) {
                 if (ctx.list[i].isDead) {
@@ -34,7 +35,6 @@ class ExecutorsAllAlive extends ValidationStep {
             }
         }
 
-        super.action(ctx, formdata);
         return [ctx, formdata];
     }
 }
