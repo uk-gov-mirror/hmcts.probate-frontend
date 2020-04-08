@@ -22,19 +22,25 @@ class FeatureToggle {
         const ldUser = config.featureToggles.launchDarklyUser;
         const sessionId = params.req.session.id;
 
-        params.ldClient.variation(featureToggleKey, ldUser, false, (err, showFeature) => {
-            if (!err) {
-                logger(sessionId).info(`Checking feature toggle: ${params.featureToggleKey}, isEnabled: ${showFeature}`);
-                params.callback({
-                    req: params.req,
-                    res: params.res,
-                    next: params.next,
-                    redirectPage: params.redirectPage,
-                    isEnabled: showFeature,
-                    featureToggleKey: params.featureToggleKey
-                });
-            }
-        });
+        try {
+            params.ldClient.variation(featureToggleKey, ldUser, false, (err, showFeature) => {
+                if (!err) {
+                    logger(sessionId).info(`Checking feature toggle: ${params.featureToggleKey}, isEnabled: ${showFeature}`);
+                    params.callback({
+                        req: params.req,
+                        res: params.res,
+                        next: params.next,
+                        redirectPage: params.redirectPage,
+                        isEnabled: showFeature,
+                        featureToggleKey: params.featureToggleKey
+                    });
+                } else {
+                    params.next(err);
+                }
+            });
+        } catch (err) {
+            params.next(err);
+        }
     }
 
     togglePage(params) {
