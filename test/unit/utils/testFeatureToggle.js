@@ -28,31 +28,31 @@ describe('FeatureToggle', () => {
                 res: {},
                 next: () => true,
                 redirectPage: '/dummy-page',
-                ldClient: ldClient,
+                launchDarkly: {
+                    client: ldClient
+                },
                 featureToggleKey: 'ft_fees_api',
                 callback: sinon.spy()
             };
             const featureToggle = new FeatureToggle();
 
-            ldClient.once('ready', () => {
-                featureToggle.checkToggle(params);
+            featureToggle.checkToggle(params);
 
-                setTimeout(() => {
-                    expect(params.callback.calledOnce).to.equal(true);
-                    expect(params.callback.calledWith({
-                        req: params.req,
-                        res: params.res,
-                        next: params.next,
-                        redirectPage: params.redirectPage,
-                        isEnabled: true,
-                        featureToggleKey: params.featureToggleKey
-                    })).to.equal(true);
+            setTimeout(() => {
+                expect(params.callback.calledOnce).to.equal(true);
+                expect(params.callback.calledWith({
+                    req: params.req,
+                    res: params.res,
+                    next: params.next,
+                    redirectPage: params.redirectPage,
+                    isEnabled: true,
+                    featureToggleKey: params.featureToggleKey
+                })).to.equal(true);
 
-                    ldClient.close();
+                ldClient.close();
 
-                    done();
-                }, 1000);
-            });
+                done();
+            }, 1000);
         });
 
         it('should call next() with an error when the api returns an error', (done) => {
@@ -65,7 +65,9 @@ describe('FeatureToggle', () => {
                 res: {},
                 next: sinon.spy(),
                 redirectPage: '/dummy-page',
-                ldClient: false,
+                launchDarkly: {
+                    client: false
+                },
                 featureToggleKey: 'ft_fees_api',
                 callback: () => true
             };

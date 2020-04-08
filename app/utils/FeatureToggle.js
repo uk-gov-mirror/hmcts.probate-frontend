@@ -33,7 +33,6 @@ class FeatureToggle {
                 params.launchDarkly.client.variation(featureToggleKey, ldUser, ldDefaultValue, (err, showFeature) => {
                     if (!err) {
                         logger(sessionId).info(`Checking feature toggle: ${params.featureToggleKey}, isEnabled: ${showFeature}`);
-                        console.log(`Checking feature toggle: ${params.featureToggleKey}, isEnabled: ${showFeature}`);
                         params.callback({
                             req: params.req,
                             res: params.res,
@@ -48,7 +47,6 @@ class FeatureToggle {
                 });
             });
         } catch (err) {
-            console.log('ERROR');
             params.next(err);
         }
     }
