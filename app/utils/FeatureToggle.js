@@ -5,12 +5,12 @@ const config = require('config');
 const caseTypes = require('app/utils/CaseTypes');
 
 class FeatureToggle {
-    callCheckToggle(req, res, next, ldClient, featureToggleKey, callback, redirectPage) {
+    callCheckToggle(req, res, next, launchDarkly, featureToggleKey, callback, redirectPage) {
         return this.checkToggle({
             req,
             res,
             next,
-            ldClient,
+            launchDarkly,
             featureToggleKey,
             callback,
             redirectPage
@@ -22,23 +22,33 @@ class FeatureToggle {
         const ldUser = config.featureToggles.launchDarklyUser;
         const sessionId = params.req.session.id;
 
+        let ldDefaultValue = false;
+
+        if (params.launchDarkly.ftValue && params.launchDarkly.ftValue[params.featureToggleKey]) {
+            ldDefaultValue = params.launchDarkly.ftValue[params.featureToggleKey];
+        }
+
         try {
-            params.ldClient.variation(featureToggleKey, ldUser, false, (err, showFeature) => {
-                if (!err) {
-                    logger(sessionId).info(`Checking feature toggle: ${params.featureToggleKey}, isEnabled: ${showFeature}`);
-                    params.callback({
-                        req: params.req,
-                        res: params.res,
-                        next: params.next,
-                        redirectPage: params.redirectPage,
-                        isEnabled: showFeature,
-                        featureToggleKey: params.featureToggleKey
-                    });
-                } else {
-                    params.next(err);
-                }
+            params.launchDarkly.client.once('ready', () => {
+                params.launchDarkly.client.variation(featureToggleKey, ldUser, ldDefaultValue, (err, showFeature) => {
+                    if (!err) {
+                        logger(sessionId).info(`Checking feature toggle: ${params.featureToggleKey}, isEnabled: ${showFeature}`);
+                        console.log(`Checking feature toggle: ${params.featureToggleKey}, isEnabled: ${showFeature}`);
+                        params.callback({
+                            req: params.req,
+                            res: params.res,
+                            next: params.next,
+                            redirectPage: params.redirectPage,
+                            isEnabled: showFeature,
+                            featureToggleKey: params.featureToggleKey
+                        });
+                    } else {
+                        params.next(err);
+                    }
+                });
             });
         } catch (err) {
+            console.log('ERROR');
             params.next(err);
         }
     }

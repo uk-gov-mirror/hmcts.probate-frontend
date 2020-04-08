@@ -21,23 +21,16 @@ describe('copies-uk', () => {
     let testWrapper;
     const expectedNextUrlForAssetsOverseas = AssetsOverseas.getUrl();
 
-    beforeEach(() => {
-        testWrapper = new TestWrapper('CopiesUk');
-    });
-
     afterEach(() => {
         nock.cleanAll();
         testWrapper.destroy();
     });
 
-    describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('CopiesUk', null, null, [], false, {ccdCase: {state: 'CaseCreated'}, declaration: {declarationCheckbox: 'true'}});
+    describe('Verify Content, Errors and Redirection - Feature toggles', () => {
+        it('test right content loaded on the page with the ft_fees_api toggle ON', (done) => {
+            testWrapper = new TestWrapper('CopiesUk', {ft_fees_api: true});
 
-        it.skip('test right content loaded on the page with the ft_fees_api toggle ON', (done) => {
             invitesAllAgreedNock();
-            nock('https://app.launchdarkly.com/')
-                .get('*')
-                .reply(200, true);
 
             const sessionData = require('test/data/copiesUk');
             sessionData.ccdCase = {
@@ -61,11 +54,10 @@ describe('copies-uk', () => {
                 });
         });
 
-        it.skip('test right content loaded on the page with the ft_fees_api toggle OFF', (done) => {
+        it('test right content loaded on the page with the ft_fees_api toggle OFF', (done) => {
+            testWrapper = new TestWrapper('CopiesUk', {ft_fees_api: false});
+
             invitesAllAgreedNock();
-            nock('https://app.launchdarkly.com/')
-                .get('*')
-                .reply(200, false);
 
             const sessionData = require('test/data/copiesUk');
             sessionData.ccdCase = {
@@ -90,6 +82,14 @@ describe('copies-uk', () => {
                     testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
+    });
+
+    describe('Verify Content, Errors and Redirection', () => {
+        beforeEach(() => {
+            testWrapper = new TestWrapper('CopiesUk');
+        });
+
+        testCommonContent.runTest('CopiesUk', null, null, [], false, {ccdCase: {state: 'CaseCreated'}, declaration: {declarationCheckbox: 'true'}});
 
         it('test errors message displayed for invalid data, text values', (done) => {
             testWrapper.agent.post('/prepare-session/form')
