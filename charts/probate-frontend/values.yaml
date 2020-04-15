@@ -51,13 +51,12 @@ nodejs:
         - probate-webchat-button-busy
         - probate-webchat-button-service-closed
         - AppInsightsInstrumentationKey
-
+        - google-analytics-tracking-id
 redis:
   enabled: false
   cluster:
     enabled: false
     slaveCount: 0
   usePassword: false
-
 idam-pr:
   enabled: false

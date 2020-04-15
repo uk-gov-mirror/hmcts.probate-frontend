@@ -28,10 +28,9 @@ nodejs:
         - probate-webchat-button-service-closed
         - payCaseWorkerUser
         - payCaseWorkerPass
-
+        - google-analytics-tracking-id
 redis:
   enabled: true
-
 idam-pr:
   enabled: true
   redirect_uris:
