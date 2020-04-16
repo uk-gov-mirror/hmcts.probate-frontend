@@ -19,8 +19,6 @@ nodejs:
         - probate-overseas-application-fee-code
         - probate-service-id
         - probate-site-id
-        - caveat-user-name
-        - caveat-user-password
         - probate-webchat-id
         - probate-webchat-tenant
         - probate-webchat-button-no-agents
@@ -29,6 +27,7 @@ nodejs:
         - payCaseWorkerUser
         - payCaseWorkerPass
         - google-analytics-tracking-id
+        - launchdarkly-key
 redis:
   enabled: true
 idam-pr:

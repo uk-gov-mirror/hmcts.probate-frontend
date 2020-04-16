@@ -31,7 +31,6 @@ nodejs:
   keyVaults:
     probate:
       secrets:
-        - frontend-redis-access-key
         - idam-s2s-secret
         - ccidam-idam-api-secrets-probate
         - postcode-service-url
@@ -43,15 +42,17 @@ nodejs:
         - probate-overseas-application-fee-code
         - probate-service-id
         - probate-site-id
-        - payCaseWorkerUser
-        - payCaseWorkerPass
         - probate-webchat-id
         - probate-webchat-tenant
         - probate-webchat-button-no-agents
         - probate-webchat-button-busy
         - probate-webchat-button-service-closed
+        - payCaseWorkerUser
+        - payCaseWorkerPass
+        - frontend-redis-access-key
         - AppInsightsInstrumentationKey
         - google-analytics-tracking-id
+        - launchdarkly-key
 redis:
   enabled: false
   cluster:
