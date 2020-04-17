@@ -14,7 +14,6 @@ router.get('/health', (req, res) => {
     const healthcheck = new Healthcheck();
     const services = [
         {name: config.services.validation.name, url: config.services.validation.url},
-        {name: config.services.submit.name, url: config.services.submit.url},
         {name: config.services.orchestrator.name, url: config.services.orchestrator.url},
         {name: config.services.equalityAndDiversity.name, url: config.services.equalityAndDiversity.url}
     ];

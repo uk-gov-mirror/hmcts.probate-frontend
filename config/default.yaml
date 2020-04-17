@@ -46,10 +46,6 @@ services:
   validation:
     name: 'Business Service'
     url: 'http://localhost:8081/validate'
-  submit:
-    name: 'Submit Service'
-    url: 'http://localhost:8181'
-    port: 8181
   idam:
     name: 'IdAM Service'
     loginUrl: 'http://localhost:3501/login'
