@@ -2,17 +2,17 @@
 
 const config = require('config');
 const ServiceMapper = require('app/utils/ServiceMapper');
-const Healthcheck = require('app/utils/Healthcheck');
 const uuidv4 = require('uuid/v4');
-const logger = require('app/components/logger')('Init');
+// const Healthcheck = require('app/utils/Healthcheck');
+// const logger = require('app/components/logger')('Init');
 
 const completeEqualityTask = (req, res, next) => {
-    const healthcheck = new Healthcheck();
-    const service = {
-        name: config.services.equalityAndDiversity.name,
-        url: config.services.equalityAndDiversity.url
-    };
-
+    // const healthcheck = new Healthcheck();
+    // const service = {
+    //     name: config.services.equalityAndDiversity.name,
+    //     url: config.services.equalityAndDiversity.url
+    // };
+    //
     // healthcheck.getServiceHealth(service)
     //     .then(json => {
     //         req.session.equalityHealth = json.status;
@@ -44,24 +44,18 @@ const completeEqualityTask = (req, res, next) => {
     //         }
     //     });
 
-    healthcheck.getServiceHealth(service)
-        .then(json => {
-            req.session.equalityHealth = json.status;
-            logger.info(config.services.equalityAndDiversity.name, 'is', req.session.equalityHealth);
+    const formData = ServiceMapper.map(
+        'FormData',
+        [config.services.orchestrator.url, req.sessionID]
+    );
 
-            const formData = ServiceMapper.map(
-                'FormData',
-                [config.services.orchestrator.url, req.sessionID]
-            );
+    req.session.form.equality = {
+        pcqId: uuidv4()
+    };
 
-            req.session.form.equality = {
-                pcqId: uuidv4()
-            };
+    formData.post(req.authToken, req.session.serviceAuthorization, req.session.form.ccdCase.id, req.session.form);
 
-            formData.post(req.authToken, req.session.serviceAuthorization, req.session.form.ccdCase.id, req.session.form);
-
-            next();
-        });
+    next();
 };
 
 module.exports = completeEqualityTask;
