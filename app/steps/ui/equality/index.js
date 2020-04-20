@@ -18,7 +18,7 @@ class Equality extends ValidationStep {
     runnerOptions(ctx, session, host) {
         const params = {
             serviceId: 'PROBATE',
-            actor: 'CITIZEN',
+            actor: 'APPLICANT',
             pcqId: session.form.equality.pcqId,
             ccdCaseId: session.form.ccdCase.id,
             partyId: session.form.applicantEmail,
