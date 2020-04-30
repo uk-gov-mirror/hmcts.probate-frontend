@@ -90,6 +90,7 @@ services:
     name: 'Equality and Diversity Service'
     url: 'http://localhost:4000'
     path: '/service-endpoint'
+    gitCommitIdPath: 'buildInfo.extra.gitCommitId'
     port: 4000
 redis:
   host: 'localhost'

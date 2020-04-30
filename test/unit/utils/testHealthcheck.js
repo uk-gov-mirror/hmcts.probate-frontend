@@ -20,9 +20,9 @@ const stopStubs = () => {
     delete require.cache[require.resolve('test/service-stubs/equalityAndDiversityHealth')];
 };
 const services = [
-    {name: config.services.validation.name, url: config.services.validation.url},
-    {name: config.services.orchestrator.name, url: config.services.orchestrator.url},
-    {name: config.services.equalityAndDiversity.name, url: config.services.equalityAndDiversity.url}
+    {name: config.services.validation.name, url: config.services.validation.url, gitCommitIdPath: config.services.validation.gitCommitIdPath},
+    {name: config.services.orchestrator.name, url: config.services.orchestrator.url, gitCommitIdPath: config.services.orchestrator.gitCommitIdPath},
+    {name: config.services.equalityAndDiversity.name, url: config.services.equalityAndDiversity.url, gitCommitIdPath: config.services.equalityAndDiversity.gitCommitIdPath}
 ];
 
 describe('Healthcheck.js', () => {
@@ -48,9 +48,9 @@ describe('Healthcheck.js', () => {
             const url = healthcheck.formatUrl(config.endpoints.health);
             const serviceList = healthcheck.createServicesList(url, services);
             expect(serviceList).to.deep.equal([
-                {name: 'Business Service', url: 'http://localhost:8081/health'},
-                {name: 'Orchestrator Service', url: 'http://localhost:8888/health'},
-                {name: 'Equality and Diversity Service', url: 'http://localhost:4000/health'}
+                {name: 'Business Service', url: 'http://localhost:8081/health', gitCommitIdPath: 'git.commit.id'},
+                {name: 'Orchestrator Service', url: 'http://localhost:8888/health', gitCommitIdPath: 'git.commit.id'},
+                {name: 'Equality and Diversity Service', url: 'http://localhost:4000/health', gitCommitIdPath: 'buildInfo.extra.gitCommitId'}
             ]);
             done();
         });
@@ -143,7 +143,7 @@ describe('Healthcheck.js', () => {
         it('should return the git commit id when there is no error', (done) => {
             const healthcheck = new Healthcheck();
             const json = {git: {commit: {id: 'e210e75b38c6b8da03551b9f83fd909fe80832e1'}}};
-            const data = healthcheck.info({json: json});
+            const data = healthcheck.info({service: {gitCommitIdPath: 'git.commit.id'}, json: json});
             expect(data).to.deep.equal({gitCommitId: json.git.commit.id});
             done();
         });
