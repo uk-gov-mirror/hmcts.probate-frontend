@@ -133,6 +133,7 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}, ftValue) {
             imgSrc: [
                 '\'self\'',
                 'www.google-analytics.com',
+                'stats.g.doubleclick.net',
                 'vcc-eu4.8x8.com',
                 'vcc-eu4b.8x8.com'
             ],
