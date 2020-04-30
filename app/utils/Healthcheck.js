@@ -2,6 +2,7 @@
 
 const FormatUrl = require('app/utils/FormatUrl');
 const {asyncFetch, fetchOptions, fetchJson} = require('app/components/api-utils');
+const {get} = require('lodash');
 const config = require('config');
 const statusUp = 'UP';
 const statusDown = 'DOWN';
@@ -15,7 +16,8 @@ class Healthcheck {
         return services.map(service => {
             return {
                 name: service.name,
-                url: urlFormatter(service.url)
+                url: urlFormatter(service.url),
+                gitCommitIdPath: service.gitCommitIdPath
             };
         });
     }
@@ -38,11 +40,11 @@ class Healthcheck {
         return {name: service.name, status: json.status};
     }
 
-    info({err, json}) {
+    info({err, service, json}) {
         if (err) {
             return {gitCommitId: err.toString()};
         }
-        return {gitCommitId: json.git.commit.id};
+        return {gitCommitId: get(json, service.gitCommitIdPath)};
     }
 
     getDownstream(services, type, callback) {

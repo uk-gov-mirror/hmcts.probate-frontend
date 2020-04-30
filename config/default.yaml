@@ -43,9 +43,11 @@ services:
       applications: '/forms/cases'
       declarationStatuses: '/invites/{ccdCaseId}'
     port: 8888
+    gitCommitIdPath: 'git.commit.id'
   validation:
     name: 'Business Service'
     url: 'http://localhost:8081/validate'
+    gitCommitIdPath: 'git.commit.id'
   idam:
     name: 'IdAM Service'
     loginUrl: 'http://localhost:3501/login'
