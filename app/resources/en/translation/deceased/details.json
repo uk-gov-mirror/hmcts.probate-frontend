@@ -31,6 +31,7 @@
       "invalid": "Enter a valid year of birth"
     },
     "dob-date": {
+      "required": "Enter the date they were born",
       "invalid": "Enter a valid date of birth",
       "dateInFuture": "Enter a date in the past",
       "dodBeforeDob": "Enter a date of birth that is before the date of death"
@@ -48,6 +49,7 @@
       "invalid": "Enter a valid year of death"
     },
     "dod-date": {
+      "required": "Enter the date they died",
       "invalid": "Enter a valid date of death",
       "dateInFuture": "Enter a date in the past",
       "dodBeforeDob": "Enter a date of death that is after the date of birth"
