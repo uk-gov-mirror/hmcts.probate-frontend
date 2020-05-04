@@ -314,6 +314,7 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}, ftValue) {
             }
             req.session.regId = req.query.id || req.session.regId || req.sessionID;
             req.authToken = config.services.payment.authorization;
+            req.session.authToken = req.authToken;
             req.userId = config.services.payment.userId;
             next();
         }, routes);
