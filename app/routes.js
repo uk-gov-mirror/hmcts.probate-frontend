@@ -15,7 +15,6 @@ const PaymentWrapper = require('app/wrappers/Payment');
 const documentUpload = require('app/documentUpload');
 const documentDownload = require('app/documentDownload');
 const multipleApplications = require('app/multipleApplications');
-const equalityAndDiversity = require('app/equalityAndDiversity');
 const journeyCheck = require('app/journeyCheck');
 const serviceAuthorisationToken = require('app/serviceAuthorisation');
 const paymentFees = require('app/paymentFees');
@@ -62,7 +61,6 @@ router.use((req, res, next) => {
 router.use(serviceAuthorisationToken);
 router.use(setJourney);
 router.use(multipleApplications);
-router.use(equalityAndDiversity);
 router.use(journeyCheck);
 router.use(documentDownload);
 router.use(paymentFees);

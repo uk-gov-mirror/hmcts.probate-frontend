@@ -6,56 +6,63 @@ const uuidv4 = require('uuid/v4');
 // const Healthcheck = require('app/utils/Healthcheck');
 // const logger = require('app/components/logger')('Init');
 
-const completeEqualityTask = (req, res, next) => {
+const completeEqualityTask = (params) => {
     // const healthcheck = new Healthcheck();
     // const service = {
     //     name: config.services.equalityAndDiversity.name,
-    //     url: config.services.equalityAndDiversity.url
+    //     url: config.services.equalityAndDiversity.url,
+    //     gitCommitIdPath: config.services.equalityAndDiversity.gitCommitIdPath
     // };
     //
     // healthcheck.getServiceHealth(service)
     //     .then(json => {
-    //         req.session.equalityHealth = json.status;
-    //         logger.info(config.services.equalityAndDiversity.name, 'is', req.session.equalityHealth);
+    //         params.req.session.equalityHealth = json.status;
+    //         logger.info(config.services.equalityAndDiversity.name, 'is', params.req.session.equalityHealth);
     //
     //         const formData = ServiceMapper.map(
     //             'FormData',
-    //             [config.services.orchestrator.url, req.sessionID]
+    //             [config.services.orchestrator.url, params.req.sessionID]
     //         );
     //
-    //         if (req.session.equalityHealth === 'UP') {
-    //             req.session.form.equality = {
+    //         if (params.req.session.equalityHealth === 'UP') {
+    //             params.req.session.form.equality = {
     //                 pcqId: uuidv4()
     //             };
     //         } else {
-    //             req.session.form.equality = {
+    //             params.req.session.form.equality = {
     //                 pcqId: 'Service down'
     //             };
     //         }
     //
-    //         formData.post(req.authToken, req.session.serviceAuthorization, req.session.form.ccdCase.id, req.session.form);
+    //         formData.post(params.req.authToken, params.req.session.serviceAuthorization, params.req.session.form.ccdCase.id, params.req.session.form);
     //
-    //         if (req.session.equalityHealth === 'UP') {
-    //             next();
-    //         } else if (req.session.caseType ==='intestacy') {
-    //             res.redirect('/summary');
+    //         if (params.req.session.equalityHealth === 'UP') {
+    //             params.next();
+    //         } else if (params.req.session.caseType ==='intestacy') {
+    //             params.res.redirect('/summary');
     //         } else {
-    //             res.redirect('/task-list');
+    //             params.res.redirect('/task-list');
     //         }
     //     });
 
-    const formData = ServiceMapper.map(
-        'FormData',
-        [config.services.orchestrator.url, req.sessionID]
-    );
+    if (params.isEnabled) {
+        const formData = ServiceMapper.map(
+            'FormData',
+            [config.services.orchestrator.url, params.req.sessionID]
+        );
 
-    req.session.form.equality = {
-        pcqId: uuidv4()
-    };
+        params.req.session.form.equality = {
+            pcqId: uuidv4()
+        };
 
-    formData.post(req.authToken, req.session.serviceAuthorization, req.session.form.ccdCase.id, req.session.form);
+        formData.post(params.req.authToken, params.req.session.serviceAuthorization, params.req.session.form.ccdCase.id, params.req.session.form);
 
-    next();
+        params.next();
+    } else if (params.req.session.caseType ==='intestacy') {
+        params.res.redirect('/summary');
+    } else {
+        params.res.redirect('/task-list');
+    }
 };
 
 module.exports = completeEqualityTask;
