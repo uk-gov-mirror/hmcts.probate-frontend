@@ -17,28 +17,31 @@ describe('completeEqualityTask', () => {
     describe('when the service is UP', () => {
         before(() => startStub());
 
-        it('[PROBATE] PCQ status is UP', (done) => {
-            const req = {
-                session: {
-                    caseType: 'gop',
-                    form: {
-                        applicantEmail: 'test@email.com',
-                        ccdCase: {
-                            id: 1234567890123456
+        it('[PROBATE] PCQ feature toggle is ON', (done) => {
+            const params = {
+                isEnabled: true,
+                req: {
+                    session: {
+                        caseType: 'gop',
+                        form: {
+                            applicantEmail: 'test@email.com',
+                            ccdCase: {
+                                id: 1234567890123456
+                            }
                         }
                     }
-                }
+                },
+                res: {redirect: () => {
+                    // Do nothing
+                }},
+                next: sinon.spy()
             };
-            const res = {redirect: () => {
-                // Do nothing
-            }};
-            const next = sinon.spy();
 
-            completeEqualityTask(req, res, next);
+            completeEqualityTask(params);
 
             setTimeout(() => {
-                expect(req.session.form.equality.pcqId).to.not.equal('Service down');
-                expect(next.calledOnce).to.equal(true);
+                expect(params.req.session.form.equality.pcqId).to.not.equal('Service down');
+                expect(params.next.calledOnce).to.equal(true);
 
                 done();
             }, 500);
