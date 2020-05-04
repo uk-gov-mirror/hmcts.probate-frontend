@@ -13,7 +13,7 @@ const completeEqualityTask = rewire('app/middleware/completeEqualityTask');
 //     equalityStub.close();
 //     delete require.cache[require.resolve('test/service-stubs/equalityAndDiversityHealth')];
 // };
-describe.only('completeEqualityTask', () => {
+describe('completeEqualityTask', () => {
     describe('PCQ feature toggle is ON', () => {
         it('should redirect to PCQ', (done) => {
             const params = {

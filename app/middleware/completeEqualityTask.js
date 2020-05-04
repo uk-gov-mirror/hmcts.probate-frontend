@@ -1,6 +1,7 @@
 'use strict';
 
 const config = require('config');
+const get = require('lodash').get;
 const ServiceMapper = require('app/utils/ServiceMapper');
 const uuidv4 = require('uuid/v4');
 // const Healthcheck = require('app/utils/Healthcheck');
@@ -45,7 +46,7 @@ const completeEqualityTask = (params) => {
     //         }
     //     });
 
-    if (params.isEnabled) {
+    if (params.isEnabled && !get(params.req.session.form, 'equality.pcqId', false)) {
         const formData = ServiceMapper.map(
             'FormData',
             [config.services.orchestrator.url, params.req.sessionID]
