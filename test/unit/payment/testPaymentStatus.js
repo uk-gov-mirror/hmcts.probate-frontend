@@ -296,10 +296,7 @@ describe('PaymentStatus', () => {
                 expect(options.errors).to.deep.equal([{
                     field: 'update',
                     href: '#update',
-                    msg: {
-                        summary: content.errors.update.failure.summary,
-                        message: content.errors.update.failure.message
-                    }
+                    msg: content.errors.update.failure
                 }]);
                 done();
             }).catch(err => {
@@ -335,10 +332,7 @@ describe('PaymentStatus', () => {
                 expect(options.errors).to.deep.equal([{
                     field: 'update',
                     href: '#update',
-                    msg: {
-                        summary: content.errors.update.failure.summary,
-                        message: content.errors.update.failure.message
-                    }
+                    msg: content.errors.update.failure
                 }]);
                 revert();
                 done();
