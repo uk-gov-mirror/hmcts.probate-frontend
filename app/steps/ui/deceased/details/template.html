@@ -85,17 +85,20 @@
             {
                 classes: "govuk-input--width-2" + (" govuk-input--error" if fields["dob-day"].error or fields["dob-date"].error),
                 name: "day",
-                value: fields["dob-day"].value
+                value: fields["dob-day"].value,
+                autocomplete: "dob-day"
             },
             {
                 classes: "govuk-input--width-2" + (" govuk-input--error" if fields["dob-month"].error or fields["dob-date"].error),
                 name: "month",
-                value: fields["dob-month"].value
+                value: fields["dob-month"].value,
+                autocomplete: "dob-month"
             },
             {
                 classes: "govuk-input--width-4" + (" govuk-input--error" if fields["dob-year"].error or fields["dob-date"].error),
                 name: "year",
-                value: fields["dob-year"].value
+                value: fields["dob-year"].value,
+                autocomplete: "dob-year"
             }
         ]
     }) }}
@@ -117,17 +120,20 @@
             {
                 classes: "govuk-input--width-2" + (" govuk-input--error" if fields["dod-day"].error or fields["dod-date"].error),
                 name: "day",
-                value: fields["dod-day"].value
+                value: fields["dod-day"].value,
+                autocomplete: "dod-day"
             },
             {
                 classes: "govuk-input--width-2" + (" govuk-input--error" if fields["dod-month"].error or fields["dod-date"].error),
                 name: "month",
-                value: fields["dod-month"].value
+                value: fields["dod-month"].value,
+                autocomplete: "dod-month"
             },
             {
                 classes: "govuk-input--width-4" + (" govuk-input--error" if fields["dod-year"].error or fields["dod-date"].error),
                 name: "year",
-                value: fields["dod-year"].value
+                value: fields["dod-year"].value,
+                autocomplete: "dod-year"
             }
         ]
     }) }}
