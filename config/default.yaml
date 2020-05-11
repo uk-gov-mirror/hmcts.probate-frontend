@@ -92,6 +92,7 @@ services:
     path: '/service-endpoint'
     gitCommitIdPath: 'buildInfo.extra.gitCommitId'
     port: 4000
+    tokenKey: 'PROBATE_TOKEN_KEY'
 redis:
   host: 'localhost'
   port: 6379

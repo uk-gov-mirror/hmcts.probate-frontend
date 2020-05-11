@@ -4,6 +4,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const RedirectRunner = require('app/core/runners/RedirectRunner');
 const config = require('config');
 const get = require('lodash').get;
+const createToken = require('./createToken');
 
 class Equality extends ValidationStep {
 
@@ -25,6 +26,8 @@ class Equality extends ValidationStep {
             returnUrl: `${host}/task-list`,
             language: session.language
         };
+
+        params.token = createToken(params);
 
         const qs = Object.keys(params)
             .map(key => key + '=' + params[key])
