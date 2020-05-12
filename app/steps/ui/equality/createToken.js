@@ -12,8 +12,8 @@ const createToken = (params) => {
     let encrypted;
 
     if (tokenKey) {
+        logger.info(`Using ${tokenKey === 'PROBATE_TOKEN_KEY' ? 'local' : 'Azure KV'} secret for PCQ token key`);
         const key = crypto.scryptSync(tokenKey, 'salt', 32);
-
         const strParams = JSON.stringify(params);
         const cipher = crypto.createCipheriv(algorithm, key, iv);
         encrypted = cipher.update(strParams, 'utf8', 'hex');
