@@ -53,6 +53,7 @@ nodejs:
         - frontend-redis-access-key
         - AppInsightsInstrumentationKey
         - launchdarkly-key
+        - pcq-token-key
 redis:
   enabled: false
   cluster:
