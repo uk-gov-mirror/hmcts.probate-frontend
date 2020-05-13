@@ -20,7 +20,7 @@ class Equality extends ValidationStep {
             serviceId: 'PROBATE',
             actor: 'APPLICANT',
             pcqId: session.form.equality.pcqId,
-            // ccdCaseId: session.form.ccdCase.id,
+            ccdCaseId: session.form.ccdCase.id,
             partyId: session.form.applicantEmail,
             returnUrl: `${host}/task-list`,
             language: session.language
