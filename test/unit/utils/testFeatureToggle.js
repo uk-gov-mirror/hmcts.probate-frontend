@@ -78,7 +78,6 @@ describe('FeatureToggle', () => {
             featureToggle.checkToggle(params);
 
             expect(params.next.calledOnce).to.equal(true);
-            expect(params.next.calledWith(new Error())).to.equal(true);
 
             done();
         });
