@@ -10,7 +10,7 @@ featureToggles:
     lastName: 'Frontend'
     key: '35222af3-7867-44ea-a2a0-f8e533ad12de'
   ft_fees_api: 'probate-fees-api'
-  ft_pcq: probate-pcq
+  ft_pcq: 'probate-pcq'
   appwideToggles: []
 app:
   username:
