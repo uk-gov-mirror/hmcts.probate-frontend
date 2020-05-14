@@ -34,9 +34,8 @@ const caseTypes = require('app/utils/CaseTypes');
 const featureToggles = require('app/featureToggles');
 const sanitizeRequestBody = require('app/middleware/sanitizeRequestBody');
 const isEmpty = require('lodash').isEmpty;
-const LaunchDarkly = require('launchdarkly-node-server-sdk');
 
-exports.init = function(isA11yTest = false, a11yTestSession = {}, ftValue) {
+exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const app = express();
     const port = config.app.port;
     const releaseVersion = packageJson.version;
@@ -287,17 +286,10 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}, ftValue) {
     app.use('/declaration', declaration);
 
     app.use((req, res, next) => {
-        if (['test', 'testing'].includes(app.get('env'))) {
-            res.locals.launchDarkly = {
-                client: LaunchDarkly.init(config.featureToggles.launchDarklyKey, {offline: true}),
-                ftValue: ftValue
-            };
-        } else {
-            res.locals.launchDarkly = {
-                client: LaunchDarkly.init(config.featureToggles.launchDarklyKey, {diagnosticOptOut: true})
-            };
+        res.locals.launchDarkly = {};
+        if (ftValue) {
+            res.locals.launchDarkly.ftValue = ftValue;
         }
-
         next();
     });
 
@@ -356,7 +348,12 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}, ftValue) {
         const content = require(`app/resources/${req.session.language}/translation/errors/404`);
 
         logger(req.sessionID).error(`Unhandled request ${req.url}`);
-        res.status(404).render('errors/error', {common: commonContent, content: content, error: '404', userLoggedIn: req.userLoggedIn});
+        res.status(404).render('errors/error', {
+            common: commonContent,
+            content: content,
+            error: '404',
+            userLoggedIn: req.userLoggedIn
+        });
     });
 
     app.use((err, req, res, next) => {
@@ -364,7 +361,12 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}, ftValue) {
         const content = require(`app/resources/${req.session.language}/translation/errors/500`);
 
         logger(req.sessionID).error(err);
-        res.status(500).render('errors/error', {common: commonContent, content: content, error: '500', userLoggedIn: req.userLoggedIn});
+        res.status(500).render('errors/error', {
+            common: commonContent,
+            content: content,
+            error: '500',
+            userLoggedIn: req.userLoggedIn
+        });
     });
 
     return {app, http};
