@@ -15,15 +15,16 @@ class Equality extends ValidationStep {
         return '/equality-and-diversity';
     }
 
+    // eslint-disable-next-line no-unused-vars
     runnerOptions(ctx, session, host) {
         const params = {
             // serviceId: 'PROBATE',
-            actor: 'APPLICANT',
-            pcqId: session.form.equality.pcqId,
-            ccdCaseId: session.form.ccdCase.id,
-            partyId: session.form.applicantEmail,
-            returnUrl: `${host}/task-list`,
-            language: session.language
+            // actor: 'APPLICANT',
+            // pcqId: session.form.equality.pcqId,
+            // ccdCaseId: session.form.ccdCase.id,
+            // partyId: session.form.applicantEmail,
+            // returnUrl: `${host}/task-list`,
+            // language: session.language
         };
 
         const qs = Object.keys(params)
