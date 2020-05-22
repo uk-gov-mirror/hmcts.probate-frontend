@@ -44,10 +44,6 @@ const completeEqualityTask = (params) => {
 };
 
 const pcqDown = (params, formData) => {
-    params.req.session.form.equality = {
-        pcqId: 'Service down'
-    };
-
     formData.post(params.req.authToken, params.req.session.serviceAuthorization, params.req.session.form.ccdCase.id, params.req.session.form);
 
     if (params.req.session.caseType === 'intestacy') {
