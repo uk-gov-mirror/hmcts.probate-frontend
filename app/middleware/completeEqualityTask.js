@@ -30,7 +30,7 @@ const completeEqualityTask = (params) => {
                     params.req.session.form.equality = {
                         pcqId: uuidv4()
                     };
-                    
+
                     formData.post(params.req.session.authToken, params.req.session.serviceAuthorization, params.req.session.form.ccdCase.id, params.req.session.form);
 
                     params.next();
