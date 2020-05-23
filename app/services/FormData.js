@@ -41,8 +41,6 @@ class FormData extends Service {
             'Authorization': authToken,
             'ServiceAuthorization': serviceAuthorisation
         };
-        this.log(`headers ${JSON.stringify(headers)}`);
-
         const fetchOptions = this.fetchOptions(data, 'POST', headers);
         return this.fetchJson(url, fetchOptions);
     }
