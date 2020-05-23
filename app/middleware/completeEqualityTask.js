@@ -33,7 +33,7 @@ const completeEqualityTask = (params) => {
 
                     logger.info(`params.req.authToken=${params.req.authToken}`);
                     logger.info(`params.req.session.authToken=${params.req.session.authToken}`);
-                    formData.post(params.req.authToken, params.req.session.serviceAuthorization, params.req.session.form.ccdCase.id, params.req.session.form);
+                    formData.post(params.req.session.authToken, params.req.session.serviceAuthorization, params.req.session.form.ccdCase.id, params.req.session.form);
 
                     params.next();
                 } else {
