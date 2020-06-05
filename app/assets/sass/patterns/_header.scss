@@ -2,12 +2,20 @@
 Header
 */
 
-.govuk-header__link--homepage {
-  &:hover,
-  &:active {
-    margin-bottom: 0;
-    border-bottom: none;
+.govuk-header__link--homepage,
+.govuk-header__content {
+  a {
+    text-decoration: none;
+    color: govuk-colour("white");
   }
+}
+
+a.govuk-header__link--service-name {
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+
 }
 
 .govuk-header__content {
