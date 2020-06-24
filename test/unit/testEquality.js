@@ -37,9 +37,9 @@ describe('Equality', () => {
                 const options = yield Equality.runnerOptions(ctx, session, host);
                 const token = '79d3c3968c1b94baa8753a66c72a3382aacb1152f20fac4ba2ad7c754adf464a538a77496a281db63b2ca' +
                     'aa49380fcb5f4210a0fc3933a0c4d5f2f790c026df47946c7b8640dc476f47a12822df5c38590dc16c9c9b4143ccca4' +
-                    'a76f32aa1bb16a3bd24a0dd30cd31f8ca5f93a46a99ed931f95b20914604b6bddef910b23dbf49f61c2c98c073e0b1f' +
-                    '0d4ac2d5b7d05f6cb5cf518eb77c93aaea05970ca3d8f1150952182b1e2ea316dbef1ba85e71aeb6fa34518fff46c12' +
-                    'c54827ba59926a0ed5721a2cd25fdb6c0911a6089af86f155d445140a9cdbfd68170d261a9d766';
+                    'a76f32aa1bb1bf49c2400409efbe23f35fac953b98842b8a678e00b3e72d59d814eac0b01f77696b4c702cfed0fefe5' +
+                    'da93237fc115740bc51737225e8853e9d7dec21a0c35c0c4b33d64ff5ba81052fef8d3cc84be1cee28be7df21c4178e' +
+                    'fce955017951d7110a08feb4a55390a3d6a7fa9105bfc5d4439cec166a9e53bb64cc0aa4c3a15f';
 
                 expect(options).to.deep.equal({
                     redirect: true,
