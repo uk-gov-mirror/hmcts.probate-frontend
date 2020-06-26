@@ -5,6 +5,7 @@ const RedirectRunner = require('app/core/runners/RedirectRunner');
 const config = require('config');
 const get = require('lodash').get;
 const createToken = require('./createToken');
+const FeatureToggle = require('app/utils/FeatureToggle');
 
 class Equality extends ValidationStep {
 
@@ -28,7 +29,9 @@ class Equality extends ValidationStep {
             language: session.language
         };
 
-        params.token = createToken(params);
+        if (FeatureToggle.isEnabled(session.featureToggles, 'ft_pcq_token')) {
+            params.token = createToken(params);
+        }
 
         const qs = Object.keys(params)
             .map(key => key + '=' + params[key])
