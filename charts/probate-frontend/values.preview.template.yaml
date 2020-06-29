@@ -5,7 +5,6 @@ nodejs:
     REDIS_HOST: ${SERVICE_NAME}-redis-master
     REDIS_PORT: 6379
     REDIS_USE_TLS: false
-    EQUALITY_URL: http://pcq-frontend-pr-73.service.core-compute-preview.internal
   keyVaults:
     probate:
       secrets:
@@ -28,7 +27,6 @@ nodejs:
         - payCaseWorkerUser
         - payCaseWorkerPass
         - launchdarkly-key
-        - pcq-token-key
 redis:
   enabled: true
 idam-pr:
