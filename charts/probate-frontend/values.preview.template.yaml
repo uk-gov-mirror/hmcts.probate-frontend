@@ -28,6 +28,7 @@ nodejs:
         - payCaseWorkerUser
         - payCaseWorkerPass
         - launchdarkly-key
+        - pcq-token-key
 redis:
   enabled: true
 idam-pr:
