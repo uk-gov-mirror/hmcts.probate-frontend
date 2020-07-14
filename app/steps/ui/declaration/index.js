@@ -44,6 +44,8 @@ class Declaration extends ValidationStep {
     }
 
     * handlePost(ctx, errors, formdata, session) {
+        logger.info('Sending validation request for form data');
+        logger.info(`Case Id = ${formdata.ccdCase.id}`);
         const result = yield this.validateFormData(formdata, ctx, session.req);
         logger.info(`Form data validation results = ${result}`);
         let returnErrors;
@@ -55,7 +57,6 @@ class Declaration extends ValidationStep {
         }
 
         const uploadLegalDec = new UploadLegalDeclaration();
-        logger.info(`Case Id = ${formdata.ccdCase.id}`);
         formdata.statementOfTruthDocument =
             yield uploadLegalDec.generateAndUpload(ctx.sessionID, session.req.userId, session.req);
         session.form.statementOfTruthDocument = formdata.statementOfTruthDocument;
