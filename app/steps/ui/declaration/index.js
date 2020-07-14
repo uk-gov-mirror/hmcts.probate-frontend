@@ -44,8 +44,7 @@ class Declaration extends ValidationStep {
     }
 
     * handlePost(ctx, errors, formdata, session) {
-        logger.info('Sending validation request for form data');
-        logger.info(`Case Id = ${formdata.ccdCase.id}`);
+        logger.info(`Sending validation request for form data with case id ${formdata.ccdCase.id}`);
         const result = yield this.validateFormData(formdata, ctx, session.req);
         logger.info(`Form data validation results = ${result}`);
         let returnErrors;
