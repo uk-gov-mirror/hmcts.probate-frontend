@@ -1,3 +1,5 @@
+// eslint-disable-line max-lines
+
 'use strict';
 
 const probateDeclarationFactory = require('app/utils/ProbateDeclarationFactory');
