@@ -48,6 +48,7 @@ const createNewApplication = (req, res, formdata, formData, result, next) => {
 
     formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
         .then(result => {
+            logger.info('Retrieved cases after new case created = ' + JSON.stringify(result.applications));
             delete formdata.caseType;
             delete formdata.screeners;
             renderDashboard(req, result, next);
@@ -115,6 +116,7 @@ const getCase = (req, res, next, checkDeclarationStatuses) => {
         ccdCaseId = req.session.form.ccdCase.id;
     }
 
+    logger.info(`Current Case = ${ccdCaseId}`);
     if (!probateType && req.session.form.caseType) {
         probateType = caseTypes.getProbateType(req.session.form.caseType);
     }
