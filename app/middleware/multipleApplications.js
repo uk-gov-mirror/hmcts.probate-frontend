@@ -18,7 +18,7 @@ const initDashboard = (req, res, next) => {
     formData.getAll(req.authToken, req.session.serviceAuthorization)
         .then(result => {
             if (result.applications && result.applications.length) {
-                logger.info('Cases = ' + JSON.stringify(result.applications));
+                logger.info('Retrieved Cases = ' + JSON.stringify(result.applications));
                 if (allEligibilityQuestionsPresent(formdata)) {
                     if (!result.applications.some(application => application.ccdCase.state === 'Pending' && !application.deceasedFullName && application.caseType === caseTypes.getProbateType(formdata.caseType))) {
                         createNewApplication(req, res, formdata, formData, result, next);
@@ -86,6 +86,7 @@ const renderDashboard = (req, result, next) => {
         cleanupSession(req.session);
     }
 
+    logger.info('Dashboard Cases = ' + JSON.stringify(result.applications));
     req.session.form.applications = sortBy(result.applications, 'ccdCase.id');
     next();
 };
