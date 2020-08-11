@@ -5,7 +5,7 @@ frontendPublicHttpProtocol: http
 languages: ['en', 'cy']
 featureToggles:
   enabled: true
-  launchDarklyKey: 'SDK_KEY'
+  launchDarklyKey: 'sdk-4d50eb6e-8400-4aa7-b4c5-8bdfc8b1d844'
   launchDarklyUser:
     firstName: 'Probate'
     lastName: 'Frontend'
@@ -19,8 +19,8 @@ app:
   password:
   useAuth: 'false'
   useHttps: 'false'
-  useIDAM: 'false'
-  requireCcdCaseId: 'false'
+  useIDAM: 'true'
+  requireCcdCaseId: 'true'
   port: '3000'
   useCSRFProtection: 'true' # TODO: tech debt, tests should be csrf aware, it shouldn't be possible to accidentally disable this
   session:
@@ -156,18 +156,6 @@ utils:
     retries: 10
     retryDelay: 1000
 payment:
-  applicationFee: 215
-  applicationFeeThreshold: 5000
-  applicationFeeCode: 'FEE0226'
-  copies:
-    uk:
-      fee: 0.5
-      code: 'FEE0003'
-      version: '3'
-    overseas:
-      fee: 0.5
-      code: 'FEE003'
-      version: '3'
   serviceId: 'PROBATE'
   siteId: 'P223'
   version: '1'

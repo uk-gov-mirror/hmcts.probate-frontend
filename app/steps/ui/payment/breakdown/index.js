@@ -22,6 +22,12 @@ class PaymentBreakdown extends Step {
         ctx.copies = this.createCopiesLayout(formdata);
         ctx.applicationFee = fees.applicationfee;
         ctx.total = fees.total;
+        ctx.applicationversion = fees.applicationversion;
+        ctx.applicationcode = fees.applicationcode;
+        ctx.ukcopiesversion = fees.ukcopiesversion;
+        ctx.ukcopiescode = fees.ukcopiescode;
+        ctx.overseascopiesversion = fees.overseascopiesversion;
+        ctx.overseascopiescode = fees.overseascopiesversion;
         ctx = this.formatAmounts(ctx);
 
         return [ctx, ctx.errors];
@@ -123,7 +129,13 @@ class PaymentBreakdown extends Step {
                     applicationFee: ctx.applicationFee,
                     copies: ctx.copies,
                     deceasedLastName: ctx.deceasedLastName,
-                    ccdCaseId: formdata.ccdCase.id
+                    ccdCaseId: formdata.ccdCase.id,
+                    applicationversion: originalFees.applicationversion,
+                    applicationcode: originalFees.applicationcode,
+                    ukcopiesversion: originalFees.ukcopiesversion,
+                    ukcopiescode: originalFees.ukcopiescode,
+                    overseascopiesversion: originalFees.overseascopiesversion,
+                    overseascopiescode: originalFees.overseascopiesversion
                 };
 
                 const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
