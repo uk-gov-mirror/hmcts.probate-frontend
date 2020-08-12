@@ -22,12 +22,6 @@ class PaymentBreakdown extends Step {
         ctx.copies = this.createCopiesLayout(formdata);
         ctx.applicationFee = fees.applicationfee;
         ctx.total = fees.total;
-        ctx.applicationversion = fees.applicationversion;
-        ctx.applicationcode = fees.applicationcode;
-        ctx.ukcopiesversion = fees.ukcopiesversion;
-        ctx.ukcopiescode = fees.ukcopiescode;
-        ctx.overseascopiesversion = fees.overseascopiesversion;
-        ctx.overseascopiescode = fees.overseascopiesversion;
         ctx = this.formatAmounts(ctx);
 
         return [ctx, ctx.errors];
@@ -71,6 +65,13 @@ class PaymentBreakdown extends Step {
         try {
             const feesCalculator = new FeesCalculator(config.services.feesRegister.url, ctx.sessionID);
             const confirmFees = yield feesCalculator.calc(formdata, ctx.authToken, session.featureToggles);
+            ctx.applicationversion = confirmFees.applicationversion;
+            ctx.applicationcode = confirmFees.applicationcode;
+            ctx.ukcopiesversion = confirmFees.ukcopiesversion;
+            ctx.ukcopiescode = confirmFees.ukcopiescode;
+            ctx.overseascopiesversion = confirmFees.overseascopiesversion;
+            ctx.overseascopiescode = confirmFees.overseascopiesversion;
+            
             this.checkFeesStatus(confirmFees);
             const originalFees = formdata.fees;
             if (confirmFees.total !== originalFees.total) {
@@ -130,12 +131,12 @@ class PaymentBreakdown extends Step {
                     copies: ctx.copies,
                     deceasedLastName: ctx.deceasedLastName,
                     ccdCaseId: formdata.ccdCase.id,
-                    applicationversion: originalFees.applicationversion,
-                    applicationcode: originalFees.applicationcode,
-                    ukcopiesversion: originalFees.ukcopiesversion,
-                    ukcopiescode: originalFees.ukcopiescode,
-                    overseascopiesversion: originalFees.overseascopiesversion,
-                    overseascopiescode: originalFees.overseascopiesversion
+                    applicationversion: ctx.applicationversion,
+                    applicationcode: ctx.applicationcode,
+                    ukcopiesversion: ctx.ukcopiesversion,
+                    ukcopiescode: ctx.ukcopiescode,
+                    overseascopiesversion: ctx.overseascopiesversion,
+                    overseascopiescode: ctx.overseascopiesversion
                 };
 
                 const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
