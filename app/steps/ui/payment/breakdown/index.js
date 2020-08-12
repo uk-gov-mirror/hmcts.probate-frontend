@@ -70,7 +70,7 @@ class PaymentBreakdown extends Step {
             ctx.ukcopiesversion = confirmFees.ukcopiesversion;
             ctx.ukcopiescode = confirmFees.ukcopiescode;
             ctx.overseascopiesversion = confirmFees.overseascopiesversion;
-            ctx.overseascopiescode = confirmFees.overseascopiesversion;
+            ctx.overseascopiescode = confirmFees.overseascopiescode;
             this.checkFeesStatus(confirmFees);
             const originalFees = formdata.fees;
             if (confirmFees.total !== originalFees.total) {
