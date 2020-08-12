@@ -1,13 +1,14 @@
 {
   "title": "Copies - Outside the UK",
-  "question": "How many copies of the grant do you need for use outside the UK?",
-  "paragraph1": "For extra copies you&rsquo;ll pay:",
-  "bullet1": "&pound;10 for the first copy",
-  "bullet2": "50 pence for every copy after that",
-  "copies": "Number of international copies",
-  "questionOld": "How many copies of the grant do you need for use outside the UK?",
-  "paragraph1Old": "International copies cost &pound;1.50 each.",
-  "copiesOld": "Number of international copies",
+  "question": "How many extra certified copies of the grant do you need for use outside the UK?",
+  "paragraph1": "Order extra certified copies of the grant if you need to claim the estate outside the UK.",
+  "paragraph2": "A certified copy will have the same features as the official copy and extra information confirmingthe details of the certification on the back of it.",
+  "copies": "Number of extra certified copies",
+
+  "questionOld": "How many extra certified copies of the grant do you need for use outside the UK?",
+  "paragraph1Old": "Order extra certified copies of the grant if you need to claim the estate outside the UK.",
+  "paragraph2Old": "A certified copy will have the same features as the official copy and extra information confirmingthe details of the certification on the back of it.",
+  "copiesOld": "Number of extra certified copies",
 
   "errors": {
     "overseas": {

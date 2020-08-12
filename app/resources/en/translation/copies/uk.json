@@ -1,17 +1,20 @@
 {
   "title": "Copies - UK",
-  "question": "How many copies of the grant do you need for use in the UK?",
-  "paragraph1": "You&rsquo;ll receive a grant of probate when your application has been processed.",
-  "paragraph2": "You may need extra copies of the grant to send to different asset holders, for example, a copy for shares and a copy for a property.",
-  "paragraph3": "For extra copies you&rsquo;ll pay:",
-  "bullet1": "&pound;10 for the first copy",
-  "bullet2": "50 pence for every copy after that",
-  "copies": "Number of UK copies",
-  "questionOld": "How many extra copies of the grant do you need for use in the UK?",
-  "paragraph1Old": "You&rsquo;ll receive a grant of probate when your application has been processed.",
-  "paragraph2Old": "You may need extra copies of the grant to send to different asset holders, for example, a copy for shares and a copy for a property.",
-  "paragraph3Old": "Extra copies cost &pound;1.50 each.",
-  "copiesOld": "Number of extra UK copies",
+  "question": "How many extra official copies of the grant do you need for use in the UK?",
+  "paragraph1": "You&rsquo;ll receive a free official copy of a grant of probate with your application fee and a copy of the will.",
+  "paragraph2": "Order extra official copies of the grant if you need to send them to different asset holders, forexample, a copy for banks, insurance policies, shares and property.",
+  "paragraph3": "Extra official copies cost &pound;1.50 each",
+  "copies": "Number of extra official copies",
+
+  "questionOld": "How many extra official copies of the grant do you need for use in the UK?",
+  "paragraph1Old": "You&rsquo;ll receive a free official copy of a grant of probate with your application fee and a copy of the will.",
+  "paragraph2Old": "Order extra official copies of the grant if you need to send them to different asset holders, forexample, a copy for banks, insurance policies, shares and property.",
+  "paragraph3Old": "Extra official copies cost &pound;1.50 each",
+  "copiesOld": "Number of extra official copies",
+
+  "detailTitle": "What is an official copy?",
+  "detailText1": "It's a copy of the grant with a holographic silver seal on the front of it. A bank may ask you for a certified copy to release funds to you.",
+  "detailText2": "Official copies are used for assets in the UK only.",
 
   "errors": {
     "uk": {
