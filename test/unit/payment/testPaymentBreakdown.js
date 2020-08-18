@@ -96,6 +96,12 @@ describe('PaymentBreakdown', () => {
                     ukcopiesfee: 1.50,
                     overseascopies: 2,
                     overseascopiesfee: 3,
+                    applicationcode: 'FEE0226',
+                    applicationversion: 1,
+                    ukcopiescode: 'FEE0003',
+                    ukcopiesversion: 2,
+                    overseascopiescode: 'FEE0003',
+                    overseascopiesversion: 3,
                     total: 219.50
                 },
                 registry: {
@@ -119,6 +125,12 @@ describe('PaymentBreakdown', () => {
                     ukcopiesfee: 1.50,
                     overseascopies: 2,
                     overseascopiesfee: 3,
+                    applicationcode: 'FEE0226',
+                    applicationversion: 1,
+                    ukcopiescode: 'FEE0003',
+                    ukcopiesversion: 2,
+                    overseascopiescode: 'FEE0003',
+                    overseascopiesversion: 3,
                     total: 219.50
                 }
             };
@@ -462,6 +474,12 @@ describe('PaymentBreakdown', () => {
                     ukcopiesfee: 1.50,
                     overseascopies: 2,
                     overseascopiesfee: 3,
+                    applicationcode: 'FEE0226',
+                    applicationversion: 1,
+                    ukcopiescode: 'FEE0003',
+                    ukcopiesversion: 2,
+                    overseascopiescode: 'FEE0003',
+                    overseascopiesversion: 3,
                     total: 219.50
                 },
                 payment: {
@@ -552,6 +570,12 @@ describe('PaymentBreakdown', () => {
                     ukcopiesfee: 1.50,
                     overseascopies: 2,
                     overseascopiesfee: 3,
+                    applicationcode: 'FEE0226',
+                    applicationversion: 1,
+                    ukcopiescode: 'FEE0003',
+                    ukcopiesversion: 2,
+                    overseascopiescode: 'FEE0003',
+                    overseascopiesversion: 3,
                     total: 219.50
                 },
                 payment: {
@@ -619,6 +643,12 @@ describe('PaymentBreakdown', () => {
                     ukcopiesfee: 1.50,
                     overseascopies: 2,
                     overseascopiesfee: 3,
+                    applicationcode: 'FEE0226',
+                    applicationversion: 1,
+                    ukcopiescode: 'FEE0003',
+                    ukcopiesversion: 2,
+                    overseascopiescode: 'FEE0003',
+                    overseascopiesversion: 3,
                     total: 219.50
                 },
                 payment: {

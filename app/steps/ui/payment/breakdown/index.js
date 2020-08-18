@@ -135,7 +135,7 @@ class PaymentBreakdown extends Step {
                     ukcopiesversion: ctx.ukcopiesversion,
                     ukcopiescode: ctx.ukcopiescode,
                     overseascopiesversion: ctx.overseascopiesversion,
-                    overseascopiescode: ctx.overseascopiesversion
+                    overseascopiescode: ctx.overseascopiescode
                 };
 
                 const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
