@@ -7,7 +7,7 @@ exports.config = {
         Puppeteer: {
             url: testConfig.TestE2EFrontendUrl,
             waitForTimeout: 60000,
-            getPageTimeout: 20000,
+            getPageTimeout: 60000,
             show: testConfig.TestShowBrowser,
             chrome: {
                 ignoreHTTPSErrors: true,
