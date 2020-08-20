@@ -9,7 +9,7 @@ exports.config = {
             waitForTimeout: 60000,
             getPageTimeout: 60000,
             show: testConfig.TestShowBrowser,
-            chrome: {
+            firefox: {
                 ignoreHTTPSErrors: true,
                 'ignore-certificate-errors': true,
                 defaultViewport: {
