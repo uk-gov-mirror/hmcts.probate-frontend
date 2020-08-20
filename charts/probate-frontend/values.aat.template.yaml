@@ -1,10 +1,4 @@
-tags:
-  idam-pr: true
 nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
-idam-pr:
-  enabled: true
-  redirect_uris:
-    Probate:
-      - https://${SERVICE_FQDN}/oauth2/callback
+
