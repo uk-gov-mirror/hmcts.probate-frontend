@@ -1,3 +1,5 @@
+tags:
+  idam-pr: true
 nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
