@@ -1,17 +1,22 @@
 {
   "title": "Cop&iuml;au - DU",
-  "question": "Faint o gop&iuml;au o&rsquo;r grant ydych chi eu hangen i&rsquo;w defnyddio yn y DU?",
-  "paragraph1": "Byddwch yn cael grant profiant pan fydd eich cais wedi&rsquo;i brosesu.",
-  "paragraph2": "Efallai y byddwch angen cop&iuml;au ychwanegol o&rsquo;r grant i&rsquo;w hanfon at ddalwyr asedau gwahanol, er enghraifft, copi ar gyfer cyfranddaliadau a chopi ar gyfer eiddo.",
-  "paragraph3": "Ar gyfer cop&iuml;au ychwanegol bydd rhaid ichi dalu:",
+  "question": "Sawl copi swyddogol ychwanegol o’r grant ydych chi eu hangen i’w defnyddio yn y DU?",
+  "paragraph1": "Byddwch yn cael copi swyddogol o’r grant profiant am ddim fel rhan o’r ffi am wneud cais, ynghyd â chopi o’r ewyllys.",
+  "paragraph2": "Archebwch gopïau swyddogol ychwanegol o’r grant os byddwch angen anfon copi at ddeiliaid asedau gwahanol, er enghraifft, copi ar gyfer banciau, polisïau yswiriant, cyfranddaliadau ac eiddo.",
+  "paragraph3": "Mae bob copi swyddogol ychwanegol yn £1.50 yr un",
   "bullet1": "&pound;10 am y copi cyntaf",
   "bullet2": "50 ceiniog am bob copi ar &ocirc;l hynny",
-  "copies": "Nifer o gop&iuml;au DU",
-  "questionOld": "Faint o gop&iuml;au ychwanegol o&rsquo;r grant ydych chi eu hangen i&rsquo;w defnyddio yn y DU?",
-  "paragraph1Old": "Byddwch yn cael grant profiant pan fydd eich cais wedi&rsquo;i brosesu.",
-  "paragraph2Old": "Efallai y byddwch angen cop&iuml;au ychwanegol o&rsquo;r grant i&rsquo;w hanfon at ddalwyr asedau gwahanol, er enghraifft, copi ar gyfer cyfranddaliadau a chopi ar gyfer eiddo.",
-  "paragraph3Old": "Mae cop&iuml;au ychwanegol yn costio &pound;1.50 yr un.",
-  "copiesOld": "Nifer o gop&iuml;au DU ychwanegol",
+  "copies": "Nifer y copïau swyddogol ychwanegol",
+  "questionOld": "Sawl copi swyddogol ychwanegol o’r grant ydych chi eu hangen i’w defnyddio yn y DU?",
+  "paragraph1Old": "Byddwch yn cael copi swyddogol o’r grant profiant am ddim fel rhan o’r ffi am wneud cais, ynghyd â chopi o’r ewyllys.",
+  "paragraph2Old": "Archebwch gopïau swyddogol ychwanegol o’r grant os byddwch angen anfon copi at ddeiliaid asedau gwahanol, er enghraifft, copi ar gyfer banciau, polisïau yswiriant, cyfranddaliadau ac eiddo.",
+  "paragraph3Old": "Mae bob copi swyddogol ychwanegol yn £1.50 yr un",
+  "copiesOld": "Nifer y copïau swyddogol ychwanegol",
+
+  "detailTitle": "Beth yw copi swyddogol?",
+  "detailText1": "Copi o’r grant gyda sêl arian holograffig ar flaen y ddogfen yw copi swyddogol. Efallai y bydd banc yn gofyn am gopi wedi’i ardystio cyn rhyddhau arian ichi.",
+  "detailText2": "Defnyddir copïau swyddogol ar gyfer asedau yn y Deyrnas Unedig yn unig.",
+
 
   "errors": {
     "uk": {

@@ -1,13 +1,13 @@
 {
   "title": "Cop&iuml;au - Tu allan i&rsquo;r DU",
-  "question": "Faint o gop&iuml;au o&rsquo;r grant ydych chi eu hangen i&rsquo;w defnyddio y tu allan i&rsquo;r DU?",
-  "paragraph1": "Ar gyfer cop&iuml;au ychwanegol bydd rhaid ichi dalu:",
-  "bullet1": "&pound;10 am y copi cyntaf",
-  "bullet2": "50 ceiniog am bob copi ar &ocirc;l hynny",
-  "copies": "Nifer o gop&iuml;au rhyngwladol",
-  "questionOld": "Faint o gop&iuml;au o&rsquo;r grant ydych chi eu hangen i&rsquo;w defnyddio y tu allan i&rsquo;r DU?",
-  "paragraph1Old": "Mae cop&iuml;au rhyngwladol yn costio &pound;1.50 yr un.",
-  "copiesOld": "Nifer o gop&iuml;au rhyngwladol",
+  "question": "Sawl copi wedi’i ardystio ychwanegol o’r grant ydych chi eu hangen i’w defnyddio y tu allan i’r Deyrnas Unedig?",
+  "paragraph1": "Archebwch gopïau wedi’u hardystio ychwanegol o’r grant os ydych angen hawlio’r ystad y tu allan i’r Deyrnas Unedig.",
+  "paragraph2": "Bydd gan gopi wedi’i ardystio yr un nodweddion â’r copi swyddogol a gwybodaeth ychwanegol yn cadarnhau manylion yr ardystio ar y dudalen gefn.",
+  "copies": "Nifer y copïau wedi’i hardystio ychwanegol",
+  "questionOld": "Sawl copi wedi’i ardystio ychwanegol o’r grant ydych chi eu hangen i’w defnyddio y tu allan i’r Deyrnas Unedig?",
+  "paragraph1Old": "Archebwch gopïau wedi’u hardystio ychwanegol o’r grant os ydych angen hawlio’r ystad y tu allan i’r Deyrnas Unedig.",
+  "paragraph2Old": "Bydd gan gopi wedi’i ardystio yr un nodweddion â’r copi swyddogol a gwybodaeth ychwanegol yn cadarnhau manylion yr ardystio ar y dudalen gefn.",
+  "copiesOld": "Nifer y copïau wedi’i hardystio ychwanegol",
 
   "errors": {
     "overseas": {
