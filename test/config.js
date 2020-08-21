@@ -60,8 +60,8 @@ module.exports = {
     TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',
     TestGovUkCardPaymentsUrl: '/card_details',
 
-    TestEnvEmailAddress: process.env.TEST_EMAIL_ADDRESS,
-    TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER,
+    TestEnvEmailAddress: process.env.TEST_EMAIL_ADDRESS || 'test.probate.inbox@gmail.com',
+    TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER || '12345678910',
     s2sStubErrorSequence: '000',
     links: {
         cookies: '/cookies',
