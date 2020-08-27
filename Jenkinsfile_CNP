@@ -88,11 +88,11 @@ withPipeline("nodejs", product, component) {
   enableSlackNotifications('#probate-jenkins')
 
   after('functionalTest:aat') {
-    publishHTML target: [
-              reportDir            : "output/",
+    publishHTML (target: [
+              reportDir            : "output",
               reportFiles          : "mochawesome.html",
               reportName           : "AAT Functional Tests",
               alwaysLinkToLastBuild: true
-    ]
+    ])
   }
 }

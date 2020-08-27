@@ -7,7 +7,7 @@
 /nbproject/
 .DS_Store
 /.vscode/
-/output/
+/output
 .sonar/
 .sonarlint/
 .project
