@@ -100,7 +100,7 @@ withPipeline("nodejs", product, component) {
     publishHTML (target: [
               reportDir            : "output",
               reportFiles          : "e2e-results.html",
-              reportName           : "AAT Functional Tests",
+              reportName           : "Functional Tests Results",
               alwaysLinkToLastBuild: true
     ])
   }
