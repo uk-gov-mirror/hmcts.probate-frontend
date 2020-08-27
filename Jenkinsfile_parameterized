@@ -63,7 +63,7 @@ withParameterizedPipeline('nodejs', product, component, params.ENVIRONMENT, slot
 	sh "cp -r output/mochawesome.* functional-output/."
         publishHTML target: [
                 reportDir            : "output/",
-                reportFiles          : "mochawesome.html",
+                reportFiles          : "e2e-results.html",
                 reportName           : "SAAT Functional Tests",
                 alwaysLinkToLastBuild: true
         ]
