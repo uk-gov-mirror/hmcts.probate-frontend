@@ -79,7 +79,7 @@ withPipeline("nodejs", product, component) {
              keepAll: true,
              reportDir: 'output',
              reportFiles: 'results.html',
-             reportName: 'Unit Test Results',
+             reportName: 'Unit Test Results'
            ])
 //    }
 
@@ -101,7 +101,7 @@ withPipeline("nodejs", product, component) {
               reportDir            : "output",
               reportFiles          : "mochawesome.html",
               reportName           : "AAT Functional Tests",
-              alwaysLinkToLastBuild: true
+              alwaysLinkToLastBuild: true,
               allowMissing: false,
               keepAll: true,
     ])
