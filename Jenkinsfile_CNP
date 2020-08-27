@@ -74,11 +74,12 @@ withPipeline("nodejs", product, component) {
 //        }
 
           publishHTML (target : [
+             allowMissing: false,
              alwaysLinkToLastBuild: true,
+             keepAll: true,
              reportDir: 'output',
              reportFiles: 'results.html',
              reportName: 'Unit Test Results',
-             reportTitles: 'Unit Test Results'
            ])
 //    }
 
@@ -101,6 +102,8 @@ withPipeline("nodejs", product, component) {
               reportFiles          : "mochawesome.html",
               reportName           : "AAT Functional Tests",
               alwaysLinkToLastBuild: true
+              allowMissing: false,
+              keepAll: true,
     ])
   }
 }
