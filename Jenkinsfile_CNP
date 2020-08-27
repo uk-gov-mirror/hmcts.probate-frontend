@@ -72,13 +72,6 @@ withPipeline("nodejs", product, component) {
 //                sh './pact-broker can-i-deploy --retry-while-unknown=12 --retry-interval=10 -a probate_frontend -b ${PACT_BROKER_URL} -e ${PACT_BROKER_VERSION}'
 //            }
 //        }
-
-          publishHTML (target : [
-             alwaysLinkToLastBuild: true,
-             reportDir: 'output',
-             reportFiles: 'results.html',
-             reportName: 'Unit Test Results'
-           ])
 //    }
 
 /*
@@ -93,6 +86,15 @@ withPipeline("nodejs", product, component) {
 
   loadVaultSecrets(secrets)
   enableSlackNotifications('#probate-jenkins')
+
+  after('test') {
+    publishHTML (target : [
+       alwaysLinkToLastBuild: true,
+       reportDir: 'output',
+       reportFiles: 'results.html',
+       reportName: 'Unit Test Results'
+    ])
+  }
 
   after('functionalTest:aat') {
     publishHTML (target: [
