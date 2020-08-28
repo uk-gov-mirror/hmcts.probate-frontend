@@ -88,7 +88,7 @@ withPipeline("nodejs", product, component) {
   enableSlackNotifications('#probate-jenkins')
 
   after('test') {
-    publishHTML (target : [
+    publishHTML (target: [
        alwaysLinkToLastBuild: true,
        reportDir: 'output',
        reportFiles: 'results.html',
