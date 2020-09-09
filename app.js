@@ -127,11 +127,13 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'www.googletagmanager.com',
                 'vcc-eu4.8x8.com',
                 'vcc-eu4b.8x8.com',
+                'https://avaya-web-chat-client.s3.eu-west-2.amazonaws.com',
                 `'nonce-${nonce}'`
             ],
             connectSrc: [
                 '\'self\'',
-                'www.google-analytics.com'
+                'www.google-analytics.com',
+                'wss://api-gw.avayalb.net'
             ],
             mediaSrc: [
                 '\'self\''
@@ -148,13 +150,15 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'vcc-eu4.8x8.com',
                 'vcc-eu4b.8x8.com',
                 'ssl.gstatic.com',
-                'www.gstatic.com'
+                'www.gstatic.com',
+                'https://avaya-web-chat-client.s3.eu-west-2.amazonaws.com'
             ],
             styleSrc: [
                 '\'self\'',
                 '\'unsafe-inline\'',
                 'tagmanager.google.com',
-                'fonts.googleapis.com'
+                'fonts.googleapis.com',
+                'https://avaya-web-chat-client.s3.eu-west-2.amazonaws.com'
             ],
             frameAncestors: ['\'self\'']
         },
