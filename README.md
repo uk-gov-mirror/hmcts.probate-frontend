@@ -99,6 +99,11 @@ For test coverage:
 For e2e tests:
 `$ yarn test-e2e`
 
+For contact tests:
+`$ ADDRESS_TOKEN=xyz yarn test-contract`
+
+You'll need to get the ADDRESS_TOKEN from the AAT vault `postcode-service-token2`
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/hmcts/probate-frontend/blob/develop/LICENSE.md) file for details
