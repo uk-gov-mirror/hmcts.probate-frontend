@@ -17,13 +17,5 @@
     webChat.addEventListener('hide', () => {
         webChat.classList.add('hidden');
     });
-
-    if(isWebChatHidden && !webChat.classList.contains('hidden')){
-        console.log('add hidden');
-        webChat.classList.add('hidden');
-    }else if(!isWebChatHidden && webChat.classList.contains('hidden')){
-        webChat.classList.remove('hidden');
-        console.log('rremove hidden');
-    }
   
 }).call(this);
