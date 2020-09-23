@@ -111,6 +111,10 @@ describe('Summary', () => {
                     id: 1234567890123456,
                     state: 'Pending'
                 },
+                featureToggles: {
+                    ft_avaya_webchat: 'false'
+                },
+                isAvayaWebChatEnabled: false,
                 authToken: '1234',
                 alreadyDeclared: false,
                 deceasedAliasQuestion: 'Did Dee Ceased have assets in another name?',
@@ -179,6 +183,10 @@ describe('Summary', () => {
                     id: 1234567890123456,
                     state: 'Pending'
                 },
+                featureToggles: {
+                    ft_avaya_webchat: 'false'
+                },
+                isAvayaWebChatEnabled: false,
                 authToken: '12345',
                 alreadyDeclared: false,
                 deceasedAliasQuestion: 'Did Dee Ceased have assets in another name?',

@@ -38,7 +38,11 @@ describe('executors-when-died', () => {
         index: 1,
         isApplying: 'optionNo',
         notApplyingReason: reasons.optionDiedBefore,
-        diedbefore: 'optionYes'
+        diedbefore: 'optionYes',
+        featureToggles: {
+            ft_avaya_webchat: 'false'
+        },
+        isAvayaWebChatEnabled: false
     };
 
     beforeEach(() => {

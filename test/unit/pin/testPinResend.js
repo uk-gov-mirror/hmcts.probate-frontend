@@ -64,6 +64,10 @@ describe('Pin-Resend', () => {
                     id: 1234567890123456,
                     state: 'Pending'
                 },
+                featureToggles: {
+                    ft_avaya_webchat: 'false'
+                },
+                isAvayaWebChatEnabled: false,
                 leadExecutorName: 'leadExecName',
                 phoneNumber: '0123456789',
                 language: 'en'

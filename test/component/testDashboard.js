@@ -17,7 +17,11 @@ const applicationInProgressNock = () => {
                     ccdCase: {
                         id: '1234567890123456',
                         state: 'Pending'
-                    }
+                    },
+                    featureToggles: {
+                        ft_avaya_webchat: 'false'
+                    },
+                    isAvayaWebChatEnabled: false
                 }
             ]
         });
@@ -51,7 +55,11 @@ const applicationProgressedNock = () => {
                     ccdCase: {
                         id: '1234567890123456',
                         state: 'CasePrinted'
-                    }
+                    },
+                    featureToggles: {
+                        ft_avaya_webchat: 'false'
+                    },
+                    isAvayaWebChatEnabled: false
                 }
             ]
         });

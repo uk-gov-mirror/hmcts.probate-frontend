@@ -70,6 +70,10 @@ describe('EligibilityValidationStep', () => {
                     id: 1234567890123456,
                     state: 'Pending'
                 },
+                featureToggles: {
+                    ft_avaya_webchat: 'false'
+                },
+                isAvayaWebChatEnabled: false,
                 language: 'en'
             });
 
@@ -91,6 +95,10 @@ describe('EligibilityValidationStep', () => {
                     id: 1234567890123456,
                     state: 'Pending'
                 },
+                featureToggles: {
+                    ft_avaya_webchat: 'false'
+                },
+                isAvayaWebChatEnabled: false,
                 language: 'en'
             });
 
@@ -119,7 +127,7 @@ describe('EligibilityValidationStep', () => {
             const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey, featureToggles);
 
             expect(nextStepUrlStub.calledOnce).to.equal(true);
-            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', caseType: 'gop', deathCertificate: 'optionYes', isTestToggleEnabled: true, userLoggedIn: false, ccdCase: {id: 1234567890123456, state: 'Pending'}, language: 'en'})).to.equal(true);
+            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', caseType: 'gop', deathCertificate: 'optionYes', isTestToggleEnabled: true, userLoggedIn: false, ccdCase: {id: 1234567890123456, state: 'Pending'}, featureToggles: {ft_avaya_webchat: 'false'}, isAvayaWebChatEnabled: false, language: 'en'})).to.equal(true);
             expect(setEligibilityCookieStub.calledOnce).to.equal(true);
             expect(setEligibilityCookieStub.calledWith(req, res, nextStepUrl, fieldKey, fieldValue)).to.equal(true);
             expect(ctx).to.deep.equal({
@@ -132,6 +140,10 @@ describe('EligibilityValidationStep', () => {
                     id: 1234567890123456,
                     state: 'Pending'
                 },
+                featureToggles: {
+                    ft_avaya_webchat: 'false'
+                },
+                isAvayaWebChatEnabled: false,
                 language: 'en'
             });
 

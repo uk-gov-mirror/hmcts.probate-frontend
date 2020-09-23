@@ -58,6 +58,10 @@ describe('Pin-Sent', () => {
                     id: 1234567890123456,
                     state: 'Pending'
                 },
+                featureToggles: {
+                    ft_avaya_webchat: 'false'
+                },
+                isAvayaWebChatEnabled: false,
                 phoneNumber: '0123456789',
                 language: 'en'
             });

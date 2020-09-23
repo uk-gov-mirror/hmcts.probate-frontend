@@ -46,6 +46,10 @@ describe('RelatedToDeceased', () => {
                     id: 1234567890123456,
                     state: 'Pending'
                 },
+                featureToggles: {
+                    ft_avaya_webchat: 'false'
+                },
+                isAvayaWebChatEnabled: false,
                 language: 'en'
             });
             done();
