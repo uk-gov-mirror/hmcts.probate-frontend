@@ -135,7 +135,7 @@ describe('PaymentStatus', () => {
             });
             const expectedOptions = {
                 redirect: true,
-                url: '/payment-breakdown?status=failure'
+                url: '/payment-breakdown'
             };
             const session = {
                 form: {}
@@ -209,7 +209,7 @@ describe('PaymentStatus', () => {
             co(function* () {
                 const options = yield paymentStatus.runnerOptions(ctx, session);
                 expect(options.redirect).to.equal(true);
-                expect(options.url).to.equal('/payment-breakdown?status=failure');
+                expect(options.url).to.equal('/payment-breakdown');
                 expect(session.form).to.deep.equal(expectedFormData);
                 revert();
                 done();
