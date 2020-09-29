@@ -96,12 +96,12 @@ withPipeline("nodejs", product, component) {
   //   ])
   // }
 
-  // after('test:functional') {
+  after('test') {
     publishHTML (target: [
-              reportDir            : "output/",
-              reportFiles          : "results.html,mochawesome.html",
-              reportName           : "Functional Tests",
-              alwaysLinkToLastBuild: true
+      reportDir            : "output",
+      reportFiles          : "results.html,mochawesome.html",
+      reportName           : "Functional Tests",
+      alwaysLinkToLastBuild: true
     ])
-  // }
+  }
 }
