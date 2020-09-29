@@ -96,23 +96,21 @@ withPipeline("nodejs", product, component) {
     ])
   }
 
-  // after('test') {
-  //   publishHTML (target: [
-  //     reportDir            : "output",
-  //     reportFiles          : "results.html,mochawesome.html",
-  //     reportName           : "Functional Tests",
-  //     alwaysLinkToLastBuild: true
-  //   ])
-  // }
-
    after('functionalTest:preview') {
-        publishHTML([
-            allowMissing         : true,
-            alwaysLinkToLastBuild: true,
-            keepAll              : true,
-            reportDir            : 'output',
-            reportFiles          : 'mochawesome.html',
-            reportName           : 'PREVIEW Functional Test'
-        ])
-    }
+    publishHTML target: [
+      reportDir            : "output/",
+      reportFiles          : "mochawesome.html",
+      reportName           : "Preview Functional Tests",
+      alwaysLinkToLastBuild: true
+    ]
+  }
+
+  after('functionalTest:aat') {
+    publishHTML target: [
+      reportDir            : "output/",
+      reportFiles          : "mochawesome.html",
+      reportName           : "AAT Functional Tests",
+      alwaysLinkToLastBuild: true
+    ]
+  }
 }
