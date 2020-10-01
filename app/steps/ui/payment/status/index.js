@@ -99,7 +99,7 @@ class PaymentStatus extends Step {
             if (getPaymentResponse.status !== 'Success') {
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
-                logger.error('Unable to retrieve a payment response.');
+                logger.error(`Unable to retrieve a payment response with status ${getPaymentResponse.status}`);
             } else if (!updateCcdCaseResponse || !updateCcdCaseResponse.ccdCase || updateCcdCaseResponse.ccdCase.state !== 'CaseCreated') {
                 options.redirect = false;
                 logger.warn('Did not get a successful case created state.');
