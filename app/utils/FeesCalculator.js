@@ -4,7 +4,7 @@ const {get} = require('lodash');
 const FeesLookup = require('app/services/FeesLookup');
 const config = require('config');
 const logger = require('app/components/logger')('Init');
-// const featureToggle = require('app/utils/FeatureToggle');
+const featureToggle = require('app/utils/FeatureToggle');
 
 class FeesCalculator {
 
@@ -21,10 +21,10 @@ class FeesCalculator {
             authToken: authToken
         };
 
-        // if (featureToggle.isEnabled(featureToggles, 'ft_newfee_register_code')) {
-        //     this.issuesData = config.services.feesRegister.newfee_issuesData;
-        //     this.copiesData = config.services.feesRegister.newfee_copiesData;
-        // }
+        if (featureToggle.isEnabled(featureToggles, 'ft_fees_api')) {
+            this.issuesData = config.services.feesRegister.newfee_issuesData;
+            this.copiesData = config.services.feesRegister.newfee_copiesData;
+        }
 
         return createCallsRequired(formdata, headers, featureToggles, this.feesLookup, this.issuesData, this.copiesData);
     }
