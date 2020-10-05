@@ -1,31 +1,25 @@
+const validator = require('validator');
+
 class PhoneNumberValidator {
     static validateUKMobilePhoneNumber(num) {
-        const numberMatchRE = new RegExp(/^7[0-9]{9}$/);
+        const ukNumberMatchRE = new RegExp(/^7[0-9]{9}$/);
         const ukPrefix = '44';
 
         if (num.startsWith('+')) {
             let toValidate = num.slice(1);
             if (toValidate.startsWith(ukPrefix)) {
                 toValidate = toValidate.slice(2);
-                if (toValidate.match(numberMatchRE)) {
+                if (toValidate.match(ukNumberMatchRE)) {
                     return true;
                 }
-            }
-        }
-
-        if (num.startsWith('00')) {
-            let toValidate = num.slice(2);
-            if (toValidate.startsWith(ukPrefix)) {
-                toValidate = toValidate.slice(2);
-                if (toValidate.match(numberMatchRE)) {
-                    return true;
-                }
+            } else if (validator.isInt(toValidate)) {
+                return true;
             }
         }
 
         if (num.startsWith('07')) {
             const toValidate = num.slice(1);
-            if (toValidate.match(numberMatchRE)) {
+            if (toValidate.match(ukNumberMatchRE)) {
                 return true;
             }
         }

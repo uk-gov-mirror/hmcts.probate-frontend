@@ -3,52 +3,52 @@ const expect = require('chai').expect;
 
 describe('PhoneNumberValidator.js', () => {
     describe('validateUKMobilePhoneNumber()', () => {
-        it.only('should return failure for invalid number', (done) => {
+        it('should return failure for invalid number', (done) => {
             const phoneNumber = '0208 863 8689';
             expect(PhoneNumberValidator.validateUKMobilePhoneNumber(phoneNumber)).to.equal(false);
             done();
         });
-        it.only('should return failure for invalid chars', (done) => {
+        it('should return failure for invalid chars', (done) => {
             const phoneNumber = 'abcdef';
             expect(PhoneNumberValidator.validateUKMobilePhoneNumber(phoneNumber)).to.equal(false);
             done();
         });
-        it.only('should return failure for invalid spces', (done) => {
+        it('should return failure for invalid spces', (done) => {
             const phoneNumber = ' 07958995330';
             expect(PhoneNumberValidator.validateUKMobilePhoneNumber(phoneNumber)).to.equal(false);
             done();
         });
-        it.only('should return failure for uk landline number', (done) => {
+        it('should return failure for uk landline number', (done) => {
             const phoneNumber = '02088638689';
             expect(PhoneNumberValidator.validateUKMobilePhoneNumber(phoneNumber)).to.equal(false);
             done();
         });
-        it.only('should return failure for overseas mobile number', (done) => {
-            const phoneNumber = '+337958995330';
+        it('should return fail for uk mobile number INTL staring with 00', (done) => {
+            const phoneNumber = '00447958995330';
             expect(PhoneNumberValidator.validateUKMobilePhoneNumber(phoneNumber)).to.equal(false);
             done();
         });
-        it.only('should return failure for bad format uk mobile number', (done) => {
+        it('should return failure for bad format uk mobile number', (done) => {
             const phoneNumber = '+44 7958995330';
             expect(PhoneNumberValidator.validateUKMobilePhoneNumber(phoneNumber)).to.equal(false);
             done();
         });
-        it.only('should return failure for invalid uk mobile number', (done) => {
+        it('should return failure for invalid uk mobile number', (done) => {
             const phoneNumber = '08958995330';
             expect(PhoneNumberValidator.validateUKMobilePhoneNumber(phoneNumber)).to.equal(false);
             done();
         });
-        it.only('should return pass for uk mobile number INTL', (done) => {
+        it('should return pass for uk mobile number INTL', (done) => {
             const phoneNumber = '+447958995330';
             expect(PhoneNumberValidator.validateUKMobilePhoneNumber(phoneNumber)).to.equal(true);
             done();
         });
-        it.only('should return pass for uk mobile number INTL 2', (done) => {
-            const phoneNumber = '00447958995330';
+        it('should return pass for overseas mobile number', (done) => {
+            const phoneNumber = '+337958995330';
             expect(PhoneNumberValidator.validateUKMobilePhoneNumber(phoneNumber)).to.equal(true);
             done();
         });
-        it.only('should return pass for uk mobile number', (done) => {
+        it('should return pass for uk mobile number', (done) => {
             const phoneNumber = '07958995330';
             expect(PhoneNumberValidator.validateUKMobilePhoneNumber(phoneNumber)).to.equal(true);
             done();
