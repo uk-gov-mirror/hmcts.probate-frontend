@@ -1,6 +1,6 @@
 class PhoneNumberValidator {
     static validateUKMobilePhoneNumber(num) {
-        const numberMatchRE = new RegExp(/^[0-9]{10}$/);
+        const numberMatchRE = new RegExp(/^7[0-9]{9}$/);
         const ukPrefix = '44';
 
         if (num.startsWith('+')) {
