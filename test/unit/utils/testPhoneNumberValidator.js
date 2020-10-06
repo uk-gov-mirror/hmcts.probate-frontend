@@ -53,6 +53,11 @@ describe('PhoneNumberValidator.js', () => {
             expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.equal(true);
             done();
         });
+        it('should return pass for international mobile number', (done) => {
+            const phoneNumber = '+179589953302345234';
+            expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.equal(true);
+            done();
+        });
 
     });
 });

@@ -1,9 +1,8 @@
-const validator = require('validator');
-
 class PhoneNumberValidator {
     static validateMobilePhoneNumber(num) {
         const ukNumberMatchRE = new RegExp(/^7[0-9]{9}$/);
         const ukPrefix = '44';
+        const internationalMatchRE = new RegExp(/^[0-9]*$/);
 
         if (num.startsWith('+')) {
             let toValidate = num.slice(1);
@@ -12,7 +11,7 @@ class PhoneNumberValidator {
                 if (toValidate.match(ukNumberMatchRE)) {
                     return true;
                 }
-            } else if (validator.isInt(toValidate)) {
+            } else if (toValidate.match(internationalMatchRE)) {
                 return true;
             }
         }
