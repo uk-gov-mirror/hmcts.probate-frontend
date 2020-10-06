@@ -1,7 +1,7 @@
 const validator = require('validator');
 
 class PhoneNumberValidator {
-    static validateUKMobilePhoneNumber(num) {
+    static validateMobilePhoneNumber(num) {
         const ukNumberMatchRE = new RegExp(/^7[0-9]{9}$/);
         const ukPrefix = '44';
 

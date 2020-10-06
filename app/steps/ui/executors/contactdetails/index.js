@@ -47,7 +47,7 @@ class ExecutorContactDetails extends ValidationStep {
             errors.push(FieldError('email', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
 
-        if (!PhoneNumberValidator.validateUKMobilePhoneNumber(ctx.mobile)) {
+        if (!PhoneNumberValidator.validateMobilePhoneNumber(ctx.mobile)) {
             errors.push(FieldError('mobile', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
 
