@@ -131,7 +131,8 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             ],
             connectSrc: [
                 '\'self\'',
-                'www.google-analytics.com'
+                'www.google-analytics.com',
+                'stats.g.doubleclick.net'
             ],
             mediaSrc: [
                 '\'self\''
