@@ -127,12 +127,14 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'www.googletagmanager.com',
                 'vcc-eu4.8x8.com',
                 'vcc-eu4b.8x8.com',
-                `'nonce-${nonce}'`
+                `'nonce-${nonce}'`,
+                'tagmanager.google.com'
             ],
             connectSrc: [
                 '\'self\'',
                 'www.google-analytics.com',
-                'stats.g.doubleclick.net'
+                'stats.g.doubleclick.net',
+                'tagmanager.google.com'
             ],
             mediaSrc: [
                 '\'self\''
