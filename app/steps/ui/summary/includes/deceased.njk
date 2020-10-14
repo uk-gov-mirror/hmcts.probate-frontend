@@ -148,6 +148,32 @@
 {{checkanswer(
     items = [
         {
+            question: fields.summary.diedEnglandOrWalesQuestion.value,
+            answer: content.DiedEnglandOrWales[fields.deceased.diedEngOrWales.value],
+            visible: true
+        }
+    ],
+    url = content.DiedEnglandOrWales.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.DeathCertificateInterim.question,
+            answer: content.DeathCertificateInterim[fields.deceased.deathCertificate.value],
+            visible: true
+        }
+    ],
+    url = content.DeathCertificateInterim.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
             question: content.WillCodicils.question,
             answer: content.WillCodicils[fields.will.codicils.value],
             visible: fields.summary.caseType.value == "gop"
