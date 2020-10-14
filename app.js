@@ -128,14 +128,14 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'www.googletagmanager.com',
                 'vcc-eu4.8x8.com',
                 'vcc-eu4b.8x8.com',
-                'https://avaya-web-chat-client.s3.eu-west-2.amazonaws.com',
-                'wss://api-gw.avayalb.net/services/customer/chat',
+                'webchat-client.ctsc.hmcts.net',
                 `'nonce-${nonce}'`
             ],
             connectSrc: [
                 '\'self\'',
                 'www.google-analytics.com',
-                'wss://api-gw.avayalb.net'
+                'https://webchat.ctsc.hmcts.net',
+                'wss://webchat.ctsc.hmcts.net'
             ],
             mediaSrc: [
                 '\'self\''
@@ -152,15 +152,14 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'vcc-eu4.8x8.com',
                 'vcc-eu4b.8x8.com',
                 'ssl.gstatic.com',
-                'www.gstatic.com',
-                'https://avaya-web-chat-client.s3.eu-west-2.amazonaws.com'
+                'www.gstatic.com'
             ],
             styleSrc: [
                 '\'self\'',
                 '\'unsafe-inline\'',
                 'tagmanager.google.com',
                 'fonts.googleapis.com',
-                'https://avaya-web-chat-client.s3.eu-west-2.amazonaws.com'
+                'webchat-client.ctsc.hmcts.net'
             ],
             frameAncestors: ['\'self\'']
         },
@@ -188,6 +187,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     app.use('/public/webchat', express.static(`${__dirname}/node_modules/@hmcts/ctsc-web-chat/assets`, caching));
     app.use('/public/stylesheets', express.static(`${__dirname}/public/stylesheets`, caching));
     app.use('/public/images', express.static(`${__dirname}/app/assets/images`, caching));
+    app.use('/public/locale', express.static(`${__dirname}/app/assets/locale`, caching));
     app.use('/public/javascripts/govuk-frontend', express.static(`${__dirname}/node_modules/govuk-frontend`, caching));
     app.use('/public/javascripts/jquery', express.static(`${__dirname}/node_modules/jquery/dist`, caching));
     app.use('/public/javascripts', express.static(`${__dirname}/app/assets/javascripts`, caching));
