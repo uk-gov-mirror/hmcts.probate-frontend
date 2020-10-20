@@ -163,10 +163,36 @@
         {
             question: content.DeathCertificateInterim.question,
             answer: content.DeathCertificateInterim[fields.deceased.deathCertificate.value],
-            visible: true
+            visible: fields.deceased.diedEngOrWales.value == "optionYes"
         }
     ],
     url = content.DeathCertificateInterim.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.EnglishForeignDeathCert.question,
+            answer: content.EnglishForeignDeathCert[fields.deceased.englishForeignDeathCert.value],
+            visible: fields.deceased.diedEngOrWales.value == "optionNo"
+        }
+    ],
+    url = content.EnglishForeignDeathCert.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.ForeignDeathCertTranslation.question,
+            answer: content.ForeignDeathCertTranslation[fields.deceased.foreignDeathCertTranslation.value],
+            visible: fields.deceased.diedEngOrWales.value == "optionNo" and fields.deceased.englishForeignDeathCert.value == "optionNo"
+        }
+    ],
+    url = content.ForeignDeathCertTranslation.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
