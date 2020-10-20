@@ -82,7 +82,7 @@ Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Spouse Journey - Digital
     I.enterAddressManually();
     if (TestConfigurator.equalityAndDiversityEnabled()) {
         I.exitEqualityAndDiversity();
-        I.completePCQ();
+        I.completeEqualityAndDiversity();
     }
 
     // Check your answers and declaration
