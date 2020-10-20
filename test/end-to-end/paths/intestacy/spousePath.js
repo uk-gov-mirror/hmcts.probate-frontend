@@ -11,7 +11,7 @@ const spousePartner = '';
 const uploadingDocuments = false;
 const bilingualGOP = false;
 
-Feature('Intestacy spouse flow');
+Feature('GOP Intestacy spouse journeys...');
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
@@ -26,7 +26,7 @@ After(() => {
 });
 
 // eslint-disable-next-line no-undef
-Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Digital iht and death certificate uploaded'), (I) => {
+Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Spouse Journey - Digital iht and death certificate uploaded'), (I) => {
 
     // Eligibility Task (pre IdAM)
     I.startApplication();
@@ -75,7 +75,10 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Digital iht 
     I.enterApplicantName('ApplicantFirstName', 'ApplicantLastName');
     I.enterApplicantPhone();
     I.enterAddressManually();
-    I.seeSummaryPage('*');
+    if (TestConfigurator.equalityAndDiversityEnabled()) {
+        I.exitEqualityAndDiversity();
+        I.completePCQ();
+    }
 
     // Check your answers and declaration
     I.selectATask(taskListContent.taskNotStarted);
@@ -108,4 +111,5 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Digital iht 
 
     // Thank You
     I.seeThankYouPage();
-}).retry(TestConfigurator.getRetryScenarios());
+}).tag('@e2e')
+    .retry(1);
