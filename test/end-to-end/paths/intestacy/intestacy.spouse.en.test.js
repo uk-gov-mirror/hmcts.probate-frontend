@@ -11,7 +11,7 @@ const spousePartner = '';
 const uploadingDocuments = false;
 const bilingualGOP = false;
 
-Feature('GOP Intestacy spouse journeys...');
+Feature('GOP Intestacy spouse journey...');
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
@@ -111,5 +111,4 @@ Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Spouse Journey - Digital
 
     // Thank You
     I.seeThankYouPage();
-}).tag('@e2e')
-    .retry(1);
+}).retry(TestConfigurator.getRetryScenarios());
