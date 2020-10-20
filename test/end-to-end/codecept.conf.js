@@ -1,7 +1,7 @@
 const testConfig = require('test/config.js');
 
 exports.config = {
-    tests: './**/*.test.js',
+    tests: testConfig.TestPathToRun,
     output: testConfig.TestOutputDir,
     helpers: {
         Puppeteer: {
@@ -52,9 +52,8 @@ exports.config = {
         reporterOptions: {
             reportDir: testConfig.TestOutputDir,
             reportName: 'index',
-            inlineAssets: true,
-            steps: true
+            inlineAssets: true
         }
     },
-    name: 'Probate FE E2E Tests...'
+    name: 'Probate FE Tests'
 };
