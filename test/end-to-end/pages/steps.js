@@ -11,6 +11,8 @@ module.exports = () => {
         // Eligibility Task (pre IdAM)
         startApplication: steps.screeners.starteligibility,
         selectDeathCertificate: steps.screeners.deathcertificate,
+        selectDeathCertificateInEnglish: steps.screeners.deathcertificateinenglish,
+        selectDeathCertificateTranslation: steps.screeners.deathcertificatetranslation,
         selectDeceasedDomicile: steps.screeners.deceaseddomicile,
         selectIhtCompleted: steps.screeners.ihtcompleted,
         selectPersonWhoDiedLeftAWill: steps.screeners.willleft,
@@ -77,6 +79,7 @@ module.exports = () => {
 
         //Equality and diversity page
         exitEqualityAndDiversity: steps.equalityanddiversity.startpage,
+        completeEqualityAndDiversity: steps.equalityanddiversity.completedpage,
 
         // Summary page
         seeSummaryPage: steps.summary.summary,
