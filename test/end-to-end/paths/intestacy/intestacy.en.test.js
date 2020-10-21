@@ -116,8 +116,7 @@ Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Spouse Journey - Digital
 
     // Thank You
     I.seeThankYouPage();
-}).tag('@e2e')
-    .retry(TestConfigurator.getRetryScenarios());
+}).retry(TestConfigurator.getRetryScenarios());
 
 // eslint-disable-next-line no-undef
 Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Child Journey - Paper iht, no death certificate uploaded and spouse renouncing'), function (I) {
@@ -203,5 +202,4 @@ Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Child Journey - Paper ih
 
     // Thank You
     I.seeThankYouPage();
-}).tag('@e2e')
-    .retry(TestConfigurator.getRetryScenarios());
+}).retry(TestConfigurator.getRetryScenarios());
