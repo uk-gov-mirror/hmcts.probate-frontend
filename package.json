@@ -112,7 +112,7 @@
     "superagent": "^5.1.0",
     "traverse": "^0.6.6",
     "tunnel-agent": "^0.6.0",
-    "uuid": "^3.3.2",
+    "uuid": "^8.3.1",
     "validator": "^11.1.0"
   },
   "devDependencies": {
@@ -149,7 +149,7 @@
     "superagent-proxy": "^2.0.0",
     "supertest": "^4.0.2",
     "unirest": "^0.6.0",
-    "uuid": "^3.3.2",
+    "uuid": "^8.3.1",
     "watch": "^1.0.2",
     "webdriverio": "^4.14.4",
     "when": "^3.7.8"
