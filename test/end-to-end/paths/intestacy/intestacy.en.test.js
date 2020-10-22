@@ -203,5 +203,5 @@ Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Child Journey - Paper ih
 
     // Thank You
     I.seeThankYouPage();
-}).tag('@e2e')
+}).tag('@e2et')
     .retry(1);
