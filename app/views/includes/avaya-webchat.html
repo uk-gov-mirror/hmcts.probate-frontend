@@ -1,12 +1,13 @@
-{% if fields.isAvayaWebChatEnabled.value === 'true'%}
+<div id="avaya-webchat-open">
+    <a href="#" class="govuk-link" rel="noreferrer noopener" id="avaya-webchat-link">{{ common.helpChatWithAnAgent | safe }}</a>
+    <p class="govuk-body"> {{ common.helpChatOpeningHours | replace("\n", "\\n") | safe }} </p>
+</div>
+<p class="govuk-body" id="avaya-webchat-close"> {{ common.helpChatClosed | replace("\n", "\\n") | replace("{chatOpeningHours}", common.helpChatOpeningHours) | safe }} </p>
+<p class="govuk-body" id="webchat-agent-busy"> {{ common.helpAllAgentsBusy | replace("\n", "\\n") | safe }} </p>
 
-{% set webchatLanguage = 'English' %}
-
-{% if fields.language.value == "cy" %}
-    {% set webchatLanguage = 'Welsh' %}
-{% endif %}
-
-<web-chat class="hidden" 
+<web-chat
+    id="avayaWebchatMetric"
+    class="hidden"
     chat-title="Ask Probate" 
     chat-icon-url="public/images/icon.png"
     locale-url="public/locales/avaya-webchat"
@@ -14,11 +15,7 @@
     secure-connections="true"
     api-version="1.0"
     metrics-polling-interval="30"
-    Language="{{ webchatLanguage }}"
+    Language="English"
     Service="Probate"
     page-name="Apply for Probate"> 
 </web-chat>
-
-<button type="button" role="button" class="chat-button">Talk to an Agent</button>
-
-{% endif %}
