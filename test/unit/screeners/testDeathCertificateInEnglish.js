@@ -40,6 +40,10 @@ describe('DeathCertificateInEnglish', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 deathCertificateInEnglish: 'optionYes',
+                featureToggles: {
+                    ft_avaya_webchat: 'false'
+                },
+                isAvayaWebChatEnabled: false,
                 caseType: 'gop',
                 userLoggedIn: false,
                 ccdCase: {
