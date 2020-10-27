@@ -1,28 +1,27 @@
-<html>
-    <head>
-        <script src="https://webchat-client.ctsc.hmcts.net/chat-client/1/app-es2015.js" type="module"></script>
-        <script src="https://webchat-client.ctsc.hmcts.net/chat-client/1/app-es5.js" nomodule defer></script>
-        <link rel="stylesheet" href="https://webchat-client.ctsc.hmcts.net/chat-client/1/styles.css"></head>
-    </head>
-    <body>
-        <web-chat
-            id="avayaWebchat"
-            chat-title="Ask Probate" 
-            chat-icon-url="public/images/icon.png"
-            locale-url="public/locales/avaya-webchat"
-            url="webchat.ctsc.hmcts.net"
-            secure-connections="true"
-            api-version="1.0"
-            metrics-polling-interval="30"
-            Language="English"
-            Service="Probate"
-            page-name="Apply for Probate"> 
-        </web-chat>
-    </body>
+<!DOCTYPE html>
+<html lang="en" class="govuk-template">
 </html>
-
-
-
-
-
-
+<head>
+    <meta charset="utf-8">
+    <title lang="en">{{ content.title +  " - " + serviceName | safe}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% include "includes/head.html" %}
+    {% include "includes/scripts.html" %}
+</head>
+<body>
+    <web-chat
+        id="avayaWebchat"
+        chat-title="Ask Probate" 
+        chat-icon-url="public/images/icon.png"
+        locale-url="public/locales/avaya-webchat"
+        url="webchat.ctsc.hmcts.net"
+        secure-connections="true"
+        api-version="1.0"
+        metrics-polling-interval="30"
+        Language="English"
+        Service="Probate"
+        page-name="Apply for Probate"> 
+    </web-chat>
+</body>
+  
