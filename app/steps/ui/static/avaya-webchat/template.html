@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="govuk-template">
-</html>
 <head>
     <title>{{ content.title +  " - " + serviceName | safe}}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    {% include "includes/head.html" %}
-    {% include "includes/scripts.html" %}
+    <link href="/public/stylesheets/application.css" media="screen" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://webchat-client.ctsc.hmcts.net/chat-client/1/styles.css">       
 </head>
 <body>
+    {% include "includes/scripts.html" %}
     <web-chat
         id="avayaWebchat"
         chat-title="Ask Probate" 
@@ -24,4 +24,4 @@
         page-name="Apply for Probate"> 
     </web-chat>
 </body>
-  
+</html>
