@@ -90,7 +90,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             maxSizeBytes: config.documentUpload.maxSizeBytes
         },
         webChat: {
-            showWebPopup: false,
             chatId: config.webChat.chatId,
             tenant: config.webChat.tenant,
             buttonNoAgents: config.webChat.buttonNoAgents,
@@ -172,17 +171,17 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     }));
 
     // Http public key pinning
-    // app.use(helmet.hpkp({
-    //     maxAge: 900,
-    //     sha256s: ['AbCdEf123=', 'XyzABC123=']
-    // }));
+    app.use(helmet.hpkp({
+        maxAge: 900,
+        sha256s: ['AbCdEf123=', 'XyzABC123=']
+    }));
 
     // Referrer policy for helmet
     app.use(helmet.referrerPolicy({
         policy: 'origin'
     }));
 
-    // app.use(helmet.noCache());
+    app.use(helmet.noCache());
     app.use(helmet.xssFilter({setOnOldIE: true}));
 
     const caching = {cacheControl: true, setHeaders: (res) => res.setHeader('Cache-Control', 'max-age=604800')};
