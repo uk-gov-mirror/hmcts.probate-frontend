@@ -11,13 +11,14 @@ The Frontend Application uses Orchestrator to route specific requests to the und
 - [Node.js](nodejs.org) >= 12.5.0
 - [yarn](yarnpkg.com)
 
+If on Windows 10 follow setup instructions here: https://tools.hmcts.net/confluence/pages/viewpage.action?pageId=1457316967
+
 ### Installation
 
 Install dependencies by executing the following command:
 ```
 $ yarn install
 ```
-
 Compile SASS stylesheets by running the following command:
 ```
 $ yarn setup
@@ -100,6 +101,12 @@ For test coverage:
 
 For e2e tests:
 `$ yarn test-e2e`
+
+To use feature toggles for e2e tests amend `test/config.js`. SDK_KEY value can be found in launch darkly portal:
+```
+enabled: true,
+launchDarklyKey: process.env.TEST_LAUNCH_DARKLY_KEY || 'SDK_KEY',
+```
 
 For contact tests:
 `$ ADDRESS_TOKEN=xyz yarn test-contract`

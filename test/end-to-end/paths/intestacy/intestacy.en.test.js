@@ -14,7 +14,7 @@ const optionRenouncing = '';
 const bilingualGOP = false;
 const uploadingDocuments = false;
 
-Feature('Intestacy child flow');
+Feature('Grant Of Probate Intestacy E2E Tests...');
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
@@ -29,7 +29,7 @@ After(() => {
 });
 
 // eslint-disable-next-line no-undef
-Scenario(TestConfigurator.idamInUseText('Intestacy Child Journey - Digital iht, death certificate uploaded and spouse not renouncing'), function (I) {
+Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Spouse Journey - Digital iht'), function (I) {
 
     // Eligibility Task (pre IdAM)
     I.startApplication();
@@ -80,7 +80,10 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Child Journey - Digital iht, 
     I.enterApplicantName('ApplicantFirstName', 'ApplicantLastName');
     I.enterApplicantPhone();
     I.enterAddressManually();
-    I.seeSummaryPage('*');
+    if (TestConfigurator.equalityAndDiversityEnabled()) {
+        I.exitEqualityAndDiversity();
+        I.completeEqualityAndDiversity();
+    }
 
     // Check your answers and declaration
     I.selectATask(taskListContent.taskNotStarted);
@@ -116,7 +119,7 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Child Journey - Digital iht, 
 }).retry(TestConfigurator.getRetryScenarios());
 
 // eslint-disable-next-line no-undef
-Scenario(TestConfigurator.idamInUseText('Intestacy Child Journey - Paper iht, no death certificate uploaded and spouse renouncing'), function (I) {
+Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Child Journey - Paper iht, no death certificate uploaded and spouse renouncing'), function (I) {
     // Eligibility Task (pre IdAM)
     I.startApplication();
 
@@ -163,7 +166,10 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Child Journey - Paper iht, no
     I.enterApplicantName('ApplicantFirstName', 'ApplicantLastName');
     I.enterApplicantPhone();
     I.enterAddressManually();
-    I.seeSummaryPage('*');
+    if (TestConfigurator.equalityAndDiversityEnabled()) {
+        I.exitEqualityAndDiversity();
+        I.completeEqualityAndDiversity();
+    }
 
     // Check your answers and declaration
     I.selectATask(taskListContent.taskNotStarted);
