@@ -6,6 +6,7 @@ const co = require('co');
 const rewire = require('rewire');
 const Summary = rewire('app/steps/ui/summary');
 const probateJourney = require('app/journeys/probate');
+const coreContextMockData = require('../data/core-context-mock-data.json');
 
 describe('Summary', () => {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
@@ -107,21 +108,12 @@ describe('Summary', () => {
             const Summary = steps.Summary;
             const ctx = Summary.getContextData(req);
             expect(ctx).to.deep.equal({
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'Pending'
-                },
-                featureToggles: {
-                    ft_avaya_webchat: 'false'
-                },
-                isAvayaWebChatEnabled: false,
+                ...coreContextMockData,
                 authToken: '1234',
                 alreadyDeclared: false,
                 deceasedAliasQuestion: 'Did Dee Ceased have assets in another name?',
                 deceasedMarriedQuestion: 'Did Dee Ceased get married or enter into a civil partnership after the will was signed?',
                 ihtTotalNetValue: 300000,
-                caseType: 'gop',
-                userLoggedIn: false,
                 readyToDeclare: false,
                 session: {
                     language: 'en',
@@ -144,8 +136,7 @@ describe('Summary', () => {
                     }
                 },
                 sessionID: 'dummy_sessionId',
-                softStop: false,
-                language: 'en'
+                softStop: false
             });
             done();
         });
@@ -179,14 +170,7 @@ describe('Summary', () => {
             const Summary = steps.Summary;
             const ctx = Summary.getContextData(req);
             expect(ctx).to.deep.equal({
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'Pending'
-                },
-                featureToggles: {
-                    ft_avaya_webchat: 'false'
-                },
-                isAvayaWebChatEnabled: false,
+                ...coreContextMockData,
                 authToken: '12345',
                 alreadyDeclared: false,
                 deceasedAliasQuestion: 'Did Dee Ceased have assets in another name?',
@@ -201,7 +185,6 @@ describe('Summary', () => {
                 ihtTotalNetValue: 550000,
                 ihtTotalNetValueGreaterThanIhtThreshold: true,
                 caseType: 'intestacy',
-                userLoggedIn: false,
                 readyToDeclare: false,
                 session: {
                     language: 'en',
@@ -228,8 +211,7 @@ describe('Summary', () => {
                     }
                 },
                 sessionID: 'dummy_sessionId',
-                softStop: false,
-                language: 'en'
+                softStop: false
             });
             done();
         });

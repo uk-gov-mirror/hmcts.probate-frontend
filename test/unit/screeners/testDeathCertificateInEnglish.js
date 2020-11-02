@@ -4,6 +4,7 @@ const journey = require('app/journeys/probatenewdeathcertflow');
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
+const coreContextMockData = require('../../data/core-context-mock-data.json');
 const DeathCertificateInEnglish = steps.DeathCertificateInEnglish;
 
 describe('DeathCertificateInEnglish', () => {
@@ -38,19 +39,9 @@ describe('DeathCertificateInEnglish', () => {
 
             const ctx = DeathCertificateInEnglish.getContextData(req, res);
             expect(ctx).to.deep.equal({
+                ...coreContextMockData,
                 sessionID: 'dummy_sessionId',
                 deathCertificateInEnglish: 'optionYes',
-                featureToggles: {
-                    ft_avaya_webchat: 'false'
-                },
-                isAvayaWebChatEnabled: false,
-                caseType: 'gop',
-                userLoggedIn: false,
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'Pending'
-                },
-                language: 'en'
             });
             done();
         });
