@@ -288,7 +288,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     app.post('*', sanitizeRequestBody);
 
     app.get('/executors/invitation/:inviteId', inviteSecurity.verify());
-    app.use('/co-applicant-*', inviteSecurity.checkCoApplicant(useIDAM));
+    app.use('/co-applicant-agree-page', inviteSecurity.checkCoApplicant(useIDAM));
     app.use(healthcheck);
     app.use('/executors-additional-invite', additionalInvite);
     app.use('/executors-update-invite', updateInvite);
