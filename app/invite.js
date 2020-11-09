@@ -82,11 +82,9 @@ class InviteLink {
             }
 
             this.getAuth(req, res)
-                .then(async([authToken, serviceAuthorisation]) => {
+                .then(([authToken, serviceAuthorisation]) => {
                     const ccdCaseId = req.session.form && req.session.form.ccdCase ? req.session.form.ccdCase.id : 'undefined';
                     const allExecutorsAgreed = new AllExecutorsAgreed(config.services.orchestrator.url, req.sessionID);
-
-                    await this.sleep(1000);
 
                     allExecutorsAgreed.get(authToken, serviceAuthorisation, ccdCaseId)
                         .then(result => {
