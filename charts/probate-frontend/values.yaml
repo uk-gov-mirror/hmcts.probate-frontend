@@ -8,6 +8,10 @@ nodejs:
   cpuRequests: "100m"
   memoryLimits: "1024Mi"
   cpuLimits: "500m"
+  autoscaling:        # Default is false
+    enabled: true
+    maxReplicas: 14    # Required setting
+    targetCPUUtilizationPercentage: 80 # Default is 80% target CPU utilization
   applicationPort: 3000
   environment:
     PUBLIC_PROTOCOL: https
