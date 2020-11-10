@@ -115,6 +115,7 @@ services:
       jurisdiction1: 'family'
       jurisdiction2: 'probate registry'
       service: 'probate'
+      keyword: 'PA'
     newfee_copiesData:
       amount_or_volume: 0
       applicant_type: 'all'
