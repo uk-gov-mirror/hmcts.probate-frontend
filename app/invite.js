@@ -84,29 +84,33 @@ class InviteLink {
             this.getAuth(req, res)
                 .then(([authToken, serviceAuthorisation]) => {
                     const ccdCaseId = req.session.form && req.session.form.ccdCase ? req.session.form.ccdCase.id : 'undefined';
-                    const allExecutorsAgreed = new AllExecutorsAgreed(config.services.orchestrator.url, req.sessionID);
 
-                    allExecutorsAgreed.get(authToken, serviceAuthorisation, ccdCaseId)
-                        .then(result => {
-                            if (result.name === 'Error') {
-                                const commonContent = require(`app/resources/${req.session.language}/translation/common`);
+                    if (req.originalUrl === '/co-applicant-agree-page') {
+                        const allExecutorsAgreed = new AllExecutorsAgreed(config.services.orchestrator.url, req.sessionID);
 
-                                logger.error(`Error checking everyone has agreed: ${result.message}`);
-                                return res.status(500).render('errors/error', {common: commonContent, error: '500', userLoggedIn: req.userLoggedIn});
-                            }
+                        allExecutorsAgreed.get(authToken, serviceAuthorisation, ccdCaseId)
+                            .then(result => {
+                                if (result.name === 'Error') {
+                                    const commonContent = require(`app/resources/${req.session.language}/translation/common`);
+                                    logger.error(`Error checking everyone has agreed: ${result.message}`);
+                                    return res.status(500).render('errors/error', {common: commonContent, error: '500', userLoggedIn: req.userLoggedIn});
+                                }
 
-                            logger.info('Checking if all applicants have already agreed');
+                                logger.info('Checking if all applicants have already agreed');
 
-                            if (result === 'true') {
-                                logger.info('All applicants have agreed');
-                                const step = steps.CoApplicantAllAgreedPage;
-                                const content = step.generateContent({}, {}, req.session.language);
-                                const common = step.commonContent(req.session.language);
-                                res.render(steps.CoApplicantAllAgreedPage.template, {content, common, userLoggedIn: req.userLoggedIn});
-                            } else {
-                                next();
-                            }
-                        });
+                                if (result === 'true') {
+                                    logger.info('All applicants have agreed');
+                                    const step = steps.CoApplicantAllAgreedPage;
+                                    const content = step.generateContent({}, {}, req.session.language);
+                                    const common = step.commonContent(req.session.language);
+                                    res.render(steps.CoApplicantAllAgreedPage.template, {content, common, userLoggedIn: req.userLoggedIn});
+                                } else {
+                                    next();
+                                }
+                            });
+                    } else {
+                        next();
+                    }
                 });
         };
     }
