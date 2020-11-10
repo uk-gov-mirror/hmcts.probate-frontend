@@ -15,12 +15,11 @@
     }) %}
         {% if fields.isFeesApiToggleEnabled.value === "true" %}
             <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
-            {{ unorderedList([
-                content.bullet1,
-                content.bullet2
-            ]) }}
+            <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
+           
         {% else %}
             <p class="govuk-body">{{ content.paragraph1Old | safe }}</p>
+            <p class="govuk-body">{{ content.paragraph2Old | safe }}</p>
         {% endif %}
 
         {{ govukInput({

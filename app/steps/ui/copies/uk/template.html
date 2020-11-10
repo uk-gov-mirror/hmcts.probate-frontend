@@ -3,6 +3,7 @@
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "widgets/lists.html" import unorderedList %}
 
 {% block form_content %}
@@ -17,15 +18,24 @@
             <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
             <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
             <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
-            {{ unorderedList([
-                content.bullet1,
-                content.bullet2
-            ]) }}
+           
         {% else %}
             <p class="govuk-body">{{ content.paragraph1Old | safe }}</p>
             <p class="govuk-body">{{ content.paragraph2Old | safe }}</p>
             <p class="govuk-body">{{ content.paragraph3Old | safe }}</p>
         {% endif %}
+
+        <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+            {{ content.detailTitle | safe }}
+            </span>
+        </summary>
+        <div class="govuk-details__text">
+            <p> {{ content.detailText1 | safe }}</p>
+            <p> {{ content.detailText2 | safe }}</p>
+        </div>
+        </details>
 
         {{ govukInput({
             label: {
