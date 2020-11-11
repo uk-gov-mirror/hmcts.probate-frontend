@@ -4,10 +4,10 @@ nodejs:
   aadIdentityName: probate
   additionalPathBasedRoutes:
     "/caveats": "probate-caveats-fe-nodejs"
-  memoryRequests: "512Mi"
-  cpuRequests: "100m"
-  memoryLimits: "1024Mi"
-  cpuLimits: "500m"
+  memoryRequests: 512Mi
+  cpuRequests: 100m
+  memoryLimits: 1024Mi
+  cpuLimits: 500m
   autoscaling:        # Default is false
     enabled: true
     maxReplicas: 5    # Required setting
