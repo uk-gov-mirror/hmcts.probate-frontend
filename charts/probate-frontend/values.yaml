@@ -35,6 +35,7 @@ nodejs:
     EQUALITY_URL: https://pcq.aat.platform.hmcts.net
   keyVaults:
     probate:
+      resourceGroup: probate
       secrets:
         - idam-s2s-secret
         - ccidam-idam-api-secrets-probate
