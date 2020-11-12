@@ -116,6 +116,15 @@ services:
       jurisdiction2: 'probate registry'
       service: 'probate'
       keyword: 'PA'
+    newfee_issuesDataIhtMinAmount:
+      amount_or_volume: 0
+      applicant_type: 'personal'
+      channel: 'default'
+      event: 'issue'
+      jurisdiction1: 'family'
+      jurisdiction2: 'probate registry'
+      service: 'probate'
+      keyword: 'PAL5K'
     newfee_copiesData:
       amount_or_volume: 0
       applicant_type: 'all'

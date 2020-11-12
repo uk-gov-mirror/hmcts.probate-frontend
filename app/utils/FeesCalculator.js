@@ -13,6 +13,7 @@ class FeesCalculator {
         this.sessionId = sessionId;
         this.issuesData = config.services.feesRegister.issuesData;
         this.copiesData = config.services.feesRegister.copiesData;
+        this.issuesDataIhtMinAmount = null;
         this.feesLookup = new FeesLookup(this.endpoint, sessionId);
     }
 
@@ -24,13 +25,14 @@ class FeesCalculator {
         if (featureToggle.isEnabled(featureToggles, 'ft_newfee_register_code')) {
             this.issuesData = config.services.feesRegister.newfee_issuesData;
             this.copiesData = config.services.feesRegister.newfee_copiesData;
+            this.issuesDataIhtMinAmount = config.services.feesRegister.newfee_issuesDataIhtMinAmount;
         }
 
-        return createCallsRequired(formdata, headers, featureToggles, this.feesLookup, this.issuesData, this.copiesData);
+        return createCallsRequired(formdata, headers, featureToggles, this.feesLookup, this.issuesData, this.copiesData, this.issuesDataIhtMinAmount);
     }
 }
 
-async function createCallsRequired(formdata, headers, featureToggles, feesLookup, issuesData, copiesData) {
+async function createCallsRequired(formdata, headers, featureToggles, feesLookup, issuesData, copiesData, issuesDataIhtMinAmount) {
     const returnResult = {
         status: 'success',
         applicationfee: 0,
@@ -48,13 +50,16 @@ async function createCallsRequired(formdata, headers, featureToggles, feesLookup
         total: 0,
     };
 
-    issuesData.amount_or_volume = get(formdata, 'iht.netValue', 0);
-    returnResult.applicationvalue = issuesData.amount_or_volume;
-    if (issuesData.amount_or_volume > config.services.feesRegister.ihtMinAmt) {
+    const amount = get(formdata, 'iht.netValue', 0);
+    const updatedIssuesData = amount > config.services.feesRegister.ihtMinAmt? issuesData: issuesDataIhtMinAmount;
+    returnResult.applicationvalue = amount;
+
+    if (updatedIssuesData) {
+        updatedIssuesData.amount_or_volume = amount;
         logger.info('Sending APPLICATION FEE request to API with the following payload:');
         logger.info(JSON.stringify(issuesData));
 
-        await feesLookup.get(issuesData, headers)
+        await feesLookup.get(updatedIssuesData, headers)
             .then((res) => {
                 if (identifyAnyErrors(res)) {
                     returnResult.status = 'failed';
