@@ -18,7 +18,9 @@ const packageJson = require(`${__dirname}/package`);
 const Security = require(`${__dirname}/app/components/security`);
 const helmet = require('helmet');
 const csrf = require('csurf');
-const healthcheck = require(`${__dirname}/app/healthcheck`);
+const healthcheck = require('@hmcts/nodejs-healthcheck');
+const healthOptions = require('app/utils/healthOptions');
+const os = require('os');
 const declaration = require(`${__dirname}/app/declaration`);
 const InviteSecurity = require(`${__dirname}/app/invite`);
 const additionalInvite = require(`${__dirname}/app/routes/additionalInvite`);
@@ -289,7 +291,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
 
     app.get('/executors/invitation/:inviteId', inviteSecurity.verify());
     app.use('/co-applicant-*', inviteSecurity.checkCoApplicant(useIDAM));
-    app.use(healthcheck);
     app.use('/executors-additional-invite', additionalInvite);
     app.use('/executors-update-invite', updateInvite);
     app.use('/declaration', declaration);
@@ -377,6 +378,21 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             userLoggedIn: req.userLoggedIn
         });
     });
+
+    // health
+    const healthCheckConfig = {
+        checks: {
+            [config.services.validation.name]: healthcheck.web(`${config.services.validation.url}/health`, healthOptions),
+            [config.services.orchestrator.name]: healthcheck.web(`${config.services.orchestrator.url}/health`, healthOptions),
+        },
+        buildInfo: {
+            name: config.health.service_name,
+            host: os.hostname(),
+            uptime: process.uptime(),
+        },
+    };
+
+    healthcheck.addTo(app, healthCheckConfig);
 
     return {app, http};
 };
