@@ -224,6 +224,21 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         store: utils.getStore(config.redis, session, config.app.session.ttl)
     }));
 
+    // health
+    const healthCheckConfig = {
+        checks: {
+            [config.services.validation.name]: healthcheck.web(`${config.services.validation.url}/health`, healthOptions),
+            [config.services.orchestrator.name]: healthcheck.web(`${config.services.orchestrator.url}/health`, healthOptions),
+        },
+        buildInfo: {
+            name: config.health.service_name,
+            host: os.hostname(),
+            uptime: process.uptime(),
+        },
+    };
+
+    healthcheck.addTo(app, healthCheckConfig);
+
     app.use((req, res, next) => {
         if (!req.session) {
             return next(new Error('Unable to reach redis'));
@@ -378,21 +393,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             userLoggedIn: req.userLoggedIn
         });
     });
-
-    // health
-    const healthCheckConfig = {
-        checks: {
-            [config.services.validation.name]: healthcheck.web(`${config.services.validation.url}/health`, healthOptions),
-            [config.services.orchestrator.name]: healthcheck.web(`${config.services.orchestrator.url}/health`, healthOptions),
-        },
-        buildInfo: {
-            name: config.health.service_name,
-            host: os.hostname(),
-            uptime: process.uptime(),
-        },
-    };
-
-    healthcheck.addTo(app, healthCheckConfig);
 
     return {app, http};
 };
