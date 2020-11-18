@@ -55,7 +55,6 @@ const completeEqualityTask = (params) => {
                 uptime: process.uptime(),
             },
         };
-
         healthcheck.addTo(app, healthCheckConfig);
     } else {
         pcqDown(params, formData);
