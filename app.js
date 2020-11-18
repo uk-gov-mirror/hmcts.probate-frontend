@@ -36,6 +36,7 @@ const caseTypes = require('app/utils/CaseTypes');
 const featureToggles = require('app/featureToggles');
 const sanitizeRequestBody = require('app/middleware/sanitizeRequestBody');
 const isEmpty = require('lodash').isEmpty;
+const FormatUrl = require('app/utils/FormatUrl');
 
 exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const app = express();
@@ -227,8 +228,8 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     // health
     const healthCheckConfig = {
         checks: {
-            [config.services.validation.name]: healthcheck.web(`${config.services.validation.url}/health`, healthOptions),
-            [config.services.orchestrator.name]: healthcheck.web(`${config.services.orchestrator.url}/health`, healthOptions),
+            [config.services.validation.name]: healthcheck.web(FormatUrl.format(config.services.validation.url, config.endpoints.health), healthOptions),
+            [config.services.orchestrator.name]: healthcheck.web(FormatUrl.format(config.services.orchestrator.url, config.endpoints.health), healthOptions),
         },
         buildInfo: {
             name: config.health.service_name,
