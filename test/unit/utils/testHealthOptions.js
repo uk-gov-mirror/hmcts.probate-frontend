@@ -1,7 +1,7 @@
 'use strict';
 
 const expect = require('chai').expect;
-const healthOptions = require('app/utils/HealthOptions');
+const healthOptions = require('app/utils/healthOptions');
 const config = require('config');
 
 const mockResponse = () => {
