@@ -6,9 +6,8 @@ const ServiceMapper = require('app/utils/ServiceMapper');
 const {v4: uuidv4} = require('uuid');
 const logger = require('app/components/logger')('Init');
 const featureToggle = new (require('app/utils/FeatureToggle'))();
-const healthcheck = require('@hmcts/nodejs-healthcheck');
-const app = require('app');
-const os = require('os');
+const {fetchOptions, fetchJson} = require('app/components/api-utils');
+const FormatUrl = require('app/utils/FormatUrl');
 
 const completeEqualityTask = (params) => {
     const formData = ServiceMapper.map(
@@ -17,45 +16,26 @@ const completeEqualityTask = (params) => {
     );
 
     if (params.isEnabled && !get(params.req.session.form, 'equality.pcqId', false)) {
-        const healthCheckConfig = {
-            checks: {
-                [config.services.equalityAndDiversity.name]: healthcheck.web(`${config.services.equalityAndDiversity.url}/health`, function() {
-                    return {
-                        callback: (err, res) => {
-                            if (err) {
-                                console.log('Health check failed!');
-                            }
-                            console.log('HEALTH CHECK RES => ', res);
-                            // const equalityHealthIsUp = json.status === 'UP' && json['pcq-backend'].actualStatus === 'UP';
-                            const equalityHealthIsUp = res.body.status === 'good' ? healthcheck.up() : healthcheck.down();
-                            logger.info(config.services.equalityAndDiversity.name, 'is', (equalityHealthIsUp ? 'UP' : 'DOWN'));
-                            if (equalityHealthIsUp === healthcheck.UP) {
-                                params.req.session.form.equality = {
-                                    pcqId: uuidv4()
-                                };
+        const fetchOpts = fetchOptions({}, 'GET', {});
+        fetchJson(FormatUrl.format(config.services.equalityAndDiversity.url, config.endpoints.health), fetchOpts)
+            .then(json => {
+                const equalityHealthIsUp = json.status === 'UP' && json['pcq-backend'].actualStatus === 'UP';
+                logger.info(config.services.equalityAndDiversity.name, 'is', (equalityHealthIsUp ? 'UP' : 'DOWN'));
 
-                                formData.post(params.req.session.authToken, params.req.session.serviceAuthorization, params.req.session.form.ccdCase.id, params.req.session.form);
-
-                                featureToggle.callCheckToggle(params.req, params.res, params.next, params.res.locals.launchDarkly,
-                                    'ft_pcq_token', featureToggle.toggleFeature);
-                            } else {
-                                pcqDown(params, formData);
-                            }
-
-                            return equalityHealthIsUp;
-                        },
-                        timeout: config.health.timeout,
-                        deadline: config.health.deadline
+                if (equalityHealthIsUp) {
+                    params.req.session.form.equality = {
+                        pcqId: uuidv4()
                     };
-                })
-            },
-            buildInfo: {
-                name: config.health.service_name,
-                host: os.hostname(),
-                uptime: process.uptime(),
-            },
-        };
-        healthcheck.addTo(app, healthCheckConfig);
+
+                    formData.post(params.req.session.authToken, params.req.session.serviceAuthorization, params.req.session.form.ccdCase.id, params.req.session.form);
+
+                    featureToggle.callCheckToggle(params.req, params.res, params.next, params.res.locals.launchDarkly,
+                        'ft_pcq_token', featureToggle.toggleFeature);
+
+                } else {
+                    pcqDown(params, formData);
+                }
+            });
     } else {
         pcqDown(params, formData);
     }
