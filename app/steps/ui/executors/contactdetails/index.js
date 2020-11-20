@@ -2,11 +2,11 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const emailValidator = require('email-validator');
-const validator = require('validator');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const FieldError = require('app/components/error');
 const {findIndex, every, tail} = require('lodash');
 const InviteData = require('app/services/InviteData');
+const PhoneNumberValidator = require('app/utils/PhoneNumberValidator');
 const config = require('config');
 const pageUrl = '/executor-contact-details';
 
@@ -47,7 +47,7 @@ class ExecutorContactDetails extends ValidationStep {
             errors.push(FieldError('email', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
 
-        if (!this.validatePhoneNumber(ctx.mobile)) {
+        if (!PhoneNumberValidator.validateMobilePhoneNumber(ctx.mobile)) {
             errors.push(FieldError('mobile', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
 
@@ -74,30 +74,6 @@ class ExecutorContactDetails extends ValidationStep {
                 });
         }
         return [ctx, errors];
-    }
-
-    validatePhoneNumber(num) {
-        const ukPrefix = '44';
-
-        if (num.startsWith('0') && !num.startsWith('00')) {
-            if (validator.isInt(num)) {
-                return true;
-            }
-        }
-
-        if (num.startsWith(ukPrefix) || num.startsWith('7')) {
-            if (validator.isInt(num)) {
-                return true;
-            }
-        }
-
-        if (num.startsWith('+')) {
-            if (validator.isInt(num.slice(1, -1))) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     recalcIndex(ctx, index) {
