@@ -29,6 +29,8 @@ class PaymentBreakdown extends Step {
 
     checkFeesStatus(fees) {
         if (fees.status !== 'success') {
+            console.log('CHECK FEES STATUS => ');
+            console.log(fees);
             throw new Error('Unable to calculate fees from Fees Api');
         }
     }
