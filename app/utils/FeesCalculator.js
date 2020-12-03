@@ -51,13 +51,15 @@ async function createCallsRequired(formdata, headers, featureToggles, feesLookup
     };
 
     const amount = get(formdata, 'iht.netValue', 0);
+    console.log('form data => ', formdata);
+    console.log('iht.netValue fee calculation amount => ', amount);
     const updatedIssuesData = amount > config.services.feesRegister.ihtMinAmt? issuesData: issuesDataIhtMinAmount;
     returnResult.applicationvalue = amount;
 
     if (updatedIssuesData) {
         updatedIssuesData.amount_or_volume = amount;
         logger.info('Sending APPLICATION FEE request to API with the following payload:');
-        logger.info(JSON.stringify(issuesData));
+        logger.info(JSON.stringify(updatedIssuesData));
 
         await feesLookup.get(updatedIssuesData, headers)
             .then((res) => {
