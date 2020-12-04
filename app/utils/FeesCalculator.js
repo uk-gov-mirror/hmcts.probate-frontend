@@ -117,7 +117,7 @@ async function createCallsRequired(formdata, headers, featureToggles, feesLookup
  * this caters for 404 type messages etc.
  */
 const identifyAnyErrors = (res) => {
-    if (typeof res.fee_amount !== 'undefined' && res.fee_amount !== null) {
+    if (typeof res.fee_amount !== 'undefined') {
         return false;
     }
     return true;
