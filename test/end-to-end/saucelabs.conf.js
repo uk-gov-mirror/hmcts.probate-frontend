@@ -28,7 +28,7 @@ const setupConfig = {
     output: './output',
     timeout: 20000,
     helpers: {
-        WebDriverIO: {
+        WebDriver: {
             url: process.env.TEST_URL || 'https://localhost:3000',
             browser,
             smartWait: 10000,
