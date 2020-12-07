@@ -51,8 +51,6 @@ async function createCallsRequired(formdata, headers, featureToggles, feesLookup
     };
 
     const amount = get(formdata, 'iht.netValue', 0);
-    console.log('form data => ', formdata);
-    console.log('iht.netValue fee calculation amount => ', amount);
     const updatedIssuesData = amount > config.services.feesRegister.ihtMinAmt? issuesData: issuesDataIhtMinAmount;
     returnResult.applicationvalue = amount;
 
