@@ -241,6 +241,8 @@ class Declaration extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
+        console.log('hasDataChanged= ' + ctx.hasDataChanged);
+        console.log('inviteSent= ' + ctx.invitesSent);
         ctx.hasDataChangedAfterEmailSent = ctx.hasDataChanged && ctx.invitesSent === 'true';
         ctx.hasEmailChanged = ctx.executorsEmailChanged && ctx.invitesSent === 'true';
 
