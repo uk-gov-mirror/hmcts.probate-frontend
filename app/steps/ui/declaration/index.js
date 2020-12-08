@@ -242,7 +242,7 @@ class Declaration extends ValidationStep {
 
     nextStepOptions(ctx) {
         console.log('hasDataChanged= ' + ctx.hasDataChanged);
-        console.log('inviteSent= ' + ctx.invitesSent);
+        console.log('inviteSent= ' + ctx.invitesSent + ' and type = ' + (typeof ctx.invitesSent));
         ctx.hasDataChangedAfterEmailSent = ctx.hasDataChanged && ctx.invitesSent === 'true';
         ctx.hasEmailChanged = ctx.executorsEmailChanged && ctx.invitesSent === 'true';
 
@@ -275,7 +275,7 @@ class Declaration extends ValidationStep {
         delete ctx.executorsWrapper;
         delete ctx.hasDataChanged;
         delete ctx.hasExecutorsToNotify;
-        // delete ctx.executorsEmailChanged;
+        delete ctx.executorsEmailChanged;
         delete ctx.hasDataChangedAfterEmailSent;
         delete ctx.invitesSent;
         delete ctx.serviceAuthorization;
