@@ -147,11 +147,11 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
         }
     }
 
-    // ************************************************
-    // Something is going wrong here
-    // in functional tests on CI after git push for pr.
-    // Works locally though using Puppeteer
-    // ************************************************
+    // Complete Equality & Diversity Questionnaire
+    if (TestConfigurator.equalityAndDiversityEnabled()) {
+        await I.exitEqualityAndDiversity();
+        await I.completeEqualityAndDiversity();
+    }
 
     // Review and Confirm Task
     await I.selectATask(taskListContent.taskNotStarted);
