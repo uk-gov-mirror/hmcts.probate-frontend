@@ -275,7 +275,7 @@ class Declaration extends ValidationStep {
         delete ctx.executorsWrapper;
         delete ctx.hasDataChanged;
         delete ctx.hasExecutorsToNotify;
-        delete ctx.executorsEmailChanged;
+        // delete ctx.executorsEmailChanged;
         delete ctx.hasDataChangedAfterEmailSent;
         delete ctx.invitesSent;
         delete ctx.serviceAuthorization;
