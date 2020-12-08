@@ -21,11 +21,6 @@ Before(async () => {
 });
 
 // eslint-disable-next-line no-undef
-After(() => {
-    TestConfigurator.getAfter();
-});
-
-// eslint-disable-next-line no-undef
 Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Spouse Journey - Digital iht and death certificate uploaded'), async (I) => {
     // Eligibility Task (pre IdAM)
     await I.startApplication();

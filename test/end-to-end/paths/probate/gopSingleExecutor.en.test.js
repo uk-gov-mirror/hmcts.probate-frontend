@@ -15,6 +15,7 @@ Feature('GOP-Single Executor flow...').retry(TestConfigurator.getRetryFeatures()
 // so we have to tell eslint to not validate these
 // eslint-disable-next-line no-undef
 Before(async () => {
+    await TestConfigurator.initLaunchDarkly();
     await TestConfigurator.getBefore();
 });
 

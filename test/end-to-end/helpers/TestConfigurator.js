@@ -27,7 +27,12 @@ class TestConfigurator {
         this.retryScenarios = testConfig.TestRetryScenarios;
         this.testUseProxy = testConfig.TestUseProxy;
         this.testProxy = testConfig.TestProxy;
-        this.launchDarkly = new LaunchDarkly();
+        this.launchDarkly = {};
+    }
+
+    async initLaunchDarkly() {
+        this.launchDarkly = await new LaunchDarkly();
+        await this.launchDarkly.initialise();
     }
 
     async getBefore() {

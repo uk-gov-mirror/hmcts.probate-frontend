@@ -12,11 +12,6 @@ Before(async () => {
 });
 
 // eslint-disable-next-line no-undef
-After(() => {
-    TestConfigurator.getAfter();
-});
-
-// eslint-disable-next-line no-undef
 Scenario(TestConfigurator.idamInUseText('Check that the pages display a cookie banner with link'), async (I) => {
 
     //Screeners & Pre-IDAM

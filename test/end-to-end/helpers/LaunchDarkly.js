@@ -4,7 +4,7 @@ const testConfig = require('config');
 const launchDarkly = require('launchdarkly-node-server-sdk');
 
 class LaunchDarkly {
-    constructor() {
+    initialise() {
         this.ready = false;
         const options = testConfig.featureToggles.enabled ? {diagnosticOptOut: true} : {offline: true};
         this.client = launchDarkly.init(testConfig.featureToggles.launchDarklyKey, options);
