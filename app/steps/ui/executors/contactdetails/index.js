@@ -52,7 +52,7 @@ class ExecutorContactDetails extends ValidationStep {
         }
 
         if (ctx.email !== executor.email && executor.emailSent) {
-            console.log('===================================\n===================================');
+            console.log('===================================\n!!!!!!!!!!!!!!!!!!!!!!!!!!!');
             console.log('Executors Email is changed');
             console.log(executor.emailChanged);
             executor.emailChanged = true;
