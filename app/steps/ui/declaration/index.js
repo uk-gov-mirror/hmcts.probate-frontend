@@ -242,9 +242,14 @@ class Declaration extends ValidationStep {
 
     nextStepOptions(ctx) {
         console.log('hasDataChanged= ' + ctx.hasDataChanged);
-        console.log('inviteSent= ' + ctx.invitesSent + ' and type = ' + (typeof ctx.invitesSent));
+        console.log('inviteSent= ' + ctx.invitesSent + ' and type= ' + (typeof ctx.invitesSent));
+        console.log('executorsEmailChanged= ' + ctx.executorsEmailChanged +  ' and type= ' + (typeof ctx.executorsEmailChanged));
         ctx.hasDataChangedAfterEmailSent = ctx.hasDataChanged && ctx.invitesSent;
         ctx.hasEmailChanged = ctx.executorsEmailChanged && ctx.invitesSent;
+        console.log('hasDataChangedAfterEmailSent= ' + ctx.hasDataChangedAfterEmailSent + ' and type= ' + (typeof ctx.hasDataChangedAfterEmailSent));
+        console.log('hasEmailChanged= ' + ctx.hasEmailChanged + ' and type= ' + (typeof ctx.hasEmailChanged));
+
+
 
         return {
             options: [
