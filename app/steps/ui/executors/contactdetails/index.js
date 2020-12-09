@@ -56,7 +56,6 @@ class ExecutorContactDetails extends ValidationStep {
             console.log('Executors Email is changed');
             console.log(executor.emailChanged);
             executor.emailChanged = true;
-            executor.emailSent = false;
             console.log(executor.emailChanged);
         }
 
