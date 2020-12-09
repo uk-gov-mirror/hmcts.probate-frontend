@@ -20,6 +20,10 @@ web-chat {
     z-index: 1000;
     border: none;
 }
+
+#avayaWebchat .container {
+    height: 530px;
+}
   
 web-chat.hidden {
     transform: translateY(1000px);
