@@ -15,6 +15,7 @@ featureToggles:
   ft_pcq_token: 'probate-pcq-token'
   ft_avaya_webchat: 'probate-avaya-webchat'
   ft_new_deathcert_flow: 'probate-new-deathcert-flow'
+  ft_newfee_register_code: 'probate-newfee-register-code'
   appwideToggles: ['ft_avaya_webchat']
 app:
   username:
@@ -28,6 +29,10 @@ app:
   session:
     expires: 3600000 # ms (60 minutes)
     ttl: 28800 # ms (8 hours)
+health:
+  service_name: 'Apply for Probate'
+  timeout: 5000
+  deadline: 15000
 services:
   postcode:
     name: 'Postcode Lookup Service'
@@ -90,6 +95,50 @@ services:
       fees: '/fees'
       feesLookup: '/fees/lookup'
     ihtMinAmt: 5000
+    issuesData:
+      amount_or_volume: 0
+      applicant_type: 'personal'
+      channel: 'default'
+      event: 'issue'
+      jurisdiction1: 'family'
+      jurisdiction2: 'probate registry'
+      service: 'probate'
+    copiesData:
+      amount_or_volume: 0
+      applicant_type: 'all'
+      channel: 'default'
+      event: 'copies'
+      jurisdiction1: 'family'
+      jurisdiction2: 'probate registry'
+      service: 'probate'
+      keyword: 'NewFee'
+    newfee_issuesData:
+      amount_or_volume: 0
+      applicant_type: 'personal'
+      channel: 'default'
+      event: 'issue'
+      jurisdiction1: 'family'
+      jurisdiction2: 'probate registry'
+      service: 'probate'
+      keyword: 'PA'
+    newfee_issuesDataIhtMinAmount:
+      amount_or_volume: 0
+      applicant_type: 'personal'
+      channel: 'default'
+      event: 'issue'
+      jurisdiction1: 'family'
+      jurisdiction2: 'probate registry'
+      service: 'probate'
+      keyword: 'PAL5K'
+    newfee_copiesData:
+      amount_or_volume: 0
+      applicant_type: 'all'
+      channel: 'default'
+      event: 'copies'
+      jurisdiction1: 'family'
+      jurisdiction2: 'probate registry'
+      service: 'probate'
+      keyword: 'GrantWill'
   equalityAndDiversity:
     name: 'Equality and Diversity Service'
     url: 'http://localhost:4000'
