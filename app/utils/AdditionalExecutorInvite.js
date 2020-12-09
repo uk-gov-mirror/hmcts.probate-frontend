@@ -30,6 +30,7 @@ class AdditionalExecutorInvite {
             });
 
         if (executorsToNotifyList.length) {
+            console.log('executorsToNotifyList= '+executorsToNotifyList+'\nreq.authToken= '+req.authToken+'\nreq.session.serviceAuthorization= '+req.session.serviceAuthorization);
             return inviteLink.post(executorsToNotifyList, req.authToken, req.session.serviceAuthorization)
                 .then(result => {
                     if (result.name === 'Error') {
