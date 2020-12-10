@@ -156,7 +156,7 @@ const stepList = {
     Summary: 'TaskList',
     Declaration: {
         sendAdditionalInvites: 'ExecutorsAdditionalInvite',
-        executorEmailChanged: 'ExecutorsUpdateInvite',
+        executorEmailChanged: 'ExecutorsAdditionalInvite',
         dataChangedAfterEmailSent: 'ExecutorsChangeMade',
         otherExecutorsApplying: 'ExecutorsInvite',
         otherwise: 'TaskList'
