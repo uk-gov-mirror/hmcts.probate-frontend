@@ -8,6 +8,7 @@ const config = require('config');
 
 class AdditionalExecutorInvite {
     static invite(req) {
+        console.log('=================\nreq.authtoken'+req.authToken);
         const session = req.session;
         const formdata = req.session.form;
         const inviteLink = new InviteLink(config.services.orchestrator.url, session.id);

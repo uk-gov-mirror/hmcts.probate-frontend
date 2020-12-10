@@ -10,6 +10,7 @@ class ExecutorsAdditionalInviteSent extends Step {
     }
 
     getContextData(req) {
+        console.log('//////////////\nreq.authtoken'+req.authToken);
         const ctx = super.getContextData(req);
         ctx.inviteSuffix = size(ctx.executorsToNotifyList) > 1 ? '-multiple' : '';
         ctx.header = `header${ctx.inviteSuffix}`;
@@ -20,6 +21,7 @@ class ExecutorsAdditionalInviteSent extends Step {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
+        console.log('AAAAAAAAAAAAAAA\nctx.authtoken'+ctx.authToken);
         delete formdata.executors.executorsToNotifyList;
         delete ctx.executorsToNotifyList;
         delete ctx.inviteSuffix;
