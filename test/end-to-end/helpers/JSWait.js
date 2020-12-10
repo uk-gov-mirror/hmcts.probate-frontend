@@ -64,14 +64,9 @@ class JSWait extends codecept_helper {
                 document.querySelector('#newPostCode').value = 'postcode';
             });
         } else {
-            const browserName = this.helpers.WebDriver.config.browser;
-
-            // browserName !== 'internet explorer' &&  removed
-            if (browserName !== 'MicrosoftEdge') {
-                await helper.waitForVisible('#postcode');
-                await helper.click('.govuk-details__summary-text');
-                await helper.waitForVisible('#addressLine1');
-            }
+            await helper.waitForVisible('#postcode');
+            await helper.click('.govuk-details__summary-text');
+            await helper.waitForVisible('#addressLine1');
 
             await helper.fillField('#addressLine1', 'test address for deceased line 1');
             await helper.fillField('#addressLine2', 'test address for deceased line 2');
