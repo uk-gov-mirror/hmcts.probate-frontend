@@ -33,7 +33,7 @@ class AdditionalExecutorInvite {
 
         if (executorsToNotifyList.length) {
             console.log('executorsToNotifyList= '+executorsToNotifyList+'\nreq.authToken= '+req.authToken+'\nreq.session.serviceAuthorization= '+req.session.serviceAuthorization);
-            return inviteLink.post(executorsToNotifyList, req.authToken, req.session.serviceAuthorization)
+            return inviteLink.post(executorsToNotifyList, req.session.authToken, req.session.serviceAuthorization)
                 .then(result => {
                     if (result.name === 'Error') {
                         logger.error(`Error while sending executor email invites: ${result}`);
