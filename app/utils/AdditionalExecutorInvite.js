@@ -44,7 +44,7 @@ class AdditionalExecutorInvite {
                                 inviteId: execResult.inviteId,
                                 emailSent: true
                             };
-
+                            console.log('Checking if undefined: ' + formdata.executors.list.find(execList => execList.id === execResult.id));
                             Object.assign(formdata.executors.list.find(execList => execList.id === execResult.id), result);
                         });
 
