@@ -25,6 +25,7 @@ After(() => {
 });
 
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/in and survey link'), async (I) => {
+    await I.retry(2).createAUser(TestConfigurator);
 
     const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
 

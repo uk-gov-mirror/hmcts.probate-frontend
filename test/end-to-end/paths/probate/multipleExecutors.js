@@ -22,12 +22,19 @@ BeforeSuite(async () => {
     await TestConfigurator.getBefore();
 });
 
+// eslint-disable-next-line no-undef
+AfterSuite(() => {
+    TestConfigurator.getAfter();
+});
+
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant; Stage 1: Enter deceased and executor details'), async (I) => {
     stage1retries += 1;
 
     if (stage1retries >= 1) {
         await TestConfigurator.getBefore();
     }
+
+    await I.retry(2).createAUser(TestConfigurator);
 
     // Eligibility Task (pre IdAM)
     await I.startApplication();

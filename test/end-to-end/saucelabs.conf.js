@@ -61,6 +61,9 @@ const setupConfig = {
         },
         JSWait: {
             require: './helpers/JSWait.js'
+        },
+        IDAMHelper: {
+            require: './helpers/IDAMHelper.js'
         }
     },
     plugins: {
