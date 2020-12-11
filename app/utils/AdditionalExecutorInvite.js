@@ -39,9 +39,9 @@ class AdditionalExecutorInvite {
                         logger.error(`Error while sending executor email invites: ${result}`);
                         throw new ReferenceError('Error while sending co-applicant invitation emails.');
                     } else {
-                        console.dir('\nexecutorsToNotifyList= '+executorsToNotifyList);
+                        console.dir(executorsToNotifyList);
                         executorsToNotifyList.forEach((executor) => {
-                            console.log('\nexecutor.full= '+executor.fullName+'\nexecutorEmail= '+executor.email);
+                            console.log('\nexecutor.full= '+executor.executorName+'\nexecutorEmail= '+executor.email);
                         });
                         result.invitations.forEach((execResult) => {
                             console.log('\nexecResult= '+execResult+'\nexecResult.inviteId= '+execResult.inviteId);
@@ -51,6 +51,8 @@ class AdditionalExecutorInvite {
                             };
                             console.log('\nresult.inviteId= '+result.inviteId+'\nresult.emailSent= '+result.emailSent+'\nformdata.executors.list= '+formdata.executors.list);
                             console.log('Checking if undefined: ' + formdata.executors.list.find(execList => execList.id === execResult.id));
+                            console.log('\nexecResult.id= '+execResult.id);
+                            console.dir(formdata.executors.list);
                             Object.assign(formdata.executors.list.find(execList => execList.id === execResult.id), result);
                         });
 
