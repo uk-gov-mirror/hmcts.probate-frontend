@@ -8,8 +8,6 @@ const config = require('config');
 
 class AdditionalExecutorInvite {
     static invite(req) {
-        console.log('=================\nreq.authtoken= '+req.authToken);
-        console.log('req.session.authToken= '+req.session.authToken);
         const session = req.session;
         const formdata = req.session.form;
         const inviteLink = new InviteLink(config.services.orchestrator.url, session.id);
@@ -32,30 +30,17 @@ class AdditionalExecutorInvite {
             });
 
         if (executorsToNotifyList.length) {
-            console.log('executorsToNotifyList= '+executorsToNotifyList+'\nreq.authToken= '+req.authToken+'\nreq.session.serviceAuthorization= '+req.session.serviceAuthorization);
             return inviteLink.post(executorsToNotifyList, req.session.authToken, req.session.serviceAuthorization)
                 .then(result => {
                     if (result.name === 'Error') {
                         logger.error(`Error while sending executor email invites: ${result}`);
                         throw new ReferenceError('Error while sending co-applicant invitation emails.');
                     } else {
-                        console.dir(executorsToNotifyList);
-                        executorsToNotifyList.forEach((executor) => {
-                            console.log('\nexecutor.executorName= '+executor.executorName+'\nexecutorEmail= '+executor.email);
-                        });
                         result.invitations.forEach((execResult) => {
-                            console.log('\nexecResult= '+execResult+'\nexecResult.inviteId= '+execResult.inviteId);
                             const result = {
                                 inviteId: execResult.inviteId,
                                 emailSent: true
                             };
-                            console.log('\nresult.inviteId= '+result.inviteId+'\nresult.emailSent= '+result.emailSent+'\nformdata.executors.list= '+formdata.executors.list);
-                            console.log('Checking if undefined: ' + formdata.executors.list.find(execList => execList.id === parseInt(execResult.id)));
-                            console.log('\nexecResult.id= '+parseInt(execResult.id)+' and type= '+(typeof execResult.id));
-                            console.dir(formdata.executors.list);
-                            formdata.executors.list.forEach((executor) => {
-                                console.log('execList.id= '+executor.id+' and type= '+(typeof executor.id));
-                            });
                             Object.assign(formdata.executors.list.find(execList => execList.id === parseInt(execResult.id)), result);
                         });
 
