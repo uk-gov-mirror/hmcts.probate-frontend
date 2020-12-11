@@ -41,7 +41,7 @@ class AdditionalExecutorInvite {
                     } else {
                         console.dir(executorsToNotifyList);
                         executorsToNotifyList.forEach((executor) => {
-                            console.log('\nexecutor.full= '+executor.executorName+'\nexecutorEmail= '+executor.email);
+                            console.log('\nexecutor.executorName= '+executor.executorName+'\nexecutorEmail= '+executor.email);
                         });
                         result.invitations.forEach((execResult) => {
                             console.log('\nexecResult= '+execResult+'\nexecResult.inviteId= '+execResult.inviteId);
