@@ -8,7 +8,7 @@ const config = require('config');
 
 class AdditionalExecutorInvite {
     static invite(req) {
-        console.log('=================\nreq.authtoken'+req.authToken);
+        console.log('=================\nreq.authtoken= '+req.authToken);
         console.log('req.session.authToken= '+req.session.authToken);
         const session = req.session;
         const formdata = req.session.form;
@@ -39,12 +39,17 @@ class AdditionalExecutorInvite {
                         logger.error(`Error while sending executor email invites: ${result}`);
                         throw new ReferenceError('Error while sending co-applicant invitation emails.');
                     } else {
+                        console.dir('\nexecutorsToNotifyList= '+executorsToNotifyList);
+                        executorsToNotifyList.forEach((executor) => {
+                            console.log('\nexecutorName= '+executor.fullName+'\nexecutorEmail= '+executor.email);
+                        });
                         result.invitations.forEach((execResult) => {
+                            console.log('\nexecResult= '+execResult+'\nexecResult.inviteId= '+execResult.inviteId);
                             const result = {
                                 inviteId: execResult.inviteId,
                                 emailSent: true
                             };
-
+                            console.log('\nresult.inviteId= '+result.inviteId+'\nresult.emailSent= '+result.emailSent+'\nformdata.executors.list= '+formdata.executors.list);
                             Object.assign(formdata.executors.list.find(execList => execList.id === execResult.id), result);
                         });
 
