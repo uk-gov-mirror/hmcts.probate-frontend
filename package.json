@@ -48,6 +48,7 @@
     "test:crossbrowser_Edge": "NODE_ENV=testing-http-dk NODE_PATH=. codeceptjs run-multiple microsoftEdge -c test/end-to-end/saucelabs.conf.js --plugins retryFailedStep --steps --reporter mocha-multi",
     "test:crossbrowser_chrome": "NODE_ENV=testing-http-dk NODE_PATH=. codeceptjs run-multiple chrome -c test/end-to-end/saucelabs.conf.js --plugins retryFailedStep --steps --reporter mocha-multi",
     "test:crossbrowser_firefox": "NODE_ENV=testing-http-dk NODE_PATH=. codeceptjs run-multiple firefox -c test/end-to-end/saucelabs.conf.js --plugins retryFailedStep --steps --reporter mocha-multi",
+    "test:crossbrowser_safari": "NODE_ENV=testing-http-dk NODE_PATH=. codeceptjs run-multiple safari -c test/end-to-end/saucelabs.conf.js --plugins retryFailedStep --steps --reporter mocha-multi",
     "test:crossbrowser": "./bin/run-crossbrowser-tests.sh",
     "test:smoke": "NODE_ENV=test mocha test/smoke/healthcheck.js --timeout 25000 --reporter spec",
     "test-contract": "NODE_ENV=test NODE_PATH=. LOG_LEVEL=error mocha 'test/contract/addresslookup/*.js' 'test/contract/generatepin/*.js' --timeout 10000 --reporter spec",
