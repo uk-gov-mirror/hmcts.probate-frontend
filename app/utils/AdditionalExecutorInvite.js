@@ -51,8 +51,11 @@ class AdditionalExecutorInvite {
                             };
                             console.log('\nresult.inviteId= '+result.inviteId+'\nresult.emailSent= '+result.emailSent+'\nformdata.executors.list= '+formdata.executors.list);
                             console.log('Checking if undefined: ' + formdata.executors.list.find(execList => execList.id === execResult.id));
-                            console.log('\nexecResult.id= '+execResult.id);
+                            console.log('\nexecResult.id= '+execResult.id+' and type= '+(typeof execResult.id));
                             console.dir(formdata.executors.list);
+                            formdata.executors.list.forEach((executor) => {
+                                console.log('execList.id= '+executor.id+' and type= '+(typeof executor.id));
+                            });
                             Object.assign(formdata.executors.list.find(execList => execList.id === execResult.id), result);
                         });
 
