@@ -44,6 +44,7 @@ describe('copies-uk', () => {
                     delete require.cache[require.resolve('test/data/copiesUk')];
                     const contentToExclude = [
                         'questionOld',
+                        'paragraph1',
                         'paragraph1Old',
                         'paragraph2Old',
                         'paragraph3Old',
@@ -70,6 +71,7 @@ describe('copies-uk', () => {
                     delete require.cache[require.resolve('test/data/copiesUk')];
                     const contentToExclude = [
                         'question',
+                        'paragraph1Old',
                         'paragraph1',
                         'paragraph2',
                         'paragraph3',
