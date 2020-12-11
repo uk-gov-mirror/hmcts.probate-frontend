@@ -40,7 +40,7 @@ function getBrowserConfig(browserGroup) {
 
 const setupConfig = {
     tests: testConfig.TestPathToRun,
-    output: testConfig.TestOutputDir,
+    output: `${process.cwd()}/${testConfig.TestOutputDir}`,
     helpers: {
         WebDriver: {
             url: testConfig.TestE2EFrontendUrl,
