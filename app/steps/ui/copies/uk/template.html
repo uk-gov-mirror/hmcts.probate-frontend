@@ -15,12 +15,20 @@
         }
     }) %}
         {% if fields.isFeesApiToggleEnabled.value == "true" %}
-            <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
+            {% if fields.caseType.value == "gop" %}
+                <p class="govuk-body">{{ content.paragraph1GOP | safe }}</p>
+            {% else %}
+                <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
+            {% endif %}
             <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
             <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
            
         {% else %}
-            <p class="govuk-body">{{ content.paragraph1Old | safe }}</p>
+            {% if fields.caseType.value == "gop" %}
+                <p class="govuk-body">{{ content.paragraph1OldGOP | safe }}</p>
+            {% else %}
+                <p class="govuk-body">{{ content.paragraph1Old | safe }}</p>
+            {% endif %}
             <p class="govuk-body">{{ content.paragraph2Old | safe }}</p>
             <p class="govuk-body">{{ content.paragraph3Old | safe }}</p>
         {% endif %}
