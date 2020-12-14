@@ -37,6 +37,10 @@ class AdditionalExecutorInvite {
                         logger.error(`Error while sending executor email invites: ${result}`);
                         throw new ReferenceError('Error while sending co-applicant invitation emails.');
                     } else {
+                        console.dir(executorsToNotifyList);
+                        executorsToNotifyList.forEach((executor) => {
+                            console.log('\nexecutor.executorName= '+executor.executorName+'\nexecutorEmail= '+executor.email);
+                        });
                         result.invitations.forEach((execResult) => {
                             console.log('\nexecResult= '+execResult+'\nexecResult.inviteId= '+execResult.inviteId);
                             const result = {
