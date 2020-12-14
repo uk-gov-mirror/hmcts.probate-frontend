@@ -51,17 +51,11 @@ class ExecutorContactDetails extends ValidationStep {
             errors.push(FieldError('mobile', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
 
-        console.log('ctx.email= '+ctx.email);
-        console.log('executor.email= '+executor.email);
-        console.log('executor.emailSent= '+executor.emailSent);
-
         if (ctx.email !== executor.email && executor.emailSent) {
-            console.log('FIRING--------------------\n---------------');
             executor.emailChanged = true;
         }
 
         ctx.executorsEmailChanged = executorsWrapper.hasExecutorsEmailChanged();
-        console.log('executorsEmailChanged= '+ctx.executorsEmailChanged + ' type= '+(typeof ctx.executorsEmailChanged));
         executor.email = ctx.email;
         executor.mobile = ctx.mobile;
         if (executor.emailSent) {

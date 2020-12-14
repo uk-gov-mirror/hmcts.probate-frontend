@@ -244,8 +244,6 @@ class Declaration extends ValidationStep {
         ctx.hasDataChangedAfterEmailSent = ctx.hasDataChanged && ctx.invitesSent;
         ctx.hasEmailChanged = ctx.executorsEmailChanged && ctx.invitesSent;
 
-        console.log('hasEmailChanged= ' + ctx.hasEmailChanged + ' type= ' + (typeof ctx.hasEmailChanged));
-        console.log('hasExecutorsToNotify= ' + ctx.hasExecutorsToNotify + ' type= ' + (typeof ctx.hasExecutorsToNotify));
         return {
             options: [
                 {key: 'hasExecutorsToNotify', value: true, choice: 'sendAdditionalInvites'},

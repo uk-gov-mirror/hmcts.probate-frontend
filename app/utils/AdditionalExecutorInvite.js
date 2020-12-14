@@ -30,19 +30,13 @@ class AdditionalExecutorInvite {
             });
 
         if (executorsToNotifyList.length) {
-            console.log('executorsToNotifyList= '+executorsToNotifyList+'\nreq.authToken= '+req.authToken+'\nreq.session.serviceAuthorization= '+req.session.serviceAuthorization);
             return inviteLink.post(executorsToNotifyList, req.session.authToken, req.session.serviceAuthorization)
                 .then(result => {
                     if (result.name === 'Error') {
                         logger.error(`Error while sending executor email invites: ${result}`);
                         throw new ReferenceError('Error while sending co-applicant invitation emails.');
                     } else {
-                        console.dir(executorsToNotifyList);
-                        executorsToNotifyList.forEach((executor) => {
-                            console.log('\nexecutor.executorName= '+executor.executorName+'\nexecutorEmail= '+executor.email);
-                        });
                         result.invitations.forEach((execResult) => {
-                            console.log('\nexecResult= '+execResult+'\nexecResult.inviteId= '+execResult.inviteId);
                             const result = {
                                 inviteId: execResult.inviteId,
                                 emailSent: true
@@ -51,7 +45,6 @@ class AdditionalExecutorInvite {
                         });
 
                         executorsToNotifyList.forEach((executor) => {
-                            console.log('\nexecutor.executorName= '+executor.executorName+'\nexecutorEmail= '+executor.email);
                             executor.emailSent = true;
                         });
 
