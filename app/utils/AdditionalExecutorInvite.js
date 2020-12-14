@@ -47,12 +47,12 @@ class AdditionalExecutorInvite {
                                 inviteId: execResult.inviteId,
                                 emailSent: true
                             };
-                            console.log('\nresult.inviteId= '+result.inviteId+'\nresult.emailSent= '+result.emailSent+'\nformdata.executors.list= '+formdata.executors.list);
-                            console.log('@@@@@@@@@@@@@@@@@@@@@@@');
-                            console.log('Checking if undefined: ' + formdata.executors.list.find(execList => execList.id === parseInt(execResult.id)));
-                            console.log('\nexecResult.id= '+execResult.id);
-                            console.dir(formdata.executors.list);
                             Object.assign(formdata.executors.list.find(execList => execList.id === parseInt(execResult.id)), result);
+                        });
+
+                        executorsToNotifyList.forEach((executor) => {
+                            console.log('\nexecutor.executorName= '+executor.executorName+'\nexecutorEmail= '+executor.email);
+                            executor.emailSent = true;
                         });
 
                         formdata.executors.list = executorsWrapper.removeExecutorIds();
