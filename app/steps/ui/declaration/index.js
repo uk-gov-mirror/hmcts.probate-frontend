@@ -243,8 +243,10 @@ class Declaration extends ValidationStep {
     nextStepOptions(ctx) {
         ctx.hasDataChangedAfterEmailSent = ctx.hasDataChanged && ctx.invitesSent;
         ctx.hasEmailChanged = ctx.executorsEmailChanged && ctx.invitesSent;
+        console.log('executorsEmailChanged= ' + ctx.executorsEmailChanged);
+        console.log('invitesSent= ' + ctx.invitesSent);
         console.log('hasEmailChanged= ' + ctx.hasEmailChanged);
-        console.log('hasExecutorsToNotify= ' + ctx.hasExecutorsToNotify);
+        ctx.hasExecutorsToNotify = false;
         return {
             options: [
                 {key: 'hasExecutorsToNotify', value: true, choice: 'sendAdditionalInvites'},
@@ -273,7 +275,6 @@ class Declaration extends ValidationStep {
 
         delete ctx.executorsWrapper;
         delete ctx.hasDataChanged;
-        delete ctx.hasExecutorsToNotify;
         delete ctx.executorsEmailChanged;
         delete ctx.hasDataChangedAfterEmailSent;
         delete ctx.invitesSent;

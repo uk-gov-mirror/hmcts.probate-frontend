@@ -53,6 +53,7 @@ class ExecutorContactDetails extends ValidationStep {
 
         if (ctx.email !== executor.email && executor.emailSent) {
             executor.emailChanged = true;
+            executor.emailSent = false;
         }
 
         ctx.executorsEmailChanged = executorsWrapper.hasExecutorsEmailChanged();

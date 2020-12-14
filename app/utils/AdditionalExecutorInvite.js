@@ -37,21 +37,18 @@ class AdditionalExecutorInvite {
                         logger.error(`Error while sending executor email invites: ${result}`);
                         throw new ReferenceError('Error while sending co-applicant invitation emails.');
                     } else {
-                        console.dir(executorsToNotifyList);
-                        executorsToNotifyList.forEach((executor) => {
-                            console.log('\nexecutor.executorName= '+executor.executorName+'\nexecutorEmail= '+executor.email);
-                        });
                         result.invitations.forEach((execResult) => {
                             console.log('\nexecResult= '+execResult+'\nexecResult.inviteId= '+execResult.inviteId);
                             const result = {
                                 inviteId: execResult.inviteId,
                                 emailSent: true
                             };
-                            console.log('\nresult.inviteId= '+result.inviteId+'\nresult.emailSent= '+result.emailSent+'\nformdata.executors.list= '+formdata.executors.list);
-                            console.log('Checking if undefined: ' + formdata.executors.list.find(execList => execList.id === execResult.id));
-                            console.log('\nexecResult.id= '+execResult.id);
-                            console.dir(formdata.executors.list);
-                            Object.assign(formdata.executors.list.find(execList => execList.id === execResult.id), result);
+                            Object.assign(formdata.executors.list.find(execList => execList.id === parseInt(execResult.id)), result);
+                        });
+
+                        executorsToNotifyList.forEach((executor) => {
+                            console.log('\nexecutor.executorName= '+executor.executorName+'\nexecutorEmail= '+executor.email);
+                            executor.emailSent = true;
                         });
 
                         formdata.executors.list = executorsWrapper.removeExecutorIds();
