@@ -87,7 +87,6 @@ router.use((req, res, next) => {
 
     if (hasMultipleApplicants && invitesSent && applicantHasDeclared) {
         const allExecutorsAgreed = new AllExecutorsAgreed(config.services.orchestrator.url, req.sessionID);
-
         if (req.userLoggedIn) {
             allExecutorsAgreed.get(req.authToken, req.session.serviceAuthorization, ccdCaseId)
                 .then(data => {

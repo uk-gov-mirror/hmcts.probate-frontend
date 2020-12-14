@@ -58,7 +58,6 @@ class ExecutorContactDetails extends ValidationStep {
         if (ctx.email !== executor.email && executor.emailSent) {
             console.log('FIRING--------------------\n---------------');
             executor.emailChanged = true;
-            executor.emailSent = false;
         }
 
         ctx.executorsEmailChanged = executorsWrapper.hasExecutorsEmailChanged();
