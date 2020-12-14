@@ -68,9 +68,9 @@ class JSWait extends codecept_helper {
 
             // browserName !== 'internet explorer' &&  removed
             if (browserName !== 'MicrosoftEdge') {
-                await helper.waitForVisible('#addressLine1', 5000);
+                await helper.waitForVisible('#postcode');
                 await helper.click('.govuk-details__summary-text');
-                await helper.waitForVisible('#addressLine1', 5000);
+                await helper.waitForVisible('#addressLine1');
             }
 
             await helper.fillField('#addressLine1', 'test address for deceased line 1');
