@@ -97,11 +97,11 @@ class Executors {
     }
 
     hasExecutorsEmailChanged() {
-        return this.executorsList.some(executor => executor.isApplying && !executor.isApplicant && !executor.emailSent);
+        return this.executorsList.some(executor => executor.emailChanged);
     }
 
     executorsEmailChangedList() {
-        return this.executorsList.filter(executor => executor.isApplying && !executor.isApplicant && !executor.emailSent);
+        return this.executorsList.filter(executor => executor.emailChanged);
     }
 
     hasExecutorsToNotify() {
