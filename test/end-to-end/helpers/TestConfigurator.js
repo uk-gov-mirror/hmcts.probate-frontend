@@ -32,7 +32,6 @@ class TestConfigurator {
 
     async initLaunchDarkly() {
         this.launchDarkly = await new LaunchDarkly();
-        await this.launchDarkly.initialise();
     }
 
     async getBefore() {
