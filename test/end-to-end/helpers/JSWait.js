@@ -1,7 +1,7 @@
 class JSWait extends codecept_helper {
 
     _beforeStep(step) {
-        const helper = this.helpers.WebDriverIO || this.helpers.Puppeteer;
+        const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
 
         // Wait for content to load before checking URL
         if (step.name === 'seeCurrentUrlEquals' || step.name === 'seeInCurrentUrl') {
@@ -10,7 +10,7 @@ class JSWait extends codecept_helper {
     }
 
     async navByClick (text, locator, webDriverWait) {
-        const helper = this.helpers.WebDriverIO || this.helpers.Puppeteer;
+        const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
         if (helperIsPuppeteer) {
@@ -28,7 +28,7 @@ class JSWait extends codecept_helper {
     }
 
     async amOnLoadedPage (url) {
-        const helper = this.helpers.WebDriverIO || this.helpers.Puppeteer;
+        const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
         if (helperIsPuppeteer) {
@@ -47,7 +47,7 @@ class JSWait extends codecept_helper {
     }
 
     async enterAddress() {
-        const helper = this.helpers.WebDriverIO || this.helpers.Puppeteer;
+        const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
         const page = helper.page;
 
@@ -64,26 +64,26 @@ class JSWait extends codecept_helper {
                 document.querySelector('#newPostCode').value = 'postcode';
             });
         } else {
-            const browserName = this.helpers.WebDriverIO.config.browser;
+            const browserName = this.helpers.WebDriver.config.browser;
 
             // browserName !== 'internet explorer' &&  removed
             if (browserName !== 'MicrosoftEdge') {
-                await helper.browser.waitForVisible('#addressLine1', 5000, true); // true - means wait for element to be Invisible!
-                await helper.browser.click('.govuk-details__summary-text');
-                await helper.browser.waitForVisible('#addressLine1', 5000, false);
+                await helper.waitForVisible('#postcode');
+                await helper.click('.govuk-details__summary-text');
+                await helper.waitForVisible('#addressLine1');
             }
 
-            await helper.browser.setValue('#addressLine1', 'test address for deceased line 1');
-            await helper.browser.setValue('#addressLine2', 'test address for deceased line 2');
-            await helper.browser.setValue('#addressLine3', 'test address for deceased line 3');
-            await helper.browser.setValue('#postTown', 'test address for deceased town');
-            await helper.browser.setValue('#newPostCode', 'postcode');
+            await helper.fillField('#addressLine1', 'test address for deceased line 1');
+            await helper.fillField('#addressLine2', 'test address for deceased line 2');
+            await helper.fillField('#addressLine3', 'test address for deceased line 3');
+            await helper.fillField('#postTown', 'test address for deceased town');
+            await helper.fillField('#newPostCode', 'postcode');
         }
     }
 
     async checkPageUrl(pageUnderTestClass, redirect) {
         // optimisation - don't need to do this for puppeteer
-        const helper = this.helpers.WebDriverIO;
+        const helper = this.helpers.WebDriver;
         if (helper) {
             const pageUnderTest = require(pageUnderTestClass);
             const url = redirect ? pageUnderTest.getUrl(redirect) : pageUnderTest.getUrl();
