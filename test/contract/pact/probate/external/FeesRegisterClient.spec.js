@@ -4,7 +4,7 @@
 const path = require('path');
 const chai = require('chai');
 const {Pact, Matchers} = require('@pact-foundation/pact');
-const {somethingLike: term} = Matchers;
+const {somethingLike, like} = Matchers;
 const chaiAsPromised = require('chai-as-promised');
 const FeeLookupClient = require('app/services/FeesLookup');
 const config = require('config');
@@ -48,6 +48,12 @@ describe('Pact FeesRegisterClient', () => {
         jurisdiction2: 'probate registry',
         service: 'probate'
     };
+    const feeResponseBodyExpectation = {
+        fee_amount: like(99.00),
+        code: somethingLike('FEE0388'),
+        description: somethingLike('Originating proceedings where no other fee is specified'),
+        version: like(1),
+    };
 
     // Setup a Mock Server before unit tests run.
     // This server acts as a Test Double for the real Provider API.
@@ -74,7 +80,7 @@ describe('Pact FeesRegisterClient', () => {
                     uponReceiving: 'a request to GET a fee',
                     withRequest: {
                         method: 'GET',
-                        path: '/fees/lookup',
+                        path: '/fee-register/fees/lookup',
                         query: 'amount_or_volume=2500000&applicant_type=personal&channel=default&event=issue&jurisdiction1=family&jurisdiction2=probate+registry&service=probate',
                         headers: {
                             'Content-Type': 'application/json',
@@ -85,18 +91,13 @@ describe('Pact FeesRegisterClient', () => {
                     willRespondWith: {
                         status: 200,
                         headers: {'Content-Type': 'application/json; charset=UTF-8'},
-                        body: {
-                            fee_amount: term({generate: 250, matcher: '^[0-9]*$'}),
-                            code: term({generate: 'FEE0388'}),
-                            description: term({generate: 'Originating proceedings where no other fee is specified'}),
-                            version: term({generate: 1, matcher: '^[0-9]*$'})
-                        }
+                        body: feeResponseBodyExpectation
                     }
                 })
             );
 
             it('successfully returns fee', (done) => {
-                const feeLookupClient = new FeeLookupClient('http://localhost:' + MOCK_SERVER_PORT, ctx.sessionID);
+                const feeLookupClient = new FeeLookupClient('http://localhost:' + MOCK_SERVER_PORT + '/fee-register', ctx.sessionID);
                 headers = {
                     authToken: ctx.authToken
                 };
