@@ -9,7 +9,7 @@ const git = require('git-rev-sync');
 
 const opts = {
     pactFilesOrDirs: [path.resolve(process.cwd(), config.services.pact.pactDirectory)],
-    pactBroker: config.services.pact.url,
+    pactBroker: config.pact.pactBrokerUrl,
     consumerVersion: git.short(),
     tags: config.services.pact.tag || 'Dev'
 };

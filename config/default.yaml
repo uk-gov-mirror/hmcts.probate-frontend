@@ -32,6 +32,8 @@ health:
   service_name: 'Apply for Probate'
   timeout: 5000
   deadline: 15000
+pact:
+  pactBrokerUrl: 'http://localhost:80'
 services:
   postcode:
     name: 'Postcode Lookup Service'
