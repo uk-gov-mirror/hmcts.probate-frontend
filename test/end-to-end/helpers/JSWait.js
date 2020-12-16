@@ -25,7 +25,7 @@ class JSWait extends codecept_helper {
         await helper.wait(webDriverWait);
     }
 
-    async amOnLoadedPage (url) {
+    async amOnLoadedPage(url) {
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
@@ -81,13 +81,13 @@ class JSWait extends codecept_helper {
             const pageUnderTest = require(pageUnderTestClass);
             const url = redirect ? pageUnderTest.getUrl(redirect) : pageUnderTest.getUrl();
             try {
-                await helper.waitUrlEquals(url, 120);
+                await helper.waitInUrl(url, 60);
             } catch (e) {
                 try {
                     // ok I know its weird invoking this when we know this can't be the url,
                     // but this may give us more information
-                    console.info('Invoking seeCurrentUrlEquals for more info on incorrect url');
-                    await helper.seeCurrentUrlEquals(url);
+                    console.info('Invoking seeInCurrentUrl for more info on incorrect url');
+                    await helper.seeInCurrentUrl(url);
                     throw e;
                 } catch (e2) {
                     throw e;
