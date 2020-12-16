@@ -1,4 +1,5 @@
 #!groovy
+import uk.gov.hmcts.contino.AppPipelineDsl
 
 @Library("Infrastructure") _
 
@@ -114,6 +115,12 @@ withPipeline("nodejs", product, component) {
       alwaysLinkToLastBuild: true
     ]
   }
+
+    onMaster() {
+        enablePactAs([
+                AppPipelineDsl.PactRoles.CONSUMER
+        ])
+    }
 
     onPR() {
         enablePactAs([
