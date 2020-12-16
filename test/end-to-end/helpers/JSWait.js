@@ -9,7 +9,7 @@ class JSWait extends codecept_helper {
         }
     }
 
-    async navByClick (text, locator, webDriverWait) {
+    async navByClick(text, locator = null, webDriverWait = 2) {
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
@@ -21,10 +21,8 @@ class JSWait extends codecept_helper {
             return;
         }
         // non Puppeteer
-        return Promise.all([
-            locator ? helper.click(text, locator) : helper.click(text),
-            helper.wait(webDriverWait ? webDriverWait : 3)
-        ]);
+        await helper.click(text, locator);
+        await helper.wait(webDriverWait);
     }
 
     async amOnLoadedPage (url) {
