@@ -11,13 +11,14 @@ The Frontend Application uses Orchestrator to route specific requests to the und
 - [Node.js](nodejs.org) >= 12.5.0
 - [yarn](yarnpkg.com)
 
+If on Windows 10 follow setup instructions here: https://tools.hmcts.net/confluence/pages/viewpage.action?pageId=1457316967
+
 ### Installation
 
 Install dependencies by executing the following command:
 ```
 $ yarn install
 ```
-
 Compile SASS stylesheets by running the following command:
 ```
 $ yarn setup
@@ -98,8 +99,12 @@ For accessibility tests:
 For test coverage:
 `$ yarn test:coverage`
 
-For e2e tests:
+For e2e tests (non launch darkly):
 `$ yarn test-e2e`
+
+For e2e tests (launch darkly):
+`$ yarn test-e2e`
+
 
 For contact tests:
 `$ ADDRESS_TOKEN=xyz yarn test-contract`

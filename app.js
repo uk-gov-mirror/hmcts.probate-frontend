@@ -18,7 +18,9 @@ const packageJson = require(`${__dirname}/package`);
 const Security = require(`${__dirname}/app/components/security`);
 const helmet = require('helmet');
 const csrf = require('csurf');
-const healthcheck = require(`${__dirname}/app/healthcheck`);
+const healthcheck = require('@hmcts/nodejs-healthcheck');
+const healthOptions = require('app/utils/healthOptions');
+const os = require('os');
 const declaration = require(`${__dirname}/app/declaration`);
 const InviteSecurity = require(`${__dirname}/app/invite`);
 const additionalInvite = require(`${__dirname}/app/routes/additionalInvite`);
@@ -26,14 +28,15 @@ const updateInvite = require(`${__dirname}/app/routes/updateinvite`);
 const fs = require('fs');
 const https = require('https');
 const appInsights = require('applicationinsights');
-const uuidv4 = require('uuid/v4');
-const nonce = uuidv4();
+const {v4: uuidv4} = require('uuid');
+const nonce = uuidv4().replace(/-/g, '');
 const EligibilityCookie = require('app/utils/EligibilityCookie');
 const eligibilityCookie = new EligibilityCookie();
 const caseTypes = require('app/utils/CaseTypes');
 const featureToggles = require('app/featureToggles');
 const sanitizeRequestBody = require('app/middleware/sanitizeRequestBody');
 const isEmpty = require('lodash').isEmpty;
+const FormatUrl = require('app/utils/FormatUrl');
 
 exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const app = express();
@@ -127,11 +130,14 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'www.googletagmanager.com',
                 'vcc-eu4.8x8.com',
                 'vcc-eu4b.8x8.com',
-                `'nonce-${nonce}'`
+                `'nonce-${nonce}'`,
+                'tagmanager.google.com'
             ],
             connectSrc: [
                 '\'self\'',
-                'www.google-analytics.com'
+                'www.google-analytics.com',
+                'stats.g.doubleclick.net',
+                'tagmanager.google.com'
             ],
             mediaSrc: [
                 '\'self\''
@@ -148,7 +154,8 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'vcc-eu4.8x8.com',
                 'vcc-eu4b.8x8.com',
                 'ssl.gstatic.com',
-                'www.gstatic.com'
+                'www.gstatic.com',
+                'lh3.googleusercontent.com'
             ],
             styleSrc: [
                 '\'self\'',
@@ -218,6 +225,21 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         store: utils.getStore(config.redis, session, config.app.session.ttl)
     }));
 
+    // health
+    const healthCheckConfig = {
+        checks: {
+            [config.services.validation.name]: healthcheck.web(FormatUrl.format(config.services.validation.url, config.endpoints.health), healthOptions),
+            [config.services.orchestrator.name]: healthcheck.web(FormatUrl.format(config.services.orchestrator.url, config.endpoints.health), healthOptions),
+        },
+        buildInfo: {
+            name: config.health.service_name,
+            host: os.hostname(),
+            uptime: process.uptime(),
+        },
+    };
+
+    healthcheck.addTo(app, healthCheckConfig);
+
     app.use((req, res, next) => {
         if (!req.session) {
             return next(new Error('Unable to reach redis'));
@@ -285,7 +307,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
 
     app.get('/executors/invitation/:inviteId', inviteSecurity.verify());
     app.use('/co-applicant-*', inviteSecurity.checkCoApplicant(useIDAM));
-    app.use(healthcheck);
     app.use('/executors-additional-invite', additionalInvite);
     app.use('/executors-update-invite', updateInvite);
     app.use('/declaration', declaration);
@@ -331,7 +352,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     // Start the app
     let http;
 
-    if (['development', 'testing'].includes(config.nodeEnvironment)) {
+    if (['development', 'testing', 'testing-unit', 'testing-component'].includes(config.nodeEnvironment)) {
         const sslDirectory = path.join(__dirname, 'app', 'resources', 'localhost-ssl');
         const sslOptions = {
             key: fs.readFileSync(path.join(sslDirectory, 'localhost.key')),
@@ -340,7 +361,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         const server = https.createServer(sslOptions, app);
 
         http = server.listen(port, () => {
-            console.log(`Application started: http://localhost:${port}`);
+            console.log(`Application started: https://localhost:${port}`);
         });
     } else {
         http = app.listen(port, () => {
