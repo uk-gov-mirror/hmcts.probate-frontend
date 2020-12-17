@@ -6,9 +6,9 @@ const path = require('path');
 const pact = require('@pact-foundation/pact-node');
 const config = require('config');
 const git = require('git-rev-sync');
-const certPactPath = path.resolve(process.cwd(), 'pactCert');
-console.log(certPactPath);
-process.env.SSL_CERT_DIR = certPactPath;
+const certPath = path.resolve(__dirname, '../pactCertificate.crt');
+console.log(certPath);
+process.env.SSL_CERT_FILE = certPath;
 
 const opts = {
     pactFilesOrDirs: [path.resolve(process.cwd(), config.services.pact.pactDirectory)],
