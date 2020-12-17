@@ -9,6 +9,7 @@ const initSteps = require('app/core/initSteps');
 const {endsWith, merge} = require('lodash');
 const commonContentEn = require('app/resources/en/translation/common');
 const commonContentCy = require('app/resources/cy/translation/common');
+
 const languages = ['en', 'cy'];
 const caseTypes = require('app/utils/CaseTypes');
 
@@ -31,13 +32,9 @@ const commonSessionData = {
     back: []
 };
 
-let stepNum = 0;
-
 Object.keys(steps)
     .filter(stepName => stepsToExclude.includes(stepName))
     .forEach((stepName) => delete steps[stepName]);
-
-const numSteps = Object.keys(steps).length;
 
 const runTests = (language ='en') => {
 
@@ -91,6 +88,7 @@ const runTests = (language ='en') => {
             describe(`Verify accessibility for the page ${step.name} - ${language}`, () => {
                 let server = null;
                 let agent = null;
+                // eslint-disable-next-line no-unused-vars
                 let httpTerminator = null;
                 let title;
                 const commonContent = language === 'en' ? commonContentEn : commonContentCy;
@@ -128,15 +126,15 @@ const runTests = (language ='en') => {
                         });
                 });
 
-                after(async () => {
+                after(function (done) {
                     nock.cleanAll();
-                    await httpTerminator.terminate();
-                    stepNum += 1;
+                    server.http.close();
+                    done();
                 });
 
                 it('should not generate any errors', () => {
                     const errors = results.issues.filter((res) => res.type === 'error');
-
+                    expect(results.documentTitle).to.equal(results.documentTitle);
                     expect(errors.length).to.equal(0, JSON.stringify(errors, null, 2));
                 });
 
@@ -150,20 +148,6 @@ const runTests = (language ='en') => {
     }
 
 };
-
-/*
-setTimeout(function () {
-    log(); // logs out active handles that are keeping node running
-  }, 240000);
-*/
-
-// npm co component is hanging onto something that is stopping process from completing
-setInterval(() => {
-    if (stepNum >= numSteps) {
-        // eslint-disable-next-line no-process-exit
-        process.exit();
-    }
-}, 10000);
 
 languages.forEach(language => {
     runTests(language);
