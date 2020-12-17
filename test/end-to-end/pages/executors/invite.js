@@ -6,5 +6,6 @@ module.exports = async function() {
     const I = this;
 
     await I.checkPageUrl('app/steps/ui/executors/invite');
+    await I.waitForText(content.title);
     await I.navByClick(content.sendInvites);
 };
