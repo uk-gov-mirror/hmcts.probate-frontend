@@ -32,6 +32,11 @@ const commonSessionData = {
     back: []
 };
 
+const warning = ['WCAG2AA.Principle1.Guideline1_3.1_3_1.H48'];
+const excludeWarnings = r => {
+    return !warning.includes(r.code);
+};
+
 Object.keys(steps)
     .filter(stepName => stepsToExclude.includes(stepName))
     .forEach((stepName) => delete steps[stepName]);
@@ -139,7 +144,8 @@ const runTests = (language ='en') => {
                 });
 
                 it('should not generate any warnings', () => {
-                    const warnings = results.issues.filter((res) => res.type === 'warning');
+                    const warnings = results.issues.filter((res) => res.type === 'warning')
+                        .filter(excludeWarnings);
 
                     expect(warnings.length).to.equal(0, JSON.stringify(warnings, null, 2));
                 });
