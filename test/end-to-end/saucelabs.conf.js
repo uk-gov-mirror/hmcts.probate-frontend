@@ -83,8 +83,11 @@ const setupConfig = {
         reporterOptions: {
             'codeceptjs-cli-reporter': {
                 stdout: '-',
-                options:
-                    {steps: true}
+                options: {steps: true}
+            },
+            'mocha-junit-reporter': {
+                stdout: '-',
+                options: {mochaFile: `${testConfig.TestOutputDir}/result.xml`}
             },
             mochawesome: {
                 stdout: testConfig.TestOutputDir + '/console.log',
