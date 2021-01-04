@@ -154,6 +154,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     // Notify additional executors Dealing with estate
     await I.notifyAdditionalExecutors();
+    await I.waitForText(taskListContent.introduction, testConfig.TestWaitForTextToAppear);
 
     //Retrieve the email urls for additional executors
     await I.amOnPage(testConfig.TestInviteIdListUrl);
@@ -171,7 +172,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     for (let i=0; i < idList.ids.length; i++) {
         await I.amOnPage(testConfig.TestInvitationUrl + '/' + idList.ids[i]);
-        // eslint-disable-next-line no-await-in-loop
+        await I.waitForText('Sign in', testConfig.TestWaitForTextToAppear, 'h1');
         await I.amOnPage(testConfig.TestE2EFrontendUrl + '/pin');
         await I.waitForElement('pre');
 
