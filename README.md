@@ -1,4 +1,4 @@
-# Probate Frontend
+# Probate Frontend.
 
 This is the frontend application for the Probate Personal Applicants online service. The service provides a clear interface for citizens, presented as sequence of HTML 5 web pages designed to GDS Service Design guidelines, so that they can apply for Probate online. The service provides functionality for both single and multiple applicant journeys.
 
