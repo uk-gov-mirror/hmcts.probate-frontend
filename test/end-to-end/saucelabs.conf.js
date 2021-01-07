@@ -3,8 +3,8 @@
 const supportedBrowsers = require('../crossbrowser/supportedBrowsers.js');
 const testConfig = require('config');
 
-const waitForTimeout = 60000;
-const smartWait = 10000;
+const waitForTimeout = parseInt(process.env.WAIT_FOR_TIMEOUT) || 45000;
+const smartWait = parseInt(process.env.SMART_WAIT) || 30000;
 const browser = process.env.SAUCELABS_BROWSER || 'chrome';
 const defaultSauceOptions = {
     username: process.env.SAUCE_USERNAME,
@@ -61,12 +61,15 @@ const setupConfig = {
         },
         JSWait: {
             require: './helpers/JSWait.js'
+        },
+        IDAMHelper: {
+            require: './helpers/IDAMHelper.js'
         }
     },
     plugins: {
         retryFailedStep: {
             enabled: true,
-            retries: 2
+            retries: testConfig.TestRetrySteps
         },
         autoDelay: {
             enabled: true,
@@ -106,6 +109,9 @@ const setupConfig = {
         },
         firefox: {
             browsers: getBrowserConfig('firefox')
+        },
+        safari: {
+            browsers: getBrowserConfig('safari')
         }
     },
     name: 'Probate FrontEnd Cross-Browser Tests'
