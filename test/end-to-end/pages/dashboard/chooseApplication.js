@@ -19,7 +19,6 @@ module.exports = async function(language ='en') {
             break;
         }
         await I.refreshPage();
-        await I.wait(3);
     }
     if (language === 'en') {
         await I.waitForText(dashboardContent.header);
