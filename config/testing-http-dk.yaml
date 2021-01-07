@@ -11,7 +11,7 @@ TestIdamLoginUrl: 'http://localhost:3501/login'
 TestIdamRole: 'citizen'
 TestIdamUserGroup: 'caseworker'
 TestOutputDir: './functional-output'
-TestPathToRun: './paths/**/*.test.js'
+TestPathToRun: './paths/**/*.js'
 TestProxy: 'socks5:proxyout.reform.hmcts.net:8080'
 TestRetryFeatures: 2
 TestRetryScenarios: 2

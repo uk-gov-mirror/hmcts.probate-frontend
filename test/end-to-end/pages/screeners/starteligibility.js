@@ -6,7 +6,7 @@ const config = require('config');
 const contentEn = require('app/resources/en/translation/common');
 const contentCy = require('app/resources/cy/translation/common');
 
-module.exports = async function(language, checkCookieBannerExists = false) {
+module.exports = async function(language='en', checkCookieBannerExists = false) {
     const I = this;
     const commonContent = language === 'en' ? contentEn : contentCy;
     await I.amOnLoadedPage(pageUnderTest.getUrl(), language);
