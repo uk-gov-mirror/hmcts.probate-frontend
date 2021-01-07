@@ -2,13 +2,15 @@
 
 const testConfig = require('config');
 const useIdam = testConfig.TestUseIdam;
+const contentEn = require('app/resources/en/translation/common');
 
-module.exports = async function (noScreenerQuestions = false) {
+module.exports = async function (language ='en', noScreenerQuestions = false) {
+
     if (useIdam === 'true') {
         const I = this;
 
         if (noScreenerQuestions) {
-            await I.amOnLoadedPage('/');
+            await I.amOnLoadedPage('/', language);
         }
 
         const locator = {css: 'a[href="/sign-out"]'};
@@ -21,7 +23,7 @@ module.exports = async function (noScreenerQuestions = false) {
         await I.waitForText('Sign in', testConfig.TestWaitForTextToAppear, 'h1');
         await I.fillField('username', process.env.testCitizenEmail);
         await I.fillField('password', process.env.testCitizenPassword);
-
-        await I.navByClick({css: 'input.button[value="Sign in"]'});
+        await I.navByClick(contentEn.signIn);
+        await I.wait(10);
     }
 };

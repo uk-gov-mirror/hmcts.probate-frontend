@@ -1,14 +1,19 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-const content = require('app/resources/en/translation/screeners/willleft');
+const contentEn = require('app/resources/en/translation/common');
+const contentCy = require('app/resources/cy/translation/common');
+const willLeftEn = require('app/resources/en/translation/screeners/willleft');
+const willLeftCy = require('app/resources/cy/translation/screeners/willleft');
 const config = require('config');
+const pageUnderTest = require('app/steps/ui/screeners/willleft');
 
-module.exports = async function(answer) {
+module.exports = async function(language ='en', answer) {
     const I = this;
+    const commonContent = language === 'en' ? contentEn : contentCy;
+    const willLeftContent = language === 'en' ? willLeftEn : willLeftCy;
 
-    await I.checkPageUrl('app/steps/ui/screeners/willleft');
-    await I.waitForText(content.question);
+    await I.seeInCurrentUrl(pageUnderTest.getUrl());
+    await I.waitForText(willLeftContent.question);
     const locator = {css: `#left${answer}`};
     await I.waitForElement(locator, config.TestWaitForElementToAppear);
     await I.click(locator);

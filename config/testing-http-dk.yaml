@@ -10,7 +10,7 @@ TestIdamBaseUrl: 'http://localhost:5000'
 TestIdamLoginUrl: 'http://localhost:3501/login'
 TestIdamRole: 'citizen'
 TestIdamUserGroup: 'caseworker'
-TestOutputDir: './output'
+TestOutputDir: './functional-output'
 TestPathToRun: './paths/**/*.test.js'
 TestProxy: 'socks5:proxyout.reform.hmcts.net:8080'
 TestRetryFeatures: 2

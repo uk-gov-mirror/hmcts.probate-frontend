@@ -1,14 +1,18 @@
 'use strict';
 
 const config = require('config');
-const commonContent = require('app/resources/en/translation/common');
-const content = require('app/resources/en/translation/deceased/diedengorwales');
+const commonContentEn = require('app/resources/en/translation/common');
+const commonContentCy = require('app/resources/cy/translation/common');
+const diedenGorwalesContentEn = require('app/resources/en/translation/deceased/diedengorwales');
+const diedenGorwalesContentCy = require('app/resources/cy/translation/deceased/diedengorwales');
 
-module.exports = async function(answer) {
+module.exports = async function(language = 'en', answer) {
     const I = this;
+    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
+    const diedenGorwalesContent = language === 'en' ? diedenGorwalesContentEn : diedenGorwalesContentCy;
 
     await I.checkPageUrl('app/steps/ui/deceased/diedengorwales');
-    await I.waitForText(content.question, config.TestWaitForTextToAppear);
+    await I.waitForText(diedenGorwalesContent.question, config.TestWaitForTextToAppear);
     const locator = {css: `#diedEngOrWales${answer}`};
     await I.waitForElement(locator);
     await I.click(locator);

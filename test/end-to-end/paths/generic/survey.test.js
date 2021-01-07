@@ -10,4 +10,5 @@ Scenario('Check survey link works', async (I) => {
     // Eligibility Task (pre IdAM)
     await I.startApplication();
     await I.selectDeathCertificate(optionYes, true);
-}).retry(TestConfigurator.getRetryScenarios());
+}).tag('@e2e')
+    .retry(TestConfigurator.getRetryScenarios());

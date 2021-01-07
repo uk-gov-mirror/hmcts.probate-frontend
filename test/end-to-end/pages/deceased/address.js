@@ -1,11 +1,13 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
+const commonContentEn = require('app/resources/en/translation/common');
+const commonContentCy = require('app/resources/cy/translation/common');
+const pageUnderTest = require('app/steps/ui/deceased/address');
 
-module.exports = async function() {
+module.exports = async function(language = 'en') {
     const I = this;
-
-    await I.checkPageUrl('app/steps/ui/deceased/address');
+    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
+    await I.seeInCurrentUrl(pageUnderTest.getUrl());
     await I.enterAddress();
     await I.navByClick(commonContent.saveAndContinue);
 };

@@ -1,11 +1,15 @@
 'use strict';
+const contentEn = 'Payment summary';
+const contentCy = 'Crynodeb o\'r taliad';
 
-module.exports = async function() {
+module.exports = async function(language ='en') {
     const I = this;
+    const commonContent = language === 'en' ? contentEn : contentCy;
 
-    await I.waitForText('Payment summary');
+    if (language === 'en') {
+        await I.waitForText(commonContent);
+    }
     const locator = {css: '#confirm'};
     await I.waitForElement(locator);
-
     await I.navByClick(locator);
 };

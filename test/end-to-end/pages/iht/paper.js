@@ -1,8 +1,11 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
+const commonContentEn = require('app/resources/en/translation/common');
+const commonContentCy = require('app/resources/cy/translation/common');
+const pageUnderTest = require('app/steps/ui/iht/paper');
 
-module.exports = async function(formName, grossAmount, netAmount) {
+module.exports = async function(language ='en', formName, grossAmount, netAmount) {
+    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
     const I = this;
     let option;
 
@@ -17,7 +20,7 @@ module.exports = async function(formName, grossAmount, netAmount) {
         option = '';
     }
 
-    await I.checkPageUrl('app/steps/ui/iht/paper');
+    await I.seeInCurrentUrl(pageUnderTest.getUrl());
     const locator = {css: `#form${option}`};
     await I.waitForElement(locator);
     await I.click(locator);

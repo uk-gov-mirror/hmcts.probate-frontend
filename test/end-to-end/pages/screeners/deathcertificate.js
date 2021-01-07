@@ -1,13 +1,13 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
+const commonContentEn = require('app/resources/en/translation/common');
+const commonContentCy = require('app/resources/cy/translation/common');
+const pageUnderTest = require('app/steps/ui/screeners/deathcertificate');
 
-module.exports = async function(answer, testSurvey = false) {
+module.exports = async function(language ='en', answer, testSurvey = false) {
     const I = this;
-
-    await I.checkPageUrl('app/steps/ui/screeners/deathcertificate');
-    const locator = {css: `#deathCertificate${answer}`};
-    await I.waitForElement(locator);
+    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
+    I.seeInCurrentUrl(pageUnderTest.getUrl());
 
     if (testSurvey) {
         await I.click({css: 'body > div.govuk-width-container > div > p > span > a:nth-child(1)'});
@@ -17,7 +17,6 @@ module.exports = async function(answer, testSurvey = false) {
         await I.closeCurrentTab();
     }
 
-    await I.click(locator);
-
+    await I.retry(2).click(commonContent.yes);
     await I.navByClick(commonContent.continue);
 };
