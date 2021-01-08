@@ -3,8 +3,10 @@
 const testConfig = require('config');
 const useIdam = testConfig.TestUseIdam;
 const contentEn = require('app/resources/en/translation/common');
+const contentCy = require('app/resources/cy/translation/common');
 
 module.exports = async function (language ='en', noScreenerQuestions = false) {
+    const commonContent = language === 'en' ? contentEn : contentCy;
 
     if (useIdam === 'true') {
         const I = this;
@@ -23,6 +25,6 @@ module.exports = async function (language ='en', noScreenerQuestions = false) {
         await I.waitForText('Sign in', testConfig.TestWaitForTextToAppear, 'h1');
         await I.fillField('username', process.env.testCitizenEmail);
         await I.fillField('password', process.env.testCitizenPassword);
-        await I.navByClick(contentEn.signIn);
+        await I.navByClick(commonContent.signIn);
     }
 };
