@@ -12,10 +12,12 @@ module.exports = async function(language = 'en', answer) {
     const diedenGorwalesContent = language === 'en' ? diedenGorwalesContentEn : diedenGorwalesContentCy;
 
     await I.checkPageUrl('app/steps/ui/deceased/diedengorwales');
-    await I.waitForText(diedenGorwalesContent.question, config.TestWaitForTextToAppear);
+    if (language === 'en') {
+        await I.waitForText(diedenGorwalesContent.question, config.TestWaitForTextToAppear);
+    }
+
     const locator = {css: `#diedEngOrWales${answer}`};
     await I.waitForElement(locator);
     await I.click(locator);
-
     await I.navByClick(commonContent.saveAndContinue);
 };

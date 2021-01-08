@@ -11,8 +11,9 @@ module.exports = async function(language ='en', answer) {
     const deathCertTranslationContent = language === 'en' ? deathCertTranslationEn : deathCertTranslationCy;
 
     await I.seeInCurrentUrl(pagePath.getUrl());
-    await I.waitForText(deathCertTranslationContent.question);
-
+    if (language === 'en') {
+        await I.waitForText(deathCertTranslationContent.question);
+    }
     const locator = {css: `#deathCertificateTranslation${answer}`};
     await I.waitForElement(locator);
     await I.click(locator);
