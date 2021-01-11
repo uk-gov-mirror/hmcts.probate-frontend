@@ -2,13 +2,12 @@
 
 const thankYouContentEn = require('app/resources/en/translation/thankyou');
 const thankYouContentCy = require('app/resources/cy/translation/thankyou');
-const pageUnderTest = require('app/steps/ui/thankyou');
 
 module.exports = async function(language ='en') {
     const I = this;
     const thankYouContent = language === 'en' ? thankYouContentEn : thankYouContentCy;
 
-    await I.seeInCurrentUrl(pageUnderTest.getUrl());
+    await I.checkPageUrl('app/steps/ui/thankyou');
     if (language === 'en') {
         await I.waitForText(thankYouContent.header);
     }

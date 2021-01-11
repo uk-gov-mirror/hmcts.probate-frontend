@@ -4,14 +4,13 @@ const contentEn = require('app/resources/en/translation/common');
 const contentCy = require('app/resources/cy/translation/common');
 const ihtCompletedEn = require('app/resources/en/translation/screeners/ihtcompleted');
 const ihtCompletedCy = require('app/resources/cy/translation/screeners/ihtcompleted');
-const pageUnderTest = require('app/steps/ui/screeners/ihtcompleted');
 
 module.exports = async function(language ='en', answer) {
     const I = this;
     const commonContent = language === 'en' ? contentEn : contentCy;
     const ihtCompletedContent = language === 'en' ? ihtCompletedEn : ihtCompletedCy;
 
-    await I.seeInCurrentUrl(pageUnderTest.getUrl());
+    await I.checkPageUrl('app/steps/ui/screeners/ihtcompleted');
     await I.waitForText(ihtCompletedContent.question);
     const locator = {css: `#completed${answer}`};
     await I.waitForElement(locator);

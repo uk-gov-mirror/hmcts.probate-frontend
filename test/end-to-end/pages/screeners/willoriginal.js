@@ -4,14 +4,13 @@ const willOriginalEn = require('app/resources/en/translation/screeners/willorigi
 const willOriginalCy = require('app/resources/cy/translation/screeners/willoriginal');
 const contentEn = require('app/resources/en/translation/common');
 const contentCy = require('app/resources/cy/translation/common');
-const pageUnderTest = require('app/steps/ui/screeners/willoriginal');
 
 module.exports = async function(language ='en', answer) {
     const I = this;
     const commonContent = language === 'en' ? contentEn : contentCy;
     const willOriginalContent = language === 'en' ? willOriginalEn : willOriginalCy;
 
-    await I.seeInCurrentUrl(pageUnderTest.getUrl());
+    await I.checkPageUrl('app/steps/ui/screeners/willoriginal');
     if (language === 'en') {
         await I.waitForText(willOriginalContent.question);
     }

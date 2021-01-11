@@ -4,14 +4,13 @@ const contentEn = require('app/resources/en/translation/common');
 const contentCy = require('app/resources/cy/translation/common');
 const mentalCapacityEn = require('app/resources/en/translation/screeners/mentalcapacity');
 const mentalCapacityCy = require('app/resources/cy/translation/screeners/mentalcapacity');
-const pageUnderTest = require('app/steps/ui/screeners/mentalcapacity');
 
 module.exports = async function(language ='en', answer) {
     const I = this;
     const commonContent = language === 'en' ? contentEn : contentCy;
     const mentalCapacityContent = language === 'en' ? mentalCapacityEn : mentalCapacityCy;
 
-    await I.seeInCurrentUrl(pageUnderTest.getUrl());
+    await I.checkPageUrl('app/steps/ui/screeners/mentalcapacity');
     if (language === 'en') {
         await I.waitForText(mentalCapacityContent.question);
         await I.see(mentalCapacityContent.hintText1);

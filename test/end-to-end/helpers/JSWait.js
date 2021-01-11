@@ -36,7 +36,7 @@ class JSWait extends codecept_helper {
                 newUrl = helper.options.url + newUrl;
             }
 
-            helper.page.goto(newUrl).catch(err => {
+            await helper.page.goto(newUrl).catch(err => {
                 console.error(err.message);
             });
             await helper.page.waitForNavigation({waitUntil: 'networkidle0'});

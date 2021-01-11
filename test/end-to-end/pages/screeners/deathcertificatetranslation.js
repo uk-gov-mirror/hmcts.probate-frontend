@@ -1,7 +1,6 @@
 'use strict';
 const deathCertTranslationEn = require('app/resources/en/translation/screeners/deathcertificatetranslation');
 const deathCertTranslationCy = require('app/resources/cy/translation/screeners/deathcertificatetranslation');
-const pagePath = require('app/steps/ui/screeners/deathcertificatetranslation');
 const contentEn = require('app/resources/en/translation/common');
 const contentCy = require('app/resources/cy/translation/common');
 
@@ -10,7 +9,7 @@ module.exports = async function(language ='en', answer) {
     const commonContent = language === 'en' ? contentEn : contentCy;
     const deathCertTranslationContent = language === 'en' ? deathCertTranslationEn : deathCertTranslationCy;
 
-    await I.seeInCurrentUrl(pagePath.getUrl());
+    await I.checkPageUrl('app/steps/ui/screeners/deathcertificatetranslation');
     if (language === 'en') {
         await I.waitForText(deathCertTranslationContent.question);
     }
