@@ -4,6 +4,7 @@
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const testConfig = require('config');
+const config = require('config');
 
 const optionYes = '';
 const ihtPost = '';
@@ -17,6 +18,7 @@ Feature('Multiple Executors flow - @crossbrowser').retry(TestConfigurator.getRet
 // so we have to tell eslint to not validate these
 // eslint-disable-next-line no-undef
 Before(async () => {
+    await TestConfigurator.initLaunchDarkly();
     await TestConfigurator.getBefore();
 });
 
@@ -28,10 +30,17 @@ After(() => {
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant; Stage 1: Enter deceased and executor details'), async (I) => {
     await I.retry(2).createAUser(TestConfigurator);
 
+    const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
+
     // Eligibility Task (pre IdAM)
     await I.startApplication();
 
     await I.selectDeathCertificate(optionYes);
+
+    if (useNewDeathCertFlow) {
+        await I.selectDeathCertificateInEnglish(optionNo);
+        await I.selectDeathCertificateTranslation(optionYes);
+    }
 
     await I.selectDeceasedDomicile(optionYes);
 
@@ -61,7 +70,14 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     await I.enterDeceasedDateOfDeath('01', '01', '2017');
     await I.enterDeceasedAddress();
 
-    await I.selectDocumentsToUpload(uploadingDocuments);
+    if (useNewDeathCertFlow) {
+        await I.selectDiedEngOrWales(optionNo);
+        await I.selectEnglishForeignDeathCert(optionNo);
+        await I.selectForeignDeathCertTranslation(optionYes);
+    } else {
+        await I.selectDocumentsToUpload(uploadingDocuments);
+    }
+
     await I.selectInheritanceMethod(ihtPost);
 
     if (TestConfigurator.getUseGovPay() === 'true') {
