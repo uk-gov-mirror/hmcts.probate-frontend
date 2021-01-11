@@ -3,7 +3,7 @@
 const supportedBrowsers = require('../crossbrowser/supportedBrowsers.js');
 const testConfig = require('config');
 
-const waitForTimeout = parseInt(process.env.WAIT_FOR_TIMEOUT) || 30000;
+const waitForTimeout = parseInt(process.env.WAIT_FOR_TIMEOUT) || 45000;
 const smartWait = parseInt(process.env.SMART_WAIT) || 30000;
 const browser = process.env.SAUCELABS_BROWSER || 'chrome';
 const defaultSauceOptions = {
@@ -83,8 +83,11 @@ const setupConfig = {
         reporterOptions: {
             'codeceptjs-cli-reporter': {
                 stdout: '-',
-                options:
-                    {steps: true}
+                options: {steps: true}
+            },
+            'mocha-junit-reporter': {
+                stdout: '-',
+                options: {mochaFile: `${testConfig.TestOutputDir}/result.xml`}
             },
             mochawesome: {
                 stdout: testConfig.TestOutputDir + '/console.log',
@@ -98,17 +101,17 @@ const setupConfig = {
         }
     },
     multiple: {
-        microsoftIE11: {
-            browsers: getBrowserConfig('microsoftIE11')
-        },
-        microsoftEdge: {
-            browsers: getBrowserConfig('microsoftEdge')
+        microsoft: {
+            browsers: getBrowserConfig('microsoft')
         },
         chrome: {
             browsers: getBrowserConfig('chrome')
         },
         firefox: {
             browsers: getBrowserConfig('firefox')
+        },
+        safari: {
+            browsers: getBrowserConfig('safari')
         }
     },
     name: 'Probate FrontEnd Cross-Browser Tests'
