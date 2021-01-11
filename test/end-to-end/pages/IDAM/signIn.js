@@ -3,7 +3,7 @@
 const testConfig = require('config');
 const useIdam = testConfig.TestUseIdam;
 
-module.exports = async function (language ='en', noScreenerQuestions = false) {
+module.exports = async function (language, noScreenerQuestions = false) {
     if (useIdam === 'true') {
         const I = this;
 
