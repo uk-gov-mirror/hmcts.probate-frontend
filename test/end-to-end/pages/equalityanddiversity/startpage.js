@@ -11,10 +11,11 @@ module.exports = async function(language ='en') {
 
     // const url = await I.grabCurrentUrl();
     // console.info(`equality url: ${url}`);
-
     // await I.checkPageUrl('app/steps/ui/equality');
     const backButtonLocator = {css: '#back-button'};
     await I.waitForElement(backButtonLocator, config.TestWaitForElementToAppear);
-    await I.waitForText(equalityContent, config.TestWaitForTextToAppear);
+    if (language === 'en') {
+        await I.waitForText(equalityContent, config.TestWaitForTextToAppear);
+    }
     await I.navByClick(backButtonLocator);
 };

@@ -12,10 +12,12 @@ module.exports = async function(language = 'en', answer) {
     const ihtContent = language === 'en' ? contentEn : contentCy;
 
     await I.checkPageUrl('app/steps/ui/iht/method');
-    await I.waitForText(ihtContent.question, config.TestWaitForTextToAppear);
+    if (language ==='en') {
+        await I.waitForText(ihtContent.question, config.TestWaitForTextToAppear);
+    }
+
     const locator = {css: `#method${answer}`};
     await I.waitForElement(locator);
     await I.click(locator);
-
     await I.navByClick(commonContent.saveAndContinue);
 };
