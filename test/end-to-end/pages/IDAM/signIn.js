@@ -2,9 +2,9 @@
 
 const testConfig = require('config');
 const useIdam = testConfig.TestUseIdam;
+const contentEn = require('app/resources/en/translation/common');
 
 module.exports = async function (language ='en', noScreenerQuestions = false) {
-
     if (useIdam === 'true') {
         const I = this;
 
@@ -20,6 +20,6 @@ module.exports = async function (language ='en', noScreenerQuestions = false) {
         }
         await I.fillField('username', process.env.testCitizenEmail);
         await I.fillField('password', process.env.testCitizenPassword);
-        await I.navByClick({css: 'input.button[value="Sign in"]'});
+        await I.navByClick(contentEn.signIn);
     }
 };
