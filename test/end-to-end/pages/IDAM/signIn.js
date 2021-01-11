@@ -11,6 +11,7 @@ module.exports = async function (noScreenerQuestions = false) {
             await I.amOnLoadedPage('/');
         }
 
+        await I.wait(3);
         const locator = {css: 'a[href="/sign-out"]'};
         const numEls = await I.grabNumberOfVisibleElements(locator);
         if (numEls > 0) {
