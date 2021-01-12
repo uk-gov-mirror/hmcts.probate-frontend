@@ -73,5 +73,10 @@
   "helpAllAgentsBusy": "All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways above.",
   "helpChatClosed": "Web chat is now closed. Opening hours are {chatOpeningHours}",
   "helpChatAlreadyOpen": "A web chat window is already open.",
-  "helpChatOpeningHours": "Monday to Friday, 8:00am to 8:00pm. Saturday, 8:00am to 2:00pm."
+  "helpChatOpeningHours": "Monday to Friday, 8:00am to 8:00pm. Saturday, 8:00am to 2:00pm.",
+  "continueToQuestions": "Continue to the questions",
+  "preferNotToSay": "Prefer not to say",
+  "equalityQuestions": "Equality and diversity questions",
+  "continueNextSteps": "Continue to the next steps"
 }
+

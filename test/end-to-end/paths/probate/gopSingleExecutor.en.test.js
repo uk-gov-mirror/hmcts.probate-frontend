@@ -111,8 +111,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/i
 
     // Skip Equality and Diversity questions
     if (TestConfigurator.equalityAndDiversityEnabled()) {
-        await I.exitEqualityAndDiversity();
-        await I.completeEqualityAndDiversity();
+        await I.completePCQ();
     }
 
     // Review and Confirm Task
