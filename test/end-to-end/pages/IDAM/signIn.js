@@ -2,8 +2,9 @@
 
 const testConfig = require('config');
 const useIdam = testConfig.TestUseIdam;
+const welshLink = 'Cymraeg';
 
-module.exports = async function (language, noScreenerQuestions = false) {
+module.exports = async function (language ='en', noScreenerQuestions = false) {
     if (useIdam === 'true') {
         const I = this;
 
@@ -16,6 +17,11 @@ module.exports = async function (language, noScreenerQuestions = false) {
         if (numEls > 0) {
             await I.navByClick(locator);
             await I.navByClick({css: 'a[href="/dashboard"]'});
+        }
+        const idamEnglishPage = await I.checkForText(welshLink, 2);
+        if (language ==='cy' && idamEnglishPage) {
+            console.log('inside Method   ');
+            await I.click(welshLink);
         }
         await I.fillField('username', process.env.testCitizenEmail);
         await I.fillField('password', process.env.testCitizenPassword);

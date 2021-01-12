@@ -11,7 +11,7 @@ const uploadingDocuments = false;
 const config = require('config');
 const languages = ['en', 'cy'];
 
-Feature('GOP-Single Executor').retry(TestConfigurator.getRetryFeatures());
+Feature('GOP-Single Executor').retry(1);
 
 languages.forEach(language => {
 
@@ -144,7 +144,7 @@ languages.forEach(language => {
         // Thank You
         await I.seeThankYouPage(language);
     }).tag('@e2e')
-        .retry(2);
+        .retry(1);
 
     Before(async () => {
         await TestConfigurator.initLaunchDarkly();

@@ -2,19 +2,17 @@
 'use strict';
 
 const contentEn = require('app/resources/en/translation/tasklist');
-const contentCy = require('app/resources/cy/translation/tasklist');
 const testConfig = require('config');
 
 module.exports = async function (language ='en') {
     const I = this;
-    const commonContent = language === 'en' ? contentEn : contentCy;
     await I.checkPageUrl('app/steps/ui/tasklist');
 
     // we do need to allow refreshing the page here as it takes time to populate ccd, and storing data in the ccd
     // database gives a success before is actually populated, so is async.
     if (language === 'en') {
         for (let i = 0; i <= 5; i++) {
-            const result = await I.waitForText(commonContent.introduction, testConfig.TestWaitForTextToAppear);
+            const result = await I.waitForText(contentEn.introduction, testConfig.TestWaitForTextToAppear);
             if (result === true) {
                 break;
             }
