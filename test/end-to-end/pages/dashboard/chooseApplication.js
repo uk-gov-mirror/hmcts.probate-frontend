@@ -27,7 +27,15 @@ module.exports = async function(language) {
         await I.see(dashboardContent.tableHeaderCaseStatus);
         await I.navByClick(dashboardContent.actionContinue);
     } else {
-        await I.amOnLoadedPage('/', language);
+        console.log('refreshing the page');
+        for (let i = 0; i <= 5; i++) {
+            await I.amOnLoadedPage('/', language);
+            const result = await I.checkForText(dashboardContent.actionContinue);
+            if (result === true) {
+                break;
+            }
+            await I.refreshPage();
+        }
         await I.navByClick(dashboardContent.actionContinue);
     }
 
