@@ -8,6 +8,7 @@ const {somethingLike, like} = Matchers;
 const chaiAsPromised = require('chai-as-promised');
 const FeeLookupClient = require('app/services/FeesLookup');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
+const setupSecrets = require('app/setupSecrets');
 const config = require('config');
 const getPort = require('get-port');
 const assert = chai.assert;
@@ -19,6 +20,7 @@ let ftNewFeeEnabled;
 // so we have to tell eslint to not validate these
 // eslint-disable-next-line no-undef
 before(async () => {
+    setupSecrets();
     console.log('Launch Darkly Key ' + config.featureToggles.launchDarklyKey);
     await TestConfigurator.initLaunchDarkly();
     await TestConfigurator.getBefore();
