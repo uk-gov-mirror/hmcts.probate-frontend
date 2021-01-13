@@ -4,6 +4,7 @@
 const dashboardEn = require('app/resources/en/translation/dashboard');
 const dashboardCy = require('app/resources/cy/translation/dashboard');
 const testConfig = require('config');
+const pageUnderTest = require('app/steps/ui/dashboard');
 
 module.exports = async function(language ='en') {
     const I = this;
@@ -28,11 +29,11 @@ module.exports = async function(language ='en') {
         await I.see(dashboardContent.tableHeaderCaseStatus);
         await I.navByClick(dashboardContent.actionContinue);
     } else {
-        await I.navByClick(dashboardEn.actionContinue);
-        await I.wait(5);
-        await I.waitForText('Cymraeg');
-        await I.click('Cymraeg');
-        await I.wait(5);
+        await I.amOnLoadedPage(pageUnderTest.getUrl(), language);
+        console.log('Welsh Dashboard Page');
+        await I.wait(3);
+        await I.navByClick(dashboardContent.actionContinue);
+        await I.wait(3);
     }
 
 };

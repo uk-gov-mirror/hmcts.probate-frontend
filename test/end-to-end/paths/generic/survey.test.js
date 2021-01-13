@@ -13,5 +13,5 @@ Scenario('Check survey link works', async (I) => {
     await I.startApplication(language);
     await I.selectDeathCertificate(language, optionYes, true);
 
-}).tag('@Test99')
+}).tag('@e2e')
     .retry(TestConfigurator.getRetryScenarios());
