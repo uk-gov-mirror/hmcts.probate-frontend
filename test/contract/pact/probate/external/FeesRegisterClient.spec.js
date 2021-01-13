@@ -19,6 +19,7 @@ let ftNewFeeEnabled;
 // so we have to tell eslint to not validate these
 // eslint-disable-next-line no-undef
 before(async () => {
+    console.log('Launch Darkly Key ' + config.featureToggles.launchDarklyKey);
     await TestConfigurator.initLaunchDarkly();
     await TestConfigurator.getBefore();
     ftNewFeeEnabled = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_newfee_register_code);
