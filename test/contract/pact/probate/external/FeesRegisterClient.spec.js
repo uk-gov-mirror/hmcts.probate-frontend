@@ -7,14 +7,29 @@ const {Pact, Matchers} = require('@pact-foundation/pact');
 const {somethingLike, like} = Matchers;
 const chaiAsPromised = require('chai-as-promised');
 const FeeLookupClient = require('app/services/FeesLookup');
+const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const config = require('config');
 const getPort = require('get-port');
 const assert = chai.assert;
 chai.use(chaiAsPromised);
 let headers;
+let ftNewFeeEnabled;
+
+// eslint complains that the Before/After are not used but they are by codeceptjs
+// so we have to tell eslint to not validate these
+// eslint-disable-next-line no-undef
+before(async () => {
+    await TestConfigurator.initLaunchDarkly();
+    await TestConfigurator.getBefore();
+    ftNewFeeEnabled = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_newfee_register_code);
+});
+
+// eslint-disable-next-line no-undef
+after(() => {
+    TestConfigurator.getAfter();
+});
 
 describe('Pact FeesRegisterClient', () => {
-
     let MOCK_SERVER_PORT;
     let provider;
     getPort().then(portNumber => {
@@ -48,6 +63,16 @@ describe('Pact FeesRegisterClient', () => {
         jurisdiction2: 'probate registry',
         service: 'probate'
     };
+    const issuesDataWithKeyWord = {
+        amount_or_volume: 2500000,
+        applicant_type: 'personal',
+        channel: 'default',
+        event: 'issue',
+        jurisdiction1: 'family',
+        jurisdiction2: 'probate registry',
+        service: 'probate',
+        keyword: 'PA'
+    };
     const feeResponseBodyExpectation = {
         fee_amount: like(99.00),
         code: somethingLike('FEE0388'),
@@ -71,6 +96,16 @@ describe('Pact FeesRegisterClient', () => {
     // what we've asked for (and is what gets captured in the contract)
     afterEach(() => provider.verify());
 
+    function getQueryParams(ftNewFeeEnabled) {
+        let queryParams;
+        if (ftNewFeeEnabled) {
+            queryParams = 'amount_or_volume=2500000&applicant_type=personal&channel=default&event=issue&jurisdiction1=family&jurisdiction2=probate+registry&service=probate&keyword=PA';
+        } else {
+            queryParams = 'amount_or_volume=2500000&applicant_type=personal&channel=default&event=issue&jurisdiction1=family&jurisdiction2=probate+registry&service=probate';
+        }
+        return queryParams;
+    }
+
     describe('when a request for a Fee', () => {
         describe('is required from a GET', () => {
             before(() =>
@@ -81,7 +116,7 @@ describe('Pact FeesRegisterClient', () => {
                     withRequest: {
                         method: 'GET',
                         path: '/fee-register/fees/lookup',
-                        query: 'amount_or_volume=2500000&applicant_type=personal&channel=default&event=issue&jurisdiction1=family&jurisdiction2=probate+registry&service=probate',
+                        query: getQueryParams(ftNewFeeEnabled),
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': ctx.authToken,
@@ -101,7 +136,12 @@ describe('Pact FeesRegisterClient', () => {
                 headers = {
                     authToken: ctx.authToken
                 };
-                const verificationPromise = feeLookupClient.get(issuesData, headers);
+                let verificationPromise;
+                if (ftNewFeeEnabled) {
+                    verificationPromise = feeLookupClient.get(issuesDataWithKeyWord, headers);
+                } else {
+                    verificationPromise = feeLookupClient.get(issuesData, headers);
+                }
                 assert.eventually.ok(verificationPromise).notify(done);
             });
         });
