@@ -11,7 +11,7 @@ const uploadingDocuments = false;
 const config = require('config');
 const languages = ['en', 'cy'];
 
-Feature('GOP-Single Executor').retry(1);
+Feature('GOP-Single Executor').retry(2);
 
 languages.forEach(language => {
 

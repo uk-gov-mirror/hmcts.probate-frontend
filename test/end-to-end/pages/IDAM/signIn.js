@@ -7,7 +7,7 @@ const welshLink = 'Cymraeg';
 module.exports = async function (language ='en', noScreenerQuestions = false) {
     if (useIdam === 'true') {
         const I = this;
-
+        console.log('IDAM True....   ');
         if (noScreenerQuestions) {
             await I.amOnLoadedPage('/', language);
         }
@@ -18,7 +18,7 @@ module.exports = async function (language ='en', noScreenerQuestions = false) {
             await I.navByClick(locator);
             await I.navByClick({css: 'a[href="/dashboard"]'});
         }
-        const idamEnglishPage = await I.checkForText(welshLink, 2);
+        const idamEnglishPage = await I.checkForText(welshLink, 40);
         if (language ==='cy' && idamEnglishPage) {
             console.log('inside Method   ');
             await I.click(welshLink);

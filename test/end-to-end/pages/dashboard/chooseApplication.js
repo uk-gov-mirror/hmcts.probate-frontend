@@ -32,14 +32,12 @@ module.exports = async function(language ='en') {
 
     if (language === 'cy') {
         for (let i = 0; i <= 5; i++) {
-            const result = await I.checkForText(dashboardContent.actionContinue, 3);
-            if (result === false) {
-                console.log('True Block ....');
+            const result = await I.checkForText(dashboardEn.actionContinue, 3);
+            if (result === true) {
                 await I.amOnLoadedPage(pageUnderTest.getUrl(), language);
-                await I.navByClick(dashboardContent.actionContinue);
+                await I.navByClick(dashboardEn.actionContinue);
                 break;
             } else {
-                console.log('Else Block ....');
                 await I.amOnLoadedPage(pageUnderTest.getUrl(), language);
                 await I.navByClick(dashboardContent.actionContinue);
             }
