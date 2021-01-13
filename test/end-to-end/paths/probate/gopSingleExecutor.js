@@ -9,9 +9,9 @@ const optionNo = '-2';
 const bilingualGOP = false;
 const uploadingDocuments = false;
 const config = require('config');
-const languages = ['cy'];
+const languages = ['en', 'cy'];
 
-Feature('GOP-Single Executor').retry(0);
+Feature('GOP-Single Executor').retry(1);
 
 languages.forEach(language => {
 
