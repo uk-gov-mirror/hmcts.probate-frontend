@@ -5,7 +5,7 @@ const taskListContentCy = require('app/resources/cy/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const optionYes = '';
 const ihtPost = '';
-const optionNo = '-2';
+const optionNo = 'optionNo';
 const bilingualGOP = false;
 const uploadingDocuments = false;
 const config = require('config');
@@ -144,7 +144,7 @@ languages.forEach(language => {
         // Thank You
         await I.seeThankYouPage(language);
     }).tag('@e2e')
-        .retry(1);
+        .retry(0);
 
     Before(async () => {
         await TestConfigurator.initLaunchDarkly();

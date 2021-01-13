@@ -31,6 +31,7 @@ module.exports = async function(language ='en') {
     } else {
         await I.amOnLoadedPage(pageUnderTest.getUrl(), language);
         console.log('Welsh Dashboard Page');
+        await I.takeScreenshot();
         await I.wait(3);
         await I.navByClick(dashboardContent.actionContinue);
         await I.wait(3);
