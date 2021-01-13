@@ -10,5 +10,5 @@ Scenario('Check that the pages display a cookie banner with link', async (I) => 
     //Screeners & Pre-IDAM
     await I.clearCookie();
     await I.startApplication(language, true);
-}).tag('@e2e')
+}).tag('@Test99')
     .retry(TestConfigurator.getRetryScenarios());

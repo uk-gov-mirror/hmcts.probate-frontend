@@ -19,6 +19,7 @@ module.exports = async function (language ='en', noScreenerQuestions = false) {
             await I.navByClick({css: 'a[href="/dashboard"]'});
         }
         const idamEnglishPage = await I.checkForText(welshLink, 40);
+        await I.takeScreenshot();
         if (language ==='cy' && idamEnglishPage) {
             console.log('inside Method   ');
             await I.click(welshLink);
