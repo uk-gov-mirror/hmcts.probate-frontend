@@ -2,7 +2,6 @@
 
 const testConfig = require('config');
 const useIdam = testConfig.TestUseIdam;
-const switchToWelsh = 'English';
 
 module.exports = async function (language ='en', noScreenerQuestions = false) {
     if (useIdam === 'true') {
@@ -17,11 +16,8 @@ module.exports = async function (language ='en', noScreenerQuestions = false) {
             await I.navByClick(locator);
             await I.navByClick({css: 'a[href="/dashboard"]'});
         }
-        const idamEnglishPage = await I.checkForText(switchToWelsh, 10);
-        if (language ==='cy' && idamEnglishPage) {
-            console.log('Click Welsh Link on IDAM Page...');
-            await I.click(switchToWelsh);
-        }
+        const url = await I.grabCurrentUrl();
+        console.log('url' + url);
         await I.fillField('username', process.env.testCitizenEmail);
         await I.fillField('password', process.env.testCitizenPassword);
         await I.navByClick('//input[@class=\'button\' and @type=\'submit\']');

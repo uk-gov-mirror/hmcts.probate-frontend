@@ -32,10 +32,8 @@ module.exports = async function(language ='en') {
         await I.navByClick(dashboardContent.actionContinue);
     } else {
         console.log('Welsh Dashboard Page...');
-        const url = await I.grabCurrentUrl();
-        console.log('current page URL' + url);
-        await I.takeScreenshot();
         await I.amOnLoadedPage(pageUnderTest.getUrl(), language);
+        // await I.amOnPage('/dashboard?lng=cy');
         await I.wait(2);
         for (let i = 0; i <= 5; i++) {
             const result = await I.checkForText(dashboardContent.actionContinue, 10);
