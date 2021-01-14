@@ -44,7 +44,8 @@ module.exports = async function(language ='en') {
             await I.wait(2);
         } else {
             console.log('Welsh Dashboard Page...');
-            await I.saveScreenshot({path: './functional-output/welsh_dashboard_png', fullPage: true});
+            await I.saveScreenshot({path: './functional-output/welsh_dashboard.png', fullPage: true});
+            await I.wait(10);
             await I.navByClick(dashboardContent.actionContinue);
             await I.wait(2);
 
