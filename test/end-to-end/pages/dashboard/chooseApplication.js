@@ -36,8 +36,8 @@ module.exports = async function(language ='en') {
 
     if (language === 'cy') {
         await I.amOnLoadedPage(pageUnderTest.getUrl(), language);
-        const continueToApplicationText = await I.grabTextFrom('//*[@id="main-content"]/div/div/table/tbody/tr[1]/td[5]/a');
-        // const englishDashBoardPage = await I.checkForText(dashboardEn.actionContinue, 10);
+        const continueToApplicationText = await I.grabTextFrom(dashboardContent.actionContinue, 10);
+        console.log('Continue To Application Test' + continueToApplicationText);
         if (dashboardContent.actionContinue === continueToApplicationText) {
             await I.click(welshLink);
             await I.takeScreenshot();
