@@ -30,24 +30,24 @@ module.exports = async function(language ='en') {
         await I.see(dashboardContent.tableHeaderCaseStatus);
         await I.navByClick(dashboardContent.actionContinue);
 
-    } else {
+    }
+    if (language === 'cy' && welshLink === 'Cymraeg') {
         await I.amOnLoadedPage(pageUnderTest.getUrl(), language);
-        await I.wait(2);
-        const text = await I.grabTextFrom(dashboardContent.actionContinue);
-        // const englishDashBoardPage = await I.checkForText(welshLink, 10);
-        console.log('Text Name' + text);
-        if (text === 'Continue application') {
+        // const text = await I.grabTextFrom(dashboardContent.actionContinue);
+        // console.log('Dash Board Link Name::-->' + text);
+        const englishDashBoardPage = await I.checkForText(dashboardEn.actionContinue, 10);
+        if (englishDashBoardPage) {
             await I.click(welshLink);
+            await I.takeScreenshot();
             console.log('Switching to Welsh Dashboard Page....');
-            await I.wait(2);
             await I.navByClick(dashboardContent.actionContinue);
-            await I.wait(3);
+            await I.wait(2);
         } else {
             console.log('Welsh Dashboard Page...');
-            await I.click(welshLink);
-            await I.wait(2);
+            await I.takeScreenshot();
             await I.navByClick(dashboardContent.actionContinue);
-            await I.wait(5);
+            await I.wait(2);
+
         }
     }
 
