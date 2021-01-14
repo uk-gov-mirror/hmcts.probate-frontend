@@ -38,13 +38,13 @@ module.exports = async function(language ='en') {
         const englishDashBoardPage = await I.checkForText(dashboardEn.actionContinue, 10);
         if (englishDashBoardPage) {
             await I.click(welshLink);
-            await I.takeScreenshot();
+            await I.saveScreenshot({path: './functional-output/english_dashboard_error.png', fullPage: true});
             console.log('Switching to Welsh Dashboard Page....');
             await I.navByClick(dashboardContent.actionContinue);
             await I.wait(2);
         } else {
             console.log('Welsh Dashboard Page...');
-            await I.takeScreenshot();
+            await I.saveScreenshot({path: './functional-output/welsh_dashboard_png', fullPage: true});
             await I.navByClick(dashboardContent.actionContinue);
             await I.wait(2);
 

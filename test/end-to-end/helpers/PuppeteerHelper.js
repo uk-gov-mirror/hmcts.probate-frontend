@@ -3,7 +3,6 @@
 const Helper = codecept_helper;
 const helperName = 'Puppeteer';
 const testConfig = require('config');
-const fs = require('fs');
 
 const countObjects = async (page) => {
     const prototypeHandle = await page.evaluateHandle(() => Object.prototype);
@@ -50,17 +49,10 @@ class PuppeteerHelper extends Helper {
         console.log(`${pageName}>>>>`, numberOfObjectsAfter);
     }
 
-    async takeScreenshot1() {
+    async takeScreenshot() {
         const page = this.helpers[helperName].page;
         await page.screenshot({path: './functional-output/error.png', fullPage: true});
     }
 
-    async takeScreenshot() {
-        const page = this.helpers[helperName].page;
-        const screenshot_path = './functional-output/error.png';
-        const screenshot_stats = fs.statSync(screenshot_path);
-        await page.screenshot({path: screenshot_stats.atime, fullPage: true});
-        console.log(screenshot_stats.atime);
-    }
 }
 module.exports = PuppeteerHelper;
