@@ -144,7 +144,7 @@ languages.forEach(language => {
         // Thank You
         await I.seeThankYouPage(language);
     }).tag('@e2e')
-        .retry(0);
+        .retry(1);
 
     Before(async () => {
         await TestConfigurator.initLaunchDarkly();

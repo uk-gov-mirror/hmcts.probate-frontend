@@ -5,8 +5,7 @@ const dashboardEn = require('app/resources/en/translation/dashboard');
 const dashboardCy = require('app/resources/cy/translation/dashboard');
 const testConfig = require('config');
 const pageUnderTest = require('app/steps/ui/dashboard');
-const englishlink = 'English';
-const switchToWelsh = 'Cymraeg';
+const welshLink = 'Cymraeg';
 
 module.exports = async function(language ='en') {
     const I = this;
@@ -30,22 +29,26 @@ module.exports = async function(language ='en') {
         await I.see(dashboardContent.tableHeaderCreateDate);
         await I.see(dashboardContent.tableHeaderCaseStatus);
         await I.navByClick(dashboardContent.actionContinue);
-    }
 
-    if (language === 'cy' && englishlink ==='English') {
+    } else {
         await I.amOnLoadedPage(pageUnderTest.getUrl(), language);
         await I.wait(2);
-        console.log('Welsh Dashboard Page...');
-        await I.navByClick(dashboardContent.actionContinue);
-        await I.wait(5);
-    } else {
-        console.log('English Dashboard Page...');
-        const dashBoardEnglishPage = await I.checkForText(switchToWelsh, 10);
-        if (dashBoardEnglishPage) {
+        const text = await I.grabTextFrom(dashboardContent.actionContinue);
+        // const englishDashBoardPage = await I.checkForText(welshLink, 10);
+        console.log('Text Name' + text);
+        if (text === 'Continue application') {
+            await I.click(welshLink);
             console.log('Switching to Welsh Dashboard Page....');
-            await I.click(switchToWelsh);
+            await I.wait(2);
+            await I.navByClick(dashboardContent.actionContinue);
+            await I.wait(3);
+        } else {
+            console.log('Welsh Dashboard Page...');
+            await I.click(welshLink);
+            await I.wait(2);
             await I.navByClick(dashboardContent.actionContinue);
             await I.wait(5);
         }
     }
+
 };
