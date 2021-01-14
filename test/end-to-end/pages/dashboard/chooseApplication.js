@@ -29,23 +29,28 @@ module.exports = async function(language ='en') {
         await I.see(dashboardContent.tableHeaderCreateDate);
         await I.see(dashboardContent.tableHeaderCaseStatus);
         await I.navByClick(dashboardContent.actionContinue);
-
     }
-    if (language === 'cy' && welshLink === 'Cymraeg') {
+
+    const welshLinkText = await I.grabTextFrom('//a[@class =\'govuk-link language\']');
+    console.log('Dash Board Link Name::-->' + welshLinkText);
+
+    if (language === 'cy' && welshLink === welshLinkText) {
         await I.amOnLoadedPage(pageUnderTest.getUrl(), language);
-        // const text = await I.grabTextFrom(dashboardContent.actionContinue);
-        // console.log('Dash Board Link Name::-->' + text);
-        const englishDashBoardPage = await I.checkForText(dashboardEn.actionContinue, 10);
-        if (englishDashBoardPage) {
+        const continueToApplicationText = await I.grabTextFrom('//*[@id="main-content"]/div/div/table/tbody/tr[1]/td[5]/a');
+        // const englishDashBoardPage = await I.checkForText(dashboardEn.actionContinue, 10);
+        if (dashboardContent.actionContinue === continueToApplicationText) {
             await I.click(welshLink);
-            await I.saveScreenshot({path: './functional-output/english_dashboard_error.png', fullPage: true});
+            await I.takeScreenshot();
             console.log('Switching to Welsh Dashboard Page....');
             await I.navByClick(dashboardContent.actionContinue);
             await I.wait(2);
         } else {
             console.log('Welsh Dashboard Page...');
-            await I.saveScreenshot({path: './functional-output/welsh_dashboard.png', fullPage: true});
-            await I.wait(10);
+            const url = await I.grabCurrentUrl();
+            console.log('current page URL' + url);
+            await I.takeScreenshot();
+            await I.amOnLoadedPage(pageUnderTest.getUrl(), language);
+            await I.wait(2);
             await I.navByClick(dashboardContent.actionContinue);
             await I.wait(2);
 
