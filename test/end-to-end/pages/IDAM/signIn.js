@@ -2,11 +2,9 @@
 
 const testConfig = require('config');
 const useIdam = testConfig.TestUseIdam;
-const contentEn = require('app/resources/en/translation/common');
-const contentCy = require('app/resources/cy/translation/common');
+const switchToWelsh = 'English';
 
 module.exports = async function (language ='en', noScreenerQuestions = false) {
-    const commonContent = language === 'en' ? contentEn : contentCy;
     if (useIdam === 'true') {
         const I = this;
         if (noScreenerQuestions) {
@@ -19,8 +17,13 @@ module.exports = async function (language ='en', noScreenerQuestions = false) {
             await I.navByClick(locator);
             await I.navByClick({css: 'a[href="/dashboard"]'});
         }
+        const idamEnglishPage = await I.checkForText(switchToWelsh, 10);
+        if (language ==='cy' && idamEnglishPage) {
+            console.log('Click Welsh Link on IDAM Page...');
+            await I.click(switchToWelsh);
+        }
         await I.fillField('username', process.env.testCitizenEmail);
         await I.fillField('password', process.env.testCitizenPassword);
-        await I.navByClick(commonContent.signIn);
+        await I.navByClick('//input[@class=\'button\' and @type=\'submit\']');
     }
 };
