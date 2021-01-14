@@ -17,7 +17,7 @@ module.exports = async function(language ='en') {
     if (language === 'en') {
         for (let i = 0; i <= 5; i++) {
             await I.waitForText(dashboardContent.header, testConfig.TestWaitForTextToAppear);
-            const result = await I.checkForText(dashboardContent.actionContinue, 5);
+            const result = await I.checkForText(dashboardContent.actionContinue, 10);
             if (result === true) {
                 break;
             }
@@ -34,7 +34,7 @@ module.exports = async function(language ='en') {
     const welshLinkText = await I.grabTextFrom('//a[@class =\'govuk-link language\']');
     console.log('Dash Board Link Name::-->' + welshLinkText);
 
-    if (language === 'cy' && welshLink === welshLinkText) {
+    if (language === 'cy') {
         await I.amOnLoadedPage(pageUnderTest.getUrl(), language);
         const continueToApplicationText = await I.grabTextFrom('//*[@id="main-content"]/div/div/table/tbody/tr[1]/td[5]/a');
         // const englishDashBoardPage = await I.checkForText(dashboardEn.actionContinue, 10);
@@ -51,9 +51,15 @@ module.exports = async function(language ='en') {
             await I.takeScreenshot();
             await I.amOnLoadedPage(pageUnderTest.getUrl(), language);
             await I.wait(2);
+            for (let i = 0; i <= 5; i++) {
+                const result = await I.checkForText(dashboardContent.actionContinue, 10);
+                if (result === true) {
+                    break;
+                }
+                await I.refreshPage();
+            }
             await I.navByClick(dashboardContent.actionContinue);
             await I.wait(2);
-
         }
     }
 
