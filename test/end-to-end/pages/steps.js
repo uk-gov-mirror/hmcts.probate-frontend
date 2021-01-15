@@ -84,7 +84,18 @@ module.exports = () => {
         //Equality and diversity page
         exitEqualityAndDiversity: steps.equalityanddiversity.startpage,
         completeEqualityAndDiversity: steps.equalityanddiversity.completedpage,
-        completePCQ: steps.equalityanddiversity.completePCQ,
+        clickAnswerQuestions: steps.equalityanddiversity.continueToQuestions,
+        answerBirthdayQuestion: steps.equalityanddiversity.dateOfBirthQuestion,
+        answerMainLanguageQuestion: steps.equalityanddiversity.languageQuestion,
+        answerYourSexQuestion: steps.equalityanddiversity.yourSexQuestion,
+        answerGenderQuestion: steps.equalityanddiversity.genderQuestion,
+        answerSexualOrientationQuestion: steps.equalityanddiversity.sexualOrientationQuestion,
+        answerMaritalStatusQuestion: steps.equalityanddiversity.maritalStatusQuestion,
+        answerEthnicGroupQuestion: steps.equalityanddiversity.ethnicGroupQuestion,
+        answerReligionQuestion: steps.equalityanddiversity.religionQuestion,
+        answerDisabilityQuestion: steps.equalityanddiversity.disabilityQuestion,
+        answerPregnancyQuestion: steps.equalityanddiversity.pregnancyQuestion,
+        clickContinueToNextSteps: steps.equalityanddiversity.endPage,
 
         // Summary page
         seeSummaryPage: steps.summary.summary,

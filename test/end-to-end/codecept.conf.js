@@ -53,9 +53,22 @@ exports.config = {
     },
     mocha: {
         reporterOptions: {
-            reportDir: testConfig.TestOutputDir,
-            reportName: 'index',
-            inlineAssets: true
+            'codeceptjs-cli-reporter': {
+                stdout: '-',
+                options: {steps: true}
+            },
+            'mocha-junit-reporter': {
+                stdout: '-',
+                options: {mochaFile: './foutput/result.xml'}
+            },
+            mochawesome: {
+                stdout: './output/console.log',
+                options: {
+                    reportDir: testConfig.TestOutputDir || './output',
+                    reportName: 'index',
+                    inlineAssets: true
+                }
+            }
         }
     },
     name: 'Probate FE Tests'
