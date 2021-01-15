@@ -15,6 +15,7 @@ module.exports = async function(language = 'en', answer) {
     }
 
     const locator = {css: `#deathCertificateInEnglish${answer}`};
+    await I.waitForElement(locator);
     await I.click(locator);
     await I.navByClick(commonContent.continue);
 };

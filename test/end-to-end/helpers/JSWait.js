@@ -43,7 +43,7 @@ class JSWait extends codecept_helper {
 
         } else {
             await helper.amOnPage(newUrl);
-            await helper.wait(2);
+            await helper.waitInUrl(newUrl);
             await helper.waitForElement('body');
         }
     }

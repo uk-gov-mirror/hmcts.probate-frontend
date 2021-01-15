@@ -33,7 +33,6 @@ module.exports = async function(language ='en') {
     } else {
         console.log('Welsh Dashboard Page...');
         await I.amOnLoadedPage(pageUnderTest.getUrl(), language);
-        // await I.amOnPage('/dashboard?lng=cy');
         await I.wait(2);
         for (let i = 0; i <= 5; i++) {
             const result = await I.checkForText(dashboardContent.actionContinue, 10);
