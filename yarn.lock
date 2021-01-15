@@ -6202,9 +6202,9 @@ mocha@^6.2.0, mocha@^6.2.3:
     yargs-unparser "1.6.0"
 
 mochawesome-report-generator@^5.1.0:
-   version "5.1.0"
-   resolved "https://registry.yarnpkg.com/mochawesome-report-generator/-/mochawesome-report-generator-5.1.0.tgz#b8809e7661ac31732fa7ae7210380f704f7c68f6"
-   integrity sha512-5cI4Jh+sD+jIxc7q94961vnm/6VKDI7TFUPt9dps6oAc4y4WMpEeeOlmgKKM81q2eGaviNUYw+acFalGK6EJ9g==
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/mochawesome-report-generator/-/mochawesome-report-generator-5.1.0.tgz#b8809e7661ac31732fa7ae7210380f704f7c68f6"
+  integrity sha512-5cI4Jh+sD+jIxc7q94961vnm/6VKDI7TFUPt9dps6oAc4y4WMpEeeOlmgKKM81q2eGaviNUYw+acFalGK6EJ9g==
   dependencies:
     chalk "^2.4.2"
     dateformat "^3.0.2"
