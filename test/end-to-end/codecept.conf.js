@@ -17,7 +17,7 @@ exports.config = {
                     height: 960
                 },
                 args: [
-                    '--no-sandbox',
+                    '--disable-gpu', '--no-sandbox', '--allow-running-insecure-content', '--ignore-certificate-errors',
                     '--proxy-server=proxyout.reform.hmcts.net:8080',
                     '--proxy-bypass-list=*beta*LB.reform.hmcts.net',
                     '--window-size=1440,1400'
@@ -38,17 +38,16 @@ exports.config = {
         I: './pages/steps.js'
     },
     plugins: {
-        autoDelay: {
-            enabled: true
+        screenshotOnFail: {
+            enabled: true,
+            fullPageScreenshots: true
         },
         retryFailedStep: {
+            enabled: true,
+            retries: 1
+        },
+        autoDelay: {
             enabled: true
-        }
-    },
-    multiple: {
-        parallel: {
-            // Splits tests into 2 chunks
-            chunks: 2
         }
     },
     mocha: {
@@ -59,16 +58,22 @@ exports.config = {
             },
             'mocha-junit-reporter': {
                 stdout: '-',
-                options: {mochaFile: './foutput/result.xml'}
+                options: {mochaFile: './functional-output/result.xml'}
             },
             mochawesome: {
-                stdout: './output/console.log',
+                stdout: './functional-output/console.log',
                 options: {
-                    reportDir: testConfig.TestOutputDir || './output',
+                    reportDir: testConfig.TestOutputDir || './functional-output',
                     reportName: 'index',
                     inlineAssets: true
                 }
             }
+        }
+    },
+    multiple: {
+        parallel: {
+            chunks: 4,
+            browsers: ['chrome']
         }
     },
     name: 'Probate FE Tests'

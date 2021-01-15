@@ -57,5 +57,11 @@ class PuppeteerHelper extends Helper {
         const numberOfObjectsAfter = await countObjects(page);
         console.log(`${pageName}>>>>`, numberOfObjectsAfter);
     }
+
+    async takeScreenshot() {
+        const page = this.helpers[helperName].page;
+        await page.screenshot({path: './functional-output/error.png', fullPage: true});
+    }
+
 }
 module.exports = PuppeteerHelper;

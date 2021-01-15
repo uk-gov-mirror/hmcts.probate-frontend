@@ -9,6 +9,6 @@ module.exports = async function(language ='en') {
 
     await I.wait(3);
 
-    await I.seeInCurrentUrl('start-page');
+    await I.seeInCurrentUrl('/start-page');
     await I.navByClick(commonContent.continueToQuestions);
 };

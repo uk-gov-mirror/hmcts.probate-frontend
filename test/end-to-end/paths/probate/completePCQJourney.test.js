@@ -9,7 +9,7 @@ const optionDeathCertificate = '';
 const uploadingDocuments = false;
 const config = require('config');
 
-Feature('Complete PQC questions...').retry(TestConfigurator.getRetryFeatures());
+Feature('Complete PCQ questions...').retry(TestConfigurator.getRetryFeatures());
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
