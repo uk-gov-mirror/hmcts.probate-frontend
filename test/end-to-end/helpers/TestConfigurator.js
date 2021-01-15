@@ -43,7 +43,7 @@ class TestConfigurator {
     }
 
     getAfter() {
-        this.deleteIdamUser();
+        // this.deleteIdamUser();
         if (this.launchDarkly) {
             this.launchDarkly.close();
         }
