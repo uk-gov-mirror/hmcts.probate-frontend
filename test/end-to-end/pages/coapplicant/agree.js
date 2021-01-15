@@ -1,11 +1,13 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/coapplicant/agreepage');
+const config = require('config');
+const content = require('app/resources/en/translation/coapplicant/agreepage');
 
-module.exports = function() {
+module.exports = async function() {
     const I = this;
 
-    I.retry(5).seeCurrentUrlEquals(pageUnderTest.getUrl());
+    await I.checkPageUrl('app/steps/ui/coapplicant/agreepage');
+    await I.waitForText(content.subHeader, config.TestWaitForTextToAppear);
 
     // if (elementId === 0) {
     //     I.see('When everyone');

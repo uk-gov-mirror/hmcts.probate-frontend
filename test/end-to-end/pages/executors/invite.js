@@ -1,12 +1,12 @@
 'use strict';
 
+const config = require('config');
 const content = require('app/resources/en/translation/executors/invite');
-const pageUnderTest = require('app/steps/ui/executors/invite');
 
-module.exports = function() {
+module.exports = async function() {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-
-    I.navByClick(content.sendInvites);
+    await I.checkPageUrl('app/steps/ui/executors/invite');
+    await I.waitForText(content.title, config.TestWaitForTextToAppear, 'h1');
+    await I.navByClick(content.sendInvites, '.govuk-button');
 };

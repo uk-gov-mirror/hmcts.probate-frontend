@@ -1,11 +1,14 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/copies/summary');
+const config = require('config');
+const content = require('app/resources/en/translation/copies/summary');
 
-module.exports = function() {
+module.exports = async function() {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-
-    I.navByClick('.govuk-button');
+    await I.checkPageUrl('app/steps/ui/copies/summary');
+    await I.waitForText(content.extraCopies, config.TestWaitForTextToAppear);
+    const locator = {css: '.govuk-button'};
+    await I.waitForElement(locator);
+    await I.navByClick(locator);
 };

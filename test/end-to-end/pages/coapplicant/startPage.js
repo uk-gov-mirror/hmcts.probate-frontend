@@ -1,11 +1,12 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/coapplicant/startpage');
+const config = require('config');
+const content = require('app/resources/en/translation/coapplicant/startpage');
 
-module.exports = function() {
+module.exports = async function() {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-
-    I.navByClick('.govuk-button');
+    await I.checkPageUrl('app/steps/ui/coapplicant/startpage');
+    await I.waitForText(content.subHeader1, config.TestWaitForTextToAppear);
+    await I.navByClick('.govuk-button');
 };

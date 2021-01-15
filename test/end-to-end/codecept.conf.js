@@ -1,4 +1,4 @@
-const testConfig = require('test/config.js');
+const testConfig = require('config');
 
 exports.config = {
     tests: testConfig.TestPathToRun,
@@ -30,6 +30,9 @@ exports.config = {
         JSWait: {
             require: './helpers/JSWait.js'
         },
+        IDAMHelper: {
+            require: './helpers/IDAMHelper.js'
+        }
     },
     include: {
         I: './pages/steps.js'

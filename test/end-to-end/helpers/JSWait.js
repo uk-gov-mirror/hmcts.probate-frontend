@@ -1,7 +1,7 @@
 class JSWait extends codecept_helper {
 
     _beforeStep(step) {
-        const helper = this.helpers.WebDriverIO || this.helpers.Puppeteer;
+        const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
 
         // Wait for content to load before checking URL
         if (step.name === 'seeCurrentUrlEquals' || step.name === 'seeInCurrentUrl') {
@@ -9,32 +9,35 @@ class JSWait extends codecept_helper {
         }
     }
 
-    navByClick (text, locator) {
-        const helper = this.helpers.WebDriverIO || this.helpers.Puppeteer;
+    async navByClick(text, locator = null, webDriverWait = 2) {
+        const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
         if (helperIsPuppeteer) {
-            return Promise.all([
-                helper.page.waitForNavigation({waitUntil: 'networkidle0'}),
-                helper.click(text, locator)
+            await Promise.all([
+                helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']}),
+                locator ? helper.click(text, locator) : helper.click(text)
             ]);
+            return;
         }
-        return Promise.all([
-            helper.click(text, locator),
-            helper.wait(3)
-        ]);
+        // non Puppeteer
+        await helper.click(text, locator);
+        await helper.wait(webDriverWait);
     }
 
-    async amOnLoadedPage (url) {
-        const helper = this.helpers.WebDriverIO || this.helpers.Puppeteer;
+    async amOnLoadedPage(url) {
+        const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
         if (helperIsPuppeteer) {
             if (url.indexOf('http') !== 0) {
                 url = helper.options.url + url;
             }
-            helper.page.goto(url);
-            await helper.page.waitForNavigation({waitUntil: 'networkidle0'});
+
+            await Promise.all([
+                helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']}), // The promise resolves after navigation has finished
+                helper.page.goto(url)
+            ]);
         } else {
             await helper.amOnPage(url);
             await helper.waitInUrl(url);
@@ -42,7 +45,7 @@ class JSWait extends codecept_helper {
     }
 
     async enterAddress() {
-        const helper = this.helpers.WebDriverIO || this.helpers.Puppeteer;
+        const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
         const page = helper.page;
 
@@ -59,20 +62,49 @@ class JSWait extends codecept_helper {
                 document.querySelector('#newPostCode').value = 'postcode';
             });
         } else {
-            const browserName = this.helpers.WebDriverIO.config.browser;
+            await helper.waitForVisible('#postcode');
+            await helper.click('.govuk-details__summary-text');
+            await helper.waitForVisible('#addressLine1');
 
-            if (browserName !== 'internet explorer' && browserName !== 'MicrosoftEdge') {
-                await helper.browser.waitForVisible('#addressLine1', 5000, true); // true - means wait for element to be Invisible!
-                await helper.browser.click('.govuk-details__summary-text');
-                await helper.browser.waitForVisible('#addressLine1', 5000, false);
-            }
-
-            await helper.browser.setValue('#addressLine1', 'test address for deceased line 1');
-            await helper.browser.setValue('#addressLine2', 'test address for deceased line 2');
-            await helper.browser.setValue('#addressLine3', 'test address for deceased line 3');
-            await helper.browser.setValue('#postTown', 'test address for deceased town');
-            await helper.browser.setValue('#newPostCode', 'postcode');
+            await helper.fillField('#addressLine1', 'test address for deceased line 1');
+            await helper.fillField('#addressLine2', 'test address for deceased line 2');
+            await helper.fillField('#addressLine3', 'test address for deceased line 3');
+            await helper.fillField('#postTown', 'test address for deceased town');
+            await helper.fillField('#newPostCode', 'postcode');
         }
+    }
+
+    async checkPageUrl(pageUnderTestClass, redirect) {
+        // optimisation - don't need to do this for puppeteer
+        const helper = this.helpers.WebDriver;
+        if (helper) {
+            const pageUnderTest = require(pageUnderTestClass);
+            const url = redirect ? pageUnderTest.getUrl(redirect) : pageUnderTest.getUrl();
+            try {
+                await helper.waitInUrl(url, 60);
+            } catch (e) {
+                try {
+                    // ok I know its weird invoking this when we know this can't be the url,
+                    // but this may give us more information
+                    console.info('Invoking seeInCurrentUrl for more info on incorrect url');
+                    await helper.seeInCurrentUrl(url);
+                    throw e;
+                } catch (e2) {
+                    throw e;
+                }
+            }
+        }
+    }
+
+    async checkForText(text, timeout = null) {
+        const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
+        try {
+            await helper.waitForText(text, timeout);
+        } catch (e) {
+            console.log(`Text "${text}" not found on page.`);
+            return false;
+        }
+        return true;
     }
 }
 
