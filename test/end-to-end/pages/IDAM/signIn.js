@@ -16,7 +16,7 @@ module.exports = async function (noScreenerQuestions = false) {
         const numEls = await I.grabNumberOfVisibleElements(locator);
         if (numEls > 0) {
             await I.navByClick(locator);
-            await I.navByClick({css: 'a[href="/dashboard"]'});
+            await I.seeSignOut();
         }
 
         await I.waitForText('Sign in', testConfig.TestWaitForTextToAppear, 'h1');
