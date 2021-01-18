@@ -11,7 +11,7 @@ const uploadingDocuments = false;
 const config = require('config');
 const languages = ['en', 'cy'];
 
-Feature('GOP-Single Executor').retry(2);
+Feature('GOP-Single Executor').retry(TestConfigurator.getRetryFeatures());
 
 languages.forEach(language => {
 
@@ -148,7 +148,7 @@ languages.forEach(language => {
         await closeLaunchDarkly();
 
     }).tag('@e2e')
-        .retry(2);
+        .retry(TestConfigurator.getRetryScenarios());
 });
 
 async function closeLaunchDarkly() {
