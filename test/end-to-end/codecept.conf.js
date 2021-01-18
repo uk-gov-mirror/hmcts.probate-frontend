@@ -38,24 +38,42 @@ exports.config = {
         I: './pages/steps.js'
     },
     plugins: {
-        autoDelay: {
-            enabled: true
+        screenshotOnFail: {
+            enabled: true,
+            fullPageScreenshots: true
         },
         retryFailedStep: {
+            enabled: true,
+            retries: 1
+        },
+        autoDelay: {
             enabled: true
-        }
-    },
-    multiple: {
-        parallel: {
-            // Splits tests into 2 chunks
-            chunks: 2
         }
     },
     mocha: {
         reporterOptions: {
-            reportDir: testConfig.TestOutputDir,
-            reportName: 'index',
-            inlineAssets: true
+            'codeceptjs-cli-reporter': {
+                stdout: '-',
+                options: {steps: true}
+            },
+            'mocha-junit-reporter': {
+                stdout: '-',
+                options: {mochaFile: './functional-output/result.xml'}
+            },
+            mochawesome: {
+                stdout: './functional-output/console.log',
+                options: {
+                    reportDir: testConfig.TestOutputDir || './functional-output',
+                    reportName: 'index',
+                    inlineAssets: true
+                }
+            }
+        }
+    },
+    multiple: {
+        parallel: {
+            chunks: 4,
+            browsers: ['chrome']
         }
     },
     name: 'Probate FE Tests'

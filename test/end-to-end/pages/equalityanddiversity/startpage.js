@@ -1,18 +1,17 @@
 'use strict';
 
 const config = require('config');
+const equalityEn = 'Equality and diversity questions';
+const equalityCy = 'Dydw i ddim eisiau ateb y cwestiynau hyn';
 
-module.exports = async function() {
+module.exports = async function(language ='en') {
     const I = this;
-
+    const equalityContent = language === 'en' ? equalityEn : equalityCy;
     await I.wait(3);
-
-    // const url = await I.grabCurrentUrl();
-    // console.info(`equality url: ${url}`);
-
-    // await I.checkPageUrl('app/steps/ui/equality');
-    await I.waitForText('Equality and diversity questions', config.TestWaitForTextToAppear);
     const backButtonLocator = {css: '#back-button'};
     await I.waitForElement(backButtonLocator, config.TestWaitForElementToAppear);
+    if (language === 'en') {
+        await I.waitForText(equalityContent, config.TestWaitForTextToAppear);
+    }
     await I.navByClick(backButtonLocator);
 };

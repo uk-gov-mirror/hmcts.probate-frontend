@@ -1,11 +1,16 @@
 'use strict';
 
 const testConfig = require('config');
+const commonContentEn = require('app/resources/en/translation/common');
+const commonContentCy = require('app/resources/cy/translation/common');
 
-module.exports = async function() {
+module.exports = async function(language ='en') {
     const I = this;
+    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
 
-    await I.waitForText('Enter card details');
+    if (language === 'en') {
+        await I.waitForText('Enter card details');
+    }
 
     await I.waitForElement({css: '#card-no'});
     await I.fillField({css: '#card-no'}, testConfig.govPayTestCardNos.validCardNo);
@@ -21,5 +26,5 @@ module.exports = async function() {
     await I.fillField({css: '#email'}, testConfig.TestEnvEmailAddress);
 
     await I.waitForElement({css: '#submit-card-details'});
-    await I.click('#submit-card-details');
+    await I.navByClick(commonContent.continue);
 };

@@ -1,9 +1,11 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
+const commonContentEn = require('app/resources/en/translation/common');
+const commonContentCy = require('app/resources/cy/translation/common');
 
-module.exports = async function(formName, grossAmount, netAmount) {
+module.exports = async function(language ='en', formName, grossAmount, netAmount) {
     const I = this;
+    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
     let option;
 
     switch (formName) {

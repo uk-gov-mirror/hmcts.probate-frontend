@@ -25,22 +25,23 @@ class JSWait extends codecept_helper {
         await helper.wait(webDriverWait);
     }
 
-    async amOnLoadedPage(url) {
+    async amOnLoadedPage(url, language='en') {
+        let newUrl = `${url}?lng=${language}`;
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
         if (helperIsPuppeteer) {
-            if (url.indexOf('http') !== 0) {
-                url = helper.options.url + url;
+            if (newUrl.indexOf('http') !== 0) {
+                newUrl = helper.options.url + newUrl;
             }
 
             await Promise.all([
                 helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']}), // The promise resolves after navigation has finished
-                helper.page.goto(url)
+                helper.page.goto(newUrl)
             ]);
         } else {
-            await helper.amOnPage(url);
-            await helper.waitInUrl(url);
+            await helper.amOnPage(newUrl);
+            await helper.waitInUrl(newUrl);
         }
     }
 
