@@ -16,8 +16,6 @@ module.exports = async function (language ='en', noScreenerQuestions = false) {
             await I.navByClick(locator);
             await I.navByClick({css: 'a[href="/dashboard"]'});
         }
-        const url = await I.grabCurrentUrl();
-        console.log('url' + url);
         await I.fillField('username', process.env.testCitizenEmail);
         await I.fillField('password', process.env.testCitizenPassword);
         await I.navByClick('//input[@class=\'button\' and @type=\'submit\']');
