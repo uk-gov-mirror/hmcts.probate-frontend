@@ -5,14 +5,13 @@ const commonContentEn = require('app/resources/en/translation/common');
 const commonContentCy = require('app/resources/cy/translation/common');
 const dodContentEn = require('app/resources/en/translation/deceased/dod');
 const dodContentCy = require('app/resources/cy/translation/deceased/dod');
-const pageUnderTest = require('app/steps/ui/deceased/dod');
 
 module.exports = async function(language = 'en', day, month, year) {
     const I = this;
     const commonContent = language === 'en' ? commonContentEn : commonContentCy;
     const dodContent = language === 'en' ? dodContentEn : dodContentCy;
 
-    await I.seeInCurrentUrl(pageUnderTest.getUrl());
+    await I.checkPageUrl('app/steps/ui/deceased/dod');
     await I.waitForText(dodContent.question, config.TestWaitForTextToAppear);
     const dodDayLocator = {css: '#dod-day'};
     await I.waitForElement(dodDayLocator);

@@ -7,7 +7,7 @@ module.exports = async function(language ='en') {
     const I = this;
     const thankYouContent = language === 'en' ? thankYouContentEn : thankYouContentCy;
 
-    await I.checkPageUrl('app/steps/ui/thankyou');
+    await I.checkPageUrl('app/steps/ui/thank-you');
     if (language === 'en') {
         await I.waitForText(thankYouContent.header);
     }

@@ -3,7 +3,6 @@
 const config = require('config');
 const commonContentEn = require('app/resources/en/translation/common');
 const commonContentCy = require('app/resources/cy/translation/common');
-const pagePath = require('app/steps/ui/executors/number');
 const numberContentEn = require('app/resources/en/translation/executors/number');
 const numberContentCy = require('app/resources/cy/translation/executors/number');
 
@@ -12,7 +11,7 @@ module.exports = async function (language = 'en', totalExecutors) {
     const commonContent = language === 'en' ? commonContentEn : commonContentCy;
     const numberContent = language === 'en' ? numberContentEn : numberContentCy;
 
-    await I.seeInCurrentUrl(pagePath.getUrl());
+    await I.checkPageUrl('app/steps/ui/executors/number');
     if (language === 'en') {
         await I.waitForText(numberContent.checklist1Header, config.TestWaitForTextToAppear);
     }

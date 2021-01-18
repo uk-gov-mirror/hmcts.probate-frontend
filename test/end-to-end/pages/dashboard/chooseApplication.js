@@ -4,7 +4,6 @@
 const dashboardEn = require('app/resources/en/translation/dashboard');
 const dashboardCy = require('app/resources/cy/translation/dashboard');
 const testConfig = require('config');
-const pageUnderTest = require('app/steps/ui/dashboard');
 
 module.exports = async function(language ='en') {
     const I = this;
@@ -32,7 +31,8 @@ module.exports = async function(language ='en') {
         await I.navByClick(dashboardContent.actionContinue);
     } else {
         console.log('Welsh Dashboard Page...');
-        await I.amOnLoadedPage(pageUnderTest.getUrl(), language);
+        await I.amOnLoadedPage('app/steps/ui/dashboard', language);
+
         await I.wait(2);
         for (let i = 0; i <= 5; i++) {
             const result = await I.checkForText(dashboardContent.actionContinue, 10);
