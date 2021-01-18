@@ -49,9 +49,9 @@ class PuppeteerHelper extends Helper {
         console.log(`${pageName}>>>>`, numberOfObjectsAfter);
     }
 
-    async takeScreenshot() {
+    async takeScreenshot(screenShotPath) {
         const page = this.helpers[helperName].page;
-        await page.screenshot({path: './functional-output/error.png', fullPage: true});
+        await page.screenshot({path: screenShotPath, fullPage: true});
     }
 
 }

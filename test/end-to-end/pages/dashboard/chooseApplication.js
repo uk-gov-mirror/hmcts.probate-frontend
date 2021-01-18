@@ -31,14 +31,15 @@ module.exports = async function(language ='en') {
         await I.navByClick(dashboardContent.actionContinue);
     } else {
         console.log('Welsh Dashboard Page...');
-        await I.amOnLoadedPage('app/steps/ui/dashboard', language);
+        await I.amOnLoadedPage('/dashboard', language);
+        await I.takeScreenshot('./functional-output/dashboard-before.png');
 
-        await I.wait(2);
         for (let i = 0; i <= 5; i++) {
             const result = await I.checkForText(dashboardContent.actionContinue, 10);
             if (result === true) {
                 break;
             }
+            await I.amOnPage('/dashboard?lng=cy');
             await I.refreshPage();
         }
         await I.navByClick(dashboardContent.actionContinue);
