@@ -12,10 +12,15 @@ exports.config = {
             chrome: {
                 ignoreHTTPSErrors: true,
                 'ignore-certificate-errors': true,
+                defaultViewport: {
+                    width: 1280,
+                    height: 960
+                },
                 args: [
                     '--headless', '--disable-gpu', '--no-sandbox', '--allow-running-insecure-content', '--ignore-certificate-errors',
                     '--proxy-server=proxyout.reform.hmcts.net:8080',
-                    '--proxy-bypass-list=*beta*LB.reform.hmcts.net'
+                    '--proxy-bypass-list=*beta*LB.reform.hmcts.net',
+                    '--window-size=1440,1400'
                 ]
             },
         },
