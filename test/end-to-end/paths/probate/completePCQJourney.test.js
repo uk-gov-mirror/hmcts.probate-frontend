@@ -97,5 +97,4 @@ Scenario(TestConfigurator.idamInUseText('Complete journey of the Equality and Di
         await I.answerPregnancyQuestion();
         await I.clickContinueToNextSteps();
     }
-}).retry(TestConfigurator.getRetryScenarios())
-    .tag('@e2e');
+}).retry(TestConfigurator.getRetryScenarios());
