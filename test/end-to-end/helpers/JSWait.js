@@ -9,12 +9,12 @@ class JSWait extends codecept_helper {
         }
     }
 
-    async navByClick (text, locator) {
+    async navByClick22 (text, locator) {
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
         if (helperIsPuppeteer) {
-            await helper.click(text, locator).catch(err => {
+            helper.click(text, locator).catch(err => {
                 console.error(err.message);
             });
             await helper.page.waitForNavigation({waitUntil: 'networkidle0'});
@@ -25,6 +25,22 @@ class JSWait extends codecept_helper {
             await helper.wait(2);
         }
     }
+    async navByClick(text, locator = null, webDriverWait = 2) {
+        const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
+        const helperIsPuppeteer = this.helpers.Puppeteer;
+
+        if (helperIsPuppeteer) {
+            await Promise.all([
+                helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']}),
+                locator ? helper.click(text, locator) : helper.click(text)
+            ]);
+            return;
+        }
+        // non Puppeteer
+        await helper.click(text, locator);
+        await helper.wait(webDriverWait);
+    }
+
     async amOnLoadedPage (url, language ='en') {
         let newUrl = `${url}?lng=${language}`;
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;

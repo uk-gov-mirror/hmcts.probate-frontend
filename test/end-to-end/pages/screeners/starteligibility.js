@@ -8,7 +8,7 @@ const contentCy = require('app/resources/cy/translation/common');
 module.exports = async function(language='en', checkCookieBannerExists = false) {
     const I = this;
     const commonContent = language === 'en' ? contentEn : contentCy;
-    await I.amOnLoadedPage('app/steps/ui/screeners/start-eligibility', language);
+    await I.amOnLoadedPage('/start-eligibility', language);
 
     if (checkCookieBannerExists) {
         await I.waitForElement('div#global-cookie-message', config.TestWaitForElementToAppear);
