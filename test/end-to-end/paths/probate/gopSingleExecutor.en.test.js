@@ -151,5 +151,4 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/i
 
     // Thank You
     await I.seeThankYouPage();
-}).retry(TestConfigurator.getRetryScenarios())
-    .tag('@e2e');
+}).retry(TestConfigurator.getRetryScenarios());
