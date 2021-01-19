@@ -11,7 +11,8 @@ module.exports = async function (noScreenerQuestions = false) {
             await I.amOnLoadedPage('/');
         }
 
-        await I.wait(3);
+        const signInOrProbatePageLocator = {xpath: '//*[@name="loginForm" or @id="main-content"]'};
+        await I.waitForElement(signInOrProbatePageLocator, testConfig.TestWaitForTextToAppear);
         const locator = {css: 'a[href="/sign-out"]'};
         const numEls = await I.grabNumberOfVisibleElements(locator);
         if (numEls > 0) {
