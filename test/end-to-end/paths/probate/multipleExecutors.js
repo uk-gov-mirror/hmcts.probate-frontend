@@ -165,11 +165,11 @@ languages.forEach(language => {
         await I.notifyAdditionalExecutors(language);
         await I.waitForText(taskListContent.introduction, testConfig.TestWaitForTextToAppear);
 
-    //Retrieve the email urls for additional executors
-    await I.amOnPage(testConfig.TestInviteIdListUrl);
-    await I.waitForElement('pre');
+        //Retrieve the email urls for additional executors
+        await I.amOnPage(testConfig.TestInviteIdListUrl);
+        await I.waitForElement('pre');
 
-    const grabIds = await I.grabTextFrom('pre');
+        const grabIds = await I.grabTextFrom('pre');
 
         let idList = null;
         try {
@@ -186,8 +186,8 @@ languages.forEach(language => {
             await I.amOnPage(testConfig.TestE2EFrontendUrl + '/pin');
             await I.waitForElement('pre');
 
-        const grabPins = await I.grabTextFrom('pre'); // eslint-disable-line no-await-in-loop
-        const pinList = JSON.parse(grabPins);
+            const grabPins = await I.grabTextFrom('pre'); // eslint-disable-line no-await-in-loop
+            const pinList = JSON.parse(grabPins);
 
             await I.clickBrowserBackButton(); // eslint-disable-line no-await-in-loop
 
