@@ -12,9 +12,7 @@ module.exports = async function(language = 'en', bilingualGOP) {
     const declarationContent = language === 'en' ? contentEn : contentCy;
 
     await I.checkPageUrl('app/steps/ui/declaration');
-    if (language === 'en') {
-        await I.waitForText(declarationContent.highCourtHeader, config.TestWaitForTextToAppear);
-    }
+    await I.waitForText(declarationContent.highCourtHeader, config.TestWaitForTextToAppear);
 
     const enLocator = {css: '#declarationPdfHref-en'};
     await I.waitForElement(enLocator);

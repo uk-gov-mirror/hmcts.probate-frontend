@@ -11,8 +11,8 @@ module.exports = async function(language ='en', answer) {
     const applicantExecutorContent = language === 'en' ? applicantExecutorEn : applicantExecutorCy;
 
     await I.checkPageUrl('app/steps/ui/screeners/applicantexecutor');
+    await I.waitForText(applicantExecutorContent.question);
     if (language === 'en') {
-        await I.waitForText(applicantExecutorContent.question);
         await I.see(applicantExecutorContent.hintText1);
         await I.see(applicantExecutorContent.hintText2);
     }

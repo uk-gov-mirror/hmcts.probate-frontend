@@ -11,8 +11,8 @@ module.exports = async function(language ='en', answer) {
     const mentalCapacityContent = language === 'en' ? mentalCapacityEn : mentalCapacityCy;
 
     await I.checkPageUrl('app/steps/ui/screeners/mentalcapacity');
+    await I.waitForText(mentalCapacityContent.question);
     if (language === 'en') {
-        await I.waitForText(mentalCapacityContent.question);
         await I.see(mentalCapacityContent.hintText1);
         await I.see('You can read about');
     }
