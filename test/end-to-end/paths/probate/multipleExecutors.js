@@ -12,9 +12,9 @@ const ihtPost = '';
 const optionNo = '-2';
 const bilingualGOP = false;
 const uploadingDocuments = false;
-const languages = ['en'];
+const languages = ['en', 'cy'];
 
-Feature('Multiple Executors flow - @crossbrowser').retry(TestConfigurator.getRetryFeatures());
+Feature('Multiple Executors flow').retry(TestConfigurator.getRetryFeatures());
 
 languages.forEach(language => {
 
@@ -221,7 +221,7 @@ languages.forEach(language => {
 
         // Payment Task
         await I.selectATask(language, taskListContent.taskNotStarted);
-        await I.seePaymentBreakdownPage();
+        await I.seePaymentBreakdownPage(language);
 
         if (TestConfigurator.getUseGovPay() === 'true') {
             await I.seeGovUkPaymentPage(language);
@@ -237,7 +237,8 @@ languages.forEach(language => {
         await I.seeThankYouPage(language);
         await closeLaunchDarkly();
 
-    }).retry(TestConfigurator.getRetryScenarios());
+    }).tag('@crossbrowser')
+        .retry(TestConfigurator.getRetryScenarios());
 });
 
 async function closeLaunchDarkly() {

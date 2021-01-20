@@ -64,6 +64,9 @@ const setupConfig = {
         },
         IDAMHelper: {
             require: './helpers/IDAMHelper.js'
+        },
+        Mochawesome: {
+            uniqueScreenshotNames: 'true'
         }
     },
     plugins: {

@@ -15,13 +15,13 @@ const optionRenouncing = '';
 const bilingualGOP = false;
 const uploadingDocuments = false;
 const config = require('config');
-const languages = ['en'];
+const languages = ['en', 'cy'];
 
 Feature('Grant Of Probate Intestacy E2E Tests...');
 
 languages.forEach(language => {
 
-    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - GOP -Intestacy Journey - Digital iht - @crossbrowser`), async (I) => {
+    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - GOP -Intestacy Journey - Digital iht`), async (I) => {
         const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
         await getIDAMUserAccountDetails();
         await I.retry(2).createAUser(TestConfigurator);
@@ -115,7 +115,7 @@ languages.forEach(language => {
 
         // Payment Task
         await I.selectATask(language, taskListContent.taskNotStarted);
-        await I.seePaymentBreakdownPage();
+        await I.seePaymentBreakdownPage(language);
         if (TestConfigurator.getUseGovPay() === 'true') {
             await I.seeGovUkPaymentPage(language);
             await I.seeGovUkConfirmPage(language);
@@ -128,7 +128,9 @@ languages.forEach(language => {
         // Thank You
         await I.seeThankYouPage(language);
         await closeLaunchDarkly();
-    }).retry(TestConfigurator.getRetryScenarios());
+    }).tag('@e2e')
+        .tag('@crossbrowser')
+        .retry(TestConfigurator.getRetryScenarios());
 
     Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - GOP -Intestacy Child Journey - Paper iht, no death certificate uploaded and spouse renouncing`), async (I) => {
         const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
@@ -221,7 +223,7 @@ languages.forEach(language => {
 
         // Payment Task
         await I.selectATask(language, taskListContent.taskNotStarted);
-        await I.seePaymentBreakdownPage();
+        await I.seePaymentBreakdownPage(language);
         if (TestConfigurator.getUseGovPay() === 'true') {
             await I.seeGovUkPaymentPage(language);
             await I.seeGovUkConfirmPage(language);
@@ -234,7 +236,8 @@ languages.forEach(language => {
         // Thank You
         await I.seeThankYouPage(language);
         await closeLaunchDarkly();
-    }).retry(TestConfigurator.getRetryScenarios());
+    }).tag('@e2e')
+        .retry(TestConfigurator.getRetryScenarios());
 });
 
 async function closeLaunchDarkly() {

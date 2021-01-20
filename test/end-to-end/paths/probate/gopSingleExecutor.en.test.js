@@ -111,7 +111,7 @@ languages.forEach(language => {
 
         // Review and Confirm Task
         await I.selectATask(language, taskListContent.taskNotStarted);
-        await I.seeSummaryPage(language, 'declaration');
+        await I.seeSummaryPage('declaration');
         await I.acceptDeclaration(language, bilingualGOP);
 
         // Extra Copies Task
@@ -131,7 +131,7 @@ languages.forEach(language => {
 
         // Payment Task
         await I.selectATask(language, taskListContent.taskNotStarted);
-        await I.seePaymentBreakdownPage();
+        await I.seePaymentBreakdownPage(language);
 
         if (TestConfigurator.getUseGovPay() === 'true') {
             await I.seeGovUkPaymentPage(language);
