@@ -12,7 +12,7 @@ const ihtPost = '';
 const optionNo = '-2';
 const bilingualGOP = false;
 const uploadingDocuments = false;
-const languages = ['en', 'cy'];
+const languages = ['en'];
 
 Feature('Multiple Executors flow - @crossbrowser').retry(TestConfigurator.getRetryFeatures());
 
