@@ -17,9 +17,9 @@ const uploadingDocuments = false;
 const config = require('config');
 const languages = ['en', 'cy'];
 
-Feature('GOP Intestacy E2E');
+Feature('GOP Intestacy E2E').retry(0);
 
-languages.forEach(language => {
+const runTests = (language ='en') => {
 
     Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - GOP Intestacy Digital IHT - @crossbrowser`), async (I) => {
         const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
@@ -235,9 +235,11 @@ languages.forEach(language => {
         // Thank You
         await I.seeThankYouPage(language);
         await closeLaunchDarkly();
+
     }).tag('@e2e')
         .retry(TestConfigurator.getRetryScenarios());
-});
+
+};
 
 async function closeLaunchDarkly() {
     await TestConfigurator.getAfter();
@@ -247,3 +249,8 @@ async function getIDAMUserAccountDetails() {
     await TestConfigurator.initLaunchDarkly();
     await TestConfigurator.getBefore();
 }
+
+languages
+    .forEach(language => {
+        runTests(language);
+    });
