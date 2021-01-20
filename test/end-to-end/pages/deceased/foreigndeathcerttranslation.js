@@ -12,9 +12,7 @@ module.exports = async function(language = 'en', answer) {
     const foreignDeathCertTranslationContent = language === 'en' ? contentEn : contentCy;
 
     await I.checkPageUrl('app/steps/ui/deceased/foreigndeathcerttranslation');
-    if (language === 'en') {
-        await I.waitForText(foreignDeathCertTranslationContent.question, config.TestWaitForTextToAppear);
-    }
+    await I.waitForText(foreignDeathCertTranslationContent.question, config.TestWaitForTextToAppear);
 
     const locator = {css: `#foreignDeathCertTranslation${answer}`};
     await I.waitForElement(locator);

@@ -9,9 +9,7 @@ module.exports = async function(language ='en') {
     const paymentStatusContent = language === 'en' ? contentEn : contentCy;
     await I.checkPageUrl('app/steps/ui/payment/status');
 
-    if (language === 'en') {
-        await I.waitForText(paymentStatusContent.question, testConfig.TestWaitForTextToAppear);
-    }
+    await I.waitForText(paymentStatusContent.question, testConfig.TestWaitForTextToAppear);
     const locator = {css: '.govuk-button'};
     await I.waitForElement(locator);
     await I.navByClick(locator);

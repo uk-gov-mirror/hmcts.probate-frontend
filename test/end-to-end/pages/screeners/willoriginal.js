@@ -11,9 +11,7 @@ module.exports = async function(language ='en', answer) {
     const willOriginalContent = language === 'en' ? willOriginalEn : willOriginalCy;
 
     await I.checkPageUrl('app/steps/ui/screeners/willoriginal');
-    if (language === 'en') {
-        await I.waitForText(willOriginalContent.question);
-    }
+    await I.waitForText(willOriginalContent.question);
 
     const locator = {css: `#original${answer}`};
     await I.waitForElement(locator);
