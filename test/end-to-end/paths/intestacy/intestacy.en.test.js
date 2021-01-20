@@ -15,13 +15,13 @@ const optionRenouncing = '';
 const bilingualGOP = false;
 const uploadingDocuments = false;
 const config = require('config');
-const languages = ['en'];
+const languages = ['en', 'cy'];
 
-Feature('Grant Of Probate Intestacy E2E Tests...');
+Feature('GOP Intestacy E2E');
 
 languages.forEach(language => {
 
-    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - GOP -Intestacy Journey - Digital iht - @crossbrowser`), async (I) => {
+    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - GOP Intestacy Digital IHT - @crossbrowser`), async (I) => {
         const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
         await getIDAMUserAccountDetails();
         await I.retry(2).createAUser(TestConfigurator);
@@ -128,9 +128,10 @@ languages.forEach(language => {
         // Thank You
         await I.seeThankYouPage(language);
         await closeLaunchDarkly();
-    }).retry(TestConfigurator.getRetryScenarios());
+    }).tag('@Test99')
+        .retry(TestConfigurator.getRetryScenarios());
 
-    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - GOP -Intestacy Child Journey - Paper iht, no death certificate uploaded and spouse renouncing`), async (I) => {
+    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - GOP Intestacy Child Journey Paper iht, no death certificate uploaded and spouse renouncing`), async (I) => {
         const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
         await getIDAMUserAccountDetails();
         await I.retry(2).createAUser(TestConfigurator);
@@ -234,7 +235,8 @@ languages.forEach(language => {
         // Thank You
         await I.seeThankYouPage(language);
         await closeLaunchDarkly();
-    }).retry(TestConfigurator.getRetryScenarios());
+    }).tag('@Test99')
+        .retry(TestConfigurator.getRetryScenarios());
 });
 
 async function closeLaunchDarkly() {
