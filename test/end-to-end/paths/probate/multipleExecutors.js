@@ -16,11 +16,19 @@ const languages = ['en', 'cy'];
 
 Feature('Multiple Executors flow').retry(TestConfigurator.getRetryFeatures());
 
+Before(async () => {
+    await TestConfigurator.initLaunchDarkly();
+    await TestConfigurator.getBefore();
+});
+
+After(async () => {
+    await TestConfigurator.getAfter();
+});
+
 languages.forEach(language => {
 
     Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - Multiple Executors Journey - Main applicant; Stage 1: Enter deceased and executor details`), async (I) => {
         const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
-        await getIDAMUserAccountDetails();
         await I.retry(2).createAUser(TestConfigurator);
 
         const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
@@ -235,17 +243,7 @@ languages.forEach(language => {
 
         // Thank You
         await I.seeThankYouPage(language);
-        await closeLaunchDarkly();
 
     }).tag('@crossbrowser')
         .retry(TestConfigurator.getRetryScenarios());
 });
-
-async function closeLaunchDarkly() {
-    await TestConfigurator.getAfter();
-}
-
-async function getIDAMUserAccountDetails() {
-    await TestConfigurator.initLaunchDarkly();
-    await TestConfigurator.getBefore();
-}
