@@ -180,7 +180,7 @@ languages.forEach(language => {
         console.log('idList:', idList);
 
         for (let i = 0; i < idList.ids.length; i++) {
-            await I.amOnLoadedPage(testConfig.TestInvitationUrl + '/' + idList.ids[i], language);
+            await I.amOnPage(testConfig.TestInvitationUrl + '/' + idList.ids[i], language);
             const signInOrProbatePageLocator = {xpath: '//*[@name="loginForm" or @id="main-content"]'};
             await I.waitForElement(signInOrProbatePageLocator, testConfig.TestWaitForTextToAppear);
             await I.amOnPage(testConfig.TestE2EFrontendUrl + '/pin');

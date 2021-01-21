@@ -97,7 +97,7 @@ const setupConfig = {
                 options: {
                     reportDir: testConfig.TestOutputDir,
                     reportName: 'index',
-                    reportTitle: 'Crossbrowser results',
+                    reportTitle: 'Crossbrowser results for: ' + browser.toUpperCase(),
                     inlineAssets: true
                 }
             }
