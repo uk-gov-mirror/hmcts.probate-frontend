@@ -58,7 +58,7 @@ languages.forEach(language => {
         await I.startApply(language);
 
         // IdAM
-        await I.authenticateWithIdamIfAvailable(language, true);
+        await I.authenticateWithIdamIfAvailable(language);
 
         // Dashboard
         await I.chooseApplication(language);
