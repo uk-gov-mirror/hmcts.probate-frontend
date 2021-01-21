@@ -2,7 +2,7 @@ const testConfig = require('config');
 
 exports.config = {
     tests: testConfig.TestPathToRun,
-    output: `${process.cwd()}/${testConfig.TestOutputDir}`,
+    output: testConfig.TestOutputDir,
     helpers: {
         Puppeteer: {
             url: testConfig.TestE2EFrontendUrl,
@@ -17,7 +17,7 @@ exports.config = {
                     height: 960
                 },
                 args: [
-                    '--headless', '--no-sandbox', '--allow-running-insecure-content',
+                    '--headless', '--disable-gpu', '--no-sandbox', '--allow-running-insecure-content', '--ignore-certificate-errors',
                     '--proxy-server=proxyout.reform.hmcts.net:8080',
                     '--proxy-bypass-list=*beta*LB.reform.hmcts.net',
                     '--window-size=1440,1400'
@@ -73,7 +73,7 @@ exports.config = {
     },
     multiple: {
         parallel: {
-            chunks: 3,
+            chunks: 2,
             browsers: ['chrome']
         }
     },

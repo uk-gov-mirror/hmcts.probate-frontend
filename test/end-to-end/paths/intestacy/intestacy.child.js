@@ -14,7 +14,7 @@ const uploadingDocuments = false;
 const config = require('config');
 const languages = ['en', 'cy'];
 
-Feature('GOP Intestacy Child E2E').retry(TestConfigurator.getRetryFeatures());
+Feature('GOP Intestacy Child E2E');
 
 const runTests = (language ='en') => {
 
