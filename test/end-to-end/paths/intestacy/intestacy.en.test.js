@@ -48,7 +48,7 @@ languages.forEach(language => {
         await I.selectRelatedToDeceased(language, optionYes);
         await I.selectOtherApplicants(language, optionNo);
 
-        await I.startApply();
+        await I.startApply(language);
 
         // IdAM
         await I.authenticateWithIdamIfAvailable(language);
@@ -98,7 +98,7 @@ languages.forEach(language => {
 
         // Check your answers and declaration
         await I.selectATask(language, taskListContent.taskNotStarted);
-        await I.seeSummaryPage('declaration');
+        await I.seeSummaryPage(language, 'declaration');
         await I.acceptDeclaration(language, bilingualGOP);
 
         // Copies Task
@@ -159,7 +159,7 @@ languages.forEach(language => {
         await I.selectRelatedToDeceased(language, optionYes);
         await I.selectOtherApplicants(language, optionNo);
 
-        await I.startApply();
+        await I.startApply(language);
 
         // IdAM
         await I.authenticateWithIdamIfAvailable(language);
@@ -206,7 +206,7 @@ languages.forEach(language => {
 
         // Check your answers and declaration
         await I.selectATask(language, taskListContent.taskNotStarted);
-        await I.seeSummaryPage('declaration');
+        await I.seeSummaryPage(language, 'declaration');
         await I.acceptDeclaration(language, bilingualGOP);
 
         // Copies Task

@@ -45,7 +45,7 @@ languages.forEach(language => {
 
         await I.selectMentallyCapable(language, optionYes);
 
-        await I.startApply();
+        await I.startApply(language);
 
         // IdAM
         await I.authenticateWithIdamIfAvailable(language);
@@ -59,7 +59,7 @@ languages.forEach(language => {
         await I.enterDeceasedName(language, 'Deceased First Name', 'Deceased Last Name');
         await I.enterDeceasedDateOfBirth(language, '01', '01', '1950', true);
 
-        await I.seeSignOut();
+        await I.seeSignOut(language);
 
         await I.authenticateWithIdamIfAvailable(language);
 
@@ -111,7 +111,7 @@ languages.forEach(language => {
 
         // Review and Confirm Task
         await I.selectATask(language, taskListContent.taskNotStarted);
-        await I.seeSummaryPage('declaration');
+        await I.seeSummaryPage(language, 'declaration');
         await I.acceptDeclaration(language, bilingualGOP);
 
         // Extra Copies Task

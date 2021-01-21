@@ -24,7 +24,7 @@ class JSWait extends codecept_helper {
             helper.click(text, locator).catch(err => {
                 console.error(err.message);
             });
-            await helper.page.waitForNavigation({waitUntil: ['networkidle0']});
+            await helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']});
             return;
         }
         // non Puppeteer

@@ -14,6 +14,7 @@ module.exports = async function(language ='en', firstname, lastname) {
     await I.checkPageUrl('app/steps/ui/applicant/name');
     await I.waitForText(nameContent.question, config.TestWaitForTextToAppear);
     const locatorFn = {css: '#firstName'};
+    await I.waitForElement(locatorFn);
     await I.fillField(locatorFn, firstname);
     await I.fillField({css: '#lastName'}, lastname);
     await I.navByClick(commonContent.saveAndContinue);

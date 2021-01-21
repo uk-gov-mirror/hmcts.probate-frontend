@@ -47,7 +47,7 @@ languages.forEach(language => {
 
         await I.selectMentallyCapable(language, optionYes);
 
-        await I.startApply();
+        await I.startApply(language);
 
         // IdAM
         await I.authenticateWithIdamIfAvailable(language, true);
@@ -158,7 +158,7 @@ languages.forEach(language => {
 
         // Review and Confirm Task
         await I.selectATask(language, taskListContent.taskNotStarted);
-        await I.seeSummaryPage('declaration');
+        await I.seeSummaryPage(language, 'declaration');
         await I.acceptDeclaration(language, bilingualGOP);
 
         // Notify additional executors Dealing with estate
