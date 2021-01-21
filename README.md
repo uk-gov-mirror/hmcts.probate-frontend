@@ -5,7 +5,7 @@ This is the frontend application for the Probate Personal Applicants online serv
 The Frontend Application uses Orchestrator to route specific requests to the underlying services such as Business Service and Submit Service.
 
 
-## Getting Started
+## Getting Started...
 ### Prerequisites
 
 - [Node.js](nodejs.org) >= 12.5.0
