@@ -3,7 +3,6 @@
 const taskListContentEn = require('app/resources/en/translation/tasklist');
 const taskListContentCy = require('app/resources/cy/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
-
 const optionYes = '';
 const ihtPost = '';
 const optionNo = '-2';
