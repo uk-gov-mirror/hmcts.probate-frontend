@@ -16,7 +16,7 @@ class JSWait extends codecept_helper {
         }
     }
 
-    async navByClick(text, locator = null, webDriverWait = 2) {
+    async navByClick (text, locator) {
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
@@ -24,12 +24,13 @@ class JSWait extends codecept_helper {
             helper.click(text, locator).catch(err => {
                 console.error(err.message);
             });
-            await helper.page.waitForNavigation({waitUntil: ['networkidle0']});
-            return;
+            await helper.page.waitForNavigation({waitUntil: 'networkidle0'});
+        } else {
+            await helper.click(text, locator).catch(err => {
+                console.error(err.message);
+            });
+            await helper.wait(2);
         }
-        // non Puppeteer
-        await helper.click(text, locator);
-        await helper.wait(webDriverWait);
     }
 
     async amOnLoadedPage (url, language ='en') {

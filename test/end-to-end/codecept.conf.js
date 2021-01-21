@@ -17,7 +17,7 @@ exports.config = {
                     height: 960
                 },
                 args: [
-                    '--headless', '--disable-gpu', '--no-sandbox', '--allow-running-insecure-content', '--ignore-certificate-errors',
+                    '--no-sandbox', '--allow-running-insecure-content',
                     '--proxy-server=proxyout.reform.hmcts.net:8080',
                     '--proxy-bypass-list=*beta*LB.reform.hmcts.net',
                     '--window-size=1440,1400'
@@ -54,7 +54,8 @@ exports.config = {
         reporterOptions: {
             'codeceptjs-cli-reporter': {
                 stdout: '-',
-                options: {steps: true}
+                options: {steps: true},
+                verbose: true
             },
             'mocha-junit-reporter': {
                 stdout: '-',
