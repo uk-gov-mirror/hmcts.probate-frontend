@@ -2,7 +2,7 @@ const {decodeHTML} = require('test/end-to-end/helpers/GeneralHelpers');
 
 class JSWait extends codecept_helper {
 
-    _beforeStep(step) {
+    async _beforeStep(step) {
 
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
 
@@ -12,11 +12,11 @@ class JSWait extends codecept_helper {
 
         if (step.name === 'waitForText') {
             // this handles decoding any HTML coded characters in the text
-            step.args[0] = decodeHTML(step.args[0].trim());
+            step.args[0] = await decodeHTML(step.args[0].trim());
         }
     }
 
-    async navByClick (text, locator) {
+    async navByClick(text, locator = null, webDriverWait = 2) {
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
@@ -24,13 +24,12 @@ class JSWait extends codecept_helper {
             helper.click(text, locator).catch(err => {
                 console.error(err.message);
             });
-            await helper.page.waitForNavigation({waitUntil: 'networkidle0'});
-        } else {
-            await helper.click(text, locator).catch(err => {
-                console.error(err.message);
-            });
-            await helper.wait(2);
+            await helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']});
+            return;
         }
+        // non Puppeteer
+        await helper.click(text, locator);
+        await helper.wait(webDriverWait);
     }
 
     async amOnLoadedPage (url, language ='en') {

@@ -32,6 +32,9 @@ exports.config = {
         },
         IDAMHelper: {
             require: './helpers/IDAMHelper.js'
+        },
+        Mochawesome: {
+            uniqueScreenshotNames: 'true'
         }
     },
     include: {

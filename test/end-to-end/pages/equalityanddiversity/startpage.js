@@ -13,8 +13,9 @@ module.exports = async function(language ='en') {
     // console.info(`equality url: ${url}`);
     // await I.checkPageUrl('app/steps/ui/equality');
     const backButtonLocator = {css: '#back-button'};
-    await I.waitForElement(backButtonLocator, config.TestWaitForElementToAppear);
-    if (language === 'en') {
+    await I.waitForVisible(backButtonLocator, config.TestWaitForElementToAppear);
+    const currentUrl = await I.grabCurrentUrl();
+    if (!currentUrl.includes('/offline')) {
         await I.waitForText(equalityContent, config.TestWaitForTextToAppear);
     }
     await I.navByClick(backButtonLocator);

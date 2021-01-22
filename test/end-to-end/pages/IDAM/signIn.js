@@ -16,10 +16,10 @@ module.exports = async function (language ='en', noScreenerQuestions = false) {
         const numEls = await I.grabNumberOfVisibleElements(locator);
         if (numEls > 0) {
             await I.navByClick(locator);
-            await I.seeSignOut();
+            await I.seeSignOut(language);
         }
-        await I.fillField('username', process.env.testCitizenEmail);
-        await I.fillField('password', process.env.testCitizenPassword);
+        await I.fillField({css: '#username'}, process.env.testCitizenEmail);
+        await I.fillField({css: '#password'}, process.env.testCitizenPassword);
         await I.navByClick('//input[@class=\'button\' and @type=\'submit\']');
     }
 };

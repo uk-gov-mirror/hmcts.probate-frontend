@@ -12,15 +12,23 @@ const ihtPost = '';
 const optionNo = '-2';
 const bilingualGOP = false;
 const uploadingDocuments = false;
-const languages = ['en'];
+const languages = ['en', 'cy'];
 
-Feature('Multiple Executors flow - @crossbrowser').retry(TestConfigurator.getRetryFeatures());
+Feature('Multiple Executors flow').retry(TestConfigurator.getRetryFeatures());
+
+Before(async () => {
+    await TestConfigurator.initLaunchDarkly();
+    await TestConfigurator.getBefore();
+});
+
+After(async () => {
+    await TestConfigurator.getAfter();
+});
 
 languages.forEach(language => {
 
     Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - Multiple Executors Journey - Main applicant; Stage 1: Enter deceased and executor details`), async (I) => {
         const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
-        await getIDAMUserAccountDetails();
         await I.retry(2).createAUser(TestConfigurator);
 
         const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
@@ -47,10 +55,10 @@ languages.forEach(language => {
 
         await I.selectMentallyCapable(language, optionYes);
 
-        await I.startApply();
+        await I.startApply(language);
 
         // IdAM
-        await I.authenticateWithIdamIfAvailable(language, true);
+        await I.authenticateWithIdamIfAvailable(language);
 
         // Dashboard
         await I.chooseApplication(language);
@@ -158,7 +166,7 @@ languages.forEach(language => {
 
         // Review and Confirm Task
         await I.selectATask(language, taskListContent.taskNotStarted);
-        await I.seeSummaryPage('declaration');
+        await I.seeSummaryPage(language, 'declaration');
         await I.acceptDeclaration(language, bilingualGOP);
 
         // Notify additional executors Dealing with estate
@@ -180,7 +188,7 @@ languages.forEach(language => {
         console.log('idList:', idList);
 
         for (let i = 0; i < idList.ids.length; i++) {
-            await I.amOnLoadedPage(testConfig.TestInvitationUrl + '/' + idList.ids[i], language);
+            await I.amOnPage(testConfig.TestInvitationUrl + '/' + idList.ids[i], language);
             const signInOrProbatePageLocator = {xpath: '//*[@name="loginForm" or @id="main-content"]'};
             await I.waitForElement(signInOrProbatePageLocator, testConfig.TestWaitForTextToAppear);
             await I.amOnPage(testConfig.TestE2EFrontendUrl + '/pin');
@@ -221,7 +229,7 @@ languages.forEach(language => {
 
         // Payment Task
         await I.selectATask(language, taskListContent.taskNotStarted);
-        await I.seePaymentBreakdownPage();
+        await I.seePaymentBreakdownPage(language);
 
         if (TestConfigurator.getUseGovPay() === 'true') {
             await I.seeGovUkPaymentPage(language);
@@ -235,16 +243,7 @@ languages.forEach(language => {
 
         // Thank You
         await I.seeThankYouPage(language);
-        await closeLaunchDarkly();
 
-    }).retry(TestConfigurator.getRetryScenarios());
+    }).tag('@crossbrowser')
+        .retry(TestConfigurator.getRetryScenarios());
 });
-
-async function closeLaunchDarkly() {
-    await TestConfigurator.getAfter();
-}
-
-async function getIDAMUserAccountDetails() {
-    await TestConfigurator.initLaunchDarkly();
-    await TestConfigurator.getBefore();
-}

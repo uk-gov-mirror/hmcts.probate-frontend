@@ -13,6 +13,9 @@ module.exports = async function(language = 'en', bilingualGOP) {
 
     await I.checkPageUrl('app/steps/ui/declaration');
     if (language === 'en') {
+        // The below check should be enabled for both English and Welsh once
+        // this AAT Welsh content bug is fixed: https://tools.hmcts.net/jira/browse/DTSPB-1250
+        // (raised 19/01/2020)
         await I.waitForText(declarationContent.highCourtHeader, config.TestWaitForTextToAppear);
     }
 
