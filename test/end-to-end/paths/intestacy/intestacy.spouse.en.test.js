@@ -14,17 +14,13 @@ const config = require('config');
 
 Feature('GOP Intestacy spouse journey...');
 
-// eslint complains that the Before/After are not used but they are by codeceptjs
-// so we have to tell eslint to not validate these
-// eslint-disable-next-line no-undef
 Before(async () => {
     await TestConfigurator.initLaunchDarkly();
     await TestConfigurator.getBefore();
 });
 
-// eslint-disable-next-line no-undef
-After(() => {
-    TestConfigurator.getAfter();
+After(async () => {
+    await TestConfigurator.getAfter();
 });
 
 // eslint-disable-next-line no-undef

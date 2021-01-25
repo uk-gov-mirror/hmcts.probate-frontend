@@ -9,6 +9,7 @@ module.exports = async function(language ='en') {
     const I = this;
     const dashboardContent = language === 'en' ? dashboardEn : dashboardCy;
     await I.checkPageUrl('app/steps/ui/dashboard');
+    await I.waitForElement('#main-content', testConfig.TestWaitForTextToAppear);
     const welshLinkText = await I.grabTextFrom('//a[@class =\'govuk-link language\']');
     console.log('Dash Board Link Name::-->' + welshLinkText);
 
@@ -32,9 +33,10 @@ module.exports = async function(language ='en') {
     } else {
         console.log('Welsh Dashboard Page...');
         await I.amOnLoadedPage('/dashboard', language);
-        await I.takeScreenshot('./functional-output/dashboard-before.png');
+        await I.saveScreenshot('dashboard-before.png');
 
         for (let i = 0; i <= 5; i++) {
+            await I.waitForElement('#main-content', testConfig.TestWaitForTextToAppear);
             const result = await I.checkForText(dashboardContent.actionContinue, 10);
             if (result === true) {
                 break;

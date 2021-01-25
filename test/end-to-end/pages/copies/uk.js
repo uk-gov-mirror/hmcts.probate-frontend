@@ -12,9 +12,7 @@ module.exports = async function(language = 'en', copies) {
     const ukCopiesContent = language === 'en' ? contentEn : contentCy;
 
     await I.checkPageUrl('app/steps/ui/copies/uk');
-    if (language === 'en') {
-        await I.waitForText(ukCopiesContent.question, config.TestWaitForTextToAppear);
-    }
+    await I.waitForText(ukCopiesContent.question, config.TestWaitForTextToAppear);
     const locator = {css: '#uk'};
     await I.waitForElement(locator);
     await I.fillField(locator, copies);

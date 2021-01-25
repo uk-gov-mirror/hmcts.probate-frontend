@@ -12,9 +12,7 @@ module.exports = async function (language = 'en', totalExecutors) {
     const numberContent = language === 'en' ? numberContentEn : numberContentCy;
 
     await I.checkPageUrl('app/steps/ui/executors/number');
-    if (language === 'en') {
-        await I.waitForText(numberContent.checklist1Header, config.TestWaitForTextToAppear);
-    }
+    await I.waitForText(numberContent.checklist1Header, config.TestWaitForTextToAppear);
     const locator = {css: '#executorsNumber'};
     await I.waitForElement(locator);
     await I.fillField(locator, totalExecutors);

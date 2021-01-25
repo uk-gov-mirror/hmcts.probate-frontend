@@ -13,9 +13,7 @@ module.exports = async function(language = 'en', answer) {
     const aliasContent = language === 'en' ? aliasContentEn : aliasContentCy;
 
     await I.checkPageUrl('app/steps/ui/deceased/alias');
-    if (language === 'en') {
-        await I.waitForText(aliasContent.paragraph1, config.TestWaitForTextToAppear);
-    }
+    await I.waitForText(aliasContent.paragraph1, config.TestWaitForTextToAppear);
     const locator = {css: `#alias${answer}`};
     await I.waitForElement(locator);
     await I.click(locator);

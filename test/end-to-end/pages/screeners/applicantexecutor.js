@@ -11,11 +11,10 @@ module.exports = async function(language ='en', answer) {
     const applicantExecutorContent = language === 'en' ? applicantExecutorEn : applicantExecutorCy;
 
     await I.checkPageUrl('app/steps/ui/screeners/applicantexecutor');
-    if (language === 'en') {
-        await I.waitForText(applicantExecutorContent.question);
-        await I.see(applicantExecutorContent.hintText1);
-        await I.see(applicantExecutorContent.hintText2);
-    }
+    await I.waitForText(applicantExecutorContent.question);
+    await I.waitForText(applicantExecutorContent.hintText1);
+    await I.waitForText(applicantExecutorContent.hintText2);
+
     const locator = {css: `#executor${answer}`};
     await I.waitForElement(locator);
     await I.click(locator);
