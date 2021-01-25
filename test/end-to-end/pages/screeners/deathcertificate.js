@@ -7,6 +7,7 @@ module.exports = async function(language ='en', answer, testSurvey = false) {
     const I = this;
     const commonContent = language === 'en' ? commonContentEn : commonContentCy;
     await I.checkPageUrl('app/steps/ui/screeners/deathcertificate');
+    await I.waitForText(commonContent.yes);
 
     if (testSurvey) {
         await I.click({css: 'body > div.govuk-width-container > div > p > span > a:nth-child(1)'});

@@ -10,9 +10,7 @@ module.exports = async function(language = 'en', answer) {
     const deathCertificateContent = language === 'en' ? deathCertificateEn : deathCertificateCy;
     const commonContent = language === 'en' ? commonContentEn : commonContentCy;
     await I.checkPageUrl('app/steps/ui/screeners/deathcertificateinenglish');
-    if (language === 'en') {
-        await I.waitForText(deathCertificateContent.question);
-    }
+    await I.waitForText(deathCertificateContent.question);
 
     const locator = {css: `#deathCertificateInEnglish${answer}`};
     await I.waitForElement(locator);

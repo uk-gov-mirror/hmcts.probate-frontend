@@ -12,10 +12,9 @@ module.exports = async function(language ='en', firstname, lastname) {
     const nameContent = language === 'en' ? nameContentEn : nameContentCy;
 
     await I.checkPageUrl('app/steps/ui/applicant/name');
-    if (language === 'en') {
-        await I.waitForText(nameContent.question, config.TestWaitForTextToAppear);
-    }
+    await I.waitForText(nameContent.question, config.TestWaitForTextToAppear);
     const locatorFn = {css: '#firstName'};
+    await I.waitForElement(locatorFn);
     await I.fillField(locatorFn, firstname);
     await I.fillField({css: '#lastName'}, lastname);
     await I.navByClick(commonContent.saveAndContinue);

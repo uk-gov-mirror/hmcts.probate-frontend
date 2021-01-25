@@ -13,12 +13,20 @@ const languages = ['en', 'cy'];
 
 Feature('GOP-Single Executor').retry(TestConfigurator.getRetryFeatures());
 
+Before(async () => {
+    await TestConfigurator.initLaunchDarkly();
+    await TestConfigurator.getBefore();
+});
+
+After(async () => {
+    await TestConfigurator.getAfter();
+});
+
 languages.forEach(language => {
 
     Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} -GOP Single Executor E2E `), async (I) => {
 
         const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
-        await getIDAMUserAccountDetails();
         await I.retry(2).createAUser(TestConfigurator);
 
         const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
@@ -45,7 +53,7 @@ languages.forEach(language => {
 
         await I.selectMentallyCapable(language, optionYes);
 
-        await I.startApply();
+        await I.startApply(language);
 
         // IdAM
         await I.authenticateWithIdamIfAvailable(language);
@@ -59,7 +67,7 @@ languages.forEach(language => {
         await I.enterDeceasedName(language, 'Deceased First Name', 'Deceased Last Name');
         await I.enterDeceasedDateOfBirth(language, '01', '01', '1950', true);
 
-        await I.seeSignOut();
+        await I.seeSignOut(language);
 
         await I.authenticateWithIdamIfAvailable(language);
 
@@ -131,7 +139,7 @@ languages.forEach(language => {
 
         // Payment Task
         await I.selectATask(language, taskListContent.taskNotStarted);
-        await I.seePaymentBreakdownPage();
+        await I.seePaymentBreakdownPage(language);
 
         if (TestConfigurator.getUseGovPay() === 'true') {
             await I.seeGovUkPaymentPage(language);
@@ -145,17 +153,7 @@ languages.forEach(language => {
 
         // Thank You
         await I.seeThankYouPage(language);
-        await closeLaunchDarkly();
 
     }).tag('@e2e')
         .retry(TestConfigurator.getRetryScenarios());
 });
-
-async function closeLaunchDarkly() {
-    await TestConfigurator.getAfter();
-}
-
-async function getIDAMUserAccountDetails() {
-    await TestConfigurator.initLaunchDarkly();
-    await TestConfigurator.getBefore();
-}

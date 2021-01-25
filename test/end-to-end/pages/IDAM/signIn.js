@@ -10,14 +10,16 @@ module.exports = async function (language ='en', noScreenerQuestions = false) {
             await I.amOnLoadedPage('/', language);
         }
 
+        const signInOrProbatePageLocator = {xpath: '//*[@name="loginForm" or @id="main-content"]'};
+        await I.waitForElement(signInOrProbatePageLocator, testConfig.TestWaitForTextToAppear);
         const locator = {css: 'a[href="/sign-out"]'};
         const numEls = await I.grabNumberOfVisibleElements(locator);
         if (numEls > 0) {
             await I.navByClick(locator);
-            await I.navByClick({css: 'a[href="/dashboard"]'});
+            await I.seeSignOut(language);
         }
-        await I.fillField('username', process.env.testCitizenEmail);
-        await I.fillField('password', process.env.testCitizenPassword);
+        await I.fillField({css: '#username'}, process.env.testCitizenEmail);
+        await I.fillField({css: '#password'}, process.env.testCitizenPassword);
         await I.navByClick('//input[@class=\'button\' and @type=\'submit\']');
     }
 };
