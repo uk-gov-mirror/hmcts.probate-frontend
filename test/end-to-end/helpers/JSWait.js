@@ -1,11 +1,18 @@
+const {decodeHTML} = require('test/end-to-end/helpers/GeneralHelpers');
+
 class JSWait extends codecept_helper {
 
-    _beforeStep(step) {
+    async _beforeStep(step) {
+
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
 
-        // Wait for content to load before checking URL
         if (step.name === 'seeCurrentUrlEquals' || step.name === 'seeInCurrentUrl') {
-            return helper.wait(3);
+            return helper.waitForElement('body', 30);
+        }
+
+        if (step.name === 'waitForText') {
+            // this handles decoding any HTML coded characters in the text
+            step.args[0] = await decodeHTML(step.args[0].trim());
         }
     }
 
@@ -14,10 +21,10 @@ class JSWait extends codecept_helper {
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
         if (helperIsPuppeteer) {
-            await Promise.all([
-                helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']}),
-                locator ? helper.click(text, locator) : helper.click(text)
-            ]);
+            helper.click(text, locator).catch(err => {
+                console.error(err.message);
+            });
+            await helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']});
             return;
         }
         // non Puppeteer
@@ -25,22 +32,25 @@ class JSWait extends codecept_helper {
         await helper.wait(webDriverWait);
     }
 
-    async amOnLoadedPage(url) {
+    async amOnLoadedPage (url, language ='en') {
+        let newUrl = `${url}?lng=${language}`;
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
         if (helperIsPuppeteer) {
-            if (url.indexOf('http') !== 0) {
-                url = helper.options.url + url;
+            if (newUrl.indexOf('http') !== 0) {
+                newUrl = helper.options.url + newUrl;
             }
 
-            await Promise.all([
-                helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']}), // The promise resolves after navigation has finished
-                helper.page.goto(url)
-            ]);
+            helper.page.goto(newUrl).catch(err => {
+                console.error(err.message);
+            });
+            await helper.page.waitForNavigation({waitUntil: 'networkidle0'});
+
         } else {
-            await helper.amOnPage(url);
+            await helper.amOnPage(newUrl);
             await helper.waitInUrl(url);
+            await helper.waitForElement('body');
         }
     }
 
