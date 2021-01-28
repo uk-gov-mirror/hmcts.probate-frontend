@@ -141,14 +141,10 @@ languages.forEach(language => {
             // Payment Task
             await I.selectATask(language, taskListContent.taskNotStarted);
             await I.seePaymentBreakdownPage(language);
-
-            if (TestConfigurator.getUseGovPay() === 'true') {
-                await I.seeGovUkPaymentPage(language);
-                await I.seeGovUkCancelPage(language);
-                await I.seeCancellationPage(language);
-                await I.seePaymentClosePage(language);
-
-            }
+            await I.seeGovUkPaymentPage(language);
+            await I.seeGovUkCancelPage(language);
+            await I.seeCancellationPage(language);
+            await I.seePaymentClosePage(language);
             await I.seeSignOut(language);
 
         }
