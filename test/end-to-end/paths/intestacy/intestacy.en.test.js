@@ -17,7 +17,7 @@ const uploadingDocuments = false;
 const config = require('config');
 const languages = ['en', 'cy'];
 
-Feature('Grant Of Probate Intestacy E2E Tests...');
+Feature('GOP Intestacy E2E');
 
 Before(async () => {
     await TestConfigurator.initLaunchDarkly();

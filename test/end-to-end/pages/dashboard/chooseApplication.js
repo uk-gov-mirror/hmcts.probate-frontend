@@ -31,7 +31,6 @@ module.exports = async function(language ='en') {
         await I.see(dashboardContent.tableHeaderCaseStatus);
         await I.navByClick(dashboardContent.actionContinue);
     } else {
-        console.log('Welsh Dashboard Page...');
         await I.amOnLoadedPage('/dashboard', language);
         await I.saveScreenshot('dashboard-before.png');
 
