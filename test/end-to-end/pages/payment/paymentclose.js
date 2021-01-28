@@ -12,7 +12,6 @@ module.exports = async function(language = 'en') {
     const paymentContent = language === 'en' ? paymentContentEn : paymentContentCy;
 
     await I.checkPageUrl('app/steps/ui/payment/breakdown');
-    await I.wait(3);
     await I.waitForText(paymentContent.applicationFee, testConfig.TestWaitForTextToAppear);
     await I.waitForText(commonContent.saveAndClose, testConfig.TestWaitForTextToAppear);
     await I.navByClick(commonContent.saveAndClose);
