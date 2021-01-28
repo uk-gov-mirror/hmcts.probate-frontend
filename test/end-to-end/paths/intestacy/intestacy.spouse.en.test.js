@@ -1,6 +1,7 @@
 'use strict';
 
-const taskListContent = require('app/resources/en/translation/tasklist');
+const taskListContentEn = require('app/resources/en/translation/tasklist');
+const taskListContentCy = require('app/resources/cy/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 
 const optionYes = '';
@@ -27,6 +28,7 @@ After(async () => {
 languages.forEach(language => {
 
     Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} GOP Intestacy Spouse Journey - Digital iht and death certificate uploaded `), async (I) => {
+        const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
         await I.retry(2).createAUser(TestConfigurator);
 
         const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
