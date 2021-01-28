@@ -11,7 +11,7 @@ const uploadingDocuments = false;
 const config = require('config');
 const languages = ['en', 'cy'];
 
-Feature('GOP-Single Executor').retry(TestConfigurator.getRetryFeatures());
+Feature('Credit Card Payment Cancellation').retry(TestConfigurator.getRetryFeatures());
 
 Before(async () => {
     await TestConfigurator.initLaunchDarkly();
@@ -24,7 +24,7 @@ After(async () => {
 
 languages.forEach(language => {
 
-    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} -GOP Single Executor E2E `), async (I) => {
+    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} -Credit Card Payment Cancellation`), async (I) => {
         if (TestConfigurator.getUseGovPay() === 'true') {
 
             const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
@@ -151,13 +151,7 @@ languages.forEach(language => {
             }
             await I.seeSignOut(language);
 
-            // Send Documents Task
-            await I.seeDocumentsPage(language);
-
-            // Thank You
-            await I.seeThankYouPage(language);
-
         }
-    }).tag('@orange')
+    }).tag('@e2e')
         .retry(TestConfigurator.getRetryScenarios());
 });
