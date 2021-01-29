@@ -11,7 +11,7 @@ const uploadingDocuments = false;
 const config = require('config');
 const languages = ['en', 'cy'];
 
-Feature('GOP-Single Executor').retry(TestConfigurator.getRetryFeatures());
+Feature('GOP-Single Executor');
 
 Before(async () => {
     await TestConfigurator.initLaunchDarkly();
