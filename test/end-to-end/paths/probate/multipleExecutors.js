@@ -12,9 +12,9 @@ const ihtPost = '';
 const optionNo = '-2';
 const bilingualGOP = false;
 const uploadingDocuments = false;
-const languages = ['en', 'cy'];
+const languages = ['en'];
 
-Feature('Multiple Executors flow').retry(TestConfigurator.getRetryFeatures());
+Feature('GOP Multiple Executors E2E');
 
 Before(async () => {
     await TestConfigurator.initLaunchDarkly();
@@ -245,5 +245,6 @@ languages.forEach(language => {
         await I.seeThankYouPage(language);
 
     }).tag('@crossbrowser')
+        .tag('@e2e')
         .retry(TestConfigurator.getRetryScenarios());
 });
