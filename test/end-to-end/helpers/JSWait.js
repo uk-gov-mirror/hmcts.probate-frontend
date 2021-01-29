@@ -21,7 +21,7 @@ class JSWait extends codecept_helper {
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
         if (helperIsPuppeteer) {
-            helper.click(text, locator).catch(err => {
+            await helper.click(text, locator).catch(err => {
                 console.error(err.message);
             });
             await helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']});
@@ -42,10 +42,12 @@ class JSWait extends codecept_helper {
                 newUrl = helper.options.url + newUrl;
             }
 
-            helper.page.goto(newUrl).catch(err => {
-                console.error(err.message);
-            });
-            await helper.page.waitForNavigation({waitUntil: 'networkidle0'});
+            await Promise.all([
+                helper.page.waitForNavigation({waitUntil: 'networkidle0'}),
+                helper.page.goto(newUrl).catch(err => {
+                    console.error(err.message);
+                })
+            ]);
 
         } else {
             await helper.amOnPage(newUrl);
