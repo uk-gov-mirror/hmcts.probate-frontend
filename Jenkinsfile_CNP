@@ -121,10 +121,4 @@ withPipeline("nodejs", product, component) {
                 AppPipelineDsl.PactRoles.CONSUMER
         ])
     }
-
-    onPR() {
-        enablePactAs([
-                AppPipelineDsl.PactRoles.CONSUMER
-        ])
-    }
 }
