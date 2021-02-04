@@ -85,4 +85,5 @@ pact:
   pactBrokerUrl: 'http://localhost:80'
 
 featureToggles:
-   enabled: false
+   enabled: true
+   ft_newfee_register_code: 'probate-newfee-register-code'

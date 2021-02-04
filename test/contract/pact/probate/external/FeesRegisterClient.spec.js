@@ -118,7 +118,7 @@ describe('Pact FeesRegisterClient', () => {
                     uponReceiving: 'a request to GET a fee',
                     withRequest: {
                         method: 'GET',
-                        path: '/fee-register/fees/lookup',
+                        path: '/fees-register/fees/lookup',
                         query: getQueryParams(ftNewFeeEnabled),
                         headers: {
                             'Content-Type': 'application/json',
@@ -128,14 +128,14 @@ describe('Pact FeesRegisterClient', () => {
                     },
                     willRespondWith: {
                         status: 200,
-                        headers: {'Content-Type': 'application/json; charset=UTF-8'},
+                        headers: {'Content-Type': 'application/json'},
                         body: feeResponseBodyExpectation
                     }
                 })
             );
 
             it('successfully returns fee', (done) => {
-                const feeLookupClient = new FeeLookupClient('http://localhost:' + MOCK_SERVER_PORT + '/fee-register', ctx.sessionID);
+                const feeLookupClient = new FeeLookupClient('http://localhost:' + MOCK_SERVER_PORT + '/fees-register', ctx.sessionID);
                 headers = {
                     authToken: ctx.authToken
                 };
