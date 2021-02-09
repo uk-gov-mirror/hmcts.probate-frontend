@@ -12,7 +12,7 @@ const ihtPost = '';
 const optionNo = '-2';
 const bilingualGOP = false;
 const uploadingDocuments = false;
-const languages = ['en'];
+const languages = ['en', 'cy'];
 
 Feature('GOP Multiple Executors E2E');
 
