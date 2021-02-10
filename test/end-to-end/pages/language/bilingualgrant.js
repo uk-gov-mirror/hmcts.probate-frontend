@@ -10,7 +10,6 @@ module.exports = async function(language = 'en') {
     await I.checkPageUrl('app/steps/ui/language');
     const locator = {xpath: '//input[@name="bilingual"][@type="radio"][@value="optionNo"]'};
     await I.waitForEnabled(locator, 5);
-    await I.waitFor(locator);
     await I.seeCheckboxIsChecked(locator);
     await I.navByClick(commonContent.saveAndContinue);
 };
