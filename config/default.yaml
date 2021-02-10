@@ -34,7 +34,7 @@ health:
   timeout: 5000
   deadline: 15000
 pact:
-  pactBrokerUrl: 'http://localhost:80'
+  pactBrokerUrl: 'https://pact-broker.platform.hmcts.net'
 services:
   postcode:
     name: 'Postcode Lookup Service'
