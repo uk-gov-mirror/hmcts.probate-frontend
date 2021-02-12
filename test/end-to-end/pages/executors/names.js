@@ -15,7 +15,7 @@ module.exports = async function(language = 'en', totalExecutors) {
         // eslint-disable-next-line no-await-in-loop
         await I.waitForElement(locator);
         // eslint-disable-next-line no-await-in-loop
-        await I.fillField(locator, 'exec' + (i + 2));
+        await I.fillField(locator, 'Executor ' + (i + 2));
         i += 1;
     }
 

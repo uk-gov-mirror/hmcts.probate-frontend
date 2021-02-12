@@ -13,8 +13,9 @@ const optionNo = '-2';
 const bilingualGOP = false;
 const uploadingDocuments = false;
 const languages = ['en', 'cy'];
+//const languages = ['en'];
 
-Feature('GOP Multiple Executors E2E');
+Feature('Multiple Executors flow - 5 Executors');
 
 Before(async () => {
     await TestConfigurator.initLaunchDarkly();
@@ -27,7 +28,7 @@ After(async () => {
 
 languages.forEach(language => {
 
-    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - Multiple Executors Journey - Main applicant; Stage 1: Enter deceased and executor details`), async (I) => {
+    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - Multiple Executors 5 Journey - Main applicant; Stage 1: Enter deceased and executor details`), async (I) => {
         const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
         await I.retry(2).createAUser(TestConfigurator);
 
@@ -67,10 +68,11 @@ languages.forEach(language => {
         await I.selectATask(language, taskListContent.taskNotStarted);
         await I.chooseBiLingualGrant(language, optionNo);
         await I.enterDeceasedName(language, 'Deceased First Name', 'Deceased Last Name');
-        await I.enterDeceasedDateOfBirth(language, '01', '01', '1950');
-        await I.enterDeceasedDateOfDeath(language, '01', '01', '2017');
+        await I.enterDeceasedDateOfBirth(language, '15', '12', '1950');
+        await I.enterDeceasedDateOfDeath(language, '15', '06', '2019');
         await I.enterDeceasedAddress(language);
 
+        //Check Launch Darkly Toggle Exists
         if (useNewDeathCertFlow) {
             await I.selectDiedEngOrWales(language, optionNo);
             await I.selectEnglishForeignDeathCert(language, optionNo);
@@ -82,9 +84,9 @@ languages.forEach(language => {
         await I.selectInheritanceMethod(language, ihtPost);
 
         if (TestConfigurator.getUseGovPay() === 'true') {
-            await I.enterGrossAndNet(language, '205', '600000', '300000');
+            await I.enterGrossAndNet(language, '205', '80000000', '550000');
         } else {
-            await I.enterGrossAndNet(language, '205', '500', '400');
+            await I.enterGrossAndNet(language, '205', '500', '400');//check why this else code exists
         }
 
         await I.selectDeceasedAlias(language, optionNo);
@@ -98,51 +100,29 @@ languages.forEach(language => {
         await I.enterApplicantPhone(language);
         await I.enterAddressManually(language);
 
-        //const totalExecutors = '7';
-        const totalExecutors = '4';
+        //Amount of Executors
+        const totalExecutors = '5';
         await I.enterTotalExecutors(language, totalExecutors);
         await I.enterExecutorNames(language, totalExecutors);
-        await I.selectExecutorsAllAlive(language, optionNo);
+        await I.selectExecutorsAllAlive(language, optionYes);
 
-        //const executorsWhoDiedList = ['2', '7']; // exec2 and exec7
-        const executorsWhoDiedList = ['2']; // exec2
-        let diedBefore = optionYes;
-        await I.selectExecutorsWhoDied(language, executorsWhoDiedList);
-
-        if (executorsWhoDiedList) {
-            for (let i = 0; i < executorsWhoDiedList.length; i++) {
-                const executorNum = executorsWhoDiedList[i];
-                await I.selectExecutorsWhenDied(language, executorNum, diedBefore, executorsWhoDiedList[0] === executorNum);
-                diedBefore = optionNo;
-            }
-        }
-
+        //Executors Who are Applying
         await I.selectExecutorsApplying(language, optionYes);
 
-        //const executorsApplyingList = ['3', '5']; // exec3 and exec5
-        const executorsApplyingList = ['3']; // exec3
+        const executorsApplyingList = ['3', '4', '5']; // exec2, exec3 and exec4 are applying
         await I.selectExecutorsDealingWithEstate(language, executorsApplyingList);
 
-        //I.selectExecutorsWithDifferentNameOnWill(optionYes);
         await I.selectExecutorsWithDifferentNameOnWill(language, optionNo);
-        //const executorsWithDifferentNameIdList = ['2']; // ie 1 is the HTML id for executor 3, 2 is the HTML id for executor 5
-        //I.selectWhichExecutorsWithDifferentNameOnWill(executorsWithDifferentNameIdList);
 
-        // const executorNumber = '5'; // 5 is the number in the name of the executor ie exec5
-        // I.enterExecutorCurrentName(executorNumber);
-        // I.enterExecutorCurrentNameReason(executorNumber, 'executor_alias_reason');
-
+        //Executors Applying Contact Details
         for (let i = 1; i <= executorsApplyingList.length; i++) {
-            await I.enterExecutorContactDetails(language);
+            await I.enterExecutorContactDetails(language); //****change the email address structure
             await I.enterExecutorManualAddress(language, i);
         }
 
-        //const executorsAliveList = ['4', '6'];
-        const executorsAliveList = ['4'];
-        // let powerReserved = true;
-        // let answer = optionYes;
-        let powerReserved = false;
-        let answer = optionNo;
+        const executorsAliveList = ['5'];//Executor Not Applying and Reserved Power
+        let powerReserved = true;
+        let answer = optionYes;
 
         if (executorsAliveList) {
             for (let i = 0; i < executorsAliveList.length; i++) {
@@ -153,7 +133,7 @@ languages.forEach(language => {
                     await I.selectHasExecutorBeenNotified(language, optionYes);
                 }
 
-                powerReserved = false;
+                powerReserved = true;
                 answer = optionNo;
             }
         }
@@ -177,6 +157,7 @@ languages.forEach(language => {
         await I.amOnPage(testConfig.TestInviteIdListUrl);
         await I.waitForElement('pre');
 
+        //Identify Pins For Each Applying Executor
         const grabIds = await I.grabTextFrom('pre');
 
         let idList = null;
@@ -187,6 +168,7 @@ languages.forEach(language => {
         }
         console.log('idList:', idList);
 
+        //For Each Applying Executor Login Using Respective Pins and Make Declaration
         for (let i = 0; i < idList.ids.length; i++) {
             await I.amOnPage(testConfig.TestInvitationUrl + '/' + idList.ids[i], language);
             const signInOrProbatePageLocator = {xpath: '//*[@name="loginForm" or @id="main-content"]'};
@@ -216,9 +198,9 @@ languages.forEach(language => {
         await I.selectATask(language, taskListContent.taskNotStarted);
 
         if (TestConfigurator.getUseGovPay() === 'true') {
-            await I.enterUkCopies(language, '5');
+            await I.enterUkCopies(language, '4');
             await I.selectOverseasAssets(language, optionYes);
-            await I.enterOverseasCopies(language, '7');
+            await I.enterOverseasCopies(language, '6');
         } else {
             await I.enterUkCopies(language, '0');
             await I.selectOverseasAssets(language, optionYes);
