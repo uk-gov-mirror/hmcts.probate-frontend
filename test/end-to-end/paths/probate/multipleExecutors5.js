@@ -13,7 +13,6 @@ const optionNo = '-2';
 const bilingualGOP = false;
 const uploadingDocuments = false;
 const languages = ['en', 'cy'];
-//const languages = ['en'];
 
 Feature('Multiple Executors flow - 5 Executors');
 
@@ -86,7 +85,7 @@ languages.forEach(language => {
         if (TestConfigurator.getUseGovPay() === 'true') {
             await I.enterGrossAndNet(language, '205', '80000000', '550000');
         } else {
-            await I.enterGrossAndNet(language, '205', '500', '400');//check why this else code exists
+            await I.enterGrossAndNet(language, '205', '500', '400');
         }
 
         await I.selectDeceasedAlias(language, optionNo);
@@ -120,7 +119,7 @@ languages.forEach(language => {
             await I.enterExecutorManualAddress(language, i);
         }
 
-        const executorsAliveList = ['5'];//Executor Not Applying and Reserved Power
+        const executorsAliveList = ['5']; //Executor Not Applying and Reserved Power
         let powerReserved = true;
         let answer = optionYes;
 
@@ -166,7 +165,6 @@ languages.forEach(language => {
         } catch (err) {
             console.error(err.message);
         }
-        console.log('idList:', idList);
 
         //For Each Applying Executor Login Using Respective Pins and Make Declaration
         for (let i = 0; i < idList.ids.length; i++) {
