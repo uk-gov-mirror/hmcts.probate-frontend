@@ -18,8 +18,7 @@ describe('payment-data.js', () => {
                     overseas: {
                         number: 0
                     }
-                },
-                caseType: 'gop'
+                }
             };
             const result = paymentData.createPaymentData(data, 'cy');
             expect(result).to.deep.equal({
@@ -29,7 +28,7 @@ describe('payment-data.js', () => {
                 currency: 'GBP',
                 fees: [],
                 language: 'CY',
-                case_type: 'gop'
+                case_type: 'GrantOfRepresentation'
             });
             done();
         });
@@ -52,8 +51,7 @@ describe('payment-data.js', () => {
                 },
                 applicationcode: 'FEE0226',
                 applicationversion: 3,
-                userId: '11111',
-                caseType: 'gop'
+                userId: '11111'
             };
             const result = paymentData.createPaymentData(data, 'cy');
             expect(result).to.deep.equal({
@@ -71,7 +69,7 @@ describe('payment-data.js', () => {
                     volume: 1
                 }],
                 language: 'CY',
-                case_type: 'gop'
+                case_type: 'GrantOfRepresentation'
             });
             done();
         });
@@ -94,8 +92,7 @@ describe('payment-data.js', () => {
                 },
                 ukcopiescode: 'FEE0003',
                 ukcopiesversion: 3,
-                userId: '11111',
-                caseType: 'gop'
+                userId: '11111'
             };
             const result = paymentData.createPaymentData(data, 'cy');
             expect(result).to.deep.equal({
@@ -113,7 +110,7 @@ describe('payment-data.js', () => {
                     volume: 1
                 }],
                 language: 'CY',
-                case_type: 'gop'
+                case_type: 'GrantOfRepresentation'
             });
             done();
         });
@@ -136,8 +133,7 @@ describe('payment-data.js', () => {
                 },
                 overseascopiescode: 'FEE0003',
                 overseascopiesversion: 3,
-                userId: '11111',
-                caseType: 'gop'
+                userId: '11111'
             };
             const result = paymentData.createPaymentData(data, 'cy');
             expect(result).to.deep.equal({
@@ -155,7 +151,7 @@ describe('payment-data.js', () => {
                     volume: 2
                 }],
                 language: 'CY',
-                case_type: 'gop'
+                case_type: 'GrantOfRepresentation'
             });
             done();
         });
@@ -182,8 +178,7 @@ describe('payment-data.js', () => {
                 ukcopiesversion: 2,
                 overseascopiescode: 'FEE0003',
                 overseascopiesversion: 3,
-                userId: '11111',
-                caseType: 'gop'
+                userId: '11111'
             };
             const result = paymentData.createPaymentData(data, 'cy');
             expect(result).to.deep.equal({
@@ -217,7 +212,7 @@ describe('payment-data.js', () => {
                     volume: 2
                 }],
                 language: 'CY',
-                case_type: 'gop'
+                case_type: 'GrantOfRepresentation'
             });
             done();
         });
@@ -244,8 +239,7 @@ describe('payment-data.js', () => {
                 ukcopiesversion: 2,
                 overseascopiescode: 'FEE0003',
                 overseascopiesversion: 3,
-                userId: '11111',
-                caseType: 'gop'
+                userId: '11111'
             };
             const result = paymentData.createPaymentData(data, 'en');
             expect(result).to.deep.equal({
@@ -279,7 +273,7 @@ describe('payment-data.js', () => {
                     volume: 2
                 }],
                 language: '',
-                case_type: 'gop'
+                case_type: 'GrantOfRepresentation'
             });
             done();
         });
