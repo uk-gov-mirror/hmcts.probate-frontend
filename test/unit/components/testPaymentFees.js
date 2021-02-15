@@ -18,18 +18,18 @@ describe('payment-data.js', () => {
                     overseas: {
                         number: 0
                     }
-                }
+                },
+                caseType: 'gop'
             };
             const result = paymentData.createPaymentData(data, 'cy');
             expect(result).to.deep.equal({
                 amount: 0,
                 description: 'Ffioedd Profiant',
                 ccd_case_number: '123',
-                service: 'PROBATE',
                 currency: 'GBP',
-                site_id: 'P223',
                 fees: [],
-                language: 'CY'
+                language: 'CY',
+                case_type: 'gop'
             });
             done();
         });
@@ -52,16 +52,15 @@ describe('payment-data.js', () => {
                 },
                 applicationcode: 'FEE0226',
                 applicationversion: 3,
-                userId: '11111'
+                userId: '11111',
+                caseType: 'gop'
             };
             const result = paymentData.createPaymentData(data, 'cy');
             expect(result).to.deep.equal({
                 amount: 215,
                 description: 'Ffioedd Profiant',
                 ccd_case_number: '123',
-                service: 'PROBATE',
                 currency: 'GBP',
-                site_id: 'P223',
                 fees: [{
                     calculated_amount: 215,
                     ccd_case_number: '123',
@@ -71,7 +70,8 @@ describe('payment-data.js', () => {
                     version: 3,
                     volume: 1
                 }],
-                language: 'CY'
+                language: 'CY',
+                case_type: 'gop'
             });
             done();
         });
@@ -94,16 +94,15 @@ describe('payment-data.js', () => {
                 },
                 ukcopiescode: 'FEE0003',
                 ukcopiesversion: 3,
-                userId: '11111'
+                userId: '11111',
+                caseType: 'gop'
             };
             const result = paymentData.createPaymentData(data, 'cy');
             expect(result).to.deep.equal({
                 amount: 1.50,
                 description: 'Ffioedd Profiant',
                 ccd_case_number: '123',
-                service: 'PROBATE',
                 currency: 'GBP',
-                site_id: 'P223',
                 fees: [{
                     calculated_amount: 1.50,
                     ccd_case_number: '123',
@@ -113,7 +112,8 @@ describe('payment-data.js', () => {
                     version: 3,
                     volume: 1
                 }],
-                language: 'CY'
+                language: 'CY',
+                case_type: 'gop'
             });
             done();
         });
@@ -136,16 +136,15 @@ describe('payment-data.js', () => {
                 },
                 overseascopiescode: 'FEE0003',
                 overseascopiesversion: 3,
-                userId: '11111'
+                userId: '11111',
+                caseType: 'gop'
             };
             const result = paymentData.createPaymentData(data, 'cy');
             expect(result).to.deep.equal({
                 amount: 3,
                 description: 'Ffioedd Profiant',
                 ccd_case_number: '123',
-                service: 'PROBATE',
                 currency: 'GBP',
-                site_id: 'P223',
                 fees: [{
                     calculated_amount: 3,
                     ccd_case_number: '123',
@@ -155,7 +154,8 @@ describe('payment-data.js', () => {
                     version: 3,
                     volume: 2
                 }],
-                language: 'CY'
+                language: 'CY',
+                case_type: 'gop'
             });
             done();
         });
@@ -182,16 +182,15 @@ describe('payment-data.js', () => {
                 ukcopiesversion: 2,
                 overseascopiescode: 'FEE0003',
                 overseascopiesversion: 3,
-                userId: '11111'
+                userId: '11111',
+                caseType: 'gop'
             };
             const result = paymentData.createPaymentData(data, 'cy');
             expect(result).to.deep.equal({
                 amount: 219.50,
                 description: 'Ffioedd Profiant',
                 ccd_case_number: '123',
-                service: 'PROBATE',
                 currency: 'GBP',
-                site_id: 'P223',
                 fees: [{
                     calculated_amount: 215,
                     ccd_case_number: '123',
@@ -217,7 +216,8 @@ describe('payment-data.js', () => {
                     version: 3,
                     volume: 2
                 }],
-                language: 'CY'
+                language: 'CY',
+                case_type: 'gop'
             });
             done();
         });
@@ -244,16 +244,15 @@ describe('payment-data.js', () => {
                 ukcopiesversion: 2,
                 overseascopiescode: 'FEE0003',
                 overseascopiesversion: 3,
-                userId: '11111'
+                userId: '11111',
+                caseType: 'gop'
             };
             const result = paymentData.createPaymentData(data, 'en');
             expect(result).to.deep.equal({
                 amount: 219.50,
                 description: 'Probate Fees',
                 ccd_case_number: '123',
-                service: 'PROBATE',
                 currency: 'GBP',
-                site_id: 'P223',
                 fees: [{
                     calculated_amount: 215,
                     ccd_case_number: '123',
@@ -279,7 +278,8 @@ describe('payment-data.js', () => {
                     version: 3,
                     volume: 2
                 }],
-                language: ''
+                language: '',
+                case_type: 'gop'
             });
             done();
         });
