@@ -154,6 +154,7 @@ languages.forEach(language => {
                 }
 
                 powerReserved = false;
+
                 answer = optionNo;
             }
         }
