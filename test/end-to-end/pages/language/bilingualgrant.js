@@ -8,8 +8,13 @@ module.exports = async function(language = 'en', answer) {
     const commonContent = language === 'en' ? contentEn : contentCy;
 
     await I.checkPageUrl('app/steps/ui/language');
-    const locator = {css: `#bilingual${answer}`};
-    await I.waitForEnabled(locator);
+    let locator = '';
+    if (answer === '-2') {
+        locator = {xpath: '//*[@type="radio" and @value="optionNo"]'};
+    } else {
+        locator = {xpath: '//*[@type="radio" and @value="optionYes"]'};
+    }
+    await I.waitForEnabled(locator, 5);
     await I.seeCheckboxIsChecked(locator);
     await I.navByClick(commonContent.saveAndContinue);
 };
