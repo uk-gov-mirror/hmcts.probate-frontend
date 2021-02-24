@@ -65,7 +65,7 @@ languages.forEach(language => {
 
         // Deceased Task
         await I.selectATask(language, taskListContent.taskNotStarted);
-        await I.chooseBiLingualGrant(language, optionNo);
+        await I.retry(TestConfigurator.getRetryScenarios()).chooseBiLingualGrant(language, optionNo);
         await I.enterDeceasedName(language, 'Deceased First Name', 'Deceased Last Name');
         await I.enterDeceasedDateOfBirth(language, '15', '12', '1950');
         await I.enterDeceasedDateOfDeath(language, '15', '06', '2019');
@@ -172,7 +172,7 @@ languages.forEach(language => {
             const signInOrProbatePageLocator = {xpath: '//*[@name="loginForm" or @id="main-content"]'};
             await I.waitForElement(signInOrProbatePageLocator, testConfig.TestWaitForTextToAppear);
             await I.amOnPage(testConfig.TestE2EFrontendUrl + '/pin');
-            await I.waitForElement('pre');
+            await I.retry(TestConfigurator.getRetryScenarios()).waitForElement('pre');
 
             const grabPins = await I.grabTextFrom('pre'); // eslint-disable-line no-await-in-loop
             const pinList = JSON.parse(grabPins);
