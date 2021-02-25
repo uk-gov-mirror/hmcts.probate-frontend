@@ -14,8 +14,7 @@ module.exports = async function(language = 'en', answer) {
     } else {
         locator = {xpath: '//*[@type="radio" and @value="optionYes"]'};
     }
-    await I.wait(20);
-    await I.waitForEnabled(locator, 5);
+    await I.waitForEnabled(locator);
     await I.seeCheckboxIsChecked(locator);
     await I.navByClick(commonContent.saveAndContinue);
 };
