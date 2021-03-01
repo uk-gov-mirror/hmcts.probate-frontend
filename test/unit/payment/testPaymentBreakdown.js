@@ -96,6 +96,12 @@ describe('PaymentBreakdown', () => {
                     ukcopiesfee: 1.50,
                     overseascopies: 2,
                     overseascopiesfee: 3,
+                    applicationcode: 'FEE0226',
+                    applicationversion: 1,
+                    ukcopiescode: 'FEE0003',
+                    ukcopiesversion: 2,
+                    overseascopiescode: 'FEE0003',
+                    overseascopiesversion: 3,
                     total: 219.50
                 },
                 registry: {
@@ -119,6 +125,12 @@ describe('PaymentBreakdown', () => {
                     ukcopiesfee: 1.50,
                     overseascopies: 2,
                     overseascopiesfee: 3,
+                    applicationcode: 'FEE0226',
+                    applicationversion: 1,
+                    ukcopiescode: 'FEE0003',
+                    ukcopiesversion: 2,
+                    overseascopiescode: 'FEE0003',
+                    overseascopiesversion: 3,
                     total: 219.50
                 }
             };
@@ -181,6 +193,12 @@ describe('PaymentBreakdown', () => {
                 ukcopiesfee: 1.50,
                 overseascopies: 2,
                 overseascopiesfee: 3,
+                applicationcode: 'FEE0226',
+                applicationversion: 1,
+                ukcopiescode: 'FEE0003',
+                ukcopiesversion: 2,
+                overseascopiescode: 'FEE0003',
+                overseascopiesversion: 3,
                 total: 219.50
             }));
 
@@ -224,6 +242,12 @@ describe('PaymentBreakdown', () => {
                 ukcopiesfee: 0.00,
                 overseascopies: 0,
                 overseascopiesfee: 0,
+                applicationcode: 'FEE0226',
+                applicationversion: 1,
+                ukcopiescode: '',
+                ukcopiesversion: 0,
+                overseascopiescode: '',
+                overseascopiesversion: 0,
                 total: 0.0
             }));
 
@@ -273,6 +297,12 @@ describe('PaymentBreakdown', () => {
                 ukcopiesfee: 1.50,
                 overseascopies: 2,
                 overseascopiesfee: 3,
+                applicationcode: 'FEE0226',
+                applicationversion: 1,
+                ukcopiescode: 'FEE0003',
+                ukcopiesversion: 2,
+                overseascopiescode: 'FEE0003',
+                overseascopiesversion: 3,
                 total: 219.50
             }));
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
@@ -326,6 +356,12 @@ describe('PaymentBreakdown', () => {
                 ukcopiesfee: 1.50,
                 overseascopies: 2,
                 overseascopiesfee: 3,
+                applicationcode: 'FEE0226',
+                applicationversion: 1,
+                ukcopiescode: 'FEE0003',
+                ukcopiesversion: 2,
+                overseascopiescode: 'FEE0003',
+                overseascopiesversion: 3,
                 total: 219.50
             }));
 
@@ -347,6 +383,12 @@ describe('PaymentBreakdown', () => {
                             number: 2
                         }
                     },
+                    applicationcode: 'FEE0226',
+                    applicationversion: 1,
+                    ukcopiescode: 'FEE0003',
+                    ukcopiesversion: 2,
+                    overseascopiescode: 'FEE0003',
+                    overseascopiesversion: 3,
                     total: '219.50'
                 });
                 postStub.restore();
@@ -389,6 +431,12 @@ describe('PaymentBreakdown', () => {
                 ukcopiesfee: 1.50,
                 overseascopies: 2,
                 overseascopiesfee: 3,
+                applicationcode: 'FEE0226',
+                applicationversion: 1,
+                ukcopiescode: 'FEE0003',
+                ukcopiesversion: 2,
+                overseascopiescode: 'FEE0003',
+                overseascopiesversion: 3,
                 total: 219.50
             }));
 
@@ -399,10 +447,7 @@ describe('PaymentBreakdown', () => {
                 expect(errors).to.deep.equal([{
                     field: 'authorisation',
                     href: '#authorisation',
-                    msg: {
-                        summary: content.errors.authorisation.failure.summary,
-                        message: content.errors.authorisation.failure.message
-                    }
+                    msg: content.errors.authorisation.failure
                 }]);
                 expect(ctx).to.deep.equal(ctxTestData);
                 revertAuthorise();
@@ -429,6 +474,12 @@ describe('PaymentBreakdown', () => {
                     ukcopiesfee: 1.50,
                     overseascopies: 2,
                     overseascopiesfee: 3,
+                    applicationcode: 'FEE0226',
+                    applicationversion: 1,
+                    ukcopiescode: 'FEE0003',
+                    ukcopiesversion: 2,
+                    overseascopiescode: 'FEE0003',
+                    overseascopiesversion: 3,
                     total: 219.50
                 },
                 payment: {
@@ -452,6 +503,12 @@ describe('PaymentBreakdown', () => {
                 ukcopiesfee: 1.50,
                 overseascopies: 2,
                 overseascopiesfee: 3,
+                applicationcode: 'FEE0226',
+                applicationversion: 1,
+                ukcopiescode: 'FEE0003',
+                ukcopiesversion: 2,
+                overseascopiescode: 'FEE0003',
+                overseascopiesversion: 3,
                 total: 219.50
             }));
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
@@ -513,6 +570,12 @@ describe('PaymentBreakdown', () => {
                     ukcopiesfee: 1.50,
                     overseascopies: 2,
                     overseascopiesfee: 3,
+                    applicationcode: 'FEE0226',
+                    applicationversion: 1,
+                    ukcopiescode: 'FEE0003',
+                    ukcopiesversion: 2,
+                    overseascopiescode: 'FEE0003',
+                    overseascopiesversion: 3,
                     total: 219.50
                 },
                 payment: {
@@ -538,6 +601,12 @@ describe('PaymentBreakdown', () => {
                 ukcopiesfee: 1.50,
                 overseascopies: 2,
                 overseascopiesfee: 3,
+                applicationcode: 'FEE0226',
+                applicationversion: 1,
+                ukcopiescode: 'FEE0003',
+                ukcopiesversion: 2,
+                overseascopiescode: 'FEE0003',
+                overseascopiesversion: 3,
                 total: 219.50
             }));
 
@@ -574,6 +643,12 @@ describe('PaymentBreakdown', () => {
                     ukcopiesfee: 1.50,
                     overseascopies: 2,
                     overseascopiesfee: 3,
+                    applicationcode: 'FEE0226',
+                    applicationversion: 1,
+                    ukcopiescode: 'FEE0003',
+                    ukcopiesversion: 2,
+                    overseascopiescode: 'FEE0003',
+                    overseascopiesversion: 3,
                     total: 219.50
                 },
                 payment: {
@@ -590,6 +665,12 @@ describe('PaymentBreakdown', () => {
                 ukcopiesfee: 1.50,
                 overseascopies: 2,
                 overseascopiesfee: 3,
+                applicationcode: 'FEE0226',
+                applicationversion: 1,
+                ukcopiescode: 'FEE0003',
+                ukcopiesversion: 2,
+                overseascopiescode: 'FEE0003',
+                overseascopiesversion: 3,
                 total: 219.50
             }));
 
@@ -600,10 +681,7 @@ describe('PaymentBreakdown', () => {
                 expect(errors).to.deep.equal([{
                     field: 'payment',
                     href: '#payment',
-                    msg: {
-                        summary: content.errors.payment.initiated.summary,
-                        message: content.errors.payment.initiated.message
-                    }
+                    msg: content.errors.payment.initiated
                 }]);
                 getCasePaymentsStub.restore();
                 getStub.restore();
@@ -651,6 +729,12 @@ describe('PaymentBreakdown', () => {
                 ukcopiesfee: 1.50,
                 overseascopies: 2,
                 overseascopiesfee: 3,
+                applicationcode: 'FEE0226',
+                applicationversion: 1,
+                ukcopiescode: 'FEE0003',
+                ukcopiesversion: 2,
+                overseascopiescode: 'FEE0003',
+                overseascopiesversion: 3,
                 total: 219.50
             }));
 
@@ -678,7 +762,13 @@ describe('PaymentBreakdown', () => {
                 copies: {
                     uk: {cost: 3},
                     overseas: {cost: 6}
-                }
+                },
+                applicationcode: 'FEE0226',
+                applicationversion: 1,
+                ukcopiescode: 'FEE0003',
+                ukcopiesversion: 2,
+                overseascopiescode: 'FEE0003',
+                overseascopiesversion: 3
             };
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
             ctx = paymentBreakdown.formatAmounts(ctx);
@@ -686,6 +776,12 @@ describe('PaymentBreakdown', () => {
             expect(ctx.total).to.equal('209.00');
             expect(ctx.copies.uk.cost).to.equal('3.00');
             expect(ctx.copies.overseas.cost).to.equal('6.00');
+            expect(ctx.applicationcode).to.equal('FEE0226');
+            expect(ctx.applicationversion).to.equal(1);
+            expect(ctx.ukcopiescode).to.equal('FEE0003');
+            expect(ctx.ukcopiesversion).to.equal(2);
+            expect(ctx.overseascopiescode).to.equal('FEE0003');
+            expect(ctx.overseascopiesversion).to.equal(3);
         });
 
         it('test that if fees and copies have a single decimal point they are convert to 2 decimal places', () => {
@@ -712,7 +808,13 @@ describe('PaymentBreakdown', () => {
                 copies: {
                     uk: {cost: 3.00},
                     overseas: {cost: 4.50}
-                }
+                },
+                applicationcode: 'FEE0226',
+                applicationversion: 1,
+                ukcopiescode: 'FEE0003',
+                ukcopiesversion: 2,
+                overseascopiescode: 'FEE0003',
+                overseascopiesversion: 3
             };
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
             ctx = paymentBreakdown.formatAmounts(ctx);
@@ -720,6 +822,12 @@ describe('PaymentBreakdown', () => {
             expect(ctx.total).to.equal('207.50');
             expect(ctx.copies.uk.cost).to.equal('3.00');
             expect(ctx.copies.overseas.cost).to.equal('4.50');
+            expect(ctx.applicationcode).to.equal('FEE0226');
+            expect(ctx.applicationversion).to.equal(1);
+            expect(ctx.ukcopiescode).to.equal('FEE0003');
+            expect(ctx.ukcopiesversion).to.equal(2);
+            expect(ctx.overseascopiescode).to.equal('FEE0003');
+            expect(ctx.overseascopiesversion).to.equal(3);
         });
     });
 
@@ -752,6 +860,12 @@ describe('PaymentBreakdown', () => {
                 ukcopiesfee: 1.50,
                 overseascopies: 2,
                 overseascopiesfee: 3,
+                applicationcode: 'FEE0226',
+                applicationversion: 1,
+                ukcopiescode: 'FEE0003',
+                ukcopiesversion: 2,
+                overseascopiescode: 'FEE0003',
+                overseascopiesversion: 3,
                 total: 219.50
             }));
             [ctx] = paymentBreakdown.action(ctx, formdata);

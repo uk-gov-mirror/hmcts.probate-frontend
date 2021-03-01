@@ -1,13 +1,13 @@
 'use strict';
+const contentEn = 'Payment summary';
+const contentCy = 'Cadarnhau eich taliad';
 
-const testConfig = require('test/config');
-
-module.exports = function() {
+module.exports = async function(language ='en') {
     const I = this;
-    I.wait(3);
-    I.waitForText('Payment summary', testConfig.TestWaitForTextToAppear);
-    I.seeInCurrentUrl(testConfig.TestGovUkCardPaymentsUrl);
-    I.waitForElement('#confirm', testConfig.TestWaitForElementToAppear);
+    const commonContent = language === 'en' ? contentEn : contentCy;
 
-    I.navByClick('#confirm');
+    await I.waitForText(commonContent);
+    const locator = {css: '#confirm'};
+    await I.waitForElement(locator);
+    await I.navByClick(locator);
 };

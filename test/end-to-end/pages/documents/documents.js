@@ -1,14 +1,13 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/documents');
+const commonContentEn = require('app/resources/en/translation/common');
+const commonContentCy = require('app/resources/cy/translation/common');
 
-module.exports = function() {
+module.exports = async function(language ='en') {
     const I = this;
+    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-
-    I.downloadPdfIfNotIE11('#coverSheetPdfHref');
-
-    I.navByClick(commonContent.continue);
+    await I.checkPageUrl('app/steps/ui/documents');
+    await I.downloadPdfIfNotIE11('#coverSheetPdfHref');
+    await I.navByClick(commonContent.continue);
 };

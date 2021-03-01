@@ -1,14 +1,17 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/iht/value');
+const commonContentEn = require('app/resources/en/translation/common');
+const commonContentCy = require('app/resources/cy/translation/common');
 
-module.exports = function(grossValue, netValue) {
+module.exports = async function(language = 'en', grossValue, netValue) {
     const I = this;
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    const locatorGv = {css: '#grossValueField'};
+    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
 
-    I.fillField('#grossValueField', grossValue);
-    I.fillField('#netValueField', netValue);
+    await I.checkPageUrl('app/steps/ui/iht/value');
+    await I.waitForElement (locatorGv);
+    await I.fillField(locatorGv, grossValue);
+    await I.fillField({css: '#netValueField'}, netValue);
 
-    I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue);
 };

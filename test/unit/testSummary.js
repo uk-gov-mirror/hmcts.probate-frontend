@@ -6,6 +6,7 @@ const co = require('co');
 const rewire = require('rewire');
 const Summary = rewire('app/steps/ui/summary');
 const probateJourney = require('app/journeys/probate');
+const coreContextMockData = require('../data/core-context-mock-data.json');
 
 describe('Summary', () => {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
@@ -107,17 +108,13 @@ describe('Summary', () => {
             const Summary = steps.Summary;
             const ctx = Summary.getContextData(req);
             expect(ctx).to.deep.equal({
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'Pending'
-                },
+                ...coreContextMockData,
                 authToken: '1234',
                 alreadyDeclared: false,
                 deceasedAliasQuestion: 'Did Dee Ceased have assets in another name?',
+                diedEnglandOrWalesQuestion: 'Did Dee Ceased die in England or Wales?',
                 deceasedMarriedQuestion: 'Did Dee Ceased get married or enter into a civil partnership after the will was signed?',
                 ihtTotalNetValue: 300000,
-                caseType: 'gop',
-                userLoggedIn: false,
                 readyToDeclare: false,
                 session: {
                     language: 'en',
@@ -174,13 +171,11 @@ describe('Summary', () => {
             const Summary = steps.Summary;
             const ctx = Summary.getContextData(req);
             expect(ctx).to.deep.equal({
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'Pending'
-                },
+                ...coreContextMockData,
                 authToken: '12345',
                 alreadyDeclared: false,
                 deceasedAliasQuestion: 'Did Dee Ceased have assets in another name?',
+                diedEnglandOrWalesQuestion: 'Did Dee Ceased die in England or Wales?',
                 deceasedAllChildrenOver18Question: 'Are all of Dee Ceased&rsquo;s children over 18?',
                 deceasedAnyChildrenQuestion: 'Did Dee Ceased have any children?',
                 deceasedAnyDeceasedChildrenQuestion: 'Did any of Dee Ceased&rsquo;s children die before 2 February 2015?',
@@ -192,7 +187,6 @@ describe('Summary', () => {
                 ihtTotalNetValue: 550000,
                 ihtTotalNetValueGreaterThanIhtThreshold: true,
                 caseType: 'intestacy',
-                userLoggedIn: false,
                 readyToDeclare: false,
                 session: {
                     language: 'en',

@@ -1,13 +1,21 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/applicant/name');
+const config = require('config');
+const commonContentEn = require('app/resources/en/translation/common');
+const commonContentCy = require('app/resources/cy/translation/common');
+const nameContentEn = require('app/resources/en/translation/applicant/name');
+const nameContentCy = require('app/resources/cy/translation/applicant/name');
 
-module.exports = function(firstname, lastname) {
+module.exports = async function(language ='en', firstname, lastname) {
     const I = this;
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.fillField('#firstName', firstname);
-    I.fillField('#lastName', lastname);
+    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
+    const nameContent = language === 'en' ? nameContentEn : nameContentCy;
 
-    I.navByClick(commonContent.saveAndContinue);
+    await I.checkPageUrl('app/steps/ui/applicant/name');
+    await I.waitForText(nameContent.question, config.TestWaitForTextToAppear);
+    const locatorFn = {css: '#firstName'};
+    await I.waitForElement(locatorFn);
+    await I.fillField(locatorFn, firstname);
+    await I.fillField({css: '#lastName'}, lastname);
+    await I.navByClick(commonContent.saveAndContinue);
 };

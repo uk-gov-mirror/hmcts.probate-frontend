@@ -11,13 +11,14 @@ The Frontend Application uses Orchestrator to route specific requests to the und
 - [Node.js](nodejs.org) >= 12.5.0
 - [yarn](yarnpkg.com)
 
+If on Windows 10 follow setup instructions here: https://tools.hmcts.net/confluence/pages/viewpage.action?pageId=1457316967
+
 ### Installation
 
 Install dependencies by executing the following command:
 ```
 $ yarn install
 ```
-
 Compile SASS stylesheets by running the following command:
 ```
 $ yarn setup
@@ -27,6 +28,34 @@ Build a `git.properties.json` by running the following command:
 ```
 $ yarn git-info
 ```
+
+### Running the application
+
+Run the application local server as dev:
+```
+$ yarn start:ld
+```
+
+The application can be completed locally at [https://localhost:3000](https://localhost:3000), provided all services are running in the background as described in the next section.
+
+### Running the other services using docker-compose
+
+```
+# first time only
+npx @hmcts/probate-dev-env --create
+npx @hmcts/probate-dev-env
+```
+
+### Running the other services manually
+
+Alternatively, to run probate-frontend with the other services locally you will need to clone and run the following services:
+
+- probate-back-office: `https://github.com/hmcts/probate-back-office` - Follow the instructions in `probate-back-office/compose/README.md`.
+- probate-orchestrator-service: `https://github.com/hmcts/probate-orchestrator-service` - Follow the instructions in `probate-orchestrator-service/README.md`
+- probate-submit-service: `https://github.com/hmcts/probate-submit-service` - Follow the instructions in `probate-submit-service/README.md`
+
+
+## Developing
 
 Git hooks:
 
@@ -38,24 +67,6 @@ $ ln -s ../../pre-commit.sh .git/hooks/pre-commit
 $ ln -s ../../commit-msg.sh .git/hooks/commit-msg
 ```
 
-### Running the application
-
-Run the application local server:
-```
-$ yarn start
-```
-
-The application can be completed locally at [https://localhost:3000](https://localhost:3000), provided all services are running in the background as described in the next section.
-
-### Running the other services in Docker
-
-To run probate-frontend with the other services locally you will need to clone and run the following services:
-
-- probate-back-office: `https://github.com/hmcts/probate-back-office` - Follow the instructions in `probate-back-office/compose/README.md`.
-- probate-orchestrator-service: `https://github.com/hmcts/probate-orchestrator-service` - Follow the instructions in `probate-orchestrator-service/README.md`
-- probate-submit-service: `https://github.com/hmcts/probate-submit-service` - Follow the instructions in `probate-submit-service/README.md`
-
-## Developing
 ### Code style
 
 Before submitting a Pull Request you will be required to run `$ yarn eslint` (which is also run automatically when trying to commit anyway).
@@ -64,10 +75,31 @@ We have a number of rules relating to code style that can be found in [.eslintrc
 
 ### Config
 
-For development only config, use the `dev.yaml` file. Running the app with the node environment set to `dev` will ensure this file is used.
+For development only config, rename the `config/dev_template.yaml` file to `config/dev.yaml`. Running the app with the node environment set to `dev` will ensure this file is used.
 This file is not version controlled so any config here will not be pushed to git.
 
 As an example, if you want to use LanuchDarkly locally, place the SDK Key in this file. You can keep the key there as this file is not version controlled.
+
+If you want to allowed login you will need all the services running through manually/using docker-compose
+
+set following in default.yml
+```
+  useIDAM: 'true'
+  requireCcdCaseId: 'true'
+```
+you shoud then be able to use a citizen user of
+```
+testusername@test.com/Pa55word11
+```
+add a dev.yaml file to the /config folder with contents if you want to run LauchDarkly locally
+```
+featureToggles:
+  launchDarklyKey: 'sdk-4d50eb6e-8400-4aa7-b4c5-8bdfc8b1d844'
+```
+emails can be monitored at:
+```
+http://localhost:8025
+```
 
 ### Running the tests
 
@@ -87,6 +119,18 @@ For accessibility tests:
 
 For test coverage:
 `$ yarn test:coverage`
+
+For e2e tests (non launch darkly):
+`$ yarn test-e2e`
+
+For e2e tests (launch darkly):
+`$ yarn test-e2e`
+
+
+For contact tests:
+`$ ADDRESS_TOKEN=xyz yarn test-contract`
+
+You'll need to get the ADDRESS_TOKEN from the AAT vault `postcode-service-token2`
 
 ## License
 

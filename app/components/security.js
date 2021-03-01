@@ -4,7 +4,7 @@ const FormatUrl = require('app/utils/FormatUrl');
 const config = require('config');
 const logger = require('app/components/logger');
 const URL = require('url');
-const UUID = require('uuid/v4');
+const {v4: UUID} = require('uuid');
 const IdamSession = require('app/services/IdamSession');
 const Oauth2Token = require('app/services/Oauth2Token');
 const SECURITY_COOKIE = `__auth-token-${config.payloadVersion}`;
@@ -60,6 +60,7 @@ class Security {
                             req.session.regId = response.email;
                             req.userId = response.id;
                             req.authToken = securityCookie;
+                            req.session.authToken = req.authToken;
                             self._authorize(req, res, next, response.roles, authorisedRoles);
                         } else {
                             req.log.error('Error authorising user');
@@ -85,6 +86,7 @@ class Security {
 
         const callbackUrl = FormatUrl.format(returnUrl, idamConfig.probate_oauth_callback_path);
         const redirectUrl = URL.parse(this.loginUrl, true);
+        redirectUrl.query.ui_locales = req.session.language;
         redirectUrl.query.response_type = 'code';
         redirectUrl.query.state = state;
         redirectUrl.query.client_id = idamConfig.probate_oauth2_client;

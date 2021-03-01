@@ -6,6 +6,8 @@ const logger = require('app/components/logger')('Init');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const caseTypes = require('app/utils/CaseTypes');
 const ExecutorsWrapper = require('app/wrappers/Executors');
+const ScreenerValidation = require('app/utils/ScreenerValidation');
+const screenerValidation = new ScreenerValidation();
 
 const initDashboard = (req, res, next) => {
     const session = req.session;
@@ -18,7 +20,8 @@ const initDashboard = (req, res, next) => {
     formData.getAll(req.authToken, req.session.serviceAuthorization)
         .then(result => {
             if (result.applications && result.applications.length) {
-                if (allEligibilityQuestionsPresent(formdata)) {
+                logger.info('Retrieved Cases = ' + JSON.stringify(result.applications));
+                if (allEligibilityQuestionsPresent(formdata, req.session.featureToggles)) {
                     if (!result.applications.some(application => application.ccdCase.state === 'Pending' && !application.deceasedFullName && application.caseType === caseTypes.getProbateType(formdata.caseType))) {
                         createNewApplication(req, res, formdata, formData, result, next);
                     } else {
@@ -31,7 +34,7 @@ const initDashboard = (req, res, next) => {
                     delete formdata.screeners;
                     renderDashboard(req, result, next);
                 }
-            } else if (allEligibilityQuestionsPresent(formdata)) {
+            } else if (allEligibilityQuestionsPresent(formdata, req.session.featureToggles)) {
                 createNewApplication(req, res, formdata, formData, result, next);
             } else {
                 res.redirect('/start-eligibility');
@@ -47,6 +50,7 @@ const createNewApplication = (req, res, formdata, formData, result, next) => {
 
     formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
         .then(result => {
+            logger.info('Retrieved cases after new case created = ' + JSON.stringify(result.applications));
             delete formdata.caseType;
             delete formdata.screeners;
             renderDashboard(req, result, next);
@@ -56,14 +60,12 @@ const createNewApplication = (req, res, formdata, formData, result, next) => {
         });
 };
 
-const allEligibilityQuestionsPresent = (formdata) => {
+const allEligibilityQuestionsPresent = (formdata, featureToggles) => {
     let allQuestionsPresent = true;
 
     if (formdata.screeners && formdata.screeners.left) {
-        let eligibilityQuestionsList = config.eligibilityQuestionsProbate;
-        if (formdata.screeners.left === 'optionNo') {
-            eligibilityQuestionsList = config.eligibilityQuestionsIntestacy;
-        }
+        const journeyType = formdata.screeners.left === 'optionNo' ? 'intestacy' : 'probate';
+        const eligibilityQuestionsList = screenerValidation.getScreeners(journeyType, formdata, featureToggles);
 
         Object.entries(eligibilityQuestionsList).forEach(([key, value]) => {
             if (!Object.keys(formdata.screeners).includes(key) || formdata.screeners[key] !== value) {
@@ -85,6 +87,7 @@ const renderDashboard = (req, result, next) => {
         cleanupSession(req.session);
     }
 
+    logger.info('Dashboard Cases = ' + JSON.stringify(result.applications));
     req.session.form.applications = sortBy(result.applications, 'ccdCase.id');
     next();
 };
@@ -113,6 +116,7 @@ const getCase = (req, res, next, checkDeclarationStatuses) => {
         ccdCaseId = req.session.form.ccdCase.id;
     }
 
+    logger.info(`Current Case = ${ccdCaseId}`);
     if (!probateType && req.session.form.caseType) {
         probateType = caseTypes.getProbateType(req.session.form.caseType);
     }

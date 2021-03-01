@@ -1,13 +1,17 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/summary');
+const summaryContentEn = require('app/resources/en/translation/summary');
+const summaryContentCy = require('app/resources/cy/translation/summary');
 
-module.exports = function(redirect) {
+module.exports = async function(language = 'en', redirect) {
     const I = this;
+    const summaryContent = language === 'en' ? summaryContentEn : summaryContentCy;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl(redirect));
+    await I.checkPageUrl('app/steps/ui/summary', redirect);
+    await I.waitForText(summaryContent.heading);
 
-    I.downloadPdfIfNotIE11('#checkAnswerHref');
-
-    I.navByClick('.govuk-button');
+    const locator = {css: '#checkAnswerHref'};
+    await I.waitForElement(locator);
+    await I.downloadPdfIfNotIE11(locator);
+    await I.navByClick('.govuk-button');
 };

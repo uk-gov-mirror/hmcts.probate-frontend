@@ -32,12 +32,18 @@ describe('payment-breakdown', () => {
             ukcopiesfee: 1.50,
             overseascopies: 2,
             overseascopiesfee: 3,
+            applicationversion: 0,
+            applicationcode: 'FEE0226',
+            ukcopiesversion: 2,
+            ukcopiescode: 'FEE0003',
+            overseascopiesversion: 3,
+            overseascopiescode: 'FEE0003',
             total: 219.50
         }));
     });
 
-    afterEach(() => {
-        testWrapper.destroy();
+    afterEach(async () => {
+        await testWrapper.destroy();
         feesCalculator.restore();
     });
 
@@ -63,6 +69,7 @@ describe('payment-breakdown', () => {
                 .send(sessionData)
                 .end((err) => {
                     if (err) {
+                        done(err);
                         throw err;
                     }
                     const contentToExclude = ['extraCopiesFeeJersey', 'extraCopiesFeeOverseas'];
@@ -83,10 +90,10 @@ describe('payment-breakdown', () => {
                 .send(sessionData)
                 .end((err) => {
                     if (err) {
+                        done(err);
                         throw err;
                     }
                     const contentToExclude = ['extraCopiesFeeJersey', 'extraCopiesFeeUk'];
-
                     testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
@@ -108,10 +115,10 @@ describe('payment-breakdown', () => {
                 }})
                 .end((err) => {
                     if (err) {
+                        done(err);
                         throw err;
                     }
                     const errorsToTest = ['authorisation'];
-
                     testWrapper.testErrors(done, {}, 'failure', errorsToTest);
                 });
         });

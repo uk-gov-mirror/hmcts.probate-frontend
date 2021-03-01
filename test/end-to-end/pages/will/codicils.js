@@ -1,13 +1,16 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/will/codicils');
+const commonContentEn = require('app/resources/en/translation/common');
+const commonContentCy = require('app/resources/cy/translation/common');
 
-module.exports = function(option) {
+module.exports = async function(language = 'en', option) {
     const I = this;
+    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click(`#codicils${option}`);
+    await I.checkPageUrl('app/steps/ui/will/codicils');
+    const locator = {css: `#codicils${option}`};
+    await I.waitForElement(locator);
+    await I.click(locator);
 
-    I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue);
 };

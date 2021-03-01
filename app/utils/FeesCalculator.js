@@ -4,31 +4,16 @@ const {get} = require('lodash');
 const FeesLookup = require('app/services/FeesLookup');
 const config = require('config');
 const logger = require('app/components/logger')('Init');
+const featureToggle = require('app/utils/FeatureToggle');
 
 class FeesCalculator {
 
     constructor(endpoint, sessionId) {
         this.endpoint = endpoint;
         this.sessionId = sessionId;
-        this.issuesData = {
-            amount_or_volume: 0,
-            applicant_type: 'personal',
-            channel: 'default',
-            event: 'issue',
-            jurisdiction1: 'family',
-            jurisdiction2: 'probate registry',
-            service: 'probate'
-        };
-        this.copiesData = {
-            amount_or_volume: 0,
-            applicant_type: 'all',
-            channel: 'default',
-            event: 'copies',
-            jurisdiction1: 'family',
-            jurisdiction2: 'probate registry',
-            service: 'probate',
-            keyword: 'NewFee'
-        };
+        this.issuesData = config.services.feesRegister.issuesData;
+        this.copiesData = config.services.feesRegister.copiesData;
+        this.issuesDataIhtMinAmount = null;
         this.feesLookup = new FeesLookup(this.endpoint, sessionId);
     }
 
@@ -36,35 +21,53 @@ class FeesCalculator {
         const headers = {
             authToken: authToken
         };
-        return createCallsRequired(formdata, headers, featureToggles, this.feesLookup, this.issuesData, this.copiesData);
+
+        if (featureToggle.isEnabled(featureToggles, 'ft_newfee_register_code')) {
+            this.issuesData = config.services.feesRegister.newfee_issuesData;
+            this.copiesData = config.services.feesRegister.newfee_copiesData;
+            this.issuesDataIhtMinAmount = config.services.feesRegister.newfee_issuesDataIhtMinAmount;
+        }
+
+        return createCallsRequired(formdata, headers, featureToggles, this.feesLookup, this.issuesData, this.copiesData, this.issuesDataIhtMinAmount);
     }
 }
 
-async function createCallsRequired(formdata, headers, featureToggles, feesLookup, issuesData, copiesData) {
+async function createCallsRequired(formdata, headers, featureToggles, feesLookup, issuesData, copiesData, issuesDataIhtMinAmount) {
     const returnResult = {
         status: 'success',
         applicationfee: 0,
         applicationvalue: 0,
+        applicationversion: 0,
+        applicationcode: '',
         ukcopies: 0,
         ukcopiesfee: 0,
+        ukcopiesversion: 0,
+        ukcopiescode: '',
         overseascopies: 0,
         overseascopiesfee: 0,
-        total: 0
+        overseascopiesversion: 0,
+        overseascopiescode: '',
+        total: 0,
     };
 
-    issuesData.amount_or_volume = get(formdata, 'iht.netValue', 0);
-    returnResult.applicationvalue = issuesData.amount_or_volume;
-    if (issuesData.amount_or_volume > config.services.feesRegister.ihtMinAmt) {
-        logger.info('Sending APPLICATION FEE request to API with the following payload:');
-        logger.info(JSON.stringify(issuesData));
+    const amount = get(formdata, 'iht.netValue', 0);
+    const updatedIssuesData = amount > config.services.feesRegister.ihtMinAmt? issuesData: issuesDataIhtMinAmount;
+    returnResult.applicationvalue = amount;
 
-        await feesLookup.get(issuesData, headers)
+    if (updatedIssuesData) {
+        updatedIssuesData.amount_or_volume = amount;
+        logger.info('Sending APPLICATION FEE request to API with the following payload:');
+        logger.info(JSON.stringify(updatedIssuesData));
+
+        await feesLookup.get(updatedIssuesData, headers)
             .then((res) => {
                 if (identifyAnyErrors(res)) {
                     returnResult.status = 'failed';
                 } else {
                     returnResult.applicationfee = res.fee_amount;
                     returnResult.total += res.fee_amount;
+                    returnResult.applicationcode = res.code;
+                    returnResult.applicationversion = res.version;
                 }
             });
     }
@@ -82,6 +85,8 @@ async function createCallsRequired(formdata, headers, featureToggles, feesLookup
                 } else {
                     returnResult.ukcopiesfee = res.fee_amount;
                     returnResult.total += res.fee_amount;
+                    returnResult.ukcopiescode = res.code;
+                    returnResult.ukcopiesversion = res.version;
                 }
             });
     }
@@ -96,6 +101,8 @@ async function createCallsRequired(formdata, headers, featureToggles, feesLookup
                 } else {
                     returnResult.overseascopiesfee = res.fee_amount;
                     returnResult.total += res.fee_amount;
+                    returnResult.overseascopiescode = res.code;
+                    returnResult.overseascopiesversion = res.version;
                 }
             });
     }
@@ -108,7 +115,7 @@ async function createCallsRequired(formdata, headers, featureToggles, feesLookup
  * this caters for 404 type messages etc.
  */
 const identifyAnyErrors = (res) => {
-    if (res.fee_amount) {
+    if (typeof res.fee_amount !== 'undefined') {
         return false;
     }
     return true;

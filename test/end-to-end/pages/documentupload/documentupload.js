@@ -1,17 +1,19 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/documentupload');
+const config = require('config');
+const commonContentEn = require('app/resources/en/translation/common');
+const commonContentCy = require('app/resources/cy/translation/common');
 
-module.exports = function(uploadDocument) {
+module.exports = async function(language ='en', uploadDocument) {
     const I = this;
+    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-
-    I.waitForVisible('.document-upload__dropzone-text--choose-file');
+    await I.checkPageUrl('app/steps/ui/documentupload');
+    await I.waitForVisible({css: '.document-upload__dropzone-text--choose-file'}, config.TestWaitForDocumentUpload);
 
     if (uploadDocument) {
-        I.uploadDocumentIfNotMicrosoftEdge();
+        await I.uploadDocumentIfNotMicrosoftEdge();
     }
 
-    I.navByClick('.govuk-button');
+    await I.navByClick(commonContent.continue);
 };

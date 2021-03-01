@@ -1,13 +1,20 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-const content = require('app/resources/en/translation/applicant/phone');
-const pageUnderTest = require('app/steps/ui/applicant/phone');
+const config = require('config');
+const commonContentEn = require('app/resources/en/translation/common');
+const commonContentCy = require('app/resources/cy/translation/common');
+const phoneContentEn = require('app/resources/en/translation/applicant/phone');
+const phoneContentCy = require('app/resources/cy/translation/applicant/phone');
 
-module.exports = function() {
+module.exports = async function(language = 'en') {
     const I = this;
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.fillField(content.phoneNumber, '123456789');
+    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
+    const phoneContent = language === 'en' ? phoneContentEn : phoneContentCy;
 
-    I.navByClick(commonContent.saveAndContinue);
+    await I.checkPageUrl('app/steps/ui/applicant/phone');
+    await I.waitForText(phoneContent.phoneNumber, config.TestWaitForTextToAppear);
+    const locator = {css: '#phoneNumber'};
+    await I.waitForElement(locator);
+    await I.fillField(locator, '123456789');
+    await I.navByClick(commonContent.saveAndContinue);
 };

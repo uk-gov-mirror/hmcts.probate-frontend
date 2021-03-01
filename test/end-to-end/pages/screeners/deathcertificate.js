@@ -1,24 +1,22 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/screeners/deathcertificate');
+const commonContentEn = require('app/resources/en/translation/common');
+const commonContentCy = require('app/resources/cy/translation/common');
 
-module.exports = function(answer, testSurvey = false) {
+module.exports = async function(language ='en', answer, testSurvey = false) {
     const I = this;
-
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
+    await I.checkPageUrl('app/steps/ui/screeners/deathcertificate');
+    await I.waitForText(commonContent.yes);
 
     if (testSurvey) {
-        I.click('body > div.govuk-width-container > div > p > span > a:nth-child(1)');
-
-        I.switchToNextTab(1);
-
-        I.waitForVisible('#cmdGo');
-
-        I.closeCurrentTab();
+        await I.click({css: 'body > div.govuk-width-container > div > p > span > a:nth-child(1)'});
+        await I.switchToNextTab(1);
+        // running locally I get no internet here so have commented ths, but at least we've proved we've opened a new tab.
+        // await I.waitForVisible({css: '#cmdGo'});
+        await I.closeCurrentTab();
     }
 
-    I.click(`#deathCertificate${answer}`);
-
-    I.navByClick(commonContent.continue);
+    await I.retry(2).click(commonContent.yes);
+    await I.navByClick(commonContent.continue);
 };

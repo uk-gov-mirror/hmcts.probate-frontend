@@ -1,20 +1,19 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/thankyou');
-const thankYouContent = require('app/resources/en/translation/thankyou');
-const testConfig = require('test/config.js');
+const thankYouContentEn = require('app/resources/en/translation/thankyou');
+const thankYouContentCy = require('app/resources/cy/translation/thankyou');
 
-module.exports = function() {
+module.exports = async function(language ='en') {
     const I = this;
+    const thankYouContent = language === 'en' ? thankYouContentEn : thankYouContentCy;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.waitForText(thankYouContent.header, testConfig.TestWaitForTextToAppear);
+    await I.checkPageUrl('app/steps/ui/thankyou');
+    await I.waitForText(thankYouContent.header);
 
-    I.downloadPdfIfNotIE11('#checkAnswerHref');
-    I.wait(3);
-    I.downloadPdfIfNotIE11('#declarationPdfHref');
-    I.wait(3);
-    I.downloadPdfIfNotIE11('#coverSheetPdfHref');
-    I.wait(3);
-    I.click('#navigation > li:nth-child(2) > a');
+    await I.downloadPdfIfNotIE11('#checkAnswerHref');
+    await I.downloadPdfIfNotIE11('#declarationPdfHref');
+    await I.downloadPdfIfNotIE11('#coverSheetPdfHref');
+    const locator = {css: '#navigation > li:nth-child(2) > a'};
+    await I.waitForElement(locator);
+    await I.click(locator);
 };

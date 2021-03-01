@@ -6,7 +6,6 @@
 /.idea/
 /nbproject/
 .DS_Store
-/.vscode/
 /output/
 .sonar/
 .sonarlint/
@@ -23,4 +22,3 @@ git.properties.json
 /logs/
 /pacts/
 /mochawesome-report
-/config/dev.yaml

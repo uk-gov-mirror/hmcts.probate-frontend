@@ -11,6 +11,8 @@ module.exports = () => {
         // Eligibility Task (pre IdAM)
         startApplication: steps.screeners.starteligibility,
         selectDeathCertificate: steps.screeners.deathcertificate,
+        selectDeathCertificateInEnglish: steps.screeners.deathcertificateinenglish,
+        selectDeathCertificateTranslation: steps.screeners.deathcertificatetranslation,
         selectDeceasedDomicile: steps.screeners.deceaseddomicile,
         selectIhtCompleted: steps.screeners.ihtcompleted,
         selectPersonWhoDiedLeftAWill: steps.screeners.willleft,
@@ -26,7 +28,7 @@ module.exports = () => {
         authenticateWithIdamIfAvailable: steps.IDAM.signIn,
 
         // Choose Application on Dashboard
-        chooseApplication: steps.dashboard.dashboard,
+        chooseApplication: steps.dashboard.chooseApplication,
 
         // Start application
         selectATask: steps.tasklist.tasklist,
@@ -37,6 +39,10 @@ module.exports = () => {
         enterDeceasedDateOfBirth: steps.deceased.dob,
         enterDeceasedDateOfDeath: steps.deceased.dod,
         enterDeceasedAddress: steps.deceased.address,
+        selectDiedEngOrWales: steps.deceased.diedengorwales,
+        selectDeathCertificateInterim: steps.deceased.deathcertificate,
+        selectEnglishForeignDeathCert: steps.deceased.englishforeigndeathcert,
+        selectForeignDeathCertTranslation: steps.deceased.foreigndeathcerttranslation,
         selectDocumentsToUpload: steps.documentupload.documentupload,
         selectInheritanceMethod: steps.iht.method,
         enterGrossAndNet: steps.iht.paper,
@@ -75,6 +81,10 @@ module.exports = () => {
         selectExecutorRoles: steps.executors.roles,
         selectHasExecutorBeenNotified: steps.executors.notified,
 
+        //Equality and diversity page
+        exitEqualityAndDiversity: steps.equalityanddiversity.startpage,
+        completeEqualityAndDiversity: steps.equalityanddiversity.completedpage,
+
         // Summary page
         seeSummaryPage: steps.summary.summary,
         acceptDeclaration: steps.declaration.declaration,
@@ -102,6 +112,10 @@ module.exports = () => {
         seePaymentBreakdownPage: steps.payment.paymentbreakdown,
         seeGovUkPaymentPage: steps.payment.govukpayment,
         seeGovUkConfirmPage: steps.payment.govukconfirmpayment,
+        seeGovUkCancelPage: steps.payment.govukcancelpayment,
+        seeCancellationPage: steps.payment.continuecancel,
+        seePaymentClosePage: steps.payment.paymentclose,
+
         seePaymentStatusPage: steps.payment.paymentstatus,
 
         // Documents

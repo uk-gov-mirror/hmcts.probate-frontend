@@ -1,16 +1,17 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/executors/othername');
+const commonContentEn = require('app/resources/en/translation/common');
+const commonContentCy = require('app/resources/cy/translation/common');
 
-module.exports = function(executorsWithDifferentNameIdList) {
+module.exports = async function(language = 'en', executorsWithDifferentNameIdList) {
     const I = this;
+    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    await I.checkPageUrl('app/steps/ui/executors/othername');
 
-    executorsWithDifferentNameIdList.forEach((executorListId) => {
-        I.checkOption('#executorsWithOtherNames-' + executorListId);
-    });
-
-    I.navByClick(commonContent.saveAndContinue);
+    for (let i = 0; i < executorsWithDifferentNameIdList.length; i++) {
+        // eslint-disable-next-line no-await-in-loop
+        await I.checkOption('#executorsWithOtherNames-' + executorsWithDifferentNameIdList[i]);
+    }
+    await I.navByClick(commonContent.saveAndContinue);
 };

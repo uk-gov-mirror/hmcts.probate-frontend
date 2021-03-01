@@ -1,13 +1,21 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/deceased/anyotherchildren');
+const config = require('config');
+const commonContentEn = require('app/resources/en/translation/common');
+const commonContentCy = require('app/resources/cy/translation/common');
+const childrenContentEn = 'have any other children?';
+const childrenContentCy = 'blant eraill?';
 
-module.exports = function (answer) {
+module.exports = async function (language = 'en', answer) {
     const I = this;
+    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
+    const childrenContent = language === 'en' ? childrenContentEn : childrenContentCy;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click(`#anyOtherChildren${answer}`);
+    await I.checkPageUrl('app/steps/ui/deceased/anyotherchildren');
+    await I.waitForText(childrenContent, config.TestWaitForTextToAppear);
+    const locator = {css: `#anyOtherChildren${answer}`};
+    await I.waitForElement(locator);
+    await I.click(locator);
 
-    I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue);
 };

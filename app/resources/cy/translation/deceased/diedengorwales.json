@@ -1,0 +1,13 @@
+{
+  "title": "A fu&rsquo;r ymadawedig farw yng Nghymru neu Loegr?",
+  "question": "A fu&rsquo;r ymadawedig farw yng Nghymru neu Loegr?",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
+  "theDeceased": "the deceased",
+
+  "errors": {
+    "diedEngOrWales": {
+      "required": "Atebwch &lsquo;oes&rsquo; os oedd yr ymadawedig yn byw yng Nghymru neu Loegr neu’n bwriadu dychwelyd yma"
+    }
+  }
+}

@@ -1,19 +1,32 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/declaration');
+const config = require('config');
+const commonContentEn = require('app/resources/en/translation/common');
+const commonContentCy = require('app/resources/cy/translation/common');
+const contentEn = require('app/resources/en/translation/declaration');
+const contentCy = require('app/resources/cy/translation/declaration');
 
-module.exports = function(bilingualGOP) {
+module.exports = async function(language = 'en', bilingualGOP) {
     const I = this;
+    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
+    const declarationContent = language === 'en' ? contentEn : contentCy;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-
-    if (bilingualGOP) {
-        I.downloadPdfIfNotIE11('#declarationPdfHref-cy');
+    await I.checkPageUrl('app/steps/ui/declaration');
+    if (language === 'en') {
+        // The below check should be enabled for both English and Welsh once
+        // this AAT Welsh content bug is fixed: https://tools.hmcts.net/jira/browse/DTSPB-1250
+        // (raised 19/01/2020)
+        await I.waitForText(declarationContent.highCourtHeader, config.TestWaitForTextToAppear);
     }
 
-    I.downloadPdfIfNotIE11('#declarationPdfHref-en');
-    I.click('#declarationCheckbox');
+    const enLocator = {css: '#declarationPdfHref-en'};
+    await I.waitForElement(enLocator);
 
-    I.navByClick(commonContent.saveAndContinue);
+    if (bilingualGOP) {
+        await I.downloadPdfIfNotIE11({css: '#declarationPdfHref-cy'});
+    }
+
+    await I.downloadPdfIfNotIE11(enLocator);
+    await I.click({css: '#declarationCheckbox'});
+    await I.navByClick(commonContent.saveAndContinue);
 };

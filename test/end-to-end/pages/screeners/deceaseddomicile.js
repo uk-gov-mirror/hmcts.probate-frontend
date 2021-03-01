@@ -1,13 +1,19 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/screeners/deceaseddomicile');
+const contentEn = require('app/resources/en/translation/common');
+const contentCy = require('app/resources/cy/translation/common');
+const deceasedDomicileEn = require('app/resources/en/translation/screeners/deceaseddomicile');
+const deceasedDomicileCy = require('app/resources/cy/translation/screeners/deceaseddomicile');
 
-module.exports = function(answer) {
+module.exports = async function(language ='en') {
     const I = this;
+    const commonContent = language === 'en' ? contentEn : contentCy;
+    const deceasedDomicileContent = language === 'en' ? deceasedDomicileEn : deceasedDomicileCy;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click(`#domicile${answer}`);
+    await I.checkPageUrl('app/steps/ui/screeners/deceaseddomicile');
+    await I.waitForText(deceasedDomicileContent.question);
+    await I.see(deceasedDomicileContent.hintText1);
 
-    I.navByClick(commonContent.continue);
+    await I.click(deceasedDomicileContent.optionYes);
+    await I.navByClick(commonContent.continue);
 };

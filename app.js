@@ -18,7 +18,9 @@ const packageJson = require(`${__dirname}/package`);
 const Security = require(`${__dirname}/app/components/security`);
 const helmet = require('helmet');
 const csrf = require('csurf');
-const healthcheck = require(`${__dirname}/app/healthcheck`);
+const healthcheck = require('@hmcts/nodejs-healthcheck');
+const healthOptions = require('app/utils/healthOptions');
+const os = require('os');
 const declaration = require(`${__dirname}/app/declaration`);
 const InviteSecurity = require(`${__dirname}/app/invite`);
 const additionalInvite = require(`${__dirname}/app/routes/additionalInvite`);
@@ -26,17 +28,17 @@ const updateInvite = require(`${__dirname}/app/routes/updateinvite`);
 const fs = require('fs');
 const https = require('https');
 const appInsights = require('applicationinsights');
-const uuidv4 = require('uuid/v4');
-const nonce = uuidv4();
+const {v4: uuidv4} = require('uuid');
+const nonce = uuidv4().replace(/-/g, '');
 const EligibilityCookie = require('app/utils/EligibilityCookie');
 const eligibilityCookie = new EligibilityCookie();
 const caseTypes = require('app/utils/CaseTypes');
 const featureToggles = require('app/featureToggles');
 const sanitizeRequestBody = require('app/middleware/sanitizeRequestBody');
 const isEmpty = require('lodash').isEmpty;
-const LaunchDarkly = require('launchdarkly-node-server-sdk');
+const FormatUrl = require('app/utils/FormatUrl');
 
-exports.init = function(isA11yTest = false, a11yTestSession = {}, ftValue) {
+exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const app = express();
     const port = config.app.port;
     const releaseVersion = packageJson.version;
@@ -112,33 +114,59 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}, ftValue) {
     // Content security policy to allow just assets from same domain
     app.use(helmet.contentSecurityPolicy({
         directives: {
-            defaultSrc: ['\'self\''],
-            fontSrc: ['\'self\' data:'],
+            defaultSrc: [
+                '\'self\''
+            ],
+            fontSrc: [
+                '\'self\' data:',
+                'fonts.gstatic.com'
+            ],
             scriptSrc: [
                 '\'self\'',
                 '\'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU=\'',
                 '\'sha256-AaA9Rn5LTFZ5vKyp3xOfFcP4YbyOjvWn2up8IKHVAKk=\'',
                 '\'sha256-G29/qSW/JHHANtFhlrZVDZW1HOkCDRc78ggbqwwIJ2g=\'',
+                '\'sha256-BWhcmwio/4/QdqKNw5PKmTItWBjkevCaOUbLkgW5cHs=\'',
                 'www.google-analytics.com',
+                'www.googletagmanager.com',
                 'vcc-eu4.8x8.com',
                 'vcc-eu4b.8x8.com',
-                `'nonce-${nonce}'`
+                'webchat-client.ctsc.hmcts.net',
+                `'nonce-${nonce}'`,
+                'tagmanager.google.com'
             ],
-            connectSrc: ['\'self\''],
-            mediaSrc: ['\'self\''],
+            connectSrc: [
+                '\'self\'',
+                'www.google-analytics.com',
+                'https://webchat.ctsc.hmcts.net',
+                'wss://webchat.ctsc.hmcts.net',
+                'stats.g.doubleclick.net',
+                'tagmanager.google.com'
+            ],
+            mediaSrc: [
+                '\'self\''
+            ],
             frameSrc: [
                 'vcc-eu4.8x8.com',
                 'vcc-eu4b.8x8.com'
             ],
             imgSrc: [
                 '\'self\'',
+                '\'self\' data:',
                 'www.google-analytics.com',
+                'stats.g.doubleclick.net',
                 'vcc-eu4.8x8.com',
-                'vcc-eu4b.8x8.com'
+                'vcc-eu4b.8x8.com',
+                'ssl.gstatic.com',
+                'www.gstatic.com',
+                'lh3.googleusercontent.com'
             ],
             styleSrc: [
                 '\'self\'',
-                '\'unsafe-inline\''
+                '\'unsafe-inline\'',
+                'tagmanager.google.com',
+                'fonts.googleapis.com',
+                'webchat-client.ctsc.hmcts.net'
             ],
             frameAncestors: ['\'self\'']
         },
@@ -166,6 +194,7 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}, ftValue) {
     app.use('/public/webchat', express.static(`${__dirname}/node_modules/@hmcts/ctsc-web-chat/assets`, caching));
     app.use('/public/stylesheets', express.static(`${__dirname}/public/stylesheets`, caching));
     app.use('/public/images', express.static(`${__dirname}/app/assets/images`, caching));
+    app.use('/public/locales', express.static(`${__dirname}/app/assets/locales`, caching));
     app.use('/public/javascripts/govuk-frontend', express.static(`${__dirname}/node_modules/govuk-frontend`, caching));
     app.use('/public/javascripts/jquery', express.static(`${__dirname}/node_modules/jquery/dist`, caching));
     app.use('/public/javascripts', express.static(`${__dirname}/app/assets/javascripts`, caching));
@@ -202,6 +231,21 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}, ftValue) {
         store: utils.getStore(config.redis, session, config.app.session.ttl)
     }));
 
+    // health
+    const healthCheckConfig = {
+        checks: {
+            [config.services.validation.name]: healthcheck.web(FormatUrl.format(config.services.validation.url, config.endpoints.health), healthOptions),
+            [config.services.orchestrator.name]: healthcheck.web(FormatUrl.format(config.services.orchestrator.url, config.endpoints.health), healthOptions),
+        },
+        buildInfo: {
+            name: config.health.service_name,
+            host: os.hostname(),
+            uptime: process.uptime(),
+        },
+    };
+
+    healthcheck.addTo(app, healthCheckConfig);
+
     app.use((req, res, next) => {
         if (!req.session) {
             return next(new Error('Unable to reach redis'));
@@ -218,8 +262,13 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}, ftValue) {
         if (!req.session.language) {
             req.session.language = 'en';
         }
-        if (req.query && req.query.locale && config.languages.includes(req.query.locale)) {
-            req.session.language = req.query.locale;
+
+        if (req.query) {
+            if (req.query.lng && config.languages.includes(req.query.lng)) {
+                req.session.language = req.query.lng;
+            } else if (req.query.locale && config.languages.includes(req.query.locale)) {
+                req.session.language = req.query.locale;
+            }
         }
 
         if (isA11yTest && !isEmpty(a11yTestSession)) {
@@ -264,23 +313,15 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}, ftValue) {
 
     app.get('/executors/invitation/:inviteId', inviteSecurity.verify());
     app.use('/co-applicant-*', inviteSecurity.checkCoApplicant(useIDAM));
-    app.use(healthcheck);
     app.use('/executors-additional-invite', additionalInvite);
     app.use('/executors-update-invite', updateInvite);
     app.use('/declaration', declaration);
 
     app.use((req, res, next) => {
-        if (['test', 'testing'].includes(app.get('env'))) {
-            res.locals.launchDarkly = {
-                client: LaunchDarkly.init(config.featureToggles.launchDarklyKey, {offline: true}),
-                ftValue: ftValue
-            };
-        } else {
-            res.locals.launchDarkly = {
-                client: LaunchDarkly.init(config.featureToggles.launchDarklyKey)
-            };
+        res.locals.launchDarkly = {};
+        if (ftValue) {
+            res.locals.launchDarkly.ftValue = ftValue;
         }
-
         next();
     });
 
@@ -297,6 +338,7 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}, ftValue) {
             }
             req.session.regId = req.query.id || req.session.regId || req.sessionID;
             req.authToken = config.services.payment.authorization;
+            req.session.authToken = req.authToken;
             req.userId = config.services.payment.userId;
             next();
         }, routes);
@@ -316,7 +358,7 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}, ftValue) {
     // Start the app
     let http;
 
-    if (['development', 'testing'].includes(config.nodeEnvironment)) {
+    if (['development', 'testing', 'testing-unit', 'testing-component'].includes(config.nodeEnvironment)) {
         const sslDirectory = path.join(__dirname, 'app', 'resources', 'localhost-ssl');
         const sslOptions = {
             key: fs.readFileSync(path.join(sslDirectory, 'localhost.key')),
@@ -325,7 +367,7 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}, ftValue) {
         const server = https.createServer(sslOptions, app);
 
         http = server.listen(port, () => {
-            console.log(`Application started: http://localhost:${port}`);
+            console.log(`Application started: https://localhost:${port}`);
         });
     } else {
         http = app.listen(port, () => {
@@ -338,7 +380,12 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}, ftValue) {
         const content = require(`app/resources/${req.session.language}/translation/errors/404`);
 
         logger(req.sessionID).error(`Unhandled request ${req.url}`);
-        res.status(404).render('errors/error', {common: commonContent, content: content, error: '404', userLoggedIn: req.userLoggedIn});
+        res.status(404).render('errors/error', {
+            common: commonContent,
+            content: content,
+            error: '404',
+            userLoggedIn: req.userLoggedIn
+        });
     });
 
     app.use((err, req, res, next) => {
@@ -346,7 +393,12 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}, ftValue) {
         const content = require(`app/resources/${req.session.language}/translation/errors/500`);
 
         logger(req.sessionID).error(err);
-        res.status(500).render('errors/error', {common: commonContent, content: content, error: '500', userLoggedIn: req.userLoggedIn});
+        res.status(500).render('errors/error', {
+            common: commonContent,
+            content: content,
+            error: '500',
+            userLoggedIn: req.userLoggedIn
+        });
     });
 
     return {app, http};

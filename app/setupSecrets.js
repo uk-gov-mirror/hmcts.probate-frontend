@@ -1,9 +1,12 @@
 const config = require('@hmcts/properties-volume').addTo(require('config'));
 const {get, set} = require('lodash');
+const logger = require('app/components/logger')('Init');
 
 const setSecret = (secretPath, configPath) => {
     if (config.has(secretPath)) {
         set(config, configPath, get(config, secretPath));
+    } else {
+        logger.warn('Cannot find secret with path: ' + secretPath);
     }
 };
 
@@ -16,9 +19,6 @@ const setupSecrets = () => {
         setSecret('secrets.probate.postcode-service-token2', 'services.postcode.token');
         setSecret('secrets.probate.probate-survey', 'links.survey');
         setSecret('secrets.probate.probate-survey-end', 'links.surveyEndOfApplication');
-        setSecret('secrets.probate.probate-application-fee-code', 'payment.applicationFeeCode');
-        setSecret('secrets.probate.probate-uk-application-fee-code', 'payment.copies.uk.code');
-        setSecret('secrets.probate.probate-overseas-application-fee-code', 'payment.copies.overseas.code');
         setSecret('secrets.probate.probate-service-id', 'payment.serviceId');
         setSecret('secrets.probate.probate-site-id', 'payment.siteId');
         setSecret('secrets.probate.payCaseWorkerUser', 'services.idam.probate_user_email');
@@ -30,6 +30,7 @@ const setupSecrets = () => {
         setSecret('secrets.probate.probate-webchat-button-service-closed', 'webChat.buttonServiceClosed');
         setSecret('secrets.probate.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
         setSecret('secrets.probate.launchdarkly-key', 'featureToggles.launchDarklyKey');
+        setSecret('secrets.probate.pcq-token-key', 'services.equalityAndDiversity.tokenKey');
     }
 };
 

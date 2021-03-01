@@ -4,6 +4,8 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const RedirectRunner = require('app/core/runners/RedirectRunner');
 const config = require('config');
 const get = require('lodash').get;
+const createToken = require('./createToken');
+const FeatureToggle = require('app/utils/FeatureToggle');
 
 class Equality extends ValidationStep {
 
@@ -15,6 +17,7 @@ class Equality extends ValidationStep {
         return '/equality-and-diversity';
     }
 
+    // eslint-disable-next-line no-unused-vars
     runnerOptions(ctx, session, host) {
         const params = {
             serviceId: 'PROBATE',
@@ -25,6 +28,10 @@ class Equality extends ValidationStep {
             returnUrl: `${host}/task-list`,
             language: session.language
         };
+
+        if (FeatureToggle.isEnabled(session.featureToggles, 'ft_pcq_token')) {
+            params.token = createToken(params);
+        }
 
         const qs = Object.keys(params)
             .map(key => key + '=' + params[key])

@@ -7,7 +7,7 @@
 
         {{ fieldError(fields.postcode) }}
 
-        <input type="text" class="govuk-input govuk-!-width-one-quarter {{ "govuk-input--error" if fields.postcode.error }}" id="postcode" name="postcode" value="{{ fields.postcode.value }}" autocomplete="none">
+        <input type="text" class="govuk-input govuk-!-width-one-quarter {{ "govuk-input--error" if fields.postcode.error }}" id="postcode" name="postcode" value="{{ fields.postcode.value }}" autocomplete="off">
         <input type="hidden" id="referrer" name="referrer" value="{{ step }}">
         <input type="hidden" id="addressFound" name="addressFound" value="{{ fields.addressFound.value if fields.addressFound else "none" }}">
         <button type="submit" data-prevent-double-click="true" class="govuk-button govuk-button--secondary find-address-button" id="findAddress">{{ content.findAddress | safe }}</button>
@@ -49,6 +49,7 @@
                     document.getElementById('newPostCode').value = postcode;
                     document.getElementById('country').value = 'United Kingdom';
                     document.getElementById('details-panel').setAttribute('open', true);
+                    document.getElementById('details-panel').getElementsByClassName('govuk-details__text')[0].setAttribute('style', 'display: block');
                     document.getElementById('details-panel').getElementsByClassName('govuk-details__summary')[0].setAttribute('aria-expanded', true);
                     document.getElementById('details-panel').getElementsByClassName('govuk-details__text')[0].setAttribute('aria-hidden', false);
                 });

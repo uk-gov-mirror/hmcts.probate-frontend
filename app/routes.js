@@ -15,7 +15,6 @@ const PaymentWrapper = require('app/wrappers/Payment');
 const documentUpload = require('app/documentUpload');
 const documentDownload = require('app/documentDownload');
 const multipleApplications = require('app/multipleApplications');
-const equalityAndDiversity = require('app/equalityAndDiversity');
 const journeyCheck = require('app/journeyCheck');
 const serviceAuthorisationToken = require('app/serviceAuthorisation');
 const paymentFees = require('app/paymentFees');
@@ -62,15 +61,10 @@ router.use((req, res, next) => {
 router.use(serviceAuthorisationToken);
 router.use(setJourney);
 router.use(multipleApplications);
-router.use(equalityAndDiversity);
 router.use(journeyCheck);
 router.use(documentDownload);
 router.use(paymentFees);
 router.post('/payment-breakdown', lockPaymentAttempt);
-
-router.get('/health/liveness', (req, res) => {
-    res.json({status: 'UP'});
-});
 
 router.get('/start-apply', (req, res, next) => {
     if (config.app.useIDAM === 'true' && req.userLoggedIn) {
@@ -148,8 +142,13 @@ router.use((req, res, next) => {
     }
 });
 
+const allSteps = {
+    'en': initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui`], 'en'),
+    'cy': initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui`], 'cy')
+};
+
 router.use((req, res, next) => {
-    const steps = initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui`], req.session.language);
+    const steps = allSteps[req.session.language];
     const currentPageCleanUrl = FormatUrl.getCleanPageUrl(req.originalUrl, 1);
     const formdata = req.session.form;
     const isHardStop = (formdata, journey) => config.hardStopParams[journey].some(param => get(formdata, param) === 'optionNo');
@@ -196,7 +195,7 @@ router.use((req, res, next) => {
             res.redirect('/task-list');
         } else if (!applicantHasPassedPayment && config.whitelistedPagesAfterPayment.includes(currentPageCleanUrl)) {
             res.redirect('/task-list');
-        } else if (!applicantHasDeclared && config.blacklistedPagesBeforeDeclaration.includes(currentPageCleanUrl)) {
+        } else if (!applicantHasDeclared && !applicationSubmitted && config.blacklistedPagesBeforeDeclaration.includes(currentPageCleanUrl)) {
             res.redirect('/task-list');
         } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl) && !documentsSent) {
             res.redirect('/documents');
@@ -232,7 +231,7 @@ router.get('/payment', (req, res) => {
     res.redirect(301, '/documents');
 });
 
-if (['sandbox', 'saat', 'preview', 'sprod', 'demo', 'aat'].includes(config.environment)) {
+if (['sandbox', 'saat', 'preview', 'perftest', 'demo', 'aat'].includes(config.environment)) {
     router.get('/inviteIdList', (req, res) => {
         const formdata = req.session.form;
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);

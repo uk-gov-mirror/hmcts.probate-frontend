@@ -1,13 +1,16 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/executors/allalive');
+const commonContentEn = require('app/resources/en/translation/common');
+const commonContentCy = require('app/resources/cy/translation/common');
 
-module.exports = function(answer) {
+module.exports = async function(language = 'en', answer) {
     const I = this;
+    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click(`#allalive${answer}`);
+    await I.checkPageUrl('app/steps/ui/executors/allalive');
+    const locator = {css: `#allalive${answer}`};
+    await I.waitForElement(locator);
+    await I.click(locator);
 
-    I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue);
 };

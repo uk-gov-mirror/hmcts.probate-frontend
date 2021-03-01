@@ -1,13 +1,16 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/deceased/maritalstatus');
+const commonContentEn = require('app/resources/en/translation/common');
+const commonContentCy = require('app/resources/cy/translation/common');
 
-module.exports = function(answer) {
+module.exports = async function(language = 'en', answer) {
     const I = this;
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
 
-    I.click(`#maritalStatus${answer}`);
+    await I.checkPageUrl('app/steps/ui/deceased/maritalstatus');
+    const locator = {css: `#maritalStatus${answer}`};
 
-    I.navByClick(commonContent.saveAndContinue);
+    await I.waitForElement(locator);
+    await I.click(locator);
+    await I.navByClick(commonContent.saveAndContinue);
 };

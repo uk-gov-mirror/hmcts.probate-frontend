@@ -23,25 +23,63 @@ describe('redirect to documents', () => {
         };
     });
 
-    afterEach(() => {
-        testWrapper.destroy();
+    afterEach(async () => {
+        await testWrapper.destroy();
     });
 
     it(`test it redirects to Documents page when the application was submitted: ${expectedUrlForDocumentsPage}`, (done) => {
         testWrapper.agent.post('/prepare-session/form')
             .send(sessionData)
             .end(() => {
-                testWrapper.agent.get(testWrapper.pageUrl)
-                    .expect('location', '/documents')
-                    .expect(302)
-                    .end((err) => {
-                        testWrapper.server.http.close();
-                        if (err) {
-                            done(err);
-                        } else {
-                            done();
-                        }
-                    });
+                try {
+                    testWrapper.agent.get(testWrapper.pageUrl)
+                        .expect('location', '/documents')
+                        .expect(302)
+                        .end((err) => {
+                            // testWrapper.server.http.close();
+                            if (err) {
+                                done(err);
+                            } else {
+                                done();
+                            }
+                        });
+                } catch (e) {
+                    console.error(e.message);
+                    done(e);
+                }
+            });
+    });
+
+    it(`test it redirects to Documents page when the application was submitted and declarationCheckbox data is pruned: ${expectedUrlForDocumentsPage}`, (done) => {
+        sessionData = {
+            ccdCase: {
+                state: 'CaseCreated',
+                id: 1535395401245028
+            },
+            payment: {
+                status: 'Success'
+            }
+        };
+
+        testWrapper.agent.post('/prepare-session/form')
+            .send(sessionData)
+            .end(() => {
+                try {
+                    testWrapper.agent.get(testWrapper.pageUrl)
+                        .expect('location', '/documents')
+                        .expect(302)
+                        .end((err) => {
+                            // testWrapper.server.http.close();
+                            if (err) {
+                                done(err);
+                            } else {
+                                done();
+                            }
+                        });
+                } catch (e) {
+                    console.error(e.message);
+                    done(e);
+                }
             });
     });
 });
