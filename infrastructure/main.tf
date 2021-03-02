@@ -5,7 +5,7 @@ provider "azurerm" {
 locals {
   vaultName = "${var.product}-${var.env}"
 }
-/*
+
 data "azurerm_subnet" "core_infra_redis_subnet" {
   name                 = "core-infra-subnet-1-${var.env}"
   virtual_network_name = "core-infra-vnet-${var.env}"
@@ -31,4 +31,4 @@ resource "azurerm_key_vault_secret" "redis_access_key" {
   value        = module.probate-frontend-redis-cache.access_key
   key_vault_id = data.azurerm_key_vault.probate_key_vault.id
 }
-*/
+
