@@ -14,7 +14,6 @@ featureToggles:
   ft_pcq: 'probate-pcq'
   ft_pcq_token: 'probate-pcq-token'
   ft_avaya_webchat: 'probate-avaya-webchat'
-  ft_new_deathcert_flow: 'probate-new-deathcert-flow'
   ft_newfee_register_code: 'probate-newfee-register-code'
   appwideToggles: ['ft_avaya_webchat']
 app:
@@ -219,22 +218,6 @@ whitelistedPagesAfterSubmission: ['/documents', '/thank-you', '/check-answers-pd
 whitelistedPagesAfterPayment: ['/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf']
 whitelistedPagesAfterDeclaration: ['/task-list', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/equality-and-diversity']
 blacklistedPagesBeforeDeclaration: ['/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf']
-probateScreeners:
-  deathCertificate: 'optionYes'
-  domicile: 'optionYes'
-  completed: 'optionYes'
-  left: 'optionYes'
-  original: 'optionYes'
-  executor: 'optionYes'
-  mentalCapacity: 'optionYes'
-intestacyScreeners:
-  deathCertificate: 'optionYes'
-  domicile: 'optionYes'
-  completed: 'optionYes'
-  left: 'optionNo'
-  diedAfter: 'optionYes'
-  related: 'optionYes'
-  otherApplicants: 'optionNo'
 probateScreenersDeathCertificateInEnglish:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionYes'
