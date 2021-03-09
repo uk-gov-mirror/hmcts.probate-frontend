@@ -1,7 +1,7 @@
 'use strict';
 
 const i18next = require('i18next');
-const mapValues = require('lodash').mapValues;
+const {mapValues, get} = require('lodash');
 const JourneyMap = require('app/core/JourneyMap');
 
 const commonContent = (language = 'en') => {
@@ -20,19 +20,24 @@ const updateTaskStatus = (ctx, req, res, steps) => {
         let status = 'notStarted';
         let step = steps[task.firstStep];
 
-        while (step.name !== task.lastStep) {
-            const localctx = step.getContextData(req, res);
-            const featureToggles = req.session.featureToggles;
-            const [stepCompleted, progressFlag] = step.isComplete(localctx, formdata, featureToggles);
-            const nextStep = step.next(req, localctx);
-            if (stepCompleted && nextStep !== steps.StopPage) {
-                status = progressFlag !== 'noProgress' ? 'started' : status;
-                step = nextStep;
-            } else {
-                break;
+        if (get(formdata, 'declaration.declarationCheckbox') === 'true' && (taskName === 'DeceasedTask' || taskName === 'ExecutorsTask')) {
+            status = 'complete';
+        } else {
+            while (step.name !== task.lastStep) {
+                const localctx = step.getContextData(req, res);
+                const featureToggles = req.session.featureToggles;
+                const [stepCompleted, progressFlag] = step.isComplete(localctx, formdata, featureToggles);
+                const nextStep = step.next(req, localctx);
+                if (stepCompleted && nextStep !== steps.StopPage) {
+                    status = progressFlag !== 'noProgress' ? 'started' : status;
+                    step = nextStep;
+                } else {
+                    break;
+                }
             }
+            status = step.name === task.lastStep ? 'complete' : status;
         }
-        status = step.name === task.lastStep ? 'complete' : status;
+
         const nextURL = step.constructor.getUrl();
         const checkYourAnswersLink = steps[task.summary].constructor.getUrl();
 
