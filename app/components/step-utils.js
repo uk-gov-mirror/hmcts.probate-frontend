@@ -17,12 +17,12 @@ const updateTaskStatus = (ctx, req, res, steps) => {
 
     Object.keys(taskList).forEach((taskName) => {
         const task = taskList[taskName];
-        let status = 'notStarted';
+        let status = 'complete';
         let step = steps[task.firstStep];
 
-        if (get(formdata, 'declaration.declarationCheckbox') === 'true' && (taskName === 'DeceasedTask' || taskName === 'ExecutorsTask')) {
-            status = 'complete';
-        } else {
+        if (!(isDeclarationComplete(formdata) && isPreDeclarationTask(taskName))) {
+            status = 'notStarted';
+
             while (step.name !== task.lastStep) {
                 const localctx = step.getContextData(req, res);
                 const featureToggles = req.session.featureToggles;
@@ -43,6 +43,14 @@ const updateTaskStatus = (ctx, req, res, steps) => {
 
         ctx[taskName] = {status, nextURL, checkYourAnswersLink};
     });
+};
+
+const isPreDeclarationTask = (taskName) => {
+    return taskName === 'DeceasedTask' || taskName === 'ExecutorsTask';
+};
+
+const isDeclarationComplete = (formdata) => {
+    return get(formdata, 'declaration.declarationCheckbox') === 'true';
 };
 
 const formattedDate = (date, language) => {
