@@ -3,15 +3,13 @@
 const TestWrapper = require('test/util/TestWrapper');
 const DiedEnglandOrWales = require('app/steps/ui/deceased/diedengorwales');
 const testCommonContent = require('test/component/common/testCommonContent.js');
-const probateJourney = require('app/journeys/probate');
 
 describe('deceased-address', () => {
-    const ftValue = {ft_new_deathcert_flow: true};
     let testWrapper;
     const expectedNextUrlForDiedEnglandOrWales = DiedEnglandOrWales.getUrl();
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('DeceasedAddress', ftValue, probateJourney);
+        testWrapper = new TestWrapper('DeceasedAddress');
     });
 
     afterEach(async () => {
@@ -52,12 +50,7 @@ describe('deceased-address', () => {
                 postTown: 'value',
                 newPostCode: 'value'
             };
-
-            testWrapper.agent.post('/prepare-session/featureToggles')
-                .send(ftValue)
-                .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDiedEnglandOrWales);
-                });
+            testWrapper.testRedirect(done, data, expectedNextUrlForDiedEnglandOrWales);
         });
     });
 });
