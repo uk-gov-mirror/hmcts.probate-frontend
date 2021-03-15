@@ -5,6 +5,8 @@ const FeatureToggle = require('app/utils/FeatureToggle');
 const featureToggle = new FeatureToggle();
 const completeEqualityTask = require('app/middleware/completeEqualityTask');
 
+router.get('/*', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_avaya_webchat', featureToggle.toggleFeature));
+
 router.get('/equality-and-diversity', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_pcq', completeEqualityTask));
 
 router.get('/death-certificate', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_new_deathcert_flow', featureToggle.toggleFeature));
