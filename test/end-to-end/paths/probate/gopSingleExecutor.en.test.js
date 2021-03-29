@@ -9,7 +9,7 @@ const optionNo = '-2';
 const bilingualGOP = false;
 const uploadingDocuments = false;
 const config = require('config');
-const languages = ['en', 'cy'];
+const languages = ['en'];
 
 Feature('GOP-Single Executor');
 
