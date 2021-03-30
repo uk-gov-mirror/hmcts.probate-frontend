@@ -12,7 +12,7 @@ const spousePartner = '';
 const uploadingDocuments = false;
 const bilingualGOP = false;
 const config = require('config');
-const languages = ['en'];
+const languages = ['en', 'cy'];
 
 Feature('GOP Intestacy spouse E2E');
 
