@@ -22,4 +22,3 @@ git.properties.json
 /logs/
 /pacts/
 /mochawesome-report
-/config/dev.yaml
