@@ -33,9 +33,6 @@ class FeatureToggle {
             ldDefaultValue = params.launchDarkly.ftValue[params.featureToggleKey];
         }
 
-        //RREMOVE THIS BEFORRE MERGING
-        console.log('FEATUER TOGGLE USERR DETAILS => ', ldUser);
-
         try {
             this.launchDarkly.variation(featureToggleKey, ldUser, ldDefaultValue, (err, showFeature) => {
                 if (err) {
