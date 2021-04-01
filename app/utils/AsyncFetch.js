@@ -22,7 +22,6 @@ class AsyncFetch {
     }
 
     fetch(url, fetchOptions, parseBody) {
-        // remove console.log before release
         if (!this.isHealthEndpoint(url)) {
             log.info('Calling external service');
         }
