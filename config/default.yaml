@@ -5,7 +5,7 @@ frontendPublicHttpProtocol: http
 languages: ['en', 'cy']
 featureToggles:
   enabled: true
-  launchDarklyKey: 'LDSDK-KEY'
+  launchDarklyKey: 'LAUNDARKLEY-KEY'
   launchDarklyUser:
     firstName: 'Probate'
     lastName: 'Frontend'
