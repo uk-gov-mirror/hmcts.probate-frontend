@@ -74,7 +74,7 @@ router.get('/start-apply', (req, res, next) => {
     }
 });
 
-router.use((req, res, next) => {
+router.use('/task-list', (req, res, next) => {
     const formdata = req.session.form;
     const ccdCaseId = formdata.ccdCase ? formdata.ccdCase.id : 'undefined';
 
