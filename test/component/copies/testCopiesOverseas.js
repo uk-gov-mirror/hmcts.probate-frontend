@@ -31,7 +31,7 @@ describe('copies-overseas', () => {
         await testWrapper.destroy();
     });
 
-    describe('Verify Content, Errors and Redirection - Feature toggles', () => {
+    describe('Verify Content, Errors and Redirection - Feature toggles' + expectedNextUrlForCopiesSummary, () => {
 
         it('test right content loaded on the page with the ft_fees_api toggle ON', (done) => {
 
