@@ -102,7 +102,6 @@
     "git-rev-sync": "^1.12.0",
     "govuk-frontend": "^3.10.2",
     "helmet": "^3.20.0",
-    "hosted-git-info": "4.0.2",
     "http-terminator": "^2.0.3",
     "https-proxy-agent": "^2.2.2",
     "i18next": "^17.0.11",
@@ -174,5 +173,8 @@
     "watch": "^1.0.2",
     "webdriverio": "^6.10.5",
     "when": "^3.7.8"
+  },
+  "resolutions": {
+    "hosted-git-info": "3.0.8"
   }
 }
