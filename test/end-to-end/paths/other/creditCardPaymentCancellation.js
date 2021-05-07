@@ -22,7 +22,7 @@ After(async () => {
 
 languages.forEach(language => {
 
-    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} -Credit Card Payment Cancellation`), async (I) => {
+    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} -Credit Card Payment Cancellation`), async ({I}) => {
         if (TestConfigurator.getUseGovPay() === 'true') {
 
             const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
