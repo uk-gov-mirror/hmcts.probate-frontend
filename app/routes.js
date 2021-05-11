@@ -91,7 +91,6 @@ router.use(['/task-list', '/assets-overseas', '/copies-overseas', '/copies-uk', 
         if (req.userLoggedIn) {
             allExecutorsAgreed.get(req.authToken, req.session.serviceAuthorization, ccdCaseId)
                 .then(data => {
-                    console.log('DATA => ', data);
                     req.session.haveAllExecutorsDeclared = data;
                     next();
                 })
@@ -120,7 +119,6 @@ router.use(['/task-list', '/assets-overseas', '/copies-overseas', '/copies-uk', 
                                 } else {
                                     allExecutorsAgreed.get(authToken, serviceAuthorisation, ccdCaseId)
                                         .then(data => {
-                                            console.log('DATA2 => ', data);
                                             req.session.haveAllExecutorsDeclared = data;
                                             next();
                                         })
