@@ -21,12 +21,14 @@ web-chat {
     z-index: 1000;
     border: none;
     font-family: Arial, Helvetica, sans-serif;
+
 }
 
 #avayaWebchat .container {
     height: 510px;
+    background-color: white;
 }
-  
+
 web-chat.hidden {
     transform: translateY(1000px);
 }
