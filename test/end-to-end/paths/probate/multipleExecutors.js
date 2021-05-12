@@ -25,7 +25,7 @@ After(async () => {
 
 languages.forEach(language => {
 
-    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - Multiple Executors Journey - Main applicant; Stage 1: Enter deceased and executor details`), async (I) => {
+    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - Multiple Executors Journey - Main applicant; Stage 1: Enter deceased and executor details`), async ({I}) => {
         const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
         await I.retry(2).createAUser(TestConfigurator);
 
@@ -225,5 +225,6 @@ languages.forEach(language => {
         // Thank You
         await I.seeThankYouPage(language);
 
-    }).retry(TestConfigurator.getRetryScenarios());
+    }).tag('@e2e')
+        .retry(TestConfigurator.getRetryScenarios());
 });
