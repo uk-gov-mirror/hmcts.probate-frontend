@@ -62,6 +62,10 @@
   resolved "https://registry.yarnpkg.com/@hapi/bourne/-/bourne-2.0.0.tgz#5bb2193eb685c0007540ca61d166d4e1edaf918d"
   integrity sha512-WEezM1FWztfbzqIUbsDzFRVMxSoLy3HugVcux6KDDtTqzPsLE8NDRHfXvev66aH1i2oOKKar3/XDjbvh/OUBdg==
 
+"@hmcts/cookie-manager@hmcts/cookie-manager":
+  version "0.0.3"
+  resolved "https://codeload.github.com/hmcts/cookie-manager/tar.gz/fd291ad07e3e69c9c9fcdec9ded0f5d2d3ab1b8e"
+
 "@hmcts/ctsc-web-chat@^0.3.11":
   version "0.3.11"
   resolved "https://registry.yarnpkg.com/@hmcts/ctsc-web-chat/-/ctsc-web-chat-0.3.11.tgz#b8af565e1cf6c251763843c842a95ece92aa7fea"
