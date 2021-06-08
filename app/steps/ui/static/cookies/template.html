@@ -15,18 +15,10 @@
             {{ unorderedList([content["whatCookiesAreUsedFor-item1"], content["whatCookiesAreUsedFor-item2"]]) }}
 
             <h2 class="govuk-heading-m">{{ content.howAreCookiesUsedHeading1 | safe }}</h2>
-            <p class="govuk-body">{{ content.howAreCookiesUsedParagraph1 | safe }}</p>
-            {{ unorderedList([content["howAreCookiesUsed-item1"], content["howAreCookiesUsed-item2"], content["howAreCookiesUsed-item3"]]) }}
-            <p class="govuk-body">{{ content.howAreCookiesUsedParagraph2 | replace("{howToManageCookiesLink}", globals.links.howToManageCookies) | safe }}</p>
-
             <h2 class="govuk-heading-m">{{ content.websiteUsageCookiesHeading1 | safe }}</h2>
             <p class="govuk-body">{{ content.websiteUsageCookiesParagraph1 | safe }}</p>
-            <p class="govuk-body">{{ content.websiteUsageCookiesParagraph2 | safe }}</p>
-            {{ unorderedList([content["websiteUsageCookies-item1"], content["websiteUsageCookies-item2"], content["websiteUsageCookies-item3"], content["websiteUsageCookies-item4"]]) }}
-            <p class="govuk-body">{{ content.websiteUsageCookiesParagraph3 | replace("{googlePrivacyPolicyLink}", globals.links.googlePrivacyPolicy) | safe }}</p>
-            <p class="govuk-body">{{ content.websiteUsageCookiesParagraph4 | replace("{googleAnalyticsOptOutLink}", globals.links.googleAnalyticsOptOut) | safe }}</p>
-            <p class="govuk-body">{{ content.websiteUsageCookiesParagraph5 | safe }}</p>
 
+            <h2 class="govuk-heading-m">{{ content.cookieDetailsTableHeading | safe }}</h2>
             {{ govukTable({
                 caption: content.websiteUsageCookiesHeading1 | safe,
                 captionClasses: "govuk-visually-hidden",
@@ -53,6 +45,59 @@
                     ]
                 ]
             }) }}
+            <p class="govuk-body">{{ content.googleAnalyticsAllowParagraph | safe }}</p>
+
+            <h2 class="govuk-heading-m">{{ content.performanceCookiesHeading1 | safe }}</h2>
+            <p class="govuk-body">{{ content.performanceCookiesParagraph1 | safe }}</p>
+            {{ unorderedList([content["performanceCookies-item1"], content["performanceCookies-item2"], content["performanceCookies-item3"]]) }}
+            <p class="govuk-body">{{ content.performanceCookiesParagraph2 | safe }}</p>
+
+            <h2 class="govuk-heading-m">{{ content.cookieDetailsTableHeading | safe }}</h2>
+            {{ govukTable({
+                caption: content.websiteUsageCookiesHeading1 | safe,
+                captionClasses: "govuk-visually-hidden",
+                head: [
+                    { text: content.cookieNameHeader | safe },
+                    { text: content.cookiePurposeHeader | safe },
+                    { text: content.cookieExpiryHeader | safe }
+                ],
+                rows: [
+                    [
+                        { text: content.performanceCookieName1 | safe },
+                        { text: content.performanceCookiePurpose1 | safe },
+                        { text: content.performanceCookieExpiry1 | safe }
+                    ],
+                    [
+                        { text: content.performanceCookieName2 | safe },
+                        { text: content.performanceCookiePurpose2 | safe },
+                        { text: content.performanceCookieExpiry2 | safe }
+                    ],
+                    [
+                        { text: content.performanceCookieName3 | safe },
+                        { text: content.performanceCookiePurpose3 | safe },
+                        { text: content.performanceCookieExpiry3 | safe }
+                    ],
+                    [
+                        { text: content.performanceCookieName4 | safe },
+                        { text: content.performanceCookiePurpose4 | safe },
+                        { text: content.performanceCookieExpiry4 | safe }
+                    ],
+                    [
+                        { text: content.performanceCookieName5 | safe },
+                        { text: content.performanceCookiePurpose5 | safe },
+                        { text: content.performanceCookieExpiry5 | safe }
+                    ],
+                    [
+                        { text: content.performanceCookieName6 | safe },
+                        { text: content.performanceCookiePurpose6 | safe },
+                        { text: content.performanceCookieExpiry6 | safe }
+                    ]
+                ]
+            }) }}
+            <p class="govuk-body">{{ content.performanceAllowParagraph | safe }}</p>
+
+            <h2 class="govuk-heading-m">{{ content.essentialCookiesHeading | safe }}</h2>
+            <p class="govuk-body">{{ content.essentialCookiesParagraph | safe }}</p>
 
             <h2 class="govuk-heading-m">{{ content.introMessageCookiesHeading1 | safe }}</h2>
             <p class="govuk-body">{{ content.introMessageCookiesParagraph1 | safe }}</p>
