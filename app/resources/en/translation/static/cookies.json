@@ -1,7 +1,10 @@
 {
   "title": "Cookies",
   "heading1": "Cookies",
-  "paragraph1": "A cookie is a small piece of data that&rsquo;s stored on your computer, tablet, or phone when you visit a website. Most websites need cookies to work properly.",
+  "paragraph1": "Cookies are files saved on your phone, tablet or computer when you visit a website. Most websites need cookies to work properly.",
+  "paragraph2": "This service uses cookies to:",
+  "whatCookiesAreUsedFor-item1": "store your cookie preferences",
+  "whatCookiesAreUsedFor-item2": "measure how you use the service so it can be improved",
 
   "howAreCookiesUsedHeading1": "How cookies are used in this service",
   "howAreCookiesUsedParagraph1": "This service uses them to:",
@@ -11,7 +14,7 @@
   "howAreCookiesUsedParagraph2": "Find out more about <a href=\"{howToManageCookiesLink}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"how to manage cookies (opens in a new window)\">how to manage cookies (opens in a new window)</a>.",
 
   "websiteUsageCookiesHeading1": "Cookies used to measure website usage",
-  "websiteUsageCookiesParagraph1": "We use Google Analytics software to collect information about how you use this service. We do this to help make sure the service is meeting the needs of its users and to help us make improvements, for example improving site search.",
+  "websiteUsageCookiesParagraph1": "We use Google Analytics software to collect information about how you use this service. We do this to help make sure the service is meeting the needs of its users and to help us make improvements. We do not allow Google to use or share the data about how you use this site",
   "websiteUsageCookiesParagraph2": "Google Analytics stores information about:",
   "websiteUsageCookies-item1": "the pages you visit",
   "websiteUsageCookies-item2": "how long you spend on each page",
@@ -21,17 +24,21 @@
   "websiteUsageCookiesParagraph4": "You can <a href=\"{googleAnalyticsOptOutLink}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"opt out of Google Analytics (opens in a new window)\">opt out of Google Analytics (opens in a new window)</a> if you do not want Google to have access to your information.",
   "websiteUsageCookiesParagraph5": "Google Analytics sets the following cookies:",
 
-  "cookieNameHeader": "Cookie name",
-  "cookiePurposeHeader": "What this cookie is for",
-  "cookieExpiryHeader": "Expires after",
+  "cookieNameHeader": "Name",
+  "cookiePurposeHeader": "Purpose",
+  "cookieExpiryHeader": "Expires",
 
   "googleAnalyticsCookieName1": "_ga",
   "googleAnalyticsCookiePurpose1": "This helps us count how many people visit the service by tracking if you&rsquo;ve visited before",
-  "googleAnalyticsCookieExpiry1": "2 years",
+  "googleAnalyticsCookieExpiry1": "1 year",
 
-  "googleAnalyticsCookieName2": "_gat",
-  "googleAnalyticsCookiePurpose2": "Manages the rate at which page view requests are made",
-  "googleAnalyticsCookieExpiry2": "10 minutes",
+  "googleAnalyticsCookieName2": "_gid",
+  "googleAnalyticsCookiePurpose2": "Identifies you to the service",
+  "googleAnalyticsCookieExpiry2": "1 year",
+
+  "googleAnalyticsCookieName3": "_gat",
+  "googleAnalyticsCookiePurpose3": "Manages the rate at which page view requests are made",
+  "googleAnalyticsCookieExpiry3": "1 year",
 
   "introMessageCookiesHeading1": "Cookies used to turn our introductory message off",
   "introMessageCookiesParagraph1": "You may see a welcome message when you first visit the service. We&rsquo;ll store a cookie so that your computer knows not to show this message again.",

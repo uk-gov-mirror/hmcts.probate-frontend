@@ -11,6 +11,8 @@
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-l">{{ content.heading1 | safe }}</h1>
             <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
+            <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
+            {{ unorderedList([content["whatCookiesAreUsedFor-item1"], content["whatCookiesAreUsedFor-item2"]]) }}
 
             <h2 class="govuk-heading-m">{{ content.howAreCookiesUsedHeading1 | safe }}</h2>
             <p class="govuk-body">{{ content.howAreCookiesUsedParagraph1 | safe }}</p>
@@ -43,6 +45,11 @@
                         { text: content.googleAnalyticsCookieName2 | safe },
                         { text: content.googleAnalyticsCookiePurpose2 | safe },
                         { text: content.googleAnalyticsCookieExpiry2 | safe }
+                    ],
+                    [
+                        { text: content.googleAnalyticsCookieName3 | safe },
+                        { text: content.googleAnalyticsCookiePurpose3 | safe },
+                        { text: content.googleAnalyticsCookieExpiry3 | safe }
                     ]
                 ]
             }) }}
