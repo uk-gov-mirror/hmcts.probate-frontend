@@ -66,11 +66,14 @@
   "performanceAllowParagraph": "Allow cookies that measure website application performance monitoring?",
 
   "essentialCookiesHeading": "Essential cookies",
-
-  "essentialCookiesParagraph": "Allow cookies that measure website use?",
+  "essentialCookiesParagraph": "These essential cookies do things like making the service more secure. They always need to be on.",
 
   "introMessageCookiesHeading1": "Cookies used to turn our introductory message off",
   "introMessageCookiesParagraph1": "You may see a welcome message when you first visit the service. We&rsquo;ll store a cookie so that your computer knows not to show this message again.",
+
+  "essentialCookieNameHeader": "Name",
+  "essentialCookiePurposeHeader": "What this cookie is for",
+  "essentialCookieExpiryHeader": "Expires after",
 
   "introMessageCookieName1": "seen_cookie_message",
   "introMessageCookiePurpose1": "Saves a message to let us know that you&rsquo;ve seen our cookie message",
