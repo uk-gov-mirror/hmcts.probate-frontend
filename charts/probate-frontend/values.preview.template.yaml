@@ -27,6 +27,8 @@ nodejs:
         - payCaseWorkerPass
         - launchdarkly-key
         - launchdarklyUserkeyFrontend
+        - webchat-avaya-url
+        - webchat-avaya-service
 redis:
   enabled: true
 idam-pr:
