@@ -53,6 +53,9 @@ redis:
   enabled: USE_REDIS
   secret: REDIS_SECRET
 enableTracking: ENABLE_TRACKING
+webchat:
+  avayaUrl: WEBCHAT_AVAYA_URL
+  avayaService: WEBCHAT_AVAYA_SERVICE
 webChat:
   chatId: WEBCHAT_CHAT_ID
   tenant: WEBCHAT_TENANT
