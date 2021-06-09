@@ -12,8 +12,7 @@
       <p class="govuk-body"> {{ common.helpTelephoneNumber | safe }}</p>
       <p class="govuk-body"> {{ common.helpTelephoneOpeningHours | safe }}</p>
       <p class="govuk-heading-s"> {{ common.helpHeading2 | safe }} </p>
-      <p class="govuk-body"> {{ common.helpEmailLabel | replace("{contactEmailAddress}", common.helpEmail) | safe }} </p
-     
+      <p class="govuk-body"> {{ common.helpEmailLabel | replace("{contactEmailAddress}", common.helpEmail) | safe }} </p>
       <p class="govuk-heading-s" id="avaya-web-chat-header"> {{ common.helpHeading3 | safe }} </p>
       {% include "includes/avaya-webchat.html" %}
     </div>
