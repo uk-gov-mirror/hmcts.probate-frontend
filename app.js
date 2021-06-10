@@ -114,8 +114,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             defaultSrc: [
                 '\'self\'',
                 'webchat.ctsc.hmcts.net',
-                'webchat.training.ctsc.hmcts.net',
-                'webchat-client.ctsc.hmcts.net'
+                'webchat.training.ctsc.hmcts.net'
             ],
             fontSrc: [
                 '\'self\' data:',
@@ -129,9 +128,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 '\'sha256-BWhcmwio/4/QdqKNw5PKmTItWBjkevCaOUbLkgW5cHs=\'',
                 'www.google-analytics.com',
                 'www.googletagmanager.com',
-                'vcc-eu4.8x8.com',
-                'vcc-eu4b.8x8.com',
-                'webchat-client.ctsc.hmcts.net',
                 'webchat.ctsc.hmcts.net',
                 'webchat.training.ctsc.hmcts.net',
                 `'nonce-${nonce}'`,
@@ -140,7 +136,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             connectSrc: [
                 '\'self\'',
                 'www.google-analytics.com',
-                'https://webchat-client.ctsc.hmcts.net',
+                'https://webchat.training.ctsc.hmcts.net',
                 'https://webchat.ctsc.hmcts.net',
                 'wss://webchat.ctsc.hmcts.net',
                 'stats.g.doubleclick.net',
@@ -150,16 +146,12 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 '\'self\''
             ],
             frameSrc: [
-                'vcc-eu4.8x8.com',
-                'vcc-eu4b.8x8.com'
             ],
             imgSrc: [
                 '\'self\'',
                 '\'self\' data:',
                 'www.google-analytics.com',
                 'stats.g.doubleclick.net',
-                'vcc-eu4.8x8.com',
-                'vcc-eu4b.8x8.com',
                 'ssl.gstatic.com',
                 'www.gstatic.com',
                 'lh3.googleusercontent.com'
