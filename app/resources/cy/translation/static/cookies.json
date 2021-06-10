@@ -104,5 +104,6 @@
 
   "securityCookieName3": "_csrf",
   "securityCookiePurpose3": "Helpu i amddiffyn rhag ffugio",
-  "securityCookieExpiry3": "Pan fyddwch chi&rsquo;n cau&rsquo;ch porwr"
+  "securityCookieExpiry3": "Pan fyddwch chi&rsquo;n cau&rsquo;ch porwr",
+  "save": "Arbed"
 }

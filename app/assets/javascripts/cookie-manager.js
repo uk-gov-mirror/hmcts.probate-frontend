@@ -1,11 +1,15 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-	typeof define === 'function' && define.amd ? define('cookieManager', ['exports'], factory) :
-	(factory((global.cookieManager = {})));
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+        factory(exports)
+    } else if (typeof define === 'function' && define.amd) {
+        define('cookieManager', ['exports'], factory)
+    } else {
+        (factory((global.cookieManager = {})));
+    }	
 }(this, (function (exports) { 'use strict';
 
     // Prevents JavaScript errors when running on browsers without console/log.
-    if(typeof console === "undefined") {
+    if (typeof console === "undefined") {
         console = {
             log: function() {},
             info: function() {},
@@ -47,7 +51,7 @@
     const manageCookies = function() {
 
         const cm_cookie = options['user-preference-cookie-name'];
-        const cm_user_preferences = getUserPreferences(cm_cookie);
+        const cm_user_preferences = getUserPreferences();
 
         if (!cm_user_preferences) {
             console.info(
@@ -407,23 +411,14 @@
 
         const userPreferenceForm = document.getElementById(options['preference-form-id']);
         const visibleOnPreferencePage = options['cookie-banner-visible-on-page-with-preference-form'];
-        const cmCookie = options['user-preference-cookie-name'];
 
-        if (getUserPreferences(cmCookie)) {
+        if (getUserPreferences()) {
             cookieBanner.hidden = true;
         } else if (userPreferenceForm !== null && visibleOnPreferencePage === false) {
             cookieBanner.hidden = true;
         } else {
             cookieBanner.hidden = false;
         }
-    };
-
-    const scriptError = function (message) {
-        throw new Error(`CookieManager script cannot continue.\n\n${message}`);
-    };
-
-    const isValidDays = function(days) {
-        return (days ^ 0) === days;
     };
 
     const configOptionIsTrue = function (optionName) {

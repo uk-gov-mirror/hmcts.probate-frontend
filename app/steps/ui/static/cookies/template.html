@@ -5,254 +5,238 @@
 {% from "widgets/lists.html" import unorderedList %}
 
 {% block content %}
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-l">{{ content.heading1 | safe }}</h1>
-            <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
-            <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
-            {{ unorderedList([content["whatCookiesAreUsedFor-item1"], content["whatCookiesAreUsedFor-item2"]]) }}
-
-            <h2 class="govuk-heading-m">{{ content.howAreCookiesUsedHeading1 | safe }}</h2>
-            <h2 class="govuk-heading-m">{{ content.websiteUsageCookiesHeading1 | safe }}</h2>
-            <p class="govuk-body">{{ content.websiteUsageCookiesParagraph1 | safe }}</p>
-
-            <h2 class="govuk-heading-m">{{ content.cookieDetailsTableHeading | safe }}</h2>
-            {{ govukTable({
-                caption: content.websiteUsageCookiesHeading1 | safe,
-                captionClasses: "govuk-visually-hidden",
-                head: [
-                    { text: content.cookieNameHeader | safe },
-                    { text: content.cookiePurposeHeader | safe },
-                    { text: content.cookieExpiryHeader | safe }
-                ],
-                rows: [
-                    [
-                        { text: content.googleAnalyticsCookieName1 | safe },
-                        { text: content.googleAnalyticsCookiePurpose1 | safe },
-                        { text: content.googleAnalyticsCookieExpiry1 | safe }
+    <form id="cookie-manager-form">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <h1 class="govuk-heading-l">{{ content.heading1 | safe }}</h1>
+                <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
+                <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
+                {{ unorderedList([content["whatCookiesAreUsedFor-item1"], content["whatCookiesAreUsedFor-item2"]]) }}
+    
+                <h2 class="govuk-heading-m">{{ content.howAreCookiesUsedHeading1 | safe }}</h2>
+                <h2 class="govuk-heading-m">{{ content.websiteUsageCookiesHeading1 | safe }}</h2>
+                <p class="govuk-body">{{ content.websiteUsageCookiesParagraph1 | safe }}</p>
+    
+                <h2 class="govuk-heading-m">{{ content.cookieDetailsTableHeading | safe }}</h2>
+                {{ govukTable({
+                    caption: content.websiteUsageCookiesHeading1 | safe,
+                    captionClasses: "govuk-visually-hidden",
+                    head: [
+                        { text: content.cookieNameHeader | safe },
+                        { text: content.cookiePurposeHeader | safe },
+                        { text: content.cookieExpiryHeader | safe }
                     ],
-                    [
-                        { text: content.googleAnalyticsCookieName2 | safe },
-                        { text: content.googleAnalyticsCookiePurpose2 | safe },
-                        { text: content.googleAnalyticsCookieExpiry2 | safe }
-                    ],
-                    [
-                        { text: content.googleAnalyticsCookieName3 | safe },
-                        { text: content.googleAnalyticsCookiePurpose3 | safe },
-                        { text: content.googleAnalyticsCookieExpiry3 | safe }
+                    rows: [
+                        [
+                            { text: content.googleAnalyticsCookieName1 | safe },
+                            { text: content.googleAnalyticsCookiePurpose1 | safe },
+                            { text: content.googleAnalyticsCookieExpiry1 | safe }
+                        ],
+                        [
+                            { text: content.googleAnalyticsCookieName2 | safe },
+                            { text: content.googleAnalyticsCookiePurpose2 | safe },
+                            { text: content.googleAnalyticsCookieExpiry2 | safe }
+                        ],
+                        [
+                            { text: content.googleAnalyticsCookieName3 | safe },
+                            { text: content.googleAnalyticsCookiePurpose3 | safe },
+                            { text: content.googleAnalyticsCookieExpiry3 | safe }
+                        ]
                     ]
-                ]
-            }) }}
-
-            {{ govukRadios({
-                classes: "govuk-radios",
-                idPrefix: "analytics",
-                name: "analytics",
-                fieldset: {
-                    legend: {
-                        text: content.googleAnalyticsAllowParagraph | safe,
-                        isPageHeading: true,
-                        classes: "govuk-fieldset__legend"
-                    }
-                },
-                items: [
-                    {
-                        value: "optionYes",
-                        text: content.optionYes | safe,
-                        checked: false
+                }) }}
+    
+                {{ govukRadios({
+                    classes: "govuk-radios",
+                    idPrefix: "analytics",
+                    name: "analytics",
+                    fieldset: {
+                        legend: {
+                            text: content.googleAnalyticsAllowParagraph | safe,
+                            isPageHeading: true,
+                            classes: "govuk-fieldset__legend"
+                        }
                     },
-                    {
-                        value: "optionNo",
-                        text: content.optionNo | safe,
-                        checked: true
-                    }
-                ]
-            }) }}
-<!--
-            <div class="govuk-radios">
-                <div class="govuk-radios__item">
-                   <input type="radio" name="analytics" id="radio-analytics-on" value="true" class="govuk-radios__input">
-                   <label for="radio-analytics-on" class="govuk-label govuk-radios__label" id="radio-analytics-on-label">
-                   <span>Use cookies that measure my website use</span>
-                   </label>
-                   
-                </div>
-                <div class="govuk-radios__item">
-                   <input type="radio" name="analytics" id="radio-analytics-off" value="false" class="govuk-radios__input" checked="checked">
-                   <label for="radio-analytics-off" class="govuk-label govuk-radios__label" id="radio-analytics-off-label">
-                   <span>Do not use cookies that measure my website use</span>
-                   </label>
-                   
-                </div>
-             </div>            
-
--->
-
-            <h2 class="govuk-heading-m">{{ content.performanceCookiesHeading1 | safe }}</h2>
-            <p class="govuk-body">{{ content.performanceCookiesParagraph1 | safe }}</p>
-            {{ unorderedList([content["performanceCookies-item1"], content["performanceCookies-item2"], content["performanceCookies-item3"]]) }}
-            <p class="govuk-body">{{ content.performanceCookiesParagraph2 | safe }}</p>
-
-            <h2 class="govuk-heading-m">{{ content.cookieDetailsTableHeading | safe }}</h2>
-            {{ govukTable({
-                caption: content.websiteUsageCookiesHeading1 | safe,
-                captionClasses: "govuk-visually-hidden",
-                head: [
-                    { text: content.cookieNameHeader | safe },
-                    { text: content.cookiePurposeHeader | safe },
-                    { text: content.cookieExpiryHeader | safe }
-                ],
-                rows: [
-                    [
-                        { text: content.performanceCookieName1 | safe },
-                        { text: content.performanceCookiePurpose1 | safe },
-                        { text: content.performanceCookieExpiry1 | safe }
-                    ],
-                    [
-                        { text: content.performanceCookieName2 | safe },
-                        { text: content.performanceCookiePurpose2 | safe },
-                        { text: content.performanceCookieExpiry2 | safe }
-                    ],
-                    [
-                        { text: content.performanceCookieName3 | safe },
-                        { text: content.performanceCookiePurpose3 | safe },
-                        { text: content.performanceCookieExpiry3 | safe }
-                    ],
-                    [
-                        { text: content.performanceCookieName4 | safe },
-                        { text: content.performanceCookiePurpose4 | safe },
-                        { text: content.performanceCookieExpiry4 | safe }
-                    ],
-                    [
-                        { text: content.performanceCookieName5 | safe },
-                        { text: content.performanceCookiePurpose5 | safe },
-                        { text: content.performanceCookieExpiry5 | safe }
-                    ],
-                    [
-                        { text: content.performanceCookieName6 | safe },
-                        { text: content.performanceCookiePurpose6 | safe },
-                        { text: content.performanceCookieExpiry6 | safe }
+                    items: [
+                        {
+                            value: "on",
+                            text: content.optionYes | safe,
+                            checked: false
+                        },
+                        {
+                            value: "off",
+                            text: content.optionNo | safe,
+                            checked: true
+                        }
                     ]
-                ]
-            }) }}
-
-            {{ govukRadios({
-                classes: "govuk-radios",
-                idPrefix: "apm",
-                name: "apm",
-                fieldset: {
-                    legend: {
-                        text: content.performanceAllowParagraph | safe,
-                        isPageHeading: true,
-                        classes: "govuk-fieldset__legend"
-                    }
-                },
-                items: [
-                    {
-                        value: "optionYes",
-                        text: content.optionYes | safe,
-                        checked: false
+                }) }}
+    
+                <h2 class="govuk-heading-m">{{ content.performanceCookiesHeading1 | safe }}</h2>
+                <p class="govuk-body">{{ content.performanceCookiesParagraph1 | safe }}</p>
+                {{ unorderedList([content["performanceCookies-item1"], content["performanceCookies-item2"], content["performanceCookies-item3"]]) }}
+                <p class="govuk-body">{{ content.performanceCookiesParagraph2 | safe }}</p>
+    
+                <h2 class="govuk-heading-m">{{ content.cookieDetailsTableHeading | safe }}</h2>
+                {{ govukTable({
+                    caption: content.websiteUsageCookiesHeading1 | safe,
+                    captionClasses: "govuk-visually-hidden",
+                    head: [
+                        { text: content.cookieNameHeader | safe },
+                        { text: content.cookiePurposeHeader | safe },
+                        { text: content.cookieExpiryHeader | safe }
+                    ],
+                    rows: [
+                        [
+                            { text: content.performanceCookieName1 | safe },
+                            { text: content.performanceCookiePurpose1 | safe },
+                            { text: content.performanceCookieExpiry1 | safe }
+                        ],
+                        [
+                            { text: content.performanceCookieName2 | safe },
+                            { text: content.performanceCookiePurpose2 | safe },
+                            { text: content.performanceCookieExpiry2 | safe }
+                        ],
+                        [
+                            { text: content.performanceCookieName3 | safe },
+                            { text: content.performanceCookiePurpose3 | safe },
+                            { text: content.performanceCookieExpiry3 | safe }
+                        ],
+                        [
+                            { text: content.performanceCookieName4 | safe },
+                            { text: content.performanceCookiePurpose4 | safe },
+                            { text: content.performanceCookieExpiry4 | safe }
+                        ],
+                        [
+                            { text: content.performanceCookieName5 | safe },
+                            { text: content.performanceCookiePurpose5 | safe },
+                            { text: content.performanceCookieExpiry5 | safe }
+                        ],
+                        [
+                            { text: content.performanceCookieName6 | safe },
+                            { text: content.performanceCookiePurpose6 | safe },
+                            { text: content.performanceCookieExpiry6 | safe }
+                        ]
+                    ]
+                }) }}
+    
+                {{ govukRadios({
+                    classes: "govuk-radios",
+                    idPrefix: "apm",
+                    name: "apm",
+                    fieldset: {
+                        legend: {
+                            text: content.performanceAllowParagraph | safe,
+                            isPageHeading: true,
+                            classes: "govuk-fieldset__legend"
+                        }
                     },
-                    {
-                        value: "optionNo",
-                        text: content.optionNo | safe,
-                        checked: true
-                    }
-                ]
-            }) }}
-
-            <h2 class="govuk-heading-m">{{ content.essentialCookiesHeading | safe }}</h2>
-            <p class="govuk-body">{{ content.essentialCookiesParagraph | safe }}</p>
-
-            <h2 class="govuk-heading-m">{{ content.introMessageCookiesHeading1 | safe }}</h2>
-            <p class="govuk-body">{{ content.introMessageCookiesParagraph1 | safe }}</p>
-
-            {{ govukTable({
-                caption: content.introMessageCookiesHeading1 | safe,
-                captionClasses: "govuk-visually-hidden",
-                head: [
-                    { text: content.essentialCookieNameHeader | safe },
-                    { text: content.essentialCookiePurposeHeader | safe },
-                    { text: content.essentialCookieExpiryHeader | safe }
-                ],
-                rows: [
-                    [
-                        { text: content.introMessageCookieName1 | safe },
-                        { text: content.introMessageCookiePurpose1 | safe },
-                        { text: content.introMessageCookieExpiry1 | safe }
+                    items: [
+                        {
+                            value: "on",
+                            text: content.optionYes | safe,
+                            checked: false
+                        },
+                        {
+                            value: "off",
+                            text: content.optionNo | safe,
+                            checked: true
+                        }
                     ]
-                ]
-            }) }}
-
-            <h2 class="govuk-heading-m">{{ content.sessionCookiesHeading1 | safe }}</h2>
-            <p class="govuk-body">{{ content.sessionCookiesParagraph1 | safe }}</p>
-
-            {{ govukTable({
-                caption: content.sessionCookiesHeading1 | safe,
-                captionClasses: "govuk-visually-hidden",
-                head: [
-                    { text: content.essentialCookieNameHeader | safe },
-                    { text: content.essentialCookiePurposeHeader | safe },
-                    { text: content.essentialCookieExpiryHeader | safe }
-                ],
-                rows: [
-                    [
-                        { text: content.sessionCookieName1 | safe },
-                        { text: content.sessionCookiePurpose1 | safe },
-                        { text: content.sessionCookieExpiry1 | safe }
-                    ]
-                ]
-            }) }}
-
-            <h2 class="govuk-heading-m">{{ content.identityCookiesHeading1 | safe }}</h2>
-            <p class="govuk-body">{{ content.identityCookiesParagraph1 | safe }}</p>
-
-            {{ govukTable({
-                caption: content.identityCookiesHeading1 | safe,
-                captionClasses: "govuk-visually-hidden",
-                head: [
-                    { text: content.essentialCookieNameHeader | safe },
-                    { text: content.essentialCookiePurposeHeader | safe },
-                    { text: content.essentialCookieExpiryHeader | safe }
-                ],
-                rows: [
-                    [
-                        { text: content.identityCookieName1 | safe },
-                        { text: content.identityCookiePurpose1 | safe },
-                        { text: content.identityCookieExpiry1 | safe }
-                    ]
-                ]
-            }) }}
-
-            <h2 class="govuk-heading-m">{{ content.securityCookiesHeading1 | safe }}</h2>
-            <p class="govuk-body">{{ content.securityCookiesParagraph1 | safe }}</p>
-
-            {{ govukTable({
-                caption: content.securityCookiesHeading1 | safe,
-                captionClasses: "govuk-visually-hidden",
-                head: [
-                    { text: content.essentialCookieNameHeader | safe },
-                    { text: content.essentialCookiePurposeHeader | safe },
-                    { text: content.essentialCookieExpiryHeader | safe }
-                ],
-                rows: [
-                    [
-                        { text: content.securityCookieName1 | safe },
-                        { text: content.securityCookiePurpose1 | safe },
-                        { text: content.securityCookieExpiry1 | safe }
+                }) }}
+    
+                <h2 class="govuk-heading-m">{{ content.essentialCookiesHeading | safe }}</h2>
+                <p class="govuk-body">{{ content.essentialCookiesParagraph | safe }}</p>
+    
+                <h2 class="govuk-heading-m">{{ content.introMessageCookiesHeading1 | safe }}</h2>
+                <p class="govuk-body">{{ content.introMessageCookiesParagraph1 | safe }}</p>
+    
+                {{ govukTable({
+                    caption: content.introMessageCookiesHeading1 | safe,
+                    captionClasses: "govuk-visually-hidden",
+                    head: [
+                        { text: content.essentialCookieNameHeader | safe },
+                        { text: content.essentialCookiePurposeHeader | safe },
+                        { text: content.essentialCookieExpiryHeader | safe }
                     ],
-                    [
-                        { text: content.securityCookieName2 | safe },
-                        { text: content.securityCookiePurpose2 | safe },
-                        { text: content.securityCookieExpiry2 | safe }
-                    ],
-                    [
-                        { text: content.securityCookieName3 | safe },
-                        { text: content.securityCookiePurpose3 | safe },
-                        { text: content.securityCookieExpiry3 | safe }
+                    rows: [
+                        [
+                            { text: content.introMessageCookieName1 | safe },
+                            { text: content.introMessageCookiePurpose1 | safe },
+                            { text: content.introMessageCookieExpiry1 | safe }
+                        ]
                     ]
-                ]
-            }) }}
-        </div>
-    </div>
+                }) }}
+    
+                <h2 class="govuk-heading-m">{{ content.sessionCookiesHeading1 | safe }}</h2>
+                <p class="govuk-body">{{ content.sessionCookiesParagraph1 | safe }}</p>
+    
+                {{ govukTable({
+                    caption: content.sessionCookiesHeading1 | safe,
+                    captionClasses: "govuk-visually-hidden",
+                    head: [
+                        { text: content.essentialCookieNameHeader | safe },
+                        { text: content.essentialCookiePurposeHeader | safe },
+                        { text: content.essentialCookieExpiryHeader | safe }
+                    ],
+                    rows: [
+                        [
+                            { text: content.sessionCookieName1 | safe },
+                            { text: content.sessionCookiePurpose1 | safe },
+                            { text: content.sessionCookieExpiry1 | safe }
+                        ]
+                    ]
+                }) }}
+    
+                <h2 class="govuk-heading-m">{{ content.identityCookiesHeading1 | safe }}</h2>
+                <p class="govuk-body">{{ content.identityCookiesParagraph1 | safe }}</p>
+    
+                {{ govukTable({
+                    caption: content.identityCookiesHeading1 | safe,
+                    captionClasses: "govuk-visually-hidden",
+                    head: [
+                        { text: content.essentialCookieNameHeader | safe },
+                        { text: content.essentialCookiePurposeHeader | safe },
+                        { text: content.essentialCookieExpiryHeader | safe }
+                    ],
+                    rows: [
+                        [
+                            { text: content.identityCookieName1 | safe },
+                            { text: content.identityCookiePurpose1 | safe },
+                            { text: content.identityCookieExpiry1 | safe }
+                        ]
+                    ]
+                }) }}
+    
+                <h2 class="govuk-heading-m">{{ content.securityCookiesHeading1 | safe }}</h2>
+                <p class="govuk-body">{{ content.securityCookiesParagraph1 | safe }}</p>
+    
+                {{ govukTable({
+                    caption: content.securityCookiesHeading1 | safe,
+                    captionClasses: "govuk-visually-hidden",
+                    head: [
+                        { text: content.essentialCookieNameHeader | safe },
+                        { text: content.essentialCookiePurposeHeader | safe },
+                        { text: content.essentialCookieExpiryHeader | safe }
+                    ],
+                    rows: [
+                        [
+                            { text: content.securityCookieName1 | safe },
+                            { text: content.securityCookiePurpose1 | safe },
+                            { text: content.securityCookieExpiry1 | safe }
+                        ],
+                        [
+                            { text: content.securityCookieName2 | safe },
+                            { text: content.securityCookiePurpose2 | safe },
+                            { text: content.securityCookieExpiry2 | safe }
+                        ],
+                        [
+                            { text: content.securityCookieName3 | safe },
+                            { text: content.securityCookiePurpose3 | safe },
+                            { text: content.securityCookieExpiry3 | safe }
+                        ]
+                    ]
+                }) }}
+                <button class="govuk-button" type="submit">{{ content.save }}</button>
+            </div>
+        </div>    
+    </form>
 {% endblock %}

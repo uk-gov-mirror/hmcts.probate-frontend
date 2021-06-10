@@ -72,7 +72,13 @@
                 "category-name": "essential",
                 "optional": false,
                 "cookies": [
-                    "cm-user-preferences"
+                    "cm-user-preferences",
+                    "seen_cookie_message",
+                    "connect.sid",
+                    "__auth-token",
+                    "TS01842b02",
+                    "__state",
+                    "_csrf"
                 ]
             },
             {
@@ -80,7 +86,9 @@
                 "optional": true,
                 "cookies": [
                     "_ga",
-                    "_gtm"
+                    "_gtm",
+                    "_gid",
+                    "_gat"
                 ]
             },
             {

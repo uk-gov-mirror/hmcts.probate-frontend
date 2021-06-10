@@ -108,5 +108,6 @@
 
   "securityCookieName3": "_csrf",
   "securityCookiePurpose3": "Helps protect against forgery",
-  "securityCookieExpiry3": "When you close your browser"
+  "securityCookieExpiry3": "When you close your browser",
+  "save": "Save"
 }
