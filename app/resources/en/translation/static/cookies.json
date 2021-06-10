@@ -29,6 +29,8 @@
   "googleAnalyticsCookieExpiry3": "1 year",
 
   "googleAnalyticsAllowParagraph": "Allow cookies that measure website use?",
+  "optionYes": "Yes",
+  "optionNo": "No",
 
   "performanceCookiesHeading1": "To measure application performance",
   "performanceCookiesParagraph1": "We use Dynatrace Software Intelligence Platform to provide an Application Performance Monitoring Service to collect information about how you use HMCTS services. We do this to monitor HM Courts and Tribunals (HMCTS) services in order to resolve issues within our services as well as collect data on how our services can be improved. HMCTS stores information about:",
