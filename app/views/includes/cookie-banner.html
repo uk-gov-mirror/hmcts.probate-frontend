@@ -1,5 +1,4 @@
-<script src="/public/javascripts/cookie-manager.js"></script>
-<script src="/public/javascripts/cookiebanner.js"></script>
+<input type="hidden" id="hdnSecurityCookie" value="{{ common.SECURITY_COOKIE }}"/>
 
 <div class="global-cookie-message" id="cm-cookie-banner">
     <div class="govuk-cookie-banner" role="region" aria-label="{{ common.cookieBannerTitle }}">
@@ -24,7 +23,7 @@
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-two-thirds">
                     <div class="govuk-cookie-banner__content">
-                        <p>{{ common.cookieBannerChangeCookies }}</p>
+                        <p>{{ common.cookieBannerChangeCookies | safe }}</p>
                     </div>
                 </div>
             </div>
@@ -34,3 +33,6 @@
         </div>
     </div>
 </div>
+
+<script src="/public/javascripts/cookie-manager.js"></script>
+<script src="/public/javascripts/cookie-banner.js"></script>

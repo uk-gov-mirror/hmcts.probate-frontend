@@ -1,74 +1,74 @@
 {
   "title": "Cwcis",
   "heading1": "Cwcis",
-  "paragraph1": "TRANSLATE - Cookies are files saved on your phone, tablet or computer when you visit a website. Most websites need cookies to work properly.",
-  "paragraph2": "TRANSLATE - This service uses cookies to:",
-  "whatCookiesAreUsedFor-item1": "TRANSLATE - store your cookie preferences",
-  "whatCookiesAreUsedFor-item2": "TRANSLATE - measure how you use the service so it can be improved",
+  "paragraph1": "Ffeiliau sydd wedi eu cadw ar eich ffôn, tabled neu gyfrifiadur pan fyddwch yn mynd ar wefannau yw cwcis.  Mae angen cwcis ar y rhan fwyaf o wefannau i weithio.",
+  "paragraph2": "Mae&rsquo;r gwasanaeth hwn yn defnyddio cwcis i:",
+  "whatCookiesAreUsedFor-item1": "gadw eich dewisiadau cwcis",
+  "whatCookiesAreUsedFor-item2": "mesur sut y byddwch yn defnyddio&rsquo;r gwasanaeth fel y gellir ei wella",
 
   "howAreCookiesUsedHeading1": "Sut ydym yn defnyddio cwcis yn y gwasanaeth hwn",
 
-  "websiteUsageCookiesHeading1": "TRANSLATE - To measure website usage",
-  "websiteUsageCookiesParagraph1": "TRANSLATE LAST SENTENCE - Rydym yn defnyddio meddalwedd Google Analytics i gasglu gwybodaeth am sut rydych yn defnyddio&rsquo;r gwasanaeth hwn. Rydym yn gwneud hyn i helpu i sicrhau bod y gwasanaeth yn diwallu anghenion ei ddefnyddwyr ac i&rsquo;n helpu i wneud gwelliannau. We do not allow Google to use or share the data about how you use this site.",
+  "websiteUsageCookiesHeading1": "Mesur y defnydd a wneir o&rsquo;r wefan",
+  "websiteUsageCookiesParagraph1": "Rydym yn defnyddio meddalwedd Google Analytics i gasglu gwybodaeth am sut rydych yn defnyddio&rsquo;r gwasanaeth hwn. Rydym yn gwneud hyn i helpu i sicrhau bod y gwasanaeth yn diwallu anghenion ei ddefnyddwyr ac i&rsquo;n helpu i wneud gwelliannau. Nid ydym yn caniatáu Google i ddefnyddio na rhannu&rsquo;r data ar sut y byddwch yn defnyddio&rsquo;r safle hon.",
 
   "cookieDetailsTableHeading": "TRANSLATE - Cookie details", 
-  "cookieNameHeader": "TRANSLATE - Name",
-  "cookiePurposeHeader": "TRANSLATE - Purpose",
-  "cookieExpiryHeader": "TRANSLATE - Expires",
+  "cookieNameHeader": "Enw",
+  "cookiePurposeHeader": "Pwrpas",
+  "cookieExpiryHeader": "Dod i ben",
 
   "googleAnalyticsCookieName1": "_ga",
   "googleAnalyticsCookiePurpose1": "Mae&rsquo;n ein helpu i gyfrif faint o bobl sy&rsquo;n ymweld &acirc;&rsquo;r gwasanaeth drwy olrhain os ydych wedi ymweld o&rsquo;r blaen",
-  "googleAnalyticsCookieExpiry1": "TRANSLATE - 1 year",
+  "googleAnalyticsCookieExpiry1": "1 flwyddyn",
 
   "googleAnalyticsCookieName2": "_gid",
   "googleAnalyticsCookiePurpose2": "TRANSLATE - Identifies you to the service",
-  "googleAnalyticsCookieExpiry2": "TRANSLATE - 1 year",
+  "googleAnalyticsCookieExpiry2": "1 flwyddyn",
 
   "googleAnalyticsCookieName3": "_gat",
   "googleAnalyticsCookiePurpose3": "Rheoli faint o bobl sy&rsquo;n ymweld &acirc;&rsquo;r dudalen",
-  "googleAnalyticsCookieExpiry3": "TRANSLATE - 1 year",
+  "googleAnalyticsCookieExpiry3": "1 flwyddyn",
 
-  "googleAnalyticsAllowParagraph": "TRANSLATE - Allow cookies that measure website use?",
+  "googleAnalyticsAllowParagraph": "Caniatáu cwcis sy&rsquo;n mesur y defnydd a wneir o&rsquo;r wefan?",
   "optionYes": "Ydw",
   "optionNo": "Na",
 
-  "performanceCookiesHeading1": "TRANSLATE - To measure application performance",
-  "performanceCookiesParagraph1": "TRANSLATE - We use Dynatrace Software Intelligence Platform to provide an Application Performance Monitoring Service to collect information about how you use HMCTS services. We do this to monitor HM Courts and Tribunals (HMCTS) services in order to resolve issues within our services as well as collect data on how our services can be improved. HMCTS stores information about:",
+  "performanceCookiesHeading1": "Mesur perfformiad y rhaglen",
+  "performanceCookiesParagraph1": "Rydym yn defnyddio Platfform Deallusrwydd Meddalwedd Dynatrace i ddarparu gwasanaeth monitro perfformiad rhaglen i gasglu gwybodaeth am sut rydych yn defnyddio gwasanaethau GLlTEM.  Rydym yn gwneud hyn i fonitro gwasanaethau Gwasanaeth Llysoedd a Thribiwnlysoedd EM i ddatrys problemau o fewn ein gwasanaethau yn ogystal â chasglu data ar sut y gellir gwella ein gwasanaethau. Mae GLlTEM yn cadw gwybodaeth am:",
 
-  "performanceCookies-item1": "TRANSLATE - site performance",
-  "performanceCookies-item2": "TRANSLATE - website usage",
-  "performanceCookies-item3": "TRANSLATE - user behaviour",
+  "performanceCookies-item1": "berfformiad y safle",
+  "performanceCookies-item2": "y defnydd a wneir o&rsquo;r wefan",
+  "performanceCookies-item3": "arferion defnyddwyr",
 
-  "performanceCookiesParagraph2": "TRANSLATE - Information is presented within the Application Performance Monitoring service for the purposes detailed above. We do not use or share the information for any other purpose. We do not allow Dynatrace to use or share the information for any other purposes.",
+  "performanceCookiesParagraph2": "Cyflwynir gwybodaeth o fewn y Rhaglen Monitro Perfformiad at y dibenion a nodir uchod.  Nid ydym yn defnyddio nac yn rhannu&rsquo;r wybodaeth at unrhyw ddibenion eraill. Ni chaniateir i Dynatrace ddefnyddio na rhannu&rsquo;r wybodaeth at unrhyw ddibenion eraill chwaith.",
 
   "performanceCookieName1": "dtCookie",
-  "performanceCookiePurpose1": "TRANSLATE - Tracks a visit across multiple requests",
-  "performanceCookieExpiry1": "TRANSLATE - When session ends",
+  "performanceCookiePurpose1": "Tracio ymweliad a cheisiadau amrywiol",
+  "performanceCookieExpiry1": "Pan fydd y sesiwn yn dod i ben",
 
   "performanceCookieName2": "dtLatC",
-  "performanceCookiePurpose2": "TRANSLATE - Measures server latency for performance monitoring",
-  "performanceCookieExpiry2": "TRANSLATE - When session ends",
+  "performanceCookiePurpose2": "Mesur natur gudd y gweinyddwr i fonitro perfformiad",
+  "performanceCookieExpiry2": "Pan fydd y sesiwn yn dod i ben",
 
   "performanceCookieName3": "dtPC",
-  "performanceCookiePurpose3": "TRANSLATE - Required to identify proper endpoints for beacon transmission; includes session ID for correlation",
-  "performanceCookieExpiry3": "TRANSLATE - When session ends",
+  "performanceCookiePurpose3": "Angenrheidiol i ganfod manau gorffen go iawn ar gyfer trosglwyddo tywysydd; yn cynnwys rhif adnabod sesiwn ar gyfer paru",
+  "performanceCookieExpiry3": "Pan fydd y sesiwn yn dod i ben",
 
   "performanceCookieName4": "dtSa",
-  "performanceCookiePurpose4": "TRANSLATE - Intermediate store for page-spanning actions",
-  "performanceCookieExpiry4": "TRANSLATE - When session ends",
+  "performanceCookiePurpose4": "Storfa dros dro ar gyfer camau gweithredu ar draws tudalennau",
+  "performanceCookieExpiry4": "Pan fydd y sesiwn yn dod i ben",
 
   "performanceCookieName5": "rxVisitor",
-  "performanceCookiePurpose5": "TRANSLATE - Visitor ID to correlate sessions",
-  "performanceCookieExpiry5": "1 year",
+  "performanceCookiePurpose5": "Dull adnabod defnyddwyr i baru sesiynau",
+  "performanceCookieExpiry5": "1 flwyddyn",
 
   "performanceCookieName6": "rxvt",
-  "performanceCookiePurpose6": "TRANSLATE - Session timeout",
-  "performanceCookieExpiry6": "TRANSLATE - When session ends",
+  "performanceCookiePurpose6": "Sesiwn wedi dod i ben",
+  "performanceCookieExpiry6": "Pan fydd y sesiwn yn dod i ben",
 
-  "performanceAllowParagraph": "TRANSLATE - Allow cookies that measure website application performance monitoring?",
+  "performanceAllowParagraph": "Caniatáu cwcis sy&rsquo;n mesur y defnydd a wneir o&rsquo;r wefan a monitro perfformiad?",
 
-  "essentialCookiesHeading": "TRANSLATE - Essential cookies",
-  "essentialCookiesParagraph": "TRANSLATE - These essential cookies do things like making the service more secure. They always need to be on.",
+  "essentialCookiesHeading": "Cwcis angenrheidiol",
+  "essentialCookiesParagraph": "Mae&rsquo;r cwcis angenrheidiol hyn yn sicrhau fod y gwasanaeth yn fwy diogel. Mae&rsquo;n rhaid iddynt fod ymlaen drwy&rsquo;r amser.",
 
   "introMessageCookiesHeading1": "Troi ein neges gyflwyno i ffwrdd",
   "introMessageCookiesParagraph1": "Efallai y byddwch yn gweld neges groeso pan fyddwch yn ymweld &acirc;&rsquo;r gwasanaeth am y tro cyntaf. Byddwn yn storio cwci ar eich cyfrifiadur fel ei fod yn gwybod i beidio &acirc;&rsquo;i dangos eto.",
@@ -87,7 +87,6 @@
   "identityCookiesHeading1": "Eich adnabod pan fyddwch yn dod n&ocirc;l i&rsquo;r gwasanaeth",
   "identityCookiesParagraph1": "Rydym yn defnyddio cwcis dilysu i&rsquo;ch adnabod pan fyddwch yn dod n&ocirc;l i&rsquo;r gwasanaeth.",
 
-  "identityCookieName1": "__auth-token",
   "identityCookiePurpose1": "Gadael i&rsquo;r gwasanaeth wybod pwy ydych chi",
   "identityCookieExpiry1": "Pan fyddwch chi&rsquo;n cau&rsquo;ch porwr",
 
@@ -102,7 +101,7 @@
   "securityCookiePurpose2": "Gadael i&rsquo;r gwasanaeth wybod pwy ydych chi a diogelu eich manylion",
   "securityCookieExpiry2": "Pan fyddwch chi&rsquo;n cau&rsquo;ch porwr",
 
-  "securityCookieName3": "_csrf",
+  "securityCookieName3": "XSRF-TOKEN",
   "securityCookiePurpose3": "Helpu i amddiffyn rhag ffugio",
   "securityCookieExpiry3": "Pan fyddwch chi&rsquo;n cau&rsquo;ch porwr",
   "save": "Arbed"

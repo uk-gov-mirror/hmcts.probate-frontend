@@ -91,7 +91,6 @@
   "identityCookiesHeading1": "Cookies used to identify you when you come back to the service",
   "identityCookiesParagraph1": "We use authentication cookies to identify you when you return to the service.",
 
-  "identityCookieName1": "__auth-token",
   "identityCookiePurpose1": "Identifies you to the service",
   "identityCookieExpiry1": "When you close your browser",
 
@@ -106,7 +105,7 @@
   "securityCookiePurpose2": "Identifies you to the service and secures your authentication",
   "securityCookieExpiry2": "When you close your browser",
 
-  "securityCookieName3": "_csrf",
+  "securityCookieName3": "XSRF-TOKEN",
   "securityCookiePurpose3": "Helps protect against forgery",
   "securityCookieExpiry3": "When you close your browser",
   "save": "Save"
