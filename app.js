@@ -146,8 +146,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             mediaSrc: [
                 '\'self\''
             ],
-            frameSrc: [
-            ],
             imgSrc: [
                 '\'self\'',
                 '\'self\' data:',
