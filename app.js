@@ -139,6 +139,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'https://webchat.training.ctsc.hmcts.net',
                 'https://webchat.ctsc.hmcts.net',
                 'wss://webchat.ctsc.hmcts.net',
+                'wss://webchat.training.ctsc.hmcts.net',
                 'stats.g.doubleclick.net',
                 'tagmanager.google.com'
             ],
