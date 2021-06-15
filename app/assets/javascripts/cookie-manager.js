@@ -177,6 +177,14 @@
             deleteCookieFromCurrentAndUpperDomain(cookie_name);
         }
 
+        if(localStorage) {
+            localStorage.removeItem(cookie_name);            
+        }
+
+        if (sessionStorage) {
+            sessionStorage.removeItem(cookie_name);            
+        }
+
         console.debug(`Deleted cookie "${cookie_name}"`);
     };
 
@@ -203,6 +211,7 @@
         document.cookie = cookie_name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=' + dotDomain + ';path=/;';
         console.debug('delete ' + cookie_name + ' in ' + domain + ' and ' + dotDomain);
     };
+
 
     const setCookie = function(cookie_value) {
 
