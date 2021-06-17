@@ -6,7 +6,7 @@ featureToggles:
 
 configFeatureToggles:
   webchatEnabled: false
-  gaEnabled: false
+  gaEnabled: true
 
 TestCitizenDomain: '/@probateTest.com'
 TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png'

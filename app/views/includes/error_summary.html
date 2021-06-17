@@ -9,6 +9,7 @@
         <script nonce="{{ globals.nonce }}">
             let error = "{{ item.msg }}";
             error = error.replace(/&amp;lsquo;/g, '').replace(/&amp;rsquo;/g, '');
+            const dataLayer = window.dataLayer || [];            
             dataLayer.push({'event': 'Errorshown', 'error_msg': error });
         </script>
     {% endfor %}

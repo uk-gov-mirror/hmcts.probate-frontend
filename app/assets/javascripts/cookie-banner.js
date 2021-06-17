@@ -100,8 +100,6 @@
                     "optional": true,
                     "cookies": [
                         "_ga",
-                        "_ga_GVZ4QS39RD",
-                        "_gat_UA-93598808-2",
                         "_gid"
                     ]
                 },

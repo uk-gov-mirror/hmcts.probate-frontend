@@ -1,12 +1,10 @@
 {% if globals.enableTracking == "true" %}
     <!-- Data Layer -->
     <script nonce="{{ globals.nonce }}">
-      if (!dataLayer) {
-        dataLayer = [];
-      }
+      const dataLayer = window.dataLayer || [];
       const userPreferenceCookie = document.cookie.match(new RegExp('(^| )' + 'cm-user-preferences' + '=([^;]+)'));
-      if(userPreferenceCookie) {
-        const cookiePreferences = JSON.parse(decodeURIComponent(factCookie[2]));
+      if (userPreferenceCookie) {
+        const cookiePreferences = JSON.parse(decodeURIComponent(userPreferenceCookie[2]));
         dataLayer.push({'event': 'Cookie Preferences', 'cookiePreferences': cookiePreferences});
       }
     </script>
