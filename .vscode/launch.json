@@ -291,7 +291,29 @@
             ],
             "type": "pwa-node"            
         },
-
+        {
+            "args": [
+                "--timeout",
+                "15000",
+                "--colors",
+                "${workspaceFolder}/test/unit/utils/testLegalDocumentJSONObjectBuilder.js",
+                "--reporter",
+                "spec"
+            ],
+            "env": {
+                "NODE_ENV": "testing-unit",
+                "NODE_PATH": ".",
+                "LOG_LEVEL": "error"
+            },
+            "internalConsoleOptions": "openOnSessionStart",
+            "name": "Run Legal Statement unit test",
+            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"            
+        },
         {
             "type": "node",
             "request": "launch",
