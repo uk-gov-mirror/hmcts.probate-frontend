@@ -67,42 +67,9 @@
 
   "performanceAllowParagraph": "Caniatáu cwcis sy&rsquo;n mesur y defnydd a wneir o&rsquo;r wefan a monitro perfformiad?",
 
-  "essentialCookiesHeading": "Cwcis angenrheidiol",
-  "essentialCookiesParagraph": "Mae&rsquo;r cwcis angenrheidiol hyn yn sicrhau fod y gwasanaeth yn fwy diogel. Mae&rsquo;n rhaid iddynt fod ymlaen drwy&rsquo;r amser.",
+  "essentialCookiesHeading": "TRANSLATE - Strictly necessary cookies",
+  "essentialCookiesParagraph1": "TRANSLATE - These essential cookies do things like remember your progress through a form (for example a licence application).",
+  "essentialCookiesParagraph2": "TRANSLATE - You can disable them if you change the settings in your browser, but this will change how the website works (for example, the website will not remember when you answer a question).",
 
-  "introMessageCookiesHeading1": "Troi ein neges gyflwyno i ffwrdd",
-  "introMessageCookiesParagraph1": "Efallai y byddwch yn gweld neges groeso pan fyddwch yn ymweld &acirc;&rsquo;r gwasanaeth am y tro cyntaf. Byddwn yn storio cwci ar eich cyfrifiadur fel ei fod yn gwybod i beidio &acirc;&rsquo;i dangos eto.",
-
-  "introMessageCookieName1": "seen_cookie_message",
-  "introMessageCookiePurpose1": "Arbed neges i roi gwybod inni eich bod wedi gweld ein neges ynglŷn &acirc; chwcis",
-  "introMessageCookieExpiry1": "1 mis",
-
-  "sessionCookiesHeading1": "Storio&rsquo;r atebion a roesoch yn ystod eich ymweliad (gelwir hyn yn &lsquo;sesiwn&rsquo;)",
-  "sessionCookiesParagraph1": "Caiff cwcis sesiwn eu storio ar eich cyfrifiadur wrth ichi fynd drwy wefan, ac maent yn gadael i&rsquo;r wefan wybod beth rydych wedi&rsquo;i weld a&rsquo;i wneud hyd yn hyn. Cwcis dros dro yw&rsquo;r rhain ac fe&rsquo;u dilëir yn awtomatig ychydig ar &ocirc;l ichi adael y wefan.",
-
-  "sessionCookieName1": "connect.sid",
-  "sessionCookiePurpose1": "Gwybodaeth am eich sesiwn gyfredol",
-  "sessionCookieExpiry1": "Pan fyddwch chi&rsquo;n cau&rsquo;ch porwr",
-
-  "identityCookiesHeading1": "Eich adnabod pan fyddwch yn dod n&ocirc;l i&rsquo;r gwasanaeth",
-  "identityCookiesParagraph1": "Rydym yn defnyddio cwcis dilysu i&rsquo;ch adnabod pan fyddwch yn dod n&ocirc;l i&rsquo;r gwasanaeth.",
-
-  "identityCookiePurpose1": "Gadael i&rsquo;r gwasanaeth wybod pwy ydych chi",
-  "identityCookieExpiry1": "Pan fyddwch chi&rsquo;n cau&rsquo;ch porwr",
-
-  "securityCookiesHeading1": "Gwneud y gwasanaeth yn fwy diogel",
-  "securityCookiesParagraph1": "Rydym yn gosod cwcis er mwyn rhwystro hacwyr rhag addasu cynnwys y cwcis eraill a osodon ni. Mae hyn yn gwneud y gwasanaeth yn fwy diogel ac yn diogelu eich gwybodaeth bersonol.",
-
-  "securityCookieName1": "TS01842b02",
-  "securityCookiePurpose1": "Amddiffyn eich sesiwn rhag i rywun ymyrryd ag o",
-  "securityCookieExpiry1": "Pan fyddwch chi&rsquo;n cau&rsquo;ch porwr",
-
-  "securityCookieName2": "__state",
-  "securityCookiePurpose2": "Gadael i&rsquo;r gwasanaeth wybod pwy ydych chi a diogelu eich manylion",
-  "securityCookieExpiry2": "Pan fyddwch chi&rsquo;n cau&rsquo;ch porwr",
-
-  "securityCookieName3": "XSRF-TOKEN",
-  "securityCookiePurpose3": "Helpu i amddiffyn rhag ffugio",
-  "securityCookieExpiry3": "Pan fyddwch chi&rsquo;n cau&rsquo;ch porwr",
   "save": "Arbed"
 }
