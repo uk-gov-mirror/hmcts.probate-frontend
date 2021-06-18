@@ -61,7 +61,7 @@
             'preference-form-id': 'cookie-manager-form',
             'set-checkboxes-in-preference-form': true,
             'cookie-banner-id': 'cm-cookie-banner',
-            'cookie-banner-visible-on-page-with-preference-form': false,
+            'cookie-banner-visible-on-page-with-preference-form': true,
             'cookie-banner-reject-callback': cookieBannerReject,
             'cookie-banner-accept-callback': cookieBannerAccept,
             'cookie-banner-auto-hide': false,
