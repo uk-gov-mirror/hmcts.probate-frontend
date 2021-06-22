@@ -18,15 +18,15 @@
 
   "googleAnalyticsCookieName1": "_ga",
   "googleAnalyticsCookiePurpose1": "Mae&rsquo;n ein helpu i gyfrif faint o bobl sy&rsquo;n ymweld &acirc;&rsquo;r gwasanaeth drwy olrhain os ydych wedi ymweld o&rsquo;r blaen",
-  "googleAnalyticsCookieExpiry1": "1 flwyddyn",
+  "googleAnalyticsCookieExpiry1": "2 flynedd",
 
   "googleAnalyticsCookieName2": "_gid",
   "googleAnalyticsCookiePurpose2": "TRANSLATE - Identifies you to the service",
-  "googleAnalyticsCookieExpiry2": "1 flwyddyn",
+  "googleAnalyticsCookieExpiry2": "24 awr",
 
   "googleAnalyticsCookieName3": "_gat",
   "googleAnalyticsCookiePurpose3": "Rheoli faint o bobl sy&rsquo;n ymweld &acirc;&rsquo;r dudalen",
-  "googleAnalyticsCookieExpiry3": "1 flwyddyn",
+  "googleAnalyticsCookieExpiry3": "24 awr",
 
   "googleAnalyticsAllowParagraph": "Caniatáu cwcis sy&rsquo;n mesur y defnydd a wneir o&rsquo;r wefan?",
   "optionYes": "Ydw",

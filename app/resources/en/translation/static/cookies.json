@@ -18,15 +18,15 @@
 
   "googleAnalyticsCookieName1": "_ga",
   "googleAnalyticsCookiePurpose1": "This helps us count how many people visit the service by tracking if you&rsquo;ve visited before",
-  "googleAnalyticsCookieExpiry1": "1 year",
+  "googleAnalyticsCookieExpiry1": "2 years",
 
   "googleAnalyticsCookieName2": "_gid",
   "googleAnalyticsCookiePurpose2": "Identifies you to the service",
-  "googleAnalyticsCookieExpiry2": "1 year",
+  "googleAnalyticsCookieExpiry2": "24 hours",
 
   "googleAnalyticsCookieName3": "_gat",
   "googleAnalyticsCookiePurpose3": "Manages the rate at which page view requests are made",
-  "googleAnalyticsCookieExpiry3": "1 year",
+  "googleAnalyticsCookieExpiry3": "24 hours",
 
   "googleAnalyticsAllowParagraph": "Allow cookies that measure website use?",
   "optionYes": "Yes",
