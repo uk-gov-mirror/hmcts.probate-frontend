@@ -11,7 +11,7 @@
   "websiteUsageCookiesHeading1": "Mesur y defnydd a wneir o&rsquo;r wefan",
   "websiteUsageCookiesParagraph1": "Rydym yn defnyddio meddalwedd Google Analytics i gasglu gwybodaeth am sut rydych yn defnyddio&rsquo;r gwasanaeth hwn. Rydym yn gwneud hyn i helpu i sicrhau bod y gwasanaeth yn diwallu anghenion ei ddefnyddwyr ac i&rsquo;n helpu i wneud gwelliannau. Nid ydym yn caniatáu Google i ddefnyddio na rhannu&rsquo;r data ar sut y byddwch yn defnyddio&rsquo;r safle hon.",
 
-  "cookieDetailsTableHeading": "TRANSLATE - Cookie details", 
+  "cookieDetailsTableHeading": "Manylion y cwci", 
   "cookieNameHeader": "Enw",
   "cookiePurposeHeader": "Pwrpas",
   "cookieExpiryHeader": "Dod i ben",
@@ -21,7 +21,7 @@
   "googleAnalyticsCookieExpiry1": "2 flynedd",
 
   "googleAnalyticsCookieName2": "_gid",
-  "googleAnalyticsCookiePurpose2": "TRANSLATE - Identifies you to the service",
+  "googleAnalyticsCookiePurpose2": "Galluogi i&rsquo;r gwasanaeth eich adnabod",
   "googleAnalyticsCookieExpiry2": "24 awr",
 
   "googleAnalyticsCookieName3": "_gat",
@@ -67,9 +67,9 @@
 
   "performanceAllowParagraph": "Caniatáu cwcis sy&rsquo;n mesur y defnydd a wneir o&rsquo;r wefan a monitro perfformiad?",
 
-  "essentialCookiesHeading": "TRANSLATE - Strictly necessary cookies",
-  "essentialCookiesParagraph1": "TRANSLATE - These essential cookies do things like remember your progress through a form (for example a licence application).",
-  "essentialCookiesParagraph2": "TRANSLATE - You can disable them if you change the settings in your browser, but this will change how the website works (for example, the website will not remember when you answer a question).",
+  "essentialCookiesHeading": "Cwcis sy&rsquo;n gwbl anghenrheidiol",
+  "essentialCookiesParagraph1": "Mae&rsquo;r cwcis hanfodol hyn yn gwneud pethau fel cofio eich cynnydd wrth lenwi ffurflen (er enghraifft cais am drwydded).",
+  "essentialCookiesParagraph2": "Gallwch ddiffodd y cwcis os ydych yn newid y gosodiadau yn eich porwr, ond bydd hyn yn newid sut mae&rsquo;r wefan yn gweithio (er enghraifft, ni fydd y wefan yn cofio pan fyddwch yn ateb cwestiwn).",
 
   "save": "Arbed"
 }
