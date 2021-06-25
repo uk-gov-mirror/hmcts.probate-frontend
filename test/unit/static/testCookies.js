@@ -2,15 +2,10 @@
 
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
-let steps = null; // initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
-let Cookies = null; // steps.Cookies;
+const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
+const Cookies = steps.Cookies;
 
 describe('Cookies', () => {
-    before(() => {
-        steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
-        Cookies = steps.Cookies;
-    });
-
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = Cookies.constructor.getUrl();
