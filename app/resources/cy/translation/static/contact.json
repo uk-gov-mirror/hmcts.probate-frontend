@@ -3,7 +3,7 @@
   "heading1": "Profiant",
   "paragraph1": "Webchat: ",
   "paragraph2": "Email: {helpEmail}",
-  "paragraph3": "Rhif ff&ocirc;n: {helpLineNumber}",
+  "paragraph3": "<a target=\"_blank\" rel=\"external noopener\" href=\"{callChargesLink}\" class=\"govuk-link\" aria-label=\"Gwybodaeth am brisiau galwadau (agor mewn ffenestr newydd)\">Gwybodaeth am brisiau galwadau (agor mewn ffenestr newydd)</a>",
   "paragraph4": "Opening times:",
   "paragraph5": "{helpLineHours1}",
   "paragraph6": "{helpLineHours2}",
