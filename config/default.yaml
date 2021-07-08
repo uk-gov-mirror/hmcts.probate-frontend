@@ -170,6 +170,7 @@ payloadVersion: '4.1.1'
 enableTracking: 'true'
 webchat:
   avayaUrl: 'webchat.training.ctsc.hmcts.net'
+  avayaClientUrl: 'webchat-client.training.ctsc.hmcts.net'
   avayaService: 'Testing'
 links:
   accessibility: '/accessibility-statement'

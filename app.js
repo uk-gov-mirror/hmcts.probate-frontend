@@ -94,6 +94,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         },
         webchat: {
             avayaUrl: config.webchat.avayaUrl,
+            avayaClientUrl: config.webchat.avayaClientUrl,
             avayaService: config.webchat.avayaService
         },
         caseTypes: {
@@ -114,7 +115,9 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             defaultSrc: [
                 '\'self\'',
                 'webchat.ctsc.hmcts.net',
-                'webchat.training.ctsc.hmcts.net'
+                'webchat-client.ctsc.hmcts.net',
+                'webchat.training.ctsc.hmcts.net',
+                'webchat-client.training.ctsc.hmcts.net'
             ],
             fontSrc: [
                 '\'self\' data:',
@@ -130,6 +133,8 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'www.googletagmanager.com',
                 'webchat.ctsc.hmcts.net',
                 'webchat.training.ctsc.hmcts.net',
+                'webchat-client.ctsc.hmcts.net',
+                'webchat-client.training.ctsc.hmcts.net',
                 `'nonce-${nonce}'`,
                 'tagmanager.google.com'
             ],
@@ -138,6 +143,8 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'www.google-analytics.com',
                 'https://webchat.training.ctsc.hmcts.net',
                 'https://webchat.ctsc.hmcts.net',
+                'https://webchat-client.training.ctsc.hmcts.net',
+                'https://webchat-client.ctsc.hmcts.net',
                 'wss://webchat.ctsc.hmcts.net',
                 'wss://webchat.training.ctsc.hmcts.net',
                 'stats.g.doubleclick.net',
