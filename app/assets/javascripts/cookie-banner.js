@@ -33,8 +33,8 @@
         */
         const cookiePreferencesUpdated = function (cookieStatus) {
             // GTM based GA consent
-            const dataLayer = window.dataLayer || [];
-            dataLayer.push({'event': 'Cookie Preferences', 'cookiePreferences': cookieStatus});
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({'event': 'Cookie Preferences', 'cookiePreferences': cookieStatus});
             
             // Dynatrace RUM Consent
             const dtrum = window.dtrum;
