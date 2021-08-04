@@ -14,6 +14,7 @@
         console.log('dtrrum=> ', dtrum);
         dtrum.disableSessionReplay();
         dtrum.disable();
+        console.log('disabled dtrum when it first initialised');
       }
         
         /*  This callback is called when the 'accept' action is fired within the cookie banner
