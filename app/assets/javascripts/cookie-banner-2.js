@@ -9,9 +9,10 @@
     }
 
     function initialiseCookieBanner() {
-      console.log('initialised cookie bannerr');
+      console.log('initialised cookie bannerr ');
       if (window.dtrum) {
         console.log('dtrrum=> ', dtrum);
+        console.log('cookie status => ', cookieStatus);
         dtrum.disableSessionReplay();
         dtrum.disable();
         console.log('disabled dtrum when it first initialised');
@@ -23,6 +24,14 @@
         const cookieBannerAccept = function () {
             document.querySelector('.cm-cookie-banner__decision').hidden = true;
             document.querySelector('.cm-cookie-banner__confirmation').hidden = false;
+            console.log('cookieBannerAccept');
+            if (window.dtrum) {
+              console.log('dtrrum=> ', dtrum);
+              dtrum.enable();
+              dtrum.enableSessionReplay();
+              console.log('enabled dtrum when cookieBannerAccept');
+            }
+            
         }
 
         /*  This callback is called when the 'reject' action is fired within the cookie banner
@@ -31,6 +40,7 @@
         const cookieBannerReject = function () {
             document.querySelector('.cm-cookie-banner__decision').hidden = true;
             document.querySelector('.cm-cookie-banner__confirmation').hidden = false;
+            console.log('cookieBannerReject');
         }
 
 
@@ -39,7 +49,7 @@
         *   with an object containing the current cookie preferences.
         */
         const cookiePreferencesUpdated = function (cookieStatus) {
-          console.log('cookiePreferencesUpdated', cookieStatus);
+          console.log('================== cookiePreferencesUpdated', cookieStatus);
             // GTM based GA consent
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({'event': 'Cookie Preferences', 'cookiePreferences': cookieStatus});
