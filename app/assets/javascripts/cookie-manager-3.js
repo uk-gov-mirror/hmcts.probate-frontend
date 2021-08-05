@@ -24,7 +24,7 @@
   let options = {};
 
   const init = function (custom_options) {
-
+    console.log('INIT COOKIE MANAGER');
     options = defaultOptions;
 
     for (const item in custom_options) {
@@ -34,6 +34,14 @@
     manageCookies();
     findAndBindPreferencesForm();
     findAndBindCookieBanner();
+
+    console.log('userr preferernces => ', getUserPreferences());
+    if(!getUserPreferences() && window.dtrum){
+      console.log('if not getuserr prerferrence and is not window.dtrrum');
+      dtrum.disableSessionReplay();
+      dtrum.disable();
+      console.log('setting dtrum to null');
+    }
   };
 
   const manageCookies = function () {
