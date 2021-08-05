@@ -9,10 +9,10 @@
     }
 
     function initialiseCookieBanner() {
-      console.log('initialised cookie bannerr ');
+      console.log('initialised cookie bannerr');
+
       if (window.dtrum) {
         console.log('dtrrum=> ', dtrum);
-        console.log('cookie status => ', cookieStatus);
         dtrum.disableSessionReplay();
         dtrum.disable();
         console.log('disabled dtrum when it first initialised');
@@ -26,10 +26,9 @@
             document.querySelector('.cm-cookie-banner__confirmation').hidden = false;
             console.log('cookieBannerAccept');
             if (window.dtrum) {
-              console.log('dtrrum=> ', dtrum);
               dtrum.enable();
               dtrum.enableSessionReplay();
-              console.log('enabled dtrum when cookieBannerAccept');
+              console.log('== enabled dtrum when cookieBannerAccept');
             }
             
         }
@@ -40,7 +39,7 @@
         const cookieBannerReject = function () {
             document.querySelector('.cm-cookie-banner__decision').hidden = true;
             document.querySelector('.cm-cookie-banner__confirmation').hidden = false;
-            console.log('cookieBannerReject');
+            console.log('== cookieBannerReject');
         }
 
 
@@ -49,7 +48,7 @@
         *   with an object containing the current cookie preferences.
         */
         const cookiePreferencesUpdated = function (cookieStatus) {
-          console.log('================== cookiePreferencesUpdated', cookieStatus);
+          console.log('======================== cookiePreferencesUpdated', cookieStatus);
             // GTM based GA consent
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({'event': 'Cookie Preferences', 'cookiePreferences': cookieStatus});
@@ -57,13 +56,15 @@
             // Dynatrace RUM Consent
             const dtrum = window.dtrum;
             if (dtrum) {
-              console.log('dtrrum=> ', dtrum);
+              console.log('dtrrum======> ', dtrum);
                 if (cookieStatus.apm === 'on') {
+                  console.log('== enabled dtrum');
                     dtrum.enable();
                     dtrum.enableSessionReplay();
                 } else {
                     dtrum.disableSessionReplay();
                     dtrum.disable();
+                    console.log('== disabled dtrum');
                 }    
             }else{
               console.log('DTRRUM IS NULLLL');
