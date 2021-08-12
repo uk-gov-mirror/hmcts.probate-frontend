@@ -35,8 +35,8 @@
     findAndBindCookieBanner();
 
     if(!getUserPreferences() && window.dtrum){
-      dtrum.disableSessionReplay();
-      dtrum.disable();
+      window.dtrum.disableSessionReplay();
+      window.dtrum.disable();
     }
   };
 
