@@ -104,7 +104,8 @@ const stepList = {
     DeceasedOtherNames: 'DeceasedMarried',
     AddAlias: 'DeceasedOtherNames',
     RemoveAlias: 'DeceasedOtherNames',
-    DeceasedMarried: 'WillCodicils',
+    DeceasedMarried: 'WillHasVisibleDamage',
+    WillHasVisibleDamage: 'WillCodicils',
     WillCodicils: {
         noCodicils: 'TaskList',
         otherwise: 'CodicilsNumber'

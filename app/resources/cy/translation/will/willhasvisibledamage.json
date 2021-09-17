@@ -1,0 +1,13 @@
+{
+    "title": "Does the will have visible damage?",
+    "question": "Does the will have visible damage?",
+    "optionYes": "Yes",
+    "optionNo": "No",
+  
+    "errors": {
+      "willHasVisibleDamage": {
+        "required": "Answer &lsquo;yes&rsquo; if the will has visibe damage"
+      }
+    }
+  }
+  

@@ -5,6 +5,10 @@ class Will {
         this.will = will || {};
     }
 
+    hasVisibleDamage() {
+        return this.will.hasVisibleDamage === 'optionYes';
+    }
+
     hasCodicils() {
         return this.will.codicils === 'optionYes';
     }
