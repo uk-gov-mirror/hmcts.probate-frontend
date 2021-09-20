@@ -15,6 +15,7 @@ featureToggles:
   ft_pcq_token: 'probate-pcq-token'
   ft_avaya_webchat: 'probate-avaya-webchat'
   ft_newfee_register_code: 'probate-newfee-register-code'
+  ft_will_condition : 'probate-will-condition'
   appwideToggles: ['ft_avaya_webchat']
 # overrides featureToggles to e.g. switch off in pipeline/locally
 configFeatureToggles:
