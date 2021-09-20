@@ -6,7 +6,7 @@ class Will {
     }
 
     hasVisibleDamage() {
-        return this.will.hasVisibleDamage === 'optionYes';
+        return this.will.willHasVisibleDamage === 'optionYes';
     }
 
     hasCodicils() {
