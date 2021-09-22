@@ -1,9 +1,63 @@
 {% extends "includes/two_thirds_form.html" %}
 
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 
 {% block form_content %}
+
+{% set willHasVisibleDamageHtml %}
+
+        {% set willDamageDescriptionHtml %}
+            {{ govukTextarea({
+                name: "willDamageDescription",
+                id: "willDamageDescription",
+                hint: {
+                    text: "Describe the damage"
+                },
+                value: fields.willDamageDescription.value
+            }) }}
+        {% endset -%}
+
+        {{ govukCheckboxes({
+            idPrefix: "willDamage",
+            name: "willDamage[]",
+            hint: {
+            text: "Select all that apply."
+            },
+            items: [
+                {
+                    value: "stapleOrPunchHoles",
+                    text: "Staple or punch holes"
+                },
+                {
+                    value: "rustMarks",
+                    text: "Rust marks"
+                },
+                {
+                    value: "paperClipMarks",
+                    text: "Paper clip marks"
+                },
+                {
+                    value: "tornEdges",
+                    text: "Torn edges"
+                },
+                {
+                    value: "waterDamage",
+                    text: "Water damage"
+                },
+                {
+                    value: "otherVisibleDamage",
+                    text: "Other",
+                    conditional: {
+                        html: willDamageDescriptionHtml
+                    }
+                }
+            ]
+        }) }}
+    {% endset -%}
+
     {{ govukRadios({
         classes: "govuk-radios--inline",
         idPrefix: "willHasVisibleDamage",
@@ -20,7 +74,10 @@
             {
                 value: "optionYes",
                 text: content["optionYes"] | safe,
-                checked: true if fields.willHasVisibleDamage.value == "optionYes"
+                checked: true if fields.willHasVisibleDamage.value == "optionYes",
+                conditional: {
+                    html: willHasVisibleDamageHtml
+                }
             },
             {
                 value: "optionNo",

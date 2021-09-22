@@ -7,6 +7,9 @@
     "errors": {
       "willHasVisibleDamage": {
         "required": "Answer &lsquo;yes&rsquo; if the will has visibe damage"
+      },
+      "willDamageTypes": {
+        "required": "Select at least one option"
       }
     }
   }

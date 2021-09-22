@@ -35,6 +35,8 @@ class FormData extends Service {
         data.type = data.caseType;
         const path = this.replacePlaceholderInPath(this.config.services.orchestrator.paths.forms, 'ccdCaseId', ccdCaseId);
         const url = this.endpoint + path;
+        this.log('FIRING');
+        this.log(data);
         this.log('Post application form data');
         const headers = {
             'Content-Type': 'application/json',

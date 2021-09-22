@@ -6,6 +6,12 @@
       "willHasVisibleDamage": {
         "type": "string",
         "minLength": 1
+      },
+      "willDamage": {
+          "stapleOrPunchHoles": {
+              "type": "string",
+              "minLength": 1
+          }
       }
     },
     "required": [
