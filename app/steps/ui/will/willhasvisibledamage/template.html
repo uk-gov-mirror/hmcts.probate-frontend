@@ -11,18 +11,18 @@
 
         {% set willDamageDescriptionHtml %}
             {{ govukTextarea({
-                name: "willDamageDescription",
-                id: "willDamageDescription",
+                name: "otherDamageDescription",
+                id: "otherDamageDescription",
                 hint: {
                     text: "Describe the damage"
                 },
-                value: fields.willDamageDescription.value
+                value: fields.options.value
             }) }}
         {% endset -%}
 
         {{ govukCheckboxes({
             idPrefix: "willDamage",
-            name: "willDamage[]",
+            name: "willDamageTypes[]",
             hint: {
             text: "Select all that apply."
             },
