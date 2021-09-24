@@ -24,7 +24,7 @@ class WillHasVisibleDamage extends ValidationStep {
             delete ctx.otherDamageDescription;
         }
         ctx.willDamageTypes = willDamageSet;
-        return [ctx, errors]
+        return [ctx, errors];
     }
 }
 
