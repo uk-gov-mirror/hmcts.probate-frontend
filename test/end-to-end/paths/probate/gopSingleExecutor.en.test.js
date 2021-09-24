@@ -80,6 +80,13 @@ languages.forEach(language => {
 
         await I.selectDeceasedAlias(language, optionNo);
         await I.selectDeceasedMarriedAfterDateOnWill(language, optionNo);
+
+        const isWillConditionEnabled = await TestConfigurator.checkFeatureToggle('probate-will-condition');
+        console.log('CHECK TOGGLE IS ====> ', isWillConditionEnabled);
+        if (isWillConditionEnabled) {
+            //ADD NEW WILL CONDITION JOURNEY
+        }
+
         await I.selectWillCodicils(language, optionNo);
 
         // ExecutorsTask
