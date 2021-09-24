@@ -16,9 +16,23 @@ class WillHasVisibleDamage extends ValidationStep {
         };
     }
 
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        if (ctx.willDamageTypes) {
+            if (ctx.willDamageTypes.damageTypesList) {
+                ctx.options = {};
+                for (let i = 0; i < ctx.willDamageTypes.damageTypesList.length; i++) {
+                    ctx.options[ctx.willDamageTypes.damageTypesList[i]] = true;
+                }
+                return ctx;
+            }
+        }
+        return ctx;
+    }
+
     handlePost(ctx, errors) {
         const willDamageSet = {};
-        willDamageSet.willDamageTypesList = ctx.willDamageTypes;
+        willDamageSet.damageTypesList = ctx.willDamageTypes;
         if (ctx.willDamageTypes.includes('otherVisibleDamage')) {
             willDamageSet.otherDamageDescription = ctx.otherDamageDescription;
             delete ctx.otherDamageDescription;
