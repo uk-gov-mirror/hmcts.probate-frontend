@@ -16,22 +16,28 @@ class WillHasVisibleDamage extends ValidationStep {
         };
     }
 
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        if (ctx.willDamageTypes) {
+            if (ctx.willDamageTypes.damageTypesList) {
+                ctx.options = {};
+                for (let i = 0; i < ctx.willDamageTypes.damageTypesList.length; i++) {
+                    ctx.options[ctx.willDamageTypes.damageTypesList[i]] = true;
+                }
+                return ctx;
+            }
+        }
+        return ctx;
+    }
+
     handlePost(ctx, errors) {
-        console.log('HANDLING POST');
-        console.log(ctx);
         const willDamageSet = {};
-        for (let i = 0; i < ctx.willDamage.length; i++) {
-            console.log(ctx.willDamage[i]);
-            willDamageSet[ctx.willDamage[i]] = 'optionYes';
+        willDamageSet.damageTypesList = ctx.willDamageTypes;
+        if (ctx.willDamageTypes.includes('otherVisibleDamage')) {
+            willDamageSet.otherDamageDescription = ctx.otherDamageDescription;
+            delete ctx.otherDamageDescription;
         }
-        if (ctx.willDamage.includes('otherVisibleDamage')) {
-            console.log(ctx.willDamageDescription);
-            willDamageSet.willDamageDescription = ctx.willDamageDescription;
-            delete ctx.willDamageDescription;
-        }
-        ctx.willDamage = willDamageSet;
-        console.log(ctx.willDamage);
-        console.log(ctx);
+        ctx.willDamageTypes = willDamageSet;
         return [ctx, errors];
     }
 }

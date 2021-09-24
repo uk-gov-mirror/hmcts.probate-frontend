@@ -7,49 +7,57 @@
 
 {% block form_content %}
 
-{% set willHasVisibleDamageHtml %}
+    {% set willHasVisibleDamageHtml %}
+
+    {{ fields | dump }}
 
         {% set willDamageDescriptionHtml %}
             {{ govukTextarea({
-                name: "willDamageDescription",
-                id: "willDamageDescription",
+                name: "otherDamageDescription",
+                id: "otherDamageDescription",
                 hint: {
                     text: "Describe the damage"
                 },
-                value: fields.willDamageDescription.value
+                value: fields.willDamageTypes.value.otherDamageDescription
             }) }}
         {% endset -%}
 
         {{ govukCheckboxes({
             idPrefix: "willDamage",
-            name: "willDamage[]",
+            name: "willDamageTypes[]",
             hint: {
             text: "Select all that apply."
             },
             items: [
                 {
                     value: "stapleOrPunchHoles",
-                    text: "Staple or punch holes"
+                    text: "Staple or punch holes",
+                    checked: fields.options.value.stapleOrPunchHoles
                 },
                 {
                     value: "rustMarks",
-                    text: "Rust marks"
+                    text: "Rust marks",
+                    checked: fields.options.value.rustMarks
                 },
                 {
                     value: "paperClipMarks",
-                    text: "Paper clip marks"
+                    text: "Paper clip marks",
+                    checked: fields.options.value.paperClipMarks
                 },
                 {
                     value: "tornEdges",
-                    text: "Torn edges"
+                    text: "Torn edges",
+                    checked: fields.options.value.tornEdges
                 },
                 {
                     value: "waterDamage",
-                    text: "Water damage"
+                    text: "Water damage",
+                    checked: fields.options.value.waterDamage
                 },
                 {
                     value: "otherVisibleDamage",
                     text: "Other",
+                    checked: fields.options.value.otherVisibleDamage,
                     conditional: {
                         html: willDamageDescriptionHtml
                     }
