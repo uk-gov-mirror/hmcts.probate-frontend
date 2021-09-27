@@ -3,13 +3,23 @@
     "question": "Does the will have visible damage?",
     "optionYes": "Yes",
     "optionNo": "No",
-  
+    "otherDamageDescriptionHint": "Describe the damage",
+    "willDamageHint": "Select all that apply.",
+    "optionstapleOrPunchHoles": "Staple or punch holes",
+    "optionrustMarks": "Rust marks",
+    "optionpaperClipMarks": "Paper clip marks",
+    "optiontornEdges": "Torn edges",
+    "optionwaterDamage": "Water damage",
+    "optionotherVisibleDamage": "Other",
     "errors": {
       "willHasVisibleDamage": {
         "required": "Answer &lsquo;yes&rsquo; if the will has visibe damage"
       },
       "willDamageTypes": {
-        "required": "Select at least one option"
+        "invalid": "Select at least one option"
+      },
+      "otherDamageDescription": {
+        "required": "Other must be entered"
       }
     }
   }

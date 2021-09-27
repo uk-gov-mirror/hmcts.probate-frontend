@@ -9,14 +9,12 @@
 
     {% set willHasVisibleDamageHtml %}
 
-    {{ fields | dump }}
-
         {% set willDamageDescriptionHtml %}
             {{ govukTextarea({
                 name: "otherDamageDescription",
                 id: "otherDamageDescription",
                 hint: {
-                    text: "Describe the damage"
+                    text: content["otherDamageDescriptionHint"] | safe
                 },
                 value: fields.willDamageTypes.value.otherDamageDescription
             }) }}
@@ -26,37 +24,37 @@
             idPrefix: "willDamage",
             name: "willDamageTypes[]",
             hint: {
-            text: "Select all that apply."
+                text: content["willDamageHint"] | safe
             },
             items: [
                 {
                     value: "stapleOrPunchHoles",
-                    text: "Staple or punch holes",
+                    text: content["optionstapleOrPunchHoles"] | safe,
                     checked: fields.options.value.stapleOrPunchHoles
                 },
                 {
                     value: "rustMarks",
-                    text: "Rust marks",
+                    text: content["optionrustMarks"] | safe,
                     checked: fields.options.value.rustMarks
                 },
                 {
                     value: "paperClipMarks",
-                    text: "Paper clip marks",
+                    text: content["optionpaperClipMarks"] | safe,
                     checked: fields.options.value.paperClipMarks
                 },
                 {
                     value: "tornEdges",
-                    text: "Torn edges",
+                    text: content["optiontornEdges"] | safe,
                     checked: fields.options.value.tornEdges
                 },
                 {
                     value: "waterDamage",
-                    text: "Water damage",
+                    text: content["optionwaterDamage"] | safe,
                     checked: fields.options.value.waterDamage
                 },
                 {
                     value: "otherVisibleDamage",
-                    text: "Other",
+                    text: content["optionotherVisibleDamage"] | safe,
                     checked: fields.options.value.otherVisibleDamage,
                     conditional: {
                         html: willDamageDescriptionHtml

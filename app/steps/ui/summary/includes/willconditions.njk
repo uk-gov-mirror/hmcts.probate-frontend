@@ -1,0 +1,22 @@
+{% macro damageLabel(items) %}
+        {% for item in items %}
+            {{ content.WillHasVisibleDamage["option" + item] }}{% if loop.index < items.length %},{% endif %}
+        {% endfor %}
+{% endmacro %}
+{{checkanswer(
+    items = [
+        {
+            question: content.WillHasVisibleDamage.question,
+            answer: damageLabel(fields.will.willDamageTypes.value.damageTypesList),
+            visible: true
+        },
+        {
+            question: 'Other damage',
+            answer: fields.will.willDamageTypes.value.otherDamageDescription,
+            visible: 'otherVisibleDamage' in fields.will.willDamageTypes.value.damageTypesList
+        }
+    ],
+    url = content.WillHasVisibleDamage.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
