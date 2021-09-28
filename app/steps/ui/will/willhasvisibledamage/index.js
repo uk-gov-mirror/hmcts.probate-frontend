@@ -18,11 +18,11 @@ class WillHasVisibleDamage extends ValidationStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
-        if (ctx.willDamageTypes) {
-            if (ctx.willDamageTypes.damageTypesList) {
+        if (ctx.willDamage) {
+            if (ctx.willDamage.damageTypesList) {
                 ctx.options = {};
-                for (let i = 0; i < ctx.willDamageTypes.damageTypesList.length; i++) {
-                    ctx.options[ctx.willDamageTypes.damageTypesList[i]] = true;
+                for (let i = 0; i < ctx.willDamage.damageTypesList.length; i++) {
+                    ctx.options[ctx.willDamage.damageTypesList[i]] = true;
                 }
                 return ctx;
             }
@@ -37,7 +37,7 @@ class WillHasVisibleDamage extends ValidationStep {
             willDamageSet.otherDamageDescription = ctx.otherDamageDescription;
             delete ctx.otherDamageDescription;
         }
-        ctx.willDamageTypes = willDamageSet;
+        ctx.willDamage = willDamageSet;
         return [ctx, errors];
     }
 }

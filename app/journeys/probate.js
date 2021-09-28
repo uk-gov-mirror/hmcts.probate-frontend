@@ -106,7 +106,11 @@ const stepList = {
     RemoveAlias: 'DeceasedOtherNames',
     DeceasedMarried: 'WillHasVisibleDamage',
     WillHasVisibleDamage: {
-        willDoesHaveVisibleDamage: 'WillCodicils',
+        willDoesHaveVisibleDamage: 'WillDamageReasonKnown',
+        otherwise: 'WillCodicils'
+    },
+    WillDamageReasonKnown: {
+        willDamageReasonIsKnown: 'WillCodicils',
         otherwise: 'WillCodicils'
     },
     WillCodicils: {
