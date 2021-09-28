@@ -1,6 +1,8 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
+const FieldError = require('app/components/error');
+const {isEmpty} = require('lodash');
 
 class WillHasVisibleDamage extends ValidationStep {
 
@@ -11,7 +13,11 @@ class WillHasVisibleDamage extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'willHasVisibleDamage', value: 'optionYes', choice: 'willDoesHaveVisibleDamage'},
+                {
+                    key: 'willHasVisibleDamage',
+                    value: 'optionYes',
+                    choice: 'willDoesHaveVisibleDamage'
+                },
             ]
         };
     }
@@ -30,15 +36,37 @@ class WillHasVisibleDamage extends ValidationStep {
         return ctx;
     }
 
-    handlePost(ctx, errors) {
-        const willDamageSet = {};
-        willDamageSet.damageTypesList = ctx.willDamageTypes;
-        if (ctx.willDamageTypes.includes('otherVisibleDamage')) {
-            willDamageSet.otherDamageDescription = ctx.otherDamageDescription;
-            delete ctx.otherDamageDescription;
+    handlePost(ctx, errors, formdata, session) {
+        if (ctx.willHasVisibleDamage === 'optionYes' && !ctx.willDamageTypes) {
+            errors.push(FieldError('willDamageTypes', 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
-        ctx.willDamage = willDamageSet;
+        if (ctx.willHasVisibleDamage === 'optionYes' && ctx.willDamageTypes && ctx.willDamageTypes.includes('otherVisibleDamage') && !ctx.otherDamageDescription) {
+            errors.push(FieldError('otherDamageDescription', 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+        }
+
+        if (!isEmpty(errors)) {
+            return [ctx, errors];
+        }
+
+        const willDamage = {};
+        willDamage.damageTypesList = ctx.willDamageTypes;
+        if (ctx.willDamageTypes && ctx.willDamageTypes.includes('otherVisibleDamage')) {
+            willDamage.otherDamageDescription = ctx.otherDamageDescription;
+        }
+        ctx.willDamage = willDamage;
+
         return [ctx, errors];
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        if (ctx.willHasVisibleDamage === 'optionNo') {
+            delete ctx.willDamage;
+        }
+        delete ctx.options;
+        delete ctx.willDamageTypes;
+        delete ctx.otherDamageDescription;
+        return [ctx, formdata];
     }
 }
 
