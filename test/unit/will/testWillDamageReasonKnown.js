@@ -12,18 +12,4 @@ describe('WillDamageReasonKnown', () => {
             done();
         });
     });
-
-    describe('nextStepOptions()', () => {
-        it('should return the correct next step options', (done) => {
-            const result = WillDamageReasonKnown.nextStepOptions();
-            expect(result).to.deep.equal({
-                options: [{
-                    key: 'willDamageReasonKnown',
-                    value: 'optionYes',
-                    choice: 'willDamageReasonIsKnown'
-                }]
-            });
-            done();
-        });
-    });
 });

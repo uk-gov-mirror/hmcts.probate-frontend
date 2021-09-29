@@ -8,14 +8,6 @@ class WillDamageReasonKnown extends ValidationStep {
         return '/will-damage-reason';
     }
 
-    nextStepOptions() {
-        return {
-            options: [
-                {key: 'willDamageReasonKnown', value: 'optionYes', choice: 'willDamageReasonIsKnown'}
-            ]
-        };
-    }
-
 }
 
 module.exports = WillDamageReasonKnown;
