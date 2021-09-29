@@ -1,31 +1,40 @@
 {% extends "includes/two_thirds_form.html" %}
 
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
 
 {% block form_content %}
 
-    {% set descriptionHtml %}
-        {{ govukTextarea({
-            name: "willDamageReasonDescription",
-            id: "willDamageReasonDescription",
+    {% set nameHtml %}
+        {{ govukInput({
+            name: "firstName",
+            id: "firstName",
             label: {
-                text: content["willDamageReasonDescriptionTitle"] | safe,
+                text: content["nameLabel"] | safe,
                 classes: "govuk-label--s",
                 isPageHeading: false
             },
             hint: {
-                text: content["willDamageReasonDescriptionHint"] | safe
+                text: content["firstName"] | safe
             },
-            value: fields.willDamageReasonDescription.value
+            value: fields.willDamageCulpritName.value.firstName
+        }) }}
+        {{ govukInput({
+            name: "lastName",
+            id: "lastName",
+            hint: {
+                text: content["lastName"] | safe
+            },
+            value: fields.willDamageCulpritName.value.lastName
         }) }}
     {% endset -%}
 
     {{ govukRadios({
         classes: "govuk-radios--inline",
-        idPrefix: "willDamageReasonKnown",
-        name: "willDamageReasonKnown",
+        idPrefix: "willDamageCulpritKnown",
+        name: "willDamageCulpritKnown",
         fieldset: {
             legend: {
                 text: content.question,
@@ -33,20 +42,20 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.willDamageReasonKnown.errorMessage | safe } if fields.willDamageReasonKnown.errorMessage,
+        errorMessage: { text: fields.willDamageCulpritKnown.errorMessage | safe } if fields.willDamageCulpritKnown.errorMessage,
         items: [
             {
                 value: "optionYes",
                 text: content["optionYes"] | safe,
-                checked: true if fields.willDamageReasonKnown.value == "optionYes",
+                checked: true if fields.willDamageCulpritKnown.value == "optionYes",
                 conditional: {
-                    html: descriptionHtml
+                    html: nameHtml
                 }
             },
             {
                 value: "optionNo",
                 text: content["optionNo"] | safe,
-                checked: true if fields.willDamageReasonKnown.value == "optionNo"
+                checked: true if fields.willDamageCulpritKnown.value == "optionNo"
             }
         ]
     }) }}

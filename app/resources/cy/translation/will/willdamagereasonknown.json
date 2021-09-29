@@ -7,10 +7,10 @@
     "willDamageReasonDescriptionHint": "Give as much detail as you can. This may help reduce any delays in processing your application",
     "errors": {
         "willDamageReasonKnown": {
-        "required": "Answer &lsquo;yes&rsquo; if the will has visibe damage"
+            "required": "Answer &lsquo;yes&rsquo; if the will has visibe damage"
         },
-        "otherDamageDescription": {
-        "willDamageReasonDescription": "Reason must be entered"
+        "willDamageReasonDescription": {
+            "required": "Reason must be entered"
         }
     }
 }
