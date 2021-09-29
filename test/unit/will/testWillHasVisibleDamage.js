@@ -22,7 +22,7 @@ describe('WillHasVisibleDamage', () => {
 
     const ctxAfterPost = {
         willHasVisibleDamage: 'optionYes',
-        willDamageTypes: {
+        willDamage: {
             damageTypesList: [
                 'stapleOrPunchHoles',
                 'rustMarks',
@@ -65,7 +65,7 @@ describe('WillHasVisibleDamage', () => {
                 ...coreContextMockData,
                 sessionID: 'dummy_sessionId',
                 willHasVisibleDamage: 'optionYes',
-                willDamageTypes: {
+                willDamage: {
                     damageTypesList: [
                         'stapleOrPunchHoles',
                         'rustMarks',
@@ -93,7 +93,7 @@ describe('WillHasVisibleDamage', () => {
         it ('add damageTypesList and otherDamageDescription to willDamageTypes object', () => {
             const WillHasVisibleDamage = steps.WillHasVisibleDamage;
             const [ctx] = WillHasVisibleDamage.handlePost(ctxBeforePost);
-            assert.containsAllKeys(ctx.willDamageTypes, ['damageTypesList', 'otherDamageDescription']);
+            assert.containsAllKeys(ctx.willDamage, ['damageTypesList', 'otherDamageDescription']);
         });
     });
 });
