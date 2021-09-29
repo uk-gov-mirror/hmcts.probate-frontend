@@ -18,10 +18,29 @@
         {
             question: 'Other damage',
             answer: fields.will.willDamage.value.otherDamageDescription,
-            visible: 'otherVisibleDamage' in fields.will.willDamage.value.damageTypesList
+            visible: 'otherVisibleDamage' in fields.will.willDamage.value.damageTypesList   
         }
     ],
     url = content.WillHasVisibleDamage.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.WillDamageReasonKnown.question,
+            answer: content.WillDamageReasonKnown[fields.will.willDamageReasonKnown.value],
+            visible: fields.will.willHasVisibleDamage.value == 'optionYes'
+        },
+        {
+            question: content.WillDamageReasonKnown.willDamageReasonDescriptionTitle,
+            answer: fields.will.willDamageReasonDescription.value,
+            visible: fields.will.willDamageReasonKnown.value == 'optionYes'
+        }
+    ],
+    url = content.WillDamageReasonKnown.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
