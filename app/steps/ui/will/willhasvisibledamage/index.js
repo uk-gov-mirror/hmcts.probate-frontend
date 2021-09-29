@@ -54,6 +54,8 @@ class WillHasVisibleDamage extends ValidationStep {
             willDamage.damageTypesList = ctx.willDamageTypes;
         } else {
             willDamage.damageTypesList = [];
+            ctx.willDamageReasonKnown = 'optionNo';
+            ctx.willDamageReasonDescription = '';
         }
         if (ctx.willDamageTypes && ctx.willDamageTypes.includes('otherVisibleDamage')) {
             willDamage.otherDamageDescription = ctx.otherDamageDescription;
