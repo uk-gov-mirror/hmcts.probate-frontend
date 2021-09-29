@@ -7,13 +7,13 @@
     items = [
         {
             question: content.WillHasVisibleDamage.question,
-            answer: damageLabel(fields.will.willDamageTypes.value.damageTypesList),
+            answer: damageLabel(fields.will.willDamage.value.damageTypesList),
             visible: true
         },
         {
             question: 'Other damage',
-            answer: fields.will.willDamageTypes.value.otherDamageDescription,
-            visible: 'otherVisibleDamage' in fields.will.willDamageTypes.value.damageTypesList
+            answer: fields.will.willDamage.value.otherDamageDescription,
+            visible: 'otherVisibleDamage' in fields.will.willDamage.value.damageTypesList
         }
     ],
     url = content.WillHasVisibleDamage.url,

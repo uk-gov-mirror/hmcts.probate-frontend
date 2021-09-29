@@ -3,14 +3,6 @@
     "id": "willHasVisibleDamage",
     "type": "object",
     "properties": {
-      "willHasVisibleDamage": {
-        "type": "string",
-        "minLength": 1
-      },
-      "willDamageTypes": {
-          "type": "array",
-          "minItems": 1
-      }
     },
     "required": [
       "willHasVisibleDamage"
