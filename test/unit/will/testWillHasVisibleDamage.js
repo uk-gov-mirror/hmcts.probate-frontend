@@ -1,7 +1,6 @@
 const initSteps = require('app/core/initSteps');
 const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
-const coreContextMockData = require('../../data/core-context-mock-data.json');
 const caseTypes = require('app/utils/CaseTypes');
 const WillHasVisibleDamage = steps.WillHasVisibleDamage;
 
@@ -20,21 +19,6 @@ describe('WillHasVisibleDamage', () => {
         otherDamageDescription: 'further description of how the will was damaged'
     };
 
-    const ctxAfterPost = {
-        willHasVisibleDamage: 'optionYes',
-        willDamageTypes: {
-            damageTypesList: [
-                'stapleOrPunchHoles',
-                'rustMarks',
-                'paperClipMarks',
-                'tornEdges',
-                'waterDamage',
-                'otherVisibleDamage'
-            ],
-            otherDamageDescription: 'further description of how the will was damaged'
-        },
-    };
-
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = WillHasVisibleDamage.constructor.getUrl();
@@ -43,7 +27,7 @@ describe('WillHasVisibleDamage', () => {
         });
     });
 
-    describe('getContextData()', () => {
+    describe('handleGet()', () => {
         it('should return the ctx with will damage options', (done) => {
             const req = {
                 sessionID: 'dummy_sessionId',
@@ -58,32 +42,20 @@ describe('WillHasVisibleDamage', () => {
                     },
                     caseType: caseTypes.GOP
                 },
-                body: ctxAfterPost
+                body: ctxBeforePost
             };
-            const ctx = WillHasVisibleDamage.getContextData(req);
-            expect(ctx).to.deep.equal({
-                ...coreContextMockData,
-                sessionID: 'dummy_sessionId',
+            const [ctx] = WillHasVisibleDamage.handleGet(req);
+            expect(ctx.body).to.deep.equal({
                 willHasVisibleDamage: 'optionYes',
-                willDamageTypes: {
-                    damageTypesList: [
-                        'stapleOrPunchHoles',
-                        'rustMarks',
-                        'paperClipMarks',
-                        'tornEdges',
-                        'waterDamage',
-                        'otherVisibleDamage'
-                    ],
-                    otherDamageDescription: 'further description of how the will was damaged'
-                },
-                options: {
-                    'stapleOrPunchHoles': true,
-                    'rustMarks': true,
-                    'paperClipMarks': true,
-                    'tornEdges': true,
-                    'waterDamage': true,
-                    'otherVisibleDamage': true
-                }
+                willDamageTypes: [
+                    'stapleOrPunchHoles',
+                    'rustMarks',
+                    'paperClipMarks',
+                    'tornEdges',
+                    'waterDamage',
+                    'otherVisibleDamage'
+                ],
+                otherDamageDescription: 'further description of how the will was damaged'
             });
             done();
         });
@@ -93,7 +65,7 @@ describe('WillHasVisibleDamage', () => {
         it ('add damageTypesList and otherDamageDescription to willDamageTypes object', () => {
             const WillHasVisibleDamage = steps.WillHasVisibleDamage;
             const [ctx] = WillHasVisibleDamage.handlePost(ctxBeforePost);
-            assert.containsAllKeys(ctx.willDamageTypes, ['damageTypesList', 'otherDamageDescription']);
+            assert.containsAllKeys(ctx.willDamage, ['damageTypesList', 'otherDamageDescription']);
         });
     });
 });

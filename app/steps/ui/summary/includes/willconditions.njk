@@ -7,8 +7,13 @@
     items = [
         {
             question: content.WillHasVisibleDamage.question,
-            answer: damageLabel(fields.will.willDamage.value.damageTypesList),
+            answer: content.WillHasVisibleDamage[fields.will.willHasVisibleDamage.value], 
             visible: true
+        },
+        {
+            question: content.WillHasVisibleDamage.otherDamageDescriptionHint,
+            answer: damageLabel(fields.will.willDamage.value.damageTypesList),
+            visible: fields.will.willHasVisibleDamage.value == 'optionYes'
         },
         {
             question: 'Other damage',

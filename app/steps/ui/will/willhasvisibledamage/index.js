@@ -22,18 +22,19 @@ class WillHasVisibleDamage extends ValidationStep {
         };
     }
 
-    getContextData(req) {
-        const ctx = super.getContextData(req);
+    handleGet(ctx) {
         if (ctx.willDamage) {
             if (ctx.willDamage.damageTypesList) {
                 ctx.options = {};
                 for (let i = 0; i < ctx.willDamage.damageTypesList.length; i++) {
                     ctx.options[ctx.willDamage.damageTypesList[i]] = true;
                 }
-                return ctx;
+            }
+            if (ctx.willDamage.damageTypesList && ctx.willDamage.damageTypesList.includes('otherVisibleDamage')) {
+                ctx.otherDamageDescription = ctx.willDamage.otherDamageDescription;
             }
         }
-        return ctx;
+        return [ctx];
     }
 
     handlePost(ctx, errors, formdata, session) {
@@ -49,7 +50,11 @@ class WillHasVisibleDamage extends ValidationStep {
         }
 
         const willDamage = {};
-        willDamage.damageTypesList = ctx.willDamageTypes;
+        if (ctx.willHasVisibleDamage === 'optionYes') {
+            willDamage.damageTypesList = ctx.willDamageTypes;
+        } else {
+            willDamage.damageTypesList = [];
+        }
         if (ctx.willDamageTypes && ctx.willDamageTypes.includes('otherVisibleDamage')) {
             willDamage.otherDamageDescription = ctx.otherDamageDescription;
         }
@@ -61,7 +66,7 @@ class WillHasVisibleDamage extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
         if (ctx.willHasVisibleDamage === 'optionNo') {
-            delete ctx.willDamage;
+            ctx.willDamage.damageTypesList = [];
         }
         delete ctx.options;
         delete ctx.willDamageTypes;
