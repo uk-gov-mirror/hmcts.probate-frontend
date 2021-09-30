@@ -1,14 +1,14 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const DamageReasonKown = require('app/steps/ui/willdamagereasonknown');
+const DamageReasonKnown = require('app/steps/ui/will/willdamagereasonknown');
 const Codicils = require('app/steps/ui/will/codicils');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('will-has-damage', () => {
     let testWrapper;
-    const expectedNextUrlForWillHasDamageReasonKnown = DamageReasonKown.getUrl();
+    const expectedNextUrlForWillHasDamageReasonKnown = DamageReasonKnown.getUrl();
     const expectedNextUrlForCodicils = Codicils.getUrl();
 
     beforeEach(() => {
@@ -39,12 +39,13 @@ describe('will-has-damage', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required');
+            const errorsToTest = ['willHasVisibleDamage'];
+            testWrapper.testErrors(done, {}, 'required', errorsToTest);
         });
 
         it(`test it redirects to Codicils page: ${expectedNextUrlForCodicils}`, (done) => {
             const data = {
-                codicils: 'optionNo'
+                willHasVisibleDamage: 'optionNo',
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForCodicils);

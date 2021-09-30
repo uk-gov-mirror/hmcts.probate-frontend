@@ -323,7 +323,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             res.locals.launchDarkly.ftValue = ftValue;
         }
 
-        console.log('FT VALUE ======> ', ftValue);
         next();
     });
 
