@@ -44,3 +44,46 @@
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
 
+{{checkanswer(
+    items = [
+        {
+            question: content.WillDamageCulpritKnown.question,
+            answer: content.WillDamageCulpritKnown[fields.will.willDamageCulpritKnown.value],
+            visible: fields.will.willHasVisibleDamage.value == 'optionYes'
+        },
+        {
+            question: content.WillDamageCulpritKnown.firstName,
+            answer: fields.will.willDamageCulpritName.value.firstName,
+            visible: fields.will.willDamageCulpritKnown.value == 'optionYes'
+        },
+        {
+            question: content.WillDamageCulpritKnown.lastName,
+            answer: fields.will.willDamageCulpritName.value.lastName,
+            visible: fields.will.willDamageCulpritKnown.value == 'optionYes'
+        }
+    ],
+    url = content.WillDamageCulpritKnown.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.WillCodicils.question,
+            answer: fields.will.codicils.value,
+            visible: true
+        },
+        {
+            question: content.CodicilsNumber.question,
+            answer: fields.will.codicilsNumber.value,
+            visible: fields.will.codicils.value == "optionYes"
+        }
+    ],
+    url = content.WillCodicils.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value,
+    answerIsGroup = true
+)}}
+
+
