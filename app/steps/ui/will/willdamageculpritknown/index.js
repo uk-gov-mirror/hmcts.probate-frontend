@@ -31,6 +31,16 @@ class WillDamageCulpritKnown extends ValidationStep {
         return [ctx, errors];
     }
 
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        if (ctx.willDamageCulpritKnown === 'optionNo') {
+            ctx.willDamageCulpritName = {};
+        }
+        delete ctx.firstName;
+        delete ctx.lastName;
+        return [ctx, formdata];
+    }
+
 }
 
 module.exports = WillDamageCulpritKnown;

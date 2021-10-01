@@ -35,4 +35,32 @@ describe('WillDamageCulpritKnown', () => {
             assert.equal(ctx.lastName, null);
         });
     });
+
+    describe('action()', () => {
+        let formdata = {};
+        let ctx = {
+            willDamageCulpritKnown: 'optionYes',
+            willDamageCulpritName: {firstName: 'FN1', lastName: 'LN1'},
+            firstName: 'FN1',
+            lastName: 'LN1'
+        };
+        it ('removes the correct values from the context when will damage culrpit is known', (done) => {
+            [ctx, formdata] = WillDamageCulpritKnown.action(ctx, formdata);
+            expect(ctx).to.deep.equal({
+                willDamageCulpritKnown: 'optionYes',
+                willDamageCulpritName: {firstName: 'FN1', lastName: 'LN1'},
+            });
+            done();
+        });
+
+        it ('removes the correct values from the context when will damage culrpit is not known', (done) => {
+            ctx.willDamageCulpritKnown = 'optionNo';
+            [ctx, formdata] = WillDamageCulpritKnown.action(ctx, formdata);
+            expect(ctx).to.deep.equal({
+                willDamageCulpritKnown: 'optionNo',
+                willDamageCulpritName: {}
+            });
+            done();
+        });
+    });
 });

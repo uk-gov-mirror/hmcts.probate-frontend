@@ -28,7 +28,7 @@ class WillDamageReasonKnown extends ValidationStep {
         }
 
         if (ctx.willDamageReasonKnown === 'optionNo') {
-            ctx.willDamageReasonDescription = null;
+            ctx.willDamageReasonDescription = '';
         }
         return super.handlePost(ctx, errors);
     }

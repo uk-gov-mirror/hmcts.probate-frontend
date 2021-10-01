@@ -1,7 +1,6 @@
 const initSteps = require('app/core/initSteps');
 const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
-const caseTypes = require('app/utils/CaseTypes');
 const WillHasVisibleDamage = steps.WillHasVisibleDamage;
 
 describe('WillHasVisibleDamage', () => {
@@ -18,8 +17,30 @@ describe('WillHasVisibleDamage', () => {
         ],
         otherDamageDescription: 'further description of how the will was damaged'
     };
+    const ctxAfterPost = {
+        willHasVisibleDamage: 'optionYes',
+        willDamage: {
+            damageTypesList: [
+                'stapleOrPunchHoles',
+                'rustMarks',
+                'paperClipMarks',
+                'tornEdges',
+                'waterDamage',
+                'otherVisibleDamage'
+            ],
+            otherDamageDescription: 'further description of how the will was damaged'
+        },
+    };
     const ctxWithNo = {
         willHasVisibleDamage: 'optionNo',
+    };
+    const ctxWithNoAndOtherWillConditionValues = {
+        willHasVisibleDamage: 'optionNo',
+        willDamage: {damageTypesList: []},
+        willDamageReasonKnown: 'optionYes',
+        willDamageReasonDescription: 'Reason Description',
+        willDamageCulpritKnown: 'optionYes',
+        willDamageCulpritName: {firstName: 'FN1', lastName: 'LN1'}
     };
 
     describe('getUrl()', () => {
@@ -31,24 +52,9 @@ describe('WillHasVisibleDamage', () => {
     });
 
     describe('handleGet()', () => {
-        it('should return the ctx with will damage options', (done) => {
-            const req = {
-                sessionID: 'dummy_sessionId',
-                session: {
-                    language: 'en',
-                    form: {
-                        caseType: caseTypes.GOP,
-                        ccdCase: {
-                            id: 1234567890123456,
-                            state: 'Pending'
-                        }
-                    },
-                    caseType: caseTypes.GOP
-                },
-                body: ctxBeforePost
-            };
-            const [ctx] = WillHasVisibleDamage.handleGet(req);
-            expect(ctx.body).to.deep.equal({
+        it('should return the ctx with will damage options with before post context', (done) => {
+            const [ctx] = WillHasVisibleDamage.handleGet(ctxBeforePost);
+            expect(ctx).to.deep.equal({
                 willHasVisibleDamage: 'optionYes',
                 willDamageTypes: [
                     'stapleOrPunchHoles',
@@ -62,24 +68,36 @@ describe('WillHasVisibleDamage', () => {
             });
             done();
         });
-        it('should return the ctx with will No damage options', (done) => {
-            const req = {
-                sessionID: 'dummy_sessionId',
-                session: {
-                    language: 'en',
-                    form: {
-                        caseType: caseTypes.GOP,
-                        ccdCase: {
-                            id: 1234567890123456,
-                            state: 'Pending'
-                        }
-                    },
-                    caseType: caseTypes.GOP
+        it('should return the ctx with will damage options with after post context', (done) => {
+            const [ctx] = WillHasVisibleDamage.handleGet(ctxAfterPost);
+            expect(ctx).to.deep.equal({
+                willHasVisibleDamage: 'optionYes',
+                willDamage: {
+                    damageTypesList: [
+                        'stapleOrPunchHoles',
+                        'rustMarks',
+                        'paperClipMarks',
+                        'tornEdges',
+                        'waterDamage',
+                        'otherVisibleDamage'
+                    ],
+                    otherDamageDescription: 'further description of how the will was damaged'
                 },
-                body: ctxWithNo
-            };
-            const [ctx] = WillHasVisibleDamage.handleGet(req);
-            expect(ctx.body).to.deep.equal({
+                otherDamageDescription: 'further description of how the will was damaged',
+                options: {
+                    'stapleOrPunchHoles': true,
+                    'rustMarks': true,
+                    'paperClipMarks': true,
+                    'tornEdges': true,
+                    'waterDamage': true,
+                    'otherVisibleDamage': true
+                }
+            });
+            done();
+        });
+        it('should return the ctx with will No damage options', (done) => {
+            const [ctx] = WillHasVisibleDamage.handleGet(ctxWithNo);
+            expect(ctx).to.deep.equal({
                 willHasVisibleDamage: 'optionNo'
             });
             done();
@@ -87,18 +105,60 @@ describe('WillHasVisibleDamage', () => {
     });
 
     describe('handlePost()', () => {
+        const WillHasVisibleDamage = steps.WillHasVisibleDamage;
         it('add damageTypesList and otherDamageDescription to willDamageTypes object', () => {
-            const WillHasVisibleDamage = steps.WillHasVisibleDamage;
             const [ctx] = WillHasVisibleDamage.handlePost(ctxBeforePost);
             assert.containsAllKeys(ctx.willDamage, ['damageTypesList', 'otherDamageDescription']);
             assert.containsAllKeys(ctx.willDamage.damageTypesList, ['0', '1',
                 '2', '3', '4', '5']);
         });
         it ('add empty damageTypesList and description for No selected', () => {
-            const WillHasVisibleDamage = steps.WillHasVisibleDamage;
             const [ctx] = WillHasVisibleDamage.handlePost(ctxWithNo);
             assert.equal(ctx.willDamage.damageTypesList.length, 0);
             assert.equal(ctx.willDamage.otherDamageDescription, null);
+        });
+        it('should reset all other will condidition values if they exist if user selects no', () => {
+            const [ctx] = WillHasVisibleDamage.handlePost(ctxWithNoAndOtherWillConditionValues);
+            expect(ctx).to.deep.equal({
+                willHasVisibleDamage: 'optionNo',
+                willDamage: {damageTypesList: []},
+                willDamageReasonKnown: 'optionNo',
+                willDamageReasonDescription: '',
+                willDamageCulpritKnown: 'optionNo',
+                willDamageCulpritName: {}
+            });
+        });
+    });
+
+    describe('action()', () => {
+        let formdata = {};
+        let ctx = {};
+        it('removes the correct values if there is visible damage to the will', (done) => {
+            [ctx, formdata] = WillHasVisibleDamage.action(ctxAfterPost, formdata);
+            expect(ctx).to.deep.equal({
+                willHasVisibleDamage: 'optionYes',
+                willDamage: {
+                    damageTypesList: [
+                        'stapleOrPunchHoles',
+                        'rustMarks',
+                        'paperClipMarks',
+                        'tornEdges',
+                        'waterDamage',
+                        'otherVisibleDamage'
+                    ],
+                    otherDamageDescription: 'further description of how the will was damaged',
+                }
+            });
+            done();
+        });
+
+        it('removes the correct values from context when no visible damage to the will', (done) => {
+            [ctx, formdata] = WillHasVisibleDamage.action(ctxWithNo, formdata);
+            expect(ctx).to.deep.equal({
+                willHasVisibleDamage: 'optionNo',
+                willDamage: {}
+            });
+            done();
         });
     });
 });

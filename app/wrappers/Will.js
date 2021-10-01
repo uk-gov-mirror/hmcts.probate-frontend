@@ -5,8 +5,24 @@ class Will {
         this.will = will || {};
     }
 
-    hasVisibleDamage() {
-        return this.will.willHasVisibleDamage === 'optionYes';
+    resetValues(ctx) {
+        if (ctx.willDamageReasonKnown) {
+            ctx.willDamageReasonKnown = 'optionNo';
+        }
+
+        if (ctx.willDamageReasonDescription) {
+            ctx.willDamageReasonDescription = '';
+        }
+
+        if (ctx.willDamageCulpritKnown) {
+            ctx.willDamageCulpritKnown = 'optionNo';
+        }
+
+        if (ctx.willDamageCulpritName) {
+            ctx.willDamageCulpritName = {};
+        }
+
+        return ctx;
     }
 
     hasCodicils() {

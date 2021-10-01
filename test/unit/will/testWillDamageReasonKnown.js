@@ -1,7 +1,6 @@
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
-const caseTypes = require('app/utils/CaseTypes');
 const WillDamageReasonKnown = steps.WillDamageReasonKnown;
 
 describe('WillDamageReasonKnown', () => {
@@ -15,6 +14,11 @@ describe('WillDamageReasonKnown', () => {
         willDamageReasonKnown: 'optionNo'
     };
 
+    const ctxWithNoAndDescirption = {
+        willDamageReasonKnown: 'optionNo',
+        willDamageReasonDescription: 'Damage description'
+    };
+
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = WillDamageReasonKnown.constructor.getUrl();
@@ -25,23 +29,8 @@ describe('WillDamageReasonKnown', () => {
 
     describe('handleGet()', () => {
         it('should return the ctx with will damage reason', (done) => {
-            const req = {
-                sessionID: 'dummy_sessionId',
-                session: {
-                    language: 'en',
-                    form: {
-                        caseType: caseTypes.GOP,
-                        ccdCase: {
-                            id: 1234567890123456,
-                            state: 'Pending'
-                        }
-                    },
-                    caseType: caseTypes.GOP
-                },
-                body: ctxWithYes
-            };
-            const [ctx] = WillDamageReasonKnown.handleGet(req);
-            expect(ctx.body).to.deep.equal({
+            const [ctx] = WillDamageReasonKnown.handleGet(ctxWithYes);
+            expect(ctx).to.deep.equal({
                 willDamageReasonKnown: 'optionYes',
                 willDamageReasonDescription: 'Damage description'
             });
@@ -50,16 +39,21 @@ describe('WillDamageReasonKnown', () => {
     });
 
     describe('handlePost()', () => {
+        const WillDamageReasonKnown = steps.WillDamageReasonKnown;
         it ('add reasonKnown and reason Description', () => {
-            const WillDamageReasonKnown = steps.WillDamageReasonKnown;
             const [ctx] = WillDamageReasonKnown.handlePost(ctxWithYes);
             expect(ctx).to.deep.equal(ctxWithYes);
         });
-    });
 
-    describe('handlePost()', () => {
+        it ('set reason description to blank if exists and no reason known', () => {
+            const [ctx] = WillDamageReasonKnown.handlePost(ctxWithNoAndDescirption);
+            expect(ctx).to.deep.equal({
+                willDamageReasonKnown: 'optionNo',
+                willDamageReasonDescription: ''
+            });
+        });
+
         it ('add reasonKnown NO', () => {
-            const WillDamageReasonKnown = steps.WillDamageReasonKnown;
             const [ctx] = WillDamageReasonKnown.handlePost(ctxWithNo);
             expect(ctx).to.deep.equal(ctxWithNo);
         });

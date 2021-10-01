@@ -3,6 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FieldError = require('app/components/error');
 const {isEmpty} = require('lodash');
+const WillMapper = require('app/wrappers/Will');
 
 class WillHasVisibleDamage extends ValidationStep {
 
@@ -49,18 +50,13 @@ class WillHasVisibleDamage extends ValidationStep {
             return [ctx, errors];
         }
 
+        const willMapper = new WillMapper();
         const willDamage = {};
         if (ctx.willHasVisibleDamage === 'optionYes') {
             willDamage.damageTypesList = ctx.willDamageTypes;
         } else {
             willDamage.damageTypesList = [];
-            ctx.willDamageReasonKnown = 'optionNo';
-            ctx.willDamageReasonDescription = '';
-            ctx.willDamageCulpritKnown = 'optionNo';
-            if (ctx.willDamageCulpritName) {
-                ctx.willDamageCulpritName.firstName = '';
-                ctx.willDamageCulpritName.lastName = '';
-            }
+            ctx = willMapper.resetValues(ctx);
         }
         if (ctx.willDamageTypes && ctx.willDamageTypes.includes('otherVisibleDamage')) {
             willDamage.otherDamageDescription = ctx.otherDamageDescription;
@@ -73,7 +69,8 @@ class WillHasVisibleDamage extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
         if (ctx.willHasVisibleDamage === 'optionNo') {
-            ctx.willDamage.damageTypesList = [];
+            delete ctx.willDamage.damageTypesList;
+            delete ctx.willDamage.otherDamageDescription;
         }
         delete ctx.options;
         delete ctx.willDamageTypes;
