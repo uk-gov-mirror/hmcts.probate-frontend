@@ -3,6 +3,13 @@
             {{ content.WillHasVisibleDamage["option" + item] }}{% if loop.index < items.length %},{% endif %}
         {% endfor %}
 {% endmacro %}
+{% macro contains(items, itemToFind) %}
+        {% set itemFound = false %}
+        {% for item in items %}
+            {% if itemToFind == item %}{% set itemFound = true %}{% endif %}
+        {% endfor %}
+        itemFound
+{% endmacro %}
 {{checkanswer(
     items = [
         {
@@ -18,7 +25,7 @@
         {
             question: 'Other damage',
             answer: fields.will.willDamage.value.otherDamageDescription,
-            visible: 'otherVisibleDamage' in fields.will.willDamage.value.damageTypesList   
+            visible: contains(fields.will.willDamage.value.damageTypesList, 'otherVisibleDamage')   
         }
     ],
     url = content.WillHasVisibleDamage.url,
@@ -71,7 +78,7 @@
     items = [
         {
             question: content.WillCodicils.question,
-            answer: fields.will.codicils.value,
+            answer: content.WillCodicils[fields.will.codicils.value],
             visible: true
         },
         {

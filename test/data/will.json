@@ -2,7 +2,21 @@
   "will": {
     "left": "Yes",
     "original": "Yes",
-    "codicils": "No"
+    "codicils": "No",
+    "willHasVisibleDamage": "optionYes",
+    "willDamage": {
+      "damageTypesList" : [
+        "stapleOrPunchHoles",
+        "otherVisibleDamage"
+      ]
+    },
+    "otherDamageDescription": "some damage description",
+    "willDamageReasonKnown": "optionYes",
+    "willDamageCulpritKnown": "optionYes",
+    "willDamageCulpritName": {
+      "firstName": "Harry",
+      "lastName": "Potter"
+    }
   },
   "applicant": {
     "executor": "Yes"
