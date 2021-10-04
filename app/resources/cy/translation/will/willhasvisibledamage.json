@@ -13,7 +13,7 @@
   "optionotherVisibleDamage": "Other",
   "errors": {
     "willHasVisibleDamage": {
-      "required": "Answer &lsquo;yes&rsquo; if the will has visibe damage"
+      "required": "Answer &lsquo;yes&rsquo; if the will has visible damage"
     },
     "willDamageTypes": {
       "required": "Select which visible damages or marks applies"

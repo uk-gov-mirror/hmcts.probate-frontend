@@ -110,7 +110,8 @@ const stepList = {
         otherwise: 'WillCodicils'
     },
     WillDamageReasonKnown: 'WillDamageCulpritKnown',
-    WillDamageCulpritKnown: 'WillCodicils',
+    WillDamageCulpritKnown: 'WillDamageDate',
+    WillDamageDate: 'WillCodicils',
     WillCodicils: {
         noCodicils: 'TaskList',
         otherwise: 'CodicilsNumber'
