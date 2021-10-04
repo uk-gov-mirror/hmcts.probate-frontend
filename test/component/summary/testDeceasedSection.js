@@ -6,7 +6,7 @@ const languageContent = require('../../../app/resources/en/translation/language'
 const deceasedContent = requireDir(module, '../../../app/resources/en/translation/deceased');
 const FormatName = require('app/utils/FormatName');
 
-describe.only('summary-deceased-section', () => {
+describe('summary-deceased-section', () => {
     let testWrapper, sessionData;
 
     beforeEach(() => {
