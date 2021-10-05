@@ -56,29 +56,4 @@ describe('Will', () => {
             });
         });
     });
-    describe('resetValues()', () => {
-        it('should reset values for no damage', (done) => {
-            const ctx = {
-                willDamageReasonKnown: 'optionYes',
-                willDamageReasonDescription: 'desc',
-                willDamageCulpritKnown: 'optionYes',
-                willDamageCulpritName: {
-                    firstName: 'fn',
-                    lastName: 'ln'
-                },
-                willDamageDateKnown: 'optionYes',
-                willDamageDate: '/12/2020'
-            };
-            const willWrapper = new WillWrapper().resetValues(ctx);
-            expect(willWrapper.willDamageReasonKnown).to.equal('optionNo');
-            expect(willWrapper.willDamageReasonDescription).to.equal('');
-            expect(willWrapper.willDamageCulpritKnown).to.equal('optionNo');
-            // expect(willWrapper.willDamageCulpritName.firstName).to.be.undefined();
-            // expect(willWrapper.willDamageCulpritName.lastName).to.be.undefined();
-            expect(willWrapper.willDamageDateKnown).to.equal('optionNo');
-            expect(willWrapper.willDamageDate).to.equal('');
-            done();
-        });
-    });
-
 });

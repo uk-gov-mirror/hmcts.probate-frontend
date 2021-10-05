@@ -3,7 +3,6 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FieldError = require('app/components/error');
 const {isEmpty} = require('lodash');
-const WillMapper = require('app/wrappers/Will');
 
 class WillHasVisibleDamage extends ValidationStep {
 
@@ -50,13 +49,12 @@ class WillHasVisibleDamage extends ValidationStep {
             return [ctx, errors];
         }
 
-        const willMapper = new WillMapper();
         const willDamage = {};
         if (ctx.willHasVisibleDamage === 'optionYes') {
             willDamage.damageTypesList = ctx.willDamageTypes;
         } else {
             willDamage.damageTypesList = [];
-            ctx = willMapper.resetValues(ctx);
+            ctx = this.resetValues(ctx);
         }
         if (ctx.willDamageTypes && ctx.willDamageTypes.includes('otherVisibleDamage')) {
             willDamage.otherDamageDescription = ctx.otherDamageDescription;
@@ -76,6 +74,33 @@ class WillHasVisibleDamage extends ValidationStep {
         delete ctx.willDamageTypes;
         delete ctx.otherDamageDescription;
         return [ctx, formdata];
+    }
+
+    resetValues(ctx) {
+        if (ctx.willDamageReasonKnown) {
+            ctx.willDamageReasonKnown = 'optionNo';
+        }
+
+        if (ctx.willDamageReasonDescription) {
+            ctx.willDamageReasonDescription = '';
+        }
+
+        if (ctx.willDamageCulpritKnown) {
+            ctx.willDamageCulpritKnown = 'optionNo';
+        }
+
+        if (ctx.willDamageCulpritName) {
+            ctx.willDamageCulpritName = {};
+        }
+
+        if (ctx.willDamageDateKnown) {
+            ctx.willDamageDateKnown = 'optionNo';
+        }
+
+        if (ctx.willDamageDate) {
+            ctx.willDamageDate = '';
+        }
+        return ctx;
     }
 }
 

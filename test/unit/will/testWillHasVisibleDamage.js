@@ -161,4 +161,28 @@ describe('WillHasVisibleDamage', () => {
             done();
         });
     });
+
+    describe('resetValues()', () => {
+        it('should reset values for no damage', (done) => {
+            const ctx = {
+                willDamageReasonKnown: 'optionYes',
+                willDamageReasonDescription: 'desc',
+                willDamageCulpritKnown: 'optionYes',
+                willDamageCulpritName: {
+                    firstName: 'fn',
+                    lastName: 'ln'
+                },
+                willDamageDateKnown: 'optionYes',
+                willDamageDate: '/12/2020'
+            };
+            WillHasVisibleDamage.resetValues(ctx);
+            expect(ctx.willDamageReasonKnown).to.equal('optionNo');
+            expect(ctx.willDamageReasonDescription).to.equal('');
+            expect(ctx.willDamageCulpritKnown).to.equal('optionNo');
+            expect(ctx.willDamageCulpritName).to.eql({});
+            expect(ctx.willDamageDateKnown).to.equal('optionNo');
+            expect(ctx.willDamageDate).to.equal('');
+            done();
+        });
+    });
 });
