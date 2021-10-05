@@ -14,7 +14,6 @@ class WillDamageDate extends ValidationStep {
     handleGet(ctx) {
         if (ctx.willDamageDate) {
             [ctx['willdamagedate-day'], ctx['willdamagedate-month'], ctx['willdamagedate-year']] = ctx.willDamageDate.split('/');
-
         }
         return [ctx];
     }
@@ -35,28 +34,27 @@ class WillDamageDate extends ValidationStep {
 
         const willdamagedate = moment(`${day}/${month}/${year}`, config.dateFormat).parseZone();
 
-        if (!year || isNaN(year)) {
+        if (!year) {
             errors.push(FieldError('willdamagedate-year', 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+            return [ctx, errors];
         } else if (willdamagedate.isAfter(moment())) {
             errors.push(FieldError('willdamagedate', 'future', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+            return [ctx, errors];
         } else if (!willdamagedate.isValid()) {
             errors.push(FieldError('willdamagedate', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+            return [ctx, errors];
         }
 
         const d = ctx['willdamagedate-day'] ? ctx['willdamagedate-day'] : '';
         const m = ctx['willdamagedate-month'] ? ctx['willdamagedate-month'] : '';
         const y = ctx['willdamagedate-year'];
-        const formattedDate = `${d}/${m}/${y}`;
-        ctx.willDamageDate = formattedDate;
+        ctx.willDamageDate = `${d}/${m}/${y}`;
 
         return [ctx, errors];
     }
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
-        if (ctx.willDamageDateKnown === 'optionNo') {
-            ctx.willDamageDate = '';
-        }
         delete ctx['willdamagedate-day'];
         delete ctx['willdamagedate-month'];
         delete ctx['willdamagedate-year'];
