@@ -3,13 +3,6 @@
             {{ content.WillHasVisibleDamage["option" + item] }}{% if loop.index < items.length %},{% endif %}
         {% endfor %}
 {% endmacro %}
-{% macro contains(items, itemToFind) %}
-        {% set itemFound = false %}
-        {% for item in items %}
-            {% if itemToFind == item %}{% set itemFound = true %}{% endif %}
-        {% endfor %}
-        itemFound
-{% endmacro %}
 {{checkanswer(
     items = [
         {
@@ -25,7 +18,7 @@
         {
             question: 'Other damage',
             answer: fields.will.willDamage.value.otherDamageDescription,
-            visible: contains(fields.will.willDamage.value.damageTypesList, 'otherVisibleDamage')   
+            visible: fields.will.willDamage.value.damageTypesList[fields.will.willDamage.value.damageTypesList.length - 1] == 'otherVisibleDamage'   
         }
     ],
     url = content.WillHasVisibleDamage.url,
@@ -70,6 +63,24 @@
         }
     ],
     url = content.WillDamageCulpritKnown.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.WillDamageDate.question,
+            answer: content.WillDamageDate[fields.will.willDamageDateKnown.value],
+            visible: fields.will.willHasVisibleDamage.value == 'optionYes'
+        },
+        {
+            question: content.WillDamageDate.date,
+            answer: fields.will.willDamageDate.value,
+            visible: fields.will.willDamageDateKnown.value == 'optionYes'
+        }
+    ],
+    url = content.WillDamageDate.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}

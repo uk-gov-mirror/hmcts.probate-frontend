@@ -22,6 +22,13 @@ class Will {
             ctx.willDamageCulpritName = {};
         }
 
+        if (ctx.willDamageDateKnown) {
+            ctx.willDamageDateKnown = 'optionNo';
+        }
+
+        if (ctx.willDamageDate) {
+            ctx.willDamageDate = '';
+        }
         return ctx;
     }
 
