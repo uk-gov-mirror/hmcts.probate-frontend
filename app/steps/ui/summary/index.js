@@ -134,7 +134,7 @@ class Summary extends Step {
         ctx.session = req.session;
         ctx.authToken = req.authToken;
 
-        this.setToggOnContext(ctx, req);
+        this.setToggleOnContext(ctx, req);
 
         return ctx;
     }
