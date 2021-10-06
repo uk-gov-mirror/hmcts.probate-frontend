@@ -51,6 +51,7 @@ module.exports = () => {
         selectDeceasedAlias: steps.deceased.alias,
         selectOtherNames: steps.deceased.otherNames,
         selectDeceasedMarriedAfterDateOnWill: steps.deceased.married,
+        selectWillDamage: steps.will.damage,
         selectWillCodicils: steps.will.codicils,
         selectWillNoOfCodicils: steps.will.codicilsnumber,
         enterAnyChildren: steps.deceased.anychildren,

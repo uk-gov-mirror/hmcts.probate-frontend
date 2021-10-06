@@ -1,0 +1,13 @@
+'use strict';
+
+module.exports = async function(language = 'en', option = null) {
+    const I = this;
+    const commonContent = require(`app/resources/${language}/translation/common`);
+
+    await I.checkInUrl('/will-has-damage');
+    const locator = {css: `#willHasVisibleDamage${option}`};
+    await I.waitForEnabled(locator);
+    await I.click(locator);
+
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
+};
