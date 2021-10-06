@@ -6,14 +6,15 @@
   "date": "Date of roughly when the damages or marks happened to the will",
   "dateHint": "Date of roughly when the damages or marks happened to the will<br>If you cannot remember the full date, enter just the year",
   "errors": {
-    "willDamageDate": {
+    "willDamageDateKnown": {
       "required": "Select &lsquo;yes&rsquo; if you know roughly when the damages or marks appeared on the will"
     },
-    "willDamageDateYear": {
+    "willdamagedate-year": {
       "required": "Enter the year when damages or marks appeared on the will"
     },
-    "willDamageDateFuture": {
-      "invalid": "The date of when damages or marks appeared on the will must be in the past or today"
+    "willdamagedate": {
+      "future": "The date of when damages or marks appeared on the will must be in the past or today",
+      "invalid": "Enter valid date"
     }
   }
 }
