@@ -14,7 +14,7 @@
     },
     "willdamagedate": {
       "future": "The date of when damages or marks appeared on the will must be in the past or today",
-      "invalid": "Enter valid date"
+      "invalid": "Please enter a valid date"
     }
   }
 }

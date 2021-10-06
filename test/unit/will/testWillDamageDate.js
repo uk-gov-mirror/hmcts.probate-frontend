@@ -125,7 +125,7 @@ describe('WillDamageDate', () => {
             expect(errors).to.deep.equal([{
                 'field': 'willdamagedate',
                 'href': '#willdamagedate',
-                'msg': 'Enter valid date'
+                'msg': 'Please enter a valid date'
             }]);
             done();
         });
