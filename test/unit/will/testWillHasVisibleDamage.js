@@ -114,14 +114,13 @@ describe('WillHasVisibleDamage', () => {
         });
         it ('add empty damageTypesList and description for No selected', () => {
             const [ctx] = WillHasVisibleDamage.handlePost(ctxWithNo);
-            assert.equal(ctx.willDamage.damageTypesList.length, 0);
-            assert.equal(ctx.willDamage.otherDamageDescription, null);
+            assert.equal(ctx.willDamage, null);
         });
         it('should reset all other will condidition values if they exist if user selects no', () => {
             const [ctx] = WillHasVisibleDamage.handlePost(ctxWithNoAndOtherWillConditionValues);
             expect(ctx).to.deep.equal({
                 willHasVisibleDamage: 'optionNo',
-                willDamage: {damageTypesList: []},
+                willDamage: {},
                 willDamageReasonKnown: 'optionNo',
                 willDamageReasonDescription: '',
                 willDamageCulpritKnown: 'optionNo',
@@ -155,8 +154,7 @@ describe('WillHasVisibleDamage', () => {
         it('removes the correct values from context when no visible damage to the will', (done) => {
             [ctx, formdata] = WillHasVisibleDamage.action(ctxWithNo, formdata);
             expect(ctx).to.deep.equal({
-                willHasVisibleDamage: 'optionNo',
-                willDamage: {}
+                willHasVisibleDamage: 'optionNo'
             });
             done();
         });
