@@ -38,6 +38,11 @@ class WillHasVisibleDamage extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata, session) {
+        if (ctx.willHasVisibleDamage === 'optionNo') {
+            ctx = this.resetValues(ctx);
+            return [ctx, errors];
+        }
+
         if (ctx.willHasVisibleDamage === 'optionYes' && !ctx.willDamageTypes) {
             errors.push(FieldError('willDamageTypes', 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
@@ -66,10 +71,6 @@ class WillHasVisibleDamage extends ValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
-        if (ctx.willHasVisibleDamage === 'optionNo') {
-            delete ctx.willDamage.damageTypesList;
-            delete ctx.willDamage.otherDamageDescription;
-        }
         delete ctx.options;
         delete ctx.willDamageTypes;
         delete ctx.otherDamageDescription;
@@ -100,6 +101,12 @@ class WillHasVisibleDamage extends ValidationStep {
         if (ctx.willDamageDate) {
             ctx.willDamageDate = '';
         }
+
+        if (ctx.willDamage) {
+            delete ctx.willDamage.damageTypesList;
+            delete ctx.willDamage.otherDamageDescription;
+        }
+
         return ctx;
     }
 }
