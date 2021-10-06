@@ -13,6 +13,10 @@
             {{ govukTextarea({
                 name: "otherDamageDescription",
                 id: "otherDamageDescription",
+                label: {
+                    text: content["otherDamageDescriptionHint"] | safe,
+                    classes: "govuk-visually-hidden"
+                },
                 hint: {
                     text: content["otherDamageDescriptionHint"] | safe
                 },

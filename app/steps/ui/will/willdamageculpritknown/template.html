@@ -24,6 +24,11 @@
         {{ govukInput({
             name: "lastName",
             id: "lastName",
+            label: {
+                text: content["lastName"] | safe,
+                classes: "govuk-visually-hidden"
+
+            },
             hint: {
                 text: content["lastName"] | safe
             },
