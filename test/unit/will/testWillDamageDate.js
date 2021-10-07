@@ -87,7 +87,7 @@ describe('WillDamageDate', () => {
             expect(errors).to.deep.equal([{
                 'field': 'willdamagedate-year',
                 'href': '#willdamagedate-year',
-                'msg': 'Enter the year when damages or marks appeared on the will'
+                'msg': 'Enter the year when visible damages or marks appeared on the will'
             }]);
             done();
         });

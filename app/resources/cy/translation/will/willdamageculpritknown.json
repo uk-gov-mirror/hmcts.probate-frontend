@@ -8,13 +8,13 @@
     "lastName": "Last name",
     "errors": {
         "willDamageCulpritKnown": {
-            "required": "Answer &lsquo;yes&rsquo; if you know may have made damages or marks to the will?"
+            "required": "Select &lsquo;yes&rsquo; if you know who may have made visible damages or marks to the will"
         },
         "firstName": {
-            "required": "Please enter a first name"
+            "required": "Enter the first and last name of the person who may have made visible damages or marks to the will"
         },
         "lastName": {
-            "required": "Please enter a last name"
-        } 
+            "required": "Enter the first and last name of the person who may have made visible damages or marks to the will"
+        }
     }
 }

@@ -1,6 +1,6 @@
 {
-  "title": "Does the will have visible damage?",
-  "question": "Does the will have visible damage?",
+  "title": "Does the will have any visible damages or marks?",
+  "question": "Does the will have any visible damages or marks?",
   "optionYes": "Yes",
   "optionNo": "No",
   "otherDamageDescriptionHint": "Describe the damage",
@@ -13,7 +13,7 @@
   "optionotherVisibleDamage": "Other",
   "errors": {
     "willHasVisibleDamage": {
-      "required": "Answer &lsquo;yes&rsquo; if the will has visible damage"
+      "required": "Select &lsquo;yes&rsquo; if you know if the will has any visible damages or marks"
     },
     "willDamageTypes": {
       "required": "Select which visible damages or marks applies"
