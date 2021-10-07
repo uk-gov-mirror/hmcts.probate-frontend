@@ -16,7 +16,7 @@
             {% include "ui/summary/includes/deceased.njk" %}
         </dl>
 
-        <h2 class="govuk-heading-m">Will Condition</h2>
+        <h2 class="govuk-heading-m">{{ content.Summary.willConditionHeading | safe }}</h2>
         <dl class="govuk-summary-list">
             {% include "ui/summary/includes/willconditions.njk" %}
         </dl>
