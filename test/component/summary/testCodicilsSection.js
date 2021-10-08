@@ -76,8 +76,10 @@ describe('summary-codicils-section', () => {
                         otherDamage: 'Other damage',
                         selectedDamage1: willContent.codicilshasvisibledamage.optionstapleOrPunchHoles,
                         selectedDamage2: willContent.codicilshasvisibledamage.optionotherVisibleDamage,
-                        // damageReasonKnown: willContent.willdamagereasonknown.question,
-                        // willDamageReasonDescriptionTitle: willContent.willdamagereasonknown.willDamageReasonDescriptionTitle,
+                        codicilsDamageReasonKnown: willContent.codicilsdamagereasonknown.question,
+                        codicilsDamageReasonDescriptionTitle: willContent.codicilsdamagereasonknown.codicilsDamageReasonDescriptionTitle,
+                        codicilsDamageDateKnown: willContent.codicilsdamagedate.question,
+                        codicilsDamageDate: willContent.codicilsdamagedate.date,
                         culpritQuestion: willContent.codicilsdamageculpritknown.question,
                         culpritFirstName: willContent.codicilsdamageculpritknown.firstName,
                         culpritLastName: willContent.codicilsdamageculpritknown.lastName
