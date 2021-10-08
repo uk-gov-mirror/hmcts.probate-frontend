@@ -14,7 +14,7 @@ describe('WillDamageReasonKnown', () => {
         willDamageReasonKnown: 'optionNo'
     };
 
-    const ctxWithNoAndDescirption = {
+    const ctxWithNoAndDescription = {
         willDamageReasonKnown: 'optionNo',
         willDamageReasonDescription: 'Damage description'
     };
@@ -46,7 +46,7 @@ describe('WillDamageReasonKnown', () => {
         });
 
         it ('set reason description to blank if exists and no reason known', () => {
-            const [ctx] = WillDamageReasonKnown.handlePost(ctxWithNoAndDescirption);
+            const [ctx] = WillDamageReasonKnown.handlePost(ctxWithNoAndDescription);
             expect(ctx).to.deep.equal({
                 willDamageReasonKnown: 'optionNo',
                 willDamageReasonDescription: ''
