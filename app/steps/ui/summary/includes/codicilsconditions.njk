@@ -26,7 +26,7 @@
     items = [
         {
             question: content.CodicilsHasVisibleDamage.question,
-            answer: content.CodicilsHasVisibleDamage[fields.will.codicilsHasVisibleDamage.value], 
+            answer: content.CodicilsHasVisibleDamage[fields.will.codicilsHasVisibleDamage.value],
             visible: fields.featureToggles.value.ft_will_condition
         },
         {
@@ -37,10 +37,28 @@
         {
             question: 'Other damage',
             answer: fields.will.codicilsDamage.value.otherDamageDescription,
-            visible: fields.will.codicilsDamage.value.damageTypesList[fields.will.codicilsDamage.value.damageTypesList.length - 1] == 'otherVisibleDamage'   
+            visible: fields.will.codicilsDamage.value.damageTypesList[fields.will.codicilsDamage.value.damageTypesList.length - 1] == 'otherVisibleDamage'
         }
     ],
     url = content.CodicilsHasVisibleDamage.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+  items = [
+    {
+      question: content.CodicilsDamageReasonKnown.question,
+      answer: content.CodicilsDamageReasonKnown[fields.will.codicilsDamageReasonKnown.value],
+      visible: fields.will.codicilsHasVisibleDamage.value == 'optionYes'
+    },
+    {
+      question: content.CodicilsDamageReasonKnown.codicilsDamageReasonDescriptionTitle,
+      answer: fields.will.codicilsDamageReasonDescription.value,
+      visible: fields.will.codicilsDamageReasonKnown.value == 'optionYes'
+    }
+  ],
+  url = content.CodicilsDamageReasonKnown.url,
+  common = common,
+  alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}

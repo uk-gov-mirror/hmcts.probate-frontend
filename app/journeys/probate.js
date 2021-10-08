@@ -118,9 +118,10 @@ const stepList = {
     },
     CodicilsNumber: 'CodicilsHasVisibleDamage',
     CodicilsHasVisibleDamage: {
-        codicilsDoesHaveVisibleDamage: 'TaskList',
+        codicilsDoesHaveVisibleDamage: 'CodicilsDamageReasonKnown',
         otherwise: 'TaskList'
     },
+    CodicilsDamageReasonKnown: 'TaskList',
     ApplicantName: 'ApplicantNameAsOnWill',
     ApplicantNameAsOnWill: {
         hasAlias: 'ApplicantAlias',
