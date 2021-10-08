@@ -62,3 +62,26 @@
   common = common,
   alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.CodicilsDamageCulpritKnown.question,
+            answer: content.CodicilsDamageCulpritKnown[fields.will.codicilsDamageCulpritKnown.value],
+            visible: fields.will.codicilsHasVisibleDamage.value == 'optionYes'
+        },
+        {
+            question: content.CodicilsDamageCulpritKnown.firstName,
+            answer: fields.will.codicilsDamageCulpritName.value.firstName,
+            visible: fields.will.codicilsDamageCulpritKnown.value == 'optionYes'
+        },
+        {
+            question: content.CodicilsDamageCulpritKnown.lastName,
+            answer: fields.will.codicilsDamageCulpritName.value.lastName,
+            visible: fields.will.codicilsDamageCulpritKnown.value == 'optionYes'
+        }
+    ],
+    url = content.CodicilDamageCulpritKnown.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}

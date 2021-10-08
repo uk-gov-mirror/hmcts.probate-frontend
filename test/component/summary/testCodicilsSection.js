@@ -75,12 +75,12 @@ describe('summary-codicils-section', () => {
                         otherDamageDescriptionHint: willContent.codicilshasvisibledamage.otherDamageDescriptionHint,
                         otherDamage: 'Other damage',
                         selectedDamage1: willContent.codicilshasvisibledamage.optionstapleOrPunchHoles,
-                        selectedDamage2: willContent.codicilshasvisibledamage.optionotherVisibleDamage
+                        selectedDamage2: willContent.codicilshasvisibledamage.optionotherVisibleDamage,
                         // damageReasonKnown: willContent.willdamagereasonknown.question,
                         // willDamageReasonDescriptionTitle: willContent.willdamagereasonknown.willDamageReasonDescriptionTitle,
-                        // culpritQuestion: willContent.willdamageculpritknown.question,
-                        // culpritFirstName: willContent.willdamageculpritknown.firstName,
-                        // culpritLastName: willContent.willdamageculpritknown.lastName
+                        culpritQuestion: willContent.codicilsdamageculpritknown.question,
+                        culpritFirstName: willContent.codicilsdamageculpritknown.firstName,
+                        culpritLastName: willContent.codicilsdamageculpritknown.lastName
                     };
 
                     testWrapper.testDataPlayback(done, playbackData);

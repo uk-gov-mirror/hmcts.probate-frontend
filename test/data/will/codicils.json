@@ -1,22 +1,27 @@
 {
-    "will": {
-      "left": "Yes",
-      "original": "Yes",
-      "codicils": "Yes",
-      "codicilsHasVisibleDamage": "optionYes",
-      "codicilsDamage": {
-        "damageTypesList" : [
-          "stapleOrPunchHoles",
-          "otherVisibleDamage"
-        ]
-      },
-      "otherDamageDescription": "some damage description"
+  "will": {
+    "left": "Yes",
+    "original": "Yes",
+    "codicils": "Yes",
+    "codicilsHasVisibleDamage": "optionYes",
+    "codicilsDamage": {
+      "damageTypesList": [
+        "stapleOrPunchHoles",
+        "otherVisibleDamage"
+      ]
     },
-    "applicant": {
-      "executor": "Yes"
-    },
-    "executors": {
-      "mentalCapacity": "Yes"
-    }
+    "otherDamageDescription": "some damage description"
+  },
+  "codicilsDamageCulpritKnown": "optionYes",
+  "codicilsDamageCulpritName": {
+    "firstName": "Harry",
+    "lastName": "Potter"
+  },
+  "applicant": {
+    "executor": "Yes"
+  },
+  "executors": {
+    "mentalCapacity": "Yes"
   }
+}
   

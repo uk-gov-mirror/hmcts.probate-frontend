@@ -4,11 +4,11 @@ const TestWrapper = require('test/util/TestWrapper');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 const TaskList = require('app/steps/ui/tasklist');
+const CodicilsDamageReasonKnownPage = require('app/steps/ui/will/codicilsdamagereasonknown');
 
 describe('codicils-have-damage', () => {
     let testWrapper;
-    // const expectedNextUrlForCodicilsDamageReasonKnown = DamageReasonKnown.getUrl();
-    const expectedNextUrlForCodicilsDamageReasonKnown = TaskList.getUrl(); // Will need to be changed when we have new page
+    const expectedNextUrlForCodicilsDamageReasonKnown = CodicilsDamageReasonKnownPage.getUrl();
     const expectedNextUrlForTaskList = TaskList.getUrl();
 
     beforeEach(() => {
