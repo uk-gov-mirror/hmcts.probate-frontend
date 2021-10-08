@@ -21,6 +21,11 @@
             {% include "ui/summary/includes/willconditions.njk" %}
         </dl>
 
+        <h2 class="govuk-heading-m">Condition of the codicils</h2>
+        <dl class="govuk-summary-list">
+            {% include "ui/summary/includes/codicilsconditions.njk" %}
+        </dl>
+
         {% ifAsync fields.deceased.diedEngOrWales == null %}
           <h2 class="govuk-heading-m">{{ content.Summary.uploadedDocumentsHeading | safe }}</h2>
           <dl class="govuk-summary-list">

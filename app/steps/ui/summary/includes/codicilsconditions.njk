@@ -1,0 +1,46 @@
+{% macro damageLabel(items) %}
+        {% for item in items %}
+            {{ content.CodicilsHasVisibleDamage["option" + item] }}{% if loop.index < items.length %},{% endif %}
+        {% endfor %}
+{% endmacro %}
+{{checkanswer(
+    items = [
+        {
+            question: content.WillCodicils.question,
+            answer: content.WillCodicils[fields.will.codicils.value],
+            visible: true
+        },
+        {
+            question: content.CodicilsNumber.question,
+            answer: fields.will.codicilsNumber.value,
+            visible: fields.will.codicils.value == "optionYes"
+        }
+    ],
+    url = content.WillCodicils.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value,
+    answerIsGroup = true
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.CodicilsHasVisibleDamage.question,
+            answer: content.CodicilsHasVisibleDamage[fields.will.codicilsHasVisibleDamage.value], 
+            visible: fields.featureToggles.value.ft_will_condition
+        },
+        {
+            question: content.CodicilsHasVisibleDamage.otherDamageDescriptionHint,
+            answer: damageLabel(fields.will.codicilsDamage.value.damageTypesList),
+            visible: fields.will.codicilsHasVisibleDamage.value == 'optionYes'
+        },
+        {
+            question: 'Other damage',
+            answer: fields.will.codicilsDamage.value.otherDamageDescription,
+            visible: fields.will.codicilsDamage.value.damageTypesList[fields.will.codicilsDamage.value.damageTypesList.length - 1] == 'otherVisibleDamage'   
+        }
+    ],
+    url = content.CodicilsHasVisibleDamage.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}

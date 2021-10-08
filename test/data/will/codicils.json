@@ -1,0 +1,22 @@
+{
+    "will": {
+      "left": "Yes",
+      "original": "Yes",
+      "codicils": "Yes",
+      "codicilsHasVisibleDamage": "optionYes",
+      "codicilsDamage": {
+        "damageTypesList" : [
+          "stapleOrPunchHoles",
+          "otherVisibleDamage"
+        ]
+      },
+      "otherDamageDescription": "some damage description"
+    },
+    "applicant": {
+      "executor": "Yes"
+    },
+    "executors": {
+      "mentalCapacity": "Yes"
+    }
+  }
+  

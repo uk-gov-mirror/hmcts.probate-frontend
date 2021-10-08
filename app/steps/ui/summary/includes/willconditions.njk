@@ -84,24 +84,3 @@
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
-
-{{checkanswer(
-    items = [
-        {
-            question: content.WillCodicils.question,
-            answer: content.WillCodicils[fields.will.codicils.value],
-            visible: true
-        },
-        {
-            question: content.CodicilsNumber.question,
-            answer: fields.will.codicilsNumber.value,
-            visible: fields.will.codicils.value == "optionYes"
-        }
-    ],
-    url = content.WillCodicils.url,
-    common = common,
-    alreadyDeclared = fields.summary.alreadyDeclared.value,
-    answerIsGroup = true
-)}}
-
-

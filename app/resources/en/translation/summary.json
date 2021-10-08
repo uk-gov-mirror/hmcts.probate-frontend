@@ -22,6 +22,7 @@
   "mobileNumber": "Mobile number",
   "emailAddress": "Email address",
   "checkAnswersPdf": "Save this page (10kb PDF)",
+  "codicilsCondition": "Condition of the codicils",
 
   "errors": {
     "businessError": {

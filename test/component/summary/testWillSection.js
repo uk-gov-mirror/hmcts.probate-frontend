@@ -14,7 +14,7 @@ describe('summary-will-section', () => {
     describe('Verify Content, Errors and Redirection', () => {
         it('test correct content loaded on the will section of the summary page, when no data is entered - FT ON', (done) => {
             testWrapper = new TestWrapper('Summary', {ft_will_condition: true});
-            sessionData = require('test/data/will-noDamage');
+            sessionData = require('test/data/will/will-noDamage');
             sessionData.ccdCase = {
                 state: 'Pending',
                 id: 1234567890123456
@@ -33,31 +33,9 @@ describe('summary-will-section', () => {
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
-
-        it('test correct content loaded on the will section of the summary page, when no data is entered - FT OFF', (done) => {
-            testWrapper = new TestWrapper('Summary', {ft_will_condition: false});
-            sessionData = require('test/data/will-noDamage');
-            sessionData.ccdCase = {
-                state: 'Pending',
-                id: 1234567890123456
-            };
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end((err) => {
-                    if (err) {
-                        throw err;
-                    }
-                    const playbackData = {
-                        codicils: willContent.codicils.question
-                    };
-
-                    testWrapper.testDataPlayback(done, playbackData);
-                });
-        });
         it('test correct content and data loaded on the will section of the summary page, when section is complete', (done) => {
             testWrapper = new TestWrapper('Summary', {ft_will_condition: true});
-            sessionData = require('test/data/will');
+            sessionData = require('test/data/will/will');
             sessionData.ccdCase = {
                 state: 'Pending',
                 id: 1234567890123456
@@ -69,7 +47,7 @@ describe('summary-will-section', () => {
                     if (err) {
                         throw err;
                     }
-                    delete require.cache[require.resolve('test/data/will')];
+                    delete require.cache[require.resolve('test/data/will/will')];
                     const playbackData = {
                         willHasVisibleDamage: willContent.willhasvisibledamage.question,
                         otherDamageDescriptionHint: willContent.willhasvisibledamage.otherDamageDescriptionHint,
