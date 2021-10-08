@@ -81,7 +81,25 @@
             visible: fields.will.codicilsDamageCulpritKnown.value == 'optionYes'
         }
     ],
-    url = content.CodicilDamageCulpritKnown.url,
+    url = content.CodicilsDamageCulpritKnown.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+  items = [
+    {
+      question: content.CodicilsDamageDate.question,
+      answer: content.CodicilsDamageDate[fields.will.codicilsDamageDateKnown.value],
+      visible: fields.will.codicilsHasVisibleDamage.value == 'optionYes'
+    },
+    {
+      question: content.CodicilsDamageDate.date,
+      answer: fields.will.codicilsDamageDate.value,
+      visible: fields.will.codicilsDamageDateKnown.value == 'optionYes'
+    }
+  ],
+  url = content.CodicilsDamageDate.url,
+  common = common,
+  alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}

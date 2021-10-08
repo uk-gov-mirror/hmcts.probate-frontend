@@ -1,0 +1,20 @@
+{
+  "title": "Do you know roughly when the visible damages or marks appeared on the codicils?",
+  "question": "Do you know roughly when the visible damages or marks appeared on the codicils?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "date": "Date of roughly when the damages or marks happened to the will",
+  "dateHint": "Date of roughly when the damages or marks happened to the will<br>If you cannot remember the full date, enter just the year",
+  "errors": {
+    "willDamageDateKnown": {
+      "required": "Select &lsquo;yes&rsquo; if you know roughly when the visible damages or marks appeared on the codicils"
+    },
+    "willdamagedate-year": {
+      "required": "Enter the year when damages or marks appeared on the codicils"
+    },
+    "willdamagedate": {
+      "future": "The date of when damages or marks appeared on the codicils must be in the past or today",
+      "invalid": "Please enter a valid date"
+    }
+  }
+}

@@ -122,7 +122,8 @@ const stepList = {
         otherwise: 'TaskList'
     },
     CodicilsDamageReasonKnown: 'CodicilsDamageCulpritKnown',
-    CodicilsDamageCulpritKnown: 'TaskList',
+    CodicilsDamageCulpritKnown: 'CodicilsDamageDate',
+    CodicilsDamageDate: 'TaskList',
     ApplicantName: 'ApplicantNameAsOnWill',
     ApplicantNameAsOnWill: {
         hasAlias: 'ApplicantAlias',
