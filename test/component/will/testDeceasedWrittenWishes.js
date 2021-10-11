@@ -1,16 +1,16 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const DamageDate = require('app/steps/ui/will/codicilsdamagedate');
+const TaskList = require('app/steps/ui/tasklist');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
-describe('codicils-damage-culprit', () => {
+describe('deceased-written-wishes', () => {
     let testWrapper;
-    const expectedNextUrlForWillDamageDate = DamageDate.getUrl();
+    const expectedNextUrlForTaskList = TaskList.getUrl();
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('CodicilsDamageCulpritKnown');
+        testWrapper = new TestWrapper('DeceasedWrittenWishes');
     });
 
     afterEach(() => {
@@ -18,7 +18,7 @@ describe('codicils-damage-culprit', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('CodicilsDamageCulpritKnown', null, null, [], false, {type: caseTypes.GOP});
+        testCommonContent.runTest('DeceasedWrittenWishes', null, null, [], false, {type: caseTypes.GOP});
 
         it('test correct content loaded on the page', (done) => {
             const sessionData = {
@@ -37,26 +37,24 @@ describe('codicils-damage-culprit', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const errorsToTest = ['codicilsDamageCulpritKnown'];
+            const errorsToTest = ['deceasedWrittenWishes'];
             testWrapper.testErrors(done, {}, 'required', errorsToTest);
         });
 
-        it(`test it redirects to Damage Date page for unknown: ${expectedNextUrlForWillDamageDate}`, (done) => {
+        it(`test it redirects to TaskList page for No: ${expectedNextUrlForTaskList}`, (done) => {
             const data = {
-                codicilsDamageCulpritKnown: 'optionNo'
+                deceasedWrittenWishes: 'optionNo'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForWillDamageDate);
+            testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
         });
 
-        it(`test it redirects to Damage Date page for known: ${expectedNextUrlForWillDamageDate}`, (done) => {
+        it(`test it redirects to TaskList page for Yes: ${expectedNextUrlForTaskList}`, (done) => {
             const data = {
-                codicilsDamageCulpritKnown: 'optionYes',
-                firstName: 'Harry',
-                lastName: 'Potter'
+                deceasedWrittenWishes: 'optionYes'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForWillDamageDate);
+            testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
         });
     });
 });

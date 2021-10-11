@@ -27,7 +27,7 @@
         {
             question: content.CodicilsHasVisibleDamage.question,
             answer: content.CodicilsHasVisibleDamage[fields.will.codicilsHasVisibleDamage.value],
-            visible: fields.featureToggles.value.ft_will_condition
+            visible: fields.featureToggles.value.ft_will_condition and fields.will.codicils.value == 'optionYes'
         },
         {
             question: content.CodicilsHasVisibleDamage.otherDamageDescriptionHint,
@@ -50,7 +50,7 @@
     {
       question: content.CodicilsDamageReasonKnown.question,
       answer: content.CodicilsDamageReasonKnown[fields.will.codicilsDamageReasonKnown.value],
-      visible: fields.will.codicilsHasVisibleDamage.value == 'optionYes'
+      visible: fields.featureToggles.value.ft_will_condition and fields.will.codicilsHasVisibleDamage.value == 'optionYes'
     },
     {
       question: content.CodicilsDamageReasonKnown.codicilsDamageReasonDescriptionTitle,
@@ -68,7 +68,7 @@
         {
             question: content.CodicilsDamageCulpritKnown.question,
             answer: content.CodicilsDamageCulpritKnown[fields.will.codicilsDamageCulpritKnown.value],
-            visible: fields.will.codicilsHasVisibleDamage.value == 'optionYes'
+            visible: fields.featureToggles.value.ft_will_condition and fields.will.codicilsHasVisibleDamage.value == 'optionYes'
         },
         {
             question: content.CodicilsDamageCulpritKnown.firstName,
@@ -91,7 +91,7 @@
     {
       question: content.CodicilsDamageDate.question,
       answer: content.CodicilsDamageDate[fields.will.codicilsDamageDateKnown.value],
-      visible: fields.will.codicilsHasVisibleDamage.value == 'optionYes'
+      visible: fields.featureToggles.value.ft_will_condition and fields.will.codicilsHasVisibleDamage.value == 'optionYes'
     },
     {
       question: content.CodicilsDamageDate.date,
@@ -100,6 +100,19 @@
     }
   ],
   url = content.CodicilsDamageDate.url,
+  common = common,
+  alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+  items = [
+    {
+      question: content.DeceasedWrittenWishes.question,
+      answer: content.DeceasedWrittenWishes[fields.will.deceasedWrittenWishes.value],
+      visible: fields.featureToggles.value.ft_will_condition
+    }
+  ],
+  url = content.DeceasedWrittenWishes.url,
   common = common,
   alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}

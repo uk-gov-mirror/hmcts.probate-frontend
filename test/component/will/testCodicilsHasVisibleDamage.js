@@ -3,13 +3,13 @@
 const TestWrapper = require('test/util/TestWrapper');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
-const TaskList = require('app/steps/ui/tasklist');
+const Deceasedwrittenwishes = require('app/steps/ui/will/deceasedwrittenwishes');
 const CodicilsDamageReasonKnownPage = require('app/steps/ui/will/codicilsdamagereasonknown');
 
 describe('codicils-have-damage', () => {
     let testWrapper;
     const expectedNextUrlForCodicilsDamageReasonKnown = CodicilsDamageReasonKnownPage.getUrl();
-    const expectedNextUrlForTaskList = TaskList.getUrl();
+    const expectedNextUrl = Deceasedwrittenwishes.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('CodicilsHasVisibleDamage');
@@ -43,12 +43,12 @@ describe('codicils-have-damage', () => {
             testWrapper.testErrors(done, {}, 'required', errorsToTest);
         });
 
-        it(`test it redirects to TaskList page: ${expectedNextUrlForTaskList}`, (done) => {
+        it(`test it redirects to TaskList page: ${expectedNextUrl}`, (done) => {
             const data = {
                 codicilsHasVisibleDamage: 'optionNo'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
+            testWrapper.testRedirect(done, data, expectedNextUrl);
         });
 
         it(`test it redirects to Damage Reason page: ${expectedNextUrlForCodicilsDamageReasonKnown}`, (done) => {

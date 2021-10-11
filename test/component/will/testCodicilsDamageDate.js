@@ -1,13 +1,13 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const Tasklist = require('app/steps/ui/tasklist');
+const DeceasedWrittenWishes = require('app/steps/ui/will/deceasedwrittenwishes');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('codicils-damage-date', () => {
     let testWrapper;
-    const expectedNextUrl = Tasklist.getUrl();
+    const expectedNextUrl = DeceasedWrittenWishes.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('CodicilsDamageDate');

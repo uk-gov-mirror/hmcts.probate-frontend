@@ -2,7 +2,7 @@
   "will": {
     "left": "Yes",
     "original": "Yes",
-    "codicils": "Yes",
+    "codicils": "optionYes",
     "codicilsHasVisibleDamage": "optionYes",
     "codicilsDamage": {
       "damageTypesList": [

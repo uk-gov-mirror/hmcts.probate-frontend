@@ -113,17 +113,18 @@ const stepList = {
     WillDamageCulpritKnown: 'WillDamageDate',
     WillDamageDate: 'WillCodicils',
     WillCodicils: {
-        noCodicils: 'TaskList',
+        noCodicils: 'DeceasedWrittenWishes',
         otherwise: 'CodicilsNumber'
     },
     CodicilsNumber: 'CodicilsHasVisibleDamage',
     CodicilsHasVisibleDamage: {
         codicilsDoesHaveVisibleDamage: 'CodicilsDamageReasonKnown',
-        otherwise: 'TaskList'
+        otherwise: 'DeceasedWrittenWishes'
     },
     CodicilsDamageReasonKnown: 'CodicilsDamageCulpritKnown',
     CodicilsDamageCulpritKnown: 'CodicilsDamageDate',
-    CodicilsDamageDate: 'TaskList',
+    CodicilsDamageDate: 'DeceasedWrittenWishes',
+    DeceasedWrittenWishes: 'TaskList',
     ApplicantName: 'ApplicantNameAsOnWill',
     ApplicantNameAsOnWill: {
         hasAlias: 'ApplicantAlias',

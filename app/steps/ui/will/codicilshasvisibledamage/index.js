@@ -78,29 +78,33 @@ class CodicilsHasVisibleDamage extends ValidationStep {
     }
 
     resetValues(ctx) {
-        // if (ctx.codicilsDamageReasonKnown) {
-        //     ctx.codicilsDamageReasonKnown = 'optionNo';
-        // }
+        if (ctx.codicilsDamageReasonKnown) {
+            ctx.codicilsDamageReasonKnown = 'optionNo';
+        }
 
-        // if (ctx.codicilsDamageReasonDescription) {
-        //     ctx.codicilsDamageReasonDescription = '';
-        // }
+        if (ctx.codicilsDamageReasonDescription) {
+            ctx.codicilsDamageReasonDescription = '';
+        }
 
-        // if (ctx.codicilsDamageCulpritKnown) {
-        //     ctx.codicilsDamageCulpritKnown = 'optionNo';
-        // }
+        if (ctx.codicilsDamageCulpritKnown) {
+            ctx.codicilsDamageCulpritKnown = 'optionNo';
+        }
 
-        // if (ctx.codicilsDamageCulpritName) {
-        //     ctx.codicilsDamageCulpritName = {};
-        // }
+        if (ctx.codicilsDamageCulpritName) {
+            ctx.codicilsDamageCulpritName = {};
+        }
 
-        // if (ctx.codicilsDamageDateKnown) {
-        //     ctx.codicilsDamageDateKnown = 'optionNo';
-        // }
+        if (ctx.codicilsDamageDateKnown) {
+            ctx.codicilsDamageDateKnown = 'optionNo';
+        }
 
-        // if (ctx.codicilsDamageDate) {
-        //     ctx.codicilsDamageDate = '';
-        // }
+        if (ctx.codicilsDamageDate) {
+            ctx.codicilsDamageDate = '';
+        }
+
+        if (ctx.deceasedWrittenWishes) {
+            ctx.deceasedWrittenWishes = 'optionNo';
+        }
 
         if (ctx.codicilsDamage) {
             delete ctx.codicilsDamage.damageTypesList;

@@ -27,7 +27,7 @@ describe('summary-codicils-section', () => {
                         throw err;
                     }
                     const playbackData = {
-                        codicilsHasVisibleDamage: willContent.codicilshasvisibledamage.question
+                        codicilsHasVisibleDamage: willContent.codicils.question
                     };
 
                     testWrapper.testDataPlayback(done, playbackData);
@@ -55,7 +55,7 @@ describe('summary-codicils-section', () => {
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
-        it('test correct content and data loaded on the codicils section of the summary page, when section is complete', (done) => {
+        it('test correct content and data loaded on the codicils section of the summary page, when section is complete - FT ON', (done) => {
             testWrapper = new TestWrapper('Summary', {ft_will_condition: true});
             sessionData = require('test/data/will/codicils');
             sessionData.ccdCase = {
@@ -71,11 +71,11 @@ describe('summary-codicils-section', () => {
                     }
                     delete require.cache[require.resolve('test/data/will/codicils')];
                     const playbackData = {
-                        codicilsHasVisibleDamage: willContent.codicilshasvisibledamage.question,
                         otherDamageDescriptionHint: willContent.codicilshasvisibledamage.otherDamageDescriptionHint,
                         otherDamage: 'Other damage',
                         selectedDamage1: willContent.codicilshasvisibledamage.optionstapleOrPunchHoles,
                         selectedDamage2: willContent.codicilshasvisibledamage.optionotherVisibleDamage,
+                        codicilsHasVisibleDamage: willContent.codicilshasvisibledamage.question,
                         codicilsDamageReasonKnown: willContent.codicilsdamagereasonknown.question,
                         codicilsDamageReasonDescriptionTitle: willContent.codicilsdamagereasonknown.codicilsDamageReasonDescriptionTitle,
                         codicilsDamageDateKnown: willContent.codicilsdamagedate.question,
@@ -83,6 +83,28 @@ describe('summary-codicils-section', () => {
                         culpritQuestion: willContent.codicilsdamageculpritknown.question,
                         culpritFirstName: willContent.codicilsdamageculpritknown.firstName,
                         culpritLastName: willContent.codicilsdamageculpritknown.lastName
+                    };
+
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+        });
+        it('test correct content and data loaded on the codicils section of the summary page, when section is complete - FT OFF', (done) => {
+            testWrapper = new TestWrapper('Summary', {ft_will_condition: false});
+            sessionData = require('test/data/will/codicils');
+            sessionData.ccdCase = {
+                state: 'Pending',
+                id: 1234567890123456
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end((err) => {
+                    if (err) {
+                        throw err;
+                    }
+                    delete require.cache[require.resolve('test/data/will/codicils')];
+                    const playbackData = {
+                        codicilsHasVisibleDamage: willContent.codicils.question
                     };
 
                     testWrapper.testDataPlayback(done, playbackData);

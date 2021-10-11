@@ -1,0 +1,11 @@
+{
+  "title": "Did the person who died leave any written wishes?",
+  "question": "Did the person who died leave any written wishes?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "errors": {
+    "deceasedWrittenWishes": {
+      "required": "Select &lsquo;yes&rsquo; if you know if the person who died left any written wishes"
+    }
+  }
+}
