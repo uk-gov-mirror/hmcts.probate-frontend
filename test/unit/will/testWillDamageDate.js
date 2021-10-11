@@ -34,12 +34,12 @@ describe('WillDamageDate', () => {
         it('should handle just a year', (done) => {
             const ctxIn = {
                 willDamageDateKnown: 'optionYes',
-                willDamageDate: '//2021'
+                willDamageDate: '2021'
             };
             const [ctx] = WillDamageDate.handleGet(ctxIn);
             expect(ctx).to.deep.equal({
                 'willDamageDateKnown': 'optionYes',
-                'willDamageDate': '//2021',
+                'willDamageDate': '2021',
                 'willdamagedate-day': '',
                 'willdamagedate-month': '',
                 'willdamagedate-year': '2021'
@@ -143,7 +143,7 @@ describe('WillDamageDate', () => {
                 'willdamagedate-day': '4',
                 'willdamagedate-month': '10',
                 'willdamagedate-year': '2021',
-                'willDamageDate': '4/10/2021',
+                'willDamageDate': '04/10/2021',
             };
             expect(ctx).to.deep.equal(ctxOut);
             done();
@@ -159,7 +159,7 @@ describe('WillDamageDate', () => {
         const ctxOut = {
             'willDamageDateKnown': 'optionYes',
             'willdamagedate-year': '2021',
-            'willDamageDate': '//2021',
+            'willDamageDate': '2021',
         };
         expect(ctx).to.deep.equal(ctxOut);
         done();

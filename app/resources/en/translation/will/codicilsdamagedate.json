@@ -12,6 +12,9 @@
     "codicilsdamagedate-year": {
       "required": "Enter the year when damages or marks appeared on the codicils"
     },
+    "codicilsdamagedate-month": {
+      "required": "Please enter the month if you know the day it was damaged"
+    },
     "codicilsdamagedate": {
       "future": "The date of when damages or marks appeared on the codicils must be in the past or today",
       "invalid": "Please enter a valid date"

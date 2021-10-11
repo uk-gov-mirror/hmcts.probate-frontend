@@ -2,6 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FieldError = require('app/components/error');
+const FormatDate = require('app/utils/FormatDate');
 const moment = require('moment');
 const config = require('config');
 
@@ -13,7 +14,7 @@ class WillDamageDate extends ValidationStep {
 
     handleGet(ctx) {
         if (ctx.willDamageDate) {
-            [ctx['willdamagedate-day'], ctx['willdamagedate-month'], ctx['willdamagedate-year']] = ctx.willDamageDate.split('/');
+            [ctx['willdamagedate-day'], ctx['willdamagedate-month'], ctx['willdamagedate-year']] = FormatDate.formatDateGet(ctx.willDamageDate);
         }
         return [ctx];
     }
@@ -37,6 +38,9 @@ class WillDamageDate extends ValidationStep {
         if (!year) {
             errors.push(FieldError('willdamagedate-year', 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
             return [ctx, errors];
+        } else if (ctx['willdamagedate-day'] && !ctx['willdamagedate-month']) {
+            errors.push(FieldError('willdamagedate-month', 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+            return [ctx, errors];
         } else if (willdamagedate.isAfter(moment())) {
             errors.push(FieldError('willdamagedate', 'future', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
             return [ctx, errors];
@@ -48,7 +52,8 @@ class WillDamageDate extends ValidationStep {
         const d = ctx['willdamagedate-day'] ? ctx['willdamagedate-day'] : '';
         const m = ctx['willdamagedate-month'] ? ctx['willdamagedate-month'] : '';
         const y = ctx['willdamagedate-year'];
-        ctx.willDamageDate = `${d}/${m}/${y}`;
+        const formattedDate = FormatDate.formatDatePost({'day': d, 'month': m, 'year': y});
+        ctx.willDamageDate = formattedDate;
 
         return [ctx, errors];
     }

@@ -12,6 +12,9 @@
     "willdamagedate-year": {
       "required": "Enter the year when visible damages or marks appeared on the will"
     },
+    "willdamagedate-month": {
+      "required": "Please enter the month if you know the day it was damaged"
+    },
     "willdamagedate": {
       "future": "The date of when damages or marks appeared on the will must be in the past or today",
       "invalid": "Please enter a valid date"

@@ -2,6 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FieldError = require('app/components/error');
+const FormatDate = require('app/utils/FormatDate');
 const moment = require('moment');
 const config = require('config');
 
@@ -13,7 +14,7 @@ class CodicilsDamageDate extends ValidationStep {
 
     handleGet(ctx) {
         if (ctx.codicilsDamageDate) {
-            [ctx['codicilsdamagedate-day'], ctx['codicilsdamagedate-month'], ctx['codicilsdamagedate-year']] = ctx.codicilsDamageDate.split('/');
+            [ctx['codicilsdamagedate-day'], ctx['codicilsdamagedate-month'], ctx['codicilsdamagedate-year']] = FormatDate.formatDateGet(ctx.codicilsDamageDate);
         }
         return [ctx];
     }
@@ -37,6 +38,9 @@ class CodicilsDamageDate extends ValidationStep {
         if (!year) {
             errors.push(FieldError('codicilsdamagedate-year', 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
             return [ctx, errors];
+        } else if (ctx['codicilsdamagedate-day'] && !ctx['codicilsdamagedate-month']) {
+            errors.push(FieldError('codicilsdamagedate-month', 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+            return [ctx, errors];
         } else if (codicilsdamagedate.isAfter(moment())) {
             errors.push(FieldError('codicilsdamagedate', 'future', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
             return [ctx, errors];
@@ -48,7 +52,8 @@ class CodicilsDamageDate extends ValidationStep {
         const d = ctx['codicilsdamagedate-day'] ? ctx['codicilsdamagedate-day'] : '';
         const m = ctx['codicilsdamagedate-month'] ? ctx['codicilsdamagedate-month'] : '';
         const y = ctx['codicilsdamagedate-year'];
-        ctx.codicilsDamageDate = `${d}/${m}/${y}`;
+        const formattedDate = FormatDate.formatDatePost({'day': d, 'month': m, 'year': y});
+        ctx.codicilsDamageDate = formattedDate;
 
         return [ctx, errors];
     }

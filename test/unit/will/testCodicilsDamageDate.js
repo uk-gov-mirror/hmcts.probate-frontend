@@ -34,12 +34,12 @@ describe('CodicilsDamageDate', () => {
         it('should handle just a year', (done) => {
             const ctxIn = {
                 codicilsDamageDateKnown: 'optionYes',
-                codicilsDamageDate: '//2021'
+                codicilsDamageDate: '2021'
             };
             const [ctx] = CodicilsDamageDate.handleGet(ctxIn);
             expect(ctx).to.deep.equal({
                 'codicilsDamageDateKnown': 'optionYes',
-                'codicilsDamageDate': '//2021',
+                'codicilsDamageDate': '2021',
                 'codicilsdamagedate-day': '',
                 'codicilsdamagedate-month': '',
                 'codicilsdamagedate-year': '2021'
@@ -143,7 +143,7 @@ describe('CodicilsDamageDate', () => {
                 'codicilsdamagedate-day': '4',
                 'codicilsdamagedate-month': '10',
                 'codicilsdamagedate-year': '2021',
-                'codicilsDamageDate': '4/10/2021',
+                'codicilsDamageDate': '04/10/2021',
             };
             expect(ctx).to.deep.equal(ctxOut);
             done();
@@ -159,7 +159,7 @@ describe('CodicilsDamageDate', () => {
         const ctxOut = {
             'codicilsDamageDateKnown': 'optionYes',
             'codicilsdamagedate-year': '2021',
-            'codicilsDamageDate': '//2021',
+            'codicilsDamageDate': '2021',
         };
         expect(ctx).to.deep.equal(ctxOut);
         done();
