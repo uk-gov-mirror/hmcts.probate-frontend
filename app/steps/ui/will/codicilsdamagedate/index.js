@@ -3,6 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FieldError = require('app/components/error');
 const FormatDate = require('app/utils/FormatDate');
+const DateValidation = require('app/utils/DateValidation');
 const moment = require('moment');
 const config = require('config');
 
@@ -45,6 +46,9 @@ class CodicilsDamageDate extends ValidationStep {
             errors.push(FieldError('codicilsdamagedate', 'future', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
             return [ctx, errors];
         } else if (!codicilsdamagedate.isValid()) {
+            errors.push(FieldError('codicilsdamagedate', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+            return [ctx, errors];
+        } else if (!DateValidation.isPositive([day, month, year])) {
             errors.push(FieldError('codicilsdamagedate', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
             return [ctx, errors];
         }

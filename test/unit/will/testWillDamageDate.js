@@ -47,6 +47,22 @@ describe('WillDamageDate', () => {
             done();
         });
 
+        it('should handle a year and a month', (done) => {
+            const ctxIn = {
+                willDamageDateKnown: 'optionYes',
+                willDamageDate: '04/2021'
+            };
+            const [ctx] = WillDamageDate.handleGet(ctxIn);
+            expect(ctx).to.deep.equal({
+                'willDamageDateKnown': 'optionYes',
+                'willDamageDate': '04/2021',
+                'willdamagedate-day': '',
+                'willdamagedate-month': '04',
+                'willdamagedate-year': '2021'
+            });
+            done();
+        });
+
         it('should return the context unchanged when willDamageDate is empty', (done) => {
             const ctxIn = {
                 willDamageDateKnown: 'optionNo',
@@ -92,6 +108,24 @@ describe('WillDamageDate', () => {
             done();
         });
 
+        it ('should create an error when day and year but no month', (done) => {
+            const ctxIn = {
+                'willDamageDateKnown': 'optionYes',
+                'willdamagedate-day': '4',
+                'willdamagedate-year': '2018'
+            };
+            const errorsIn = [];
+            const formdata = {};
+            const session = {};
+            const [, errors] = WillDamageDate.handlePost(ctxIn, errorsIn, formdata, session);
+            expect(errors).to.deep.equal([{
+                'field': 'willdamagedate-month',
+                'href': '#willdamagedate-month',
+                'msg': 'Please enter the month if you know the day it was damaged'
+            }]);
+            done();
+        });
+
         it ('should create an error when a future date has been entered', (done) => {
             const ctxIn = {
                 'willDamageDateKnown': 'optionYes',
@@ -107,6 +141,25 @@ describe('WillDamageDate', () => {
                 'field': 'willdamagedate',
                 'href': '#willdamagedate',
                 'msg': 'The date of when damages or marks appeared on the will must be in the past or today'
+            }]);
+            done();
+        });
+
+        it ('should create an error if negative day, month or year entered', (done) => {
+            const ctxIn = {
+                'willDamageDateKnown': 'optionYes',
+                'willdamagedate-day': '-4',
+                'willdamagedate-month': '10',
+                'willdamagedate-year': '2019'
+            };
+            const errorsIn = [];
+            const formdata = {};
+            const session = {};
+            const [, errors] = WillDamageDate.handlePost(ctxIn, errorsIn, formdata, session);
+            expect(errors).to.deep.equal([{
+                'field': 'willdamagedate',
+                'href': '#willdamagedate',
+                'msg': 'Please enter a valid date'
             }]);
             done();
         });

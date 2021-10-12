@@ -47,6 +47,23 @@ describe('CodicilsDamageDate', () => {
             done();
         });
 
+        it('should handle a year and a month', (done) => {
+            const ctxIn = {
+                codicilsDamageDateKnown: 'optionYes',
+                codicilsDamageDate: '04/2021'
+
+            };
+            const [ctx] = CodicilsDamageDate.handleGet(ctxIn);
+            expect(ctx).to.deep.equal({
+                'codicilsDamageDateKnown': 'optionYes',
+                'codicilsDamageDate': '04/2021',
+                'codicilsdamagedate-day': '',
+                'codicilsdamagedate-month': '04',
+                'codicilsdamagedate-year': '2021'
+            });
+            done();
+        });
+
         it('should return the context unchanged when codicilsDamageDate is empty', (done) => {
             const ctxIn = {
                 codicilsDamageDateKnown: 'optionNo',
@@ -92,6 +109,24 @@ describe('CodicilsDamageDate', () => {
             done();
         });
 
+        it ('should create an error when day and year but no month', (done) => {
+            const ctxIn = {
+                'codicilsDamageDateKnown': 'optionYes',
+                'codicilsdamagedate-day': '4',
+                'codicilsdamagedate-year': '2018'
+            };
+            const errorsIn = [];
+            const formdata = {};
+            const session = {};
+            const [, errors] = CodicilsDamageDate.handlePost(ctxIn, errorsIn, formdata, session);
+            expect(errors).to.deep.equal([{
+                'field': 'codicilsdamagedate-month',
+                'href': '#codicilsdamagedate-month',
+                'msg': 'Please enter the month if you know the day it was damaged'
+            }]);
+            done();
+        });
+
         it ('should create an error when a future date has been entered', (done) => {
             const ctxIn = {
                 'codicilsDamageDateKnown': 'optionYes',
@@ -107,6 +142,25 @@ describe('CodicilsDamageDate', () => {
                 'field': 'codicilsdamagedate',
                 'href': '#codicilsdamagedate',
                 'msg': 'The date of when damages or marks appeared on the codicils must be in the past or today'
+            }]);
+            done();
+        });
+
+        it ('should create an error if negative day, month or year entered', (done) => {
+            const ctxIn = {
+                'codicilsDamageDateKnown': 'optionYes',
+                'codicilsdamagedate-day': '-4',
+                'codicilsdamagedate-month': '10',
+                'codicilsdamagedate-year': '2019'
+            };
+            const errorsIn = [];
+            const formdata = {};
+            const session = {};
+            const [, errors] = CodicilsDamageDate.handlePost(ctxIn, errorsIn, formdata, session);
+            expect(errors).to.deep.equal([{
+                'field': 'codicilsdamagedate',
+                'href': '#codicilsdamagedate',
+                'msg': 'Please enter a valid date'
             }]);
             done();
         });
