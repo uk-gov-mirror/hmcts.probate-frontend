@@ -83,7 +83,10 @@ languages.forEach(language => {
 
         const isWillConditionEnabled = await TestConfigurator.checkFeatureToggle('probate-will-condition');
         if (isWillConditionEnabled) {
-            await I.selectWillDamage(language, optionNo);
+            await I.selectWillDamage(language, optionYes, 'test');
+            await I.selectWillDamageReason(language, optionYes, 'test');
+            await I.selectWillDamageWho(language, optionYes, 'test', 'test');
+            await I.selectWillDamageDate(language, optionYes, 2017);
         }
 
         await I.selectWillCodicils(language, optionNo);
