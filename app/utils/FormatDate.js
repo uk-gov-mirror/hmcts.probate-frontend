@@ -8,11 +8,11 @@ class FormatDate {
         }
 
         if (dateObject.month !== '') {
-            formattedDateString = this.addZero(dateObject.month) + '/' + formattedDateString;
+            formattedDateString = dateObject.month + '/' + formattedDateString;
         }
 
         if (dateObject.day !== '') {
-            formattedDateString = this.addZero(dateObject.day) + '/' + formattedDateString;
+            formattedDateString = dateObject.day + '/' + formattedDateString;
         }
         return formattedDateString;
     }
@@ -27,12 +27,6 @@ class FormatDate {
         return dateArray;
     }
 
-    static addZero(dayOrMonth) {
-        if (dayOrMonth.length === 1) {
-            return '0' + dayOrMonth;
-        }
-        return dayOrMonth;
-    }
 }
 
 module.exports = FormatDate;

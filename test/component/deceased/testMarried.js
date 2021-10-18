@@ -88,7 +88,7 @@ describe('deceased-married', () => {
                 });
         });
 
-        it(`test it redirects to Will Codicils page for FT on: ${expectedNextUrlForWillDamage}`, (done) => {
+        it(`test it redirects to Will Damage page for FT on: ${expectedNextUrlForWillDamage}`, (done) => {
             const data = {
                 married: 'optionNo'
             };

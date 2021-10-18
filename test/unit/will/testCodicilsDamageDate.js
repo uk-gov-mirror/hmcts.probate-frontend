@@ -184,7 +184,24 @@ describe('CodicilsDamageDate', () => {
             done();
         });
 
-        it ('should add the date as a formatted string to the context', (done) => {
+        it ('should add the date with month and year as a formatted string to the context', (done) => {
+            const ctxIn = {
+                'codicilsDamageDateKnown': 'optionYes',
+                'codicilsdamagedate-month': '10',
+                'codicilsdamagedate-year': '2021'
+            };
+            const [ctx] = CodicilsDamageDate.handlePost(ctxIn);
+            const ctxOut = {
+                'codicilsDamageDateKnown': 'optionYes',
+                'codicilsdamagedate-month': '10',
+                'codicilsdamagedate-year': '2021',
+                'codicilsDamageDate': '10/2021',
+            };
+            expect(ctx).to.deep.equal(ctxOut);
+            done();
+        });
+
+        it ('should add the date with day, month and year as a formatted string to the context', (done) => {
             const ctxIn = {
                 'codicilsDamageDateKnown': 'optionYes',
                 'codicilsdamagedate-day': '4',
@@ -197,7 +214,7 @@ describe('CodicilsDamageDate', () => {
                 'codicilsdamagedate-day': '4',
                 'codicilsdamagedate-month': '10',
                 'codicilsdamagedate-year': '2021',
-                'codicilsDamageDate': '04/10/2021',
+                'codicilsDamageDate': '4/10/2021',
             };
             expect(ctx).to.deep.equal(ctxOut);
             done();

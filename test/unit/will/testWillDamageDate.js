@@ -183,7 +183,24 @@ describe('WillDamageDate', () => {
             done();
         });
 
-        it ('should add the date as a formatted string to the context', (done) => {
+        it ('should add the date with month and year as a formatted string to the context', (done) => {
+            const ctxIn = {
+                'willDamageDateKnown': 'optionYes',
+                'willdamagedate-month': '10',
+                'willdamagedate-year': '2021'
+            };
+            const [ctx] = WillDamageDate.handlePost(ctxIn);
+            const ctxOut = {
+                'willDamageDateKnown': 'optionYes',
+                'willdamagedate-month': '10',
+                'willdamagedate-year': '2021',
+                'willDamageDate': '10/2021',
+            };
+            expect(ctx).to.deep.equal(ctxOut);
+            done();
+        });
+
+        it ('should add the date with day, month and year as a formatted string to the context', (done) => {
             const ctxIn = {
                 'willDamageDateKnown': 'optionYes',
                 'willdamagedate-day': '4',
@@ -196,7 +213,7 @@ describe('WillDamageDate', () => {
                 'willdamagedate-day': '4',
                 'willdamagedate-month': '10',
                 'willdamagedate-year': '2021',
-                'willDamageDate': '04/10/2021',
+                'willDamageDate': '4/10/2021',
             };
             expect(ctx).to.deep.equal(ctxOut);
             done();
