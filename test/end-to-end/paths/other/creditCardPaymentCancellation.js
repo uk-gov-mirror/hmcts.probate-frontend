@@ -85,7 +85,17 @@ languages.forEach(language => {
             if (isWillConditionEnabled) {
                 await I.selectWillDamage(language, optionNo);
             }
+
             await I.selectWillCodicils(language, optionNo);
+            await I.selectWillNoOfCodicils(language, 1);
+
+            if (isWillConditionEnabled) {
+                await I.selectCodicilsDamage(language, optionYes, 'test');
+                await I.selectCodicilsReason(language, optionYes, 'test');
+                await I.selectCodicilsWho(language, optionYes, 'test', 'test');
+                await I.selectCodicilsDate(language, optionYes, 2000);
+                await I.selectWrittenWishes(language, optionYes, 'test');
+            }
 
             // ExecutorsTask
             await I.selectATask(language, taskListContent.taskNotStarted);
