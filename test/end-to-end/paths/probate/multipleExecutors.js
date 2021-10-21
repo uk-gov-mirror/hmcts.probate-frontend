@@ -78,7 +78,7 @@ languages.forEach(language => {
             await I.selectWillDamageDate(language, optionYes, 2017);
         }
 
-        await I.selectWillCodicils(language, optionNo);
+        await I.selectWillCodicils(language, optionYes);
         await I.selectWillNoOfCodicils(language, 1);
 
         if (isWillConditionEnabled) {
