@@ -14,10 +14,12 @@
   {% endif %}
   {% if fields.hasCodicils.value === "true" and fields.codicilsNumber.value > "0" %}
     {% set checklistItems = (checklistItems.push(content["checklist-item2-codicils"]), checklistItems) %}
-    {% set checklistItems = (checklistItems.push(content["checklist-item3-will-damage-codicils"]), checklistItems) %}
   {% else %}
     {% set checklistItems = (checklistItems.push(content["checklist-item2-no-codicils"]), checklistItems) %}
-    {% set checklistItems = (checklistItems.push(content["checklist-item3-will-damage-no-codicils"]), checklistItems) %}
+  {% endif %}
+  {% if fields.deceasedWrittenWishes.value == "optionYes" %}
+    {% set checklistItems = (checklistItems.push(content["checklist-item3-written-wish"]), checklistItems) %}
+    checklist-item3-written-wishes
   {% endif %}
   {% if (fields.interimDeathCertificate.value === "true") %}
     {% set checklistItems = (checklistItems.push(content["checklist-item4-interim-death-cert"]), checklistItems) %}
@@ -64,6 +66,7 @@
 
 
 {% block form_content %}
+  {{ fields | dump }}
     {% call govukFieldset({
         legend: {
             text: content.header | safe,
