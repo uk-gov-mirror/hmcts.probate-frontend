@@ -1,16 +1,16 @@
 {
-    "title": "Do you know why the codicils have visible damages or marks?",
-    "question": "Do you know why the codicils have visible damages or marks?",
-    "optionYes": "Yes",
-    "optionNo": "No",
-    "codicilsDamageReasonDescriptionTitle": "Reason for the visible damages or marks to the codicils",
-    "codicilsDamageReasonDescriptionHint": "Give as much detail as you can. This may help reduce any delays in processing your application",
+    "title": "Ydych chi’n gwybod pam fod difrod neu farciau gweledol i’r codisiliau?",
+    "question": "Ydych chi’n gwybod pam fod difrod neu farciau gweledol i’r codisiliau?",
+    "optionYes": "Ydw",
+    "optionNo": "Nac ydw",
+    "codicilsDamageReasonDescriptionTitle": "Rheswm dros y difrod neu farciau i’r codisiliau",
+    "codicilsDamageReasonDescriptionHint": "Rhowch cymaint o fanylion ag y gallwch. Gall hyn helpu i leihau unrhyw oedi wrth brosesu eich cais",
     "errors": {
         "codicilsDamageReasonKnown": {
-            "required": "Select &lsquo;yes&rsquo; if you know why the codicils have any visible damages or marks"
+            "required": "Dewiswch &lsquo;Ydw&rsquo; os gwyddoch pam fod unrhyw ddifrod neu farciau gweladwy ar y codisiliau"
         },
         "codicilsDamageReasonDescription": {
-            "required": "Enter a reason why there are visible damages or marks to the codicils"
+            "required": "Nodwch pam fod difrod neu farciau gweladwy i’r codisiliau"
         }
     }
 }

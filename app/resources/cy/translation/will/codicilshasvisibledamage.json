@@ -1,25 +1,26 @@
 {
-    "title": "Do the codicils have any visible damages or marks?",
-    "question": "Do the codicils have any visible damages or marks?",
-    "optionYes": "Yes",
-    "optionNo": "No",
-    "otherDamageDescriptionHint": "Describe the damage",
-    "codicilsDamageHint": "Select all that apply.",
-    "optionstapleOrPunchHoles": "Staple or punch holes",
-    "optionrustMarks": "Rust marks",
-    "optionpaperClipMarks": "Paper clip marks",
-    "optiontornEdges": "Torn edges",
-    "optionwaterDamage": "Water damage",
-    "optionotherVisibleDamage": "Other",
+    "title": "A oes unrhyw ddifrod neu farciau ar y codisil?",
+    "question": "A oes unrhyw ddifrod neu farciau ar y codisil?",
+    "optionYes": "Oes",
+    "optionNo": "Nac Oes",
+    "otherDamageDescriptionHint": "Disgrifiwch y difrod neu farciau",
+    "otherDamage": "Difrod arall",
+    "codicilsDamageHint": "Ticiwch yr hyn sy’n berthnasol",
+    "optionstapleOrPunchHoles": "Staplenni neu dyllau pwnsh",
+    "optionrustMarks": "Marciau rhwd",
+    "optionpaperClipMarks": "Marciau clipiau papur",
+    "optiontornEdges": "Ymylon wedi’u rhwygo",
+    "optionwaterDamage": "Niwed gan ddŵr",
+    "optionotherVisibleDamage": "Arall",
     "errors": {
       "codicilsHasVisibleDamage": {
-        "required": "Select &lsquo;yes&rsquo; if you know if the codicils have any visible damages or marks"
+        "required": "Dewiswch &lsquo;Oes&rsquo; os gwyddoch os oes unrhyw ddifrod neu farciau gweladwy ar y codisiliau"
       },
       "codicilsDamageTypes": {
-        "required": "Select which visible damages or marks applies"
+        "required": "Dewiswch pa ddifrod neu farciau gweladwy sy’n berthnasol"
       },
       "otherDamageDescription": {
-        "required": "Enter a description of the visible damages or marks to the codicils"
+        "required": "Disgrifiwch y difrod neu’r marciau gweladwy i’r codisiliau"
       }
     }
   }

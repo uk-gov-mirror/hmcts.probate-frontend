@@ -3,6 +3,7 @@
 const requireDir = require('require-directory');
 const TestWrapper = require('test/util/TestWrapper');
 const willContent = requireDir(module, '../../../app/resources/en/translation/will');
+const willContentWelsh = requireDir(module, '../../../app/resources/cy/translation/will');
 
 describe('summary-will-section', () => {
     let testWrapper, sessionData;
@@ -51,7 +52,7 @@ describe('summary-will-section', () => {
                     const playbackData = {
                         willHasVisibleDamage: willContent.willhasvisibledamage.question,
                         otherDamageDescriptionHint: willContent.willhasvisibledamage.otherDamageDescriptionHint,
-                        otherDamage: 'Other damage',
+                        otherDamage: willContent.willhasvisibledamage.otherDamage,
                         selectedDamage1: willContent.willhasvisibledamage.optionstapleOrPunchHoles,
                         selectedDamage2: willContent.willhasvisibledamage.optionotherVisibleDamage,
                         damageReasonKnown: willContent.willdamagereasonknown.question,
@@ -62,6 +63,39 @@ describe('summary-will-section', () => {
                     };
 
                     testWrapper.testDataPlayback(done, playbackData);
+                });
+        });
+        it('test correct content and data loaded on the will section of the summary page, when section is complete - WELSH', (done) => {
+            testWrapper = new TestWrapper('Summary', {ft_will_condition: true});
+            sessionData = require('test/data/will/will');
+            sessionData.ccdCase = {
+                state: 'Pending',
+                id: 1234567890123456,
+            };
+            sessionData.language = 'cy';
+            const contentToExclude = ['title', 'heading', 'checkCarefully', 'uploadedDocumentsHeading', 'uploadedDocumentsEmpty', 'applicantHeading', 'deceasedHeading', 'ihtHeading', 'otherExecutors', 'executorsWhenDiedQuestion', 'otherNamesLabel', 'aboutPeopleApplyingHeading', 'aboutYouHeading', 'executorApplyingForProbate', 'executorsNotApplyingForProbate', 'executorsWithOtherNames', 'nameOnWill', 'currentName', 'currentNameReason', 'address', 'mobileNumber', 'emailAddress', 'checkAnswersPdf'];
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end((err) => {
+                    if (err) {
+                        throw err;
+                    }
+                    delete require.cache[require.resolve('test/data/will/will')];
+                    const playbackData = {
+                        willHasVisibleDamage: willContentWelsh.willhasvisibledamage.question,
+                        otherDamageDescriptionHint: willContentWelsh.willhasvisibledamage.otherDamageDescriptionHint,
+                        otherDamage: willContentWelsh.willhasvisibledamage.otherDamage,
+                        selectedDamage1: willContentWelsh.willhasvisibledamage.optionstapleOrPunchHoles,
+                        selectedDamage2: willContentWelsh.willhasvisibledamage.optionotherVisibleDamage,
+                        damageReasonKnown: willContentWelsh.willdamagereasonknown.question,
+                        willDamageReasonDescriptionTitle: willContentWelsh.willdamagereasonknown.willDamageReasonDescriptionTitle,
+                        culpritQuestion: willContentWelsh.willdamageculpritknown.question,
+                        culpritFirstName: willContentWelsh.willdamageculpritknown.firstName,
+                        culpritLastName: willContentWelsh.willdamageculpritknown.lastName
+                    };
+
+                    testWrapper.testContent(done, playbackData, contentToExclude, [], 'cy');
                 });
         });
     });

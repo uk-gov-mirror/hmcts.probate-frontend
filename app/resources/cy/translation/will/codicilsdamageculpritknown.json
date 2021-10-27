@@ -1,20 +1,20 @@
 {
-    "title": "Do you know who may have made visible damages or marks to the codicils?",
-    "question": "Do you know who may have made visible damages or marks to the codicils?",
-    "optionYes": "Yes",
-    "optionNo": "No",
-    "nameLabel": "Name of the person who may have made visible damages or marks to the codicils",
-    "firstName": "First name",
-    "lastName": "Last name",
+    "title": "Ydych chi’n gwybod pwy all fod wedi gwneud difrod neu farciau gweladwy i’r codisiliau?",
+    "question": "Ydych chi’n gwybod pwy all fod wedi gwneud difrod neu farciau gweladwy i’r codisiliau?",
+    "optionYes": "Ydw",
+    "optionNo": "Nac ydw",
+    "nameLabel": "Enw’r sawl allai fod wedi gwneud difrod neu farciau i’r codisiliau",
+    "firstName": "Cadw a pharhau",
+    "lastName": "Cadw a chau",
     "errors": {
         "codicilsDamageCulpritKnown": {
-            "required": "Select &lsquo;yes&rsquo;  if you know who has made visible damages or marks to the codicils"
+            "required": "Dewiswch &lsquo;Ydw&rsquo; os gwyddoch pwy wnaeth y difrod neu farciau gweladwy i’r codisiliau"
         },
         "firstName": {
-            "required": "Enter the first name and last name of the person who may have made visible damages or marks to the codicils"
+            "required": "Nodwch enw a chyfenw'r sawl a allai fod wedi gwneud difrod neu farciau gweladwy ar y codisiliau"
         },
         "lastName": {
-            "required": "Enter the first name and last name of the person who may have made visible damages or marks to the codicils"
+            "required": "Nodwch enw a chyfenw'r sawl a allai fod wedi gwneud difrod neu farciau gweladwy ar y codisiliau"
         } 
     }
 }

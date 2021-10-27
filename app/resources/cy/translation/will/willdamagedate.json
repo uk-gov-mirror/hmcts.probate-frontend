@@ -1,23 +1,23 @@
 {
-  "title": "Do you know roughly when the damages or marks appeared on the will?",
-  "question": "Do you know roughly when the damages or marks appeared on the will?",
-  "optionYes": "Yes",
-  "optionNo": "No",
-  "date": "Date of roughly when the damages or marks happened to the will",
-  "dateHint": "Date of roughly when the damages or marks happened to the will<br>If you cannot remember the full date, enter just the year",
+  "title": "Ydych chi’n gwybod yn fras pryd yr ymddangosodd y difrod neu farciau gweladwy ar yr ewyllys?",
+  "question": "Ydych chi’n gwybod yn fras pryd yr ymddangosodd y difrod neu farciau gweladwy ar yr ewyllys?",
+  "optionYes": "Ydw",
+  "optionNo": "Nac ydw",
+  "date": "Dyddiad pryd yr ymddangosodd y difrod neu farciau gweladwy ar yr ewyllys yn fras",
+  "dateHint": "Dyddiad pryd yr ymddangosodd y difrod neu farciau gweladwy ar yr ewyllys yn fras<br>Os na fedrwch gofio’r dyddiad yn llawn, nodwch y flwyddyn yn unig.",
   "errors": {
     "willDamageDateKnown": {
-      "required": "Select &lsquo;yes&rsquo; if you know roughly when the visible damages or marks appeared on the will"
+      "required": "Dewiswch &lsquo;Ydw&rsquo; os gwyddoch yn fras pryd ymddangosodd y difrod neu farciau gweladwy ar yr ewyllys"
     },
     "willdamagedate-year": {
-      "required": "Enter the year when visible damages or marks appeared on the will"
+      "required": "Nodwch pa flwyddyn yr ymddangosodd y difrod neu farciau ar yr ewyllys"
     },
     "willdamagedate-month": {
-      "required": "Please enter the month if you know the day it was damaged"
+      "required": "Nodwch pa mis yr ymddangosodd y difrod neu farciau ar yr ewyllys"
     },
     "willdamagedate": {
-      "future": "The date of when damages or marks appeared on the will must be in the past or today",
-      "invalid": "Please enter a valid date"
+      "future": "Rhaid i’r dyddiad pryd yr ymddangosodd y difrod neu farciau ar yr ewyllys fod yn y gorffennol neu heddiw",
+      "invalid": "‘Rhowch ddyddiad dilys os gwelwch yn dda’ "
     }
   }
 }
