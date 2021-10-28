@@ -5,7 +5,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const willContent = requireDir(module, '../../../app/resources/en/translation/will');
 const willContentWelsh = requireDir(module, '../../../app/resources/cy/translation/will');
 
-describe.only('summary-will-section', () => {
+describe('summary-will-section', () => {
     let testWrapper, sessionData;
 
     afterEach(() => {

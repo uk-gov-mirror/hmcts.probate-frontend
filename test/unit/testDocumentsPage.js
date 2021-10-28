@@ -179,7 +179,7 @@ describe('Documents', () => {
                 done();
             });
 
-            it.only('should return deceasedWrittenWishes on ctx', (done) => {
+            it('should return deceasedWrittenWishes on ctx', (done) => {
                 const formdata = {
                     will: {
                         deceasedWrittenWishes: 'optionYes'
