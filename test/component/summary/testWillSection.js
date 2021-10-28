@@ -5,7 +5,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const willContent = requireDir(module, '../../../app/resources/en/translation/will');
 const willContentWelsh = requireDir(module, '../../../app/resources/cy/translation/will');
 
-describe('summary-will-section', () => {
+describe.only('summary-will-section', () => {
     let testWrapper, sessionData;
 
     afterEach(() => {
@@ -73,7 +73,7 @@ describe('summary-will-section', () => {
                 id: 1234567890123456,
             };
             sessionData.language = 'cy';
-            const contentToExclude = ['title', 'heading', 'checkCarefully', 'uploadedDocumentsHeading', 'uploadedDocumentsEmpty', 'applicantHeading', 'deceasedHeading', 'ihtHeading', 'otherExecutors', 'executorsWhenDiedQuestion', 'otherNamesLabel', 'aboutPeopleApplyingHeading', 'aboutYouHeading', 'executorApplyingForProbate', 'executorsNotApplyingForProbate', 'executorsWithOtherNames', 'nameOnWill', 'currentName', 'currentNameReason', 'address', 'mobileNumber', 'emailAddress', 'checkAnswersPdf'];
+            const contentToExclude = ['title', 'heading', 'checkCarefully', 'uploadedDocumentsHeading', 'uploadedDocumentsEmpty', 'applicantHeading', 'deceasedHeading', 'ihtHeading', 'otherExecutors', 'executorsWhenDiedQuestion', 'otherNamesLabel', 'aboutPeopleApplyingHeading', 'aboutYouHeading', 'executorApplyingForProbate', 'executorsNotApplyingForProbate', 'executorsWithOtherNames', 'nameOnWill', 'currentName', 'currentNameReason', 'address', 'mobileNumber', 'emailAddress', 'checkAnswersPdf', 'willConditionHeading', 'codicilsConditionHeading'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
