@@ -30,6 +30,9 @@ describe('CodicilsHasVisibleDamage', () => {
             otherDamageDescription: 'further description of how the codicils were damaged'
         }
     };
+    const ctxWithNoDamageTypes = {
+        codicilsHasVisibleDamage: 'optionYes',
+    };
     const ctxWithNo = {
         codicilsHasVisibleDamage: 'optionNo'
     };
@@ -60,6 +63,13 @@ describe('CodicilsHasVisibleDamage', () => {
                     'otherVisibleDamage'
                 ],
                 otherDamageDescription: 'further description of how the codicils were damaged'
+            });
+            done();
+        });
+        it('should return the ctx with NO codicils damage options with before post context', (done) => {
+            const [ctx] = CodicilsHasVisibleDamage.handleGet(ctxWithNoDamageTypes);
+            expect(ctx).to.deep.equal({
+                codicilsHasVisibleDamage: 'optionYes',
             });
             done();
         });

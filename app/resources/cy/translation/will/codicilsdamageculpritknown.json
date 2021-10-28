@@ -4,8 +4,8 @@
     "optionYes": "Ydw",
     "optionNo": "Nac ydw",
     "nameLabel": "Enw’r sawl allai fod wedi gwneud difrod neu farciau i’r codisiliau",
-    "firstName": "Cadw a pharhau",
-    "lastName": "Cadw a chau",
+    "firstName": "Enw cyntaf",
+    "lastName": "Cyfenw",
     "errors": {
         "codicilsDamageCulpritKnown": {
             "required": "Dewiswch &lsquo;Ydw&rsquo; os gwyddoch pwy wnaeth y difrod neu farciau gweladwy i’r codisiliau"

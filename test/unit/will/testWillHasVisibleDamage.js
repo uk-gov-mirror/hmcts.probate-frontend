@@ -34,6 +34,10 @@ describe('WillHasVisibleDamage', () => {
     const ctxWithNo = {
         willHasVisibleDamage: 'optionNo',
     };
+    const ctxWithNoDamageTypes = {
+        willHasVisibleDamage: 'optionYes',
+    };
+
     const ctxWithNoAndOtherWillConditionValues = {
         willHasVisibleDamage: 'optionNo',
         willDamage: {damageTypesList: []},
@@ -65,6 +69,13 @@ describe('WillHasVisibleDamage', () => {
                     'otherVisibleDamage'
                 ],
                 otherDamageDescription: 'further description of how the will was damaged'
+            });
+            done();
+        });
+        it('should return the ctx with NO will damage options with before post context', (done) => {
+            const [ctx] = WillHasVisibleDamage.handleGet(ctxWithNoDamageTypes);
+            expect(ctx).to.deep.equal({
+                willHasVisibleDamage: 'optionYes',
             });
             done();
         });
