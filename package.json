@@ -138,7 +138,7 @@
     "traverse": "^0.6.6",
     "tunnel-agent": "^0.6.0",
     "uuid": "^8.3.1",
-    "validator": "^11.1.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@pact-foundation/pact": "^9.16.3",
