@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = async function(language = 'en', option = null, description = null) {
+module.exports = async function(language = 'en', option = null) {
     const I = this;
     const commonContent = require(`app/resources/${language}/translation/common`);
 
