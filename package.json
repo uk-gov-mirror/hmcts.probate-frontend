@@ -90,7 +90,7 @@
     "@hmcts/properties-volume": "^0.0.9",
     "@wdio/selenium-standalone-service": "^7.6.0",
     "ajv": "^4.11.8",
-    "applicationinsights": "^2.1.8",
+    "applicationinsights": "^1.6.0",
     "@microsoft/applicationinsights-web": "^2.7.0",
     "@microsoft/applicationinsights-common": "^2.7.0",
     "applicationinsights-native-metrics": "^0.0.6",
