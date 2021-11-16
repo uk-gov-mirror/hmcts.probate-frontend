@@ -7,7 +7,7 @@ class ExceptedEstateDod {
         if (!date) {
             throw new TypeError('no deceased date date of death found');
         }
-        return date < config.exceptedEstateDateOfDeath;
+        return date > config.exceptedEstateDateOfDeath;
     }
 }
 
