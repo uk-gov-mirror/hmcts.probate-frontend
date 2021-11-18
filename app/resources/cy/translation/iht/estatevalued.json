@@ -1,0 +1,14 @@
+{
+  "title": "WELSH NEEDED Did you complete IHT forms to report the estate's values?",
+  "question": "WELSH NEEDED Did you complete IHT forms to report the estate's values?",
+  "hint": "WELSH NEEDED You will not have completed IHT forms 421 and 400 if there's no Inheritance Tax to pay because the estate is low value or exempt. You may have completed IHT207, or no form was required because the estate is an 'excepted estate'.",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "estateValueCompleted": {
+      "required": "WELSH NEEDED Answer &lsquo;yes&rsquo; if you completed IHT forms to report the estate's values",
+      "unimplemented": "This page should not be accessed"
+    }
+  }
+}

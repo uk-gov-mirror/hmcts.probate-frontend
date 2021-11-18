@@ -85,6 +85,7 @@ const stepList = {
         hasCertificate: 'IhtMethod',
         otherwise: 'IhtMethod'
     },
+    IhtEstateValued: 'DeceasedAlias',
     EnglishForeignDeathCert: {
         foreignDeathCertIsInEnglish: 'IhtMethod',
         otherwise: 'ForeignDeathCertTranslation'
