@@ -18,5 +18,7 @@ router.get('/task-list', (req, res, next) => featureToggle.callCheckToggle(req, 
 router.get('/summary/*', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_will_condition', featureToggle.toggleFeature));
 router.all('/deceased-domicile', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_excepted_estates', featureToggle.toggleFeature));
 router.all('/certificate-interim', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_excepted_estates', featureToggle.toggleFeature));
+router.all('/ee-deceased-dod', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_excepted_estates', featureToggle.toggleFeature));
+router.all('/ee-estate-valued', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_excepted_estates', featureToggle.toggleFeature));
 
 module.exports = router;

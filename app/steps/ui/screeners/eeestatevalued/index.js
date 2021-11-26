@@ -1,11 +1,11 @@
 'use strict';
 
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
-const pageUrl = '/ee-deceased-dod';
-const fieldKey = 'eeDeceasedDod';
+const pageUrl = '/ee-estate-valued';
+const fieldKey = 'eeEstateValued';
 const Dashboard = require('app/steps/ui/dashboard');
 
-class ExceptedEstateDeceasedDod extends EligibilityValidationStep {
+class ExceptedEstateValued extends EligibilityValidationStep {
 
     static getUrl() {
         return pageUrl;
@@ -20,16 +20,16 @@ class ExceptedEstateDeceasedDod extends EligibilityValidationStep {
             return Dashboard.getUrl();
         }
 
-        return this.next(req, ctx).constructor.getUrl('eeDeceasedDod');
+        return this.next(req, ctx).constructor.getUrl('eeEstateNotValued');
     }
 
     nextStepOptions() {
         return {
             options: [
-                {key: fieldKey, value: 'optionYes', choice: 'dodAfterEeThreshold'}
+                {key: fieldKey, value: 'optionYes', choice: 'eeEstateValued'}
             ]
         };
     }
 }
 
-module.exports = ExceptedEstateDeceasedDod;
+module.exports = ExceptedEstateValued;
