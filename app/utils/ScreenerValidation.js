@@ -6,12 +6,12 @@ const featureToggle = require('app/utils/FeatureToggle');
 
 class ScreenerValidation {
 
-    getScreeners(journeyType, session) {
+    getScreeners(journeyType, formdata, featureToggles) {
         let exceptedEstates = '';
-        if (featureToggle.isEnabled(session.featureToggles, 'ft_excepted_estates')) {
+        if (featureToggle.isEnabled(featureToggles, 'ft_excepted_estates')) {
             exceptedEstates = 'ExceptedEstates';
         }
-        const deathCertificateNotInEnglish = get(session.form, 'screeners.deathCertificateInEnglish') ? session.form.screeners.deathCertificateInEnglish === 'optionNo' : false;
+        const deathCertificateNotInEnglish = get(formdata, 'screeners.deathCertificateInEnglish') ? formdata.screeners.deathCertificateInEnglish === 'optionNo' : false;
 
         return deathCertificateNotInEnglish ? config[`${journeyType}ScreenersDeathCertificateNotInEnglish${exceptedEstates}`] : config[`${journeyType}ScreenersDeathCertificateInEnglish${exceptedEstates}`];
     }
