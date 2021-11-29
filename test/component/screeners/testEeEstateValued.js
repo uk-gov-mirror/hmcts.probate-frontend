@@ -32,7 +32,8 @@ describe('/ee-estate-valued', () => {
 
         it('test content loaded on the page', (done) => {
             testWrapper = new TestWrapper('ExceptedEstateValued');
-            testWrapper.testContent(done, {}, [], cookies);
+            const contentData = {ihtChecker: config.links.ihtChecker};
+            testWrapper.testContent(done, contentData, [], cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {
