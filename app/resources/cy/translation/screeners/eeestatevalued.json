@@ -1,9 +1,9 @@
 {
   "title": "Excepted estates, estate valued",
-  "question": "WELSH - Have you worked the out estate&rsquo;s value?",
-  "hint": "Before applying for probate, you must <a href=\"{ihtChecker}\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"work out the estate&rsquo;s value\">work out the estate&rsquo;s value</a> to check if you need to pay Inheritance Tax (IHT). You can <a href=\"{ihtChecker}\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"use the IHT checker\">use the IHT checker</a> to get these values.",
-  "optionYes": "Yes",
-  "optionNo": "No",
+  "question": "Ydych chi wedi cyfrifo gwerth yr ysta&#770;d?",
+  "hint": "Cyn gwneud cais am brofiant, rhaid i chi <a href=\"{ihtChecker}\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"gyfrifo gwerth yr ysta&#770;d\">gyfrifo gwerth yr ysta&#770;d</a> i weld a oes angen i chi dalu Treth Etifeddiant (IHT). Gallwch <a href=\"{ihtChecker}\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"ddefnyddio&lsquo;r gwiriwr IHT\">ddefnyddio&lsquo;r gwiriwr IHT</a> i ddod o hyd i&lsquo;r gwerthoedd hyn.",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
 
   "errors": {
     "eeEstateValued": {
