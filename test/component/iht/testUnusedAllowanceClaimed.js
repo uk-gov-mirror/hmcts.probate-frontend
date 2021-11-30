@@ -1,16 +1,16 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const IhtEstateValues = require('app/steps/ui/iht/ihtestatevalues');
+const ProbateEstateValues = require('app/steps/ui/iht/probateestatevalues');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
-describe('Tests for IHT Estate Valued', () => {
+describe('Tests for Unused allowance claimed', () => {
     let testWrapper;
-    const expectedNextUrlForIhtEstateValues = IhtEstateValues.getUrl();
+    const expectedNextUrlForProbateEstateValues = ProbateEstateValues.getUrl();
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('IhtEstateValued');
+        testWrapper = new TestWrapper('IhtUnusedAllowanceClaimed');
     });
 
     afterEach(() => {
@@ -18,7 +18,7 @@ describe('Tests for IHT Estate Valued', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('IhtEstateValued', null, null, [], false, {type: caseTypes.INTESTACY});
+        testCommonContent.runTest('IhtUnusedAllowanceClaimed');
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
@@ -40,16 +40,12 @@ describe('Tests for IHT Estate Valued', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForIhtEstateValues}`, (done) => {
-            testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.GOP})
-                .end(() => {
-                    const data = {
-                        estateValueCompleted: 'optionNo'
-                    };
+        it(`test it redirects to next page: ${expectedNextUrlForProbateEstateValues}`, (done) => {
+            const data = {
+                unusedAllowanceClaimed: 'optionYes'
+            };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForIhtEstateValues);
-                });
+            testWrapper.testRedirect(done, data, expectedNextUrlForProbateEstateValues);
         });
     });
 });
