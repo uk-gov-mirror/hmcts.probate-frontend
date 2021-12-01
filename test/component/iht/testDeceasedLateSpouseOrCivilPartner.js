@@ -1,16 +1,18 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const IhtEstateValues = require('app/steps/ui/iht/ihtestatevalues');
+const IhtUnusedAllowanceClaimed = require('app/steps/ui/iht/unusedallowanceclaimed');
+const ProbateEstateValues = require('app/steps/ui/iht/probateestatevalues');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('Tests for IHT Estate Valued', () => {
     let testWrapper;
-    const expectedNextUrlForIhtEstateValues = IhtEstateValues.getUrl();
+    const expectedNextUrlForIhtUnusedAllowanceClaimed = IhtUnusedAllowanceClaimed.getUrl();
+    const expectedNextUrlForProbateEstateValues = ProbateEstateValues.getUrl();
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('IhtEstateValued');
+        testWrapper = new TestWrapper('DeceasedHadLateSpouseOrCivilPartner');
     });
 
     afterEach(() => {
@@ -18,7 +20,7 @@ describe('Tests for IHT Estate Valued', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('IhtEstateValued', null, null, [], false, {type: caseTypes.INTESTACY});
+        testCommonContent.runTest('DeceasedHadLateSpouseOrCivilPartner');
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
@@ -40,15 +42,27 @@ describe('Tests for IHT Estate Valued', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForIhtEstateValues}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForIhtUnusedAllowanceClaimed}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.GOP})
                 .end(() => {
                     const data = {
-                        estateValueCompleted: 'optionNo'
+                        deceasedHadLateSpouseOrCivilPartner: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForIhtEstateValues);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForIhtUnusedAllowanceClaimed);
+                });
+        });
+
+        it(`test it redirects to next page: ${expectedNextUrlForProbateEstateValues}`, (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.GOP})
+                .end(() => {
+                    const data = {
+                        deceasedHadLateSpouseOrCivilPartner: 'optionNo'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForProbateEstateValues);
                 });
         });
     });

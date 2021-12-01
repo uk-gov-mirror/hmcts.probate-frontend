@@ -3,15 +3,14 @@
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
-const DeathCertificateInterim = steps.DeathCertificateInterim;
+const IhtUnusedAllowanceClaimed = steps.IhtUnusedAllowanceClaimed;
 
-describe('DeathCertificateInterim', () => {
+describe('IhtUnusedAllowanceClaimed', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
-            const url = DeathCertificateInterim.constructor.getUrl();
-            expect(url).to.equal('/certificate-interim');
+            const url = IhtUnusedAllowanceClaimed.constructor.getUrl();
+            expect(url).to.equal('/unused-allowance-claimed');
             done();
         });
     });
-
 });
