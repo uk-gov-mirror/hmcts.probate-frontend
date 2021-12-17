@@ -270,7 +270,7 @@ describe('Summary', () => {
     });
 
     describe('generateFields()', () => {
-        it.only('it should set Google analytics enabled to true', (done) => {
+        it('it should set Google analytics enabled to true', (done) => {
             const ctx = {
                 session: {
                     form: {},
