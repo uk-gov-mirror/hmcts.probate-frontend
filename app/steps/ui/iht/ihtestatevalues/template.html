@@ -12,7 +12,7 @@
             isPageHeading: true
         }
     }) %}
-        <p class="govuk-hint">{{ content.questionHint | safe }}</p>
+        <p class="govuk-hint">{{ content.questionHint | replace("{ihtChecker}", globals.links.ihtChecker) | safe }}</p>
 
         {{ govukInput({
             label: {
