@@ -1,8 +1,8 @@
 {
     "title": "What is the value of the estate",
     "question": "What are the values of the estate for Inheritance Tax?",
-    "questionHintPrefix": "If you do not have these values, ",
-    "linkText": "use the IHT checker",
+    "questionHintPrefix": "If you do not have these values, use ",
+    "linkText": "the IHT checker",
     "questionHintSuffix": " to get them. We collect these values for HMRC so they can check if you need pay inheritance tax.",
     "estateGrossValue": "Gross value",
     "estateGrossValueHint": "This is the total value of all assets like property, money and gifts in the last 7 years before taking off any debts",
