@@ -5,7 +5,6 @@ const DeceasedHadLateSpouseOrCivilPartner = require('app/steps/ui/iht/deceasedla
 const ProbateEstateValues = require('app/steps/ui/iht/probateestatevalues');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
-const config = require('config');
 
 describe('Tests for IHT Estate Values', () => {
     let testWrapper;
@@ -34,14 +33,10 @@ describe('Tests for IHT Estate Values', () => {
                 }
             };
 
-            const contentData = {
-                ihtChecker: config.links.ihtChecker,
-            };
-
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentData, idsToExclude);
+                    testWrapper.testContent(done, {}, idsToExclude);
                 });
         });
 
