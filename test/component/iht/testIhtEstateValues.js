@@ -20,7 +20,7 @@ describe('Tests for IHT Estate Values', () => {
         testWrapper.destroy();
     });
 
-    describe.only('Verify Content, Errors and Redirection', () => {
+    describe('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('IhtEstateValues');
 
         it('test content loaded on the page', (done) => {
