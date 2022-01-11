@@ -5,9 +5,7 @@ const taskListContentCy = require('app/resources/cy/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 
 const optionYes = '';
-const ihtPost = '';
 const optionNo = '-2';
-const ihtOnline = '-2';
 const maritalStatusMarried = '';
 const spouseOfDeceased = '';
 const relationshipChildOfDeceased = '-2';
@@ -15,7 +13,7 @@ const optionRenouncing = '';
 const bilingualGOP = false;
 const languages = ['en', 'cy'];
 
-Feature('GOP Intestacy E2E');
+Feature('GOP Intestacy E2E - EE Yes Journey');
 
 Before(async () => {
     await TestConfigurator.initLaunchDarkly();
@@ -28,7 +26,7 @@ After(async () => {
 
 languages.forEach(language => {
 
-    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - GOP -Intestacy Journey - Digital iht`), async ({I}) => {
+    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - GOP -Intestacy Journey - EE yes journey`), async ({I}) => {
         const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
         await I.retry(2).createAUser(TestConfigurator);
 
@@ -68,21 +66,16 @@ languages.forEach(language => {
         // Deceased Task
         await I.selectATask(language, taskListContent.taskNotStarted);
         await I.chooseBiLingualGrant(language, optionNo);
-        await I.enterDeceasedDetails(language, 'Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
+        await I.enterDeceasedDetails(language, 'Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '02', '01', '2022');
         await I.enterDeceasedAddress(language);
 
         await I.selectDiedEngOrWales(language, optionNo);
         await I.selectEnglishForeignDeathCert(language, optionNo);
         await I.selectForeignDeathCertTranslation(language, optionYes);
 
-        await I.selectInheritanceMethod(language, ihtOnline);
-        await I.enterIHTIdentifier(language);
-
-        if (TestConfigurator.getUseGovPay() === 'true') {
-            await I.enterEstateValue(language, '300000', '200000');
-        } else {
-            await I.enterEstateValue(language, '500', '400');
-        }
+        await I.selectEEComplete(language, optionYes);
+        await I.selectForm(language, optionYes);
+        await I.enterProbateEstateValues(language, 400000, 400000);
 
         await I.selectAssetsOutsideEnglandWales(language, optionYes);
         await I.enterValueAssetsOutsideEnglandWales(language, '400000');
@@ -133,7 +126,6 @@ languages.forEach(language => {
         // Thank You
         await I.seeThankYouPage(language);
     }).tag('@e2e')
-        .tag('@crossbrowser')
         .retry(TestConfigurator.getRetryScenarios());
 
     Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - GOP -Intestacy Child Journey - Paper iht, no death certificate uploaded and spouse renouncing`), async ({I}) => {
@@ -175,20 +167,19 @@ languages.forEach(language => {
         // Deceased Task
         await I.selectATask(language, taskListContent.taskNotStarted);
         await I.chooseBiLingualGrant(language, optionNo);
-        await I.enterDeceasedDetails(language, 'Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
+        await I.enterDeceasedDetails(language, 'Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '02', '01', '2022');
         await I.enterDeceasedAddress(language);
 
         await I.selectDiedEngOrWales(language, optionNo);
         await I.selectEnglishForeignDeathCert(language, optionNo);
         await I.selectForeignDeathCertTranslation(language, optionYes);
 
-        await I.selectInheritanceMethod(language, ihtPost);
-        if (TestConfigurator.getUseGovPay() === 'true') {
-            await I.enterGrossAndNet(language, '205', '600000', '300000');
-        } else {
-            await I.enterGrossAndNet(language, '205', '500', '400');
-        }
+        await I.selectEEComplete(language, optionYes);
+        await I.selectForm(language, optionYes);
+        await I.enterProbateEstateValues(language, 400000, 400000);
 
+        await I.selectAssetsOutsideEnglandWales(language, optionYes);
+        await I.enterValueAssetsOutsideEnglandWales(language, '400000');
         await I.selectDeceasedAlias(language, optionNo);
         await I.selectDeceasedMaritalStatus(language, maritalStatusMarried);
 
