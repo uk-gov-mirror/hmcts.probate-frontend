@@ -19,7 +19,7 @@ describe('UIStepRunner', () => {
             back: ['hello']
         }
     };
-    it.only('declarationCheckbox should be false where hasDataChanged is true', (done) => {
+    it('declarationCheckbox should be false where hasDataChanged is true', (done) => {
         const stepName = 'test';
         const step = {
             name: stepName,
