@@ -4,12 +4,11 @@ const taskListContentEn = require('app/resources/en/translation/tasklist');
 const taskListContentCy = require('app/resources/cy/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const optionYes = '';
-const ihtPost = '';
 const optionNo = '-2';
 const bilingualGOP = false;
 const languages = ['en', 'cy'];
 
-Feature('GOP-Single Executor');
+Feature('GOP-Single Executor - EE Yes Journey');
 
 Before(async () => {
     await TestConfigurator.initLaunchDarkly();
@@ -22,7 +21,7 @@ After(async () => {
 
 languages.forEach(language => {
 
-    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} -GOP Single Executor E2E `), async ({I}) => {
+    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} -GOP EE yes journey `), async ({I}) => {
 
         const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
         await I.retry(2).createAUser(TestConfigurator);
@@ -69,20 +68,16 @@ languages.forEach(language => {
         await I.selectATask(language, taskListContent.taskNotStarted);
 
         await I.enterDeceasedDateOfBirth(language, '01', '01', '1950');
-        await I.enterDeceasedDateOfDeath(language, '01', '01', '2017');
+        await I.enterDeceasedDateOfDeath(language, '02', '01', '2022');
         await I.enterDeceasedAddress(language);
 
         await I.selectDiedEngOrWales(language, optionNo);
         await I.selectEnglishForeignDeathCert(language, optionNo);
         await I.selectForeignDeathCertTranslation(language, optionYes);
 
-        await I.selectInheritanceMethod(language, ihtPost);
-
-        if (TestConfigurator.getUseGovPay() === 'true') {
-            await I.enterGrossAndNet(language, '205', '600000', '300000');
-        } else {
-            await I.enterGrossAndNet(language, '205', '500', '400');
-        }
+        await I.selectEEComplete(language, optionYes);
+        await I.selectForm(language, optionYes);
+        await I.enterProbateEstateValues(language, 400000, 400000);
 
         await I.selectDeceasedAlias(language, optionNo);
         await I.selectDeceasedMarriedAfterDateOnWill(language, optionNo);
