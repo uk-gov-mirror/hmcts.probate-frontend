@@ -19,7 +19,7 @@ describe('UIStepRunner', () => {
             back: ['hello']
         }
     };
-    it('declarationCheckbox should be false where hasDataChanged is true', (done) => {
+    it.only('declarationCheckbox should be false where hasDataChanged is true', (done) => {
         const stepName = 'test';
         const step = {
             name: stepName,
@@ -45,6 +45,7 @@ describe('UIStepRunner', () => {
         co(function* () {
             yield runner.handlePost(step, req, res);
             expect(req.session.form.declaration).to.deep.equal(expectedForm);
+            expect(req.session.form.eventDescription).equal('Page completed: hello');
             hasDataChangedStub.restore();
             done();
         });
