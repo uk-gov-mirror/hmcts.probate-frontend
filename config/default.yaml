@@ -211,6 +211,7 @@ links:
   ihtThreshold: 'https://www.gov.uk/inheritance-tax'
   ihtTransferOfThreshold: 'https://www.gov.uk/guidance/inheritance-tax-transfer-of-threshold'
   ihtNoInheritanceTax: 'https://www.gov.uk/valuing-estate-of-someone-who-died/check-type-of-estate'
+  ihtGifts: 'https://www.gov.uk/inheritance-tax/gifts'
 utils:
   api:
     retries: 10
