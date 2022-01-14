@@ -14,22 +14,27 @@ describe('IhtEstateValuesUtil.js', () => {
             done();
         });
         it('should be positive integer', (done) => {
-            const value = 100000;
+            const value = '100000';
             expect(IhtEstateValuesUtil.isPositiveInteger(value)).to.equal(true);
             done();
         });
         it('should be zero integer', (done) => {
-            const value = 0;
+            const value = '0';
             expect(IhtEstateValuesUtil.isPositiveInteger(value)).to.equal(true);
             done();
         });
         it('should not be positive integer', (done) => {
-            const value = -1;
+            const value = '-1';
             expect(IhtEstateValuesUtil.isPositiveInteger(value)).to.equal(false);
             done();
         });
         it('should not be positive integer decimal', (done) => {
             const value = '1.10';
+            expect(IhtEstateValuesUtil.isPositiveInteger(value)).to.equal(false);
+            done();
+        });
+        it('should not be positive integer decimal - zero pence', (done) => {
+            const value = '1.00';
             expect(IhtEstateValuesUtil.isPositiveInteger(value)).to.equal(false);
             done();
         });

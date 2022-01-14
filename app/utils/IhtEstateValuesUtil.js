@@ -8,8 +8,9 @@ class IhtEstateValuesUtil {
         return netQualifyingValue > range.min && netQualifyingValue < range.max;
     }
     static isPositiveInteger(value) {
-        // eslint-disable-next-line no-bitwise
-        return value >>> 0 === parseFloat(value);
+        const pattern = /^[0-9]\d*$/g;
+        const result = value.toString().search(pattern);
+        return result >= 0;
     }
 }
 
