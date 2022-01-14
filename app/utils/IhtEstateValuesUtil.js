@@ -9,8 +9,10 @@ class IhtEstateValuesUtil {
     }
     static isPositiveInteger(value) {
         const pattern = /^[0-9]\d*$/g;
-        const result = value.toString().search(pattern);
-        return result >= 0;
+        if (value && value.toString().search(pattern) >= 0) {
+            return true;
+        }
+        return false;
     }
 }
 
