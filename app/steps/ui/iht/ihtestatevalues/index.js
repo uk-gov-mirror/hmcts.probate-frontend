@@ -26,9 +26,6 @@ class IhtEstateValues extends ValidationStep {
         if (!IhtEstateValuesUtil.isPositiveInteger(ctx.estateNetValueField)) {
             errors.push(FieldError('estateNetValueField', 'invalidInteger', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
-        if (!IhtEstateValuesUtil.isPositiveInteger(ctx.estateNetQualifyingValueField)) {
-            errors.push(FieldError('estateNetQualifyingValueField', 'invalidInteger', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-        }
 
         ctx.estateGrossValue = parseFloat(numeral(ctx.estateGrossValueField).format('0.00'));
         ctx.estateNetValue = parseFloat(numeral(ctx.estateNetValueField).format('0.00'));
@@ -37,6 +34,9 @@ class IhtEstateValues extends ValidationStep {
             ctx.estateNetQualifyingValueField = '';
             ctx.estateNetQualifyingValue = 0.0;
         } else if (typeof ctx.estateNetQualifyingValueField !== 'undefined') {
+            if (!IhtEstateValuesUtil.isPositiveInteger(ctx.estateNetQualifyingValueField)) {
+                errors.push(FieldError('estateNetQualifyingValueField', 'invalidInteger', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+            }
             ctx.estateNetQualifyingValue = parseFloat(numeral(ctx.estateNetQualifyingValueField).format('0.00'));
             if (!validator.isCurrency(ctx.estateNetQualifyingValueField, {symbol: '£', allow_negatives: false})) {
                 errors.push(FieldError('estateNetQualifyingValueField', 'invalidCurrencyFormat', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
