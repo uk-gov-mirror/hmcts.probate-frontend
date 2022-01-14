@@ -68,6 +68,7 @@ describe('IhtEstateValues', () => {
                 estateNetQualifyingValueField: '200000',
                 estateNetQualifyingValue: 200000
             });
+            expect(errors.length).equal(0);
             done();
         });
 
