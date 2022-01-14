@@ -20,6 +20,16 @@ class IhtEstateValues extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata, session) {
+        if (!Number.isInteger(ctx.estateGrossValueField)) {
+            errors.push(FieldError('estateGrossValueField', 'invalidInteger', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+        }
+        if (!Number.isInteger(ctx.estateNetValueField)) {
+            errors.push(FieldError('estateNetValueField', 'invalidInteger', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+        }
+        if (!Number.isInteger(ctx.estateNetQualifyingValueField)) {
+            errors.push(FieldError('estateNetQualifyingValueField', 'invalidInteger', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+        }
+
         ctx.estateGrossValue = parseFloat(numeral(ctx.estateGrossValueField).format('0.00'));
         ctx.estateNetValue = parseFloat(numeral(ctx.estateNetValueField).format('0.00'));
 
