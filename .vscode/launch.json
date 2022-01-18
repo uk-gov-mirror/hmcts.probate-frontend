@@ -325,7 +325,7 @@
                 "NODE_ENV": "dev",
                 "NODE_PATH": "."
             },
-            "program": "${workspaceFolder}\\server.js"
+            "program": "${workspaceFolder}/server.js"
         },
         {
             "name": "Launch http ws in Test Context - darkly OFF",

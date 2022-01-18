@@ -452,3 +452,4 @@ intestacyOnlyPages: [
   '/any-deceased-children',
   '/any-grandchildren-under-18'
 ]
+eventDescriptionPrefix: 'Page completed: '
