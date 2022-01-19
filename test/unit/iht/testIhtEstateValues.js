@@ -232,21 +232,6 @@ describe('IhtEstateValues', () => {
                     msg: content.errors.estateNetQualifyingValueField.invalidInteger
                 },
                 {
-                    field: 'estateNetQualifyingValueField',
-                    href: '#estateNetQualifyingValueField',
-                    msg: content.errors.estateNetQualifyingValueField.invalidCurrencyFormat
-                },
-                {
-                    field: 'estateGrossValueField',
-                    href: '#estateGrossValueField',
-                    msg: content.errors.estateGrossValueField.invalidCurrencyFormat
-                },
-                {
-                    field: 'estateNetValueField',
-                    href: '#estateNetValueField',
-                    msg: content.errors.estateNetValueField.invalidCurrencyFormat
-                },
-                {
                     field: 'estateNetValueField',
                     href: '#estateNetValueField',
                     msg: content.errors.estateNetValueField.netValueGreaterThanGross
