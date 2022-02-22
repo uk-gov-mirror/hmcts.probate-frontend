@@ -74,8 +74,8 @@ class DocumentPageUtil {
         if (link) {
             for (let i = 0; i < splitContentItem.length; i++) {
                 if (splitContentItem[i].includes('href')) {
-                    const linkObject = splitContentItem[i].split('>');
-                    return {text: linkObject[1], type: 'textWithLink', url: link, beforeLinkText: splitContentItem[i-1], afterLinkText: splitContentItem[i+1]};
+                    const linkText = splitContentItem[i].split('>')[1];
+                    return {text: linkText, type: 'textWithLink', url: link, beforeLinkText: splitContentItem[i-1], afterLinkText: splitContentItem[i+1]};
                 }
             }
         }
