@@ -59,27 +59,30 @@ class DocumentPageUtil {
         const checkListItems = [];
 
         if (deceasedWrapper.hasMarriedStatus() && applicantWrapper.applicantIsChild() && applicantWrapper.spouseIsRenouncing() && !deceasedWrapper.hasAnyOtherChildren()) {
-            checkListItems.push(this.setCheckListItem(content['checklist-item11-spouse-giving-up-admin-rights-PA16'], config.links.spouseGivingUpAdminRightsPA16Link));
+            checkListItems.push(this.getCheckListItemTextWithLink(content['checklist-item11-spouse-giving-up-admin-rights-PA16'], config.links.spouseGivingUpAdminRightsPA16Link));
         }
 
         return checkListItems;
     }
 
-    static setCheckListItem(contentCheckListItem, link) {
+    static getCheckListItemTextOnly(contentCheckListItem) {
+        return {text: contentCheckListItem, type: 'textOnly'};
+    }
+
+    static getCheckListItemTextWithLink(contentCheckListItem, link) {
+        if (!link) {
+            throw new Error('please pass in a valid url');
+        }
+
         const splitContentItem = contentCheckListItem.split(/(<a.*?)<\/a>/g);
 
-        if (splitContentItem.length === 1) {
-            return {text: contentCheckListItem, type: 'textOnly'};
-        }
-        if (link) {
-            for (let i = 0; i < splitContentItem.length; i++) {
-                if (splitContentItem[i].includes('href')) {
-                    const linkText = splitContentItem[i].split('>')[1];
-                    return {text: linkText, type: 'textWithLink', url: link, beforeLinkText: splitContentItem[i-1], afterLinkText: splitContentItem[i+1]};
-                }
+        for (let i = 0; i < splitContentItem.length; i++) {
+            if (splitContentItem[i].includes('href')) {
+                const linkText = splitContentItem[i].split('>')[1];
+                return {text: linkText, type: 'textWithLink', url: link, beforeLinkText: splitContentItem[i-1], afterLinkText: splitContentItem[i+1]};
             }
         }
-        return contentCheckListItem;
+        throw new Error(`there is no link in content item: "${contentCheckListItem}"`);
     }
 }
 
