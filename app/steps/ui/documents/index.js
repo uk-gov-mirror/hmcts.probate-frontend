@@ -57,8 +57,8 @@ class Documents extends ValidationStep {
             ctx.hasRenunciated = executorsWrapper.hasRenunciated();
             ctx.executorsNameChangedByDeedPollList = executorsWrapper.executorsNameChangedByDeedPoll();
         } else {
-            ctx.spouseRenouncing = deceasedWrapper.hasMarriedStatus() && applicantWrapper.applicantIsChild();
-            ctx.isSpouseGivingUpAdminRights = ctx.spouseRenouncing && applicantWrapper.spouseIsRenouncing() && !deceasedWrapper.hasAnyOtherChildren();
+            ctx.spouseRenouncing = deceasedWrapper.hasMarriedStatus() && applicantWrapper.isApplicantChild();
+            ctx.isSpouseGivingUpAdminRights = ctx.spouseRenouncing && applicantWrapper.isSpouseRenouncing() && !deceasedWrapper.hasAnyOtherChildren();
         }
 
         if (formdata.will && formdata.will.deceasedWrittenWishes) {

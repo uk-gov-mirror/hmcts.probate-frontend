@@ -58,7 +58,7 @@ class DocumentPageUtil {
         const deceasedWrapper = new DeceasedWrapper(formdata.deceased);
         const checkListItems = [];
 
-        if (deceasedWrapper.hasMarriedStatus() && applicantWrapper.applicantIsChild() && applicantWrapper.spouseIsRenouncing() && !deceasedWrapper.hasAnyOtherChildren()) {
+        if (deceasedWrapper.hasMarriedStatus() && applicantWrapper.isApplicantChild() && applicantWrapper.isSpouseRenouncing() && !deceasedWrapper.hasAnyOtherChildren()) {
             checkListItems.push(this.getCheckListItemTextWithLink(content['checklist-item11-spouse-giving-up-admin-rights-PA16'], config.links.spouseGivingUpAdminRightsPA16Link));
         }
 

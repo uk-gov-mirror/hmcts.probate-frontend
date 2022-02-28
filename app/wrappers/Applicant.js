@@ -11,11 +11,11 @@ class Applicant {
         return !isEmpty(this.formdata.declaration) && this.formdata.declaration.declarationCheckbox === 'true';
     }
 
-    applicantIsChild() {
+    isApplicantChild() {
         return this.formdata.applicant && (this.formdata.applicant.relationshipToDeceased === 'optionChild' || this.formdata.applicant.relationshipToDeceased === 'optionAdoptedChild');
     }
 
-    spouseIsRenouncing() {
+    isSpouseRenouncing() {
         return this.formdata.applicant && this.formdata.applicant.spouseNotApplyingReason === 'optionRenouncing';
     }
 
