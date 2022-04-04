@@ -56,7 +56,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             .setAutoCollectPerformance(true)
             .setAutoCollectDependencies(true)
             .setAutoCollectConsole(true, true);
-        appinsights.start();
+        appInsights.start();
         appInsights.defaultClient.trackTrace({message: 'App insights activated'});
     }
 
