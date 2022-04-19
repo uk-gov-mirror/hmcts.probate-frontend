@@ -71,6 +71,15 @@
     on-finished "^2.3.0"
     winston "^2.4.5"
 
+"@hmcts/nodejs-logging@^3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@hmcts/nodejs-logging/-/nodejs-logging-3.0.4.tgz#82418571e85f0a275e021f53008195accc55e3b9"
+  integrity sha512-42JgVVxxMI9JD+lnKkBcwIYAiJM/mIUlSLlqs8uVqnzHG/JdMhg1g6cYWqWc3UIhxl2KS+n8y4bh09nLC47nSA==
+  dependencies:
+    moment "^2.19.3"
+    on-finished "^2.3.0"
+    winston "^2.4.5"
+
 "@hmcts/os-places-client@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@hmcts/os-places-client/-/os-places-client-1.1.2.tgz#a075893a7c70ab8065d1ce1b94019f60e4c82e8b"
@@ -9129,7 +9138,7 @@ winston@^2.4.5:
   resolved "https://registry.yarnpkg.com/winston/-/winston-2.4.5.tgz#f2e431d56154c4ea765545fc1003bd340c95b59a"
   integrity sha512-TWoamHt5yYvsMarGlGEQE59SbJHqGsZV8/lwC+iCcGeAe0vUaOh+Lv6SYM17ouzC/a/LB1/hz/7sxFBtlu1l4A==
   dependencies:
-    async "^2.6.4"
+    async "~1.0.0"
     colors "1.0.x"
     cycle "1.0.x"
     eyes "0.1.x"
