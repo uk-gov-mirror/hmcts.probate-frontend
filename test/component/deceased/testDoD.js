@@ -5,7 +5,7 @@ const DeceasedAddress = require('app/steps/ui/deceased/address');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
-describe.only('deceased-dod', () => {
+describe('deceased-dod', () => {
     let testWrapper;
     const expectedNextUrlForDeceasedAddress = DeceasedAddress.getUrl();
 
