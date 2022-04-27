@@ -5,7 +5,7 @@ const DeceasedAddress = require('app/steps/ui/deceased/address');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
-describe('deceased-dod', () => {
+describe.only('deceased-dod', () => {
     let testWrapper;
     const expectedNextUrlForDeceasedAddress = DeceasedAddress.getUrl();
 
@@ -136,6 +136,27 @@ describe('deceased-dod', () => {
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAddress);
+        });
+
+        it(`test it redirects to deceased dod where dod is same as dob: ${expectedNextUrlForDeceasedAddress}`, (done) => {
+            const sessionData = {
+                deceased: {
+                    'dob-day': '01',
+                    'dob-month': '01',
+                    'dob-year': '2000'
+                }
+            };
+            const data = {
+                'dod-day': '01',
+                'dod-month': '01',
+                'dod-year': '2000'
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAddress);
+                });
         });
     });
 });
