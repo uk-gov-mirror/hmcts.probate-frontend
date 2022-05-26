@@ -87,6 +87,64 @@ describe('Documents.js', () => {
             expect(documentsWrapper.documentsRequired()).to.equal(false);
             done();
         });
+
+        it('should return false when intestacy document screening conditions are met, death certifcate option and iht400 chosen Dod before 1/1/2022', (done) => {
+            const data = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                    deathCertificate: 'optionDeathCertificate'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionSpousePartner'
+                },
+                iht: {
+                    form: 'optionIHT400421',
+                    method: 'optionPaper'
+                }
+            };
+            const documentsWrapper = new DocumentsWrapper(data);
+            expect(documentsWrapper.documentsRequired()).to.equal(false);
+            done();
+        });
+
+        it('should return false when intestacy document screening conditions are met, death certifcate option and iht400 chosen, Dod on or after 1/1/2022', (done) => {
+            const data = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                    deathCertificate: 'optionDeathCertificate'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionSpousePartner'
+                },
+                iht: {
+                    ihtFormEstateId: 'optionIHT400421'
+                }
+            };
+            const documentsWrapper = new DocumentsWrapper(data);
+            expect(documentsWrapper.documentsRequired()).to.equal(false);
+            done();
+        });
+
+        it('should return false when intestacy document screening conditions are met, death certifcate option and excepted estate', (done) => {
+            const data = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                    deathCertificate: 'optionDeathCertificate'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionSpousePartner'
+                },
+                iht: {
+                    estateValueCompleted: 'optionNo'
+                }
+            };
+            const documentsWrapper = new DocumentsWrapper(data);
+            expect(documentsWrapper.documentsRequired()).to.equal(false);
+            done();
+        });
     });
 
     //DTSPB-529 Tests duplicated for new probate death cert flow.
@@ -179,5 +237,4 @@ describe('Documents.js', () => {
             done();
         });
     });
-
 });

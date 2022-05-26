@@ -8,6 +8,7 @@ const DeceasedWrapper = require('app/wrappers/Deceased');
 const WillWrapper = require('app/wrappers/Will');
 const DeathCertificateWrapper = require('app/wrappers/DeathCertificate');
 const ExecutorsWrapper = require('app/wrappers/Executors');
+const DocumentsWrapper = require('app/wrappers/Documents');
 const caseTypes = require('app/utils/CaseTypes');
 
 class DocumentPageUtil {
@@ -131,6 +132,19 @@ class DocumentPageUtil {
             }
         }
         throw new Error(`there is no link in content item: "${contentCheckListItem}"`);
+    }
+
+    static coversheetNoDocsRequired(formdata) {
+        const documentsWrapper = new DocumentsWrapper(formdata);
+        return !documentsWrapper.documentsRequired();
+    }
+
+    static getNoDocsRequiredText(formdata, language = 'en') {
+        const content = require(`app/resources/${language}/translation/documents`);
+        if (this.coversheetNoDocsRequired(formdata)) {
+            return content['no-docs-required'];
+        }
+        return null;
     }
 }
 
