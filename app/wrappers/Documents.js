@@ -19,6 +19,7 @@ class Documents {
         if (this.formdata.caseType === caseTypes.GOP) {
             return true;
         }
+        let documentsRequired;
         const deceasedMarried = this.deceasedWrapper.hasMarriedStatus();
         const applicantIsChild = this.applicantData.relationshipToDeceased === 'optionChild' || this.applicantData.relationshipToDeceased === 'optionAdoptedChild';
 
@@ -26,13 +27,13 @@ class Documents {
             const iht400Used = ((this.ihtData.method === 'optionPaper' && this.ihtData.form === 'optionIHT400421') || (this.ihtData.ihtFormEstateId === 'optionIHT400421'));
             const deathCert = this.deceasedWrapper.hasDeathCertificate();
             const exceptedEstate = this.ihtData.estateValueCompleted === 'optionNo';
-            return !((iht400Used && deathCert) || (exceptedEstate && deathCert));
+            documentsRequired = !((iht400Used && deathCert) || (exceptedEstate && deathCert));
         }
 
         const iht205Used = this.ihtData.method === 'optionPaper' && this.ihtData.form === 'optionIHT205';
         const interimDeathCert = this.deceasedWrapper.hasInterimDeathCertificate();
         const foreignDeathCert = this.deceasedWrapper.hasForeignDeathCertificate();
-        return (deceasedMarried && applicantIsChild) || iht205Used || interimDeathCert || foreignDeathCert;
+        return (deceasedMarried && applicantIsChild) || iht205Used || interimDeathCert || foreignDeathCert || documentsRequired;
     }
 
     intestacyDocScreeningConditionsMet(deceasedMarried, applicantIsChild) {
