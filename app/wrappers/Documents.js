@@ -27,7 +27,7 @@ class Documents {
             const iht400Used = ((this.ihtData.method === 'optionPaper' && this.ihtData.form === 'optionIHT400421') || (this.ihtData.ihtFormEstateId === 'optionIHT400421'));
             const deathCert = this.deceasedWrapper.hasDeathCertificate();
             const exceptedEstate = this.ihtData.estateValueCompleted === 'optionNo';
-            documentsRequired = !((iht400Used && deathCert) || (exceptedEstate && deathCert));
+            documentsRequired = (iht400Used && deathCert) || (exceptedEstate && deathCert);
         }
 
         const iht205Used = this.ihtData.method === 'optionPaper' && this.ihtData.form === 'optionIHT205';
