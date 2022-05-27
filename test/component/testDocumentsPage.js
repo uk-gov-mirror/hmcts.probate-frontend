@@ -801,10 +801,9 @@ describe('documents', () => {
                     });
             });
 
-            it.only(`test redirects to ${expectedNextUrlForThankYouPage} if intestacy case with no documents required`, (done) => {
+            it(`test redirects to ${expectedNextUrlForThankYouPage} if intestacy case with no documents required`, (done) => {
                 sessionData.deceased = {
                     maritalStatus: 'optionDivorced'
-                    // anyOtherChildren
                 };
                 sessionData.applicant = {
                     relationshipToDeceased: 'optionChild'

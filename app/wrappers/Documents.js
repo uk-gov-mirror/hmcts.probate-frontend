@@ -19,7 +19,7 @@ class Documents {
         if (this.formdata.caseType === caseTypes.GOP) {
             return true;
         }
-        let documentsRequired = true;
+        let documentsRequired;
         const deceasedMarried = this.deceasedWrapper.hasMarriedStatus();
         const applicantIsChild = this.applicantData.relationshipToDeceased === 'optionChild' || this.applicantData.relationshipToDeceased === 'optionAdoptedChild';
 
