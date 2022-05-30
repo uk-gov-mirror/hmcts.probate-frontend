@@ -8,7 +8,7 @@ const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/.
 const co = require('co');
 const caseTypes = require('app/utils/CaseTypes');
 
-describe.only('Documents', () => {
+describe('Documents', () => {
     const Documents = steps.Documents;
 
     describe('getUrl()', () => {
