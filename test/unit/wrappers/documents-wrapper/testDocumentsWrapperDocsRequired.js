@@ -126,6 +126,26 @@ describe('Documents.js', () => {
             done();
         });
 
+        it('should return true when deceased is divorced, widowed, never married or separated and applicant is ADOPTED child, no other children, adopted in england or wales', (done) => {
+            const data = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    anyOtherChildren: 'optionNo',
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionAdoptedChild',
+                    adoptionPlace: 'optionYes'
+                }
+            };
+            const maritalStatusOptions = ['optionDivorced', 'optionWidowed', 'optionNotMarried', 'optionSeparated'];
+            maritalStatusOptions.forEach(option => {
+                data.deceased.maritalStatus = option;
+                const documentsWrapper = new DocumentsWrapper(data);
+                expect(documentsWrapper.intestacyDocScreeningConditionsMet(false, true)).to.equal(true);
+            });
+            done();
+        });
+
         it('should return true when deceased is divorced, widowed, never married or separated and applicant is ADOPTED child, no other children', (done) => {
             const data = {
                 caseType: caseTypes.INTESTACY,
