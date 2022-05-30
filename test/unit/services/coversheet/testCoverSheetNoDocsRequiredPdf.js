@@ -8,7 +8,7 @@ const config = require('config');
 
 let postStub;
 
-describe('CoverSheetPdfService', () => {
+describe.only('CoverSheetPdfService', () => {
     describe('post()', () => {
 
         afterEach(() => {

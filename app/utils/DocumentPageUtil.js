@@ -70,6 +70,10 @@ class DocumentPageUtil {
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         const checkListItems = [];
 
+        if (this.noDocsRequired) {
+            return checkListItems;
+        }
+
         if (formdata.caseType === caseTypes.GOP) {
             if (willWrapper.hasCodicils() && willWrapper.codicilsNumber() > 0) {
                 checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item2-codicils']));
@@ -134,14 +138,14 @@ class DocumentPageUtil {
         throw new Error(`there is no link in content item: "${contentCheckListItem}"`);
     }
 
-    static coversheetNoDocsRequired(formdata) {
+    static noDocsRequired(formdata) {
         const documentsWrapper = new DocumentsWrapper(formdata);
         return !documentsWrapper.documentsRequired();
     }
 
     static getNoDocsRequiredText(formdata, language = 'en') {
         const content = require(`app/resources/${language}/translation/documents`);
-        if (this.coversheetNoDocsRequired(formdata)) {
+        if (this.noDocsRequired(formdata)) {
             return content['no-docs-required'];
         }
         return null;

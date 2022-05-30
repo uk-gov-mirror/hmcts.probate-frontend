@@ -17,7 +17,7 @@ class CoverSheetPdf extends Pdf {
             caseReference: formdata.ccdCase.id,
             submitAddress: registryAddress,
             checkListItems: DocumentPageUtil.getCheckListItemsCoversheet(formdata, req.session.language),
-            noDocumentsRequired: DocumentPageUtil.coversheetNoDocsRequired(formdata),
+            noDocumentsRequired: DocumentPageUtil.noDocsRequired(formdata),
             noDocumentsRequiredText: DocumentPageUtil.getNoDocsRequiredText(formdata, req.session.language)
         };
         const logMessage = 'Post cover sheet pdf';
