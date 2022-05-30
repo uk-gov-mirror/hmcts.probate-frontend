@@ -19,13 +19,7 @@ class Documents {
         if (this.formdata.caseType === caseTypes.GOP) {
             return true;
         }
-        // if (this.intestacyDocScreeningConditionsMet(deceasedMarried, applicantIsChild)) {
-        //     const iht400Used = ((this.ihtData.method === 'optionPaper' && this.ihtData.form === 'optionIHT400421') || (this.ihtData.ihtFormEstateId === 'optionIHT400421'));
-        //     const deathCert = this.deceasedWrapper.hasDeathCertificate();
-        //     const exceptedEstate = this.ihtData.estateValueCompleted === 'optionNo';
-        //     return !((iht400Used && deathCert) || (exceptedEstate && deathCert));
-        // }
-        // return (deceasedMarried && applicantIsChild) || iht205Used || interimDeathCert || foreignDeathCert;
+
         return this.intestacyDocumentsRequired();
     }
 
@@ -58,22 +52,18 @@ class Documents {
         const deceasedMarried = this.deceasedWrapper.hasMarriedStatus();
         const applicantIsChild = this.applicantData.relationshipToDeceased === 'optionChild' || this.applicantData.relationshipToDeceased === 'optionAdoptedChild';
         const intestacyDocScreeningConditionsMet = this.intestacyDocScreeningConditionsMet(deceasedMarried, applicantIsChild);
-        const iht400Used = ((this.ihtData.method === 'optionPaper' && this.ihtData.form === 'optionIHT400421') || (this.ihtData.ihtFormEstateId === 'optionIHT400421'));
-        const deathCert = this.deceasedWrapper.hasDeathCertificate();
-        const exceptedEstate = this.ihtData.estateValueCompleted === 'optionNo';
+        const intestacyNoDocumentsRequiredCriteria = this.intestacyNoDocumentsRequiredCriteria();
         const iht205Used = this.ihtData.method === 'optionPaper' && this.ihtData.form === 'optionIHT205';
         const interimDeathCert = this.deceasedWrapper.hasInterimDeathCertificate();
         const foreignDeathCert = this.deceasedWrapper.hasForeignDeathCertificate();
+        return (deceasedMarried && applicantIsChild) || iht205Used || interimDeathCert || foreignDeathCert || !(intestacyDocScreeningConditionsMet && intestacyNoDocumentsRequiredCriteria);
+    }
 
-        if ((deceasedMarried && applicantIsChild) || iht205Used || interimDeathCert || foreignDeathCert) {
-            return true;
-        }
-
-        if (intestacyDocScreeningConditionsMet && ((iht400Used && deathCert) || (exceptedEstate && deathCert))) {
-            return false;
-        }
-
-        return false;
+    intestacyNoDocumentsRequiredCriteria() {
+        const iht400Used = (this.ihtData.method === 'optionPaper' && this.ihtData.form === 'optionIHT400421') || (this.ihtData.ihtFormEstateId === 'optionIHT400421');
+        const deathCert = this.deceasedWrapper.hasDeathCertificate();
+        const exceptedEstate = this.ihtData.estateValueCompleted === 'optionNo';
+        return (iht400Used && deathCert) || (exceptedEstate && deathCert);
     }
 }
 

@@ -8,7 +8,7 @@ const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/.
 const co = require('co');
 const caseTypes = require('app/utils/CaseTypes');
 
-describe('Documents', () => {
+describe.only('Documents', () => {
     const Documents = steps.Documents;
 
     describe('getUrl()', () => {
@@ -558,10 +558,31 @@ describe('Documents', () => {
             });
         });
 
-        it('redirect if journey is intestacy and a none of the other conditions apply', (done) => {
+        it('redirect if journey is intestacy and death cert and iht 400 selected', (done) => {
             session.form = {
-                deceased: {maritalStatus: 'optionSeparated'},
-                iht: {method: 'optionPaper', form: 'optionIHT207'},
+                deceased: {maritalStatus: 'optionSeparated', deathCertificate: 'optionDeathCertificate'},
+                applicant: {relationshipToDeceased: 'optionChild'},
+                iht: {method: 'optionPaper', form: 'optionIHT400421'},
+                caseType: caseTypes.INTESTACY
+            };
+            co(function* () {
+                const options = yield Documents.runnerOptions(ctx, session);
+
+                expect(options).to.deep.equal({
+                    redirect: true,
+                    url: '/thank-you'
+                });
+                done();
+            }).catch(err => {
+                done(err);
+            });
+        });
+
+        it('redirect if journey is intestacy and excepted estate', (done) => {
+            session.form = {
+                deceased: {maritalStatus: 'optionSeparated', deathCertificate: 'optionDeathCertificate'},
+                applicant: {relationshipToDeceased: 'optionChild'},
+                iht: {estateValueCompleted: 'optionNo'},
                 caseType: caseTypes.INTESTACY
             };
             co(function* () {
