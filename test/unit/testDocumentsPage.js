@@ -597,5 +597,25 @@ describe('Documents', () => {
                 done(err);
             });
         });
+
+        it('redirect if journey is intestacy and excepted estate and interim death cert', (done) => {
+            session.form = {
+                deceased: {maritalStatus: 'optionSeparated', deathCertificate: 'optionInterimCertificate'},
+                applicant: {relationshipToDeceased: 'optionChild'},
+                iht: {estateValueCompleted: 'optionNo'},
+                caseType: caseTypes.INTESTACY
+            };
+            co(function* () {
+                const options = yield Documents.runnerOptions(ctx, session);
+
+                expect(options).to.deep.equal({
+                    redirect: true,
+                    url: '/thank-you'
+                });
+                done();
+            }).catch(err => {
+                done(err);
+            });
+        });
     });
 });

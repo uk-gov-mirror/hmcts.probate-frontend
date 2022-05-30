@@ -145,6 +145,25 @@ describe('Documents.js', () => {
             expect(documentsWrapper.documentsRequired()).to.equal(false);
             done();
         });
+
+        it('should return false when intestacy document screening conditions are met, interim death certifcate option and excepted estate', (done) => {
+            const data = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                    deathCertificate: 'optionInterimCertificate'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionSpousePartner'
+                },
+                iht: {
+                    estateValueCompleted: 'optionNo'
+                }
+            };
+            const documentsWrapper = new DocumentsWrapper(data);
+            expect(documentsWrapper.documentsRequired()).to.equal(false);
+            done();
+        });
     });
 
     //DTSPB-529 Tests duplicated for new probate death cert flow.
