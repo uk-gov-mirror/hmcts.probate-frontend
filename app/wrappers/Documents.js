@@ -56,7 +56,10 @@ class Documents {
         const iht205Used = this.ihtData.method === 'optionPaper' && this.ihtData.form === 'optionIHT205';
         const interimDeathCert = this.deceasedWrapper.hasInterimDeathCertificate();
         const foreignDeathCert = this.deceasedWrapper.hasForeignDeathCertificate();
-        return (deceasedMarried && applicantIsChild) || iht205Used || interimDeathCert || foreignDeathCert || !(intestacyDocScreeningConditionsMet && intestacyNoDocumentsRequiredCriteria);
+        if (intestacyDocScreeningConditionsMet && intestacyNoDocumentsRequiredCriteria) {
+            return false;
+        }
+        return (deceasedMarried && applicantIsChild) || iht205Used || interimDeathCert || foreignDeathCert;
     }
 
     intestacyNoDocumentsRequiredCriteria() {
