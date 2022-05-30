@@ -66,14 +66,14 @@ class Documents {
         const foreignDeathCert = this.deceasedWrapper.hasForeignDeathCertificate();
 
         if ((deceasedMarried && applicantIsChild) || iht205Used || interimDeathCert || foreignDeathCert) {
-            return false;
+            return true;
         }
 
         if (intestacyDocScreeningConditionsMet && ((iht400Used && deathCert) || (exceptedEstate && deathCert))) {
             return false;
         }
 
-        return true;
+        return false;
     }
 }
 
