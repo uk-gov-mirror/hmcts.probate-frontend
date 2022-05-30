@@ -70,7 +70,7 @@ class DocumentPageUtil {
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         const checkListItems = [];
 
-        if (this.noDocsRequired) {
+        if (this.noDocsRequired(formdata)) {
             return checkListItems;
         }
 
