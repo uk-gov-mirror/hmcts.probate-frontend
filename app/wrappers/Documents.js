@@ -52,17 +52,17 @@ class Documents {
         const deceasedMarried = this.deceasedWrapper.hasMarriedStatus();
         const applicantIsChild = this.applicantData.relationshipToDeceased === 'optionChild' || this.applicantData.relationshipToDeceased === 'optionAdoptedChild';
         const intestacyDocScreeningConditionsMet = this.intestacyDocScreeningConditionsMet(deceasedMarried, applicantIsChild);
-        const intestacyNoDocumentsRequiredCriteria = this.intestacyNoDocumentsRequiredCriteria();
+        const intestacyNoDocumentsRequiredCriteriaMet = this.intestacyNoDocumentsRequiredCriteriaMet();
         const iht205Used = this.ihtData.method === 'optionPaper' && this.ihtData.form === 'optionIHT205';
         const interimDeathCert = this.deceasedWrapper.hasInterimDeathCertificate();
         const foreignDeathCert = this.deceasedWrapper.hasForeignDeathCertificate();
-        if (intestacyDocScreeningConditionsMet && intestacyNoDocumentsRequiredCriteria) {
+        if (intestacyDocScreeningConditionsMet && intestacyNoDocumentsRequiredCriteriaMet) {
             return false;
         }
         return (deceasedMarried && applicantIsChild) || iht205Used || interimDeathCert || foreignDeathCert;
     }
 
-    intestacyNoDocumentsRequiredCriteria() {
+    intestacyNoDocumentsRequiredCriteriaMet() {
         const iht400Used = (this.ihtData.method === 'optionPaper' && this.ihtData.form === 'optionIHT400421') || (this.ihtData.ihtFormEstateId === 'optionIHT400421');
         const deathCert = this.deceasedWrapper.hasDeathCertificate();
         const exceptedEstate = this.ihtData.estateValueCompleted === 'optionNo';
