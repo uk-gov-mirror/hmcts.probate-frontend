@@ -27,7 +27,6 @@ nodejs:
         - webchat-avaya-service
 redis:
   enabled: true
-  architecture: standalone
   auth:
     enabled: false
     replica: 
