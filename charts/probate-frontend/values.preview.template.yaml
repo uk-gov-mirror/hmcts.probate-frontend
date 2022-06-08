@@ -30,8 +30,6 @@ redis:
   architecture: standalone
   auth:
     enabled: false
-    replica: 
-      replicaCount: 1
 
 idam-pr:
   enabled: true
