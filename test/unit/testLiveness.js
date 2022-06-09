@@ -7,6 +7,7 @@ const request = require('supertest');
 describe('Liveness check', () => {
     describe('/health/liveness endpoint', () => {
         it('should return the correct params', (done) => {
+            this.retries(5);
             const server = app.init();
             const agent = request.agent(server.app);
             agent.get('/health/liveness')
