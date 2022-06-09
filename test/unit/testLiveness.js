@@ -4,7 +4,7 @@ const expect = require('chai').expect;
 const app = require('app');
 const request = require('supertest');
 
-describe.only('Liveness check', () => {
+describe('Liveness check', () => {
     describe('/health/liveness endpoint', () => {
         it('should return the correct params', (done) => {
             const server = app.init();
