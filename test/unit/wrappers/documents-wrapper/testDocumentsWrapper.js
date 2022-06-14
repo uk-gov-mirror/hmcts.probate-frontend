@@ -70,6 +70,22 @@ describe('Documents.js', () => {
             done();
         });
 
+        it('should return true when case is INTESTACY with iht207 used', (done) => {
+            const data = {
+                caseType: caseTypes.INTESTACY,
+                documents: {
+                    uploads: ['content']
+                },
+                iht: {
+                    form: 'optionIHT207',
+                    method: 'optionPaper'
+                }
+            };
+            const documentsWrapper = new DocumentsWrapper(data);
+            expect(documentsWrapper.documentsRequired()).to.equal(true);
+            done();
+        });
+
         it('should return false when case is INTESTACY with no documents uploaded, iht205 form not used, marital status not married and relationship to deceased not child', (done) => {
             const data = {
                 caseType: caseTypes.INTESTACY,
@@ -105,6 +121,25 @@ describe('Documents.js', () => {
             };
             const documentsWrapper = new DocumentsWrapper(data);
             expect(documentsWrapper.documentsRequired()).to.equal(false);
+            done();
+        });
+
+        it('should return true when intestacy, iht207, Dod on or after 1/1/2022', (done) => {
+            const data = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                    deathCertificate: 'optionDeathCertificate'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionSpousePartner'
+                },
+                iht: {
+                    ihtFormEstateId: 'optionIHT207'
+                }
+            };
+            const documentsWrapper = new DocumentsWrapper(data);
+            expect(documentsWrapper.documentsRequired()).to.equal(true);
             done();
         });
 
