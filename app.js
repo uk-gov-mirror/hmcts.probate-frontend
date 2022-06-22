@@ -48,7 +48,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const security = new Security(config.services.idam.loginUrl);
     const inviteSecurity = new InviteSecurity();
 
-
     // Authenticate against the environment-provided credentials, if running
     // the app in production (Heroku, effectively)
     if (useAuth === 'true') {
