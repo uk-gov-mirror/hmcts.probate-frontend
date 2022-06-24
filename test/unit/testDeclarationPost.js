@@ -7,6 +7,7 @@ const rewire = require('rewire');
 const Declaration = rewire('app/steps/ui/declaration');
 const co = require('co');
 const UploadLegalDeclaration = require('app/services/UploadLegalDeclaration');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('Declaration', () => {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).Declaration;
@@ -69,6 +70,57 @@ describe('Declaration', () => {
                 [ctx, errors] = yield declaration.handlePost(ctx, errors, formdata, session);
 
                 expect(formdata.statementOfTruthDocument).to.deep.equal(statementOfTruthDocument);
+                stub.restore();
+                revert();
+                done();
+            }).catch(err => {
+                done(err);
+            });
+        });
+        it('should call handle post and set no docs required field if conditions met', (done) => {
+            const revert = Declaration.__set__('ServiceMapper', class {
+                static map() {
+                    return class {
+                        static put() {
+                            return Promise.resolve({});
+                        }
+                    };
+                }
+            });
+
+            formdata = {
+                applicantEmail: 'test@test.com',
+                ccdCase: {
+                    id: '1234'
+                },
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                    deathCertificate: 'optionInterimCertificate'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionSpousePartner'
+                },
+                iht: {
+                    estateValueCompleted: 'optionNo'
+                }
+            };
+
+            const statementOfTruthDocument = {
+                filename: 'filename.pdf',
+                url: 'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
+            };
+
+            co(function* () {
+                const stub = sinon.stub(UploadLegalDeclaration.prototype, 'generateAndUpload')
+                    .returns(statementOfTruthDocument);
+
+                const declaration = new Declaration(steps, section, templatePath, i18next, schema);
+
+                [ctx, errors] = yield declaration.handlePost(ctx, errors, formdata, session);
+
+                expect(errors).to.deep.equal([]);
+                expect(formdata.applicant.notRequiredToSendDocuments).to.deep.equal(true);
                 stub.restore();
                 revert();
                 done();
