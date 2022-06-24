@@ -24,6 +24,7 @@ describe('Declaration', () => {
         let formdata;
         let errors;
         let session;
+        let stub;
 
         beforeEach(() => {
             ctx = {};
@@ -45,6 +46,11 @@ describe('Declaration', () => {
             };
             errors = [];
         });
+
+        afterEach(() => {
+            stub.restore();
+        });
+
         it('should call UploadLegalDeclaration on post', (done) => {
             const revert = Declaration.__set__('ServiceMapper', class {
                 static map() {
@@ -61,8 +67,18 @@ describe('Declaration', () => {
                 url: 'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
             };
 
+            formdata = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild'
+                }
+            };
+
             co(function* () {
-                const stub = sinon.stub(UploadLegalDeclaration.prototype, 'generateAndUpload')
+                stub = sinon.stub(UploadLegalDeclaration.prototype, 'generateAndUpload')
                     .returns(statementOfTruthDocument);
 
                 const declaration = new Declaration(steps, section, templatePath, i18next, schema);
@@ -112,7 +128,7 @@ describe('Declaration', () => {
             };
 
             co(function* () {
-                const stub = sinon.stub(UploadLegalDeclaration.prototype, 'generateAndUpload')
+                stub = sinon.stub(UploadLegalDeclaration.prototype, 'generateAndUpload')
                     .returns(statementOfTruthDocument);
 
                 const declaration = new Declaration(steps, section, templatePath, i18next, schema);
