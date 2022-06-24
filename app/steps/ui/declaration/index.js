@@ -54,7 +54,7 @@ class Declaration extends ValidationStep {
             yield uploadLegalDec.generateAndUpload(ctx.sessionID, session.req.userId, session.req);
         session.form.statementOfTruthDocument = formdata.statementOfTruthDocument;
         const documentsWrapper = new DocumentsWrapper(formdata);
-        if (!documentsWrapper.documentsRequired()) {
+        if (!documentsWrapper.documentsRequired() && formdata.applicant) {
             formdata.applicant.notRequiredToSendDocuments = true;
         }
         return [ctx, returnErrors];
