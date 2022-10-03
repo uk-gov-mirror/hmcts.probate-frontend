@@ -4,7 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const config = require('config');
 const commonContent = require('app/resources/en/translation/common');
 
-describe('terms-conditions', () => {
+describe.only('terms-conditions', () => {
     let testWrapper;
 
     beforeEach(() => {
@@ -26,6 +26,9 @@ describe('terms-conditions', () => {
             };
 
             testWrapper.testContent(done, contentData);
+        });
+        it('test right HM content loaded on the page', (done) => {
+            testWrapper.testContentPresent(done, ['This service is managed by His Majesty&rsquo;s Courts and Tribunals service.']);
         });
     });
 });
