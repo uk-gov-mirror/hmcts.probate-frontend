@@ -4,7 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const config = require('config');
 const commonContent = require('app/resources/en/translation/common');
 
-describe.only('terms-conditions', () => {
+describe('terms-conditions', () => {
     let testWrapper;
 
     beforeEach(() => {
