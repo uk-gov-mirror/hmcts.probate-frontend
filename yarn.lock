@@ -200,6 +200,18 @@
   resolved "https://registry.yarnpkg.com/@ioredis/commands/-/commands-1.2.0.tgz#6d61b3097470af1fdbbe622795b8921d42018e11"
   integrity sha512-Sx1pU8EM64o2BrqNpEO1CNLtKQwyhuXuqyfH7oGKCk+1a33d2r5saW8zNwm3j6BTExtjrv2BxTgzzkMwts6vGg==
 
+"@kwsites/file-exists@^1.0.0":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@kwsites/file-exists/-/file-exists-1.1.1.tgz#ad1efcac13e1987d8dbaf235ef3be5b0d96faa99"
+  integrity sha512-m9/5YGR18lIwxSFDwfE3oA7bWuq9kdau6ugN4H2rJeyhFQZcG9AgSHkQtSD15a8WvTgfz9aikZMrKPHvbpqFiw==
+  dependencies:
+    debug "^4.1.1"
+
+"@kwsites/math-sum@^1.0.0":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@kwsites/math-sum/-/math-sum-1.0.1.tgz#f498c0896c6033626195bb26b275e63587422a80"
+  integrity sha512-Nk2Yg8SFJGgNBbVhCaO823325PXV8n5eSEl7PxacpMgeqTCUmHMIgScG2/o6JiHRoDYgq8JBvJuIU0SvRPgxxg==
+
 "@opentelemetry/api@^1.0.1", "@opentelemetry/api@^1.0.4":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@opentelemetry/api/-/api-1.1.0.tgz#563539048255bbe1a5f4f586a4a10a1bb737f44a"
@@ -7039,11 +7051,6 @@ q@1.5.1:
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha512-kV/CThkXo6xyFEZUugw/+pIOywXcDbFYgSct5cT3gqlbkBE1SJdwy6UQoZvodiWF/ckQLZyDE/Bu1M6gVu5lVw==
 
-q@~1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/q/-/q-1.0.1.tgz#11872aeedee89268110b10a718448ffb10112a14"
-  integrity sha512-18MnBaCeBX9sLRUdtxz/6onlb7wLzFxCylklyO8n27y5JxJYaGLPu4ccyc5zih58SpEzY8QmfwaWqguqXU6Y+A==
-
 qs@6.10.3:
   version "6.10.3"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.10.3.tgz#d6cde1b2ffca87b5aa57889816c5f81535e22e8e"
@@ -7231,12 +7238,13 @@ readdir-glob@^1.0.0:
   dependencies:
     minimatch "^5.1.0"
 
-readdir@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/readdir/-/readdir-0.1.0.tgz#1b587f2c629fc93f8c86d5afd42d172293401a12"
-  integrity sha512-6ooimObbcBEgROguDY083rVL7EKMWWRYEujAld28oinI3mflpfXJVBGtFNjtRnpYFjuD2RGayOmQJnVEGPyXVQ==
+readdir@^1.0.0:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/readdir/-/readdir-1.0.2.tgz#770ed83f2369767163d653376ac106141c54e38c"
+  integrity sha512-/fOSAvuHNv3IyE1/GXuz7o0d+EIwe35a0Qd/yXWs48KKas0TnxhzHVmExFmMRsWgozaCWBQ81kNyXB7uD+iYow==
   dependencies:
-    q "~1.0.1"
+    "@kwsites/file-exists" "^1.0.0"
+    "@kwsites/math-sum" "^1.0.0"
 
 readdirp@~3.4.0:
   version "3.4.0"
