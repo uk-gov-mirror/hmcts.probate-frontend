@@ -265,7 +265,7 @@ describe('thank-you', () => {
                 }
             };
             const contentToExclude = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf',
-                'coverSheetPdf', 'successParagraph1', 'referenceNumber'];
+                'coverSheetPdf', 'successParagraph1', 'successParagraph2', 'referenceNumber'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
