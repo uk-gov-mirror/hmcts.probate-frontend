@@ -1,6 +1,9 @@
 {
   "title": "A oes unrhyw ddifrod neu farciau gweladwy ar yr ewyllys?",
   "question": "A oes unrhyw ddifrod neu farciau gweladwy ar yr ewyllys?",
+  "contentHeader": "Check the original legal will now",
+  "paragraph1": "You must check the will now for any damage or marks to any of its pages. We need to know if the will appears to have had pages added or removed.<br><br>Check for:<ul class=\"govuk-list govuk-list--bullet\"><li>small holes from where staples have been removed</li><li>punch holes that are no longer being used</li><li>water damage</li><li>torn pages</li><li>paper clip marks</li><li>rust from old staples or paper clips</li></ul>",
+  "paragraph2": "We&rsquo;ll check the will for damage or marks when we receive the original as part of your application. Your application may be delayed by up to 4 weeks if you do not tell us about any damage or marks.",
   "optionYes": "Oes",
   "optionNo": "Nac Oes",
   "otherDamageDescriptionHint": "Disgrifiwch y difrod neu’r marciau",
