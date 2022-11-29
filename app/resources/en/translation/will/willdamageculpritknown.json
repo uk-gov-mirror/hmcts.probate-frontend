@@ -3,7 +3,6 @@
     "question": "Do you know who damaged or marked the will?",
     "optionYes": "Yes",
     "optionNo": "No",
-    "nameLabel": "Name of the person who may have made damages or marks to the will",
     "firstName": "First name",
     "lastName": "Last name",
     "errors": {
