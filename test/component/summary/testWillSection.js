@@ -56,6 +56,7 @@ describe('summary-will-section', () => {
                         selectedDamage1: willContent.willhasvisibledamage.optionstapleOrPunchHoles,
                         selectedDamage2: willContent.willhasvisibledamage.optionotherVisibleDamage,
                         damageReasonKnown: willContent.willdamagereasonknown.question,
+                        willDamageReasonDescriptionTitle: willContent.willdamagereasonknown.willDamageReasonDescriptionTitle,
                         culpritQuestion: willContent.willdamageculpritknown.question,
                         culpritFirstName: willContent.willdamageculpritknown.firstName,
                         culpritLastName: willContent.willdamageculpritknown.lastName
@@ -88,6 +89,7 @@ describe('summary-will-section', () => {
                         selectedDamage1: willContentWelsh.willhasvisibledamage.optionstapleOrPunchHoles,
                         selectedDamage2: willContentWelsh.willhasvisibledamage.optionotherVisibleDamage,
                         damageReasonKnown: willContentWelsh.willdamagereasonknown.question,
+                        willDamageReasonDescriptionTitle: willContentWelsh.willdamagereasonknown.willDamageReasonDescriptionTitle,
                         culpritQuestion: willContentWelsh.willdamageculpritknown.question,
                         culpritFirstName: willContentWelsh.willdamageculpritknown.firstName,
                         culpritLastName: willContentWelsh.willdamageculpritknown.lastName
