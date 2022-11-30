@@ -6,7 +6,9 @@
   "errors": {
     "codicilsNumber": {
       "required": "Nodwch nifer y diweddariadau (&rsquo;codisiliau&rsquo;)",
-      "invalid": "Rhowch rif dilys"
+      "invalid": "Rhowch rif dilys",
+      "zero": "Number of codicils must be 1 or more",
+      "moreThanTwo": "Number of codicils must be 2 characters or less"
     }
   }
 }

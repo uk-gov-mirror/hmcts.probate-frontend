@@ -1,6 +1,7 @@
 {
     "title": "Ydych chi’n gwybod pam fod difrod neu farciau gweledol i’r codisiliau?",
     "question": "Ydych chi’n gwybod pam fod difrod neu farciau gweledol i’r codisiliau?",
+    "hint": "If you know why staples were removed from a codicil, for example, you should tell us as this will reduce delays in processing your application.",
     "optionYes": "Ydw",
     "optionNo": "Nac ydw",
     "codicilsDamageReasonDescriptionTitle": "Rheswm dros y difrod neu farciau i’r codisiliau",
