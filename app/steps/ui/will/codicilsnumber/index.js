@@ -3,7 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const JourneyMap = require('app/core/JourneyMap');
 const featureToggle = require('app/utils/FeatureToggle');
-const FieldError = require("../../../../components/error");
+const FieldError = require('../../../../components/error');
 
 class CodicilsNumber extends ValidationStep {
 
