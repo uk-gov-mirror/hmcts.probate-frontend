@@ -1,12 +1,12 @@
 {
-  "title": "A oes unrhyw ddifrod neu farciau gweladwy ar yr ewyllys?",
-  "question": "A oes unrhyw ddifrod neu farciau gweladwy ar yr ewyllys?",
-  "contentHeader": "Check the original legal will now",
-  "paragraph1": "You must check the will now for any damage or marks to any of its pages. We need to know if the will appears to have had pages added or removed.<br><br>Check for:<ul class=\"govuk-list govuk-list--bullet\"><li>small holes from where staples have been removed</li><li>punch holes that are no longer being used</li><li>water damage</li><li>torn pages</li><li>paper clip marks</li><li>rust from old staples or paper clips</li></ul>",
-  "paragraph2": "We&rsquo;ll check the will for damage or marks when we receive the original as part of your application. Your application may be delayed by up to 4 weeks if you do not tell us about any damage or marks.",
+  "title": "A oes unrhyw ddifrod neu farciau i&rsquo;r ewyllys?",
+  "question": "A oes unrhyw ddifrod neu farciau i&rsquo;r ewyllys?",
+  "contentHeader": "Gwiriwch yr ewyllys gyfreithiol wreiddiol nawr",
+  "paragraph1": "Rhaid i chi wirio&rsquo;r ewyllys nawr am unrhyw ddifrod neu farciau ar unrhyw un o&rsquo;r tudalennau. Rhaid i ni wybod a yw&rsquo;n ymddangos bod tudalennau wedi&rsquo;u hychwanegu neu eu tynnu o&rsquo;r ewyllys.<br><br>Gwiriwch am:<ul class=\"govuk-list govuk-list--bullet\"><li>dyllau bychain lle mae styffylau wedi&rsquo;u tynnu i ffwrdd</li><li>tyllau pwnsh nad ydynt yn cael eu defnyddio mwyach</li><li>difrod dŵr</li><li>tudalennau wedi rhwygo</li><li>marciau clipiau papur</li><li>rhwd o hen styffylau neu glipiau papur</li></ul>",
+  "paragraph2": "Byddwn yn gwirio eich ewyllys am ddifrod neu farciau pan fyddwn yn cael y dogfennau gwreiddiol fel rhan o&rsquo;ch cais. Gall fod oedi o hyd at 4 wythnos gyda&rsquo;ch cais os na fyddwch yn dweud wrthym am unrhyw ddifrod neu farciau.",
   "optionYes": "Oes",
   "optionNo": "Nac Oes",
-  "otherDamageDescriptionHint": "Disgrifiwch y difrod neu’r marciau",
+  "otherDamageDescriptionHint": "Disgrifiwch y math arall o ddifrod neu farciau",
   "otherDamage": "Difrod arall",
   "willDamageHint": "Ticiwch y rhai perthnasol",
   "optionstapleOrPunchHoles": "Staplenni neu dyllau pwnsh",
@@ -17,13 +17,13 @@
   "optionotherVisibleDamage": "Arall",
   "errors": {
     "willHasVisibleDamage": {
-      "required": "Dewiswch &lsquo;Ydw&rsquo; os gwyddoch pam fod difrod neu farciau gweladwy ar yr ewyllys"
+      "required": "Dewiswch &lsquo;oes&rsquo; os oes unrhyw ddifrod neu farciau i&rsquo;r ewyllys"
     },
     "willDamageTypes": {
-      "required": "Dewiswch pa ddifrod gweladwy neu farciau sy’n berthnasol"
+      "required": "Dewiswch o leiaf 1 opsiwn"
     },
     "otherDamageDescription": {
-      "required": "Disgrifiwch y difrod neu farciau gweladwy i’r codisiliau"
+      "required": "Rhowch ddisgrifiad o&rsquo;r difrod arall neu&rsquo;r marciau i&rsquo;r ewyllys"
     }
   }
 }
