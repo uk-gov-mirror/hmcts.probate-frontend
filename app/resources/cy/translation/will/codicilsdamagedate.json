@@ -4,7 +4,7 @@
   "optionYes": "Ydw",
   "optionNo": "Nac ydw",
   "date": "Y dyddiad cafodd y codisiliau eu difrodi neu eu marcio",
-  "dateHint": "Y dyddiad cafodd y codisiliau eu difrodi neu eu marcio<br>Os nad ydych yn gwybod yr union ddyddiad, nodwch y flwyddyn",
+  "dateHint": "<h2 class=\"govuk-heading-m\">Y dyddiad cafodd y codisiliau eu difrodi neu eu marcio</h2>Os nad ydych yn gwybod yr union ddyddiad, nodwch y flwyddyn",
   "errors": {
     "codicilsDamageDateKnown": {
       "required": "Dewiswch &lsquo;Ydw&rsquo; os ydych yn gwybod pryd gafodd y codisiliau eu difrodi neu eu marcio"

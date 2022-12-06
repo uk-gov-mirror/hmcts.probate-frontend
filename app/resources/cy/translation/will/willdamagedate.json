@@ -4,7 +4,7 @@
   "optionYes": "Ydw",
   "optionNo": "Nac ydw",
   "date": "Y dyddiad cafodd yr ewyllys ei difrodi neu farcio",
-  "dateHint": "Y dyddiad cafodd yr ewyllys ei difrodi neu farcio<br>Os nad ydych yn gwybod yr union ddyddiad, nodwch y flwyddyn",
+  "dateHint": "<h2 class=\"govuk-heading-m\">Y dyddiad cafodd yr ewyllys ei difrodi neu farcio</h2>Os nad ydych yn gwybod yr union ddyddiad, nodwch y flwyddyn",
   "errors": {
     "willDamageDateKnown": {
       "required": "Dewiswch &lsquo;Ydw&rsquo; os ydych yn gwybod pryd gafodd yr ewyllys ei difrodi neu ei marcio"

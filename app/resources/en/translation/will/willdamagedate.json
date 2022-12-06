@@ -4,7 +4,7 @@
   "optionYes": "Yes",
   "optionNo": "No",
   "date": "Date the will was damaged or marked",
-  "dateHint": "Date the will was damaged or marked<br>If you don&rsquo;t know the exact date, enter the year",
+  "dateHint": "<h2 class=\"govuk-heading-m\">Date the will was damaged or marked</h2>If you don&rsquo;t know the exact date, enter the year",
   "errors": {
     "willDamageDateKnown": {
       "required": "Select &lsquo;yes&rsquo; if you know when the will was damaged or marked"
