@@ -3,6 +3,9 @@
   "question": "A ydych yn gwybod pryd gafodd yr ewyllys ei difrodi neu ei marcio?",
   "optionYes": "Ydw",
   "optionNo": "Nac ydw",
+  "dayName": "Diwrnod (Dewisol)",
+  "monthName": "Mis (Dewisol)",
+  "yearName": "Blwyddyn",
   "date": "Y dyddiad cafodd yr ewyllys ei difrodi neu farcio",
   "dateHint": "<h2 class=\"govuk-heading-m\">Y dyddiad cafodd yr ewyllys ei difrodi neu farcio</h2>Os nad ydych yn gwybod yr union ddyddiad, nodwch y flwyddyn",
   "errors": {

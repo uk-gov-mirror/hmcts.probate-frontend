@@ -3,6 +3,9 @@
   "question": "Do you know when the will was damaged or marked?",
   "optionYes": "Yes",
   "optionNo": "No",
+  "dayName": "Day (optional)",
+  "monthName": "Month (optional)",
+  "yearName": "Year",
   "date": "Date the will was damaged or marked",
   "dateHint": "<h2 class=\"govuk-heading-m\">Date the will was damaged or marked</h2>If you don&rsquo;t know the exact date, enter the year",
   "errors": {
