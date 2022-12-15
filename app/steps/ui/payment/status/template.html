@@ -4,15 +4,13 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    <h1 class="govuk-heading-l">{{ content.question | safe }}</h1>
-
+    {% if fields.paymentDue.value == "true" %}
+        <h1 class="govuk-heading-l">{{ content.question1 | safe }}</h1>
+    {% else %}
+        <h1 class="govuk-heading-l">{{ content.question2 | safe }}</h1>
+    {% endif %}
     {% if errors == undefined %}
-        {% if fields.paymentDue.value == "true" %}
-            <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
-        {% else %}
-            <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
-            <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
-        {% endif %}
+        <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
     {% endif %}
 
     {% if fields.documentsRequired.value == "true" %}
