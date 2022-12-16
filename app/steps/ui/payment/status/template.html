@@ -5,9 +5,9 @@
 
 {% block form_content %}
     {% if fields.paymentDue.value == "true" %}
-        <h1 class="govuk-heading-l">{{ content.question1 | safe }}</h1>
+        <h1 class="govuk-heading-l">{{ content.headingPayment | safe }}</h1>
     {% else %}
-        <h1 class="govuk-heading-l">{{ content.question2 | safe }}</h1>
+        <h1 class="govuk-heading-l">{{ content.headingNoPayment | safe }}</h1>
     {% endif %}
     {% if errors == undefined %}
         <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
