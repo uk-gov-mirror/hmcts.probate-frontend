@@ -80,7 +80,7 @@ describe('payment-status', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const contentToExclude = ['paragraph2', 'paragraph3'];
+                    const contentToExclude = ['headingNoPayment'];
 
                     testWrapper.testContent(done, {}, contentToExclude);
                 });
@@ -92,7 +92,7 @@ describe('payment-status', () => {
                 .reply(200, {
                     ccdCase: sessionData.ccdCase
                 });
-            const contentToExclude = ['paragraph1'];
+            const contentToExclude = ['headingPayment'];
 
             sessionData = {
                 ccdCase: {
@@ -121,7 +121,7 @@ describe('payment-status', () => {
                 .reply(200, {
                     ccdCase: sessionData.ccdCase
                 });
-            const contentToExclude = ['paragraph1'];
+            const contentToExclude = ['headingPayment'];
             sessionData = {
                 ccdCase: {
                     state: 'Pending',
@@ -149,7 +149,7 @@ describe('payment-status', () => {
                 .reply(200, {
                     ccdCase: sessionData.ccdCase
                 });
-            const contentToExclude = ['paragraph1', 'callout'];
+            const contentToExclude = ['headingPayment', 'callout'];
             sessionData = {
                 ccdCase: {
                     state: 'Pending',
