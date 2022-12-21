@@ -3,7 +3,6 @@
 const TestWrapper = require('test/util/TestWrapper');
 const config = require('config');
 const content = require('app/resources/en/translation/thankyou');
-const commonContent = require('app/resources/en/translation/common');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('thank-you', () => {
