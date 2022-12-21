@@ -20,9 +20,7 @@ describe('thank-you', () => {
     describe('Verify Content, Errors and Redirection', () => {
         it('test content loaded on the page when CCD Case ID not present', (done) => {
             const playbackData = {
-                referenceNumber: content.referenceNumber,
-                checkSummaryLink: content.checkAnswersPdf,
-                declarationLink: content.declarationPdf
+                referenceNumber: content.referenceNumber
             };
 
             testWrapper.testContentNotPresent(done, playbackData);
@@ -42,14 +40,13 @@ describe('thank-you', () => {
                 },
                 caseType: caseTypes.GOP
             };
-            const contentToExclude = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf',
-                'coverSheetPdf', 'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired'];
+            const contentToExclude = ['documentsParagraph1', 'successParagraph1NoDocumentsRequired',
+                'successParagraph2NoDocumentsRequired'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
-                        helpLineNumber: commonContent.helpTelephoneNumber,
                         findOutNext: config.links.findOutNext
                     };
 
@@ -72,17 +69,14 @@ describe('thank-you', () => {
                 caseType: caseTypes.GOP,
                 checkAnswersSummary: '{test: "data"}'
             };
-            const contentToExclude = ['declarationPdf', 'coverSheetPdf', 'successParagraph1NoDocumentsRequired',
+            const contentToExclude = ['documentsParagraph1', 'successParagraph1NoDocumentsRequired',
                 'successParagraph2NoDocumentsRequired'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
-                        helpLineNumber: commonContent.helpTelephoneNumber,
-                        findOutNext: config.links.findOutNext,
-                        saveYourApplication: content.saveYourApplication,
-                        checkSummaryLink: content.checkAnswersPdf
+                        findOutNext: config.links.findOutNext
                     };
 
                     testWrapper.testContent(done, contentData, contentToExclude);
@@ -102,7 +96,7 @@ describe('thank-you', () => {
                 .send(sessionData)
                 .end(() => {
                     const playbackData = {
-                        declarationLink: content.declarationPdf
+                        downloadApplication: content.downloadParagraph
                     };
 
                     testWrapper.testContentNotPresent(done, playbackData);
@@ -124,17 +118,15 @@ describe('thank-you', () => {
                 caseType: caseTypes.GOP,
                 legalDeclaration: '{test: "data"}'
             };
-            const contentToExclude = ['checkAnswersPdf', 'successParagraph1NoDocumentsRequired',
+            const contentToExclude = ['documentsParagraph1', 'successParagraph1NoDocumentsRequired',
                 'successParagraph2NoDocumentsRequired'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
-                        helpLineNumber: commonContent.helpTelephoneNumber,
                         findOutNext: config.links.findOutNext,
-                        saveYourApplication: content.saveYourApplication,
-                        declarationLink: content.declarationPdf
+                        downloadApplication: content.downloadParagraph
                     };
 
                     testWrapper.testContent(done, contentData, contentToExclude);
@@ -154,7 +146,7 @@ describe('thank-you', () => {
                 .send(sessionData)
                 .end(() => {
                     const playbackData = {
-                        checkSummaryLink: content.checkAnswersPdf
+                        downloadApplication: content.downloadParagraph
                     };
 
                     testWrapper.testContentNotPresent(done, playbackData);
@@ -177,17 +169,14 @@ describe('thank-you', () => {
                 checkAnswersSummary: '{test: "data"}',
                 legalDeclaration: '{test: "data"}'
             };
-            const contentToExclude = ['successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired'];
+            const contentToExclude = ['documentsParagraph1', 'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
-                        helpLineNumber: commonContent.helpTelephoneNumber,
                         findOutNext: config.links.findOutNext,
-                        saveYourApplication: content.saveYourApplication,
-                        checkSummaryLink: content.checkAnswersPdf,
-                        declarationLink: content.declarationPdf
+                        downloadApplication: content.downloadParagraph
                     };
 
                     testWrapper.testContent(done, contentData, contentToExclude);
@@ -208,17 +197,15 @@ describe('thank-you', () => {
                 },
                 caseType: caseTypes.GOP
             };
-            const contentToExclude = ['checkAnswersPdf', 'declarationPdf', 'successParagraph1NoDocumentsRequired',
+            const contentToExclude = ['documentsParagraph1', 'successParagraph1NoDocumentsRequired',
                 'successParagraph2NoDocumentsRequired'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
-                        helpLineNumber: commonContent.helpTelephoneNumber,
                         findOutNext: config.links.findOutNext,
-                        saveYourApplication: content.saveYourApplication,
-                        coverSheetLink: content.coverSheetPdf
+                        downloadApplication: content.downloadParagraph
                     };
 
                     testWrapper.testContent(done, contentData, contentToExclude);
@@ -235,16 +222,15 @@ describe('thank-you', () => {
                 },
                 caseType: caseTypes.GOP
             };
-            const contentToExclude = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf',
-                'coverSheetPdf', 'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired',
-                'referenceNumber'];
+            const contentToExclude = ['documentsParagraph1', 'successParagraph1NoDocumentsRequired',
+                'successParagraph2NoDocumentsRequired', 'referenceNumber'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
-                        helpLineNumber: commonContent.helpTelephoneNumber,
-                        findOutNext: config.links.findOutNext
+                        findOutNext: config.links.findOutNext,
+                        downloadApplication: content.downloadParagraph
                     };
 
                     testWrapper.testContent(done, contentData, contentToExclude);
@@ -264,15 +250,15 @@ describe('thank-you', () => {
                     uploads: ['content']
                 }
             };
-            const contentToExclude = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf',
-                'coverSheetPdf', 'successParagraph1', 'successParagraph2', 'referenceNumber'];
+            const contentToExclude = ['documentsParagraph1', 'documentsParagraph2', 'successParagraph1',
+                'successParagraph2', 'referenceNumber'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
-                        helpLineNumber: commonContent.helpTelephoneNumber,
-                        findOutNext: config.links.findOutNext
+                        findOutNext: config.links.findOutNext,
+                        downloadApplication: content.downloadParagraph
                     };
 
                     testWrapper.testContent(done, contentData, contentToExclude);
