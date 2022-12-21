@@ -12,8 +12,8 @@
                         <span class="govuk-!-font-size-36">{{ content.referenceNumber | safe }}</span><br>
                         <strong class="govuk-!-font-weight-bold" aria-label="{{ fields.ccdReferenceNumberAccessible.value }}">{{ fields.ccdReferenceNumber.value }}</strong>
                     </p>
-                    <p class="govuk-body" style="color: #FFFFFF;margin-bottom: 0px;">{{ content.paragraph1 | safe }}</p>
                 {% endif %}
+                <p class="govuk-body" style="color: #FFFFFF;margin-bottom: 0px;">{{ content.paragraph1 | safe }}</p>
             {% endset -%}
 
             {{ govukPanel({
