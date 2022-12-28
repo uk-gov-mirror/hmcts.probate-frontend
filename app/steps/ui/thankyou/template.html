@@ -24,19 +24,19 @@
                 <ol class="hmcts-progress-bar__list">
                     <li class="hmcts-progress-bar__list-item">
                         <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
-                        <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Step 1: </span>Application received</span>
+                        <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Step 1: </span>{{ content.progressBarStep1 | safe }}</span>
                     </li>
                     <li class="hmcts-progress-bar__list-item">
                         <span class="hmcts-progress-bar__icon"></span>
-                        <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Current Step 2: </span>Documents received</span>
+                        <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Current Step 2: </span>{{ content.progressBarStep2 | safe }}</span>
                     </li>
                     <li class="hmcts-progress-bar__list-item" style="width:120px">
                         <span class="hmcts-progress-bar__icon"></span>
-                        <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Step 3: </span>Application in review</span>
+                        <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Step 3: </span>{{ content.progressBarStep3 | safe }}</span>
                     </li>
                     <li class="hmcts-progress-bar__list-item">
                         <span class="hmcts-progress-bar__icon"></span>
-                        <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Step 4: </span>Grant <br>issued</span>
+                        <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Step 4: </span>{{ content.progressBarStep4 | safe }}</span>
                     </li>
                 </ol>
             </div>
