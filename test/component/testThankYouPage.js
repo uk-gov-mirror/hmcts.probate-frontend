@@ -219,7 +219,8 @@ describe('thank-you', () => {
                 payment: {
                     total: 0
                 },
-                caseType: caseTypes.GOP
+                caseType: caseTypes.GOP,
+                documentsRequired: 'true'
             };
             const contentToExclude = ['documentsParagraph1', 'successParagraph1NoDocumentsRequired',
                 'successParagraph2NoDocumentsRequired', 'referenceNumber'];
