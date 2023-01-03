@@ -65,20 +65,20 @@ withNightlyPipeline("nodejs", product, component) {
     enableFortifyScan('probate-aat')
     enableCrossBrowserTest(120)
 //    enableSecurityScan()  //we do this in other builds
-    after('build') {
+    afterSuccess('build') {
         sh 'mkdir -p functional-output'
         sh 'yarn setup'
         //sh 'yarn test-accessibility'
     }
-    after('fullFunctionalTest') {
+    afterSuccess('fullFunctionalTest') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
     }
 
-    after('crossBrowserTest') {
+    afterSuccess('crossBrowserTest') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
     }
 
-  after('fortify-scan') {
+  afterSuccess('fortify-scan') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
   }
 
