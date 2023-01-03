@@ -9,8 +9,8 @@
   "statusDraftProbate": "Draft (probate)",
   "statusDraftIntestacy": "Draft (intestacy)",
   "statusInProgress": "In progress",
-  "statusSubmitted": "Submitted",
+  "statusSubmitted": "Sent",
   "actionContinue": "Continue application",
   "actionView": "View application",
-  "actionStartNewApplication": "Start new application"
+  "actionNewApplication": "New application"
 }

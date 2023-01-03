@@ -26,10 +26,12 @@
                         <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
                         <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Step 1: </span>{{ content.progressBarStep1 | safe }}</span>
                     </li>
+                  {% if fields.documentsRequired.value == "true" %}
                     <li class="hmcts-progress-bar__list-item">
                         <span class="hmcts-progress-bar__icon"></span>
                         <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Current Step 2: </span>{{ content.progressBarStep2 | safe }}</span>
                     </li>
+                  {% endif %}
                     <li class="hmcts-progress-bar__list-item" style="width:120px">
                         <span class="hmcts-progress-bar__icon"></span>
                         <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Step 3: </span>{{ content.progressBarStep3 | safe }}</span>

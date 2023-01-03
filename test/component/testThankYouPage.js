@@ -250,7 +250,7 @@ describe('thank-you', () => {
                 }
             };
             const contentToExclude = ['documentsParagraph1', 'documentsParagraph2', 'successParagraph1',
-                'successParagraph2', 'referenceNumber'];
+                'successParagraph2', 'referenceNumber', 'progressBarStep2'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
