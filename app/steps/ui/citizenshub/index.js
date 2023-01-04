@@ -4,6 +4,7 @@ const Step = require('app/core/steps/Step');
 const FormatCcdCaseId = require('app/utils/FormatCcdCaseId');
 const FormatName = require('app/utils/FormatName');
 const DocumentsWrapper = require('app/wrappers/Documents');
+const CaseProgress = require('app/utils/CaseProgress');
 
 class CitizensHub extends Step {
 
@@ -30,6 +31,9 @@ class CitizensHub extends Step {
         ctx.ccdReferenceNumber = FormatCcdCaseId.format(req.session.form.ccdCase);
         ctx.ccdReferenceNumberAccessible = FormatCcdCaseId.formatAccessible(req.session.form.ccdCase);
         ctx.deceasedName = FormatName.format(req.session.form.deceased);
+        ctx.grantIssued = CaseProgress.grantIssued(req.session.form.ccdCase.state);
+        ctx.applicationInReview = CaseProgress.applicationInReview(req.session.form.ccdCase.state);
+        ctx.documentsReceived = CaseProgress.documentsReceived(req.session.form.ccdCase.state);
         return ctx;
     }
 

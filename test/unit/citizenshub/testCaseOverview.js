@@ -58,7 +58,7 @@ describe('CitizensHub', () => {
         });
     });
 
-    describe('getContextData() with Deceased Name', () => {
+    describe('getContextData()', () => {
         let ctx;
         let req;
 
@@ -82,6 +82,138 @@ describe('CitizensHub', () => {
             expect(ctx.deceasedName).to.deep.equal('Peter Williams');
             done();
         });
+        it('should return the context with case progress for CaseCreated', (done) => {
+            req = {
+                session: {
+                    form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'CaseCreated'
+                        },
+                        deceased: {
+                            firstName: 'Peter',
+                            lastName: 'Williams'
+                        }
+                    }
+                }
+            };
+            const citizensHub = new CitizensHub(steps, section, templatePath, i18next, schema);
+            ctx = citizensHub.getContextData(req);
+            expect(ctx.documentsReceived).to.equal(false);
+            expect(ctx.applicationInReview).to.equal(false);
+            expect(ctx.grantIssued).to.equal(false);
+            done();
+        });
+        it('should return the context with case progress for CasePrinted', (done) => {
+            req = {
+                session: {
+                    form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'CasePrinted'
+                        },
+                        deceased: {
+                            firstName: 'Peter',
+                            lastName: 'Williams'
+                        }
+                    }
+                }
+            };
+            const citizensHub = new CitizensHub(steps, section, templatePath, i18next, schema);
+            ctx = citizensHub.getContextData(req);
+            expect(ctx.documentsReceived).to.equal(false);
+            expect(ctx.applicationInReview).to.equal(false);
+            expect(ctx.grantIssued).to.equal(false);
+            done();
+        });
+        it('should return the context with case progress for BOReadyForExamination', (done) => {
+            req = {
+                session: {
+                    form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'BOReadyForExamination'
+                        },
+                        deceased: {
+                            firstName: 'Peter',
+                            lastName: 'Williams'
+                        }
+                    }
+                }
+            };
+            const citizensHub = new CitizensHub(steps, section, templatePath, i18next, schema);
+            ctx = citizensHub.getContextData(req);
+            expect(ctx.documentsReceived).to.equal(true);
+            expect(ctx.applicationInReview).to.equal(false);
+            expect(ctx.grantIssued).to.equal(false);
+            done();
+        });
+        it('should return the context with case progress for BOExamining', (done) => {
+            req = {
+                session: {
+                    form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'BOExamining'
+                        },
+                        deceased: {
+                            firstName: 'Peter',
+                            lastName: 'Williams'
+                        }
+                    }
+                }
+            };
+            const citizensHub = new CitizensHub(steps, section, templatePath, i18next, schema);
+            ctx = citizensHub.getContextData(req);
+            expect(ctx.documentsReceived).to.equal(true);
+            expect(ctx.applicationInReview).to.equal(true);
+            expect(ctx.grantIssued).to.equal(false);
+            done();
+        });
+        it('should return the context with case progress for BOGrantIssued', (done) => {
+            req = {
+                session: {
+                    form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'BOGrantIssued'
+                        },
+                        deceased: {
+                            firstName: 'Peter',
+                            lastName: 'Williams'
+                        }
+                    }
+                }
+            };
+            const citizensHub = new CitizensHub(steps, section, templatePath, i18next, schema);
+            ctx = citizensHub.getContextData(req);
+            expect(ctx.documentsReceived).to.equal(true);
+            expect(ctx.applicationInReview).to.equal(true);
+            expect(ctx.grantIssued).to.equal(true);
+            done();
+        });
+        it('should return the context with case progress for BOCaseStopped', (done) => {
+            req = {
+                session: {
+                    form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'BOCaseStopped'
+                        },
+                        deceased: {
+                            firstName: 'Peter',
+                            lastName: 'Williams'
+                        }
+                    }
+                }
+            };
+            const citizensHub = new CitizensHub(steps, section, templatePath, i18next, schema);
+            ctx = citizensHub.getContextData(req);
+            expect(ctx.documentsReceived).to.equal(true);
+            expect(ctx.applicationInReview).to.equal(true);
+            expect(ctx.grantIssued).to.equal(false);
+            done();
+        });
     });
     describe('action()', () => {
         it('test that context variables are removed and empty object returned', () => {
@@ -95,5 +227,4 @@ describe('CitizensHub', () => {
             expect(ctx).to.deep.equal({});
         });
     });
-
 });

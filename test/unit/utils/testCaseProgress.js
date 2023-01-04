@@ -1,0 +1,118 @@
+'use strict';
+
+const CaseProgress = require('app/utils/CaseProgress');
+const expect = require('chai').expect;
+
+describe('CaseProgress.js', () => {
+    describe('applicationSubmitted()', () => {
+        it('should return false for Pending', (done) => {
+            const state = 'Pending';
+            expect(CaseProgress.applicationSubmitted(state)).to.equal(false);
+            done();
+        });
+        it('should return false for PAAppCreated', (done) => {
+            const state = 'PAAppCreated';
+            expect(CaseProgress.applicationSubmitted(state)).to.equal(false);
+            done();
+        });
+        it('should return false for CasePaymentFailed', (done) => {
+            const state = 'CasePaymentFailed';
+            expect(CaseProgress.applicationSubmitted(state)).to.equal(false);
+            done();
+        });
+        it('should return true for CaseCreated', (done) => {
+            const state = 'CaseCreated';
+            expect(CaseProgress.applicationSubmitted(state)).to.equal(true);
+            done();
+        });
+    });
+
+    describe('grantIssued()', () => {
+        it('should return false for CaseCreated', (done) => {
+            const state = 'CaseCreated';
+            expect(CaseProgress.grantIssued(state)).to.equal(false);
+            done();
+        });
+        it('should return false for CasePrinted', (done) => {
+            const state = 'CasePrinted';
+            expect(CaseProgress.grantIssued(state)).to.equal(false);
+            done();
+        });
+        it('should return false for BOReadyForExamination', (done) => {
+            const state = 'BOReadyForExamination';
+            expect(CaseProgress.grantIssued(state)).to.equal(false);
+            done();
+        });
+        it('should return true for BOGrantIssued', (done) => {
+            const state = 'BOGrantIssued';
+            expect(CaseProgress.grantIssued(state)).to.equal(true);
+            done();
+        });
+    });
+
+    describe('applicationInReview()', () => {
+        it('should return false for Pending', (done) => {
+            const state = 'Pending';
+            expect(CaseProgress.applicationInReview(state)).to.equal(false);
+            done();
+        });
+        it('should return false for CaseCreated', (done) => {
+            const state = 'CaseCreated';
+            expect(CaseProgress.applicationInReview(state)).to.equal(false);
+            done();
+        });
+        it('should return false for CasePrinted', (done) => {
+            const state = 'CasePrinted';
+            expect(CaseProgress.applicationInReview(state)).to.equal(false);
+            done();
+        });
+        it('should return false for BOReadyForExamination', (done) => {
+            const state = 'BOReadyForExamination';
+            expect(CaseProgress.applicationInReview(state)).to.equal(false);
+            done();
+        });
+        it('should return true for BOReadyToIssue', (done) => {
+            const state = 'BOReadyToIssue';
+            expect(CaseProgress.applicationInReview(state)).to.equal(true);
+            done();
+        });
+        it('should return true for BOGrantIssued', (done) => {
+            const state = 'BOGrantIssued';
+            expect(CaseProgress.applicationInReview(state)).to.equal(true);
+            done();
+        });
+    });
+
+    describe('documentsReceived()', () => {
+        it('should return false for Pending', (done) => {
+            const state = 'Pending';
+            expect(CaseProgress.documentsReceived(state)).to.equal(false);
+            done();
+        });
+        it('should return false for CaseCreated', (done) => {
+            const state = 'CaseCreated';
+            expect(CaseProgress.documentsReceived(state)).to.equal(false);
+            done();
+        });
+        it('should return false for CasePrinted', (done) => {
+            const state = 'CasePrinted';
+            expect(CaseProgress.documentsReceived(state)).to.equal(false);
+            done();
+        });
+        it('should return true for BOReadyForExamination', (done) => {
+            const state = 'BOReadyForExamination';
+            expect(CaseProgress.documentsReceived(state)).to.equal(true);
+            done();
+        });
+        it('should return true for BOReadyToIssue', (done) => {
+            const state = 'BOReadyToIssue';
+            expect(CaseProgress.documentsReceived(state)).to.equal(true);
+            done();
+        });
+        it('should return true for BOGrantIssued', (done) => {
+            const state = 'BOGrantIssued';
+            expect(CaseProgress.documentsReceived(state)).to.equal(true);
+            done();
+        });
+    });
+});
