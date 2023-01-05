@@ -6,6 +6,7 @@ const rewire = require('rewire');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const CitizensHub = rewire('app/steps/ui/citizenshub');
 const i18next = require('i18next');
+const co = require('co');
 
 describe('CitizensHub', () => {
     let section;
@@ -35,7 +36,7 @@ describe('CitizensHub', () => {
         let ctx;
         let req;
 
-        it('should return the context with the ccd case id', (done) => {
+        it('should return the context with the ccd case id & Deceased Name', (done) => {
             req = {
                 session: {
                     form: {
@@ -54,6 +55,8 @@ describe('CitizensHub', () => {
             ctx = citizensHub.getContextData(req);
             expect(ctx.ccdReferenceNumber).to.deep.equal('1234-5678-9012-3456');
             expect(ctx.ccdReferenceNumberAccessible).to.deep.equal('1 2 3 4, -, 5 6 7 8, -, 9 0 1 2, -, 3 4 5 6');
+            expect(ctx.deceasedName).to.deep.equal('Peter Williams');
+
             done();
         });
     });
@@ -61,27 +64,6 @@ describe('CitizensHub', () => {
     describe('getContextData()', () => {
         let ctx;
         let req;
-
-        it('should return the context with the Deceased Name', (done) => {
-            req = {
-                session: {
-                    form: {
-                        ccdCase: {
-                            id: 1234567890123456,
-                            state: 'CaseCreated'
-                        },
-                        deceased: {
-                            firstName: 'Peter',
-                            lastName: 'Williams'
-                        }
-                    }
-                }
-            };
-            const citizensHub = new CitizensHub(steps, section, templatePath, i18next, schema);
-            ctx = citizensHub.getContextData(req);
-            expect(ctx.deceasedName).to.deep.equal('Peter Williams');
-            done();
-        });
         it('should return the context with case progress for CaseCreated', (done) => {
             req = {
                 session: {
@@ -177,10 +159,6 @@ describe('CitizensHub', () => {
                         ccdCase: {
                             id: 1234567890123456,
                             state: 'BOGrantIssued'
-                        },
-                        deceased: {
-                            firstName: 'Peter',
-                            lastName: 'Williams'
                         }
                     }
                 }
@@ -199,10 +177,6 @@ describe('CitizensHub', () => {
                         ccdCase: {
                             id: 1234567890123456,
                             state: 'BOCaseStopped'
-                        },
-                        deceased: {
-                            firstName: 'Peter',
-                            lastName: 'Williams'
                         }
                     }
                 }
@@ -225,6 +199,99 @@ describe('CitizensHub', () => {
             const citizensHub = new CitizensHub(steps, section, templatePath, i18next, schema);
             [ctx, formdata] = citizensHub.action(ctx, formdata);
             expect(ctx).to.deep.equal({});
+        });
+    });
+
+    describe('handleGet()', () => {
+        it('test when checkAnswersSummary JSON just exists', () => {
+            let ctx = {};
+            let formdata = {
+                checkAnswersSummary: '{"test":"data"}'
+            };
+            const citizensHub = new CitizensHub(steps, section, templatePath, i18next, schema);
+            [ctx, formdata] = citizensHub.handleGet(ctx, formdata);
+            expect(ctx.checkAnswersSummary).to.deep.equal(true);
+            expect(ctx.legalDeclaration).to.deep.equal(false);
+        });
+
+        it('test when legalDeclaration JSON just exists', () => {
+            let ctx = {};
+            let formdata = {
+                legalDeclaration: '{"test":"data"}'
+            };
+            const citizensHub = new CitizensHub(steps, section, templatePath, i18next, schema);
+            [ctx, formdata] = citizensHub.handleGet(ctx, formdata);
+            expect(ctx.checkAnswersSummary).to.deep.equal(false);
+            expect(ctx.legalDeclaration).to.deep.equal(true);
+        });
+
+        it('test when no pdf variables JSON exists', () => {
+            let ctx = {};
+            let formdata = {};
+            const citizensHub = new CitizensHub(steps, section, templatePath, i18next, schema);
+            [ctx, formdata] = citizensHub.handleGet(ctx, formdata);
+            expect(ctx.checkAnswersSummary).to.deep.equal(false);
+            expect(ctx.legalDeclaration).to.deep.equal(false);
+        });
+
+        it('test when all pdf variables JSON exists', () => {
+            let ctx = {};
+            let formdata = {
+                checkAnswersSummary: '{"test":"data"}',
+                legalDeclaration: '{"test":"data"}'
+            };
+            const citizensHub = new CitizensHub(steps, section, templatePath, i18next, schema);
+            [ctx, formdata] = citizensHub.handleGet(ctx, formdata);
+            expect(ctx.checkAnswersSummary).to.deep.equal(true);
+            expect(ctx.legalDeclaration).to.deep.equal(true);
+        });
+
+        it('should set documentsRequired to true when documents are required', (done) => {
+            const revertDocumentsWrapper = CitizensHub.__set__({
+                DocumentsWrapper: class {
+                    documentsRequired() {
+                        return true;
+                    }
+                }
+            });
+            const expectedContext = {
+                checkAnswersSummary: false,
+                documentsRequired: true,
+                legalDeclaration: false
+            };
+            const citizensHub = new CitizensHub(steps, section, templatePath, i18next, schema);
+            co(function* () {
+                const [ctx] = citizensHub.handleGet({}, {});
+                expect(ctx).to.deep.equal(expectedContext);
+                revertDocumentsWrapper();
+                done();
+            }).catch(err => {
+                done(err);
+            });
+        });
+
+        it('should set documentsRequired to false when documents are not required', (done) => {
+            const revertDocumentsWrapper = CitizensHub.__set__({
+                DocumentsWrapper: class {
+                    documentsRequired() {
+                        return false;
+                    }
+                }
+            });
+            const expectedContext = {
+                checkAnswersSummary: false,
+                documentsRequired: false,
+                legalDeclaration: false
+            };
+            const citizensHub = new CitizensHub(steps, section, templatePath, i18next, schema);
+            co(function* () {
+                const [ctx] = citizensHub.handleGet({}, {});
+                expect(ctx).to.deep.equal(expectedContext);
+                revertDocumentsWrapper();
+                done();
+            }).catch(err => {
+                done(err);
+            });
         });
     });
 });
