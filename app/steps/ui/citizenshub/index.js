@@ -17,23 +17,23 @@ class CitizensHub extends Step {
         ctx.documentsRequired = documentsWrapper.documentsRequired();
         ctx.checkAnswersSummary = false;
         ctx.legalDeclaration = false;
-        if (formdata.checkAnswersSummary) {
-            ctx.checkAnswersSummary = true;
-        }
         if (formdata.legalDeclaration) {
             ctx.legalDeclaration = true;
+        }
+        if (formdata.checkAnswersSummary) {
+            ctx.checkAnswersSummary = true;
         }
         return [ctx];
     }
 
     getContextData(req) {
         const ctx = super.getContextData(req);
-        ctx.ccdReferenceNumber = FormatCcdCaseId.format(req.session.form.ccdCase);
-        ctx.ccdReferenceNumberAccessible = FormatCcdCaseId.formatAccessible(req.session.form.ccdCase);
         ctx.deceasedName = FormatName.format(req.session.form.deceased);
         ctx.grantIssued = CaseProgress.grantIssued(req.session.form.ccdCase.state);
         ctx.applicationInReview = CaseProgress.applicationInReview(req.session.form.ccdCase.state);
         ctx.documentsReceived = CaseProgress.documentsReceived(req.session.form.ccdCase.state);
+        ctx.ccdReferenceNumber = FormatCcdCaseId.format(req.session.form.ccdCase);
+        ctx.ccdReferenceNumberAccessible = FormatCcdCaseId.formatAccessible(req.session.form.ccdCase);
         return ctx;
     }
 
