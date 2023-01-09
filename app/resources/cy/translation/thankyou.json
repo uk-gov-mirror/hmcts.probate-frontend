@@ -7,7 +7,7 @@
   "progressBarStep2": "Documents received",
   "progressBarStep3": "Application in review",
   "progressBarStep4": "Grant <br>issued",
-  "paragraph2": "You can <a href=\"citizens-hub\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"sign in to your account to view your application progress\">sign in to your account to view your application progress</a> at any time.",
+  "paragraph2": "You can <a href=\"/citizens-hub\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"sign in to your account to view your application progress\">sign in to your account to view your application progress</a> at any time.",
   "downloadParagraph": "Download your application (25KB PDF)",
   "successHeading1": "Beth fydd yn digwydd nesaf",
   "documentsParagraph1": "To avoid any delays in processing your application, you must send us:<br><ul class=\"govuk-list govuk-list--bullet\"><li>the original will </li><li>any page or document that you’ve removed from the will</li><li>either a completed <a id=\"coverSheetPdfHref\" href=\"/cover-sheet-pdf\" class=\"govuk-link\">application coversheet (20KB PDF)</a> or write your reference number {referenceNumber} on a sheet of paper</li></ul><br>",
