@@ -1,5 +1,9 @@
 {
   "title": "Citizens Hub",
   "header": "Case overview",
-  "referenceNumber": "Reference number"
+  "referenceNumber": "Reference number",
+  "progressBarStep1": "Application received",
+  "progressBarStep2": "Documents received",
+  "progressBarStep3": "Application in review",
+  "progressBarStep4": "Grant <br>issued"
 }
