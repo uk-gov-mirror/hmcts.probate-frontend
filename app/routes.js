@@ -9,7 +9,6 @@ const logger = require('app/components/logger');
 const get = require('lodash').get;
 const ApplicantWrapper = require('app/wrappers/Applicant');
 const CcdCaseWrapper = require('app/wrappers/CcdCase');
-const DocumentsWrapper = require('app/wrappers/Documents');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const PaymentWrapper = require('app/wrappers/Payment');
 const documentUpload = require('app/documentUpload');
@@ -161,9 +160,6 @@ router.use((req, res, next) => {
     const ccdCaseWrapper = new CcdCaseWrapper(formdata.ccdCase);
     const applicationSubmitted = ccdCaseWrapper.applicationSubmitted();
 
-    const documentsWrapper = new DocumentsWrapper(formdata);
-    const documentsSent = documentsWrapper.documentsSent();
-
     const executorsWrapper = new ExecutorsWrapper(formdata.executors, req.session.haveAllExecutorsDeclared);
     const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
     const invitesSent = executorsWrapper.invitesSent();
@@ -199,10 +195,8 @@ router.use((req, res, next) => {
             res.redirect('/task-list');
         } else if (!applicantHasDeclared && !applicationSubmitted && config.blacklistedPagesBeforeDeclaration.includes(currentPageCleanUrl)) {
             res.redirect('/task-list');
-        } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl) && !documentsSent) {
-            res.redirect('/documents');
-        } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl) && documentsSent) {
-            res.redirect('/thank-you');
+        } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl)) {
+            res.redirect('/citizens-hub');
         } else if (applicantHasDeclared && hasMultipleApplicants && invitesSent && !allExecutorsHaveDeclared && config.blacklistedPagesBeforeDeclaration.includes(currentPageCleanUrl)) {
             res.redirect('/task-list');
         } else if (applicantHasDeclared && (!hasMultipleApplicants || (invitesSent && allExecutorsHaveDeclared)) && !config.whitelistedPagesAfterDeclaration.includes(currentPageCleanUrl)) {
