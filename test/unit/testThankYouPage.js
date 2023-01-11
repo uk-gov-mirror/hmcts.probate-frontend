@@ -36,7 +36,7 @@ describe('ThankYou', () => {
         let ctx;
         let req;
 
-        it('should return the context with the ccd case id', (done) => {
+        it('should return the context with the ccd case id with state CaseCreated', (done) => {
             req = {
                 session: {
                     form: {
@@ -51,6 +51,69 @@ describe('ThankYou', () => {
             ctx = thankYou.getContextData(req);
             expect(ctx.ccdReferenceNumber).to.deep.equal('1234-5678-9012-3456');
             expect(ctx.ccdReferenceNumberAccessible).to.deep.equal('1 2 3 4, -, 5 6 7 8, -, 9 0 1 2, -, 3 4 5 6');
+            expect(ctx.documentsReceived).to.equal(false);
+            expect(ctx.applicationInReview).to.equal(false);
+            expect(ctx.grantIssued).to.equal(false);
+            done();
+        });
+        it('should return the context with the ccd case id with state BOReadyForExamination', (done) => {
+            req = {
+                session: {
+                    form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'BOReadyForExamination'
+                        }
+                    }
+                }
+            };
+            const thankYou = new ThankYou(steps, section, templatePath, i18next, schema);
+            ctx = thankYou.getContextData(req);
+            expect(ctx.ccdReferenceNumber).to.deep.equal('1234-5678-9012-3456');
+            expect(ctx.ccdReferenceNumberAccessible).to.deep.equal('1 2 3 4, -, 5 6 7 8, -, 9 0 1 2, -, 3 4 5 6');
+            expect(ctx.documentsReceived).to.equal(true);
+            expect(ctx.applicationInReview).to.equal(false);
+            expect(ctx.grantIssued).to.equal(false);
+            done();
+        });
+        it('should return the context with the ccd case id with state BOReadyToIssue', (done) => {
+            req = {
+                session: {
+                    form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'BOReadyToIssue'
+                        }
+                    }
+                }
+            };
+            const thankYou = new ThankYou(steps, section, templatePath, i18next, schema);
+            ctx = thankYou.getContextData(req);
+            expect(ctx.ccdReferenceNumber).to.deep.equal('1234-5678-9012-3456');
+            expect(ctx.ccdReferenceNumberAccessible).to.deep.equal('1 2 3 4, -, 5 6 7 8, -, 9 0 1 2, -, 3 4 5 6');
+            expect(ctx.documentsReceived).to.equal(true);
+            expect(ctx.applicationInReview).to.equal(true);
+            expect(ctx.grantIssued).to.equal(false);
+            done();
+        });
+        it('should return the context with the ccd case id with state BOGrantIssued', (done) => {
+            req = {
+                session: {
+                    form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'BOGrantIssued'
+                        }
+                    }
+                }
+            };
+            const thankYou = new ThankYou(steps, section, templatePath, i18next, schema);
+            ctx = thankYou.getContextData(req);
+            expect(ctx.ccdReferenceNumber).to.deep.equal('1234-5678-9012-3456');
+            expect(ctx.ccdReferenceNumberAccessible).to.deep.equal('1 2 3 4, -, 5 6 7 8, -, 9 0 1 2, -, 3 4 5 6');
+            expect(ctx.documentsReceived).to.equal(true);
+            expect(ctx.applicationInReview).to.equal(true);
+            expect(ctx.grantIssued).to.equal(true);
             done();
         });
     });

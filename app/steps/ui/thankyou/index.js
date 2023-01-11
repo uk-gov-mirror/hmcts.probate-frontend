@@ -4,6 +4,7 @@ const Step = require('app/core/steps/Step');
 const FormatCcdCaseId = require('app/utils/FormatCcdCaseId');
 const DocumentsWrapper = require('app/wrappers/Documents');
 const caseTypes = require('../../../utils/CaseTypes');
+const CaseProgress = require('app/utils/CaseProgress');
 
 class ThankYou extends Step {
 
@@ -31,6 +32,9 @@ class ThankYou extends Step {
         ctx.ccdReferenceNumber = FormatCcdCaseId.format(req.session.form.ccdCase);
         ctx.ccdReferenceNumberAccessible = FormatCcdCaseId.formatAccessible(req.session.form.ccdCase);
         ctx.caseType = caseTypes.getCaseType(session);
+        ctx.grantIssued = CaseProgress.grantIssued(req.session.form.ccdCase.state);
+        ctx.applicationInReview = CaseProgress.applicationInReview(req.session.form.ccdCase.state);
+        ctx.documentsReceived = CaseProgress.documentsReceived(req.session.form.ccdCase.state);
         return ctx;
     }
 
