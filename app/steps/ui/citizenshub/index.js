@@ -32,6 +32,9 @@ class CitizensHub extends Step {
         ctx.grantIssued = CaseProgress.grantIssued(req.session.form.ccdCase.state);
         ctx.applicationInReview = CaseProgress.applicationInReview(req.session.form.ccdCase.state);
         ctx.documentsReceived = CaseProgress.documentsReceived(req.session.form.ccdCase.state);
+        ctx.applicationSubmitted = CaseProgress.applicationSubmitted(req.session.form.ccdCase.state);
+        ctx.caseStopped = CaseProgress.caseStopped(req.session.form.ccdCase.state);
+        ctx.caseClosed = CaseProgress.caseClosed(req.session.form.ccdCase.state);
         ctx.ccdReferenceNumber = FormatCcdCaseId.format(req.session.form.ccdCase);
         ctx.ccdReferenceNumberAccessible = FormatCcdCaseId.formatAccessible(req.session.form.ccdCase);
         return ctx;

@@ -15,6 +15,14 @@ class CaseProgress {
     static documentsReceived(state) {
         return this.applicationSubmitted(state) && (this.applicationInReview(state) || state === 'BOReadyForExamination');
     }
+
+    static caseStopped(state) {
+        return state === 'BOCaseStopped';
+    }
+
+    static caseClosed(state) {
+        return state === 'BOCaseClosed';
+    }
 }
 
 module.exports = CaseProgress;

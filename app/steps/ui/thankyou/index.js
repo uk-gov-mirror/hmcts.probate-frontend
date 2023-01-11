@@ -3,6 +3,7 @@
 const Step = require('app/core/steps/Step');
 const FormatCcdCaseId = require('app/utils/FormatCcdCaseId');
 const DocumentsWrapper = require('app/wrappers/Documents');
+const caseTypes = require('../../../utils/CaseTypes');
 
 class ThankYou extends Step {
 
@@ -25,9 +26,11 @@ class ThankYou extends Step {
     }
 
     getContextData(req) {
+        const session = req.session;
         const ctx = super.getContextData(req);
         ctx.ccdReferenceNumber = FormatCcdCaseId.format(req.session.form.ccdCase);
         ctx.ccdReferenceNumberAccessible = FormatCcdCaseId.formatAccessible(req.session.form.ccdCase);
+        ctx.caseType = caseTypes.getCaseType(session);
         return ctx;
     }
 
