@@ -39,8 +39,8 @@ describe('thank-you', () => {
                 },
                 caseType: caseTypes.GOP
             };
-            const contentToExclude = ['documentsParagraph1', 'successParagraph1NoDocumentsRequired',
-                'successParagraph2NoDocumentsRequired'];
+            const contentToExclude = ['documentsParagraph1', 'intestacyDocumentsParagraph1',
+                'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -68,8 +68,8 @@ describe('thank-you', () => {
                 caseType: caseTypes.GOP,
                 checkAnswersSummary: '{test: "data"}'
             };
-            const contentToExclude = ['documentsParagraph1', 'successParagraph1NoDocumentsRequired',
-                'successParagraph2NoDocumentsRequired'];
+            const contentToExclude = ['documentsParagraph1', 'intestacyDocumentsParagraph1',
+                'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -117,8 +117,8 @@ describe('thank-you', () => {
                 caseType: caseTypes.GOP,
                 legalDeclaration: '{test: "data"}'
             };
-            const contentToExclude = ['documentsParagraph1', 'successParagraph1NoDocumentsRequired',
-                'successParagraph2NoDocumentsRequired'];
+            const contentToExclude = ['documentsParagraph1', 'intestacyDocumentsParagraph1',
+                'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -168,7 +168,8 @@ describe('thank-you', () => {
                 checkAnswersSummary: '{test: "data"}',
                 legalDeclaration: '{test: "data"}'
             };
-            const contentToExclude = ['documentsParagraph1', 'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired'];
+            const contentToExclude = ['documentsParagraph1', 'intestacyDocumentsParagraph1',
+                'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -196,8 +197,8 @@ describe('thank-you', () => {
                 },
                 caseType: caseTypes.GOP
             };
-            const contentToExclude = ['documentsParagraph1', 'successParagraph1NoDocumentsRequired',
-                'successParagraph2NoDocumentsRequired'];
+            const contentToExclude = ['documentsParagraph1', 'intestacyDocumentsParagraph1',
+                'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -221,8 +222,8 @@ describe('thank-you', () => {
                 },
                 caseType: caseTypes.GOP
             };
-            const contentToExclude = ['documentsParagraph1', 'successParagraph1NoDocumentsRequired',
-                'successParagraph2NoDocumentsRequired', 'referenceNumber'];
+            const contentToExclude = ['documentsParagraph1', 'intestacyDocumentsParagraph1',
+                'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired', 'referenceNumber'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -249,8 +250,8 @@ describe('thank-you', () => {
                     uploads: ['content']
                 }
             };
-            const contentToExclude = ['documentsParagraph1', 'documentsParagraph2', 'successParagraph1',
-                'successParagraph2', 'referenceNumber', 'progressBarStep2'];
+            const contentToExclude = ['documentsParagraph1', 'intestacyDocumentsParagraph1',
+                'documentsParagraph2', 'successParagraph1', 'successParagraph2', 'referenceNumber', 'progressBarStep2'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
