@@ -214,6 +214,10 @@ describe('thank-you', () => {
 
         it('test content loaded on the page when documents are required', (done) => {
             const sessionData = {
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'CaseCreated'
+                },
                 declaration: {
                     declarationCheckbox: 'true'
                 },
@@ -239,6 +243,10 @@ describe('thank-you', () => {
 
         it('test content loaded on the page when documents not required', (done) => {
             const sessionData = {
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'CaseCreated'
+                },
                 declaration: {
                     declarationCheckbox: 'true'
                 },

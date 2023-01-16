@@ -13,19 +13,28 @@
             isPageHeading: true
         }
     }) %}
+    <p class="govuk-body">{{ content.documentsParagraph1 | safe }}</p>
+    {{ unorderedList(fields.checkListItems.value) }}
+
+
+    <p class="govuk-body">{{ content.documentsParagraph2 | safe }}</p>
+    <p class="govuk-body">{{ content.documentsParagraph3 | safe }}</p>
+
+    {{ govukInsetText({
+    text: fields.registryAddress.value | safe | nl2br
+    }) }}
 
     {% if fields.documentsRequired.value == "true" %}
           {% if fields.caseType.value === globals.caseTypes.intestacy %}
-              <p class="govuk-body">{{ content.intestacyDocumentsParagraph1 | replace("{referenceNumber}", fields.ccdReferenceNumber.value) | safe }}</p>
-              <p class="govuk-body">{{ content.documentsParagraph2 | safe }}</p>
+              <p class="govuk-body">{{ content.documentsParagraph5 | safe }}</p>
           {% else %}
-              <p class="govuk-body">{{ content.documentsParagraph1 | replace("{referenceNumber}", fields.ccdReferenceNumber.value) | safe }}</p>
-              <p class="govuk-body">{{ content.documentsParagraph2 | safe }}</p>
-              <p class="govuk-body">{{ content.documentsParagraph3 | safe }}</p>
-              <h2 class="govuk-heading-m">{{ content.heading | safe }}</h2>
-              <p class="govuk-body">{{ content.helpParagraph | safe }}</p>
+              <p class="govuk-body">{{ content.documentsParagraph4 | safe }}</p>
+              <h2 class="govuk-heading-m">{{ content.HelpHeading | safe }}</h2>
+              <p class="govuk-body">{{ content.helpfulParagraph | safe }}</p>
           {% endif %}
     {% endif %}
     {% endcall %}
 {% endblock %}
+
+{% block save_and_close %}{% endblock %}
 
