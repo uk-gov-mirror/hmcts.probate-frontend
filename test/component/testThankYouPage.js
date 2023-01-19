@@ -40,7 +40,14 @@ describe('thank-you', () => {
                 caseType: caseTypes.GOP
             };
             const contentToExclude = ['documentsParagraph1', 'intestacyDocumentsParagraph1',
-                'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired'];
+                'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired',
+                'declarationPdf', 'checkAnswersPdf',
+                'checklist-item1-application-coversheet', 'checklist-item2-no-codicils', 'checklist-item2-codicils',
+                'checklist-item3-codicils-written-wishes', 'checklist-item4-interim-death-cert',
+                'checklist-item4-foreign-death-cert', 'checklist-item4-foreign-death-cert-translation',
+                'checklist-item5-foreign-death-cert-PA19', 'checklist-item6-spouse-renouncing', 'checklist-item7-iht205',
+                'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
+                'checklist-item11-spouse-giving-up-admin-rights-PA16'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -69,7 +76,14 @@ describe('thank-you', () => {
                 checkAnswersSummary: '{test: "data"}'
             };
             const contentToExclude = ['documentsParagraph1', 'intestacyDocumentsParagraph1',
-                'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired'];
+                'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired',
+                'declarationPdf',
+                'checklist-item1-application-coversheet', 'checklist-item2-no-codicils', 'checklist-item2-codicils',
+                'checklist-item3-codicils-written-wishes', 'checklist-item4-interim-death-cert',
+                'checklist-item4-foreign-death-cert', 'checklist-item4-foreign-death-cert-translation',
+                'checklist-item5-foreign-death-cert-PA19', 'checklist-item6-spouse-renouncing', 'checklist-item7-iht205',
+                'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
+                'checklist-item11-spouse-giving-up-admin-rights-PA16'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -95,7 +109,7 @@ describe('thank-you', () => {
                 .send(sessionData)
                 .end(() => {
                     const playbackData = {
-                        downloadApplication: content.downloadParagraph
+                        downloadApplication: content.checkAnswersPdf
                     };
 
                     testWrapper.testContentNotPresent(done, playbackData);
@@ -118,14 +132,19 @@ describe('thank-you', () => {
                 legalDeclaration: '{test: "data"}'
             };
             const contentToExclude = ['documentsParagraph1', 'intestacyDocumentsParagraph1',
-                'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired'];
+                'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired', 'checkAnswersPdf',
+                'checklist-item1-application-coversheet', 'checklist-item2-no-codicils', 'checklist-item2-codicils',
+                'checklist-item3-codicils-written-wishes', 'checklist-item4-interim-death-cert',
+                'checklist-item4-foreign-death-cert', 'checklist-item4-foreign-death-cert-translation',
+                'checklist-item5-foreign-death-cert-PA19', 'checklist-item6-spouse-renouncing', 'checklist-item7-iht205',
+                'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
+                'checklist-item11-spouse-giving-up-admin-rights-PA16'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
                         findOutNext: config.links.findOutNext,
-                        downloadApplication: content.downloadParagraph
                     };
 
                     testWrapper.testContent(done, contentData, contentToExclude);
@@ -145,7 +164,7 @@ describe('thank-you', () => {
                 .send(sessionData)
                 .end(() => {
                     const playbackData = {
-                        downloadApplication: content.downloadParagraph
+                        downloadApplication: content.declarationPdf
                     };
 
                     testWrapper.testContentNotPresent(done, playbackData);
@@ -169,43 +188,20 @@ describe('thank-you', () => {
                 legalDeclaration: '{test: "data"}'
             };
             const contentToExclude = ['documentsParagraph1', 'intestacyDocumentsParagraph1',
-                'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired'];
+                'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired', 'declarationPdf',
+                'checkAnswersPdf',
+                'checklist-item1-application-coversheet', 'checklist-item2-no-codicils', 'checklist-item2-codicils',
+                'checklist-item3-codicils-written-wishes', 'checklist-item4-interim-death-cert',
+                'checklist-item4-foreign-death-cert', 'checklist-item4-foreign-death-cert-translation',
+                'checklist-item5-foreign-death-cert-PA19', 'checklist-item6-spouse-renouncing', 'checklist-item7-iht205',
+                'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
+                'checklist-item11-spouse-giving-up-admin-rights-PA16'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
                         findOutNext: config.links.findOutNext,
-                        downloadApplication: content.downloadParagraph
-                    };
-
-                    testWrapper.testContent(done, contentData, contentToExclude);
-                });
-        });
-
-        it('test content loaded on the page so Cover Sheet download is present', (done) => {
-            const sessionData = {
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'CaseCreated'
-                },
-                declaration: {
-                    declarationCheckbox: 'true'
-                },
-                payment: {
-                    total: 0
-                },
-                caseType: caseTypes.GOP
-            };
-            const contentToExclude = ['documentsParagraph1', 'intestacyDocumentsParagraph1',
-                'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired'];
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const contentData = {
-                        findOutNext: config.links.findOutNext,
-                        downloadApplication: content.downloadParagraph
                     };
 
                     testWrapper.testContent(done, contentData, contentToExclude);
@@ -227,14 +223,20 @@ describe('thank-you', () => {
                 caseType: caseTypes.GOP
             };
             const contentToExclude = ['documentsParagraph1', 'intestacyDocumentsParagraph1',
-                'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired', 'referenceNumber'];
+                'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired', 'referenceNumber',
+                'declarationPdf', 'checkAnswersPdf',
+                'checklist-item1-application-coversheet', 'checklist-item2-no-codicils', 'checklist-item2-codicils',
+                'checklist-item3-codicils-written-wishes', 'checklist-item4-interim-death-cert',
+                'checklist-item4-foreign-death-cert', 'checklist-item4-foreign-death-cert-translation',
+                'checklist-item5-foreign-death-cert-PA19', 'checklist-item6-spouse-renouncing', 'checklist-item7-iht205',
+                'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
+                'checklist-item11-spouse-giving-up-admin-rights-PA16'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
                         findOutNext: config.links.findOutNext,
-                        downloadApplication: content.downloadParagraph
                     };
 
                     testWrapper.testContent(done, contentData, contentToExclude);
@@ -259,16 +261,21 @@ describe('thank-you', () => {
                 }
             };
             const contentToExclude = ['documentsParagraph1', 'intestacyDocumentsParagraph1',
-                'documentsParagraph2', 'successParagraph1', 'successParagraph2', 'referenceNumber', 'progressBarStep2'];
+                'documentsParagraph2', 'successParagraph1', 'successParagraph2', 'referenceNumber', 'progressBarStep2',
+                'declarationPdf', 'checkAnswersPdf', 'address',
+                'checklist-item1-application-coversheet', 'checklist-item2-no-codicils', 'checklist-item2-codicils',
+                'checklist-item3-codicils-written-wishes', 'checklist-item4-interim-death-cert',
+                'checklist-item4-foreign-death-cert', 'checklist-item4-foreign-death-cert-translation',
+                'checklist-item5-foreign-death-cert-PA19', 'checklist-item6-spouse-renouncing', 'checklist-item7-iht205',
+                'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
+                'checklist-item11-spouse-giving-up-admin-rights-PA16'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
                         findOutNext: config.links.findOutNext,
-                        downloadApplication: content.downloadParagraph
                     };
-
                     testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
