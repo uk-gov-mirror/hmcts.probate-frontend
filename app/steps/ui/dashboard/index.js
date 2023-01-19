@@ -7,9 +7,18 @@ const EligibilityCookie = require('app/utils/EligibilityCookie');
 const eligibilityCookie = new EligibilityCookie();
 
 class Dashboard extends Step {
-
     static getUrl() {
         return '/dashboard';
+    }
+
+    runnerOptions(ctx, session) {
+        ctx.applications = session.form.applications;
+        const options = {};
+        if (ctx.applications.length > 1) {
+            options.redirect = true;
+            options.url = '/citizens-hub';
+        }
+        return options;
     }
 
     getContextData(req, res) {
