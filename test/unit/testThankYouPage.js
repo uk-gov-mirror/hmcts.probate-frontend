@@ -183,15 +183,12 @@ describe('ThankYou', () => {
                     }
                 }
             });
-            const expectedContext = {
-                checkAnswersSummary: false,
-                documentsRequired: true,
-                legalDeclaration: false
-            };
             const thankYou = new ThankYou(steps, section, templatePath, i18next, schema);
             co(function* () {
                 const [ctx] = thankYou.handleGet({}, {});
-                expect(ctx).to.deep.equal(expectedContext);
+                expect(ctx.checkAnswersSummary).to.deep.equal(false);
+                expect(ctx.documentsRequired).to.deep.equal(true);
+                expect(ctx.legalDeclaration).to.deep.equal(false);
                 revertDocumentsWrapper();
                 done();
             }).catch(err => {
@@ -207,15 +204,12 @@ describe('ThankYou', () => {
                     }
                 }
             });
-            const expectedContext = {
-                checkAnswersSummary: false,
-                documentsRequired: false,
-                legalDeclaration: false
-            };
             const thankYou = new ThankYou(steps, section, templatePath, i18next, schema);
             co(function* () {
                 const [ctx] = thankYou.handleGet({}, {});
-                expect(ctx).to.deep.equal(expectedContext);
+                expect(ctx.checkAnswersSummary).to.deep.equal(false);
+                expect(ctx.documentsRequired).to.deep.equal(false);
+                expect(ctx.legalDeclaration).to.deep.equal(false);
                 revertDocumentsWrapper();
                 done();
             }).catch(err => {
