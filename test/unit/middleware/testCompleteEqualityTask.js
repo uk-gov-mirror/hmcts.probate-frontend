@@ -9,7 +9,7 @@ chai.use(sinonChai);
 const modulePath = 'app/middleware/completeEqualityTask';
 const proxyquire = require('proxyquire');
 const FormData = require('app/services/FormData');
-const completeEqualityTask = require("../../../app/middleware/completeEqualityTask");
+const completeEqualityTask = require('../../../app/middleware/completeEqualityTask');
 
 let equalityStub;
 const startStub = () => {

@@ -3,7 +3,7 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 const PinNumber = require('app/services/PinNumber');
-const FormatUrl = require("app/utils/FormatUrl");
+const FormatUrl = require('app/utils/FormatUrl');
 
 describe('PinNumberService', () => {
     describe('get()', () => {

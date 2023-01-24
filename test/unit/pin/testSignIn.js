@@ -8,8 +8,8 @@ const PinPage = rewire('app/steps/ui/pin/signin');
 const caseTypes = require('app/utils/CaseTypes');
 const co = require('co');
 const i18next = require('i18next');
-const sinon = require("sinon");
-const FormData = require("app/services/FormData");
+const sinon = require('sinon');
+const FormData = require('app/services/FormData');
 const section = 'pin';
 const templatePath = 'pin/signin';
 const schema = {
@@ -76,7 +76,7 @@ describe('Pin-Page', () => {
                 declaration: {
                     declarationCheckbox: true
                 }
-            }))
+            }));
 
             const pinResend = new PinPage(steps, section, templatePath, i18next, schema);
 

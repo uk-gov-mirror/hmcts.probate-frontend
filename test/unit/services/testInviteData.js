@@ -3,7 +3,7 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 const InviteData = require('app/services/InviteData');
-const FormatUrl = require("app/utils/FormatUrl");
+const FormatUrl = require('app/utils/FormatUrl');
 
 describe('InviteDataService', () => {
     describe('updateContactDetails()', () => {

@@ -102,7 +102,7 @@ describe('Pin-Resend', () => {
             });
 
             const pinResend = new PinResend(steps, section, templatePath, i18next, schema);
-            const pinResendGetStub = sinon.stub(PinNumber.prototype, 'get').returns(Promise.resolve(123456))
+            const pinResendGetStub = sinon.stub(PinNumber.prototype, 'get').returns(Promise.resolve(123456));
 
             co(function* () {
                 const [ctx, errors] = yield pinResend.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);

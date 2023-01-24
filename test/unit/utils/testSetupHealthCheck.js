@@ -7,7 +7,7 @@ const sinon = require('sinon');
 const assert = require('sinon').assert;
 const expect = require('chai').expect;
 const outputs = require('@hmcts/nodejs-healthcheck/healthcheck/outputs');
-const FormatUrl = require("app/utils/FormatUrl");
+const FormatUrl = require('app/utils/FormatUrl');
 const logger = require('app/components/logger')('Init');
 const app = {};
 let res = {};
@@ -64,7 +64,7 @@ describe(modulePath, () => {
 
         afterEach(() => {
             formatUrlStub.restore();
-        })
+        });
 
         it('passes health check', () => {
             setupHealthCheck(app);
