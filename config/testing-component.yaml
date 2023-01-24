@@ -7,10 +7,5 @@ configFeatureToggles:
 
 environment: local
 
-services:
-  orchestrator:
-    url: ''
-  payment:
-    url: ''
-  equalityAndDiversity:
-    url: ''
+app:
+  port: 3001
