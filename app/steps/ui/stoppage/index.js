@@ -53,31 +53,31 @@ class StopPage extends Step {
             pageHeader = 'deathCertificateTranslationHeader';
             break;
         case 'notInEnglandOrWales':
-            pageHeader = 'notInEnglandOrWalesHeader';
+            pageHeader = 'applyByPostHeader';
             break;
         case 'ihtNotCompleted':
-            pageHeader = 'ihtNotCompletedHeader';
+            pageHeader = 'inheritanceHeader';
             break;
         case 'eeEstateNotValued':
-            pageHeader = 'eeEstateValuedHeader';
+            pageHeader = 'inheritanceHeader';
             break;
         case 'notDiedAfterOctober2014':
-            pageHeader = 'notDiedAfterOctober2014Header';
+            pageHeader = 'applyByPostHeader';
             break;
         case 'notRelated':
-            pageHeader = 'notRelatedHeader';
+            pageHeader = 'applyByPostHeader';
             break;
         case 'otherApplicants':
-            pageHeader = 'otherApplicantsHeader';
+            pageHeader = 'applyByPostHeader';
             break;
         case 'notOriginal':
             pageHeader = 'notOriginalHeader';
             break;
         case 'notExecutor':
-            pageHeader = 'notExecutorHeader';
+            pageHeader = 'applyByPostHeader';
             break;
         case 'mentalCapacity':
-            pageHeader = 'mentalCapacityHeader';
+            pageHeader = 'applyByPostHeader';
             break;
         default:
             pageHeader = 'defaultHeader';
