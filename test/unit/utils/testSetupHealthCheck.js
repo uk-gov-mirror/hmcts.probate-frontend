@@ -7,6 +7,7 @@ const sinon = require('sinon');
 const assert = require('sinon').assert;
 const expect = require('chai').expect;
 const outputs = require('@hmcts/nodejs-healthcheck/healthcheck/outputs');
+const FormatUrl = require("app/utils/FormatUrl");
 const logger = require('app/components/logger')('Init');
 const app = {};
 let res = {};
@@ -56,6 +57,15 @@ describe(modulePath, () => {
         });
     });
     describe('case-orchestration-service', () => {
+        let formatUrlStub;
+        beforeEach(() => {
+            formatUrlStub = sinon.stub(FormatUrl, 'format').returns('/health');
+        });
+
+        afterEach(() => {
+            formatUrlStub.restore();
+        })
+
         it('passes health check', () => {
             setupHealthCheck(app);
 
