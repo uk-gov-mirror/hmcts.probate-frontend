@@ -6,3 +6,11 @@ configFeatureToggles:
   gaEnabled: true
 
 environment: local
+
+services:
+  orchestrator:
+    url: ''
+  payment:
+    url: ''
+  equalityAndDiversity:
+    url: ''
