@@ -72,7 +72,7 @@ describe(modulePath, () => {
             const callArgs = healthcheck.web.getCall(1).args;
 
             // check we are testing correct service
-            expect(callArgs[0]).to.eql(`${config.services.orchestrator.url}/health`);
+            expect(callArgs[0]).to.eql('/health');
 
             const cosCallback = callArgs[1].callback;
             cosCallback(null, res);
@@ -85,7 +85,7 @@ describe(modulePath, () => {
             const callArgs = healthcheck.web.getCall(1).args;
 
             // check we are testing correct service
-            expect(callArgs[0]).to.eql(`${config.services.orchestrator.url}/health`);
+            expect(callArgs[0]).to.eql('/health');
 
             const cosCallback = callArgs[1].callback;
             res = {status: 500};
