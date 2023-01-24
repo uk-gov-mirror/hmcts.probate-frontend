@@ -34,8 +34,7 @@ describe('stop-page', () => {
         it('test right content loaded on the page - deceased not in england or wales', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('notInEnglandOrWales');
             const contentData = {stopReason: 'notInEnglandOrWales', applicationFormPA1P: config.links.applicationFormPA1P, applicationFormPA1A: config.links.applicationFormPA1A};
-            const contentToExclude = ['deathCertificate', 'ihtNotCompleted', 'notOriginal', 'notExecutor', 'mentalCapacity', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18', 'deathCertificateTranslation', 'deathCertificateTranslationHeader', 'eeEstateValuedHeader', 'eeEstateNotValued'];
-
+            const contentToExclude = ['defaultHeader', 'deathCertificateHeader', 'deathCertificateTranslationHeader', 'inheritanceHeader', 'notOriginalHeader', 'defaultReason', 'deathCertificate', 'deathCertificateTranslation', 'ihtNotCompleted', 'eeEstateNotValued', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'notOriginal', 'notExecutor', 'mentalCapacity', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
             testWrapper.testContent(done, contentData, contentToExclude);
         });
 
