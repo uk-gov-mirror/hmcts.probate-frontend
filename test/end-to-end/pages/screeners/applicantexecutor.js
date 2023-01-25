@@ -8,7 +8,6 @@ module.exports = async function(language ='en', answer = null) {
     await I.checkInUrl('/applicant-executor');
     await I.waitForText(applicantExecutorContent.question);
     await I.waitForText(applicantExecutorContent.hintText1);
-    await I.waitForText(applicantExecutorContent.hintText2);
 
     const locator = {css: `#executor${answer}`};
     await I.waitForEnabled(locator);
