@@ -9,13 +9,13 @@ module.exports = async function(language = 'en') {
     const locator = {css: '#eeEstateValued'};
     let question = eeEstateValuedContent.question;
     if (question.includes('&#770;')) {
-        question = question.replace('a&#770;', 'â');
+        question = question.split('a&#770;')[0];
     }
     if (question.includes('&rsquo;')) {
-        question = question.replace('&rsquo;', '’');
+        question = question.split('&rsquo;')[0];
     }
-    await I.waitForText(question);
     await I.see(question);
+    await I.waitForText(question);
     await I.waitForEnabled(locator);
     await I.click(locator);
     await I.navByClick(commonContent.continue, 'button.govuk-button');
