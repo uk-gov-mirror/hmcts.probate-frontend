@@ -4,8 +4,8 @@ module.exports = async function(language ='en') {
     const I = this;
     const commonContent = require(`app/resources/${language}/translation/common`);
     const deceasedDomicileContent = require(`app/resources/${language}/translation/screeners/deceaseddomicile`);
-
-    await I.waitForText(deceasedDomicileContent.question);
+    const {decodeHTML} = require('test/end-to-end/helpers/GeneralHelpers');
+    await I.waitForText(await decodeHTML(deceasedDomicileContent.question));
     await I.checkInUrl('/deceased-domicile');
     const locator = {css: '#domicile'};
     await I.waitForEnabled(locator);
