@@ -10,9 +10,11 @@ module.exports = async function(language = 'en') {
     let question = eeDeceasedDodContent.question;
     if (question.includes('&#770;')) {
         question = question.replace('o&#770;', 'ô');
+        console.log('question is: -----------------------------------------------');
+        console.log(question);
     }
-    await I.waitForText(question);
     await I.see(question);
+    await I.waitForText(question);
     await I.waitForEnabled(locator);
     await I.click(locator);
     await I.navByClick(commonContent.continue, 'button.govuk-button');
