@@ -59,7 +59,7 @@
                 {
                     value: "otherVisibleDamage",
                     text: content["optionotherVisibleDamage"] | safe,
-                    checked: fields.options.value.otherVisibleDamage,
+                    checked: true if fields.willDamageTypes.value[fields.willDamageTypes.value.length-1] == "otherVisibleDamage",
                     conditional: {
                         html: willDamageDescriptionHtml
                     }
