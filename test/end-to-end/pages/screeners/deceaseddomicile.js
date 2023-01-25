@@ -7,7 +7,9 @@ module.exports = async function(language ='en') {
 
     await I.waitForText(deceasedDomicileContent.question);
     await I.checkInUrl('/deceased-domicile');
-    await I.see(deceasedDomicileContent.hintText1);
+    let hintText1 = deceasedDomicileContent.hintText1;
+    hintText1 = hintText1.split('>')[0].split('<a')[0] + hintText1.split('</a>')[0].split('>')[1] + hintText1.split('</a>')[1];
+    await I.see(hintText1);
     const locator = {css: '#domicile'};
     await I.waitForEnabled(locator);
 

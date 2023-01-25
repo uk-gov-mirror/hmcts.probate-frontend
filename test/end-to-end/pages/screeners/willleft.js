@@ -9,6 +9,7 @@ module.exports = async function(language ='en', answer = null) {
 
     await I.checkInUrl('/will-left');
     await I.waitForText(willLeftContent.question);
+    await I.waitForText(willLeftContent.question);
     const locator = {css: `#left${answer}`};
     await I.waitForEnabled(locator, config.TestWaitForElementToAppear);
     await I.click(locator);

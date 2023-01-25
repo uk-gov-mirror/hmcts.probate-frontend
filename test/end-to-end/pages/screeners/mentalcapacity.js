@@ -7,7 +7,10 @@ module.exports = async function(language ='en', answer = null) {
 
     await I.checkInUrl('/mental-capacity');
     await I.waitForText(mentalCapacityContent.question);
-    await I.waitForText(mentalCapacityContent.hintText1);
+    await I.see(mentalCapacityContent.hintText1);
+    let hintText2 = mentalCapacityContent.hintText2;
+    hintText2 = hintText2.split('>')[0].split('<a')[0] + hintText2.split('</a>')[0].split('>')[1] + hintText2.split('</a>')[1];
+    await I.see(hintText2);
 
     const locator = {css: `#mentalCapacity${answer}`};
     await I.waitForEnabled(locator);

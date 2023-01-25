@@ -7,6 +7,7 @@ module.exports = async function(language ='en', answer = null) {
 
     await I.checkInUrl('/iht-completed');
     await I.waitForText(ihtCompletedContent.question);
+    await I.see(ihtCompletedContent.hintText);
     const locator = {css: `#completed${answer}`};
     await I.waitForEnabled(locator);
     await I.click(locator);
