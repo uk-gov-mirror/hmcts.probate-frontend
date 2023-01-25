@@ -59,7 +59,7 @@ class StopPage extends Step {
             pageHeader = 'inheritanceHeader';
             break;
         case 'eeEstateNotValued':
-            pageHeader = 'inheritanceHeader';
+            pageHeader = 'eeEstateValuedHeader';
             break;
         case 'notDiedAfterOctober2014':
             pageHeader = 'applyByPostHeader';
