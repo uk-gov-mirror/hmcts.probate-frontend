@@ -353,11 +353,11 @@ describe('DocumentUploadMiddleware', () => {
                 }
             });
 
-            const revertPersist = documentUploadMiddleware.__set__('persistFormData', () => {
-                return Promise.reject(error);
+            const revertPersist = documentUploadMiddleware.__set__({
+                persistFormData: sinon.stub().throws(error)
             });
 
-            const res = {};
+            const res = {redirect: sinon.stub()};
             const next = sinon.spy();
             documentUploadMiddleware.removeDocument(req, res, next);
             setTimeout(() => {
