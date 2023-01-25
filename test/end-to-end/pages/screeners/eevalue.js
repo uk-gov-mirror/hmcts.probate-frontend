@@ -8,10 +8,10 @@ module.exports = async function(language = 'en') {
 
     const locator = {css: '#eeEstateValued'};
     let question = eeEstateValuedContent.question;
-    if (question.contains('&#770;')) {
+    if (question.includes('&#770;')) {
         question = question.replace('a&#770;', 'â');
     }
-    if (question.contains('&rsquo;')) {
+    if (question.includes('&rsquo;')) {
         question = question.replace('&rsquo;', '’');
     }
     await I.waitForText(question);

@@ -8,7 +8,7 @@ module.exports = async function(language = 'en') {
 
     const locator = {css: '#eeDeceasedDod'};
     let question = eeDeceasedDodContent.question;
-    if (question.contains('&#770;')) {
+    if (question.includes('&#770;')) {
         question = question.replace('o&#770;', 'ô');
     }
     await I.waitForText(question);
