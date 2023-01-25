@@ -7,7 +7,6 @@ const sinon = require('sinon');
 const assert = require('sinon').assert;
 const expect = require('chai').expect;
 const outputs = require('@hmcts/nodejs-healthcheck/healthcheck/outputs');
-const FormatUrl = require('app/utils/FormatUrl');
 const logger = require('app/components/logger')('Init');
 const app = {};
 let res = {};
@@ -57,22 +56,13 @@ describe(modulePath, () => {
         });
     });
     describe('case-orchestration-service', () => {
-        let formatUrlStub;
-        beforeEach(() => {
-            formatUrlStub = sinon.stub(FormatUrl, 'format').returns('/health');
-        });
-
-        afterEach(() => {
-            formatUrlStub.restore();
-        });
-
         it('passes health check', () => {
             setupHealthCheck(app);
 
             const callArgs = healthcheck.web.getCall(1).args;
 
             // check we are testing correct service
-            expect(callArgs[0]).to.eql('/health');
+            expect(callArgs[0]).to.eql(`${config.services.orchestrator.url}/health`);
 
             const cosCallback = callArgs[1].callback;
             cosCallback(null, res);
@@ -85,7 +75,7 @@ describe(modulePath, () => {
             const callArgs = healthcheck.web.getCall(1).args;
 
             // check we are testing correct service
-            expect(callArgs[0]).to.eql('/health');
+            expect(callArgs[0]).to.eql(`${config.services.orchestrator.url}/health`);
 
             const cosCallback = callArgs[1].callback;
             res = {status: 500};

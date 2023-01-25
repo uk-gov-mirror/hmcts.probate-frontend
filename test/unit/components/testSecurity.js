@@ -178,7 +178,7 @@ describe('Security component', () => {
                     return Promise.resolve({name: 'Error'});
                 }
             });
-            req.session = {expires: expiresTime, language: 'en'};
+            req.session = {expires: expiresTime};
 
             req.cookies[securityCookie] = token;
 

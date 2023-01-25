@@ -7,11 +7,11 @@ const IdamSession = require('app/services/IdamSession');
 describe('IdamSessionService', () => {
     describe('get()', () => {
         it('should call log() and fetchJson()', (done) => {
-            const endpoint = '';
+            const endpoint = 'http://localhost';
             const fetchOptions = {method: 'GET'};
             const idamSession = new IdamSession(endpoint, 'abc123');
             const logSpy = sinon.spy(idamSession, 'log');
-            const fetchJsonSpy = sinon.stub(idamSession, 'fetchJson');
+            const fetchJsonSpy = sinon.spy(idamSession, 'fetchJson');
             const fetchOptionsStub = sinon.stub(idamSession, 'fetchOptions').returns(fetchOptions);
 
             idamSession.get('sec123');
@@ -30,12 +30,12 @@ describe('IdamSessionService', () => {
 
     describe('delete()', () => {
         it('should call log() and fetchJson()', (done) => {
-            const endpoint = '';
+            const endpoint = 'http://localhost';
             const fetchOptions = {method: 'DELETE'};
             const accessToken = 'acc123';
             const idamSession = new IdamSession(endpoint, 'abc123');
             const logSpy = sinon.spy(idamSession, 'log');
-            const fetchJsonSpy = sinon.stub(idamSession, 'fetchJson');
+            const fetchJsonSpy = sinon.spy(idamSession, 'fetchJson');
             const fetchOptionsStub = sinon.stub(idamSession, 'fetchOptions').returns(fetchOptions);
 
             idamSession.delete(accessToken);

@@ -3,13 +3,13 @@
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
+const config = require('config');
+const nock = require('nock');
 const rewire = require('rewire');
 const PinPage = rewire('app/steps/ui/pin/signin');
 const caseTypes = require('app/utils/CaseTypes');
 const co = require('co');
 const i18next = require('i18next');
-const sinon = require('sinon');
-const FormData = require('app/services/FormData');
 const section = 'pin';
 const templatePath = 'pin/signin';
 const schema = {
@@ -68,15 +68,17 @@ describe('Pin-Page', () => {
                     }
                 }
             });
-            const formDataGetStub = sinon.stub(FormData.prototype, 'get').returns(Promise.resolve({
-                deceased: {
-                    firstName: 'Dee',
-                    lastName: 'Ceased'
-                },
-                declaration: {
-                    declarationCheckbox: true
-                }
-            }));
+            nock(config.services.orchestrator.url)
+                .get('/forms/case/1234567890123456?probateType=PA')
+                .reply(200, {
+                    deceased: {
+                        firstName: 'Dee',
+                        lastName: 'Ceased'
+                    },
+                    declaration: {
+                        declarationCheckbox: true
+                    }
+                });
 
             const pinResend = new PinPage(steps, section, templatePath, i18next, schema);
 
@@ -101,12 +103,12 @@ describe('Pin-Page', () => {
 
                 revertAuthorise();
                 revertSecurity();
-                formDataGetStub.restore();
+                nock.cleanAll();
                 done();
             }).catch((err) => {
                 revertAuthorise();
                 revertSecurity();
-                formDataGetStub.restore();
+                nock.cleanAll();
                 done(err);
             });
         });
