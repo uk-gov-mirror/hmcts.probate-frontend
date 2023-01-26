@@ -16,10 +16,9 @@ const ACCESS_TOKEN_OAUTH2 = 'access_token';
 
 class Security {
     constructor(loginUrl) {
-        if (!loginUrl) {
-            throw new Error('login URL required for Security');
+        if (loginUrl) {
+            this.loginUrl = loginUrl;
         }
-        this.loginUrl = loginUrl;
     }
 
     protect(authorisedRoles) {
