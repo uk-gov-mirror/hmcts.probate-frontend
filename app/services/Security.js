@@ -22,8 +22,6 @@ class Security {
     }
 
     protect(authorisedRoles) {
-        const self = this;
-
         return (req, res, next) => {
             let securityCookie;
             req.log = loggerRaw(req.sessionID);
@@ -63,19 +61,19 @@ class Security {
                             req.userId = response.id;
                             req.authToken = securityCookie;
                             req.session.authToken = req.authToken;
-                            self._authorize(req, res, next, response.roles, authorisedRoles);
+                            this._authorize(req, res, next, response.roles, authorisedRoles);
                         } else {
                             req.log.error('Error authorising user');
                             req.log.error(`Error ${JSON.stringify(response)} \n`);
                             if (response.message === 'Unauthorized') {
-                                self._login(req, res);
+                                this._login(req, res);
                             } else {
-                                self._denyAccess(req, res);
+                                this._denyAccess(req, res);
                             }
                         }
                     });
             } else {
-                self._login(req, res);
+                this._login(req, res);
             }
         };
     }
@@ -120,33 +118,31 @@ class Security {
     }
 
     oAuth2CallbackEndpoint() {
-        const self = this;
-
         return (req, res) => {
-            const redirectInfo = self._getRedirectCookie(req);
+            const redirectInfo = this._getRedirectCookie(req);
             req.log = loggerRaw(req.sessionID);
 
             if (!redirectInfo) {
                 req.log.error('Redirect cookie is missing');
-                self._login(req, res);
+                this._login(req, res);
             } else if (!req.query.code) {
                 req.log.warn('No code received');
                 res.redirect(redirectInfo.continue_url);
             } else if (redirectInfo.state !== req.query.state) {
                 req.log.error(`States do not match: ${redirectInfo.state} is not ${req.query.state}`);
-                self._denyAccess(req, res);
+                this._denyAccess(req, res);
             } else {
-                self._getTokenFromCode(req)
+                this._getTokenFromCode(req)
                     .then(result => {
                         if (result.name === 'Error') {
                             req.log.error('Error while getting the access token');
                             if (result.message === 'Unauthorized') {
-                                self._login(req, res);
+                                this._login(req, res);
                             } else {
-                                self._denyAccess(req, res);
+                                this._denyAccess(req, res);
                             }
                         } else {
-                            self._storeCookie(req, res, result[ACCESS_TOKEN_OAUTH2], SECURITY_COOKIE);
+                            this._storeCookie(req, res, result[ACCESS_TOKEN_OAUTH2], SECURITY_COOKIE);
                             req.session.expires = Date.now() + config.app.session.expires;
                             res.clearCookie(REDIRECT_COOKIE);
                             res.redirect(redirectInfo.continue_url);
@@ -179,6 +175,7 @@ class Security {
     _storeCookie(req, res, token, cookieName) {
         res.cookie(cookieName, token, {secure: true, httpOnly: true});
     }
+
     getUserToken(hostname) {
         const redirect_url = FormatUrl.format(hostname, config.services.idam.probate_oauth_callback_path);
         return this.getOauth2Code(redirect_url)
@@ -242,7 +239,7 @@ class Security {
         });
     }
 
-    checkForError(result) {
+    checkForErrorError(result) {
         if (result.name === 'Error') {
             throw result;
         }
