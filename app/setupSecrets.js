@@ -1,6 +1,6 @@
 const config = require('config');
 const {get, set} = require('lodash');
-const {spawnSync} = require('child_process');
+const {execSync} = require('child_process');
 const logger = require('app/components/logger')('Init');
 
 const setupSecrets = () => {
@@ -45,7 +45,7 @@ const setSecret = (secretPath, configPath) => {
 };
 
 const setLocalSecret = (secretName, configPath) => {
-    const result = spawnSync('az keyvault secret show --vault-name probate-aat -o tsv --query value --name ' + secretName, {shell: false});
+    const result = execSync('az keyvault secret show --vault-name probate-aat -o tsv --query value --name ' + secretName);
     set(config, configPath, result.toString().replace('\n', ''));
 };
 
