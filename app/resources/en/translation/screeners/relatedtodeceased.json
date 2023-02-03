@@ -8,7 +8,7 @@
 
   "errors": {
     "related": {
-      "required": "Answer &lsquo;yes&rsquo; if you&rsquo;re the spouse, civil partner or child of the person who died"
+      "required": "Select &lsquo;yes&rsquo; if you&rsquo;re the spouse, civil partner or child of the person who died"
     }
   }
 }
