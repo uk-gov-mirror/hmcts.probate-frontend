@@ -41,7 +41,7 @@ describe('stop-page', () => {
         it('test right content loaded on the page - iht not completed', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('ihtNotCompleted');
             const contentData = {stopReason: 'ihtNotCompleted', ihtNotCompleted: config.links.ihtNotCompleted};
-            const contentToExclude = ['defaultHeader', 'deathCertificateHeader', 'deathCertificateTranslationHeader', 'notOriginalHeader', 'applyByPostHeader', 'defaultReason', 'deathCertificate', 'deathCertificateTranslation', 'notInEnglandOrWales', 'eeEstateNotValued', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'notOriginal', 'notExecutor', 'mentalCapacity', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
+            const contentToExclude = ['defaultHeader', 'deathCertificateHeader', 'deathCertificateTranslationHeader', 'eeEstateValuedHeader', 'notOriginalHeader', 'applyByPostHeader', 'defaultReason', 'deathCertificate', 'deathCertificateTranslation', 'notInEnglandOrWales', 'eeEstateNotValued', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'notOriginal', 'notExecutor', 'mentalCapacity', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
 
             testWrapper.testContent(done, contentData, contentToExclude);
         });
@@ -49,7 +49,7 @@ describe('stop-page', () => {
         it('test right content loaded on the page - estate not valued', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('eeEstateNotValued');
             const contentData = {stopReason: 'eeEstateNotValued', ihtChecker: config.links.ihtChecker};
-            const contentToExclude = ['defaultHeader', 'deathCertificateHeader', 'deathCertificateTranslationHeader', 'notOriginalHeader', 'applyByPostHeader', 'defaultReason', 'deathCertificate', 'deathCertificateTranslation', 'notInEnglandOrWales', 'ihtNotCompleted', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'notOriginal', 'notExecutor', 'mentalCapacity', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
+            const contentToExclude = ['defaultHeader', 'deathCertificateHeader', 'deathCertificateTranslationHeader', 'inheritanceHeader', 'notOriginalHeader', 'applyByPostHeader', 'defaultReason', 'deathCertificate', 'deathCertificateTranslation', 'notInEnglandOrWales', 'ihtNotCompleted', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'notOriginal', 'notExecutor', 'mentalCapacity', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
 
             testWrapper.testContent(done, contentData, contentToExclude);
         });
