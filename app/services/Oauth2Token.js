@@ -10,7 +10,6 @@ class Oauth2Token extends Service {
         const clientName = idamConfig.probate_oauth2_client;
         const secret = idamConfig.probate_oauth2_secret;
         const url = this.endpoint + idamConfig.probate_oauth_token_path;
-
         const headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': `Basic ${new Buffer(`${clientName}:${secret}`).toString('base64')}`
@@ -20,7 +19,6 @@ class Oauth2Token extends Service {
             code: code,
             redirect_uri: redirectUri,
         });
-
         const fetchOptions = {
             method: 'POST',
             timeout: 10000,

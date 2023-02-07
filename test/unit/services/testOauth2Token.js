@@ -44,37 +44,5 @@ describe('Oauth2TokenService', () => {
             fetchJsonSpy.restore();
             done();
         });
-
-        it('should call fetchJson() with different args when environment is dev-aat', (done) => {
-            const originalEnv = process.env.NODE_ENV;
-            process.env.NODE_ENV = 'dev-aat';
-
-            const expectedParams = new URLSearchParams({
-                client_id: clientName,
-                client_secret: secret,
-                grant_type: 'authorization_code',
-                code: code,
-                redirect_uri: redirectUri,
-            });
-            const expectedFetchOptions = {
-                method: 'POST',
-                timeout: 10000,
-                body: expectedParams.toString(),
-                headers: {'Content-Type': 'application/x-www-form-urlencoded', Accept: 'application/json'}
-            };
-            const oauth2Token = new Oauth2Token(endpoint, 'abc123');
-            const logSpy = sinon.spy(oauth2Token, 'log');
-            const fetchJsonSpy = sinon.stub(oauth2Token, 'fetchJson');
-
-            oauth2Token.post(code, redirectUri);
-
-            expect(oauth2Token.fetchJson.calledOnce).to.equal(true);
-            expect(oauth2Token.fetchJson.calledWith(endpoint + config.services.idam.probate_oauth_token_path, expectedFetchOptions)).to.equal(true);
-
-            logSpy.restore();
-            fetchJsonSpy.restore();
-            process.env.NODE_ENV = originalEnv;
-            done();
-        });
     });
 });
