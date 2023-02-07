@@ -11,26 +11,15 @@ class Oauth2Token extends Service {
         const secret = idamConfig.probate_oauth2_secret;
         const url = this.endpoint + idamConfig.probate_oauth_token_path;
 
-        let headers = {
+        const headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': `Basic ${new Buffer(`${clientName}:${secret}`).toString('base64')}`
         };
-        let params = new URLSearchParams({
+        const params = new URLSearchParams({
             grant_type: 'authorization_code',
             code: code,
             redirect_uri: redirectUri,
         });
-
-        if (process.env.NODE_ENV === 'dev-aat') {
-            headers = {'Content-Type': 'application/x-www-form-urlencoded', Accept: 'application/json'};
-            params = new URLSearchParams({
-                client_id: clientName,
-                client_secret: secret,
-                grant_type: 'authorization_code',
-                code: code,
-                redirect_uri: redirectUri,
-            });
-        }
 
         const fetchOptions = {
             method: 'POST',
