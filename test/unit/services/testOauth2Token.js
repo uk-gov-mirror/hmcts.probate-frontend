@@ -9,7 +9,7 @@ const {URLSearchParams} = require('url');
 describe('Oauth2TokenService', () => {
     describe('post()', () => {
         it('should call log() and fetchJson()', (done) => {
-            const endpoint = 'http://localhost';
+            const endpoint = '';
             const code = 'authcode';
             const redirectUri = `${endpoint}/oauth`;
             const clientName = config.services.idam.probate_oauth2_client;
@@ -30,7 +30,7 @@ describe('Oauth2TokenService', () => {
             };
             const oauth2Token = new Oauth2Token(endpoint, 'abc123');
             const logSpy = sinon.spy(oauth2Token, 'log');
-            const fetchJsonSpy = sinon.spy(oauth2Token, 'fetchJson');
+            const fetchJsonSpy = sinon.stub(oauth2Token, 'fetchJson');
 
             oauth2Token.post(code, redirectUri);
 
