@@ -710,7 +710,8 @@ describe('multipleApplicationsMiddleware', () => {
             }};
 
             const redirectSpy = sinon.spy(res, 'redirect');
-            const serviceStub = sinon.stub(Service.prototype, 'fetchJson').returns('Unable to retrieve case');
+            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+                .returns(Promise.reject(new Error('Unable to retrieve case')));
 
             multipleApplicationsMiddleware.getCase(req, res);
 
