@@ -59,7 +59,7 @@ describe(modulePath, () => {
     describe('case-orchestration-service', () => {
         let formatUrlStub;
         beforeEach(() => {
-            formatUrlStub = sinon.stub(FormatUrl, 'format').returns('/health');
+            formatUrlStub = sinon.stub(FormatUrl, 'format').returns('/orchestrator-endpoint/health');
         });
 
         afterEach(() => {
@@ -72,7 +72,7 @@ describe(modulePath, () => {
             const callArgs = healthcheck.web.getCall(1).args;
 
             // check we are testing correct service
-            expect(callArgs[0]).to.eql('/health');
+            expect(callArgs[0]).to.eql('/orchestrator-endpoint/health');
 
             const cosCallback = callArgs[1].callback;
             cosCallback(null, res);
@@ -85,7 +85,7 @@ describe(modulePath, () => {
             const callArgs = healthcheck.web.getCall(1).args;
 
             // check we are testing correct service
-            expect(callArgs[0]).to.eql('/health');
+            expect(callArgs[0]).to.eql('/orchestrator-endpoint/health');
 
             const cosCallback = callArgs[1].callback;
             res = {status: 500};
