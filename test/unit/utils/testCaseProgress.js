@@ -20,26 +20,21 @@ describe('CaseProgress.js', () => {
             expect(CaseProgress.applicationSubmitted(state)).to.equal(false);
             done();
         });
-        it('should return true for CaseCreated', (done) => {
-            const state = 'CaseCreated';
+        it('should return true for CasePrinted', (done) => {
+            const state = 'CasePrinted';
             expect(CaseProgress.applicationSubmitted(state)).to.equal(true);
             done();
         });
     });
 
     describe('grantIssued()', () => {
-        it('should return false for CaseCreated', (done) => {
-            const state = 'CaseCreated';
-            expect(CaseProgress.grantIssued(state)).to.equal(false);
-            done();
-        });
         it('should return false for CasePrinted', (done) => {
             const state = 'CasePrinted';
             expect(CaseProgress.grantIssued(state)).to.equal(false);
             done();
         });
-        it('should return false for BOReadyForExamination', (done) => {
-            const state = 'BOReadyForExamination';
+        it('should return false for BOReadyToIssue', (done) => {
+            const state = 'BOReadyToIssue';
             expect(CaseProgress.grantIssued(state)).to.equal(false);
             done();
         });
@@ -56,18 +51,8 @@ describe('CaseProgress.js', () => {
             expect(CaseProgress.applicationInReview(state)).to.equal(false);
             done();
         });
-        it('should return false for CaseCreated', (done) => {
-            const state = 'CaseCreated';
-            expect(CaseProgress.applicationInReview(state)).to.equal(false);
-            done();
-        });
         it('should return false for CasePrinted', (done) => {
             const state = 'CasePrinted';
-            expect(CaseProgress.applicationInReview(state)).to.equal(false);
-            done();
-        });
-        it('should return false for BOReadyForExamination', (done) => {
-            const state = 'BOReadyForExamination';
             expect(CaseProgress.applicationInReview(state)).to.equal(false);
             done();
         });
@@ -89,19 +74,9 @@ describe('CaseProgress.js', () => {
             expect(CaseProgress.documentsReceived(state)).to.equal(false);
             done();
         });
-        it('should return false for CaseCreated', (done) => {
-            const state = 'CaseCreated';
-            expect(CaseProgress.documentsReceived(state)).to.equal(false);
-            done();
-        });
         it('should return false for CasePrinted', (done) => {
             const state = 'CasePrinted';
             expect(CaseProgress.documentsReceived(state)).to.equal(false);
-            done();
-        });
-        it('should return true for BOReadyForExamination', (done) => {
-            const state = 'BOReadyForExamination';
-            expect(CaseProgress.documentsReceived(state)).to.equal(true);
             done();
         });
         it('should return true for BOReadyToIssue', (done) => {
