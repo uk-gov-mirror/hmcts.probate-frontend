@@ -1,10 +1,7 @@
 {
   "title": "Faint o ysgutorion blaenorol a chyfredol sydd wedi&rsquo;u henwi yn yr ewyllys",
   "question": "Faint o ysgutorion blaenorol a chyfredol sydd wedi&rsquo;u henwi yn yr ewyllys ac unrhyw ddiweddariadau (&lsquo;codisiliau&rsquo;)?",
-  "hintText": "Rhaid ichi gynnwys unrhyw un:",
-  "checklist1-item1": "sy&rsquo;n ysgutor ar hyn o bryd, hyd yn oed os nad ydynt yn gwneud cais am brofiant",
-  "checklist1-item2": "oedd i fod yn ysgutor ond ni allant fod yn un (er enghraifft, os ydynt wedi marw neu fod ysgutor arall wedi cymryd eu lle)",
-  "notExecutorYet": "Peidiwch &acirc; chynnwys unrhyw un nad ydynt eto yn ysgutor.",
+  "hintText": "Rhaid ichi gynnwys unrhyw un:<br><ul class=\"govuk-list govuk-list--bullet\"><li>sy&rsquo;n ysgutor ar hyn o bryd, hyd yn oed os nad ydynt yn gwneud cais am brofiant</li><li>oedd i fod yn ysgutor ond ni allant fod yn un (er enghraifft, os ydynt wedi marw neu fod ysgutor arall wedi cymryd eu lle)</li></ul><div class=\"govuk-inset-text\">Peidiwch &acirc; chynnwys unrhyw un nad ydynt eto yn ysgutor.</div>",
   "executorsNumber": "Cyfanswm y nifer o ysgutorion blaenorol a chyfredol",
 
   "errors": {

@@ -2,9 +2,6 @@
   "title": "How many executors are named on the will and any codicils",
   "question": "How many executors are named on the will and any codicils?",
   "hintText": "Check the will and codicils now as you must include all named executors, including those that have died.",
-  "checklist1-item1": null,
-  "checklist1-item2": null,
-  "notExecutorYet": null,
   "executorsNumber": "Number of executors",
 
   "errors": {
