@@ -9,11 +9,11 @@ class CaseProgress {
     }
 
     static applicationInReview(state) {
-        return this.applicationSubmitted(state) && !(state === 'CaseCreated' || state === 'CasePrinted' || state === 'BOReadyForExamination');
+        return this.applicationSubmitted(state) && state !== 'CasePrinted';
     }
 
     static documentsReceived(state) {
-        return this.applicationSubmitted(state) && (this.applicationInReview(state) || state === 'BOReadyForExamination');
+        return this.applicationSubmitted(state) && this.applicationInReview(state);
     }
 
     static caseStopped(state) {

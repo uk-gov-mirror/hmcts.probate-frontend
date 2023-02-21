@@ -64,28 +64,6 @@ describe('CitizensHub', () => {
     describe('getContextData()', () => {
         let ctx;
         let req;
-        it('should return the context with case progress for CaseCreated', (done) => {
-            req = {
-                session: {
-                    form: {
-                        ccdCase: {
-                            id: 1234567890123456,
-                            state: 'CaseCreated'
-                        },
-                        deceased: {
-                            firstName: 'Peter',
-                            lastName: 'Williams'
-                        }
-                    }
-                }
-            };
-            const citizensHub = new CitizensHub(steps, section, templatePath, i18next, schema);
-            ctx = citizensHub.getContextData(req);
-            expect(ctx.documentsReceived).to.equal(false);
-            expect(ctx.applicationInReview).to.equal(false);
-            expect(ctx.grantIssued).to.equal(false);
-            done();
-        });
         it('should return the context with case progress for CasePrinted', (done) => {
             req = {
                 session: {
@@ -104,28 +82,6 @@ describe('CitizensHub', () => {
             const citizensHub = new CitizensHub(steps, section, templatePath, i18next, schema);
             ctx = citizensHub.getContextData(req);
             expect(ctx.documentsReceived).to.equal(false);
-            expect(ctx.applicationInReview).to.equal(false);
-            expect(ctx.grantIssued).to.equal(false);
-            done();
-        });
-        it('should return the context with case progress for BOReadyForExamination', (done) => {
-            req = {
-                session: {
-                    form: {
-                        ccdCase: {
-                            id: 1234567890123456,
-                            state: 'BOReadyForExamination'
-                        },
-                        deceased: {
-                            firstName: 'Peter',
-                            lastName: 'Williams'
-                        }
-                    }
-                }
-            };
-            const citizensHub = new CitizensHub(steps, section, templatePath, i18next, schema);
-            ctx = citizensHub.getContextData(req);
-            expect(ctx.documentsReceived).to.equal(true);
             expect(ctx.applicationInReview).to.equal(false);
             expect(ctx.grantIssued).to.equal(false);
             done();
