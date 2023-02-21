@@ -44,7 +44,7 @@
   "paragraph15": "HMCTS is committed to making its websites accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.",
 
   "heading8": "Compliance Status",
-  "paragraph16": "The website is partially compliant with the <a href=\"{wcag21Link}\" target=\"_blank\" rel=\"external noopener\" class=\"govuk-link\" aria-label=\"Web Content Accessibility Guidelines version 2.1 AA standard (opens in a new window)\">Web Content Accessibility Guidelines version 2.1 AA standard (opens in a new window)</a> due to the non-compliances listed below.",
+  "paragraph16": "The website is partially compliant with the <a href=\"{wcag21Link}\" target=\"_blank\" rel=\"external noopener\" class=\"govuk-link\" aria-label=\"{wcag21Link} (opens in a new window)\">Web Content Accessibility Guidelines version 2.1 AA standard (opens in a new window)</a> due to the non-compliances listed below.",
 
   "heading9": "Non-accessible content",
   "paragraph17": "The content listed below is non-accessible for the following reasons. We haven&rsquo;t been able to verify that we are fully compliant in the following areas, due to constraints with our internal testing tools:",
