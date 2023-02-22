@@ -7,7 +7,7 @@
   "errors": {
     "executorsNumber": {
       "required": "Enter the number of executors",
-      "invalid": "Number of executors must be a whole number between 1 and 20\n"
+      "invalid": "Number of executors must be a whole number between 1 and 20"
     }
   }
 }

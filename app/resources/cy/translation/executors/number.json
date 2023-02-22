@@ -1,13 +1,13 @@
 {
-  "title": "Faint o ysgutorion blaenorol a chyfredol sydd wedi&rsquo;u henwi yn yr ewyllys",
-  "question": "Faint o ysgutorion blaenorol a chyfredol sydd wedi&rsquo;u henwi yn yr ewyllys ac unrhyw ddiweddariadau (&lsquo;codisiliau&rsquo;)?",
-  "hintText": "Rhaid ichi gynnwys unrhyw un:<br><ul class=\"govuk-list govuk-list--bullet\"><li>sy&rsquo;n ysgutor ar hyn o bryd, hyd yn oed os nad ydynt yn gwneud cais am brofiant</li><li>oedd i fod yn ysgutor ond ni allant fod yn un (er enghraifft, os ydynt wedi marw neu fod ysgutor arall wedi cymryd eu lle)</li></ul><div class=\"govuk-inset-text\">Peidiwch &acirc; chynnwys unrhyw un nad ydynt eto yn ysgutor.</div>",
-  "executorsNumber": "Cyfanswm y nifer o ysgutorion blaenorol a chyfredol",
+  "title": "Faint o ysgutorion sydd wedi&rsquo;u henwi ar yr ewyllys ac unrhyw codisiliau",
+  "question": "Faint o ysgutorion sydd wedi&rsquo;u henwi ar yr ewyllys ac unrhyw codisiliau?",
+  "hintText": "Gwiriwch yr ewyllys a&rsquo;r codisiliau nawr gan fod rhaid ichi gynnwys pob ysgutor a enwir, yn cynnwys y rhai sydd wedi marw.",
+  "executorsNumber": "Nifer yr ysgutorion",
 
   "errors": {
     "executorsNumber": {
-      "required": "Nodwch rif dilys rhwng 1 ac 20",
-      "invalid": "Nodwch rif dilys rhwng 1 ac 20"
+      "required": "Nodwch nifer yr ysgutorion",
+      "invalid": "TO DO - TRANSLATION OF 'Number of executors must be a whole number between 1 and 20'"
     }
   }
 }
