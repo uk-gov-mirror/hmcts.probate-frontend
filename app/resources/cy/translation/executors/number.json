@@ -7,7 +7,7 @@
   "errors": {
     "executorsNumber": {
       "required": "Nodwch nifer yr ysgutorion",
-      "invalid": "TO DO - TRANSLATION OF 'Number of executors must be a whole number between 1 and 20'"
+      "invalid": "Rhaid i nifer yr ysgutorion fod yn rhif cyfan rhwng 1 a 20"
     }
   }
 }
