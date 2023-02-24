@@ -25,6 +25,6 @@
   "checkAnswersPdf": "Download your answers (10kb PDF)",
   "sideBarHeading": "I want to...",
   "sideBarParagraph": "Read applying for probate guidance (opens in a new tab)",
-  "insertText": "Call the Probate Call Centre if you have any questions about your application. They cannot give you any legal advice or process any updates to your application.<br><br><strong>Webchat</strong><br>Sorry, we’re having technical difficulties. Try email or telephone instead.<br><br><strong>Telephone</strong><br>0300 303 0648<br><br><strong>Email</strong><br>Email us at <a class=\"govuk-link\" href=\"mailto:contactprobate@justice.gov.uk\">contactprobate@justice.gov.uk</a><br><br><strong>Opening times</strong><br>Monday to Friday, 8am to 6pm. <br>Closed on Saturdays, Sundays and bank holidays.<br><br><a class=\"govuk-link\" href=\"https://www.gov.uk/applying-for-probate\" target=\"_blank\">Find out about call charges (opens in a new tab)</a>."
-
+  "insertText": "Call the Probate Call Centre if you have any questions about your application. They cannot give you any legal advice or process any updates to your application.",
+  "callCharges": "<a href=\"{callChargesLink}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"Find out about call charges (opens in a new window)\">Find out about call charges (opens in a new window)</a>"
 }
