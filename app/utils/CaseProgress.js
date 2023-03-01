@@ -17,7 +17,7 @@ class CaseProgress {
     }
 
     static caseStopped(state) {
-        return state === 'BOCaseStopped';
+        return (state === 'BOCaseStopped' || state === 'Dormant');
     }
 
     static caseClosed(state) {
