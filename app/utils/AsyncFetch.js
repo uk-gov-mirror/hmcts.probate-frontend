@@ -7,31 +7,31 @@ const HttpsProxyAgent = require('https-proxy-agent');
 const log = logger('Init');
 
 class AsyncFetch {
-    buildRequest(url, fetchOptions) {
+    static buildRequest(url, fetchOptions) {
         return new fetch.Request(url, fetchOptions);
     }
 
-    retryOptions() {
+    static retryOptions() {
         return {
             retries: config.utils.api.retries,
             retryDelay: config.utils.api.retryDelay
         };
     }
 
-    isHealthEndpoint(url) {
+    static isHealthEndpoint(url) {
         return url.endsWith('health');
     }
 
     static fetch(url, fetchOptions, parseBody) {
-        if (!this.isHealthEndpoint(url)) {
+        if (!AsyncFetch.isHealthEndpoint(url)) {
             log.info('Calling external service');
         }
 
         return new Promise((resolve, reject) => {
-            const asyncReq = this.buildRequest(url, fetchOptions);
-            fetch(asyncReq, this.retryOptions())
+            const asyncReq = AsyncFetch.buildRequest(url, fetchOptions);
+            fetch(asyncReq, AsyncFetch.retryOptions())
                 .then(res => {
-                    if (!this.isHealthEndpoint(url)) {
+                    if (!AsyncFetch.isHealthEndpoint(url)) {
                         log.info(`Status: ${res.status}`);
                     }
                     if (res.ok) {
@@ -41,14 +41,14 @@ class AsyncFetch {
                         log.error(res.statusText);
                         return parseBody(res)
                             .then(body => {
-                                this.logBody(body);
+                                AsyncFetch.logBody(body);
                                 return body;
                             });
                     }
                     log.error(res.statusText);
                     return parseBody(res)
                         .then(body => {
-                            this.logBody(body);
+                            AsyncFetch.logBody(body);
                             reject(new Error(res.statusText));
                         });
 
@@ -63,7 +63,7 @@ class AsyncFetch {
         });
     }
 
-    logBody(body) {
+    static logBody(body) {
         try {
             const json = JSON.stringify(body);
             log.error(json);
