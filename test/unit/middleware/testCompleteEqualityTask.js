@@ -26,7 +26,7 @@ describe('completeEqualityTask', () => {
         it('should redirect to PCQ', (done) => {
             const formDataStub = sinon.stub(FormData.prototype, 'post');
             const fetchJsonStub = sinon.stub().returns(Promise.resolve({status: 'UP', 'pcq-backend': {status: 'UP'}}));
-            const completeEqualityTaskStubbed = proxyquire(modulePath, {'app/components/api-utils': {fetchJson: fetchJsonStub}});
+            const completeEqualityTaskStubbed = proxyquire(modulePath, {'app/utils/AsyncFetch': {fetchJson: fetchJsonStub}});
 
             const params = {
                 isEnabled: true,
@@ -68,7 +68,7 @@ describe('completeEqualityTask', () => {
         it('[PROBATE] should redirect to Task List', (done) => {
             const formDataStub = sinon.stub(FormData.prototype, 'post');
             const fetchJsonStub = sinon.stub().returns(Promise.resolve({status: 'DOWN', 'pcq-backend': {status: 'DOWN'}}));
-            const completeEqualityTaskStubbed = proxyquire(modulePath, {'app/components/api-utils': {fetchJson: fetchJsonStub}});
+            const completeEqualityTaskStubbed = proxyquire(modulePath, {'app/utils/AsyncFetch': {fetchJson: fetchJsonStub}});
 
             const params = {
                 isEnabled: true,
@@ -104,7 +104,7 @@ describe('completeEqualityTask', () => {
         it('[INTESTACY] should redirect to Summary', (done) => {
             const formDataStub = sinon.stub(FormData.prototype, 'post');
             const fetchJsonStub = sinon.stub().returns(Promise.resolve({status: 'DOWN', 'pcq-backend': {status: 'DOWN'}}));
-            const completeEqualityTaskStubbed = proxyquire(modulePath, {'app/components/api-utils': {fetchJson: fetchJsonStub}});
+            const completeEqualityTaskStubbed = proxyquire(modulePath, {'app/utils/AsyncFetch': {fetchJson: fetchJsonStub}});
             const params = {
                 isEnabled: true,
                 req: {

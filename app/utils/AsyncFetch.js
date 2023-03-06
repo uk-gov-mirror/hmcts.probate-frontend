@@ -3,6 +3,7 @@
 const config = require('config');
 const logger = require('app/components/logger');
 const fetch = require('node-fetch');
+const HttpsProxyAgent = require('https-proxy-agent');
 const log = logger('Init');
 
 class AsyncFetch {
@@ -21,7 +22,7 @@ class AsyncFetch {
         return url.endsWith('health');
     }
 
-    fetch(url, fetchOptions, parseBody) {
+    static fetch(url, fetchOptions, parseBody) {
         if (!this.isHealthEndpoint(url)) {
             log.info('Calling external service');
         }
@@ -69,6 +70,28 @@ class AsyncFetch {
         } catch (e) {
             log.error(body);
         }
+    }
+
+    static fetchOptions(data, method, headers, proxy) {
+        const options = {
+            method: method,
+            mode: 'cors',
+            redirect: 'follow',
+            follow: 10,
+            timeout: 10000,
+            headers: new fetch.Headers(headers),
+            agent: proxy ? new HttpsProxyAgent(proxy) : null
+        };
+        if (method !== 'GET') {
+            options.body = JSON.stringify(data);
+        }
+        return options;
+    }
+
+    static fetchJson(url, fetchOptions) {
+        return this.fetch(url, fetchOptions, res => res.json())
+            .then(json => json)
+            .catch(err => err);
     }
 }
 
