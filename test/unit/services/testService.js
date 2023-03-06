@@ -87,7 +87,7 @@ describe('Service', () => {
 
     describe('fetchJson()', () => {
         it('should return a json response', (done) => {
-            const revert = Service.__set__('asyncFetch', class {
+            const revert = Service.__set__('AsyncFetch', class {
                 static fetch() {
                     return Promise.resolve({result: 'something'});
                 }
@@ -108,7 +108,7 @@ describe('Service', () => {
 
     describe('fetchText()', () => {
         it('should return a text response', (done) => {
-            const revert = Service.__set__('asyncFetch', class {
+            const revert = Service.__set__('AsyncFetch', class {
                 static fetch() {
                     return Promise.resolve('something');
                 }
@@ -130,7 +130,7 @@ describe('Service', () => {
     describe('fetchBuffer()', () => {
         it('should return a buffer response', (done) => {
             const buffer = new Buffer('really interesting file contents');
-            const revert = Service.__set__('asyncFetch', class {
+            const revert = Service.__set__('AsyncFetch', class {
                 static fetch() {
                     return Promise.resolve(buffer);
                 }
