@@ -19,7 +19,7 @@ class AsyncFetch {
     }
 
     static isHealthEndpoint(url) {
-        return url.endsWith('health');
+        return url.endsWith('health') || url.endsWith('info');
     }
 
     static fetch(url, fetchOptions, parseBody) {
@@ -65,8 +65,12 @@ class AsyncFetch {
 
     static logBody(body) {
         try {
-            const json = JSON.stringify(body);
-            log.error(json);
+            if (body instanceof Buffer) {
+                logger.error(body.toLocaleString());
+            } else {
+                const json = JSON.stringify(body);
+                log.error(json);
+            }
         } catch (e) {
             log.error(body);
         }
