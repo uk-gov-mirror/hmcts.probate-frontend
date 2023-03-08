@@ -6,7 +6,6 @@ const expect = require('chai').expect;
 const FeesCalculator = require('app/utils/FeesCalculator');
 const FeesLookup = require('app/services/FeesLookup');
 const sinon = require('sinon');
-const Service = require('app/services/Service');
 const config = require('config');
 const AsyncFetch = require('app/utils/AsyncFetch');
 
