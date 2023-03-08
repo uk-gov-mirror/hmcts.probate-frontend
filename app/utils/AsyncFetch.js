@@ -93,7 +93,7 @@ class AsyncFetch {
     }
 
     static fetchJson(url, fetchOptions) {
-        return this.fetch(url, fetchOptions, res => res.json())
+        return AsyncFetch.fetch(url, fetchOptions, res => res.json())
             .then(json => json)
             .catch(err => err);
     }
