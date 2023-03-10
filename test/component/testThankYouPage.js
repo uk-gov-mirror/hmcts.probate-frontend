@@ -29,7 +29,7 @@ describe('thank-you', () => {
             const sessionData = {
                 ccdCase: {
                     id: 1234567890123456,
-                    state: 'CaseCreated'
+                    state: 'CasePrinted'
                 },
                 declaration: {
                     declarationCheckbox: 'true'
@@ -64,7 +64,7 @@ describe('thank-you', () => {
             const sessionData = {
                 ccdCase: {
                     id: 1234567890123456,
-                    state: 'CaseCreated'
+                    state: 'CasePrinted'
                 },
                 declaration: {
                     declarationCheckbox: 'true'
@@ -100,7 +100,7 @@ describe('thank-you', () => {
             const sessionData = {
                 ccdCase: {
                     id: 1234567890123456,
-                    state: 'CaseCreated'
+                    state: 'CasePrinted'
                 },
                 checkAnswersSummary: '{test: "data"}'
             };
@@ -120,7 +120,7 @@ describe('thank-you', () => {
             const sessionData = {
                 ccdCase: {
                     id: 1234567890123456,
-                    state: 'CaseCreated'
+                    state: 'CasePrinted'
                 },
                 declaration: {
                     declarationCheckbox: 'true'
@@ -155,7 +155,7 @@ describe('thank-you', () => {
             const sessionData = {
                 ccdCase: {
                     id: 1234567890123456,
-                    state: 'CaseCreated'
+                    state: 'CasePrinted'
                 },
                 legalDeclaration: '{test: "data"}'
             };
@@ -175,7 +175,7 @@ describe('thank-you', () => {
             const sessionData = {
                 ccdCase: {
                     id: 1234567890123456,
-                    state: 'CaseCreated'
+                    state: 'CasePrinted'
                 },
                 declaration: {
                     declarationCheckbox: 'true'
@@ -212,7 +212,7 @@ describe('thank-you', () => {
             const sessionData = {
                 ccdCase: {
                     id: 1234567890123456,
-                    state: 'CaseCreated'
+                    state: 'CasePrinted'
                 },
                 declaration: {
                     declarationCheckbox: 'true'
