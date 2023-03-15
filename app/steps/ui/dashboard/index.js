@@ -11,16 +11,6 @@ class Dashboard extends Step {
         return '/dashboard';
     }
 
-    runnerOptions(ctx, session) {
-        ctx.applications = session.form.applications;
-        const options = {};
-        if (ctx.applications.length > 1) {
-            options.redirect = true;
-            options.url = '/citizens-hub';
-        }
-        return options;
-    }
-
     getContextData(req, res) {
         const ctx = super.getContextData(req, res);
         delete ctx.caseType;

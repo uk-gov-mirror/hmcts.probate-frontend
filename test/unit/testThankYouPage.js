@@ -196,5 +196,16 @@ describe('ThankYou', () => {
                 done(err);
             });
         });
+
+        it('should return deceasedWrittenWishes on ctx', () => {
+            const formdata = {
+                will: {
+                    deceasedWrittenWishes: 'optionYes'
+                }
+            };
+            const thankYou = new ThankYou(steps, section, templatePath, i18next, schema);
+            const ctx = thankYou.handleGet({}, formdata);
+            expect(ctx.deceasedWrittenWishes).to.deep.equal('optionYes');
+        });
     });
 });
