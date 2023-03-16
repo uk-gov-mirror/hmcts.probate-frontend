@@ -181,5 +181,24 @@ describe('payment-status', () => {
                     testWrapper.testRedirect(done, {}, expectedNextUrlForTaskList);
                 });
         });
+
+        it('test it redirects to thank-you', (done) => {
+            const singleApplicantSessionData = {
+                ccdCase: {
+                    state: 'CasePrinted',
+                    id: 1234567890123456
+                },
+                payment: {
+                    status: 'Success',
+                    reference: '1234'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(singleApplicantSessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, singleApplicantSessionData, '/thank-you');
+                });
+        });
     });
 });

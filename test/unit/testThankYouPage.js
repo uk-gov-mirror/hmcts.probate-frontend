@@ -7,6 +7,7 @@ const rewire = require('rewire');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const ThankYou = rewire('app/steps/ui/thankyou');
 const i18next = require('i18next');
+const caseTypes = require('../../app/utils/CaseTypes');
 
 describe('ThankYou', () => {
     let section;
@@ -196,16 +197,94 @@ describe('ThankYou', () => {
                 done(err);
             });
         });
-
         it('should return deceasedWrittenWishes on ctx', () => {
             const formdata = {
                 will: {
                     deceasedWrittenWishes: 'optionYes'
                 }
             };
-            const thankYou = new ThankYou(steps, section, templatePath, i18next, schema);
+            const thankYou = steps.ThankYou;
             const [ctx] = thankYou.handleGet({}, formdata);
             expect(ctx.deceasedWrittenWishes).to.deep.equal('optionYes');
+        });
+        it('should return true when spouse is giving up rights as administrator and applicant is child', (done) => {
+            const formdata = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                    anyOtherChildren: 'optionNo'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild',
+                    spouseNotApplyingReason: 'optionRenouncing'
+                }
+            };
+            const thankYou = steps.ThankYou;
+            const [ctx] = thankYou.handleGet({}, formdata);
+            expect(ctx.isSpouseGivingUpAdminRights).to.deep.equal(true);
+            done();
+        });
+        it('should return true when spouse is giving up rights as administrator and applicant is adopted child', (done) => {
+            const formdata = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                    anyOtherChildren: 'optionNo'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionAdoptedChild',
+                    spouseNotApplyingReason: 'optionRenouncing'
+                }
+            };
+            const thankYou = steps.ThankYou;
+            const [ctx] = thankYou.handleGet({}, formdata);
+            expect(ctx.isSpouseGivingUpAdminRights).to.deep.equal(true);
+            done();
+        });
+        it('should return is205 on ctx', (done) => {
+            const formdata = {
+                iht: {
+                    method: 'optionPaper',
+                    form: 'optionIHT205'
+                }
+            };
+            const thankYou = steps.ThankYou;
+            const [ctx] = thankYou.handleGet({}, formdata);
+            expect(ctx.is205).to.deep.equal(true);
+            done();
+        });
+        it('should return is207 on ctx for paper', (done) => {
+            const formdata = {
+                iht: {
+                    method: 'optionPaper',
+                    form: 'optionIHT207'
+                }
+            };
+            const thankYou = steps.ThankYou;
+            const [ctx] = thankYou.handleGet({}, formdata);
+            expect(ctx.is207).to.deep.equal(true);
+            done();
+        });
+        it('should return the given registry address when a registry address is given', (done) => {
+            const formdata = {
+                registry: {
+                    address: '1 Red Road, London, L1 1LL'
+                }
+            };
+            const thankYou = steps.ThankYou;
+            const [ctx] = thankYou.handleGet({}, formdata);
+            expect(ctx.registryAddress).to.equal('1 Red Road, London, L1 1LL');
+            done();
+        });
+        it('should return the default registry address when a registry address is not given', (done) => {
+            const formdata = {
+                registry: {}
+            };
+            const thankYou = steps.ThankYou;
+            const [ctx] = thankYou.handleGet({}, formdata);
+            expect(ctx.registryAddress).to.equal('Principal Registry of the Family Division (PRFD)' +
+                '\nHMCTS Probate\nPO BOX 12625\nHarlow\nCM20 9QE');
+            done();
         });
     });
 });
