@@ -204,7 +204,7 @@ describe('ThankYou', () => {
                 }
             };
             const thankYou = new ThankYou(steps, section, templatePath, i18next, schema);
-            const ctx = thankYou.handleGet({}, formdata);
+            const [ctx] = thankYou.handleGet({}, formdata);
             expect(ctx.deceasedWrittenWishes).to.deep.equal('optionYes');
         });
     });
