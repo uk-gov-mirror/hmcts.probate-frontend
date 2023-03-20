@@ -21,7 +21,14 @@ class EnglishForeignDeathCert extends ValidationStep {
         return journeyMap.nextStep(this, ctx);
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        if (ctx.isStopIHTOnline) {
+            return {
+                options: [
+                    {key: 'englishForeignDeathCert', value: 'optionYes', choice: 'ihtPaper'}
+                ]
+            };
+        }
         return {
             options: [
                 {key: 'englishForeignDeathCert', value: 'optionYes', choice: 'foreignDeathCertIsInEnglish'}

@@ -16,8 +16,9 @@ class DeathCertificateInterim extends ValidationStep {
         const journeyMap = new JourneyMap(req.session.journey);
         if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.afterEeDodThreshold(ctx['dod-date'])) {
             return journeyMap.getNextStepByName('IhtEstateValued');
+        } else if (featureToggle.isEnabled(req.session.featureToggles, 'ft_stop_ihtonline')) {
+            return journeyMap.getNextStepByName('IhtPaper');
         }
-
         return journeyMap.nextStep(this, ctx);
     }
 
