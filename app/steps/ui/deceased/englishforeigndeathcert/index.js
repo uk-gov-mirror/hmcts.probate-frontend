@@ -4,6 +4,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const JourneyMap = require('app/core/JourneyMap');
 const featureToggle = require('app/utils/FeatureToggle');
 const ExceptedEstateDod = require('app/utils/ExceptedEstateDod');
+const {isEmpty} = require('lodash');
 const pageUrl = '/english-foreign-death-cert';
 
 class EnglishForeignDeathCert extends ValidationStep {
@@ -12,6 +13,12 @@ class EnglishForeignDeathCert extends ValidationStep {
         return pageUrl;
     }
 
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        const formData = req.session.form;
+        ctx.iht = formData.iht;
+        return ctx;
+    }
     next(req, ctx) {
         const journeyMap = new JourneyMap(req.session.journey);
         if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.afterEeDodThreshold(ctx['dod-date']) && ctx.englishForeignDeathCert === 'optionYes') {
@@ -22,7 +29,8 @@ class EnglishForeignDeathCert extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        if (ctx.isStopIHTOnline) {
+        if (ctx.isStopIHTOnline &&
+            (isEmpty(ctx.iht) || (ctx.iht.method === 'optionOnline' && isEmpty(ctx.iht.identifier)))) {
             return {
                 options: [
                     {key: 'englishForeignDeathCert', value: 'optionYes', choice: 'ihtPaper'}
