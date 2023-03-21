@@ -16,12 +16,35 @@ describe('EnglishForeignDeathCert', () => {
 
     describe('nextStepOptions()', () => {
         it('should return the correct next step options', (done) => {
-            const result = EnglishForeignDeathCert.nextStepOptions();
+            const ctx = {
+                isStopIHTOnline: 'true',
+                iht: {
+                    method: 'optionOnline',
+                    identifier: '123'
+                }
+            };
+            const result = EnglishForeignDeathCert.nextStepOptions(ctx);
             expect(result).to.deep.equal({
                 options: [{
                     key: 'englishForeignDeathCert',
                     value: 'optionYes',
                     choice: 'foreignDeathCertIsInEnglish'
+                }]
+            });
+            done();
+        });
+
+        it('should return the correct next step options for IHT Paper', (done) => {
+            const ctx = {
+                isStopIHTOnline: 'true',
+                iht: {}
+            };
+            const result = EnglishForeignDeathCert.nextStepOptions(ctx);
+            expect(result).to.deep.equal({
+                options: [{
+                    key: 'englishForeignDeathCert',
+                    value: 'optionYes',
+                    choice: 'ihtPaper'
                 }]
             });
             done();
