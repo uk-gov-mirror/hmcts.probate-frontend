@@ -68,7 +68,6 @@ class Step {
         ctx.isAvayaWebChatEnabled = ctx.featureToggles && ctx.featureToggles.ft_avaya_webchat && ctx.featureToggles.ft_avaya_webchat === 'true';
         ctx.isWebChatEnabled = config.configFeatureToggles.webchatEnabled;
         ctx.isGaEnabled = config.configFeatureToggles.gaEnabled; // this is a boolean type
-        ctx.isStopIHTOnline = FeatureToggle.isEnabled(req.session.featureToggles, 'ft_stop_ihtonline');
         return ctx;
     }
 

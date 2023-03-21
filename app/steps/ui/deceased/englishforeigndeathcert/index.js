@@ -5,6 +5,7 @@ const JourneyMap = require('app/core/JourneyMap');
 const featureToggle = require('app/utils/FeatureToggle');
 const ExceptedEstateDod = require('app/utils/ExceptedEstateDod');
 const {isEmpty} = require('lodash');
+const FeatureToggle = require("../../../../utils/FeatureToggle");
 const pageUrl = '/english-foreign-death-cert';
 
 class EnglishForeignDeathCert extends ValidationStep {
@@ -15,6 +16,7 @@ class EnglishForeignDeathCert extends ValidationStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
+        ctx.isStopIHTOnline = FeatureToggle.isEnabled(req.session.featureToggles, 'ft_stop_ihtonline');
         const formData = req.session.form;
         ctx.iht = formData.iht;
         return ctx;
