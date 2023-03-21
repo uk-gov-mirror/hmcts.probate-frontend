@@ -17,11 +17,8 @@ describe('EnglishForeignDeathCert', () => {
     describe('nextStepOptions()', () => {
         it('should return the correct next step options', (done) => {
             const ctx = {
-                isStopIHTOnline: 'true',
-                iht: {
-                    method: 'optionOnline',
-                    identifier: '123'
-                }
+                isStopIHTOnline: true,
+                checkData: false
             };
             const result = EnglishForeignDeathCert.nextStepOptions(ctx);
             expect(result).to.deep.equal({
@@ -36,8 +33,8 @@ describe('EnglishForeignDeathCert', () => {
 
         it('should return the correct next step options for IHT Paper', (done) => {
             const ctx = {
-                isStopIHTOnline: 'true',
-                iht: {}
+                isStopIHTOnline: true,
+                checkData: true
             };
             const result = EnglishForeignDeathCert.nextStepOptions(ctx);
             expect(result).to.deep.equal({

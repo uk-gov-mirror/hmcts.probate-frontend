@@ -87,17 +87,6 @@ describe('foreign-death-cert-translation', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtPaper);
         });
 
-        it('test it redirects to IHT paper for EE FT when IHT is null', (done) => {
-            testWrapper = new TestWrapper('ForeignDeathCertTranslation', {ft_stop_ihtonline: true});
-
-            const data = {
-                'dod-date': '2021-12-31',
-                iht: {},
-                foreignDeathCertTranslation: 'optionYes'
-            };
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtPaper);
-        });
-
         it('test it redirects to IHT method for EE FT when IHT Identifier has value', (done) => {
             testWrapper = new TestWrapper('ForeignDeathCertTranslation', {ft_stop_ihtonline: true});
             const sessionData = require('test/data/ihtOnline');
@@ -121,6 +110,22 @@ describe('foreign-death-cert-translation', () => {
                 id: 1234567890123456
             };
             sessionData.iht.identifier = '';
+            sessionData.foreignDeathCertTranslation = 'optionYes';
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, sessionData, expectedNextUrlForIhtPaper);
+                });
+        });
+
+        it('test it redirects to IHT paper for EE FT when IHT is null', (done) => {
+            testWrapper = new TestWrapper('ForeignDeathCertTranslation', {ft_stop_ihtonline: true});
+
+            const sessionData = require('test/data/ihtOnline');
+            sessionData.ccdCase = {
+                state: 'Pending',
+                id: 1234567890123456
+            };
             sessionData.foreignDeathCertTranslation = 'optionYes';
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
