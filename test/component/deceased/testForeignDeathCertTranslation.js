@@ -89,7 +89,7 @@ describe('foreign-death-cert-translation', () => {
 
         it('test it redirects to IHT method for EE FT when IHT Identifier has value', (done) => {
             testWrapper = new TestWrapper('ForeignDeathCertTranslation', {ft_stop_ihtonline: true});
-            const sessionData = require('test/data/ihtOnline');
+            const sessionData = require('test/data/ihtOnlineStop');
             sessionData.ccdCase = {
                 state: 'Pending',
                 id: 1234567890123456
@@ -104,7 +104,7 @@ describe('foreign-death-cert-translation', () => {
 
         it('test it redirects to IHT paper for EE FT when IHT Identifier has no value', (done) => {
             testWrapper = new TestWrapper('ForeignDeathCertTranslation', {ft_stop_ihtonline: true});
-            const sessionData = require('test/data/ihtOnline');
+            const sessionData = require('test/data/ihtOnlineStop');
             sessionData.ccdCase = {
                 state: 'Pending',
                 id: 1234567890123456
@@ -121,7 +121,7 @@ describe('foreign-death-cert-translation', () => {
         it('test it redirects to IHT paper for EE FT when IHT is null', (done) => {
             testWrapper = new TestWrapper('ForeignDeathCertTranslation', {ft_stop_ihtonline: true});
 
-            const sessionData = require('test/data/ihtOnline');
+            const sessionData = require('test/data/ihtOnlineStop');
             sessionData.ccdCase = {
                 state: 'Pending',
                 id: 1234567890123456
