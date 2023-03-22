@@ -89,12 +89,14 @@ describe('foreign-death-cert-translation', () => {
 
         it('test it redirects to IHT method for EE FT when IHT Identifier has value', (done) => {
             testWrapper = new TestWrapper('ForeignDeathCertTranslation', {ft_stop_ihtonline: true});
-            const sessionData = require('test/data/ihtOnlineStop');
-            sessionData.ccdCase = {
-                state: 'Pending',
-                id: 1234567890123456
+            const sessionData = {
+                iht: {
+                    method: 'optionOnline',
+                    identifier: '12345678F12345'
+                },
+                'dod-date': '2020-02-20',
+                foreignDeathCertTranslation: 'optionYes'
             };
-            sessionData.foreignDeathCertTranslation = 'optionYes';
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -104,13 +106,13 @@ describe('foreign-death-cert-translation', () => {
 
         it('test it redirects to IHT paper for EE FT when IHT Identifier has no value', (done) => {
             testWrapper = new TestWrapper('ForeignDeathCertTranslation', {ft_stop_ihtonline: true});
-            const sessionData = require('test/data/ihtOnlineStop');
-            sessionData.ccdCase = {
-                state: 'Pending',
-                id: 1234567890123456
+            const sessionData = {
+                iht: {
+                    method: 'optionOnline',
+                },
+                'dod-date': '2020-02-20',
+                foreignDeathCertTranslation: 'optionYes'
             };
-            sessionData.iht.identifier = '';
-            sessionData.foreignDeathCertTranslation = 'optionYes';
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -121,12 +123,11 @@ describe('foreign-death-cert-translation', () => {
         it('test it redirects to IHT paper for EE FT when IHT is null', (done) => {
             testWrapper = new TestWrapper('ForeignDeathCertTranslation', {ft_stop_ihtonline: true});
 
-            const sessionData = require('test/data/ihtOnlineStop');
-            sessionData.ccdCase = {
-                state: 'Pending',
-                id: 1234567890123456
+            const sessionData = {
+                iht: {},
+                'dod-date': '2020-02-20',
+                foreignDeathCertTranslation: 'optionYes'
             };
-            sessionData.foreignDeathCertTranslation = 'optionYes';
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
