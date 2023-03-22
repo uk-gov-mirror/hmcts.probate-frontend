@@ -15,7 +15,7 @@ class ForeignDeathCertTranslation extends ValidationStep {
     next(req, ctx) {
         const journeyMap = new JourneyMap(req.session.journey);
         const formData = req.session.form;
-        ctx.checkData = isEmpty(formData.iht) || (formData.iht.method === 'optionOnline' && isEmpty(formData.iht.identifier));
+        ctx.checkData = isEmpty(formData.iht) || formData.iht.method === 'optionPaper' || (formData.iht.method === 'optionOnline' && isEmpty(formData.iht.identifier));
         if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.afterEeDodThreshold(ctx['dod-date'])) {
             return journeyMap.getNextStepByName('IhtEstateValued');
         } else if (featureToggle.isEnabled(req.session.featureToggles, 'ft_stop_ihtonline') && ctx.checkData) {

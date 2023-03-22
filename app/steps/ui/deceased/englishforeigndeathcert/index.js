@@ -36,7 +36,7 @@ class EnglishForeignDeathCert extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        if (ctx.isStopIHTOnline && ctx.checkData) {
+        if (ctx.isStopIHTOnline && (ctx.checkData || ctx.iht.method === 'optionPaper')) {
             return {
                 options: [
                     {key: 'englishForeignDeathCert', value: 'optionYes', choice: 'ihtPaper'}

@@ -152,6 +152,22 @@ describe('death-certificate-interim', () => {
                 });
         });
 
+        it('test it redirects to iht paper FT when IHT method paper is selected', (done) => {
+            testWrapper = new TestWrapper('DeathCertificateInterim', {ft_stop_ihtonline: true});
+            const sessionData = {
+                iht: {
+                    method: 'optionPaper'
+                },
+                'dod-date': '2020-02-20',
+                deathCertificate: 'optionDeathCertificate'
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, sessionData, expectedNextUrlForIhtPaper);
+                });
+        });
+
         it(`test it redirects to iht paper FT on IHT empty: ${expectedNextUrlForIhtPaper}`, (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim', {ft_stop_ihtonline: true});
             const sessionData = {

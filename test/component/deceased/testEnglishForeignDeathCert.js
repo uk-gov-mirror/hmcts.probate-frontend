@@ -140,6 +140,22 @@ describe('english-foreign-death-cert', () => {
                     testWrapper.testRedirect(done, sessionData, expectedNextUrlForIhtPaper);
                 });
         });
+        it('test it redirects to iht method FT when IHT method is Paper', (done) => {
+            testWrapper = new TestWrapper('EnglishForeignDeathCert', {ft_stop_ihtonline: true});
+
+            const sessionData = {
+                iht: {
+                    method: 'optionPaper'
+                },
+                'dod-date': '2020-02-20',
+                englishForeignDeathCert: 'optionYes'
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, sessionData, expectedNextUrlForIhtPaper);
+                });
+        });
         it('test it redirects to iht method FT when IHT is empty', (done) => {
             testWrapper = new TestWrapper('EnglishForeignDeathCert', {ft_stop_ihtonline: true});
 

@@ -120,6 +120,22 @@ describe('foreign-death-cert-translation', () => {
                 });
         });
 
+        it('test it redirects to IHT paper for EE FT when IHT paper method', (done) => {
+            testWrapper = new TestWrapper('ForeignDeathCertTranslation', {ft_stop_ihtonline: true});
+            const sessionData = {
+                iht: {
+                    method: 'optionPaper',
+                },
+                'dod-date': '2020-02-20',
+                foreignDeathCertTranslation: 'optionYes'
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, sessionData, expectedNextUrlForIhtPaper);
+                });
+        });
+
         it('test it redirects to IHT paper for EE FT when IHT is null', (done) => {
             testWrapper = new TestWrapper('ForeignDeathCertTranslation', {ft_stop_ihtonline: true});
 

@@ -18,8 +18,8 @@ class DeathCertificateInterim extends ValidationStep {
         const formData = req.session.form;
         if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.afterEeDodThreshold(ctx['dod-date'])) {
             return journeyMap.getNextStepByName('IhtEstateValued');
-        } else if (featureToggle.isEnabled(req.session.featureToggles, 'ft_stop_ihtonline') &&
-            (isEmpty(formData.iht) || (formData.iht.method === 'optionOnline' && isEmpty(formData.iht.identifier)))) {
+        } else if (featureToggle.isEnabled(req.session.featureToggles, 'ft_stop_ihtonline') && (isEmpty(formData.iht) ||
+            formData.iht.method === 'optionPaper' || (formData.iht.method === 'optionOnline' && isEmpty(formData.iht.identifier)))) {
             formData.iht = {method: 'optionPaper'};
             return journeyMap.getNextStepByName('IhtPaper');
         }
