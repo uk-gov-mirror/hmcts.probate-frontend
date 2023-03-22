@@ -110,7 +110,7 @@ describe('english-foreign-death-cert', () => {
         it('test it redirects to iht method FT when IHT Identifier has value', (done) => {
             testWrapper = new TestWrapper('EnglishForeignDeathCert', {ft_stop_ihtonline: true});
 
-            const sessionData = require('test/data/ihtOnline');
+            const sessionData = require('test/data/ihtOnlineStop');
             sessionData.ccdCase = {
                 state: 'Pending',
                 id: 1234567890123456
@@ -125,7 +125,7 @@ describe('english-foreign-death-cert', () => {
         it('test it redirects to iht method FT when IHT Identifier has no value', (done) => {
             testWrapper = new TestWrapper('EnglishForeignDeathCert', {ft_stop_ihtonline: true});
 
-            const sessionData = require('test/data/ihtOnline');
+            const sessionData = require('test/data/ihtOnlineStop');
             sessionData.ccdCase = {
                 state: 'Pending',
                 id: 1234567890123456
@@ -141,7 +141,7 @@ describe('english-foreign-death-cert', () => {
         it('test it redirects to iht method FT when IHT is empty', (done) => {
             testWrapper = new TestWrapper('EnglishForeignDeathCert', {ft_stop_ihtonline: true});
 
-            const sessionData = require('test/data/ihtOnline');
+            const sessionData = require('test/data/ihtOnlineStop');
             sessionData.ccdCase = {
                 state: 'Pending',
                 id: 1234567890123456

@@ -1,0 +1,9 @@
+{
+  "iht": {
+    "method": "optionOnline",
+    "identifier": "12345678F12345"
+  },
+  "deceased": {
+    "dod-date": "2020-02-20"
+  }
+}
