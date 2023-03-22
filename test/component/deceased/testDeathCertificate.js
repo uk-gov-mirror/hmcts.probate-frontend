@@ -121,12 +121,14 @@ describe('death-certificate-interim', () => {
         });
         it('test it redirects to iht method FT when IHT Identifier has value', (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim', {ft_stop_ihtonline: true});
-            const sessionData = require('test/data/ihtOnline');
-            sessionData.ccdCase = {
-                state: 'Pending',
-                id: 1234567890123456
+            const sessionData = {
+                iht: {
+                    method: 'optionOnline',
+                    identifier: '12345678F12345'
+                },
+                'dod-date': '2020-02-20',
+                deathCertificate: 'optionDeathCertificate'
             };
-            sessionData.deathCertificate = 'optionDeathCertificate';
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -136,13 +138,13 @@ describe('death-certificate-interim', () => {
 
         it('test it redirects to iht paper FT when IHT Identifier has no value', (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim', {ft_stop_ihtonline: true});
-            const sessionData = require('test/data/ihtOnline');
-            sessionData.ccdCase = {
-                state: 'Pending',
-                id: 1234567890123456
+            const sessionData = {
+                iht: {
+                    method: 'optionOnline'
+                },
+                'dod-date': '2020-02-20',
+                deathCertificate: 'optionDeathCertificate'
             };
-            sessionData.iht.identifier = '';
-            sessionData.deathCertificate = 'optionDeathCertificate';
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -152,13 +154,11 @@ describe('death-certificate-interim', () => {
 
         it(`test it redirects to iht paper FT on IHT empty: ${expectedNextUrlForIhtPaper}`, (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim', {ft_stop_ihtonline: true});
-            const sessionData = require('test/data/ihtOnline');
-            sessionData.ccdCase = {
-                state: 'Pending',
-                id: 1234567890123456
+            const sessionData = {
+                iht: {},
+                'dod-date': '2020-02-20',
+                deathCertificate: 'optionDeathCertificate'
             };
-            sessionData.iht= {};
-            sessionData.deathCertificate = 'optionDeathCertificate';
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
