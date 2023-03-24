@@ -70,7 +70,7 @@ getTestLanguages().forEach(language => {
         const isIHTEnabled = await TestConfigurator.checkFeatureToggle('probate-stop-ihtonline');
         if (isIHTEnabled) {
             if (TestConfigurator.getUseGovPay() === 'true') {
-                await I.enterGrossAndNet(language, '207', '600000', '300000');
+                await I.enterGrossAndNet(language, '207', '300000', '200000');
             } else {
                 await I.enterGrossAndNet(language, '207', '500', '400');
             }
