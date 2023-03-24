@@ -16,11 +16,16 @@ class DeathCertificateInterim extends ValidationStep {
     next(req, ctx) {
         const journeyMap = new JourneyMap(req.session.journey);
         const formData = req.session.form;
+        const ihtToggle = featureToggle.isEnabled(req.session.featureToggles, 'ft_stop_ihtonline');
+        const withIhtIdentifier = ihtToggle && (isEmpty(formData.iht) || (formData.iht.method === 'optionOnline' && isEmpty(formData.iht.identifier)));
+        const withPaper = ihtToggle && formData.iht && formData.iht.method === 'optionPaper';
+
         if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.afterEeDodThreshold(ctx['dod-date'])) {
             return journeyMap.getNextStepByName('IhtEstateValued');
-        } else if (featureToggle.isEnabled(req.session.featureToggles, 'ft_stop_ihtonline') && (isEmpty(formData.iht) ||
-            formData.iht.method === 'optionPaper' || (formData.iht.method === 'optionOnline' && isEmpty(formData.iht.identifier)))) {
+        } else if (withIhtIdentifier) {
             formData.iht = {method: 'optionPaper'};
+            return journeyMap.getNextStepByName('IhtPaper');
+        } else if (withPaper) {
             return journeyMap.getNextStepByName('IhtPaper');
         }
         return journeyMap.nextStep(this, ctx);

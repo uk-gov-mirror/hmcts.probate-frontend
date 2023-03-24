@@ -16,10 +16,10 @@ class EnglishForeignDeathCert extends ValidationStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
-        ctx.isStopIHTOnline = FeatureToggle.isEnabled(req.session.featureToggles, 'ft_stop_ihtonline');
         const formData = req.session.form;
-        ctx.iht = formData.iht;
-        ctx.checkData = isEmpty(formData.iht) || (formData.iht.method === 'optionOnline' && isEmpty(formData.iht.identifier));
+        const ihtToggle = featureToggle.isEnabled(req.session.featureToggles, 'ft_stop_ihtonline');
+        ctx.checkData = ihtToggle && (isEmpty(formData.iht) || (formData.iht.method === 'optionOnline' && isEmpty(formData.iht.identifier)));
+        ctx.withPaper = ihtToggle && formData.iht && formData.iht.method === 'optionPaper';
         return ctx;
     }
     next(req, ctx) {
@@ -27,8 +27,10 @@ class EnglishForeignDeathCert extends ValidationStep {
         const formData = req.session.form;
         if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.afterEeDodThreshold(ctx['dod-date']) && ctx.englishForeignDeathCert === 'optionYes') {
             return journeyMap.getNextStepByName('IhtEstateValued');
-        } else if (featureToggle.isEnabled(req.session.featureToggles, 'ft_stop_ihtonline') && ctx.checkData) {
+        } else if (ctx.checkData && ctx.englishForeignDeathCert === 'optionYes') {
             formData.iht = {method: 'optionPaper'};
+            return journeyMap.getNextStepByName('IhtPaper');
+        } else if (ctx.withPaper && ctx.englishForeignDeathCert === 'optionYes') {
             return journeyMap.getNextStepByName('IhtPaper');
         }
 
@@ -36,7 +38,7 @@ class EnglishForeignDeathCert extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        if (ctx.isStopIHTOnline && (ctx.checkData || ctx.iht.method === 'optionPaper')) {
+        if (ctx.checkData) {
             return {
                 options: [
                     {key: 'englishForeignDeathCert', value: 'optionYes', choice: 'ihtPaper'}
