@@ -13,12 +13,6 @@
         <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
     {% endif %}
 
-    {% if fields.documentsRequired.value == "true" %}
-        {{ govukInsetText({
-            text: content.callout | safe
-        }) }}
-    {% endif %}
-
     <div class="govuk-form-group">
         {{ govukButton({
             text: common.submit | safe,

@@ -72,7 +72,11 @@
                       {% elseif fields.applicationSubmitted.value == "true" %}
                           {% if fields.documentsRequired.value == "true" %}
                               <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.applicationReceivedHeading | safe }}</p>
-                              <p class="govuk-body" style="max-width: 600px">{{ content.applicationReceivedParagraph | safe }}</p>
+                              {% if fields.caseType.value == "intestacy" %}
+                                  <p class="govuk-body" style="max-width: 600px">{{ content.intestactApplicationReceivedParagraph | safe }}</p>
+                              {% else %}
+                                  <p class="govuk-body" style="max-width: 600px">{{ content.applicationReceivedParagraph | safe }}</p>
+                              {% endif %}
                           {% else %}
                               <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.applicationReceivedHeading | safe }}</p>
                               <p class="govuk-body" style="max-width: 600px">{{ content.noDocsRequiredAppReceivedParagraph | safe }}</p>

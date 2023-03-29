@@ -144,6 +144,23 @@ describe('CitizensHub', () => {
             expect(ctx.grantIssued).to.equal(false);
             done();
         });
+        it('should return the context with case type ', (done) => {
+            req = {
+                session: {
+                    form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'BOCaseStopped'
+                        },
+                        caseType: 'gop'
+                    }
+                }
+            };
+            const citizensHub = new CitizensHub(steps, section, templatePath, i18next, schema);
+            ctx = citizensHub.getContextData(req);
+            expect(ctx.caseType).to.equal('gop');
+            done();
+        });
     });
     describe('action()', () => {
         it('test that context variables are removed and empty object returned', () => {

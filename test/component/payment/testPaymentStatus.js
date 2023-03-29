@@ -115,65 +115,6 @@ describe('payment-status', () => {
                 });
         });
 
-        it('test right content loaded on the page when documents are not required', (done) => {
-            nock(config.services.orchestrator.url)
-                .put(uri => uri.includes('submissions'))
-                .reply(200, {
-                    ccdCase: sessionData.ccdCase
-                });
-            const contentToExclude = ['headingPayment'];
-            sessionData = {
-                ccdCase: {
-                    state: 'Pending',
-                    id: 1234567890123456
-                },
-                declaration: {
-                    declarationCheckbox: 'true'
-                },
-                payment: {
-                    total: 0
-                },
-                caseType: caseTypes.GOP
-            };
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.testContent(done, {}, contentToExclude);
-                });
-        });
-
-        it('test right content loaded on the page when documents are required', (done) => {
-            nock(config.services.orchestrator.url)
-                .put(uri => uri.includes('submissions'))
-                .reply(200, {
-                    ccdCase: sessionData.ccdCase
-                });
-            const contentToExclude = ['headingPayment', 'callout'];
-            sessionData = {
-                ccdCase: {
-                    state: 'Pending',
-                    id: 1234567890123456
-                },
-                declaration: {
-                    declarationCheckbox: 'true'
-                },
-                payment: {
-                    total: 0
-                },
-                caseType: caseTypes.INTESTACY,
-                documents: {
-                    uploads: ['content']
-                }
-            };
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.testContent(done, {}, contentToExclude);
-                });
-        });
-
         it(`test it redirects to next page with no input: ${expectedNextUrlForTaskList}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({})
