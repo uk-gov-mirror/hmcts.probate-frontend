@@ -73,7 +73,7 @@
                           {% if fields.documentsRequired.value == "true" %}
                               <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.applicationReceivedHeading | safe }}</p>
                               {% if fields.caseType.value == "intestacy" %}
-                                  <p class="govuk-body" style="max-width: 600px">{{ content.intestactApplicationReceivedParagraph | safe }}</p>
+                                  <p class="govuk-body" style="max-width: 600px">{{ content.intestacyApplicationReceivedParagraph | safe }}</p>
                               {% else %}
                                   <p class="govuk-body" style="max-width: 600px">{{ content.applicationReceivedParagraph | safe }}</p>
                               {% endif %}
