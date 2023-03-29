@@ -33,6 +33,6 @@
   "successParagraph2NoDocumentsRequired": "You'll usually get the grant within 16 weeks. It can take longer if you need to provide additional information.",
   "successParagraph2": "A caseworker will review your application.<br><br>You&rsquo;ll usually get the grant within 16 weeks. It can take longer if you need to provide additional information.",
   "successParagraph3": "You don't need to do anything else now, we'll email you if we need more information.",
-  "successParagraph4": "Find out what to do <a href=\"{findOutNext}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"when you receive your grant of probate (opens in a new window)\">when you receive your grant of probate (opens in a new window)</a>.",
+  "successParagraph4": "Find out what to do <a href=\"{findOutNext}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"when you receive your grant (opens in a new window)\">when you receive your grant (opens in a new window)</a>.",
   "survey": "This is a new service – your feedback will help us to improve it (opens in a new window)."
 }
