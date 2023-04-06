@@ -1,6 +1,6 @@
 # ---- Base image ----
 
-FROM hmctspublic.azurecr.io/base/node:18-alpine as base
+FROM hmctspublic.azurecr.io/base/node:14-alpine as base
 
 ENV WORKDIR /opt/app
 WORKDIR ${WORKDIR}
@@ -14,10 +14,13 @@ RUN yarn install --production  \
 FROM base as build
 COPY --chown=hmcts:hmcts . ./
 
+USER root
+RUN apk add git
 USER hmcts
 
-RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install
-RUN yarn sass && yarn sass-ie8
+RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install \
+    && yarn setup \
+    && rm -rf /opt/app/.git
 
 # ---- Runtime image ----
 FROM base as runtime
