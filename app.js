@@ -90,8 +90,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 '\'self\'',
                 'webchat.ctsc.hmcts.net',
                 'webchat-client.ctsc.hmcts.net',
-                'webchat.training.ctsc.hmcts.net',
-                'webchat-client.training.ctsc.hmcts.net',
                 'webchat.pp.ctsc.hmcts.net',
                 'webchat-client.pp.ctsc.hmcts.net'
             ],
@@ -108,11 +106,9 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'www.google-analytics.com',
                 'www.googletagmanager.com',
                 'webchat.ctsc.hmcts.net',
-                'webchat.training.ctsc.hmcts.net',
                 'webchat.pp.ctsc.hmcts.net',
                 'webchat-client.pp.ctsc.hmcts.net',
                 'webchat-client.ctsc.hmcts.net',
-                'webchat-client.training.ctsc.hmcts.net',
                 `'nonce-${nonce}'`,
                 'tagmanager.google.com'
             ],
