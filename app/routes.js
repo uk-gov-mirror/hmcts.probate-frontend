@@ -182,12 +182,12 @@ router.use((req, res, next) => {
             next();
         } else if (config.app.requireCcdCaseId === 'true' && req.method === 'GET' && !noCcdCaseIdPages.includes(currentPageCleanUrl) && !get(formdata, 'ccdCase.id')) {
             res.redirect('/dashboard');
-        } else if (redirectTaskList(req, currentPageCleanUrl, formdata, applicationSubmitted, applicantHasPassedPayment)) {
-            res.redirect('/task-list'); //
         } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl) && !documentsSent) {
             res.redirect('/documents');
         } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl) && documentsSent) {
             res.redirect('/thank-you');
+        } else if (redirectTaskList(req, currentPageCleanUrl, formdata, applicationSubmitted, applicantHasPassedPayment)) {
+            res.redirect('/task-list');
         } else {
             next();
         }
