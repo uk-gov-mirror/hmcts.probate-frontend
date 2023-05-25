@@ -3704,7 +3704,7 @@ __metadata:
     "@wdio/utils": 6.11.0
     chrome-launcher: ^0.13.1
     edge-paths: ^2.1.0
-    puppeteer-core: ^5.1.0
+    puppeteer-core: 19.4.0
     ua-parser-js: ^0.7.21
     uuid: ^8.0.0
   checksum: 5df4449c3f257a35a23be25d11f578a40e4168b456df781f96f721a4240cc98d538614f392a764abbb0af58eabd120b912e700d929a4cac322e54273278cb0be
@@ -9000,7 +9000,7 @@ __metadata:
     mustache: ~4.2.0
     node.extend: ~2.0.2
     p-timeout: ~4.1.0
-    puppeteer: ~9.1.1
+    puppeteer: 19.4.0
     semver: ~7.3.5
   bin:
     pa11y: bin/pa11y.js
