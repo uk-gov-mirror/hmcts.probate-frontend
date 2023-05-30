@@ -28,7 +28,6 @@ describe('iht-method', () => {
                     id: 1234567890123456
                 }
             };
-
             const contentToExclude = ['paragraph2'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

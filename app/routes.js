@@ -9,7 +9,6 @@ const logger = require('app/components/logger');
 const get = require('lodash').get;
 const ApplicantWrapper = require('app/wrappers/Applicant');
 const CcdCaseWrapper = require('app/wrappers/CcdCase');
-const DocumentsWrapper = require('app/wrappers/Documents');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const PaymentWrapper = require('app/wrappers/Payment');
 const documentUpload = require('app/documentUpload');
@@ -157,8 +156,6 @@ router.use((req, res, next) => {
     const ccdCaseWrapper = new CcdCaseWrapper(formdata.ccdCase);
     const applicationSubmitted = ccdCaseWrapper.applicationSubmitted();
 
-    const documentsWrapper = new DocumentsWrapper(formdata);
-    const documentsSent = documentsWrapper.documentsSent();
     const paymentWrapper = new PaymentWrapper(formdata.payment);
     const applicantHasPassedPayment = paymentWrapper.hasPassedPayment();
     const paymentIsSuccessful = paymentWrapper.paymentIsSuccessful();
@@ -182,12 +179,12 @@ router.use((req, res, next) => {
             next();
         } else if (config.app.requireCcdCaseId === 'true' && req.method === 'GET' && !noCcdCaseIdPages.includes(currentPageCleanUrl) && !get(formdata, 'ccdCase.id')) {
             res.redirect('/dashboard');
-        } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl) && !documentsSent) {
-            res.redirect('/documents');
-        } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl) && documentsSent) {
+        } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && currentPageCleanUrl==='/payment-status') {
             res.redirect('/thank-you');
+        } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl)) {
+            res.redirect('/citizens-hub');
         } else if (redirectTaskList(req, currentPageCleanUrl, formdata, applicationSubmitted, applicantHasPassedPayment)) {
-            res.redirect('/task-list');
+          res.redirect('/task-list');
         } else {
             next();
         }
