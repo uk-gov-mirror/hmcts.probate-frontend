@@ -184,7 +184,7 @@ router.use((req, res, next) => {
         } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl)) {
             res.redirect('/citizens-hub');
         } else if (redirectTaskList(req, currentPageCleanUrl, formdata, applicationSubmitted, applicantHasPassedPayment)) {
-          res.redirect('/task-list');
+            res.redirect('/task-list');
         } else {
             next();
         }
