@@ -1,8 +1,6 @@
 {
   "title": "Citizens Hub",
   "header": "Case overview",
-  "feedbackHeading": "We'd like to hear your thoughts",
-  "feedback": "Complete this short, 5-minute survey to help improve our services for you and others.<br><br><a aria-label=\"Please leave your feedback here\" href=\"{smartSurveyFeedbackUrl}&pageurl={currentPageUrl}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener noreferrer\">Please leave your feedback here</a>",
   "referenceNumber": "Reference number",
   "progressBarStep1": "Application received",
   "progressBarStep2": "Documents received",
