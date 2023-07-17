@@ -100,8 +100,6 @@
               <p class="govuk-body" style="max-width: 600px">{{ common.feedback | replace("{smartSurveyFeedbackUrl}", globals.links.survey) | replace("{currentPageUrl}", pageUrl) | safe }}</p>
             </div>
           </div>
-
-            <a href="{{ globals.links.surveyEndOfApplication }}" class="govuk-link" target="_blank" rel="external noopener noreferrer" aria-label="{{ content.survey | safe }}">{{ content.survey | safe }}</a>
         </div>
     </div>
 {% endblock %}
