@@ -33,6 +33,5 @@
   "successParagraph2NoDocumentsRequired": "Fel arfer byddwch yn cael llythyr gweinyddu o fewn 16 wythnos. Gall gymryd mwy o amser os oes angen i chi ddarparu gwybodaeth ychwanegol.",
   "successParagraph2": "Fel arfer, byddwch yn cael y grant profiant o fewn 16 wythnos. Gall gymryd mwy o amser os oes angen i chi ddarparu gwybodaeth ychwanegol.",
   "successParagraph3": "Nid oes angen i chi wneud unrhyw beth arall nawr, byddwn yn anfon e-bost atoch os bydd arnom angen mwy o wybodaeth.",
-  "successParagraph4": "Mwy o wybodaeth am beth i&rsquo;w wneud <a href=\"{findOutNext}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"pan fyddwch wedi cael eich grant profiant (agor mewn ffenestr newydd)\">pan fyddwch wedi cael eich grant profiant (agor mewn ffenestr newydd)</a>.",
-  "survey": "Mae hwn yn wasanaeth newydd - bydd eich adborth yn ein helpu ni i&rsquo;w wella (agor mewn ffenestr newydd)."
+  "successParagraph4": "Mwy o wybodaeth am beth i&rsquo;w wneud <a href=\"{findOutNext}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"pan fyddwch wedi cael eich grant profiant (agor mewn ffenestr newydd)\">pan fyddwch wedi cael eich grant profiant (agor mewn ffenestr newydd)</a>."
 }
