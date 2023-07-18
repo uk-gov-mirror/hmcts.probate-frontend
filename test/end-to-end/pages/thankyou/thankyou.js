@@ -12,7 +12,7 @@ module.exports = async function(language ='en', testSurvey = false) {
 
     if (testSurvey) {
         const originalTabs = await I.grabNumberOfOpenTabs();
-        await I.click({css: '#main-content > div > div > a'});
+        await I.click({css: '#main-content > div > div > div.govuk-notification-banner > div > p.govuk-body > a'});
         for (let i = 0; i <= 5; i++) {
             // eslint-disable-next-line no-await-in-loop
             const currentTabs = await I.grabNumberOfOpenTabs();
