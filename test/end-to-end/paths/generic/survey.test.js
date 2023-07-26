@@ -24,7 +24,7 @@ Scenario('Check survey link works', async ({I}) => {
 
     // Eligibility Task (pre IdAM)
     await I.startApplication(language);
-    await I.selectDeathCertificate(language);
+    await I.selectDeathCertificate(language, true);
     await I.selectDeathCertificateInEnglish(language, optionNo);
     await I.selectDeathCertificateTranslation(language, optionYes);
     await I.selectDeceasedDomicile(language);
