@@ -47,8 +47,17 @@ class Step {
         return journeyMap.nextStep(this, ctx);
     }
 
+    previous(req) {
+        const journeyMap = new JourneyMap(req.session.journey);
+        return journeyMap.previousStep(this);
+    }
+
     nextStepUrl(req, ctx) {
         return this.next(req, ctx).constructor.getUrl();
+    }
+
+    previousStepUrl(req) {
+        return this.previous(req).constructor.getPreviousUrl();
     }
 
     getContextData(req) {

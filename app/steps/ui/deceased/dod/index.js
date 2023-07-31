@@ -8,7 +8,9 @@ class DeceasedDod extends DateStep {
     static getUrl() {
         return '/deceased-dod';
     }
-
+    static getPreviousUrl() {
+        return '/deceased-dob';
+    }
     dateName() {
         return ['dod'];
     }

@@ -7,6 +7,9 @@ class DeceasedAddress extends AddressStep {
     static getUrl() {
         return '/deceased-address';
     }
+    static getPreviousUrl() {
+        return '/deceased-dod';
+    }
 }
 
 module.exports = DeceasedAddress;

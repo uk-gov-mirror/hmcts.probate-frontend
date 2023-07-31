@@ -12,6 +12,10 @@ class WillLeft extends EligibilityValidationStep {
         return pageUrl;
     }
 
+    static getPreviousUrl() {
+        return '/ee-estate-valued';
+    }
+
     getContextData(req, res) {
         return super.getContextData(req, res, pageUrl, fieldKey);
     }

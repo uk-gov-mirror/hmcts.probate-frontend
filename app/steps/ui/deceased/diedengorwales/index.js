@@ -10,6 +10,10 @@ class DiedEnglandOrWales extends ValidationStep {
         return pageUrl;
     }
 
+    static getPreviousUrl() {
+        return '/deceased-address';
+    }
+
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;

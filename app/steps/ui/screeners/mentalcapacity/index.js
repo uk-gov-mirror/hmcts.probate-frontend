@@ -11,6 +11,10 @@ class MentalCapacity extends EligibilityValidationStep {
         return pageUrl;
     }
 
+    static getPreviousUrl() {
+        return '/applicant-executor';
+    }
+
     getContextData(req, res) {
         return super.getContextData(req, res, pageUrl, fieldKey);
     }

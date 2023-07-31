@@ -8,6 +8,10 @@ class DeceasedName extends ValidationStep {
         return '/deceased-name';
     }
 
+    static getPreviousUrl() {
+        return '/bilingual-gop';
+    }
+
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.index;

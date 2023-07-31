@@ -11,6 +11,10 @@ class WillOriginal extends EligibilityValidationStep {
         return pageUrl;
     }
 
+    static getPreviousUrl() {
+        return '/will-left';
+    }
+
     getContextData(req, res) {
         return super.getContextData(req, res, pageUrl, fieldKey);
     }

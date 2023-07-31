@@ -11,6 +11,10 @@ class ApplicantExecutor extends EligibilityValidationStep {
         return pageUrl;
     }
 
+    static getPreviousUrl() {
+        return '/will-original';
+    }
+
     getContextData(req, res) {
         return super.getContextData(req, res, pageUrl, fieldKey);
     }

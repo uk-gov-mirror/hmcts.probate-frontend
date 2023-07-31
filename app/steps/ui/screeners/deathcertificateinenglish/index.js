@@ -11,6 +11,10 @@ class DeathCertificateInEnglish extends EligibilityValidationStep {
         return pageUrl;
     }
 
+    static getPreviousUrl() {
+        return '/death-certificate';
+    }
+
     getContextData(req, res) {
         return super.getContextData(req, res, pageUrl, fieldKey);
     }

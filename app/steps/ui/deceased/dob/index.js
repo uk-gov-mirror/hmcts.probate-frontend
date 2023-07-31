@@ -9,6 +9,10 @@ class DeceasedDob extends DateStep {
         return '/deceased-dob';
     }
 
+    static getPreviousUrl() {
+        return '/deceased-name';
+    }
+
     dateName() {
         return ['dob'];
     }

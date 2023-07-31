@@ -30,6 +30,10 @@ class UIStepRunner {
                 forEach(errors, (error) =>
                     req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
                 );
+                if (isEmpty(errors)) {
+                    const previousStepUrl = step.previousStepUrl(req);
+                    res.locals.previousUrl = previousStepUrl;
+                }
                 const content = step.generateContent(ctx, formdata, session.language);
                 const fields = step.generateFields(session.language, ctx, errors, formdata);
                 if (req.query.source === 'back') {
@@ -71,6 +75,7 @@ class UIStepRunner {
 
             if (isEmpty(errors)) {
                 const nextStepUrl = step.nextStepUrl(req, ctx);
+                req.session.previousUrl = req.url;
                 [ctx, formdata] = step.action(ctx, formdata);
 
                 delete ctx.ccdCase;

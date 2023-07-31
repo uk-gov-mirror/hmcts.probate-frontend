@@ -23,6 +23,10 @@ class JourneyMap {
         return steps[nextStepName];
     }
 
+    previousStep(currentStep) {
+        return steps[currentStep.name];
+    }
+
     stepList() {
         return this.journey.stepList;
     }
