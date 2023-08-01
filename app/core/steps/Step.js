@@ -57,7 +57,19 @@ class Step {
     }
 
     previousStepUrl(req) {
-        return this.previous(req).constructor.getPreviousUrl();
+        const reason = req.params[0];
+        let previousUrl;
+        switch (reason) {
+        case 'deathCertificate':
+        case 'notInEnglandOrWales':
+        case 'eeEstateNotValued':
+            previousUrl = this.previous(req).constructor.getPreviousUrl(req);
+            //Need to add more case where stop page is coming.Just added 3 for testing
+            break;
+        default:
+            previousUrl = this.previous(req).constructor.getPreviousUrl();
+        }
+        return previousUrl;
     }
 
     getContextData(req) {
