@@ -6,6 +6,7 @@ const DetectDataChange = require('app/wrappers/DetectDataChange');
 const FormatUrl = require('app/utils/FormatUrl');
 const {get} = require('lodash');
 const config = require('config');
+const SignOut = require('app/steps/ui/signout');
 
 class UIStepRunner {
 
@@ -30,7 +31,7 @@ class UIStepRunner {
                 forEach(errors, (error) =>
                     req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
                 );
-                if (isEmpty(errors)) {
+                if (isEmpty(errors) && req.url !== '/sign-out') {
                     const previousStepUrl = step.previousStepUrl(req);
                     res.locals.previousUrl = previousStepUrl;
                 }
