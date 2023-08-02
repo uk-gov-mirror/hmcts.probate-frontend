@@ -4,6 +4,7 @@ const EligibilityValidationStep = require('app/core/steps/EligibilityValidationS
 const pageUrl = '/applicant-executor';
 const fieldKey = 'executor';
 const Dashboard = require('app/steps/ui/dashboard');
+const WillOriginal = require('app/steps/ui/screeners/willoriginal');
 
 class ApplicantExecutor extends EligibilityValidationStep {
 
@@ -12,7 +13,7 @@ class ApplicantExecutor extends EligibilityValidationStep {
     }
 
     static getPreviousUrl() {
-        return '/will-original';
+        return WillOriginal.getUrl();
     }
 
     getContextData(req, res) {

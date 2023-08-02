@@ -4,6 +4,7 @@ const EligibilityValidationStep = require('app/core/steps/EligibilityValidationS
 const pageUrl = '/ee-estate-valued';
 const fieldKey = 'eeEstateValued';
 const Dashboard = require('app/steps/ui/dashboard');
+const ExceptedEstateDeceasedDod = require('app/steps/ui/screeners/eedeceaseddod');
 
 class ExceptedEstateValued extends EligibilityValidationStep {
 
@@ -12,7 +13,7 @@ class ExceptedEstateValued extends EligibilityValidationStep {
     }
 
     static getPreviousUrl() {
-        return '/ee-deceased-dod';
+        return ExceptedEstateDeceasedDod.getUrl();
     }
 
     getContextData(req, res) {

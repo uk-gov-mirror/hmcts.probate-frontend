@@ -1,6 +1,7 @@
 'use strict';
 
 const AddressStep = require('app/core/steps/AddressStep');
+const DeceasedDod = require('app/steps/ui/deceased/dod');
 
 class DeceasedAddress extends AddressStep {
 
@@ -8,7 +9,7 @@ class DeceasedAddress extends AddressStep {
         return '/deceased-address';
     }
     static getPreviousUrl() {
-        return '/deceased-dod';
+        return DeceasedDod.getUrl();
     }
 }
 

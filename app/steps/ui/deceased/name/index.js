@@ -1,6 +1,7 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
+const BilingualGOP = require('app/steps/ui/language');
 
 class DeceasedName extends ValidationStep {
 
@@ -9,7 +10,7 @@ class DeceasedName extends ValidationStep {
     }
 
     static getPreviousUrl() {
-        return '/bilingual-gop';
+        return BilingualGOP.getUrl();
     }
 
     action(ctx, formdata) {

@@ -4,6 +4,7 @@ const EligibilityValidationStep = require('app/core/steps/EligibilityValidationS
 const pageUrl = '/mental-capacity';
 const fieldKey = 'mentalCapacity';
 const Dashboard = require('app/steps/ui/dashboard');
+const ApplicantExecutor = require('app/steps/ui/screeners/applicantexecutor');
 
 class MentalCapacity extends EligibilityValidationStep {
 
@@ -12,7 +13,7 @@ class MentalCapacity extends EligibilityValidationStep {
     }
 
     static getPreviousUrl() {
-        return '/applicant-executor';
+        return ApplicantExecutor.getUrl();
     }
 
     getContextData(req, res) {

@@ -1,6 +1,7 @@
 'use strict';
 
 const Step = require('app/core/steps/Step');
+const DeathCertificate = require('app/steps/ui/screeners/deathcertificate');
 
 class StopPage extends Step {
 
@@ -14,7 +15,7 @@ class StopPage extends Step {
         let previousUrl;
         switch (stopUrl) {
         case '/stop-page/deathCertificate':
-            previousUrl = '/death-certificate';
+            previousUrl = DeathCertificate.getUrl();
             break;
         case '/stop-page/notInEnglandOrWales':
             previousUrl = '/deceased-domicile';
