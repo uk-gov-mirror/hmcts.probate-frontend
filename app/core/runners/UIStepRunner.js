@@ -6,7 +6,6 @@ const DetectDataChange = require('app/wrappers/DetectDataChange');
 const FormatUrl = require('app/utils/FormatUrl');
 const {get} = require('lodash');
 const config = require('config');
-const SignOut = require('app/steps/ui/signout');
 
 class UIStepRunner {
 
