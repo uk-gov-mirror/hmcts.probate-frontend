@@ -4,11 +4,16 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const validator = require('validator');
 const numeral = require('numeral');
 const FieldError = require('app/components/error');
+const IhtEstateForm = require('app/steps/ui/iht/estateform');
 
 class ProbateEstateValues extends ValidationStep {
 
     static getUrl() {
         return '/probate-estate-values';
+    }
+
+    static getPreviousUrl() {
+        return IhtEstateForm.getUrl();
     }
 
     handlePost(ctx, errors, formdata, session) {

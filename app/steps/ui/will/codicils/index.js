@@ -3,11 +3,15 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const JourneyMap = require('app/core/JourneyMap');
 const featureToggle = require('app/utils/FeatureToggle');
+const WillHasVisibleDamage = require('app/steps/ui/will/willhasvisibledamage');
 
 class WillCodicils extends ValidationStep {
 
     static getUrl() {
         return '/will-codicils';
+    }
+    static getPreviousUrl() {
+        return WillHasVisibleDamage.getUrl();
     }
 
     next(req, ctx) {
