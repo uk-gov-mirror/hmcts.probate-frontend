@@ -75,7 +75,6 @@ class UIStepRunner {
 
             if (isEmpty(errors)) {
                 const nextStepUrl = step.nextStepUrl(req, ctx);
-                req.session.previousUrl = req.url;
                 [ctx, formdata] = step.action(ctx, formdata);
 
                 delete ctx.ccdCase;
