@@ -4,16 +4,11 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const FieldError = require('app/components/error');
 const {get, set, isEmpty} = require('lodash');
 const FormatName = require('app/utils/FormatName');
-const DeceasedAlias = require('app/steps/ui/deceased/alias');
 
 class DeceasedOtherNames extends ValidationStep {
 
     static getUrl() {
         return '/other-names';
-    }
-
-    static getPreviousUrl() {
-        return DeceasedAlias.getUrl();
     }
 
     nextStepOptions() {

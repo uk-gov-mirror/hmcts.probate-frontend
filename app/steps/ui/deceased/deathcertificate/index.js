@@ -6,15 +6,11 @@ const featureToggle = require('app/utils/FeatureToggle');
 const pageUrl = '/certificate-interim';
 const ExceptedEstateDod = require('app/utils/ExceptedEstateDod');
 const {isEmpty} = require('lodash');
-const DiedEnglandOrWales = require('app/steps/ui/deceased/diedengorwales');
 
 class DeathCertificateInterim extends ValidationStep {
 
     static getUrl() {
         return pageUrl;
-    }
-    static getPreviousUrl() {
-        return DiedEnglandOrWales.getUrl();
     }
 
     next(req, ctx) {

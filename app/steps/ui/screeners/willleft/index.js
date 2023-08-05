@@ -5,16 +5,11 @@ const pageUrl = '/will-left';
 const fieldKey = 'left';
 const Dashboard = require('app/steps/ui/dashboard');
 const caseTypes = require('app/utils/CaseTypes');
-const ExceptedEstateValued = require('app/steps/ui/screeners/eeestatevalued');
 
 class WillLeft extends EligibilityValidationStep {
 
     static getUrl() {
         return pageUrl;
-    }
-
-    static getPreviousUrl() {
-        return ExceptedEstateValued.getUrl();
     }
 
     getContextData(req, res) {

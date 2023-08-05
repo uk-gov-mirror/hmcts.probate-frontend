@@ -3,16 +3,11 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const DeceasedWrapper = require('app/wrappers/Deceased');
 const FormatName = require('app/utils/FormatName');
-const ProbateEstateValues = require('app/steps/ui/iht/probateestatevalues');
 
 class DeceasedAlias extends ValidationStep {
 
     static getUrl() {
         return '/deceased-alias';
-    }
-
-    static getPreviousUrl() {
-        return ProbateEstateValues.getUrl();
     }
 
     nextStepOptions() {

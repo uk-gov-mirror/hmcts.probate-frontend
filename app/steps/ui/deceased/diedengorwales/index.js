@@ -3,16 +3,11 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
 const pageUrl = '/died-eng-or-wales';
-const DeceasedAddress = require('app/steps/ui/deceased/address');
 
 class DiedEnglandOrWales extends ValidationStep {
 
     static getUrl() {
         return pageUrl;
-    }
-
-    static getPreviousUrl() {
-        return DeceasedAddress.getUrl();
     }
 
     getContextData(req) {

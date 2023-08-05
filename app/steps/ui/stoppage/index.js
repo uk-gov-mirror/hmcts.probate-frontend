@@ -1,34 +1,12 @@
 'use strict';
 
 const Step = require('app/core/steps/Step');
-const DeathCertificate = require('app/steps/ui/screeners/deathcertificate');
 
 class StopPage extends Step {
 
     static getUrl(reason = '*') {
         return `/stop-page/${reason}`;
     }
-
-    static getPreviousUrl(req) {
-        const reason = req.params[0];
-        const stopUrl = `/stop-page/${reason}`;
-        let previousUrl;
-        switch (stopUrl) {
-        case '/stop-page/deathCertificate':
-            previousUrl = DeathCertificate.getUrl();
-            break;
-        case '/stop-page/notInEnglandOrWales':
-            previousUrl = '/deceased-domicile';
-            break;
-        case '/stop-page/eeEstateNotValued':
-            previousUrl = '/ee-estate-valued';//Need to add more case where stop page is coming.Just added 3 for testing
-            break;
-        default:
-            previousUrl = '/';
-        }
-        return previousUrl;
-    }
-
     getContextData(req) {
         const ctx = super.getContextData(req);
         ctx.stopReason = req.params[0];

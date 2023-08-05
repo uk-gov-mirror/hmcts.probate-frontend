@@ -13,10 +13,6 @@ class DeceasedDomicile extends EligibilityValidationStep {
         return pageUrl;
     }
 
-    static getPreviousUrl() {
-        return '/death-certificate-english';
-    }
-
     getContextData(req, res) {
         return super.getContextData(req, res, pageUrl, fieldKey);
     }

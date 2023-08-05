@@ -4,16 +4,11 @@ const EligibilityValidationStep = require('app/core/steps/EligibilityValidationS
 const pageUrl = '/death-certificate-english';
 const fieldKey = 'deathCertificateInEnglish';
 const Dashboard = require('app/steps/ui/dashboard');
-const DeathCertificate = require('app/steps/ui/screeners/deathcertificate');
 
 class DeathCertificateInEnglish extends EligibilityValidationStep {
 
     static getUrl() {
         return pageUrl;
-    }
-
-    static getPreviousUrl() {
-        return DeathCertificate.getUrl();
     }
 
     getContextData(req, res) {

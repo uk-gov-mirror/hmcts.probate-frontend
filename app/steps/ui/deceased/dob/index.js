@@ -2,16 +2,11 @@
 
 const DateStep = require('app/core/steps/DateStep');
 const FieldError = require('app/components/error');
-const DeceasedName = require('app/steps/ui/deceased/name');
 
 class DeceasedDob extends DateStep {
 
     static getUrl() {
         return '/deceased-dob';
-    }
-
-    static getPreviousUrl() {
-        return DeceasedName.getUrl();
     }
 
     dateName() {

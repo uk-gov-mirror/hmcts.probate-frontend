@@ -11,10 +11,6 @@ class DeathCertificate extends EligibilityValidationStep {
         return pageUrl;
     }
 
-    static getPreviousUrl() {
-        return '/start-eligibility';
-    }
-
     getContextData(req, res) {
         return super.getContextData(req, res, pageUrl, fieldKey);
     }

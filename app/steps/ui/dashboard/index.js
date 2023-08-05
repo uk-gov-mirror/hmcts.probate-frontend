@@ -10,9 +10,6 @@ class Dashboard extends Step {
     static getUrl() {
         return '/dashboard';
     }
-    static getPreviousUrl() {
-        return '/';
-    }
 
     getContextData(req, res) {
         const ctx = super.getContextData(req, res);

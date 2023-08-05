@@ -12,10 +12,6 @@ class SignOut extends Step {
         return '/sign-out';
     }
 
-    static getPreviousUrl () {
-        return '/';
-    }
-
     getContextData(req, res) {
         const ctx = super.getContextData(req);
         ctx.authToken = req.authToken;

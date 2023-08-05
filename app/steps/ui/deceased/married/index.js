@@ -5,16 +5,11 @@ const WillWrapper = require('app/wrappers/Will');
 const DeceasedWrapper = require('app/wrappers/Deceased');
 const JourneyMap = require('app/core/JourneyMap');
 const featureToggle = require('app/utils/FeatureToggle');
-const DeceasedOtherNames = require('app/steps/ui/deceased/otherNames');
 
 class DeceasedMarried extends ValidationStep {
 
     static getUrl() {
         return '/deceased-married';
-    }
-
-    static getPreviousUrl() {
-        return DeceasedOtherNames.getUrl();
     }
 
     next(req, ctx) {

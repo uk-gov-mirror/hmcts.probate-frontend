@@ -9,10 +9,6 @@ class StartEligibility extends Step {
         return '/start-eligibility';
     }
 
-    static getPreviousUrl() {
-        return '/';
-    }
-
     handleGet(ctx, formdata, featureToggles) {
         ctx.isFeesApiToggleEnabled = featureToggle.isEnabled(featureToggles, 'ft_fees_api');
 
