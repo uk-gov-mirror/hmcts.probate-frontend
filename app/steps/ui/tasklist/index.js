@@ -11,10 +11,6 @@ class TaskList extends Step {
         return '/task-list';
     }
 
-    static getPreviousUrl() {
-        return '/';
-    }
-
     previousTaskStatus(previousTasks) {
         const allPreviousTasksComplete = previousTasks.every((task) => {
             return task.status === 'complete';

@@ -3,16 +3,11 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FieldError = require('app/components/error');
 const {isEmpty} = require('lodash');
-const DeceasedMarried = require('app/steps/ui/deceased/married');
 
 class WillHasVisibleDamage extends ValidationStep {
 
     static getUrl() {
         return '/will-has-damage';
-    }
-
-    static getPreviousUrl() {
-        return DeceasedMarried.getUrl();
     }
 
     nextStepOptions() {
