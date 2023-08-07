@@ -191,7 +191,7 @@ links:
   complaintsProcedure: 'https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure'
   informationCommissionersOffice: 'https://ico.org.uk/global/contact-us'
   survey: 'https://www.smartsurvey.co.uk/s/Probate_Feedback/'
-  surveyEndOfApplication: 'https://www.smartsurvey.co.uk/s/Probate_ExitSurvey/'
+  surveyEndOfApplication: 'https://www.smartsurvey.co.uk/s/SurveyExit/?service=Probate'
   ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value'
   applicationFormPA14: 'https://www.gov.uk/government/publications/form-pa14-medical-certificate-probate'
   applicationFormPA15: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will'
