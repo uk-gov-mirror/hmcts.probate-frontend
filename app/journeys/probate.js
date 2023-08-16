@@ -90,9 +90,9 @@ const stepList = {
         otherwise: 'EnglishForeignDeathCert'
     },
     DeathCertificateInterim: 'IhtMethod',
-    IhtEstateValued: {
+    HmrcCheck: {
         ihtEstateFormsCompleted: 'IhtEstateForm',
-        otherwise: 'IhtEstateValues',
+        otherwise: 'HmrcCheck',
     },
     IhtEstateForm: 'ProbateEstateValues',
     IhtEstateValues: {

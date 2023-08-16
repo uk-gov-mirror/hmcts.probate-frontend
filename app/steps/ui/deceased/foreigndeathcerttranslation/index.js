@@ -19,7 +19,7 @@ class ForeignDeathCertTranslation extends ValidationStep {
         const checkData = isEmpty(formData.iht) || (formData.iht.method === 'optionOnline' && isEmpty(formData.iht.identifier));
         const withPaper = ihtToggle && formData.iht && formData.iht.method === 'optionPaper';
         if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.afterEeDodThreshold(ctx['dod-date'])) {
-            return journeyMap.getNextStepByName('IhtEstateValued');
+            return journeyMap.getNextStepByName('HmrcCheck');
         } else if (featureToggle.isEnabled(req.session.featureToggles, 'ft_stop_ihtonline') && checkData) {
             formData.iht = {method: 'optionPaper'};
             return journeyMap.getNextStepByName('IhtPaper');
