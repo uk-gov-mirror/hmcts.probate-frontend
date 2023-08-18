@@ -92,8 +92,9 @@ const stepList = {
     DeathCertificateInterim: 'IhtMethod',
     HmrcCheck: {
         ihtEstateFormsCompleted: 'IhtEstateForm',
-        otherwise: 'HmrcCheck',
+        otherwise: 'ReportEstateValues',
     },
+    ReportEstateValues: 'ReportEstateValues',
     IhtEstateForm: 'ProbateEstateValues',
     IhtEstateValues: {
         netQualifyingValueWithinRange: 'DeceasedHadLateSpouseOrCivilPartner',
