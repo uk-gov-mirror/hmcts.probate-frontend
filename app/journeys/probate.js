@@ -94,7 +94,12 @@ const stepList = {
         ihtEstateFormsCompleted: 'IhtEstateForm',
         otherwise: 'ReportEstateValues',
     },
-    ReportEstateValues: 'ReportEstateValues',
+    ReportEstateValues: 'SubmittedToHMRC',
+    SubmittedToHMRC: {
+        submittedIHT400: 'HmrcCheck',
+        submittedIHT400IHT421: 'ReportEstateValues',
+        notRequired: 'SubmittedToHMRC'
+    },
     IhtEstateForm: 'ProbateEstateValues',
     IhtEstateValues: {
         netQualifyingValueWithinRange: 'DeceasedHadLateSpouseOrCivilPartner',
