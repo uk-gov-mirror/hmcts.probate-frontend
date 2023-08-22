@@ -1,7 +1,7 @@
 {
-  "title": "Find out if you need to report the estate value to HMRC [CY]",
-  "header": "Find out if you need to report the estate value to HMRC [CY]",
-  "paragraph1": "You can use the <a aria-label=\"Inheritance Tax checker (opens in a new window)\" href=\"https://www.gov.uk/valuing-estate-of-someone-who-died/estimate-estate-value\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener noreferrer\">Inheritance Tax checker (opens in a new window)</a> to find out if you need to report the value of the estate to HMRC. [CY]",
+  "title": "Find out if you need to report the estate value to HMRC",
+  "header": "Find out if you need to report the estate value to HMRC",
+  "paragraph1": "You can use the <a aria-label=\"Inheritance Tax checker (opens in a new window)\" href=\"https://www.gov.uk/valuing-estate-of-someone-who-died/estimate-estate-value\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener noreferrer\">Inheritance Tax checker (opens in a new window)</a> to find out if you need to report the value of the estate to HMRC.",
 
   "errors": {}
 }
