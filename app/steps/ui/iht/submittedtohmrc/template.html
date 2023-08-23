@@ -5,13 +5,6 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
 {% block form_content %}
-{% call govukFieldset({
-    legend: {
-    text: content.header | safe,
-    isPageHeading: true,
-    classes: "govuk-fieldset__legend--l"
-    }
-}) %}
 
 <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
 <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
@@ -20,15 +13,22 @@
 <p class="govuk-body">{{ content.optionIHT400Conditional | safe }}</p>
 {% endset -%}
 
-{% set conditionalIHT400IHT421 %}
-<p class="govuk-body">{{ content.optionIHT400IHT421Conditional | safe }}</p>
+{% set conditionalIHT400421 %}
+<p class="govuk-body">{{ content.optionIHT400421Conditional | safe }}</p>
 {% endset -%}
 
 {{ govukRadios({
         classes: "govuk-radios",
-        idPrefix: "submittedToHMRC",
-        name: "submittedToHMRC",
-        errorMessage: { text: fields.submittedToHMRC.errorMessage | safe } if fields.submittedToHMRC.errorMessage,
+        idPrefix: "ihtFormEstateId",
+        name: "ihtFormEstateId",
+        fieldset: {
+            legend: {
+                text: content.question | safe,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: { text: fields.ihtFormEstateId.errorMessage | safe } if fields.ihtFormEstateId.errorMessage,
         items: [
             {
                 value: "optionIHT400",
@@ -36,15 +36,15 @@
                 conditional: {
                     html: conditionalIHT400
                 },
-                checked: true if fields.submittedToHMRC.value == "optionIHT400"
+                checked: true if fields.ihtFormEstateId.value == "optionIHT400"
             },
             {
-                value: "optionIHT400IHT421",
-                text: content["optionIHT400IHT421"] | safe,
+                value: "optionIHT400421",
+                text: content["optionIHT400421"] | safe,
                 conditional: {
-                    html: conditionalIHT400IHT421
+                    html: conditionalIHT400421
                 },
-                checked: true if fields.submittedToHMRC.value == "optionIHT400IHT421"
+                checked: true if fields.ihtFormEstateId.value == "optionIHT400421"
             },
             {
                 divider: "or"
@@ -52,11 +52,10 @@
             {
                 value: "optionNotRequired",
                 text: content["optionNotRequired"] | safe,
-                checked: true if fields.submittedToHMRC.value == "optionNotRequired"
+                checked: true if fields.ihtFormEstateId.value == "optionNotRequired"
             }
         ]
 }) }}
-{% endcall %}
     <div class="govuk-form-group">
         {{ govukButton({
             text: common.saveAndContinue | safe,
