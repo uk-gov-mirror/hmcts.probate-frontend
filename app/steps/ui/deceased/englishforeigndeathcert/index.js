@@ -25,7 +25,7 @@ class EnglishForeignDeathCert extends ValidationStep {
         const journeyMap = new JourneyMap(req.session.journey);
         const formData = req.session.form;
         if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.afterEeDodThreshold(ctx['dod-date']) && ctx.englishForeignDeathCert === 'optionYes') {
-            return journeyMap.getNextStepByName('Hmrccheck');
+            return journeyMap.getNextStepByName('HmrcCheck');
         } else if (ctx.checkData && ctx.englishForeignDeathCert === 'optionYes') {
             formData.iht = {method: 'optionPaper'};
             return journeyMap.getNextStepByName('IhtPaper');
