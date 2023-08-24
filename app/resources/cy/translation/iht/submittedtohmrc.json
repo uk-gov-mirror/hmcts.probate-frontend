@@ -10,7 +10,7 @@
   "optionNotRequired": "I did not have to submit any forms to HMRC",
 
   "errors": {
-    "submittedToHMRC": {
+    "ihtFormEstateId": {
       "required": "You must select an option to continue",
       "unimplemented": "This page should not be accessed"
     }

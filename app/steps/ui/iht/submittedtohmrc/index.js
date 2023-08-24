@@ -3,7 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const JourneyMap = require('../../../../core/JourneyMap');
 
-class SubmittedToHMRC extends ValidationStep {
+class SubmittedToHmrc extends ValidationStep {
 
     static getUrl() {
         return '/submitted-to-hmrc';
@@ -31,4 +31,4 @@ class SubmittedToHMRC extends ValidationStep {
 
 }
 
-module.exports = SubmittedToHMRC;
+module.exports = SubmittedToHmrc;

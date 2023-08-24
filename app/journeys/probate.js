@@ -95,7 +95,7 @@ const stepList = {
         otherwise: 'ReportEstateValues',
     },
     ReportEstateValues: 'SubmittedToHMRC',
-    SubmittedToHMRC: {
+    SubmittedToHmrc: {
         optionIHT400: 'HmrcCheck',
         optionIHT400421: 'ProbateEstateValues',
         otherwise: 'IhtEstateValues'
