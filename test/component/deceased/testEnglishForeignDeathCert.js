@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const IhtMethod = require('app/steps/ui/iht/method');
 const ForeignDeathCertTranslation = require('app/steps/ui/deceased/foreigndeathcerttranslation');
-const HmrcCheck = require('app/steps/ui/iht/hmrccheck');
+const IhtEstateValued = require('app/steps/ui/iht/estatevalued');
 const IhtPaper = require('app/steps/ui/iht/paper');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
@@ -13,7 +13,7 @@ describe('english-foreign-death-cert', () => {
     const ftValue = {ft_new_deathcert_flow: true};
     const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
     const expectedNextUrlForForeignDeathCertTranslation = ForeignDeathCertTranslation.getUrl();
-    const expectedNextUrlForHmrcCheck = HmrcCheck.getUrl();
+    const expectedNextUrlForEstateValued = IhtEstateValued.getUrl();
     const expectedNextUrlForIhtPaper = IhtPaper.getUrl();
 
     afterEach(() => {
@@ -170,14 +170,14 @@ describe('english-foreign-death-cert', () => {
                     testWrapper.testRedirect(done, sessionData, expectedNextUrlForIhtPaper);
                 });
         });
-        it(`test it redirects to HmrcCheck for EE FT on and foreign death certificate in eng: ${expectedNextUrlForHmrcCheck}`, (done) => {
+        it(`test it redirects to estate valued for EE FT on and foreign death certificate in eng: ${expectedNextUrlForEstateValued}`, (done) => {
             testWrapper = new TestWrapper('EnglishForeignDeathCert', {ft_excepted_estates: true});
 
             const data = {
                 'dod-date': '2022-01-01',
                 englishForeignDeathCert: 'optionYes'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForHmrcCheck);
+            testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
         });
 
         it(`test it redirects to foreign death cert translation where no translation FT dod date after ee threshold: ${expectedNextUrlForForeignDeathCertTranslation}`, (done) => {
@@ -190,7 +190,7 @@ describe('english-foreign-death-cert', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForForeignDeathCertTranslation);
         });
 
-        it(`test it redirects to HmrcCheck for EE FT on and foreign death certificate in eng INTESTACY: ${expectedNextUrlForHmrcCheck}`, (done) => {
+        it(`test it redirects to estate valued for EE FT on and foreign death certificate in eng INTESTACY: ${expectedNextUrlForEstateValued}`, (done) => {
             testWrapper = new TestWrapper('EnglishForeignDeathCert', {ft_excepted_estates: true});
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
@@ -200,7 +200,7 @@ describe('english-foreign-death-cert', () => {
                         englishForeignDeathCert: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForHmrcCheck);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
                 });
         });
     });

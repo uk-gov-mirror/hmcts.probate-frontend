@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const IhtMethod = require('app/steps/ui/iht/method');
-const HmrcCheck = require('app/steps/ui/iht/hmrccheck');
+const IhtEstateValued = require('app/steps/ui/iht/estatevalued');
 const IhtPaper = require('app/steps/ui/iht/paper');
 const config = require('config');
 const caseTypes = require('app/utils/CaseTypes');
@@ -11,7 +11,7 @@ const caseTypes = require('app/utils/CaseTypes');
 describe('death-certificate-interim', () => {
     let testWrapper;
     const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
-    const expectedNextUrlForHmrcCheck = HmrcCheck.getUrl();
+    const expectedNextUrlForEstateValued = IhtEstateValued.getUrl();
     const expectedNextUrlForIhtPaper = IhtPaper.getUrl();
 
     afterEach(() => {
@@ -81,7 +81,7 @@ describe('death-certificate-interim', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });
 
-        it(`test it DOES NOT redirects to HmrcCheck for EE FT on: ${expectedNextUrlForIhtMethod}`, (done) => {
+        it(`test it DOES NOT redirects to estate valued for EE FT on: ${expectedNextUrlForIhtMethod}`, (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim', {ft_excepted_estates: true});
 
             const data = {
@@ -90,14 +90,14 @@ describe('death-certificate-interim', () => {
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });
-        it(`test it redirects to HmrcCheck for EE FT on: ${expectedNextUrlForHmrcCheck}`, (done) => {
+        it(`test it redirects to estate valued for EE FT on: ${expectedNextUrlForEstateValued}`, (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim', {ft_excepted_estates: true});
 
             const data = {
                 'dod-date': '2022-01-01',
                 deathCertificate: 'optionDeathCertificate'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForHmrcCheck);
+            testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
         });
 
         it(`test it redirects to iht method FT on but dod before EE dod threshold: ${expectedNextUrlForIhtMethod}`, (done) => {
@@ -182,7 +182,7 @@ describe('death-certificate-interim', () => {
                 });
         });
 
-        it(`test it redirects to HmrcCheck for EE FT on INTESTACY: ${expectedNextUrlForHmrcCheck}`, (done) => {
+        it(`test it redirects to estate valued for EE FT on INTESTACY: ${expectedNextUrlForEstateValued}`, (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim', {ft_excepted_estates: true});
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
@@ -192,11 +192,11 @@ describe('death-certificate-interim', () => {
                         deathCertificate: 'optionDeathCertificate'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForHmrcCheck);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
                 });
         });
 
-        it(`test it redirects to HmrcCheck with interim certificate for EE FT on INTESTACY: ${expectedNextUrlForHmrcCheck}`, (done) => {
+        it(`test it redirects to state valued with interim certificate for EE FT on INTESTACY: ${expectedNextUrlForEstateValued}`, (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim', {ft_excepted_estates: true});
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
@@ -206,7 +206,7 @@ describe('death-certificate-interim', () => {
                         deathCertificate: 'optionInterimCertificate'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForHmrcCheck);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
                 });
         });
     });

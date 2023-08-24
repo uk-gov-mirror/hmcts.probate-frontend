@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const HmrcCheck = require('app/steps/ui/iht/hmrccheck');
+const EstateForm = require('app/steps/ui/iht/estateform');
 const IhtEstateValues = require('app/steps/ui/iht/ihtestatevalues');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
@@ -9,7 +9,7 @@ const config = require('config');
 
 describe('Tests for IHT Estate Valued', () => {
     let testWrapper;
-    const expectedNextUrlHmrcCheck = HmrcCheck.getUrl();
+    const expectedNextUrlIhtEstateForm = EstateForm.getUrl();
     const expectedNextUrlIhtEstateValues = IhtEstateValues.getUrl();
 
     beforeEach(() => {
@@ -47,7 +47,7 @@ describe('Tests for IHT Estate Valued', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlHmrcCheck}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlIhtEstateForm}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.GOP})
                 .end(() => {
@@ -55,7 +55,7 @@ describe('Tests for IHT Estate Valued', () => {
                         estateValueCompleted: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlHmrcCheck);
+                    testWrapper.testRedirect(done, data, expectedNextUrlIhtEstateForm);
                 });
         });
 
