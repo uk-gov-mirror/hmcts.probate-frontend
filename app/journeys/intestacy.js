@@ -77,13 +77,7 @@ const stepList = {
     DeathCertificateInterim: 'IhtMethod',
     IhtEstateValued: {
         ihtEstateFormsCompleted: 'IhtEstateForm',
-        otherwise: 'ReportEstateValues',
-    },
-    ReportEstateValues: 'SubmittedToHmrc',
-    SubmittedToHmrc: {
-        optionIHT400: 'IhtEstateValued',
-        optionIHT400421: 'ProbateEstateValues',
-        otherwise: 'IhtEstateValues'
+        otherwise: 'IhtEstateValues',
     },
     IhtEstateForm: 'ProbateEstateValues',
     IhtEstateValues: {
