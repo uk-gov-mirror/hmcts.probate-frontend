@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "uniqueProbateCodeId",
+  "type": "object",
+  "properties": {
+    "uniqueProbateCodeId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 21
+    }
+  },
+  "required": [
+    "uniqueProbateCodeId"
+  ]
+}

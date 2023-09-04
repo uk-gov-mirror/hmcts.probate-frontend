@@ -1,0 +1,26 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block form_content %}
+
+<h1 class="govuk-heading-l">{{ content.title }}</h1>
+
+<p class="govuk-body">{{content.line1}}</p>
+
+<p class="govuk-body"><strong>{{content.line2}}</strong></p>
+
+<p class="govuk-body">{{content.contactHeading}}</p>
+
+<br>
+
+<p class="govuk-body">{{content.contactParagraph1}}</p>
+
+<p class="govuk-body">{{content.contactParagraph2}}</p>
+
+<a href="#" class="govuk-link" rel="noreferrer noopener" id="avaya-webchat-link"><p class="govuk-link">{{ content.contactParagraph3 | safe }}</p></a>
+
+<br>
+
+
+{% endblock %}

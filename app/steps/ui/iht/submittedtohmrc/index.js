@@ -13,7 +13,7 @@ class SubmittedToHmrc extends ValidationStep {
         const journeyMap = new JourneyMap(req.session.journey);
         ctx.estateValueCompleted = 'optionYes';
         if (ctx.ihtFormEstateId === 'optionIHT400') {
-            return journeyMap.getNextStepByName('IhtEstateValued'); // Update when DTSPB-3705 is implemented
+            return journeyMap.getNextStepByName('HmrcLetter'); // Added the new page called HmrcLetter which asks for whether they recived the unique code
         } else if (ctx.ihtFormEstateId === 'optionIHT400421') {
             return journeyMap.getNextStepByName('ProbateEstateValues');
         }
