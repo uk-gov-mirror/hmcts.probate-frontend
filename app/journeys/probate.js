@@ -96,7 +96,7 @@ const stepList = {
     },
     ReportEstateValues: 'SubmittedToHmrc',
     SubmittedToHmrc: {
-        optionIHT400: 'IhtEstateValued',
+        optionIHT400: 'HmrcLetter',
         optionIHT400421: 'ProbateEstateValues',
         otherwise: 'IhtEstateValues'
     },
