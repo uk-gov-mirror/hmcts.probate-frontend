@@ -2,7 +2,6 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const testCommonContent = require('test/component/common/testCommonContent.js');
-const IhtMethod = require('app/steps/ui/iht/method');
 const IhtEstateValued = require('app/steps/ui/iht/estatevalued');
 const IhtPaper = require('app/steps/ui/iht/paper');
 const config = require('config');
@@ -10,7 +9,6 @@ const caseTypes = require('app/utils/CaseTypes');
 
 describe('death-certificate-interim', () => {
     let testWrapper;
-    const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
     const expectedNextUrlForEstateValued = IhtEstateValued.getUrl();
     const expectedNextUrlForIhtPaper = IhtPaper.getUrl();
 
@@ -65,30 +63,30 @@ describe('death-certificate-interim', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to iht method page for option death certificate: ${expectedNextUrlForIhtMethod}`, (done) => {
+        it(`test it redirects to iht method page for option death certificate: ${expectedNextUrlForEstateValued}`, (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim');
             const data = {
                 deathCertificate: 'optionDeathCertificate'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
+            testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
         });
 
-        it(`test it redirects to iht method page for option interim certificate: ${expectedNextUrlForIhtMethod}`, (done) => {
+        it(`test it redirects to iht method page for option interim certificate: ${expectedNextUrlForEstateValued}`, (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim');
             const data = {
                 deathCertificate: 'optionInterimCertificate'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
+            testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
         });
 
-        it(`test it DOES NOT redirects to estate valued for EE FT on: ${expectedNextUrlForIhtMethod}`, (done) => {
+        it(`test it DOES NOT redirects to estate valued for EE FT on: ${expectedNextUrlForEstateValued}`, (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim', {ft_excepted_estates: true});
 
             const data = {
                 'dod-date': '2021-12-31',
                 deathCertificate: 'optionDeathCertificate'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
+            testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
         });
         it(`test it redirects to estate valued for EE FT on: ${expectedNextUrlForEstateValued}`, (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim', {ft_excepted_estates: true});
@@ -132,7 +130,7 @@ describe('death-certificate-interim', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testRedirect(done, sessionData, expectedNextUrlForIhtMethod);
+                    testWrapper.testRedirect(done, sessionData, expectedNextUrlForEstateValued);
                 });
         });
 
