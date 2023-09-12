@@ -2,6 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const testCommonContent = require('test/component/common/testCommonContent.js');
+const IhtMethod = require('app/steps/ui/iht/method');
 const IhtEstateValued = require('app/steps/ui/iht/estatevalued');
 const IhtPaper = require('app/steps/ui/iht/paper');
 const config = require('config');
@@ -9,6 +10,7 @@ const caseTypes = require('app/utils/CaseTypes');
 
 describe('death-certificate-interim', () => {
     let testWrapper;
+    const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
     const expectedNextUrlForEstateValued = IhtEstateValued.getUrl();
     const expectedNextUrlForIhtPaper = IhtPaper.getUrl();
 
@@ -130,7 +132,7 @@ describe('death-certificate-interim', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testRedirect(done, sessionData, expectedNextUrlForEstateValued);
+                    testWrapper.testRedirect(done, sessionData, expectedNextUrlForIhtMethod);
                 });
         });
 
@@ -194,7 +196,7 @@ describe('death-certificate-interim', () => {
                 });
         });
 
-        it(`test it redirects to state valued with interim certificate for EE FT on INTESTACY: ${expectedNextUrlForEstateValued}`, (done) => {
+        it(`test it redirects to state valued with interim certificate for EE FT on INTESTACY: ${expectedNextUrlForIhtMethod}`, (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim', {ft_excepted_estates: true});
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
@@ -204,7 +206,7 @@ describe('death-certificate-interim', () => {
                         deathCertificate: 'optionInterimCertificate'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
                 });
         });
     });
