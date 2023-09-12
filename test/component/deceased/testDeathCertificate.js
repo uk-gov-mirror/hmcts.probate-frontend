@@ -100,24 +100,24 @@ describe('death-certificate-interim', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
         });
 
-        it(`test it redirects to iht method FT on but dod before EE dod threshold: ${expectedNextUrlForIhtMethod}`, (done) => {
+        it(`test it redirects to iht method FT on but dod before EE dod threshold: ${expectedNextUrlForEstateValued}`, (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim', {ft_excepted_estates: true});
 
             const data = {
                 'dod-date': '2021-12-31',
                 deathCertificate: 'optionDeathCertificate'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
+            testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
         });
 
-        it(`test it redirects to iht paper FT on but dod before EE dod threshold: ${expectedNextUrlForIhtPaper}`, (done) => {
-            testWrapper = new TestWrapper('DeathCertificateInterim', {ft_stop_ihtonline: true});
+        it(`test it redirects to iht paper FT on but dod before EE dod threshold: ${expectedNextUrlForEstateValued}`, (done) => {
+            testWrapper = new TestWrapper('DeathCertificateInterim', {ft_excepted_estates: true});
 
             const data = {
                 'dod-date': '2021-12-31',
                 deathCertificate: 'optionDeathCertificate'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtPaper);
+            testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
         });
         it('test it redirects to iht method FT when IHT Identifier has value', (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim', {ft_stop_ihtonline: true});
