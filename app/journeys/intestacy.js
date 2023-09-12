@@ -82,7 +82,7 @@ const stepList = {
         otherwise: 'IhtEstateValues'
     },
     IhtEstateValued: {
-        ihtEstateFormsCompleted: 'IhtEstateForm',
+        ihtEstateFormsCompleted: 'SubmittedToHmrc',
         otherwise: 'ReportEstateValues',
     },
     IhtEstateForm: 'ProbateEstateValues',
