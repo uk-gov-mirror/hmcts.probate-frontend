@@ -84,6 +84,10 @@ const stepList = {
         netQualifyingValueWithinRange: 'DeceasedHadLateSpouseOrCivilPartner',
         otherwise: 'ProbateEstateValues'
     },
+    HmrcLetter: {
+        optionYes: 'UniqueProbateCode',
+        optionNo: 'WaitingForHmrc'
+    },
     DeceasedHadLateSpouseOrCivilPartner: {
         deceasedHadLateSpouseOrCivilPartner: 'IhtUnusedAllowanceClaimed',
         otherwise: 'ProbateEstateValues'

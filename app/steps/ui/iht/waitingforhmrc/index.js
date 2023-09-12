@@ -1,7 +1,6 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-//const JourneyMap = require('../../../../core/JourneyMap');
 
 class WaitingForHmrc extends ValidationStep {
 

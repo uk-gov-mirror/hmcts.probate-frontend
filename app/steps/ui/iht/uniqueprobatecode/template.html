@@ -18,8 +18,9 @@
             value: fields.uniqueProbateCodeId.value | safe,
             errorMessage: { text: fields.uniqueProbateCodeId.errorMessage | safe } if fields.uniqueProbateCodeId.errorMessage,
             attributes: {
-                maxlength: 21
-            }
+                maxlength: 24
+            },
+            autocomplete: "off"
         }) }}
 
 
