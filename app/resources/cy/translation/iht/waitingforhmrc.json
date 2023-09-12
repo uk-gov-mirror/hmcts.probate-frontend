@@ -5,6 +5,8 @@
   "contactHeading": "Contact HMRC on this number:",
   "contactParagraph1": "Telephone: 0300 123 1072",
   "contactParagraph2": "Monday to Friday, 9am to 5pm (except public holidays)",
-  "contactParagraph3": "Find out about call charges"
+  "contactParagraph3": "Find out about call charges",
+
+  "errors": {}
 
 }
