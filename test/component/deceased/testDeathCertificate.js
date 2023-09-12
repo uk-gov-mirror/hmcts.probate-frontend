@@ -65,30 +65,30 @@ describe('death-certificate-interim', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to iht method page for option death certificate: ${expectedNextUrlForEstateValued}`, (done) => {
+        it(`test it redirects to iht method page for option death certificate: ${expectedNextUrlForIhtMethod}`, (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim');
             const data = {
                 deathCertificate: 'optionDeathCertificate'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });
 
-        it(`test it redirects to iht method page for option interim certificate: ${expectedNextUrlForEstateValued}`, (done) => {
+        it(`test it redirects to iht method page for option interim certificate: ${expectedNextUrlForIhtMethod}`, (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim');
             const data = {
                 deathCertificate: 'optionInterimCertificate'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });
 
-        it(`test it DOES NOT redirects to estate valued for EE FT on: ${expectedNextUrlForEstateValued}`, (done) => {
+        it(`test it DOES NOT redirects to estate valued for EE FT on: ${expectedNextUrlForIhtMethod}`, (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim', {ft_excepted_estates: true});
 
             const data = {
                 'dod-date': '2021-12-31',
                 deathCertificate: 'optionDeathCertificate'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });
         it(`test it redirects to estate valued for EE FT on: ${expectedNextUrlForEstateValued}`, (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim', {ft_excepted_estates: true});
@@ -100,24 +100,24 @@ describe('death-certificate-interim', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
         });
 
-        it(`test it redirects to iht method FT on but dod before EE dod threshold: ${expectedNextUrlForEstateValued}`, (done) => {
+        it(`test it redirects to iht method FT on but dod before EE dod threshold: ${expectedNextUrlForIhtMethod}`, (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim', {ft_excepted_estates: true});
 
             const data = {
                 'dod-date': '2021-12-31',
                 deathCertificate: 'optionDeathCertificate'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });
 
-        it(`test it redirects to iht paper FT on but dod before EE dod threshold: ${expectedNextUrlForEstateValued}`, (done) => {
-            testWrapper = new TestWrapper('DeathCertificateInterim', {ft_excepted_estates: true});
+        it(`test it redirects to iht paper FT on but dod before EE dod threshold: ${expectedNextUrlForIhtPaper}`, (done) => {
+            testWrapper = new TestWrapper('DeathCertificateInterim', {ft_stop_ihtonline: true});
 
             const data = {
                 'dod-date': '2021-12-31',
                 deathCertificate: 'optionDeathCertificate'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtPaper);
         });
         it('test it redirects to iht method FT when IHT Identifier has value', (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim', {ft_stop_ihtonline: true});
@@ -196,7 +196,7 @@ describe('death-certificate-interim', () => {
                 });
         });
 
-        it(`test it redirects to state valued with interim certificate for EE FT on INTESTACY: ${expectedNextUrlForIhtMethod}`, (done) => {
+        it(`test it redirects to state valued with interim certificate for EE FT on INTESTACY: ${expectedNextUrlForEstateValued}`, (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim', {ft_excepted_estates: true});
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
@@ -206,7 +206,7 @@ describe('death-certificate-interim', () => {
                         deathCertificate: 'optionInterimCertificate'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
                 });
         });
     });
