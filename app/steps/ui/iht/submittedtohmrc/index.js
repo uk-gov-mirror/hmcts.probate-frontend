@@ -11,12 +11,14 @@ class SubmittedToHmrc extends ValidationStep {
 
     next(req, ctx) {
         const journeyMap = new JourneyMap(req.session.journey);
-        ctx.estateValueCompleted = 'optionYes';
         if (ctx.ihtFormEstateId === 'optionIHT400') {
+            ctx.estateValueCompleted = 'optionYes';
             return journeyMap.getNextStepByName('IhtEstateValued'); // Update when DTSPB-3705 is implemented
         } else if (ctx.ihtFormEstateId === 'optionIHT400421') {
+            ctx.estateValueCompleted = 'optionYes';
             return journeyMap.getNextStepByName('ProbateEstateValues');
         }
+        ctx.estateValueCompleted = 'optionNo';
         return journeyMap.getNextStepByName('IhtEstateValues');
     }
 
