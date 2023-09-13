@@ -1,5 +1,6 @@
 {
   "title": "Enter the unique probate code HMRC sent you",
+  "heading1": "Enter the unique probate code HMRC sent you",
   "hint" : "The unique probate code looks like this: CTS 0405231104 3tpp s8e9 and is on the first page of the letter.",
   "errors" : {
     "uniqueProbateCodeId" : {
