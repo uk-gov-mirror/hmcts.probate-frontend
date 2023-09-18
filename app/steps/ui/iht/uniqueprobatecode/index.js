@@ -14,6 +14,12 @@ class UniqueProbateCode extends ValidationStep {
 
     }
 
+    nextStepOptions(ctx) {
+        return {
+            uniqueProbateCodeId: ctx.uniqueProbateCodeId.replace(/\s+/g, '')
+        };
+    }
+
 }
 
 module.exports = UniqueProbateCode;
