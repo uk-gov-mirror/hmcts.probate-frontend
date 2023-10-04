@@ -1,5 +1,4 @@
-import {language} from 'i18next';
-import {lang} from 'moment';
+const {language} = require('i18next');
 
 (function() {
     let popupWin;
