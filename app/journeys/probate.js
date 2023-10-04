@@ -98,7 +98,7 @@ const stepList = {
     SubmittedToHmrc: {
         optionIHT400: 'HmrcLetter',
         optionIHT400421: 'ProbateEstateValues',
-        otherwise: 'IhtEstateValues'
+        optionIHT205: 'IhtEstateValues'
     },
     HmrcLetter: {
         optionYes: 'UniqueProbateCode',

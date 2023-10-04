@@ -17,7 +17,7 @@ class SubmittedToHmrc extends ValidationStep {
             ctx.estateValueCompleted = 'optionYes';
             return journeyMap.getNextStepByName('ProbateEstateValues');
         }
-        ctx.estateValueCompleted = 'optionNo';
+        ctx.estateValueCompleted = 'optionIHT205';
         return journeyMap.getNextStepByName('IhtEstateValues');
     }
 

@@ -5,7 +5,7 @@
   "properties": {
     "uniqueProbateCodeId": {
       "type": "string",
-      "minLength": 24,
+      "minLength": 21,
       "maxLength": 24,
       "pattern": "^(cts|CTS) [a-zA-Z0-9]{10} [a-zA-Z0-9]{4} [a-zA-Z0-9]{4}$|^(cts|CTS)[a-zA-Z0-9]{18}$"
     }
