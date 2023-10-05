@@ -1,5 +1,3 @@
-const {language} = require('i18next');
-
 (function() {
     let popupWin;
     function windowOpener(url, name, args) {
@@ -62,16 +60,9 @@ const {language} = require('i18next');
 
     const avayaWebChatLink = document.querySelector('#avaya-webchat-link');
     if(avayaWebChatLink){
-
-        if(language === 'cy') {
-            avayaWebChatLink.addEventListener('click', function () {
-                windowOpener('/avaya-webchat-cy', 'Web Chat', 'scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=350,height=580,left=100,top=100');
-            });
-        } else {
-            avayaWebChatLink.addEventListener('click', function () {
-                windowOpener('/avaya-webchat', 'Web Chat', 'scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=350,height=580,left=100,top=100');
-            });
-        }
+        avayaWebChatLink.addEventListener('click', function () {
+            windowOpener('/avaya-webchat', 'Web Chat', 'scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=350,height=580,left=100,top=100');
+        });
     }
 }).call(this);
 
