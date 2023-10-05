@@ -14,12 +14,17 @@
         class="govuk-body"
         chat-title="Ask Probate"
         chat-icon-url="public/images/icon.png"
-        locale-url="public/locales/avaya-webchat/en-gb"
+        locale-url="public/locales/avaya-webchat/en-{{fields.language.value}}"
         url="{{ globals.webchat.avayaUrl }}"
         secure-connections="true"
         api-version="1.0"
         metrics-polling-interval="30"
-        Language="English"
+        {% if fields.language.value === 'cy' %}
+          Language="Welsh"
+        {% endif %}
+        {% if fields.language.value === 'en' %}
+          Language="English"
+        {% endif %}
         Service="{{ globals.webchat.avayaService }}"
         page-name="Apply for Probate"
         User="Chat">
