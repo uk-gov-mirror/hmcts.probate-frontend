@@ -105,6 +105,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 '\'sha256-AaA9Rn5LTFZ5vKyp3xOfFcP4YbyOjvWn2up8IKHVAKk=\'',
                 '\'sha256-G29/qSW/JHHANtFhlrZVDZW1HOkCDRc78ggbqwwIJ2g=\'',
                 '\'sha256-BWhcmwio/4/QdqKNw5PKmTItWBjkevCaOUbLkgW5cHs=\'',
+                '\'sha256-KCKxWfZ9lv0wypwXukd6oNADW6ORDfAyNyVF8X1cKvU=\'',
                 '*.google-analytics.com',
                 '*.googletagmanager.com',
                 'webchat.ctsc.hmcts.net',
