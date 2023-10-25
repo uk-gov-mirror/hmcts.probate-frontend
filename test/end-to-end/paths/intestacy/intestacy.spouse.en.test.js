@@ -4,13 +4,14 @@ const taskListContentEn = require('app/resources/en/translation/tasklist');
 const taskListContentCy = require('app/resources/cy/translation/tasklist');
 const {getTestLanguages} = require('../../helpers/GeneralHelpers');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
+const ihtDataConfig = require('test/end-to-end/pages/ee/ihtData');
 
-const optionYes = '';
-const optionNo = '-2';
-const ihtOnline = '-2';
-const maritalStatusMarried = '';
-const spousePartner = '';
+const optionYes = ihtDataConfig.optionYes;
+const optionNo = ihtDataConfig.optionNo;
+const maritalStatusMarried = ihtDataConfig.maritalStatusMarried;
 const bilingualGOP = false;
+const ihtOnline = ihtDataConfig.ihtOnline;
+const spousePartner = ihtDataConfig.spousePartner;
 
 Feature('GOP Intestacy spouse E2E');
 

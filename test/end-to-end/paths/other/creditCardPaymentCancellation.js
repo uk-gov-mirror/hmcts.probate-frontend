@@ -4,10 +4,12 @@ const taskListContentEn = require('app/resources/en/translation/tasklist');
 const taskListContentCy = require('app/resources/cy/translation/tasklist');
 const {getTestLanguages} = require('../../helpers/GeneralHelpers');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
-const optionYes = '';
-const ihtPost = '';
-const optionNo = '-2';
+const ihtDataConfig = require('test/end-to-end/pages/ee/ihtData');
+
+const optionYes = ihtDataConfig.optionYes;
+const optionNo = ihtDataConfig.optionNo;
 const bilingualGOP = false;
+const ihtPost = ihtDataConfig.ihtPost;
 
 Feature('Credit Card Payment Cancellation').retry(TestConfigurator.getRetryFeatures());
 
