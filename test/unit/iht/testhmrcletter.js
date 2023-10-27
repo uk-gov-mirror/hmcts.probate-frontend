@@ -29,8 +29,7 @@ describe('HmrcLetter', () => {
                         state: 'Pending'
                     }
                 },
-                caseType: 'gop',
-                journey: probateJourney,
+                caseType: 'gop'
             },
             sessionID: 'abc123'
         };
