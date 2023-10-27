@@ -14,4 +14,45 @@ describe('HmrcLetter', () => {
         });
     });
 
+    let req;
+    let ctx;
+
+    beforeEach(() => {
+        req = {
+            method: 'GET',
+            session: {
+                language: 'en',
+                form: {
+                    caseType: 'gop',
+                    ccdCase: {
+                        id: 1234567890123456,
+                        state: 'Pending'
+                    }
+                },
+                caseType: 'gop',
+                journey: probateJourney,
+            },
+            sessionID: 'abc123'
+        };
+        ctx = {
+            hmrcLetterId: ''
+        };
+    });
+
+    it('should set nextStep to UniqueProbateCode when optionYes', (done) => {
+        ctx.hmrcLetterId = 'optionYes';
+        const expectedStep = steps.UniqueProbateCode;
+        const returnedStep = HmrcLetter.next(req, ctx);
+        expect(returnedStep).to.equal(expectedStep);
+        done();
+    });
+
+    it('should set nextStep to WaitingForHmrc when optionNo', (done) => {
+        ctx.hmrcLetterId = 'optionNo';
+        const expectedStep = steps.WaitingForHmrc;
+        const returnedStep = HmrcLetter.next(req, ctx);
+        expect(returnedStep).to.equal(expectedStep);
+        done();
+    });
+
 });
