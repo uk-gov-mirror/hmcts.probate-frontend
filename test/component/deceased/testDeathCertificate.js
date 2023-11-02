@@ -6,7 +6,7 @@ const IhtMethod = require('app/steps/ui/iht/method');
 const IhtPaper = require('app/steps/ui/iht/paper');
 const config = require('config');
 const caseTypes = require('app/utils/CaseTypes');
-const IhtEstateForm = require('/app/steps/ui/iht/estateform');
+const IhtEstateForm = require('app/steps/ui/iht/estateform');
 
 describe('death-certificate-interim', () => {
     let testWrapper;
