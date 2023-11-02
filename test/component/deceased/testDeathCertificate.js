@@ -3,15 +3,15 @@
 const TestWrapper = require('test/util/TestWrapper');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const IhtMethod = require('app/steps/ui/iht/method');
-const IhtEstateValued = require('app/steps/ui/iht/estatevalued');
 const IhtPaper = require('app/steps/ui/iht/paper');
 const config = require('config');
 const caseTypes = require('app/utils/CaseTypes');
+const IhtEstateForm = require('/app/steps/ui/iht/estateform');
 
 describe('death-certificate-interim', () => {
     let testWrapper;
     const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
-    const expectedNextUrlForEstateValued = IhtEstateValued.getUrl();
+    const expectedNextUrlForEstateValued = IhtEstateForm.getUrl();
     const expectedNextUrlForIhtPaper = IhtPaper.getUrl();
 
     afterEach(() => {
