@@ -6,11 +6,14 @@ const taskListContentCy = require('app/resources/cy/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const testConfig = require('config');
 const {getTestLanguages} = require('../../helpers/GeneralHelpers');
+const ihtDataConfig = require('test/end-to-end/pages/ee/ihtData');
 
-const optionYes = '';
-const ihtPost = '';
-const optionNo = '-2';
+const optionYes = ihtDataConfig.optionYes;
+const optionNo = ihtDataConfig.optionNo;
 const bilingualGOP = false;
+//const optionIHT400 = ihtDataConfig.optionIHT400;
+//const hmrcCode = ihtDataConfig.hmrcCode;
+const ihtPost = ihtDataConfig.ihtPost;
 
 Feature('GOP Multiple Executors E2E');
 
