@@ -32,7 +32,7 @@ beforeEach(() => {
     };
 });
 
-describe.only('EstateForm', () => {
+describe('EstateForm', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = IhtEstateForm.constructor.getUrl();
