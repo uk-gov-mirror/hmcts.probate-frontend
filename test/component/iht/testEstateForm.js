@@ -5,7 +5,7 @@ const ProbateEstateValues = require('app/steps/ui/iht/probateestatevalues');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
-describe('Tests for Probate Estate Valued', () => {
+describe.only('Tests for Probate Estate Valued', () => {
     let testWrapper;
     const expectedNextUrlForProbateEstateValues = ProbateEstateValues.getUrl();
 
@@ -42,7 +42,7 @@ describe('Tests for Probate Estate Valued', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForProbateEstateValues}`, (done) => {
             const data = {
-                ihtFormEstateId: 'optionIHT207'
+                ihtFormEstateId: 'optionIHT400421'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForProbateEstateValues);

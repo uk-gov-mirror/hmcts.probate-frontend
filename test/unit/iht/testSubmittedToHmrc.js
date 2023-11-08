@@ -6,7 +6,7 @@ const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname
 const SubmittedToHmrc = steps.SubmittedToHmrc;
 const probateJourney = require('app/journeys/probate');
 
-describe('SubmittedToHmrc', () => {
+describe.only('SubmittedToHmrc', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = SubmittedToHmrc.constructor.getUrl();
