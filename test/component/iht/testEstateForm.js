@@ -5,7 +5,7 @@ const ProbateEstateValues = require('app/steps/ui/iht/probateestatevalues');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
-describe.only('Tests for Probate Estate Valued', () => {
+describe('Tests for Probate Estate Valued', () => {
     let testWrapper;
     const expectedNextUrlForProbateEstateValues = ProbateEstateValues.getUrl();
 
