@@ -6,7 +6,7 @@ const sinon = require('sinon');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const UniqueProbateCode = steps.UniqueProbateCode;
 
-describe.only('UniqueProbateCode', () => {
+describe('UniqueProbateCode', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             // Create a spy for the getUrl() method
