@@ -22,7 +22,7 @@ class IhtEstateForm extends ValidationStep {
             options: [
                 {key: 'optionIHT400', value: 'optionIHT400', choice: 'optionIHT400'},
                 {key: 'optionIHT400421', value: 'optionIHT400421', choice: 'optionIHT400421'},
-                {key: 'optionNotRequired', value: 'optionNotRequired', choice: 'optionNotRequired'}
+                {key: 'optionIHT205', value: 'optionIHT205', choice: 'optionIHT205'}
             ]
         };
     }

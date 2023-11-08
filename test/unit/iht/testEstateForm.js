@@ -32,7 +32,7 @@ beforeEach(() => {
     };
 });
 
-describe('EstateForm', () => {
+describe.only('EstateForm', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = IhtEstateForm.constructor.getUrl();
@@ -56,9 +56,9 @@ describe('EstateForm', () => {
             expect(returnedStep).to.equal(expectedStep);
             done();
         });
-        it('should set nextStep to IhtEstateValues when not IHT400 or IHT400421', (done) => {
-            ctx.ihtFormEstateId = 'optionNotRequired';
-            const expectedStep = steps.IhtEstateValues;
+        it('should set nextStep to IhtEstateValues when optionIHT205', (done) => {
+            ctx.ihtFormEstateId = 'optionIHT205';
+            const expectedStep = steps.ProbateEstateValues;
             const returnedStep = IhtEstateForm.next(req, ctx);
             expect(returnedStep).to.equal(expectedStep);
             done();
