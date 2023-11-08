@@ -105,7 +105,10 @@ const stepList = {
         optionYes: 'UniqueProbateCode',
         optionNo: 'WaitingForHmrc'
     },
-    IhtEstateForm: 'ProbateEstateValues',
+    IhtEstateForm: {
+        optionIHT400: 'HmrcLetter',
+        else: 'ProbateEstateValues'
+    },
     IhtEstateValues: {
         netQualifyingValueWithinRange: 'DeceasedHadLateSpouseOrCivilPartner',
         otherwise: 'ProbateEstateValues'
