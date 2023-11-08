@@ -2,15 +2,22 @@
 
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
+const spy = require('sinon').spy;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const SubmittedToHmrc = steps.SubmittedToHmrc;
 const probateJourney = require('app/journeys/probate');
 
-describe('SubmittedToHmrc', () => {
+describe.only('SubmittedToHmrc', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
+            // Create a spy for the getUrl() method
+            const getUrlSpy = spy(SubmittedToHmrc.constructor, 'getUrl');
             const url = SubmittedToHmrc.constructor.getUrl();
+            // Assert that the method was called
+            expect(getUrlSpy.called).to.equal(true);
             expect(url).to.equal('/submitted-to-hmrc');
+            // Restore the spy
+            getUrlSpy.restore();
             done();
         });
     });
