@@ -97,7 +97,7 @@ const stepList = {
     SubmittedToHmrcBeforeThreshold: 'IhtEstateValued',
     ReportEstateValues: 'SubmittedToHmrc',
     SubmittedToHmrc: {
-        optionIHT400: 'HmrcLetter',
+        optionIHT400: 'UniqueProbateCode',
         optionIHT400421: 'ProbateEstateValues',
         optionIHT205: 'IhtEstateValues'
     },
