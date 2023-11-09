@@ -11,7 +11,7 @@ class IhtEstateForm extends ValidationStep {
     next(req, ctx) {
         const journeyMap = new JourneyMap(req.session.journey);
         if (ctx.ihtFormEstateId === 'optionIHT400') {
-            return journeyMap.getNextStepByName('HmrcLetter'); // Added the new page called HmrcLetter which asks for whether they recived the unique code
+            return journeyMap.getNextStepByName('UniqueProbateCode'); // Added the new page called HmrcLetter which asks for whether they recived the unique code
         }
         return journeyMap.getNextStepByName('ProbateEstateValues');
 

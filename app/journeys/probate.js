@@ -106,7 +106,7 @@ const stepList = {
         optionNo: 'WaitingForHmrc'
     },
     IhtEstateForm: {
-        optionIHT400: 'HmrcLetter',
+        optionIHT400: 'UniqueProbateCode',
         else: 'ProbateEstateValues'
     },
     IhtEstateValues: {
@@ -118,7 +118,7 @@ const stepList = {
         otherwise: 'ProbateEstateValues'
     },
     UniqueProbateCode: 'ProbateEstateValues',
-    WaitingForHmrc: 'HmrcLetter',
+    WaitingForHmrc: 'UniqueProbateCode',
     IhtUnusedAllowanceClaimed: 'ProbateEstateValues',
     ProbateEstateValues: 'DeceasedAlias',
     EnglishForeignDeathCert: {
