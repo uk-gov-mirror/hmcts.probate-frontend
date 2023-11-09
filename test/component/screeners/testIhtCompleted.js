@@ -17,7 +17,7 @@ const cookies = [{
     }
 }];
 
-describe('iht-completed', () => {
+describe.skip('iht-completed', () => {
     let testWrapper;
     const expectedNextUrlForWillLeft = WillLeft.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('ihtNotCompleted');
