@@ -10,7 +10,7 @@ class HmrcLetter extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'hmrcLetter', value: 'optionYes', choice: 'hmrcLetter'}
+                {key: 'hmrcLetterId', value: 'optionYes', choice: 'hmrcLetter'}
             ]
         };
     }
