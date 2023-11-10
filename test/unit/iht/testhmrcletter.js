@@ -18,7 +18,7 @@ describe('HmrcLetter', () => {
             const result = HmrcLetter.nextStepOptions();
             expect(result).to.deep.equal({
                 options: [
-                    {key: 'hmrcLetter', value: 'optionYes', choice: 'hmrcLetter'}
+                    {key: 'hmrcLetterId', value: 'optionYes', choice: 'hmrcLetter'}
                 ]
             });
             done();
