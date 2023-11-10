@@ -26,17 +26,17 @@ describe('SubmittedToHmrc', () => {
             const result = SubmittedToHmrc.nextStepOptions();
             expect(result).to.deep.equal({
                 options: [{
-                    key: 'optionIHT400',
+                    key: 'ihtFormEstateId',
                     value: 'optionIHT400',
                     choice: 'optionIHT400'
                 },
                 {
-                    key: 'optionIHT400421',
+                    key: 'ihtFormEstateId',
                     value: 'optionIHT400421',
                     choice: 'optionIHT400421'
                 },
                 {
-                    key: 'optionNotRequired',
+                    key: 'ihtFormEstateId',
                     value: 'optionNotRequired',
                     choice: 'optionNotRequired'
 
