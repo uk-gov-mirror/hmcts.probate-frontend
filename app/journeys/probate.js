@@ -97,17 +97,17 @@ const stepList = {
     SubmittedToHmrcBeforeThreshold: 'IhtEstateValued',
     ReportEstateValues: 'SubmittedToHmrc',
     SubmittedToHmrc: {
-        optionIHT400: 'UniqueProbateCode',
+        optionIHT400: 'HmrcLetter',
         optionIHT400421: 'ProbateEstateValues',
         optionIHT205: 'IhtEstateValues'
     },
     HmrcLetter: {
-        optionYes: 'UniqueProbateCode',
-        optionNo: 'WaitingForHmrc'
+        hmrcLetter: 'UniqueProbateCode',
+        otherwise: 'WaitingForHmrc'
     },
     IhtEstateForm: {
-        optionIHT400: 'UniqueProbateCode',
-        else: 'ProbateEstateValues'
+        optionIHT400: 'HmrcLetter',
+        otherwise: 'ProbateEstateValues'
     },
     IhtEstateValues: {
         netQualifyingValueWithinRange: 'DeceasedHadLateSpouseOrCivilPartner',

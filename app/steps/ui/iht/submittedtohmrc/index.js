@@ -1,28 +1,12 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const JourneyMap = require('../../../../core/JourneyMap');
 
 class SubmittedToHmrc extends ValidationStep {
 
     static getUrl() {
         return '/submitted-to-hmrc';
     }
-
-    next(req, ctx) {
-        const journeyMap = new JourneyMap(req.session.journey);
-        if (ctx.ihtFormEstateId === 'optionIHT400') {
-            return journeyMap.getNextStepByName('UniqueProbateCode'); // Added the new page called HmrcLetter which asks for whether they recived the unique code
-        } else if (ctx.ihtFormEstateId === 'optionIHT400421') {
-            ctx.estateValueCompleted = 'optionYes';
-            return journeyMap.getNextStepByName('ProbateEstateValues');
-        } else if (ctx.ihtFormEstateId === 'optionNotRequired') {
-            ctx.estateValueCompleted = 'optionNotRequired';
-            return journeyMap.getNextStepByName('IhtEstateValues');
-        }
-
-    }
-
     nextStepOptions() {
         return {
             options: [
