@@ -1,17 +1,21 @@
 {
   "title": "What are the values of the estate you entered on IHT form?",
   "question207": "What are the values of the estate you entered on form IHT 207?",
+  "question205": "What are the values of you entered on form IHT205?",
   "question421": "What are the values of the estate you entered on form IHT 421?",
   "question400": "What are the values of assets for probate",
   "questionNoIHT": "What are the values of the estate for probate?",
+  "hint205": "<br>You can find these values on the completed IHT 205 form<br><br><br>",
   "hint207": "<br>You can find these values on the completed IHT 207 form.<br><br><br>",
   "hint421": "<br>You can find these values on the completed IHT 421 form.<br><br><br>",
   "hint400part1": "You can find these values in the letter HMRC sent you.",
   "hint400part2": "The values you enter must be whole numbers and must not include decimals full stops and commas. for example 25000, not 25,000",
   "grossHint207": "Gross value of estate for probate in the UK in &pound;<br><br>This is the &rsquo;Gross estate in the UK passing under Will&rsquo; on the form",
+  "grossHint205": "Gross value in &pound;",
   "grossHint421": "Gross value of assets for probate in &pound;",
   "grossHint400": "Gross value of assets for probate in &pound;",
   "grossHintNoIHT": "Gross value in &pound;<br><br>This is the total value of the deceased&rsquo;s assets in their sole name.<br>To work this out, subtract the values of any joint assets passing to the other joint owner, foreign assets, all <a target=\"_blank\" rel=\"external noopener\" href={ihtGifts} class=\"govuk-link\" aria-label=\"gifts\">gifts</a> and assets held in trust from the gross value of IHT.",
+  "netHint205": "Net value in &pound;",
   "netHint207": "Net value of the estate for probate in the UK in &pound;",
   "netHint421": "Net value of the estate for probate in &pound;",
   "netHint400": "Net value for probate in &pound;",
@@ -19,7 +23,6 @@
   "poundSymbol": "&pound;",
   "grossValueSummary": "Gross value for probate in &pound;",
   "netValueSummary": "Net value for probate in &pound;",
-
   "errors": {
     "grossValueField": {
       "required": "Enter the gross amount",

@@ -1,13 +1,13 @@
 {
-  "title": "Which forms did you submit to HMRC?",
-  "header": "Which forms did you submit to HMRC?",
-  "paragraph1": "Using the Inheritance Tax checker is not the same as submitting a form to HMRC. The checker will give you a result straight away. If you have only used the Inheritance Tax checker, select that you did not have to submit a form.",
-  "paragraph2":"If you submitted the IHT400 or the IHT400 and IHT421 you will have had to wait for a reply from HMRC.",
-  "optionIHT400": "IHT400 only",
-  "optionIHT400Conditional": "Only select this option if you applied after ((date))",
-  "optionIHT400421": "IHT400 and IHT421",
-  "optionIHT400421Conditional": "Only select this option if you applied before ((date))",
-  "optionNotRequired": "I did not have to submit any forms to HMRC",
+  "title": "Pa ffurflenni wnaethoch chi eu cyflwyno i CThEM?",
+  "header": "Pa ffurflenni wnaethoch chi eu cyflwyno i CThEM?",
+  "paragraph1": "Nid yw defnyddio gwiriwr Treth Etifeddiant yr un peth â chyflwyno ffurflen i CThEM. Bydd y gwiriwr yn rhoi canlyniad i chi ar unwaith. Os mai dim ond y gwiriwr Treth Etifeddiant rydych wedi'i ddefnyddio, dewiswch nad oedd yn rhaid i chi gyflwyno ffurflen.",
+  "paragraph2":"\nOs gwnaethoch gyflwyno’r IHT400 neu’r IHT400 ac IHT421 byddwch wedi gorfod aros am ateb gan CThEM.",
+  "optionIHT400": "IHT400 yn unig",
+  "optionIHT400Conditional": "Dewiswch yr opsiwn hwn dim ond os gwnaethoch gais ar ôl ((date))",
+  "optionIHT400421": "IHT400 ag IHT421",
+  "optionIHT400421Conditional": "Dewiswch yr opsiwn hwn dim ond os gwnaethoch gais cyn ((dyddiad))",
+  "optionNotRequired": "Nid oedd yn rhaid i mi gyflwyno unrhyw ffurflenni i CThEM",
   "optionIHT205": "IHT 205",
 
   "errors": {
