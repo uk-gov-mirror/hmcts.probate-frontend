@@ -34,11 +34,17 @@
             {
               value: "optionIHT400",
               text: content["optionIHT400"] | safe,
+              conditional: {
+              html: conditionalIHT400
+              },
               checked: true if fields.ihtFormEstateId.value == "optionIHT400"
             },
             {
                 value: "optionIHT400421",
                 text: content["optionIHT400421"] | safe,
+                conditional: {
+                html: conditionalIHT400421
+                },
                 checked: true if fields.ihtFormEstateId.value == "optionIHT400421"
             }
         ]
