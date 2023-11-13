@@ -94,7 +94,6 @@ const stepList = {
         ihtEstateFormsCompleted: 'SubmittedToHmrc',
         otherwise: 'ReportEstateValues',
     },
-    SubmittedToHmrcBeforeThreshold: 'IhtEstateValued',
     ReportEstateValues: 'SubmittedToHmrc',
     SubmittedToHmrc: {
         optionIHT400: 'HmrcLetter',
@@ -108,6 +107,7 @@ const stepList = {
     IhtEstateForm: {
         optionIHT400: 'HmrcLetter',
         optionIHT400421: 'ProbateEstateValues',
+        optionIHT205: 'IhtEstateValues',
         otherwise: 'ProbateEstateValues'
     },
     IhtEstateValues: {
@@ -119,7 +119,7 @@ const stepList = {
         otherwise: 'ProbateEstateValues'
     },
     UniqueProbateCode: 'ProbateEstateValues',
-    WaitingForHmrc: 'UniqueProbateCode',
+    WaitingForHmrc: 'HmrcLetter',
     IhtUnusedAllowanceClaimed: 'ProbateEstateValues',
     ProbateEstateValues: 'DeceasedAlias',
     EnglishForeignDeathCert: {
