@@ -3,6 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const IhtMethod = require('app/steps/ui/iht/method');
 const IhtEstateValued = require('app/steps/ui/iht/estatevalued');
+const IhtEstateForm = require('app/steps/ui/iht/estateform');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 const IhtPaper = require('app/steps/ui/iht/paper');
@@ -12,6 +13,7 @@ describe('foreign-death-cert-translation', () => {
     const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
     const expectedNextUrlForEstateValued = IhtEstateValued.getUrl();
     const expectedNextUrlForIhtPaper = IhtPaper.getUrl();
+    const expectedNextUrlForEstateForm = IhtEstateForm.getUrl();
 
     afterEach(() => {
         testWrapper.destroy();
@@ -67,14 +69,14 @@ describe('foreign-death-cert-translation', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });
 
-        it(`test it DOES NOT redirects to estate valued for EE FT on: ${expectedNextUrlForIhtMethod}`, (done) => {
+        it(`test it DOES NOT redirects to estate valued for EE FT on: ${expectedNextUrlForEstateForm}`, (done) => {
             testWrapper = new TestWrapper('ForeignDeathCertTranslation', {ft_excepted_estates: true});
 
             const data = {
                 'dod-date': '2021-12-31',
                 foreignDeathCertTranslation: 'optionYes'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
+            testWrapper.testRedirect(done, data, expectedNextUrlForEstateForm);
         });
 
         it(`test it redirects to IHT paper for EE FT on: ${expectedNextUrlForIhtPaper}`, (done) => {
@@ -171,6 +173,16 @@ describe('foreign-death-cert-translation', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
         });
 
+        it(`test it redirects to estate form for EE FT on: ${expectedNextUrlForEstateForm}`, (done) => {
+            testWrapper = new TestWrapper('ForeignDeathCertTranslation', {ft_excepted_estates: true});
+
+            const data = {
+                'dod-date': '2021-01-01',
+                foreignDeathCertTranslation: 'optionYes'
+            };
+            testWrapper.testRedirect(done, data, expectedNextUrlForEstateForm);
+        });
+
         it(`test it redirects to estate valued for EE FT on INTESTACY: ${expectedNextUrlForEstateValued}`, (done) => {
             testWrapper = new TestWrapper('ForeignDeathCertTranslation', {ft_excepted_estates: true});
             testWrapper.agent.post('/prepare-session/form')
@@ -182,6 +194,20 @@ describe('foreign-death-cert-translation', () => {
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
+                });
+        });
+
+        it(`test it redirects to estate form for EE FT on INTESTACY: ${expectedNextUrlForEstateForm}`, (done) => {
+            testWrapper = new TestWrapper('ForeignDeathCertTranslation', {ft_excepted_estates: true});
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
+                .end(() => {
+                    const data = {
+                        'dod-date': '2021-01-01',
+                        foreignDeathCertTranslation: 'optionYes'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForEstateForm);
                 });
         });
     });

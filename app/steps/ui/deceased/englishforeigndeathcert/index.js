@@ -26,6 +26,8 @@ class EnglishForeignDeathCert extends ValidationStep {
         const formData = req.session.form;
         if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.afterEeDodThreshold(ctx['dod-date']) && ctx.englishForeignDeathCert === 'optionYes') {
             return journeyMap.getNextStepByName('IhtEstateValued');
+        } else if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.beforeEeDodThreshold(ctx['dod-date']) && ctx.englishForeignDeathCert === 'optionYes') {
+            return journeyMap.getNextStepByName('IhtEstateForm');
         } else if (ctx.checkData && ctx.englishForeignDeathCert === 'optionYes') {
             formData.iht = {method: 'optionPaper'};
             return journeyMap.getNextStepByName('IhtPaper');
