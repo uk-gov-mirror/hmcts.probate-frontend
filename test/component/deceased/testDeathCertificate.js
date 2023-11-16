@@ -7,13 +7,13 @@ const IhtPaper = require('app/steps/ui/iht/paper');
 const config = require('config');
 const caseTypes = require('app/utils/CaseTypes');
 const IhtEstateForm = require('app/steps/ui/iht/estateform');
-const IhtEstateValued = require('app/steps/ui/iht/estatevalued');
+const CalcCheck = require('app/steps/ui/iht/calccheck');
 
 describe('death-certificate-interim', () => {
     let testWrapper;
     const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
     const expectedNextUrlForEstateForm = IhtEstateForm.getUrl();
-    const expectedNextUrlForEstateValued = IhtEstateValued.getUrl();
+    const expectedNextUrlForEstateValued = CalcCheck.getUrl();
     const expectedNextUrlForIhtPaper = IhtPaper.getUrl();
 
     afterEach(() => {

@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const SubmittedToHmrc = require('app/steps/ui/iht/submittedtohmrc');
-const ReportEstateValues = require('app/steps/ui/iht/reportestatevalues');
+const IhtEstateValues = require('app/steps/ui/iht/ihtestatevalues');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 const config = require('config');
@@ -10,7 +10,7 @@ const config = require('config');
 describe('Tests for IHT Estate Valued', () => {
     let testWrapper;
     const expectedNextUrlSubmittedToHmrc = SubmittedToHmrc.getUrl();
-    const expectedNextUrlReportEstateValues = ReportEstateValues.getUrl();
+    const expectedNextUrlReportEstateValues = IhtEstateValues.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('IhtEstateValued');
@@ -64,6 +64,7 @@ describe('Tests for IHT Estate Valued', () => {
                 .send({caseType: caseTypes.GOP})
                 .end(() => {
                     const data = {
+                        calcCheckCompleted: 'optionYes',
                         estateValueCompleted: 'optionNo'
                     };
 
