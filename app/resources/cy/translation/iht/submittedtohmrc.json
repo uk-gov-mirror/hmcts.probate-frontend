@@ -7,7 +7,6 @@
   "optionIHT400Conditional": "Dewiswch yr opsiwn hwn dim ond os gwnaethoch gais ar ôl ((date))",
   "optionIHT400421": "IHT400 ag IHT421",
   "optionIHT400421Conditional": "Dewiswch yr opsiwn hwn dim ond os gwnaethoch gais cyn ((dyddiad))",
-  "optionNotRequired": "Nid oedd yn rhaid i mi gyflwyno unrhyw ffurflenni i CThEM",
   "optionIHT205": "IHT 205",
 
   "errors": {

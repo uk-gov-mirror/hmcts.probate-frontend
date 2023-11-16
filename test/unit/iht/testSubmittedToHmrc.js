@@ -34,12 +34,6 @@ describe('SubmittedToHmrc', () => {
                     key: 'ihtFormEstateId',
                     value: 'optionIHT400421',
                     choice: 'optionIHT400421'
-                },
-                {
-                    key: 'ihtFormEstateId',
-                    value: 'optionNotRequired',
-                    choice: 'optionNotRequired'
-
                 }]
             });
             done();

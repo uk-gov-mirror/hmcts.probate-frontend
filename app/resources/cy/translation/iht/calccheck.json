@@ -1,0 +1,13 @@
+{
+  "title": "A wnaethoch chi lenwi ffurflenni IHT i nodi gwerth yr yst&acirc;d?",
+  "question": "A wnaethoch chi lenwi ffurflenni IHT i nodi gwerth yr yst&acirc;d?",
+  "hint": "",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
+
+  "errors": {
+    "estateValueCompleted": {
+      "required": "Atebwch &lsquo;do&rsquo; os wnaethoch chi lenwi ffurflenni IHT i adrodd am werthoedd yr ystad”\n"
+    }
+  }
+}
