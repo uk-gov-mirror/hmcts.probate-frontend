@@ -3,6 +3,7 @@
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const sinon = require('sinon');
+const {assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const NewSubmittedToHmrc = steps.NewSubmittedToHmrc;
 
@@ -36,6 +37,22 @@ describe('NewSubmittedToHmrc', () => {
 
             const ctx = NewSubmittedToHmrc.getContextData(req);
             expect(ctx.ihtFormIdTesting).to.equal('optionIHT400421');
+            done();
+        });
+        it('should return the context with the radio buttons set', (done) => {
+            const req = {
+                session: {
+                    form: {
+                        iht: {
+                            estateValueCompleted: 'optionNo',
+                            ihtFormEstateId: 'optionNA'
+                        }
+                    }
+                }
+            };
+
+            const ctx = NewSubmittedToHmrc.getContextData(req);
+            expect(ctx.ihtFormIdTesting).to.equal('optionNA');
             done();
         });
     });
@@ -72,7 +89,78 @@ describe('NewSubmittedToHmrc', () => {
             // You may not need done() for synchronous tests
         });
 
+        it('should update ctx with estate values for optionNA', () => {
+            ctx = {
+                ihtFormIdTesting: 'optionNA',
+                ihtFormEstateId: 'initialValue',
+                estateValueCompleted: 'initialOption',
+            };
+            formdata = {
+                iht: {
+                    ihtFormEstateId: 'initialValue',
+                    estateValueCompleted: 'initialOption',
+                },
+            };
+            errors = [];
+
+            NewSubmittedToHmrc.handlePost(ctx, errors, formdata, {language: 'en'});
+
+            // Assert the expected changes in ctx
+            expect(ctx).to.deep.equal({
+                ihtFormIdTesting: 'optionNA',
+                estateValueCompleted: 'optionNo', // Expected change
+            });
+
+            // Assert other expectations (e.g., errors array, no string replacement)
+
+            // You may not need done() for synchronous tests
+        });
+
         // Add more test cases for other conditions if needed
+    });
+
+    describe('action()', () => {
+        it('test it cleans grossValue + netValue + estateNetQualifyingValue if ' +
+            'estateValueCompleted is Yes', () => {
+            const ctx = {
+                estateGrossValue: '100',
+                estateNetValue: '90',
+                estateNetQualifyingValue: '90',
+                estateValueCompleted: 'optionYes',
+            };
+            const formdata = {
+                iht: {
+                    estateGrossValue: '100',
+                    estateNetValue: '90',
+                    estateNetQualifyingValue: '90',
+                },
+            };
+
+            NewSubmittedToHmrc.action(ctx, formdata);
+
+            assert.isUndefined(formdata.iht.estateGrossValue);
+            assert.isUndefined(formdata.iht.estateNetValue);
+            assert.isUndefined(formdata.iht.estateNetQualifyingValue);
+        });
+        it('test it cleans estateGrossValue + estateNetValue  if estateValueCompleted is Yes', () => {
+            const ctx = {
+                grossValue: '100',
+                netValue: '90',
+                estateValueCompleted: 'optionNo',
+            };
+            const formdata = {
+                iht: {
+                    grossValue: '100',
+                    netValue: '90',
+                    estateNetQualifyingValue: '90',
+                },
+            };
+
+            NewSubmittedToHmrc.action(ctx, formdata);
+
+            assert.isUndefined(formdata.iht.grossValue);
+            assert.isUndefined(formdata.iht.netValue);
+        });
     });
     describe('nextStepOptions()', () => {
         it('should return the correct next step options', (done) => {
@@ -93,6 +181,73 @@ describe('NewSubmittedToHmrc', () => {
                     value: 'NOTAPPLICABLE',
                     choice: 'optionNA'
                 }]
+            });
+            done();
+        });
+    });
+    describe('clearoutEstateValues()', () => {
+        let ctx;
+        let formdata;
+        it('should return the correct next step options', (done) => {
+            formdata = {
+                iht: {
+                    estateGrossValue: '30000',
+                    estateNetValue: '400000',
+                    estateNetQualifyingValue: '500000',
+                    estateNetQualifyingValueField: '200000',
+                    estateGrossValueField: '10000',
+                    estateNetValueField: '200000'
+                }
+            };
+            ctx = {
+                estateGrossValue: '30000',
+                estateNetValue: '400000',
+                estateNetQualifyingValue: '500000',
+                estateNetQualifyingValueField: '200000',
+                estateGrossValueField: '10000',
+                estateNetValueField: '200000',
+                estateValueCompleted: 'optionYes'
+            };
+            [ctx, formdata] = NewSubmittedToHmrc.action(ctx, formdata);
+            expect(ctx).to.deep.equal({
+                estateValueCompleted: 'optionYes'
+            });
+            expect(formdata).to.deep.equal({
+                iht: {}
+            });
+            done();
+        });
+    });
+
+    describe('action estateValueCompleted: optionNo clearoutValues()', () => {
+        let ctx;
+        let formdata;
+        it('should return the correct next step options', (done) => {
+            formdata = {
+                grossValue: '2000',
+                netValue: '3000',
+                iht: {
+                    grossValue: '30000',
+                    grossValueField: '400000',
+                    netValue: '500000',
+                    netValueField: '200000',
+                    ihtFormEstateId: '10000'
+                }
+            };
+            ctx = {
+                ihtGrossValue: '30000',
+                ihtNetValue: '400000',
+                ihtFormEstateId: '500000',
+                grossValueField: '200000',
+                netValueField: '10000',
+                estateValueCompleted: 'optionNo'
+            };
+            [ctx, formdata] = NewSubmittedToHmrc.action(ctx, formdata);
+            expect(ctx).to.deep.equal({
+                estateValueCompleted: 'optionNo'
+            });
+            expect(formdata).to.deep.equal({
+                iht: {}
             });
             done();
         });

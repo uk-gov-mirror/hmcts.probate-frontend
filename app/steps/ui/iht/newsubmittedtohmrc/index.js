@@ -37,7 +37,7 @@ class NewSubmittedToHmrc extends ValidationStep {
             this.clearoutEstateValues(formdata, ctx);
         } else if (ctx.ihtFormIdTesting === 'optionNA') {
             ctx.estateValueCompleted = 'optionNo';
-            formdata.iht.estateValueCompleted = 'optionYes';
+            formdata.iht.estateValueCompleted = 'optionNo';
             this.clearoutValues(formdata, ctx);
         }
         return super.handlePost(ctx, errors, formdata);
