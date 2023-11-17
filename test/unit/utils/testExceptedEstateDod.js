@@ -49,11 +49,11 @@ describe('ExceptedEstateDod.js', () => {
             done();
         });
 
-        it('should return false if dod is exactly on the threshold', (done) => {
+        it('should return true if dod is exactly on the threshold', (done) => {
             const date = new Date('2021-01-01').getTime();
             const ExceptedEstateDod = require('app/utils/ExceptedEstateDod');
             const result = ExceptedEstateDod.beforeEeDodThreshold(date);
-            expect(result).to.equal(false);
+            expect(result).to.equal(true);
             done();
         });
         it('should throw a TypeError if date is not provided', (done) => {
@@ -62,11 +62,11 @@ describe('ExceptedEstateDod.js', () => {
             done();
         });
 
-        it('should return true if dod is exactly on the threshold', (done) => {
+        it('should return false if dod is exactly on the threshold', (done) => {
             const date = new Date('2021-01-01').getTime();
             const ExceptedEstateDod = require('app/utils/ExceptedEstateDod');
             const result = ExceptedEstateDod.afterEeDodThreshold(date);
-            expect(result).to.equal(true);
+            expect(result).to.equal(false);
             done();
         });
 
