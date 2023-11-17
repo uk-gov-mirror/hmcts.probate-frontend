@@ -11,7 +11,7 @@ class NewSubmittedToHmrc extends ValidationStep {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        if (formdata.estateValueCompleted) {
+        if (formdata.iht.estateValueCompleted) {
             ctx.estateValueCompleted = get(formdata, 'iht.estateValueCompleted') === 'true';
             if (typeof get(formdata, 'iht.ihtFormEstateId') !== 'undefined') {
                 ctx.ihtFormIdTesting = get(formdata, 'iht.ihtFormEstateId');
