@@ -72,6 +72,33 @@ describe.only('NewSubmittedToHmrc', () => {
             // You may not need done() for synchronous tests
         });
 
+        it('should update ctx with estate values for optionNA', () => {
+            ctx = {
+                ihtFormIdTesting: 'optionNA',
+                ihtFormEstateId: 'initialValue',
+                estateValueCompleted: 'initialOption',
+            };
+            formdata = {
+                iht: {
+                    ihtFormEstateId: 'initialValue',
+                    estateValueCompleted: 'initialOption',
+                },
+            };
+            errors = [];
+
+            NewSubmittedToHmrc.handlePost(ctx, errors, formdata, {language: 'en'});
+
+            // Assert the expected changes in ctx
+            expect(ctx).to.deep.equal({
+                ihtFormIdTesting: 'optionNA',
+                estateValueCompleted: 'optionNo', // Expected change
+            });
+
+            // Assert other expectations (e.g., errors array, no string replacement)
+
+            // You may not need done() for synchronous tests
+        });
+
         // Add more test cases for other conditions if needed
     });
     describe('nextStepOptions()', () => {
