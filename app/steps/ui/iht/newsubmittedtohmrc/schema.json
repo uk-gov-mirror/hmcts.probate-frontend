@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "newsubmittedtohmrc",
+  "$id": "new-submitted-to-hmrc",
   "type": "object",
   "properties": {
     "ihtFormIdTesting": {

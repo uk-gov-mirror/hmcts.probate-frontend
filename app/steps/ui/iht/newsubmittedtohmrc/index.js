@@ -11,14 +11,17 @@ class NewSubmittedToHmrc extends ValidationStep {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        ctx.estateValueCompleted = get(formdata, 'iht.estateValueCompleted');
-        if (get(formdata, 'iht.ihtFormEstateId')!=='undefined') {
-            ctx.ihtFormIdTesting = get(formdata, 'iht.ihtFormEstateId');
-        } else {
-            ctx.ihtFormIdTesting = 'optionNA';
+        if (formdata.estateValueCompleted) {
+            ctx.estateValueCompleted = get(formdata, 'iht.estateValueCompleted') === 'true';
+            if (typeof get(formdata, 'iht.ihtFormEstateId') !== 'undefined') {
+                ctx.ihtFormIdTesting = get(formdata, 'iht.ihtFormEstateId');
+            } else {
+                ctx.ihtFormIdTesting = 'optionNA';
+            }
         }
         return ctx;
     }
+
     nextStepOptions() {
         return {
             options: [
@@ -28,6 +31,7 @@ class NewSubmittedToHmrc extends ValidationStep {
             ]
         };
     }
+
     handlePost(ctx, errors, formdata) {
         if (ctx.ihtFormIdTesting === 'optionIHT400421' || ctx.ihtFormIdTesting === 'optionIHT400') {
             ctx.ihtFormEstateId = ctx.ihtFormIdTesting;

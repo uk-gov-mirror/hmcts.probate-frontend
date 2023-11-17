@@ -25,33 +25,33 @@ classes: "govuk-fieldset__legend--l"
 {% endset -%}
 
 {{ govukRadios({
-classes: "govuk-radios",
-idPrefix: "ihtFormIdTesting",
-name: "ihtFormIdTesting",
-errorMessage: { text: fields.ihtFormIdTesting.errorMessage | safe } if fields.ihtFormIdTesting.errorMessage,
-items: [
-{
-value: "optionIHT400",
-text: content["optionIHT400"] | safe,
-conditional: {
-html: conditionalIHT400
-},
-checked: true if fields.ihtFormIdTesting.value == "optionIHT400"
-},
-{
-value: "optionIHT400421",
-text: content["optionIHT400421"] | safe,
-conditional: {
-html: conditionalIHT400421
-},
-checked: true if fields.ihtFormIdTesting.value == "optionIHT400421"
-},
-{
-value: "optionNA",
-text: content["optionNA"] | safe,
-checked: true if fields.ihtFormIdTesting.value == "optionNA"
-}
-]
+    classes: "govuk-radios",
+    idPrefix: "ihtFormIdTesting",
+    name: "ihtFormIdTesting",
+    errorMessage: { text: fields.ihtFormIdTesting.errorMessage | safe } if fields.ihtFormIdTesting.errorMessage,
+    items: [
+        {
+            value: "optionIHT400",
+            text: content["optionIHT400"] | safe,
+            conditional: {
+                html: conditionalIHT400
+            },
+            checked: true if fields.ihtFormIdTesting.value == "optionIHT400"
+        },
+        {
+            value: "optionIHT400421",
+            text: content["optionIHT400421"] | safe,
+            conditional: {
+                html: conditionalIHT400421
+            },
+            checked: true if fields.ihtFormIdTesting.value == "optionIHT400421"
+        },
+        {
+            value: "optionNA",
+            text: content["optionNA"] | safe,
+            checked: true if fields.ihtFormIdTesting.value == "optionNA"
+        }
+    ]
 }) }}
 {% endcall %}
 <div class="govuk-form-group">
