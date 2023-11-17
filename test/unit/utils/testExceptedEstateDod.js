@@ -56,6 +56,19 @@ describe('ExceptedEstateDod.js', () => {
             expect(result).to.equal(false);
             done();
         });
+        it('should throw a TypeError if date is not provided', (done) => {
+            const ExceptedEstateDod = require('app/utils/ExceptedEstateDod');
+            expect(() => ExceptedEstateDod.afterEeDodThreshold()).to.throw(TypeError, 'no deceased date date of death found');
+            done();
+        });
+
+        it('should return true if dod is exactly on the threshold', (done) => {
+            const date = new Date('2021-01-01').getTime();
+            const ExceptedEstateDod = require('app/utils/ExceptedEstateDod');
+            const result = ExceptedEstateDod.afterEeDodThreshold(date);
+            expect(result).to.equal(true);
+            done();
+        });
 
     });
 });
