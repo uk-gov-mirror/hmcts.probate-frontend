@@ -76,11 +76,12 @@ const stepList = {
     },
     DeathCertificateInterim: 'IhtMethod',
     CalcCheck: {
-        calcCheckCompleted: 'IhtEstateValued',
+        calcCheckCompleted: 'NewSubmittedToHmrc',
         otherwise: 'ReportEstateValues'
     },
-    IhtEstateValued: {
-        ihtEstateFormsCompleted: 'SubmittedToHmrc',
+    NewSubmittedToHmrc: {
+        optionIHT400: 'HmrcLetter',
+        optionIHT400421: 'ProbateEstateValues',
         otherwise: 'IhtEstateValues',
     },
     ReportEstateValues: 'CalcCheck',
