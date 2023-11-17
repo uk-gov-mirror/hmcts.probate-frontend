@@ -1,11 +1,23 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
+const {get} = require('lodash');
 
 class NewSubmittedToHmrc extends ValidationStep {
 
     static getUrl() {
         return '/new-submitted-to-hmrc';
+    }
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        const formdata = req.session.form;
+        ctx.estateValueCompleted = get(formdata, 'iht.estateValueCompleted');
+        if (get(formdata, 'iht.ihtFormEstateId')!=='undefined') {
+            ctx.ihtFormIdTesting = get(formdata, 'iht.ihtFormEstateId');
+        } else {
+            ctx.ihtFormIdTesting = 'optionNA';
+        }
+        return ctx;
     }
     nextStepOptions() {
         return {
@@ -20,48 +32,53 @@ class NewSubmittedToHmrc extends ValidationStep {
         if (ctx.ihtFormIdTesting === 'optionIHT400421' || ctx.ihtFormIdTesting === 'optionIHT400') {
             ctx.ihtFormEstateId = ctx.ihtFormIdTesting;
             ctx.estateValueCompleted = 'optionYes';
-            delete ctx.estateGrossValue;
-            delete ctx.estateNetValue;
-            delete ctx.estateNetQualifyingValue;
-            delete ctx.estateNetQualifyingValueField;
-            delete ctx.estateGrossValueField;
-            delete ctx.estateNetValueField;
+            formdata.iht.ihtFormEstateId = ctx.ihtFormIdTesting;
+            formdata.iht.estateValueCompleted = 'optionYes';
+            this.clearoutEstateValues(formdata, ctx);
         } else if (ctx.ihtFormIdTesting === 'optionNA') {
-            delete ctx.ihtGrossValue;
-            delete ctx.ihtNetValue;
-            delete ctx.ihtFormEstateId;
             ctx.estateValueCompleted = 'optionNo';
-            delete ctx.grossValueField;
-            delete ctx.netValueField;
+            formdata.iht.estateValueCompleted = 'optionYes';
+            this.clearoutValues(formdata, ctx);
         }
         return super.handlePost(ctx, errors, formdata);
     }
+
+    clearoutValues(formdata, ctx) {
+        delete formdata.grossValue;
+        delete formdata.netValue;
+        delete formdata.iht.grossValue;
+        delete formdata.iht.grossValueField;
+        delete formdata.iht.netValue;
+        delete formdata.iht.netValueField;
+        delete formdata.iht.ihtFormEstateId;
+        delete ctx.ihtGrossValue;
+        delete ctx.ihtNetValue;
+        delete ctx.ihtFormEstateId;
+        delete ctx.grossValueField;
+        delete ctx.netValueField;
+    }
+
+    clearoutEstateValues(formdata, ctx) {
+        delete formdata.iht.estateGrossValue;
+        delete formdata.iht.estateNetValue;
+        delete formdata.iht.estateNetQualifyingValue;
+        delete formdata.iht.estateNetQualifyingValueField;
+        delete formdata.iht.estateGrossValueField;
+        delete formdata.iht.estateNetValueField;
+        delete ctx.estateGrossValue;
+        delete ctx.estateNetValue;
+        delete ctx.estateNetQualifyingValue;
+        delete ctx.estateNetQualifyingValueField;
+        delete ctx.estateGrossValueField;
+        delete ctx.estateNetValueField;
+    }
+
     action(ctx, formdata) {
         super.action(ctx, formdata);
         if (ctx.estateValueCompleted === 'optionNo') {
-            delete formdata.iht.grossValue;
-            delete formdata.iht.grossValueField;
-            delete formdata.iht.netValue;
-            delete formdata.iht.netValueField;
-            delete formdata.iht.ihtFormEstateId;
-            delete ctx.ihtGrossValue;
-            delete ctx.ihtNetValue;
-            delete ctx.ihtFormEstateId;
-            delete ctx.grossValueField;
-            delete ctx.netValueField;
+            this.clearoutValues(formdata, ctx);
         } else if (ctx.estateValueCompleted === 'optionYes') {
-            delete formdata.iht.estateGrossValue;
-            delete formdata.iht.estateNetValue;
-            delete formdata.iht.estateNetQualifyingValue;
-            delete formdata.iht.estateNetQualifyingValueField;
-            delete formdata.iht.estateGrossValueField;
-            delete formdata.iht.estateNetValueField;
-            delete ctx.estateGrossValue;
-            delete ctx.estateNetValue;
-            delete ctx.estateNetQualifyingValue;
-            delete ctx.estateNetQualifyingValueField;
-            delete ctx.estateGrossValueField;
-            delete ctx.estateNetValueField;
+            this.clearoutEstateValues(formdata, ctx);
         }
         return [ctx, formdata];
     }
