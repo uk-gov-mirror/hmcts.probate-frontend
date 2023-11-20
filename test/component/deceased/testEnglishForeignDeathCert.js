@@ -91,14 +91,14 @@ describe('english-foreign-death-cert', () => {
                 });
         });
 
-        it(`test it DOES NOT redirects to estate valued for EE FT on: ${expectedNextUrlForEstateForm}`, (done) => {
+        it(`test it DOES NOT redirects to estate valued for EE FT on: ${expectedNextUrlForCalcCheck}`, (done) => {
             testWrapper = new TestWrapper('EnglishForeignDeathCert', {ft_excepted_estates: true});
 
             const data = {
-                'dod-date': '2021-12-31',
+                'dod-date': '2022-12-31',
                 englishForeignDeathCert: 'optionYes'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForEstateForm);
+            testWrapper.testRedirect(done, data, expectedNextUrlForCalcCheck);
         });
         it(`test it redirects to IHT Paper for EE FT on: ${expectedNextUrlForIhtPaper}`, (done) => {
             testWrapper = new TestWrapper('EnglishForeignDeathCert', {ft_stop_ihtonline: true});

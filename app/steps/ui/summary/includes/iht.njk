@@ -79,16 +79,15 @@
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
-
 {{checkanswer(
     items = [
         {
-            question: content.IhtEstateValued.question,
-            answer: content.IhtEstateValued[fields.iht.estateValueCompleted.value],
-            visible: fields.iht.estateValueCompleted.value and fields.summary.exceptedEstateDodAfterThreshold.value == "true"
+            question: content.CalcCheck.question,
+            answer: content.CalcCheck[fields.iht.estateValueCompleted.value],
+            visible: fields.iht.calcCheckCompleted.value and fields.summary.exceptedEstateDodAfterThreshold.value == "true"
         }
     ],
-    url = content.IhtEstateValued.url,
+    url = content.CalcCheck.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
@@ -145,9 +144,48 @@
 {{checkanswer(
     items = [
         {
-            question: content.IhtEstateForm.question,
+            question: content.NewSubmittedToHmrc.question,
             answer: '207',
             visible: fields.iht.estateValueCompleted.value and fields.summary.exceptedEstateDodAfterThreshold.value == "true" and fields.iht.ihtFormEstateId.value == 'optionIHT207' and fields.iht.estateValueCompleted.value == "optionYes"
+        }
+    ],
+    url = content.NewSubmittedToHmrc.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.NewSubmittedToHmrc.question,
+            answer: '400 &amp; 421',
+            visible: fields.iht.estateValueCompleted.value and fields.summary.exceptedEstateDodAfterThreshold.value == "true" and fields.iht.ihtFormEstateId.value == 'optionIHT400421' and fields.iht.estateValueCompleted.value == "optionYes"
+        }
+    ],
+    url = content.NewSubmittedToHmrc.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.NewSubmittedToHmrc.question,
+            answer: '400',
+            visible: fields.iht.estateValueCompleted.value and fields.summary.exceptedEstateDodAfterThreshold.value == "true" and fields.iht.ihtFormEstateId.value == 'optionIHT400' and fields.iht.estateValueCompleted.value == "optionYes"
+        }
+    ],
+    url = content.NewSubmittedToHmrc.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.IhtEstateForm.question,
+            answer: '205',
+            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false" and fields.iht.ihtFormEstateId.value == 'optionIHT205'
         }
     ],
     url = content.IhtEstateForm.url,
@@ -158,12 +196,12 @@
 {{checkanswer(
     items = [
         {
-            question: content.IhtEstateForm.question,
-            answer: '400 &amp; 421',
-            visible: fields.iht.estateValueCompleted.value and fields.summary.exceptedEstateDodAfterThreshold.value == "true" and fields.iht.ihtFormEstateId.value == 'optionIHT400421' and fields.iht.estateValueCompleted.value == "optionYes"
+            question: content.NewSubmittedToHmrc.question,
+            answer: 'No forms required',
+            visible: fields.iht.estateValueCompleted.value and fields.summary.exceptedEstateDodAfterThreshold.value == "true" and fields.iht.ihtFormEstateId.value == 'optionNA' and fields.iht.estateValueCompleted.value == "optionNo"
         }
     ],
-    url = content.IhtEstateForm.url,
+    url = content.NewSubmittedToHmrc.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}

@@ -193,62 +193,18 @@ describe('summary-iht-section', () => {
                 });
         });
 
-        it('test data is played back correctly on the summary page iht section if death certificate and estate not valued', (done) => {
-            const sessionData = require('test/data/iht/estate-valued-no');
-            sessionData.ccdCase = {
-                state: 'Pending',
-                id: 1234567890123456
-            };
-            sessionData.deceased.deathCertificate = 'Death certificate';
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end((err) => {
-                    if (err) {
-                        throw err;
-                    }
-                    delete require.cache[require.resolve('test/data/iht/estate-valued-no')];
-                    const playbackData = {
-                        estateValueCompleted: ihtContent.estatevalued.question,
-                        estateGrossValue: ihtContent.ihtestatevalues.estateGrossValue,
-                        estateNetValue: ihtContent.ihtestatevalues.estateNetValue,
-                        estateNetQualifyingValue: ihtContent.ihtestatevalues.estateNetQualifyingValue
-                    };
-                    testWrapper.testDataPlayback(done, playbackData);
-                });
-        });
-
-        it('test data is played back correctly on the summary page iht section if eng translation in foreign death certificate and estate not valued', (done) => {
-            const sessionData = require('test/data/iht/estate-valued-no');
-            sessionData.ccdCase = {
-                state: 'Pending',
-                id: 1234567890123456
-            };
-            sessionData.deceased.foreignDeathCertTranslation = 'optionYes';
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end((err) => {
-                    if (err) {
-                        throw err;
-                    }
-                    delete require.cache[require.resolve('test/data/iht/estate-valued-no')];
-                    const playbackData = {
-                        estateValueCompleted: ihtContent.estatevalued.question,
-                        estateGrossValue: ihtContent.ihtestatevalues.estateGrossValue,
-                        estateNetValue: ihtContent.ihtestatevalues.estateNetValue,
-                        estateNetQualifyingValue: ihtContent.ihtestatevalues.estateNetQualifyingValue,
-                        deceasedHadLateSpouseOrCivilPartner: ihtContent.deceasedlatespousecivilpartner.question,
-                        unusedAllowanceClaimed: ihtContent.unusedallowanceclaimed.question
-                    };
-                    testWrapper.testDataPlayback(done, playbackData);
-                });
-        });
-
-        it('test data is played back correctly on the summary page iht section for excepted estate completed forms', (done) => {
+        it('test data is played back correctly on the summary page iht section for completed 400 & 421 forms', (done) => {
             const sessionData = require('test/data/iht/probate-estate-values');
             sessionData.ccdCase = {
                 state: 'Pending',
                 id: 1234567890123456
             };
+
+            sessionData.iht.form = 'optionIHT400421';
+            sessionData.iht.ihtFormIdTesting = 'optionIHT400421';
+            sessionData.iht.ihtFormEstateId = 'optionIHT400421';
+            sessionData.iht.calcCheckCompleted = 'optionYes';
+            sessionData.iht.estateValueCompleted = 'optionYes';
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
@@ -257,10 +213,63 @@ describe('summary-iht-section', () => {
                     }
                     delete require.cache[require.resolve('test/data/iht/probate-estate-values')];
                     const playbackData = {
-                        estateValueCompleted: ihtContent.estatevalued.question,
+                        calcCheckCompleted: ihtContent.calccheck.question,
                         grossValueField: ihtContent.probateestatevalues.grossValueSummary,
-                        netValueField: ihtContent.probateestatevalues.netValueSummary,
-                        ihtFormEstateId: ihtContent.estateform.question
+                        netValueField: ihtContent.probateestatevalues.netValueSummary
+                    };
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+
+        });
+
+        it('test data is played back correctly on the summary page iht section for completed 400forms', (done) => {
+            const sessionData = require('test/data/iht/probate-estate-values');
+            sessionData.ccdCase = {
+                state: 'Pending',
+                id: 1234567890123456
+            };
+
+            sessionData.iht.form = 'optionIHT400';
+            sessionData.iht.ihtFormIdTesting = 'optionIHT400';
+            sessionData.iht.ihtFormEstateId = 'optionIHT400';
+            sessionData.iht.calcCheckCompleted = 'optionYes';
+            sessionData.iht.estateValueCompleted = 'optionYes';
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end((err) => {
+                    if (err) {
+                        throw err;
+                    }
+                    delete require.cache[require.resolve('test/data/iht/probate-estate-values')];
+                    const playbackData = {
+                        calcCheckCompleted: ihtContent.calccheck.question
+                    };
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+
+        });
+
+        it('test data is played back correctly on the summary page iht section for no forms completed', (done) => {
+            const sessionData = require('test/data/iht/probate-estate-values');
+            sessionData.ccdCase = {
+                state: 'Pending',
+                id: 1234567890123456
+            };
+
+            sessionData.iht.form = 'optionNA';
+            sessionData.iht.ihtFormIdTesting = 'optionNA';
+            sessionData.iht.ihtFormEstateId = 'optionNA';
+            sessionData.iht.calcCheckCompleted = 'optionYes';
+            sessionData.iht.estateValueCompleted = 'optionNo';
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end((err) => {
+                    if (err) {
+                        throw err;
+                    }
+                    delete require.cache[require.resolve('test/data/iht/probate-estate-values')];
+                    const playbackData = {
+                        calcCheckCompleted: ihtContent.calccheck.question
                     };
                     testWrapper.testDataPlayback(done, playbackData);
                 });
