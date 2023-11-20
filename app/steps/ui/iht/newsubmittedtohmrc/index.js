@@ -1,7 +1,6 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const {get} = require('lodash');
 
 class NewSubmittedToHmrc extends ValidationStep {
 

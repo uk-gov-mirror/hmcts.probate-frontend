@@ -1,6 +1,7 @@
 {
   "title": "Which forms did you submit to HMRC?",
   "header": "Which forms did you submit to HMRC?",
+  "question": "Which forms did you submit to HMRC?",
   "paragraph1": "Using the Inheritance Tax checker is not the same as submitting a form to HMRC. The checker will give you a result straight away. If you have only used the Inheritance Tax checker, select that you did not have to submit a form.",
   "paragraph2":"If you submitted the IHT400 or the IHT400 and IHT421 you will have had to wait for a reply from HMRC.",
   "optionIHT400": "IHT400 only",

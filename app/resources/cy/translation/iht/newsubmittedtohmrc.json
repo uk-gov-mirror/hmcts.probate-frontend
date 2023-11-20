@@ -1,6 +1,7 @@
 {
   "title": "Pa ffurflenni wnaethoch chi eu cyflwyno i CThEM?",
   "header": "Pa ffurflenni wnaethoch chi eu cyflwyno i CThEM?",
+  "question": "Pa ffurflenni wnaethoch chi eu cyflwyno i CThEM?",
   "paragraph1": "Nid yw defnyddio gwiriwr Treth Etifeddiant yr un peth â chyflwyno ffurflen i CThEM. Bydd y gwiriwr yn rhoi canlyniad i chi ar unwaith. Os mai dim ond y gwiriwr Treth Etifeddiant rydych wedi'i ddefnyddio, dewiswch nad oedd yn rhaid i chi gyflwyno ffurflen.",
   "paragraph2":"\nOs gwnaethoch gyflwyno’r IHT400 neu’r IHT400 ac IHT421 byddwch wedi gorfod aros am ateb gan CThEM.",
   "optionIHT400": "IHT400 yn unig",
@@ -8,11 +9,11 @@
   "optionIHT400421": "IHT400 ag IHT421",
   "optionIHT400421Conditional": "Dewiswch yr opsiwn hwn dim ond os gwnaethoch gais cyn ((dyddiad))",
   "optionIHT205": "IHT 205",
-  "optionNA": "I did not have to submit a form",
+  "optionNA": "Nid oedd yn rhaid i mi gyflwyno ffurflen",
 
   "errors": {
     "ihtFormEstateId": {
-      "required": "You must select an option to continue",
+      "required": "Rhaid i chi ddewis opsiwn i barhau",
       "unimplemented": "This page should not be accessed"
     }
   }
