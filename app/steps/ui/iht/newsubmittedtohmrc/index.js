@@ -8,19 +8,6 @@ class NewSubmittedToHmrc extends ValidationStep {
     static getUrl() {
         return '/new-submitted-to-hmrc';
     }
-    getContextData(req) {
-        const ctx = super.getContextData(req);
-        const formdata = req.session.form;
-        if (formdata.iht.estateValueCompleted) {
-            ctx.estateValueCompleted = get(formdata, 'iht.estateValueCompleted') === 'true';
-            if (typeof get(formdata, 'iht.ihtFormEstateId') !== 'undefined') {
-                ctx.ihtFormIdTesting = get(formdata, 'iht.ihtFormEstateId');
-            } else {
-                ctx.ihtFormIdTesting = 'optionNA';
-            }
-        }
-        return ctx;
-    }
 
     nextStepOptions() {
         return {
@@ -30,6 +17,18 @@ class NewSubmittedToHmrc extends ValidationStep {
                 {key: 'ihtFormIdTesting', value: 'NOTAPPLICABLE', choice: 'optionNA'},
             ]
         };
+    }
+
+    handleGet(ctx, formdata) {
+        if (formdata.iht.estateValueCompleted) {
+            ctx.estateValueCompleted = get(formdata, 'iht.estateValueCompleted') === 'optionYes';
+            if (typeof get(formdata, 'iht.ihtFormEstateId') !== 'undefined') {
+                ctx.ihtFormIdTesting = get(formdata, 'iht.ihtFormEstateId');
+            } else {
+                ctx.ihtFormIdTesting = 'optionNA';
+            }
+        }
+        return [ctx, []];
     }
 
     handlePost(ctx, errors, formdata) {
