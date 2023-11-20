@@ -22,37 +22,30 @@ describe('NewSubmittedToHmrc', () => {
         });
     });
 
-    describe('getContextData()', () => {
+    describe('handleGet()', () => {
         it('should return the context with the radio buttons set', (done) => {
-            const req = {
-                session: {
-                    form: {
-                        iht: {
-                            estateValueCompleted: 'optionYes',
-                            ihtFormEstateId: 'optionIHT400421'
-                        }
-                    }
+            const ctxTotest= {};
+            const formdata = {
+                iht: {
+                    estateValueCompleted: 'optionYes',
+                    ihtFormEstateId: 'optionIHT400421'
                 }
             };
 
-            const ctx = NewSubmittedToHmrc.getContextData(req);
-            expect(ctx.ihtFormIdTesting).to.equal('optionIHT400421');
+            const [ctx] = NewSubmittedToHmrc.handleGet(ctxTotest, formdata);
+            expect(ctx.ihtFormIdTesting).to.deep.equal('optionIHT400421');
             done();
         });
         it('should return the context with the radio buttons set', (done) => {
-            const req = {
-                session: {
-                    form: {
-                        iht: {
-                            estateValueCompleted: 'optionNo',
-                            ihtFormEstateId: 'optionNA'
-                        }
-                    }
+            const ctxTotest= {};
+            const formdata = {
+                iht: {
+                    estateValueCompleted: 'optionNo',
+                    ihtFormEstateId: 'optionNA'
                 }
             };
-
-            const ctx = NewSubmittedToHmrc.getContextData(req);
-            expect(ctx.ihtFormIdTesting).to.equal('optionNA');
+            const [ctx] = NewSubmittedToHmrc.handleGet(ctxTotest, formdata);
+            expect(ctx.ihtFormIdTesting).to.deep.equal('optionNA');
             done();
         });
     });
