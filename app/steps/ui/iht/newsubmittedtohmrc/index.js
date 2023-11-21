@@ -25,7 +25,7 @@ class NewSubmittedToHmrc extends ValidationStep {
             if (typeof get(formdata, 'iht.ihtFormEstateId') !== 'undefined') {
                 ctx.ihtFormIdTesting = get(formdata, 'iht.ihtFormEstateId');
             } else {
-                ctx.ihtFormIdTesting = 'optionNA';
+                ctx.ihtFormIdTesting = 'NOTAPPLICABLE';
             }
         }
         return [ctx, []];
@@ -38,7 +38,7 @@ class NewSubmittedToHmrc extends ValidationStep {
             formdata.iht.ihtFormEstateId = ctx.ihtFormIdTesting;
             formdata.iht.estateValueCompleted = 'optionYes';
             this.clearoutEstateValues(formdata, ctx);
-        } else if (ctx.ihtFormIdTesting === 'optionNA') {
+        } else if (ctx.ihtFormIdTesting === 'NOTAPPLICABLE') {
             ctx.ihtFormEstateId = ctx.ihtFormIdTesting;
             ctx.estateValueCompleted = 'optionNo';
             formdata.iht.estateValueCompleted = 'optionNo';

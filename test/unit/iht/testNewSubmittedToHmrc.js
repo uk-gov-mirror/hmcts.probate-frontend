@@ -84,7 +84,7 @@ describe('NewSubmittedToHmrc', () => {
 
         it('should update ctx with estate values for optionNA', () => {
             ctx = {
-                ihtFormIdTesting: 'optionNA',
+                ihtFormIdTesting: 'NOTAPPLICABLE',
                 ihtFormEstateId: 'initialValue',
                 estateValueCompleted: 'initialOption',
             };
@@ -100,7 +100,7 @@ describe('NewSubmittedToHmrc', () => {
 
             // Assert the expected changes in ctx
             expect(ctx).to.deep.equal({
-                ihtFormIdTesting: 'optionNA',
+                ihtFormIdTesting: 'NOTAPPLICABLE',
                 estateValueCompleted: 'optionNo', // Expected change
             });
 

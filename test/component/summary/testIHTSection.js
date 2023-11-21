@@ -256,9 +256,9 @@ describe('summary-iht-section', () => {
                 id: 1234567890123456
             };
 
-            sessionData.iht.form = 'optionNA';
-            sessionData.iht.ihtFormIdTesting = 'optionNA';
-            sessionData.iht.ihtFormEstateId = 'optionNA';
+            sessionData.iht.form = 'NOTAPPLICABLE';
+            sessionData.iht.ihtFormIdTesting = 'NOTAPPLICABLE';
+            sessionData.iht.ihtFormEstateId = 'NOTAPPLICABLE';
             sessionData.iht.calcCheckCompleted = 'optionYes';
             sessionData.iht.estateValueCompleted = 'optionNo';
             testWrapper.agent.post('/prepare-session/form')
