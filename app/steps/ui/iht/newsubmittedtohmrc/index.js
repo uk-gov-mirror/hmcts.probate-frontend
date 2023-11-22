@@ -14,7 +14,7 @@ class NewSubmittedToHmrc extends ValidationStep {
             options: [
                 {key: 'ihtFormIdTesting', value: 'optionIHT400', choice: 'optionIHT400'},
                 {key: 'ihtFormIdTesting', value: 'optionIHT400421', choice: 'optionIHT400421'},
-                {key: 'ihtFormIdTesting', value: 'NOTAPPLICABLE', choice: 'optionNA'},
+                {key: 'ihtFormIdTesting', value: 'optionNA', choice: 'optionNA'},
             ]
         };
     }
@@ -25,7 +25,7 @@ class NewSubmittedToHmrc extends ValidationStep {
             if (typeof get(formdata, 'iht.ihtFormEstateId') !== 'undefined') {
                 ctx.ihtFormIdTesting = get(formdata, 'iht.ihtFormEstateId');
             } else {
-                ctx.ihtFormIdTesting = 'NOTAPPLICABLE';
+                ctx.ihtFormIdTesting = 'optionNA';
             }
         }
         return [ctx, []];
@@ -106,6 +106,12 @@ class NewSubmittedToHmrc extends ValidationStep {
             this.clearoutEstateValues(formdata, ctx);
         }
         return [ctx, formdata];
+    }
+
+    isComplete(ctx) {
+        return [
+            ctx.estateValueCompleted==='optionYes' || ctx.estateValueCompleted==='optionNo', 'inProgress'
+        ];
     }
 }
 
