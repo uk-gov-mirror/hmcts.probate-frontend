@@ -41,6 +41,7 @@ class NewSubmittedToHmrc extends ValidationStep {
         } else if (ctx.ihtFormIdTesting === 'NOTAPPLICABLE') {
             ctx.ihtFormEstateId = ctx.ihtFormIdTesting;
             ctx.estateValueCompleted = 'optionNo';
+            formdata.iht.ihtFormEstateId = 'NOTAPPLICABLE';
             formdata.iht.estateValueCompleted = 'optionNo';
             this.clearoutValues(formdata, ctx);
         }
