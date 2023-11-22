@@ -84,7 +84,7 @@ describe('NewSubmittedToHmrc', () => {
 
         it('should update ctx with estate values for optionNA', () => {
             ctx = {
-                ihtFormIdTesting: 'NOTAPPLICABLE',
+                ihtFormIdTesting: 'optionNA',
                 ihtFormEstateId: 'initialValue',
                 estateValueCompleted: 'initialOption',
             };
@@ -100,16 +100,10 @@ describe('NewSubmittedToHmrc', () => {
 
             // Assert the expected changes in ctx
             expect(ctx).to.deep.equal({
-                ihtFormIdTesting: 'NOTAPPLICABLE',
+                ihtFormIdTesting: 'optionNA',
                 estateValueCompleted: 'optionNo', // Expected change
             });
-
-            // Assert other expectations (e.g., errors array, no string replacement)
-
-            // You may not need done() for synchronous tests
         });
-
-        // Add more test cases for other conditions if needed
     });
 
     describe('action()', () => {
