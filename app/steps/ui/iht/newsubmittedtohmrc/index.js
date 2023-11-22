@@ -33,23 +33,23 @@ class NewSubmittedToHmrc extends ValidationStep {
 
     handlePost(ctx, errors, formdata) {
         if (ctx.ihtFormIdTesting === 'optionIHT400421' || ctx.ihtFormIdTesting === 'optionIHT400') {
-            delete formdata.grossValue;
-            delete formdata.netValue;
-            delete formdata.iht.grossValue;
-            delete formdata.iht.grossValueField;
-            delete formdata.iht.netValue;
-            delete formdata.iht.netValueField;
-            delete formdata.iht.ihtFormEstateId;
-            delete ctx.ihtGrossValue;
-            delete ctx.ihtNetValue;
-            delete ctx.ihtFormEstateId;
-            delete ctx.grossValueField;
-            delete ctx.netValueField;
+            delete formdata.iht.estateGrossValue;
+            delete formdata.iht.estateNetValue;
+            delete formdata.iht.estateNetQualifyingValue;
+            delete formdata.iht.estateNetQualifyingValueField;
+            delete formdata.iht.estateGrossValueField;
+            delete formdata.iht.estateNetValueField;
+            delete ctx.estateGrossValue;
+            delete ctx.estateNetValue;
+            delete ctx.estateNetQualifyingValue;
+            delete ctx.estateNetQualifyingValueField;
+            delete ctx.estateGrossValueField;
+            delete ctx.estateNetValueField;
             ctx.ihtFormEstateId = ctx.ihtFormIdTesting;
             formdata.iht.ihtFormEstateId = ctx.ihtFormIdTesting;
             ctx.estateValueCompleted = 'optionYes';
             formdata.iht.estateValueCompleted = 'optionYes';
-        } else if (ctx.ihtFormIdTesting === 'NOTAPPLICABLE') {
+        } else if (ctx.ihtFormIdTesting === 'optionNA') {
             delete formdata.grossValue;
             delete formdata.netValue;
             delete formdata.iht.grossValue;
