@@ -33,13 +33,35 @@ class NewSubmittedToHmrc extends ValidationStep {
 
     handlePost(ctx, errors, formdata) {
         if (ctx.ihtFormIdTesting === 'optionIHT400421' || ctx.ihtFormIdTesting === 'optionIHT400') {
-            this.clearoutEstateValues(formdata, ctx);
+            delete formdata.grossValue;
+            delete formdata.netValue;
+            delete formdata.iht.grossValue;
+            delete formdata.iht.grossValueField;
+            delete formdata.iht.netValue;
+            delete formdata.iht.netValueField;
+            delete formdata.iht.ihtFormEstateId;
+            delete ctx.ihtGrossValue;
+            delete ctx.ihtNetValue;
+            delete ctx.ihtFormEstateId;
+            delete ctx.grossValueField;
+            delete ctx.netValueField;
             ctx.ihtFormEstateId = ctx.ihtFormIdTesting;
             formdata.iht.ihtFormEstateId = ctx.ihtFormIdTesting;
             ctx.estateValueCompleted = 'optionYes';
             formdata.iht.estateValueCompleted = 'optionYes';
         } else if (ctx.ihtFormIdTesting === 'NOTAPPLICABLE') {
-            this.clearoutValues(formdata, ctx);
+            delete formdata.grossValue;
+            delete formdata.netValue;
+            delete formdata.iht.grossValue;
+            delete formdata.iht.grossValueField;
+            delete formdata.iht.netValue;
+            delete formdata.iht.netValueField;
+            delete formdata.iht.ihtFormEstateId;
+            delete ctx.ihtGrossValue;
+            delete ctx.ihtNetValue;
+            delete ctx.ihtFormEstateId;
+            delete ctx.grossValueField;
+            delete ctx.netValueField;
             ctx.estateValueCompleted = 'optionNo';
             formdata.iht.estateValueCompleted = 'optionNo';
         }
