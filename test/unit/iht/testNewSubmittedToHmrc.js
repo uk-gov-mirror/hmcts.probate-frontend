@@ -49,7 +49,7 @@ describe('NewSubmittedToHmrc', () => {
             done();
         });
     });
-    describe.only('handlePost()', () => {
+    describe('handlePost()', () => {
         let ctx;
         let formdata;
         let errors;
@@ -103,6 +103,12 @@ describe('NewSubmittedToHmrc', () => {
                 ihtFormIdTesting: 'optionNA',
                 ihtFormEstateId: '',
                 estateValueCompleted: 'optionNo', // Expected change
+            });
+            expect(formdata).to.deep.equal({
+                iht: {
+                    estateValueCompleted: 'optionNo',
+                    ihtFormEstateId: '',
+                },
             });
         });
     });
