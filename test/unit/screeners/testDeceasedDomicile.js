@@ -5,8 +5,10 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const coreContextMockData = require('../../data/core-context-mock-data.json');
+const journeyProbate = require('../../../app/journeys/probate');
 const DeceasedDomicile = steps.DeceasedDomicile;
-
+const PreviousStep = steps.DeathCertificateInEnglish;
+const DeathCertificateTranslation = steps.DeathCertificateTranslation;
 describe('DeceasedDomicile', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
@@ -65,7 +67,7 @@ describe('DeceasedDomicile', () => {
                 domicile: 'optionYes'
             };
             const nextStepUrl = DeceasedDomicile.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/iht-completed');
+            expect(nextStepUrl).to.equal('/ee-deceased-dod');
             done();
         });
 
@@ -145,6 +147,58 @@ describe('DeceasedDomicile', () => {
                     choice: 'inEnglandOrWales'
                 }]
             });
+            done();
+        });
+    });
+
+    describe('previousScrennerStepUrl()', () => {
+        let ctx;
+        it('should return the DeathCertificateInEnglish step url', (done) => {
+            const res = {
+                redirect: (url) => url
+            };
+            const req = {
+                method: 'GET',
+                session: {
+                    language: 'en',
+                    form: {
+                        screeners: {
+                            deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionYes'
+                        }
+                    },
+                    caseType: 'gop'
+                }
+            };
+            req.session.journey = journeyProbate;
+            ctx = {};
+            DeceasedDomicile.previousScrennerStepUrl(req, res, ctx);
+            expect(ctx.previousUrl).to.equal(PreviousStep.constructor.getUrl());
+            done();
+        });
+
+        it('should return the DeathCertificateTranslation step url', (done) => {
+            const res = {
+                redirect: (url) => url
+            };
+            const req = {
+                method: 'GET',
+                session: {
+                    language: 'en',
+                    form: {
+                        screeners: {
+                            deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionNo',
+                            deathCertificateTranslation: 'optionYes'
+                        }
+                    },
+                    caseType: 'gop'
+                }
+            };
+            req.session.journey = journeyProbate;
+            ctx = {};
+            DeceasedDomicile.previousScrennerStepUrl(req, res, ctx);
+            expect(ctx.previousUrl).to.equal(DeathCertificateTranslation.constructor.getUrl());
             done();
         });
     });
