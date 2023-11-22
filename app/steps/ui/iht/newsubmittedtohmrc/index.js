@@ -33,17 +33,15 @@ class NewSubmittedToHmrc extends ValidationStep {
 
     handlePost(ctx, errors, formdata) {
         if (ctx.ihtFormIdTesting === 'optionIHT400421' || ctx.ihtFormIdTesting === 'optionIHT400') {
-            ctx.ihtFormEstateId = ctx.ihtFormIdTesting;
-            ctx.estateValueCompleted = 'optionYes';
-            formdata.iht.ihtFormEstateId = ctx.ihtFormIdTesting;
-            formdata.iht.estateValueCompleted = 'optionYes';
             this.clearoutEstateValues(formdata, ctx);
-        } else if (ctx.ihtFormIdTesting === 'NOTAPPLICABLE') {
             ctx.ihtFormEstateId = ctx.ihtFormIdTesting;
-            ctx.estateValueCompleted = 'optionNo';
-            formdata.iht.ihtFormEstateId = 'NOTAPPLICABLE';
-            formdata.iht.estateValueCompleted = 'optionNo';
+            formdata.iht.ihtFormEstateId = ctx.ihtFormIdTesting;
+            ctx.estateValueCompleted = 'optionYes';
+            formdata.iht.estateValueCompleted = 'optionYes';
+        } else if (ctx.ihtFormIdTesting === 'NOTAPPLICABLE') {
             this.clearoutValues(formdata, ctx);
+            ctx.estateValueCompleted = 'optionNo';
+            formdata.iht.estateValueCompleted = 'optionNo';
         }
         return super.handlePost(ctx, errors, formdata);
     }
