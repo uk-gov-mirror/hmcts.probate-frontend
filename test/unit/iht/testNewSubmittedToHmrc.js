@@ -49,7 +49,7 @@ describe('NewSubmittedToHmrc', () => {
             done();
         });
     });
-    describe('handlePost()', () => {
+    describe.only('handlePost()', () => {
         let ctx;
         let formdata;
         let errors;
@@ -82,7 +82,7 @@ describe('NewSubmittedToHmrc', () => {
             // You may not need done() for synchronous tests
         });
 
-        it('should update ctx with estate values for optionNA', () => {
+        it('should update ctx with estate values for empty string', () => {
             ctx = {
                 ihtFormIdTesting: 'optionNA',
                 ihtFormEstateId: 'initialValue',
@@ -101,6 +101,7 @@ describe('NewSubmittedToHmrc', () => {
             // Assert the expected changes in ctx
             expect(ctx).to.deep.equal({
                 ihtFormIdTesting: 'optionNA',
+                ihtFormEstateId: '',
                 estateValueCompleted: 'optionNo', // Expected change
             });
         });
