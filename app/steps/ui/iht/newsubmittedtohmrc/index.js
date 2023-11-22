@@ -62,6 +62,7 @@ class NewSubmittedToHmrc extends ValidationStep {
             delete ctx.ihtFormEstateId;
             delete ctx.grossValueField;
             delete ctx.netValueField;
+            ctx.ihtFormEstateId = '';
             ctx.estateValueCompleted = 'optionNo';
             formdata.iht.estateValueCompleted = 'optionNo';
         }
