@@ -7,7 +7,7 @@ const {assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const NewSubmittedToHmrc = steps.NewSubmittedToHmrc;
 
-describe.only('NewSubmittedToHmrc', () => {
+describe('NewSubmittedToHmrc', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             // Create a spy for the getUrl() method
