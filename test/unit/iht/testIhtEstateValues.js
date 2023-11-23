@@ -238,7 +238,6 @@ describe('IhtEstateValues', () => {
                 }
             ]);
             done();
-            done();
         });
     });
     describe('isComplete()', () => {
