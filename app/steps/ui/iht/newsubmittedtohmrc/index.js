@@ -65,37 +65,6 @@ class NewSubmittedToHmrc extends ValidationStep {
         }
         return super.handlePost(ctx, errors, formdata);
     }
-
-    clearoutValues(formdata, ctx) {
-        delete formdata.grossValue;
-        delete formdata.netValue;
-        delete formdata.iht.grossValue;
-        delete formdata.iht.grossValueField;
-        delete formdata.iht.netValue;
-        delete formdata.iht.netValueField;
-        delete formdata.iht.ihtFormEstateId;
-        delete ctx.ihtGrossValue;
-        delete ctx.ihtNetValue;
-        delete ctx.ihtFormEstateId;
-        delete ctx.grossValueField;
-        delete ctx.netValueField;
-    }
-
-    clearoutEstateValues(formdata, ctx) {
-        delete formdata.iht.estateGrossValue;
-        delete formdata.iht.estateNetValue;
-        delete formdata.iht.estateNetQualifyingValue;
-        delete formdata.iht.estateNetQualifyingValueField;
-        delete formdata.iht.estateGrossValueField;
-        delete formdata.iht.estateNetValueField;
-        delete ctx.estateGrossValue;
-        delete ctx.estateNetValue;
-        delete ctx.estateNetQualifyingValue;
-        delete ctx.estateNetQualifyingValueField;
-        delete ctx.estateGrossValueField;
-        delete ctx.estateNetValueField;
-    }
-
     isComplete(ctx) {
         return [
             ctx.estateValueCompleted==='optionYes' || ctx.estateValueCompleted==='optionNo', 'inProgress'
