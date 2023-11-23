@@ -3,7 +3,6 @@
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const {assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const NewSubmittedToHmrc = steps.NewSubmittedToHmrc;
 
@@ -110,50 +109,6 @@ describe('NewSubmittedToHmrc', () => {
                     ihtFormEstateId: 'optionNA',
                 },
             });
-        });
-    });
-
-    describe('action()', () => {
-        it('test it cleans grossValue + netValue + estateNetQualifyingValue if ' +
-            'estateValueCompleted is Yes', () => {
-            const ctx = {
-                estateGrossValue: '100',
-                estateNetValue: '90',
-                estateNetQualifyingValue: '90',
-                estateValueCompleted: 'optionYes',
-            };
-            const formdata = {
-                iht: {
-                    estateGrossValue: '100',
-                    estateNetValue: '90',
-                    estateNetQualifyingValue: '90',
-                },
-            };
-
-            NewSubmittedToHmrc.action(ctx, formdata);
-
-            assert.isUndefined(formdata.iht.estateGrossValue);
-            assert.isUndefined(formdata.iht.estateNetValue);
-            assert.isUndefined(formdata.iht.estateNetQualifyingValue);
-        });
-        it('test it cleans estateGrossValue + estateNetValue  if estateValueCompleted is Yes', () => {
-            const ctx = {
-                grossValue: '100',
-                netValue: '90',
-                estateValueCompleted: 'optionNo',
-            };
-            const formdata = {
-                iht: {
-                    grossValue: '100',
-                    netValue: '90',
-                    estateNetQualifyingValue: '90',
-                },
-            };
-
-            NewSubmittedToHmrc.action(ctx, formdata);
-
-            assert.isUndefined(formdata.iht.grossValue);
-            assert.isUndefined(formdata.iht.netValue);
         });
     });
     describe('nextStepOptions()', () => {

@@ -96,16 +96,6 @@ class NewSubmittedToHmrc extends ValidationStep {
         delete ctx.estateNetValueField;
     }
 
-    action(ctx, formdata) {
-        super.action(ctx, formdata);
-        if (ctx.estateValueCompleted === 'optionNo') {
-            this.clearoutValues(formdata, ctx);
-        } else if (ctx.estateValueCompleted === 'optionYes') {
-            this.clearoutEstateValues(formdata, ctx);
-        }
-        return [ctx, formdata];
-    }
-
     isComplete(ctx) {
         return [
             ctx.estateValueCompleted==='optionYes' || ctx.estateValueCompleted==='optionNo', 'inProgress'
