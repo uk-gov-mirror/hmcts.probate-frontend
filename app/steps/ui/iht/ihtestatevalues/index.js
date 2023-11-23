@@ -44,6 +44,13 @@ class IhtEstateValues extends ValidationStep {
         }
         return [ctx, errors];
     }
+    isComplete(ctx) {
+        return [
+            (ctx.estateValueCompleted==='optionNo' && ctx.estateGrossValueField!==null &&
+                ctx.estateNetValueField!==null && ctx.estateNetQualifyingValueField!==null)||
+            ctx.estateValueComplete==='optionYes', 'inProgress'
+        ];
+    }
 }
 
 module.exports = IhtEstateValues;

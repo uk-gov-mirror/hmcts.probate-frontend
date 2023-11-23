@@ -238,6 +238,29 @@ describe('IhtEstateValues', () => {
                 }
             ]);
             done();
+            done();
+        });
+    });
+    describe('isComplete()', () => {
+        it('should return the complete when have estateValueCompleted', (done) => {
+            const ctx = {
+                estateValueCompleted: 'optionNo',
+                estateGrossValueField: '500000',
+                estateNetValueField: '400000',
+                estateNetQualifyingValueField: '200000',
+            };
+            const result = IhtEstateValues.isComplete(ctx);
+            const expectedTrue = [true, 'inProgress'];
+            expect(result).to.deep.equal(expectedTrue);
+            done();
+        });
+        it('should return complete false when no estateValueCompleted', (done) => {
+            const ctx = {
+            };
+            const result = IhtEstateValues.isComplete(ctx);
+            const expectedFalse = [false, 'inProgress'];
+            expect(result).to.deep.equal(expectedFalse);
+            done();
         });
     });
 });
