@@ -10,9 +10,9 @@ class IhtEstateForm extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'ihtFormEstateId', value: 'optionIHT400', choice: 'optionIHT400'},
-                {key: 'ihtFormEstateId', value: 'optionIHT400421', choice: 'optionIHT400421'},
-                {key: 'ihtFormEstateId', value: 'optionIHT205', choice: 'optionIHT205'}
+                {key: 'ihtFormId', value: 'optionIHT400', choice: 'optionIHT400'},
+                {key: 'ihtFormId', value: 'optionIHT400421', choice: 'optionIHT400421'},
+                {key: 'ihtFormId', value: 'optionIHT205', choice: 'optionIHT205'}
             ]
         };
     }

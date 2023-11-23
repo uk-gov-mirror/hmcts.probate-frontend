@@ -16,53 +16,12 @@
 {{checkanswer(
     items = [
         {
-            question: content.IhtPaper.question,
-            answer:  content.IhtPaper["option" + selectedOption],
-            visible: fields.iht.method.value == "optionPaper" and fields.summary.exceptedEstateDodAfterThreshold.value == "false"
-        },
-        {
-            question: content.IhtValue.grossValue,
-            answer: fields.iht["grossValueField" + selectedOption].value,
-            visible: fields.iht.method.value == "optionPaper" and fields.summary.exceptedEstateDodAfterThreshold.value == "false"
-        },
-        {
-            question: content.IhtValue.netValue,
-            answer: fields.iht["netValueField" + selectedOption].value,
-            visible: fields.iht.method.value == "optionPaper" and fields.summary.exceptedEstateDodAfterThreshold.value == "false"
-        }
-    ],
-    url = content.IhtPaper.url,
-    common = common,
-    alreadyDeclared = fields.summary.alreadyDeclared.value
-)}}
-
-{{checkanswer(
-    items = [
-        {
             question: content.IhtIdentifier.question,
             answer: fields.iht.identifier.value,
             visible: fields.iht.method.value == "optionOnline" and fields.summary.exceptedEstateDodAfterThreshold.value == "false"
         }
     ],
     url = content.IhtIdentifier.url,
-    common = common,
-    alreadyDeclared = fields.summary.alreadyDeclared.value
-)}}
-
-{{checkanswer(
-    items = [
-        {
-            question: content.IhtValue.grossValue,
-            answer: fields.iht.grossValueField.value,
-            visible: fields.iht.method.value == "optionOnline" and fields.summary.exceptedEstateDodAfterThreshold.value == "false"
-        },
-        {
-            question: content.IhtValue.netValue,
-            answer: fields.iht.netValueField.value,
-            visible: fields.iht.method.value == "optionOnline" and fields.summary.exceptedEstateDodAfterThreshold.value == "false"
-        }
-    ],
-    url = content.IhtValue.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
@@ -79,11 +38,12 @@
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
+
 {{checkanswer(
     items = [
         {
             question: content.CalcCheck.question,
-            answer: content.CalcCheck[fields.iht.estateValueCompleted.value],
+            answer: content.CalcCheck[fields.iht.calcCheckCompleted.value],
             visible: fields.iht.calcCheckCompleted.value and fields.summary.exceptedEstateDodAfterThreshold.value == "true"
         }
     ],
@@ -92,28 +52,6 @@
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
 
-{{checkanswer(
-    items = [
-        {
-            question: content.IhtEstateValues.estateGrossValue + content.IhtEstateValues.forEstateIht,
-            answer: fields.iht.estateGrossValueField.value,
-            visible: fields.iht.estateValueCompleted.value == "optionNo" and fields.summary.exceptedEstateDodAfterThreshold.value == "true"
-        },
-        {
-            question: content.IhtEstateValues.estateNetValue + content.IhtEstateValues.forEstateIht,
-            answer: fields.iht.estateNetValueField.value,
-            visible: fields.iht.estateValueCompleted.value == "optionNo" and fields.summary.exceptedEstateDodAfterThreshold.value  == "true"
-        },
-        {
-            question: content.IhtEstateValues.estateNetQualifyingValue + " in " +content.IhtEstateValues.poundSymbol,
-            answer: fields.iht.estateNetQualifyingValueField.value,
-            visible: fields.iht.estateValueCompleted.value == "optionNo" and fields.summary.exceptedEstateDodAfterThreshold.value == "true"
-        }
-    ],
-    url = content.IhtEstateValues.url,
-    common = common,
-    alreadyDeclared = fields.summary.alreadyDeclared.value
-)}}
 
 {{checkanswer(
     items = [
@@ -183,9 +121,22 @@
 {{checkanswer(
     items = [
         {
+            question: content.UniqueProbateCode.title,
+            answer: fields.iht.uniqueProbateCodeId.value,
+            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "true" and fields.iht.ihtFormEstateId.value == 'optionIHT400' and fields.summary.exceptedEstateDodAfterThreshold.value == "true"and fields.iht.hmrcLetterId.value == 'optionYes' and fields.iht.uniqueProbateCodeId.value !=''
+        }
+    ],
+    url = content.UniqueProbateCode.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
             question: content.IhtEstateForm.question,
             answer: '205',
-            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false" and fields.iht.ihtFormEstateId.value == 'optionIHT205'
+            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false" and fields.iht.ihtFormId.value == 'optionIHT205'
         }
     ],
     url = content.IhtEstateForm.url,
@@ -198,7 +149,7 @@
         {
             question: content.IhtEstateForm.question,
             answer: '400',
-            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false" and fields.iht.ihtFormEstateId.value == 'optionIHT400'
+            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false" and fields.iht.ihtFormId.value == 'optionIHT400'
         }
     ],
     url = content.IhtEstateForm.url,
@@ -211,13 +162,46 @@
         {
             question: content.IhtEstateForm.question,
             answer: '400 & 421',
-            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false" and fields.iht.ihtFormEstateId.value == 'optionIHT400421'
+            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false" and fields.iht.ihtFormId.value == 'optionIHT400421'
         }
     ],
     url = content.IhtEstateForm.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
+
+
+{{checkanswer(
+    items = [
+        {
+            question: content.UniqueProbateCode.title,
+            answer: fields.iht.uniqueProbateCodeId.value,
+            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false" and fields.iht.ihtFormId.value == 'optionIHT400' and fields.iht.hmrcLetterId.value == 'optionYes' and fields.iht.uniqueProbateCodeId.value !=''
+        }
+    ],
+    url = content.UniqueProbateCode.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.IhtValue.grossValue,
+            answer: fields.iht.grossValueField.value,
+            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false"
+        },
+        {
+            question: content.IhtValue.netValue,
+            answer: fields.iht.netValueField.value,
+            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false"
+        }
+    ],
+    url = content.IhtValue.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
 
 {{checkanswer(
     items = [
@@ -228,6 +212,29 @@
         }
     ],
     url = content.NewSubmittedToHmrc.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.IhtEstateValues.estateGrossValue + content.IhtEstateValues.forEstateIht,
+            answer: fields.iht.estateGrossValueField.value,
+            visible: fields.iht.estateValueCompleted.value == "optionNo" and fields.summary.exceptedEstateDodAfterThreshold.value == "true"
+        },
+        {
+            question: content.IhtEstateValues.estateNetValue + content.IhtEstateValues.forEstateIht,
+            answer: fields.iht.estateNetValueField.value,
+            visible: fields.iht.estateValueCompleted.value == "optionNo" and fields.summary.exceptedEstateDodAfterThreshold.value  == "true"
+        },
+        {
+            question: content.IhtEstateValues.estateNetQualifyingValue + " in " +content.IhtEstateValues.poundSymbol,
+            answer: fields.iht.estateNetQualifyingValueField.value,
+            visible: fields.iht.estateValueCompleted.value == "optionNo" and fields.summary.exceptedEstateDodAfterThreshold.value == "true"
+        }
+    ],
+    url = content.IhtEstateValues.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
