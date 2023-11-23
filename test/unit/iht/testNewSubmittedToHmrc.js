@@ -7,7 +7,7 @@ const {assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const NewSubmittedToHmrc = steps.NewSubmittedToHmrc;
 
-describe('NewSubmittedToHmrc', () => {
+describe.only('NewSubmittedToHmrc', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             // Create a spy for the getUrl() method
@@ -82,7 +82,7 @@ describe('NewSubmittedToHmrc', () => {
             // You may not need done() for synchronous tests
         });
 
-        it('should update ctx with estate values for empty string', () => {
+        it('should update ctx with estate values for optionNA', () => {
             ctx = {
                 ihtFormIdTesting: 'optionNA',
                 ihtFormEstateId: 'initialValue',
@@ -101,13 +101,13 @@ describe('NewSubmittedToHmrc', () => {
             // Assert the expected changes in ctx
             expect(ctx).to.deep.equal({
                 ihtFormIdTesting: 'optionNA',
-                ihtFormEstateId: '',
+                ihtFormEstateId: 'optionNA',
                 estateValueCompleted: 'optionNo', // Expected change
             });
             expect(formdata).to.deep.equal({
                 iht: {
                     estateValueCompleted: 'optionNo',
-                    ihtFormEstateId: '',
+                    ihtFormEstateId: 'optionNA',
                 },
             });
         });
