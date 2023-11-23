@@ -48,7 +48,7 @@ class IhtEstateValues extends ValidationStep {
         return [
             (ctx.estateValueCompleted==='optionNo' && ctx.estateGrossValueField!==null &&
                 ctx.estateNetValueField!==null && ctx.estateNetQualifyingValueField!==null)||
-            ctx.estateValueComplete==='optionYes', 'inProgress'
+            ctx.estateValueCompleted==='optionYes', 'inProgress'
         ];
     }
 }
