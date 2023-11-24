@@ -38,7 +38,6 @@ describe('summary-iht-section', () => {
             };
 
             sessionData.iht.form = 'optionIHT400421';
-            sessionData.iht.ihtFormIdTesting = 'optionIHT400421';
             sessionData.iht.ihtFormEstateId = 'optionIHT400421';
             sessionData.iht.calcCheckCompleted = 'optionYes';
             sessionData.iht.estateValueCompleted = 'optionYes';
@@ -67,7 +66,6 @@ describe('summary-iht-section', () => {
             };
 
             sessionData.iht.form = 'optionIHT400';
-            sessionData.iht.ihtFormIdTesting = 'optionIHT400';
             sessionData.iht.ihtFormEstateId = 'optionIHT400';
             sessionData.iht.calcCheckCompleted = 'optionYes';
             sessionData.iht.estateValueCompleted = 'optionYes';
@@ -94,7 +92,6 @@ describe('summary-iht-section', () => {
             };
 
             sessionData.iht.form = 'NOTAPPLICABLE';
-            sessionData.iht.ihtFormIdTesting = 'optionNA';
             sessionData.iht.ihtFormEstateId = 'optionNA';
             sessionData.iht.calcCheckCompleted = 'optionYes';
             sessionData.iht.estateValueCompleted = 'optionNo';

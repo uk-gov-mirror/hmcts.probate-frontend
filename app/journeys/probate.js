@@ -100,15 +100,7 @@ const stepList = {
         optionNA: 'IhtEstateValues',
         otherwise: 'IhtEstateValues'
     },
-    IhtEstateValued: {
-        ihtEstateFormsCompleted: 'SubmittedToHmrc',
-        otherwise: 'IhtEstateValues',
-    },
     ReportEstateValues: 'CalcCheck',
-    SubmittedToHmrc: {
-        optionIHT400: 'HmrcLetter',
-        optionIHT400421: 'ProbateEstateValues'
-    },
     HmrcLetter: {
         hmrcLetter: 'UniqueProbateCode',
         otherwise: 'WaitingForHmrc'
