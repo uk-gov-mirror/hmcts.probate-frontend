@@ -26,9 +26,9 @@ classes: "govuk-fieldset__legend--l"
 
 {{ govukRadios({
     classes: "govuk-radios",
-    idPrefix: "IhtFormEstateId",
+    idPrefix: "ihtFormEstateId",
     name: "IhtFormEstateId",
-    errorMessage: { text: fields.IhtFormEstateId.errorMessage | safe } if fields.IhtFormEstateId.errorMessage,
+    errorMessage: { text: fields.ihtFormEstateId.errorMessage | safe } if fields.ihtFormEstateId.errorMessage,
     items: [
         {
             value: "optionIHT400",
@@ -36,7 +36,7 @@ classes: "govuk-fieldset__legend--l"
             conditional: {
                 html: conditionalIHT400
             },
-            checked: true if fields.IhtFormEstateId.value == "optionIHT400"
+            checked: true if fields.ihtFormEstateId.value == "optionIHT400"
         },
         {
             value: "optionIHT400421",
@@ -44,12 +44,12 @@ classes: "govuk-fieldset__legend--l"
             conditional: {
                 html: conditionalIHT400421
             },
-            checked: true if fields.IhtFormEstateId.value == "optionIHT400421"
+            checked: true if fields.ihtFormEstateId.value == "optionIHT400421"
         },
         {
             value: "optionNA",
             text: content["optionNA"] | safe,
-            checked: true if fields.IhtFormEstateId.value == "optionNA"
+            checked: true if fields.ihtFormEstateId.value == "optionNA"
         }
     ]
 }) }}

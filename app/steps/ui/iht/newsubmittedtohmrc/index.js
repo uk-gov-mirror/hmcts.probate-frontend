@@ -11,15 +11,15 @@ class NewSubmittedToHmrc extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'IhtFormEstateId', value: 'optionIHT400', choice: 'optionIHT400'},
-                {key: 'IhtFormEstateId', value: 'optionIHT400421', choice: 'optionIHT400421'},
-                {key: 'IhtFormEstateId', value: 'optionNA', choice: 'optionNA'},
+                {key: 'ihtFormEstateId', value: 'optionIHT400', choice: 'optionIHT400'},
+                {key: 'ihtFormEstateId', value: 'optionIHT400421', choice: 'optionIHT400421'},
+                {key: 'ihtFormEstateId', value: 'optionNA', choice: 'optionNA'},
             ]
         };
     }
 
     handlePost(ctx, errors, formdata) {
-        if (ctx.IhtFormEstateId === 'optionIHT400421' || ctx.IhtFormEstateId === 'optionIHT400') {
+        if (ctx.ihtFormEstateId === 'optionIHT400421' || ctx.ihtFormEstateId === 'optionIHT400') {
             delete formdata.iht.estateGrossValue;
             delete formdata.iht.estateNetValue;
             delete formdata.iht.estateNetQualifyingValue;
@@ -34,7 +34,7 @@ class NewSubmittedToHmrc extends ValidationStep {
             delete ctx.estateNetValueField;
             ctx.estateValueCompleted = 'optionYes';
             formdata.iht.estateValueCompleted = 'optionYes';
-        } else if (ctx.IhtFormEstateId === 'optionNA') {
+        } else if (ctx.ihtFormEstateId === 'optionNA') {
             delete formdata.grossValue;
             delete formdata.netValue;
             delete formdata.iht.grossValue;
