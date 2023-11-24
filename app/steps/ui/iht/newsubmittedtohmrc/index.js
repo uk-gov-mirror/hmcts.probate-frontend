@@ -18,14 +18,8 @@ class NewSubmittedToHmrc extends ValidationStep {
         };
     }
 
-    handlePost(ctx, errors, formdata) {
+    handlePost(ctx, errors) {
         if (ctx.ihtFormEstateId === 'optionIHT400421' || ctx.ihtFormEstateId === 'optionIHT400') {
-            delete formdata.iht.estateGrossValue;
-            delete formdata.iht.estateNetValue;
-            delete formdata.iht.estateNetQualifyingValue;
-            delete formdata.iht.estateNetQualifyingValueField;
-            delete formdata.iht.estateGrossValueField;
-            delete formdata.iht.estateNetValueField;
             delete ctx.estateGrossValue;
             delete ctx.estateNetValue;
             delete ctx.estateNetQualifyingValue;
@@ -33,22 +27,14 @@ class NewSubmittedToHmrc extends ValidationStep {
             delete ctx.estateGrossValueField;
             delete ctx.estateNetValueField;
             ctx.estateValueCompleted = 'optionYes';
-            formdata.iht.estateValueCompleted = 'optionYes';
         } else if (ctx.ihtFormEstateId === 'optionNA') {
-            delete formdata.grossValue;
-            delete formdata.netValue;
-            delete formdata.iht.grossValue;
-            delete formdata.iht.grossValueField;
-            delete formdata.iht.netValue;
-            delete formdata.iht.netValueField;
             delete ctx.ihtGrossValue;
             delete ctx.ihtNetValue;
             delete ctx.grossValueField;
             delete ctx.netValueField;
             ctx.estateValueCompleted = 'optionNo';
-            formdata.iht.estateValueCompleted = 'optionNo';
         }
-        return super.handlePost(ctx, errors, formdata);
+        return super.handlePost(ctx, errors);
     }
     isComplete(ctx) {
         return [

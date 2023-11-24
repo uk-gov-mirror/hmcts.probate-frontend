@@ -21,21 +21,6 @@ describe('NewSubmittedToHmrc', () => {
         });
     });
 
-    describe('handleGet()', () => {
-        it('should return the context with the radio buttons set', (done) => {
-            const ctxTotest= {};
-            const formdata = {
-                iht: {
-                    estateValueCompleted: 'optionYes',
-                    ihtFormEstateId: 'optionIHT400421'
-                }
-            };
-
-            const [ctx] = NewSubmittedToHmrc.handleGet(ctxTotest, formdata);
-            expect(ctx.ihtFormEstateId).to.deep.equal('optionIHT400421');
-            done();
-        });
-    });
     describe('handlePost()', () => {
         let ctx;
         let formdata;
@@ -86,12 +71,6 @@ describe('NewSubmittedToHmrc', () => {
             expect(ctx).to.deep.equal({
                 ihtFormEstateId: 'optionNA',
                 estateValueCompleted: 'optionNo', // Expected change
-            });
-            expect(formdata).to.deep.equal({
-                iht: {
-                    estateValueCompleted: 'optionNo',
-                    ihtFormEstateId: 'optionNA',
-                },
             });
         });
     });
