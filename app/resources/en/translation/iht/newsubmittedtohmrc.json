@@ -12,7 +12,7 @@
   "optionNA": "I did not have to submit a form",
 
   "errors": {
-    "ihtFormIdTesting": {
+    "ihtFormEstateId": {
       "required": "You must select an option to continue",
       "unimplemented": "This page should not be accessed"
     }
