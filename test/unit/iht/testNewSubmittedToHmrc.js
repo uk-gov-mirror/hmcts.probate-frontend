@@ -32,19 +32,7 @@ describe('NewSubmittedToHmrc', () => {
             };
 
             const [ctx] = NewSubmittedToHmrc.handleGet(ctxTotest, formdata);
-            expect(ctx.ihtFormIdTesting).to.deep.equal('optionIHT400421');
-            done();
-        });
-        it('should return the context with the radio buttons set', (done) => {
-            const ctxTotest= {};
-            const formdata = {
-                iht: {
-                    estateValueCompleted: 'optionNo',
-                    ihtFormEstateId: 'optionNA'
-                }
-            };
-            const [ctx] = NewSubmittedToHmrc.handleGet(ctxTotest, formdata);
-            expect(ctx.ihtFormIdTesting).to.deep.equal('optionNA');
+            expect(ctx.ihtFormEstateId).to.deep.equal('optionIHT400421');
             done();
         });
     });
@@ -55,8 +43,7 @@ describe('NewSubmittedToHmrc', () => {
 
         it('should update ctx with estate values for optionIHT400421', () => {
             ctx = {
-                ihtFormIdTesting: 'optionIHT400421',
-                ihtFormEstateId: 'initialValue',
+                ihtFormEstateId: 'optionIHT400421',
                 estateValueCompleted: 'initialOption',
             };
             formdata = {
@@ -71,7 +58,6 @@ describe('NewSubmittedToHmrc', () => {
 
             // Assert the expected changes in ctx
             expect(ctx).to.deep.equal({
-                ihtFormIdTesting: 'optionIHT400421',
                 ihtFormEstateId: 'optionIHT400421',
                 estateValueCompleted: 'optionYes', // Expected change
             });
@@ -83,8 +69,7 @@ describe('NewSubmittedToHmrc', () => {
 
         it('should update ctx with estate values for optionNA', () => {
             ctx = {
-                ihtFormIdTesting: 'optionNA',
-                ihtFormEstateId: 'initialValue',
+                ihtFormEstateId: 'optionNA',
                 estateValueCompleted: 'initialOption',
             };
             formdata = {
@@ -99,7 +84,6 @@ describe('NewSubmittedToHmrc', () => {
 
             // Assert the expected changes in ctx
             expect(ctx).to.deep.equal({
-                ihtFormIdTesting: 'optionNA',
                 ihtFormEstateId: 'optionNA',
                 estateValueCompleted: 'optionNo', // Expected change
             });
@@ -116,17 +100,17 @@ describe('NewSubmittedToHmrc', () => {
             const result = NewSubmittedToHmrc.nextStepOptions();
             expect(result).to.deep.equal({
                 options: [{
-                    key: 'ihtFormIdTesting',
+                    key: 'ihtFormEstateId',
                     value: 'optionIHT400',
                     choice: 'optionIHT400'
                 },
                 {
-                    key: 'ihtFormIdTesting',
+                    key: 'ihtFormEstateId',
                     value: 'optionIHT400421',
                     choice: 'optionIHT400421'
                 },
                 {
-                    key: 'ihtFormIdTesting',
+                    key: 'ihtFormEstateId',
                     value: 'optionNA',
                     choice: 'optionNA'
                 }]

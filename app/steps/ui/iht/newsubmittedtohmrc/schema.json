@@ -3,11 +3,11 @@
   "$id": "new-submitted-to-hmrc",
   "type": "object",
   "properties": {
-    "ihtFormIdTesting": {
+    "IhtFormEstateId": {
       "type": "string"
     }
   },
   "required": [
-    "ihtFormIdTesting"
+    "IhtFormEstateId"
   ]
 }

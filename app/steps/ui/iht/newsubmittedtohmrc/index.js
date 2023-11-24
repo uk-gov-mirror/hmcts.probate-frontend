@@ -1,7 +1,6 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const {get} = require('lodash');
 
 class NewSubmittedToHmrc extends ValidationStep {
 
@@ -12,29 +11,15 @@ class NewSubmittedToHmrc extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'ihtFormIdTesting', value: 'optionIHT400', choice: 'optionIHT400'},
-                {key: 'ihtFormIdTesting', value: 'optionIHT400421', choice: 'optionIHT400421'},
-                {key: 'ihtFormIdTesting', value: 'optionNA', choice: 'optionNA'},
+                {key: 'IhtFormEstateId', value: 'optionIHT400', choice: 'optionIHT400'},
+                {key: 'IhtFormEstateId', value: 'optionIHT400421', choice: 'optionIHT400421'},
+                {key: 'IhtFormEstateId', value: 'optionNA', choice: 'optionNA'},
             ]
         };
     }
 
-    handleGet(ctx, formdata) {
-        if (formdata.iht.estateValueCompleted) {
-            ctx.estateValueCompleted = get(formdata, 'iht.estateValueCompleted') === 'optionYes';
-            if (typeof get(formdata, 'iht.ihtFormEstateId') !== 'undefined') {
-                ctx.ihtFormIdTesting = get(formdata, 'iht.ihtFormEstateId');
-            } else {
-                ctx.ihtFormIdTesting = 'optionNA';
-            }
-        }
-        return [ctx, []];
-    }
-
     handlePost(ctx, errors, formdata) {
-        ctx.ihtFormEstateId = ctx.ihtFormIdTesting;
-        formdata.iht.ihtFormEstateId = ctx.ihtFormIdTesting;
-        if (ctx.ihtFormIdTesting === 'optionIHT400421' || ctx.ihtFormIdTesting === 'optionIHT400') {
+        if (ctx.IhtFormEstateId === 'optionIHT400421' || ctx.IhtFormEstateId === 'optionIHT400') {
             delete formdata.iht.estateGrossValue;
             delete formdata.iht.estateNetValue;
             delete formdata.iht.estateNetQualifyingValue;
@@ -49,7 +34,7 @@ class NewSubmittedToHmrc extends ValidationStep {
             delete ctx.estateNetValueField;
             ctx.estateValueCompleted = 'optionYes';
             formdata.iht.estateValueCompleted = 'optionYes';
-        } else if (ctx.ihtFormIdTesting === 'optionNA') {
+        } else if (ctx.IhtFormEstateId === 'optionNA') {
             delete formdata.grossValue;
             delete formdata.netValue;
             delete formdata.iht.grossValue;
