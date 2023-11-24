@@ -85,7 +85,8 @@ const stepList = {
     DeathCertificateInterim: 'IhtMethod',
     CalcCheck: {
         calcCheckCompleted: 'NewSubmittedToHmrc',
-        otherwise: 'ReportEstateValues'
+        calcCheckIncomplete: 'ReportEstateValues',
+        otherwise: 'NewSubmittedToHmrc'
     },
     NewSubmittedToHmrc: {
         optionIHT400: 'HmrcLetter',

@@ -11,7 +11,8 @@ class CalcCheck extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'calcCheckCompleted', value: 'optionYes', choice: 'calcCheckCompleted'}
+                {key: 'calcCheckCompleted', value: 'optionYes', choice: 'calcCheckCompleted'},
+                {key: 'calcCheckCompleted', value: 'optionNo', choice: 'calcCheckIncomplete'}
             ]
         };
     }

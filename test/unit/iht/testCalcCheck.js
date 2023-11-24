@@ -18,7 +18,8 @@ describe('CalcCheck', () => {
             const result = CalcCheck.nextStepOptions();
             expect(result).to.deep.equal({
                 options: [
-                    {key: 'calcCheckCompleted', value: 'optionYes', choice: 'calcCheckCompleted'}
+                    {key: 'calcCheckCompleted', value: 'optionYes', choice: 'calcCheckCompleted'},
+                    {key: 'calcCheckCompleted', value: 'optionNo', choice: 'calcCheckIncomplete'}
                 ]
             });
             done();
