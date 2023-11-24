@@ -7,7 +7,7 @@
   "optionIHT400421Conditional": "Dewiswch yr opsiwn hwn dim ond os gwnaethoch gais cyn ((dyddiad))",
   "optionIHT205": "IHT 205",
   "errors": {
-    "ihtFormEstateId": {
+    "ihtEstateId": {
       "required": "Dewiswch pa ffurflenni IHT wnaethoch chi eu llenwi i adrodd am werth yr ystad"
     }
   }
