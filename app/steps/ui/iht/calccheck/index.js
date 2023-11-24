@@ -16,6 +16,11 @@ class CalcCheck extends ValidationStep {
         };
     }
 
+    isComplete(ctx) {
+        return [
+            ctx.estateValueCompleted==='optionYes' || ctx.estateValueCompleted==='optionNo', 'inProgress'
+        ];
+    }
 }
 
 module.exports = CalcCheck;

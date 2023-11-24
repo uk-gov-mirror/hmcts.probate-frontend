@@ -24,4 +24,23 @@ describe('CalcCheck', () => {
             done();
         });
     });
+    describe('isComplete()', () => {
+        it('should return the complete when have estateValueCompleted', (done) => {
+            const ctx = {
+                estateValueCompleted: 'optionYes'
+            };
+            const result = CalcCheck.isComplete(ctx);
+            const expectedTrue = [true, 'inProgress'];
+            expect(result).to.deep.equal(expectedTrue);
+            done();
+        });
+        it('should return complete false when no estateValueCompleted', (done) => {
+            const ctx = {
+            };
+            const result = CalcCheck.isComplete(ctx);
+            const expectedFalse = [false, 'inProgress'];
+            expect(result).to.deep.equal(expectedFalse);
+            done();
+        });
+    });
 });
