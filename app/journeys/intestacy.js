@@ -101,7 +101,7 @@ const stepList = {
     IhtEstateForm: {
         optionIHT400: 'HmrcLetter',
         optionIHT400421: 'ProbateEstateValues',
-        optionIHT205: 'IhtEstateValues'
+        optionIHT205: 'ProbateEstateValues'
     },
     IhtEstateValues: {
         netQualifyingValueWithinRange: 'DeceasedHadLateSpouseOrCivilPartner',
