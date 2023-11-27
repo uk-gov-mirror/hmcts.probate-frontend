@@ -11,6 +11,31 @@
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
 
+{% set selectedOption = fields.iht.form.value | replace("option", "") %}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.IhtPaper.question,
+            answer:  content.IhtPaper["option" + selectedOption],
+            visible: fields.iht.method.value == "optionPaper" and fields.summary.exceptedEstateDodAfterThreshold.value == "false"
+        },
+        {
+            question: content.IhtValue.grossValue,
+            answer: fields.iht["grossValueField" + selectedOption].value,
+            visible: fields.iht.method.value == "optionPaper" and fields.summary.exceptedEstateDodAfterThreshold.value == "false"
+        },
+        {
+            question: content.IhtValue.netValue,
+            answer: fields.iht["netValueField" + selectedOption].value,
+            visible: fields.iht.method.value == "optionPaper" and fields.summary.exceptedEstateDodAfterThreshold.value == "false"
+        }
+    ],
+    url = content.IhtPaper.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
 {{checkanswer(
     items = [
         {
@@ -81,7 +106,7 @@
     items = [
         {
             question: content.NewSubmittedToHmrc.question,
-            answer: '207',
+            answer: content.NewSubmittedToHmrc[fields.iht.ihtFormEstateId.value],
             visible: fields.iht.estateValueCompleted.value and fields.summary.exceptedEstateDodAfterThreshold.value == "true" and fields.iht.estateValueCompleted.value == "optionYes" and fields.iht.ihtFormEstateId.value == 'optionIHT207'
         }
     ],
@@ -94,7 +119,7 @@
     items = [
         {
             question: content.NewSubmittedToHmrc.question,
-            answer: '400 &amp; 421',
+            answer: content.NewSubmittedToHmrc[fields.iht.ihtFormEstateId.value],
             visible: fields.iht.estateValueCompleted.value and fields.summary.exceptedEstateDodAfterThreshold.value == "true" and fields.iht.estateValueCompleted.value == "optionYes" and fields.iht.ihtFormEstateId.value == 'optionIHT400421'
         }
     ],
@@ -107,7 +132,7 @@
     items = [
         {
             question: content.NewSubmittedToHmrc.question,
-            answer: '400',
+            answer: content.NewSubmittedToHmrc[fields.iht.ihtFormEstateId.value],
             visible: fields.iht.estateValueCompleted.value and fields.summary.exceptedEstateDodAfterThreshold.value == "true" and fields.iht.estateValueCompleted.value == "optionYes" and fields.iht.ihtFormEstateId.value == 'optionIHT400'
         }
     ],
@@ -133,7 +158,7 @@
     items = [
         {
             question: content.IhtEstateForm.question,
-            answer: '205',
+            answer: content.IhtEstateForm[fields.iht.ihtFormId.value],
             visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false" and fields.iht.ihtFormId.value == 'optionIHT205'
         }
     ],
@@ -146,7 +171,7 @@
     items = [
         {
             question: content.IhtEstateForm.question,
-            answer: '400',
+            answer: content.IhtEstateForm[fields.iht.ihtFormId.value],
             visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false" and fields.iht.ihtFormId.value == 'optionIHT400'
         }
     ],
@@ -159,7 +184,7 @@
     items = [
         {
             question: content.IhtEstateForm.question,
-            answer: '400 & 421',
+            answer: content.IhtEstateForm[fields.iht.ihtFormId.value],
             visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false" and fields.iht.ihtFormId.value == 'optionIHT400421'
         }
     ],
@@ -187,12 +212,12 @@
         {
             question: content.IhtValue.grossValue,
             answer: fields.iht.grossValueField.value,
-            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false"
+            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false" and fields.iht.method.value and fields.iht.method.value !== "optionPaper" and fields.iht.method.value !== "optionOnline"
         },
         {
             question: content.IhtValue.netValue,
             answer: fields.iht.netValueField.value,
-            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false"
+            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false" and fields.iht.method.value and fields.iht.method.value !== "optionPaper" and fields.iht.method.value !== "optionOnline"
         }
     ],
     url = content.IhtValue.url,
