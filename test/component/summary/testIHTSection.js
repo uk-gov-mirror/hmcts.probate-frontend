@@ -85,7 +85,7 @@ describe('summary-iht-section', () => {
         });
 
         it('test data is played back correctly on the summary page iht section for existing 207forms', (done) => {
-            const sessionData = require('test/data/iht/probate-estate-values');
+            const sessionData = require('test/data/iht/iht-value');
             sessionData.ccdCase = {
                 state: 'Pending',
                 id: 1234567890123456
