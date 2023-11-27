@@ -29,6 +29,13 @@ class ProbateEstateValues extends ValidationStep {
 
         return [ctx, errors];
     }
+
+    isComplete(ctx) {
+        return [
+            typeof ctx.netValue !== 'undefined' && typeof ctx.grossValue !== 'undefined' &&
+                ctx.netValue !== null && ctx.grossValue !== null, 'inProgress'
+        ];
+    }
 }
 
 module.exports = ProbateEstateValues;

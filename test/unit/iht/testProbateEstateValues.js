@@ -100,4 +100,35 @@ describe('ProbateEstateValues', () => {
             done();
         });
     });
+
+    describe('isComplete()', () => {
+        it('should return the complete when have gross and net value', (done) => {
+            const ctx = {
+                grossValue: 5000,
+                netValue: 5000
+            };
+            const result = ProbateEstateValues.isComplete(ctx);
+            const expectedTrue = [true, 'inProgress'];
+            expect(result).to.deep.equal(expectedTrue);
+            done();
+        });
+        it('should return complete false when no gross and net value', (done) => {
+            const ctx = {
+            };
+            const result = ProbateEstateValues.isComplete(ctx);
+            const expectedFalse = [false, 'inProgress'];
+            expect(result).to.deep.equal(expectedFalse);
+            done();
+        });
+        it('should return complete false when empty gross and net value', (done) => {
+            const ctx = {
+                grossValue: null,
+                netValue: null
+            };
+            const result = ProbateEstateValues.isComplete(ctx);
+            const expectedFalse = [false, 'inProgress'];
+            expect(result).to.deep.equal(expectedFalse);
+            done();
+        });
+    });
 });
