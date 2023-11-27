@@ -1,0 +1,12 @@
+{
+    "iht": {
+      "ihtFormId": "optionIHT207",
+      "grossValue": "100000",
+      "netValue": "100000",
+      "method": "optionPaper"
+    },
+    "deceased": {
+    "deathCertificate": "Death certificate",
+    "dod-date": "2021-02-20"
+  }
+}
