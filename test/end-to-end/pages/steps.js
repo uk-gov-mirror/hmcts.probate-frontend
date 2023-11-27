@@ -56,7 +56,7 @@ module.exports = () => {
         selectLateSpouseCivilPartner: steps.ee.latespousecivilpartner,
         selectUnusedAllowance: steps.ee.unusedallowance,
         enterProbateEstateValues: steps.ee.probateestatevalues,
-        enterProbateAssetValues: steps.ee.probateassetvalues,
+        enterProbateAssetValues: steps.iht.value,
         selectSubmittedToHmrc: steps.ee.submittedToHmrc,
         selectHmrcLetterComplete: steps.ee.submittedHmrcLetter,
         enterHmrcCode: steps.ee.provideHmrcCode,

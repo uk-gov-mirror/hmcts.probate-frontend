@@ -178,9 +178,9 @@ getTestLanguages().forEach(language => {
 
         await I.selectEEComplete(language, optionYes);
         await I.selectSubmittedToHmrc(language, optionIHT400);
-        await I.selectHmrcComplete(language, optionYes);
+        await I.selectHmrcLetterComplete(language, optionYes);
         await I.enterHmrcCode(language, hmrcCode);
-        await I.enterProbateEstateValues(language, 400000, 400000);
+        await I.enterProbateAssetValues(language, 400000, 400000);
 
         await I.selectAssetsOutsideEnglandWales(language, optionYes);
         await I.enterValueAssetsOutsideEnglandWales(language, '400000');

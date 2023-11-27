@@ -5,7 +5,7 @@ module.exports = async function(language = 'en', grossValue = null, netValue = n
     const locatorGv = {css: '#grossValueField'};
     const commonContent = require(`app/resources/${language}/translation/common`);
 
-    await I.checkInUrl('/iht-value');
+    await I.checkInUrl('/probate-estate-values');
     await I.waitForEnabled (locatorGv);
     await I.fillField(locatorGv, grossValue);
     await I.fillField({css: '#netValueField'}, netValue);

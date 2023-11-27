@@ -76,7 +76,6 @@ getTestLanguages().forEach(language => {
         await I.selectForeignDeathCertTranslation(language, optionYes);
 
         await I.selectEEComplete(language, optionYes);
-        //await I.reportEstateValue(language);
         await I.selectSubmittedToHmrc(language, ihtOptionNotSubmitted);
         await I.enterEEValue(language, 500000, 400000, 400000);
         await I.selectLateSpouseCivilPartner(language, optionYes);
@@ -178,7 +177,8 @@ getTestLanguages().forEach(language => {
         await I.selectEnglishForeignDeathCert(language, optionNo);
         await I.selectForeignDeathCertTranslation(language, optionYes);
 
-        await I.selectEEComplete(language, optionNo);
+        await I.selectEEComplete(language, optionYes);
+        await I.selectSubmittedToHmrc(language, ihtOptionNotSubmitted);
         await I.enterEEValue(language, 500000, 400000, 400000);
         await I.selectLateSpouseCivilPartner(language, optionYes);
         await I.selectUnusedAllowance(language, optionYes);
