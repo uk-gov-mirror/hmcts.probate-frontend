@@ -179,7 +179,6 @@ getTestLanguages().forEach(language => {
         await I.selectEnglishForeignDeathCert(language, optionNo);
         await I.selectForeignDeathCertTranslation(language, optionYes);
 
-        //await I.selectInheritanceMethod(language, ihtPost);
         if (TestConfigurator.getUseGovPay() === 'true') {
             await I.enterGrossAndNet(language, '400');
             await I.selectHmrcLetterComplete(language, optionYes);
@@ -190,7 +189,6 @@ getTestLanguages().forEach(language => {
             await I.selectHmrcLetterComplete(language, optionYes);
             await I.enterHmrcCode(language, hmrcCode);
             await I.enterProbateAssetValues(language, '500', '400');
-            //await I.enterGrossAndNet(language, '205', '500', '400');
         }
 
         await I.selectAssetsOutsideEnglandWales(language, optionYes);

@@ -11,6 +11,7 @@ const ihtDataConfig = require('test/end-to-end/pages/ee/ihtData');
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
 const bilingualGOP = false;
+const hmrcCode = ihtDataConfig.hmrcCode;
 
 Feature('GOP Multiple Executors E2E');
 
@@ -69,6 +70,8 @@ getTestLanguages().forEach(language => {
 
         if (TestConfigurator.getUseGovPay() === 'true') {
             await I.enterGrossAndNet(language, '400');
+            await I.selectHmrcLetterComplete(language, optionYes);
+            await I.enterHmrcCode(language, hmrcCode);
             await I.enterProbateAssetValues(language, '300000', '200000');
         } else {
             await I.enterGrossAndNet(language, '205');
