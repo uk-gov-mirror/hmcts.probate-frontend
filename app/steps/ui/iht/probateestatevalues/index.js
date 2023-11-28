@@ -47,7 +47,7 @@ class ProbateEstateValues extends ValidationStep {
         return [ctx, errors];
     }
 
-    nextStepOptions(ctx) {
+    nextStepOptions() {
         return {
             options: [
                 {key: 'lessThanOrEqualToIhtThreshold', value: true, choice: 'lessThanOrEqualToIhtThreshold'}
