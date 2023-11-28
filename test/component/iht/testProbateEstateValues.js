@@ -219,19 +219,19 @@ describe('Tests for Probate Estate Values ', () => {
                     form: {
                         deceased: {
                             'dod-date': '2016-10-12'
+                        },
+                        iht: {
+                            netValueField: '260000'
                         }
                     },
                     featureToggles: {
                         ft_excepted_estates: true
                     },
-                    iht: {
-                        netValueField: '260000'
-                    }
                 }
             };
             ctx = ProbateEstateValues.getContextData(req);
             expect(ctx.ihtThreshold).to.equal(250000);
-            expect(ctx.lessThanOrEqualToIhtThreshold).to.equal(true);
+            expect(ctx.lessThanOrEqualToIhtThreshold).to.equal(false);
             done();
         });
         it('should return false with the IHT threshold for died after 2020', (done) => {
@@ -240,13 +240,13 @@ describe('Tests for Probate Estate Values ', () => {
                     form: {
                         deceased: {
                             'dod-date': '2021-01-01'
+                        },
+                        iht: {
+                            netValueField: '123'
                         }
                     },
                     featureToggles: {
                         ft_excepted_estates: true
-                    },
-                    iht: {
-                        netValueField: '123'
                     }
                 }
             };
@@ -261,6 +261,9 @@ describe('Tests for Probate Estate Values ', () => {
                     form: {
                         deceased: {
                             'dod-date': '2023-10-12'
+                        },
+                        iht: {
+                            netValueField: '123'
                         }
                     },
                     featureToggles: {
