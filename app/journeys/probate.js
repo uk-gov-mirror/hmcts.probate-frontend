@@ -125,7 +125,7 @@ const stepList = {
     IhtUnusedAllowanceClaimed: 'ProbateEstateValues',
     ProbateEstateValues: 'DeceasedAlias',
     EnglishForeignDeathCert: {
-        foreignDeathCertIsInEnglish: 'IhtMethod',
+        foreignDeathCertIsInEnglish: 'IhtMethodO',
         ihtPaper: 'IhtPaper',
         otherwise: 'ForeignDeathCertTranslation'
     },
