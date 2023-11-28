@@ -15,7 +15,7 @@ describe('Tests for Probate Estate Values ', () => {
     const expectedNextUrlForDeceasedAlias = DeceasedAlias.getUrl();
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('ProbateEstateValues');
+        testWrapper = new TestWrapper('ProbateEstateValues', {ft_excepted_estates: true});
     });
 
     afterEach(() => {
@@ -59,7 +59,6 @@ describe('Tests for Probate Estate Values ', () => {
                 }
 
             };
-            testWrapper = new TestWrapper('ProbateEstateValues', {ft_excepted_estates: true});
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -102,7 +101,6 @@ describe('Tests for Probate Estate Values ', () => {
 
                 }
             };
-            testWrapper = new TestWrapper('ProbateEstateValues', {ft_excepted_estates: true});
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -145,7 +143,6 @@ describe('Tests for Probate Estate Values ', () => {
             const contentData = {
                 ihtGifts: config.links.ihtGifts
             };
-            testWrapper = new TestWrapper('ProbateEstateValues', {ft_excepted_estates: true});
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -186,7 +183,6 @@ describe('Tests for Probate Estate Values ', () => {
                     estateValueCompleted: 'optionYes'
                 }
             };
-            testWrapper = new TestWrapper('ProbateEstateValues', {ft_excepted_estates: true});
 
             const contentData = {
                 ihtGifts: config.links.ihtGifts
@@ -200,12 +196,10 @@ describe('Tests for Probate Estate Values ', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper = new TestWrapper('ProbateEstateValues', {ft_excepted_estates: true});
             testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForDeceasedAlias}`, (done) => {
-            testWrapper = new TestWrapper('ProbateEstateValues', {ft_excepted_estates: true});
             const data = {
                 grossValueField: '300000',
                 netValueField: '260000'
