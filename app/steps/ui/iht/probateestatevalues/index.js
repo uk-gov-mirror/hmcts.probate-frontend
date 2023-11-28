@@ -4,11 +4,20 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const validator = require('validator');
 const numeral = require('numeral');
 const FieldError = require('app/components/error');
+const IhtThreshold = require('app/utils/IhtThreshold');
+const {get} = require('lodash');
 
 class ProbateEstateValues extends ValidationStep {
 
     static getUrl() {
         return '/probate-estate-values';
+    }
+
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        const formdata = req.session.form;
+        ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
+        return ctx;
     }
 
     handlePost(ctx, errors, formdata, session) {
@@ -28,6 +37,16 @@ class ProbateEstateValues extends ValidationStep {
         }
 
         return [ctx, errors];
+    }
+
+    nextStepOptions(ctx) {
+        ctx.lessThanOrEqualToIhtThreshold = ctx.netValue <= ctx.ihtThreshold;
+
+        return {
+            options: [
+                {key: 'lessThanOrEqualToIhtThreshold', value: true, choice: 'lessThanOrEqualToIhtThreshold'}
+            ]
+        };
     }
 
     isComplete(ctx) {

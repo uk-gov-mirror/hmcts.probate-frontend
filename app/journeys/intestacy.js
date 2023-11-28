@@ -116,7 +116,10 @@ const stepList = {
     UniqueProbateCode: 'ProbateEstateValues',
     WaitingForHmrc: 'HmrcLetter',
     IhtUnusedAllowanceClaimed: 'ProbateEstateValues',
-    ProbateEstateValues: 'AssetsOutside',
+    ProbateEstateValues: {
+        lessThanOrEqualToIhtThreshold: 'AssetsOutside',
+        otherwise: 'DeceasedAlias'
+    },
     EnglishForeignDeathCert: {
         foreignDeathCertIsInEnglish: 'IhtMethod',
         ihtPaper: 'IhtPaper',
