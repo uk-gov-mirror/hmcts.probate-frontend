@@ -5,6 +5,10 @@ const DeceasedAlias = require('app/steps/ui/deceased/alias');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 const config = require('config');
+const {expect} = require('chai');
+const initSteps = require('../../../app/core/initSteps');
+const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
+const ProbateEstateValues = steps.ProbateEstateValues;
 
 describe('Tests for Probate Estate Values ', () => {
     let testWrapper;
@@ -202,6 +206,43 @@ describe('Tests for Probate Estate Values ', () => {
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
 
+        });
+    });
+
+    describe('getContextData()', () => {
+        let ctx;
+        let req;
+
+        it('should return the context with the IHT threshold', (done) => {
+            req = {
+                session: {
+                    form: {
+                        deceased: {
+                            'dod-date': '2016-10-12'
+                        }
+                    }
+                }
+            };
+
+            ctx = ProbateEstateValues.getContextData(req);
+            expect(ctx.ihtThreshold).to.equal(250000);
+            done();
+        });
+    });
+    describe('nextStepOptions()', () => {
+        it('should return the correct next step options', (done) => {
+            const ctx = {
+                netValue: 200000
+            };
+            const result = ProbateEstateValues.nextStepOptions(ctx);
+            expect(result).to.deep.equal({
+                options: [{
+                    key: 'lessThanOrEqualToIhtThreshold',
+                    value: true,
+                    choice: 'lessThanOrEqualToIhtThreshold'
+                }]
+            });
+            done();
         });
     });
 });

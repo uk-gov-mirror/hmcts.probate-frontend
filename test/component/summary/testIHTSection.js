@@ -83,32 +83,6 @@ describe('summary-iht-section', () => {
                 });
 
         });
-
-        it('test data is played back correctly on the summary page iht section for existing 207forms', (done) => {
-            const sessionData = require('test/data/iht/probate-estate-values');
-            sessionData.ccdCase = {
-                state: 'Pending',
-                id: 1234567890123456
-            };
-
-            sessionData.iht.form = 'optionIHT207';
-            sessionData.iht.ihtFormId = 'optionIHT207';
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end((err) => {
-                    if (err) {
-                        throw err;
-                    }
-                    delete require.cache[require.resolve('test/data/iht/iht-value')];
-                    const playbackData = {
-                        grossValueField: ihtContent.value.grossValue,
-                        netValueField: ihtContent.value.netValue
-                    };
-                    testWrapper.testDataPlayback(done, playbackData);
-                });
-
-        });
-
         it('test data is played back correctly on the summary page iht section for no forms completed', (done) => {
             const sessionData = require('test/data/iht/probate-estate-values');
             sessionData.ccdCase = {

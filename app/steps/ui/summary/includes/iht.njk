@@ -159,7 +159,7 @@
         {
             question: content.IhtEstateForm.question,
             answer: content.IhtEstateForm[fields.iht.ihtFormId.value],
-            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false" and fields.iht.ihtFormId.value == 'optionIHT205'
+            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false" and fields.iht.ihtFormId.value == 'optionIHT205' and fields.iht.method.value == null
         }
     ],
     url = content.IhtEstateForm.url,
@@ -185,7 +185,7 @@
         {
             question: content.IhtEstateForm.question,
             answer: content.IhtEstateForm[fields.iht.ihtFormId.value],
-            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false" and fields.iht.ihtFormId.value == 'optionIHT400421'
+            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false" and fields.iht.ihtFormId.value == 'optionIHT400421' and fields.iht.method.value == null
         }
     ],
     url = content.IhtEstateForm.url,
@@ -212,15 +212,33 @@
         {
             question: content.IhtValue.grossValue,
             answer: fields.iht.grossValueField.value,
-            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false" and fields.iht.method.value and fields.iht.method.value !== "optionPaper" and fields.iht.method.value !== "optionOnline"
+            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false" and fields.iht.method.value == "optionOnline"
         },
         {
             question: content.IhtValue.netValue,
             answer: fields.iht.netValueField.value,
-            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false" and fields.iht.method.value and fields.iht.method.value !== "optionPaper" and fields.iht.method.value !== "optionOnline"
+            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false" and fields.iht.method.value == "optionOnline"
         }
     ],
     url = content.IhtValue.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.ProbateEstateValues.grossValueSummary,
+            answer: fields.iht.grossValueField.value,
+            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false" and fields.iht.method.value == null
+        },
+        {
+            question: content.ProbateEstateValues.netValueSummary,
+            answer: fields.iht.netValueField.value,
+            visible: fields.summary.exceptedEstateDodAfterThreshold.value == "false" and fields.iht.method.value == null
+        }
+    ],
+    url = content.ProbateEstateValues.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
