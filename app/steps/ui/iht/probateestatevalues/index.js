@@ -17,16 +17,17 @@ class ProbateEstateValues extends ValidationStep {
 
     getContextData(req) {
         const ctx =super.getContextData(req);
-        ctx.netValue = parseFloat(numeral(ctx.netValueField).format('0.00'));
-        const formdata = req.session.form;
-        if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.afterEeDodThreshold(get(formdata, 'deceased.dod-date'))) {
-            ctx.lessThanOrEqualToIhtThreshold = true;
-            return ctx;
-        } else if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.beforeEeDodThreshold(get(formdata, 'deceased.dod-date'))) {
-            ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
-            ctx.lessThanOrEqualToIhtThreshold = ctx.netValue <= ctx.ihtThreshold;
-            return ctx;
+        if (ctx.netValueField!== null && typeof ctx.netValueField!== 'undefined') {
+            ctx.netValue = parseFloat(numeral(ctx.netValueField).format('0.00'));
+            const formdata = req.session.form;
+            if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.afterEeDodThreshold(get(formdata, 'deceased.dod-date'))) {
+                ctx.lessThanOrEqualToIhtThreshold = true;
+            } else if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.beforeEeDodThreshold(get(formdata, 'deceased.dod-date'))) {
+                ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
+                ctx.lessThanOrEqualToIhtThreshold = ctx.netValue <= ctx.ihtThreshold;
+            }
         }
+        return ctx;
     }
 
     handlePost(ctx, errors, formdata, session) {
