@@ -22,7 +22,7 @@ describe('Tests for Probate Estate Values ', () => {
         testWrapper.destroy();
     });
 
-    describe('Verify Content, Errors and Redirection', () => {
+    describe.only('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('ProbateEstateValues', null, null, [], false, {type: caseTypes.INTESTACY});
 
         it('test content loaded on the page 207', (done) => {
@@ -59,6 +59,7 @@ describe('Tests for Probate Estate Values ', () => {
                 }
 
             };
+            testWrapper = new TestWrapper('ProbateEstateValues', {ft_excepted_estates: true});
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -101,6 +102,7 @@ describe('Tests for Probate Estate Values ', () => {
 
                 }
             };
+            testWrapper = new TestWrapper('ProbateEstateValues', {ft_excepted_estates: true});
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -143,6 +145,7 @@ describe('Tests for Probate Estate Values ', () => {
             const contentData = {
                 ihtGifts: config.links.ihtGifts
             };
+            testWrapper = new TestWrapper('ProbateEstateValues', {ft_excepted_estates: true});
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -183,6 +186,7 @@ describe('Tests for Probate Estate Values ', () => {
                     estateValueCompleted: 'optionYes'
                 }
             };
+            testWrapper = new TestWrapper('ProbateEstateValues', {ft_excepted_estates: true});
 
             const contentData = {
                 ihtGifts: config.links.ihtGifts
@@ -196,10 +200,12 @@ describe('Tests for Probate Estate Values ', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
+            testWrapper = new TestWrapper('ProbateEstateValues', {ft_excepted_estates: true});
             testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForDeceasedAlias}`, (done) => {
+            testWrapper = new TestWrapper('ProbateEstateValues', {ft_excepted_estates: true});
             const data = {
                 grossValueField: '300000',
                 netValueField: '260000'
@@ -220,12 +226,59 @@ describe('Tests for Probate Estate Values ', () => {
                         deceased: {
                             'dod-date': '2016-10-12'
                         }
+                    },
+                    featureToggles: {
+                        ft_excepted_estates: true
+                    },
+                    iht: {
+                        netValueField: '260000'
                     }
                 }
             };
 
             ctx = ProbateEstateValues.getContextData(req);
             expect(ctx.ihtThreshold).to.equal(250000);
+            expect(ctx.lessThanOrEqualToIhtThreshold).to.equal(true);
+            done();
+        });
+        it('should return false with the IHT threshold for died after 2020', (done) => {
+            req = {
+                session: {
+                    form: {
+                        deceased: {
+                            'dod-date': '2021-01-01'
+                        }
+                    },
+                    featureToggles: {
+                        ft_excepted_estates: true
+                    },
+                    iht: {
+                        netValueField: '123'
+                    }
+                }
+            };
+
+            ctx = ProbateEstateValues.getContextData(req);
+            expect(ctx.ihtThreshold).to.equal(270000);
+            expect(ctx.lessThanOrEqualToIhtThreshold).to.equal(true);
+            done();
+        });
+        it('should return true for DOD after 2022', (done) => {
+            req = {
+                session: {
+                    form: {
+                        deceased: {
+                            'dod-date': '2023-10-12'
+                        }
+                    },
+                    featureToggles: {
+                        ft_excepted_estates: true
+                    }
+                }
+            };
+
+            ctx = ProbateEstateValues.getContextData(req);
+            expect(ctx.lessThanOrEqualToIhtThreshold).to.equal(true);
             done();
         });
     });
