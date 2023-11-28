@@ -235,7 +235,6 @@ describe('Tests for Probate Estate Values ', () => {
                     }
                 }
             };
-
             ctx = ProbateEstateValues.getContextData(req);
             expect(ctx.ihtThreshold).to.equal(250000);
             expect(ctx.lessThanOrEqualToIhtThreshold).to.equal(true);
@@ -257,7 +256,6 @@ describe('Tests for Probate Estate Values ', () => {
                     }
                 }
             };
-
             ctx = ProbateEstateValues.getContextData(req);
             expect(ctx.ihtThreshold).to.equal(270000);
             expect(ctx.lessThanOrEqualToIhtThreshold).to.equal(true);
@@ -276,7 +274,6 @@ describe('Tests for Probate Estate Values ', () => {
                     }
                 }
             };
-
             ctx = ProbateEstateValues.getContextData(req);
             expect(ctx.lessThanOrEqualToIhtThreshold).to.equal(true);
             done();
