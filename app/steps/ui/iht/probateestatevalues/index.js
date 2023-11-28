@@ -17,6 +17,7 @@ class ProbateEstateValues extends ValidationStep {
 
     getContextData(req) {
         const ctx =super.getContextData(req);
+        ctx.netValue = parseFloat(numeral(ctx.netValueField).format('0.00'));
         const formdata = req.session.form;
         if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.afterEeDodThreshold(get(formdata, 'deceased.dod-date'))) {
             ctx.lessThanOrEqualToIhtThreshold = true;
