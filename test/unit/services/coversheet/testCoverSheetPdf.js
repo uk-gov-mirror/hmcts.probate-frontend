@@ -207,7 +207,8 @@ describe('CoverSheetPdfService', () => {
                     address: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY'
                 },
                 deceased: {
-                    diedEngOrWales: 'optionNo'
+                    diedEngOrWales: 'optionNo',
+                    'dod-date': '2018-01-01'
                 },
                 iht: {
                     method: 'optionPaper',
