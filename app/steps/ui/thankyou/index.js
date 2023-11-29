@@ -61,8 +61,8 @@ class ThankYou extends Step {
             ctx.deceasedWrittenWishes = formdata.will.deceasedWrittenWishes;
         }
 
-        ctx.is205 = formdata.iht && ExceptedEstateDod.beforeEeDodThreshold(get(formdata, 'deceased.dod-date')) && ((formdata.iht.method === 'optionPaper' && formdata.iht.form === 'optionIHT205') || (formdata.iht.ihtFormId === 'optionIHT205'));
-        ctx.is207 = formdata.iht && ((formdata.iht.method === 'optionPaper' && formdata.iht.form === 'optionIHT207') || (formdata.iht.ihtFormEstateId === 'optionIHT207'));
+        ctx.is205 = formdata.iht && ExceptedEstateDod.beforeEeDodThreshold(get(formdata, 'deceased.dod-date')) && (formdata.iht.form === 'optionIHT205' || formdata.iht.ihtFormId === 'optionIHT205');
+        ctx.is207 = formdata.iht && (formdata.iht.form === 'optionIHT207' || formdata.iht.ihtFormEstateId === 'optionIHT207');
         ctx.checkListItems = DocumentPageUtil.getCheckListItems(ctx, content);
         return [ctx];
     }

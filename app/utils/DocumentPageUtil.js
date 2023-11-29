@@ -96,10 +96,10 @@ class DocumentPageUtil {
             checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item4-foreign-death-cert-translation']));
             checkListItems.push(this.getCheckListItemTextWithLink(content['checklist-item5-foreign-death-cert-PA19'], config.links.applicationFormPA19));
         }
-        if (formdata.iht && ExceptedEstateDod.beforeEeDodThreshold(get(formdata, 'deceased.dod-date')) && ((formdata.iht.method === 'optionPaper' && formdata.iht.form === 'optionIHT205') || (formdata.iht.ihtFormId === 'optionIHT205'))) {
+        if (formdata.iht && ExceptedEstateDod.beforeEeDodThreshold(get(formdata, 'deceased.dod-date')) && (formdata.iht.form === 'optionIHT205' || formdata.iht.ihtFormId === 'optionIHT205')) {
             checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item7-iht205']));
         }
-        if (formdata.iht && ((formdata.iht.method === 'optionPaper' && formdata.iht.form === 'optionIHT207') || (formdata.iht.ihtFormEstateId === 'optionIHT207'))) {
+        if (formdata.iht && (formdata.iht.form === 'optionIHT207' || formdata.iht.ihtFormEstateId === 'optionIHT207')) {
             checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item10-iht207']));
         }
         if (executorsWrapper.hasRenunciated()) {

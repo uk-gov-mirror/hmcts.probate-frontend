@@ -111,7 +111,6 @@ describe('ThankYou', () => {
             done();
         });
     });
-
     describe('action()', () => {
         it('test that context variables are removed and empty object returned', () => {
             let formdata = {};
@@ -124,7 +123,6 @@ describe('ThankYou', () => {
             expect(ctx).to.deep.equal({});
         });
     });
-
     describe('handleGet()', () => {
         it('test when checkAnswersSummary JSON just exists', () => {
             let ctx = {};
@@ -265,6 +263,9 @@ describe('ThankYou', () => {
                 iht: {
                     method: 'optionPaper',
                     form: 'optionIHT207'
+                },
+                deceased: {
+                    'dod-date': '2022-01-01'
                 }
             };
             const thankYou = steps.ThankYou;
