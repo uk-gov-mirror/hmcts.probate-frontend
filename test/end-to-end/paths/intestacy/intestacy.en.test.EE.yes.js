@@ -4,15 +4,17 @@ const taskListContentEn = require('app/resources/en/translation/tasklist');
 const taskListContentCy = require('app/resources/cy/translation/tasklist');
 const {getTestLanguages} = require('../../helpers/GeneralHelpers');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
+const ihtDataConfig = require('test/end-to-end/pages/ee/ihtData');
 
-const optionYes = '';
-const optionNo = '-2';
-const maritalStatusMarried = '';
-const spouseOfDeceased = '';
-const relationshipChildOfDeceased = '-2';
-const optionRenouncing = '';
+const optionYes = ihtDataConfig.optionYes;
+const optionNo = ihtDataConfig.optionNo;
+const maritalStatusMarried = ihtDataConfig.maritalStatusMarried;
+const spouseOfDeceased = ihtDataConfig.spouseOfDeceased;
+const relationshipChildOfDeceased = ihtDataConfig.relationshipChildOfDeceased;
+const optionRenouncing = ihtDataConfig.optionRenouncing;
 const bilingualGOP = false;
-const optionIHT400421 = '-2';
+const optionIHT400 = ihtDataConfig.optionIHT400;
+const hmrcCode = ihtDataConfig.hmrcCode;
 
 Feature('GOP Intestacy E2E - EE Yes Journey');
 
@@ -75,8 +77,10 @@ getTestLanguages().forEach(language => {
         await I.selectForeignDeathCertTranslation(language, optionYes);
 
         await I.selectEEComplete(language, optionYes);
-        await I.selectSubmittedToHmrc(language, optionIHT400421);
-        await I.enterProbateEstateValues(language, 400000, 400000);
+        await I.selectSubmittedToHmrc(language, optionIHT400);
+        await I.selectHmrcLetterComplete(language, optionYes);
+        await I.enterHmrcCode(language, hmrcCode);
+        await I.enterProbateAssetValues(language, 400000, 400000);
 
         await I.selectAssetsOutsideEnglandWales(language, optionYes);
         await I.enterValueAssetsOutsideEnglandWales(language, '400000');
@@ -173,8 +177,10 @@ getTestLanguages().forEach(language => {
         await I.selectForeignDeathCertTranslation(language, optionYes);
 
         await I.selectEEComplete(language, optionYes);
-        await I.selectSubmittedToHmrc(language, optionIHT400421);
-        await I.enterProbateEstateValues(language, 400000, 400000);
+        await I.selectSubmittedToHmrc(language, optionIHT400);
+        await I.selectHmrcLetterComplete(language, optionYes);
+        await I.enterHmrcCode(language, hmrcCode);
+        await I.enterProbateAssetValues(language, 400000, 400000);
 
         await I.selectAssetsOutsideEnglandWales(language, optionYes);
         await I.enterValueAssetsOutsideEnglandWales(language, '400000');
