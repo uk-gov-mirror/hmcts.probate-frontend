@@ -115,8 +115,7 @@ describe('Documents.js', () => {
                     relationshipToDeceased: 'optionSpousePartner'
                 },
                 iht: {
-                    form: 'optionIHT400421',
-                    method: 'optionPaper'
+                    form: 'optionIHT400'
                 }
             };
             const documentsWrapper = new DocumentsWrapper(data);

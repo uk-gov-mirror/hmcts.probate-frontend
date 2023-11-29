@@ -72,7 +72,7 @@ class Documents {
     }
 
     intestacyNoDocumentsRequiredCriteriaMet() {
-        const iht400Used = (this.ihtData.method === 'optionPaper' && this.ihtData.form === 'optionIHT400421') || (this.ihtData.ihtFormEstateId === 'optionIHT400421');
+        const iht400Used = (this.ihtData.form === 'optionIHT400421' || this.ihtData.ihtFormEstateId === 'optionIHT400421') || (this.ihtData.form === 'optionIHT400' || this.ihtData.ihtFormEstateId === 'optionIHT400');
         const deathCert = this.deceasedWrapper.hasDeathCertificate();
         const exceptedEstate = this.ihtData.estateValueCompleted === 'optionNo';
         const interimDeathCert = this.deceasedWrapper.hasInterimDeathCertificate();
