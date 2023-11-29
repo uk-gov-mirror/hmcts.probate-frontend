@@ -16,7 +16,7 @@
 
 <p class="govuk-body">{{content.contactParagraph2 | safe }}</p>
 
-<a href="#" class="govuk-link" rel="noreferrer noopener"><p class="govuk-link">{{ content.contactParagraph3 | safe }}</p></a>
+<p class="govuk-body">{{ content.contactParagraph3 | replace("{callChargesLink}", globals.links.callCharges) | safe }}</p>
 
 <br>
 
