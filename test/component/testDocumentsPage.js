@@ -27,6 +27,9 @@ describe('documents', () => {
             payment: {
                 total: 0
             },
+            deceased: {
+                'dod-date': '2021-02-20'
+            }
         };
         contentData = {
             ccdReferenceNumber: '1234-1235-1236-1237',
