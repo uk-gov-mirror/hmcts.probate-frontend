@@ -12,21 +12,23 @@
     <web-chat
         id="avayaWebchat"
         class="govuk-body"
-        chat-title="Ask Probate"
         chat-icon-url="public/images/icon.png"
         locale-url="public/locales/avaya-webchat/en-{{fields.language.value}}"
         url="{{ globals.webchat.avayaUrl }}"
         secure-connections="true"
         api-version="1.0"
         metrics-polling-interval="30"
-        {% if fields.language.value === 'cy' %}
+        {% if fields.language.value ==='cy' %}
           Language="Welsh"
+          page-name="Gwneud cais am Brofiant"
+          chat-title="Holi Profiant"
         {% endif %}
-        {% if fields.language.value === 'en' %}
+        {% if fields.language.value ==='en' %}
           Language="English"
+          page-name="Apply for Probate"
+          chat-title="Ask Probate"
         {% endif %}
         Service="{{ globals.webchat.avayaService }}"
-        page-name="Apply for Probate"
         User="Chat">
     </web-chat>
 </body>
