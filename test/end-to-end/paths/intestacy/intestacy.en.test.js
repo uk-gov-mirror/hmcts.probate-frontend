@@ -237,5 +237,6 @@ getTestLanguages().forEach(language => {
         await I.seeThankYouPage(language);
     }).tag('@e2emaster')
         .tag('@e2enightly')
+        .tag('@e2enightly-pr')
         .retry(TestConfigurator.getRetryScenarios());
 });
