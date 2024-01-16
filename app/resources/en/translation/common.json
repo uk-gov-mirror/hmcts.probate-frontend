@@ -90,5 +90,11 @@
   "helpChatClosed": "We are sorry, the Contact Centre is now closed.",
   "helpChatAlreadyOpen": "A web chat window is already open.",
   "helpChatOpeningHours": "Monday to Friday, 9:00am to 5:00pm.",
-  "helpChatMaintenance": "Sorry, we’re having technical difficulties. Try email or telephone instead."
+  "helpChatMaintenance": "Sorry, we’re having technical difficulties. Try email or telephone instead.",
+
+  "errors": {
+    "formSubmissionUnsuccessful": {
+      "required": "The information you entered could not be saved – try again."
+    }
+  }
 }
