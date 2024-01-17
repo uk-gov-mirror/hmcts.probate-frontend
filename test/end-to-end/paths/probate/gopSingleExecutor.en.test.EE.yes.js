@@ -4,9 +4,13 @@ const taskListContentEn = require('app/resources/en/translation/tasklist');
 const taskListContentCy = require('app/resources/cy/translation/tasklist');
 const {getTestLanguages} = require('../../helpers/GeneralHelpers');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
-const optionYes = '';
-const optionNo = '-2';
+const ihtDataConfig = require('test/end-to-end/pages/ee/ihtData');
+
+const optionYes = ihtDataConfig.optionYes;
+const optionNo = ihtDataConfig.optionNo;
 const bilingualGOP = false;
+const optionIHT400 = ihtDataConfig.optionIHT400;
+const hmrcCode = ihtDataConfig.hmrcCode;
 
 Feature('GOP-Single Executor - EE Yes Journey');
 
@@ -76,8 +80,10 @@ getTestLanguages().forEach(language => {
         await I.selectForeignDeathCertTranslation(language, optionYes);
 
         await I.selectEEComplete(language, optionYes);
-        await I.selectForm(language, optionYes);
-        await I.enterProbateEstateValues(language, 400000, 400000);
+        await I.selectSubmittedToHmrc(language, optionIHT400);
+        await I.selectHmrcLetterComplete(language, optionYes);
+        await I.enterHmrcCode(language, hmrcCode);
+        await I.enterProbateAssetValues(language, 400000, 400000);
 
         await I.selectDeceasedAlias(language, optionNo);
         await I.selectDeceasedMarriedAfterDateOnWill(language, optionNo);
@@ -150,7 +156,7 @@ getTestLanguages().forEach(language => {
         // Thank You
         await I.seeThankYouPage(language);
 
-    }).tag('@e2emaster')
-        .tag('@e2enightly')
+    }).tag('@e2enightly')
+        .tag('@e2enightly-pr')
         .retry(TestConfigurator.getRetryScenarios());
 });

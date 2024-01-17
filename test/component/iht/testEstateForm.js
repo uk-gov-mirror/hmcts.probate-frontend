@@ -42,7 +42,7 @@ describe('Tests for Probate Estate Valued', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForProbateEstateValues}`, (done) => {
             const data = {
-                ihtFormEstateId: 'optionIHT207'
+                ihtFormId: 'optionIHT400421'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForProbateEstateValues);

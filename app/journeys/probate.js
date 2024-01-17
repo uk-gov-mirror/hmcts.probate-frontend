@@ -90,11 +90,28 @@ const stepList = {
         otherwise: 'EnglishForeignDeathCert'
     },
     DeathCertificateInterim: 'IhtMethod',
-    IhtEstateValued: {
-        ihtEstateFormsCompleted: 'IhtEstateForm',
-        otherwise: 'IhtEstateValues',
+    CalcCheck: {
+        calcCheckCompleted: 'NewSubmittedToHmrc',
+        calcCheckIncomplete: 'ReportEstateValues',
+        otherwise: 'NewSubmittedToHmrc'
     },
-    IhtEstateForm: 'ProbateEstateValues',
+    NewSubmittedToHmrc: {
+        optionIHT400: 'HmrcLetter',
+        optionIHT400421: 'ProbateEstateValues',
+        optionNA: 'IhtEstateValues',
+        otherwise: 'IhtEstateValues'
+    },
+    ReportEstateValues: 'CalcCheck',
+    HmrcLetter: {
+        hmrcLetter: 'UniqueProbateCode',
+        otherwise: 'WaitingForHmrc'
+    },
+    IhtEstateForm: {
+        optionIHT400: 'HmrcLetter',
+        optionIHT400421: 'ProbateEstateValues',
+        optionIHT205: 'ProbateEstateValues',
+        otherwise: 'ProbateEstateValues'
+    },
     IhtEstateValues: {
         netQualifyingValueWithinRange: 'DeceasedHadLateSpouseOrCivilPartner',
         otherwise: 'ProbateEstateValues'
@@ -103,6 +120,8 @@ const stepList = {
         deceasedHadLateSpouseOrCivilPartner: 'IhtUnusedAllowanceClaimed',
         otherwise: 'ProbateEstateValues'
     },
+    UniqueProbateCode: 'ProbateEstateValues',
+    WaitingForHmrc: 'HmrcLetter',
     IhtUnusedAllowanceClaimed: 'ProbateEstateValues',
     ProbateEstateValues: 'DeceasedAlias',
     EnglishForeignDeathCert: {

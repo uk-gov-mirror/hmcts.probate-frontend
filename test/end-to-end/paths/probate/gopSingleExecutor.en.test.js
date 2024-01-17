@@ -4,9 +4,10 @@ const taskListContentEn = require('app/resources/en/translation/tasklist');
 const taskListContentCy = require('app/resources/cy/translation/tasklist');
 const {getTestLanguages} = require('../../helpers/GeneralHelpers');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
-const optionYes = '';
-const ihtPost = '';
-const optionNo = '-2';
+const ihtDataConfig = require('test/end-to-end/pages/ee/ihtData');
+
+const optionYes = ihtDataConfig.optionYes;
+const optionNo = ihtDataConfig.optionNo;
 const bilingualGOP = false;
 
 Feature('GOP-Single Executor');
@@ -76,21 +77,12 @@ getTestLanguages().forEach(language => {
         await I.selectEnglishForeignDeathCert(language, optionNo);
         await I.selectForeignDeathCertTranslation(language, optionYes);
 
-        const isIHTEnabled = await TestConfigurator.checkFeatureToggle('probate-stop-ihtonline');
-        if (isIHTEnabled) {
-            if (TestConfigurator.getUseGovPay() === 'true') {
-                await I.enterGrossAndNet(language, '205', '600000', '300000');
-            } else {
-                await I.enterGrossAndNet(language, '205', '500', '400');
-            }
+        if (TestConfigurator.getUseGovPay() === 'true') {
+            await I.enterGrossAndNet(language, '205');
+            await I.enterProbateAssetValues(language, '300000', '200000');
         } else {
-            await I.selectInheritanceMethod(language, ihtPost);
-
-            if (TestConfigurator.getUseGovPay() === 'true') {
-                await I.enterGrossAndNet(language, '205', '600000', '300000');
-            } else {
-                await I.enterGrossAndNet(language, '205', '500', '400');
-            }
+            await I.enterGrossAndNet(language, '205');
+            await I.enterProbateAssetValues(language, '500', '400');
         }
 
         await I.selectDeceasedAlias(language, optionNo);

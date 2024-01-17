@@ -1,13 +1,13 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "estate-valued",
+  "$id": "calc-check",
   "type": "object",
   "properties": {
-    "estateValueCompleted": {
+    "calcCheckCompleted": {
       "type": "string"
     }
   },
   "required": [
-    "estateValueCompleted"
+    "calcCheckCompleted"
   ]
 }

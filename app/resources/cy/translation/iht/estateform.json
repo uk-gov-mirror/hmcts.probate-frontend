@@ -1,12 +1,13 @@
 {
-  "title": "Pa ffurflenni IHT a wnaethoch chi eu llenwi i nodi gwerth yr ystâd?",
-  "question": "Pa ffurflenni IHT a wnaethoch chi eu llenwi i nodi gwerth yr ystâd?",
+  "title": "Pa ffurflenni wnaethoch chi eu cyflwyno i CThEM?",
+  "question": "Pa ffurflenni wnaethoch chi eu cyflwyno i CThEM?",
   "optionIHT400421": "IHT 400 a 421",
-  "optionIHT400421Hint": "Ffurflenni a lenwyd gennych oherwydd bod yn rhaid i chi dalu treth etifeddiant ",
-  "optionIHT207": "IHT 207",
-  "optionIHT207Hint": "Ffurflen a lenwyd gennych gan nad oes rhaid i chi dalu treth etifeddiant am ei bod yn ystâd eithriedig ac roedd yr ymadawedig yn byw dramor",
+  "optionIHT400": "IHT400 yn unig",
+  "optionIHT400Conditional": "Dewiswch yr opsiwn hwn dim ond os gwnaethoch gais ar ôl 17 Ionawr 2024",
+  "optionIHT400421Conditional": "Dewiswch yr opsiwn hwn dim ond os gwnaethoch gais cyn 17 Ionawr 2024",
+  "optionIHT205": "IHT 205",
   "errors": {
-    "ihtFormEstateId": {
+    "ihtEstateId": {
       "required": "Dewiswch pa ffurflenni IHT wnaethoch chi eu llenwi i adrodd am werth yr ystad"
     }
   }

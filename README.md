@@ -137,7 +137,8 @@ These can be activated by running the following commands:
 $ ln -s ../../pre-commit.sh .git/hooks/pre-commit
 $ ln -s ../../commit-msg.sh .git/hooks/commit-msg
 ```
-
+### Suppressing known issues, run this to update yarn-audit-known-issues
+yarn npm audit --recursive --environment production --json > yarn-audit-known-issues
 ### Code style
 
 Before submitting a Pull Request you will be required to run `$ yarn eslint` (which is also run automatically when trying to commit anyway).

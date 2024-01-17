@@ -4,12 +4,15 @@ const taskListContentEn = require('app/resources/en/translation/tasklist');
 const taskListContentCy = require('app/resources/cy/translation/tasklist');
 const {getTestLanguages} = require('../../helpers/GeneralHelpers');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
+const ihtDataConfig = require('test/end-to-end/pages/ee/ihtData');
 
-const optionYes = '';
-const optionNo = '-2';
-const maritalStatusMarried = '';
-const spousePartner = '';
+const optionYes = ihtDataConfig.optionYes;
+const optionNo = ihtDataConfig.optionNo;
+const maritalStatusMarried = ihtDataConfig.maritalStatusMarried;
 const bilingualGOP = false;
+const optionIHT400 = ihtDataConfig.optionIHT400;
+const hmrcCode = ihtDataConfig.hmrcCode;
+const spousePartner = ihtDataConfig.spousePartner;
 
 Feature('GOP Intestacy spouse E2E - EE Yes Journey');
 
@@ -68,8 +71,10 @@ getTestLanguages().forEach(language => {
         await I.selectForeignDeathCertTranslation(language, optionYes);
 
         await I.selectEEComplete(language, optionYes);
-        await I.selectForm(language, optionYes);
-        await I.enterProbateEstateValues(language, 400000, 400000);
+        await I.selectSubmittedToHmrc(language, optionIHT400);
+        await I.selectHmrcLetterComplete(language, optionYes);
+        await I.enterHmrcCode(language, hmrcCode);
+        await I.enterProbateAssetValues(language, 400000, 400000);
 
         await I.selectAssetsOutsideEnglandWales(language, optionYes);
         await I.enterValueAssetsOutsideEnglandWales(language, '400000');

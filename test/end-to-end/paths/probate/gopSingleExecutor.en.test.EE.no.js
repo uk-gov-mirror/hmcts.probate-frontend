@@ -4,9 +4,12 @@ const taskListContentEn = require('app/resources/en/translation/tasklist');
 const taskListContentCy = require('app/resources/cy/translation/tasklist');
 const {getTestLanguages} = require('../../helpers/GeneralHelpers');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
-const optionYes = '';
-const optionNo = '-2';
+const ihtDataConfig = require('test/end-to-end/pages/ee/ihtData');
+
+const optionYes = ihtDataConfig.optionYes;
+const optionNo = ihtDataConfig.optionNo;
 const bilingualGOP = false;
+const ihtOptionNotSubmitted = ihtDataConfig.ihtOptionNotSubmitted;
 
 Feature('GOP-Single Executor - EE No Journey');
 
@@ -75,7 +78,8 @@ getTestLanguages().forEach(language => {
         await I.selectEnglishForeignDeathCert(language, optionNo);
         await I.selectForeignDeathCertTranslation(language, optionYes);
 
-        await I.selectEEComplete(language, optionNo);
+        await I.selectEEComplete(language, optionYes);
+        await I.selectSubmittedToHmrc(language, ihtOptionNotSubmitted);
         await I.enterEEValue(language, 500000, 400000, 400000);
         await I.selectLateSpouseCivilPartner(language, optionYes);
         await I.selectUnusedAllowance(language, optionYes);

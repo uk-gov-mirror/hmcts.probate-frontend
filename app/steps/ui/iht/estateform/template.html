@@ -5,10 +5,18 @@
 
 {% block form_content %}
 
+{% set conditionalIHT400 %}
+<p class="govuk-body">{{ content.optionIHT400Conditional | safe }}</p>
+{% endset -%}
+
+{% set conditionalIHT400421 %}
+<p class="govuk-body">{{ content.optionIHT400421Conditional | safe }}</p>
+{% endset -%}
+
 {{ govukRadios({
         classes: "govuk-radios",
-        idPrefix: "ihtFormEstateId",
-        name: "ihtFormEstateId",
+        idPrefix: "ihtFormId",
+        name: "ihtFormId",
         fieldset: {
             legend: {
                 text: content.question | safe,
@@ -16,23 +24,28 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.ihtFormEstateId.errorMessage | safe } if fields.ihtFormEstateId.errorMessage,
+        errorMessage: { text: fields.ihtFormId.errorMessage | safe } if fields.ihtFormId.errorMessage,
         items: [
+            {
+              value: "optionIHT205",
+              text: content["optionIHT205"] | safe,
+              checked: true if fields.ihtFormId.value == "optionIHT205"
+            },
+            {
+              value: "optionIHT400",
+              text: content["optionIHT400"] | safe,
+              conditional: {
+              html: conditionalIHT400
+              },
+              checked: true if fields.ihtFormId.value == "optionIHT400"
+            },
             {
                 value: "optionIHT400421",
                 text: content["optionIHT400421"] | safe,
-                hint: {
-                  text: content["optionIHT400421Hint"] | safe
+                conditional: {
+                html: conditionalIHT400421
                 },
-                checked: true if fields.ihtFormEstateId.value == "optionIHT400421"
-            },
-            {
-                value: "optionIHT207",
-                text: content["optionIHT207"] | safe,
-                hint: {
-                  text: content["optionIHT207Hint"] | safe
-                },
-                checked: true if fields.ihtFormEstateId.value == "optionIHT207"
+                checked: true if fields.ihtFormId.value == "optionIHT400421"
             }
         ]
     }) }}

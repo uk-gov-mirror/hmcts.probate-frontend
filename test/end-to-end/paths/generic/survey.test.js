@@ -1,9 +1,11 @@
 'use strict';
 
+const ihtDataConfig = require('../../pages/ee/ihtData.json');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const optionYes = '';
 const optionNo = '-2';
 const bilingualGOP = false;
+const ihtOptionNotSubmitted = ihtDataConfig.ihtOptionNotSubmitted;
 
 Feature('Survey');
 
@@ -71,7 +73,8 @@ Scenario('Check survey link works', async ({I}) => {
     await I.selectEnglishForeignDeathCert(language, optionNo);
     await I.selectForeignDeathCertTranslation(language, optionYes);
 
-    await I.selectEEComplete(language, optionNo);
+    await I.selectEEComplete(language, optionYes);
+    await I.selectSubmittedToHmrc(language, ihtOptionNotSubmitted);
     await I.enterEEValue(language, 500000, 400000, 400000);
     await I.selectLateSpouseCivilPartner(language, optionYes);
     await I.selectUnusedAllowance(language, optionYes);

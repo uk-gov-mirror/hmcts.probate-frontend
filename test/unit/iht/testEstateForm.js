@@ -13,5 +13,28 @@ describe('EstateForm', () => {
             done();
         });
     });
+    describe('nextStepOptions()', () => {
+        it('should return the correct next step options', (done) => {
+            const result = IhtEstateForm.nextStepOptions();
+            expect(result).to.deep.equal({
+                options: [{
+                    key: 'ihtFormId',
+                    value: 'optionIHT400',
+                    choice: 'optionIHT400'
+                }, {
+                    key: 'ihtFormId',
+                    value: 'optionIHT400421',
+                    choice: 'optionIHT400421'
+                },
+                {
+                    key: 'ihtFormId',
+                    value: 'optionIHT205',
+                    choice: 'optionIHT205'
+
+                }]
+            });
+            done();
+        });
+    });
 
 });

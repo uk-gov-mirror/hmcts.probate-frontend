@@ -9,7 +9,7 @@ class FormData extends Service {
         const path = this.config.services.orchestrator.paths.applications;
         const logMessage = 'Get all applications';
         const url = this.endpoint + path;
-        this.log(logMessage);
+        this.log(logMessage + url);
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': authToken,

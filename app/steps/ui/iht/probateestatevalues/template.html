@@ -4,18 +4,27 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% if fields.estateValueCompleted.value == "optionYes" %}
-  {% if fields.ihtFormEstateId.value == "optionIHT207" %}
-    {% set displayQuestion = content.question207 %}
-    {% set displayQuestionHint = content.hint207 %}
-    {% set displayGrossHint = content.grossHint207 %}
-    {% set displayNetHint = content.netHint207 %}
-  {% else %}
-    {% set displayQuestion = content.question421 %}
-    {% set displayQuestionHint = content.hint421 %}
-    {% set displayGrossHint = content.grossHint421 %}
-    {% set displayNetHint = content.netHint421 %}
-  {% endif %}
+{% if fields.ihtFormEstateId.value == "optionIHT207" %}
+  {% set displayQuestion = content.question207 %}
+  {% set displayQuestionHint = content.hint207 %}
+  {% set displayGrossHint = content.grossHint207 %}
+  {% set displayNetHint = content.netHint207 %}
+{% elif fields.ihtFormEstateId.value == "optionIHT205" %}
+  {% set displayQuestion = content.question205 %}
+  {% set displayQuestionHint = content.hint205 %}
+  {% set displayGrossHint = content.grossHint205 %}
+  {% set displayNetHint = content.netHint205 %}
+{% elif fields.ihtFormEstateId.value == "optionIHT400" %}
+  {% set displayQuestion = content.question400 %}
+  {% set displayQuestionHint = content.hint400part1 %}
+  {% set displayQuestionHint2 = content.hint400part2 %}
+  {% set displayGrossHint = content.grossHint400 %}
+  {% set displayNetHint = content.netHint400 %}
+{% elif fields.ihtFormEstateId.value == "optionIHT400421" %}
+  {% set displayQuestion = content.question421 %}
+  {% set displayQuestionHint = content.hint421 %}
+  {% set displayGrossHint = content.grossHint421 %}
+  {% set displayNetHint = content.netHint421 %}
 {% else %}
   {% set displayQuestion = content.questionNoIHT %}
   {% set displayGrossHint = content.grossHintNoIHT %}
@@ -32,6 +41,7 @@
     }) %}
 
         <p class="govuk-hint">{{ displayQuestionHint | safe }}</p>
+        <p class="govuk-hint">{{ displayQuestionHint2 | safe }}</p>
 
         {{ govukInput({
             label: {
