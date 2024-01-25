@@ -14,22 +14,22 @@
 }) %}
 {{ govukRadios({
         classes: "govuk-radios--inline",
-        idPrefix: "estateValueCompleted",
-        name: "estateValueCompleted",
+        idPrefix: "calcCheckCompleted",
+        name: "calcCheckCompleted",
         hint: {
             text: content.hint | replace("{ihtThreshold}", globals.links.ihtThreshold) | replace("{ihtTransferOfThreshold}", globals.links.ihtTransferOfThreshold) | replace("{ihtNoInheritanceTax}", globals.links.ihtNoInheritanceTax) | safe
         },
-        errorMessage: { text: fields.estateValueCompleted.errorMessage | safe } if fields.estateValueCompleted.errorMessage,
+        errorMessage: { text: fields.calcCheckCompleted.errorMessage | safe } if fields.calcCheckCompleted.errorMessage,
         items: [
             {
                 value: "optionYes",
                 text: content["optionYes"] | safe,
-                checked: true if fields.estateValueCompleted.value == "optionYes"
+                checked: true if fields.calcCheckCompleted.value == "optionYes"
             },
             {
                 value: "optionNo",
                 text: content["optionNo"] | safe,
-                checked: true if fields.estateValueCompleted.value == "optionNo"
+                checked: true if fields.calcCheckCompleted.value == "optionNo"
             }
         ]
     }) }}

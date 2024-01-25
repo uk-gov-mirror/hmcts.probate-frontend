@@ -4,11 +4,30 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const validator = require('validator');
 const numeral = require('numeral');
 const FieldError = require('app/components/error');
+const IhtThreshold = require('app/utils/IhtThreshold');
+const {get} = require('lodash');
+const featureToggle = require('app/utils/FeatureToggle');
+const ExceptedEstateDod = require('app/utils/ExceptedEstateDod');
 
 class ProbateEstateValues extends ValidationStep {
 
     static getUrl() {
         return '/probate-estate-values';
+    }
+
+    getContextData(req) {
+        const ctx =super.getContextData(req);
+        if (ctx.netValueField!== null && typeof ctx.netValueField!== 'undefined') {
+            ctx.netValue = parseFloat(numeral(ctx.netValueField).format('0.00'));
+            const formdata = req.session.form;
+            if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.afterEeDodThreshold(get(formdata, 'deceased.dod-date'))) {
+                ctx.lessThanOrEqualToIhtThreshold = true;
+            } else if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.beforeEeDodThreshold(get(formdata, 'deceased.dod-date'))) {
+                ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
+                ctx.lessThanOrEqualToIhtThreshold = ctx.netValue <= ctx.ihtThreshold;
+            }
+        }
+        return ctx;
     }
 
     handlePost(ctx, errors, formdata, session) {
@@ -28,6 +47,21 @@ class ProbateEstateValues extends ValidationStep {
         }
 
         return [ctx, errors];
+    }
+
+    nextStepOptions() {
+        return {
+            options: [
+                {key: 'lessThanOrEqualToIhtThreshold', value: true, choice: 'lessThanOrEqualToIhtThreshold'}
+            ]
+        };
+    }
+
+    isComplete(ctx) {
+        return [
+            typeof ctx.netValue !== 'undefined' && typeof ctx.grossValue !== 'undefined' &&
+                ctx.netValue !== null && ctx.grossValue !== null, 'inProgress'
+        ];
     }
 }
 

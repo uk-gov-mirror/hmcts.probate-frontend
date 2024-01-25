@@ -111,7 +111,6 @@ describe('ThankYou', () => {
             done();
         });
     });
-
     describe('action()', () => {
         it('test that context variables are removed and empty object returned', () => {
             let formdata = {};
@@ -124,7 +123,6 @@ describe('ThankYou', () => {
             expect(ctx).to.deep.equal({});
         });
     });
-
     describe('handleGet()', () => {
         it('test when checkAnswersSummary JSON just exists', () => {
             let ctx = {};
@@ -136,7 +134,6 @@ describe('ThankYou', () => {
             expect(ctx.checkAnswersSummary).to.deep.equal(true);
             expect(ctx.legalDeclaration).to.deep.equal(false);
         });
-
         it('test when legalDeclaration JSON just exists', () => {
             let ctx = {};
             let formdata = {
@@ -147,7 +144,6 @@ describe('ThankYou', () => {
             expect(ctx.checkAnswersSummary).to.deep.equal(false);
             expect(ctx.legalDeclaration).to.deep.equal(true);
         });
-
         it('test when no pdf variables JSON exists', () => {
             let ctx = {};
             let formdata = {};
@@ -156,7 +152,6 @@ describe('ThankYou', () => {
             expect(ctx.checkAnswersSummary).to.deep.equal(false);
             expect(ctx.legalDeclaration).to.deep.equal(false);
         });
-
         it('test when all pdf variables JSON exists', () => {
             let ctx = {};
             let formdata = {
@@ -168,7 +163,6 @@ describe('ThankYou', () => {
             expect(ctx.checkAnswersSummary).to.deep.equal(true);
             expect(ctx.legalDeclaration).to.deep.equal(true);
         });
-
         it('should set documentsRequired to true when documents are required', (done) => {
             const revertDocumentsWrapper = ThankYou.__set__({
                 DocumentsWrapper: class {
@@ -187,7 +181,6 @@ describe('ThankYou', () => {
                 done(err);
             });
         });
-
         it('should set documentsRequired to false when documents are not required', (done) => {
             const revertDocumentsWrapper = ThankYou.__set__({
                 DocumentsWrapper: class {
@@ -255,6 +248,9 @@ describe('ThankYou', () => {
                 iht: {
                     method: 'optionPaper',
                     form: 'optionIHT205'
+                },
+                deceased: {
+                    'dod-date': '2018-01-01'
                 }
             };
             const thankYou = steps.ThankYou;
@@ -267,6 +263,9 @@ describe('ThankYou', () => {
                 iht: {
                     method: 'optionPaper',
                     form: 'optionIHT207'
+                },
+                deceased: {
+                    'dod-date': '2022-01-01'
                 }
             };
             const thankYou = steps.ThankYou;

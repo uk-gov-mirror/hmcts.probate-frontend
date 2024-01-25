@@ -27,6 +27,9 @@ describe('documents', () => {
             payment: {
                 total: 0
             },
+            deceased: {
+                'dod-date': '2021-02-20'
+            }
         };
         contentData = {
             ccdReferenceNumber: '1234-1235-1236-1237',
@@ -621,7 +624,8 @@ describe('documents', () => {
 
             it('test correct content loaded on the page with iht 205', (done) => {
                 sessionData.deceased = {
-                    maritalStatus: 'optionDivorced'
+                    maritalStatus: 'optionDivorced',
+                    'dod-date': '2021-02-20'
                 };
                 sessionData.applicant = {
                     relationshipToDeceased: 'optionChild'

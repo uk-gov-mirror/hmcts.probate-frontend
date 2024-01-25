@@ -55,6 +55,9 @@ describe('Documents', () => {
                     iht: {
                         method: 'optionPaper',
                         form: 'optionIHT205'
+                    },
+                    deceased: {
+                        'dod-date': '2018-01-01'
                     }
                 };
                 const [ctx] = Documents.handleGet(ctxToTest, formdata);
@@ -67,6 +70,9 @@ describe('Documents', () => {
                     iht: {
                         method: 'optionPaper',
                         form: 'optionIHT207'
+                    },
+                    deceased: {
+                        'dod-date': '2018-01-01'
                     }
                 };
                 const [ctx] = Documents.handleGet(ctxToTest, formdata);
@@ -78,6 +84,9 @@ describe('Documents', () => {
                 const formdata = {
                     iht: {
                         method: 'optionOnline'
+                    },
+                    deceased: {
+                        'dod-date': '2018-01-01'
                     }
                 };
                 const [ctx] = Documents.handleGet(ctxToTest, formdata);
@@ -97,6 +106,9 @@ describe('Documents', () => {
                     iht: {
                         method: 'optionPaper',
                         form: 'optionIHT207'
+                    },
+                    deceased: {
+                        'dod-date': '2018-01-01'
                     }
                 };
                 const [ctx] = Documents.handleGet(ctxToTest, formdata);
@@ -109,6 +121,9 @@ describe('Documents', () => {
                     iht: {
                         method: 'optionPaper',
                         form: 'optionIHT205'
+                    },
+                    deceased: {
+                        'dod-date': '2018-01-01'
                     }
                 };
                 const [ctx] = Documents.handleGet(ctxToTest, formdata);
@@ -120,6 +135,9 @@ describe('Documents', () => {
                 const formdata = {
                     iht: {
                         method: 'optionOnline'
+                    },
+                    deceased: {
+                        'dod-date': '2018-01-01'
                     }
                 };
                 const [ctx] = Documents.handleGet(ctxToTest, formdata);
@@ -131,6 +149,9 @@ describe('Documents', () => {
                 const formdata = {
                     iht: {
                         ihtFormEstateId: 'optionIHT207'
+                    },
+                    deceased: {
+                        'dod-date': '2022-01-01'
                     }
                 };
                 const [ctx] = Documents.handleGet(ctxToTest, formdata);
@@ -142,6 +163,9 @@ describe('Documents', () => {
                 const formdata = {
                     iht: {
                         ihtFormEstateId: 'optionIHT400421'
+                    },
+                    deceased: {
+                        'dod-date': '2022-01-01'
                     }
                 };
                 const [ctx] = Documents.handleGet(ctxToTest, formdata);

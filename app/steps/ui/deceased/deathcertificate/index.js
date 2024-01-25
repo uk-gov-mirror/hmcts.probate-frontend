@@ -21,7 +21,9 @@ class DeathCertificateInterim extends ValidationStep {
         const withPaper = ihtToggle && formData.iht && formData.iht.method === 'optionPaper';
 
         if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.afterEeDodThreshold(ctx['dod-date'])) {
-            return journeyMap.getNextStepByName('IhtEstateValued');
+            return journeyMap.getNextStepByName('CalcCheck');
+        } else if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.beforeEeDodThreshold(ctx['dod-date'])) {
+            return journeyMap.getNextStepByName('IhtEstateForm');
         } else if (withIhtIdentifier) {
             formData.iht = {method: 'optionPaper'};
             return journeyMap.getNextStepByName('IhtPaper');
