@@ -8,6 +8,7 @@ const IhtThreshold = require('app/utils/IhtThreshold');
 const {get} = require('lodash');
 const featureToggle = require('app/utils/FeatureToggle');
 const ExceptedEstateDod = require('app/utils/ExceptedEstateDod');
+const IhtEstateValuesUtil = require('app/utils/IhtEstateValuesUtil');
 
 class ProbateEstateValues extends ValidationStep {
 
@@ -31,6 +32,12 @@ class ProbateEstateValues extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata, session) {
+        if (!IhtEstateValuesUtil.isPositiveInteger(ctx.grossValueField)) {
+            errors.push(FieldError('grossValueField', 'invalidInteger', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+        }
+        if (!IhtEstateValuesUtil.isPositiveInteger(ctx.netValueField)) {
+            errors.push(FieldError('netValueField', 'invalidInteger', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+        }
         ctx.grossValue = parseFloat(numeral(ctx.grossValueField).format('0.00'));
         ctx.netValue = parseFloat(numeral(ctx.netValueField).format('0.00'));
 

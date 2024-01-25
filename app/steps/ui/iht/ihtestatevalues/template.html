@@ -12,11 +12,12 @@
             isPageHeading: true
         }
     }) %}
-        <p class="govuk-hint">{{ content.questionHintPrefix | safe }}<a href="{{globals.links.ihtChecker}}" rel="external noopener" target="_blank" class="govuk-link" aria-label="{{content.linkText}}">{{ content.linkText | safe }}</a>{{ content.questionHintSuffix | safe }}</p>
+        <p class="govuk-body">{{ content.questionHintPrefix | safe }}<a href="{{globals.links.ihtChecker}}" rel="external noopener" target="_blank" class="govuk-link" aria-label="{{content.linkText}}">{{ content.linkText | safe }}</a>{{ content.questionHintSuffix | safe }}</p>
 
         {{ govukInput({
             label: {
-                text: content.estateGrossValue | safe
+                text: content.estateGrossValue | safe,
+                classes: "govuk-label--s"
             },
             hint: {
                 text: content.estateGrossValueHint | safe
@@ -33,9 +34,11 @@
             },
             classes: "govuk-!-width-one-third"
         }) }}
+        <br>
         {{ govukInput({
             label: {
-                text: content.estateNetValue | safe
+                text: content.estateNetValue | safe,
+                classes: "govuk-label--s"
             },
             hint: {
                 text: content.estateNetValueHint | safe
@@ -52,10 +55,11 @@
             },
             classes: "govuk-!-width-one-third"
         }) }}
-        <br><br>
+        <br>
         {{ govukInput({
             label: {
-                text: content.estateNetQualifyingValue | safe
+                text: content.estateNetQualifyingValue | safe,
+                classes: "govuk-label--s"
             },
             hint: {
                 text: content.estateNetQualifyingValueHint | safe
