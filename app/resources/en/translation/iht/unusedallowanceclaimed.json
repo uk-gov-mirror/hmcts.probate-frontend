@@ -1,7 +1,7 @@
 {
-    "title": "Are you claiming the unused IHT allowance (&lsquo;nil-rate band&rsquo;) of the deceased&rsquo;s late spouse or civil partner?",
-    "question": "Are you claiming the unused IHT allowance (&lsquo;nil-rate band&rsquo;) of the deceased&rsquo;s late spouse or civil partner?",
-    "hint": "The spouse or civil partner must have died before the deceased to claim any unused nil-rate band allowance.",
+    "title": "Are you claiming the unused Inheritance Tax allowance (known as the &lsquo;nil-rate band&rsquo;) of the spouse or civil partner of the person who died?",
+    "question": "Are you claiming the unused Inheritance Tax allowance (known as the &lsquo;nil-rate band&rsquo;) of the spouse or civil partner of the person who died?",
+    "hint": "Everyone has a £325,000 tax free allowance before they must pay Inheritance Tax. If you are applying for probate for the estate of someone who did not use some or all of the allowance when their spouse or civil partner died, you can add that remaining allowance to this application.",
     "optionYes": "Yes",
     "optionNo": "No",
     "errors": {

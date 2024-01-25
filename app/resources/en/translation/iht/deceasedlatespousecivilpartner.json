@@ -1,6 +1,6 @@
 {
-    "title": "Did the deceased have a late spouse or civil partner?",
-    "question": "Did the deceased have a late spouse or civil partner?",
+    "title": "Did the person who died have a spouse or civil partner who died before them?",
+    "question": "Did the person who died have a spouse or civil partner who died before them?",
     "optionYes": "Yes",
     "optionNo": "No",
     "errors": {

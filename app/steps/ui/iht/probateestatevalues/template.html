@@ -9,24 +9,29 @@
   {% set displayQuestionHint = content.hint207 %}
   {% set displayGrossHint = content.grossHint207 %}
   {% set displayNetHint = content.netHint207 %}
-{% elif fields.ihtFormEstateId.value == "optionIHT205" %}
+{% elif fields.ihtFormId.value == "optionIHT205" %}
   {% set displayQuestion = content.question205 %}
-  {% set displayQuestionHint = content.hint205 %}
+  {% set displayQuestionHint = content.hint205part1 %}
+  {% set displayQuestionHint2 = content.hint205part2 %}
   {% set displayGrossHint = content.grossHint205 %}
   {% set displayNetHint = content.netHint205 %}
-{% elif fields.ihtFormEstateId.value == "optionIHT400" %}
+{% elif fields.ihtFormEstateId.value == "optionIHT400" or fields.ihtFormId.value == "optionIHT400" %}
   {% set displayQuestion = content.question400 %}
   {% set displayQuestionHint = content.hint400part1 %}
   {% set displayQuestionHint2 = content.hint400part2 %}
   {% set displayGrossHint = content.grossHint400 %}
   {% set displayNetHint = content.netHint400 %}
-{% elif fields.ihtFormEstateId.value == "optionIHT400421" %}
+{% elif fields.ihtFormEstateId.value == "optionIHT400421" or fields.ihtFormId.value == "optionIHT400421" %}
   {% set displayQuestion = content.question421 %}
-  {% set displayQuestionHint = content.hint421 %}
+  {% set displayQuestionHint = content.hint421part1 %}
+  {% set displayQuestionHint2 = content.hint421part2 %}
   {% set displayGrossHint = content.grossHint421 %}
   {% set displayNetHint = content.netHint421 %}
 {% else %}
   {% set displayQuestion = content.questionNoIHT %}
+  {% set displayQuestionHint = content.hintNoIHTPart1 %}
+  {% set displayQuestionHint2 = content.hintNoIHTPart2 %}
+  {% set displayQuestionHint3 = content.hintNoIHTPart3 %}
   {% set displayGrossHint = content.grossHintNoIHT %}
   {% set displayNetHint = content.netHintNoIHT %}
 {% endif %}
@@ -40,8 +45,9 @@
         }
     }) %}
 
-        <p class="govuk-hint">{{ displayQuestionHint | safe }}</p>
-        <p class="govuk-hint">{{ displayQuestionHint2 | safe }}</p>
+        <p class="govuk-body">{{ displayQuestionHint | safe }}</p>
+        <p class="govuk-body">{{ displayQuestionHint2 | safe }}</p>
+        <p class="govuk-body">{{ displayQuestionHint3 | safe }}</p>
 
         {{ govukInput({
             label: {
@@ -59,6 +65,7 @@
             },
             classes: "govuk-!-width-one-third"
         }) }}
+        <br>
         {{ govukInput({
             label: {
                 text: displayNetHint | safe
