@@ -22,7 +22,7 @@ describe('Tests for Probate Estate Values ', () => {
         testWrapper.destroy();
     });
 
-    describe('Verify Content, Errors and Redirection', () => {
+    describe.only('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('ProbateEstateValues', null, null, [], false, {type: caseTypes.INTESTACY});
 
         it('test content loaded on the page 207', (done) => {
@@ -35,6 +35,13 @@ describe('Tests for Probate Estate Values ', () => {
                 'hint421',
                 'hint400part1',
                 'hint400part2',
+                'hint205part1',
+                'hint205part2',
+                'hint421part1',
+                'hint421part2',
+                'hintNoIHTPart1',
+                'hintNoIHTPart2',
+                'hintNoIHTPart3',
                 'grossHint205',
                 'grossHint421',
                 'grossHint400',
@@ -77,6 +84,11 @@ describe('Tests for Probate Estate Values ', () => {
                 'hint207',
                 'hint400part1',
                 'hint400part2',
+                'hint205part1',
+                'hint205part2',
+                'hintNoIHTPart1',
+                'hintNoIHTPart2',
+                'hintNoIHTPart3',
                 'grossHint205',
                 'grossHint207',
                 'grossHint400',
@@ -119,6 +131,10 @@ describe('Tests for Probate Estate Values ', () => {
                 'hint207',
                 'hint400part1',
                 'hint400part2',
+                'hint205part1',
+                'hint205part2',
+                'hint421part1',
+                'hint421part2',
                 'hint421',
                 'grossHint205',
                 'grossHint207',
@@ -164,6 +180,13 @@ describe('Tests for Probate Estate Values ', () => {
                 'grossHint207',
                 'grossHint421',
                 'grossHintNoIHT',
+                'hint205part1',
+                'hint205part2',
+                'hint421part1',
+                'hint421part2',
+                'hintNoIHTPart1',
+                'hintNoIHTPart2',
+                'hintNoIHTPart3',
                 'netHint205',
                 'netHint207',
                 'netHint421',
