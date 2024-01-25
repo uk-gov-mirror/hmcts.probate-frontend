@@ -1,9 +1,9 @@
 {
   "title": "Which paper form was filled in",
   "question": "Which paper form was filled in?",
-  "optionIHT205": "IHT 205 - there was no inheritance tax to pay",
-  "optionIHT207": "IHT 207 - there was no inheritance tax to pay and the person who died lived abroad",
-  "optionIHT400421": "IHT 400 and 421",
+  "optionIHT205": "IHT205 - there was no inheritance tax to pay",
+  "optionIHT207": "IHT207 - there was no inheritance tax to pay and the person who died lived abroad",
+  "optionIHT400421": "IHT400 and 421",
   "gross205": "Enter the number added to box D (gross value in &pound;)",
   "net205": "Enter the number added to box F (net value in &pound;)",
   "gross207": "Enter the number added to box C (gross value in &pound;)",
