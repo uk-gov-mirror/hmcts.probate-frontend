@@ -10,7 +10,6 @@
   "optionIHT400421Conditional": "Dewiswch yr opsiwn hwn dim ond os gwnaethoch gais cyn 17 Ionawr 2024",
   "optionIHT205": "IHT205",
   "optionNA": "Nid oedd yn rhaid i mi gyflwyno unrhyw ffurflenni i CThEM",
-  "orDefault": "neu",
 
   "errors": {
     "ihtFormEstateId": {

@@ -45,16 +45,7 @@ classes: "govuk-fieldset__legend--l"
                 html: conditionalIHT400421
             },
             checked: true if fields.ihtFormEstateId.value == "optionIHT400421"
-        }
-    ]
-}) }}
-<div id="or">{{ content.orDefault | safe }}</div>
-{{ govukRadios({
-    classes: "govuk-radios",
-    idPrefix: "ihtFormEstateId",
-    name: "ihtFormEstateId",
-    errorMessage: { text: fields.ihtFormEstateId.errorMessage | safe } if fields.ihtFormEstateId.errorMessage,
-    items: [
+        },
         {
             value: "optionNA",
             text: content["optionNA"] | safe,
