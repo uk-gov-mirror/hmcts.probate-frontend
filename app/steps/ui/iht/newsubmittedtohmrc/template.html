@@ -47,6 +47,9 @@ classes: "govuk-fieldset__legend--l"
             checked: true if fields.ihtFormEstateId.value == "optionIHT400421"
         },
         {
+            divider: content["orDefault"] | safe
+        },
+        {
             value: "optionNA",
             text: content["optionNA"] | safe,
             checked: true if fields.ihtFormEstateId.value == "optionNA"
