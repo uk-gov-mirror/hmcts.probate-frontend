@@ -41,13 +41,53 @@ describe('ProbateEstateValues', () => {
                 netValueField: '400000.34'
             };
             errors = [];
-            [ctx, errors] = ProbateEstateValues.handlePost(ctx, errors);
+            [ctx, errors] = ProbateEstateValues.handlePost(ctx, errors, {}, {language: 'en'});
             expect(ctx).to.deep.equal({
                 grossValueField: '500000.12',
                 grossValue: 500000.12,
                 netValueField: '400000.34',
                 netValue: 400000.34
             });
+            expect(errors).to.deep.equal([
+                {
+                    field: 'grossValueField',
+                    href: '#grossValueField',
+                    msg: content.errors.grossValueField.invalidInteger
+                },
+                {
+                    field: 'netValueField',
+                    href: '#netValueField',
+                    msg: content.errors.netValueField.invalidInteger
+                }
+            ]);
+            done();
+        });
+
+        it('should error the ctx with the estate values (thousands separators)', (done) => {
+            ctx = {
+                grossValueField: '500,000',
+                netValueField: '400,000'
+            };
+            errors = [];
+            [ctx, errors] = ProbateEstateValues.handlePost(ctx, errors, {}, {language: 'en'});
+            expect(ctx).to.deep.equal({
+                grossValueField: '500,000',
+                grossValue: 500000,
+                netValueField: '400,000',
+                netValue: 400000,
+            });
+            expect(errors).to.deep.equal([
+                {
+                    field: 'grossValueField',
+                    href: '#grossValueField',
+                    msg: content.errors.grossValueField.invalidInteger
+                },
+                {
+                    field: 'netValueField',
+                    href: '#netValueField',
+                    msg: content.errors.netValueField.invalidInteger
+                }
+            ]);
             done();
         });
 
@@ -84,12 +124,12 @@ describe('ProbateEstateValues', () => {
             expect(errors).to.deep.equal([{
                 field: 'grossValueField',
                 href: '#grossValueField',
-                msg: content.errors.grossValueField.invalidCurrencyFormat
+                msg: content.errors.grossValueField.invalidInteger
             },
             {
                 field: 'netValueField',
                 href: '#netValueField',
-                msg: content.errors.netValueField.invalidCurrencyFormat
+                msg: content.errors.netValueField.invalidInteger
             },
             {
                 field: 'netValueField',
