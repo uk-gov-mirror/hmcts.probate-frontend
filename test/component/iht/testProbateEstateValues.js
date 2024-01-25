@@ -22,7 +22,7 @@ describe('Tests for Probate Estate Values ', () => {
         testWrapper.destroy();
     });
 
-    describe.only('Verify Content, Errors and Redirection', () => {
+    describe('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('ProbateEstateValues', null, null, [], false, {type: caseTypes.INTESTACY});
 
         it('test content loaded on the page 207', (done) => {
