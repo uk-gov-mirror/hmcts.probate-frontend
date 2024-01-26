@@ -18,7 +18,9 @@ class ProbateEstateValues extends ValidationStep {
     getContextData(req) {
         const ctx =super.getContextData(req);
         const formData = req.session.form;
-        ctx.dateOfDeath = ExceptedEstateDod.afterEeDodThreshold(formData.deceased['dod-date']);
+        if (formData.deceased['dod-date']!== null && typeof formData.deceased['dod-date']!== 'undefined') {
+            ctx.dateOfDeath = ExceptedEstateDod.afterEeDodThreshold(formData.deceased['dod-date']);
+        }
         if (ctx.netValueField!== null && typeof ctx.netValueField!== 'undefined') {
             ctx.netValue = parseFloat(numeral(ctx.netValueField).format('0.00'));
             const formdata = req.session.form;

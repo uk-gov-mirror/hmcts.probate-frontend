@@ -63,6 +63,9 @@ describe('Tests for Probate Estate Values ', () => {
                 iht: {
                     ihtFormEstateId: 'optionIHT207',
                     estateValueCompleted: 'optionYes'
+                },
+                deceased: {
+                    'dod-date': '2022-12-31'
                 }
 
             };
@@ -92,6 +95,9 @@ describe('Tests for Probate Estate Values ', () => {
                     ihtFormEstateId: 'optionIHT400421',
                     estateValueCompleted: 'optionYes'
 
+                },
+                deceased: {
+                    'dod-date': '2022-12-31'
                 }
             };
 
@@ -116,6 +122,12 @@ describe('Tests for Probate Estate Values ', () => {
                     state: 'Pending',
                     id: 1234567890123456
                 },
+                iht: {
+                    estateValueCompleted: 'optionNo'
+                },
+                deceased: {
+                    'dod-date': '2022-12-31'
+                }
             };
 
             const contentData = {
@@ -166,6 +178,9 @@ describe('Tests for Probate Estate Values ', () => {
                 iht: {
                     ihtFormEstateId: 'optionIHT400',
                     estateValueCompleted: 'optionYes'
+                },
+                deceased: {
+                    'dod-date': '2020-12-31'
                 }
             };
 
