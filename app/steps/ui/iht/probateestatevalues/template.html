@@ -9,7 +9,14 @@
   {% set displayQuestionHint = content.hint207 %}
   {% set displayGrossHint = content.grossHint207 %}
   {% set displayNetHint = content.netHint207 %}
-{% elif fields.ihtFormId.value == "optionIHT205" %}
+{% elif fields.dateOfDeath.value == "true" and fields.estateValueCompleted.value == "optionNo" %}
+  {% set displayQuestion = content.questionNoIHT %}
+  {% set displayQuestionHint = content.hintNoIHTPart1 %}
+  {% set displayQuestionHint2 = content.hintNoIHTPart2 %}
+  {% set displayQuestionHint3 = content.hintNoIHTPart3 %}
+  {% set displayGrossHint = content.grossHintNoIHT %}
+  {% set displayNetHint = content.netHintNoIHT %}
+{% elif fields.dateOfDeath.value == "false" and fields.ihtFormId.value == "optionIHT205" %}
   {% set displayQuestion = content.question205 %}
   {% set displayQuestionHint = content.hint205part1 %}
   {% set displayQuestionHint2 = content.hint205part2 %}
