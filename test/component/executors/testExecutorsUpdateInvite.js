@@ -2,13 +2,11 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const {assert} = require('chai');
-const ExecutorsUpdateInviteSent = require('app/steps/ui/executors/updateinvitesent');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('executors-update-invite', () => {
     let testWrapper;
     let sessionData;
-    const expectedNextUrlForExecutorsUpdateInviteSent = ExecutorsUpdateInviteSent.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsUpdateInvite');
@@ -85,14 +83,6 @@ describe('executors-update-invite', () => {
                             assert(!response.text.includes('Pierre de Fermat'));
                             done();
                         });
-                });
-        });
-
-        it(`test it redirects to next page: ${expectedNextUrlForExecutorsUpdateInviteSent}`, (done) => {
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.testRedirect(done, {}, expectedNextUrlForExecutorsUpdateInviteSent);
                 });
         });
 

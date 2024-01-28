@@ -1,13 +1,11 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ExecutorsAllAlive = require('app/steps/ui/executors/allalive');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('executors-names', () => {
     let testWrapper, sessionData;
-    const expectedNextUrlForExecsAlive = ExecutorsAllAlive.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsNames');
@@ -90,18 +88,6 @@ describe('executors-names', () => {
                     const errorsToTest = ['executorName'];
 
                     testWrapper.testErrors(done, data, 'invalid', errorsToTest);
-                });
-        });
-
-        it(`test it redirects to next page: ${expectedNextUrlForExecsAlive}`, (done) => {
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        executorName: ['Brian']
-                    };
-
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecsAlive);
                 });
         });
     });

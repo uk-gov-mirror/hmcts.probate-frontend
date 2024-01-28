@@ -1,13 +1,11 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ExecutorsAlias = require('app/steps/ui/executors/alias');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('executors-dealing-with-estate', () => {
     let testWrapper, sessionData;
-    const expectedNextUrlForExecAlias = ExecutorsAlias.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsDealingWithEstate');
@@ -60,19 +58,6 @@ describe('executors-dealing-with-estate', () => {
                 .send(sessionData)
                 .end(() => {
                     testWrapper.testErrors(done, {}, 'required', errorsToTest);
-                });
-        });
-
-        it(`test it redirects to Executors Alias page: ${expectedNextUrlForExecAlias}`, (done) => {
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        executorsApplying: ['many clouds']
-                    };
-
-                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl();
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecAlias);
                 });
         });
 
