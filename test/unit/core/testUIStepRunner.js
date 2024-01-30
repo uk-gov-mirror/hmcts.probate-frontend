@@ -68,7 +68,7 @@ describe('UIStepRunner', () => {
         });
 
     });
-    it('When a 400 Bad Request occurs an Error should occur', (done) => {
+    it('should return an error on a 400 Bad Request', (done) => {
         const stepName = 'DeceasedAddress';
         const step = {
             name: stepName,
