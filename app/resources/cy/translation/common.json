@@ -95,7 +95,7 @@
 
   "errors": {
     "formSubmissionUnsuccessful": {
-      "required": "The information you entered could not be saved – try again."
+      "required": "Nid oedd modd cadw’r wybodaeth a roddwyd gennych – rhowch gynnig arall arni."
     }
   }
 }
