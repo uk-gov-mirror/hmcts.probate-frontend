@@ -6,7 +6,7 @@
     "uniqueProbateCodeId": {
       "type": "string",
       "minLength": 21,
-      "maxLength": 24,
+      "maxLength": 25,
       "pattern": "^(cts|CTS)\\s?([a-zA-Z0-9]\\s?){18}$"
     }
   },
