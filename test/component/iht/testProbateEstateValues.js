@@ -35,6 +35,13 @@ describe('Tests for Probate Estate Values ', () => {
                 'hint421',
                 'hint400part1',
                 'hint400part2',
+                'hint205part1',
+                'hint205part2',
+                'hint421part1',
+                'hint421part2',
+                'hintNoIHTPart1',
+                'hintNoIHTPart2',
+                'hintNoIHTPart3',
                 'grossHint205',
                 'grossHint421',
                 'grossHint400',
@@ -56,6 +63,9 @@ describe('Tests for Probate Estate Values ', () => {
                 iht: {
                     ihtFormEstateId: 'optionIHT207',
                     estateValueCompleted: 'optionYes'
+                },
+                deceased: {
+                    'dod-date': '2022-12-31'
                 }
 
             };
@@ -69,24 +79,10 @@ describe('Tests for Probate Estate Values ', () => {
 
         it('test content loaded on the page 421', (done) => {
             const contentToExclude = [
-                'question205',
-                'question207',
-                'questionNoIHT',
-                'question400',
-                'hint205',
-                'hint207',
-                'hint400part1',
-                'hint400part2',
-                'grossHint205',
-                'grossHint207',
-                'grossHint400',
-                'grossHintNoIHT',
-                'netHint205',
-                'netHint207',
-                'netHint400',
-                'netHintNoIHT',
-                'netValueSummary',
-                'grossValueSummary'
+                'question205', 'question207', 'questionNoIHT', 'question400', 'hint205', 'hint207', 'hint400part1',
+                'hint400part2', 'hint205part1', 'hint205part2', 'hintNoIHTPart1', 'hintNoIHTPart2', 'hintNoIHTPart3',
+                'grossHint205', 'grossHint207', 'grossHint400', 'grossHintNoIHT', 'netHint205', 'netHint207',
+                'netHint400', 'netHintNoIHT', 'netValueSummary', 'grossValueSummary'
             ];
 
             const sessionData = {
@@ -99,6 +95,9 @@ describe('Tests for Probate Estate Values ', () => {
                     ihtFormEstateId: 'optionIHT400421',
                     estateValueCompleted: 'optionYes'
 
+                },
+                deceased: {
+                    'dod-date': '2022-12-31'
                 }
             };
 
@@ -111,25 +110,10 @@ describe('Tests for Probate Estate Values ', () => {
 
         it('test content loaded on the page for no iht form completed', (done) => {
             const contentToExclude = [
-                'question205',
-                'question207',
-                'question421',
-                'question400',
-                'hint205',
-                'hint207',
-                'hint400part1',
-                'hint400part2',
-                'hint421',
-                'grossHint205',
-                'grossHint207',
-                'grossHint421',
-                'grossHint400',
-                'netHint205',
-                'netHint207',
-                'netHint421',
-                'netHint400',
-                'netValueSummary',
-                'grossValueSummary'
+                'question205', 'question207', 'question421', 'question400', 'hint205', 'hint207', 'hint400part1',
+                'hint400part2', 'hint205part1', 'hint205part2', 'hint421part1', 'hint421part2', 'hint421',
+                'grossHint205', 'grossHint207', 'grossHint421', 'grossHint400', 'netHint205', 'netHint207',
+                'netHint421', 'netHint400', 'netValueSummary', 'grossValueSummary'
             ];
 
             const sessionData = {
@@ -138,6 +122,12 @@ describe('Tests for Probate Estate Values ', () => {
                     state: 'Pending',
                     id: 1234567890123456
                 },
+                iht: {
+                    estateValueCompleted: 'optionNo'
+                },
+                deceased: {
+                    'dod-date': '2022-12-31'
+                }
             };
 
             const contentData = {
@@ -164,6 +154,13 @@ describe('Tests for Probate Estate Values ', () => {
                 'grossHint207',
                 'grossHint421',
                 'grossHintNoIHT',
+                'hint205part1',
+                'hint205part2',
+                'hint421part1',
+                'hint421part2',
+                'hintNoIHTPart1',
+                'hintNoIHTPart2',
+                'hintNoIHTPart3',
                 'netHint205',
                 'netHint207',
                 'netHint421',
@@ -181,6 +178,9 @@ describe('Tests for Probate Estate Values ', () => {
                 iht: {
                     ihtFormEstateId: 'optionIHT400',
                     estateValueCompleted: 'optionYes'
+                },
+                deceased: {
+                    'dod-date': '2020-12-31'
                 }
             };
 

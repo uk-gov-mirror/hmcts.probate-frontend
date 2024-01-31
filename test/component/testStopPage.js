@@ -48,7 +48,7 @@ describe('stop-page', () => {
 
         it('test right content loaded on the page - estate not valued', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('eeEstateNotValued');
-            const contentData = {stopReason: 'eeEstateNotValued', ihtChecker: config.links.ihtChecker};
+            const contentData = {stopReason: 'eeEstateNotValued', ihtTaxChecker: config.links.ihtTaxChecker};
             const contentToExclude = ['defaultHeader', 'deathCertificateHeader', 'deathCertificateTranslationHeader', 'inheritanceHeader', 'notOriginalHeader', 'applyByPostHeader', 'defaultReason', 'deathCertificate', 'deathCertificateTranslation', 'notInEnglandOrWales', 'ihtNotCompleted', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'notOriginal', 'notExecutor', 'mentalCapacity', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
 
             testWrapper.testContent(done, contentData, contentToExclude);
