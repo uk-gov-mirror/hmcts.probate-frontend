@@ -1,0 +1,15 @@
+{
+  "title": "Enw arall y ceisydd",
+  "question": "Sut mae eich enw wedi cael ei ysgrifennu ar yr ewyllys?",
+  "aliasFirstNameOnWill": "First name and any middle names",
+  "aliasLastNameOnWill": "Last name",
+
+  "errors": {
+    "aliasFirstNameOnWill": {
+      "required": "Enter your first name, including middle names"
+    },
+    "aliasLastNameOnWill": {
+      "required": "Enter your last name"
+    }
+  }
+}

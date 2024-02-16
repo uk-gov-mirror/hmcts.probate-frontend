@@ -1,0 +1,13 @@
+{
+  "title": "Applicant name on the will",
+  "question": "Is your name &lsquo;{deceasedName}&rsquo; exactly what appears on the will?",
+  "questionWithoutName": "Is your name exactly what appears on the will?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "nameAsOnTheWill": {
+      "required": "Answer &lsquo;yes&rsquo; if your name is exactly the same on the will or codicil"
+    }
+  }
+}

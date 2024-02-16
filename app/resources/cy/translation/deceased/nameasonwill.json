@@ -1,0 +1,13 @@
+{
+  "title": "Enw&rsquo;r ceisydd ar yr ewyllys",
+  "question": "A yw eich enw &lsquo;{deceasedName}&rsquo; union beth sy&rsquo;n ymddangos ar yr ewyllys?",
+  "questionWithoutName": "A yw eich enw union beth sy&rsquo;n ymddangos ar yr ewyllys?",
+  "optionYes": "Ydi",
+  "optionNo": "Nac ydi",
+
+  "errors": {
+    "nameAsOnTheWill": {
+      "required": "Atebwch &lsquo;ydi&rsquo; os yw eich enw union beth sy&rsquo;n ymddangos ar yr ewyllys neu&rsquo;r codisil"
+    }
+  }
+}
