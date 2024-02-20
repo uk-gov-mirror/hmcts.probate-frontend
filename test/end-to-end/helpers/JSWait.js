@@ -125,7 +125,7 @@ class JSWait extends codecept_helper {
         }
     }
 
-    async checkInUrl(url, timeoutWait=120) {
+    async checkInUrl(url, timeoutWait=60) {
         // do for both Puppeteer and Webdriver - doesn't take long
         const helper = this.helpers.WebDriver || this.helpers.Playwright;
         await helper.waitInUrl(url, timeoutWait);
