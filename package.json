@@ -67,7 +67,7 @@
     "eslint": "NODE_PATH=. eslint .",
     "test:functional": "NODE_ENV=test yarn test-contract && NODE_ENV=test yarn test-e2e-http-launch-darkly",
     "test:fullfunctional": "yarn playwright install && NODE_ENV=test-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --grep '@e2enightly'",
-    "test:fullfunctional-pr": "yarn playwright install && NODE_ENV=testing NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --grep '@e2enightly-pr'",
+    "test:fullfunctional-pr": "yarn playwright install && NODE_ENV=test-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --grep '@e2enightly-pr'",
     "test:fullfunctional:dev-aat:single": "TEST_HEADLESS=false NODE_ENV=dev-aat NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --verbose --grep '@runningNow'",
     "test:fullfunctional:dev-aat:parallel": "TEST_HEADLESS=true NODE_ENV=dev-aat NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --grep '@e2enightly'",
     "test:coverage": "NODE_ENV=test NODE_PATH=. nyc --reporter=lcov mocha './test/unit/**/test*.js' './test/component/**/test*.js' --timeout 10000 --recursive --exit",
