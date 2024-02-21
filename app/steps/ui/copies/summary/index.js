@@ -44,7 +44,7 @@ class CopiesSummary extends Step {
                 value: ctx.featureToggles
             };
             fields.isGaEnabled = {
-                value: ctx.isGaEnabled.toString()
+                value: ctx.isGaEnabled ? ctx.isGaEnabled.toString() : 'false'
             };
 
             const skipItems = ['sessionID', 'authToken', 'caseType', 'userLoggedIn', 'uploadedDocuments'];
