@@ -13,4 +13,29 @@ describe('CopiesSummary', () => {
             done();
         });
     });
+
+    describe('generateFields()', () => {
+        it('it should set Google analytics enabled to true', (done) => {
+            const ctx = {
+                session: {
+                    form: {},
+                },
+                isGaEnabled: true
+            };
+            const fields = CopiesSummary.generateFields('en', ctx, [], {});
+            expect(fields.isGaEnabled.value).to.deep.equal('true');
+            done();
+        });
+
+        it('it should set Google analytics enabled to false', (done) => {
+            const ctx = {
+                session: {
+                    form: {},
+                }
+            };
+            const fields = CopiesSummary.generateFields('en', ctx, [], {});
+            expect(fields.isGaEnabled.value).to.deep.equal('false');
+            done();
+        });
+    });
 });
