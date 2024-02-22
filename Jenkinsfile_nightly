@@ -64,6 +64,7 @@ withNightlyPipeline("nodejs", product, component) {
 
   enableFullFunctionalTest(200)
   enableCrossBrowserTest(120)
+  enableFortifyScan('probate-aat')
 //    enableSecurityScan()  //we do this in other builds
   afterAlways('build') {
     sh 'mkdir -p functional-output'
