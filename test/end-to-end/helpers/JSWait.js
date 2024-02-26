@@ -76,19 +76,17 @@ class JSWait extends codecept_helper {
         const helper = this.helpers.WebDriver || this.helpers.Playwright;
         const helperIsPlaywright = this.helpers.Playwright;
 
+        if (newUrl.indexOf('http') !== 0) {
+            newUrl = helper.options.url + newUrl;
+        }
+
         if (helperIsPlaywright) {
-            if (newUrl.indexOf('http') !== 0) {
-                newUrl = helper.options.url + newUrl;
-            }
+            helper.page.goto(newUrl).catch(err => {
+                console.error(err.message);
+            });
+            await helper.page.waitForNavigation({waitUntil: 'networkidle0'});
 
-            /*await Promise.all([
-                helper.page.waitForNavigation({waitUntil: 'networkidle0'}),
-                helper.page.goto(newUrl).catch(err => {
-                    console.error(err.message);
-                })
-            ]);
-
-        } else {*/
+        } else {
             await helper.amOnPage(newUrl);
             await helper.waitInUrl(url);
             await helper.waitForElement('body');
