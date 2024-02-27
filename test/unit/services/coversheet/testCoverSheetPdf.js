@@ -246,7 +246,7 @@ describe('CoverSheetPdfService', () => {
                     checkListItems: [
                         {text: 'the original will (by law, we must keep your original will as it becomes a public document)', type: 'textOnly'},
                         {text: 'the original foreign death certificate', type: 'textOnly'},
-                        {text: 'the completed inheritance tax form IHT 205', type: 'textOnly'},
+                        {text: 'the completed inheritance tax form IHT205', type: 'textOnly'},
                         {text: 'copy of the deed poll document for Executor current Name 1', type: 'textOnly'},
                         {text: 'copy of the deed poll document for Executor current Name 3', type: 'textOnly'}
                     ],

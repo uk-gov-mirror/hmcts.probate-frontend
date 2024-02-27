@@ -14,13 +14,11 @@
         classes: "govuk-fieldset__legend--l"
         }
     }) %}
+    <p class="govuk-body">{{ content.hint | safe }}</p>
     {{ govukRadios({
             classes: "govuk-radios--inline",
             idPrefix: "unusedAllowanceClaimed",
             name: "unusedAllowanceClaimed",
-            hint: {
-                text: content.hint | safe
-            },
             errorMessage: { text: fields.unusedAllowanceClaimed.errorMessage | safe } if fields.unusedAllowanceClaimed.errorMessage,
             items: [
                 {

@@ -13,6 +13,10 @@
 <p class="govuk-body">{{ content.optionIHT400421Conditional | safe }}</p>
 {% endset -%}
 
+{% set conditionalIHT205 %}
+<p class="govuk-body">{{ content.optionIHT205Conditional | safe }}</p>
+{% endset -%}
+
 {{ govukRadios({
         classes: "govuk-radios",
         idPrefix: "ihtFormId",
@@ -29,6 +33,9 @@
             {
               value: "optionIHT205",
               text: content["optionIHT205"] | safe,
+              conditional: {
+              html: conditionalIHT205
+              },
               checked: true if fields.ihtFormId.value == "optionIHT205"
             },
             {

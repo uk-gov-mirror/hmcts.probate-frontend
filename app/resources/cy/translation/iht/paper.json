@@ -1,9 +1,9 @@
 {
   "title": "Pa ffurflen bapur y gwnaethoch ei llenwi",
   "question": "Pa ffurflen bapur y gwnaethoch ei llenwi?",
-  "optionIHT205": "IHT 205 - nid oedd treth etifeddiant i&rsquo;w thalu",
-  "optionIHT207": "IHT 207 - nid oedd treth etifeddiant i&rsquo;w thalu ac roedd yr unigolyn a fu farw yn byw dramor",
-  "optionIHT400421": "IHT 400 a 421",
+  "optionIHT205": "IHT205 - nid oedd treth etifeddiant i&rsquo;w thalu",
+  "optionIHT207": "IHT207 - nid oedd treth etifeddiant i&rsquo;w thalu ac roedd yr unigolyn a fu farw yn byw dramor",
+  "optionIHT400421": "IHT400 a 421",
   "gross205": "Teipiwch y rhif a nodwyd ym mlwch D (gwerth gros mewn &pound;)",
   "net205": "Teipiwch y rhif a nodwyd ym mlwch F (gwerth net mewn &pound;)",
   "gross207": "Teipiwch y rhif a nodwyd ym mlwch C (gwerth gros mewn &pound;)",

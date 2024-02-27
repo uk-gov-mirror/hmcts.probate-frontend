@@ -19,10 +19,10 @@
   "checklist-item4-foreign-death-cert-translation": "Cyfieithiad Saesneg o’r dystysgrif marwolaeth dramor",
   "checklist-item5-foreign-death-cert-PA19": "Naill ai ffurflen dystysgrif marwolaeth dramor PA19 - <a target=\"_blank\" rel=\"external noopener\" href=\"{applicationFormPA19}\" class=\"govuk-link\">wedi ei llenwi (bydd yn agor mewn ffenestr newydd)</a> neu dystysgrif gan gyfieithydd yn cadarnhau dilysrwydd y cyfieithiad",
   "checklist-item6-spouse-renouncing": "a <a href=\"{renunciationFormLink}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"ffurflen ymwrthod (agor mewn ffenestr newydd)\">ffurflen ymwrthod (agor mewn ffenestr newydd)</a> wedi&rsquo;i llenwi gan &wcirc;r/gwraig neu bartner sifil yr unigolyn sydd wedi marw sy&rsquo;n rhoi fyny yr hawl yn barhaol i wneud y cais hwn am brofiant",
-  "checklist-item7-iht205": "y ffurflen treth etifeddiant IHT 205 wedi ei llenwi",
+  "checklist-item7-iht205": "y ffurflen treth etifeddiant IHT205 wedi ei llenwi",
   "checklist-item8-renunciated": "a <a href=\"{renunciationFormLink}\" target=\"_blank\" class=\"govuk-link\" rel=\"external noopener\" aria-label=\"ffurflen ymwrthod (agor mewn ffenestr newydd)\">ffurflen ymwrthod (agor mewn ffenestr newydd)</a> wedi&rsquo;i llenwi gan unrhyw ysgutorion sy&rsquo;n rhoi fyny yr hawl yn barhaol i wneud y cais hwn am brofiant",
   "checklist-item9-deed-poll": "copi o&rsquo;r ddogfen gweithred newid enw ar gyfer {executorCurrentName}",
-  "checklist-item10-iht207": "Anfonwch y ffurflen IHT 207 atom",
+  "checklist-item10-iht207": "Anfonwch y ffurflen IHT207 atom",
   "checklist-item11-spouse-giving-up-admin-rights-PA16": "<a href=\"{spouseGivingUpAdminRightsPA16Link}\" target=\"_blank\" class=\"govuk-link\" rel=\"external noopener\" aria-label=\"Ffurflen bapur rhoi'r gorau i bob hawl i weithredu fel gweinyddwr profiant\">Ffurflen bapur rhoi'r gorau i bob hawl i weithredu fel gweinyddwr profiant</a> - Ffurflen PA16",
   "no-docs-required": "Yn seiliedig ar y manylion yn y cais, nid oes angen unrhyw ddogfennau eraill. Fodd bynnag, os gofynnir am dogfennau gennych yn y dyfodol, anfonwch nhw i’r cyfeiriad isod gyda’r ddalen flaen hon, os gwelwch yn dda",
 
