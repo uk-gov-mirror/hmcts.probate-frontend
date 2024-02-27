@@ -211,7 +211,7 @@ part of the PR build. To do this, you can add the appropriate label to the PR (i
 - `nightly-without-welsh-tests`: This will run `yarn test:fullfunctional-pr` command which picks up all the e2e tests
 with the tag `@e2enightly-pr`, but only in English language.
 
-## License
+### License
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/hmcts/probate-frontend/blob/develop/LICENSE.md) file for details
 
