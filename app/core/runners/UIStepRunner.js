@@ -6,6 +6,7 @@ const DetectDataChange = require('app/wrappers/DetectDataChange');
 const FormatUrl = require('app/utils/FormatUrl');
 const {get} = require('lodash');
 const config = require('config');
+const FieldError = require('../../components/error');
 
 class UIStepRunner {
 
@@ -89,12 +90,13 @@ class UIStepRunner {
                     formdata.declaration.declarationCheckbox = 'false';
                     formdata.declaration.hasDataChanged = true;
                 }
+                let errorOccurred = false;
 
                 if ((get(formdata, 'ccdCase.state') === 'Pending' || get(formdata, 'ccdCase.state') === 'CasePaymentFailed') && session.regId && step.shouldPersistFormData()) {
                     const ccdCaseId = formdata.ccdCase.id;
                     const result = yield step.persistFormData(ccdCaseId, formdata, session.id, req);
-
                     if (result.name === 'Error') {
+                        errorOccurred = true;
                         req.log.error('Could not persist user data', result.message);
                     } else if (result) {
                         session.form = Object.assign(session.form, result);
@@ -105,8 +107,15 @@ class UIStepRunner {
                 if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
                     session.back.push(step.constructor.getUrl());
                 }
-
-                res.redirect(nextStepUrl);
+                if (errorOccurred === false) {
+                    res.redirect(nextStepUrl);
+                } else {
+                    const content = step.generateContent(ctx, formdata, session.language);
+                    const fields = step.generateFields(session.language, ctx, errors, formdata);
+                    const common = step.commonContent(session.language);
+                    errors.push(FieldError('formSubmissionUnsuccessful', 'required', 'common', ctx, session.language));
+                    res.render(step.template, {content, fields, errors, common, userLoggedIn: req.userLoggedIn});
+                }
             } else {
                 forEach(errors, (error) =>
                     req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))

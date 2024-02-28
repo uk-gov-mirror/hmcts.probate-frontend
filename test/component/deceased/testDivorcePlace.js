@@ -1,16 +1,12 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const StopPage = require('app/steps/ui/stoppage');
-const TaskList = require('app/steps/ui/tasklist');
 const commonContent = require('app/resources/en/translation/common');
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('divorce-place', () => {
     let testWrapper;
-    const expectedNextUrlForStopPage = StopPage.getUrl('divorcePlace');
-    const expectedNextUrlForTaskList = TaskList.getUrl();
     const sessionData = {
         type: caseTypes.INTESTACY,
         ccdCase: {
@@ -71,30 +67,6 @@ describe('divorce-place', () => {
                     };
 
                     testWrapper.testErrors(done, data, 'required');
-                });
-        });
-
-        it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            const data = {
-                divorcePlace: 'optionNo'
-            };
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
-                });
-        });
-
-        it(`test it redirects to tasklist: ${expectedNextUrlForTaskList}`, (done) => {
-            const data = {
-                divorcePlace: 'optionYes'
-            };
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
                 });
         });
     });

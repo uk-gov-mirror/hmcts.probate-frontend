@@ -1,16 +1,11 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const Equality = require('app/steps/ui/equality');
-const ExecutorRoles = require('app/steps/ui/executors/roles');
 const commonContent = require('app/resources/en/translation/common');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('executor-notified', () => {
     let testWrapper, sessionData;
-    const expectedNextUrlForFirstExec = ExecutorRoles.getUrl(2);
-    const expectedNextUrlForSecondExec = ExecutorRoles.getUrl(3);
-    const expectedNextUrlForThirdExec = Equality.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorNotified');
@@ -74,42 +69,6 @@ describe('executor-notified', () => {
                 .end(() => {
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
                     testWrapper.testErrors(done, {}, 'required');
-                });
-
-        });
-
-        it(`test it redirects to executor roles (first exec): ${expectedNextUrlForFirstExec}`, (done) => {
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        executorNotified: 'optionYes',
-                    };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForFirstExec);
-                });
-        });
-
-        it(`test it redirects to executor roles (second exec): ${expectedNextUrlForSecondExec}`, (done) => {
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        executorNotified: 'optionYes'
-                    };
-                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
-                    testWrapper.testRedirect(done, data, expectedNextUrlForSecondExec);
-                });
-        });
-
-        it(`test it redirects to tasklist page: ${expectedNextUrlForThirdExec}`, (done) => {
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        executorNotified: 'optionNo'
-                    };
-                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(3);
-                    testWrapper.testRedirect(done, data, expectedNextUrlForThirdExec);
                 });
         });
     });

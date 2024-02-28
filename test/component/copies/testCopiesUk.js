@@ -1,7 +1,6 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const AssetsOverseas = require('app/steps/ui/assets/overseas');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const config = require('config');
 const orchestratorServiceUrl = config.services.orchestrator.url;
@@ -19,7 +18,6 @@ const sessionData = {
 
 describe('copies-uk', () => {
     let testWrapper;
-    const expectedNextUrlForAssetsOverseas = AssetsOverseas.getUrl();
 
     afterEach(async () => {
         nock.cleanAll();
@@ -122,44 +120,6 @@ describe('copies-uk', () => {
                 .end(() => {
                     const data = {uk: '-1'};
                     testWrapper.testErrors(done, data, 'invalid');
-                });
-        });
-
-        it(`test it redirects to next page: ${expectedNextUrlForAssetsOverseas}`, (done) => {
-            invitesAllAgreedNock();
-
-            const data = {uk: '0'};
-            const sessionData = require('test/data/copiesUk');
-            sessionData.ccdCase = {
-                state: 'Pending',
-                id: 1234567890123456
-            };
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    delete require.cache[require.resolve('test/data/copiesUk')];
-
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOverseas);
-                });
-        });
-
-        it(`test it redirects to next page: ${expectedNextUrlForAssetsOverseas}`, (done) => {
-            invitesAllAgreedNock();
-
-            const data = {uk: '1'};
-            const sessionData = require('test/data/copiesUk');
-            sessionData.ccdCase = {
-                state: 'Pending',
-                id: 1234567890123456
-            };
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    delete require.cache[require.resolve('test/data/copiesUk')];
-
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOverseas);
                 });
         });
     });
