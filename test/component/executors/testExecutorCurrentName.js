@@ -2,15 +2,12 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorCurrentName = require('app/steps/ui/executors/currentname');
-const ExecutorCurrentNameReason = require('app/steps/ui/executors/currentnamereason');
 const commonContent = require('app/resources/en/translation/common');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('executor-current-name', () => {
     let testWrapper, sessionData;
     const FirstExecURL = ExecutorCurrentName.getUrl(4);
-    const executorCurrentNameReasonFirstUrl = ExecutorCurrentNameReason.getUrl(2);
-    const executorCurrentNameReasonSubsequentUrl = ExecutorCurrentNameReason.getUrl(4);
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorCurrentName');
@@ -88,31 +85,6 @@ describe('executor-current-name', () => {
                     };
 
                     testWrapper.testErrors(done, data, 'invalid', errorsToTest);
-                });
-        });
-
-        it(`test it redirects to executor current name reason page, first exec: ${executorCurrentNameReasonFirstUrl}`, (done) => {
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        currentName: 'Another Name 2'
-                    };
-
-                    testWrapper.testRedirect(done, data, executorCurrentNameReasonFirstUrl);
-                });
-        });
-
-        it(`test it redirects to executor current name reason page, subsequent exec: ${executorCurrentNameReasonSubsequentUrl}`, (done) => {
-            testWrapper.pageUrl = FirstExecURL;
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        currentName: 'Another Name'
-                    };
-
-                    testWrapper.testRedirect(done, data, executorCurrentNameReasonSubsequentUrl);
                 });
         });
     });

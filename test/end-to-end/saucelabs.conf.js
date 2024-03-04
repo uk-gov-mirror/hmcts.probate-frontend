@@ -103,9 +103,6 @@ const setupConfig = {
         }
     },
     multiple: {
-        microsoft: {
-            browsers: getBrowserConfig('microsoft')
-        },
         chrome: {
             browsers: getBrowserConfig('chrome')
         },

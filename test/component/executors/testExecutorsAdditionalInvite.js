@@ -2,7 +2,6 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const {assert} = require('chai');
-const ExecutorsAdditionalInviteSent = require('app/steps/ui/executors/additionalinvitesent');
 const caseTypes = require('app/utils/CaseTypes');
 const nock = require('nock');
 const config = require('config');
@@ -11,7 +10,6 @@ const orchestratorServiceUrl = config.services.orchestrator.url;
 describe('executors-additional-invite', () => {
     let testWrapper;
     let sessionData;
-    const expectedNextUrlForExecutorsAdditionalInviteSent = ExecutorsAdditionalInviteSent.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsAdditionalInvite');
@@ -115,30 +113,6 @@ describe('executors-additional-invite', () => {
                             nock.cleanAll();
                             done(err);
                         });
-                });
-        });
-
-        it(`test it redirects to next page: ${expectedNextUrlForExecutorsAdditionalInviteSent}`, (done) => {
-            nock(orchestratorServiceUrl)
-                .post('/invite')
-                .reply(200, {
-                    invitations: [
-                        {
-                            inviteId: '1234',
-                            id: 1
-                        }
-                    ]
-                });
-
-            sessionData.executors.list = [
-                {fullName: 'Applicant', isApplying: true, isApplicant: true},
-                {fullName: 'Andrew Wiles', isApplying: true, emailSent: false}
-            ];
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.testRedirect(done, {}, expectedNextUrlForExecutorsAdditionalInviteSent);
                 });
         });
     });

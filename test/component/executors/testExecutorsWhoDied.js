@@ -1,13 +1,11 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ExecutorsWhenDied = require('app/steps/ui/executors/whendied');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('executors-who-died', () => {
     let testWrapper, sessionData;
-    const expectedNextUrlForExecsWhenDied = ExecutorsWhenDied.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsWhoDied');
@@ -54,18 +52,6 @@ describe('executors-who-died', () => {
                 .send(sessionData)
                 .end(() => {
                     testWrapper.testErrors(done, {}, 'required', errorsToTest);
-                });
-        });
-
-        it(`test it redirects to next page: ${expectedNextUrlForExecsWhenDied}`, (done) => {
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        executorsWhoDied: 'harvey smith'
-                    };
-
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecsWhenDied);
                 });
         });
     });

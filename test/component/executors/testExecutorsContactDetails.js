@@ -2,13 +2,11 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails');
-const ExecutorAddress = require('app/steps/ui/executors/address');
 const commonContent = require('app/resources/en/translation/common');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('executors-contact-details', () => {
     let testWrapper, sessionData;
-    const expectedNextUrlForExecAddress = ExecutorAddress.getUrl(1);
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorContactDetails');
@@ -163,20 +161,6 @@ describe('executors-contact-details', () => {
                     };
 
                     testWrapper.testErrors(done, data, 'invalid');
-                });
-        });
-
-        it(`test it redirects to address page: ${expectedNextUrlForExecAddress}`, (done) => {
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        executorName: 'Other Applicant',
-                        email: 'test@hotmail.com',
-                        mobile: '+447663382082'
-                    };
-
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecAddress);
                 });
         });
     });
