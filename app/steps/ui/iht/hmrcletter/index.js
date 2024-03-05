@@ -16,7 +16,7 @@ class HmrcLetter extends ValidationStep {
     }
 
     isComplete(ctx) {
-        return [ctx.hmrcLetter==='optionYes', 'inProgress'];
+        return [ctx.hmrcLetterId==='optionYes', 'inProgress'];
     }
 }
 
