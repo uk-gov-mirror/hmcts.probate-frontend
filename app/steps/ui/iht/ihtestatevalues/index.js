@@ -46,9 +46,12 @@ class IhtEstateValues extends ValidationStep {
     }
     isComplete(ctx) {
         return [
-            (ctx.estateValueCompleted==='optionNo' && ctx.estateGrossValueField!==null &&
-                ctx.estateNetValueField!==null && ctx.estateNetQualifyingValueField!==null)||
-            ctx.estateValueCompleted==='optionYes' || ctx.ihtFormId!==null, 'inProgress'
+            (ctx.estateValueCompleted === 'optionNo' && typeof ctx.estateGrossValueField !== 'undefined' &&
+                ctx.estateGrossValueField !== null && typeof ctx.estateNetValueField !== 'undefined' &&
+                ctx.estateNetValueField !== null && typeof ctx.estateNetQualifyingValueField !== 'undefined' &&
+                ctx.estateNetQualifyingValueField !== null) ||
+            ctx.estateValueCompleted === 'optionYes' || typeof ctx.estateValueCompleted === 'undefined' ||
+            (typeof ctx.ihtFormId !== 'undefined' && ctx.ihtFormId !== null), 'inProgress'
         ];
     }
 }
