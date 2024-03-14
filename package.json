@@ -201,6 +201,7 @@
     "minimist": "1.2.8",
     "async": ">=2.6.4",
     "cookiejar": ">=2.1.4",
+    "puppeteer": "^22.0.0",
     "qs": ">=6.9.7"
   },
   "packageManager": "yarn@3.6.3"
