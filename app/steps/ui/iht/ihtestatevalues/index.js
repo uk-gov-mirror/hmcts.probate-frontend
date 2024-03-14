@@ -45,10 +45,14 @@ class IhtEstateValues extends ValidationStep {
         return [ctx, errors];
     }
     isComplete(ctx) {
+        const estateValuesFilled = ctx.estateGrossValueField !== 'undefined' &&
+            ctx.estateGrossValueField !== null && typeof ctx.estateNetValueField !== 'undefined' &&
+            ctx.estateNetValueField !== null && typeof ctx.estateNetQualifyingValueField !== 'undefined' &&
+            ctx.estateNetQualifyingValueField !== null;
         return [
-            (ctx.estateValueCompleted==='optionNo' && ctx.estateGrossValueField!==null &&
-                ctx.estateNetValueField!==null && ctx.estateNetQualifyingValueField!==null)||
-            ctx.estateValueCompleted==='optionYes' || ctx.ihtFormId!==null, 'inProgress'
+            (ctx.estateValueCompleted === 'optionNo' && estateValuesFilled) ||
+            ctx.estateValueCompleted === 'optionYes' || typeof ctx.estateValueCompleted === 'undefined' ||
+            (typeof ctx.ihtFormId !== 'undefined' && ctx.ihtFormId !== null), 'inProgress'
         ];
     }
 }

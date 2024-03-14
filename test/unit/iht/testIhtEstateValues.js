@@ -262,5 +262,14 @@ describe('IhtEstateValues', () => {
             expect(result).to.deep.equal(expectedTrue);
             done();
         });
+        it('should return false when estate value incompleted, no gross,net,nor nqv values', (done) => {
+            const ctx = {
+                estateValueCompleted: 'optionNo'
+            };
+            const result = IhtEstateValues.isComplete(ctx);
+            const expectedFalse = [false, 'inProgress'];
+            expect(result).to.deep.equal(expectedFalse);
+            done();
+        });
     });
 });
