@@ -14,6 +14,10 @@ class HmrcLetter extends ValidationStep {
             ]
         };
     }
+
+    isComplete(ctx) {
+        return [ctx.hmrcLetterId==='optionYes', 'inProgress'];
+    }
 }
 
 module.exports = HmrcLetter;

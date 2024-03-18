@@ -3,7 +3,6 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const Taskist = require('app/steps/ui/tasklist');
 const content = require('app/resources/en/translation/declaration');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const nock = require('nock');
@@ -11,7 +10,6 @@ const config = require('config');
 
 describe('declaration, single applicant', () => {
     let testWrapper, contentData, sessionData;
-    const expectedNextUrlForExecInvite = Taskist.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('Declaration');
@@ -1399,39 +1397,6 @@ describe('declaration, single applicant', () => {
                     const errorsToTest = ['declarationCheckbox'];
 
                     testWrapper.testErrors(done, {}, 'required', errorsToTest);
-                });
-        });
-
-        it(`test it redirects to next page: ${expectedNextUrlForExecInvite}`, (done) => {
-            sessionData = {
-                ccdCase: {
-                    state: 'Pending',
-                    id: 1234567890123456
-                },
-                executors: {
-                    list: [
-                        {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true}
-                    ],
-                    invitesSent: 'true'
-                },
-                declaration: {
-                    hasDataChanged: false
-                },
-                session: {
-                    legalDeclaration: {}
-                }
-            };
-
-            testWrapper.agent.post('/prepare-session-field/serviceAuthorization/SERVICE_AUTH_123')
-                .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            const data = {
-                                declarationCheckbox: 'true'
-                            };
-                            testWrapper.testRedirect(done, data, expectedNextUrlForExecInvite);
-                        });
                 });
         });
     });

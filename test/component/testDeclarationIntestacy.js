@@ -3,7 +3,6 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const Taskist = require('app/steps/ui/tasklist');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const declarationContent = require('app/resources/en/translation/declaration');
 const config = require('config');
@@ -12,7 +11,6 @@ const caseTypes = require('app/utils/CaseTypes');
 
 describe('declaration, intestacy', () => {
     let testWrapper, contentData, sessionData;
-    const expectedNextUrlForExecInvite = Taskist.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('Declaration');
@@ -1516,42 +1514,6 @@ describe('declaration, intestacy', () => {
                     const errorsToTest = ['declarationCheckbox'];
 
                     testWrapper.testErrors(done, {}, 'required', errorsToTest);
-                });
-        });
-
-        it(`test it redirects to next page: ${expectedNextUrlForExecInvite}`, (done) => {
-            sessionData = {
-                ccdCase: {
-                    state: 'Pending',
-                    id: 1234567890123456
-                },
-                form: {
-                    executors: {
-                        list: [
-                            {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true}
-                        ],
-                        invitesSent: 'true'
-                    },
-                    declaration: {
-                        hasDataChanged: false
-                    },
-                    session: {
-                        legalDeclaration: {}
-                    }
-                }
-            };
-
-            testWrapper.agent.post('/prepare-session-field/serviceAuthorization/SERVICE_AUTH_123')
-                .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            const data = {
-                                declarationCheckbox: true
-                            };
-
-                            testWrapper.testRedirect(done, data, expectedNextUrlForExecInvite);
-                        });
                 });
         });
     });

@@ -4,7 +4,7 @@ const testConfig = require('config');
 
 module.exports = async function(language ='en') {
     const I = this;
-    const commonContent = require(`app/resources/${language}/translation/common`);
+    //const commonContent = require(`app/resources/${language}/translation/common`);
 
     if (language === 'en') {
         await I.waitForText('Enter card details');
@@ -21,5 +21,6 @@ module.exports = async function(language ='en') {
     await I.waitForEnabled({css: '#email'});
     await I.fillField({css: '#email'}, testConfig.TestEnvEmailAddress);
     await I.waitForElement({css: '#submit-card-details'});
-    await I.navByClick(commonContent.continue, 'button.govuk-button');
+    //await I.navByClick(commonContent.continue, 'button.govuk-button');
+    await I.navByClick({css: '#submit-card-details'});
 };

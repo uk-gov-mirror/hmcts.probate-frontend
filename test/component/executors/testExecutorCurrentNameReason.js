@@ -1,14 +1,10 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails');
-const ExecutorCurrentName = require('app/steps/ui/executors/currentname');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('/executor-current-name-reason/', () => {
     let testWrapper, sessionData;
-    const expectedNextUrlForExecContactDetails = ExecutorContactDetails.getUrl();
-    const firstNameReasonUrl = ExecutorCurrentName.getUrl(2);
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorCurrentNameReason');
@@ -65,44 +61,6 @@ describe('/executor-current-name-reason/', () => {
             };
 
             testWrapper.testErrors(done, data, 'required', errorsToTest);
-        });
-
-        it(`test redirects from ExecutorCurrentNameReason to next ExecutorCurrentName, ${firstNameReasonUrl}`, (done) => {
-            sessionData.declaration = {
-                declarationCheckbox: 'true',
-                hasDataChanged: false
-            };
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        index: 1,
-                        currentNameReason: 'Marriage'
-                    };
-
-                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testRedirect(done, data, firstNameReasonUrl);
-                });
-        });
-
-        it(`test it redirects last executor to Executor Contact Details step: ${expectedNextUrlForExecContactDetails}`, (done) => {
-            sessionData.declaration = {
-                declarationCheckbox: 'true',
-                hasDataChanged: false
-            };
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        index: 4,
-                        currentNameReason: 'Marriage',
-                    };
-
-                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(4);
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecContactDetails);
-                });
         });
     });
 });

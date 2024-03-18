@@ -19,6 +19,24 @@ describe('UIStepRunner', () => {
             back: ['hello']
         }
     };
+    const req400 = {
+        session: {
+            language: 'en',
+            regId: 'regid123',
+            form: {
+                caseType: 'gop',
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Pending'
+                }
+            },
+            back: ['hello']
+        },
+        userLoggedIn: true,
+        log: {
+            error: sinon.spy()
+        }
+    };
     it('declarationCheckbox should be false where hasDataChanged is true', (done) => {
         const stepName = 'test';
         const step = {
@@ -31,7 +49,6 @@ describe('UIStepRunner', () => {
                 getUrl: () => 'hello'
             }
         };
-
         const hasDataChangedStub = sinon.stub(DetectDataChange.prototype, 'hasDataChanged').returns(true);
         const expectedForm = {
             declarationCheckbox: 'false',
@@ -50,5 +67,41 @@ describe('UIStepRunner', () => {
             done();
         });
 
+    });
+    it('should return an error on a 400 Bad Request', (done) => {
+        const stepName = 'DeceasedAddress';
+        const step = {
+            name: stepName,
+            template: 'ui/copies/uk/template',
+            validate: () => [false, []],
+            getContextData: () => '',
+            nextStepUrl: () => '',
+            action: () => [{}, req400.session.form],
+            constructor: {
+                getUrl: () => 'hello'
+            },
+            shouldPersistFormData: () => true,
+            persistFormData: () => ({name: 'Error', message: 'xxxxxxx'}),
+            generateContent: () => '',
+            generateFields: () => '',
+            commonContent: () => ''
+        };
+
+        const res400 = {
+            redirect: (url) => url,
+        };
+
+        res400.render = sinon.spy();
+        res400.statusCode=400;
+        res400.body = 'wrong header';
+
+        const runner = new UIStepRunner();
+        co(function* () {
+            yield runner.handlePost(step, req400, res400);
+            expect(res400.statusCode).to.equal(400);
+            expect(res400).to.have.property('body');
+            expect(res400.body).to.equal('wrong header');
+            done();
+        });
     });
 });

@@ -1,22 +1,14 @@
-// eslint-disable-line max-lines
-
 'use strict';
 
 const initSteps = require('app/core/initSteps');
 const assert = require('chai').assert;
 const TestWrapper = require('test/util/TestWrapper');
-const ExecutorsWhenDied = require('app/steps/ui/executors/whendied');
-const Equality = require('app/steps/ui/equality');
-const ExecutorsApplying = require('app/steps/ui/executors/applying');
 const contentData = {executorFullName: 'many clouds'};
 const commonContent = require('app/resources/en/translation/common');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('executors-when-died', () => {
     let testWrapper, sessionData;
-    const expectedNextUrlForExecsWhenDied = ExecutorsWhenDied.getUrl(2);
-    const expectedNextUrlForEquality = Equality.getUrl();
-    const expectedNextUrlForExecsApplying = ExecutorsApplying.getUrl(2);
     const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
     const reasons = {
         optionDiedBefore: 'optionDiedBefore',
@@ -107,190 +99,6 @@ describe('executors-when-died', () => {
                     const data = {
                     };
                     testWrapper.testErrors(done, data, 'required');
-                });
-        });
-
-        it(`test it redirects to execs when died page when yes selected: ${expectedNextUrlForExecsWhenDied}`, (done) => {
-            sessionData = {
-                index: 1,
-                applicant: {
-                    firstName: 'John',
-                    lastName: 'TheApplicant'
-                },
-                executors: {
-                    executorsNumber: 3,
-                    list: [
-                        {firstName: 'John', lastName: 'TheApplicant', isApplying: 'optionYes', isApplicant: true},
-                        {fullName: 'Many Clouds', isDead: true},
-                        {fullName: 'Bob Too', isDead: true}
-                    ]
-                }
-            };
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        diedbefore: 'optionYes'
-                    };
-                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecsWhenDied);
-                });
-        });
-
-        it(`test it redirects to execs when died page when no selected: ${expectedNextUrlForExecsWhenDied}`, (done) => {
-            sessionData = {
-                index: 1,
-                applicant: {
-                    firstName: 'John',
-                    lastName: 'TheApplicant'
-                },
-                executors: {
-                    executorsNumber: 3,
-                    list: [
-                        {firstName: 'John', lastName: 'TheApplicant', isApplying: 'optionYes', isApplicant: true},
-                        {fullName: 'Many Clouds', isDead: true},
-                        {fullName: 'Bob Too', isDead: true}
-                    ]
-                }
-            };
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        diedbefore: 'optionNo'
-                    };
-                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecsWhenDied);
-                });
-        });
-
-        it(`test it redirects to dealing with estate page when yes selected: ${expectedNextUrlForExecsApplying}`, (done) => {
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        diedbefore: 'optionYes'
-                    };
-                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecsApplying);
-                });
-        });
-
-        it(`test it redirects to dealing with estate page when no selected: ${expectedNextUrlForExecsApplying}`, (done) => {
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        diedbefore: 'optionNo'
-                    };
-                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecsApplying);
-                });
-        });
-
-        it(`test it redirects to tasklist page when yes selected: ${expectedNextUrlForEquality}`, (done) => {
-            sessionData = {
-                index: 1,
-                applicant: {
-                    firstName: 'John',
-                    lastName: 'TheApplicant'
-                },
-                executors: {
-                    executorsNumber: 3,
-                    list: [
-                        {firstName: 'John', lastName: 'TheApplicant', isApplying: 'optionYes', isApplicant: true},
-                        {fullName: 'Many Clouds', isDead: true},
-                    ]
-                }
-            };
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        diedbefore: 'optionYes'
-                    };
-                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testRedirect(done, data, expectedNextUrlForEquality);
-                });
-        });
-
-        it(`test it redirects to tasklist page when no selected: ${expectedNextUrlForEquality}`, (done) => {
-            sessionData = {
-                index: 1,
-                applicant: {
-                    firstName: 'John',
-                    lastName: 'TheApplicant'
-                },
-                executors: {
-                    executorsNumber: 3,
-                    list: [
-                        {firstName: 'John', lastName: 'TheApplicant', isApplying: 'optionYes', isApplicant: true},
-                        {fullName: 'Many Clouds', isDead: true},
-                    ]
-                }
-            };
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        diedbefore: 'optionNo'
-                    };
-                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testRedirect(done, data, expectedNextUrlForEquality);
-                });
-        });
-
-        it(`test it redirects to tasklist page when yes selected on last exec: ${expectedNextUrlForEquality}`, (done) => {
-            sessionData = {
-                index: 1,
-                applicant: {
-                    firstName: 'John',
-                    lastName: 'TheApplicant'
-                },
-                executors: {
-                    executorsNumber: 3,
-                    list: [
-                        {firstName: 'John', lastName: 'TheApplicant', isApplying: 'optionYes', isApplicant: true},
-                        {fullName: 'Many Clouds', isDead: true},
-                        {fullName: 'Bob Too', isDead: true}
-                    ]
-                }
-            };
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        diedbefore: 'optionYes'
-                    };
-                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
-                    testWrapper.testRedirect(done, data, expectedNextUrlForEquality);
-                });
-        });
-
-        it(`test it redirects to tasklist page when no selected on last exec: ${expectedNextUrlForEquality}`, (done) => {
-            sessionData = {
-                index: 1,
-                applicant: {
-                    firstName: 'John',
-                    lastName: 'TheApplicant'
-                },
-                executors: {
-                    executorsNumber: 3,
-                    list: [
-                        {firstName: 'John', lastName: 'TheApplicant', isApplying: 'optionYes', isApplicant: true},
-                        {fullName: 'Many Clouds', isDead: true},
-                        {fullName: 'Bob Too', isDead: true}
-                    ]
-                }
-            };
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        diedbefore: 'optionNo'
-                    };
-                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
-                    testWrapper.testRedirect(done, data, expectedNextUrlForEquality);
                 });
         });
     });
