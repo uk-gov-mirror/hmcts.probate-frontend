@@ -43,5 +43,14 @@ describe('CalcCheck', () => {
             expect(result).to.deep.equal(expectedFalse);
             done();
         });
+        it('should return complete false when optionNo', (done) => {
+            const ctx = {
+                calcCheckCompleted: 'optionNo'
+            };
+            const result = CalcCheck.isComplete(ctx);
+            const expectedFalse = [false, 'inProgress'];
+            expect(result).to.deep.equal(expectedFalse);
+            done();
+        });
     });
 });
