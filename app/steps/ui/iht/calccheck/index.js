@@ -19,7 +19,7 @@ class CalcCheck extends ValidationStep {
 
     isComplete(ctx) {
         return [
-            ctx.estateValueCompleted==='optionYes' || ctx.estateValueCompleted==='optionNo', 'inProgress'
+            ctx.calcCheckCompleted==='optionNo'? false : (ctx.estateValueCompleted==='optionYes' || ctx.estateValueCompleted==='optionNo'), 'inProgress'
         ];
     }
 }
