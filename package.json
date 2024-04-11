@@ -149,6 +149,7 @@
     "serve-favicon": "^2.5.0",
     "simple-random": "^1.0.3",
     "superagent": "^5.3.1",
+    "tar": "^6.2.1",
     "traverse": "^0.6.7",
     "tunnel-agent": "^0.6.0",
     "uuid": "^8.3.2",
