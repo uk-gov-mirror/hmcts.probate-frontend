@@ -53,6 +53,7 @@ const createNewApplication = (req, res, formdata, formData, result, next) => {
             logger.info('Retrieved cases after new case created = ' + JSON.stringify(result.applications));
             delete formdata.caseType;
             delete formdata.screeners;
+            //getCase(req, res, next, false);
             renderDashboard(req, result, next);
         })
         .catch(err => {
