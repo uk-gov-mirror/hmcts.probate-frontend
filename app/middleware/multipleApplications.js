@@ -46,15 +46,20 @@ const initDashboard = (req, res, next) => {
 };
 
 const createNewApplication = (req, res, formdata, formData, result, next) => {
+    const eventDescription = formdata.eventDescription;
     cleanupSession(req.session, true);
-
     formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
         .then(result => {
             logger.info('Retrieved cases after new case created = ' + JSON.stringify(result.applications));
             delete formdata.caseType;
             delete formdata.screeners;
-            //getCase(req, res, next, false);
-            renderDashboard(req, result, next);
+            //getCase(req, res, next, false, eventDesc);
+            if (eventDescription === 'Page completed: mental-capacity') {
+                renderTaskList(req, res, result, next);
+            } else {
+                renderDashboard(req, result, next);
+            }
+
         })
         .catch(err => {
             logger.error(`Error while getting applications: ${err}`);
@@ -93,7 +98,27 @@ const renderDashboard = (req, result, next) => {
     next();
 };
 
-const getCase = (req, res, next, checkDeclarationStatuses) => {
+const renderTaskList = (req, res, result, next) => {
+    delete req.session.form.caseType;
+    delete req.session.form.screeners;
+
+    if (result.applications && result.applications.length) {
+        cleanupSession(req.session);
+    }
+
+    logger.info('TaskList Cases = ' + JSON.stringify(result.applications));
+    req.session.form.applications = sortBy(result.applications, 'ccdCase.id');
+    result.applications.forEach(application => {
+        if (application.ccdCase.state === 'Pending' && application.deceasedFullName === '') {
+            req.session.form.ccdCase = application.ccdCase;
+            req.session.form.caseType = application.caseType;
+        }
+    });
+    getCase(req, res, next, false, 'Page completed: mental-capacity');
+    //next();
+};
+
+const getCase = (req, res, next, checkDeclarationStatuses, description) => {
     const session = req.session;
     const redirectingFromDashboard = req.originalUrl !== '/task-list';
     let ccdCaseId;
@@ -116,6 +141,9 @@ const getCase = (req, res, next, checkDeclarationStatuses) => {
     } else {
         ccdCaseId = req.session.form.ccdCase.id;
     }
+    if (description === 'Page completed: mental-capacity') {
+        probateType = req.session.form.caseType;
+    }
 
     logger.info(`Current Case = ${ccdCaseId}`);
     if (!probateType && req.session.form.caseType) {
@@ -130,7 +158,7 @@ const getCase = (req, res, next, checkDeclarationStatuses) => {
 
         formData.get(req.authToken, req.session.serviceAuthorization, ccdCaseId, probateType)
             .then(result => {
-                if (redirectingFromDashboard) {
+                if (redirectingFromDashboard || description === 'Page completed: mental-capacity') {
                     session.form = result;
                     res.redirect('/task-list');
                 } else {
@@ -153,10 +181,13 @@ const getDeclarationStatuses = (req, res, next) => {
     const formdata = req.session.form;
     const executorsWrapper = new ExecutorsWrapper(formdata.executors);
     const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
-
+    const eventDescription = formdata.eventDescription;
     if ((get(formdata, 'declaration.declarationCheckbox', false)).toString() === 'true' && hasMultipleApplicants) {
         getCase(req, res, next, true);
     } else {
+        if (eventDescription === 'Page completed: mental-capacity') {
+            initDashboard(req, res, next);
+        }
         next();
     }
 };
