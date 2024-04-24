@@ -114,7 +114,6 @@
     "express": "^4.19.2",
     "express-session": "^1.17.3",
     "file-type": "^12.4.2",
-    "formidable": "3.5.1",
     "get-port": "^4.2.0",
     "git-rev-sync": "^3.0.2",
     "govuk-frontend": "^4.8.0",
