@@ -7694,6 +7694,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"formidable@npm:3.5.1":
+  version: 3.5.1
+  resolution: "formidable@npm:3.5.1"
+  dependencies:
+    dezalgo: ^1.0.4
+    hexoid: ^1.0.0
+    once: ^1.4.0
+  checksum: 46b21496f9f985161cf7636163147b6728f9997c7e1d59433680d92619758bf6862330e6d105b5816bafcd1ab32f27ef183455991f93ef836ea731c68db62af9
+  languageName: node
+  linkType: hard
+
 "formidable@npm:^1.2.2":
   version: 1.2.6
   resolution: "formidable@npm:1.2.6"
@@ -13523,6 +13534,7 @@ __metadata:
     express: ^4.19.2
     express-session: ^1.17.3
     file-type: ^12.4.2
+    formidable: 3.5.1
     get-port: ^4.2.0
     git-rev-sync: ^3.0.2
     govuk-frontend: ^4.8.0
