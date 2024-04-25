@@ -69,7 +69,7 @@ router.post('/payment-breakdown', lockPaymentAttempt);
 
 router.get('/start-apply', (req, res, next) => {
     if (config.app.useIDAM === 'true' && req.userLoggedIn) {
-        res.redirect(301, '/task-list');
+        res.redirect(301, '/dashboard');
     } else {
         next();
     }

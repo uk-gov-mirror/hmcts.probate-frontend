@@ -143,6 +143,7 @@ const getCase = (req, res, next, checkDeclarationStatuses, description) => {
     }
     if (description === 'Page completed: mental-capacity') {
         probateType = req.session.form.caseType;
+        ccdCaseId = req.session.form.ccdCase.id;
     }
 
     logger.info(`Current Case = ${ccdCaseId}`);
