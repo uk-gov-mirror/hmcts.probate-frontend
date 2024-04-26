@@ -53,7 +53,6 @@ const createNewApplication = (req, res, formdata, formData, result, next) => {
             logger.info('Retrieved cases after new case created = ' + JSON.stringify(result.applications));
             delete formdata.caseType;
             delete formdata.screeners;
-            //getCase(req, res, next, false, eventDesc);
             if (eventDescription === 'Page completed: mental-capacity') {
                 renderTaskList(req, res, result, next);
             } else {
@@ -115,7 +114,6 @@ const renderTaskList = (req, res, result, next) => {
         }
     });
     getCase(req, res, next, false, 'Page completed: mental-capacity');
-    //next();
 };
 
 const getCase = (req, res, next, checkDeclarationStatuses, description) => {
@@ -182,13 +180,9 @@ const getDeclarationStatuses = (req, res, next) => {
     const formdata = req.session.form;
     const executorsWrapper = new ExecutorsWrapper(formdata.executors);
     const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
-    const eventDescription = formdata.eventDescription;
     if ((get(formdata, 'declaration.declarationCheckbox', false)).toString() === 'true' && hasMultipleApplicants) {
         getCase(req, res, next, true);
     } else {
-        if (eventDescription === 'Page completed: mental-capacity') {
-            initDashboard(req, res, next);
-        }
         next();
     }
 };
