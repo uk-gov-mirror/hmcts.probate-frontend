@@ -1002,4 +1002,64 @@ describe('multipleApplicationsMiddleware', () => {
             });
         });
     });
+    describe('renderTaskList function', () => {
+        it('should redirect to task-list when previous page is mental-capacity', (done) => {
+            const req = {
+                originalUrl: '/get-case/1234567890123456',
+                session: {
+                    id: 'fb2e77d.47a0479900504cb3ab4a1f626d174d2d',
+                    form: {
+                        caseType: 'gop',
+                        applicantEmail: 'test@email.com',
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Pending',
+                        }
+                    }
+                }
+            };
+            const result = {
+                applications: [
+                    {
+                        dateCreated: '9 November 2019',
+                        caseType: 'PA',
+                        deceasedFullName: '',
+                        ccdCase: {
+                            id: '9999999999999999',
+                            state: 'Pending'
+                        }
+                    }
+                ]
+            };
+            const res = {redirect: () => {
+                // Do nothing
+            }};
+
+            const multipleAppGetCaseStubResponse = {
+                applicantEmail: 'test@email.com',
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Pending',
+                }
+            };
+
+            const redirectSpy = sinon.spy(res, 'redirect');
+            const asyncFetchStub = sinon.stub(AsyncFetch, 'fetchJson')
+                .returns(Promise.resolve(multipleAppGetCaseStubResponse));
+            const next = sinon.spy();
+
+            multipleApplicationsMiddleware.renderTaskList(req, res, result, next);
+            // eslint-disable-next-line no-unused-expressions
+            setTimeout(() => {
+                expect(asyncFetchStub.calledOnce).to.equal(true);
+                expect(redirectSpy.calledOnce).to.equal(true);
+                expect(redirectSpy.calledWith('/task-list')).to.equal(true);
+
+                asyncFetchStub.restore();
+                redirectSpy.restore();
+
+                done();
+            });
+        });
+    });
 });

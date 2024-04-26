@@ -229,4 +229,5 @@ const cleanupSession = (session, retainCaseType = false) => {
 
 module.exports.initDashboard = initDashboard;
 module.exports.getCase = getCase;
+module.exports.renderTaskList = renderTaskList;
 module.exports.getDeclarationStatuses = getDeclarationStatuses;
