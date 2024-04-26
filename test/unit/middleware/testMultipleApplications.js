@@ -350,18 +350,11 @@ describe('multipleApplicationsMiddleware', () => {
         });
 
         it('should create a new draft application based on mental capacity', (done) => {
+            delete allApplicationsExpectedResponse.applications[4];
+
             const revert = multipleApplicationsMiddleware.__set__({
                 renderTaskList: function () {
-                    req.session.form.applications = [
-                        {
-                            dateCreated: '9 November 2019',
-                            caseType: 'PA',
-                            ccdCase: {
-                                id: '9999999999999999',
-                                state: 'Pending'
-                            }
-                        }
-                    ];
+                    req.session.form.applications = allApplicationsExpectedResponse.applications;
                     return Promise.resolve();
                 },
                 ScreenerValidation: class {
@@ -410,16 +403,7 @@ describe('multipleApplicationsMiddleware', () => {
                         applicantEmail: 'test@email.com',
                         payloadVersion: 'dummy',
                         userLoggedIn: true,
-                        applications: [
-                            {
-                                dateCreated: '9 November 2019',
-                                caseType: 'PA',
-                                ccdCase: {
-                                    id: '9999999999999999',
-                                    state: 'Pending'
-                                }
-                            }
-                        ]
+                        applications: allApplicationsExpectedResponse.applications
                     }
                 });
 
