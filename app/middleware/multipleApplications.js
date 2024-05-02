@@ -155,7 +155,7 @@ const getCase = (req, res, next, checkDeclarationStatuses, description) => {
             [config.services.orchestrator.url, req.sessionID]
         );
 
-        formData.get(req.authToken, req.session.serviceAuthorization, ccdCaseId)
+        formData.get(req.authToken, req.session.serviceAuthorization, ccdCaseId, probateType)
             .then(result => {
                 if (redirectingFromDashboard || description === 'Page completed: mental-capacity') {
                     session.form = result;
