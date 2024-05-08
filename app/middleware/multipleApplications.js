@@ -47,13 +47,15 @@ const initDashboard = (req, res, next) => {
 
 const createNewApplication = (req, res, formdata, formData, result, next) => {
     const eventDescription = formdata.eventDescription;
+    const screenersCompleted = formdata.caseType &&
+        formdata.caseType === caseTypes.GOP ? eventDescription === 'Page completed: mental-capacity' : eventDescription === 'Page completed: other-applicants';
     cleanupSession(req.session, true);
     formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
         .then(result => {
             logger.info('Retrieved cases after new case created = ' + JSON.stringify(result.applications));
             delete formdata.caseType;
             delete formdata.screeners;
-            if (eventDescription === 'Page completed: mental-capacity') {
+            if (screenersCompleted) {
                 renderTaskList(req, res, result, next);
             } else {
                 renderDashboard(req, result, next);
@@ -100,7 +102,7 @@ const renderDashboard = (req, result, next) => {
 const renderTaskList = (req, res, result, next) => {
     delete req.session.form.caseType;
     delete req.session.form.screeners;
-
+    const description = req.session.form.eventDescription;
     if (result.applications && result.applications.length) {
         cleanupSession(req.session);
     }
@@ -113,7 +115,7 @@ const renderTaskList = (req, res, result, next) => {
             req.session.form.caseType = application.caseType;
         }
     });
-    getCase(req, res, next, false, 'Page completed: mental-capacity');
+    getCase(req, res, next, false, description);
 };
 
 const getCase = (req, res, next, checkDeclarationStatuses, description) => {
@@ -139,7 +141,9 @@ const getCase = (req, res, next, checkDeclarationStatuses, description) => {
     } else {
         ccdCaseId = req.session.form.ccdCase.id;
     }
-    if (description === 'Page completed: mental-capacity') {
+    const screenersCompleted = req.session.form.caseType &&
+        req.session.form.caseType === 'PA' ? description === 'Page completed: mental-capacity' : description === 'Page completed: other-applicants';
+    if (screenersCompleted) {
         probateType = req.session.form.caseType;
         ccdCaseId = req.session.form.ccdCase.id;
     }
@@ -157,7 +161,7 @@ const getCase = (req, res, next, checkDeclarationStatuses, description) => {
 
         formData.get(req.authToken, req.session.serviceAuthorization, ccdCaseId, probateType)
             .then(result => {
-                if (redirectingFromDashboard || description === 'Page completed: mental-capacity') {
+                if (redirectingFromDashboard || screenersCompleted) {
                     session.form = result;
                     res.redirect('/task-list');
                 } else {
