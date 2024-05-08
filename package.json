@@ -94,7 +94,7 @@
     "@hmcts/nodejs-healthcheck": "^1.8.0",
     "@hmcts/nodejs-logging": "^4.0.4",
     "@hmcts/os-places-client": "^1.1.7",
-    "@hmcts/properties-volume": "^0.0.14",
+    "@hmcts/properties-volume": "^1.0.0",
     "@wdio/cli": "^8.10.5",
     "@wdio/selenium-standalone-service": "^8.10.4",
     "ajv": "^6.12.6",
