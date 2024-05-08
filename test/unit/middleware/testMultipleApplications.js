@@ -349,7 +349,7 @@ describe('multipleApplicationsMiddleware', () => {
             });
         });
 
-        it('should create a new draft application based on mental capacity', (done) => {
+        it('should create a new gop draft application based on mental capacity', (done) => {
             delete allApplicationsExpectedResponse.applications[4];
 
             const revert = multipleApplicationsMiddleware.__set__({
@@ -1002,6 +1002,7 @@ describe('multipleApplicationsMiddleware', () => {
             });
         });
     });
+
     describe('renderTaskList function', () => {
         it('should redirect to task-list when previous page is mental-capacity', (done) => {
             const req = {
@@ -1014,7 +1015,8 @@ describe('multipleApplicationsMiddleware', () => {
                         ccdCase: {
                             id: 1234567890123456,
                             state: 'Pending',
-                        }
+                        },
+                        eventDescription: 'Page completed: mental-capacity'
                     }
                 }
             };
