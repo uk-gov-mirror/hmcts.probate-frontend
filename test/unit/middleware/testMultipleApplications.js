@@ -403,7 +403,9 @@ describe('multipleApplicationsMiddleware', () => {
                         applicantEmail: 'test@email.com',
                         payloadVersion: 'dummy',
                         userLoggedIn: true,
-                        applications: allApplicationsExpectedResponse.applications
+                        applications: allApplicationsExpectedResponse.applications,
+                        eventDescription: 'Page completed: mental-capacity'
+
                     }
                 });
 

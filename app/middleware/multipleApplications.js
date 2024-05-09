@@ -120,7 +120,7 @@ const renderTaskList = (req, res, result, next) => {
     getCase(req, res, next, false, screenersCompleted);
 };
 
-const getCase = (req, res, next, checkDeclarationStatuses, screenersCompleted) => {
+const getCase = (req, res, next, checkDeclarationStatuses, screenersCompleted = false) => {
     const session = req.session;
     const redirectingFromDashboard = req.originalUrl !== '/task-list';
     let ccdCaseId;
