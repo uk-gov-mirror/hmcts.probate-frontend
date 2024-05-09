@@ -49,7 +49,7 @@ const createNewApplication = (req, res, formdata, formData, result, next) => {
     const eventDescription = formdata.eventDescription;
     const screenersCompleted = formdata.caseType &&
         formdata.caseType === caseTypes.GOP ? eventDescription === 'Page completed: mental-capacity' : eventDescription === 'Page completed: other-applicants';
-    cleanupSession(req.session, true);
+    cleanupSession(req.session, true, true);
     formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
         .then(result => {
             logger.info('Retrieved cases after new case created = ' + JSON.stringify(result.applications));
@@ -115,10 +115,12 @@ const renderTaskList = (req, res, result, next) => {
             req.session.form.caseType = application.caseType;
         }
     });
-    getCase(req, res, next, false, description);
+    const screenersCompleted = req.session.form.caseType &&
+    req.session.form.caseType === 'PA' ? description === 'Page completed: mental-capacity' : description === 'Page completed: other-applicants';
+    getCase(req, res, next, false, screenersCompleted);
 };
 
-const getCase = (req, res, next, checkDeclarationStatuses, description) => {
+const getCase = (req, res, next, checkDeclarationStatuses, screenersCompleted) => {
     const session = req.session;
     const redirectingFromDashboard = req.originalUrl !== '/task-list';
     let ccdCaseId;
@@ -141,8 +143,6 @@ const getCase = (req, res, next, checkDeclarationStatuses, description) => {
     } else {
         ccdCaseId = req.session.form.ccdCase.id;
     }
-    const screenersCompleted = req.session.form.caseType &&
-        req.session.form.caseType === 'PA' ? description === 'Page completed: mental-capacity' : description === 'Page completed: other-applicants';
     if (screenersCompleted) {
         probateType = req.session.form.caseType;
         ccdCaseId = req.session.form.ccdCase.id;
@@ -215,7 +215,7 @@ const populateDeclarationFlags = (result, formdata) => {
     return formdata;
 };
 
-const cleanupSession = (session, retainCaseType = false) => {
+const cleanupSession = (session, retainCaseType = false, retainEventDescription = false) => {
     const retainedList = [
         'applicantEmail',
         'payloadVersion',
@@ -223,6 +223,9 @@ const cleanupSession = (session, retainCaseType = false) => {
     ];
     if (retainCaseType) {
         retainedList.push('caseType');
+    }
+    if (retainEventDescription) {
+        retainedList.push('eventDescription');
     }
     Object.keys(session.form).forEach((key) => {
         if (!retainedList.includes(key)) {
