@@ -110,6 +110,7 @@
     "cookie-parser": "^1.4.6",
     "csurf": "^1.10.0",
     "debug": "^4.3.4",
+    "dotenv": "^16.4.5",
     "email-validator": "^2.0.4",
     "express": "^4.19.2",
     "express-session": "^1.17.3",
@@ -160,7 +161,7 @@
   "devDependencies": {
     "@pact-foundation/pact": "^12.2.0",
     "@pact-foundation/pact-node": "^10.17.7",
-    "@playwright/test": "^1.41.2",
+    "@playwright/test": "^1.44.0",
     "@types/node": "^20.11.18",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
