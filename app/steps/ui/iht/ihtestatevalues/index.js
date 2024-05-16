@@ -38,8 +38,7 @@ class IhtEstateValues extends ValidationStep {
             }
             ctx.estateNetQualifyingValue = parseFloat(numeral(ctx.estateNetQualifyingValueField).format('0.00'));
         }
-
-        if (ctx.estateNetValue > ctx.estateGrossValue) {
+        if (ctx.estateNetQualifyingValueField > ctx.estateGrossValueField || ctx.estateNetValue > ctx.estateGrossValueField) {
             errors.push(FieldError('estateNetValueField', 'netValueGreaterThanGross', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
         return [ctx, errors];

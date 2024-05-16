@@ -32,7 +32,8 @@
             "required": "Enter the net amount",
             "invalid": "Enter a valid net amount",
             "invalidCurrencyFormat": "Net qualifying value must be a whole number or a number with 2 decimal places",
-            "invalidInteger": "The net qualifying value must be a whole number and must not include decimals, full stops or commas. For example, 6000"
+            "invalidInteger": "The net qualifying value must be a whole number and must not include decimals, full stops or commas. For example, 6000",
+            "netQualifyingValueGrater": "Net Qualifying Value Cant;t be greater than the gross amount "
         }
     }
 }
