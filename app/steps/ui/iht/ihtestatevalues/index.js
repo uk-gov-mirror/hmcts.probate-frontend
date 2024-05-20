@@ -37,8 +37,12 @@ class IhtEstateValues extends ValidationStep {
                 errors.push(FieldError('estateNetQualifyingValueField', 'invalidInteger', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
             }
             ctx.estateNetQualifyingValue = parseFloat(numeral(ctx.estateNetQualifyingValueField).format('0.00'));
+            if (ctx.estateNetQualifyingValue > ctx.estateNetValueField || ctx.estateNetQualifyingValue > ctx.estateGrossValue) {
+                errors.push(FieldError('estateNetQualifyingValueField', 'netQualifyingValueGrater', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+            }
         }
-        if (ctx.estateNetQualifyingValueField > ctx.estateGrossValueField || ctx.estateNetValue > ctx.estateGrossValueField) {
+
+        if (ctx.estateNetValue > ctx.estateGrossValue) {
             errors.push(FieldError('estateNetValueField', 'netValueGreaterThanGross', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
         return [ctx, errors];
