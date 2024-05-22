@@ -32,7 +32,7 @@
             "invalid": "Nodwch swm net dilys",
             "invalidCurrencyFormat": "Rhaid i&rsquo;r swm net cymwys fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol",
             "invalidInteger": "The net qualifying value must be a whole number and must not include decimals, full stops or commas. For example, 6000",
-            "netQualifyingValueGrater": "Net Qualifying Value Cant;t be greater than the gross amount "
+            "netQualifyingValueGreater": "Net qualifying value can&rsquo;t be greater than the gross amount and the net amount"
         }
     }
 }

@@ -260,7 +260,7 @@ describe('IhtEstateValues', () => {
                 {
                     field: 'estateNetQualifyingValueField',
                     href: '#estateNetQualifyingValueField',
-                    msg: content.errors.estateNetQualifyingValueField.netQualifyingValueGrater
+                    msg: content.errors.estateNetQualifyingValueField.netQualifyingValueGreater
                 },
                 {
                     field: 'estateNetValueField',
