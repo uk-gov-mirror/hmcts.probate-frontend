@@ -61,9 +61,9 @@ getTestLanguages().forEach(language => {
         // IdAM
         await I.authenticateWithIdamIfAvailable(language);
 
-        // Dashboard page is removed as part ticket DTSPB-4078
+        // Dashboard
 
-        // await I.chooseApplication(language);
+        await I.chooseApplication(language);
 
         // Deceased Task
         await I.selectATask(language, taskListContent.taskNotStarted);
@@ -165,7 +165,7 @@ getTestLanguages().forEach(language => {
         await I.authenticateWithIdamIfAvailable(language);
 
         // Dashboard
-        //await I.chooseApplication(language);
+        await I.chooseApplication(language);
 
         // Deceased Task
         await I.selectATask(language, taskListContent.taskNotStarted);
