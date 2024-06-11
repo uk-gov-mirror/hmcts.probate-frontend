@@ -1,7 +1,8 @@
 {
   "title": "Applicant name on the will",
-  "question": "Is your name &lsquo;{deceasedName}&rsquo; exactly what appears on the will?",
+  "question": "Is &lsquo;{deceasedName}&rsquo; exactly how the name is written on the will?",
   "questionWithoutName": "Is your name exactly what appears on the will?",
+  "explanation1": "You should check the will to make sure the names are exactly the same.",
   "optionYes": "Yes",
   "optionNo": "No",
 
