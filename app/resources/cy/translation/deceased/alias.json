@@ -3,7 +3,8 @@
   "question": "A oedd gan {deceasedName} asedau mewn enw arall?",
   "optionYes": "Oedd",
   "optionNo": "Nag oedd",
-  "paragraph1": "Fe allai hyn fod yn gyfranddaliadau neu&rsquo;n eiddo a oedd ganddynt yn eu henw cyn priodi neu lysenw. Efallai eu bod hefyd wedi sillafu eu henw&rsquo;n wahanol neu wedi gadael rhan o&rsquo;u henw allan.",
+  "paragraph1": "Bydd y grant profiant yn rhestru'r holl enwau rydych chi'n eu rhoi i ni.",
+  "paragraph2": "Gallai’r unigolyn a fu farw fod wedi defnyddio ei enw cyn priodi, llysenw, neu sillafiad gwahanol o’i enw ar gyfer rhai o’i asedau. Efallai y byddai’n ddefnyddiol i chi wirio unrhyw ddogfennau sydd gennych gan yr unigolyn a fu farw, er enghraifft, cyfriflenni banc, gweithredoedd eiddo neu gofnodion o unrhyw gyfranddaliadau a oedd ganddynt, i weld a oeddent yn defnyddio enw gwahanol.",
   "theDeceased": "yr unigolyn sydd wedi marw",
   "errors": {
     "alias": {
