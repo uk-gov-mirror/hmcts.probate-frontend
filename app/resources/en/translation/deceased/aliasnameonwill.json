@@ -6,11 +6,11 @@
 
   "errors": {
     "aliasFirstNameOnWill": {
-      "required": "Enter your first name, including middle names",
+      "required": "Enter the first name and any middle names of the person who died",
       "invalid": "Enter a valid first name - can only contain letters a to z, spaces, hyphens and apostrophes"
     },
     "aliasLastNameOnWill": {
-      "required": "Enter your last name",
+      "required": "Enter the last name of the person who died",
       "invalid": "Enter a valid last name - can only contain letters a to z, spaces, hyphens and apostrophes"
     }
   }
