@@ -1,15 +1,15 @@
 {
   "title": "Enw arall y ceisydd",
   "question": "Sut mae eich enw wedi cael ei ysgrifennu ar yr ewyllys?",
-  "aliasFirstNameOnWill": "First name and any middle names",
-  "aliasLastNameOnWill": "Last name",
+  "aliasFirstNameOnWill": "Enw cyntaf ac unrhyw enwau canol",
+  "aliasLastNameOnWill": "Enw olaf",
 
   "errors": {
     "aliasFirstNameOnWill": {
-      "required": "Enter your first name, including middle names"
+      "required": "Rhowch enw cyntaf ac unrhyw enwau canol yr unigolyn a fu farw"
     },
     "aliasLastNameOnWill": {
-      "required": "Enter your last name"
+      "required": "Nodwch enw olaf yr unigolyn a fu farw"
     }
   }
 }
