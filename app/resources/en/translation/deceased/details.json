@@ -2,7 +2,7 @@
   "title": "Deceased details",
   "question": "What are the details of the person who died?",
   "questionName": "The name of the person who died",
-  "deathCertificateHint": "You should use the details from the death certificate",
+  "deathCertificateHint": "You should use the details from the death certificate.",
   "firstName": "First name and any middle names",
   "firstNameHint": "Including middle names",
   "lastName": "Last name",
