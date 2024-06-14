@@ -2,7 +2,7 @@
   "title": "Manylion yr unigolyn sydd wedi marw",
   "question": "Beth yw manylion yr unigolyn sydd wedi marw?",
   "questionName": "Enw&rsquo;r unigolyn sydd wedi marw",
-  "deathCertificateHint": "You should use the details from the death certificate",
+  "deathCertificateHint": "Dylech ddefnyddio’r manylion sydd ar y dystysgrif marwolaeth.",
   "firstName": "Enw(au) cyntaf",
   "firstNameHint": "Gan gynnwys enwau canol",
   "lastName": "Cyfenw(au)",
