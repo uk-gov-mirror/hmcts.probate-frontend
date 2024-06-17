@@ -168,9 +168,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/identity@npm:^4.0.0-beta.1":
-  version: 4.2.0
-  resolution: "@azure/identity@npm:4.2.0"
+"@azure/identity@npm:^4.2.1":
+  version: 4.2.1
+  resolution: "@azure/identity@npm:4.2.1"
   dependencies:
     "@azure/abort-controller": ^1.0.0
     "@azure/core-auth": ^1.5.0
@@ -180,13 +180,13 @@ __metadata:
     "@azure/core-util": ^1.3.0
     "@azure/logger": ^1.0.0
     "@azure/msal-browser": ^3.11.1
-    "@azure/msal-node": ^2.6.6
+    "@azure/msal-node": ^2.9.2
     events: ^3.0.0
     jws: ^4.0.0
     open: ^8.0.0
     stoppable: ^1.1.0
     tslib: ^2.2.0
-  checksum: b1b336113c944abf89376f366bf8e82958617465c91e561e922c165a10aaa1789e83a78b7baa070671247d0f97c63b4cc89cf6cabc72258f3d9cbe12fe799e2a
+  checksum: 2dbd7b0fa6b92904b7b8f828374d7316384cc4e00c71cdac3a2f2544b9e02c7287fe7ad58149bb8794c57913d77a927f5a7b5d1367e05abe82b0f2e1b162415c
   languageName: node
   linkType: hard
 
@@ -227,6 +227,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@azure/msal-common@npm:14.12.0":
+  version: 14.12.0
+  resolution: "@azure/msal-common@npm:14.12.0"
+  checksum: 9a987b7b9b6453500481ec48224b4d9f728c62ac584f9a35ef519eff46016fc63c1a7dc159f725a5ec3748bf1ade352654fd7a7170ba42bc27ca263a01cf59db
+  languageName: node
+  linkType: hard
+
 "@azure/msal-common@npm:14.9.0":
   version: 14.9.0
   resolution: "@azure/msal-common@npm:14.9.0"
@@ -234,14 +241,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-node@npm:^2.6.6":
-  version: 2.7.0
-  resolution: "@azure/msal-node@npm:2.7.0"
+"@azure/msal-node@npm:^2.9.2":
+  version: 2.9.2
+  resolution: "@azure/msal-node@npm:2.9.2"
   dependencies:
-    "@azure/msal-common": 14.9.0
+    "@azure/msal-common": 14.12.0
     jsonwebtoken: ^9.0.0
     uuid: ^8.3.0
-  checksum: e83d02790ccd2dafdada1598513b5582f911127d16d6afa7bb58f65e9c256814881076a4e5d748f4da0ae4b4d21970f5202e79b8478201ca515dc81677e98ac2
+  checksum: a2b51d4085d20cbac84752b9e68a5a22c7c9dbfdbc25a1713ee5e6918a504928f82e66c9317fc78db4f12053e7debd477b984cab578e0bea269aacc0862e7219
   languageName: node
   linkType: hard
 
@@ -2559,11 +2566,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*, @types/node@npm:^20.1.0, @types/node@npm:^20.1.1, @types/node@npm:^20.11.18":
-  version: 20.12.7
-  resolution: "@types/node@npm:20.12.7"
+  version: 20.14.2
+  resolution: "@types/node@npm:20.14.2"
   dependencies:
     undici-types: ~5.26.4
-  checksum: 7cc979f7e2ca9a339ec71318c3901b9978555257929ef3666987f3e447123bc6dc92afcc89f6347e09e07d602fde7d51bcddea626c23aa2bb74aeaacfd1e1686
+  checksum: 265362479b8f3b50fcd1e3f9e9af6121feb01a478dff0335ae67cccc3babfe45d0f12209d3d350595eebd7e67471762697b877c380513f8e5d27a238fa50c805
   languageName: node
   linkType: hard
 
@@ -3916,12 +3923,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"braces@npm:^3.0.2, braces@npm:~3.0.2":
-  version: 3.0.2
-  resolution: "braces@npm:3.0.2"
+"braces@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "braces@npm:3.0.3"
   dependencies:
-    fill-range: ^7.0.1
-  checksum: e2a8e769a863f3d4ee887b5fe21f63193a891c68b612ddb4b68d82d1b5f3ff9073af066c343e9867a393fe4c2555dcb33e89b937195feb9c1613d259edfcd459
+    fill-range: ^7.1.1
+  checksum: b95aa0b3bd909f6cd1720ffcf031aeaf46154dd88b4da01f9a1d3f7ea866a79eba76a6d01cbc3c422b2ee5cdc39a4f02491058d5df0d7bf6e6a162a832df1f69
   languageName: node
   linkType: hard
 
@@ -5766,7 +5773,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4, debug@npm:4.3.4, debug@npm:^4, debug@npm:^4.0.1, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.3, debug@npm:^4.3.4":
+"debug@npm:4, debug@npm:^4, debug@npm:^4.0.1, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.3, debug@npm:^4.3.4":
+  version: 4.3.5
+  resolution: "debug@npm:4.3.5"
+  dependencies:
+    ms: 2.1.2
+  peerDependenciesMeta:
+    supports-color:
+      optional: true
+  checksum: 7c002b51e256257f936dda09eb37167df952758c57badf6bf44bdc40b89a4bcb8e5a0a2e4c7b53f97c69e2970dd5272d33a757378a12c8f8e64ea7bf99e8e86e
+  languageName: node
+  linkType: hard
+
+"debug@npm:4.3.4":
   version: 4.3.4
   resolution: "debug@npm:4.3.4"
   dependencies:
@@ -7539,12 +7558,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fill-range@npm:^7.0.1":
-  version: 7.0.1
-  resolution: "fill-range@npm:7.0.1"
+"fill-range@npm:^7.1.1":
+  version: 7.1.1
+  resolution: "fill-range@npm:7.1.1"
   dependencies:
     to-regex-range: ^5.0.1
-  checksum: cc283f4e65b504259e64fd969bcf4def4eb08d85565e906b7d36516e87819db52029a76b6363d0f02d0d532f0033c9603b9e2d943d56ee3b0d4f7ad3328ff917
+  checksum: b4abfbca3839a3d55e4ae5ec62e131e2e356bf4859ce8480c64c4876100f4df292a63e5bb1618e1d7460282ca2b305653064f01654474aa35c68000980f17798
   languageName: node
   linkType: hard
 
@@ -12548,8 +12567,8 @@ __metadata:
   linkType: hard
 
 "nodemon@npm:^3.0.3":
-  version: 3.1.0
-  resolution: "nodemon@npm:3.1.0"
+  version: 3.1.3
+  resolution: "nodemon@npm:3.1.3"
   dependencies:
     chokidar: ^3.5.2
     debug: ^4
@@ -12563,7 +12582,7 @@ __metadata:
     undefsafe: ^2.0.5
   bin:
     nodemon: bin/nodemon.js
-  checksum: 0b721f66ee60d9bf092f6101965bc65769698fa2921d0283d90bbf3f0906aa4f3ac77316682375bd7f09c91679fddb131aa39f9fc839fea57061bbc8e81b60e3
+  checksum: ac2fa8865ab292b7ddf66731487acca4b4282b2728361e0de633c0c74cd705d6a0852b52f785c09469d959241d038ba824f50375622e687a2a318be747d9cd9d
   languageName: node
   linkType: hard
 
