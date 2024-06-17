@@ -3,6 +3,7 @@
 - [ ] commit messages are meaningful and follow good commit message guidelines
 - [ ] README and other documentation has been updated / added (if needed)
 - [ ] tests have been updated / new tests has been added (if needed)
+- [ ] update CSS version to force refresh if any changes are introduced
 
 Please remove this line and everything above and fill the following sections:
 
@@ -17,12 +18,6 @@ Please remove this line and everything above and fill the following sections:
 
 **Does this PR introduce a breaking change?** (check one with "x")
 
-```
-[ ] Yes
-[ ] No
-```
-**Does this PR introduce any css change?** (check one with "x")
-Reminder: Update css version to force refresh
 ```
 [ ] Yes
 [ ] No
