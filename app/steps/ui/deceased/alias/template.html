@@ -3,6 +3,7 @@
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
 {% block form_content %}
     {% call govukFieldset({
@@ -12,8 +13,14 @@
             isPageHeading: true
         }
     }) %}
-    <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
-    <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
+
+    {% if fields.caseType.value === globals.caseTypes.intestacy %}
+        <p class="govuk-body">{{ content.intestacyParagraph1 | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+    {% else %}
+        <p class="govuk-body">{{ content.GopParagraph1 | safe }}</p>
+        <p class="govuk-body">{{ content.GopParagraph2 | safe }}</p>
+    {% endif %}
+
     {{ govukRadios({
         classes: "govuk-radios--inline",
         idPrefix: "alias",
@@ -34,7 +41,12 @@
     }) }}
     {% endcall %}
 
-<div class="govuk-form-group">
+    {{ govukWarningText({
+    text: content.warningText | safe,
+    iconFallbackText: "Warning"
+    }) }}
+
+    <div class="govuk-form-group">
         {{ govukButton({
             text: common.saveAndContinue | safe,
             preventDoubleClick: true
