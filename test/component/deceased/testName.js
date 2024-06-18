@@ -1,13 +1,13 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const DeceasedDob = require('app/steps/ui/deceased/dob');
+const DeceasedNameAsOnWill = require('app/steps/ui/deceased/nameasonwill');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('deceased-name', () => {
     let testWrapper;
-    const expectedNextUrlForDeceasedDob = DeceasedDob.getUrl();
+    const expectedNextUrlForDeceasedNameAsOnWill = DeceasedNameAsOnWill.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedName');
@@ -58,12 +58,12 @@ describe('deceased-name', () => {
             testWrapper.testErrors(done, data, 'invalid', errorsToTest);
         });
 
-        it(`test it redirects to Deceased Date of Birth page: ${expectedNextUrlForDeceasedDob}`, (done) => {
+        it(`test it redirects to Deceased Name As On Will page: ${expectedNextUrlForDeceasedNameAsOnWill}`, (done) => {
             const data = {
                 firstName: 'Bob',
                 lastName: 'Smith'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDob);
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedNameAsOnWill);
         });
     });
 });
