@@ -1,16 +1,18 @@
 {
   "title": "Dashboard",
   "header": "Probate applications",
-  "tableHeaderCcdCaseId": "Case ID",
+  "tableHeaderActionStatus": "Next steps",
   "tableHeaderDeceasedName": "Person who died",
   "tableHeaderCreateDate": "Date created",
   "tableHeaderCaseStatus": "Status",
   "tableHeaderActions": "Actions",
-  "statusDraftProbate": "Draft (probate)",
+  "statusDraftProbate": "Name not entered yet",
   "statusDraftIntestacy": "Draft (intestacy)",
   "statusInProgress": "IN PROGRESS",
-  "statusSubmitted": "Sent",
+  "statusSubmitted": "SUBMITTED",
+  "statusGrantIssued": "GRANT ISSUED",
   "actionContinue": "Continue application",
-  "actionView": "View application",
-  "actionNewApplication": "New application"
+  "actionView": "View application progress",
+  "actionFindMore": "Find out more",
+  "actionNewApplication": "Start a new application"
 }
