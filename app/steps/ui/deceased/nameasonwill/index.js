@@ -2,6 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {get} = require('lodash');
+const FormatName = require('app/utils/FormatName');
 
 class DeceasedNameAsOnWill extends ValidationStep {
 
@@ -40,6 +41,12 @@ class DeceasedNameAsOnWill extends ValidationStep {
         }
 
         return [ctx, formdata];
+    }
+
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        ctx.deceasedName = FormatName.format(req.session.form.deceased);
+        return ctx;
     }
 }
 
