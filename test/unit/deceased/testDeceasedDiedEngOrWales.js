@@ -90,6 +90,7 @@ describe('DiedEnglandOrWales', () => {
                             'dod-day': '02',
                             'dod-month': '03',
                             'dod-year': '2003',
+                            nameAsOnTheWill: 'Yes',
                             address: {
                                 addressLine1: '143 Caerfai Bay Road',
                                 postTown: 'town',
@@ -97,9 +98,9 @@ describe('DiedEnglandOrWales', () => {
                                 country: 'United Kingdon',
                                 postcode: 'L23 6WW'
                             }
-
                         }
-                    }
+                    },
+                    back: ['hello']
                 }
             };
             req.session.journey = journeyProbate;

@@ -11,7 +11,7 @@ describe('DeceasedNameAsOnWill', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = DeceasedNameAsOnWill.constructor.getUrl();
-            expect(url).to.equal('/died-eng-or-wales');
+            expect(url).to.equal('/deceased-name-as-on-will');
             done();
         });
     });
@@ -24,12 +24,6 @@ describe('DeceasedNameAsOnWill', () => {
                     key: 'diedEngOrWales',
                     value: 'optionYes',
                     choice: 'hasDiedEngOrWales'
-
-                    /* CORRECT?
-                    key: 'nameAsOnTheWill',
-                    value: 'optionNo',
-                    choice: 'hasAlias'
-                     */
                 }]
             });
             done();
@@ -47,7 +41,7 @@ describe('DeceasedNameAsOnWill', () => {
                         deceased: {
                             firstName: 'John',
                             lastName: 'Doe',
-                            'dod-date': '2022-01-01'
+                            'dod-date': '2022-01-01',
                         }
                     }
                 }
@@ -97,6 +91,7 @@ describe('DeceasedNameAsOnWill', () => {
                             'dod-day': '02',
                             'dod-month': '03',
                             'dod-year': '2003',
+                            nameAsOnTheWill: 'Yes',
                             address: {
                                 addressLine1: '143 Caerfai Bay Road',
                                 postTown: 'town',
