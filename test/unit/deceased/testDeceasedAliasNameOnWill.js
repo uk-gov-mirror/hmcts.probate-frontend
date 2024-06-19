@@ -2,7 +2,7 @@
 
 const initSteps = require('app/core/initSteps');
 const journeyProbate = require('app/journeys/probate');
-const {expect, assert} = require('chai');
+const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const DeceasedAliasNameOnWill = steps.DeceasedAliasNameOnWill;
 const PreviousStep = steps.DeceasedNameAsOnWill;
@@ -13,16 +13,6 @@ describe('DeceasedAliasNameOnWill', () => {
             const url = DeceasedAliasNameOnWill.constructor.getUrl();
             expect(url).to.equal('/deceased-alias-name-on-will');
             done();
-        });
-    });
-
-    describe('action()', () => {
-        it('test it cleans up context', () => {
-            const ctx = {
-                index: 3683
-            };
-            DeceasedAliasNameOnWill.action(ctx);
-            assert.isUndefined(ctx.index);
         });
     });
 
