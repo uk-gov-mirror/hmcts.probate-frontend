@@ -25,7 +25,7 @@ class DeceasedAlias extends ValidationStep {
         const session = req.session;
         const formdata = session.form;
         ctx.deceasedName = FormatName.format(formdata.deceased);
-        ctx.ccdReferenceNumber = FormatCcdCaseId.format(req.session.form.ccdCase);
+        ctx.ccdReferenceNumber = FormatCcdCaseId.format(formdata.ccdCase);
         ctx.caseType = caseTypes.getCaseType(session);
         return ctx;
     }
