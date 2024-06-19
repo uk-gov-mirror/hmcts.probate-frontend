@@ -21,9 +21,9 @@ describe('DeceasedNameAsOnWill', () => {
             const result = DeceasedNameAsOnWill.nextStepOptions();
             expect(result).to.deep.equal({
                 options: [{
-                    key: 'diedEngOrWales',
-                    value: 'optionYes',
-                    choice: 'hasDiedEngOrWales'
+                    key: 'nameAsOnTheWill',
+                    value: 'optionNo',
+                    choice: 'hasAlias'
                 }]
             });
             done();
