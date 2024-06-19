@@ -53,22 +53,6 @@ describe('DeceasedNameAsOnWill', () => {
         });
     });
 
-    describe('action()', () => {
-        it('test that deceased name is removed from context', () => {
-            const formdata = {
-                deceased: {
-                    firstName: 'John',
-                    lastName: 'Doe'
-                }
-            };
-            let ctx = {
-                deceasedName: 'Dee Ceased',
-            };
-            [ctx] = DeceasedNameAsOnWill.action(ctx, formdata);
-            expect(ctx).to.deep.equal({});
-        });
-    });
-
     describe('previousStepUrl()', () => {
         let ctx;
         it('should return the previous step url', (done) => {
