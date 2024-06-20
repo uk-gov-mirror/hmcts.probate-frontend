@@ -4,7 +4,6 @@
   "questionName": "The name of the person who died",
   "deathCertificateHint": "You should use the details from the death certificate.",
   "firstName": "First name and any middle names",
-  "firstNameHint": "Including middle names",
   "lastName": "Last name",
   "questionDob": "Date of birth",
   "questionHintDob": "For example, 31 03 1945",
