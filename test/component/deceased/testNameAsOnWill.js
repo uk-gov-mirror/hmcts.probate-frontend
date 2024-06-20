@@ -24,6 +24,7 @@ describe('deceased-name-as-on-will', () => {
 
         it('test right content loaded on the page', (done) => {
             const sessionData = {
+                type: caseTypes.GOP,
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456
@@ -33,7 +34,7 @@ describe('deceased-name-as-on-will', () => {
                     lastName: 'Doe'
                 }
             };
-            const contentToExclude = ['theDeceased'];
+            const contentToExclude = ['theDeceased', 'questionWithoutName'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -50,7 +51,7 @@ describe('deceased-name-as-on-will', () => {
 
         it(`test it redirects to Deceased DoB page: ${expectedNextUrlForDeceasedDob}`, (done) => {
             const data = {
-                alias: 'optionYes'
+                nameAsOnTheWill: 'optionYes',
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDob);
@@ -58,7 +59,7 @@ describe('deceased-name-as-on-will', () => {
 
         it(`test it redirects to Deceased Alias Name on Will page: ${expectedNextUrlForDeceasedAliasNameOnWill}`, (done) => {
             const data = {
-                alias: 'optionNo'
+                nameAsOnTheWill: 'optionNo'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAliasNameOnWill);
