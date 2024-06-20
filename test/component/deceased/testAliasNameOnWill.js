@@ -45,27 +45,27 @@ describe('deceased-alias-name-on-will', () => {
         });
 
         it('test errors message displayed for invalid firstName', (done) => {
-            const errorsToTest = ['firstName'];
+            const errorsToTest = ['aliasFirstNameOnWill'];
             const data = {
-                firstName: '>dee',
-                lastName: 'ceased'
+                aliasFirstNameOnWill: '>dee',
+                aliasLastNameOnWill: 'ceased'
             };
             testWrapper.testErrors(done, data, 'invalid', errorsToTest);
         });
 
         it('test errors message displayed for invalid lastName', (done) => {
-            const errorsToTest = ['lastName'];
+            const errorsToTest = ['aliasLastNameOnWill'];
             const data = {
-                firstName: 'dee',
-                lastName: '>ceased'
+                aliasFirstNameOnWill: 'dee',
+                aliasLastNameOnWill: '>ceased'
             };
             testWrapper.testErrors(done, data, 'invalid', errorsToTest);
         });
 
         it(`test it redirects to Deceased Name As On Will page: ${expectedNextUrlForDeceasedDob}`, (done) => {
             const data = {
-                firstName: 'Bob',
-                lastName: 'Smith'
+                aliasFirstNameOnWill: 'Bob',
+                aliasLastNameOnWill: 'Smith'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDob);
         });
