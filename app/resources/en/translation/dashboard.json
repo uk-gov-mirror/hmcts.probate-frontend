@@ -7,7 +7,7 @@
   "tableHeaderCaseStatus": "Status",
   "tableHeaderActions": "Actions",
   "statusDraftProbate": "Name not entered yet",
-  "statusDraftIntestacy": "Draft (intestacy)",
+  "statusDraftIntestacy": "Name not entered yet",
   "statusInProgress": "IN PROGRESS",
   "statusSubmitted": "SUBMITTED",
   "statusGrantIssued": "GRANT ISSUED",
