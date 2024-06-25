@@ -106,6 +106,7 @@ class Summary extends Step {
         if (ctx.caseType === caseTypes.GOP) {
             ctx.deceasedMarriedQuestion = (hasCodicils ? content.DeceasedMarried.questionWithCodicil : content.DeceasedMarried.question)
                 .replace('{deceasedName}', deceasedName);
+            ctx.deceasedNameAsOnWillQuestion = content.DeceasedNameAsOnWill.question.replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedNameAsOnWill.theDeceased);
         } else {
             ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
             ctx.deceasedMaritalStatusQuestion = content.DeceasedMaritalStatus.question
