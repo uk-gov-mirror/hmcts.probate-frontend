@@ -89,6 +89,7 @@ class Summary extends Step {
         return fields;
     }
 
+    // eslint-disable-next-line complexity
     getContextData(req) {
         const formdata = req.session.form;
         formdata.summary = {'readyToDeclare': includes(req.url, 'declaration')};
