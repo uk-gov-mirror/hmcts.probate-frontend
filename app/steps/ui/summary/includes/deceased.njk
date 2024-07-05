@@ -29,20 +29,33 @@
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
 
-{% if fields.deceased.nameAsOnWill.value.length > 0 %}
 {{checkanswer(
     items = [
         {
             question: fields.summary.deceasedNameAsOnWillQuestion.value,
-            answer: content.DeceasedNameAsOnWill[fields.deceased.nameAsOnWill.value],
+            answer: content.DeceasedNameAsOnWill[fields.deceased.nameAsOnTheWill.value],
             visible: true
+
         }
     ],
     url = content.DeceasedNameAsOnWill.url,
     common = common,
-    alreadyDeclared = "fields.summary.alreadyDeclared.value"
+    alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
-{% endif %}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.DeceasedAliasNameOnWill.question,
+            answer: content.DeceasedAliasNameOnWill[fields.deceased.aliasNameOnWill.value],
+            visible: fields.deceased.nameAsOnTheWill.value == "optionNo"
+
+        }
+    ],
+    url = content.DeceasedAliasNameOnWill.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
 
 {{checkanswer(
     items = [
