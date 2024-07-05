@@ -3,6 +3,7 @@ const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const content = require('app/resources/en/translation/iht/ihtestatevalues');
 const IhtEstateValues = steps.IhtEstateValues;
+/* eslint max-lines: off */
 
 describe('IhtEstateValues', () => {
     describe('getUrl()', () => {
@@ -230,6 +231,36 @@ describe('IhtEstateValues', () => {
                     field: 'estateNetQualifyingValueField',
                     href: '#estateNetQualifyingValueField',
                     msg: content.errors.estateNetQualifyingValueField.invalidInteger
+                },
+                {
+                    field: 'estateNetValueField',
+                    href: '#estateNetValueField',
+                    msg: content.errors.estateNetValueField.netValueGreaterThanGross
+                }
+            ]);
+            done();
+        });
+        it('should return the errors when netQualifying value ', (done) => {
+            ctx = {
+                estateGrossValueField: '5000',
+                estateNetValueField: '60000',
+                estateNetQualifyingValueField: '10000'
+            };
+            errors = [];
+            [ctx, errors] = IhtEstateValues.handlePost(ctx, errors, {}, {language: 'en'});
+            expect(ctx).to.deep.equal({
+                estateGrossValueField: '5000',
+                estateGrossValue: 5000,
+                estateNetValueField: '60000',
+                estateNetValue: 60000,
+                estateNetQualifyingValueField: '10000',
+                estateNetQualifyingValue: 10000
+            });
+            expect(errors).to.deep.equal([
+                {
+                    field: 'estateNetQualifyingValueField',
+                    href: '#estateNetQualifyingValueField',
+                    msg: content.errors.estateNetQualifyingValueField.netQualifyingValueGreater
                 },
                 {
                     field: 'estateNetValueField',
