@@ -108,6 +108,7 @@ class Summary extends Step {
                 .replace('{deceasedName}', deceasedName);
             ctx.deceasedNameAsOnWillQuestion = content.DeceasedNameAsOnWill.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedNameAsOnWill.theDeceased);
+            ctx.aliasNameOnWill = FormatName.formatAliasNameOnWIll(formdata.deceased);
         } else {
             ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
             ctx.deceasedMaritalStatusQuestion = content.DeceasedMaritalStatus.question

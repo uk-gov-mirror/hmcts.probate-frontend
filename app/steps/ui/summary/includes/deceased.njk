@@ -34,7 +34,7 @@
         {
             question: fields.summary.deceasedNameAsOnWillQuestion.value,
             answer: content.DeceasedNameAsOnWill[fields.deceased.nameAsOnTheWill.value],
-            visible: true
+            visible: fields.summary.caseType.value == "gop" and fields.deceased.nameAsOnTheWill.value
         }
     ],
     url = content.DeceasedNameAsOnWill.url,
@@ -47,7 +47,7 @@
         {
             question: content.DeceasedAliasNameOnWill.question,
             answer: fields.summary.aliasNameOnWill.value,
-            visible: fields.deceased.nameAsOnTheWill.value == "optionNo"
+            visible: fields.summary.caseType.value == "gop" and fields.deceased.nameAsOnTheWill.value == "optionNo"
         }
     ],
     url = content.DeceasedAliasNameOnWill.url,

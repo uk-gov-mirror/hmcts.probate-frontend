@@ -98,7 +98,9 @@ describe('Summary', () => {
                             firstName: 'Dee',
                             lastName: 'Ceased',
                             'dod-date': '2022-02-02',
-                            'dod-formattedDate': '2 February 2022'
+                            'dod-formattedDate': '2 February 2022',
+                            aliasFirstNameOnWill: 'firstNameOnWill',
+                            aliasLastNameOnWill: 'lastNameOnWill'
                         },
                         iht: {
                             netValue: 300000
@@ -120,6 +122,7 @@ describe('Summary', () => {
                 ihtTotalNetValue: 300000,
                 exceptedEstateDodAfterThreshold: true,
                 readyToDeclare: false,
+                aliasNameOnWill: 'firstNameOnWill lastNameOnWill',
                 session: {
                     language: 'en',
                     form: {
@@ -132,7 +135,9 @@ describe('Summary', () => {
                             firstName: 'Dee',
                             lastName: 'Ceased',
                             'dod-date': '2022-02-02',
-                            'dod-formattedDate': '2 February 2022'
+                            'dod-formattedDate': '2 February 2022',
+                            aliasFirstNameOnWill: 'firstNameOnWill',
+                            aliasLastNameOnWill: 'lastNameOnWill'
                         },
                         iht: {
                             netValue: 300000
