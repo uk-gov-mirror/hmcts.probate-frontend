@@ -1732,31 +1732,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pact-foundation/pact-core@npm:^14.3.3":
-  version: 14.3.3
-  resolution: "@pact-foundation/pact-core@npm:14.3.3"
+"@pact-foundation/pact-core@npm:^15.1.0":
+  version: 15.1.0
+  resolution: "@pact-foundation/pact-core@npm:15.1.0"
   dependencies:
-    chalk: "npm:4.1.2"
     check-types: "npm:7.3.0"
-    cross-spawn: "npm:7.0.3"
-    mkdirp: "npm:1.0.0"
-    needle: "npm:^3.2.0"
     node-gyp-build: "npm:^4.6.0"
     pino: "npm:^8.7.0"
     pino-pretty: "npm:^9.1.1"
-    promise-timeout: "npm:1.3.0"
-    rimraf: "npm:2.6.2"
     underscore: "npm:1.12.1"
-    unixify: "npm:1.0.0"
-  bin:
-    pact: bin/pact.js
-    pact-broker: bin/pact-broker.js
-    pact-message: bin/pact-message.js
-    pact-mock-service: bin/pact-mock-service.js
-    pact-provider-verifier: bin/pact-provider-verifier.js
-    pact-stub-service: bin/pact-stub-service.js
-    pactflow: bin/pactflow.js
-  checksum: 10/920197683f59dd5c83a5f65e6e8dc138ed499eee1ffc1a1ceae88deaa3c3efd71257f9c9d7dba72a62fb128342c6902d842595e38e1030ed6a033a6329e566d0
+  checksum: 10/c07684e2523f71728c7347c09c4d3da1b8a284063a49f1c1c88232fa49fb863dfba6153eff1490fcf6c9f9ef0c42dfaa4a313540c22c26ec8b21d536e8bc025c
   conditions: (os=darwin | os=linux | os=win32) & (cpu=x64 | cpu=ia32 | cpu=arm64)
   languageName: node
   linkType: hard
@@ -1796,16 +1781,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pact-foundation/pact@npm:^12.2.0":
-  version: 12.4.0
-  resolution: "@pact-foundation/pact@npm:12.4.0"
+"@pact-foundation/pact@npm:^13.0.0":
+  version: 13.1.0
+  resolution: "@pact-foundation/pact@npm:13.1.0"
   dependencies:
-    "@pact-foundation/pact-core": "npm:^14.3.3"
+    "@pact-foundation/pact-core": "npm:^15.1.0"
     "@types/express": "npm:^4.17.11"
     axios: "npm:^1.6.1"
     body-parser: "npm:^1.20.0"
     cli-color: "npm:^2.0.1"
-    express: "npm:^4.18.1"
+    express: "npm:^4.19.2"
     graphql: "npm:^14.0.0"
     graphql-tag: "npm:^2.9.1"
     http-proxy: "npm:^1.18.1"
@@ -1817,9 +1802,9 @@ __metadata:
     lodash.isundefined: "npm:3.0.1"
     lodash.omit: "npm:^4.5.0"
     pkginfo: "npm:^0.4.1"
-    ramda: "npm:^0.28.0"
+    ramda: "npm:^0.30.0"
     randexp: "npm:^0.5.3"
-  checksum: 10/b87c8d0a5502810de0708389036ed8fa7c14550b77d78cc7b543f4677cf15346b7124d05067891f253b37143d1e9d42cfd6c089b975655ccf460c520981cf086
+  checksum: 10/ce3ebd90ca7798a6eb13b73a371850824c3fbddd34ac84e2d305b4011c0b244d2b2f1ba61a2c50649d863bd71f13dc40ae23d211a6cf1a7694c0106b7470f201
   languageName: node
   linkType: hard
 
@@ -8339,7 +8324,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^7.0.0, glob@npm:^7.0.3, glob@npm:^7.0.5, glob@npm:^7.1.1, glob@npm:^7.1.3, glob@npm:^7.1.4, glob@npm:^7.1.6":
+"glob@npm:^7.0.0, glob@npm:^7.0.3, glob@npm:^7.1.1, glob@npm:^7.1.3, glob@npm:^7.1.4, glob@npm:^7.1.6":
   version: 7.2.3
   resolution: "glob@npm:7.2.3"
   dependencies:
@@ -9033,7 +9018,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"iconv-lite@npm:0.6.3, iconv-lite@npm:^0.6.2, iconv-lite@npm:^0.6.3":
+"iconv-lite@npm:0.6.3, iconv-lite@npm:^0.6.2":
   version: 0.6.3
   resolution: "iconv-lite@npm:0.6.3"
   dependencies:
@@ -11865,15 +11850,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mkdirp@npm:1.0.0":
-  version: 1.0.0
-  resolution: "mkdirp@npm:1.0.0"
-  bin:
-    mkdirp: bin/cmd.js
-  checksum: 10/7eabebe267ee226a6993c50302fd6571ce5b1a58961c2c8fc21081d8a100d528b0f3562a1373df2f57aac445be501c5e37624c0f054d4f7212c2d291cb10ccb0
-  languageName: node
-  linkType: hard
-
 "mkdirp@npm:1.0.4, mkdirp@npm:^1.0.3, mkdirp@npm:^1.0.4":
   version: 1.0.4
   resolution: "mkdirp@npm:1.0.4"
@@ -12271,18 +12247,6 @@ __metadata:
   bin:
     needle: ./bin/needle
   checksum: 10/ad8df9aff519e719ae98bc3e58a2c623961bee0c5bffdd19288d7876fbb80a4ac1116ace7632026396bc0946d3c02b266acf3b9a1bffc7186055423eb7697e62
-  languageName: node
-  linkType: hard
-
-"needle@npm:^3.2.0":
-  version: 3.3.1
-  resolution: "needle@npm:3.3.1"
-  dependencies:
-    iconv-lite: "npm:^0.6.3"
-    sax: "npm:^1.2.4"
-  bin:
-    needle: bin/needle
-  checksum: 10/31925ec72b93ffd1f5614a4f381878e7c31f1838cd36055aa4148c49a3a9d16429987fc64b509538f61fccbb49aac9ec2e91b1ed028aafb16f943f1993097d96
   languageName: node
   linkType: hard
 
@@ -13793,7 +13757,7 @@ __metadata:
     "@hmcts/nodejs-logging": "npm:^4.0.4"
     "@hmcts/os-places-client": "npm:^1.1.7"
     "@hmcts/properties-volume": "npm:^1.0.0"
-    "@pact-foundation/pact": "npm:^12.2.0"
+    "@pact-foundation/pact": "npm:^13.0.0"
     "@pact-foundation/pact-node": "npm:^10.17.7"
     "@playwright/test": "npm:^1.41.2"
     "@types/node": "npm:^20.11.18"
@@ -13973,13 +13937,6 @@ __metadata:
     err-code: "npm:^2.0.2"
     retry: "npm:^0.12.0"
   checksum: 10/96e1a82453c6c96eef53a37a1d6134c9f2482f94068f98a59145d0986ca4e497bf110a410adf73857e588165eab3899f0ebcf7b3890c1b3ce802abc0d65967d4
-  languageName: node
-  linkType: hard
-
-"promise-timeout@npm:1.3.0":
-  version: 1.3.0
-  resolution: "promise-timeout@npm:1.3.0"
-  checksum: 10/4faa906ba2f4d966c9cb5d033030f2d0c5c96465650ee42a130497c70c6ddb1a202bff85ef877898ffa0cf2a4ba0ac52228ea2a03b2ddbf4091153294e87d016
   languageName: node
   linkType: hard
 
@@ -14314,10 +14271,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ramda@npm:^0.28.0":
-  version: 0.28.0
-  resolution: "ramda@npm:0.28.0"
-  checksum: 10/1925e1881ece9feacd7eae620036996dcd3fb4973d931200e8594813238169afeaae8cc4377b4cb40978c26a07929f4e7f88cb2776a6c41b2e65f18dfba6530d
+"ramda@npm:^0.30.0":
+  version: 0.30.1
+  resolution: "ramda@npm:0.30.1"
+  checksum: 10/f3e1a7bc11f3a113edb3bb4764c2c22088c5896594934c01cf1980184d00f1d5a7af82761a3389419e2d51542ad2121ff44e718f40792d167e2846bba79a4c6d
   languageName: node
   linkType: hard
 
@@ -15085,17 +15042,6 @@ __metadata:
   bin:
     rimraf: ./bin.js
   checksum: 10/4586c296c736483e297da7cffd19475e4a3e41d07b1ae124aad5d687c79e4ffa716bdac8732ed1db942caf65271cee9dd39f8b639611de161a2753e2112ffe1d
-  languageName: node
-  linkType: hard
-
-"rimraf@npm:2.6.2":
-  version: 2.6.2
-  resolution: "rimraf@npm:2.6.2"
-  dependencies:
-    glob: "npm:^7.0.5"
-  bin:
-    rimraf: ./bin.js
-  checksum: 10/220ecf0379d00bb9b71c4236f838e7f21877a4e0f354fa6d2168cfa459e41adbf5d696013a61399632446c602e6c6b0e7885c7f59cd66fb88badad88eeb3b0c3
   languageName: node
   linkType: hard
 
