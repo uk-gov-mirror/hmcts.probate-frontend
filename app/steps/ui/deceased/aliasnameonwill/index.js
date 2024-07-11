@@ -9,15 +9,9 @@ class DeceasedAliasNameOnWill extends ValidationStep {
         return '/deceased-alias-name-on-will';
     }
 
-    getContextData(req) {
-        const ctx = super.getContextData(req);
-        const formdata = req.session.form;
-        ctx.aliasNameOnWill = FormatName.formatAliasNameOnWIll(formdata.deceased);
-        return ctx;
-    }
-
     action(ctx, formdata) {
         super.action(ctx, formdata);
+        ctx.aliasNameOnWill = FormatName.formatAliasNameOnWIll(formdata.deceased);
         return [ctx, formdata];
     }
 }
