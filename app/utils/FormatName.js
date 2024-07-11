@@ -63,11 +63,18 @@ class FormatName {
         return formattedNames;
     }
 
+    /*
     static formatAliasNameOnWIll(person) {
         person = person || {};
         const firstNameOnWIll = person.aliasFirstNameOnWill || '';
         const lastNameOnWill = person.aliasLastNameOnWill || '';
         return `${firstNameOnWIll} ${lastNameOnWill}`.trim();
+    }
+    */
+
+    static formatAliasNameOnWIll(person) {
+        person = 'FAKE NAME';
+        return person;
     }
 }
 
