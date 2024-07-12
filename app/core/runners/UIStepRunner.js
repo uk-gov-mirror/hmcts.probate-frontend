@@ -70,7 +70,7 @@ class UIStepRunner {
 
         return co(function * () {
             let ctx = step.getContextData(req, res);
-            const isSignOut = typeof get(ctx, 'isSignOut') !== 'undefined' && get(ctx, 'isSignOut') === 'true';
+            const isSaveAndClose = typeof get(ctx, 'isSaveAndClose') !== 'undefined' && get(ctx, 'isSaveAndClose') === 'true';
             let [isValid, errors] = [];
             formdata.eventDescription = config.eventDescriptionPrefix + (step.constructor.getUrl()).replace('/', '');
             [isValid, errors] = step.validate(ctx, formdata, session.language);
@@ -109,8 +109,8 @@ class UIStepRunner {
                     session.back.push(step.constructor.getUrl());
                 }
                 if (errorOccurred === false) {
-                    if (isSignOut) {
-                        res.redirect('/sign-out');
+                    if (isSaveAndClose) {
+                        res.redirect('/task-list');
                     } else {
                         res.redirect(nextStepUrl);
                     }

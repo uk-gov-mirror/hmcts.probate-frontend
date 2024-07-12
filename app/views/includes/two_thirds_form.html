@@ -13,17 +13,17 @@
 
             <form class="form" id="main-form" method="post" autocomplete="off" action="{{ pageUrl }}" novalidate>
                 <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-                <input type="hidden" name="isSignOut" id = "isSignOut" value="false">
+                <input type="hidden" name="isSaveAndClose" id = "isSaveAndClose" value="false">
                 {% block form_content %}{% endblock %}
             </form>
 
             {% block save_and_close %}
-                <p class="govuk-body"><a href="/sign-out" class="govuk-link" id="save_and_close">{{ common.saveAndClose | safe }}</a></p>
+                <p class="govuk-body"><a href="/sign-out" class="govuk-link" id="saveAndClose">{{ common.saveAndClose | safe }}</a></p>
             {% endblock %}
             <script nonce='{{ globals.nonce }}'>
-              document.getElementById("save_and_close").addEventListener("click", function(e) {
+              document.getElementById("saveAndClose").addEventListener("click", function(e) {
                 e.preventDefault();
-                document.getElementById("isSignOut").value='true';
+                document.getElementById("isSaveAndClose").value='true';
                 document.getElementById("main-form").submit();
               });
             </script>
