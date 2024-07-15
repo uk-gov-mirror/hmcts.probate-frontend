@@ -7,7 +7,7 @@ const DetectDataChange = require('app/wrappers/DetectDataChange');
 chai.use(sinonChai);
 const co = require('co');
 
-describe.only('UIStepRunner', () => {
+describe('UIStepRunner', () => {
     const req = {
         session: {
             language: 'en',
