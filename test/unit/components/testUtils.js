@@ -1,6 +1,5 @@
 const {getStore} = require('../../../app/components/utils');
 const {commonNext, commonRes} = require('../../util/commonConsts');
-const session = require('express-session');
 const expect = require('chai').expect;
 
 describe('utils', () => {
@@ -22,7 +21,7 @@ describe('utils', () => {
 
     describe('getStore', () => {
         it('redis disabled', () => {
-            const result = getStore({enabled: 'false'}, session, 100000);
+            const result = getStore({enabled: 'false'}, 100000);
             expect(result.constructor.name).to.equal('MemoryStore');
         });
     });
