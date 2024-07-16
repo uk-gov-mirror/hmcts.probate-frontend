@@ -10,7 +10,7 @@
   "legalStatementApplicant": "I, {applicantName} of {applicantAddress}, make the following statement:",
   "legalStatementApplicant-multipleApplicants": "We, {detailsOfApplicants}, make the following statement:",
   "deceasedHeader": "The person who died",
-  "legalStatementDeceased": "{deceasedName} was born on {deceasedDob} and died on {deceasedDod}, domiciled in England and Wales.",
+  "legalStatementDeceased": "{deceasedName}, of {deceasedAddress}, was born on {deceasedDob} and died on {deceasedDod}, domiciled in England and Wales.",
   "deceasedOtherNames": "They were also known as {deceasedOtherNames}.",
   "and": "and",
   "of": "of",
