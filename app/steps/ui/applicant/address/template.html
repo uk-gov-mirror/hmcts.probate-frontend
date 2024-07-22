@@ -31,8 +31,9 @@
                 {% endcall %}
             </form>
 
-            <form class="form" method="post" autocomplete="off" action="{{ pageUrl }}" novalidate>
+            <form class="form" id="main-form" method="post" autocomplete="off" action="{{ pageUrl }}" novalidate>
                 <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+                <input type="hidden" name="isSaveAndClose" id = "isSaveAndClose" value="false">
                 {% call govukFieldset({
                     legend: {
                         text: content.enterManually | safe,
@@ -149,6 +150,10 @@
                     </div>
                 {% endcall %}
             </form>
+
+            {% block save_and_close %}
+            <p class="govuk-body"><a href="/sign-out" class="govuk-link" id="saveAndClose">{{ common.saveAndClose | safe }}</a></p>
+            {% endblock %}
 
             {% include "includes/help_details.html" %}
         </div>

@@ -20,13 +20,6 @@
             {% block save_and_close %}
                 <p class="govuk-body"><a href="/sign-out" class="govuk-link" id="saveAndClose">{{ common.saveAndClose | safe }}</a></p>
             {% endblock %}
-            <script nonce='{{ globals.nonce }}'>
-              document.getElementById("saveAndClose").addEventListener("click", function(e) {
-                e.preventDefault();
-                document.getElementById("isSaveAndClose").value='true';
-                document.getElementById("main-form").submit();
-              });
-            </script>
             {% block executor_summary %}{% endblock %}
             {% include "includes/help_details.html" %}
 
