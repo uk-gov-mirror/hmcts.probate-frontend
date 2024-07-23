@@ -76,6 +76,9 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         caseTypes: {
             gop: caseTypes.GOP,
             intestacy: caseTypes.INTESTACY
+        },
+        dynatrace: {
+            dynatraceUrl: config.dynatrace.dynatraceUrl
         }
     };
     njkEnv.addGlobal('globals', globals);
