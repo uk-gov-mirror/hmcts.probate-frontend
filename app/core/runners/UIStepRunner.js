@@ -79,7 +79,7 @@ class UIStepRunner {
                 Object.keys(req.body).forEach((value) => {
                     if (value && value !== '_csrf' && value !== 'isSaveAndClose') {
                         const reqFormData = get(req.body, value);
-                        if (reqFormData && isEmpty(reqFormData)) {
+                        if (reqFormData && !isEmpty(reqFormData)) {
                             isEmptyForm=false;
                         }
                     }
