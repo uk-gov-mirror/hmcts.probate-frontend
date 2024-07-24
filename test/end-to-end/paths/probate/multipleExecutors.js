@@ -60,6 +60,8 @@ getTestLanguages().forEach(language => {
         await I.selectATask(language, taskListContent.taskNotStarted);
         await I.chooseBiLingualGrant(language, optionNo);
         await I.enterDeceasedName(language, 'Deceased First Name', 'Deceased Last Name');
+        await I.enterDeceasedNameOnWill(language, optionNo);
+        await I.enterDeceasedAlias(language, 'Deceased Alias First Name', 'Deceased Alias Last Name');
         await I.enterDeceasedDateOfBirth(language, '01', '01', '1950');
         await I.enterDeceasedDateOfDeath(language, '01', '01', '2017');
         await I.enterDeceasedAddress(language);
@@ -78,7 +80,7 @@ getTestLanguages().forEach(language => {
             await I.enterProbateAssetValues(language, '500', '400');
         }
 
-        await I.selectDeceasedAlias(language, optionNo);
+        await I.selectDeceasedAliasGop(language, optionNo);
         await I.selectDeceasedMarriedAfterDateOnWill(language, optionNo);
         const isWillConditionEnabled = await TestConfigurator.checkFeatureToggle('probate-will-condition');
         if (isWillConditionEnabled) {
