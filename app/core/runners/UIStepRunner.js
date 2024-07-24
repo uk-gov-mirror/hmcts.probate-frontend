@@ -75,15 +75,16 @@ class UIStepRunner {
             formdata.eventDescription = config.eventDescriptionPrefix + (step.constructor.getUrl()).replace('/', '');
 
             let isEmptyForm = true;
-            Object.keys(req.body).forEach((value) => {
-                if (value && value!=='_csrf' && value!=='isSaveAndClose') {
-                    const reqFormData = get(req.body, value);
-                    if (reqFormData && !isEmpty(reqFormData)) {
-                        isEmptyForm=false;
+            if (req.body) {
+                Object.keys(req.body).forEach((value) => {
+                    if (value && value !== '_csrf' && value !== 'isSaveAndClose') {
+                        const reqFormData = get(req.body, value);
+                        if (reqFormData && isEmpty(reqFormData)) {
+                            isEmptyForm=false;
+                        }
                     }
-                }
-            });
-            console.log('isEmptyForm-->'+isEmptyForm);
+                });
+            }
             if (isEmptyForm && isSaveAndClose) {
                 res.redirect('/task-list');
             } else {
