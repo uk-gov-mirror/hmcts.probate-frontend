@@ -11,4 +11,5 @@ module.exports = async function(language = 'en') {
     await I.waitForText(paymentContent.applicationFee, testConfig.TestWaitForTextToAppear);
     await I.waitForText(commonContent.saveAndClose, testConfig.TestWaitForTextToAppear);
     await I.navByClick(commonContent.saveAndClose);
+    await I.navByClick(commonContent.signOut);
 };
