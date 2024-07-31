@@ -1,9 +1,9 @@
 'use strict';
 
-const getStore = (redisConfig, session, ttl) => {
+const getStore = (redisConfig, ttl) => {
     if (redisConfig.enabled === 'true') {
         const Redis = require('ioredis');
-        const RedisStore = require('connect-redis')(session);
+        const RedisStore = require('connect-redis').default;
         const tlsOptions = {
             password: redisConfig.password,
             tls: true

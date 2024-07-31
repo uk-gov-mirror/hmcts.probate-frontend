@@ -76,6 +76,9 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         caseTypes: {
             gop: caseTypes.GOP,
             intestacy: caseTypes.INTESTACY
+        },
+        dynatrace: {
+            dynatraceUrl: config.dynatrace.dynatraceUrl
         }
     };
     njkEnv.addGlobal('globals', globals);
@@ -211,7 +214,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             httpOnly: config.redis.cookie.httpOnly,
             sameSite: config.redis.cookie.sameSite
         },
-        store: utils.getStore(config.redis, session, config.app.session.ttl)
+        store: utils.getStore(config.redis, config.app.session.ttl)
     }));
 
     // health

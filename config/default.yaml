@@ -407,3 +407,5 @@ estateQualifyingValueRange:
   min: 325000
   max: 650000
 eventDescriptionPrefix: 'Page completed: '
+dynatrace:
+  dynatraceUrl: 'https://js-cdn.dynatrace.com/jstag/17177a07246/bf24054dsx/27a3075f1661d271_complete.js'
