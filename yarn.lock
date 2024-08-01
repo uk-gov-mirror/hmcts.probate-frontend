@@ -169,8 +169,8 @@ __metadata:
   linkType: hard
 
 "@azure/identity@npm:^4.2.1":
-  version: 4.3.0
-  resolution: "@azure/identity@npm:4.3.0"
+  version: 4.4.0
+  resolution: "@azure/identity@npm:4.4.0"
   dependencies:
     "@azure/abort-controller": "npm:^1.0.0"
     "@azure/core-auth": "npm:^1.5.0"
@@ -179,14 +179,14 @@ __metadata:
     "@azure/core-tracing": "npm:^1.0.0"
     "@azure/core-util": "npm:^1.3.0"
     "@azure/logger": "npm:^1.0.0"
-    "@azure/msal-browser": "npm:^3.11.1"
+    "@azure/msal-browser": "npm:^3.14.0"
     "@azure/msal-node": "npm:^2.9.2"
     events: "npm:^3.0.0"
     jws: "npm:^4.0.0"
     open: "npm:^8.0.0"
     stoppable: "npm:^1.1.0"
     tslib: "npm:^2.2.0"
-  checksum: 10/2cf629982ee56f50b6f979cecb1b1be348c9ea38a584cf7218e1231884fdf0db4993cc665ff4c6065bd77c30b2ae1ad00a484c456561755d8de85f138361ac62
+  checksum: 10/77d5821e51234eb126cd6efa7c4ec4f2ad891bf20763b0cc890b5078198b02932b82e645915c418e886b8bc3cd34aeb29884a6d08a9ddbf993c4002961574a74
   languageName: node
   linkType: hard
 
@@ -218,12 +218,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-browser@npm:^3.11.1":
-  version: 3.13.0
-  resolution: "@azure/msal-browser@npm:3.13.0"
+"@azure/msal-browser@npm:^3.14.0":
+  version: 3.20.0
+  resolution: "@azure/msal-browser@npm:3.20.0"
   dependencies:
-    "@azure/msal-common": "npm:14.9.0"
-  checksum: 10/18297ef398056bc9786d90f0cbc75966814d85a0223cdbdf11d7ce55a550e5bc9429bdf5c656a55eebf46508d1a4b756cdb3410a96c4883171a1c00917eefc18
+    "@azure/msal-common": "npm:14.14.0"
+  checksum: 10/25bf912f41c5931894473dc097bbcc13cb603531285cbd1ca5e30f29fa1f3f0752bbb66fab96974b52f8c682b05619a84812a34303040f879325ae4ecb636724
   languageName: node
   linkType: hard
 
@@ -234,10 +234,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-common@npm:14.9.0":
-  version: 14.9.0
-  resolution: "@azure/msal-common@npm:14.9.0"
-  checksum: 10/554f8132080900f2760038d48152f5b56289ecf2ee127340c881e7715fc13aa5b65a11e06871c4570c78a59d1c2514c61cdf0a57ba154ea1a03e1819c763cb9e
+"@azure/msal-common@npm:14.14.0":
+  version: 14.14.0
+  resolution: "@azure/msal-common@npm:14.14.0"
+  checksum: 10/1c8b19c6e2846dc2085c32c24992488bd2338c85db8fcfad78c74a8481e900f4423d72411af026ec1d581a293667c4f2b269f575b23775dae843390bad1babe3
   languageName: node
   linkType: hard
 
@@ -1816,13 +1816,13 @@ __metadata:
   linkType: hard
 
 "@playwright/test@npm:^1.41.2":
-  version: 1.45.1
-  resolution: "@playwright/test@npm:1.45.1"
+  version: 1.45.3
+  resolution: "@playwright/test@npm:1.45.3"
   dependencies:
-    playwright: "npm:1.45.1"
+    playwright: "npm:1.45.3"
   bin:
     playwright: cli.js
-  checksum: 10/718316ae739438f686914350beb3aeded6c96d7adfe1b65509fc50c4e322172fe58b7c9f215c3d5bef52a263839b83162f843027ae8d8e96970b3dd8f87211d2
+  checksum: 10/50b53fdaa495f734ce0dc21a9947513fd40b76672e7d8e4947124bb87bfa9cefdbb5da1ac53054802961dc82a408c5291aa3f7655732cfe8cf9d102dc8b1a501
   languageName: node
   linkType: hard
 
@@ -2553,11 +2553,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*, @types/node@npm:^20.1.0, @types/node@npm:^20.1.1, @types/node@npm:^20.11.18":
-  version: 20.14.10
-  resolution: "@types/node@npm:20.14.10"
+  version: 20.14.12
+  resolution: "@types/node@npm:20.14.12"
   dependencies:
     undici-types: "npm:~5.26.4"
-  checksum: 10/672892cf94d0d95cf052f11271990686a0fd204cd1e5fe7a4ef240e5315e06711765dc47b9ec98627d3adac18b8c92bb7e2d8db21d18faa20bc3e3203a143e79
+  checksum: 10/9205bf46ef6a99d99cdde9efeb8218cd15803cc407249c2336557cd630b006380dad68c03ee574934414639f8e450044f45530c92788a8e82078bae45ee40f93
   languageName: node
   linkType: hard
 
@@ -7420,13 +7420,13 @@ __metadata:
   linkType: hard
 
 "fast-xml-parser@npm:^4.0.12, fast-xml-parser@npm:^4.2.4":
-  version: 4.3.6
-  resolution: "fast-xml-parser@npm:4.3.6"
+  version: 4.4.1
+  resolution: "fast-xml-parser@npm:4.4.1"
   dependencies:
     strnum: "npm:^1.0.5"
   bin:
     fxparser: src/cli/cli.js
-  checksum: 10/3e431e594960f04996e60a01fb51d8f4346138a7ba60d97244bf7866a3072eaf2f6dc73008d7b07871b98b606a8d7db955efdeae787992f685dd0e5bcc67c36a
+  checksum: 10/0c05ab8703630d8c857fafadbd78d0020d3a8e54310c3842179cd4a0d9d97e96d209ce885e91241f4aa9dd8dfc2fd924a682741a423d65153cad34da2032ec44
   languageName: node
   linkType: hard
 
@@ -13677,27 +13677,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.45.1":
-  version: 1.45.1
-  resolution: "playwright-core@npm:1.45.1"
+"playwright-core@npm:1.45.3":
+  version: 1.45.3
+  resolution: "playwright-core@npm:1.45.3"
   bin:
     playwright-core: cli.js
-  checksum: 10/206a5ecd2de7b8cefa5136331fa22012416b37eb2c471e3105c09a8a17a10621efa900acb6a780314f06aa2a3d6651aad3a323fa360d046ccce8f3844b3ca615
+  checksum: 10/6540ae149a8deaceb3dc6f60ea7a7052894aebb651b8c187c97c5532b50ee6c812e7f9644a15ecbfb146d5e7880dbb23010df2bac012493bd75b5624710df6bd
   languageName: node
   linkType: hard
 
-"playwright@npm:1.45.1":
-  version: 1.45.1
-  resolution: "playwright@npm:1.45.1"
+"playwright@npm:1.45.3":
+  version: 1.45.3
+  resolution: "playwright@npm:1.45.3"
   dependencies:
     fsevents: "npm:2.3.2"
-    playwright-core: "npm:1.45.1"
+    playwright-core: "npm:1.45.3"
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: 10/092d510a79ca8fb1d0c1a83460735b9eaf02261a48df2ae1b025f95ee31e2be9d962ddc62c7e5c0d2c44e5b982b66aaf3fe24243f736ab14dbfd2d6e88897824
+  checksum: 10/86959666c68f53b984df3d4a4aa3a7806fff95d5735dc4c16f5cef0889ab07180e1600792f0e66f9b84250931f5971077774cd8f2f077d8b02171f89a33ab588
   languageName: node
   linkType: hard
 
