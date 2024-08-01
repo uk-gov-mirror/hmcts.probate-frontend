@@ -70,60 +70,86 @@ class UIStepRunner {
 
         return co(function * () {
             let ctx = step.getContextData(req, res);
+            const isSaveAndClose = typeof get(ctx, 'isSaveAndClose') !== 'undefined' && get(ctx, 'isSaveAndClose') === 'true';
             let [isValid, errors] = [];
             formdata.eventDescription = config.eventDescriptionPrefix + (step.constructor.getUrl()).replace('/', '');
-            [isValid, errors] = step.validate(ctx, formdata, session.language);
-            const hasDataChanged = (new DetectDataChange()).hasDataChanged(ctx, req, step);
-            const featureToggles = session.featureToggles;
-            if (isValid) {
-                [ctx, errors] = yield step.handlePost(ctx, errors, formdata, req.session, FormatUrl.createHostname(req), featureToggles);
-            }
 
-            if (isEmpty(errors)) {
-                const nextStepUrl = step.nextStepUrl(req, ctx);
-                [ctx, formdata] = step.action(ctx, formdata);
-
-                delete ctx.ccdCase;
-                set(formdata, step.section, ctx);
-
-                if (hasDataChanged) {
-                    formdata.declaration.declarationCheckbox = 'false';
-                    formdata.declaration.hasDataChanged = true;
-                }
-                let errorOccurred = false;
-
-                if ((get(formdata, 'ccdCase.state') === 'Pending' || get(formdata, 'ccdCase.state') === 'CasePaymentFailed') && session.regId && step.shouldPersistFormData()) {
-                    const ccdCaseId = formdata.ccdCase.id;
-                    const result = yield step.persistFormData(ccdCaseId, formdata, session.id, req);
-                    if (result.name === 'Error') {
-                        errorOccurred = true;
-                        req.log.error('Could not persist user data', result.message);
-                    } else if (result) {
-                        session.form = Object.assign(session.form, result);
-                        req.log.info('Successfully persisted user data');
+            let isEmptyForm = true;
+            if (req.body) {
+                Object.keys(req.body).forEach((value) => {
+                    if (value && value !== '_csrf' && value !== 'isSaveAndClose') {
+                        const reqFormData = get(req.body, value);
+                        if (reqFormData && !isEmpty(reqFormData)) {
+                            isEmptyForm=false;
+                        }
                     }
+                });
+            }
+            if (isEmptyForm && isSaveAndClose) {
+                res.redirect('/task-list');
+            } else {
+                [isValid, errors] = step.validate(ctx, formdata, session.language);
+                const hasDataChanged = (new DetectDataChange()).hasDataChanged(ctx, req, step);
+                const featureToggles = session.featureToggles;
+
+                if (isValid) {
+                    [ctx, errors] = yield step.handlePost(ctx, errors, formdata, req.session, FormatUrl.createHostname(req), featureToggles);
                 }
 
-                if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
-                    session.back.push(step.constructor.getUrl());
-                }
-                if (errorOccurred === false) {
-                    res.redirect(nextStepUrl);
+                if (isEmpty(errors)) {
+                    const nextStepUrl = step.nextStepUrl(req, ctx);
+                    [ctx, formdata] = step.action(ctx, formdata);
+
+                    delete ctx.ccdCase;
+                    set(formdata, step.section, ctx);
+
+                    if (hasDataChanged) {
+                        formdata.declaration.declarationCheckbox = 'false';
+                        formdata.declaration.hasDataChanged = true;
+                    }
+                    let errorOccurred = false;
+
+                    if ((get(formdata, 'ccdCase.state') === 'Pending' || get(formdata, 'ccdCase.state') === 'CasePaymentFailed') && session.regId && step.shouldPersistFormData()) {
+                        const ccdCaseId = formdata.ccdCase.id;
+                        const result = yield step.persistFormData(ccdCaseId, formdata, session.id, req);
+                        if (result.name === 'Error') {
+                            errorOccurred = true;
+                            req.log.error('Could not persist user data', result.message);
+                        } else if (result) {
+                            session.form = Object.assign(session.form, result);
+                            req.log.info('Successfully persisted user data');
+                        }
+                    }
+
+                    if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
+                        session.back.push(step.constructor.getUrl());
+                    }
+                    if (errorOccurred === false) {
+                        if (isSaveAndClose) {
+                            res.redirect('/task-list');
+                        } else {
+                            res.redirect(nextStepUrl);
+                        }
+
+                    } else {
+                        const content = step.generateContent(ctx, formdata, session.language);
+                        const fields = step.generateFields(session.language, ctx, errors, formdata);
+                        const common = step.commonContent(session.language);
+                        errors.push(FieldError('formSubmissionUnsuccessful', 'required', 'common', ctx, session.language));
+                        res.render(step.template, {content, fields, errors, common, userLoggedIn: req.userLoggedIn});
+                    }
                 } else {
+                    forEach(errors, (error) =>
+                        req.log.info({
+                            type: 'Validation Message',
+                            url: step.constructor.getUrl()
+                        }, JSON.stringify(error))
+                    );
                     const content = step.generateContent(ctx, formdata, session.language);
                     const fields = step.generateFields(session.language, ctx, errors, formdata);
                     const common = step.commonContent(session.language);
-                    errors.push(FieldError('formSubmissionUnsuccessful', 'required', 'common', ctx, session.language));
                     res.render(step.template, {content, fields, errors, common, userLoggedIn: req.userLoggedIn});
                 }
-            } else {
-                forEach(errors, (error) =>
-                    req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
-                );
-                const content = step.generateContent(ctx, formdata, session.language);
-                const fields = step.generateFields(session.language, ctx, errors, formdata);
-                const common = step.commonContent(session.language);
-                res.render(step.template, {content, fields, errors, common, userLoggedIn: req.userLoggedIn});
             }
         }).catch((error) => {
             req.log.error(error);
