@@ -19,6 +19,18 @@ describe('UIStepRunner', () => {
             back: ['hello']
         }
     };
+    const reqIsSaveAndClose = {
+        session: {
+            language: 'en',
+            form: {
+                declaration: {
+                    declarationCheckbox: 'true'
+                },
+                isSaveAndClose: 'true'
+            },
+            back: ['hello']
+        }
+    };
     const req400 = {
         session: {
             language: 'en',
@@ -67,6 +79,29 @@ describe('UIStepRunner', () => {
             done();
         });
 
+    });
+    it('should redirect to /task-list as isSaveAndClose true', (done) => {
+        const stepName = 'test';
+        const step = {
+            name: stepName,
+            validate: () => [false, []],
+            getContextData: () => ({'isSaveAndClose': 'true'}),
+            nextStepUrl: () => '',
+            action: () => [{}, req.session.form],
+            constructor: {
+                getUrl: () => 'hello'
+            }
+        };
+        const resIsSaveAndClose = {
+            redirect: sinon.spy()
+        };
+        const runner = new UIStepRunner();
+        co(function* () {
+            yield runner.handlePost(step, reqIsSaveAndClose, resIsSaveAndClose);
+            sinon.assert.calledOnce(resIsSaveAndClose.redirect);
+            expect(resIsSaveAndClose.redirect).to.have.been.calledWith('/task-list');
+            done();
+        });
     });
     it('should return an error on a 400 Bad Request', (done) => {
         const stepName = 'DeceasedAddress';
