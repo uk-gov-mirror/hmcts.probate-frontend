@@ -38,6 +38,8 @@ module.exports = () => {
         // Deceased
         chooseBiLingualGrant: steps.language.bilingualgrant,
         enterDeceasedName: steps.deceased.name,
+        enterDeceasedNameOnWill: steps.deceased.nameonwill,
+        enterDeceasedAlias: steps.deceased.aliasName,
         enterDeceasedDateOfBirth: steps.deceased.dob,
         enterDeceasedDateOfDeath: steps.deceased.dod,
         enterDeceasedAddress: steps.deceased.address,
@@ -62,6 +64,7 @@ module.exports = () => {
         enterHmrcCode: steps.ee.provideHmrcCode,
         selectForm: steps.ee.form,
         selectDeceasedAlias: steps.deceased.alias,
+        selectDeceasedAliasGop: steps.deceased.aliasGOP,
         selectOtherNames: steps.deceased.otherNames,
         selectDeceasedMarriedAfterDateOnWill: steps.deceased.married,
         selectWillDamage: steps.will.willdamage,

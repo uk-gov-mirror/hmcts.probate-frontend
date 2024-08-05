@@ -9,7 +9,7 @@ module.exports = async function(language = 'en', answer = null) {
     const aliasContent = require(`app/resources/${language}/translation/deceased/alias`);
 
     await I.checkInUrl('/deceased-alias');
-    await I.waitForText(aliasContent.intestacyParagraph1.replace('{deceasedName}', 'Deceased First Name Deceased Last Name'), config.TestWaitForTextToAppear);
+    await I.waitForText(aliasContent.GopParagraph2, config.TestWaitForTextToAppear);
     const locator = {css: `#alias${answer}`};
     await I.waitForEnabled(locator);
     await I.click(locator);
