@@ -10,7 +10,7 @@
   "legalStatementApplicant": "Rwyf i, {applicantName} o {applicantAddress}, yn gwneud y datganiad canlynol:",
   "legalStatementApplicant-multipleApplicants": "Rydym ni, {detailsOfApplicants}, yn gwneud y datganiad canlynol:",
   "deceasedHeader": "Ganwyd yr unigolyn sydd wedi marw, sef",
-  "legalStatementDeceased": "{deceasedName} ar {deceasedDob} a bu farw ar {deceasedDod}, ac roedd fel arfer yn preswylio yng Nghymru a Lloegr.",
+  "legalStatementDeceased": "{deceasedName}, o {deceasedAddress}, ar {deceasedDob} a bu farw ar {deceasedDod}, ac roedd fel arfer yn preswylio yng Nghymru a Lloegr.",
   "deceasedOtherNames": "Roeddynt hefyd yn cael eu hadnabod fel {deceasedOtherNames}.",
   "and": "a/ac",
   "of": "o",
