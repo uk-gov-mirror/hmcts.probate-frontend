@@ -12,31 +12,29 @@
             isPageHeading: true
         }
     }) %}
-    <p class="govuk-body">{{ content.explanation1 | safe }}</p>
-
         {{ govukInput({
             label: {
-                text: content.firstName | safe
+                text: content.aliasFirstNameOnWill | safe
             },
-            id: "firstName",
-            name: "firstName",
-            value: fields.firstName.value | safe,
-            errorMessage: { text: fields.firstName.errorMessage | safe } if fields.firstName.errorMessage,
+            id: "aliasFirstNameOnWill",
+            name: "aliasFirstNameOnWill",
+            value: fields.aliasFirstNameOnWill.value | safe,
+            errorMessage: { text: fields.aliasFirstNameOnWill.errorMessage | safe } if fields.aliasFirstNameOnWill.errorMessage,
             attributes: {
-                maxlength: 100
+                maxlength: 200
             },
             classes: "govuk-!-width-three-quarters"
         }) }}
         {{ govukInput({
             label: {
-                text: content.lastName | safe
+                text: content.aliasLastNameOnWill | safe
             },
-            id: "lastName",
-            name: "lastName",
-            value: fields.lastName.value | safe,
-            errorMessage: { text: fields.lastName.errorMessage | safe } if fields.lastName.errorMessage,
+            id: "aliasLastNameOnWill",
+            name: "aliasLastNameOnWill",
+            value: fields.aliasLastNameOnWill.value | safe,
+            errorMessage: { text: fields.aliasLastNameOnWill.errorMessage | safe } if fields.aliasLastNameOnWill.errorMessage,
             attributes: {
-                maxlength: 100
+                maxlength: 200
             },
             classes: "govuk-!-width-three-quarters"
         }) }}
