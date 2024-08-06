@@ -49,9 +49,6 @@ TestGovUkCardPaymentsUrl: '/card_details'
 
 s2sStubErrorSequence: '000'
 
-pact:
-  pactBrokerUrl: 'http://localhost:80'
-
 featureToggles:
   enabled: false
 
