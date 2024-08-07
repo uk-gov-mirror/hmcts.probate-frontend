@@ -53,6 +53,7 @@ Scenario('Check survey link works', async ({I}) => {
     await I.selectATask(language, taskListContent.taskNotStarted);
     await I.chooseBiLingualGrant(language, optionNo);
     await I.enterDeceasedName(language, 'Deceased First Name', 'Deceased Last Name');
+    await I.enterDeceasedNameOnWill(language, optionYes);
     await I.enterDeceasedDateOfBirth(language, '01', '01', '1950', true);
 
     await I.seeSignOut(language);
@@ -80,7 +81,7 @@ Scenario('Check survey link works', async ({I}) => {
     await I.selectUnusedAllowance(language, optionYes);
     await I.enterProbateEstateValues(language, 400000, 400000);
 
-    await I.selectDeceasedAlias(language, optionNo);
+    await I.selectDeceasedAliasGop(language, optionNo);
     await I.selectDeceasedMarriedAfterDateOnWill(language, optionNo);
 
     const isWillConditionEnabled = await TestConfigurator.checkFeatureToggle('probate-will-condition');
