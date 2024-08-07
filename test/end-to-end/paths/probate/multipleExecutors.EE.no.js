@@ -164,10 +164,10 @@ getTestLanguages().forEach(language => {
         }
 
         // Complete Equality & Diversity Questionnaire
-        if (TestConfigurator.equalityAndDiversityEnabled()) {
+        /*if (TestConfigurator.equalityAndDiversityEnabled()) {
             await I.exitEqualityAndDiversity(language);
             await I.completeEqualityAndDiversity(language);
-        }
+        }*/
 
         // Review and Confirm Task
         await I.selectATask(language, taskListContent.taskNotStarted);

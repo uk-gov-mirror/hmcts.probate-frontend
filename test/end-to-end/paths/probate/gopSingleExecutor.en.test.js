@@ -86,7 +86,7 @@ getTestLanguages().forEach(language => {
             await I.enterProbateAssetValues(language, '500', '400');
         }
 
-        await I.selectDeceasedAliasGop(language, optionNo);
+        await I.selectDeceasedAlias(language, optionNo);
         await I.selectDeceasedMarriedAfterDateOnWill(language, optionNo);
 
         const isWillConditionEnabled = await TestConfigurator.checkFeatureToggle('probate-will-condition');
