@@ -14,7 +14,6 @@
             label: {
                 text: content["firstName"] | safe,
                 classes: "govuk-visually-hidden"
-
             },
             hint: {
                 text: content["firstName"] | safe
@@ -37,7 +36,6 @@
     {% endset -%}
 
     {{ govukRadios({
-        classes: "govuk-radios--inline",
         idPrefix: "willDamageCulpritKnown",
         name: "willDamageCulpritKnown",
         fieldset: {
