@@ -32,6 +32,32 @@
 {{checkanswer(
     items = [
         {
+            question: fields.summary.deceasedNameAsOnWillQuestion.value,
+            answer: content.DeceasedNameAsOnWill[fields.deceased.nameAsOnTheWill.value],
+            visible: fields.summary.caseType.value == "gop" and fields.deceased.nameAsOnTheWill.value
+        }
+    ],
+    url = content.DeceasedNameAsOnWill.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.DeceasedAliasNameOnWill.question,
+            answer: fields.summary.aliasNameOnWill.value,
+            visible: fields.summary.caseType.value == "gop" and fields.deceased.nameAsOnTheWill.value == "optionNo"
+        }
+    ],
+    url = content.DeceasedAliasNameOnWill.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
             question: fields.summary.deceasedAliasQuestion.value,
             answer: content.DeceasedAlias[fields.deceased.alias.value],
             visible: true

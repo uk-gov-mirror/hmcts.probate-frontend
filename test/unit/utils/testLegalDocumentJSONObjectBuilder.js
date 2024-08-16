@@ -36,7 +36,7 @@ describe('legalDeclarationPDF', () => {
             assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[0].declarationItems[0].title, replaceTokens(translations.declaration.legalStatementApplicant, ['Jason Smith', 'An address somewhere in england postcode']));
 
             assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[1].title, translations.declaration.deceasedHeader);
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[1].declarationItems[0].title, replaceTokens(translations.declaration.legalStatementDeceased, ['Mike Samuels', '1 January 1964', '20 October 2018']));
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[1].declarationItems[0].title, replaceTokens(translations.declaration.legalStatementDeceased, ['Mike Samuels', '20 palmer street rg1 3gx', '1 January 1964', '20 October 2018']));
 
             assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[2].title, translations.declaration.deceasedEstateHeader);
             assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[2].declarationItems[0].title, replaceTokens(he.decode(translations.declaration.deceasedEstateValue), ['10000', '10000']));

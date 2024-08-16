@@ -62,6 +62,13 @@ class FormatName {
         }
         return formattedNames;
     }
+
+    static formatAliasNameOnWIll(person) {
+        person = person || {};
+        const firstNameOnWIll = person.aliasFirstNameOnWill || '';
+        const lastNameOnWill = person.aliasLastNameOnWill || '';
+        return `${firstNameOnWIll} ${lastNameOnWill}`.trim();
+    }
 }
 
 module.exports = FormatName;

@@ -4,6 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const DeceasedOtherNames = require('app/steps/ui/deceased/otherNames');
 const DeceasedMarried = require('app/steps/ui/deceased/married');
 const testCommonContent = require('test/component/common/testCommonContent.js');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('deceased-alias', () => {
     let testWrapper;
@@ -23,6 +24,7 @@ describe('deceased-alias', () => {
 
         it('test right content loaded on the page', (done) => {
             const sessionData = {
+                type: caseTypes.GOP,
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456
@@ -32,7 +34,7 @@ describe('deceased-alias', () => {
                     lastName: 'Doe'
                 }
             };
-            const contentToExclude = ['theDeceased'];
+            const contentToExclude = ['theDeceased', 'intestacyParagraph1'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
