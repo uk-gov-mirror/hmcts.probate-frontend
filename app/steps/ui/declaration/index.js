@@ -167,7 +167,7 @@ class Declaration extends ValidationStep {
         return hasMultipleApplicants ? '-multipleApplicants' : '';
     }
 
-    executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, deceasedName, mainApplicantName, lang) {
+    executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, deceasedName, mainApplicantName, language) {
         const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
         return executorsApplying.map(executor => {
             return this.executorsApplyingText(
@@ -180,7 +180,7 @@ class Declaration extends ValidationStep {
                     executor,
                     deceasedName,
                     mainApplicantName,
-                    lang
+                    language
                 });
         });
     }
@@ -191,7 +191,7 @@ class Declaration extends ValidationStep {
         const applicantNameOnWill = FormatName.formatName(props.executor);
         const applicantCurrentName = FormatName.formatName(props.executor, true);
         const aliasSuffix = (typeof props.executor.nameAsOnTheWill !== 'undefined' && props.executor.nameAsOnTheWill === 'optionNo') || props.executor.currentName ? '-alias' : '';
-        const aliasReason = FormatAlias.aliasReason(props.executor, props.hasMultipleApplicants, props.executor.isApplicant, applicantCurrentName, props.lang);
+        const aliasReason = FormatAlias.aliasReason(props.executor, props.hasMultipleApplicants, props.executor.isApplicant, applicantCurrentName, props.language);
         const content = {
             name: props.content[`applicantName${props.multipleApplicantSuffix}${mainApplicantSuffix}${aliasSuffix}${codicilsSuffix}`]
                 .replace('{applicantWillName}', props.executor.isApplicant && (typeof props.executor.nameAsOnTheWill !== 'undefined' && props.executor.nameAsOnTheWill === 'optionNo') ? FormatName.applicantWillName(props.executor) : props.mainApplicantName)
