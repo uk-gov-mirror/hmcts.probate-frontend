@@ -1,17 +1,20 @@
 'use strict';
 
 class FormatAlias {
-    static aliasReason(person, hasMultipleApplicants, isExecutorApplicant, executorCurrentName, lang) {
+    static aliasReason(person, hasMultipleApplicants, isExecutorApplicant, executorCurrentName, language) {
         person = person || {};
         const aliasReason = person.aliasReason || person.currentNameReason || '';
         const otherReason = person.otherReason ? person.otherReason : '';
         return (hasMultipleApplicants ? this.formatMultipleApplicantAliasReason(aliasReason, otherReason,
-            isExecutorApplicant, executorCurrentName, lang) : this.formatAliasReason(aliasReason, otherReason,
-            isExecutorApplicant, lang)) || '';
+            isExecutorApplicant, executorCurrentName, language) : this.formatAliasReason(aliasReason, otherReason,
+            isExecutorApplicant, language)) || '';
     }
 
     // eslint-disable-next-line complexity
     static formatMultipleApplicantAliasReason(aliasReason, otherReason, isExecutorApplicant, executorCurrentName, language) {
+        if (aliasReason === 'optionOther') {
+            return ` ${otherReason}`;
+        }
         if (language === 'en') {
             if (aliasReason === 'optionMarriage') {
                 return isExecutorApplicant ? ' ' + executorCurrentName + ' got married or formed a civil partnership' : ' They got married or formed a civil partnership';
@@ -23,22 +26,18 @@ class FormatAlias {
                 return isExecutorApplicant ? ' ' + executorCurrentName + '‘s name was spelled differently' : ' Their name was spelled differently';
             } else if (aliasReason === 'optionPartOfNameNotIncluded') {
                 return isExecutorApplicant ? ' Part of ' + executorCurrentName + '‘s name was not included' : ' Part of their name was not included';
-            } else if (aliasReason === 'optionOther') {
-                return ` ${otherReason}`;
             }
         } else if (language === 'cy') {
             if (aliasReason === 'optionMarriage') {
-                return isExecutorApplicant ? ' ' + executorCurrentName + ' Welsh got married or formed a civil partnership' : ' Maent wedi priodi neu wedi ffurfio partneriaeth sifil';
+                return isExecutorApplicant ? ' Mae ' + executorCurrentName + ' wedi priodi neu wedi ffurfio partneriaeth sifil' : ' Maent wedi priodi neu wedi ffurfio partneriaeth sifil';
             } else if (aliasReason === 'optionDivorce') {
-                return isExecutorApplicant ? ' ' + executorCurrentName + ' Welsh got divorced or ended their civil partnership' : ' Maent wedi ysgaru neu wedi dod â’u partneriaeth sifil i ben';
+                return isExecutorApplicant ? ' Mae ' + executorCurrentName + ' wedi ysgaru neu wedi dod â’u partneriaeth sifil i ben' : ' Maent wedi ysgaru neu wedi dod â’u partneriaeth sifil i ben';
             } else if (aliasReason === 'optionDeedPoll') {
-                return isExecutorApplicant ? ' ' + executorCurrentName + ' Welsh changed their name by deed poll' : ' Bu iddynt newid eu henw trwy weithred newid enw';
+                return isExecutorApplicant ? ' Newidiodd ' + executorCurrentName + ' ei henw trwy weithred newid enw' : ' Bu iddynt newid eu henw trwy weithred newid enw';
             } else if (aliasReason === 'optionDifferentSpelling') {
-                return isExecutorApplicant ? ' ' + executorCurrentName + '‘s Welsh name was spelled differently' : ' Cafodd eu henw ei sillafu’n wahanol';
+                return isExecutorApplicant ? ' Roedd enw ' + executorCurrentName + ' wedi\'i sillafu\'n wahanol ' : ' Cafodd eu henw ei sillafu’n wahanol';
             } else if (aliasReason === 'optionPartOfNameNotIncluded') {
-                return isExecutorApplicant ? ' Part of ' + executorCurrentName + '‘s Welsh name was not included' : ' Ni chafodd rhan o’u henw ei gynnwys';
-            } else if (aliasReason === 'optionOther') {
-                return ` ${otherReason}`;
+                return isExecutorApplicant ? ' Ni chynhwyswyd rhan o enw ' + executorCurrentName : ' Ni chafodd rhan o’u henw ei gynnwys';
             }
         }
     }
