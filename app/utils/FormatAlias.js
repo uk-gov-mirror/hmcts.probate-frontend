@@ -72,7 +72,6 @@ class FormatAlias {
                 return isExecutorApplicant ? ' Ni chafodd rhan o fy enw ei gynnwys' : '';
             }
         }
-
     }
 }
 
