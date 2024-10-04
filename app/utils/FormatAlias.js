@@ -35,7 +35,7 @@ class FormatAlias {
             } else if (aliasReason === 'optionDeedPoll') {
                 return isExecutorApplicant ? ' Newidiodd ' + executorCurrentName + ' ei henw trwy weithred newid enw' : ' Bu iddynt newid eu henw trwy weithred newid enw';
             } else if (aliasReason === 'optionDifferentSpelling') {
-                return isExecutorApplicant ? ' Roedd enw ' + executorCurrentName + ' wedi\'i sillafu\'n wahanol ' : ' Cafodd eu henw ei sillafu’n wahanol';
+                return isExecutorApplicant ? ' Roedd enw ' + executorCurrentName + ' wedi\'i sillafu\'n wahanol' : ' Cafodd eu henw ei sillafu’n wahanol';
             } else if (aliasReason === 'optionPartOfNameNotIncluded') {
                 return isExecutorApplicant ? ' Ni chynhwyswyd rhan o enw ' + executorCurrentName : ' Ni chafodd rhan o’u henw ei gynnwys';
             }
