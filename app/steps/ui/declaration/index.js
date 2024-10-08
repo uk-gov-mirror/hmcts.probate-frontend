@@ -141,8 +141,8 @@ class Declaration extends ValidationStep {
 
             const executorsApplying = ctx.executorsWrapper.executorsApplying();
             const executorsApplyingText = {
-                en: this.executorsApplying(ctx.executorsWrapper, content.en, hasCodicils, codicilsNumber, formdata.will, req.session.language),
-                cy: this.executorsApplying(ctx.executorsWrapper, content.cy, hasCodicils, codicilsNumber, formdata.will, req.session.language)
+                en: this.executorsApplying(ctx.executorsWrapper, executorsApplying, content.en, hasCodicils, codicilsNumber, formdata, req.session.language),
+                cy: this.executorsApplying(ctx.hasMultipleApplicants, executorsApplying, content.cy, hasCodicils, codicilsNumber, formdata, req.session.language)
             };
 
             const executorsNotApplying = ctx.executorsWrapper.executorsNotApplying();
@@ -167,9 +167,9 @@ class Declaration extends ValidationStep {
         return hasMultipleApplicants ? '-multipleApplicants' : '';
     }
 
-    executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, formdataWill, language) {
-        const deceasedName = formdataWill.deceasedName;
-        const mainApplicantName = formdataWill.mainApplicantName;
+    executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, formdata, language) {
+        const deceasedName = formdata.deceasedName;
+        const mainApplicantName = formdata.mainApplicantName;
         const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
         return executorsApplying.map(executor => {
             return this.executorsApplyingText(
