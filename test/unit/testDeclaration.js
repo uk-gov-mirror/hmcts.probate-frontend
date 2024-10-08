@@ -60,8 +60,11 @@ describe('Declaration', () => {
 
         it('should return the correct data when there are no codicils', (done) => {
             const declaration = new Declaration(steps, section, templatePath, i18next, schema);
-            const data = declaration.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, deceasedName, mainApplicantName, 'en');
-
+            const formdata = {
+                deceasedName: deceasedName,
+                mainApplicantName: mainApplicantName
+            };
+            const data = declaration.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, formdata, 'en');
             expect(data).to.deep.equal([{
                 name: 'Applicant Current Name, an executor named in the will as Applicant Will Name, is applying for probate. Their name is different because: Applicant Current Name changed their name by deed poll.',
                 sign: 'Applicant Current Name will send to the probate registry what we have seen and believe to be the true and original last will and testament of Mrs Deceased.'
@@ -79,7 +82,11 @@ describe('Declaration', () => {
             hasCodicils = true;
             codicilsNumber = 1;
             const declaration = new Declaration(steps, section, templatePath, i18next, schema);
-            const data = declaration.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, deceasedName, mainApplicantName, 'en');
+            const formdata = {
+                deceasedName: deceasedName,
+                mainApplicantName: mainApplicantName
+            };
+            const data = declaration.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, formdata, 'en');
 
             expect(data).to.deep.equal([{
                 name: 'Applicant Current Name, an executor named in the will or codicils as Applicant Will Name, is applying for probate. Their name is different because: Applicant Current Name changed their name by deed poll.',
@@ -97,8 +104,12 @@ describe('Declaration', () => {
         it('should return the correct data when there is more than 1 codicil', (done) => {
             hasCodicils = true;
             codicilsNumber = 3;
+            const formdata = {
+                deceasedName: deceasedName,
+                mainApplicantName: mainApplicantName
+            };
             const declaration = new Declaration(steps, section, templatePath, i18next, schema);
-            const data = declaration.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, deceasedName, mainApplicantName, 'en');
+            const data = declaration.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, formdata, 'en');
 
             expect(data).to.deep.equal([{
                 name: 'Applicant Current Name, an executor named in the will or codicils as Applicant Will Name, is applying for probate. Their name is different because: Applicant Current Name changed their name by deed poll.',
