@@ -807,6 +807,9 @@ describe('declaration, multiple applicants', () => {
                 .end(() => {
                     testWrapper.agent.get(testWrapper.pageUrl)
                         .then(response => {
+                            console.log('TEST LOG 1');
+                            console.log(response.text);
+                            console.log('TEST LOG 1');
                             assert(response.text.includes('Bob Smith, an executor named in the will or codicils as Bob Alias, is applying for probate. Their name is different because: Bob Smith got divorced or ended their civil partnership.'));
                             assert(response.text.includes('Bob Smith will send to the probate registry what we have seen and believe to be the true and original last will and testament, and 3 codicils of Dee Ceased.'));
                             assert(response.text.includes('fname1 sname1, an executor named in the will or codicils, is applying for probate.'));
@@ -832,6 +835,9 @@ describe('declaration, multiple applicants', () => {
                 .end(() => {
                     testWrapper.agent.get(testWrapper.pageUrl)
                         .then(response => {
+                            console.log('TEST LOG 2');
+                            console.log(response.text);
+                            console.log('TEST LOG 2');
                             assert(response.text.includes('Bob Smith, an executor named in the will as Bob Alias, is applying for probate. Their name is different because: Bob Smith got divorced or ended their civil partnership.'));
                             assert(response.text.includes('Bob Smith will send to the probate registry what we have seen and believe to be the true and original last will and testament of Dee Ceased.'));
                             assert(response.text.includes('fname1 sname1, an executor named in the will, is applying for probate.'));
