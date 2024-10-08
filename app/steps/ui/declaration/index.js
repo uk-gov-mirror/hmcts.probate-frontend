@@ -167,9 +167,7 @@ class Declaration extends ValidationStep {
         return hasMultipleApplicants ? '-multipleApplicants' : '';
     }
 
-    executorsApplying(ctxExecutorWrapper, content, hasCodicils, codicilsNumber, formdataWill, language) {
-        const hasMultipleApplicants = ctxExecutorWrapper.hasMultipleApplicants;
-        const executorsApplying = ctxExecutorWrapper.executorsApplying;
+    executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, formdataWill, language) {
         const deceasedName = formdataWill.deceasedName;
         const mainApplicantName = formdataWill.mainApplicantName;
         const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
