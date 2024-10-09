@@ -24,8 +24,7 @@ describe('Declaration', () => {
         let executorsApplying;
         let hasCodicils;
         let codicilsNumber;
-        let deceasedName;
-        let mainApplicantName;
+        let formdata;
 
         beforeEach(() => {
             hasMultipleApplicants = true;
@@ -54,16 +53,14 @@ describe('Declaration', () => {
                 hasOtherName: true
             }];
             hasCodicils = false;
-            deceasedName = 'Mrs Deceased';
-            mainApplicantName = 'Applicant Current Name';
+            formdata = {
+                deceasedName: 'Mrs Deceased',
+                applicantName: 'Applicant Current Name'
+            };
         });
 
         it('should return the correct data when there are no codicils', (done) => {
             const declaration = new Declaration(steps, section, templatePath, i18next, schema);
-            const formdata = {
-                deceasedName: deceasedName,
-                mainApplicantName: mainApplicantName
-            };
             const data = declaration.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, formdata, 'en');
             expect(data).to.deep.equal([{
                 name: 'Applicant Current Name, an executor named in the will as Applicant Will Name, is applying for probate. Their name is different because: Applicant Current Name changed their name by deed poll.',
@@ -82,10 +79,6 @@ describe('Declaration', () => {
             hasCodicils = true;
             codicilsNumber = 1;
             const declaration = new Declaration(steps, section, templatePath, i18next, schema);
-            const formdata = {
-                deceasedName: deceasedName,
-                mainApplicantName: mainApplicantName
-            };
             const data = declaration.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, formdata, 'en');
 
             expect(data).to.deep.equal([{
@@ -104,10 +97,6 @@ describe('Declaration', () => {
         it('should return the correct data when there is more than 1 codicil', (done) => {
             hasCodicils = true;
             codicilsNumber = 3;
-            const formdata = {
-                deceasedName: deceasedName,
-                mainApplicantName: mainApplicantName
-            };
             const declaration = new Declaration(steps, section, templatePath, i18next, schema);
             const data = declaration.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, formdata, 'en');
 
