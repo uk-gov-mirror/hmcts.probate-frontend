@@ -255,9 +255,6 @@ describe('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    console.log('sessionData');
-                    console.log(sessionData);
-                    console.log('sessionData');
                     testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
@@ -350,20 +347,6 @@ describe('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    console.log('sessionData');
-                    console.log(sessionData);
-                    console.log('sessionData');
-                    console.log('------------------');
-                    console.log('contentData');
-                    console.log(contentData);
-                    console.log('contentData');
-                    console.log('------------------');
-                    console.log('------------------');
-                    console.log('contentToExclude');
-                    console.log(contentToExclude);
-                    console.log('contentToExclude');
-                    console.log('------------------');
-
                     testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
@@ -453,9 +436,6 @@ describe('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    console.log('sessionData');
-                    console.log(sessionData);
-                    console.log('sessionData');
                     testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
@@ -541,9 +521,6 @@ describe('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    console.log('sessionData');
-                    console.log(sessionData);
-                    console.log('sessionData');
                     testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
@@ -637,9 +614,6 @@ describe('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    console.log('sessionData');
-                    console.log(sessionData);
-                    console.log('sessionData');
                     testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
