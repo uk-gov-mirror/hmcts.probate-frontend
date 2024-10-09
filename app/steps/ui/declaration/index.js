@@ -169,7 +169,7 @@ class Declaration extends ValidationStep {
 
     executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, formdata, language) {
         const deceasedName = formdata.deceasedName;
-        const mainApplicantName = formdata.mainApplicantName;
+        const mainApplicantName = formdata.applicantName;
         const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
         return executorsApplying.map(executor => {
             return this.executorsApplyingText(
