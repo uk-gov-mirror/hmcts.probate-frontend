@@ -182,7 +182,11 @@ router.use((req, res, next) => {
         } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && currentPageCleanUrl==='/payment-status') {
             res.redirect('/thank-you');
         } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl)) {
-            res.redirect('/citizens-hub');
+            if (currentPageCleanUrl==='/provide-information') {
+                next();
+            } else {
+                res.redirect('/citizens-hub');
+            }
         } else if (redirectTaskList(req, currentPageCleanUrl, formdata, applicationSubmitted, applicantHasPassedPayment)) {
             res.redirect('/task-list');
         } else {
@@ -194,6 +198,7 @@ router.use((req, res, next) => {
 });
 
 router.use('/document-upload', documentUpload);
+router.use('/provide-information', documentUpload);
 
 router.use((req, res, next) => {
     res.locals.session = req.session;
