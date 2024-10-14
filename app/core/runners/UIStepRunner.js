@@ -108,8 +108,8 @@ class UIStepRunner {
                         formdata.declaration.hasDataChanged = true;
                     }
                     let errorOccurred = false;
-                    req.log.info('UIStepRunner...........persistFormData..state-->'+get(formdata, 'ccdCase.state'));
-                    req.log.info('UIStepRunner...........persistFormData..step.shouldPersistFormData()-->'+step.shouldPersistFormData());
+                    // req.log.info('UIStepRunner...........persistFormData..state-->'+get(formdata, 'ccdCase.state'));
+                    // req.log.info('UIStepRunner...........persistFormData..step.shouldPersistFormData()-->'+step.shouldPersistFormData());
                     if ((get(formdata, 'ccdCase.state') === 'Pending' || get(formdata, 'ccdCase.state') === 'CasePaymentFailed' || get(formdata, 'ccdCase.state') === 'BOCaseStopped' || get(formdata, 'ccdCase.state') === 'CasePrinted') && session.regId && step.shouldPersistFormData()) {
                         const ccdCaseId = formdata.ccdCase.id;
                         const result = yield step.persistFormData(ccdCaseId, formdata, session.id, req);
