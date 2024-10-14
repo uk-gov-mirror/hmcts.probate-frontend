@@ -9,21 +9,25 @@
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
 {% block page_content %}
-    {% call govukFieldset({
+        {% set troubleUploadCheckHintHtml %}
+          <p class="govuk-body">{{ content.troubleUploadCheckHint | safe }}</p>
+        {% endset -%}
+
+        {% call govukFieldset({
         legend: {
-            text: content.header | safe,
-            classes: "govuk-fieldset__legend--l",
-            isPageHeading: true
+          text: content.header | safe,
+          classes: "govuk-fieldset__legend--l",
+          isPageHeading: true
         }
-    }) %}
+        }) %}
         <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
         <h1 class="govuk-body"><strong>{{ content.subheader1 | safe }} </strong></h1>
         <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
 
-        {{ govukTextarea({
-        name: "responseText",
-        id: "responseText",
-        value: fields.responseText.value
+        {{govukTextarea({
+          name: "responseText",
+          id: "responseText",
+          value: fields.responseText.value
         }) }}
 
         <h1 class="govuk-body"><strong>{{ content.subheader2 | safe }} </strong></h1>
@@ -41,7 +45,10 @@
             items: [
                 {
                   value: true,
-                  text: content.troubleUploadCheckbox | safe
+                  text: content.troubleUploadCheckbox | safe,
+                  conditional: {
+                    html: troubleUploadCheckHintHtml
+                  }
                 }
             ]
         }) }}

@@ -10,6 +10,7 @@
   "paragraph4": "The file must be in jpg, bmp, tiff, png or pdf format.",
   "paragraph5": "Maximum file size is 10MB.",
   "troubleUploadCheckbox": "I’m having trouble uploading some or all of my documents",
+  "troubleUploadCheckHint": "If you are unable to upload your documents due to a technical issue, you can post or email your documents instead. You will receive details on how to send them after you have submitted your response.",
 
   "errors": {
     "file": {

@@ -2,28 +2,43 @@
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "widgets/checkanswer.njk" import checkanswer %}
 
 {% block content %}
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
-    <h1 class="govuk-heading-xl govuk-!-margin-bottom-4" style="margin-bottom: 10px!important;">{{ content.header | safe }}</h1>
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-full">
-        <p class="govuk-body govuk-section-break govuk-section-break--visible govuk-!-padding-bottom-3 hidden" id="noFilesUploaded">Response Text</p>
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">{{ content.header | safe }}</h1>
+      <dl class="govuk-summary-list">
+        {{ checkanswer(
+          items = [
+          {
+            question: '<strong>'+content.subheader1+'</strong>',
+            answer: 'Your Reponse Text',
+            visible: true
+          }],
+            url = '/provide-information',
+            common = common,
+            alreadyDeclared = "false"
+        ) }}
         {% if (fields.uploadedDocuments.value == undefined or fields.uploadedDocuments.value.length == 0) %}
-        <p class="govuk-body document-upload__empty-list-text">{{ common.documentUploadEmptyList | safe }}</p>
+          <p class="govuk-body document-upload__empty-list-text">{{ common.documentUploadEmptyList | safe }}</p>
         {% endif %}
-        <ul id="filesUploaded" class="govuk-list">
-          {% for document in fields.uploadedDocuments.value %}
-          <li style="justify-content: space-between;display: flex;overflow-wrap: anywhere;" class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
-            <p class="govuk-body" id="Document1">{{ document | safe }}</p>
-            <a class="govuk-link govuk-link--no-visited-state" id="changeUpload{{ loop.index0 }}" href="/provide-information">{{ common.change | safe }}</a>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
+        {% if (fields.uploadedDocuments.value != undefined or fields.uploadedDocuments.value.length > 0) %}
+          {{checkanswer(
+            items = [
+            {
+              question: '<strong>'+content.subheader2+'</strong>',
+              answer: fields.uploadedDocuments.value,
+              visible: true
+            }
+            ],
+            url = '/provide-information',
+            common = common,
+            alreadyDeclared = "false"
+          )}}
+        {% endif %}
+      </dl>
       <div class="govuk-grid-column-two-thirds" style="padding-left: 0px;">
-          <h1 class="govuk-body"><strong>{{ content.subheader1 | safe }} </strong></h1>
+          <h1 class="govuk-notification-banner__heading"  ><strong>{{ content.subheader3 | safe }} </strong></h1>
           <p class="govuk-body">{{ content.paragraph1 | safe }}&nbsp;<a class="govuk-link" href="https://www.gov.uk/applying-for-probate" target="_blank">{{ content.readMoreLink | safe }}</a></p>
           <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
           {{ govukCheckboxes({
@@ -44,7 +59,5 @@
           </div>
       </div>
     </div>
-  </div>
-</div>
 {% endblock %}
 
