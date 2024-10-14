@@ -14,14 +14,14 @@ class ReviewResponse extends ValidationStep {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        if (formdata.documents && formdata.documents.uploads) {
+        if (formdata.documents?.uploads) {
             ctx.uploadedDocuments = formdata.documents.uploads.map(doc => doc.filename);
         }
         return ctx;
     }
 
     handlePost(ctx, errors, formdata, session, req) {
-        const error = formdata.documents && formdata.documents.error;
+        const error = formdata.documents?.error;
         if (error) {
             errors = errors || [];
             errors.push(FieldError('file', error, this.resourcePath, this.generateContent({}, {}, session.language), session.language));
