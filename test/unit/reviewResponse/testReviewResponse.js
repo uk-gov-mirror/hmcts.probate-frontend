@@ -6,7 +6,7 @@ const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ReviewResponse = steps.ReviewResponse;
 
-describe.only('ReviewResponse', () => {
+describe('ReviewResponse', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = ReviewResponse.constructor.getUrl();
