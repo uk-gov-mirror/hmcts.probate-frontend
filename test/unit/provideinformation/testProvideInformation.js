@@ -1,6 +1,7 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
+const {assert} = require('chai');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ProvideInformation = steps.ProvideInformation;
@@ -49,6 +50,62 @@ describe('ProvideInformation', () => {
             const result = ProvideInformation.isComplete(formdata);
             const expectedFalse = [true, 'inProgress'];
             expect(result).to.deep.equal(expectedFalse);
+            done();
+        });
+    });
+
+    describe('action()', () => {
+        it('test it cleans up context', () => {
+            const ctx = {
+                uploadedDocuments: ['screenshot1.png', 'screenshot2.png'],
+                isUploadingDocument: true
+            };
+            const formdata = {
+                uploadedDocuments: ['screenshot1.png', 'screenshot2.png'],
+                isUploadingDocument: true
+            };
+
+            ProvideInformation.action(ctx, formdata);
+            assert.isUndefined(ctx.uploadedDocuments);
+            assert.isUndefined(ctx.isUploadingDocument);
+        });
+    });
+
+    describe('getContextData()', () => {
+        it('should return the context with uploaded documents', (done) => {
+            const req = {
+                session: {
+                    form: {
+                        documents: {
+                            uploads: [{filename: 'screenshot1.png'}, {filename: 'screenshot2.png'}]
+                        },
+                        body: {
+                            isUploadingDocument: true
+                        }
+                    }
+                },
+            };
+
+            const ctx = ProvideInformation.getContextData(req);
+            expect(ctx.uploadedDocuments).to.deep.equal(['screenshot1.png', 'screenshot2.png']);
+            done();
+        });
+    });
+
+    describe('handlePost()', () => {
+        it('should return the context with errors', (done) => {
+            const ctx = {};
+            const errors = [];
+            const formdata = {
+                documents: {
+                    error: 'file'
+                }
+            };
+            const session = {language: 'en'};
+            ProvideInformation.handlePost(ctx, errors, formdata, session);
+            // eslint-disable-next-line no-undefined
+            expect(errors).to.deep
+                .equal([{field: 'file', href: '#file', msg: 'provideinformation.errors.file.file'}]);
             done();
         });
     });
