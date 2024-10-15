@@ -44,7 +44,7 @@
           {{ govukCheckboxes({
             idPrefix: "citizenResponseCheckbox",
             name: "citizenResponseCheckbox",
-            errorMessage: { text: fields.declarationCheckbox.errorMessage | safe } if fields.declarationCheckbox.errorMessage,
+            errorMessage: { text: fields.citizenResponseCheckbox.errorMessage | safe } if fields.citizenResponseCheckbox.errorMessage,
             items: [
               {
                 value: true,

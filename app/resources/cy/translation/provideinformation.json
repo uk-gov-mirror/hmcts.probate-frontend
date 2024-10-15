@@ -9,7 +9,7 @@
   "help1": "Os ydych chi'n uwchlwytho llun neu sgan, gwnewch yn siŵr ei fod yn dangos y ddogfen gyfan. Gwiriwch eich bod yn gallu darllen y testun i gyd cyn llwytho’r ffeil. Os na fydd y gweithiwr achos yn gallu ei ddarllen, gall gael ei wrthod.",
   "paragraph4": "Rhaid i'r ffeil fod ar ffurf jpg, bmp, tiff, png neu pdf.",
   "paragraph5": "Uchafswm maint y ffeil yw 10MB.",
-  "troubleUploadCheckbox": "Rwyf yn cael trafferth wrth lwytho rhai neu’r cyfan o fy nogfennau.",
+  "documentUploadIssue": "Rwyf yn cael trafferth wrth lwytho rhai neu’r cyfan o fy nogfennau.",
   "troubleUploadCheckHint": "If you are unable to upload your documents due to a technical issue, you can post or email your documents instead. You will receive details on how to send them after you have submitted your response.",
 
   "errors": {
@@ -20,6 +20,9 @@
       "uploadFailed": "Your document failed to upload. Select your document and try again",
       "nothingUploaded": "You need to select a file before you can upload it. Click &lsquo;browse&rsquo; to find a file to upload",
       "uploadTimeout": "The file has taken too long to upload. The file may be too big, reduce the file size and try again or post the death certificate"
+    },
+    "documentUploadIssue": {
+      "required": "Tick the check box to agree to the upload"
     }
   }
 }

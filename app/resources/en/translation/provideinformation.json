@@ -9,7 +9,7 @@
   "help1": "If you are uploading a photo or scan, make sure it shows the whole document. Check you can read all the text before uploading it. If the caseworker cannot read it, the document may be rejected.",
   "paragraph4": "The file must be in jpg, bmp, tiff, png or pdf format.",
   "paragraph5": "Maximum file size is 10MB.",
-  "troubleUploadCheckbox": "I’m having trouble uploading some or all of my documents",
+  "documentUploadIssue": "I’m having trouble uploading some or all of my documents",
   "troubleUploadCheckHint": "If you are unable to upload your documents due to a technical issue, you can post or email your documents instead. You will receive details on how to send them after you have submitted your response.",
 
   "errors": {
@@ -21,7 +21,7 @@
       "nothingUploaded": "You need to select a file before you can upload it. Click &lsquo;browse&rsquo; to find a file to upload",
       "uploadTimeout": "The file has taken too long to upload. The file may be too big, reduce the file size and try again or post the death certificate"
     },
-    "troubleUploadCheckbox": {
+    "documentUploadIssue": {
       "required": "Tick the check box to agree to the upload"
     }
   }
