@@ -33,7 +33,7 @@ class ProvideInformation extends ValidationStep {
         return [ctx, errors];
     }
 
-    isComplete(ctx, formdata) {
+    isComplete(formdata) {
         console.log('uploadfiles-->isComplete');
         console.log('uploadfiles-->isComplete' + get(formdata, 'documentupload'));
         console.log('uploadfiles-->isComplete' + get(formdata, 'documents.uploads'));
