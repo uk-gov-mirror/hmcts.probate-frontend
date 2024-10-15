@@ -1,7 +1,6 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const FieldError = require('app/components/error');
 const {get} = require('lodash');
 const config = require('config');
 
@@ -17,17 +16,12 @@ class ReviewResponse extends ValidationStep {
         if (formdata.documents?.uploads) {
             ctx.uploadedDocuments = formdata.documents.uploads.map(doc => doc.filename);
         }
+        ctx.citizenResponse = formdata.citizenResponse;
         return ctx;
     }
 
     handlePost(ctx, errors, formdata, session, req) {
-        const error = formdata.documents?.error;
-        if (error) {
-            errors = errors || [];
-            errors.push(FieldError('file', error, this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-            delete formdata.documents.error;
-        }
-        if (error === null) {
+        if (formdata.citizenResponseCheckbox === 'true') {
             const document = new Document(config.services.orchestrator.url, ctx.sessionID);
             document.notifyApplicant(ctx.ccdCase.id, req.authToken, req.session.serviceAuthorization)
                 .then(result => {
@@ -40,22 +34,13 @@ class ReviewResponse extends ValidationStep {
     }
 
     isComplete(ctx, formdata) {
-        return [(typeof get(formdata, 'documentupload') !== 'undefined' || typeof get(formdata, 'documents.uploads') !== 'undefined'), 'inProgress'];
-    }
-
-    nextStepOptions() {
-        console.log('uploadfiles-->nextStepOptions');
-        return {
-            options: [
-                {key: 'isUploadingDocument', value: 'true', choice: 'isUploadingDocument'}
-            ]
-        };
+        return [get(formdata, 'citizenResponseCheckbox') === 'true', 'inProgress'];
     }
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.uploadedDocuments;
-        delete ctx.isUploadingDocument;
+        delete ctx.citizenResponse;
         return [ctx, formdata];
     }
 }

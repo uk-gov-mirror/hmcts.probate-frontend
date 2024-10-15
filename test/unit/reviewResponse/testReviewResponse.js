@@ -1,0 +1,75 @@
+'use strict';
+
+const initSteps = require('app/core/initSteps');
+const {assert} = require('chai');
+const expect = require('chai').expect;
+const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
+const ReviewResponse = steps.ReviewResponse;
+
+describe.only('ReviewResponse', () => {
+    describe('getUrl()', () => {
+        it('should return the correct url', (done) => {
+            const url = ReviewResponse.constructor.getUrl();
+            expect(url).to.equal('/review-response');
+            done();
+        });
+    });
+    describe('isComplete()', () => {
+        it('should return the complete when checkbox is clicked', (done) => {
+            const formdata = {
+                citizenResponseCheckbox: 'true'
+            };
+            const ctx = {citizenResponseCheckbox: true};
+            const result = ReviewResponse.isComplete(ctx, formdata);
+            const expectedTrue = [true, 'inProgress'];
+            expect(result).to.deep.equal(expectedTrue);
+            done();
+        });
+        it('should return complete false when no checkbox is clicked', (done) => {
+            const formdata = {
+            };
+            const ctx = {};
+            const result = ReviewResponse.isComplete(ctx, formdata);
+            const expectedFalse = [false, 'inProgress'];
+            expect(result).to.deep.equal(expectedFalse);
+            done();
+        });
+    });
+
+    describe('action()', () => {
+        it('test it cleans up context', () => {
+            const ctx = {
+                uploadedDocuments: ['screenshot1.png', 'screenshot2.png'],
+                citizenResponse: true
+            };
+            const formdata = {
+                uploadedDocuments: ['screenshot1.png', 'screenshot2.png'],
+                citizenResponse: true
+            };
+
+            ReviewResponse.action(ctx, formdata);
+            assert.isUndefined(ctx.uploadedDocuments);
+            assert.isUndefined(ctx.citizenResponse);
+        });
+    });
+
+    describe('getContextData()', () => {
+        it('should return the context with uploaded documents', (done) => {
+            const req = {
+                session: {
+                    form: {
+                        documents: {
+                            uploads: [{filename: 'screenshot1.png'}, {filename: 'screenshot2.png'}]
+                        },
+                        citizenResponse: true
+                    }
+                },
+            };
+
+            const ctx = ReviewResponse.getContextData(req);
+            expect(ctx.uploadedDocuments).to.deep.equal(['screenshot1.png', 'screenshot2.png']);
+            expect(ctx.citizenResponse).to.deep.equal(true);
+            done();
+        });
+    });
+});

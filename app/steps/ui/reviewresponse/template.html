@@ -12,7 +12,7 @@
           items = [
           {
             question: '<strong>'+content.subheader1+'</strong>',
-            answer: 'Your Reponse Text',
+            answer: fields.citizenResponse.value,
             visible: true
           }],
             url = '/provide-information',
@@ -42,12 +42,13 @@
           <p class="govuk-body">{{ content.paragraph1 | safe }}&nbsp;<a class="govuk-link" href="https://www.gov.uk/applying-for-probate" target="_blank">{{ content.readMoreLink | safe }}</a></p>
           <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
           {{ govukCheckboxes({
-            idPrefix: "decCheckbox",
-            name: "troubleUploadCheckbox",
+            idPrefix: "citizenResponseCheckbox",
+            name: "citizenResponseCheckbox",
+            errorMessage: { text: fields.declarationCheckbox.errorMessage | safe } if fields.declarationCheckbox.errorMessage,
             items: [
               {
                 value: true,
-                text: content.troubleUploadCheckbox | safe
+                text: content.declarationCheckbox | safe
               }
             ]
           }) }}

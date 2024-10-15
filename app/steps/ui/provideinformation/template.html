@@ -25,14 +25,14 @@
         <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
 
         {{govukTextarea({
-          name: "responseText",
+          name: "citizenResponse",
           label: {
             text: content["subheader1"] | safe,
             classes: "govuk-label--s",
             isPageHeading: false
           },
-          id: "responseText",
-          value: fields.responseText.value
+          id: "citizenResponse",
+          value: fields.citizenResponse.value
         }) }}
 
         <h1 class="govuk-body"><strong>{{ content.subheader2 | safe }} </strong></h1>
@@ -45,8 +45,8 @@
         {% include "includes/document-upload.html" %}
 
         {{ govukCheckboxes({
-            idPrefix: "troubleUploadCheckbox",
-            name: "troubleUploadCheckbox",
+            idPrefix: "documentUploadIssue",
+            name: "documentUploadIssue",
             items: [
                 {
                   value: true,
