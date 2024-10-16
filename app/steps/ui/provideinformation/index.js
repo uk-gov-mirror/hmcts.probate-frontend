@@ -41,7 +41,6 @@ class ProvideInformation extends ValidationStep {
     }
 
     nextStepOptions() {
-        console.log('uploadfiles-->nextStepOptions');
         return {
             options: [
                 {key: 'isUploadingDocument', value: 'true', choice: 'isUploadingDocument'}

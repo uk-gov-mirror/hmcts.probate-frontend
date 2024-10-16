@@ -51,7 +51,8 @@
               value: true,
               text: content.documentUploadIssue | safe,
               conditional: {
-              html: documentUploadIssueHintHtml
+                html: documentUploadIssueHintHtml
+              }
           }
       ],
       errorMessage: { text: fields.citizenResponse.errorMessage | safe } if fields.citizenResponse.errorMessage
