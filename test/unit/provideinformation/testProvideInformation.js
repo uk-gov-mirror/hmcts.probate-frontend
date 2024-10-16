@@ -111,5 +111,55 @@ describe('ProvideInformation', () => {
                 .equal([{field: 'file', href: '#file', msg: 'provideinformation.errors.file.file'}]);
             done();
         });
+        it('should return an error when no citizenResponse/documentUploadIssue/uploadedDocuments', (done) => {
+            const ctxToTest = {};
+            const errorsToTest = [];
+            const formdata = {};
+            ProvideInformation.handlePost(ctxToTest, errorsToTest, formdata, {language: 'en'});
+            expect(errorsToTest).to.deep.equal([{
+                field: 'citizenResponse',
+                href: '#citizenResponse',
+                msg: 'You must either enter a response, upload a document, or tell us if you are having trouble uploading any documents'
+            }]);
+            done();
+        });
+        it('should return an error when an uploaded document is an invalid type', (done) => {
+            const ctxToTest = {
+                uploadedDocuments: ['screenshot1.png', 'screenshot2.png'],
+                isUploadingDocument: true
+            };
+            const errorsToTest = [];
+            const formdata = {
+                documents: {
+                    error: 'invalidFileType'
+                }
+            };
+            ProvideInformation.handlePost(ctxToTest, errorsToTest, formdata, {language: 'en'});
+            expect(errorsToTest).to.deep.equal([{
+                field: 'file',
+                href: '#file',
+                msg: 'You have used a file type that can&rsquo;t be accepted. Save your file as a jpg, bmp, tiff, png or PDF file and try again'
+            }]);
+            done();
+        });
+        it('should return an error when an uploaded document is an invalid size', (done) => {
+            const ctxToTest = {
+                uploadedDocuments: ['screenshot1.png', 'screenshot2.png'],
+                isUploadingDocument: true
+            };
+            const errorsToTest = [];
+            const formdata = {
+                documents: {
+                    error: 'maxSize'
+                }
+            };
+            ProvideInformation.handlePost(ctxToTest, errorsToTest, formdata, {language: 'en'});
+            expect(errorsToTest).to.deep.equal([{
+                field: 'file',
+                href: '#file',
+                msg: 'Your file is too large to upload. Use a file that is under 10MB and try again'
+            }]);
+            done();
+        });
     });
 });
