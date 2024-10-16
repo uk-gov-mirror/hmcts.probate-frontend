@@ -184,6 +184,8 @@ router.use((req, res, next) => {
         } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl)) {
             if (currentPageCleanUrl==='/provide-information') {
                 next();
+            } else if (currentPageCleanUrl==='/review-response') {
+                next();
             } else {
                 res.redirect('/citizens-hub');
             }
