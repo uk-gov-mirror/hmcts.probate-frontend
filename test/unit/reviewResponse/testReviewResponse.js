@@ -2,10 +2,11 @@
 
 const initSteps = require('app/core/initSteps');
 const {assert} = require('chai');
+const journeyProbate = require('../../../app/journeys/probate');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ReviewResponse = steps.ReviewResponse;
-
+const ProvideInformation = steps.ProvideInformation;
 describe('ReviewResponse', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
@@ -98,6 +99,29 @@ describe('ReviewResponse', () => {
             expect(errors).to.deep.equal(errorsTestData);
             expect(session).to.deep.equal({
                 language: 'en'
+            });
+        });
+        describe('previousStepUrl()', () => {
+            let ctx;
+            it('should return the previous step url', (done) => {
+                const res = {
+                    redirect: (url) => url
+                };
+                const req = {
+                    session: {
+                        language: 'en',
+                        form: {
+                            language: {
+                                bilingual: 'optionYes'
+                            }
+                        }
+                    }
+                };
+                req.session.journey = journeyProbate;
+                ctx = {};
+                ReviewResponse.previousStepUrl(req, res, ctx);
+                expect(ctx.previousUrl).to.equal(ProvideInformation.constructor.getUrl());
+                done();
             });
         });
     });

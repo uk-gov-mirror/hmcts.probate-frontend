@@ -2,9 +2,11 @@
 
 const initSteps = require('app/core/initSteps');
 const {assert} = require('chai');
+const journeyProbate = require('../../../app/journeys/probate');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ProvideInformation = steps.ProvideInformation;
+const CitizensHub = steps.CitizensHub;
 
 describe('ProvideInformation', () => {
     describe('getUrl()', () => {
@@ -160,6 +162,29 @@ describe('ProvideInformation', () => {
                 msg: 'Your file is too large to upload. Use a file that is under 10MB and try again'
             }]);
             done();
+        });
+        describe('previousStepUrl()', () => {
+            let ctx;
+            it('should return the previous step url', (done) => {
+                const res = {
+                    redirect: (url) => url
+                };
+                const req = {
+                    session: {
+                        language: 'en',
+                        form: {
+                            language: {
+                                bilingual: 'optionYes'
+                            }
+                        }
+                    }
+                };
+                req.session.journey = journeyProbate;
+                ctx = {};
+                ProvideInformation.previousStepUrl(req, res, ctx);
+                expect(ctx.previousUrl).to.equal(CitizensHub.constructor.getUrl());
+                done();
+            });
         });
     });
 });
