@@ -1,7 +1,9 @@
 {% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "widgets/fielderror.html" import fieldError %}
 
 <div class="document-upload">
     <div class="document-upload__dropzone">
+      {{ fieldError(fields.citizenResponse) }}
         <img src="/public/images/document-upload-arrow.png" class="document-upload__image" alt="{{ content.title | safe }}">
         <div class="document-upload__text">
             <p class="govuk-body document-upload__dropzone-text document-upload__dropzone-text--choose-file">{{ common.documentUploadChooseFile | safe }}</p>

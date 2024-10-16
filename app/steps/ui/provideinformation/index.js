@@ -17,26 +17,26 @@ class ProvideInformation extends ValidationStep {
             ctx.uploadedDocuments = formdata.documents.uploads.map(doc => doc.filename);
         }
         ctx.isUploadingDocument = req.body?.isUploadingDocument;
-        console.log('uploadfiles-->getContextData');
-        console.log('uploadfiles-->getContextData-->'+ctx.isUploadingDocument);
         return ctx;
     }
 
     handlePost(ctx, errors, formdata, session) {
+        if ((ctx.citizenResponse==='' || typeof ctx.citizenResponse==='undefined') &&
+            (!ctx.documentUploadIssue || typeof ctx.documentUploadIssue==='undefined') &&
+            (typeof ctx.uploadedDocuments==='undefined' || ctx.uploadedDocuments.length === 0)
+        ) {
+            errors.push(FieldError('citizenResponse', 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+        }
         const error = formdata.documents?.error;
         if (error) {
             errors = errors || [];
             errors.push(FieldError('file', error, this.resourcePath, this.generateContent({}, {}, session.language), session.language));
             delete formdata.documents.error;
         }
-        console.log('uploadfiles-->handlePost');
         return [ctx, errors];
     }
 
     isComplete(formdata) {
-        console.log('uploadfiles-->isComplete');
-        console.log('uploadfiles-->isComplete' + get(formdata, 'documentupload'));
-        console.log('uploadfiles-->isComplete' + get(formdata, 'documents.uploads'));
         return [(typeof get(formdata, 'documentupload') !== 'undefined' || typeof get(formdata, 'documents.uploads') !== 'undefined'), 'inProgress'];
     }
 
@@ -50,7 +50,6 @@ class ProvideInformation extends ValidationStep {
     }
 
     action(ctx, formdata) {
-        console.log('uploadfiles-->action');
         super.action(ctx, formdata);
         delete ctx.uploadedDocuments;
         delete ctx.isUploadingDocument;

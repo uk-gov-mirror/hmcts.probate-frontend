@@ -21,8 +21,8 @@
       "nothingUploaded": "You need to select a file before you can upload it. Click &lsquo;browse&rsquo; to find a file to upload",
       "uploadTimeout": "The file has taken too long to upload. The file may be too big, reduce the file size and try again or post the death certificate"
     },
-    "documentUploadIssue": {
-      "required": "Tick the check box to agree to the upload"
+    "citizenResponse": {
+      "required": "You must either enter a response, upload a document, or tell us if you are having trouble uploading any documents"
     }
   }
 }
