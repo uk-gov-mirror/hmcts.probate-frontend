@@ -94,7 +94,10 @@ describe('ProvideInformation', () => {
 
     describe('handlePost()', () => {
         it('should return the context with errors', (done) => {
-            const ctx = {};
+            const ctx = {
+                uploadedDocuments: ['screenshot1.png', 'screenshot2.png'],
+                isUploadingDocument: true
+            };
             const errors = [];
             const formdata = {
                 documents: {
