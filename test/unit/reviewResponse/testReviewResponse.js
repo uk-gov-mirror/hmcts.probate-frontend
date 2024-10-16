@@ -72,4 +72,33 @@ describe('ReviewResponse', () => {
             done();
         });
     });
+
+    describe('handlePost()', () => {
+        const ctxTestData = {
+            caseType: 'GOP',
+            uploadedDocuments: ['screenshot1.png', 'screenshot2.png']
+        };
+        const errorsTestData = [];
+        const formdata = {
+            responseCheckbox: 'true'
+        };
+        const session = {
+            language: 'en'
+        };
+        const hostname = 'localhost';
+
+        it('Notify documents uploaded', async () => {
+
+            // Call the handlePost function
+            const [ctx, errors] = await ReviewResponse
+                .handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
+
+            // Assertions
+            expect(ctx).to.deep.equal(ctxTestData);
+            expect(errors).to.deep.equal(errorsTestData);
+            expect(session).to.deep.equal({
+                language: 'en'
+            });
+        });
+    });
 });
