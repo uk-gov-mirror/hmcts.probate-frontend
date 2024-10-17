@@ -61,6 +61,9 @@ describe('ReviewResponse', () => {
                     form: {
                         documents: {
                             uploads: [{filename: 'screenshot1.png'}, {filename: 'screenshot2.png'}]
+                        },
+                        provideinformation: {
+                            citizenResponse: 'true'
                         }
                     }
                 },
