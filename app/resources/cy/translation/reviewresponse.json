@@ -8,6 +8,7 @@
   "subheader3": "Datganiad cyfreithiol",
   "paragraph2": "Os byddwch yn darparu gwybodaeth anwir, efallai y bydd eich cais yn cael ei dynnu’n ôl neu fydd eich grant profiant yn cael ei ddiddymu. Gallwch fod yn euog o ddirmyg llys, sy’n golygu y gallwch gael eich dirwyo neu eich anfon i’r carchar.",
   "citizenResponseCheckbox": "Cadarnhaf fy mod yn deall ac yn derbyn y datganiad hwn",
+  "documentUploadIssue": "Rwyf yn cael trafferth wrth lwytho rhai neu’r cyfan o fy nogfennau.",
 
   "errors": {
     "citizenResponseCheckbox": {

@@ -10,31 +10,42 @@
       <dl class="govuk-summary-list">
         {{ checkanswer(
           items = [
-          {
-            question: '<strong>'+content.subheader1+'</strong>',
-            answer: fields.citizenResponse.value,
-            visible: true
-          }],
-            url = '/provide-information',
-            common = common,
-            alreadyDeclared = "false"
+              {
+                  question: '<strong>'+content.subheader1+'</strong>',
+                  answer: fields.citizenResponse.value,
+                  visible: true
+              }],
+              url = '/provide-information',
+              common = common,
+              alreadyDeclared = "false"
         ) }}
-        {% if (fields.uploadedDocuments.value == undefined or fields.uploadedDocuments.value.length == 0) %}
-          <p class="govuk-body document-upload__empty-list-text">{{ common.documentUploadEmptyList | safe }}</p>
-        {% endif %}
         {% if (fields.uploadedDocuments.value != undefined or fields.uploadedDocuments.value.length > 0) %}
           {{checkanswer(
             items = [
+                {
+                    question: '<strong>'+content.subheader2+'</strong>',
+                    answer: fields.uploadedDocuments.value,
+                    visible: true
+                }
+                ],
+                url = '/provide-information',
+                common = common,
+                alreadyDeclared = "false"
+          )}}
+        {% endif %}
+        {% if (fields.documentUploadIssue.value) %}
+        {{checkanswer(
+            items = [
             {
-              question: '<strong>'+content.subheader2+'</strong>',
-              answer: fields.uploadedDocuments.value,
-              visible: true
+                question: '<strong></strong>',
+                answer: content.documentUploadIssue,
+                visible: true
             }
             ],
             url = '/provide-information',
             common = common,
             alreadyDeclared = "false"
-          )}}
+        )}}
         {% endif %}
       </dl>
       <div class="govuk-grid-column-two-thirds" style="padding-left: 0px;">

@@ -8,6 +8,7 @@
   "subheader3": "Legal declaration",
   "paragraph2": "If you provide false information, your application may be withdrawn or your grant of probate revoked. You may also be found to be in contempt of court, which means you can be fined or sent to prison.",
   "citizenResponseCheckbox": "I confirm that I understand and accept this declaration",
+  "documentUploadIssue": "I’m having trouble uploading some or all of my documents",
 
   "errors": {
     "citizenResponseCheckbox": {
