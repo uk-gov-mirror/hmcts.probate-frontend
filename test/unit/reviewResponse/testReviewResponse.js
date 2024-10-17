@@ -61,15 +61,13 @@ describe('ReviewResponse', () => {
                     form: {
                         documents: {
                             uploads: [{filename: 'screenshot1.png'}, {filename: 'screenshot2.png'}]
-                        },
-                        citizenResponse: true
+                        }
                     }
                 },
             };
 
             const ctx = ReviewResponse.getContextData(req);
             expect(ctx.uploadedDocuments).to.deep.equal(['screenshot1.png', 'screenshot2.png']);
-            expect(ctx.citizenResponse).to.deep.equal(true);
             done();
         });
     });
