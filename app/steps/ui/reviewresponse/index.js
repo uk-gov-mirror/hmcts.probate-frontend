@@ -20,7 +20,7 @@ class ReviewResponse extends ValidationStep {
             ctx.citizenResponse=formdata.provideinformation.citizenResponse;
         }
         if (formdata.provideinformation && formdata.provideinformation.documentUploadIssue) {
-            ctx.citizenResponse=formdata.provideinformation.documentUploadIssue;
+            ctx.documentUploadIssue=formdata.provideinformation.documentUploadIssue;
         }
         return ctx;
     }
