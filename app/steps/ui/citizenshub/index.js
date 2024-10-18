@@ -43,10 +43,8 @@ class CitizensHub extends Step {
         if (req.session.form.citizenResponseSubmittedDate) {
             ctx.date = FormatDate.addWeeksToDate(req.session.form.citizenResponseSubmittedDate, 7);
         }
-        if (req.session.form.provideinformation && req.session.form.provideinformation.documentUploadIssue) {
-            ctx.informationProvided = CaseProgress.informationProvided(state, req.session.form.provideinformation.documentUploadIssue, req.session.form.citizenResponseSubmittedDate);
-            ctx.partialInformationProvided = CaseProgress.partialInformationProvided(state, req.session.form.provideinformation.documentUploadIssue, req.session.form.citizenResponseSubmittedDate);
-        }
+        ctx.informationProvided = CaseProgress.informationProvided(state, req.session.form.provideinformation?.documentUploadIssue, req.session.form.citizenResponseSubmittedDate);
+        ctx.partialInformationProvided = CaseProgress.partialInformationProvided(state, req.session.form.provideinformation?.documentUploadIssue, req.session.form.citizenResponseSubmittedDate);
         return ctx;
     }
 
