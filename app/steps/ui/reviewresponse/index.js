@@ -26,7 +26,7 @@ class ReviewResponse extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata, session, req) {
-        if (formdata.reviewresponse.citizenResponseCheckbox === 'true') {
+        if (formdata.reviewresponse && formdata.reviewresponse.citizenResponseCheckbox === 'true') {
             const document = new Document(config.services.orchestrator.url, ctx.sessionID);
             document.notifyApplicant(ctx.ccdCase.id, req.authToken, req.session.serviceAuthorization)
                 .then(result => {
