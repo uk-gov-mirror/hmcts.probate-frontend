@@ -17,6 +17,9 @@ class ProvideInformation extends ValidationStep {
             ctx.uploadedDocuments = formdata.documents.uploads.map(doc => doc.filename);
         }
         ctx.isUploadingDocument = req.body?.isUploadingDocument;
+        if (formdata.provideinformation && typeof formdata.provideinformation.citizenResponse!=='undefined') {
+            ctx.citizenResponse=formdata.provideinformation.citizenResponse;
+        }
         return ctx;
     }
 
