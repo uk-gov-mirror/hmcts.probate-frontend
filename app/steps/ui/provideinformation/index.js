@@ -33,9 +33,9 @@ class ProvideInformation extends ValidationStep {
             errors.push(FieldError('file', error, this.resourcePath, this.generateContent({}, {}, session.language), session.language));
             delete formdata.documents.error;
         }
-        if (!ctx.documentUploadIssue || typeof ctx.documentUploadIssue==='undefined') {
-            ctx.documentUploadIssue = false;
-        }
+        //if (!ctx.documentUploadIssue || typeof ctx.documentUploadIssue==='undefined') {
+        //    ctx.documentUploadIssue = false;
+        //}
         return [ctx, errors];
     }
 
