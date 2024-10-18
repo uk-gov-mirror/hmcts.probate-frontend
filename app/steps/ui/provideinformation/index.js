@@ -23,7 +23,7 @@ class ProvideInformation extends ValidationStep {
     handlePost(ctx, errors, formdata, session) {
         if ((ctx.citizenResponse==='' || typeof ctx.citizenResponse==='undefined') &&
             (!ctx.documentUploadIssue || typeof ctx.documentUploadIssue==='undefined') &&
-            (typeof ctx.uploadedDocuments==='undefined' || ctx.uploadedDocuments.length === 0)
+            (typeof ctx.uploadedDocuments ==='undefined' || ctx.uploadedDocuments.length === 0)
         ) {
             errors.push(FieldError('citizenResponse', 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
@@ -43,10 +43,12 @@ class ProvideInformation extends ValidationStep {
         return [(typeof get(formdata, 'documentupload') !== 'undefined' || typeof get(formdata, 'documents.uploads') !== 'undefined'), 'inProgress'];
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        ctx.responseOrDocument = ctx.citizenResponse === true || typeof ctx.uploadedDocuments !== 'undefined';
+
         return {
             options: [
-                {key: 'isUploadingDocument', value: 'true', choice: 'isUploadingDocument'}
+                {key: 'responseOrDocument', value: true, choice: 'responseOrDocument'}
             ]
         };
     }

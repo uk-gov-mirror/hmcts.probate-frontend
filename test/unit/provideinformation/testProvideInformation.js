@@ -18,10 +18,14 @@ describe('ProvideInformation', () => {
     });
     describe('nextStepOptions()', () => {
         it('should return the correct next step options', (done) => {
-            const result = ProvideInformation.nextStepOptions();
+            const ctx = {
+                uploadedDocuments: ['screenshot1.png', 'screenshot2.png'],
+                citizenResponse: true
+            };
+            const result = ProvideInformation.nextStepOptions(ctx);
             expect(result).to.deep.equal({
                 options: [
-                    {key: 'isUploadingDocument', value: 'true', choice: 'isUploadingDocument'}
+                    {key: 'responseOrDocument', value: true, choice: 'responseOrDocument'}
                 ]
             });
             done();
