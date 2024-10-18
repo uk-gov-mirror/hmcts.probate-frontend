@@ -20,7 +20,7 @@ describe('ProvideInformation', () => {
         it('should return the correct next step options', (done) => {
             const ctx = {
                 uploadedDocuments: ['screenshot1.png', 'screenshot2.png'],
-                citizenResponse: true
+                citizenResponse: 'response'
             };
             const result = ProvideInformation.nextStepOptions(ctx);
             expect(result).to.deep.equal({

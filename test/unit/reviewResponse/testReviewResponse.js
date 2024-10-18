@@ -18,7 +18,9 @@ describe('ReviewResponse', () => {
     describe('isComplete()', () => {
         it('should return the complete when checkbox is clicked', (done) => {
             const formdata = {
-                citizenResponseCheckbox: 'true'
+                reviewresponse: {
+                    citizenResponseCheckbox: 'true'
+                }
             };
             const ctx = {citizenResponseCheckbox: true};
             const result = ReviewResponse.isComplete(ctx, formdata);

@@ -44,7 +44,7 @@ class ProvideInformation extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.responseOrDocument = ctx.citizenResponse === true || typeof ctx.uploadedDocuments !== 'undefined';
+        ctx.responseOrDocument = typeof ctx.citizenResponse !== 'undefined' || typeof ctx.uploadedDocuments !== 'undefined';
 
         return {
             options: [
