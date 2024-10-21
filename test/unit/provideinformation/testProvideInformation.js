@@ -25,7 +25,7 @@ describe('ProvideInformation', () => {
             const result = ProvideInformation.nextStepOptions(ctx);
             expect(result).to.deep.equal({
                 options: [
-                    {key: 'responseOrDocument', value: true, choice: 'responseOrDocument'}
+                    {key: 'responseOrDocument', value: 'true', choice: 'responseOrDocument'}
                 ]
             });
             done();
@@ -52,6 +52,24 @@ describe('ProvideInformation', () => {
         it('should return complete true when documents have uploads', (done) => {
             const formdata = {
                 documents: {uploads: [{filename: 'screenshot1.png'}, {filename: 'screenshot2.png'}]}
+            };
+            const result = ProvideInformation.isComplete(formdata);
+            const expectedFalse = [true, 'inProgress'];
+            expect(result).to.deep.equal(expectedFalse);
+            done();
+        });
+        it('should return complete true when citizen response', (done) => {
+            const formdata = {
+                provideinformation: {citizenResponse: 'response'}
+            };
+            const result = ProvideInformation.isComplete(formdata);
+            const expectedFalse = [true, 'inProgress'];
+            expect(result).to.deep.equal(expectedFalse);
+            done();
+        });
+        it('should return complete true when document upload issue is clicked', (done) => {
+            const formdata = {
+                provideinformation: {documentUploadIssue: 'true'}
             };
             const result = ProvideInformation.isComplete(formdata);
             const expectedFalse = [true, 'inProgress'];

@@ -43,7 +43,8 @@ class ProvideInformation extends ValidationStep {
     }
 
     isComplete(formdata) {
-        return [(typeof get(formdata, 'documentupload') !== 'undefined' || typeof get(formdata, 'documents.uploads') !== 'undefined'), 'inProgress'];
+        return [(typeof get(formdata, 'documentupload') !== 'undefined' || typeof get(formdata, 'documents.uploads') !== 'undefined') ||
+        (typeof get(formdata, 'provideinformation.citizenResponse') !== 'undefined') || (typeof get(formdata, 'provideinformation.documentUploadIssue') !== 'undefined'), 'inProgress'];
     }
 
     nextStepOptions(ctx) {
@@ -51,7 +52,7 @@ class ProvideInformation extends ValidationStep {
 
         return {
             options: [
-                {key: 'responseOrDocument', value: true, choice: 'responseOrDocument'}
+                {key: 'responseOrDocument', value: 'true', choice: 'responseOrDocument'}
             ]
         };
     }
