@@ -37,7 +37,7 @@ class ProvideInformation extends ValidationStep {
             delete formdata.documents.error;
         }
         if (typeof ctx.documentUploadIssue==='undefined' || !ctx.documentUploadIssue) {
-            ctx.documentUploadIssue = false;
+            ctx.documentUploadIssue = 'false';
         }
         return [ctx, errors];
     }
