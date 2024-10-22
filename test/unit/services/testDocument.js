@@ -36,7 +36,7 @@ describe('DocumentService', () => {
             expect(documentData.log.calledOnce).to.equal(true);
             expect(documentData.log.calledWith('Notify Document upload')).to.equal(true);
             expect(formatUrlStub.calledOnce).to.equal(true);
-            expect(formatUrlStub.calledWith(endpoint, `/document/notification/${caseId}`)).to.equal(true);
+            expect(formatUrlStub.calledWith(endpoint, `/documents/notification/${caseId}`)).to.equal(true);
             expect(AsyncFetch.fetchJson.calledOnce).to.equal(true);
             expect(AsyncFetch.fetchJson.calledWith('/formattedUrl', fetchOptions)).to.equal(true);
 
