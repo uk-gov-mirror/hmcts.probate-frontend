@@ -1,6 +1,7 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
+const Document = require('app/services/Document');
 const {get} = require('lodash');
 const config = require('config');
 
@@ -25,10 +26,10 @@ class ReviewResponse extends ValidationStep {
         return ctx;
     }
 
-    handlePost(ctx, errors, formdata, session, req) {
+    handlePost(ctx, errors, formdata, session) {
         if (formdata.reviewresponse && formdata.reviewresponse.citizenResponseCheckbox === 'true') {
             const document = new Document(config.services.orchestrator.url, ctx.sessionID);
-            document.notifyApplicant(ctx.ccdCase.id, req.authToken, req.session.serviceAuthorization)
+            document.notifyApplicant(ctx.ccdCase.id, session.authToken, session.serviceAuthorization)
                 .then(result => {
                     if (result.name === 'Error') {
                         throw new ReferenceError('Error sending notification about doc upload');

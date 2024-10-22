@@ -276,7 +276,8 @@ const stepList = {
         responseOrDocument: 'ReviewResponse',
         isUploadingDocument: 'ProvideInformation',
         otherwise: 'CitizensHub'
-    }
+    },
+    ReviewResponse: 'CitizensHub'
 };
 
 module.exports.stepList = stepList;

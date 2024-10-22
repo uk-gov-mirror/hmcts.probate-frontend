@@ -220,7 +220,8 @@ const stepList = {
     ProvideInformation: {
         responseOrDocument: 'ReviewResponse',
         otherwise: 'CitizensHub'
-    }
+    },
+    ReviewResponse: 'CitizensHub'
 };
 
 module.exports.stepList = stepList;

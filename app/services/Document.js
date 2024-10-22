@@ -33,7 +33,7 @@ class Document extends Service {
 
     notifyApplicant(ccdCaseId, authToken, serviceAuthorisation) {
         this.log('Notify Document upload');
-        const url = this.formatUrl.format(this.endpoint, `/document/notification/${ccdCaseId}`);
+        const url = this.formatUrl.format(this.endpoint, `/documents/notification/${ccdCaseId}`);
         const headers = {
             'Content-Type': 'application/json',
             'Session-Id': this.sessionId,
