@@ -32,46 +32,35 @@ describe('ProvideInformation', () => {
         });
     });
     describe('isComplete()', () => {
-        it('should return the complete when documents uploaded', (done) => {
-            const formdata = {
-                documentupload: ['screenshot1.png', 'screenshot2.png']
-            };
-            const result = ProvideInformation.isComplete(formdata);
-            const expectedTrue = [true, 'inProgress'];
-            expect(result).to.deep.equal(expectedTrue);
-            done();
-        });
         it('should return complete false when no documents uploaded', (done) => {
-            const formdata = {
+            const ctx = {
             };
-            const result = ProvideInformation.isComplete(formdata);
+            const result = ProvideInformation.isComplete(ctx);
             const expectedFalse = [false, 'inProgress'];
             expect(result).to.deep.equal(expectedFalse);
             done();
         });
         it('should return complete true when documents have uploads', (done) => {
-            const formdata = {
-                documents: {uploads: [{filename: 'screenshot1.png'}, {filename: 'screenshot2.png'}]}
+            const ctx = {
+                uploadedDocuments: ['screenshot1.png', 'screenshot2.png']
             };
-            const result = ProvideInformation.isComplete(formdata);
+            const result = ProvideInformation.isComplete(ctx);
             const expectedFalse = [true, 'inProgress'];
             expect(result).to.deep.equal(expectedFalse);
             done();
         });
         it('should return complete true when citizen response', (done) => {
-            const formdata = {
-                provideinformation: {citizenResponse: 'response'}
+            const ctx = {
+                citizenResponse: 'response'
             };
-            const result = ProvideInformation.isComplete(formdata);
+            const result = ProvideInformation.isComplete(ctx);
             const expectedFalse = [true, 'inProgress'];
             expect(result).to.deep.equal(expectedFalse);
             done();
         });
         it('should return complete true when document upload issue is clicked', (done) => {
-            const formdata = {
-                provideinformation: {documentUploadIssue: 'true'}
-            };
-            const result = ProvideInformation.isComplete(formdata);
+            const ctx = {documentUploadIssue: 'true'};
+            const result = ProvideInformation.isComplete(ctx);
             const expectedFalse = [true, 'inProgress'];
             expect(result).to.deep.equal(expectedFalse);
             done();
@@ -82,7 +71,9 @@ describe('ProvideInformation', () => {
         it('test it cleans up context', () => {
             const ctx = {
                 uploadedDocuments: ['screenshot1.png', 'screenshot2.png'],
-                isUploadingDocument: true
+                isUploadingDocument: true,
+                citizenResponse: 'response',
+                documentUploadIssue: 'true'
             };
             const formdata = {
                 uploadedDocuments: ['screenshot1.png', 'screenshot2.png'],
@@ -92,6 +83,8 @@ describe('ProvideInformation', () => {
             ProvideInformation.action(ctx, formdata);
             assert.isUndefined(ctx.uploadedDocuments);
             assert.isUndefined(ctx.isUploadingDocument);
+            assert.isUndefined(ctx.citizenResponse);
+            assert.isUndefined(ctx.documentUploadIssue);
         });
     });
 
@@ -103,6 +96,10 @@ describe('ProvideInformation', () => {
                         documents: {
                             uploads: [{filename: 'screenshot1.png'}, {filename: 'screenshot2.png'}]
                         },
+                        provideinformation: {
+                            citizenResponse: 'response',
+                            documentUploadIssue: 'true'
+                        },
                         body: {
                             isUploadingDocument: true
                         }
@@ -112,6 +109,8 @@ describe('ProvideInformation', () => {
 
             const ctx = ProvideInformation.getContextData(req);
             expect(ctx.uploadedDocuments).to.deep.equal(['screenshot1.png', 'screenshot2.png']);
+            expect(ctx.citizenResponse).to.deep.equal('response');
+            expect(ctx.documentUploadIssue).to.deep.equal('true');
             done();
         });
     });

@@ -2,7 +2,6 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FieldError = require('app/components/error');
-const {get} = require('lodash');
 
 class ProvideInformation extends ValidationStep {
 
@@ -17,8 +16,11 @@ class ProvideInformation extends ValidationStep {
             ctx.uploadedDocuments = formdata.documents.uploads.map(doc => doc.filename);
         }
         ctx.isUploadingDocument = req.body?.isUploadingDocument;
-        if (formdata.provideinformation && typeof formdata.provideinformation.citizenResponse!=='undefined') {
+        if (formdata.provideinformation.citizenResponse) {
             ctx.citizenResponse=formdata.provideinformation.citizenResponse;
+        }
+        if (formdata.provideinformation.documentUploadIssue) {
+            ctx.documentUploadIssue=formdata.provideinformation.documentUploadIssue;
         }
         return ctx;
     }
@@ -42,9 +44,9 @@ class ProvideInformation extends ValidationStep {
         return [ctx, errors];
     }
 
-    isComplete(formdata) {
-        return [(typeof get(formdata, 'documentupload') !== 'undefined' || typeof get(formdata, 'documents.uploads') !== 'undefined') ||
-        (typeof get(formdata, 'provideinformation.citizenResponse') !== 'undefined') || (typeof get(formdata, 'provideinformation.documentUploadIssue') !== 'undefined'), 'inProgress'];
+    isComplete(ctx) {
+        return [(typeof ctx.uploadedDocuments !== 'undefined') || (typeof ctx.citizenResponse !== 'undefined') ||
+        (typeof ctx.documentUploadIssue !== 'undefined'), 'inProgress'];
     }
 
     nextStepOptions(ctx) {
@@ -61,6 +63,8 @@ class ProvideInformation extends ValidationStep {
         super.action(ctx, formdata);
         delete ctx.uploadedDocuments;
         delete ctx.isUploadingDocument;
+        delete ctx.citizenResponse;
+        delete ctx.documentUploadIssue;
         return [ctx, formdata];
     }
 }
