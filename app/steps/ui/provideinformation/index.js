@@ -16,10 +16,10 @@ class ProvideInformation extends ValidationStep {
             ctx.uploadedDocuments = formdata.documents.uploads.map(doc => doc.filename);
         }
         ctx.isUploadingDocument = req.body?.isUploadingDocument;
-        if (formdata.provideinformation.citizenResponse) {
+        if (formdata.provideinformation?.citizenResponse) {
             ctx.citizenResponse=formdata.provideinformation.citizenResponse;
         }
-        if (formdata.provideinformation.documentUploadIssue) {
+        if (formdata.provideinformation?.documentUploadIssue) {
             ctx.documentUploadIssue=formdata.provideinformation.documentUploadIssue;
         }
         return ctx;
