@@ -46,7 +46,7 @@
           {
               value: true,
               text: content.documentUploadIssue | safe,
-              checked: fields.documentUploadIssue.value,
+              checked: true if fields.documentUploadIssue.value === "true",
               conditional: {
                 html: documentUploadIssueHintHtml
               }

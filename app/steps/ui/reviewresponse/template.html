@@ -19,34 +19,30 @@
               common = common,
               alreadyDeclared = "false"
         ) }}
-        {% if (fields.uploadedDocuments.value != undefined or fields.uploadedDocuments.value.length > 0) %}
           {{checkanswer(
             items = [
                 {
                     question: '<strong>'+content.subheader2+'</strong>',
                     answer: fields.uploadedDocuments.value,
-                    visible: true
+                    visible: true if (fields.uploadedDocuments.value != undefined and fields.uploadedDocuments.value.length > 0)
                 }
                 ],
                 url = '/provide-information',
                 common = common,
                 alreadyDeclared = "false"
           )}}
-        {% endif %}
-        {% if (fields.documentUploadIssue.value) %}
         {{checkanswer(
             items = [
             {
-                question: '<strong></strong>',
+                question: '<strong>'+content.subheader2+'</strong>',
                 answer: content.documentUploadIssue,
-                visible: true
+                visible: true if fields.documentUploadIssue.value === "true"
             }
             ],
             url = '/provide-information',
             common = common,
             alreadyDeclared = "false"
         )}}
-        {% endif %}
       </dl>
       <div class="govuk-grid-column-two-thirds" style="padding-left: 0px;">
           <h1 class="govuk-notification-banner__heading"  ><strong>{{ content.subheader3 | safe }} </strong></h1>

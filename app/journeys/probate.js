@@ -274,6 +274,7 @@ const stepList = {
     CoApplicantDisagreePage: 'CoApplicantDisagreePage',
     ProvideInformation: {
         responseOrDocument: 'ReviewResponse',
+        isUploadingDocument: 'ProvideInformation',
         otherwise: 'CitizensHub'
     }
 };

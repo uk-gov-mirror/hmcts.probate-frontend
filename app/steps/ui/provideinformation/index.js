@@ -10,21 +10,23 @@ class ProvideInformation extends ValidationStep {
     }
 
     getContextData(req) {
-        const ctx = super.getContextData(req);
+        console.log('ProvideInformation.getContextData.............');
+        let ctx = super.getContextData(req);
+        ctx = this.pruneFormData(req.body, ctx);
         const formdata = req.session.form;
         if (formdata.documents?.uploads) {
             ctx.uploadedDocuments = formdata.documents.uploads.map(doc => doc.filename);
         }
         ctx.isUploadingDocument = req.body?.isUploadingDocument;
-        if (formdata.provideinformation?.citizenResponse) {
-            ctx.citizenResponse=formdata.provideinformation.citizenResponse;
-        }
-        if (formdata.provideinformation?.documentUploadIssue) {
-            ctx.documentUploadIssue=formdata.provideinformation.documentUploadIssue;
-        }
         return ctx;
     }
 
+    pruneFormData(body, ctx) {
+        if (body && Object.keys(body).length > 0 && !Object.keys(body).includes('documentUploadIssue')) {
+            delete ctx.documentUploadIssue;
+        }
+        return ctx;
+    }
     handlePost(ctx, errors, formdata, session) {
         if ((ctx.citizenResponse==='' || typeof ctx.citizenResponse==='undefined') &&
             (!ctx.documentUploadIssue || typeof ctx.documentUploadIssue==='undefined') &&
@@ -51,10 +53,10 @@ class ProvideInformation extends ValidationStep {
 
     nextStepOptions(ctx) {
         ctx.responseOrDocument = typeof ctx.citizenResponse !== 'undefined' || typeof ctx.uploadedDocuments !== 'undefined';
-
         return {
             options: [
-                {key: 'responseOrDocument', value: 'true', choice: 'responseOrDocument'}
+                {key: 'responseOrDocument', value: true, choice: 'responseOrDocument'},
+                {key: 'isUploadingDocument', value: 'true', choice: 'isUploadingDocument'}
             ]
         };
     }
@@ -63,8 +65,6 @@ class ProvideInformation extends ValidationStep {
         super.action(ctx, formdata);
         delete ctx.uploadedDocuments;
         delete ctx.isUploadingDocument;
-        delete ctx.citizenResponse;
-        delete ctx.documentUploadIssue;
         return [ctx, formdata];
     }
 }

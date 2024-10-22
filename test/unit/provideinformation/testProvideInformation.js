@@ -25,7 +25,8 @@ describe('ProvideInformation', () => {
             const result = ProvideInformation.nextStepOptions(ctx);
             expect(result).to.deep.equal({
                 options: [
-                    {key: 'responseOrDocument', value: 'true', choice: 'responseOrDocument'}
+                    {key: 'responseOrDocument', value: true, choice: 'responseOrDocument'},
+                    {key: 'isUploadingDocument', value: 'true', choice: 'isUploadingDocument'}
                 ]
             });
             done();
@@ -83,8 +84,6 @@ describe('ProvideInformation', () => {
             ProvideInformation.action(ctx, formdata);
             assert.isUndefined(ctx.uploadedDocuments);
             assert.isUndefined(ctx.isUploadingDocument);
-            assert.isUndefined(ctx.citizenResponse);
-            assert.isUndefined(ctx.documentUploadIssue);
         });
     });
 
