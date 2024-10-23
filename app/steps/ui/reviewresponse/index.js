@@ -26,9 +26,13 @@ class ReviewResponse extends ValidationStep {
         return ctx;
     }
 
-    handlePost(ctx, errors, formdata, session) {
+    handlePost(ctx, errors, formdata, session, req) {
         if (ctx.citizenResponseCheckbox === 'true') {
             const document = new Document(config.services.orchestrator.url, ctx.sessionID);
+            console.log('reviewResponse.handlePost-session.authToken->'+session.authToken);
+            console.log('reviewResponse.handlePost-session.serviceAuthorization->'+session.serviceAuthorization);
+            console.log('reviewResponse.handlePost-req.authToken->'+req.authToken);
+            console.log('reviewResponse.handlePost-req.session.serviceAuthorization->'+req.session.serviceAuthorization);
             document.notifyApplicant(ctx.ccdCase.id, ctx.citizenResponseCheckbox, session.authToken, session.serviceAuthorization)
                 .then(result => {
                     if (result.name === 'Error') {
