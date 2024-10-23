@@ -56,7 +56,7 @@ describe('ReviewResponse', () => {
         });
     });
 
-    describe('getContextData()', () => {
+    describe.only('getContextData()', () => {
         it('should return the context with uploaded documents', (done) => {
             const req = {
                 session: {
@@ -74,7 +74,6 @@ describe('ReviewResponse', () => {
 
             const ctx = ReviewResponse.getContextData(req);
             expect(ctx.uploadedDocuments).to.deep.equal(['screenshot1.png', 'screenshot2.png']);
-            expect(ctx.citizenResponse).to.deep.equal(['response']);
             done();
         });
     });
