@@ -31,9 +31,9 @@ class Document extends Service {
         return this.fetchText(removeDocumentUrl, fetchOptions);
     }
 
-    notifyApplicant(ccdCaseId, authToken, serviceAuthorisation) {
+    notifyApplicant(ccdCaseId, citizenResponseCheckbox, authToken, serviceAuthorisation) {
         this.log('Notify Document upload');
-        const url = this.formatUrl.format(this.endpoint, `/documents/notification/${ccdCaseId}`);
+        const url = this.formatUrl.format(this.endpoint, `/documents/notification/${ccdCaseId}/${citizenResponseCheckbox}`);
         const headers = {
             'Content-Type': 'application/json',
             'Session-Id': this.sessionId,
@@ -41,7 +41,7 @@ class Document extends Service {
             'ServiceAuthorization': serviceAuthorisation
         };
         const fetchOptions = AsyncFetch.fetchOptions({}, 'POST', headers);
-        return AsyncFetch.fetchJson(url, fetchOptions);
+        return this.fetchText(url, fetchOptions);
     }
 }
 

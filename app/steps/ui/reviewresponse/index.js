@@ -27,9 +27,9 @@ class ReviewResponse extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata, session) {
-        if (formdata.reviewresponse && formdata.reviewresponse.citizenResponseCheckbox === 'true') {
+        if (ctx.citizenResponseCheckbox === 'true') {
             const document = new Document(config.services.orchestrator.url, ctx.sessionID);
-            document.notifyApplicant(ctx.ccdCase.id, session.authToken, session.serviceAuthorization)
+            document.notifyApplicant(ctx.ccdCase.id, ctx.citizenResponseCheckbox, session.authToken, session.serviceAuthorization)
                 .then(result => {
                     if (result.name === 'Error') {
                         throw new ReferenceError('Error sending notification about doc upload');
@@ -48,6 +48,10 @@ class ReviewResponse extends ValidationStep {
         delete ctx.uploadedDocuments;
         delete ctx.citizenResponse;
         return [ctx, formdata];
+    }
+
+    shouldPersistFormData() {
+        return false;
     }
 }
 
