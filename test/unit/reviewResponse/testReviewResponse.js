@@ -56,7 +56,7 @@ describe('ReviewResponse', () => {
         });
     });
 
-    describe.only('getContextData()', () => {
+    describe('getContextData()', () => {
         it('should return the context with uploaded documents', (done) => {
             const req = {
                 session: {
