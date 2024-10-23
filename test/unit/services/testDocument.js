@@ -24,24 +24,25 @@ describe('DocumentService', () => {
         it('should post call log() and fetchJson()', (done) => {
             const endpoint = '';
             const fetchOptions = {method: 'POST'};
-            const caseId = 'inv123';
+            const caseId = '123';
+            const response = 'true';
             const documentData = new Document(endpoint, 'abc123');
             const logSpy = sinon.spy(documentData, 'log');
-            const fetchJsonSpy = sinon.stub(AsyncFetch, 'fetchJson');
+            const fetchTextStub = sinon.stub(documentData, 'fetchText');
             const fetchOptionsStub = sinon.stub(AsyncFetch, 'fetchOptions').returns(fetchOptions);
             const formatUrlStub = sinon.stub(FormatUrl, 'format').returns('/formattedUrl');
 
-            documentData.notifyApplicant(caseId);
+            documentData.notifyApplicant(caseId, response);
 
             expect(documentData.log.calledOnce).to.equal(true);
             expect(documentData.log.calledWith('Notify Document upload')).to.equal(true);
             expect(formatUrlStub.calledOnce).to.equal(true);
-            expect(formatUrlStub.calledWith(endpoint, `/documents/notification/${caseId}`)).to.equal(true);
-            expect(AsyncFetch.fetchJson.calledOnce).to.equal(true);
-            expect(AsyncFetch.fetchJson.calledWith('/formattedUrl', fetchOptions)).to.equal(true);
+            expect(formatUrlStub.calledWith(endpoint, `/documents/notification/${caseId}/${response}`)).to.equal(true);
+            expect(fetchTextStub.calledOnce).to.equal(true);
+            expect(fetchTextStub.calledWith('/formattedUrl', fetchOptions)).to.equal(true);
 
             logSpy.restore();
-            fetchJsonSpy.restore();
+            fetchTextStub.restore();
             fetchOptionsStub.restore();
             formatUrlStub.restore();
             done();
