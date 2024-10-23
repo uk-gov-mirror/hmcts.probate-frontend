@@ -17,10 +17,10 @@ class ReviewResponse extends ValidationStep {
         if (formdata.documents?.uploads) {
             ctx.uploadedDocuments = formdata.documents.uploads.map(doc => doc.filename);
         }
-        if (formdata.provideinformation && formdata.provideinformation.citizenResponse) {
+        if (formdata.provideinformation?.citizenResponse) {
             ctx.citizenResponse=formdata.provideinformation.citizenResponse;
         }
-        if (formdata.provideinformation && formdata.provideinformation.documentUploadIssue) {
+        if (formdata.provideinformation?.documentUploadIssue) {
             ctx.documentUploadIssue=formdata.provideinformation.documentUploadIssue;
         }
         return ctx;

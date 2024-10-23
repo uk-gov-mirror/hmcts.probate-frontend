@@ -65,7 +65,8 @@ describe('ReviewResponse', () => {
                             uploads: [{filename: 'screenshot1.png'}, {filename: 'screenshot2.png'}]
                         },
                         provideinformation: {
-                            citizenResponse: 'true'
+                            citizenResponse: 'response',
+                            documentUploadIssue: 'false'
                         }
                     }
                 },
@@ -73,6 +74,7 @@ describe('ReviewResponse', () => {
 
             const ctx = ReviewResponse.getContextData(req);
             expect(ctx.uploadedDocuments).to.deep.equal(['screenshot1.png', 'screenshot2.png']);
+            expect(ctx.citizenResponse).to.deep.equal(['response']);
             done();
         });
     });
@@ -125,6 +127,13 @@ describe('ReviewResponse', () => {
                 ReviewResponse.previousStepUrl(req, res, ctx);
                 expect(ctx.previousUrl).to.equal(ProvideInformation.constructor.getUrl());
                 done();
+            });
+        });
+
+        describe('shouldPersistFormData()', () => {
+            it('should return false', () => {
+                const persist = ReviewResponse.shouldPersistFormData();
+                expect(persist).to.equal(false);
             });
         });
     });
