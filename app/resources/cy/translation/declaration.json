@@ -32,7 +32,7 @@
   "applicantName-multipleApplicants-mainApplicant": "Mae {applicantWillName}, ysgutor a enwir yn yr ewyllys, yn gwneud cais am brofiant.",
   "applicantName-multipleApplicants-mainApplicant-alias": "Mae {applicantCurrentName}, ysgutor a enwir yn yr ewyllys fel {applicantWillName}, yn gwneud cais am brofiant. Mae eu henw&rsquo;n wahanol oherwydd:{aliasReason}.",
   "applicantName-multipleApplicants-mainApplicant-codicils": "Mae {applicantWillName}, ysgutor a enwir yn yr ewyllys neu&rsquo;r codisiliau, yn gwneud cais am brofiant.",
-  "applicantName-multipleApplicants-mainApplicant-alias-codicils": "Mae {applicantCurrentName}, ysgutor a enwir yn yr ewyllys neu&rsquo;r codisiliau fel {applicantWillName}, yn gwneud cais am brofiant. Mae eu henw&rsquo;n wahanol oherwydd:{aliasReason}.",
+  "applicantName-multipleApplicants-mainApplicant-alias-codicils": "Mae {applicantCurrentName}, ysgutor a enwir yn yr ewyllys neu&rsquo;r codisiliau fel {applicantWillName}, yn gwneud cais am brofiant. Mae’r enw yn wahanol oherwydd:{aliasReason}.",
   "applicantSend": "Byddaf yn anfon i&rsquo;r Gofrestrfa Brofiant yr hyn a gredaf i fod yn ewyllys a thestament gwir a gwreiddiol olaf {deceasedName}.",
   "applicantSend-codicils": "Byddaf yn anfon i&rsquo;r Gofrestrfa Brofiant yr hyn a gredaf i fod yn ewyllys a thestament gwir a gwreiddiol olaf, a {codicilsNumber} {codicils} {deceasedName}.",
   "applicantSend-multipleApplicants-mainApplicant": "Bydd {applicantName} yn anfon i&rsquo;r Gofrestrfa Brofiant yr hyn yr ydym wedi&rsquo;i weld a&rsquo;i gredu i fod yn ewyllys a thestament gwir a gwreiddiol olaf {deceasedName}.",
