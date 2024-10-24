@@ -26,65 +26,65 @@ class FormatAlias {
             return isExecutorApplicant ? `: ${otherReason}` : '';
         }
         if (language === 'en') {
-            return FormatAlias.englishSingleAliasReason(aliasReason);
+            return FormatAlias.englishSingleAliasReason(aliasReason, isExecutorApplicant);
         } else if (language === 'cy') {
-            return FormatAlias.welshSingleAliasReason(aliasReason);
+            return FormatAlias.welshSingleAliasReason(aliasReason, isExecutorApplicant);
         }
     }
 
-    static englishMultipleAliasReason(aliasReason) {
+    static englishMultipleAliasReason(aliasReason, isExecutorApplicant, executorCurrentName) {
         if (aliasReason === 'optionMarriage') {
-            return ' They got married or formed a civil partnership';
+            return isExecutorApplicant ? ' ' + executorCurrentName + ' got married or formed a civil partnership' : ' They got married or formed a civil partnership';
         } else if (aliasReason === 'optionDivorce') {
-            return ' They got divorced or ended their civil partnership';
+            return isExecutorApplicant ? ' ' + executorCurrentName + ' got divorced or ended their civil partnership' : ' They got divorced or ended their civil partnership';
         } else if (aliasReason === 'optionDeedPoll') {
-            return ' They changed their name by deed poll';
+            return isExecutorApplicant ? ' ' + executorCurrentName + ' changed their name by deed poll' : ' They changed their name by deed poll';
         } else if (aliasReason === 'optionDifferentSpelling') {
-            return ' Their name was spelled differently';
+            return isExecutorApplicant ? ' ' + executorCurrentName + '‘s name was spelled differently' : ' Their name was spelled differently';
         } else if (aliasReason === 'optionPartOfNameNotIncluded') {
-            return ' Part of their name was not included';
+            return isExecutorApplicant ? ' Part of ' + executorCurrentName + '‘s name was not included' : ' Part of their name was not included';
         }
     }
 
-    static welshMultipleAliasReason(aliasReason) {
+    static welshMultipleAliasReason(aliasReason, isExecutorApplicant, executorCurrentName) {
         if (aliasReason === 'optionMarriage') {
-            return ' Maent wedi priodi neu wedi ffurfio partneriaeth sifil';
+            return isExecutorApplicant ? ' Mae ' + executorCurrentName + ' wedi priodi neu wedi ffurfio partneriaeth sifil' : ' Maent wedi priodi neu wedi ffurfio partneriaeth sifil';
         } else if (aliasReason === 'optionDivorce') {
-            return ' Maent wedi ysgaru neu wedi dod â’u partneriaeth sifil i ben';
+            return isExecutorApplicant ? ' Mae ' + executorCurrentName + ' wedi ysgaru neu wedi dod â’u partneriaeth sifil i ben' : ' Maent wedi ysgaru neu wedi dod â’u partneriaeth sifil i ben';
         } else if (aliasReason === 'optionDeedPoll') {
-            return ' Bu iddynt newid eu henw trwy weithred newid enw';
+            return isExecutorApplicant ? ' Newidiodd ' + executorCurrentName + ' ei henw trwy weithred newid enw' : ' Bu iddynt newid eu henw trwy weithred newid enw';
         } else if (aliasReason === 'optionDifferentSpelling') {
-            return ' Cafodd eu henw ei sillafu’n wahanol';
+            return isExecutorApplicant ? ' Roedd enw ' + executorCurrentName + ' wedi\'i sillafu\'n wahanol' : ' Cafodd eu henw ei sillafu’n wahanol';
         } else if (aliasReason === 'optionPartOfNameNotIncluded') {
-            return ' Ni chafodd rhan o’u henw ei gynnwys';
+            return isExecutorApplicant ? ' Ni chynhwyswyd rhan o enw ' + executorCurrentName : ' Ni chafodd rhan o’u henw ei gynnwys';
         }
     }
 
-    static englishSingleAliasReason(aliasReason) {
+    static englishSingleAliasReason(aliasReason, isExecutorApplicant) {
         if (aliasReason === 'optionMarriage') {
-            return ' I got married or formed a civil partnership';
+            return isExecutorApplicant ? ' I got married or formed a civil partnership' : '';
         } else if (aliasReason === 'optionDivorce') {
-            return ' I got divorced or ended my civil partnership';
+            return isExecutorApplicant ? ' I got divorced or ended my civil partnership': '';
         } else if (aliasReason === 'optionDeedPoll') {
-            return ' I changed my name by deed poll';
+            return isExecutorApplicant ? ' I changed my name by deed poll' : '';
         } else if (aliasReason === 'optionDifferentSpelling') {
-            return ' My name was spelled differently';
+            return isExecutorApplicant ? ' My name was spelled differently' : '';
         } else if (aliasReason === 'optionPartOfNameNotIncluded') {
-            return ' Part of my name was not included';
+            return isExecutorApplicant ? ' Part of my name was not included' : '';
         }
     }
 
-    static welshSingleAliasReason(aliasReason) {
+    static welshSingleAliasReason(aliasReason, isExecutorApplicant) {
         if (aliasReason === 'optionMarriage') {
-            return ' Bu imi briodi neu ffurfio partneriaeth sifil';
+            return isExecutorApplicant ? ' Bu imi briodi neu ffurfio partneriaeth sifil' : '';
         } else if (aliasReason === 'optionDivorce') {
-            return ' Cefais ysgariad neu daeth fy mhartneriaeth sifil i ben';
+            return isExecutorApplicant ? ' Cefais ysgariad neu daeth fy mhartneriaeth sifil i ben': '';
         } else if (aliasReason === 'optionDeedPoll') {
-            return ' Newidiais fy enw trwy weithred newid enw';
+            return isExecutorApplicant ? ' Newidiais fy enw trwy weithred newid enw' : '';
         } else if (aliasReason === 'optionDifferentSpelling') {
-            return ' Cafodd fy enw ei sillafu’n wahanol';
+            return isExecutorApplicant ? ' Cafodd fy enw ei sillafu’n wahanol' : '';
         } else if (aliasReason === 'optionPartOfNameNotIncluded') {
-            return ' Ni chafodd rhan o fy enw ei gynnwys';
+            return isExecutorApplicant ? ' Ni chafodd rhan o fy enw ei gynnwys' : '';
         }
     }
 }
