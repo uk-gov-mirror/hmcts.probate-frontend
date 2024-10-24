@@ -5,7 +5,8 @@ const FormatCcdCaseId = require('app/utils/FormatCcdCaseId');
 const FormatName = require('app/utils/FormatName');
 const DocumentsWrapper = require('app/wrappers/Documents');
 const CaseProgress = require('app/utils/CaseProgress');
-const FormatDate = require('app/utils/FormatDate');
+const moment = require('moment');
+const utils = require('app/components/step-utils');
 
 class CitizensHub extends Step {
 
@@ -43,7 +44,7 @@ class CitizensHub extends Step {
         ctx.informationNeededByPost=req.session.form.informationNeededByPost;
         ctx.informationNeeded=req.session.form.informationNeeded;
         if (req.session.form.citizenResponseSubmittedDate) {
-            ctx.date = FormatDate.addWeeksToDate(req.session.form.citizenResponseSubmittedDate, 7);
+            ctx.date = utils.formattedDate(moment(req.session.form.citizenResponseSubmittedDate, 'YYYY-MM-DD').parseZone(), req.session.language);
         }
         ctx.informationProvided = CaseProgress.informationProvided(state, req.session.form.provideinformation?.documentUploadIssue, req.session.form.citizenResponseSubmittedDate);
         ctx.partialInformationProvided = CaseProgress.partialInformationProvided(state, req.session.form.provideinformation?.documentUploadIssue, req.session.form.citizenResponseSubmittedDate);
