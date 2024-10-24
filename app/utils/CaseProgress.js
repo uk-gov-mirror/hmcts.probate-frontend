@@ -25,11 +25,11 @@ class CaseProgress {
     }
 
     static informationProvided(state, documentUploadIssue, citizenResponseSubmittedDate) {
-        return state === 'BOCaseClosed' && documentUploadIssue !== 'optionYes' && citizenResponseSubmittedDate;
+        return (state === 'BOCaseStopped' || state === 'Dormant') && documentUploadIssue !== 'optionYes' && citizenResponseSubmittedDate;
     }
 
     static partialInformationProvided(state, documentUploadIssue, citizenResponseSubmittedDate) {
-        return state === 'BOCaseClosed' && documentUploadIssue === 'optionYes' && citizenResponseSubmittedDate;
+        return (state === 'BOCaseStopped' || state === 'Dormant') && documentUploadIssue === 'optionYes' && citizenResponseSubmittedDate;
     }
 }
 
