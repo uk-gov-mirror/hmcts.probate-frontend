@@ -141,8 +141,8 @@ class Declaration extends ValidationStep {
 
             const executorsApplying = ctx.executorsWrapper.executorsApplying();
             const executorsApplyingText = {
-                en: this.executorsApplying(ctx.hasMultipleApplicants, executorsApplying, content.en, hasCodicils, codicilsNumber, formdata, req.session.language),
-                cy: this.executorsApplying(ctx.hasMultipleApplicants, executorsApplying, content.cy, hasCodicils, codicilsNumber, formdata, req.session.language)
+                en: this.executorsApplying(ctx.hasMultipleApplicants, executorsApplying, content.en, hasCodicils, codicilsNumber, formdata, 'en'),
+                cy: this.executorsApplying(ctx.hasMultipleApplicants, executorsApplying, content.cy, hasCodicils, codicilsNumber, formdata, 'cy')
             };
 
             const executorsNotApplying = ctx.executorsWrapper.executorsNotApplying();
