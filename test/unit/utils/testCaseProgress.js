@@ -33,15 +33,15 @@ describe('CaseProgress.js', () => {
         it('should return true for informationProvided', (done) => {
             const state = 'BOCaseStopped';
             const documentUploadIssue = 'false';
-            const citizenResponseSubmittedDate = '2024-12-11';
-            expect(CaseProgress.informationProvided(state, documentUploadIssue, citizenResponseSubmittedDate)).to.equal(true);
+            const expectedResponseDate = '2024-12-11';
+            expect(CaseProgress.informationProvided(state, documentUploadIssue, expectedResponseDate)).to.equal(true);
             done();
         });
         it('should return true for partialInformationProvided', (done) => {
             const state = 'BOCaseStopped';
             const documentUploadIssue = 'true';
-            const citizenResponseSubmittedDate = '2024-12-11';
-            expect(CaseProgress.partialInformationProvided(state, documentUploadIssue, citizenResponseSubmittedDate)).to.equal(true);
+            const expectedResponseDate = '2024-12-11';
+            expect(CaseProgress.partialInformationProvided(state, documentUploadIssue, expectedResponseDate)).to.equal(true);
             done();
         });
     });

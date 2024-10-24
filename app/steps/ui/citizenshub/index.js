@@ -36,18 +36,18 @@ class CitizensHub extends Step {
         ctx.applicationInReview = CaseProgress.applicationInReview(state);
         ctx.documentsReceived = CaseProgress.documentsReceived(state, req.session.form.documentsReceivedNotificationSent);
         ctx.applicationSubmitted = CaseProgress.applicationSubmitted(state);
-        ctx.caseStopped = CaseProgress.caseStopped(state, req.session.form.citizenResponseSubmittedDate);
+        ctx.caseStopped = CaseProgress.caseStopped(state, req.session.form.expectedResponseDate);
         ctx.caseClosed = CaseProgress.caseClosed(state);
         ctx.ccdReferenceNumber = FormatCcdCaseId.format(req.session.form.ccdCase);
         ctx.ccdReferenceNumberAccessible = FormatCcdCaseId.formatAccessible(req.session.form.ccdCase);
         ctx.caseType = req.session.form.caseType;
         ctx.informationNeededByPost=req.session.form.informationNeededByPost;
         ctx.informationNeeded=req.session.form.informationNeeded;
-        if (req.session.form.citizenResponseSubmittedDate) {
-            ctx.date = utils.formattedDate(moment(req.session.form.citizenResponseSubmittedDate, 'YYYY-MM-DD').parseZone(), req.session.language);
+        if (req.session.form.expectedResponseDate) {
+            ctx.date = utils.formattedDate(moment(req.session.form.expectedResponseDate, 'YYYY-MM-DD').parseZone(), req.session.language);
         }
-        ctx.informationProvided = CaseProgress.informationProvided(state, req.session.form.provideinformation?.documentUploadIssue, req.session.form.citizenResponseSubmittedDate);
-        ctx.partialInformationProvided = CaseProgress.partialInformationProvided(state, req.session.form.provideinformation?.documentUploadIssue, req.session.form.citizenResponseSubmittedDate);
+        ctx.informationProvided = CaseProgress.informationProvided(state, req.session.form.provideinformation?.documentUploadIssue, req.session.form.expectedResponseDate);
+        ctx.partialInformationProvided = CaseProgress.partialInformationProvided(state, req.session.form.provideinformation?.documentUploadIssue, req.session.form.expectedResponseDate);
         return ctx;
     }
 
