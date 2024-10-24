@@ -64,7 +64,7 @@
                               <p class="govuk-body" style="max-width: 600px"><strong>{{ content.caseStoppedSubheading | safe }}</strong></p>
                               <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph3 | safe }}</p>
                               <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph4 | safe }}</p>
-                              {% if fields.informationNeeded.value === "optionYes" and fields.informationNeededByPost.value === "optionNo" %}
+                              {% if fields.informationNeeded.value === "Yes" and fields.informationNeededByPost.value === "No" %}
                                 <div class="govuk-form-group">
                                   {{ govukButton({
                                   text: content.provideInfo | safe,
