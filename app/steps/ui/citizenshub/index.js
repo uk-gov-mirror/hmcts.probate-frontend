@@ -40,6 +40,8 @@ class CitizensHub extends Step {
         ctx.ccdReferenceNumber = FormatCcdCaseId.format(req.session.form.ccdCase);
         ctx.ccdReferenceNumberAccessible = FormatCcdCaseId.formatAccessible(req.session.form.ccdCase);
         ctx.caseType = req.session.form.caseType;
+        ctx.informationNeededByPost=req.session.form.informationNeededByPost;
+        ctx.informationNeeded=req.session.form.informationNeeded;
         if (req.session.form.citizenResponseSubmittedDate) {
             ctx.date = FormatDate.addWeeksToDate(req.session.form.citizenResponseSubmittedDate, 7);
         }

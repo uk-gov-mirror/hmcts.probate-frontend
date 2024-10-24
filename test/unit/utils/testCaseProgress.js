@@ -31,16 +31,16 @@ describe('CaseProgress.js', () => {
             done();
         });
         it('should return true for informationProvided', (done) => {
-            const state = 'BOCaseClosed';
-            const documentUploadIssue = 'optionNo';
-            const citizenResponseSubmittedDate = true;
+            const state = 'BOCaseStopped';
+            const documentUploadIssue = 'false';
+            const citizenResponseSubmittedDate = '2024-12-11';
             expect(CaseProgress.informationProvided(state, documentUploadIssue, citizenResponseSubmittedDate)).to.equal(true);
             done();
         });
         it('should return true for partialInformationProvided', (done) => {
-            const state = 'BOCaseClosed';
-            const documentUploadIssue = 'optionYes';
-            const citizenResponseSubmittedDate = true;
+            const state = 'BOCaseStopped';
+            const documentUploadIssue = 'true';
+            const citizenResponseSubmittedDate = '2024-12-11';
             expect(CaseProgress.partialInformationProvided(state, documentUploadIssue, citizenResponseSubmittedDate)).to.equal(true);
             done();
         });
