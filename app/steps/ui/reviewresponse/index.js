@@ -47,6 +47,10 @@ class ReviewResponse extends ValidationStep {
         super.action(ctx, formdata);
         delete ctx.uploadedDocuments;
         delete ctx.citizenResponse;
+        delete ctx.informationNeededByPost;
+        delete ctx.informationNeeded;
+        delete formdata.informationNeededByPost;
+        delete formdata.informationNeeded;
         return [ctx, formdata];
     }
 
