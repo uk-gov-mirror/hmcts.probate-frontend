@@ -219,6 +219,7 @@ const stepList = {
     StopPage: 'StopPage',
     ProvideInformation: {
         responseOrDocument: 'ReviewResponse',
+        isUploadingDocument: 'ProvideInformation',
         otherwise: 'CitizensHub'
     },
     ReviewResponse: 'CitizensHub'
