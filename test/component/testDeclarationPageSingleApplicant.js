@@ -1090,11 +1090,14 @@ describe('declaration, single applicant', () => {
             contentData.applicantWillName = 'Robert Bruce';
             contentData.applicantCurrentNameSign = 'Robert Bruce';
             contentData.applicantCurrentName = 'Bob Smith';
-            contentData.aliasReason = ': legal name change';
+            contentData.aliasReason = ': I changed my name by deed poll';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
+                    console.log('sessionData: ' + sessionData);
+                    console.log('contentData: ' + contentData);
+                    console.log('contentToExclude: ' + contentToExclude);
                     testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
