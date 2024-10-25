@@ -253,8 +253,6 @@ class TestWrapper {
     }
 
     assertContentIsPresent(actualContent, expectedContent) {
-        console.log('Actual Content: ' + actualContent);
-        console.log('Expected Content: ' + expectedContent);
         expectedContent.forEach(contentValue => {
             expect(actualContent.toLowerCase()).to.contain(contentValue.toString().toLowerCase());
         });
