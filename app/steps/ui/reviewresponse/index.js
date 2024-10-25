@@ -35,6 +35,8 @@ class ReviewResponse extends ValidationStep {
                         throw new ReferenceError('Error sending notification about doc upload');
                     }
                 });
+            ctx.expectedResponseDate = new Date().toISOString()
+                .slice(0, 10);
         }
         return [ctx, errors];
     }

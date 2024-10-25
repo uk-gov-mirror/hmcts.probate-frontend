@@ -30,10 +30,14 @@ class ProvideInformation extends ValidationStep {
         return ctx;
     }
     handlePost(ctx, errors, formdata, session) {
-        if ((ctx.citizenResponse==='' || typeof ctx.citizenResponse==='undefined') &&
-            (!ctx.documentUploadIssue || typeof ctx.documentUploadIssue==='undefined') &&
-            (typeof ctx.uploadedDocuments ==='undefined' || ctx.uploadedDocuments.length === 0)
-        ) {
+        if (typeof ctx.documentUploadIssue === 'undefined' || !ctx.documentUploadIssue) {
+            ctx.documentUploadIssue = 'false';
+        }
+        if (typeof ctx.citizenResponse === 'undefined') {
+            ctx.citizenResponse = '';
+        }
+        if (ctx.citizenResponse === '' && ctx.documentUploadIssue === 'false' &&
+            (typeof ctx.uploadedDocuments === 'undefined' || ctx.uploadedDocuments.length === 0)) {
             errors.push(FieldError('citizenResponse', 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
         const error = formdata.documents?.error;
@@ -41,14 +45,7 @@ class ProvideInformation extends ValidationStep {
             errors = errors || [];
             errors.push(FieldError('file', error, this.resourcePath, this.generateContent({}, {}, session.language), session.language));
             delete formdata.documents.error;
-        }
-        if (typeof ctx.documentUploadIssue==='undefined' || !ctx.documentUploadIssue) {
-            ctx.documentUploadIssue = 'false';
-        }
-        if (typeof ctx.citizenResponse==='undefined') {
-            ctx.citizenResponse = '';
-        }
-        if (ctx.documentUploadIssue === 'true' && ctx.isUploadingDocument !== 'true' && ctx.citizenResponse === '' && (typeof ctx.uploadedDocuments ==='undefined' || ctx.uploadedDocuments.length === 0)) {
+        } else if (ctx.documentUploadIssue === 'true' && ctx.isUploadingDocument !== 'true' && ctx.citizenResponse === '' && (typeof ctx.uploadedDocuments ==='undefined' || ctx.uploadedDocuments.length === 0)) {
             const document = new Document(config.services.orchestrator.url, ctx.sessionID);
             document.notifyApplicant(ctx.ccdCase.id, 'false', session.authToken, session.serviceAuthorization)
                 .then(result => {

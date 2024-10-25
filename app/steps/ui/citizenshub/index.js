@@ -43,11 +43,12 @@ class CitizensHub extends Step {
         ctx.caseType = req.session.form.caseType;
         ctx.informationNeededByPost=req.session.form.informationNeededByPost;
         ctx.informationNeeded=req.session.form.informationNeeded;
-        if (req.session.form.expectedResponseDate) {
-            ctx.date = utils.formattedDate(moment(req.session.form.expectedResponseDate, 'YYYY-MM-DD').parseZone(), req.session.language);
+        if (req.session.form.documents?.uploads) {
+            ctx.uploadedDocuments = req.session.form.documents.uploads.map(doc => doc.filename);
         }
-        ctx.informationProvided = CaseProgress.informationProvided(state, req.session.form.provideinformation?.documentUploadIssue);
-        ctx.partialInformationProvided = CaseProgress.partialInformationProvided(state, req.session.form.provideinformation?.documentUploadIssue);
+        ctx.date = (ctx.expectedResponseDate || req.session.form.expectedResponseDate)? utils.formattedDate(moment(ctx.expectedResponseDate || req.session.form.expectedResponseDate, 'YYYY-MM-DD').parseZone(), req.session.language): null;
+        ctx.informationProvided = CaseProgress.informationProvided(state, req.session.form.provideinformation?.documentUploadIssue, ctx.date);
+        ctx.partialInformationProvided = CaseProgress.partialInformationProvided(state, req.session.form.provideinformation?.documentUploadIssue, ctx.date, req.session.form.provideinformation?.citizenResponse, ctx.uploadedDocuments);
         return ctx;
     }
 
@@ -55,6 +56,8 @@ class CitizensHub extends Step {
         super.action(ctx, formdata);
         delete ctx.ccdReferenceNumber;
         delete ctx.ccdReferenceNumberAccessible;
+        delete ctx.uploadedDocuments;
+        delete ctx.expectedResponseDate;
         return [ctx, formdata];
     }
 }

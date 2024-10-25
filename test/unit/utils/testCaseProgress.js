@@ -58,10 +58,10 @@ describe('CaseProgress.js', () => {
             expect(CaseProgress.informationProvided(state, documentUploadIssue, expectedResponseDate)).to.equal(true);
             done();
         });
-        it('should false false for informationProvided', (done) => {
+        it('should return false for informationProvided', (done) => {
             const state = 'BOCaseStopped';
             const documentUploadIssue = 'false';
-            expect(CaseProgress.informationProvided(state, documentUploadIssue)).to.equal(true);
+            expect(CaseProgress.informationProvided(state, documentUploadIssue)).to.equal(false);
             done();
         });
     });
@@ -71,6 +71,31 @@ describe('CaseProgress.js', () => {
             const state = 'BOCaseStopped';
             const documentUploadIssue = 'true';
             expect(CaseProgress.partialInformationProvided(state, documentUploadIssue)).to.equal(true);
+            done();
+        });
+        it('should return true for partialInformationProvided', (done) => {
+            const state = 'BOCaseStopped';
+            const documentUploadIssue = 'true';
+            const expectedResponseDate = '2024-12-11';
+            expect(CaseProgress.partialInformationProvided(state, documentUploadIssue, expectedResponseDate)).to.equal(true);
+            done();
+        });
+        it('should return true for partialInformationProvided', (done) => {
+            const state = 'Dormant';
+            const documentUploadIssue = 'true';
+            const expectedResponseDate = null;
+            const citizenResponse = '';
+            const uploadedDocuments = [];
+            expect(CaseProgress.partialInformationProvided(state, documentUploadIssue, expectedResponseDate, citizenResponse, uploadedDocuments)).to.equal(true);
+            done();
+        });
+        it('should return false for partialInformationProvided', (done) => {
+            const state = 'BOCaseStopped';
+            const documentUploadIssue = null;
+            const expectedResponseDate = '2024-12-11';
+            const citizenResponse = 'something';
+            const uploadedDocuments = ['screenshot1.png', 'screenshot2.png'];
+            expect(CaseProgress.partialInformationProvided(state, documentUploadIssue, expectedResponseDate, citizenResponse, uploadedDocuments)).to.equal(false);
             done();
         });
     });

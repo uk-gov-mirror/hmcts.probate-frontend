@@ -183,28 +183,51 @@ describe('ProvideInformation', () => {
             }]);
             done();
         });
-        describe('previousStepUrl()', () => {
-            let ctx;
-            it('should return the previous step url', (done) => {
-                const res = {
-                    redirect: (url) => url
-                };
-                const req = {
-                    session: {
-                        language: 'en',
-                        form: {
-                            language: {
-                                bilingual: 'optionYes'
-                            }
+        it('Notify documents uploaded', async () => {
+            const ctxTestData = {
+                caseType: 'GOP'
+            };
+            const errorsTestData = [];
+            const formdata = {
+                documentUploadIssue: 'true'
+            };
+            const session = {
+                language: 'en'
+            };
+            const hostname = 'localhost';
+            // Call the handlePost function
+            const [ctx, errors] = await ProvideInformation
+                .handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
+
+            // Assertions
+            expect(ctx).to.deep.equal(ctxTestData);
+            expect(errors).to.deep.equal(errorsTestData);
+            expect(session).to.deep.equal({
+                language: 'en'
+            });
+        });
+    });
+    describe('previousStepUrl()', () => {
+        let ctx;
+        it('should return the previous step url', (done) => {
+            const res = {
+                redirect: (url) => url
+            };
+            const req = {
+                session: {
+                    language: 'en',
+                    form: {
+                        language: {
+                            bilingual: 'optionYes'
                         }
                     }
-                };
-                req.session.journey = journeyProbate;
-                ctx = {};
-                ProvideInformation.previousStepUrl(req, res, ctx);
-                expect(ctx.previousUrl).to.equal(CitizensHub.constructor.getUrl());
-                done();
-            });
+                }
+            };
+            req.session.journey = journeyProbate;
+            ctx = {};
+            ProvideInformation.previousStepUrl(req, res, ctx);
+            expect(ctx.previousUrl).to.equal(CitizensHub.constructor.getUrl());
+            done();
         });
     });
 });
