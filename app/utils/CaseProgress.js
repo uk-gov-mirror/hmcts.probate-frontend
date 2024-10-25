@@ -25,11 +25,11 @@ class CaseProgress {
     }
 
     static informationProvided(state, documentUploadIssue, expectedResponseDate) {
-        return (state === 'BOCaseStopped' || state === 'Dormant') && documentUploadIssue !== 'true' && typeof expectedResponseDate !== 'undefined' && expectedResponseDate !== null;
+        return this.caseStopped(state) && documentUploadIssue !== 'true' && typeof expectedResponseDate !== 'undefined' && expectedResponseDate !== null;
     }
 
     static partialInformationProvided(state, documentUploadIssue, expectedResponseDate) {
-        return (state === 'BOCaseStopped' || state === 'Dormant') && documentUploadIssue === 'true' && typeof expectedResponseDate !== 'undefined' && expectedResponseDate !== null;
+        return this.caseStopped(state) && documentUploadIssue === 'true' && typeof expectedResponseDate !== 'undefined' && expectedResponseDate !== null;
     }
 }
 
