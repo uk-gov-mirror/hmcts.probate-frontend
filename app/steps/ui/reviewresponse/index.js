@@ -4,6 +4,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const Document = require('app/services/Document');
 const {get} = require('lodash');
 const config = require('config');
+const {addWeeksToDate} = require('app/utils/FormatDate');
 
 class ReviewResponse extends ValidationStep {
 
@@ -35,8 +36,8 @@ class ReviewResponse extends ValidationStep {
                         throw new ReferenceError('Error sending notification about doc upload');
                     }
                 });
-            ctx.expectedResponseDate = new Date().toISOString()
-                .slice(0, 10);
+            ctx.expectedResponseDate = addWeeksToDate(new Date().toISOString()
+                .slice(0, 10), 7);
         }
         return [ctx, errors];
     }
