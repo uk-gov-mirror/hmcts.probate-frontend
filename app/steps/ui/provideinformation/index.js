@@ -43,6 +43,9 @@ class ProvideInformation extends ValidationStep {
         if (typeof ctx.documentUploadIssue==='undefined' || !ctx.documentUploadIssue) {
             ctx.documentUploadIssue = 'false';
         }
+        if (typeof ctx.citizenResponse==='undefined') {
+            ctx.citizenResponse = '';
+        }
         return [ctx, errors];
     }
 
