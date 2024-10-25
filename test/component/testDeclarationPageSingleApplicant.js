@@ -1089,7 +1089,7 @@ describe('declaration, single applicant', () => {
             contentData.codicils = 'codicils';
             contentData.applicantWillName = 'Robert Bruce';
             contentData.applicantCurrentNameSign = 'Robert Bruce';
-            contentData.applicantCurrentName = 'Bob Smith';
+            //contentData.applicantCurrentName = 'Bob Smith';
             contentData.aliasReason = ': legal name change';
 
             testWrapper.agent.post('/prepare-session/form')
@@ -1181,7 +1181,7 @@ describe('declaration, single applicant', () => {
 
             contentData.applicantWillName = 'Robert Bruce';
             contentData.applicantCurrentNameSign = 'Robert Bruce';
-            contentData.applicantCurrentName = 'Bob Smith';
+            //contentData.applicantCurrentName = 'Bob Smith';
             contentData.aliasReason = ': legal name change';
 
             testWrapper.agent.post('/prepare-session/form')
