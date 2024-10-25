@@ -1095,8 +1095,8 @@ describe('declaration, single applicant', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    console.log('sessionData: ' + sessionData.toString());
-                    console.log('contentData: ' + contentData.toString());
+                    console.log('sessionData: ' + sessionData);
+                    console.log('contentData: ' + contentData);
                     console.log('contentToExclude: ' + contentToExclude);
                     testWrapper.testContent(done, contentData, contentToExclude);
                 });
