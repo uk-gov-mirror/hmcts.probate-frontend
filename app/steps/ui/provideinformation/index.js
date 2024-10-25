@@ -2,6 +2,8 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FieldError = require('app/components/error');
+const Document = require('app/services/Document');
+const config = require('config');
 
 class ProvideInformation extends ValidationStep {
 
@@ -46,6 +48,15 @@ class ProvideInformation extends ValidationStep {
         if (typeof ctx.citizenResponse==='undefined') {
             ctx.citizenResponse = '';
         }
+        if (ctx.documentUploadIssue === 'true' && ctx.isUploadingDocument !== 'true' && ctx.citizenResponse === '' && (typeof ctx.uploadedDocuments ==='undefined' || ctx.uploadedDocuments.length === 0)) {
+            const document = new Document(config.services.orchestrator.url, ctx.sessionID);
+            document.notifyApplicant(ctx.ccdCase.id, 'false', session.authToken, session.serviceAuthorization)
+                .then(result => {
+                    if (result.name === 'Error') {
+                        throw new ReferenceError('Error sending notification about doc upload');
+                    }
+                });
+        }
         return [ctx, errors];
     }
 
@@ -55,7 +66,7 @@ class ProvideInformation extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.responseOrDocument = typeof ctx.citizenResponse !== 'undefined' || typeof ctx.uploadedDocuments !== 'undefined';
+        ctx.responseOrDocument = (ctx.citizenResponse !== '' || ctx.uploadedDocuments.length !== 0);
         return {
             options: [
                 {key: 'responseOrDocument', value: true, choice: 'responseOrDocument'},

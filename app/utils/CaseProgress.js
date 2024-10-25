@@ -24,12 +24,12 @@ class CaseProgress {
         return state === 'BOCaseClosed';
     }
 
-    static informationProvided(state, documentUploadIssue, expectedResponseDate) {
-        return this.caseStopped(state) && documentUploadIssue !== 'true' && typeof expectedResponseDate !== 'undefined' && expectedResponseDate !== null;
+    static informationProvided(state, documentUploadIssue) {
+        return this.caseStopped(state) && documentUploadIssue !== 'true';
     }
 
-    static partialInformationProvided(state, documentUploadIssue, expectedResponseDate) {
-        return this.caseStopped(state) && documentUploadIssue === 'true' && typeof expectedResponseDate !== 'undefined' && expectedResponseDate !== null;
+    static partialInformationProvided(state, documentUploadIssue) {
+        return this.caseStopped(state) && documentUploadIssue === 'true';
     }
 }
 

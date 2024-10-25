@@ -46,8 +46,8 @@ class CitizensHub extends Step {
         if (req.session.form.expectedResponseDate) {
             ctx.date = utils.formattedDate(moment(req.session.form.expectedResponseDate, 'YYYY-MM-DD').parseZone(), req.session.language);
         }
-        ctx.informationProvided = CaseProgress.informationProvided(state, req.session.form.provideinformation?.documentUploadIssue, req.session.form.expectedResponseDate);
-        ctx.partialInformationProvided = CaseProgress.partialInformationProvided(state, req.session.form.provideinformation?.documentUploadIssue, req.session.form.expectedResponseDate);
+        ctx.informationProvided = CaseProgress.informationProvided(state, req.session.form.provideinformation?.documentUploadIssue);
+        ctx.partialInformationProvided = CaseProgress.partialInformationProvided(state, req.session.form.provideinformation?.documentUploadIssue);
         return ctx;
     }
 

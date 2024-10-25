@@ -61,7 +61,7 @@ describe('CaseProgress.js', () => {
         it('should false false for informationProvided', (done) => {
             const state = 'BOCaseStopped';
             const documentUploadIssue = 'false';
-            expect(CaseProgress.informationProvided(state, documentUploadIssue)).to.equal(false);
+            expect(CaseProgress.informationProvided(state, documentUploadIssue)).to.equal(true);
             done();
         });
     });
@@ -70,14 +70,7 @@ describe('CaseProgress.js', () => {
         it('should return true for partialInformationProvided', (done) => {
             const state = 'BOCaseStopped';
             const documentUploadIssue = 'true';
-            const expectedResponseDate = '2024-12-11';
-            expect(CaseProgress.partialInformationProvided(state, documentUploadIssue, expectedResponseDate)).to.equal(true);
-            done();
-        });
-        it('should return false for partialInformationProvided', (done) => {
-            const state = 'BOCaseStopped';
-            const documentUploadIssue = 'true';
-            expect(CaseProgress.partialInformationProvided(state, documentUploadIssue)).to.equal(false);
+            expect(CaseProgress.partialInformationProvided(state, documentUploadIssue)).to.equal(true);
             done();
         });
     });
