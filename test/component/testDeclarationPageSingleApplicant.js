@@ -1025,6 +1025,7 @@ describe('declaration, single applicant', () => {
                 'legalStatementApplicant-multipleApplicants',
                 'deceasedEstateLand-multipleApplicants',
                 'applicantName',
+                'applicantName-alias',
                 'applicantName-multipleApplicants',
                 'applicantName-multipleApplicants-alias',
                 'applicantName-multipleApplicants-codicils',
@@ -1094,6 +1095,9 @@ describe('declaration, single applicant', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
+                    console.log('sessionData: ' + sessionData.toString());
+                    console.log('contentData: ' + contentData.toString());
+                    console.log('contentToExclude: ' + contentToExclude);
                     testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
