@@ -1,90 +1,89 @@
 'use strict';
 
 class FormatAlias {
-    static aliasReason(person, hasMultipleApplicants, isExecutorApplicant, executorCurrentName, language) {
+    static aliasReason(person, hasMultipleApplicants, language) {
         person = person || {};
         const aliasReason = person.aliasReason || person.currentNameReason || '';
         const otherReason = person.otherReason ? person.otherReason : '';
         return (hasMultipleApplicants ? this.formatMultipleApplicantAliasReason(aliasReason, otherReason,
-            isExecutorApplicant, executorCurrentName, language) : this.formatAliasReason(aliasReason, otherReason,
-            isExecutorApplicant, language)) || '';
+            language) : this.formatAliasReason(aliasReason, otherReason, language)) || '';
     }
 
-    static formatMultipleApplicantAliasReason(aliasReason, otherReason, isExecutorApplicant, executorCurrentName, language) {
+    static formatMultipleApplicantAliasReason(aliasReason, otherReason, language) {
         if (aliasReason === 'optionOther') {
             return ` ${otherReason}`;
         }
         if (language === 'en') {
-            return FormatAlias.englishMultipleAliasReason(aliasReason, isExecutorApplicant, executorCurrentName);
+            return FormatAlias.englishMultipleAliasReason(aliasReason);
         } else if (language === 'cy') {
-            return FormatAlias.welshMultipleAliasReason(aliasReason, isExecutorApplicant, executorCurrentName);
+            return FormatAlias.welshMultipleAliasReason(aliasReason);
         }
     }
 
-    static formatAliasReason(aliasReason, otherReason, isExecutorApplicant, language) {
+    static formatAliasReason(aliasReason, otherReason, language) {
         if (aliasReason === 'optionOther') {
-            return isExecutorApplicant ? `: ${otherReason}` : '';
+            return ` ${otherReason}`;
         }
         if (language === 'en') {
-            return FormatAlias.englishSingleAliasReason(aliasReason, isExecutorApplicant);
+            return FormatAlias.englishSingleAliasReason(aliasReason);
         } else if (language === 'cy') {
-            return FormatAlias.welshSingleAliasReason(aliasReason, isExecutorApplicant);
+            return FormatAlias.welshSingleAliasReason(aliasReason);
         }
     }
 
-    static englishMultipleAliasReason(aliasReason, isExecutorApplicant, executorCurrentName) {
+    static englishMultipleAliasReason(aliasReason) {
         if (aliasReason === 'optionMarriage') {
-            return isExecutorApplicant ? ' ' + executorCurrentName + ' got married or formed a civil partnership' : ' They got married or formed a civil partnership';
+            return ' They got married or formed a civil partnership';
         } else if (aliasReason === 'optionDivorce') {
-            return isExecutorApplicant ? ' ' + executorCurrentName + ' got divorced or ended their civil partnership' : ' They got divorced or ended their civil partnership';
+            return ' They got divorced or ended their civil partnership';
         } else if (aliasReason === 'optionDeedPoll') {
-            return isExecutorApplicant ? ' ' + executorCurrentName + ' changed their name by deed poll' : ' They changed their name by deed poll';
+            return ' They changed their name by deed poll';
         } else if (aliasReason === 'optionDifferentSpelling') {
-            return isExecutorApplicant ? ' ' + executorCurrentName + '‘s name was spelled differently' : ' Their name was spelled differently';
+            return ' Their name was spelled differently';
         } else if (aliasReason === 'optionPartOfNameNotIncluded') {
-            return isExecutorApplicant ? ' Part of ' + executorCurrentName + '‘s name was not included' : ' Part of their name was not included';
+            return ' Part of their name was not included';
         }
     }
 
-    static welshMultipleAliasReason(aliasReason, isExecutorApplicant, executorCurrentName) {
+    static welshMultipleAliasReason(aliasReason) {
         if (aliasReason === 'optionMarriage') {
-            return isExecutorApplicant ? ' Mae ' + executorCurrentName + ' wedi priodi neu wedi ffurfio partneriaeth sifil' : ' Maent wedi priodi neu wedi ffurfio partneriaeth sifil';
+            return ' Maent wedi priodi neu wedi ffurfio partneriaeth sifil';
         } else if (aliasReason === 'optionDivorce') {
-            return isExecutorApplicant ? ' Mae ' + executorCurrentName + ' wedi ysgaru neu wedi dod â’u partneriaeth sifil i ben' : ' Maent wedi ysgaru neu wedi dod â’u partneriaeth sifil i ben';
+            return ' Maent wedi ysgaru neu wedi dod â’u partneriaeth sifil i ben';
         } else if (aliasReason === 'optionDeedPoll') {
-            return isExecutorApplicant ? ' Newidiodd ' + executorCurrentName + ' ei henw trwy weithred newid enw' : ' Bu iddynt newid eu henw trwy weithred newid enw';
+            return ' Bu iddynt newid eu henw trwy weithred newid enw';
         } else if (aliasReason === 'optionDifferentSpelling') {
-            return isExecutorApplicant ? ' Roedd enw ' + executorCurrentName + ' wedi\'i sillafu\'n wahanol' : ' Cafodd eu henw ei sillafu’n wahanol';
+            return ' Cafodd eu henw ei sillafu’n wahanol';
         } else if (aliasReason === 'optionPartOfNameNotIncluded') {
-            return isExecutorApplicant ? ' Ni chynhwyswyd rhan o enw ' + executorCurrentName : ' Ni chafodd rhan o’u henw ei gynnwys';
+            return ' Ni chafodd rhan o’u henw ei gynnwys';
         }
     }
 
-    static englishSingleAliasReason(aliasReason, isExecutorApplicant) {
+    static englishSingleAliasReason(aliasReason) {
         if (aliasReason === 'optionMarriage') {
-            return isExecutorApplicant ? ' I got married or formed a civil partnership' : '';
+            return ' I got married or formed a civil partnership';
         } else if (aliasReason === 'optionDivorce') {
-            return isExecutorApplicant ? ' I got divorced or ended my civil partnership': '';
+            return ' I got divorced or ended my civil partnership';
         } else if (aliasReason === 'optionDeedPoll') {
-            return isExecutorApplicant ? ' I changed my name by deed poll' : '';
+            return ' I changed my name by deed poll';
         } else if (aliasReason === 'optionDifferentSpelling') {
-            return isExecutorApplicant ? ' My name was spelled differently' : '';
+            return ' My name was spelled differently';
         } else if (aliasReason === 'optionPartOfNameNotIncluded') {
-            return isExecutorApplicant ? ' Part of my name was not included' : '';
+            return ' Part of my name was not included';
         }
     }
 
-    static welshSingleAliasReason(aliasReason, isExecutorApplicant) {
+    static welshSingleAliasReason(aliasReason) {
         if (aliasReason === 'optionMarriage') {
-            return isExecutorApplicant ? ' Bu imi briodi neu ffurfio partneriaeth sifil' : '';
+            return ' Bu imi briodi neu ffurfio partneriaeth sifil';
         } else if (aliasReason === 'optionDivorce') {
-            return isExecutorApplicant ? ' Cefais ysgariad neu daeth fy mhartneriaeth sifil i ben': '';
+            return ' Cefais ysgariad neu daeth fy mhartneriaeth sifil i ben';
         } else if (aliasReason === 'optionDeedPoll') {
-            return isExecutorApplicant ? ' Newidiais fy enw trwy weithred newid enw' : '';
+            return ' Newidiais fy enw trwy weithred newid enw';
         } else if (aliasReason === 'optionDifferentSpelling') {
-            return isExecutorApplicant ? ' Cafodd fy enw ei sillafu’n wahanol' : '';
+            return ' Cafodd fy enw ei sillafu’n wahanol';
         } else if (aliasReason === 'optionPartOfNameNotIncluded') {
-            return isExecutorApplicant ? ' Ni chafodd rhan o fy enw ei gynnwys' : '';
+            return ' Ni chafodd rhan o fy enw ei gynnwys';
         }
     }
 }
