@@ -165,7 +165,7 @@ router.use((req, res, next) => {
     const paymentIsNotRequired = paymentWrapper.paymentIsNotRequired();
     const date = (formdata.reviewresponse?.expectedResponseDate || formdata.expectedResponseDate)? utils.formattedDate(moment(formdata.reviewresponse?.expectedResponseDate || formdata.expectedResponseDate, 'YYYY-MM-DD').parseZone(), req.session.language): null;
     const informationProvided = CaseProgress.informationProvided(formdata.ccdCase?.state, formdata.provideinformation?.documentUploadIssue, date);
-    const partialInformationProvided = CaseProgress.partialInformationProvided(formdata.ccdCase?.state, formdata.provideinformation?.documentUploadIssue, date, formdata.provideinformation?.citizenResponse, formdata.documents.uploads.map(doc => doc.filename));
+    const partialInformationProvided = CaseProgress.partialInformationProvided(formdata.ccdCase?.state, formdata.provideinformation?.documentUploadIssue, date, formdata.provideinformation?.citizenResponse, formdata.documents?.uploads.map(doc => doc.filename));
 
     const allPageUrls = [];
     Object.entries(steps).forEach(([, step]) => {
