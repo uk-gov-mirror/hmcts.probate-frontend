@@ -28,8 +28,8 @@ class CaseProgress {
         return this.caseStopped(state) && documentUploadIssue !== 'true' && typeof expectedResponseDate !== 'undefined' && expectedResponseDate !== null;
     }
 
-    static partialInformationProvided(state, documentUploadIssue, expectedResponseDate, citizenResponse, uploadedDocuments) {
-        return this.caseStopped(state) && documentUploadIssue === 'true' &&
+    static partialInformationProvided(state, documentUploadIssue, expectedResponseDate, citizenResponse, uploadedDocuments, isSaveAndClose) {
+        return this.caseStopped(state) && documentUploadIssue === 'true' && isSaveAndClose !== 'true' &&
             ((typeof expectedResponseDate !== 'undefined' && expectedResponseDate !== null) ||
                 ((typeof uploadedDocuments === 'undefined' || uploadedDocuments.length === 0) &&
                     (typeof citizenResponse === 'undefined' || citizenResponse === '')));

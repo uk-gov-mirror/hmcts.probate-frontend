@@ -95,7 +95,8 @@ describe('CaseProgress.js', () => {
             const expectedResponseDate = '2024-12-11';
             const citizenResponse = 'something';
             const uploadedDocuments = ['screenshot1.png', 'screenshot2.png'];
-            expect(CaseProgress.partialInformationProvided(state, documentUploadIssue, expectedResponseDate, citizenResponse, uploadedDocuments)).to.equal(false);
+            const isSaveAndClose = 'false';
+            expect(CaseProgress.partialInformationProvided(state, documentUploadIssue, expectedResponseDate, citizenResponse, uploadedDocuments, isSaveAndClose)).to.equal(false);
             done();
         });
     });

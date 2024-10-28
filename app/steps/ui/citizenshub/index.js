@@ -48,7 +48,7 @@ class CitizensHub extends Step {
         }
         ctx.date = (req.session.form.reviewresponse?.expectedResponseDate || req.session.form.expectedResponseDate)? utils.formattedDate(moment(req.session.form.reviewresponse?.expectedResponseDate || req.session.form.expectedResponseDate, 'YYYY-MM-DD').parseZone(), req.session.language): null;
         ctx.informationProvided = CaseProgress.informationProvided(state, req.session.form.provideinformation?.documentUploadIssue, ctx.date);
-        ctx.partialInformationProvided = CaseProgress.partialInformationProvided(state, req.session.form.provideinformation?.documentUploadIssue, ctx.date, req.session.form.provideinformation?.citizenResponse, ctx.uploadedDocuments);
+        ctx.partialInformationProvided = CaseProgress.partialInformationProvided(state, req.session.form.provideinformation?.documentUploadIssue, ctx.date, req.session.form.provideinformation?.citizenResponse, ctx.uploadedDocuments, req.session.form.provideinformation?.isSaveAndClose);
         return ctx;
     }
 
