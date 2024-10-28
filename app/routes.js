@@ -188,9 +188,9 @@ router.use((req, res, next) => {
         } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && currentPageCleanUrl==='/payment-status') {
             res.redirect('/thank-you');
         } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl)) {
-            if (currentPageCleanUrl==='/provide-information' && (!informationProvided || !partialInformationProvided)) {
+            if (currentPageCleanUrl==='/provide-information' && !(informationProvided || partialInformationProvided)) {
                 next();
-            } else if (currentPageCleanUrl==='/review-response' && (!informationProvided || !partialInformationProvided)) {
+            } else if (currentPageCleanUrl==='/review-response' && !(informationProvided || partialInformationProvided)) {
                 next();
             } else {
                 res.redirect('/citizens-hub');
