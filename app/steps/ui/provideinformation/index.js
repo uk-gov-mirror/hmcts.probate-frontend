@@ -46,13 +46,15 @@ class ProvideInformation extends ValidationStep {
             errors.push(FieldError('file', error, this.resourcePath, this.generateContent({}, {}, session.language), session.language));
             delete formdata.documents.error;
         } else if (ctx.documentUploadIssue === 'true' && ctx.isUploadingDocument !== 'true' && ctx.citizenResponse === '' && (typeof ctx.uploadedDocuments ==='undefined' || ctx.uploadedDocuments.length === 0)) {
-            const document = new Document(config.services.orchestrator.url, ctx.sessionID);
-            document.notifyApplicant(ctx.ccdCase.id, 'false', session.authToken, session.serviceAuthorization)
-                .then(result => {
-                    if (result.name === 'Error') {
-                        throw new ReferenceError('Error sending notification about doc upload');
-                    }
-                });
+            if (ctx.isSaveAndClose!=='true') {
+                const document = new Document(config.services.orchestrator.url, ctx.sessionID);
+                document.notifyApplicant(ctx.ccdCase.id, 'false', session.authToken, session.serviceAuthorization)
+                    .then(result => {
+                        if (result.name === 'Error') {
+                            throw new ReferenceError('Error sending notification about doc upload');
+                        }
+                    });
+            }
         }
         return [ctx, errors];
     }
@@ -63,7 +65,7 @@ class ProvideInformation extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.responseOrDocument = (ctx.citizenResponse !== '' || ctx.uploadedDocuments.length !== 0);
+        ctx.responseOrDocument = (ctx.citizenResponse !== '' || (typeof ctx.uploadedDocuments !=='undefined' && ctx.uploadedDocuments.length !== 0));
         return {
             options: [
                 {key: 'responseOrDocument', value: true, choice: 'responseOrDocument'},
