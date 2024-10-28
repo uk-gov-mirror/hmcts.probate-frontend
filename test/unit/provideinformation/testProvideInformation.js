@@ -3,10 +3,12 @@
 const initSteps = require('app/core/initSteps');
 const {assert} = require('chai');
 const journeyProbate = require('../../../app/journeys/probate');
+const {stub} = require('sinon');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ProvideInformation = steps.ProvideInformation;
 const CitizensHub = steps.CitizensHub;
+const Document = require('app/services/Document');
 
 describe('ProvideInformation', () => {
     describe('getUrl()', () => {
@@ -228,6 +230,52 @@ describe('ProvideInformation', () => {
             ProvideInformation.previousStepUrl(req, res, ctx);
             expect(ctx.previousUrl).to.equal(CitizensHub.constructor.getUrl());
             done();
+        });
+    });
+    describe('handlePost', () => {
+        let ctx;
+        let errors;
+        let formdata;
+        let session;
+
+        beforeEach(() => {
+            ctx = {};
+            errors = [];
+            formdata = {documents: {}};
+            session = {authToken: 'authToken', serviceAuthorization: 'serviceAuthorization'};
+        });
+
+        it('sends notification if documentUploadIssue is true and no document is being uploaded', async () => {
+            ctx.documentUploadIssue = 'true';
+            ctx.isUploadingDocument = 'false';
+            ctx.citizenResponse = '';
+            ctx.sessionID = 'sessionID';
+            ctx.ccdCase = {id: 'caseId'};
+
+            const documentStub = stub(Document.prototype, 'notifyApplicant').resolves({name: 'Success'});
+
+            await ProvideInformation.handlePost(ctx, errors, formdata, session);
+            // eslint-disable-next-line no-unused-expressions
+            expect(documentStub.calledOnce).to.be.true;
+            // eslint-disable-next-line no-unused-expressions
+            expect(documentStub.calledWith('caseId', 'false', 'authToken', 'serviceAuthorization')).to.be.true;
+
+            documentStub.restore();
+        });
+        it('does not send notification if documentUploadIssue is false', async () => {
+            ctx.documentUploadIssue = 'false';
+            ctx.isUploadingDocument = 'false';
+            ctx.citizenResponse = '';
+            ctx.sessionID = 'sessionID';
+            ctx.ccdCase = {id: 'caseId'};
+
+            const documentStub = stub(Document.prototype, 'notifyApplicant');
+
+            await ProvideInformation.handlePost(ctx, errors, formdata, session);
+            // eslint-disable-next-line no-unused-expressions
+            expect(documentStub.notCalled).to.be.true;
+
+            documentStub.restore();
         });
     });
 });
