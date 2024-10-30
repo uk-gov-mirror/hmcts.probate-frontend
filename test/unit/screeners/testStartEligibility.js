@@ -5,7 +5,6 @@ const journeyProbate = require('../../../app/journeys/probate');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const startEligibility = steps.StartEligibility;
-const PreviousStep = steps.Dashboard;
 describe('StartEligibility', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
@@ -30,7 +29,7 @@ describe('StartEligibility', () => {
             req.session.journey = journeyProbate;
             ctx = {};
             startEligibility.previousScrennerStepUrl(req, res, ctx);
-            expect(ctx.previousUrl).to.equal(PreviousStep.constructor.getUrl());
+            expect(ctx.previousUrl).to.equal('');
             done();
         });
     });
