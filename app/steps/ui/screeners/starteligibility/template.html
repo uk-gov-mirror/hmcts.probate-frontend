@@ -16,70 +16,18 @@
             }) }}
 
             <h2 class="govuk-heading-m">{{ content.multipleHeader | safe }}</h2>
-            <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
-            <p class="govuk-body">{{ content.paragraph4 | safe }}</p>
-            <p class="govuk-body">{{ content.paragraph5 | safe }}</p>
-            <p class="govuk-body">{{ content.paragraph6 | safe }}</p>
-
-            <h2 class="govuk-heading-m">{{ content.feesHeader | safe }}</h2>
-            {% if fields.isFeesApiToggleEnabled.value == "true" %}
-                <p class="govuk-body">{{ content.paragraph7 | safe }}</p>
-                {{ govukTable({
-                    caption: content.tableHeadLeft | safe,
-                    captionClasses: "govuk-visually-hidden",
-                    head: [
-                        { text: content.tableHeadLeft | safe },
-                        { text: content.tableHeadRight | safe, format: "numeric" }
-                    ],
-                    rows: [
-                        [
-                            { text: content.tableBodyFeeRange1 | safe },
-                            { text: content.tableBodyFeeRange1Value | safe, format: "numeric" }
-                        ],
-                        [
-                            { text: content.tableBodyFeeRange2 | safe },
-                            { text: content.tableBodyFeeRange2Value | safe, format: "numeric" }
-                        ],
-                        [
-                            { text: content.tableBodyFeeRange3 | safe },
-                            { text: content.tableBodyFeeRange3Value | safe, format: "numeric" }
-                        ],
-                        [
-                            { text: content.tableBodyFeeRange4 | safe },
-                            { text: content.tableBodyFeeRange4Value | safe, format: "numeric" }
-                        ],
-                        [
-                            { text: content.tableBodyFeeRange5 | safe },
-                            { text: content.tableBodyFeeRange5Value | safe, format: "numeric" }
-                        ],
-                        [
-                            { text: content.tableBodyFeeRange6 | safe },
-                            { text: content.tableBodyFeeRange6Value | safe, format: "numeric" }
-                        ],
-                        [
-                            { text: content.tableBodyFeeRange7 | safe },
-                            { text: content.tableBodyFeeRange7Value | safe, format: "numeric" }
-                        ]
-                    ]
-                }) }}
-                <p class="govuk-body">{{ content.paragraph8 | safe }}</p>
-            {% else %}
-                <p class="govuk-body">{{ content.paragraph7old | safe }}</p>
-                <p class="govuk-body">{{ content.paragraph8old | safe }}</p>
-            {% endif %}
-            <p class="govuk-body">{{ content.paragraph9 | safe }}</p>
-
-            <h2 class="govuk-heading-m">{{ content.feedbackHeader | safe }}</h2>
-            <p class="govuk-body">{{ content.paragraph10 | safe }}</p>
+            <p class="govuk-body">{{ content.paragraph3 | replace("{ihtChecker}", globals.links.ihtChecker) | safe }}</p>
         </div>
     </div>
+    <br>
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.checkApply | safe,
+            text: common.continue | safe,
             href: "/death-certificate",
             isStartButton: true
         }) }}
     </div>
-
-    <p class="govuk-body"><a href="/dashboard" class="govuk-link">{{ content.paragraph11 | safe }}</a></p>
+    <h2 class="govuk-heading-m">{{ content.applicationStartedHeader | safe }}</h2>
+    <p class="govuk-body"><a href="/dashboard" class="govuk-link">{{ content.paragraph4 | safe }}</a></p>
+    {% include "includes/help_details.html" %}
 {% endblock %}
