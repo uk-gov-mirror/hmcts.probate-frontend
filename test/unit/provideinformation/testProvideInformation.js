@@ -2,13 +2,14 @@
 
 const initSteps = require('app/core/initSteps');
 const {assert} = require('chai');
-const journeyProbate = require('../../../app/journeys/probate');
+const journeyProbate = require('app/journeys/probate');
 const {stub} = require('sinon');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ProvideInformation = steps.ProvideInformation;
 const CitizensHub = steps.CitizensHub;
 const Document = require('app/services/Document');
+const content = require('app/resources/en/translation/provideinformation');
 
 describe('ProvideInformation', () => {
     describe('getUrl()', () => {
@@ -125,14 +126,14 @@ describe('ProvideInformation', () => {
             const errors = [];
             const formdata = {
                 documents: {
-                    error: 'file'
+                    error: 'nothingUploaded'
                 }
             };
             const session = {language: 'en'};
             ProvideInformation.handlePost(ctx, errors, formdata, session);
             // eslint-disable-next-line no-undefined
             expect(errors).to.deep
-                .equal([{field: 'file', href: '#file', msg: 'provideinformation.errors.file.file'}]);
+                .equal([{field: 'file', href: '#file', msg: content.errors.file.nothingUploaded}]);
             done();
         });
         it('should return an error when no citizenResponse/documentUploadIssue/uploadedDocuments', (done) => {
@@ -143,7 +144,7 @@ describe('ProvideInformation', () => {
             expect(errorsToTest).to.deep.equal([{
                 field: 'citizenResponse',
                 href: '#citizenResponse',
-                msg: 'You must either enter a response, upload a document, or tell us if you are having trouble uploading any documents'
+                msg: content.errors.citizenResponse.required
             }]);
             done();
         });
@@ -162,7 +163,7 @@ describe('ProvideInformation', () => {
             expect(errorsToTest).to.deep.equal([{
                 field: 'file',
                 href: '#file',
-                msg: 'You have used a file type that can&rsquo;t be accepted. Save your file as a jpg, bmp, tiff, png or PDF file and try again'
+                msg: content.errors.file.invalidFileType
             }]);
             done();
         });
@@ -181,7 +182,7 @@ describe('ProvideInformation', () => {
             expect(errorsToTest).to.deep.equal([{
                 field: 'file',
                 href: '#file',
-                msg: 'Your file is too large to upload. Use a file that is under 10MB and try again'
+                msg: content.errors.file.maxSize
             }]);
             done();
         });
