@@ -12,7 +12,6 @@ class ProvideInformation extends ValidationStep {
     }
 
     getContextData(req) {
-        console.log('ProvideInformation.getContextData.............');
         let ctx = super.getContextData(req);
         ctx = this.pruneFormData(req.body, ctx);
         const formdata = req.session.form;
@@ -45,8 +44,8 @@ class ProvideInformation extends ValidationStep {
             errors = errors || [];
             errors.push(FieldError('file', error, this.resourcePath, this.generateContent({}, {}, session.language), session.language));
             delete formdata.documents.error;
-        } else if (ctx.documentUploadIssue === 'true' && ctx.isUploadingDocument !== 'true' && ctx.citizenResponse === '' && (typeof ctx.uploadedDocuments ==='undefined' || ctx.uploadedDocuments.length === 0)) {
-            if (ctx.isSaveAndClose!=='true') {
+        } else if (ctx.documentUploadIssue === 'true' && ctx.isUploadingDocument !== 'true' && ctx.citizenResponse === '' && (typeof ctx.uploadedDocuments === 'undefined' || ctx.uploadedDocuments.length === 0)) {
+            if (ctx.isSaveAndClose !== 'true') {
                 const document = new Document(config.services.orchestrator.url, ctx.sessionID);
                 document.notifyApplicant(ctx.ccdCase.id, 'false', session.authToken, session.serviceAuthorization)
                     .then(result => {

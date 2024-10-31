@@ -10,19 +10,19 @@
   "paragraph4": "Rhaid i'r ffeil fod ar ffurf jpg, bmp, tiff, png neu pdf.",
   "paragraph5": "Uchafswm maint y ffeil yw 10MB.",
   "documentUploadIssue": "Rwyf yn cael trafferth wrth lwytho rhai neu’r cyfan o fy nogfennau.",
-  "troubleUploadCheckHint": "If you are unable to upload your documents due to a technical issue, you can post or email your documents instead. You will receive details on how to send them after you have submitted your response.",
+  "troubleUploadCheckHint": "Os na allwch uwchlwytho’ch dogfennau oherwydd mater technegol, gallwch bostio dogfennau neu eu hanfon trwy e-bost yn lle hynny. Byddwch yn cael manylion ar sut i’w hanfon ar ôl ichi gyflwyno’ch ymateb.",
 
   "errors": {
     "file": {
-      "invalidFileType": "You have used a file type that can&rsquo;t be accepted. Save your file as a jpg, bmp, tiff, png or PDF file and try again",
-      "maxSize": "Your file is too large to upload. Use a file that is under 10MB and try again",
-      "maxFilesExceeded": "You have uploaded too many files. You can upload a maximum of 10 files",
-      "uploadFailed": "Your document failed to upload. Select your document and try again",
-      "nothingUploaded": "You need to select a file before you can upload it. Click &lsquo;browse&rsquo; to find a file to upload",
-      "uploadTimeout": "The file has taken too long to upload. The file may be too big, reduce the file size and try again or post the death certificate"
+      "invalidFileType": "Rhaid i’r ffeil fod ar ffurf JPG, BMP, TIFF, PNG neu PDF",
+      "maxSize": "Rhaid i’r ffeil a ddewiswyd fod yn llai na 10MB",
+      "maxFilesExceeded": "Rydych wedi uwchlwytho gormod o ffeiliau. Gallwch uwchlwytho hyd at 10 ffeil",
+      "uploadFailed": "Ni ellid uwchlwytho’r ffeil a ddewiswyd - rhowch gynnig arall arni.",
+      "nothingUploaded": "Mae angen ichi ddewis ffeil cyn y gallwch ei huwchlwytho. Cliciwch &lsquo;browse&rsquo; i ddod o hyd i ffeil i&rsquo;w huwchlwytho",
+      "uploadTimeout": "Mae eich ffeil wedi cymryd gormod o amser i&rsquo;w huwchlwytho. Efallai bod y ffeil rhy fawr, gwnewch y ffeil yn llai a rhowch gynnig arall"
     },
     "citizenResponse": {
-      "required": "You must either enter a response, upload a document, or tell us if you are having trouble uploading any documents"
+      "required": "Rhaid i chi naill ai nodi ymateb, uwchlwytho dogfen, neu ddweud wrthym os ydych yn cael trafferth uwchlwytho unrhyw ddogfennau"
     }
   }
 }

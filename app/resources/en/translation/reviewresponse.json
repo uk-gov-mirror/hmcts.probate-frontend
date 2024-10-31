@@ -12,7 +12,7 @@
 
   "errors": {
     "citizenResponseCheckbox": {
-      "required": "Tick the check box to agree to the upload"
+      "required": "Tick the check box to agree to the declaration"
     }
   }
 }

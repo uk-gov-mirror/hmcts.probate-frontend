@@ -12,7 +12,7 @@
 
   "errors": {
     "citizenResponseCheckbox": {
-      "required": "Tick the check box to agree to the upload"
+      "required": "Ticiwch y blwch i gytuno i&rsquo;r datganiad"
     }
   }
 }

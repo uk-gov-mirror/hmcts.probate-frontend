@@ -185,12 +185,12 @@ router.use((req, res, next) => {
             next();
         } else if (config.app.requireCcdCaseId === 'true' && req.method === 'GET' && !noCcdCaseIdPages.includes(currentPageCleanUrl) && !get(formdata, 'ccdCase.id')) {
             res.redirect('/dashboard');
-        } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && currentPageCleanUrl==='/payment-status') {
+        } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && currentPageCleanUrl === '/payment-status') {
             res.redirect('/thank-you');
         } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl)) {
-            if (currentPageCleanUrl==='/provide-information' && !(informationProvided || partialInformationProvided)) {
+            if (currentPageCleanUrl === '/provide-information' && !(informationProvided || partialInformationProvided)) {
                 next();
-            } else if (currentPageCleanUrl==='/review-response' && !(informationProvided || partialInformationProvided)) {
+            } else if (currentPageCleanUrl === '/review-response' && !(informationProvided || partialInformationProvided)) {
                 next();
             } else {
                 res.redirect('/citizens-hub');
