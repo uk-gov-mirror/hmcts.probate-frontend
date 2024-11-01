@@ -12,11 +12,23 @@
             <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
 
             {{ govukInsetText({
-                text: content.paragraph2 | replace("{applicationFormPA1P}", globals.links.applicationFormPA1P) | replace("{applicationFormPA1A}", globals.links.applicationFormPA1A) | safe
+          text: ("<dl class=\"inline-dl\"><dt>" + content.definitionTerm + "</dt>" +
+          "<dd>" + content.definitionDescription1 + "<a href=\"" + globals.links.applicationFormPA1P + "\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"" + content.linkText1 + "\">" + content.linkText1 + "</a>" +
+            content.definitionDescription2 + "<a href=\"" + globals.links.applicationFormPA1A + "\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"" + content.linkText2 + "\">" + content.linkText2 + "</a>" +
+            content.definitionDescription3 + "</dd></dl>") | safe
             }) }}
 
             <h2 class="govuk-heading-m">{{ content.multipleHeader | safe }}</h2>
-            <p class="govuk-body">{{ content.paragraph3 | replace("{ihtChecker}", globals.links.ihtChecker) | safe }}</p>
+          <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
+            <p class="govuk-body">
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>{{ content.listItem1 | safe }}</li>
+                    <li>{{ content.listItem2 | safe }}</li>
+                    <li>{{ content.listItem3 | safe }}</li>
+                    <li>{{ content.listItem4 | safe }}<a href="{{globals.links.ihtChecker}}" rel="external noopener" target="_blank" class="govuk-link" aria-label="{{content.linkText3}}">{{ content.linkText3 | safe }}</a></li>
+                    <li>{{ content.listItem5 | safe }}</li>
+                </ul>
+            </p>
         </div>
     </div>
     <br>
@@ -28,6 +40,6 @@
         }) }}
     </div>
     <h2 class="govuk-heading-m">{{ content.applicationStartedHeader | safe }}</h2>
-    <p class="govuk-body"><a href="/dashboard" class="govuk-link">{{ content.paragraph4 | safe }}</a></p>
+    <p class="govuk-body"><a href="/dashboard" class="govuk-link">{{ content.paragraph3 | safe }}</a></p>
     {% include "includes/help_details.html" %}
 {% endblock %}

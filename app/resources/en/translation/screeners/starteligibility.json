@@ -3,9 +3,20 @@
   "header": "Important: read before you start",
   "introduction": "Probate gives you the legal right to deal with a person&rsquo;s property, money and possessions (their &lsquo;estate&rsquo;) after they&rsquo;ve died.",
   "paragraph1": "You will need to submit an application and send your documents to the probate registry. We&rsquo;ll tell you exactly what you need to send once you have completed your application.",
-  "paragraph2": "<dl class=\"inline-dl\"><dt>You can apply in Welsh by post. </dt><dd>Use <a href=\"{applicationFormPA1P}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"Form PA1P\">Form PA1P</a> if the person who died left a will, or <a href=\"{applicationFormPA1A}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"Form PA1A\">Form PA1A</a> if there is no will.</dd></dl>",
+  "definitionTerm": "You can apply in Welsh by post. ",
+  "definitionDescription1": "Use ",
+  "definitionDescription2": " if the person who died left a will, or ",
+  "definitionDescription3": " if there is no will.",
+  "linkText1": "Form PA1P",
+  "linkText2": "Form PA1A",
   "multipleHeader": "What you will need",
-  "paragraph3": "Before you start your application, you will need:<br><ul class=\"govuk-list govuk-list--bullet\"><li>the details of the person who died</li><li>the original will, if the person who died left one, and any codicils</li><li>the name, email address and mobile phone number for each person applying for probate</li><li>the values of the estate for Inheritance Tax (IHT) – you can estimate these using HMRC&rsquo;s <a href=\"{ihtChecker}\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"online IHT checker\">online IHT checker</a></li><li>a debit or credit card, if you need to pay a fee</li></ul>",
+  "paragraph2": "Before you start your application, you will need:",
+  "listItem1": "the details of the person who died",
+  "listItem2": "the original will, if the person who died left one, and any codicils",
+  "listItem3": "the name, email address and mobile phone number for each person applying for probate",
+  "listItem4": "the values of the estate for Inheritance Tax (IHT) – you can estimate these using HMRC&rsquo;s ",
+  "listItem5": "a debit or credit card, if you need to pay a fee",
+  "linkText3": "online IHT checker",
   "applicationStartedHeader": "Have you already started an application?",
-  "paragraph4": "Return to an existing application"
+  "paragraph3": "Return to an existing application"
 }
