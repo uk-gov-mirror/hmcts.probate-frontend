@@ -19,7 +19,7 @@ describe('start-eligibility', () => {
             testWrapper = new TestWrapper('StartEligibility');
 
             const contentToExclude = [
-                'paragraph2',
+                'paragraph1',
                 'paragraph3'
             ];
             testWrapper.testContent(done, {}, contentToExclude);
