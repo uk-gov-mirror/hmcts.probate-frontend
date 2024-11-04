@@ -28,7 +28,7 @@
   "applicantName-multipleApplicants": "Mae {applicantCurrentName}, ysgutor a enwir yn yr ewyllys fel {applicantNameOnWill}, yn gwneud cais am brofiant.",
   "applicantName-multipleApplicants-alias": "Mae {applicantCurrentName}, ysgutor a enwir yn yr ewyllys fel {applicantNameOnWill}, yn gwneud cais am brofiant. Mae ei enw/henw yn wahanol oherwydd:{aliasReason}.",
   "applicantName-multipleApplicants-codicils": "Mae {applicantCurrentName}, ysgutor a enwir yn yr ewyllys neu&rsquo;r codisiliau fel {applicantNameOnWill}, yn gwneud cais am brofiant.",
-  "applicantName-multipleApplicants-alias-codicils": "Mae {applicantCurrentName}, ysgutor a enwir yn yr ewyllys neu&rsquo;r codisiliau fel {applicantNameOnWill}, yn gwneud cais am brofiant. Mae ei enw/henw yn wahanol oherwydd: {aliasReason}.",
+  "applicantName-multipleApplicants-alias-codicils": "Mae {applicantCurrentName}, ysgutor a enwir yn yr ewyllys neu&rsquo;r codisiliau fel {applicantNameOnWill}, yn gwneud cais am brofiant. Mae ei enw/henw yn wahanol oherwydd:{aliasReason}.",
   "applicantName-multipleApplicants-mainApplicant": "Mae {applicantWillName}, ysgutor a enwir yn yr ewyllys, yn gwneud cais am brofiant.",
   "applicantName-multipleApplicants-mainApplicant-alias": "Mae {applicantCurrentName}, ysgutor a enwir yn yr ewyllys fel {applicantWillName}, yn gwneud cais am brofiant. Mae ei enw/henw yn wahanol oherwydd:{aliasReason}.",
   "applicantName-multipleApplicants-mainApplicant-codicils": "Mae {applicantWillName}, ysgutor a enwir yn yr ewyllys neu&rsquo;r codisiliau, yn gwneud cais am brofiant.",
