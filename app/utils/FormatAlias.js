@@ -5,7 +5,7 @@ class FormatAlias {
         person = person || {};
         const aliasReason = person.aliasReason || person.currentNameReason || '';
         const otherReason = person.otherReason ? person.otherReason : '';
-        return (this.formatAliasReason(aliasReason, otherReason, language, hasMultipleApplicants));
+        return (this.formatAliasReason(aliasReason, otherReason, language, hasMultipleApplicants) || '');
     }
 
     // eslint-disable-next-line complexity
