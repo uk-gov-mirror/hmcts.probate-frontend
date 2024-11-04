@@ -74,19 +74,9 @@ class TestWrapper {
             res.expect('Content-type', /html/)
                 .then(response => {
                     try {
-                        console.log('==========================================================================================');
-                        console.log(response);
-                        console.log('==========================================================================================');
-                        console.log(response.text);
-                        console.log('==========================================================================================');
-                        console.log(substitutedContent);
-                        console.log('==========================================================================================');
                         this.assertContentIsPresent(response.text, substitutedContent);
                         done();
                     } catch (err) {
-                        console.log(err.message);
-                        console.log(err.stack);
-                        console.log(err);
                         console.error(`Assert content present error: ${err.message}\nStack:\n${err.stack}`);
                         done(err);
                     }
