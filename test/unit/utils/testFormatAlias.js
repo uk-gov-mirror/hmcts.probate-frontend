@@ -44,65 +44,65 @@ describe('FormatAlias.js', () => {
     describe('formatAliasReason() for multiple applicants', () => {
         it('should return the correct text when Marriage is selected as aliasReason', (done) => {
             const aliasReason = 'optionMarriage';
-            expect(FormatAlias.formatMultipleApplicantAliasReason(aliasReason, '', 'en')).to.equal(' They got married or formed a civil partnership');
+            expect(FormatAlias.formatAliasReason(aliasReason, '', 'en', true)).to.equal(' They got married or formed a civil partnership');
             done();
         });
 
         it('should return the correct text when Divorce is selected as aliasReason', (done) => {
             const aliasReason = 'optionDivorce';
-            expect(FormatAlias.formatMultipleApplicantAliasReason(aliasReason, '', 'en')).to.equal(' They got divorced or ended their civil partnership');
+            expect(FormatAlias.formatAliasReason(aliasReason, '', 'en', true)).to.equal(' They got divorced or ended their civil partnership');
             done();
         });
 
         it('should return the correct text when Changed by deed poll is selected as aliasReason', (done) => {
             const aliasReason = 'optionDeedPoll';
-            expect(FormatAlias.formatMultipleApplicantAliasReason(aliasReason, '', 'en')).to.equal(' They changed their name by deed poll');
+            expect(FormatAlias.formatAliasReason(aliasReason, '', 'en', true)).to.equal(' They changed their name by deed poll');
             done();
         });
 
         it('should return the correct text when Changed by deed poll is selected as aliasReason', (done) => {
             const aliasReason = 'optionDifferentSpelling';
-            expect(FormatAlias.formatMultipleApplicantAliasReason(aliasReason, '', 'en')).to.equal(' Their name was spelled differently');
+            expect(FormatAlias.formatAliasReason(aliasReason, '', 'en', true)).to.equal(' Their name was spelled differently');
             done();
         });
         it('should return the correct text when Changed by deed poll is selected as aliasReason', (done) => {
             const aliasReason = 'optionPartOfNameNotIncluded';
-            expect(FormatAlias.formatMultipleApplicantAliasReason(aliasReason, '', 'en')).to.equal(' Part of their name was not included');
+            expect(FormatAlias.formatAliasReason(aliasReason, '', 'en', true)).to.equal(' Part of their name was not included');
             done();
         });
 
         it('should return the other reason when other is selected as aliasReason', (done) => {
             const aliasReason = 'optionOther';
             const otherReason = 'because I felt like it';
-            expect(FormatAlias.formatMultipleApplicantAliasReason(aliasReason, otherReason, 'en')).to.equal(' because I felt like it');
+            expect(FormatAlias.formatAliasReason(aliasReason, otherReason, 'en', true)).to.equal(' because I felt like it');
             done();
         });
         it('should return the correct with executor text when Marriage is selected as aliasReason', (done) => {
             const aliasReason = 'optionMarriage';
-            expect(FormatAlias.formatMultipleApplicantAliasReason(aliasReason, '', 'en')).to.equal(' They got married or formed a civil partnership');
+            expect(FormatAlias.formatAliasReason(aliasReason, '', 'en', true)).to.equal(' They got married or formed a civil partnership');
             done();
         });
 
         it('should return the correct with executor text when Divorce is selected as aliasReason', (done) => {
             const aliasReason = 'optionDivorce';
-            expect(FormatAlias.formatMultipleApplicantAliasReason(aliasReason, '', 'en')).to.equal(' They got divorced or ended their civil partnership');
+            expect(FormatAlias.formatAliasReason(aliasReason, '', 'en', true)).to.equal(' They got divorced or ended their civil partnership');
             done();
         });
 
         it('should return the correct with executor text when Changed by deed poll is selected as aliasReason', (done) => {
             const aliasReason = 'optionDeedPoll';
-            expect(FormatAlias.formatMultipleApplicantAliasReason(aliasReason, '', 'en')).to.equal(' They changed their name by deed poll');
+            expect(FormatAlias.formatAliasReason(aliasReason, '', 'en', true)).to.equal(' They changed their name by deed poll');
             done();
         });
 
         it('should return the correct with executor text when Changed by deed poll is selected as aliasReason', (done) => {
             const aliasReason = 'optionDifferentSpelling';
-            expect(FormatAlias.formatMultipleApplicantAliasReason(aliasReason, '', 'en')).to.equal(' Their name was spelled differently');
+            expect(FormatAlias.formatAliasReason(aliasReason, '', 'en', true)).to.equal(' Their name was spelled differently');
             done();
         });
         it('should return the correct with executor text when Changed by deed poll is selected as aliasReason', (done) => {
             const aliasReason = 'optionPartOfNameNotIncluded';
-            expect(FormatAlias.formatMultipleApplicantAliasReason(aliasReason, '', 'en')).to.equal(' Part of their name was not included');
+            expect(FormatAlias.formatAliasReason(aliasReason, '', 'en', true)).to.equal(' Part of their name was not included');
             done();
         });
     });
@@ -110,26 +110,26 @@ describe('FormatAlias.js', () => {
     describe('formatAliasReason() for single applicant', () => {
         it('should return the correct text when Marriage is selected as aliasReason', (done) => {
             const aliasReason = 'optionMarriage';
-            expect(FormatAlias.formatAliasReason(aliasReason, '', 'en')).to.equal(' I got married or formed a civil partnership');
+            expect(FormatAlias.formatAliasReason(aliasReason, '', 'en', false)).to.equal(' I got married or formed a civil partnership');
             done();
         });
 
         it('should return the correct text when Divorce is selected as aliasReason', (done) => {
             const aliasReason = 'optionDivorce';
-            expect(FormatAlias.formatAliasReason(aliasReason, '', 'en')).to.equal(' I got divorced or ended my civil partnership');
+            expect(FormatAlias.formatAliasReason(aliasReason, '', 'en', false)).to.equal(' I got divorced or ended my civil partnership');
             done();
         });
 
         it('should return the correct text when Changed by deed poll is selected as aliasReason', (done) => {
             const aliasReason = 'optionDeedPoll';
-            expect(FormatAlias.formatAliasReason(aliasReason, '', 'en')).to.equal(' I changed my name by deed poll');
+            expect(FormatAlias.formatAliasReason(aliasReason, '', 'en', false)).to.equal(' I changed my name by deed poll');
             done();
         });
 
         it('should return the other reason when other is selected as aliasReason', (done) => {
             const aliasReason = 'optionOther';
             const otherReason = 'because I felt like it';
-            expect(FormatAlias.formatAliasReason(aliasReason, otherReason, false, 'en')).to.equal(' because I felt like it');
+            expect(FormatAlias.formatAliasReason(aliasReason, otherReason, 'en', false)).to.equal(' because I felt like it');
             done();
         });
     });
@@ -175,85 +175,30 @@ describe('FormatAlias.js', () => {
         describe('Welsh formatAliasReason() for multiple applicants', () => {
             it('Welsh - should return the correct text when Marriage is selected as aliasReason', (done) => {
                 const aliasReason = 'optionMarriage';
-                expect(FormatAlias.formatMultipleApplicantAliasReason(aliasReason, '', 'cy')).to.equal(' Maent wedi priodi neu wedi ffurfio partneriaeth sifil');
+                expect(FormatAlias.formatAliasReason(aliasReason, '', 'cy', true)).to.equal(' Maent wedi priodi neu wedi ffurfio partneriaeth sifil');
                 done();
             });
 
             it('Welsh - should return the correct text when Divorce is selected as aliasReason', (done) => {
                 const aliasReason = 'optionDivorce';
-                expect(FormatAlias.formatMultipleApplicantAliasReason(aliasReason, '', 'cy')).to.equal(' Maent wedi ysgaru neu wedi dod â’u partneriaeth sifil i ben');
+                expect(FormatAlias.formatAliasReason(aliasReason, '', 'cy', true)).to.equal(' Maent wedi ysgaru neu wedi dod â’u partneriaeth sifil i ben');
                 done();
             });
 
             it('Welsh - should return the correct text when Changed by deed poll is selected as aliasReason', (done) => {
                 const aliasReason = 'optionDeedPoll';
-                expect(FormatAlias.formatMultipleApplicantAliasReason(aliasReason, '', 'cy')).to.equal(' Bu iddynt newid eu henw trwy weithred newid enw');
+                expect(FormatAlias.formatAliasReason(aliasReason, '', 'cy', true)).to.equal(' Bu iddynt newid eu henw trwy weithred newid enw');
                 done();
             });
 
             it('Welsh - should return the correct text when Changed by deed poll is selected as aliasReason', (done) => {
                 const aliasReason = 'optionDifferentSpelling';
-                expect(FormatAlias.formatMultipleApplicantAliasReason(aliasReason, '', 'cy')).to.equal(' Cafodd eu henw ei sillafu’n wahanol');
+                expect(FormatAlias.formatAliasReason(aliasReason, '', 'cy', true)).to.equal(' Cafodd eu henw ei sillafu’n wahanol');
                 done();
             });
             it('Welsh - should return the correct text when Changed by deed poll is selected as aliasReason', (done) => {
                 const aliasReason = 'optionPartOfNameNotIncluded';
-                expect(FormatAlias.formatMultipleApplicantAliasReason(aliasReason, '', 'cy')).to.equal(' Ni chafodd rhan o’u henw ei gynnwys');
-                done();
-            });
-
-            it('Welsh - should return the other reason when other is selected as aliasReason', (done) => {
-                const aliasReason = 'optionOther';
-                const otherReason = 'because I felt like it';
-                expect(FormatAlias.formatMultipleApplicantAliasReason(aliasReason, otherReason, 'cy')).to.equal(' because I felt like it');
-                done();
-            });
-            it('Welsh - should return the correct with executor text when Marriage is selected as aliasReason', (done) => {
-                const aliasReason = 'optionMarriage';
-                expect(FormatAlias.formatMultipleApplicantAliasReason(aliasReason, '', 'cy')).to.equal(' Maent wedi priodi neu wedi ffurfio partneriaeth sifil');
-                done();
-            });
-
-            it('Welsh - should return the correct with executor text when Divorce is selected as aliasReason', (done) => {
-                const aliasReason = 'optionDivorce';
-                expect(FormatAlias.formatMultipleApplicantAliasReason(aliasReason, '', 'cy')).to.equal(' Maent wedi ysgaru neu wedi dod â’u partneriaeth sifil i ben');
-                done();
-            });
-
-            it('Welsh - should return the correct with executor text when Changed by deed poll is selected as aliasReason', (done) => {
-                const aliasReason = 'optionDeedPoll';
-                expect(FormatAlias.formatMultipleApplicantAliasReason(aliasReason, '', 'cy')).to.equal(' Bu iddynt newid eu henw trwy weithred newid enw');
-                done();
-            });
-
-            it('Welsh - should return the correct with executor text when Changed by deed poll is selected as aliasReason', (done) => {
-                const aliasReason = 'optionDifferentSpelling';
-                expect(FormatAlias.formatMultipleApplicantAliasReason(aliasReason, '', 'cy')).to.equal(' Cafodd eu henw ei sillafu’n wahanol');
-                done();
-            });
-            it('Welsh - should return the correct with executor text when Changed by deed poll is selected as aliasReason', (done) => {
-                const aliasReason = 'optionPartOfNameNotIncluded';
-                expect(FormatAlias.formatMultipleApplicantAliasReason(aliasReason, '', 'cy')).to.equal(' Ni chafodd rhan o’u henw ei gynnwys');
-                done();
-            });
-        });
-
-        describe('Welsh - formatAliasReason() for single applicant', () => {
-            it('Welsh - should return the correct text when Marriage is selected as aliasReason', (done) => {
-                const aliasReason = 'optionMarriage';
-                expect(FormatAlias.formatAliasReason(aliasReason, '', 'cy')).to.equal(' Bu imi briodi neu ffurfio partneriaeth sifil');
-                done();
-            });
-
-            it('Welsh - should return the correct text when Divorce is selected as aliasReason', (done) => {
-                const aliasReason = 'optionDivorce';
-                expect(FormatAlias.formatAliasReason(aliasReason, '', 'cy')).to.equal(' Cefais ysgariad neu daeth fy mhartneriaeth sifil i ben');
-                done();
-            });
-
-            it('Welsh - should return the correct text when Changed by deed poll is selected as aliasReason', (done) => {
-                const aliasReason = 'optionDeedPoll';
-                expect(FormatAlias.formatAliasReason(aliasReason, '', 'cy')).to.equal(' Newidiais fy enw trwy weithred newid enw');
+                expect(FormatAlias.formatAliasReason(aliasReason, '', 'cy', true)).to.equal(' Ni chafodd rhan o’u henw ei gynnwys');
                 done();
             });
 
@@ -261,6 +206,61 @@ describe('FormatAlias.js', () => {
                 const aliasReason = 'optionOther';
                 const otherReason = 'because I felt like it';
                 expect(FormatAlias.formatAliasReason(aliasReason, otherReason, 'cy')).to.equal(' because I felt like it');
+                done();
+            });
+            it('Welsh - should return the correct with executor text when Marriage is selected as aliasReason', (done) => {
+                const aliasReason = 'optionMarriage';
+                expect(FormatAlias.formatAliasReason(aliasReason, '', 'cy', true)).to.equal(' Maent wedi priodi neu wedi ffurfio partneriaeth sifil');
+                done();
+            });
+
+            it('Welsh - should return the correct with executor text when Divorce is selected as aliasReason', (done) => {
+                const aliasReason = 'optionDivorce';
+                expect(FormatAlias.formatAliasReason(aliasReason, '', 'cy', true)).to.equal(' Maent wedi ysgaru neu wedi dod â’u partneriaeth sifil i ben');
+                done();
+            });
+
+            it('Welsh - should return the correct with executor text when Changed by deed poll is selected as aliasReason', (done) => {
+                const aliasReason = 'optionDeedPoll';
+                expect(FormatAlias.formatAliasReason(aliasReason, '', 'cy', true)).to.equal(' Bu iddynt newid eu henw trwy weithred newid enw');
+                done();
+            });
+
+            it('Welsh - should return the correct with executor text when Changed by deed poll is selected as aliasReason', (done) => {
+                const aliasReason = 'optionDifferentSpelling';
+                expect(FormatAlias.formatAliasReason(aliasReason, '', 'cy', true)).to.equal(' Cafodd eu henw ei sillafu’n wahanol');
+                done();
+            });
+            it('Welsh - should return the correct with executor text when Changed by deed poll is selected as aliasReason', (done) => {
+                const aliasReason = 'optionPartOfNameNotIncluded';
+                expect(FormatAlias.formatAliasReason(aliasReason, '', 'cy', true)).to.equal(' Ni chafodd rhan o’u henw ei gynnwys');
+                done();
+            });
+        });
+
+        describe('Welsh - formatAliasReason() for single applicant', () => {
+            it('Welsh - should return the correct text when Marriage is selected as aliasReason', (done) => {
+                const aliasReason = 'optionMarriage';
+                expect(FormatAlias.formatAliasReason(aliasReason, '', 'cy', false)).to.equal(' Bu imi briodi neu ffurfio partneriaeth sifil');
+                done();
+            });
+
+            it('Welsh - should return the correct text when Divorce is selected as aliasReason', (done) => {
+                const aliasReason = 'optionDivorce';
+                expect(FormatAlias.formatAliasReason(aliasReason, '', 'cy', false)).to.equal(' Cefais ysgariad neu daeth fy mhartneriaeth sifil i ben');
+                done();
+            });
+
+            it('Welsh - should return the correct text when Changed by deed poll is selected as aliasReason', (done) => {
+                const aliasReason = 'optionDeedPoll';
+                expect(FormatAlias.formatAliasReason(aliasReason, '', 'cy', false)).to.equal(' Newidiais fy enw trwy weithred newid enw');
+                done();
+            });
+
+            it('Welsh - should return the other reason when other is selected as aliasReason', (done) => {
+                const aliasReason = 'optionOther';
+                const otherReason = 'because I felt like it';
+                expect(FormatAlias.formatAliasReason(aliasReason, otherReason, 'cy', false)).to.equal(' because I felt like it');
                 done();
             });
         });
