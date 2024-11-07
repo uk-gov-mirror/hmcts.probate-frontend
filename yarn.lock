@@ -9079,7 +9079,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"import-in-the-middle@npm:1.11.2":
+"import-in-the-middle@npm:^1.11.2":
   version: 1.11.2
   resolution: "import-in-the-middle@npm:1.11.2"
   dependencies:
