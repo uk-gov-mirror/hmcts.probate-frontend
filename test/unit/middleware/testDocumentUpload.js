@@ -286,7 +286,7 @@ describe('DocumentUploadMiddleware', () => {
                     }
                 });
                 const error = {
-                    js: 'Select your document and try again',
+                    js: 'The selected file could not be uploaded – try again.',
                     nonJs: 'uploadFailed'
                 };
                 documentUploadMiddleware.uploadDocument(req, res, next);
