@@ -70,7 +70,7 @@
   "documentUpload-nothingUploadedSummary": "You need to select a file before you can upload it",
   "documentUpload-nothingUploaded": "Click &lsquo;browse&rsquo; to find a file to upload",
   "documentUpload-uploadFailedSummary": "Your document failed to upload",
-  "documentUpload-uploadFailed": "Select your document and try again",
+  "documentUpload-uploadFailed": "The selected file could not be uploaded – try again.",
   "documentUpload-uploadTimeoutSummary": "The file has taken too long to upload",
   "documentUpload-uploadTimeout": "The file may be too big, reduce the file size and try again or post the death certificate",
   "helpTitle": "Contact us for help",
