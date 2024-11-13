@@ -1,11 +1,15 @@
 {% extends "includes/layout.html" %}
 
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "widgets/checkanswer.njk" import checkanswer %}
 
 {% block content %}
     <div class="govuk-grid-row">
+      {% block error_summary %}
+      {% include "includes/error_summary.html" %}
+      {% endblock %}
     <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">{{ content.header | safe }}</h1>
       <dl class="govuk-summary-list">
         {{ checkanswer(
