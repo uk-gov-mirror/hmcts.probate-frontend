@@ -30,6 +30,8 @@ const returnError = (req, res, next, error) => {
         return res.send(error.js);
     }
     req.session.form.documents.error = error.nonJs;
+    req.log.info(`Uploaded document returnError for case: ${req.session.form.ccdCase.id}`);
+    req.log.info(`Uploaded document returnError error: ${req.session.form.documents.error}`);
     next();
 };
 
