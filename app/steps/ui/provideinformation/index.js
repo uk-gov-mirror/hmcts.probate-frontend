@@ -29,6 +29,9 @@ class ProvideInformation extends ValidationStep {
         return ctx;
     }
     handlePost(ctx, errors, formdata, session) {
+        if (session.form.documents.error && session.form.documents.error.length() >0) {
+            errors.push(FieldError('file', session.form.documents.error, this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+        }
         if (typeof ctx.documentUploadIssue === 'undefined' || !ctx.documentUploadIssue) {
             ctx.documentUploadIssue = 'false';
         }
