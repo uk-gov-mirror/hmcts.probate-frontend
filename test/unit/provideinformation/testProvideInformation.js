@@ -11,7 +11,7 @@ const CitizensHub = steps.CitizensHub;
 const Document = require('app/services/Document');
 const content = require('app/resources/en/translation/provideinformation');
 
-describe('ProvideInformation', () => {
+describe.only('ProvideInformation', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = ProvideInformation.constructor.getUrl();
@@ -129,7 +129,11 @@ describe('ProvideInformation', () => {
                     error: 'nothingUploaded'
                 }
             };
-            const session = {language: 'en'};
+            const session = {language: 'en',
+                form: {
+                    documents: { }
+                }
+            };
             ProvideInformation.handlePost(ctx, errors, formdata, session);
             // eslint-disable-next-line no-undefined
             expect(errors).to.deep
@@ -140,7 +144,12 @@ describe('ProvideInformation', () => {
             const ctxToTest = {};
             const errorsToTest = [];
             const formdata = {};
-            ProvideInformation.handlePost(ctxToTest, errorsToTest, formdata, {language: 'en'});
+            const session = {language: 'en',
+                form: {
+                    documents: { }
+                }
+            };
+            ProvideInformation.handlePost(ctxToTest, errorsToTest, formdata, session);
             expect(errorsToTest).to.deep.equal([{
                 field: 'citizenResponse',
                 href: '#citizenResponse',
@@ -159,7 +168,12 @@ describe('ProvideInformation', () => {
                     error: 'invalidFileType'
                 }
             };
-            ProvideInformation.handlePost(ctxToTest, errorsToTest, formdata, {language: 'en'});
+            const session = {language: 'en',
+                form: {
+                    documents: { }
+                }
+            };
+            ProvideInformation.handlePost(ctxToTest, errorsToTest, formdata, session);
             expect(errorsToTest).to.deep.equal([{
                 field: 'file',
                 href: '#file',
@@ -178,7 +192,12 @@ describe('ProvideInformation', () => {
                     error: 'maxSize'
                 }
             };
-            ProvideInformation.handlePost(ctxToTest, errorsToTest, formdata, {language: 'en'});
+            const session = {language: 'en',
+                form: {
+                    documents: { }
+                }
+            };
+            ProvideInformation.handlePost(ctxToTest, errorsToTest, formdata, session);
             expect(errorsToTest).to.deep.equal([{
                 field: 'file',
                 href: '#file',
@@ -194,8 +213,10 @@ describe('ProvideInformation', () => {
             const formdata = {
                 documentUploadIssue: 'true'
             };
-            const session = {
-                language: 'en'
+            const session = {language: 'en',
+                form: {
+                    documents: { }
+                }
             };
             const hostname = 'localhost';
             // Call the handlePost function
