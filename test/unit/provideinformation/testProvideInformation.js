@@ -11,7 +11,7 @@ const CitizensHub = steps.CitizensHub;
 const Document = require('app/services/Document');
 const content = require('app/resources/en/translation/provideinformation');
 
-describe.only('ProvideInformation', () => {
+describe('ProvideInformation', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = ProvideInformation.constructor.getUrl();
