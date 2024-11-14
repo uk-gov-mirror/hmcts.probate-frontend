@@ -325,7 +325,7 @@ describe('DocumentUploadUtil', () => {
             const documentUpload = new DocumentUpload();
             const error = documentUpload.validate(document);
             expect(error).to.deep.equal({
-                js: 'Save your file as a jpg, bmp, tiff, png or PDF file and try again',
+                js: 'The selected file must be a JPG, BMP, TIFF, PNG or PDF',
                 nonJs: 'invalidFileType'
             });
             revert();
