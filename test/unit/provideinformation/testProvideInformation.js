@@ -227,7 +227,10 @@ describe.only('ProvideInformation', () => {
             expect(ctx).to.deep.equal(ctxTestData);
             expect(errors).to.deep.equal(errorsTestData);
             expect(session).to.deep.equal({
-                language: 'en'
+                language: 'en',
+                form: {
+                    documents: { }
+                }
             });
         });
     });
@@ -264,7 +267,7 @@ describe.only('ProvideInformation', () => {
             ctx = {};
             errors = [];
             formdata = {documents: {}};
-            session = {authToken: 'authToken', serviceAuthorization: 'serviceAuthorization'};
+            session = {authToken: 'authToken', serviceAuthorization: 'serviceAuthorization', form: {documents: { }}};
         });
 
         it('sends notification if documentUploadIssue is true and no document is being uploaded', async () => {
