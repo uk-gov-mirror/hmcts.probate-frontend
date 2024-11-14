@@ -196,7 +196,7 @@ describe('DocumentUploadMiddleware', () => {
                 req.log.error = sinon.spy();
                 const revert = documentUploadMiddleware.__set__('returnError', sinon.spy());
                 const error = {
-                    js: 'Save your file as a jpg, bmp, tiff, png or PDF file and try again',
+                    js: 'The selected file must be a JPG, BMP, TIFF, PNG or PDF',
                     nonJs: 'invalidFileType'
                 };
                 documentValidateStub.returns(error);
@@ -244,7 +244,7 @@ describe('DocumentUploadMiddleware', () => {
                     }
                 });
                 const error = {
-                    js: 'Save your file as a jpg, bmp, tiff, png or PDF file and try again',
+                    js: 'The selected file must be a JPG, BMP, TIFF, PNG or PDF',
                     nonJs: 'invalidFileType'
                 };
                 documentUploadMiddleware.uploadDocument(req, res, next);
