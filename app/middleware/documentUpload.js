@@ -47,7 +47,7 @@ const uploadDocument = (req, res, next) => {
     formdata = documentUpload.initDocuments(formdata);
     const uploads = formdata.documents.uploads;
     const error = documentUpload.validate(uploadedDocument, uploads, maxFileSize, req.session.language);
-
+    console.info('uploadDocument documentUpload.validate error:' + error);
     if (error === null) {
         req.log.info(`Uploaded document passed frontend validation for case: ${req.session.form.ccdCase.id}`);
         const document = new Document(config.services.orchestrator.url, req.sessionID);
