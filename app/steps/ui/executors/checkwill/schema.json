@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "executor-current-name-reason",
+  "type": "object",
+  "properties": {},
+  "switch": [
+    {
+      "if": { "properties": { "currentNameReason": { "enum": [""] } } },
+      "then": { "required": ["currentNameReason"] },
+      "continue": false
+    },
+    {
+      "if": { "properties": { "currentNameReason": { "enum": ["optionOther"] } } },
+      "then": {
+        "properties": {
+          "otherReason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50
+          }
+        },
+        "required": ["otherReason"]
+      },
+      "continue": false
+    }
+  ]
+}

@@ -178,7 +178,8 @@ const stepList = {
     ApplicantAlias: 'ApplicantAliasReason',
     ApplicantAliasReason: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',
-    ApplicantAddress: 'ExecutorsNumber',
+    ApplicantAddress: 'ExecutorCheckWill',
+    ExecutorCheckWill: 'ExecutorsNumber',
     ExecutorsNumber: {
         oneExecutor: 'Equality',
         otherwise: 'ExecutorsNames'
