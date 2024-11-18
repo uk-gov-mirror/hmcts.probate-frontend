@@ -14,30 +14,36 @@ describe('ApplicantNameAsOnWill', () => {
         });
     });
 
-    describe('handleGet()', () => {
-        it('should report codicilsPresent true if codicils in will', (done) => {
-            const ctxIn = {};
-            const formdataWithCodicils = {
-                will: {
-                    codicils: 'optionYes',
+    describe('getContextData()', () => {
+        it('should report codicilsPresent True if codicils in will', (done) => {
+            const reqIn = {
+                session: {
+                    form: {
+                        will: {
+                            codicils: 'optionYes',
+                        }
+                    },
                 },
             };
 
-            const [ctxWith,] = ApplicantNameAsOnWill.handleGet(ctxIn, formdataWithCodicils);
+            const ctxWith = ApplicantNameAsOnWill.getContextData(reqIn);
 
             expect(ctxWith).to.have.property('codicilPresent', true);
             done();
         });
 
-        it('should report codicilsPresent false if no codicils in will', (done) => {
-            const ctxIn = {};
-            const formdataWithoutCodicils = {
-                will: {
-                    codicils: 'optionNo',
+        it('should report codicilsPresent False if no codicils in will', (done) => {
+            const reqIn = {
+                session: {
+                    form: {
+                        will: {
+                            codicils: 'optionNo',
+                        }
+                    },
                 },
             };
 
-            const [ctxWithout,] = ApplicantNameAsOnWill.handleGet(ctxIn, formdataWithoutCodicils);
+            const ctxWithout = ApplicantNameAsOnWill.getContextData(reqIn);
 
             expect(ctxWithout).to.have.property('codicilPresent', false);
             done();
