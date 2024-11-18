@@ -70,7 +70,7 @@
         e.preventDefault();
         var invalidFileTypeError=$('[data-fielderror="' + documentUploadConfig.content.invalidFileType + '"]').length;
         var maxFilesError=$('[data-fielderror="' + documentUploadConfig.content.maxFiles + '"]').length;
-        var maxSizeError=$('[data-fielderror="' + documentUploadConfig.content.maxSize + '"]').length; s
+        var maxSizeError=$('[data-fielderror="' + documentUploadConfig.content.maxSize + '"]').length;
         if(invalidFileTypeError + maxFilesError + maxSizeError <= 0){
           document.getElementById("main-form").submit();
         }
