@@ -17,14 +17,10 @@ class ApplicantNameAsOnWill extends ValidationStep {
         };
     }
 
-    generateContent(ctx = {}, formdata = {}, language = 'en') {
-        this.setCodicilFlagInCtx(ctx, formdata);
-        return super.generateContent(ctx, formdata, language);
-    }
-
-    handleGet(ctx, formdata) {
-        this.setCodicilFlagInCtx(ctx, formdata);
-        return [ctx];
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        this.setCodicilFlagInCtx(ctx, req.session.form);
+        return ctx;
     }
 
     setCodicilFlagInCtx(ctx, formdata) {
