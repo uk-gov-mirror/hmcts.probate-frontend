@@ -9,9 +9,9 @@
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
 {% block form_content %}
-  <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">{{ content.header | safe }}</h1>
-  <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
-
+<p class="govuk-body">
+  <h1 class="govuk-heading-xl govuk-!-margin-bottom-4 uploadDocumentH1">{{ content.header | safe }}</h1>
+ {{ content.paragraph1 | safe }}</p>
   {% set documentUploadIssueHintHtml %}
     <p class="govuk-body">{{ content.troubleUploadCheckHint | safe }}</p>
   {% endset -%}
@@ -58,7 +58,25 @@
   <div class="govuk-form-group">
     {{ govukButton({
     text: common.continue | safe,
-    preventDoubleClick: true
+    preventDoubleClick: true,
+    id: "provideInformationContinueBtn"
     }) }}
   </div>
+<script nonce="{{ globals.nonce }}">
+  document.addEventListener("DOMContentLoaded", function() {
+    var provideInformationContinueBtn = document.getElementById("provideInformationContinueBtn");
+    if (provideInformationContinueBtn) {
+      provideInformationContinueBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+        var invalidFileTypeError=$('[data-fielderror="' + documentUploadConfig.content.invalidFileType + '"]').length;
+        var maxFilesError=$('[data-fielderror="' + documentUploadConfig.content.maxFiles + '"]').length;
+        var maxSizeError=$('[data-fielderror="' + documentUploadConfig.content.maxSize + '"]').length;
+        console.log('invalidFileTypeError + maxFilesError + maxSizeError-->'+(invalidFileTypeError + maxFilesError + maxSizeError))
+        if(invalidFileTypeError + maxFilesError + maxSizeError <= 0){
+          document.getElementById("main-form").submit();
+        }
+      });
+    }
+  });
+</script>
 {% endblock %}

@@ -43,7 +43,7 @@ class ProvideInformation extends ValidationStep {
         if (error) {
             errors = errors || [];
             errors.push(FieldError('file', error, this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-            //delete formdata.documents.error;
+            delete formdata.documents.error;
         } else if (ctx.documentUploadIssue === 'true' && ctx.isUploadingDocument !== 'true' && ctx.citizenResponse === '' && (typeof ctx.uploadedDocuments === 'undefined' || ctx.uploadedDocuments.length === 0)) {
             if (ctx.isSaveAndClose !== 'true') {
                 const document = new Document(config.services.orchestrator.url, ctx.sessionID);

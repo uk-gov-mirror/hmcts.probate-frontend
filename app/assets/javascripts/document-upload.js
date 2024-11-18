@@ -75,7 +75,7 @@ var DocumentUpload = {
     },
     showErrorSummary: function() {
         if ($('.govuk-error-summary').length === 0) {
-            $('.govuk-fieldset').before('<div class="govuk-error-summary" role="alert" aria-labelledby="error-summary-title" tabindex="-1" data-module="govuk-error-summary"><h2 class="govuk-error-summary__title" id="error-summary-title">' + documentUploadConfig.content.errorSummaryHeading + '</h2><div class="govuk-error-summary__body"><ul class="govuk-list govuk-error-summary__list"></ul></div></div>');
+            $('.uploadDocumentH1').before('<div class="govuk-error-summary" role="alert" aria-labelledby="error-summary-title" tabindex="-1" data-module="govuk-error-summary"><h2 class="govuk-error-summary__title" id="error-summary-title">' + documentUploadConfig.content.errorSummaryHeading + '</h2><div class="govuk-error-summary__body"><ul class="govuk-list govuk-error-summary__list"></ul></div></div>');
         }
     },
     removeErrorSummary: function() {
