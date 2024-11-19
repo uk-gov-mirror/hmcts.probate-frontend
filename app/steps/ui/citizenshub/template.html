@@ -29,12 +29,18 @@
                       </li>
                       {% endif %}
                       <li class="hmcts-progress-bar__list-item" style="width:120px">
-                        {% if fields.applicationInReview.value == "true" %}
-                        <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
+                        {% if fields.grantIssued.value == "true" %}
+                          <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
+                        {% elseif fields.applicationInReview.value == "true" %}
+                          <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--inprogress"></span>
                         {% else %}
-                        <span class="hmcts-progress-bar__icon"></span>
+                          <span class="hmcts-progress-bar__icon"></span>
                         {% endif %}
-                        <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Step 3: </span>{{ content.progressBarStep3 | safe }}</span>
+                        {% if fields.applicationInReview.value == "true" and fields.grantIssued.value != "true" %}
+                          <span class="hmcts-progress-bar__label  hmcts-progress-bar__label--inprogress" ><span class="govuk-visually-hidden">Step 3: </span>{{ content.progressBarStep3 | safe }}</span>
+                        {% else %}
+                          <span class="hmcts-progress-bar__label" ><span class="govuk-visually-hidden">Step 3: </span>{{ content.progressBarStep3 | safe }}</span>
+                        {% endif %}
                       </li>
                       <li class="hmcts-progress-bar__list-item">
                         {% if fields.grantIssued.value == "true" %}

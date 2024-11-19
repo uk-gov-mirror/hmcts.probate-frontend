@@ -99,6 +99,12 @@
   background-repeat: no-repeat;
 }
 
+.hmcts-progress-bar__icon--inprogress {
+  background-color: #1E6FB8;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+
 .hmcts-progress-bar__label {
   font-family: "GDS Transport", arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -109,6 +115,19 @@
   line-height: 1.1428571429;
   display: block;
   font-weight: inherit;
+  margin-top: 10px;
+  position: relative;
+  word-wrap: break-word;
+}
+.hmcts-progress-bar__label--inprogress {
+  font-family: "GDS Transport", arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 1.1428571429;
+  display: block;
+  font-weight: bold;
   margin-top: 10px;
   position: relative;
   word-wrap: break-word;
