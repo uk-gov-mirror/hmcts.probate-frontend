@@ -9,9 +9,8 @@
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
 {% block form_content %}
-<p class="govuk-body">
   <h1 class="govuk-heading-xl govuk-!-margin-bottom-4 uploadDocumentH1">{{ content.header | safe }}</h1>
- {{ content.paragraph1 | safe }}</p>
+  <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
   {% set documentUploadIssueHintHtml %}
     <p class="govuk-body">{{ content.troubleUploadCheckHint | safe }}</p>
   {% endset -%}
