@@ -8,7 +8,7 @@ module.exports = async function(language, checkCookies = false) {
     const commonContent = require(`app/resources/${language}/translation/common`);
     await I.amOnLoadedPage('/start-eligibility', language);
 
-    const eligibilityLinkLocator = {css: '#main-content > div.govuk-form-group > a'};
+    const eligibilityLinkLocator = {css: '.govuk-heading-l'};
     await I.waitForElement(eligibilityLinkLocator, config.TestWaitForElementToAppear);
 
     const numVisibleCookieBannerEls = await I.grabNumberOfVisibleElements({css: '#cm-cookie-banner'});
