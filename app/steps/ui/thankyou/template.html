@@ -30,9 +30,9 @@
                   {% if fields.documentsRequired.value == "true" %}
                   <li class="hmcts-progress-bar__list-item">
                     {% if fields.documentsReceived.value == "true" %}
-                    <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--inprogress"></span>
+                    <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
                     {% else %}
-                    <span class="hmcts-progress-bar__icon"></span>
+                    <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--inprogress"></span>
                     {% endif %}
                     <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Current Step 2: </span>{{ content.progressBarStep2 | safe }}</span>
                   </li>

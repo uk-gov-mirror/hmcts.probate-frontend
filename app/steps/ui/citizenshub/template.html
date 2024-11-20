@@ -25,7 +25,7 @@
                         {% else %}
                         <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--inprogress"></span>
                         {% endif %}
-                        {% if fields.documentsReceived.value == "true" and fields.applicationInReview.value != "true" and fields.grantIssued.value != "true"%}
+                        {% if fields.applicationInReview.value != "true" and fields.grantIssued.value != "true"%}
                         <span class="hmcts-progress-bar__label  hmcts-progress-bar__label--inprogress" ><span class="govuk-visually-hidden">Step 2: </span>{{ content.progressBarStep2 | safe }}</span>
                         {% else %}
                           <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Step 2: </span>{{ content.progressBarStep2 | safe }}</span>
