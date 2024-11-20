@@ -38,12 +38,12 @@
                           <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
                         {% elseif fields.caseClosed.value == "true" %}
                           <span class="hmcts-progress-bar__icon"></span>
-                        {% elseif fields.applicationInReview.value == "true" %}
+                        {% elseif fields.applicationInReview.value == "true" or fields.documentsRequired.value != "true"%}
                           <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--inprogress"></span>
                         {% else %}
                           <span class="hmcts-progress-bar__icon"></span>
                         {% endif %}
-                        {% if fields.applicationInReview.value == "true" and fields.grantIssued.value != "true" and fields.caseClosed.value != "true" %}
+                        {% if (fields.applicationInReview.value == "true" and fields.grantIssued.value != "true" and fields.caseClosed.value != "true") or fields.documentsRequired.value != "true"%}
                           <span class="hmcts-progress-bar__label  hmcts-progress-bar__label--inprogress" ><span class="govuk-visually-hidden">Step 3: </span>{{ content.progressBarStep3 | safe }}</span>
                         {% else %}
                           <span class="hmcts-progress-bar__label" ><span class="govuk-visually-hidden">Step 3: </span>{{ content.progressBarStep3 | safe }}</span>
