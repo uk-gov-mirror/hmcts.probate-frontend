@@ -4,10 +4,10 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const {get} = require('lodash');
 
-class ExecutorsNumber extends ValidationStep {
+class ExecutorsNamed extends ValidationStep {
 
     static getUrl() {
-        return '/executors-number';
+        return '/executors-named';
     }
 
     getContextData(req) {
@@ -45,13 +45,15 @@ class ExecutorsNumber extends ValidationStep {
         return [ctx.executorsNumber >= 0, 'inProgress'];
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        const furtherChoice = ctx.executorsNumber > 1 ? 'multiExec' : 'otherwise';
         return {
             options: [
-                {key: 'executorsNumber', value: 1, choice: 'oneExecutor'}
+                {key: 'executorsNamed', value: 'optionYes', choice: 'addExec'},
+                {key: 'executorsNamed', value: 'optionNo', choice: furtherChoice}
             ]
         };
     }
 }
 
-module.exports = ExecutorsNumber;
+module.exports = ExecutorsNamed;
