@@ -2,10 +2,16 @@
 
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% block content %}
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
+      <div class="govuk-grid-column-two-thirds" style="padding-left: 0px;">
+          {{ govukNotificationBanner({
+            text: content.notificationBanner | safe
+        }) }}
+      </div>
+      <div class="govuk-grid-column-full">
             <h1 class="govuk-heading-xl govuk-!-margin-bottom-4" style="margin-bottom: 10px!important;">{{ content.header | safe }} - {{ fields.deceasedName.value }}</h1>
             <h1 class="govuk-body"><strong>{{ content.referenceNumber | safe }}: {{ fields.ccdReferenceNumber.value }} </strong></h1>
             <div class="govuk-grid-column-two-thirds" style="padding-left: 0px;">
@@ -46,9 +52,9 @@
                     </ol>
                 </div>
               <br><br>
-              <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" style="margin-bottom:30px;">
+              <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title-1" data-module="govuk-notification-banner" style="margin-bottom:30px;">
                   <div class="govuk-notification-banner__header">
-                      <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">{{ content.latestInfo | safe }}</h2>
+                      <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title-1">{{ content.latestInfo | safe }}</h2>
                   </div>
                   <div class="govuk-notification-banner__content">
                       {% if fields.grantIssued.value == "true" %}
