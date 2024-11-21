@@ -179,12 +179,13 @@ const stepList = {
     ApplicantAliasReason: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',
     ApplicantAddress: 'ExecutorCheckWill',
-    ExecutorCheckWill: 'ExecutorsNumber',
-    ExecutorsNumber: {
-        oneExecutor: 'Equality',
-        otherwise: 'ExecutorsNames'
+    ExecutorCheckWill: 'ExecutorsNamed',
+    ExecutorsNamed: {
+        addExec: 'ExecutorsNames',
+        multiExec: 'ExecutorsAllAlive',
+        otherwise: 'Equality'
     },
-    ExecutorsNames: 'ExecutorsAllAlive',
+    ExecutorsNames: 'ExecutorsNamed',
     ExecutorsAllAlive: {
         isAlive: 'ExecutorsApplying',
         whoDied: 'ExecutorsWhoDied'
