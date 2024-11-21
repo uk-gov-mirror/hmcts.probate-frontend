@@ -5,7 +5,13 @@
 
 {% block content %}
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
+          <div class="govuk-grid-column-two-thirds" style="padding-left: 0px;">
+            {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+              {{ govukNotificationBanner({
+                text: content.notificationBanner | safe
+              }) }}
+          </div>
+      <div class="govuk-grid-column-full">
             <h1 class="govuk-heading-xl govuk-!-margin-bottom-4" style="margin-bottom: 10px!important;">{{ content.header | safe }} - {{ fields.deceasedName.value }}</h1>
             <h1 class="govuk-body"><strong>{{ content.referenceNumber | safe }}: {{ fields.ccdReferenceNumber.value }} </strong></h1>
             <div class="govuk-grid-column-two-thirds" style="padding-left: 0px;">
