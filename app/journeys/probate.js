@@ -181,8 +181,8 @@ const stepList = {
     ApplicantAddress: 'ExecutorCheckWill',
     ExecutorCheckWill: 'ExecutorsNamed',
     ExecutorsNamed: {
-        addExec: 'ExecutorsNames',
-        multiExec: 'ExecutorsAllAlive',
+        multiExec: 'ExecutorsNames',
+        multiExecOptionNo: 'ExecutorsAllAlive',
         otherwise: 'Equality'
     },
     ExecutorsNames: 'ExecutorsNamed',
