@@ -1,13 +1,20 @@
 {
-  "title": "How many executors are named on the will and any codicils",
-  "question": "How many executors are named on the will and any codicils?",
-  "hintText": "Check the will and codicils now as you must include all named executors, including those that have died.",
-  "executorsNumber": "Number of executors",
+  "title": "Executors named in the will and any codicils",
+  "question": "Are there any other executors named?",
+  "hintText": "You must make sure to include every executor named in the will and any codicils, including anyone who:",
+  "executorsDied": "has died",
+  "executorsNotApplying": "is not applying for probate",
+  "executorsGivenUpRight": "has given up their right to apply",
+  "executorsNamed": "Number of executors",
+  "applicantExecutor" : "Executor (you)",
+  "furtherExecutor": "Executor",
+  "executorTellUsMore": "You'll be able to tell us more about each executor later.",
+  "optionYes": "Yes",
+  "optionNo": "No",
 
   "errors": {
-    "executorsNumber": {
-      "required": "Enter the number of executors",
-      "invalid": "Number of executors must be a whole number between 1 and 20"
+    "executorsNamed": {
+      "required": "Select yes if there are more executors named in the will and any codicils"
     }
   }
 }
