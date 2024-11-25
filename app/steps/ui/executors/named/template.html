@@ -16,6 +16,29 @@
         }
     }) %}
 
+
+<pre>{{ fields | dump | safe }}</pre>
+
+        {% for i in range(0, fields.executorsNumber.value -1) %}
+        <h2 class="govuk-heading-s executor-header">{{ content.executor | safe }} {{ loop.index + 1 }}</h2>
+        {{ govukInput({
+            label: {
+                text: content.fullName | safe
+            },
+            id: "executorName_" + i,
+            name: "executorName[" + i + "]",
+            hint: {
+                text: content.fullNameHint | safe
+            },
+            value: fields.executorName.value[i] | safe,
+            errorMessage: { text: fields["executorName_" + i].errorMessage | safe } if fields["executorName_" + i].errorMessage,
+            attributes: {
+                maxlength: 200
+            },
+            classes: "govuk-!-width-three-quarters"
+            }) }}
+        {% endfor %}
+
     {{ govukSummaryList({
       rows: [
         {
