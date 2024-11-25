@@ -46,11 +46,14 @@ class ExecutorsNamed extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        const furtherChoice = ctx.executorsNumber > 1 ? 'multiExec' : 'otherwise';
+        ctx.multiExec = ctx.executorsNamed === 'optionYes';
+        ctx.multiExecOptionNo = ctx.list.length > 1 && ctx.executorsNamed === 'optionNo';
+        ctx.singleExec = ctx.list.length === 1 && ctx.executorsNamed === 'optionNo';
         return {
             options: [
-                {key: 'executorsNamed', value: 'optionYes', choice: 'addExec'},
-                {key: 'executorsNamed', value: 'optionNo', choice: furtherChoice}
+                {key: 'multiExec', value: true, choice: 'multiExec'},
+                {key: 'multiExecOptionNo', value: true, choice: 'multiExecOptionNo'},
+                {key: 'singleExec', value: false, choice: 'otherwise'}
             ]
         };
     }
