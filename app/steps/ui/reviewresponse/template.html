@@ -52,7 +52,7 @@
           <input type="hidden" name="_csrf" value="{{ csrfToken }}">
           <div class="govuk-grid-column-two-thirds" style="padding-left: 0px;">
               <h1 class="govuk-notification-banner__heading"  ><strong>{{ content.subheader3 | safe }} </strong></h1>
-              <p class="govuk-body">{{ content.paragraph1 | safe }}&nbsp;<a class="govuk-link" href="https://www.gov.uk/applying-for-probate" target="_blank">{{ content.readMoreLink | safe }}</a></p>
+              <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
               <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
               {{ govukCheckboxes({
                 idPrefix: "citizenResponseCheckbox",
