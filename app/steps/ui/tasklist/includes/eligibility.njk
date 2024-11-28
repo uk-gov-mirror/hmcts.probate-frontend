@@ -1,0 +1,23 @@
+{% set previousTaskStatus = fields.previousTaskStatus.value.EligibilityTask %}
+
+<li>
+    {{ taskHeader(
+        number = taskNumber + ".",
+        content = content,
+        title = content.eligibilityTask | safe,
+        status = fields.EligibilityTask.value.status,
+        previousTaskStatus = "complete",
+        listItemLabel = content.eligibilityTaskItem | safe
+    ) }}
+    <div>
+        {{ taskAction(
+            prevTaskStatus = "complete",
+            status = fields.EligibilityTask.value.status,
+            nextURL = fields.EligibilityTask.value.nextURL,
+            checkYourAnswersURL = fields.EligibilityTask.value.checkYourAnswersLink,
+            content = content,
+            title = content.eligibilityTaskItem | safe,
+            alreadyDeclared = fields.alreadyDeclared.value
+        ) }}
+    </div>
+</li>

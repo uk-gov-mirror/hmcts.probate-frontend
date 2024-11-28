@@ -1,6 +1,11 @@
 'use strict';
 
 const taskList = {
+    EligibilityTask: {
+        firstStep: 'DeathCertificate',
+        lastStep: 'TaskList',
+        summary: 'Summary'
+    },
     DeceasedTask: {
         firstStep: 'BilingualGOP',
         lastStep: 'TaskList',

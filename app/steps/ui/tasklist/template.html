@@ -16,6 +16,9 @@
             <ol class="task-list">
                 {% ifAsync fields.caseType.value === globals.caseTypes.gop %}
                     {% set taskNumber = taskNumber + 1 %}
+                    {% include "ui/tasklist/includes/eligibility.njk" %}
+
+                    {% set taskNumber = taskNumber + 1 %}
                     {% include "ui/tasklist/includes/deceased.njk" %}
 
                     {% set taskNumber = taskNumber + 1 %}
