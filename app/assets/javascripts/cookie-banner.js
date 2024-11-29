@@ -58,10 +58,8 @@
             if (dtrum) {
                 if (cookieStatus.apm === 'on') {
                     dtrum.enable();
-                    dtrum.enableSessionReplay();
                 } else {
                     dtrum.disable();
-                    dtrum.disableSessionReplay();
                 }
             }
         }
