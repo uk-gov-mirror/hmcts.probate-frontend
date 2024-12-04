@@ -334,7 +334,7 @@ const previousStepList = {
     }
 };
 
-const beforeMultiExecButAfterDeceasedDetailsPreviousStepList = {
+const multiExecPreviousStepList = {
     ApplicantName: 'TaskList',
     ApplicantNameAsOnWill: 'ApplicantName',
     ApplicantAlias: 'ApplicantNameAsOnWill',
@@ -343,10 +343,7 @@ const beforeMultiExecButAfterDeceasedDetailsPreviousStepList = {
         ApplicantNameAsOnWill: 'ApplicantNameAsOnWill',
         ApplicantAliasReason: 'ApplicantAliasReason',
     },
-    ApplicantAddress: 'ApplicantPhone'
-};
-
-const multiExecPreviousStepList = {
+    ApplicantAddress: 'ApplicantPhone',
     ExecutorsNamed: 'ApplicantAddress',
     ExecutorsAllAlive: 'ExecutorsNamed',
     OtherExecutorsApplying: {
@@ -375,3 +372,4 @@ const multiExecPreviousStepList = {
 module.exports.stepList = stepList;
 module.exports.taskList = taskList;
 module.exports.previousStepList = previousStepList;
+module.exports.previousStepList = multiExecPreviousStepList;
