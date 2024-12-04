@@ -274,7 +274,13 @@ const stepList = {
         otherwise: 'CoApplicantDisagreePage'
     },
     CoApplicantAgreePage: 'CoApplicantAgreePage',
-    CoApplicantDisagreePage: 'CoApplicantDisagreePage'
+    CoApplicantDisagreePage: 'CoApplicantDisagreePage',
+    ProvideInformation: {
+        responseOrDocument: 'ReviewResponse',
+        isUploadingDocument: 'ProvideInformation',
+        otherwise: 'CitizensHub'
+    },
+    ReviewResponse: 'CitizensHub'
 };
 
 const previousStepList = {
