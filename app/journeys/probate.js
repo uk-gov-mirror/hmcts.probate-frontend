@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 'use strict';
 
 const taskList = {
@@ -276,5 +277,57 @@ const stepList = {
     CoApplicantDisagreePage: 'CoApplicantDisagreePage'
 };
 
+const previousStepList = {
+    Dashboard: 'StartApply',
+    StartEligibility: 'Dashboard',
+    DeathCertificate: 'StartEligibility',
+    StopPage: {
+        DeathCertificate: 'DeathCertificate',
+        DeathCertificateTranslation: 'DeathCertificateTranslation',
+        DeceasedDomicile: 'DeceasedDomicile',
+        ExceptedEstateValued: 'ExceptedEstateValued',
+        StartEligibility: 'StartEligibility'
+    },
+    DeathCertificateInEnglish: 'DeathCertificate',
+    DeathCertificateTranslation: 'DeathCertificateInEnglish',
+    DeceasedDomicile: 'DeathCertificateInEnglish',
+    ExceptedEstateDeceasedDod: 'DeceasedDomicile',
+    ExceptedEstateValued: 'ExceptedEstateDeceasedDod',
+    IhtCompleted: 'ExceptedEstateDeceasedDod',
+    WillLeft: 'ExceptedEstateValued',
+    WillOriginal: 'WillLeft',
+    ApplicantExecutor: 'WillOriginal',
+    MentalCapacity: 'ApplicantExecutor',
+    TaskList: 'Dashboard',
+    BilingualGOP: 'Dashboard',
+    DeceasedName: 'BilingualGOP',
+    DeceasedDob: 'DeceasedName',
+    DeceasedDod: 'DeceasedDob',
+    DeceasedAddress: 'DeceasedDod',
+    DiedEnglandOrWales: 'DeceasedAddress',
+    DeathCertificateInterim: 'DiedEnglandOrWales',
+    IhtEstateValued: 'DeathCertificateInterim',
+    IhtEstateForm: 'IhtEstateValued',
+    ProbateEstateValues: 'IhtEstateForm',
+    DeceasedAlias: 'ProbateEstateValues',
+    DeceasedOtherNames: 'DeceasedAlias',
+    DeceasedMarried: 'DeceasedOtherNames',
+    WillHasVisibleDamage: 'DeceasedMarried',
+    WillDamageReasonKnown: 'WillHasVisibleDamage',
+    WillDamageCulpritKnown: 'WillDamageReasonKnown',
+    WillDamageDate: 'WillDamageCulpritKnown',
+    WillCodicils: 'WillHasVisibleDamage',
+    CodicilsNumber: 'WillCodicils',
+    CodicilsHasVisibleDamage: 'CodicilsNumber',
+    CodicilsDamageReasonKnown: 'CodicilsHasVisibleDamage',
+    CodicilsDamageCulpritKnown: 'CodicilsDamageReasonKnown',
+    CodicilsDamageDate: 'CodicilsDamageCulpritKnown',
+    DeceasedWrittenWishes: {
+        CodicilsDamageDate: 'CodicilsDamageDate',
+        WillCodicils: 'WillCodicils'
+    }
+};
+
 module.exports.stepList = stepList;
 module.exports.taskList = taskList;
+module.exports.previousStepList = previousStepList;

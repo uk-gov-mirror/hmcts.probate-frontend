@@ -41,8 +41,14 @@ class Step {
         this.content = require(`app/resources/${language}/translation/${resourcePath}`);
         this.i18next = i18next;
     }
-    previousStepUrl(req, res, ctx) {
-        utils.getPreviousUrl(ctx, req, res, this.steps, this.name);
+
+    previous(req) {
+        const journeyMap = new JourneyMap(req.session.journey);
+        return journeyMap.previousStep(this, req);
+    }
+
+    previousStepUrl(req) {
+        return this.previous(req).constructor.getUrl();
     }
 
     previousScrennerStepUrl(req, res, ctx) {
