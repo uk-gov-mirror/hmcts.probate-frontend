@@ -334,6 +334,44 @@ const previousStepList = {
     }
 };
 
+const beforeMultiExecButAfterDeceasedDetailsPreviousStepList = {
+    ApplicantName: 'TaskList',
+    ApplicantNameAsOnWill: 'ApplicantName',
+    ApplicantAlias: 'ApplicantNameAsOnWill',
+    ApplicantAliasReason: 'ApplicantAlias',
+    ApplicantPhone: {
+        ApplicantNameAsOnWill: 'ApplicantNameAsOnWill',
+        ApplicantAliasReason: 'ApplicantAliasReason',
+    },
+    ApplicantAddress: 'ApplicantPhone'
+};
+
+const multiExecPreviousStepList = {
+    ExecutorsNamed: 'ApplicantAddress',
+    ExecutorsAllAlive: 'ExecutorsNamed',
+    OtherExecutorsApplying: {
+        ExecutorsWhenDied: 'OtherExecutorsApplying',
+        ExecutorsAllAlive: 'ExecutorsAllAlive'
+    },
+    ExecutorsWhenDied: 'ExecutorsWhoDied',
+    ExecutorCurrentName: 'ExecutorsAlias',
+    ExecutorCurrentNameReason: 'ExecutorCurrentName',
+    ExecutorContactDetails: 'ExecutorsAlias',
+    ExecutorAddress: 'ExecutorContactDetails',
+    ExecutorRoles: {
+        OtherExecutorsApplying: 'OtherExecutorsApplying',
+        ExecutorNotified: 'ExecutorNotified',
+        ExecutorAddress: 'ExecutorAddress'
+    },
+    ExecutorNotified: 'ExecutorRoles',
+    Equality: {
+        ExecutorsWhenDied: 'ExecutorsWhenDied',
+        ExecutorRoles: 'ExecutorRoles',
+        ExecutorNotified: 'ExecutorNotified',
+        ExecutorAddress: 'ExecutorAddress'
+    }
+};
+
 module.exports.stepList = stepList;
 module.exports.taskList = taskList;
 module.exports.previousStepList = previousStepList;
