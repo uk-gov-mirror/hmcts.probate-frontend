@@ -47,13 +47,14 @@ class Step {
         return journeyMap.previousStep(this, req);
     }
 
-    previousStepUrl(req) {
-        return this.previous(req).constructor.getUrl();
+    previousStepUrl(req, res, ctx) {
+        utils.getPreviousUrl(ctx, req, res, this.steps, this.name);
     }
 
     previousScrennerStepUrl(req, res, ctx) {
         utils.getScrennersPreviousUrl(ctx, req, res, this.steps, this.name);
     }
+
     next(req, ctx) {
         const journeyMap = new JourneyMap(req.session.journey);
         return journeyMap.nextStep(this, ctx);
