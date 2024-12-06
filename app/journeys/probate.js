@@ -331,6 +331,38 @@ const previousStepList = {
     DeceasedWrittenWishes: {
         CodicilsDamageDate: 'CodicilsDamageDate',
         WillCodicils: 'WillCodicils'
+    },
+    ApplicantName: 'TaskList',
+    ApplicantNameAsOnWill: 'ApplicantName',
+    ApplicantAlias: 'ApplicantNameAsOnWill',
+    ApplicantAliasReason: 'ApplicantAlias',
+    ApplicantPhone: {
+        ApplicantNameAsOnWill: 'ApplicantNameAsOnWill',
+        ApplicantAliasReason: 'ApplicantAliasReason',
+    },
+    ApplicantAddress: 'ApplicantPhone',
+    ExecutorsNamed: 'ApplicantAddress',
+    ExecutorsAllAlive: 'ExecutorsNamed',
+    OtherExecutorsApplying: {
+        ExecutorsWhenDied: 'OtherExecutorsApplying',
+        ExecutorsAllAlive: 'ExecutorsAllAlive'
+    },
+    ExecutorsWhenDied: 'ExecutorsWhoDied',
+    ExecutorCurrentName: 'ExecutorsAlias',
+    ExecutorCurrentNameReason: 'ExecutorCurrentName',
+    ExecutorContactDetails: 'ExecutorsAlias',
+    ExecutorAddress: 'ExecutorContactDetails',
+    ExecutorRoles: {
+        OtherExecutorsApplying: 'OtherExecutorsApplying',
+        ExecutorNotified: 'ExecutorNotified',
+        ExecutorAddress: 'ExecutorAddress'
+    },
+    ExecutorNotified: 'ExecutorRoles',
+    Equality: {
+        ExecutorsWhenDied: 'ExecutorsWhenDied',
+        ExecutorRoles: 'ExecutorRoles',
+        ExecutorNotified: 'ExecutorNotified',
+        ExecutorAddress: 'ExecutorAddress'
     }
 };
 
@@ -372,4 +404,4 @@ const multiExecPreviousStepList = {
 module.exports.stepList = stepList;
 module.exports.taskList = taskList;
 module.exports.previousStepList = previousStepList;
-module.exports.previousStepList = multiExecPreviousStepList;
+module.exports.multiExecPreviousStepList = multiExecPreviousStepList;
