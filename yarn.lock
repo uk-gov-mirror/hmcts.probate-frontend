@@ -1944,9 +1944,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@puppeteer/browsers@npm:2.4.1":
-  version: 2.4.1
-  resolution: "@puppeteer/browsers@npm:2.4.1"
+"@puppeteer/browsers@npm:2.5.0":
+  version: 2.5.0
+  resolution: "@puppeteer/browsers@npm:2.5.0"
   dependencies:
     debug: "npm:^4.3.7"
     extract-zip: "npm:^2.0.1"
@@ -1958,7 +1958,7 @@ __metadata:
     yargs: "npm:^17.7.2"
   bin:
     browsers: lib/cjs/main-cli.js
-  checksum: 10/e9c965d8167008bd2d2ad570c20a258dbf60546b529c4d14380dc82cc5cfe2e3bfa31ef13ca8b6ec5b705ea84ba709483b26c4452a968445503d4ce74cb4696d
+  checksum: 10/7c8e15be5394da3ccd271317b47fd9dfae2f64434b66bcbd74035de3b9fb01db0a045fa3ed93b36864d7ff1cbd17f334f43c1e9dbb8e9a0784ba20f25daf8557
   languageName: node
   linkType: hard
 
@@ -5282,12 +5282,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"connect-redis@npm:^7.0.0":
-  version: 7.1.1
-  resolution: "connect-redis@npm:7.1.1"
+"connect-redis@npm:^8.0.0":
+  version: 8.0.1
+  resolution: "connect-redis@npm:8.0.1"
   peerDependencies:
     express-session: ">=1"
-  checksum: 10/1a0801356783c977c6467eea5bee1e91690c7ca62b6b699cf6de0aedbeb0e481eeacc32f372eda6530bdf3867259b7230bc00cf13b295abe9349aaa50fe0c8fb
+  checksum: 10/74fd91b8b952a54462aa7dbf9ecc789ecfd9a903725113ab11ae57e6d846d292300a78813696f2e9bc7029a53f7add9d1ee7b152b76f62eaa9724ac53d188d06
   languageName: node
   linkType: hard
 
@@ -8120,7 +8120,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^10.0.0, glob@npm:^10.2.2, glob@npm:^10.3.10, glob@npm:^10.3.3, glob@npm:^10.3.7":
+"glob@npm:^10.0.0, glob@npm:^10.2.2, glob@npm:^10.3.10, glob@npm:^10.3.3, glob@npm:^10.3.7, glob@npm:^10.4.5":
   version: 10.4.5
   resolution: "glob@npm:10.4.5"
   dependencies:
@@ -8833,8 +8833,8 @@ __metadata:
   linkType: hard
 
 "i18next@npm:^24.0.0":
-  version: 24.0.2
-  resolution: "i18next@npm:24.0.2"
+  version: 24.0.5
+  resolution: "i18next@npm:24.0.5"
   dependencies:
     "@babel/runtime": "npm:^7.23.2"
   peerDependencies:
@@ -8842,7 +8842,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10/d8ea00988a8f88c88f0068c3dc4d36732a32ffc4d0626199e5fda05b3ee2562664e4648a530ebe7fd87fa0d6ea13775989fe8202cf8f598cb8ff7c22b6e75167
+  checksum: 10/d0a310c7a0b171ae8265d178d5ef5c378ceafb83852338d042fa9483b720355dc1e2c84c69c77fec1b3e23da6f59e91c5170ada05cd174afc9be3fc218ebd195
   languageName: node
   linkType: hard
 
@@ -11752,9 +11752,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mocha@npm:^10.2.0":
-  version: 10.8.2
-  resolution: "mocha@npm:10.8.2"
+"mocha@npm:^11.0.0":
+  version: 11.0.1
+  resolution: "mocha@npm:11.0.1"
   dependencies:
     ansi-colors: "npm:^4.1.3"
     browser-stdout: "npm:^1.3.1"
@@ -11763,7 +11763,7 @@ __metadata:
     diff: "npm:^5.2.0"
     escape-string-regexp: "npm:^4.0.0"
     find-up: "npm:^5.0.0"
-    glob: "npm:^8.1.0"
+    glob: "npm:^10.4.5"
     he: "npm:^1.2.0"
     js-yaml: "npm:^4.1.0"
     log-symbols: "npm:^4.1.0"
@@ -11779,7 +11779,7 @@ __metadata:
   bin:
     _mocha: bin/_mocha
     mocha: bin/mocha.js
-  checksum: 10/903bbffcb195ef9d36b27db54e3462c5486de1397289e0953735b3530397a139336c452bcf5188c663496c660d2285bbb6c7213290d36d536ad647b6145cb917
+  checksum: 10/8c14292a90e8db4f199e70a007da082cabc2a3be803f95885ab03e32cb4dd7c3978c0b50d1f963c33eacaa981f105cf7c89c7fc4c14649dcbfd0e0f2d712c1e3
   languageName: node
   linkType: hard
 
@@ -12125,14 +12125,14 @@ __metadata:
   linkType: hard
 
 "node-emoji@npm:^2.0.0":
-  version: 2.1.3
-  resolution: "node-emoji@npm:2.1.3"
+  version: 2.2.0
+  resolution: "node-emoji@npm:2.2.0"
   dependencies:
     "@sindresorhus/is": "npm:^4.6.0"
     char-regex: "npm:^1.0.2"
     emojilib: "npm:^2.4.0"
     skin-tone: "npm:^2.0.0"
-  checksum: 10/e9cff16f557972bc45040c26cb686961935c582af612bd41446f0094834088c1cdf7d4370a39ce5d42b71c1352a35b8d8a7a2fec53922b51abf54f36e56cc614
+  checksum: 10/2548668f5cc9f781c94dc39971a630b2887111e0970c29fc523e924819d1b39b53a2694a4d1046861adf538c4462d06ee0269c48717ccad30336a918d9a911d5
   languageName: node
   linkType: hard
 
@@ -13580,7 +13580,7 @@ __metadata:
     co: "npm:^4.6.0"
     codeceptjs: "npm:^3.4.1"
     config: "npm:^3.3.9"
-    connect-redis: "npm:^7.0.0"
+    connect-redis: "npm:^8.0.0"
     connect-timeout: "npm:^1.9.0"
     cookie-parser: "npm:^1.4.6"
     csurf: "npm:^1.10.0"
@@ -13607,7 +13607,7 @@ __metadata:
     jsdom: "npm:^25.0.0"
     launchdarkly-node-server-sdk: "npm:^7.0.0"
     lodash: "npm:^4.17.21"
-    mocha: "npm:^10.2.0"
+    mocha: "npm:^11.0.0"
     mocha-jenkins-reporter: "npm:^0.4.8"
     mocha-junit-reporter: "npm:^2.0.0"
     mocha-lcov-reporter: "npm:^1.3.0"
@@ -13964,17 +13964,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:23.9.0":
-  version: 23.9.0
-  resolution: "puppeteer-core@npm:23.9.0"
+"puppeteer-core@npm:23.10.1":
+  version: 23.10.1
+  resolution: "puppeteer-core@npm:23.10.1"
   dependencies:
-    "@puppeteer/browsers": "npm:2.4.1"
+    "@puppeteer/browsers": "npm:2.5.0"
     chromium-bidi: "npm:0.8.0"
     debug: "npm:^4.3.7"
     devtools-protocol: "npm:0.0.1367902"
     typed-query-selector: "npm:^2.12.0"
     ws: "npm:^8.18.0"
-  checksum: 10/614054f728eb224b0c390e8a9a17df146eb39c665c5ffbfc997505428f9141a0015b335e5a5bc2ae0b2dc0aeb2ce2aebd16952736340b89925b0384151e47009
+  checksum: 10/1a10f3ecadbf1c8d4c81595436bdd8dd6252c870862eed2e39a11df5496e53520e2b8abcd8f0efe5610b7bf6209e61ea4bf9e64a9bda3e3f15aeee4e1da70a7e
   languageName: node
   linkType: hard
 
@@ -14012,18 +14012,18 @@ __metadata:
   linkType: hard
 
 "puppeteer@npm:^23.2.0":
-  version: 23.9.0
-  resolution: "puppeteer@npm:23.9.0"
+  version: 23.10.1
+  resolution: "puppeteer@npm:23.10.1"
   dependencies:
-    "@puppeteer/browsers": "npm:2.4.1"
+    "@puppeteer/browsers": "npm:2.5.0"
     chromium-bidi: "npm:0.8.0"
     cosmiconfig: "npm:^9.0.0"
     devtools-protocol: "npm:0.0.1367902"
-    puppeteer-core: "npm:23.9.0"
+    puppeteer-core: "npm:23.10.1"
     typed-query-selector: "npm:^2.12.0"
   bin:
     puppeteer: lib/cjs/puppeteer/node/cli.js
-  checksum: 10/6ba580b00944af10c4c150545eec2daf80ace7e76aeda015e93614e7ceb0375cb82e5186b2216ac6e0f4aad8ea8233d4cea8ebf0b65dfdb46e7f9500dec1ee2d
+  checksum: 10/07127e031fd4f571b04c7eb95fe6e2b4b1e8fc3856a41aebd0d491025fb583f781b65bb6447ab33e56e40ab8322618d13228bd7d063008799f888fa522a92644
   languageName: node
   linkType: hard
 
