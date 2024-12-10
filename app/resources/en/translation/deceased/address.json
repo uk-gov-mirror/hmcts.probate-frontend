@@ -1,6 +1,6 @@
 {
   "title": "Deceased address",
-  "question": "What was {deceasedName} address at the time of their death?",
+  "question": "What was {deceasedName}'s permanent address at the time of their death?",
   "explanation1": "If they were living in a care home, you should enter that address.",
   "postTown": "Town or city",
   "postcode": "Postcode",
