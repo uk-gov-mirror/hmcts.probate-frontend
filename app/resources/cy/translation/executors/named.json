@@ -11,6 +11,7 @@
   "executorTellUsMore": "You'll be able to tell us more about each executor later.",
   "optionYes": "Yes",
   "optionNo": "No",
+  "removeAction": "Remove",
 
   "errors": {
     "executorsNamed": {

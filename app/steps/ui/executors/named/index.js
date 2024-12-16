@@ -12,7 +12,6 @@ class ExecutorsNamed extends ValidationStep {
 
     getContextData(req) {
         let ctx = super.getContextData(req);
-        ctx.executorsNumber = ctx.executorsNumber ? parseFloat(ctx.executorsNumber) : ctx.executorsNumber;
         ctx = this.createExecutorList(ctx, req.session.form);
         return ctx;
     }
@@ -28,8 +27,17 @@ class ExecutorsNamed extends ValidationStep {
             aliasReason: get(formdata, 'applicant.aliasReason'),
             otherReason: get(formdata, 'applicant.otherReason'),
             isApplying: true,
-            isApplicant: true
+            isApplicant: true,
+            fullName: `${get(formdata, 'applicant.firstName')} ${get(formdata, 'applicant.lastName')}`
         };
+
+        ctx.list = [...executorsWrapper.executors().map(executor => ({
+            ...executor,
+            fullName: executor.fullName
+        }))];
+        console.log('ctx.list', ctx.list);
+        console.log('ctx.map', ctx.list.map(executor => executor.fullName));
+        ctx.executorsNumber = ctx.list.length;
 
         if (ctx.list.length > ctx.executorsNumber) {
             return {
@@ -41,8 +49,30 @@ class ExecutorsNamed extends ValidationStep {
         return ctx;
     }
 
+    removeExecutor(ctx, executorId) {
+        const executorIndex = ctx.list.findIndex(executor => executor.id === executorId);
+        if (executorIndex !== -1) {
+            ctx.list.splice(executorIndex, 1);
+        }
+        return ctx;
+    }
+
+    handlePost(ctx, errors) {
+        if (ctx.executorsNamed === 'optionYes') {
+            ctx.executorName = ctx.list.map(executor => executor.fullName) || [];
+        }
+        ctx.executorsNumber = ctx.list.length;
+        return [ctx, errors];
+    }
+
     isComplete(ctx) {
-        return [ctx.executorsNumber >= 0, 'inProgress'];
+        return [ctx.executorsNamed === 'optionYes' || ctx.executorsNamed === 'optionNo', 'inProgress'];
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.executorsNamed;
+        return [ctx, formdata];
     }
 
     nextStepOptions(ctx) {

@@ -4,21 +4,13 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    <h1 class="govuk-fieldset__legend--l">
-      {% if fields.executorsNumber.value > 2 %}
-        {{ content.multipleExecutorQuestion | safe }}
-      {% else %}
-        {{ content.oneOtherQuestion | safe }}
-      {% endif %}
-    </h1>
-
     {{ govukRadios({
         classes: "govuk-radios--inline",
         idPrefix: "allalive",
         name: "allalive",
         fieldset: {
             legend: {
-                text: content.multipleExecutorQuestion | safe,
+                text: (content.multipleExecutorQuestion) if fields.executorsNumber.value > 2 else content.oneOtherQuestion  | replace("{executorName}", fields.list.value[fields.index.value].fullName) | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }

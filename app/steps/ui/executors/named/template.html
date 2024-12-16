@@ -16,44 +16,34 @@
         }
     }) %}
 
+{% set summaryListRows = [] %}
+<pre>{{ fields.list.value | dump }}</pre>
+  {% for executor in fields.list.value %}
+    {% if loop.index0 == 0 %}
+      {% set summaryListRows = (summaryListRows.push({
+      key: { text: content.applicantExecutor | safe, classes: "govuk-!-font-weight-bold" },
+      value: { text: executor.fullName | safe }
+      }), summaryListRows) %}
+    {% else %}
+      {% set summaryListRows = (summaryListRows.push({
+      key: { text: content.furtherExecutor | safe, classes: "govuk-!-font-weight-bold" },
+      value: { text: executor.fullName | safe },
+      actions: {
+      items: [{
+        href: "#",
+        text: content.removeAction | safe,
+        visuallyHiddenText: executor.fullName | safe
+      }]
+      }
+      }), summaryListRows) %}
+    {% endif %}
+  {% endfor %}
 
-<pre>{{ fields | dump | safe }}</pre>
+{{ govukSummaryList({
+rows: summaryListRows
+}) }}
 
-        {% for i in range(0, fields.executorsNumber.value -1) %}
-        <h2 class="govuk-heading-s executor-header">{{ content.executor | safe }} {{ loop.index + 1 }}</h2>
-        {{ govukInput({
-            label: {
-                text: content.fullName | safe
-            },
-            id: "executorName_" + i,
-            name: "executorName[" + i + "]",
-            hint: {
-                text: content.fullNameHint | safe
-            },
-            value: fields.executorName.value[i] | safe,
-            errorMessage: { text: fields["executorName_" + i].errorMessage | safe } if fields["executorName_" + i].errorMessage,
-            attributes: {
-                maxlength: 200
-            },
-            classes: "govuk-!-width-three-quarters"
-            }) }}
-        {% endfor %}
-
-    {{ govukSummaryList({
-      rows: [
-        {
-          key: {
-            text: content.applicantExecutor,
-            classes: "govuk-!-font-weight-bold"
-          },
-          value: {
-            text: fields.list.value[0].firstName | safe + " " + fields.list.value[0].lastName | safe
-          }
-        }
-      ]
-    }) }}
-
-    <h2 class="govuk-fieldset__legend--m">{{ content.question | safe }}</h2>
+<h2 class="govuk-fieldset__legend--m">{{ content.question | safe }}</h2>
     <p class="govuk-body">{{ content.hintText | safe }}</p>
 
     <ul class="govuk-list govuk-list--bullet">
