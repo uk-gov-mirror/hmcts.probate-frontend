@@ -197,10 +197,9 @@ const stepList = {
         otherwise: 'ExecutorsApplying'
     },
     ExecutorsApplying: {
-        otherExecutorsApplying: 'ExecutorsDealingWithEstate',
+        otherExecutorsApplying: 'ExecutorsAlias',
         otherwise: 'ExecutorRoles'
     },
-    ExecutorsDealingWithEstate: 'ExecutorsAlias',
     ExecutorsAlias: {
         withAlias: 'ExecutorsWithOtherNames',
         otherwise: 'ExecutorContactDetails'
