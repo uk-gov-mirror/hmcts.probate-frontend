@@ -201,7 +201,7 @@ const stepList = {
         otherwise: 'ExecutorRoles'
     },
     ExecutorsAlias: {
-        withAlias: 'ExecutorsWithOtherNames',
+        withAlias: 'ExecutorCurrentName',
         otherwise: 'ExecutorContactDetails'
     },
     ExecutorsWithOtherNames: 'ExecutorCurrentName',
@@ -210,7 +210,7 @@ const stepList = {
         otherwise: 'ExecutorContactDetails',
     },
     ExecutorCurrentNameReason: {
-        continue: 'ExecutorCurrentName',
+        continue: 'ExecutorsAlias',
         otherwise: 'ExecutorContactDetails'
     },
     ExecutorContactDetails: 'ExecutorAddress',
