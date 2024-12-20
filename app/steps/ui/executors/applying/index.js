@@ -4,6 +4,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const FormatName = require('../../../../utils/FormatName');
 const {includes, some, tail} = require('lodash');
+const FieldError = require('app/components/error');
 
 class ExecutorsApplying extends ValidationStep {
 
@@ -25,6 +26,7 @@ class ExecutorsApplying extends ValidationStep {
                     return {value: executor.fullName, text: executor.fullName, checked: executor.isApplying === true};
                 });
         }
+        ctx.deceasedName = FormatName.format(req.session.form.deceased);
         return ctx;
     }
 
@@ -47,10 +49,37 @@ class ExecutorsApplying extends ValidationStep {
         return data;
     }
 
-    handlePost(ctx, errors) {
-        for (let i = 1; i < ctx.executorsNumber; i++) {
-            ctx.list[i].isApplying = includes(ctx.executorsApplying, ctx.list[i].fullName);
-            ctx.list[i] = this.pruneExecutorData(ctx.list[i]);
+    handlePost(ctx, errors, formdata, session) {
+
+        let applyingCount = 0;
+        if (ctx.list.length === 2) {
+            errors = errors.filter(error => error.field !== 'executorsApplying');
+            if (typeof ctx.otherExecutorsApplying === 'undefined' || !ctx.otherExecutorsApplying) {
+                errors.push(FieldError('otherExecutorsApplying', 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+            } else if (ctx.otherExecutorsApplying === 'optionYes') {
+                ctx.list[1].isApplying = true;
+                ctx.executorsApplying = [ctx.list[1].fullName];
+                ctx.list[1] = this.pruneExecutorData(ctx.list[1]);
+            }
+        } else if (ctx.list.length > 2) {
+            errors = errors.filter(error => error.field !== 'otherExecutorsApplying');
+            let anyApplying = false;
+            ctx.list.slice(1).forEach(executor => {
+                executor.isApplying = includes(ctx.executorsApplying, executor.fullName);
+                if (executor.isApplying) {
+                    anyApplying = true;
+                    // eslint-disable-next-line no-plusplus
+                    applyingCount++;
+                    ctx.otherExecutorsApplying = 'optionYes';
+                }
+                executor = this.pruneExecutorData(executor);
+            });
+            if (!anyApplying) {
+                ctx.otherExecutorsApplying = 'optionNo';
+            }
+        } if (applyingCount > 4) {
+            errors = errors.filter(error => error.field !== 'otherExecutorsApplying');
+            errors.push(FieldError('executorsApplying', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
         return [ctx, errors];
     }

@@ -3,13 +3,10 @@
   "$id": "otherexecutorsapplying",
   "type": "object",
   "properties": {
-    "otherexecutorsapplying": {
+    "executorsApplying": {
       "type": "array",
       "maxItems": 3,
       "minItems": 0
     }
-  },
-  "required": [
-    "otherExecutorsApplying"
-  ]
+  }
 }

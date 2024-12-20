@@ -7,12 +7,12 @@
 {% block form_content %}
     {% call govukFieldset({
         legend: {
-            text: content.question | safe,
+            text: (content.questionWithCodicil if fields.codicilPresent.value == "true" else content.question) | safe,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
     }) %}
-        <p class="govuk-body">{{ content.paragraph | safe }}</p>
+        <p class="govuk-body">{{ content.paragraphWillCodicil if fields.codicilPresent.value == "true" else content.paragraph | safe }}</p>
         <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
 
     {{ govukInput({

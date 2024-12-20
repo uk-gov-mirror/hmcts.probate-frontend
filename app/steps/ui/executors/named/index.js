@@ -3,6 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const {get} = require('lodash');
+const WillWrapper = require('../../../../wrappers/Will');
 
 class ExecutorsNamed extends ValidationStep {
 
@@ -13,7 +14,12 @@ class ExecutorsNamed extends ValidationStep {
     getContextData(req) {
         let ctx = super.getContextData(req);
         ctx = this.createExecutorList(ctx, req.session.form);
+        this.setCodicilFlagInCtx(ctx, req.session.form);
         return ctx;
+    }
+
+    setCodicilFlagInCtx(ctx, formdata) {
+        ctx.codicilPresent = (new WillWrapper(formdata.will)).hasCodicils();
     }
 
     createExecutorList(ctx, formdata) {

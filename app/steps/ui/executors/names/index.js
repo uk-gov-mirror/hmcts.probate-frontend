@@ -2,6 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
+const WillWrapper = require('../../../../wrappers/Will');
 
 class ExecutorsNames extends ValidationStep {
 
@@ -14,6 +15,7 @@ class ExecutorsNames extends ValidationStep {
         const formdata = req.session.form;
         const applicant = formdata.applicant;
         ctx.applicantCurrentName = FormatName.applicantWillName(applicant);
+        ctx.codicilPresent = (new WillWrapper(formdata.will)).hasCodicils();
         return ctx;
     }
 

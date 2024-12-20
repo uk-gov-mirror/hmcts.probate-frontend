@@ -1,7 +1,9 @@
 {
   "title": "Executors&rsquo; names",
-  "question": "How is the executor&rsquo;s name written in the will or codicil?",
-  "paragraph": "Enter the name of the executor exactly as it is written in the will or codicil.",
+  "question": "How is the executor&rsquo;s name written in the will?",
+  "questionWithCodicil": "How is the executor&rsquo;s name written in the will or codicil?",
+  "paragraph": "Enter the name of the executor exactly as it is written in the will.",
+  "paragraphWithCodicil": "Enter the name of the executor exactly as it is written in the will or codicil.",
   "paragraph2": "If there are more executors, you will be able to add them in the next step.",
   "executor": "Executor",
   "fullName": "Full name",

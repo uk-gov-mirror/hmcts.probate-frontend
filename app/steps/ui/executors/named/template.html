@@ -10,7 +10,7 @@
 {% block form_content %}
     {% call govukFieldset({
         legend: {
-            text: content.title | safe,
+            text: (content.titleWithCodicil if fields.codicilPresent.value == "true" else content.title) | safe,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
@@ -43,8 +43,8 @@
 rows: summaryListRows
 }) }}
 
-<h2 class="govuk-fieldset__legend--m">{{ content.question | safe }}</h2>
-    <p class="govuk-body">{{ content.hintText | safe }}</p>
+    <h2>{{ content.question | safe }}</h2>
+    <p class="govuk-body">{{ content.hintTextWithCodicil if fields.codicilPresent.value == "true" else content.hintText | safe }}</p>
 
     <ul class="govuk-list govuk-list--bullet">
       <li>{{ content.executorsDied | safe }}</li>
