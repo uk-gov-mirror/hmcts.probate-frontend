@@ -185,6 +185,7 @@ const stepList = {
         multiExecOptionNo: 'ExecutorsAllAlive',
         otherwise: 'Equality'
     },
+    RemoveExecutor: 'ExecutorsNamed',
     ExecutorsNames: 'ExecutorsNamed',
     ExecutorsAllAlive: {
         isAlive: 'ExecutorsApplying',

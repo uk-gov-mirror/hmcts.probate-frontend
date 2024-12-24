@@ -32,7 +32,11 @@
       items: [{
         href: "#",
         text: content.removeAction | safe,
-        visuallyHiddenText: executor.fullName | safe
+        visuallyHiddenText: executor.fullName | safe,
+        attributes: {
+          'data-executor-index': loop.index0,
+          formaction: "/executor-names/remove/" + loop.index0
+        }
       }]
       }
       }), summaryListRows) %}
@@ -83,4 +87,19 @@ rows: summaryListRows
             preventDoubleClick: true
         }) }}
     </div>
+    <script nonce="{{ globals.nonce }}">
+      document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('[data-executor-index]').forEach(function(removeLink) {
+          removeLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            const formAction = event.target.getAttribute('formaction');
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = formAction;
+            document.body.appendChild(form);
+            form.submit();
+          });
+        });
+      });
+    </script>
 {% endblock %}

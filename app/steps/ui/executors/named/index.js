@@ -55,14 +55,6 @@ class ExecutorsNamed extends ValidationStep {
         return ctx;
     }
 
-    removeExecutor(ctx, executorId) {
-        const executorIndex = ctx.list.findIndex(executor => executor.id === executorId);
-        if (executorIndex !== -1) {
-            ctx.list.splice(executorIndex, 1);
-        }
-        return ctx;
-    }
-
     handlePost(ctx, errors) {
         if (ctx.executorsNamed === 'optionYes') {
             ctx.executorName = ctx.list.map(executor => executor.fullName) || [];
