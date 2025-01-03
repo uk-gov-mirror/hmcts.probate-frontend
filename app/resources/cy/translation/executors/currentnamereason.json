@@ -12,7 +12,7 @@
 
   "errors": {
     "currentNameReason": {
-      "required": "Dewiswch reswm dros y newid enw"
+      "required": "Dewiswch reswm dros pam fod enw {executorName} yn wahanol"
     },
     "otherReason": {
       "required": "Nodwch y rheswm dros y newid enw"

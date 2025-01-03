@@ -3,6 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {findIndex} = require('lodash');
 const FormatName = require('../../../../utils/FormatName');
+const FieldError = require('../../../../components/error');
 const pageUrl = '/executors-alias';
 
 class ExecutorsAlias extends ValidationStep {
@@ -76,6 +77,33 @@ class ExecutorsAlias extends ValidationStep {
                 {key: 'alias', value: 'optionYes', choice: 'withAlias'}
             ]
         };
+    }
+
+    validate(ctx, formdata, language) {
+        const validationResult = super.validate(ctx, formdata, language);
+        if (!validationResult[0]) {
+            ctx.errors = this.createErrorMessages(validationResult[1], ctx, language);
+        }
+        return validationResult;
+    }
+
+    createErrorMessages(validationErrors, ctx, language) {
+        const errorMessages = [];
+        validationErrors.forEach((validationError) => {
+            const executorName = ctx.list[ctx.index].fullName;
+            const errorMessage = this.composeMessage(language, ctx, executorName);
+            errorMessages.push(errorMessage);
+            validationError.msg = errorMessage.msg;
+            validationError.field = 'alias';
+        });
+        return errorMessages;
+    }
+
+    composeMessage(language, ctx, executorName) {
+        const messageType = 'required';
+        const errorMessage = FieldError('alias', messageType, this.resourcePath, this.generateContent({}, {}, language), language);
+        errorMessage.msg = errorMessage.msg.replace('{executorName}', executorName);
+        return errorMessage;
     }
 }
 

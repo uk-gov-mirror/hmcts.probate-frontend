@@ -13,7 +13,7 @@
 
   "errors": {
     "alias": {
-      "required": "Select no if {executorWillName}&rsquo;s name is different to how it appears on their passport or other form of ID"
+      "required": "Dewiswch do ydy os ydy enw {executorName} yn wahanol i&rsquo;r ffordd y mae&rsquo;n ymddangos ar eu pasbort neu ffurf arall o brawf adnabod"
     }
   }
 }

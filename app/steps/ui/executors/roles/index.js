@@ -2,6 +2,7 @@
 
 const CollectionStep = require('app/core/steps/CollectionStep');
 const {get, isEmpty, every, findIndex, forEach} = require('lodash');
+const FieldError = require('../../../../components/error');
 const path = '/executor-roles/';
 
 class ExecutorRoles extends CollectionStep {
@@ -80,6 +81,33 @@ class ExecutorRoles extends CollectionStep {
                 {key: 'continue', value: true, choice: 'continue'}
             ]
         };
+    }
+
+    validate(ctx, formdata, language) {
+        const validationResult = super.validate(ctx, formdata, language);
+        if (!validationResult[0]) {
+            ctx.errors = this.createErrorMessages(validationResult[1], ctx, language);
+        }
+        return validationResult;
+    }
+
+    createErrorMessages(validationErrors, ctx, language) {
+        const errorMessages = [];
+        validationErrors.forEach((validationError) => {
+            const executorName = ctx.list[ctx.index].fullName;
+            const errorMessage = this.composeMessage(language, ctx, executorName);
+            errorMessages.push(errorMessage);
+            validationError.msg = errorMessage.msg;
+            validationError.field = 'notApplyingReason';
+        });
+        return errorMessages;
+    }
+
+    composeMessage(language, ctx, executorName) {
+        const messageType = 'required';
+        const errorMessage = FieldError('notApplyingReason', messageType, this.resourcePath, this.generateContent({}, {}, language), language);
+        errorMessage.msg = errorMessage.msg.replace('{executorName}', executorName);
+        return errorMessage;
     }
 
     action(ctx, formdata) {

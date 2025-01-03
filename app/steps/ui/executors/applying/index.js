@@ -49,13 +49,18 @@ class ExecutorsApplying extends ValidationStep {
         return data;
     }
 
+    generateDynamicErrorMessage(field, session, executorName) {
+        const baseMessage = FieldError('otherExecutorsApplying', 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language);
+        baseMessage.msg = baseMessage.msg.replace('{executorName}', executorName);
+        return baseMessage;
+    }
     handlePost(ctx, errors, formdata, session) {
 
         let applyingCount = 0;
         if (ctx.list.length === 2) {
             errors = errors.filter(error => error.field !== 'executorsApplying');
             if (typeof ctx.otherExecutorsApplying === 'undefined' || !ctx.otherExecutorsApplying) {
-                errors.push(FieldError('otherExecutorsApplying', 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+                errors.push(this.generateDynamicErrorMessage('otherExecutorsApplying', session, ctx.list[1].fullName));
             } else if (ctx.otherExecutorsApplying === 'optionYes') {
                 ctx.list[1].isApplying = true;
                 ctx.executorsApplying = [ctx.list[1].fullName];
@@ -71,8 +76,8 @@ class ExecutorsApplying extends ValidationStep {
                     // eslint-disable-next-line no-plusplus
                     applyingCount++;
                     ctx.otherExecutorsApplying = 'optionYes';
+                    this.pruneExecutorData(executor);
                 }
-                executor = this.pruneExecutorData(executor);
             });
             if (!anyApplying) {
                 ctx.otherExecutorsApplying = 'optionNo';

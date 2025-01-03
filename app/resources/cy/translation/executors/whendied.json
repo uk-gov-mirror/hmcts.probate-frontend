@@ -7,7 +7,7 @@
 
   "errors": {
     "diedbefore": {
-      "required": "Atebwch &lsquo;do&rsquo; os farwodd yr ysgutor cyn yr unigolyn sydd wedi marw"
+      "required": "Dewiswch do os wnaeth {executorName} farw cyn {deceasedName}"
     }
   }
 }

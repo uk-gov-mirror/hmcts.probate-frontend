@@ -8,7 +8,7 @@
 
   "errors": {
     "notApplyingReason": {
-      "required": "Dewiswch y rheswm pam nad yw&rsquo;r ysgutor yn gwneud cais "
+      "required": "Dewiswch reswm dros pam nad yw {executorName} yn gwneud cais"
     }
   }
 }

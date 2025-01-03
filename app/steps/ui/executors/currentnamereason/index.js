@@ -4,6 +4,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const {findIndex, get, startsWith} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const AliasData = require('app/utils/AliasData.js');
+const FieldError = require('../../../../components/error');
 
 const path = '/executor-name-reason/';
 
@@ -82,6 +83,42 @@ class ExecutorCurrentNameReason extends ValidationStep {
     isComplete(ctx) {
         const executorsWrapper = new ExecutorsWrapper(ctx);
         return [executorsWrapper.executorsWithAnotherName().every(exec => exec.currentNameReason), 'inProgress'];
+    }
+
+    validate(ctx, formdata, language) {
+        const validationResult = super.validate(ctx, formdata, language);
+        if (!validationResult[0]) {
+            ctx.errors = this.createErrorMessages(validationResult[1], ctx, language);
+        }
+        return validationResult;
+    }
+
+    createErrorMessages(validationErrors, ctx, language) {
+        const errorMessages = [];
+        validationErrors.forEach((validationError) => {
+            const executorName = ctx.list[ctx.index].fullName;
+            const errorMessage = this.composeMessage(language, ctx, executorName);
+            errorMessages.push(errorMessage);
+            validationError.msg = errorMessage.msg;
+            if (ctx.currentNameReason === 'optionOther' && !ctx.otherReason) {
+                validationError.field = 'otherReason';
+            } else {
+                validationError.field = 'currentNameReason';
+            }
+        });
+        return errorMessages;
+    }
+
+    composeMessage(language, ctx, executorName) {
+        if (ctx.currentNameReason === 'optionOther' && !ctx.otherReason) {
+            const messageType = 'required';
+            return FieldError('otherReason', messageType, this.resourcePath, this.generateContent({}, {}, language), language);
+        } else if (typeof ctx.currentNameReason === 'undefined' || !ctx.currentNameReason) {
+            const messageType = 'required';
+            const errorMessage = FieldError('currentNameReason', messageType, this.resourcePath, this.generateContent({}, {}, language), language);
+            errorMessage.msg = errorMessage.msg.replace('{executorName}', executorName);
+            return errorMessage;
+        }
     }
 
     action(ctx, formdata) {

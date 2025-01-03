@@ -7,8 +7,8 @@
 
   "errors": {
     "allalive": {
-      "required": "Select &lsquo;yes&rsquo; if any {executorName} has died since the will was signed",
-      "required1": "Select &lsquo;yes&rsquo; if any of the executors have died since the will was signed"
+      "singleExecutorRequired": "Select yes if {executorName} has died since the will was signed",
+      "multipleExecutorRequired": "Select yes if any of the executors have died since the will was signed"
     }
   }
 }

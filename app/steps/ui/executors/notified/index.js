@@ -2,6 +2,7 @@
 
 const CollectionStep = require('app/core/steps/CollectionStep');
 const {get, some, findIndex} = require('lodash');
+const FieldError = require('../../../../components/error');
 const path = '/executor-notified/';
 
 class ExecutorNotified extends CollectionStep {
@@ -35,6 +36,33 @@ class ExecutorNotified extends CollectionStep {
         const currentExecutor = formdata.executors.list[ctx.index];
         ctx.executorNotified = currentExecutor.executorNotified;
         return [ctx];
+    }
+
+    validate(ctx, formdata, language) {
+        const validationResult = super.validate(ctx, formdata, language);
+        if (!validationResult[0]) {
+            ctx.errors = this.createErrorMessages(validationResult[1], ctx, language);
+        }
+        return validationResult;
+    }
+
+    createErrorMessages(validationErrors, ctx, language) {
+        const errorMessages = [];
+        validationErrors.forEach((validationError) => {
+            const executorName = ctx.list[ctx.index].fullName;
+            const errorMessage = this.composeMessage(language, ctx, executorName);
+            errorMessages.push(errorMessage);
+            validationError.msg = errorMessage.msg;
+            validationError.field = 'executorNotified';
+        });
+        return errorMessages;
+    }
+
+    composeMessage(language, ctx, executorName) {
+        const messageType = 'required';
+        const errorMessage = FieldError('executorNotified', messageType, this.resourcePath, this.generateContent({}, {}, language), language);
+        errorMessage.msg = errorMessage.msg.replace('{executorName}', executorName);
+        return errorMessage;
     }
 
     action(ctx, formdata) {

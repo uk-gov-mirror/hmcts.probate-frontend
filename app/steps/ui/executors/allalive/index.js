@@ -1,6 +1,7 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
+const FieldError = require('../../../../components/error');
 
 class ExecutorsAllAlive extends ValidationStep {
 
@@ -19,6 +20,33 @@ class ExecutorsAllAlive extends ValidationStep {
                 {key: 'allalive', value: 'optionNo', choice: 'isAlive'}
             ]
         };
+    }
+
+    validate(ctx, formdata, language) {
+        const validationResult = super.validate(ctx, formdata, language);
+        if (!validationResult[0]) { // has errors
+            ctx.errors = this.createErrorMessages(validationResult[1], ctx, language);
+        }
+        return validationResult;
+    }
+
+    createErrorMessages(validationErrors, ctx, language) {
+        const errorMessages = [];
+        validationErrors.forEach((validationError) => {
+            const dynamicText = ctx.list.length === 2 ? ctx.list[1].fullName : '';
+            const errorMessage = this.composeMessage(language, ctx, dynamicText);
+            errorMessages.push(errorMessage);
+            validationError.msg = errorMessage.msg;
+            validationError.field = 'allalive';
+        });
+        return errorMessages;
+    }
+
+    composeMessage(language, ctx, dynamicText) {
+        const messageType = ctx.list.length > 2 ? 'multipleExecutorRequired' : 'singleExecutorRequired';
+        const errorMessage = FieldError('allalive', messageType, this.resourcePath, this.generateContent({}, {}, language), language);
+        errorMessage.msg = errorMessage.msg.replace('{executorName}', dynamicText);
+        return errorMessage;
     }
 
     action(ctx, formdata) {

@@ -12,7 +12,7 @@
 
   "errors": {
     "currentNameReason": {
-      "required": "Select a reason for the change of name"
+      "required": "Select a reason why {executorName}&rsquo;s name is different"
     },
     "otherReason": {
       "required": "Enter the reason for the change of name"

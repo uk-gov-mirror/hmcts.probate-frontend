@@ -7,7 +7,7 @@
 
   "errors": {
     "diedbefore": {
-      "required": "Answer &lsquo;yes&rsquo; if the executor died before the person who died"
+      "required": "Select yes if {executorName} died before {deceasedName}"
     }
   }
 }

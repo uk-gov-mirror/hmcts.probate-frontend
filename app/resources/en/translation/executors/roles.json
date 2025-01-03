@@ -8,7 +8,7 @@
 
   "errors": {
     "notApplyingReason": {
-      "required": "Select the reason why the executor isn&rsquo;t applying"
+      "required": "Select a reason why {executorName} is not applying"
     }
   }
 }

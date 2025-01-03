@@ -3,6 +3,7 @@
 const CollectionStep = require('app/core/steps/CollectionStep');
 const {findIndex, every, tail, has, get} = require('lodash');
 const FormatName = require('../../../../utils/FormatName');
+const FieldError = require('../../../../components/error');
 const path = '/executor-when-died/';
 
 class ExecutorsWhenDied extends CollectionStep {
@@ -65,6 +66,34 @@ class ExecutorsWhenDied extends CollectionStep {
     isComplete(ctx) {
         const deadExecs = tail(ctx.list).filter(executor => executor.isDead);
         return [every(deadExecs, exec => has(exec, 'diedBefore')), 'inProgress'];
+    }
+
+    validate(ctx, formdata, language) {
+        const validationResult = super.validate(ctx, formdata, language);
+        if (!validationResult[0]) { // has errors
+            ctx.errors = this.createErrorMessages(validationResult[1], ctx, language);
+        }
+        return validationResult;
+    }
+
+    createErrorMessages(validationErrors, ctx, language) {
+        const errorMessages = [];
+        validationErrors.forEach((validationError) => {
+            const executorName = ctx.list[ctx.index].fullName;
+            const deceasedName = ctx.deceasedName;
+            const errorMessage = this.composeMessage(language, ctx, executorName, deceasedName);
+            errorMessages.push(errorMessage);
+            validationError.msg = errorMessage.msg;
+            validationError.field = 'diedbefore';
+        });
+        return errorMessages;
+    }
+
+    composeMessage(language, ctx, executorName, deceasedName) {
+        const messageType = 'required';
+        const errorMessage = FieldError('diedbefore', messageType, this.resourcePath, this.generateContent({}, {}, language), language);
+        errorMessage.msg = errorMessage.msg.replace('{executorName}', executorName).replace('{deceasedName}', deceasedName);
+        return errorMessage;
     }
 
     action(ctx, formdata) {
