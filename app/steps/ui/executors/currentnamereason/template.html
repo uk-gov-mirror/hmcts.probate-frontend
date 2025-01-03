@@ -24,7 +24,7 @@
 
     {% call govukFieldset({
         legend: {
-            text: content.question | replace("{executorName}", fields.otherExecName.value) | safe,
+            text: ((content.questionWithCodicil if fields.codicilPresent.value == "true" else content.question) | replace("{executorName}", fields.otherExecName.value)) | safe,
             isPageHeading: true,
             classes: "govuk-fieldset__legend--l"
         }
