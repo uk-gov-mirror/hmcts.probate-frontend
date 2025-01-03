@@ -5,6 +5,7 @@ const {findIndex, get, startsWith} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const AliasData = require('app/utils/AliasData.js');
 const FieldError = require('../../../../components/error');
+const WillWrapper = require('../../../../wrappers/Will');
 
 const path = '/executor-name-reason/';
 
@@ -16,6 +17,7 @@ class ExecutorCurrentNameReason extends ValidationStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
+        this.setCodicilFlagInCtx(ctx, req.session.form);
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
             req.session.indexPosition = ctx.index;
@@ -27,8 +29,9 @@ class ExecutorCurrentNameReason extends ValidationStep {
         }
         if (ctx.list && ctx.list[ctx.index]) {
             ctx.otherExecName = ctx.list[ctx.index].currentName;
-
         }
+        const executor = ctx.list[ctx.index];
+        ctx.otherExecName = executor.fullName;
         return ctx;
     }
 
@@ -78,6 +81,10 @@ class ExecutorCurrentNameReason extends ValidationStep {
                 {key: 'continue', value: true, choice: 'continue'},
             ],
         };
+    }
+
+    setCodicilFlagInCtx(ctx, formdata) {
+        ctx.codicilPresent = (new WillWrapper(formdata.will)).hasCodicils();
     }
 
     isComplete(ctx) {
