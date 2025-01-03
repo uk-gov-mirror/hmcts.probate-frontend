@@ -1,6 +1,7 @@
 {
   "title": "Executor Alias Reason",
-  "question": "Why is {executorName}&rsquo;s name different to how it is written in the will or any codicils?",
+  "question": "Why is {executorName}&rsquo;s name different to how it is written in the will?",
+  "questionWithCodicil": "Why is {executorName}&rsquo;s name different to how it is written in the will or any codicils?",
   "paragraph1": "You must explain the reason for the difference, for example, {executorName} changed their name since the will was written, or their middle name was not included.",
   "optionMarriage": "They got married or formed a civil partnership",
   "optionDivorce": "They got divorced or ended their civil partnership",
