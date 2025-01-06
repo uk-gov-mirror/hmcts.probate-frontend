@@ -35,11 +35,26 @@ class ExecutorCurrentNameReason extends ValidationStep {
         return ctx;
     }
 
+    pruneFormData(ctx) {
+        if (ctx.list && ctx.alias === 'optionNo') {
+            const list = ctx.list.map(executor => {
+                if (executor.hasOtherName) {
+                    executor.hasOtherName = false;
+                    delete executor.currentNameReason;
+                }
+                return executor;
+            });
+            return Object.assign(ctx, {list});
+        }
+        return ctx;
+    }
+
     handleGet(ctx) {
         if (ctx.list && ctx.list[ctx.index]) {
             ctx.currentNameReason = ctx.list[ctx.index].currentNameReason;
             ctx.otherReason = ctx.list[ctx.index].otherReason;
         }
+        ctx = this.pruneFormData(ctx);
         return [ctx];
     }
 
