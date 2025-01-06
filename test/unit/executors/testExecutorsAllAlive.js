@@ -8,7 +8,7 @@ const ExecutorsAllAlive = steps.ExecutorsAllAlive;
 
 describe('ExecutorsAllAlive', () => {
     describe('nextStepUrl()', () => {
-        it('should return url for the next step if all the excutors are alive', (done) => {
+        it('should return url for the next step if all the executors are not alive', (done) => {
             const req = {
                 session: {
                     journey: journey
@@ -18,11 +18,11 @@ describe('ExecutorsAllAlive', () => {
                 allalive: 'optionYes'
             };
             const nextStepUrl = ExecutorsAllAlive.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/other-executors-applying');
+            expect(nextStepUrl).to.equal('/executors-who-died');
             done();
         });
 
-        it('should return url for the next step if all the executors are not alive', (done) => {
+        it('should return url for the next step if all the executors are alive', (done) => {
             const req = {
                 session: {
                     journey: journey
@@ -32,7 +32,7 @@ describe('ExecutorsAllAlive', () => {
                 allalive: 'optionNo'
             };
             const nextStepUrl = ExecutorsAllAlive.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/executors-who-died');
+            expect(nextStepUrl).to.equal('/other-executors-applying');
             done();
         });
     });

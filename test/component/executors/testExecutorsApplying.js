@@ -1,14 +1,14 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ExecutorsDealingWithEstate = require('app/steps/ui/executors/dealingwithestate');
+const ExecutorsAlias = require('app/steps/ui/executors/alias');
 const ExecutorRoles = require('app/steps/ui/executors/roles');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('executors-applying', () => {
     let testWrapper;
-    const expectedNextUrlForExecDealingWith = ExecutorsDealingWithEstate.getUrl();
+    const expectedNextUrlForExecAlias = ExecutorsAlias.getUrl('*');
     const expectedNextUrlForExecRoles = ExecutorRoles.getUrl('*');
 
     beforeEach(() => {
@@ -42,12 +42,12 @@ describe('executors-applying', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to ExecutorsDealingWithEstate if there are other executors dealing with the estate: ${expectedNextUrlForExecDealingWith}`, (done) => {
+        it(`test it redirects to ExecutorsDealingWithEstate if there are other executors dealing with the estate: ${expectedNextUrlForExecAlias}`, (done) => {
             const data = {
                 otherExecutorsApplying: 'optionYes'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForExecDealingWith);
+            testWrapper.testRedirect(done, data, expectedNextUrlForExecAlias);
         });
 
         it(`test it redirects to executors roles if there are no other executors dealing with the estate: ${expectedNextUrlForExecRoles}`, (done) => {

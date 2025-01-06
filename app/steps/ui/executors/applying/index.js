@@ -54,7 +54,7 @@ class ExecutorsApplying extends ValidationStep {
         baseMessage.msg = baseMessage.msg.replace('{executorName}', executorName);
         return baseMessage;
     }
-    handlePost(ctx, errors, formdata, session) {
+    handlePost(ctx, errors = [], formdata, session) {
 
         let applyingCount = 0;
         if (ctx.list.length === 2) {
@@ -64,8 +64,10 @@ class ExecutorsApplying extends ValidationStep {
             } else if (ctx.otherExecutorsApplying === 'optionYes') {
                 ctx.list[1].isApplying = true;
                 ctx.executorsApplying = [ctx.list[1].fullName];
-                ctx.list[1] = this.pruneExecutorData(ctx.list[1]);
+            } else {
+                ctx.list[1].isApplying = false;
             }
+            this.pruneExecutorData(ctx.list[1]);
         } else if (ctx.list.length > 2) {
             errors = errors.filter(error => error.field !== 'otherExecutorsApplying');
             let anyApplying = false;
@@ -76,8 +78,8 @@ class ExecutorsApplying extends ValidationStep {
                     // eslint-disable-next-line no-plusplus
                     applyingCount++;
                     ctx.otherExecutorsApplying = 'optionYes';
-                    this.pruneExecutorData(executor);
                 }
+                this.pruneExecutorData(executor);
             });
             if (!anyApplying) {
                 ctx.otherExecutorsApplying = 'optionNo';
