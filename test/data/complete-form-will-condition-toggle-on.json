@@ -108,8 +108,9 @@
         }
       ],
       "executorsNumber": 2,
+      "executorsNamed": "optionNo",
       "invitesSent": "true",
-      "allalive": "optionYes",
+      "allalive": "optionNo",
       "otherExecutorsApplying": "optionYes",
       "alias": "optionNo",
       "mentalCapacity": "optionYes"

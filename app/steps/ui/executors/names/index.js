@@ -3,6 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
 const WillWrapper = require('../../../../wrappers/Will');
+const ExecutorsWrapper = require('../../../../wrappers/Executors');
 
 class ExecutorsNames extends ValidationStep {
 
@@ -52,6 +53,12 @@ class ExecutorsNames extends ValidationStep {
         delete ctx.applicantCurrentName;
         delete ctx.executorName;
         return [ctx, formdata];
+    }
+
+    isComplete(ctx, formdata) {
+        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        const allExecutorsHaveFullName = executorsWrapper.executorsList.every(executor => executor.fullName && executor.fullName.trim() !== '');
+        return [allExecutorsHaveFullName, 'inProgress'];
     }
 
     /*validate(ctx, formdata, language) {
