@@ -28,6 +28,7 @@ class ExecutorsAlias extends ValidationStep {
     recalcIndex(ctx, index) {
         return findIndex(ctx.list, o => o.isApplying === true && o.isDead !== true, index + 1);
     }
+
     pruneFormData(ctx) {
         if (ctx.list && ctx.alias === 'optionNo') {
             const list = ctx.list.map(executor => {
@@ -52,12 +53,6 @@ class ExecutorsAlias extends ValidationStep {
         return [ctx, errors];
     }
 
-    /*nextStepUrl(req, ctx) {
-        if (ctx.index === -1) {
-            return this.next(req, ctx).constructor.getUrl();
-        }
-        return this.next(req, ctx).constructor.getUrl(ctx.index);
-    }*/
     nextStepUrl(req, ctx) {
         if (ctx.alias === 'optionNo') {
             const nextIndex = this.recalcIndex(ctx, ctx.index);
