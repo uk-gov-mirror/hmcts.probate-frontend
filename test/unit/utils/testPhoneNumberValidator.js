@@ -12,12 +12,12 @@ describe('PhoneNumberValidator.js', () => {
         });
 
         describe('Length Validation', () => {
-            it('should return failure for not meeting minimum length', (done) => {
+            it('should return false for not meeting minimum length', (done) => {
                 const phoneNumber = '020 1234';
                 expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.equal(false);
                 done();
             });
-            it('should return failure for exceeding maximum length', (done) => {
+            it('should return false for exceeding maximum length', (done) => {
                 const phoneNumber = '020 12345 6789 10 11';
                 expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.equal(false);
                 done();
@@ -55,7 +55,7 @@ describe('PhoneNumberValidator.js', () => {
                 expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.equal(true);
                 done();
             });
-            it('should return true for invalid chars', (done) => {
+            it('should return false for invalid chars', (done) => {
                 const phoneNumber = 'abcdef';
                 expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.equal(false);
                 done();
@@ -68,7 +68,7 @@ describe('PhoneNumberValidator.js', () => {
                 expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.equal(true);
                 done();
             });
-            it('should return pass for overseas mobile number', (done) => {
+            it('should return true for overseas mobile number', (done) => {
                 const phoneNumber = '+33 7 58 99 53 30';
                 expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.equal(true);
                 done();
@@ -96,27 +96,27 @@ describe('PhoneNumberValidator.js', () => {
         });
 
         describe('General Validation Tests', () => {
-            it('should return failure for invalid number', (done) => {
+            it('should return false for invalid number', (done) => {
                 const phoneNumber = '0208 863 8689';
                 expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.equal(false);
                 done();
             });
-            it('should return failure for uk landline number', (done) => {
+            it('should return false for uk landline number', (done) => {
                 const phoneNumber = '02088638689';
                 expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.equal(false);
                 done();
             });
-            it('should return failure for invalid uk mobile number', (done) => {
+            it('should return false for invalid uk mobile number', (done) => {
                 const phoneNumber = '08958995330';
                 expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.equal(false);
                 done();
             });
-            it('should return pass for uk mobile number INTL', (done) => {
+            it('should return true for uk mobile number INTL', (done) => {
                 const phoneNumber = '+447958995330';
                 expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.equal(true);
                 done();
             });
-            it('should return pass for uk mobile number', (done) => {
+            it('should return true for uk mobile number', (done) => {
                 const phoneNumber = '07958995330';
                 expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.equal(true);
                 done();
@@ -127,7 +127,7 @@ describe('PhoneNumberValidator.js', () => {
                 expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.equal(true);
                 done();
             });
-            it('should return for uk mobile number INTL staring with 00', (done) => {
+            it('should return true for uk mobile number INTL staring with 00', (done) => {
                 const phoneNumber = '00447958995330';
                 expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.equal(true);
                 done();
