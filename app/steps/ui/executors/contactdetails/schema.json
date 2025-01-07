@@ -11,7 +11,7 @@
     "mobile": {
       "type": "string",
       "minLength": 11,
-      "maxLength": 14
+      "maxLength": 15
     }
   },
   "required": [
