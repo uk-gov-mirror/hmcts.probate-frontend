@@ -4,9 +4,10 @@ class PhoneNumberValidator {
     static validateMobilePhoneNumber(phoneNumber) {
         try {
             const parsedPhoneNumber = parsePhoneNumber(phoneNumber, 'GB');
-            if (parsedPhoneNumber) {
-                return parsedPhoneNumber.isValid();
+            if (parsedPhoneNumber && parsedPhoneNumber.isValid()) {
+                return {isValid: true, errorType: null};
             }
+            return {isValid: false, errorType: 'invalid'};
         } catch (error) {
             return {isValid: false, errorType: 'invalid'};
         }

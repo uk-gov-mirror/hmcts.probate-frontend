@@ -50,7 +50,7 @@ class ExecutorContactDetails extends ValidationStep {
             errors.push(FieldError('email', 'duplicate', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
         const validationResult = PhoneNumberValidator.validateMobilePhoneNumber(ctx.mobile);
-        if (!validationResult) {
+        if (!validationResult.isValid) {
             errors.push(FieldError('mobile', validationResult.errorType, this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
         if (executorsWrapper.executorPhoneNumberAlreadyUsed(ctx.mobile, executor.fullName, formdata.applicant.phoneNumber)) {
