@@ -17,7 +17,6 @@
     }) %}
 
 {% set summaryListRows = [] %}
-<pre>{{ fields.list.value | dump }}</pre>
   {% for executor in fields.list.value %}
     {% if loop.index0 == 0 %}
       {% set summaryListRows = (summaryListRows.push({
@@ -67,8 +66,8 @@ rows: summaryListRows
                 classes: "govuk-body"
             }
         },
-        errorMessage: { text: fields.executorsNamed.errorMessage | safe } if fields.executorsNamed.errorMessage,
-        items: [{
+    errorMessage: { text: (content.error2) if fields.codicilPresent.value === "true" else content.error1 | safe } if fields.allalive.errorMessage,
+    items: [{
             value: "optionYes",
             text: content["optionYes"] | safe,
             checked: true if fields.executorsNamed.value == "optionYes"

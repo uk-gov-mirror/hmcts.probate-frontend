@@ -17,7 +17,8 @@
 
   "errors": {
     "executorsNamed": {
-      "required": "Nodwch nifer yr ysgutorion"
+      "required": "Dewiswch ‘oes’ os oes mwy o ysgutorion wedi’u henwi yn yr ewyllys",
+      "requiredCodicils": "NOT CORRECT WELSH - NEED CODICILS Dewiswch ‘oes’ os oes mwy o ysgutorion wedi’u henwi yn yr ewyllys"
     }
   }
 }
