@@ -1,10 +1,12 @@
 {
   "title": "A adawodd y sawl a fu farw unrhyw ddymuniadau ysgrifenedig eraill?",
   "question": "A wnaeth {deceasedName} adael unhyw ddymuniadau ysgrifenedig eraill?",
-  "interestedDetailsHint": "Rydym ond &acirc diddordeb mewn dymuniadau ysgrifenedig sy’n cynnwys manylion megis:",
-  "interestedDetail1": "Ysgutor a benodwyd",
-  "interestedDetail2": "Cyfarwyddyd i roi trefn ar yr yst&acircd",
-  "interestedDetail3": "Enw a llofnod tystion",
+  "interestedDetailsHint0": "Gellir hefyd cyfeirio at y rhain fel \"llythyr dymuniadau\".",
+  "interestedDetailsHint1": "Mae gennym ddiddordeb mewn dymuniadau ysgrifenedig sy'n cynnwys unrhyw wybodaeth am:",
+  "interestedDetail1": "beth i'w wneud gyda'r ystad",
+  "interestedDetail2": "ysgutorion a enwir",
+  "interestedDetail3": "manylion tystion",
+  "helpText": "Os oes unrhyw ddymuniadau ysgrifenedig o'r fath, bydd arnoch angen anfon y rhain atom, yn ogystal ag unrhyw ddogfennau eraill rydym eu hangen gennych.",
   "optionYes": "Do",
   "optionNo": "Naddo",
   "errors": {
