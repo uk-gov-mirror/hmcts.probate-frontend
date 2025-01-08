@@ -42,7 +42,9 @@ describe('PhoneNumberValidator.js', () => {
         describe('Alphanumeric Input Validation', () => {
             it('should return false for invalid input', (done) => {
                 const phoneNumber = 'INVALID_INPUT';
-                expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.equal(false);
+                const validationResult = PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber);
+                const expectedResult = {'isValid': false, 'errorType': 'invalid'};
+                expect(validationResult).to.deep.equal(expectedResult);
                 done();
             });
             it('should return true for hyphens input', (done) => {
@@ -57,7 +59,9 @@ describe('PhoneNumberValidator.js', () => {
             });
             it('should return false for invalid chars', (done) => {
                 const phoneNumber = 'abcdef';
-                expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.equal(false);
+                const validationResult = PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber);
+                const expectedResult = {'isValid': false, 'errorType': 'invalid'};
+                expect(validationResult).to.deep.equal(expectedResult);
                 done();
             });
         });
@@ -80,7 +84,9 @@ describe('PhoneNumberValidator.js', () => {
             });
             it('should return false for invalid country code', (done) => {
                 const phoneNumber = '+999 6 12 34 56 78';
-                expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.equal(false);
+                const validationResult = PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber);
+                const expectedResult = {'isValid': false, 'errorType': 'invalid'};
+                expect(validationResult).to.deep.equal(expectedResult);
                 done();
             });
             it('should return false for missing country code', (done) => {
