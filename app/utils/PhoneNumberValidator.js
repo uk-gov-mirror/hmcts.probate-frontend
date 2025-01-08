@@ -7,7 +7,6 @@ class PhoneNumberValidator {
             if (parsedPhoneNumber) {
                 return parsedPhoneNumber.isValid();
             }
-            return {isValid: false, errorType: 'invalid'};
         } catch (error) {
             return {isValid: false, errorType: 'invalid'};
         }
