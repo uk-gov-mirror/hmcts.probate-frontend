@@ -7,7 +7,6 @@
   "executorsDied": "has died",
   "executorsNotApplying": "is not applying for probate",
   "executorsGivenUpRight": "has given up their right to apply",
-  "executorsNamed": "Number of executors",
   "applicantExecutor" : "Executor (you)",
   "furtherExecutor": "Executor",
   "executorTellUsMore": "You'll be able to tell us more about each executor later.",
