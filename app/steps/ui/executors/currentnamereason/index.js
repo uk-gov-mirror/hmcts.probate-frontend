@@ -30,8 +30,6 @@ class ExecutorCurrentNameReason extends ValidationStep {
         if (ctx.list && ctx.list[ctx.index]) {
             ctx.otherExecName = ctx.list[ctx.index].currentName;
         }
-        const executor = ctx.list[ctx.index];
-        ctx.otherExecName = executor.fullName;
         return ctx;
     }
 
