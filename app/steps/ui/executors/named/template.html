@@ -46,7 +46,7 @@
 rows: summaryListRows
 }) }}
 
-    <h2>{{ content.question | safe }}</h2>
+    <h2 class="govuk-header-m">{{ content.question | safe }}</h2>
     <p class="govuk-body">{{ content.hintTextWithCodicil if fields.codicilPresent.value == "true" else content.hintText | safe }}</p>
 
     <ul class="govuk-list govuk-list--bullet">
