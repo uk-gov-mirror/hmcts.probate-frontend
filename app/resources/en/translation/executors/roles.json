@@ -1,9 +1,9 @@
 {
   "title": "Executor non application reason",
-  "question": "Why is {executorFullName} not applying for probate?",
-  "optionPowerReserved": "{executorFullName} is reserving the right to apply later (also known as holding &lsquo;power reserved&rsquo;)",
+  "question": "Why is {executorName} not applying for probate?",
+  "optionPowerReserved": "{executorName} is reserving the right to apply later (also known as holding &lsquo;power reserved&rsquo;)",
   "optionPowerReservedHint": "You will need to inform them in writing that you are making this application.",
-  "optionRenunciated": "{executorFullName} is giving up their right to apply permanently (also known as &lsquo;renunciation&rsquo;)",
+  "optionRenunciated": "{executorName} is giving up their right to apply permanently (also known as &lsquo;renunciation&rsquo;)",
   "optionRenunciatedHint": "You will need to send us their completed <a href=\"{applicationFormPA15}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"PA15 renunciation form (opens in a new tab)\">PA15 renunciation form (opens in a new tab)</a> along with your other documents.",
 
   "errors": {

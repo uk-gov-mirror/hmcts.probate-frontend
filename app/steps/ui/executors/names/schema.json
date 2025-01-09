@@ -3,7 +3,7 @@
   "$id": "executors-names",
   "type": "object",
   "properties": {
-    "executorNames": {
+    "executorName": {
       "type": "string",
       "minLength": 2,
       "pattern": "^[\\sa-zA-Z'-]+$"

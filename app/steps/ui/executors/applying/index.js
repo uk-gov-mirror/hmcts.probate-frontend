@@ -20,13 +20,14 @@ class ExecutorsApplying extends ValidationStep {
             ctx.options = (new ExecutorsWrapper(ctx)).aliveExecutors()
                 .map(executor => {
                     if (executor.isApplicant) {
-                        const optionValue = applicant.alias ? applicant.alias : FormatName.format(executor);
+                        const optionValue = applicant && applicant.alias ? applicant.alias : FormatName.format(executor);
                         return {value: optionValue, text: optionValue, checked: true, disabled: true};
                     }
                     return {value: executor.fullName, text: executor.fullName, checked: executor.isApplying === true};
                 });
         }
         ctx.deceasedName = FormatName.format(req.session.form.deceased);
+        ctx.executorName = ctx.list && ctx.list.length ===2 ? ctx.list[1].fullName: '';
         return ctx;
     }
 
@@ -55,12 +56,11 @@ class ExecutorsApplying extends ValidationStep {
         return baseMessage;
     }
     handlePost(ctx, errors = [], formdata, session) {
-
         let applyingCount = 0;
-        if (ctx.list.length === 2) {
+        if (ctx.list && ctx.list.length === 2) {
             errors = errors.filter(error => error.field !== 'executorsApplying');
             if (typeof ctx.otherExecutorsApplying === 'undefined' || !ctx.otherExecutorsApplying) {
-                errors.push(this.generateDynamicErrorMessage('otherExecutorsApplying', session, ctx.list[1].fullName));
+                errors.push(this.generateDynamicErrorMessage('otherExecutorsApplying', session, ctx.executorName));
             } else if (ctx.otherExecutorsApplying === 'optionYes') {
                 ctx.list[1].isApplying = true;
                 ctx.executorsApplying = [ctx.list[1].fullName];
@@ -68,7 +68,7 @@ class ExecutorsApplying extends ValidationStep {
                 ctx.list[1].isApplying = false;
             }
             this.pruneExecutorData(ctx.list[1]);
-        } else if (ctx.list.length > 2) {
+        } else if (ctx.list && ctx.list.length > 2) {
             errors = errors.filter(error => error.field !== 'otherExecutorsApplying');
             let anyApplying = false;
             ctx.list.slice(1).forEach(executor => {

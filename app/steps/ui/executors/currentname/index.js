@@ -3,7 +3,6 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {findIndex, get} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const FieldError = require('../../../../components/error');
 const pageUrl = '/executor-id-name';
 
 class ExecutorCurrentName extends ValidationStep {
@@ -20,6 +19,7 @@ class ExecutorCurrentName extends ValidationStep {
             ctx.index = this.recalcIndex(ctx, 0);
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
+        ctx.executorName = ctx.list && ctx.list[ctx.index] ? ctx.list[ctx.index].fullName : '';
         return ctx;
     }
 
@@ -68,31 +68,12 @@ class ExecutorCurrentName extends ValidationStep {
         return [executorsWrapper.executorsWithAnotherName().every(exec => exec.currentName), 'inProgress'];
     }
 
-    validate(ctx, formdata, language) {
-        const validationResult = super.validate(ctx, formdata, language);
-        if (!validationResult[0]) {
-            ctx.errors = this.createErrorMessages(validationResult[1], ctx, language);
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.executorName && errors) {
+            errors[0].msg = errors[0].msg.replace('{executorName}', fields.executorName.value);
         }
-        return validationResult;
-    }
-
-    createErrorMessages(validationErrors, ctx, language) {
-        const errorMessages = [];
-        validationErrors.forEach((validationError) => {
-            const executorName = ctx.list[ctx.index].fullName;
-            const errorMessage = this.composeMessage(language, ctx, executorName);
-            errorMessages.push(errorMessage);
-            validationError.msg = errorMessage.msg;
-            validationError.field = 'currentName';
-        });
-        return errorMessages;
-    }
-
-    composeMessage(language, ctx, executorName) {
-        const messageType = 'required';
-        const errorMessage = FieldError('currentName', messageType, this.resourcePath, this.generateContent({}, {}, language), language);
-        errorMessage.msg = errorMessage.msg.replace('{executorName}', executorName);
-        return errorMessage;
+        return fields;
     }
 }
 
