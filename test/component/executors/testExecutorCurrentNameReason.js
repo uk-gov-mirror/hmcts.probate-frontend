@@ -40,7 +40,7 @@ describe('/executor-current-name-reason/', () => {
                 .end(() => {
                     const contentData = {
                         executorFullName: 'Executor Name2',
-                        executorName: 'Executor Name2',
+                        executorName: 'Name2 Executor',
                         list: [
                             {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
                             {fullName: 'Executor Name1', isApplying: false},
