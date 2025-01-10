@@ -69,7 +69,6 @@ class ExecutorsNamed extends ValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
-        delete ctx.executorsNamed;
         return [ctx, formdata];
     }
 
