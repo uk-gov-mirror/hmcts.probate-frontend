@@ -15,7 +15,7 @@
             isPageHeading: true
         }
     }) %}
-<input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
 {% set summaryListRows = [] %}
   {% for executor in fields.list.value %}
     {% if loop.index0 == 0 %}
