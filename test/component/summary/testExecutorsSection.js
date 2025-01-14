@@ -6,12 +6,12 @@ const applicantPhoneContent = require('app/resources/en/translation/applicant/ph
 const applicantAddressContent = require('app/resources/en/translation/applicant/address');
 const applicantAliasContent = require('app/resources/en/translation/applicant/alias');
 const applicantAliasReasonContent = require('app/resources/en/translation/applicant/aliasreason');
-const applicantNameAsOnWillContent = require('app/resources/en/translation/applicant/nameasonwill');/*
+const applicantNameAsOnWillContent = require('app/resources/en/translation/applicant/nameasonwill');
 const executorsApplyingContent = require('app/resources/en/translation/executors/applying');
 const executorsAllAliveContent = require('app/resources/en/translation/executors/allalive');
 const executorsRoles = require('app/resources/en/translation/executors/roles');
 const executorsAliasReason = require('app/resources/en/translation/executors/currentnamereason');
-const executorsDiedBefore = require('app/resources/en/translation/executors/whendied');*/
+const executorsDiedBefore = require('app/resources/en/translation/executors/whendied');
 const FormatName = require('app/utils/FormatName');
 
 describe('summary-executor-section', () => {
@@ -132,8 +132,7 @@ describe('summary-executor-section', () => {
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
-        //need to fix this
-        /*it('test data is played back correctly on the summary page executors section', (done) => {
+        it('test data is played back correctly on the summary page executors section', (done) => {
             const executorsData = require('test/data/summary-executors');
 
             testWrapper.agent.post('/prepare-session/form')
@@ -160,7 +159,7 @@ describe('summary-executor-section', () => {
 
                         exec3fullName: executorsData.executors.list[2].fullName,
                         exec3IsApplying: executorsData.executors.list[2].isApplying ? executorsApplyingContent.optionYes : executorsApplyingContent.optionNo,
-                        exec3NotApplyingReason: executorsRoles[executorsData.executors.list[2].notApplyingReason],
+                        exec3NotApplyingReason: executorsRoles[executorsData.executors.list[2].notApplyingReason].replace('{executorName}', executorsData.executors.list[2].fullName),
 
                         exec4fullName: executorsData.executors.list[3].fullName,
                         exec4IsApplying: executorsData.executors.list[3].isApplying ? executorsApplyingContent.optionYes : executorsApplyingContent.optionNo,
@@ -173,6 +172,6 @@ describe('summary-executor-section', () => {
                     playbackData.aliasReason = applicantAliasReasonContent[playbackData.aliasReason];
                     testWrapper.testDataPlayback(done, playbackData);
                 });
-        });*/
+        });
     });
 });
