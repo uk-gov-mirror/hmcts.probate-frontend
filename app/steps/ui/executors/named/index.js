@@ -4,6 +4,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const {get} = require('lodash');
 const WillWrapper = require('../../../../wrappers/Will');
+const FieldError = require('../../../../components/error');
 
 class ExecutorsNamed extends ValidationStep {
 
@@ -20,6 +21,12 @@ class ExecutorsNamed extends ValidationStep {
 
     setCodicilFlagInCtx(ctx, formdata) {
         ctx.codicilPresent = (new WillWrapper(formdata.will)).hasCodicils();
+    }
+
+    handleGet(ctx, formdata) {
+        ctx.executorsNamed = '';
+        formdata.executors.executorsNamed = '';
+        return [ctx];
     }
 
     createExecutorList(ctx, formdata) {
@@ -55,7 +62,17 @@ class ExecutorsNamed extends ValidationStep {
         return ctx;
     }
 
-    handlePost(ctx, errors) {
+    handlePost(ctx, errors = [], formdata, session) {
+        if (!ctx.executorsNamed && ctx.codicilPresent) {
+            errors.push(FieldError('executorsNamed', 'requiredCodicils', this.resourcePath,
+                this.generateContent({}, {}, session.language), session.language));
+        } else if (!ctx.executorsNamed) {
+            errors.push(FieldError('executorsNamed', 'required', this.resourcePath,
+                this.generateContent({}, {}, session.language), session.language));
+        } else if (ctx.list.length < 1 || ctx.list.length > 20) {
+            errors.push(FieldError('executorsNamed', 'invalid', this.resourcePath,
+                this.generateContent({}, {}, session.language), session.language));
+        }
         if (ctx.executorsNamed === 'optionYes') {
             ctx.executorName = ctx.list.map(executor => executor.fullName) || [];
         }
