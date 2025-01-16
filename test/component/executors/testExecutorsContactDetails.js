@@ -159,8 +159,25 @@ describe('executors-contact-details', () => {
                         email: 'b@.m',
                         mobile: '075r5r5r5r'
                     };
+                    const errorsToTest = ['mobile'];
 
-                    testWrapper.testErrors(done, data, 'invalid');
+                    testWrapper.testErrors(done, data, 'invalid', errorsToTest);
+                });
+        });
+
+        it('test error messages displayed if invalid data entered but with email', (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        index: 1,
+                        executorName: 'Other Applicant',
+                        email: 'b@.m',
+                        mobile: '075r5r5r5r'
+                    };
+                    const errorsToTest = ['email'];
+
+                    testWrapper.testErrors(done, data, 'invalid', errorsToTest);
                 });
         });
     });
