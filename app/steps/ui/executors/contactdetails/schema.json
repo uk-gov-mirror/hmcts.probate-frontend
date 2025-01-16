@@ -10,7 +10,7 @@
     },
     "mobile": {
       "type": "string",
-      "minLength": 11,
+      "minItems": 11,
       "maxItems": 16
     }
   },
