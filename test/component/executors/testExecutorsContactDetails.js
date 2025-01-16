@@ -160,7 +160,7 @@ describe('executors-contact-details', () => {
                         mobile: '075r5r5r5r'
                     };
 
-                    testWrapper.testErrors(done, data, 'tooShort');
+                    testWrapper.testErrors(done, data, 'invalid');
                 });
         });
     });

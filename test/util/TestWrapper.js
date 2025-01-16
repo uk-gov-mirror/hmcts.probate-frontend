@@ -160,6 +160,7 @@ class TestWrapper {
                 .expect('Content-type', 'text/html; charset=utf-8')
                 .then(res => {
                     forEach(expectedErrors, (value) => {
+                        console.log('res.text: ' + res.text);
                         expect(res.text).to.contain(value[type]);
                     });
                     done();
@@ -167,6 +168,7 @@ class TestWrapper {
                 .catch((err) => done(err));
         } catch (e) {
             console.error(e.message);
+            console.log(e.error);
             done(e);
         }
     }
