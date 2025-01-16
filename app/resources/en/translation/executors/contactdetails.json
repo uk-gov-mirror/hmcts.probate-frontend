@@ -16,6 +16,9 @@
     "mobile": {
       "required": "Enter a mobile phone number",
       "invalid": "Enter a mobile phone number without spaces, international numbers must start with a plus sign",
+      "isNotNumber": "Phone number must only contain numbers. International numbers must also start with a plus sign.",
+      "tooShort": "Phone number must be 11 characters or more.",
+      "tooLong": "Phone number must be 15 characters or less.",
       "duplicate": "You have used this mobile phone number for another executor"
     }
   }
