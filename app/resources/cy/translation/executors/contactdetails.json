@@ -16,9 +16,6 @@
     "mobile": {
       "required": "Nodwch rif ff&ocirc;n symudol",
       "invalid": "Nodwch rif ff&ocirc;n symudol heb fylchau, a rhaid i rifau ff&ocirc;n rhyngwladol ddechrau gyda&rsquo;r arwydd +",
-      "isNotNumber": "Rhaid i'r rhif ffôn gynnwys rhifau yn unig. Rhaid i rifau rhyngwladol ddechrau gydag arwydd plws (+).",
-      "tooShort": "Rhaid i'r rhif ffôn fod yn 11 o nodau neu fwy",
-      "tooLong": "Rhaid i'r rhif ffôn fod yn 15 o nodau neu lai.",
       "duplicate": "Rydych wedi defnyddio’r rhif ffôn symudol hwn ar gyfer ysgutor arall"
     }
   }
