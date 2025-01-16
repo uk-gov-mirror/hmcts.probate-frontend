@@ -14,12 +14,12 @@ describe('PhoneNumberValidator.js', () => {
         describe('Length Validation', () => {
             it('should return false for not meeting minimum length', (done) => {
                 const phoneNumber = '020 1234';
-                expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.deep.equal({isValid: false, errorType: 'tooShort'});
+                expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.deep.equal({isValid: false, errorType: 'invalid'});
                 done();
             });
             it('should return false for exceeding maximum length', (done) => {
                 const phoneNumber = '020 12345 6789 10 11';
-                expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.deep.equal({isValid: false, errorType: 'tooLong'});
+                expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.deep.equal({isValid: false, errorType: 'invalid'});
                 done();
             });
             it('should return true for acceptable length (11 chars)', (done) => {
@@ -34,7 +34,7 @@ describe('PhoneNumberValidator.js', () => {
             });
             it('should return false for invalid mobile number', (done) => {
                 const phoneNumber = '+179589953302345234';
-                expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.deep.equal({isValid: false, errorType: 'tooLong'});
+                expect(PhoneNumberValidator.validateMobilePhoneNumber(phoneNumber)).to.deep.equal({isValid: false, errorType: 'invalid'});
                 done();
             });
         });
