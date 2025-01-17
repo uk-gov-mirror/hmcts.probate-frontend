@@ -93,6 +93,7 @@
           "isApplying": true,
           "email": "test@email.com",
           "mobile": "07234156431",
+          "hasOtherName": true,
           "address": {
             "addressLine1": "21 Treelined Avenue",
             "addressLine2": "",

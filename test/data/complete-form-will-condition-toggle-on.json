@@ -92,6 +92,7 @@
         {
           "fullName": "Number 2",
           "isApplying": true,
+          "hasOtherName": true,
           "email": "test@email.com",
           "mobile": "07234156431",
           "address": {

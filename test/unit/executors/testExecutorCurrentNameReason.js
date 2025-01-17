@@ -92,8 +92,8 @@ describe('ExecutorCurrentNameReason', () => {
                     form: {
                         executors: {
                             list: [
-                                {currentName: 'executor current name', hasOtherName: true},
-                                {currentName: 'bob smith', hasOtherName: true}
+                                {currentName: 'executor current name', isApplying: true, hasOtherName: true},
+                                {currentName: 'bob smith', isApplying: true, hasOtherName: true}
                             ]
                         }
                     }
@@ -255,7 +255,7 @@ describe('ExecutorCurrentNameReason', () => {
                 }, {
                     isApplying: true
                 }],
-                index: -1,
+                index: 1,
                 executorsWrapper: new ExecutorsWrapper(),
                 currentNameReason: 'optionMarriage'
             });
@@ -275,7 +275,7 @@ describe('ExecutorCurrentNameReason', () => {
             };
             const index = ExecutorCurrentNameReason.recalcIndex(testCtx, 0);
 
-            expect(index).to.equal(2);
+            expect(index).to.equal(1);
             done();
         });
 

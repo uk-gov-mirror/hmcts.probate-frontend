@@ -29,10 +29,16 @@ class ExecutorsAlias extends ValidationStep {
     }
 
     pruneFormData(ctx) {
-        if (ctx.list && ctx.list[ctx.index].hasOtherName === false) {
-            delete ctx.list[ctx.index].currentName;
-            delete ctx.list[ctx.index].currentNameReason;
-            delete ctx.list[ctx.index].otherReason;
+        if (ctx.list && Array.isArray(ctx.list)) {
+            const list = ctx.list.map(executor => {
+                if (executor.hasOtherName === false) {
+                    delete executor.currentName;
+                    delete executor.currentNameReason;
+                    delete executor.otherReason;
+                }
+                return executor;
+            });
+            return Object.assign(ctx, {list});
         }
         return ctx;
     }
@@ -49,11 +55,14 @@ class ExecutorsAlias extends ValidationStep {
         return [ctx];
     }
     handlePost(ctx, errors) {
-        if (ctx.list[ctx.index].isApplying && ctx.alias === 'optionYes') {
-            ctx.list[ctx.index].hasOtherName = true;
-        } else if (ctx.list[ctx.index].isApplying && ctx.alias === 'optionNo') {
-            ctx.list[ctx.index].hasOtherName = false;
-            ctx = this.pruneFormData(ctx);
+        const executor = ctx.list[ctx.index];
+        if (executor.isApplying) {
+            if (ctx.alias === 'optionYes') {
+                executor.hasOtherName = true;
+            } else if (ctx.alias === 'optionNo') {
+                executor.hasOtherName = false;
+                ctx = this.pruneFormData(ctx);
+            }
         }
         return [ctx, errors];
     }
@@ -81,13 +90,10 @@ class ExecutorsAlias extends ValidationStep {
 
     isComplete(ctx) {
         const executorsWrapper = new ExecutorsWrapper(ctx);
-        const executors = executorsWrapper.executorsList;
+        const executors = executorsWrapper.executorsApplying(true);
 
         const allExecutorsValid = executors.every(executor => {
-            if (executor.isApplying) {
-                return executor.hasOtherName === true || executor.hasOtherName === false;
-            }
-            return true;
+            return executor.hasOtherName === true || executor.hasOtherName === false;
         });
 
         return [allExecutorsValid, 'inProgress'];
@@ -104,7 +110,6 @@ class ExecutorsAlias extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.index;
-        delete ctx.alias;
         delete ctx.continue;
         return [ctx, formdata];
     }

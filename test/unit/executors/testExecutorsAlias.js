@@ -21,8 +21,8 @@ describe('Executors-Alias', () => {
             ctx = {
                 alias: 'optionNo',
                 list: [
-                    {fullName: 'Ronnie D', hasOtherName: true, currentName: 'Steve', currentNameReason: 'optionMarriage'},
-                    {fullName: 'Aggie D', hasOtherName: true, currentName: 'Danny', currentNameReason: 'optionOther', otherReason: 'Yolo'}
+                    {fullName: 'Ronnie D', hasOtherName: false, currentName: 'Steve', currentNameReason: 'optionMarriage'},
+                    {fullName: 'Aggie D', hasOtherName: false, currentName: 'Danny', currentNameReason: 'optionOther', otherReason: 'Yolo'}
                 ]
             };
             ctx = ExecutorsAlias.pruneFormData(ctx);

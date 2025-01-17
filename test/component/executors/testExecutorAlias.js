@@ -83,6 +83,11 @@ describe('executors-alias', () => {
         it(`test it redirects to Executor Other Names when Yes: ${expectedNextUrlForExecOtherNames}`, (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
             const data = {
+                list: [
+                    {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
+                    {fullName: 'Executor Name1', isApplying: true},
+                    {fullName: 'Executor Name2', isApplying: true}
+                ],
                 alias: 'optionYes'
             };
 
@@ -92,7 +97,12 @@ describe('executors-alias', () => {
         it(`test it redirects to Executor Contact Details when No: ${expectedNextUrlForExecContactDetails}`, (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
             const data = {
-                alias: 'optionNo'
+                list: [
+                    {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
+                    {fullName: 'Executor Name1', isApplying: true},
+                    {fullName: 'Executor Name2', isApplying: true}
+                ],
+                alias: 'optionNo',
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForExecContactDetails);
