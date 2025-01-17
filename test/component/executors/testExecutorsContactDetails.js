@@ -159,9 +159,8 @@ describe('executors-contact-details', () => {
                         email: 'b@.m',
                         mobile: '075r5r5r5r'
                     };
-                    const errorsToTest = ['email'];
 
-                    testWrapper.testErrors(done, data, 'invalid', errorsToTest);
+                    testWrapper.testErrors(done, data, 'invalid');
                 });
         });
     });
