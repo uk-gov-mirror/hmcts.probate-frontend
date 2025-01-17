@@ -83,7 +83,7 @@ getTestLanguages().forEach(language => {
         await I.selectDeceasedMaritalStatus(language, maritalStatusMarried);
 
         // Executors Task
-        await I.selectATask(language, 'executorsTask', taskListContent.taskNotStarted);
+        await I.selectATask(language, 'applicantsTask', taskListContent.taskNotStarted);
         await I.selectRelationshipToDeceased(language, spousePartner);
         await I.enterAnyChildren(language, optionNo);
         await I.enterApplicantName(language, 'ApplicantFirstName', 'ApplicantLastName');
