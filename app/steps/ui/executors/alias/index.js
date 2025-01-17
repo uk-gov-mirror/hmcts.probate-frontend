@@ -3,6 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {findIndex} = require('lodash');
 const FormatName = require('../../../../utils/FormatName');
+const ExecutorsWrapper = require('app/wrappers/Executors');
 const pageUrl = '/executors-alias';
 
 class ExecutorsAlias extends ValidationStep {
@@ -28,24 +29,30 @@ class ExecutorsAlias extends ValidationStep {
     }
 
     pruneFormData(ctx) {
-        if (ctx.list && ctx.alias === 'optionNo') {
-            const list = ctx.list.map(executor => {
-                if (executor.hasOtherName) {
-                    executor.hasOtherName = false;
-                    delete executor.currentName;
-                    delete executor.currentNameReason;
-                    delete executor.otherReason;
-                }
-                return executor;
-            });
-            return Object.assign(ctx, {list});
+        if (ctx.list && ctx.list[ctx.index].hasOtherName === false) {
+            delete ctx.list[ctx.index].currentName;
+            delete ctx.list[ctx.index].currentNameReason;
+            delete ctx.list[ctx.index].otherReason;
         }
         return ctx;
     }
-
+    handleGet(ctx) {
+        if (ctx.list && ctx.list[ctx.index]) {
+            if (ctx.list[ctx.index].hasOtherName === true) {
+                ctx.alias = 'optionYes';
+            } else if (ctx.list[ctx.index].hasOtherName === false) {
+                ctx.alias = 'optionNo';
+            } else {
+                ctx.alias = '';
+            }
+        }
+        return [ctx];
+    }
     handlePost(ctx, errors) {
-        for (let i = 1; i < ctx.executorsNumber; i++) {
-            ctx.list[i].hasOtherName = ctx.list[i].isApplying && ctx.alias === 'optionYes';
+        if (ctx.list[ctx.index].isApplying && ctx.alias === 'optionYes') {
+            ctx.list[ctx.index].hasOtherName = true;
+        } else if (ctx.list[ctx.index].isApplying && ctx.alias === 'optionNo') {
+            ctx.list[ctx.index].hasOtherName = false;
             ctx = this.pruneFormData(ctx);
         }
         return [ctx, errors];
@@ -72,12 +79,34 @@ class ExecutorsAlias extends ValidationStep {
         };
     }
 
+    isComplete(ctx) {
+        const executorsWrapper = new ExecutorsWrapper(ctx);
+        const executors = executorsWrapper.executorsList;
+
+        const allExecutorsValid = executors.every(executor => {
+            if (executor.isApplying) {
+                return executor.hasOtherName === true || executor.hasOtherName === false;
+            }
+            return true;
+        });
+
+        return [allExecutorsValid, 'inProgress'];
+    }
+
     generateFields(language, ctx, errors) {
         const fields = super.generateFields(language, ctx, errors);
         if (fields.otherExecName && errors) {
             errors[0].msg = errors[0].msg.replace('{executorName}', fields.otherExecName.value);
         }
         return fields;
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.index;
+        delete ctx.alias;
+        delete ctx.continue;
+        return [ctx, formdata];
     }
 }
 

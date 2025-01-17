@@ -77,7 +77,7 @@ class ExecutorCurrentNameReason extends ValidationStep {
     }
 
     recalcIndex(ctx, index) {
-        return findIndex(ctx.list, o => o.hasOtherName, index + 1);
+        return findIndex(ctx.list, o => o.isApplying, index + 1);
     }
 
     nextStepUrl(req, ctx) {
