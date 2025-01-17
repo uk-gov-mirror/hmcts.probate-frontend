@@ -110,6 +110,7 @@ class ExecutorsAlias extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.index;
+        delete ctx.alias;
         delete ctx.continue;
         return [ctx, formdata];
     }
