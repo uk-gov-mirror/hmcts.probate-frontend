@@ -150,4 +150,60 @@ describe('Executors-Alias', () => {
             expect(errors[0].msg).to.equal('Error message for ');
         });
     });
+    describe('isComplete', () => {
+        it('returns true and inProgress when all executors are valid', () => {
+            const ctx = {
+                list: [
+                    {fullName: 'Executor one', isApplying: true, hasOtherName: true, currentName: 'John Doe', currentNameReason: 'Legal'},
+                    {fullName: 'Executor one', isApplying: true, hasOtherName: false}
+                ]
+            };
+            const result = ExecutorsAlias.isComplete(ctx);
+            expect(result).to.deep.equal([true, 'inProgress']);
+        });
+
+        it('returns false and inProgress when an executor with other name is missing currentName', () => {
+            const ctx = {
+                list: [
+                    {fullName: 'Executor one', isApplying: true, hasOtherName: true, currentNameReason: 'Legal'},
+                    {fullName: 'Executor one', isApplying: true, hasOtherName: false}
+                ]
+            };
+            const result = ExecutorsAlias.isComplete(ctx);
+            expect(result).to.deep.equal([false, 'inProgress']);
+        });
+
+        it('returns false and inProgress when an executor with other name is missing currentNameReason', () => {
+            const ctx = {
+                list: [
+                    {fullName: 'Executor one', isApplying: true, hasOtherName: true, currentName: 'John Doe'},
+                    {fullName: 'Executor one', isApplying: true, hasOtherName: false}
+                ]
+            };
+            const result = ExecutorsAlias.isComplete(ctx);
+            expect(result).to.deep.equal([false, 'inProgress']);
+        });
+
+        it('returns false and inProgress when an executor with other name is missing both currentName and currentNameReason', () => {
+            const ctx = {
+                list: [
+                    {fullName: 'Executor one', isApplying: true, hasOtherName: true},
+                    {fullName: 'Executor one', isApplying: true, hasOtherName: false}
+                ]
+            };
+            const result = ExecutorsAlias.isComplete(ctx);
+            expect(result).to.deep.equal([false, 'inProgress']);
+        });
+
+        it('returns true and inProgress when all executors have hasOtherName as false', () => {
+            const ctx = {
+                list: [
+                    {fullName: 'Executor one', isApplying: true, hasOtherName: false},
+                    {fullName: 'Executor one', isApplying: true, hasOtherName: false}
+                ]
+            };
+            const result = ExecutorsAlias.isComplete(ctx);
+            expect(result).to.deep.equal([true, 'inProgress']);
+        });
+    });
 });

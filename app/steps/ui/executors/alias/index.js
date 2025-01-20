@@ -93,7 +93,7 @@ class ExecutorsAlias extends ValidationStep {
         const executors = executorsWrapper.executorsApplying(true);
 
         const allExecutorsValid = executors.every(executor => {
-            return executor.hasOtherName === true || executor.hasOtherName === false;
+            return (executor.hasOtherName === true && executor.currentName && executor.currentNameReason) || executor.hasOtherName === false;
         });
 
         return [allExecutorsValid, 'inProgress'];
