@@ -55,4 +55,99 @@ describe('Executors-Alias', () => {
             done();
         });
     });
+
+    describe('ExecutorsAlias handleGet', () => {
+        let ctx;
+
+        beforeEach(() => {
+            ctx = {
+                list: [
+                    {fullName: 'Executor 1', hasOtherName: false},
+                    {fullName: 'Executor 2', hasOtherName: true},
+                    {fullName: 'Executor 3'}
+                ],
+                index: 0
+            };
+        });
+
+        it('should set alias to optionYes if executor has other name', () => {
+            ctx.index = 1;
+            [ctx] = ExecutorsAlias.handleGet(ctx);
+            expect(ctx.alias).to.equal('optionYes');
+        });
+
+        it('should set alias to optionNo if executor does not have other name', () => {
+            ctx.index = 0;
+            [ctx] = ExecutorsAlias.handleGet(ctx);
+            expect(ctx.alias).to.equal('optionNo');
+        });
+
+        it('should set alias to empty string if executor hasOtherName is not defined', () => {
+            ctx.index = 2;
+            [ctx] = ExecutorsAlias.handleGet(ctx);
+            expect(ctx.alias).to.equal('');
+        });
+    });
+    describe('ExecutorsAlias nextStepUrl', () => {
+        let ctx;
+        let req;
+        beforeEach(() => {
+            ctx = {
+                alias: '',
+                index: 0,
+                list: [
+                    {fullName: 'Executor 1', isApplying: true},
+                    {fullName: 'Executor 2', isApplying: true}
+                ]
+            };
+            req = {};
+        });
+
+        it('should return the URL for the next executor if alias is optionNo and there is another executor', () => {
+            ctx.alias = 'optionNo';
+            const url = ExecutorsAlias.nextStepUrl(req, ctx);
+            expect(url).to.equal('/executors-alias/1');
+        });
+
+        it('should return the URL for executor contact details if alias is optionNo and there are no more executors', () => {
+            ctx.alias = 'optionNo';
+            ctx.index = 1;
+            const url = ExecutorsAlias.nextStepUrl(req, ctx);
+            expect(url).to.equal('/executor-contact-details/1');
+        });
+
+        it('should return the URL for executor ID name if alias is optionYes', () => {
+            ctx.alias = 'optionYes';
+            const url = ExecutorsAlias.nextStepUrl(req, ctx);
+            expect(url).to.equal('/executor-id-name/0');
+        });
+    });
+    describe('ExecutorsAlias generateFields', () => {
+        let ctx;
+        let errors;
+        let language;
+
+        beforeEach(() => {
+            ctx = {
+                list: [
+                    {fullName: 'Executor 1', hasOtherName: false},
+                    {fullName: 'Executor 2', hasOtherName: true}
+                ],
+                otherExecName: 'Executor 2'
+            };
+            errors = [{msg: 'Error message for {executorName}'}];
+            language = 'en';
+        });
+
+        it('should replace {executorName} placeholder in error message with executor name', () => {
+            ExecutorsAlias.generateFields(language, ctx, errors);
+            expect(errors[0].msg).to.equal('Error message for Executor 2');
+        });
+
+        it('should not modify error message if otherExecName is not present in fields', () => {
+            ctx.otherExecName = '';
+            ExecutorsAlias.generateFields(language, ctx, errors);
+            expect(errors[0].msg).to.equal('Error message for ');
+        });
+    });
 });

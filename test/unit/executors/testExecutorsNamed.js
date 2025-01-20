@@ -1,6 +1,7 @@
 'use strict';
 const initSteps = require('app/core/initSteps');
 const {expect, assert} = require('chai');
+const content = require('../../../app/resources/en/translation/executors/named.json');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ExecutorsNamed = steps.ExecutorsNamed;
 
@@ -128,6 +129,85 @@ describe('ExecutorsNamed', () => {
             const ctx = {};
             const result = ExecutorsNamed.isComplete(ctx);
             expect(result).to.deep.equal([false, 'inProgress']);
+        });
+    });
+    describe('ExecutorsNamed handlePost', () => {
+        let ctx;
+        let errors;
+        let formdata;
+        let session;
+
+        beforeEach(() => {
+            ctx = {
+                executorsNamed: '',
+                list: [],
+                codicilPresent: false
+            };
+            errors = [];
+            formdata = {};
+            session = {language: 'en'};
+        });
+
+        it('should add requiredCodicils error if executorsNamed is empty and codicilPresent is true', () => {
+            ctx.codicilPresent = true;
+            [ctx, errors] = ExecutorsNamed.handlePost(ctx, errors, formdata, session);
+            expect(errors).to.deep.equal([
+                {
+                    field: 'executorsNamed',
+                    href: '#executorsNamed',
+                    msg: content.errors.executorsNamed.requiredCodicils
+                }
+            ]);
+        });
+
+        it('should add required error if executorsNamed is empty and codicilPresent is false', () => {
+            [ctx, errors] = ExecutorsNamed.handlePost(ctx, errors, formdata, session);
+            expect(errors).to.deep.equal([
+                {
+                    field: 'executorsNamed',
+                    href: '#executorsNamed',
+                    msg: content.errors.executorsNamed.required
+                }
+            ]);
+        });
+
+        it('should add invalid error if list length is less than 1', () => {
+            ctx.executorsNamed = 'optionYes';
+            [ctx, errors] = ExecutorsNamed.handlePost(ctx, errors, formdata, session);
+            expect(errors).to.deep.equal([
+                {
+                    field: 'executorsNamed',
+                    href: '#executorsNamed',
+                    msg: content.errors.executorsNamed.invalid
+                }
+            ]);
+        });
+
+        it('should add invalid error if list length is greater than 20', () => {
+            ctx.executorsNamed = 'optionYes';
+            ctx.list = new Array(21).fill({});
+            [ctx, errors] = ExecutorsNamed.handlePost(ctx, errors, formdata, session);
+            expect(errors).to.deep.equal([
+                {
+                    field: 'executorsNamed',
+                    href: '#executorsNamed',
+                    msg: content.errors.executorsNamed.invalid
+                }
+            ]);
+        });
+
+        it('should set executorName if executorsNamed is optionYes', () => {
+            ctx.executorsNamed = 'optionYes';
+            ctx.list = [{fullName: 'Executor 1'}, {fullName: 'Executor 2'}];
+            [ctx, errors] = ExecutorsNamed.handlePost(ctx, errors, formdata, session);
+            expect(ctx.executorName).to.deep.equal(['Executor 1', 'Executor 2']);
+        });
+
+        it('should set executorsNumber to the length of the list', () => {
+            ctx.executorsNamed = 'optionYes';
+            ctx.list = [{fullName: 'Executor 1'}, {fullName: 'Executor 2'}];
+            [ctx, errors] = ExecutorsNamed.handlePost(ctx, errors, formdata, session);
+            expect(ctx.executorsNumber).to.equal(2);
         });
     });
 });

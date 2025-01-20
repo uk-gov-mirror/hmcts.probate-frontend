@@ -374,4 +374,37 @@ describe('ExecutorCurrentNameReason', () => {
             done();
         });
     });
+    describe('ExecutorCurrentNameReason isComplete', () => {
+        let ctx;
+
+        beforeEach(() => {
+            ctx = {
+                list: [
+                    {fullName: 'Executor 1', hasOtherName: true, currentNameReason: 'Reason 1'},
+                    {fullName: 'Executor 2', hasOtherName: true, currentNameReason: 'Reason 2'},
+                    {fullName: 'Executor 3', hasOtherName: false}
+                ]
+            };
+        });
+
+        it('should return inProgress if all executors with another name have a current name reason', () => {
+            const result = ExecutorCurrentNameReason.isComplete(ctx);
+            expect(result).to.deep.equal([true, 'inProgress']);
+        });
+
+        it('should return inProgress if no executors have another name', () => {
+            ctx.list = [
+                {fullName: 'Executor 1', hasOtherName: false},
+                {fullName: 'Executor 2', hasOtherName: false}
+            ];
+            const result = ExecutorCurrentNameReason.isComplete(ctx);
+            expect(result).to.deep.equal([true, 'inProgress']);
+        });
+
+        it('should return inProgress if executors list is empty', () => {
+            ctx.list = [];
+            const result = ExecutorCurrentNameReason.isComplete(ctx);
+            expect(result).to.deep.equal([true, 'inProgress']);
+        });
+    });
 });

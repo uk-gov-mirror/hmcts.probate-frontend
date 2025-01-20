@@ -9,7 +9,6 @@ const caseTypes = require('app/utils/CaseTypes');
 describe('executors-named', () => {
     let testWrapper, sessionData;
     const expectedNextUrlForExecNames = ExecutorsNames.getUrl();
-    //const expectedNextUrlForAllAlive = ExecutorsAllAlive.getUrl();
     const expectedNextUrlForEquality = Equality.getUrl();
 
     beforeEach(() => {
@@ -51,30 +50,10 @@ describe('executors-named', () => {
     describe('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('ExecutorsNamed', null, null, [], false, {type: caseTypes.GOP});
 
-        //working
         it('test redirection to names page when selecting yes with multiple executors', (done) => {
             const data = {executorsNamed: 'optionYes'};
             testWrapper.testRedirect(done, data, expectedNextUrlForExecNames);
         });
-        //need to look into this
-        /*it('test redirection to all alive page when selecting no', (done) => {
-            const data = {
-                executors: {
-                    list: [
-                        {
-                            'fullName': 'Fred Exec One',
-                            'isApplying': false
-                        },
-                        {
-                            'fullName': 'Jeff Exec Two',
-                            'isApplying': false
-                        }
-                    ]
-                },
-                applicant: {'firstName': 'Bobby', 'lastName': 'Applicant', 'nameAsOnTheWill': 'optionYes', 'isApplying': true, 'isApplicant': true, 'fullName': 'Bobby Applicant'},
-                executorsNamed: 'optionNo'};
-            testWrapper.testRedirect(done, data, expectedNextUrlForAllAlive);
-        });*/
 
         it('test redirection to equality page when selecting no', (done) => {
             const data = {list: [{

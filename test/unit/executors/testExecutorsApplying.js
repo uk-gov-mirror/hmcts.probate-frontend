@@ -79,6 +79,32 @@ describe('Executors-Applying', () => {
             assert.isUndefined(ctx.list[1].isApplying);
             assert.isEmpty(errors);
         });
+        it('should add an error if applyingCount is greater than 4', () => {
+            ctx.list.push({fullName: 'Executor 3', isApplying: true});
+            ctx.list.push({fullName: 'Executor 4', isApplying: true});
+            ctx.executorsApplying = ['Ed Brown', 'Dave Miller', 'Executor 3', 'Executor 4'];
+            const invalid = 'You can not select more than 4 executors';
+
+            [ctx, errors] = ExecsApplying.handlePost(ctx, errors, {}, {language: 'en'});
+
+            expect(errors).to.deep.equal([
+                {
+                    field: 'executorsApplying',
+                    href: '#executorsApplying',
+                    msg: invalid
+                }
+            ]);
+        });
+
+        it('should not add an error if applyingCount is 4 or less', () => {
+            ctx.list.push({fullName: 'Executor 3', isApplying: true});
+            ctx.list.push({fullName: 'Executor 4', isApplying: true});
+            ctx.executorsApplying = ['Ed Brown', 'Dave Miller'];
+
+            [ctx, errors] = ExecsApplying.handlePost(ctx);
+
+            expect(errors).to.deep.equal([]);
+        });
     });
 
     describe('getContextData()', () => {
