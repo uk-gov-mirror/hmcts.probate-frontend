@@ -75,8 +75,8 @@ class Declaration extends ValidationStep {
         const formdataDeceased = formdata.deceased || {};
         formdata.deceasedName = FormatName.format(formdataDeceased);
         formdata.deceasedAddress = get(formdataDeceased, 'address', {});
-        const cdnames = get(formdataDeceased, 'otherNames', {});
-        const something = JSON.parse(JSON.stringify(cdnames));
+        const caseDataDeceasedNames = get(formdataDeceased, 'otherNames', {});
+        const otherLegalNames = JSON.parse(JSON.stringify(caseDataDeceasedNames));
         const willAlis = get(formdataDeceased, 'nameAsOnTheWill', 'optionYes');
 
         if (willAlis === 'optionNo') {
@@ -84,12 +84,12 @@ class Declaration extends ValidationStep {
                 firstName: formdataDeceased.aliasFirstNameOnWill,
                 lastName: formdataDeceased.aliasLastNameOnWill
             };
-            something.willAlis = dwillalis;
+            otherLegalNames.willAlis = dwillalis;
         }
 
         formdata.deceasedOtherNames = {
-            en: FormatName.formatMultipleNamesAndAddress(something, content.en),
-            cy: FormatName.formatMultipleNamesAndAddress(something, content.cy)
+            en: FormatName.formatMultipleNamesAndAddress(otherLegalNames, content.en),
+            cy: FormatName.formatMultipleNamesAndAddress(otherLegalNames, content.cy)
         };
 
         formdata.dobFormattedDate = {};
