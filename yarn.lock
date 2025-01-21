@@ -168,8 +168,8 @@ __metadata:
   linkType: hard
 
 "@azure/identity@npm:^4.2.1":
-  version: 4.5.0
-  resolution: "@azure/identity@npm:4.5.0"
+  version: 4.6.0
+  resolution: "@azure/identity@npm:4.6.0"
   dependencies:
     "@azure/abort-controller": "npm:^2.0.0"
     "@azure/core-auth": "npm:^1.9.0"
@@ -178,14 +178,14 @@ __metadata:
     "@azure/core-tracing": "npm:^1.0.0"
     "@azure/core-util": "npm:^1.11.0"
     "@azure/logger": "npm:^1.0.0"
-    "@azure/msal-browser": "npm:^3.26.1"
+    "@azure/msal-browser": "npm:^4.0.1"
     "@azure/msal-node": "npm:^2.15.0"
     events: "npm:^3.0.0"
     jws: "npm:^4.0.0"
     open: "npm:^8.0.0"
     stoppable: "npm:^1.1.0"
     tslib: "npm:^2.2.0"
-  checksum: 10/b25711ce403c287da7fed446561891c4ee5c942f7e261b463c0936136122418823ff24dd8cc249f5bc5311ba7c76205ebc3dc32361e668fa3f88e5f74f72ba33
+  checksum: 10/76f9e42a7bf1207a9b11ad82d9e760839af22db851a90291ef8c39f4128c83a860ea7b351a80806471f7e1d0ef19d93b9d148934697355f0e6d961a005875cce
   languageName: node
   linkType: hard
 
@@ -217,19 +217,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-browser@npm:^3.26.1":
-  version: 3.26.1
-  resolution: "@azure/msal-browser@npm:3.26.1"
+"@azure/msal-browser@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "@azure/msal-browser@npm:4.0.1"
   dependencies:
-    "@azure/msal-common": "npm:14.15.0"
-  checksum: 10/69e28e598d9cead3650bc9e4adf42322da75ef10766fabf78369591d1b4b843fa7918f031ab2b7c936b68a017f1d36cf473043c9eadb8ea90ed132cc5cfd159c
-  languageName: node
-  linkType: hard
-
-"@azure/msal-common@npm:14.15.0":
-  version: 14.15.0
-  resolution: "@azure/msal-common@npm:14.15.0"
-  checksum: 10/b49a4e6c4524ebec8eb2a5256f2d051e1ee335b049fc56d0e773435dfe7b22480fefffd5f90ede79f28a20fe99277c1196963685204390a436e846e70459c376
+    "@azure/msal-common": "npm:15.0.1"
+  checksum: 10/eb2dc05040f608a0587cbb30ee5cd8c9bdcbab90996bbdbd89c51ed793436982bd4ca6214cbed0538993f424d178806803eb57d5d0056dcd474d57d36c184bf9
   languageName: node
   linkType: hard
 
@@ -237,6 +230,13 @@ __metadata:
   version: 14.16.0
   resolution: "@azure/msal-common@npm:14.16.0"
   checksum: 10/1f650b00636cd657b93601a12f495cbc9c35b4ed06197468e24e86ed7a0227f9be8003186d8b00abe12532f26b8002811f553ade76fe2cb57a8e62b827b0152c
+  languageName: node
+  linkType: hard
+
+"@azure/msal-common@npm:15.0.1":
+  version: 15.0.1
+  resolution: "@azure/msal-common@npm:15.0.1"
+  checksum: 10/066a2638790bd79e1c906420fbe2f539316827134c1d85b9c91f18fa7005ddf057859c59990e902aa12642954c7a5a050b33d8173830e5c9c24459d84d4c3b4d
   languageName: node
   linkType: hard
 
@@ -2623,20 +2623,20 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*, @types/node@npm:^22.0.0":
-  version: 22.10.5
-  resolution: "@types/node@npm:22.10.5"
+  version: 22.10.7
+  resolution: "@types/node@npm:22.10.7"
   dependencies:
     undici-types: "npm:~6.20.0"
-  checksum: 10/a5366961ffa9921e8f15435bc18ea9f8b7a7bb6b3d92dd5e93ebcd25e8af65708872bd8e6fee274b4655bab9ca80fbff9f0e42b5b53857790f13cf68cf4cbbfc
+  checksum: 10/64cde1c2f5e5f7d597d3bd462f52c3c2d688a66623eb75d25e1d1d63d384ef553a27100635ad0dbb7d74da517048aa636947863eb624cf85f25d2f22370ce474
   languageName: node
   linkType: hard
 
 "@types/node@npm:^20.1.0, @types/node@npm:^20.1.1":
-  version: 20.17.12
-  resolution: "@types/node@npm:20.17.12"
+  version: 20.17.14
+  resolution: "@types/node@npm:20.17.14"
   dependencies:
     undici-types: "npm:~6.19.2"
-  checksum: 10/d4748de76c6c4fa0371802429d4bcd68ecd638f5cd7d8a4510d3196302d417b6bb17e31c5b1117bfa09b58276d05c14a5fde73b9da2547200195e819e4b43368
+  checksum: 10/517b8197d833782551bd01431321b83cc03655d7f3836c3e804f8d506eea6cc6f02768c8df078822c9583eeca4f059b7e0fd903e951587e6393bd35af22c37bb
   languageName: node
   linkType: hard
 
@@ -7391,7 +7391,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"find-process@npm:^1.4.7":
+"find-process@npm:1.4.7":
   version: 1.4.7
   resolution: "find-process@npm:1.4.7"
   dependencies:
@@ -13994,14 +13994,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"randombytes@npm:2.0.3":
-  version: 2.0.3
-  resolution: "randombytes@npm:2.0.3"
-  checksum: 10/13e1abd143404dd87024bf345fb1a446b2e2ee46d8e1a5a073e8370c9b1e58000d81a97d4327ba7089087213eb6d8c77fa67ab4e91aa00605126d634fcccb9d4
-  languageName: node
-  linkType: hard
-
-"randombytes@npm:^2.1.0":
+"randombytes@npm:2.1.0, randombytes@npm:^2.1.0":
   version: 2.1.0
   resolution: "randombytes@npm:2.1.0"
   dependencies:
@@ -14011,13 +14004,13 @@ __metadata:
   linkType: hard
 
 "randomstring@npm:^1.2.3":
-  version: 1.3.0
-  resolution: "randomstring@npm:1.3.0"
+  version: 1.3.1
+  resolution: "randomstring@npm:1.3.1"
   dependencies:
-    randombytes: "npm:2.0.3"
+    randombytes: "npm:2.1.0"
   bin:
     randomstring: bin/randomstring
-  checksum: 10/6ecfee8fae44ca6fcf4be5dc739d86a2457ac3d6d3142ac65f5df72b57deddb897797659e2b339772380a941774e3d55d4988a64ae3f2f0588fdf5b55b56c901
+  checksum: 10/04225d1d476d5ae400fde4d6186510e88ad915eeb4cca94b70d3680fa5ea92bca0284ad775b3ce7d03a59f97f248eaaf569e58919c7a85425cefc40d22a87103
   languageName: node
   linkType: hard
 
@@ -14993,14 +14986,14 @@ __metadata:
   linkType: hard
 
 "selenium-standalone@npm:^10.0.0":
-  version: 10.0.0
-  resolution: "selenium-standalone@npm:10.0.0"
+  version: 10.0.1
+  resolution: "selenium-standalone@npm:10.0.1"
   dependencies:
     commander: "npm:^8.3.0"
     cross-spawn: "npm:^7.0.3"
     debug: "npm:^4.3.1"
     execa: "npm:^5.1.1"
-    find-process: "npm:^1.4.7"
+    find-process: "npm:1.4.7"
     fkill: "npm:^7.2.1"
     got: "npm:^11.8.6"
     http-proxy-agent: "npm:^7.0.2"
@@ -15017,7 +15010,7 @@ __metadata:
     yauzl: "npm:^3.1.2"
   bin:
     selenium-standalone: bin/selenium-standalone
-  checksum: 10/124f0146042eefa882b1756b6d61b735d55b8a8793725cfa4916d000d07548b856db80008f1fc74fc06e29a0faeda15bff2b612a0e04154bd42b5e885ea1cb0f
+  checksum: 10/5a9494768fb79c0e12fe7947923c85445ef2a6ac3298b931ccce30464c032e2379cbe6c3439f8bf263f7d927a7b3c4ac0dc90c24cd532d41a7715b20c7ee3e8c
   languageName: node
   linkType: hard
 
@@ -17089,11 +17082,11 @@ __metadata:
   linkType: hard
 
 "uuid@npm:11.0, uuid@npm:^11.0.0":
-  version: 11.0.4
-  resolution: "uuid@npm:11.0.4"
+  version: 11.0.5
+  resolution: "uuid@npm:11.0.5"
   bin:
     uuid: dist/esm/bin/uuid
-  checksum: 10/5fd9832d2819f4535c92805f381e26ac254dfc601424a1000bc277ea38440538385db948645ef23c800906eeda28d3da9e037b049e71b2efe1eff1d05c9f61a2
+  checksum: 10/0594ecdff3051e15d4a2c614b4c72e73af373bde0a5d156512353c01156975295d024ae8d7151846d7bd4d22ccd251b16ed51b4318fa71505fb20ad984102dc1
   languageName: node
   linkType: hard
 
