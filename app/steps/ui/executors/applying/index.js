@@ -3,7 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const FormatName = require('../../../../utils/FormatName');
-const {includes, some, tail} = require('lodash');
+const {includes} = require('lodash');
 const FieldError = require('app/components/error');
 
 class ExecutorsApplying extends ValidationStep {
@@ -96,10 +96,6 @@ class ExecutorsApplying extends ValidationStep {
         delete ctx.options;
         delete ctx.executorsApplying;
         return [ctx, formdata];
-    }
-
-    isComplete(ctx) {
-        return [some(tail(ctx.list), exec => exec.isApplying === true), 'inProgress'];
     }
 
     nextStepOptions() {
