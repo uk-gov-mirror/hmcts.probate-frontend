@@ -27,7 +27,7 @@ class ExecutorCurrentNameReason extends ValidationStep {
         } else if (startsWith(req.path, path)) {
             ctx.index = this.recalcIndex(ctx, 0);
         }
-        if (ctx.list && ctx.list[ctx.index]) {
+        if (ctx.list?.[ctx.index]) {
             ctx.otherExecName = ctx.list[ctx.index].currentName;
         }
         return ctx;
@@ -48,7 +48,7 @@ class ExecutorCurrentNameReason extends ValidationStep {
     }
 
     handleGet(ctx) {
-        if (ctx.list && ctx.list[ctx.index]) {
+        if (ctx.list?.[ctx.index]) {
             ctx.currentNameReason = ctx.list[ctx.index].currentNameReason;
             ctx.otherReason = ctx.list[ctx.index].otherReason;
         }

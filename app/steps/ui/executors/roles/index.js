@@ -22,7 +22,7 @@ class ExecutorRoles extends CollectionStep {
                 exec.notApplyingReason = exec.notApplyingKey;
             }
         });
-        ctx.executorName = ctx.list && ctx.list[ctx.index] ? ctx.list[ctx.index].fullName : '';
+        ctx.executorName = ctx.list?.[ctx.index] ? ctx.list[ctx.index].fullName : '';
         return ctx;
     }
 

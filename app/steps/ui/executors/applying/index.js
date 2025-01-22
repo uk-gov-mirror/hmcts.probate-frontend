@@ -84,9 +84,11 @@ class ExecutorsApplying extends ValidationStep {
             if (!anyApplying) {
                 ctx.otherExecutorsApplying = 'optionNo';
             }
-        } if (applyingCount > 3) {
+        }
+        if (applyingCount > 3) {
             errors = errors.filter(error => error.field !== 'otherExecutorsApplying');
             errors.push(FieldError('executorsApplying', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+            return [ctx, errors];
         }
         return [ctx, errors];
     }

@@ -19,7 +19,7 @@ class ExecutorsAlias extends ValidationStep {
             ctx.index = this.recalcIndex(ctx, 0);
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
-        ctx.otherExecName = ctx.list && ctx.list[ctx.index] ? ctx.list[ctx.index].fullName : '';
+        ctx.otherExecName = ctx.list?.[ctx.index] ? ctx.list[ctx.index].fullName : '';
         ctx.deceasedName = FormatName.format(req.session.form.deceased);
         return ctx;
     }
@@ -43,7 +43,7 @@ class ExecutorsAlias extends ValidationStep {
         return ctx;
     }
     handleGet(ctx) {
-        if (ctx.list && ctx.list[ctx.index]) {
+        if (ctx.list?.[ctx.index]) {
             if (ctx.list[ctx.index].hasOtherName === true) {
                 ctx.alias = 'optionYes';
             } else if (ctx.list[ctx.index].hasOtherName === false) {
