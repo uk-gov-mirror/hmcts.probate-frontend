@@ -75,17 +75,7 @@ class Declaration extends ValidationStep {
         const formdataDeceased = formdata.deceased || {};
         formdata.deceasedName = FormatName.format(formdataDeceased);
         formdata.deceasedAddress = get(formdataDeceased, 'address', {});
-        const caseDataDeceasedNames = get(formdataDeceased, 'otherNames', {});
-        const otherLegalNames = JSON.parse(JSON.stringify(caseDataDeceasedNames));
-        const willAlis = get(formdataDeceased, 'nameAsOnTheWill', 'optionYes');
-
-        if (willAlis === 'optionNo') {
-            const dwillalis = {
-                firstName: formdataDeceased.aliasFirstNameOnWill,
-                lastName: formdataDeceased.aliasLastNameOnWill
-            };
-            otherLegalNames.willAlis = dwillalis;
-        }
+        const otherLegalNames = this.collectOtherNames(formdataDeceased);
 
         formdata.deceasedOtherNames = {
             en: FormatName.formatMultipleNamesAndAddress(otherLegalNames, content.en),
@@ -114,6 +104,21 @@ class Declaration extends ValidationStep {
         formdata.ihtTotalNetValue = formdataIht.netValue;
         formdata.ihtTotalNetValue += formdataIht.netValueAssetsOutside ? formdataIht.netValueAssetsOutside : 0;
         return formdata;
+    }
+
+    collectOtherNames(formdataDeceased) {
+        const caseDataDeceasedNames = get(formdataDeceased, 'otherNames', {});
+        const otherLegalNames = structuredClone(caseDataDeceasedNames);
+        const nameSameOnWill = get(formdataDeceased, 'nameAsOnTheWill', 'optionYes');
+
+        if (nameSameOnWill === 'optionNo') {
+            const nameOnWill = {
+                firstName: formdataDeceased.aliasFirstNameOnWill,
+                lastName: formdataDeceased.aliasLastNameOnWill
+            };
+            otherLegalNames.willAlis = nameOnWill;
+        }
+        return otherLegalNames;
     }
 
     generateContent(ctx, formdata) {
