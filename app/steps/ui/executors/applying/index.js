@@ -20,14 +20,14 @@ class ExecutorsApplying extends ValidationStep {
             ctx.options = (new ExecutorsWrapper(ctx)).aliveExecutors()
                 .map(executor => {
                     if (executor.isApplicant) {
-                        const optionValue = applicant?.applicant.alias ? applicant.alias : FormatName.format(executor);
+                        const optionValue = applicant?.alias ?? FormatName.format(executor);
                         return {value: optionValue, text: optionValue, checked: true, disabled: true};
                     }
                     return {value: executor.fullName, text: executor.fullName, checked: executor.isApplying === true};
                 });
         }
         ctx.deceasedName = FormatName.format(req.session.form.deceased);
-        ctx.executorName = ctx.list && ctx.list.length === 2 ? ctx.list[1].fullName: '';
+        ctx.executorName = ctx.list && ctx.list.length ===2 ? ctx.list[1].fullName: '';
         return ctx;
     }
 
