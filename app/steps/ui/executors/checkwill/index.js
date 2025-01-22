@@ -1,10 +1,10 @@
 'use strict';
 
-const Step = require('../../../../core/steps/Step');
+const ValidationStep = require('app/core/steps/ValidationStep');
 const WillWrapper = require('../../../../wrappers/Will');
 const FormatName = require('../../../../utils/FormatName');
 
-class ExecutorCheckWill extends Step {
+class ExecutorCheckWill extends ValidationStep {
 
     static getUrl() {
         return '/executor-check-will';
