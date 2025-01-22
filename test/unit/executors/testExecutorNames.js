@@ -4,7 +4,7 @@ const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ExecutorsNames = steps.ExecutorsNames;
 
-describe('ExecutorsNames', () => {
+describe.only('ExecutorsNames', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = ExecutorsNames.constructor.getUrl();
@@ -48,6 +48,29 @@ describe('ExecutorsNames', () => {
             ctx = ExecutorsNames.getContextData(req);
             expect(ctx.applicantCurrentName).to.deep.equal('');
             done();
+        });
+    });
+    describe('handlePost', () => {
+        it('should initialize ctx.list if it does not exist', () => {
+            const ctx = {};
+            const errors = [];
+            ExecutorsNames.handlePost(ctx, errors);
+            expect(ctx.list).to.deep.equal([]);
+        });
+
+        it('should add executorName to ctx.list if executorName exists and is not empty', () => {
+            const ctx = {executorName: 'John Doe'};
+            const errors = [];
+            ExecutorsNames.handlePost(ctx, errors);
+            expect(ctx.list).to.deep.equal([{fullName: 'John Doe'}]);
+        });
+    });
+    describe('action', () => {
+        it('should delete applicantCurrentName and executorName from ctx', () => {
+            const ctx = {applicantCurrentName: 'John Doe', executorName: 'Jane Doe'};
+            const formdata = {};
+            const result = ExecutorsNames.action(ctx, formdata);
+            expect(result).to.deep.equal([{}, formdata]);
         });
     });
 });
