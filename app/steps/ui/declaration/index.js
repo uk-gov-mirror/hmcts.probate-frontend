@@ -75,11 +75,11 @@ class Declaration extends ValidationStep {
         const formdataDeceased = formdata.deceased || {};
         formdata.deceasedName = FormatName.format(formdataDeceased);
         formdata.deceasedAddress = get(formdataDeceased, 'address', {});
-        const otherLegalNames = this.collectOtherNames(formdataDeceased);
+        const otherNames = this.collectOtherNames(formdataDeceased);
 
         formdata.deceasedOtherNames = {
-            en: FormatName.formatMultipleNamesAndAddress(otherLegalNames, content.en),
-            cy: FormatName.formatMultipleNamesAndAddress(otherLegalNames, content.cy)
+            en: FormatName.formatMultipleNamesAndAddress(otherNames, content.en),
+            cy: FormatName.formatMultipleNamesAndAddress(otherNames, content.cy)
         };
 
         formdata.dobFormattedDate = {};
@@ -108,7 +108,7 @@ class Declaration extends ValidationStep {
 
     collectOtherNames(formdataDeceased) {
         const caseDataDeceasedNames = get(formdataDeceased, 'otherNames', {});
-        const otherLegalNames = structuredClone(caseDataDeceasedNames);
+        const otherNames = structuredClone(caseDataDeceasedNames);
         const nameSameOnWill = get(formdataDeceased, 'nameAsOnTheWill', 'optionYes');
 
         if (nameSameOnWill === 'optionNo') {
@@ -116,9 +116,9 @@ class Declaration extends ValidationStep {
                 firstName: formdataDeceased.aliasFirstNameOnWill,
                 lastName: formdataDeceased.aliasLastNameOnWill
             };
-            otherLegalNames.willAlis = nameOnWill;
+            otherNames.willAlias = nameOnWill;
         }
-        return otherLegalNames;
+        return otherNames;
     }
 
     generateContent(ctx, formdata) {
