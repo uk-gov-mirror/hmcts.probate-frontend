@@ -302,4 +302,20 @@ describe('Declaration', () => {
             done();
         });
     });
+
+    describe('collectOtherNames()', () => {
+        it('should return an empty object when no otherNames and nameSameOnWill', (done) => {
+            const otherNamesObj = {};
+            const formdataDeceased = {
+                otherNames: otherNamesObj,
+                nameAsOnTheWill: 'optionYes',
+            };
+            const declaration = new Declaration(steps, section, templatePath, i18next, schema);
+            const actualResults = declaration.collectOtherNames(formdataDeceased);
+            expect(actualResults).to.deep.equal({});
+            // this is to ensure that we are not modifying our inputs
+            expect(actualResults, 'Checking referential nonequality').to.not.equal(otherNamesObj);
+            done();
+        });
+    });
 });
