@@ -4,8 +4,9 @@
         {% for item in items %}
             {% if item.visible %}
                 {% set complete = true if isComplete !== false and item.answer else false %}
+                {% set aria_id = ["checkanswer-", gen_id()] | join %}
                 <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">{{ item.question | safe }}</dt>
+                    <dt class="govuk-summary-list__key" id="{{ aria_id }}">{{ item.question | safe }}</dt>
                     {% if answerIsCollection %}
                         <dd class="govuk-summary-list__value">
                             {% for answ in item.answer %}
@@ -20,7 +21,7 @@
                     <dd class="govuk-summary-list__actions">
                         {% if alreadyDeclared == "false" %}
                             {% set actionLink = common.change if complete else common.answer %}
-                            <a class="govuk-link" href="{{ url }}">{{ actionLink | safe }}</a>
+                            <a class="govuk-link" href="{{ url }}" id="{{ aria_id }}-link" aria-labelledby="{{aria_id}}-link {{aria_id}}">{{ actionLink | safe }}</a>
                         {% endif %}
                     </dd>
                 </div>
