@@ -82,6 +82,12 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         }
     };
     njkEnv.addGlobal('globals', globals);
+    function gen_id() {
+        const rnd_val = Math.floor(Math.random() * 100000000);
+        const rnd_s = rnd_val.toString().padStart(8, '0');
+        return rnd_s;
+    }
+    njkEnv.addGlobal('gen_id', gen_id);
 
     app.enable('trust proxy');
 
