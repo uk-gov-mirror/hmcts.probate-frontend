@@ -3,6 +3,10 @@
         {
             question: content.ApplicantName.firstName,
             answer: fields.applicant.firstName.value,
+            a11yCtx: {
+                change: content.ApplicantName.changeFirstName,
+                answer: content.ApplicantName.answerFirstName
+            },
             visible: true
         },
         {

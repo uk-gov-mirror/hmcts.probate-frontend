@@ -1,6 +1,8 @@
 {
   "title": "Grant language",
   "question": "Hoffech chi grant dwyieithog, sef Cymraeg a Saesneg?",
+  "a11yChange": "Welsh - Change bilingual grant required",
+  "a11yAnswer": "Welsh - Is a bilingual grant required",
   "optionYes": "Hoffwn",
   "optionNo": "Na hoffwn",
 

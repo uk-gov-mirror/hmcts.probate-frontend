@@ -1,6 +1,8 @@
 {
   "title": "Select the language for the Grant",
   "question": "Do you require a bilingual grant in English and Welsh?",
+  "a11yChange": "English - Change bilingual grant required",
+  "a11yAnswer": "English - Is a bilingual grant required",
   "optionYes": "Yes",
   "optionNo": "No",
 

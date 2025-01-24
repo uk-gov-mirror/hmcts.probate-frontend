@@ -30,7 +30,7 @@ describe('applicant-name', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done);
+                    testWrapper.testContent(done, {}, ['changeFirstName', 'answerFirstName']);
                 });
         });
 

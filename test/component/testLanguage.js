@@ -23,7 +23,7 @@ describe('bilingual-gop', () => {
         testCommonContent.runTest('BilingualGOP');
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done);
+            testWrapper.testContent(done, {}, ['a11yChange', 'a11yAnswer']);
         });
 
         it('test errors message displayed for missing data', (done) => {
