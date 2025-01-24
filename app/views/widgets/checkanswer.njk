@@ -3,8 +3,16 @@
     {% if anyVisibleItems %}
         {% for item in items %}
             {% if item.visible %}
-                {% set complete = true if isComplete !== false and item.answer else false %}
                 {% set aria_id = ["checkanswer-", gen_id()] | join %}
+                {% set complete = true if isComplete !== false and item.answer else false %}
+                {% set actionLink = common.change if complete else common.answer %}
+                {% if item.a11yCtx %}
+                    {% set aria_attr = "aria-label" %}
+                    {% set aria_content = item.a11yCtx.change if complete else item.a11yCtx.answer %}
+                {% else %}
+                    {% set aria_attr = "aria-labelledby" %}
+                    {% set aria_content %}{{aria_id}}-link {{aria_id}}{% endset %}
+                {% endif %}
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key" id="{{ aria_id }}">{{ item.question | safe }}</dt>
                     {% if answerIsCollection %}
@@ -20,8 +28,7 @@
                     {% endif %}
                     <dd class="govuk-summary-list__actions">
                         {% if alreadyDeclared == "false" %}
-                            {% set actionLink = common.change if complete else common.answer %}
-                            <a class="govuk-link" href="{{ url }}" id="{{ aria_id }}-link" aria-labelledby="{{aria_id}}-link {{aria_id}}">{{ actionLink | safe }}</a>
+                            <a class="govuk-link" href="{{ url }}" id="{{ aria_id }}-link" {{aria_attr}}="{{aria_content}}">{{ actionLink | safe }}</a>
                         {% endif %}
                     </dd>
                 </div>
