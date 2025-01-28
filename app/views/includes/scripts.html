@@ -28,14 +28,6 @@
     };
 
     document.addEventListener("DOMContentLoaded", function() {
-      var hideSaveAndClose = document.getElementById("hideSaveAndClose");
-      var saveAndCloseBtn = document.getElementById("saveAndClose");
-      if (hideSaveAndClose && saveAndCloseBtn) {
-        saveAndCloseBtn.hidden = true;
-      }
-    });
-
-    document.addEventListener("DOMContentLoaded", function() {
       var saveAndCloseBtn = document.getElementById("saveAndClose");
       if (saveAndCloseBtn) {
         saveAndCloseBtn.addEventListener("click", function(e) {
