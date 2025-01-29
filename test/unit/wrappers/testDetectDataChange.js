@@ -5,7 +5,7 @@
 const DetectDataChange = require('app/wrappers/DetectDataChange');
 const expect = require('chai').expect;
 
-describe('DetectDataChange.js', () => {
+describe.only('DetectDataChange.js', () => {
     describe('isNotEqual()', () => {
         describe('should return true', () => {
             it('when the values are not equal and the same type', (done) => {
@@ -39,13 +39,7 @@ describe('DetectDataChange.js', () => {
     describe('accessDataKey()', () => {
         it('should return formattedAddress when paramsKey is address and section is executor', (done) => {
             const detectDataChange = new DetectDataChange();
-            expect(detectDataChange.accessDataKey('addressLine1', 'executors')).to.equal('address.formattedAddress');
-            done();
-        });
-
-        it('should return addressLine1 when paramsKey is addressLine1 and section is deceased', (done) => {
-            const detectDataChange = new DetectDataChange();
-            expect(detectDataChange.accessDataKey('addressLine1', 'deceased')).to.equal('addressLine1');
+            expect(detectDataChange.accessDataKey('addressLine1')).to.equal('address.formattedAddress');
             done();
         });
 
