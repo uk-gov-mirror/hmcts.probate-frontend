@@ -7,7 +7,7 @@ const FormatName = require('../../../../utils/FormatName');
 class ExecutorCheckWill extends ValidationStep {
 
     static getUrl() {
-        return '/executor-check-will';
+        return '/check-will-executors';
     }
 
     getContextData(req) {

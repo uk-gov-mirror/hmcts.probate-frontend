@@ -12,7 +12,7 @@
         }
     }) %}
 
-    <p class="govuk-body">{{ content.paragraph1WithCodicil if fields.codicilPresent.value == "true" else content.paragraph1 | replace("{deceasedName}", fields.deceasedName.value) | safe}}</p>
+    <p class="govuk-body">{{ (content.paragraph1WithCodicil if fields.codicilPresent.value == "true" else content.paragraph1) | replace("{deceasedName}", fields.deceasedName.value) | safe}}</p>
     <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
 
     <ul class="govuk-list govuk-list--bullet">
