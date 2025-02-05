@@ -53,6 +53,9 @@ const getPreviousUrl = (ctx, req, res, steps, stepName) => {
     let previousUrl='';
 
     Object.keys(taskList).forEach((taskName) => {
+        if (isDeclarationComplete(formdata) && isPreDeclarationTask(taskName)) {
+            return;
+        }
         if (previousUrl !== '') {
             return;
         }
