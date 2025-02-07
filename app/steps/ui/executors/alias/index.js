@@ -19,7 +19,7 @@ class ExecutorsAlias extends ValidationStep {
             ctx.index = this.recalcIndex(ctx, 0);
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
-        ctx.otherExecName = ctx.list && ctx.list[ctx.index] ? ctx.list[ctx.index].fullName : '';
+        ctx.otherExecName = ctx.list?.[ctx.index] ? ctx.list[ctx.index].fullName : '';
         ctx.deceasedName = FormatName.format(req.session.form.deceased);
         return ctx;
     }
@@ -43,7 +43,7 @@ class ExecutorsAlias extends ValidationStep {
         return ctx;
     }
     handleGet(ctx) {
-        if (ctx.list && ctx.list[ctx.index]) {
+        if (ctx.list?.[ctx.index]) {
             if (ctx.list[ctx.index].hasOtherName === true) {
                 ctx.alias = 'optionYes';
             } else if (ctx.list[ctx.index].hasOtherName === false) {
@@ -93,7 +93,7 @@ class ExecutorsAlias extends ValidationStep {
         const executors = executorsWrapper.executorsApplying(true);
 
         const allExecutorsValid = executors.every(executor => {
-            return executor.hasOtherName === true || executor.hasOtherName === false;
+            return (executor.hasOtherName === true && executor.currentName && executor.currentNameReason) || executor.hasOtherName === false;
         });
 
         return [allExecutorsValid, 'inProgress'];
@@ -110,6 +110,7 @@ class ExecutorsAlias extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.index;
+        delete ctx.alias;
         delete ctx.continue;
         return [ctx, formdata];
     }

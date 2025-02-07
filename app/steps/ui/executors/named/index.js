@@ -23,9 +23,8 @@ class ExecutorsNamed extends ValidationStep {
         ctx.codicilPresent = (new WillWrapper(formdata.will)).hasCodicils();
     }
 
-    handleGet(ctx, formdata) {
+    handleGet(ctx) {
         ctx.executorsNamed = '';
-        formdata.executors.executorsNamed = '';
         return [ctx];
     }
 

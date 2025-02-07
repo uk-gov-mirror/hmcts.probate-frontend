@@ -3,7 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const FormatName = require('../../../../utils/FormatName');
-const {includes, some, tail} = require('lodash');
+const {includes} = require('lodash');
 const FieldError = require('app/components/error');
 
 class ExecutorsApplying extends ValidationStep {
@@ -20,7 +20,7 @@ class ExecutorsApplying extends ValidationStep {
             ctx.options = (new ExecutorsWrapper(ctx)).aliveExecutors()
                 .map(executor => {
                     if (executor.isApplicant) {
-                        const optionValue = applicant && applicant.alias ? applicant.alias : FormatName.format(executor);
+                        const optionValue = applicant?.alias ?? FormatName.format(executor);
                         return {value: optionValue, text: optionValue, checked: true, disabled: true};
                     }
                     return {value: executor.fullName, text: executor.fullName, checked: executor.isApplying === true};
@@ -84,9 +84,11 @@ class ExecutorsApplying extends ValidationStep {
             if (!anyApplying) {
                 ctx.otherExecutorsApplying = 'optionNo';
             }
-        } if (applyingCount > 4) {
+        }
+        if (applyingCount > 3) {
             errors = errors.filter(error => error.field !== 'otherExecutorsApplying');
             errors.push(FieldError('executorsApplying', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+            return [ctx, errors];
         }
         return [ctx, errors];
     }
@@ -96,10 +98,6 @@ class ExecutorsApplying extends ValidationStep {
         delete ctx.options;
         delete ctx.executorsApplying;
         return [ctx, formdata];
-    }
-
-    isComplete(ctx) {
-        return [some(tail(ctx.list), exec => exec.isApplying === true), 'inProgress'];
     }
 
     nextStepOptions() {

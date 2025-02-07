@@ -27,7 +27,7 @@ class ExecutorsWhenDied extends CollectionStep {
         const ctx = super.getContextData(req);
         const formData = req.session.form;
         ctx.deceasedName = FormatName.format(formData.deceased);
-        ctx.executorFullName = ctx.list && ctx.list[ctx.index] ? ctx.list[ctx.index].fullName : '';
+        ctx.executorFullName = ctx.list?.[ctx.index] ? ctx.list[ctx.index].fullName : '';
         return ctx;
     }
 

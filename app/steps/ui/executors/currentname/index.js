@@ -19,12 +19,12 @@ class ExecutorCurrentName extends ValidationStep {
             ctx.index = this.recalcIndex(ctx, 0);
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
-        ctx.executorName = ctx.list && ctx.list[ctx.index] ? ctx.list[ctx.index].fullName : '';
+        ctx.executorName = ctx.list?.[ctx.index] ? ctx.list[ctx.index].fullName : '';
         return ctx;
     }
 
     handleGet(ctx) {
-        if (ctx.list && ctx.list[ctx.index]) {
+        if (ctx.list?.[ctx.index]) {
             ctx.currentName = ctx.list[ctx.index].currentName;
         }
         return [ctx];

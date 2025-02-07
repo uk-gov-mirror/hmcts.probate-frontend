@@ -34,7 +34,7 @@ class ExecutorNotified extends CollectionStep {
     handleGet(ctx, formdata) {
         const currentExecutor = formdata.executors.list[ctx.index];
         ctx.executorNotified = currentExecutor.executorNotified;
-        ctx.executorName = ctx.list && ctx.list[ctx.index] ? ctx.list[ctx.index].fullName : '';
+        ctx.executorName = ctx.list?.[ctx.index] ? ctx.list[ctx.index].fullName : '';
         return [ctx];
     }
 

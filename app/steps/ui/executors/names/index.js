@@ -26,15 +26,6 @@ class ExecutorsNames extends ValidationStep {
 
     createExecutorFullNameArray(ctx) {
         ctx.executorName = [];
-
-        /*if (ctx.list) {
-            ctx.list.forEach((executor) => {
-                if (executor && 'fullName' in executor && !executor.isApplicant) {
-                    ctx.executorName.push(executor.fullName);
-                    console.log('ctx.executorName', ctx.executorName);
-                }
-            });
-        }*/
     }
 
     handlePost(ctx, errors) {
@@ -53,56 +44,6 @@ class ExecutorsNames extends ValidationStep {
         delete ctx.executorName;
         return [ctx, formdata];
     }
-
-    /*validate(ctx, formdata, language) {
-        let validationResult = [];
-        if (isEmpty(ctx.executorName)) {
-            validationResult[0] = size(ctx.list) === ctx.executorsNumber;
-        } else {
-            this.trimArrayTextFields(ctx);
-            validationResult = super.validate(ctx, formdata, language);
-            if (!validationResult[0]) { // has errors
-                ctx.errors = this.createErrorMessages(validationResult[1], ctx, language);
-            }
-        }
-        return validationResult;
-    }
-
-    trimArrayTextFields(ctx) {
-        if (Array.isArray(ctx.executorName)) {
-            for (let i = 0; i < ctx.executorName.length; i++) {
-                ctx.executorName[i] = ctx.executorName[i].trim();
-                if (ctx.executorName[i].length > 0 && !isNaN(ctx.executorName[i])) {
-                    ctx.executorName[i]=parseInt(ctx.executorName[i]);
-                }
-            }
-        }
-    }
-
-    createErrorMessages(validationErrors, ctx, language) {
-        const self = this;
-        const errorMessages = [];
-        errorMessages.length = [ctx.executorsNumber - 1];
-        validationErrors.forEach((validationError) => {
-            const index = self.getIndexFromErrorParameter(validationError);
-            errorMessages[index] = self.composeMessage(language, ctx.executorName[index], parseInt(index) + 2);
-            validationError.msg = errorMessages[index].msg;
-            validationError.field = `executorName_${index}`;
-        });
-        return errorMessages;
-    }
-
-    getIndexFromErrorParameter(validationError) {
-        return validationError.field.split('[')[1].split(']')[0];
-    }
-
-    composeMessage(language, inputTextFieldValue, screenExecutorNumber) {
-        const messageType = inputTextFieldValue === '' ? 'required' : 'invalid';
-        const errorMessage = FieldError('executorName', messageType, resourcePath, this.generateContent({}, {}, language), language);
-        const displayExecutor = i18next.t(`${resourcePath}.executor`);
-        errorMessage.msg = `${displayExecutor} ${screenExecutorNumber}: ${errorMessage.msg}`;
-        return errorMessage;
-    }*/
 }
 
 module.exports = ExecutorsNames;

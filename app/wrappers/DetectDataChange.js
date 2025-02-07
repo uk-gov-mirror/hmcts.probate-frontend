@@ -27,10 +27,10 @@ class DetectDataChanges {
             if (step.section === 'executors') {
                 const index = (req.params && !isNaN(req.params[0])) ? req.params[0] : req.session.indexPosition;
                 if (Object.keys(req.body).includes('email')) {
-                    return this.hasChanged(req.body, formdata[step.section].list[index]);
+                    return this.hasChanged(req.body, formdata[step.section].list[index], step.section);
                 } else if (Object.keys(req.body).includes('addressLine1')) {
                     req.body.address = this.sanitiseAddressObject(req.body);
-                    return this.hasChanged(req.body, formdata[step.section].list[index]);
+                    return this.hasChanged(req.body, formdata[step.section].list[index], step.section);
                 } else if (req.body.executorName) {
                     const currentExecutors = executorsWrapper.executors(true).map(executor => executor.fullName);
                     return this.isNotEqual(req.body.executorName, currentExecutors);
@@ -42,21 +42,21 @@ class DetectDataChanges {
                     return this.isNotEqual(req.body.executorsWhoDied, executorsWhoDied);
                 }
             }
-            return this.hasChanged(req.body, formdata[step.section]);
+            return this.hasChanged(req.body, formdata[step.section], step.section);
         }
 
         return false;
     }
 
-    hasChanged(params, sectionData) {
+    hasChanged(params, sectionData, stepSection) {
         return Object.keys(params).some(paramsKey => {
-            const sectionDataKey = this.accessDataKey(paramsKey);
+            const sectionDataKey = this.accessDataKey(paramsKey, stepSection);
             return paramsKey !== 'declarationCheckbox' && sectionData && get(sectionData, sectionDataKey) && this.isNotEqual(get(params, sectionDataKey), get(sectionData, sectionDataKey));
         });
     }
 
-    accessDataKey(paramsKey) {
-        if (['addressLine1'].includes(paramsKey)) {
+    accessDataKey(paramsKey, stepSection) {
+        if (stepSection === 'executors' && ['addressLine1'].includes(paramsKey)) {
             return 'address.formattedAddress';
         }
         return paramsKey;
