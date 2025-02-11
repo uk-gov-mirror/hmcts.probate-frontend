@@ -12,7 +12,7 @@
             isPageHeading: true
         }
     }) %}
-        <p class="govuk-body">{{ content.paragraphWillCodicil if fields.codicilPresent.value == "true" else content.paragraph | safe }}</p>
+        <p class="govuk-body">{{ content.paragraphWithCodicil if fields.codicilPresent.value == "true" else content.paragraph | safe }}</p>
         <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
 
     {{ govukInput({

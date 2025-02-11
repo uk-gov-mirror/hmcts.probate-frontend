@@ -14,9 +14,13 @@ class ExecutorsNames extends ValidationStep {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
         const applicant = formdata.applicant;
+        this.setCodicilFlagInCtx(ctx, req.session.form);
         ctx.applicantCurrentName = FormatName.applicantWillName(applicant);
-        ctx.codicilPresent = (new WillWrapper(formdata.will)).hasCodicils();
         return ctx;
+    }
+
+    setCodicilFlagInCtx(ctx, formdata) {
+        ctx.codicilPresent = (new WillWrapper(formdata.will)).hasCodicils();
     }
 
     handleGet(ctx) {
