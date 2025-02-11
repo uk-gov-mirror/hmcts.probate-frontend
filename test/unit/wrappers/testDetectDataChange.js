@@ -39,13 +39,7 @@ describe('DetectDataChange.js', () => {
     describe('accessDataKey()', () => {
         it('should return formattedAddress when paramsKey is address and section is executor', (done) => {
             const detectDataChange = new DetectDataChange();
-            expect(detectDataChange.accessDataKey('addressLine1', 'executors')).to.equal('address.formattedAddress');
-            done();
-        });
-
-        it('should return addressLine1 when paramsKey is addressLine1 and section is deceased', (done) => {
-            const detectDataChange = new DetectDataChange();
-            expect(detectDataChange.accessDataKey('addressLine1', 'deceased')).to.equal('addressLine1');
+            expect(detectDataChange.accessDataKey('addressLine1')).to.equal('address.formattedAddress');
             done();
         });
 
@@ -91,7 +85,7 @@ describe('DetectDataChange.js', () => {
                     }
                 };
                 const detectDataChange = new DetectDataChange();
-                expect(detectDataChange.hasChanged(params, sectionData, 'executors')).to.equal(true);
+                expect(detectDataChange.hasChanged(params, sectionData)).to.equal(true);
                 done();
             });
 
