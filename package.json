@@ -216,7 +216,8 @@
     "braces": "^3.0.3",
     "path-to-regexp": "^0.1.10",
     "import-in-the-middle": "^1.11.2",
-    "cross-spawn": "^7.0.5"
+    "cross-spawn": "^7.0.5",
+    "codeceptjs": "3.6.10"
   },
   "packageManager": "yarn@4.6.0"
 }
