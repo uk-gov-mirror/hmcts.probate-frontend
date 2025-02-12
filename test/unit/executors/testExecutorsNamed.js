@@ -173,6 +173,7 @@ describe('ExecutorsNamed', () => {
 
         it('should add invalid error if list length is less than 1', () => {
             ctx.executorsNamed = 'optionYes';
+            ctx.executorsNamedChecked = true;
             [ctx, errors] = ExecutorsNamed.handlePost(ctx, errors, formdata, session);
             expect(errors).to.deep.equal([
                 {

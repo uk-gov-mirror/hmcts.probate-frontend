@@ -68,13 +68,11 @@ rows: summaryListRows
         },
     items: [{
             value: "optionYes",
-            text: content["optionYes"] | safe,
-            checked: true if fields.executorsNamed.value == "optionYes"
+            text: content["optionYes"] | safe
         },
         {
             value: "optionNo",
-            text: content["optionNo"] | safe,
-            checked: true if fields.executorsNamed.value == "optionNo"
+            text: content["optionNo"] | safe
         }]
     }) }}
     {% endcall %}
@@ -85,25 +83,39 @@ rows: summaryListRows
             preventDoubleClick: true
         }) }}
     </div>
-    <script nonce="{{ globals.nonce }}">
-      document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('[data-executor-index]').forEach(function(removeLink) {
-          removeLink.addEventListener('click', function(event) {
-            event.preventDefault();
-            const formAction = event.target.getAttribute('formaction');
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = formAction;
+<input type="hidden" id="executorsNamedChecked" name="executorsNamedChecked" value="false">
+<script nonce="{{ globals.nonce }}">
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded and parsed');
+    document.querySelectorAll('[data-executor-index]').forEach(function(removeLink) {
+      removeLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        const formAction = event.target.getAttribute('formaction');
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = formAction;
 
-            const csrfInput = document.createElement('input');
-            csrfInput.type = 'hidden';
-            csrfInput.name = '_csrf';
-            csrfInput.value = '{{ csrfToken }}';
-            form.appendChild(csrfInput);
-            document.body.appendChild(form);
-            form.submit();
-          });
-        });
+        const csrfInput = document.createElement('input');
+        csrfInput.type = 'hidden';
+        csrfInput.name = '_csrf';
+        csrfInput.value = '{{ csrfToken }}';
+        form.appendChild(csrfInput);
+        document.body.appendChild(form);
+        form.submit();
       });
-    </script>
+    });
+
+    var saveAndContinueButton = document.querySelector('.govuk-button[data-module="govuk-button"]');
+    if (saveAndContinueButton) {
+      saveAndContinueButton.addEventListener("click", function(e) {
+        var optionYes = document.querySelector('input[name="executorsNamed"][value="optionYes"]').checked;
+        var optionNo = document.querySelector('input[name="executorsNamed"][value="optionNo"]').checked;
+        console.log('optionYes:', optionYes);
+        console.log('optionNo:', optionNo);
+        document.getElementById('executorsNamedChecked').value = (optionYes || optionNo) ? "true" : "false";
+        console.log('executorsNamedChecked:', document.getElementById('executorsNamedChecked').value);
+      });
+    }
+  });
+</script>
 {% endblock %}
