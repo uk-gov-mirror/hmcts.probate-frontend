@@ -51,7 +51,7 @@ describe('executors-named', () => {
         testCommonContent.runTest('ExecutorsNamed', null, null, [], false, {type: caseTypes.GOP});
 
         it('test redirection to names page when selecting yes with multiple executors', (done) => {
-            const data = {executorsNamed: 'optionYes'};
+            const data = {executorsNamed: 'optionYes', executorsNamedChecked: 'true'};
             testWrapper.testRedirect(done, data, expectedNextUrlForExecNames);
         });
 
@@ -60,15 +60,11 @@ describe('executors-named', () => {
                 'fullName': 'Jeff Exec Two',
                 'isApplying': false
             }],
-            executorsNamed: 'optionNo'};
+            executorsNamed: 'optionNo',
+            executorsNamedChecked: 'true'};
             testWrapper.testRedirect(done, data, expectedNextUrlForEquality);
         });
 
-        it('test errors message displayed for no number entered', (done) => {
-            testWrapper.testErrors(done, {}, 'required');
-        });
-
-        //Working on these below
         it('test correct content loaded on the page when lead applicant does not have an alias', (done) => {
             const contentToExclude = ['titleWithCodicil', 'hintTextWithCodicil'];
             testWrapper.agent.post('/prepare-session/form')
@@ -89,7 +85,12 @@ describe('executors-named', () => {
         });
 
         it('test errors message displayed for required data', (done) => {
-            testWrapper.testErrors(done, {}, 'required');
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {executorsNamedChecked: 'false'};
+                    testWrapper.testErrors(done, data, 'required');
+                });
         });
     });
 });

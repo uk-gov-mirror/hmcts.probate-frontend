@@ -150,6 +150,7 @@ describe('ExecutorsNamed', () => {
 
         it('should add requiredCodicils error if executorsNamed is empty and codicilPresent is true', () => {
             ctx.codicilPresent = true;
+            ctx.executorsNamedChecked = false;
             [ctx, errors] = ExecutorsNamed.handlePost(ctx, errors, formdata, session);
             expect(errors).to.deep.equal([
                 {
@@ -161,6 +162,8 @@ describe('ExecutorsNamed', () => {
         });
 
         it('should add required error if executorsNamed is empty and codicilPresent is false', () => {
+            ctx.codicilPresent = false;
+            ctx.executorsNamedChecked = false;
             [ctx, errors] = ExecutorsNamed.handlePost(ctx, errors, formdata, session);
             expect(errors).to.deep.equal([
                 {
@@ -173,7 +176,7 @@ describe('ExecutorsNamed', () => {
 
         it('should add invalid error if list length is less than 1', () => {
             ctx.executorsNamed = 'optionYes';
-            ctx.executorsNamedChecked = true;
+            ctx.executorsNamedChecked = 'true';
             [ctx, errors] = ExecutorsNamed.handlePost(ctx, errors, formdata, session);
             expect(errors).to.deep.equal([
                 {
@@ -186,6 +189,7 @@ describe('ExecutorsNamed', () => {
 
         it('should add invalid error if list length is greater than 20', () => {
             ctx.executorsNamed = 'optionYes';
+            ctx.executorsNamedChecked = 'true';
             ctx.list = new Array(21).fill({});
             [ctx, errors] = ExecutorsNamed.handlePost(ctx, errors, formdata, session);
             expect(errors).to.deep.equal([
