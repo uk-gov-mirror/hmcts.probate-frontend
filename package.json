@@ -115,10 +115,10 @@
     "email-validator": "^2.0.4",
     "express": "^4.21.0",
     "express-session": "^1.17.3",
-    "file-type": "^16.0.0",
+    "file-type": "^12.4.2",
     "get-port": "^4.2.0",
     "git-rev-sync": "^3.0.2",
-    "govuk-frontend": "^4.9.0",
+    "govuk-frontend": "^5.8.0",
     "helmet": "^3.23.3",
     "hpkp": "^3.0.0",
     "http-terminator": "^3.0.0",
@@ -217,7 +217,8 @@
     "braces": "^3.0.3",
     "path-to-regexp": "^0.1.10",
     "import-in-the-middle": "^1.11.2",
-    "cross-spawn": "^7.0.5"
+    "cross-spawn": "^7.0.5",
+    "codeceptjs": "3.6.10"
   },
   "packageManager": "yarn@4.6.0"
 }
