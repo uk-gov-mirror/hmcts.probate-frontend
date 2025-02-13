@@ -3580,7 +3580,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.6.1":
+"axios@npm:^1.6.1, axios@npm:^1.7.9":
   version: 1.7.9
   resolution: "axios@npm:1.7.9"
   dependencies:
@@ -13614,6 +13614,7 @@ __metadata:
     ajv: "npm:^6.12.6"
     ajv-keywords: "npm:^3.5.2"
     applicationinsights: "npm:^2.5.0"
+    axios: "npm:^1.7.9"
     basic-auth: "npm:^2.0.1"
     body-parser: "npm:^1.20.3"
     chai: "npm:^4.3.7"
