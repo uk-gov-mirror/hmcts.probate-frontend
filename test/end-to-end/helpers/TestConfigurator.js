@@ -1,7 +1,6 @@
 'use strict';
 
 const randomstring = require('randomstring');
-const request = require('request');
 const axios = require('axios');
 const testConfig = require('config');
 const LaunchDarkly = require('test/end-to-end/helpers/LaunchDarkly');
