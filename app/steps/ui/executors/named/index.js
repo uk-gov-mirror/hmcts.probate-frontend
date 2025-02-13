@@ -64,11 +64,9 @@ class ExecutorsNamed extends ValidationStep {
     handlePost(ctx, errors, formdata, session) {
         const executorsNamedChecked = ctx.executorsNamedChecked === 'true';
         if (executorsNamedChecked === false && ctx.codicilPresent) {
-            console.log('test1');
             errors.push(FieldError('executorsNamed', 'requiredCodicils', this.resourcePath,
                 this.generateContent({}, {}, session.language), session.language));
         } else if (executorsNamedChecked === false) {
-            console.log('test2');
             errors.push(FieldError('executorsNamed', 'required', this.resourcePath,
                 this.generateContent({}, {}, session.language), session.language));
         } else if (ctx.list.length < 1 || ctx.list.length > 20) {

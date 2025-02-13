@@ -184,7 +184,8 @@ const stepList = {
     ExecutorsNames: 'ExecutorsNamed',
     ExecutorsAllAlive: {
         isAlive: 'ExecutorsApplying',
-        whoDied: 'ExecutorsWhoDied'
+        whoDied: 'ExecutorsWhoDied',
+        whenDied: 'ExecutorsWhenDied'
     },
     ExecutorsWhoDied: 'ExecutorsWhenDied',
     ExecutorsWhenDied: {

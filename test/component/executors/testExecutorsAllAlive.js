@@ -68,7 +68,8 @@ describe('executors-all-alive', () => {
 
         it(`test it redirects to executors applying: ${expectedNextUrlForExecsApplying}`, (done) => {
             const data = {
-                allalive: 'optionNo'
+                allalive: 'optionNo',
+                list: [{fullName: 'ExecutorOne'}, {fullName: 'ExecutorTwo'}, {fullName: 'ExecutorThree'}]
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForExecsApplying);
@@ -76,7 +77,8 @@ describe('executors-all-alive', () => {
 
         it(`test it redirects to which executors died: ${expectedNextUrlForExecsWhoDied}`, (done) => {
             const data = {
-                allalive: 'optionYes'
+                allalive: 'optionYes',
+                list: [{fullName: 'ExecutorOne'}, {fullName: 'ExecutorTwo'}, {fullName: 'ExecutorThree'}]
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForExecsWhoDied);

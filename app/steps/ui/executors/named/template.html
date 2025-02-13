@@ -86,7 +86,6 @@ rows: summaryListRows
 <input type="hidden" id="executorsNamedChecked" name="executorsNamedChecked" value="false">
 <script nonce="{{ globals.nonce }}">
   document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM fully loaded and parsed');
     document.querySelectorAll('[data-executor-index]').forEach(function(removeLink) {
       removeLink.addEventListener('click', function(event) {
         event.preventDefault();
@@ -110,10 +109,7 @@ rows: summaryListRows
       saveAndContinueButton.addEventListener("click", function(e) {
         var optionYes = document.querySelector('input[name="executorsNamed"][value="optionYes"]').checked;
         var optionNo = document.querySelector('input[name="executorsNamed"][value="optionNo"]').checked;
-        console.log('optionYes:', optionYes);
-        console.log('optionNo:', optionNo);
         document.getElementById('executorsNamedChecked').value = (optionYes || optionNo) ? "true" : "false";
-        console.log('executorsNamedChecked:', document.getElementById('executorsNamedChecked').value);
       });
     }
   });

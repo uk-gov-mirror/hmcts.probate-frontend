@@ -13,13 +13,31 @@ class ExecutorsAllAlive extends ValidationStep {
         return this.next(req, ctx).constructor.getUrl(1);
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        ctx.singleExecutor = ctx.list && ctx.list.length === 2 && ctx.allalive === 'optionYes';
+        ctx.multiExecutor = ctx.list && ctx.list.length > 2 && ctx.allalive === 'optionYes';
         return {
             options: [
-                {key: 'allalive', value: 'optionYes', choice: 'whoDied'},
+                {key: 'singleExecutor', value: true, choice: 'whenDied'},
+                {key: 'multiExecutor', value: true, choice: 'whoDied'},
                 {key: 'allalive', value: 'optionNo', choice: 'isAlive'}
             ]
         };
+    }
+
+    handlePost(ctx, errors) {
+        if (ctx.list.length === 2 && ctx.allalive === 'optionYes') {
+            ctx.list[1].isDead = true;
+            ctx.list[1] = this.pruneFormData(ctx.list[1]);
+        }
+        return [ctx, errors];
+    }
+
+    pruneFormData(executor) {
+        if (executor.isDead) {
+            delete executor.isApplying;
+        }
+        return executor;
     }
 
     validate(ctx, formdata, language) {
