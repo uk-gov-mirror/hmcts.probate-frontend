@@ -1,11 +1,9 @@
 'use strict';
 
 const randomstring = require('randomstring');
-const request = require('request');
 const axios = require('axios');
 const testConfig = require('config');
 const LaunchDarkly = require('test/end-to-end/helpers/LaunchDarkly');
-const util = require('util');
 const setupSecrets = require('../../../app/setupSecrets');
 
 /* eslint no-console: 0 no-unused-vars: 0 */
