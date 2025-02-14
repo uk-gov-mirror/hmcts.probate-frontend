@@ -110,8 +110,7 @@ class TestConfigurator {
             const email = this.getTestCitizenEmail();
             console.log(`Deleting user: ${email}`);
             try {
-                const httpReq = axios.request();
-                const response = await httpReq({
+                const response = await axios.request({
                     url: this.getTestDeleteUserURL() + email,
                     proxy: this.getUseProxy() === 'true' ? this.getProxy() : null,
                     method: 'DELETE'
