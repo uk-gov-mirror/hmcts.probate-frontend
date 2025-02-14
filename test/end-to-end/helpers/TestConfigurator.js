@@ -1,6 +1,7 @@
 'use strict';
 
 const randomstring = require('randomstring');
+const request = require('request');
 const axios = require('axios');
 const testConfig = require('config');
 const LaunchDarkly = require('test/end-to-end/helpers/LaunchDarkly');
@@ -109,7 +110,7 @@ class TestConfigurator {
             const email = this.getTestCitizenEmail();
             console.log(`Deleting user: ${email}`);
             try {
-                const httpReq = util.promisify(axios.request);
+                const httpReq = axios.request();
                 const response = await httpReq({
                     url: this.getTestDeleteUserURL() + email,
                     proxy: this.getUseProxy() === 'true' ? this.getProxy() : null,
