@@ -18,7 +18,8 @@
             {% endset %}
             {{ govukNotificationBanner({
               html: html,
-              type: "success"
+              type: "success",
+              titleText: content.successBannerTitle | safe
             }) }}
           </div>
         {% elseif fields.displayInactiveAlertBanner.value == "true" %}
@@ -34,7 +35,8 @@
               </form>
             {% endset %}
             {{ govukNotificationBanner({
-            html: html
+              html: html,
+              titleText: content.inactiveAlertBannerTitle | safe
             }) }}
           </div>
         {% endif %}
