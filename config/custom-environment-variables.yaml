@@ -111,6 +111,6 @@ dynatrace:
 
 inactivityDaysThreshold: INACTIVITY_DAYS_THRESHOLD
 disposal:
-  switchDay: SWITCH_DAY
+  switchDate: SWITCH_DATE
   inactivityDaysThreshold: INACTIVITY_DAYS_THRESHOLD
   deletionDaysThreshold: DELETION_DAYS_THRESHOLD
