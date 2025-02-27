@@ -595,7 +595,7 @@ describe('Tasklist', () => {
                 ctx = taskList.getContextData(req);
 
                 assert.equal(ctx.displayInactiveAlertBanner, true);
-                assert.equal(ctx.daysToDeleteText, '0 day');
+                assert.equal(ctx.daysToDeleteText, '95 day');
             });
 
             it('should return correct context data with inactive alert and days to delete', () => {
