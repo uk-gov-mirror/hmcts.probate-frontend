@@ -592,10 +592,11 @@ describe('Tasklist', () => {
 
             it('Test the inactivity banner is set to display', () => {
                 req.session.form = completedFormWillConditionOn;
+                sinon.stub(DateValidation, 'daysToDelete').returns(0);
                 ctx = taskList.getContextData(req);
 
                 assert.equal(ctx.displayInactiveAlertBanner, true);
-                assert.equal(ctx.daysToDeleteText, '95 days');
+                assert.equal(ctx.daysToDeleteText, '0 day');
             });
 
             it('should return correct context data with inactive alert and days to delete', () => {
