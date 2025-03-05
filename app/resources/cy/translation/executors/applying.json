@@ -10,13 +10,15 @@
   "applicantsNotDealing": "Gofynnir i chi am ysgutorion na fyddant yn delio &acirc;&rsquo;r ystad yn ddiweddarach.",
   "multiExecQuestion": "Pa ysgutorion fydd hefyd yn delio &acirc;&rsquo;r ystad?",
   "oneOtherExecQuestion": "A fydd {executorName} hefyd yn delio &acirc;&rsquo;r ystad?",
-  "optionYes": "Yes",
-  "optionNo": "No",
+  "optionYes": "Bydd",
+  "optionNo": "Na fydd",
 
   "errors": {
     "otherExecutorsApplying": {
-      "invalid": "You can not select more than 4 executors",
-      "required": "Atebwch &lsquo;bydd&rsquo; os yw unrhyw un o&rsquo;r ysgutorion eraill yn delio &acirc;&rsquo;r ystad"
+      "required": "Dewiswch bydd os bydd {executorName} yn delio â'r ystad"
+    },
+    "executorsApplying": {
+      "invalid": "You can not select more than 4 executors"
     }
   }
 }
