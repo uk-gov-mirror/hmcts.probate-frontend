@@ -23,7 +23,7 @@ class ExecutorAddress extends AddressStep {
             ctx.index = this.recalcIndex(ctx, 0);
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
-        ctx.otherExecName = ctx.list[ctx.index] && ctx.list[ctx.index].fullName;
+        ctx.otherExecName = ctx.list[ctx.index] && ctx.list[ctx.index].hasOtherName ? ctx.list[ctx.index].currentName : ctx.list[ctx.index].fullName;
         ctx.executorsWrapper = new ExecutorsWrapper(ctx);
 
         return ctx;
