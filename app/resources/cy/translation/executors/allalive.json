@@ -7,7 +7,7 @@
 
   "errors": {
     "allalive": {
-      "singleExecutorRequired": "Atebwch &lsquo;ydyn&rsquo; os yw&rsquo;r holl ysgutorion dal yn fyw",
+      "singleExecutorRequired": "Dewiswch ydy os yw {executorName} wedi marw ers i&rsquo;r ewyllys gael ei llofnodi",
       "multipleExecutorRequired": "Dewiswch oes os oes unrhyw un o&rsquo;r ysgutorion wedi marw ers llofnodi&rsquo;r ewyllys"
     }
   }
