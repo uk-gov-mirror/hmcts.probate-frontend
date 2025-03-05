@@ -31,10 +31,15 @@ class ExecutorNotified extends CollectionStep {
         return [ctx, errors];
     }
 
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        ctx.executorName = ctx.list?.[ctx.index] ? ctx.list[ctx.index].fullName : '';
+        return ctx;
+    }
+
     handleGet(ctx, formdata) {
         const currentExecutor = formdata.executors.list[ctx.index];
         ctx.executorNotified = currentExecutor.executorNotified;
-        ctx.executorName = ctx.list?.[ctx.index] ? ctx.list[ctx.index].fullName : '';
         return [ctx];
     }
 
