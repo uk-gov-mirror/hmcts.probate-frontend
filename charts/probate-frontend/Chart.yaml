@@ -14,5 +14,5 @@ dependencies:
     condition: redis.enabled
   - name: idam-pr
     version: 2.3.0
-    repository: 'oci://hmctspublic.azurecr.io/helm/'
+    repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
     condition: idam-pr.enabled
