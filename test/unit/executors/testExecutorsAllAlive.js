@@ -57,7 +57,7 @@ describe('ExecutorsAllAlive', () => {
         it('removes the correct values from the context when some executors have died', (done) => {
             let formdata = {};
             let ctx = {
-                allalive: 'optionNo',
+                allalive: 'optionYes',
                 executorsNumber: 4,
                 list: [
                     {firstName: 'Applicant FN', lastName: 'Applicant LN', isApplicant: true},
@@ -68,7 +68,7 @@ describe('ExecutorsAllAlive', () => {
             };
             [ctx, formdata] = ExecutorsAllAlive.action(ctx, formdata);
             expect(ctx).to.deep.equal({
-                allalive: 'optionNo',
+                allalive: 'optionYes',
                 executorsNumber: 4,
                 list: [
                     {firstName: 'Applicant FN', lastName: 'Applicant LN', isApplicant: true},
@@ -83,7 +83,7 @@ describe('ExecutorsAllAlive', () => {
         it('removes the correct values from the context when all the executors are alive', (done) => {
             let formdata = {};
             let ctx = {
-                allalive: 'optionYes',
+                allalive: 'optionNo',
                 executorsNumber: 4,
                 list: [
                     {firstName: 'Applicant FN', lastName: 'Applicant LN', isApplicant: true},
@@ -94,7 +94,7 @@ describe('ExecutorsAllAlive', () => {
             };
             [ctx, formdata] = ExecutorsAllAlive.action(ctx, formdata);
             expect(ctx).to.deep.equal({
-                allalive: 'optionYes',
+                allalive: 'optionNo',
                 executorsNumber: 4,
                 list: [
                     {firstName: 'Applicant FN', lastName: 'Applicant LN', isApplicant: true},
