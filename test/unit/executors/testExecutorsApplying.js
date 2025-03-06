@@ -83,7 +83,7 @@ describe('Executors-Applying', () => {
             ctx.list.push({fullName: 'Executor 3', isApplying: true});
             ctx.list.push({fullName: 'Executor 4', isApplying: true});
             ctx.executorsApplying = ['Ed Brown', 'Dave Miller', 'Executor 3', 'Executor 4'];
-            const invalid = 'You can not select more than 4 executors';
+            const invalid = 'You cannot select more than 4 executors';
 
             [ctx, errors] = ExecsApplying.handlePost(ctx, errors, {}, {language: 'en'});
 
