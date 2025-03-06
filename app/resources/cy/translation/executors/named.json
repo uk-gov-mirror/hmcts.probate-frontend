@@ -16,8 +16,8 @@
 
   "errors": {
     "executorsNamed": {
-      "required": "Dewiswch ‘oes’ os oes mwy o ysgutorion wedi’u henwi yn yr ewyllys",
-      "requiredCodicils": "Dewiswch ‘oes’ os oes mwy o ysgutorion wedi’u henwi yn yr ewyllys neu ei godisiliau",
+      "required": "Dewiswch ‘Oes’ os oes mwy o ysgutorion wedi’u henwi yn yr ewyllys",
+      "requiredCodicils": "Dewiswch ‘Oes’ os oes mwy o ysgutorion wedi’u henwi yn yr ewyllys neu ei godisiliau",
       "invalid": "Rhaid i nifer yr ysgutorion fod yn rhif cyfan rhwng 1 a 20"
     }
   }
