@@ -18,7 +18,7 @@
       "required": "Dewiswch bydd os bydd {executorName} yn delio â'r ystad"
     },
     "executorsApplying": {
-      "invalid": "You can not select more than 4 executors"
+      "invalid": "Ni allwch ddewis mwy na 4 ysgutor"
     }
   }
 }
