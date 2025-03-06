@@ -21,7 +21,7 @@
     {% if loop.index0 == 0 %}
       {% set summaryListRows = (summaryListRows.push({
       key: { text: content.applicantExecutor | safe, classes: "govuk-!-font-weight-bold" },
-      value: { text: executor.fullName | safe }
+      value: { text: fields.applicantName.value | safe }
       }), summaryListRows) %}
     {% else %}
       {% set summaryListRows = (summaryListRows.push({

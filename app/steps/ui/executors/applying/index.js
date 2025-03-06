@@ -14,19 +14,15 @@ class ExecutorsApplying extends ValidationStep {
 
     getContextData(req) {
         const formdata = req.session.form;
-        const applicant = formdata.applicant;
         const ctx = super.getContextData(req);
         if (ctx.list) {
             ctx.options = (new ExecutorsWrapper(ctx)).aliveExecutors()
+                .filter(executor => !executor.isApplicant)
                 .map(executor => {
-                    if (executor.isApplicant) {
-                        const optionValue = applicant?.alias ?? FormatName.format(executor);
-                        return {value: optionValue, text: optionValue, checked: true, disabled: true};
-                    }
                     return {value: executor.fullName, text: executor.fullName, checked: executor.isApplying === true};
                 });
         }
-        ctx.deceasedName = FormatName.format(req.session.form.deceased);
+        ctx.deceasedName = FormatName.format(formdata.deceased);
         ctx.executorName = ctx.list && ctx.list.length ===2 ? ctx.list[1].fullName: '';
         return ctx;
     }

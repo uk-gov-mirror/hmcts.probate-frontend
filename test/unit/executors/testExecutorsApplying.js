@@ -143,21 +143,9 @@ describe('Executors-Applying', () => {
             };
         });
 
-        it('should set the formatted lead applicant name as the option when there is no Applicant Alias', (done) => {
+        it('should filter lead applicant name from list of executors', (done) => {
             ctx = ExecsApplying.getContextData(req);
             expect(ctx.options).to.deep.equal([
-                {text: 'Robert Bruce', value: 'Robert Bruce', checked: true, disabled: true},
-                {text: 'Ed Brown', value: 'Ed Brown', checked: true},
-                {text: 'Dave Miller', value: 'Dave Miller', checked: true}
-            ]);
-            done();
-        });
-
-        it('should set the lead applicant alias as the option when the Applicant Alias is set', (done) => {
-            req.session.form.applicant.alias = 'Bobby Alias';
-            ctx = ExecsApplying.getContextData(req);
-            expect(ctx.options).to.deep.equal([
-                {text: 'Bobby Alias', value: 'Bobby Alias', checked: true, disabled: true},
                 {text: 'Ed Brown', value: 'Ed Brown', checked: true},
                 {text: 'Dave Miller', value: 'Dave Miller', checked: true}
             ]);
@@ -168,7 +156,6 @@ describe('Executors-Applying', () => {
             req.session.form.executors.list[1].isApplying = false;
             ctx = ExecsApplying.getContextData(req);
             expect(ctx.options).to.deep.equal([
-                {text: 'Robert Bruce', value: 'Robert Bruce', checked: true, disabled: true},
                 {text: 'Ed Brown', value: 'Ed Brown', checked: false},
                 {text: 'Dave Miller', value: 'Dave Miller', checked: true}
             ]);

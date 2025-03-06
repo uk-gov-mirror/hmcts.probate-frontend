@@ -3,6 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const {get} = require('lodash');
+const FormatName = require('../../../../utils/FormatName');
 const WillWrapper = require('../../../../wrappers/Will');
 const FieldError = require('../../../../components/error');
 
@@ -50,6 +51,8 @@ class ExecutorsNamed extends ValidationStep {
         console.log('ctx.list', ctx.list);
         console.log('ctx.map', ctx.list.map(executor => executor.fullName));
         ctx.executorsNumber = ctx.list.length;
+        const applicant = formdata.applicant;
+        ctx.applicantName= applicant?.alias ?? FormatName.format(applicant);
 
         if (ctx.list.length > ctx.executorsNumber) {
             return {
