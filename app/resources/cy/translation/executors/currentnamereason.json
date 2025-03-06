@@ -1,6 +1,6 @@
 {
   "title": "Rheswm dros yr Enw Arall",
-  "question": "Why is {executorName}&rsquo;s name different to how it is written in the will?",
+  "question": "Pam fod enw {executorName} yn wahanol i sut mae wedi&rsquo;i ysgrifennu ar yr ewyllys?",
   "questionWithCodicil": "Pam fod enw {executorName} yn wahanol i sut mae wedi&rsquo;i ysgrifennu ar yr ewyllys neu unrhyw godisiliau?",
   "paragraph1": "Rhaid i chi egluro&rsquo;r rheswm am y gwahaniaeth, er enghraifft, mae {executorName} wedi newid eu henw ers ysgrifennu&rsquo;r ewyllys, neu ni chafodd eu henw canol ei gynnwys.",
   "optionMarriage": "Mae nhw wedi priodi neu wedi ffurfio partneriaeth sifil",

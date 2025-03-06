@@ -8,8 +8,8 @@
   "listItem3": "roedd camgymeriad sillafu yn yr ewyllys",
   "listItem4": "maent hefyd yn cael eu hadnabod fel enw gwahanol",
   "paragraph3": "Os oes gwahaniaeth, byddwch yn gallu dweud wrthym pam yn ddiweddarach.",
-  "optionYes": "Yes",
-  "optionNo": "No",
+  "optionYes": "Ydy",
+  "optionNo": "Nac ydy",
 
   "errors": {
     "alias": {

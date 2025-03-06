@@ -63,12 +63,9 @@ describe('executor-notified', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testErrors(done, {}, 'required');
-                });
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
+            const errorsToTest = ['executorNotified'];
+            testWrapper.testErrors(done, {}, 'required', errorsToTest);
         });
     });
 });

@@ -69,7 +69,7 @@ class ExecutorsAllAlive extends ValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
-        if (ctx.allalive === 'optionYes') {
+        if (ctx.allalive === 'optionNo') {
             for (let i = 1; i < ctx.executorsNumber; i++) {
                 if (ctx.list[i].isDead) {
                     ctx.list[i].isDead = false;
