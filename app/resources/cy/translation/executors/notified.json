@@ -6,7 +6,7 @@
 
   "errors": {
     "executorNotified": {
-      "required": "Dewiswch do os ydych wedi hysbysu {executorName} yn ysgrifenedig"
+      "required": "Dewiswch 'Do' os ydych wedi hysbysu {executorName} yn ysgrifenedig"
     }
   }
 }

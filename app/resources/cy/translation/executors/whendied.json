@@ -7,7 +7,7 @@
 
   "errors": {
     "diedbefore": {
-      "required": "Dewiswch do os wnaeth {executorName} farw cyn {deceasedName}"
+      "required": "Dewiswch 'Do' os wnaeth {executorName} farw cyn {deceasedName}"
     }
   }
 }

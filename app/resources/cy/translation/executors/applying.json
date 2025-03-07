@@ -15,7 +15,7 @@
 
   "errors": {
     "otherExecutorsApplying": {
-      "required": "Dewiswch bydd os bydd {executorName} yn delio â'r ystad"
+      "required": "Dewiswch 'Bydd' os bydd {executorName} yn delio â'r ystad"
     },
     "executorsApplying": {
       "invalid": "Ni allwch ddewis mwy na 4 ysgutor"
