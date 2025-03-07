@@ -7,7 +7,7 @@
 
   "errors": {
     "diedbefore": {
-      "required": "Select yes if {executorName} died before {deceasedName}"
+      "required": "Select 'Yes' if {executorName} died before {deceasedName}"
     }
   }
 }

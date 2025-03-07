@@ -15,7 +15,7 @@
 
   "errors": {
     "otherExecutorsApplying": {
-      "required": "Select yes if {executorName} will be dealing with the estate"
+      "required": "Select 'Yes' if {executorName} will be dealing with the estate"
     },
     "executorsApplying": {
       "invalid": "You cannot select more than 4 executors"

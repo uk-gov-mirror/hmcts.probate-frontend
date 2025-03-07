@@ -6,7 +6,7 @@
 
   "errors": {
     "executorNotified": {
-      "required": "Select yes if you have notified {executorName} in writing"
+      "required": "Select 'Yes' if you have notified {executorName} in writing"
     }
   }
 }
