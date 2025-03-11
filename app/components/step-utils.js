@@ -93,6 +93,7 @@ const getPreviousUrl = (ctx, req, res, steps, stepName) => {
             const [stepCompleted, progressFlag] = step.isComplete(localctx, formdata, featureToggles);
             if (localctx.index > 0) {
                 delete localctx.index;
+                delete req.session.indexPosition;
             }
             const nextStep = step.next(req, localctx);
             if (stepName==='ExecutorNotified') {
