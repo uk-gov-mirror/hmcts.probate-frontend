@@ -109,14 +109,16 @@ Scenario('Check survey link works', async ({I}) => {
     await I.selectNameAsOnTheWill(language, optionYes);
     await I.enterApplicantPhone(language);
     await I.enterAddressManually(language);
+    await I.checkWillCodicils(language);
 
     const totalExecutors = '1';
-    await I.enterTotalExecutors(language, totalExecutors);
+    await I.enterExecutorNames(language, totalExecutors, optionNo);
 
     // Skip Equality and Diversity questions
     if (TestConfigurator.equalityAndDiversityEnabled()) {
         await I.exitEqualityAndDiversity(language);
         await I.completeEqualityAndDiversity(language);
+        await I.enterExecutorNames(language, totalExecutors, optionNo);
     }
 
     // Review and Confirm Task

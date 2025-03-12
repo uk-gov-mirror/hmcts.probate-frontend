@@ -91,6 +91,8 @@ module.exports = () => {
         enterTotalExecutors: steps.executors.number,
 
         // Multiple Executors
+        checkWillCodicils: steps.executors.checkWillCodicilsDtls,
+        additionalExecutorsList: steps.executors.addCoExecutors,
         enterExecutorNames: steps.executors.names,
         selectExecutorsAllAlive: steps.executors.allalive,
         selectExecutorsWhoDied: steps.executors.whodied,

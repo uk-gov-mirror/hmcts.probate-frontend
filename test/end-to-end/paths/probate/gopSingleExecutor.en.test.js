@@ -58,6 +58,7 @@ getTestLanguages().forEach(language => {
         await I.chooseBiLingualGrant(language, optionNo);
         await I.enterDeceasedName(language, 'Deceased First Name', 'Deceased Last Name');
         await I.enterDeceasedNameOnWill(language, optionYes);
+
         await I.enterDeceasedDateOfBirth(language, '01', '01', '1950', true);
 
         await I.seeSignOut(language);
@@ -69,7 +70,6 @@ getTestLanguages().forEach(language => {
 
         // Deceased Details
         await I.selectATask(language, 'deceasedTask', taskListContent.taskNotStarted);
-
         await I.enterDeceasedDateOfBirth(language, '01', '01', '1950');
         await I.enterDeceasedDateOfDeath(language, '01', '01', '2017');
         await I.enterDeceasedAddress(language);
@@ -113,14 +113,16 @@ getTestLanguages().forEach(language => {
         await I.selectNameAsOnTheWill(language, optionYes);
         await I.enterApplicantPhone(language);
         await I.enterAddressManually(language);
+        await I.checkWillCodicils(language);
 
         const totalExecutors = '1';
-        await I.enterTotalExecutors(language, totalExecutors);
+        await I.enterExecutorNames(language, totalExecutors, optionNo);
 
         // Skip Equality and Diversity questions
         if (TestConfigurator.equalityAndDiversityEnabled()) {
             await I.exitEqualityAndDiversity(language);
             await I.completeEqualityAndDiversity(language);
+            await I.enterExecutorNames(language, totalExecutors, optionNo);
         }
 
         // Review and Confirm Task
