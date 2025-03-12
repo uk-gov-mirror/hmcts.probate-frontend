@@ -107,12 +107,15 @@ getTestLanguages().forEach(language => {
         await I.selectNameAsOnTheWill(language, optionYes);
         await I.enterApplicantPhone(language);
         await I.enterAddressManually(language);
+        await I.checkWillCodicils(language);
 
         //const totalExecutors = '7';
         const totalExecutors = '4';
-        await I.enterTotalExecutors(language, totalExecutors);
-        await I.enterExecutorNames(language, totalExecutors);
-        await I.selectExecutorsAllAlive(language, optionNo);
+        // await I.enterTotalExecutors(language, totalExecutors);
+        // await I.additionalExecutorsList(language, totalExecutors);
+        await I.enterExecutorNames(language, totalExecutors, optionYes);
+        await I.selectExecutorsAllAlive(language, optionYes);
+        // await I.additionalExecutorsList(language, totalExecutors);
 
         //const executorsWhoDiedList = ['2', '7']; // exec2 and exec7
         const executorsWhoDiedList = ['2']; // exec2
@@ -126,7 +129,7 @@ getTestLanguages().forEach(language => {
             }
         }
 
-        await I.selectExecutorsApplying(language, optionYes);
+        // await I.selectExecutorsApplying(language, optionYes);
 
         //const executorsApplyingList = ['3', '5']; // exec3 and exec5
         const executorsApplyingList = ['3']; // exec3
