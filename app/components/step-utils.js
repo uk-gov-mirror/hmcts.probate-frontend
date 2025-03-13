@@ -1,7 +1,7 @@
 'use strict';
 
 const i18next = require('i18next');
-const {mapValues, get} = require('lodash');
+const {mapValues, get, every, tail} = require('lodash');
 const JourneyMap = require('app/core/JourneyMap');
 
 const commonContent = (language = 'en') => {
@@ -52,6 +52,7 @@ const getPreviousUrl = (ctx, req, res, steps, stepName) => {
     const taskList = journeyMap.taskList();
     let previousUrl='';
 
+    // eslint-disable-next-line complexity
     Object.keys(taskList).forEach((taskName) => {
         if (isDeclarationComplete(formdata) && isPreDeclarationTask(taskName)) {
             return;
@@ -106,7 +107,8 @@ const getPreviousUrl = (ctx, req, res, steps, stepName) => {
                 return;
             }
             if (stepName==='ExecutorRoles') {
-                previousUrl = '/executor-address/1';
+                const allNotApplying = every(tail(ctx.list), exec => !exec.isApplying);
+                previousUrl = allNotApplying ? '/other-executors-applying' : '/executor-address/1';
                 ctx.previousUrl = previousUrl;
                 return;
             }
