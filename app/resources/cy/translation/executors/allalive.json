@@ -1,7 +1,7 @@
 {
   "title": "A yw&rsquo;r holl ysgutorion dal yn fyw",
   "oneOtherQuestion": "A yw {executorName} wedi marw ers i'r ewyllys gael ei llofnodi?",
-  "multipleExecutorQuestion": "A oes unrhyw un o&rsquo;r ysgutorion wedi marw ers llofnodi&rsquo;r ewyllys?",
+  "multipleExecutorQuestion": "A oes unrhyw un o'r ysgutorion wedi marw ers llofnodi'r ewyllys?",
   "optionYes": "Do",
   "optionNo": "Naddo",
 
