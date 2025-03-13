@@ -100,6 +100,16 @@ const getPreviousUrl = (ctx, req, res, steps, stepName) => {
                 ctx.previousUrl = previousUrl;
                 return;
             }
+            if (stepName === 'ExecutorCurrentNameReason' || stepName === 'ExecutorCurrentName') {
+                previousUrl = '/executors-alias/*';
+                ctx.previousUrl = previousUrl;
+                return;
+            }
+            if (stepName==='ExecutorRoles') {
+                previousUrl = '/executor-address/1';
+                ctx.previousUrl = previousUrl;
+                return;
+            }
             if (stepCompleted) {
                 status = progressFlag !== 'noProgress' ? 'started' : status;
                 if (nextStep.name !== stepName) {
