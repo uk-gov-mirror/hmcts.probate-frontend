@@ -149,7 +149,8 @@ const isNoBackLinkStepName = (stepName) => {
         stepName==='ExecutorsAdditionalInvite' || stepName==='ThankYou' || stepName==='ExecutorsChangeMade' ||
         stepName==='ExecutorsInvitesSent' || stepName==='ExecutorsUpdateInviteSent' ||
         stepName==='CoApplicantDeclaration' || stepName==='CoApplicantAgreePage' ||
-        stepName==='CoApplicantDisagreePage' || stepName==='CoApplicantStartPage' || stepName==='PinPage';
+        stepName==='CoApplicantDisagreePage' || stepName==='CoApplicantStartPage' ||
+        stepName==='PinPage' || stepName==='PinResend';
 };
 const isPreDeclarationTask = (taskName) => {
     return taskName === 'DeceasedTask' || taskName === 'ExecutorsTask';
