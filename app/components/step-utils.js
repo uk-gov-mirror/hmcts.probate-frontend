@@ -101,8 +101,13 @@ const getPreviousUrl = (ctx, req, res, steps, stepName) => {
                 ctx.previousUrl = previousUrl;
                 return;
             }
-            if (stepName === 'ExecutorCurrentNameReason' || stepName === 'ExecutorCurrentName') {
-                previousUrl = '/executors-alias/*';
+            if (stepName === 'ExecutorCurrentName') {
+                previousUrl = '/executor-alias/*';
+                ctx.previousUrl = previousUrl;
+                return;
+            }
+            if (stepName === 'ExecutorCurrentNameReason') {
+                previousUrl = '/executor-id-name/*';
                 ctx.previousUrl = previousUrl;
                 return;
             }
