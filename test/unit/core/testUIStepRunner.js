@@ -56,6 +56,7 @@ describe('UIStepRunner', () => {
             validate: () => [false, []],
             getContextData: () => '',
             nextStepUrl: () => '',
+            generateBackLink: () => '',
             action: () => [{}, req.session.form],
             constructor: {
                 getUrl: () => 'hello'
@@ -111,6 +112,7 @@ describe('UIStepRunner', () => {
             validate: () => [false, []],
             getContextData: () => '',
             nextStepUrl: () => '',
+            generateBackLink: () => '',
             action: () => [{}, req400.session.form],
             constructor: {
                 getUrl: () => 'hello'
