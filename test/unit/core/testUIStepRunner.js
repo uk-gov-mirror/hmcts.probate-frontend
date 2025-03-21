@@ -56,7 +56,7 @@ describe('UIStepRunner', () => {
             validate: () => [false, []],
             getContextData: () => '',
             nextStepUrl: () => '',
-            getBackLink: () => '',
+            getBackLink: () => 'test',
             action: () => [{}, req.session.form],
             constructor: {
                 getUrl: () => 'hello'
@@ -68,7 +68,10 @@ describe('UIStepRunner', () => {
             hasDataChanged: true
         };
         const res = {
-            redirect: (url) => url
+            redirect: (url) => url,
+            locals: {
+                previousUrl: ''
+            }
         };
 
         const runner = new UIStepRunner();
@@ -126,6 +129,9 @@ describe('UIStepRunner', () => {
 
         const res400 = {
             redirect: (url) => url,
+            locals: {
+                previousUrl: ''
+            }
         };
 
         res400.render = sinon.spy();
