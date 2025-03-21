@@ -32,7 +32,7 @@ class UIStepRunner {
                     req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
                 );
                 if (isEmpty(errors)) {
-                    step.generateBackLink(req, res, ctx);
+                    res.locals.previousUrl = step.getBackLink(req, res, ctx);
                 }
                 const content = step.generateContent(ctx, formdata, session.language);
                 const fields = step.generateFields(session.language, ctx, errors, formdata);
@@ -82,7 +82,7 @@ class UIStepRunner {
             if (isEmptyForm && isSaveAndClose) {
                 res.redirect('/task-list');
             } else {
-                step.generateBackLink(req, res, ctx);
+                res.locals.previousUrl = step.getBackLink(req, res, ctx);
                 [isValid, errors] = step.validate(ctx, formdata, session.language);
                 const hasDataChanged = (new DetectDataChange()).hasDataChanged(ctx, req, step);
                 const featureToggles = session.featureToggles;

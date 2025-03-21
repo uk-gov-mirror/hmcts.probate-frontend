@@ -42,7 +42,7 @@ class Step {
         this.i18next = i18next;
     }
 
-    generateBackLink (req, res, ctx) {
+    getBackLink (req, res, ctx) {
         if (this.name !== 'SignOut' && this.name !== 'Timeout' &&
             this.name !== 'TaskList' && this.name !== 'Dashboard') {
             if ((this.resourcePath.indexOf('screeners')>=0 || this.name==='StopPage') &&
@@ -51,7 +51,7 @@ class Step {
             } else {
                 this.previousStepUrl(req, res, ctx);
             }
-            res.locals.previousUrl= ctx.previousUrl;
+            return ctx.previousUrl;
         }
     }
     previousStepUrl(req, res, ctx) {
