@@ -48,8 +48,6 @@ class ExecutorsNamed extends ValidationStep {
             ...executor,
             fullName: executor.fullName
         }))];
-        console.log('ctx.list', ctx.list);
-        console.log('ctx.map', ctx.list.map(executor => executor.fullName));
         ctx.executorsNumber = ctx.list.length;
         const applicant = formdata.applicant;
         ctx.applicantName= applicant?.alias ?? FormatName.format(applicant);
