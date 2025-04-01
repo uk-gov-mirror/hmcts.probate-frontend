@@ -26,7 +26,7 @@ class ExecutorContactDetails extends ValidationStep {
         }
         const executor = ctx.list[ctx.index];
         ctx.inviteId = executor.inviteId;
-        ctx.otherExecName = executor.fullName;
+        ctx.otherExecName = executor.hasOtherName ? executor.currentName : executor.fullName;
         ctx.formdataId = req.session.form.applicantEmail;
         ctx.authToken = req.authToken;
         ctx.serviceAuthorization = req.session.serviceAuthorization;
@@ -49,14 +49,13 @@ class ExecutorContactDetails extends ValidationStep {
         if (executorsWrapper.executorEmailAlreadyUsed(ctx.email, executor.fullName, formdata.applicantEmail)) {
             errors.push(FieldError('email', 'duplicate', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
-        if (!PhoneNumberValidator.validateMobilePhoneNumber(ctx.mobile)) {
-            errors.push(FieldError('mobile', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+        const validationResult = PhoneNumberValidator.validateMobilePhoneNumber(ctx.mobile);
+        if (!validationResult.isValid) {
+            errors.push(FieldError('mobile', validationResult.errorType, this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
-
         if (executorsWrapper.executorPhoneNumberAlreadyUsed(ctx.mobile, executor.fullName, formdata.applicant.phoneNumber)) {
             errors.push(FieldError('mobile', 'duplicate', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
-
         if (ctx.email !== executor.email && (executor.emailSent || executor.inviteId)) {
             executor.emailChanged = true;
         }

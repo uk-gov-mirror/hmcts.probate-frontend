@@ -1,7 +1,7 @@
 'use strict';
 
 const i18next = require('i18next');
-const {mapValues, get} = require('lodash');
+const {mapValues, get, every, tail} = require('lodash');
 const JourneyMap = require('app/core/JourneyMap');
 
 const commonContent = (language = 'en') => {
@@ -52,7 +52,11 @@ const getPreviousUrl = (ctx, req, res, steps, stepName) => {
     const taskList = journeyMap.taskList();
     let previousUrl='';
 
+    // eslint-disable-next-line complexity
     Object.keys(taskList).forEach((taskName) => {
+        if (isDeclarationComplete(formdata) && isPreDeclarationTask(taskName)) {
+            return;
+        }
         if (previousUrl !== '') {
             return;
         }
@@ -79,7 +83,7 @@ const getPreviousUrl = (ctx, req, res, steps, stepName) => {
             ctx.previousUrl = previousUrl;
             return;
         }
-        if (stepName===step.name || stepName==='Summary' || stepName==='CopiesSummary') {
+        if (stepName===step.name || stepName==='Summary') {
             previousUrl = '/task-list';
             ctx.previousUrl = previousUrl;
             return;
@@ -94,6 +98,22 @@ const getPreviousUrl = (ctx, req, res, steps, stepName) => {
             const nextStep = step.next(req, localctx);
             if (stepName==='ExecutorNotified') {
                 previousUrl = '/executor-roles/*';
+                ctx.previousUrl = previousUrl;
+                return;
+            }
+            if (stepName === 'ExecutorCurrentName') {
+                previousUrl = '/executors-alias/*';
+                ctx.previousUrl = previousUrl;
+                return;
+            }
+            if (stepName === 'ExecutorCurrentNameReason') {
+                previousUrl = '/executor-id-name/*';
+                ctx.previousUrl = previousUrl;
+                return;
+            }
+            if (stepName==='ExecutorRoles') {
+                const allNotApplying = every(tail(ctx.list), exec => !exec.isApplying);
+                previousUrl = allNotApplying ? '/other-executors-applying' : '/executor-address/1';
                 ctx.previousUrl = previousUrl;
                 return;
             }
@@ -142,9 +162,12 @@ const getScrennersPreviousUrl = (ctx, req, res, steps, currentStepName) => {
 };
 
 const isNoBackLinkStepName = (stepName) => {
-    return stepName==='CitizensHub' || stepName==='PaymentBreakdown' || stepName==='PaymentStatus' ||
+    return stepName==='CitizensHub' || stepName==='PaymentStatus' ||
         stepName==='ExecutorsAdditionalInvite' || stepName==='ThankYou' || stepName==='ExecutorsChangeMade' ||
-        stepName==='ExecutorsInvitesSent' || stepName==='ExecutorsUpdateInviteSent';
+        stepName==='ExecutorsInvitesSent' || stepName==='ExecutorsUpdateInviteSent' ||
+        stepName==='CoApplicantDeclaration' || stepName==='CoApplicantAgreePage' ||
+        stepName==='CoApplicantDisagreePage' || stepName==='CoApplicantStartPage' ||
+        stepName==='PinPage' || stepName==='PinResend';
 };
 const isPreDeclarationTask = (taskName) => {
     return taskName === 'DeceasedTask' || taskName === 'ExecutorsTask';

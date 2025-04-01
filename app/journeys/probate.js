@@ -16,13 +16,8 @@ const taskList = {
         lastStep: 'TaskList',
         summary: 'Summary'
     },
-    CopiesTask: {
-        firstStep: 'CopiesStart',
-        lastStep: 'CopiesSummary',
-        summary: 'CopiesSummary'
-    },
     PaymentTask: {
-        firstStep: 'PaymentBreakdown',
+        firstStep: 'CopiesStart',
         lastStep: 'TaskList',
         summary: 'Summary'
     },
@@ -178,15 +173,19 @@ const stepList = {
     ApplicantAlias: 'ApplicantAliasReason',
     ApplicantAliasReason: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',
-    ApplicantAddress: 'ExecutorsNumber',
-    ExecutorsNumber: {
-        oneExecutor: 'Equality',
-        otherwise: 'ExecutorsNames'
+    ApplicantAddress: 'ExecutorCheckWill',
+    ExecutorCheckWill: 'ExecutorsNamed',
+    ExecutorsNamed: {
+        multiExec: 'ExecutorsNames',
+        multiExecOptionNo: 'ExecutorsAllAlive',
+        otherwise: 'Equality'
     },
-    ExecutorsNames: 'ExecutorsAllAlive',
+    RemoveExecutor: 'ExecutorsNamed',
+    ExecutorsNames: 'ExecutorsNamed',
     ExecutorsAllAlive: {
         isAlive: 'ExecutorsApplying',
-        whoDied: 'ExecutorsWhoDied'
+        whoDied: 'ExecutorsWhoDied',
+        whenDied: 'ExecutorsWhenDied'
     },
     ExecutorsWhoDied: 'ExecutorsWhenDied',
     ExecutorsWhenDied: {
@@ -195,12 +194,11 @@ const stepList = {
         otherwise: 'ExecutorsApplying'
     },
     ExecutorsApplying: {
-        otherExecutorsApplying: 'ExecutorsDealingWithEstate',
+        otherExecutorsApplying: 'ExecutorsAlias',
         otherwise: 'ExecutorRoles'
     },
-    ExecutorsDealingWithEstate: 'ExecutorsAlias',
     ExecutorsAlias: {
-        withAlias: 'ExecutorsWithOtherNames',
+        withAlias: 'ExecutorCurrentName',
         otherwise: 'ExecutorContactDetails'
     },
     ExecutorsWithOtherNames: 'ExecutorCurrentName',
@@ -209,7 +207,7 @@ const stepList = {
         otherwise: 'ExecutorContactDetails',
     },
     ExecutorCurrentNameReason: {
-        continue: 'ExecutorCurrentName',
+        continue: 'ExecutorsAlias',
         otherwise: 'ExecutorContactDetails'
     },
     ExecutorContactDetails: 'ExecutorAddress',
@@ -255,7 +253,7 @@ const stepList = {
         otherwise: 'CopiesSummary'
     },
     CopiesOverseas: 'CopiesSummary',
-    CopiesSummary: 'TaskList',
+    CopiesSummary: 'PaymentBreakdown',
     PaymentBreakdown: 'PaymentStatus',
     PaymentStatus: 'TaskList',
     AddressLookup: 'AddressLookup',

@@ -15,7 +15,7 @@ const caseTypes = require('app/utils/CaseTypes');
 
 const stepsToExclude = [
     'Dashboard', 'Summary', 'TaskList', 'Equality', 'PinPage', 'PinSent', 'PinResend', 'AddressLookup', 'ExecutorAddress', 'ExecutorContactDetails', 'ExecutorName',
-    'ExecutorNotified', 'ExecutorNameAsOnWill', 'ExecutorApplying', 'DeleteExecutor', 'PaymentStatus', 'AddAlias', 'RemoveAlias', 'ExecutorRoles', 'ExecutorsWhenDied', 'AvayaWebchat'
+    'ExecutorNotified', 'ExecutorNameAsOnWill', 'ExecutorApplying', 'DeleteExecutor', 'PaymentStatus', 'AddAlias', 'RemoveAlias', 'ExecutorRoles', 'ExecutorsWhenDied', 'AvayaWebchat', 'RemoveExecutor'
 ];
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`], 'en');
 const nock = require('nock');
@@ -33,7 +33,7 @@ const commonSessionData = {
     back: []
 };
 
-const warning = ['WCAG2AA.Principle1.Guideline1_3.1_3_1.H48', 'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68.HiddenAttr'];
+const warning = ['WCAG2AA.Principle1.Guideline1_3.1_3_1.H48', 'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68.HiddenAttr', 'WCAG2AA.Principle1.Guideline1_3.1_3_1_A.G141'];
 const excludeWarnings = r => {
     return !warning.includes(r.code);
 };

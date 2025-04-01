@@ -32,6 +32,7 @@ const eligibilityCookie = new EligibilityCookie();
 const caseTypes = require('app/utils/CaseTypes');
 const featureToggles = require('app/featureToggles');
 const sanitizeRequestBody = require('app/middleware/sanitizeRequestBody');
+const setSessionLanguage = require('app/middleware/setSessionLanguage');
 const isEmpty = require('lodash').isEmpty;
 const setupHealthCheck = require('app/utils/setupHealthCheck');
 
@@ -52,7 +53,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const njkEnv = nunjucks.configure([
         'app/steps',
         'app/views',
-        'node_modules/govuk-frontend/'
+        'node_modules/govuk-frontend/dist'
     ], {
         noCache: isDev,
         express: app
@@ -115,7 +116,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             ],
             scriptSrc: [
                 '\'self\'',
-                '\'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU=\'',
+                '\'sha256-GUQ5ad8JK5KmEWmROf3LZd9ge94daqNvd8xy9YS1iDw=\'',
                 '\'sha256-AaA9Rn5LTFZ5vKyp3xOfFcP4YbyOjvWn2up8IKHVAKk=\'',
                 '\'sha256-G29/qSW/JHHANtFhlrZVDZW1HOkCDRc78ggbqwwIJ2g=\'',
                 '\'sha256-BWhcmwio/4/QdqKNw5PKmTItWBjkevCaOUbLkgW5cHs=\'',
@@ -165,7 +166,12 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'fonts.googleapis.com',
                 '*.googletagmanager.com'
             ],
-            frameAncestors: ['\'self\'']
+            frameAncestors: ['\'self\''],
+            formAction: [
+                '\'self\'',
+                config.services.equalityAndDiversity.url,
+                config.services.payment.externalUrl
+            ]
         },
         browserSniff: true,
         setAllHeaders: true
@@ -185,21 +191,25 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     app.use(nocache());
     app.use(helmet.xssFilter({setOnOldIE: true}));
 
+    app.use(helmet.strictTransportSecurity({
+        maxAge: 31536000,
+    }));
+
     const caching = {cacheControl: true, setHeaders: (res) => res.setHeader('Cache-Control', 'max-age=604800')};
 
     // Middleware to serve static assets
     app.use('/public/stylesheets', express.static(`${__dirname}/public/stylesheets`, caching));
     app.use('/public/images', express.static(`${__dirname}/app/assets/images`, caching));
     app.use('/public/locales', express.static(`${__dirname}/app/assets/locales`, caching));
-    app.use('/public/javascripts/govuk-frontend', express.static(`${__dirname}/node_modules/govuk-frontend`, caching));
+    app.use('/public/javascripts/govuk-frontend', express.static(`${__dirname}/node_modules/govuk-frontend/dist`, caching));
     app.use('/public/javascripts/jquery', express.static(`${__dirname}/node_modules/jquery/dist`, caching));
     app.use('/public/javascripts', express.static(`${__dirname}/app/assets/javascripts`, caching));
     app.use('/public/pdf', express.static(`${__dirname}/app/assets/pdf`));
-    app.use('/assets', express.static(`${__dirname}/node_modules/govuk-frontend/govuk/assets`, caching));
+    app.use('/assets', express.static(`${__dirname}/node_modules/govuk-frontend/dist/govuk/assets`, caching));
     app.use('/assets/locale', express.static(`${__dirname}/app/assets/locales/avaya-webchat`, caching));
 
     // Elements refers to icon folder instead of images folder
-    app.use(favicon(path.join(__dirname, 'node_modules', 'govuk-frontend', 'govuk', 'assets', 'images', 'favicon.ico')));
+    app.use(favicon(path.join(__dirname, 'node_modules', 'govuk-frontend', 'dist', 'govuk', 'assets', 'images', 'favicon.ico')));
 
     // Support for parsing data in POSTs
     app.use(bodyParser.json());
@@ -243,19 +253,9 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         next();
     });
 
+    app.use(setSessionLanguage);
+
     app.use((req, res, next) => {
-        if (!req.session.language) {
-            req.session.language = 'en';
-        }
-
-        if (req.query) {
-            if (req.query.lng && config.languages.includes(req.query.lng)) {
-                req.session.language = req.query.lng;
-            } else if (req.query.locale && config.languages.includes(req.query.locale)) {
-                req.session.language = req.query.locale;
-            }
-        }
-
         if (isA11yTest && !isEmpty(a11yTestSession)) {
             req.session = Object.assign(req.session, a11yTestSession);
         }

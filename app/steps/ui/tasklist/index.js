@@ -4,6 +4,7 @@ const Step = require('app/core/steps/Step');
 const utils = require('app/components/step-utils');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const caseTypes = require('app/utils/CaseTypes');
+const DateValidation = require('app/utils/DateValidation');
 
 class TaskList extends Step {
 
@@ -13,12 +14,12 @@ class TaskList extends Step {
 
     previousTaskStatus(previousTasks) {
         const allPreviousTasksComplete = previousTasks.every((task) => {
-            return task.status === 'complete';
+            return task && task.status === 'complete';
         });
         return allPreviousTasksComplete ? 'complete' : 'started';
     }
 
-    copiesPreviousTaskStatus(session, ctx) {
+    paymentPreviousTaskStatus(session, ctx) {
         if (ctx.caseType === caseTypes.GOP) {
             if (ctx.hasMultipleApplicants && session.haveAllExecutorsDeclared === 'false') {
                 return 'locked';
@@ -37,6 +38,13 @@ class TaskList extends Step {
 
         ctx.alreadyDeclared = this.alreadyDeclared(req.session);
         ctx.alreadyDeclaredType = typeof ctx.alreadyDeclared;
+        ctx.displayInactiveAlertBanner = DateValidation.isInactivePeriod(formdata.ccdCase?.lastModifiedDate);
+        const daysToDelete = DateValidation.daysToDelete(formdata.ccdCase?.lastModifiedDate);
+        if (req.session.language === 'cy') {
+            ctx.daysToDeleteText = daysToDelete + ' diwrnod';
+        } else {
+            ctx.daysToDeleteText = daysToDelete > 1 ? daysToDelete + ' days' : daysToDelete + ' day';
+        }
 
         if (ctx.caseType === caseTypes.GOP) {
             const executorsWrapper = new ExecutorsWrapper(formdata.executors);
@@ -47,21 +55,25 @@ class TaskList extends Step {
                 DeceasedTask: ctx.DeceasedTask.status,
                 ExecutorsTask: ctx.DeceasedTask.status,
                 ReviewAndConfirmTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask]),
-                CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
-                PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
-                DocumentsTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask, ctx.PaymentTask])
+                PaymentTask: this.paymentPreviousTaskStatus(req.session, ctx),
+                DocumentsTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.PaymentTask])
             };
         } else {
             ctx.previousTaskStatus = {
                 DeceasedTask: ctx.DeceasedTask.status,
                 ApplicantsTask: ctx.DeceasedTask.status,
                 ReviewAndConfirmTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask]),
-                CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
-                PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
+                PaymentTask: this.paymentPreviousTaskStatus(req.session, ctx)
             };
         }
-
         return ctx;
+    }
+
+    handlePost(ctx, errors) {
+        if (ctx.isKeepDraft === 'true') {
+            ctx.displaySuccessBanner = true;
+        }
+        return [ctx, errors];
     }
 
     action(ctx, formdata) {
@@ -71,6 +83,9 @@ class TaskList extends Step {
         delete ctx.previousTaskStatus;
         delete ctx.caseType;
         delete ctx.declarationStatuses;
+        delete ctx.displayInactiveAlertBanner;
+        delete ctx.daysToDeleteText;
+        delete ctx.isKeepDraft;
         return [ctx, formdata];
     }
 }

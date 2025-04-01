@@ -12,6 +12,8 @@ const journeyIntestacy = require('app/journeys/intestacy');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const taskList = steps.TaskList;
 const caseTypes = require('app/utils/CaseTypes');
+const DateValidation = require('app/utils/DateValidation');
+const sinon = require('sinon');
 
 describe('Tasklist', () => {
     describe('getUrl()', () => {
@@ -29,7 +31,11 @@ describe('Tasklist', () => {
             let ctx = {};
             const req = {
                 session: {
-                    form: {},
+                    form: {
+                        ccdCase: {
+                            lastModifiedDate: '2020-01-01'
+                        }
+                    },
                     featureToggles: {'ft_will_condition': false}
                 },
                 query: {}
@@ -165,8 +171,8 @@ describe('Tasklist', () => {
                 ctx = taskList.getContextData(req);
 
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
-                assert.equal(ctx.CopiesTask.status, 'notStarted');
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.status, 'notStarted');
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             });
 
             it('Updates the context: Review and confirm complete (Multiple Applicants All Agreed)', () => {
@@ -185,8 +191,8 @@ describe('Tasklist', () => {
                 ctx.hasMultipleApplicants = true;
 
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
-                assert.equal(ctx.CopiesTask.status, 'notStarted');
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.status, 'notStarted');
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             });
 
             it('Updates the context: Review and confirm complete (Multiple Applicants Not all have agreed)', () => {
@@ -196,45 +202,17 @@ describe('Tasklist', () => {
                     applicant: completedForm.applicant,
                     deceased: completedForm.deceased,
                     executors: completedForm.executors,
-                    declaration: completedForm.declaration
+                    declaration: completedForm.declaration,
+                    ccdCase: {
+                        lastModifiedDate: '2020-01-01'
+                    }
                 };
                 req.body = {};
                 req.session.haveAllExecutorsDeclared = 'false';
                 ctx = taskList.getContextData(req);
 
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
-                assert.equal(ctx.previousTaskStatus.CopiesTask, 'locked');
-            });
-
-            it('Updates the context: CopiesTask not started', () => {
-                req.session.form = {};
-                req.body = {};
-                ctx = taskList.getContextData(req);
-
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-                assert.equal(ctx.CopiesTask.status, 'notStarted');
-            });
-
-            it('Updates the context: CopiesTask started', () => {
-                req.session.form = {
-                    copies: {
-                        uk: 1
-                    }
-                };
-                req.body = {};
-                ctx = taskList.getContextData(req);
-
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-                assert.equal(ctx.CopiesTask.status, 'started');
-            });
-
-            it('Updates the context: CopiesTask complete', () => {
-                req.session.form = completedForm;
-                req.body = {};
-                ctx = taskList.getContextData(req);
-
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-                assert.equal(ctx.CopiesTask.status, 'complete');
+                assert.equal(ctx.previousTaskStatus.PaymentTask, 'locked');
             });
 
             it('Updates the context: PaymentTask not started', () => {
@@ -253,7 +231,8 @@ describe('Tasklist', () => {
                     },
                     ccdCase: {
                         state: 'PAAppCreated',
-                        id: 1535395401245028
+                        id: 1535395401245028,
+                        lastModifiedDate: '2020-01-01'
                     }
                 };
                 req.body = {};
@@ -265,12 +244,16 @@ describe('Tasklist', () => {
 
             it('Updates the context: PaymentTask started (No Fee)', () => {
                 req.session.form = {
+                    copies: {
+                        uk: 1
+                    },
                     payment: {
                         total: 0,
                     },
                     ccdCase: {
                         state: 'PAAppCreated',
-                        id: 1535395401245028
+                        id: 1535395401245028,
+                        lastModifiedDate: '2020-01-01'
                     }
                 };
                 req.body = {};
@@ -284,7 +267,15 @@ describe('Tasklist', () => {
                 req.session.form = {
                     ccdCase: {
                         state: 'CasePrinted',
-                        id: 1535395401245028
+                        id: 1535395401245028,
+                        lastModifiedDate: '2020-01-01'
+                    },
+                    assets: {
+                        assetsoverseas: 'optionYes'
+                    },
+                    copies: {
+                        uk: 1,
+                        overseas: 0
                     },
                     payment: {
                         status: 'Success',
@@ -315,20 +306,15 @@ describe('Tasklist', () => {
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
                 assert.equal(ctx.DocumentsTask.status, 'complete');
             });
-
-            it('Test the Copies Previous Task Status is set correctly', () => {
-                req.session.form = completedForm;
-                ctx = taskList.getContextData(req);
-
-                assert.equal(ctx.CopiesTask.status, 'complete');
-            });
         });
 
         describe('Probate Journey - will condition FT = ON', () => {
             let ctx = {};
             const req = {
                 session: {
-                    form: {},
+                    form: {
+                        ccdCase: {},
+                    },
                 },
                 featureToggles: {'ft_will_condition': true},
                 query: {}
@@ -337,6 +323,10 @@ describe('Tasklist', () => {
             beforeEach(() => {
                 req.session.journey = journeyProbate;
                 journeyMap = new JourneyMap(journeyProbate);
+            });
+
+            afterEach(() => {
+                sinon.restore();
             });
 
             it('Updates the context: neither task is started', () => {
@@ -464,8 +454,7 @@ describe('Tasklist', () => {
                 ctx = taskList.getContextData(req);
 
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
-                assert.equal(ctx.CopiesTask.status, 'notStarted');
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.status, 'notStarted');
             });
 
             it('Updates the context: Review and confirm complete (Multiple Applicants All Agreed)', () => {
@@ -484,8 +473,7 @@ describe('Tasklist', () => {
                 ctx.hasMultipleApplicants = true;
 
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
-                assert.equal(ctx.CopiesTask.status, 'notStarted');
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.status, 'notStarted');
             });
 
             it('Updates the context: Review and confirm complete (Multiple Applicants Not all have agreed)', () => {
@@ -502,38 +490,7 @@ describe('Tasklist', () => {
                 ctx = taskList.getContextData(req);
 
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
-                assert.equal(ctx.previousTaskStatus.CopiesTask, 'locked');
-            });
-
-            it('Updates the context: CopiesTask not started', () => {
-                req.session.form = {};
-                req.body = {};
-                ctx = taskList.getContextData(req);
-
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-                assert.equal(ctx.CopiesTask.status, 'notStarted');
-            });
-
-            it('Updates the context: CopiesTask started', () => {
-                req.session.form = {
-                    copies: {
-                        uk: 1
-                    }
-                };
-                req.body = {};
-                ctx = taskList.getContextData(req);
-
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-                assert.equal(ctx.CopiesTask.status, 'started');
-            });
-
-            it('Updates the context: CopiesTask complete', () => {
-                req.session.form = completedFormWillConditionOn;
-                req.body = {};
-                ctx = taskList.getContextData(req);
-
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-                assert.equal(ctx.CopiesTask.status, 'complete');
+                assert.equal(ctx.previousTaskStatus.PaymentTask, 'locked');
             });
 
             it('Updates the context: PaymentTask not started', () => {
@@ -547,6 +504,13 @@ describe('Tasklist', () => {
 
             it('Updates the context: PaymentTask started (Fee to Pay)', () => {
                 req.session.form = {
+                    assets: {
+                        assetsoverseas: 'optionYes'
+                    },
+                    copies: {
+                        uk: 1,
+                        overseas: 0
+                    },
                     payment: {
                         reference: '1234',
                         status: 'Initiated'
@@ -565,6 +529,9 @@ describe('Tasklist', () => {
 
             it('Updates the context: PaymentTask started (No Fee)', () => {
                 req.session.form = {
+                    copies: {
+                        uk: 1
+                    },
                     payment: {
                         total: 0,
                     },
@@ -585,6 +552,13 @@ describe('Tasklist', () => {
                     ccdCase: {
                         state: 'CasePrinted',
                         id: 1535395401245028
+                    },
+                    assets: {
+                        assetsoverseas: 'optionYes'
+                    },
+                    copies: {
+                        uk: 1,
+                        overseas: 1
                     },
                     payment: {
                         status: 'Success',
@@ -616,11 +590,69 @@ describe('Tasklist', () => {
                 assert.equal(ctx.DocumentsTask.status, 'complete');
             });
 
-            it('Test the Copies Previous Task Status is set correctly', () => {
+            it('Test the inactivity banner is set to display', () => {
                 req.session.form = completedFormWillConditionOn;
+                sinon.stub(DateValidation, 'daysToDelete').returns(0);
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.CopiesTask.status, 'complete');
+                assert.equal(ctx.displayInactiveAlertBanner, true);
+                assert.equal(ctx.daysToDeleteText, '0 day');
+            });
+
+            it('should return correct context data with inactive alert and days to delete', () => {
+                sinon.stub(DateValidation, 'isInactivePeriod').returns(true);
+                sinon.stub(DateValidation, 'daysToDelete').returns(45);
+
+                const ctx = taskList.getContextData(req);
+
+                expect(ctx.displayInactiveAlertBanner).to.equal(true);
+                expect(ctx.daysToDeleteText).to.equal('45 days');
+            });
+
+            it('should format daysToDeleteText correctly for singular value (1 day)', () => {
+                sinon.stub(DateValidation, 'isInactivePeriod').returns(false);
+                sinon.stub(DateValidation, 'daysToDelete').returns(1);
+
+                const ctx = taskList.getContextData(req);
+
+                expect(ctx.displayInactiveAlertBanner).to.equal(false);
+                expect(ctx.daysToDeleteText).to.equal('1 day');
+            });
+
+            it('should return default values when ccdCase is missing', () => {
+                req.session.form = {ccdCase: null};
+
+                sinon.stub(DateValidation, 'isInactivePeriod').returns(false);
+                sinon.stub(DateValidation, 'daysToDelete').returns(0);
+
+                const ctx = taskList.getContextData(req);
+
+                expect(ctx.displayInactiveAlertBanner).to.equal(false);
+                expect(ctx.daysToDeleteText).to.equal('0 day');
+            });
+
+            it('should return default values when formdata is missing', () => {
+                req.session.form = {};
+
+                sinon.stub(DateValidation, 'isInactivePeriod').returns(false);
+                sinon.stub(DateValidation, 'daysToDelete').returns(0);
+
+                const ctx = taskList.getContextData(req);
+
+                expect(ctx.displayInactiveAlertBanner).to.equal(false);
+                expect(ctx.daysToDeleteText).to.equal('0 day');
+            });
+
+            it('should handle null lastModifiedDate gracefully', () => {
+                req.session.form = {ccdCase: {lastModifiedDate: null}};
+
+                sinon.stub(DateValidation, 'isInactivePeriod').returns(false);
+                sinon.stub(DateValidation, 'daysToDelete').returns(0);
+
+                const ctx = taskList.getContextData(req);
+
+                expect(ctx.displayInactiveAlertBanner).to.equal(false);
+                expect(ctx.daysToDeleteText).to.equal('0 day');
             });
         });
 
@@ -808,40 +840,8 @@ describe('Tasklist', () => {
                 ctx = taskList.getContextData(req);
 
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
-                assert.equal(ctx.CopiesTask.status, 'notStarted');
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-            });
-
-            it('Updates the context: CopiesTask not started', () => {
-                req.session.form = {};
-                req.body = {};
-                ctx = taskList.getContextData(req);
-
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-                assert.equal(ctx.CopiesTask.status, 'notStarted');
-            });
-
-            it('Updates the context: CopiesTask started', () => {
-                req.session.form = {
-                    copies: {
-                        uk: 1
-                    }
-                };
-                req.body = {};
-                ctx = taskList.getContextData(req);
-
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-                assert.equal(ctx.CopiesTask.status, 'started');
-            });
-
-            it('Updates the context: CopiesTask complete', () => {
-                req.session.form = completedForm;
-                req.session.form.caseType = caseTypes.INTESTACY;
-                req.body = {};
-                ctx = taskList.getContextData(req);
-
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-                assert.equal(ctx.CopiesTask.status, 'complete');
+                assert.equal(ctx.PaymentTask.status, 'notStarted');
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             });
 
             it('Updates the context: PaymentTask not started', () => {
@@ -859,6 +859,9 @@ describe('Tasklist', () => {
                         reference: '1234',
                         status: 'Initiated'
                     },
+                    copies: {
+                        uk: 1
+                    },
                     ccdCase: {
                         state: 'PAAppCreated',
                         id: 1535395401245028
@@ -875,6 +878,9 @@ describe('Tasklist', () => {
                 req.session.form = {
                     payment: {
                         total: 0,
+                    },
+                    copies: {
+                        uk: 1
                     },
                     ccdCase: {
                         state: 'PAAppCreated',
@@ -894,6 +900,12 @@ describe('Tasklist', () => {
                         state: 'CasePrinted',
                         id: 1535395401245028
                     },
+                    assets: {
+                        assetsoverseas: 'optionNo'
+                    },
+                    copies: {
+                        uk: 1
+                    },
                     payment: {
                         status: 'Success',
                         reference: '1234'
@@ -908,6 +920,7 @@ describe('Tasklist', () => {
 
             it('Updates the context: DeceasedTask, Applicants, Review and confirm and Copies tasks complete', () => {
                 req.session.form = completedForm;
+                req.session.form.language = {bilingual: 'optionNo'};
                 req.session.form.equality = {
                     pcqId: 'dummy_id'
                 };
@@ -918,13 +931,16 @@ describe('Tasklist', () => {
                 assert.equal(ctx.ApplicantsTask.status, 'complete');
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
             });
+        });
+    });
 
-            it('Test the Copies Previous Task Status is set correctly', () => {
-                req.session.form = completedForm;
-                ctx = taskList.getContextData(req);
-
-                assert.equal(ctx.CopiesTask.status, 'complete');
-            });
+    describe('handlePost()', () => {
+        it('test it sets displaySuccessBanner', () => {
+            const ctx = {
+                isKeepDraft: 'true'
+            };
+            taskList.handlePost(ctx);
+            assert.isTrue(ctx.displaySuccessBanner);
         });
     });
 
@@ -943,7 +959,10 @@ describe('Tasklist', () => {
                         executorName: 'exec 2',
                         agreed: false
                     }
-                ]
+                ],
+                displayInactiveAlertBanner: true,
+                daysToDeleteText: '1 day',
+                isKeepDraft: true
             };
 
             taskList.action(ctx);
@@ -951,6 +970,9 @@ describe('Tasklist', () => {
             assert.isUndefined(ctx.alreadyDeclared);
             assert.isUndefined(ctx.previousTaskStatus);
             assert.isUndefined(ctx.declarationStatuses);
+            assert.isUndefined(ctx.displayInactiveAlertBanner);
+            assert.isUndefined(ctx.daysToDeleteText);
+            assert.isUndefined(ctx.isKeepDraft);
         });
     });
 });
