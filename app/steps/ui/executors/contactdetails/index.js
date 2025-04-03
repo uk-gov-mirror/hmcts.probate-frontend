@@ -26,7 +26,7 @@ class ExecutorContactDetails extends ValidationStep {
         }
         const executor = ctx.list[ctx.index];
         ctx.inviteId = executor.inviteId;
-        ctx.otherExecName = executor.fullName;
+        ctx.otherExecName = executor.hasOtherName ? executor.currentName : executor.fullName;
         ctx.formdataId = req.session.form.applicantEmail;
         ctx.authToken = req.authToken;
         ctx.serviceAuthorization = req.session.serviceAuthorization;
@@ -48,6 +48,9 @@ class ExecutorContactDetails extends ValidationStep {
         }
         if (executorsWrapper.executorEmailAlreadyUsed(ctx.email, executor.fullName, formdata.applicantEmail)) {
             errors.push(FieldError('email', 'duplicate', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+        }
+        if (ctx.mobile) {
+            ctx.mobile = this.sanitisePhoneNumber(ctx.mobile);
         }
         const validationResult = PhoneNumberValidator.validateMobilePhoneNumber(ctx.mobile);
         if (!validationResult.isValid) {
@@ -103,6 +106,13 @@ class ExecutorContactDetails extends ValidationStep {
 
     isComplete(ctx) {
         return [every(tail(ctx.list).filter(exec => exec.isApplying === true), exec => exec.email && exec.mobile && exec.address), 'inProgress'];
+    }
+
+    sanitisePhoneNumber(phoneNumber) {
+        phoneNumber = String(phoneNumber).trim();
+        const plusBeforeDigits = (/^\D*\+/).test(phoneNumber);
+        const digitsOnly = phoneNumber.replace(/\D/g, '');
+        return plusBeforeDigits ? '+' + digitsOnly : digitsOnly;
     }
 }
 
