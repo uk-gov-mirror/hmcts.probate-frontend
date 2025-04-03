@@ -8,8 +8,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-xl govuk-!-margin-bottom-4" style="margin-bottom: 10px!important;">{{ content.header | safe }} - {{ fields.deceasedName.value }}</h1>
-    <h2 class="govuk-body"><strong>{{ content.referenceNumber | safe }}: {{ fields.ccdReferenceNumber.value }} </strong>
-    </h2>
+    <h2 class="govuk-body"><strong>{{ content.referenceNumber | safe }}: {{ fields.ccdReferenceNumber.value }} </strong></h2>
     <div class="govuk-grid-column-two-thirds" style="padding-left: 0px;">
       <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible probate-section-break">
       <br>
@@ -71,17 +70,17 @@
 
       <div class="govuk-body govuk-!-static-padding-4 govuk-!-text-align-left" style="background-color: #f3f2f1;">
         {% if fields.grantIssued.value == "true" %}
-        <h2 class="govuk-heading-s" style="max-width: 600px">{{ content.grantIssuedHeading | safe }}</h2>
+        <h2 class="govuk-heading-m" style="max-width: 600px">{{ content.grantIssuedHeading | safe }}</h2>
         <p class="govuk-body" style="max-width: 600px">{{ content.grantIssuedParagraph1 | safe }}</p>
         <p class="govuk-body" style="max-width: 600px">{{ content.grantIssuedParagraph2 | safe }}</p>
         {% elseif fields.applicationInReview.value == "true" %}
         {% if fields.informationProvided.value == "true" %}
-        <h2 class="govuk-heading-s" style="max-width: 600px">{{ content.informationProvidedHeading | safe }}</h2>
+        <h2 class="govuk-heading-m" style="max-width: 600px">{{ content.informationProvidedHeading | safe }}</h2>
         <p class="govuk-body" style="max-width: 600px">{{ content.informationProvidedParagraph1 | replace("{date}",
           fields.date.value) | safe }}</p>
         <p class="govuk-body" style="max-width: 600px">{{ content.informationProvidedParagraph2 | safe }}</p>
         {% elseif fields.partialInformationProvided.value == "true" %}
-        <h2 class="govuk-heading-s" style="max-width: 600px">{{ content.informationProvidedHeading | safe }}</h2>
+        <h2 class="govuk-heading-m" style="max-width: 600px">{{ content.informationProvidedHeading | safe }}</h2>
         <p class="govuk-body" style="max-width: 600px">{{ content.partialInformationParagraph1 | safe }}</p>
         <p class="govuk-body" style="max-width: 600px">{{ content.partialInformationParagraph2 | safe }}</p>
         <h3 class="govuk-heading-s" style="max-width: 600px">{{ content.partialInformationProvidedHeading | safe }}</h3>
@@ -90,7 +89,7 @@
         <p class="govuk-body" style="max-width: 600px">{{ content.partialInformationParagraph5 | safe }}</p>
         <p class="govuk-body" style="max-width: 600px">{{ content.partialInformationParagraph6 | safe }}</p>
         {% elseif fields.caseStopped.value == "true" %}
-        <h2 class="govuk-heading-s" style="max-width: 600px">{{ content.caseStoppedHeading | safe }}</h2>
+        <h2 class="govuk-heading-m" style="max-width: 600px">{{ content.caseStoppedHeading | safe }}</h2>
         {% if fields.informationNeeded.value === "true" and fields.informationNeededByPost.value === "false" %}
         <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph1 | safe }}</p>
         <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph2 | safe }}</p>
@@ -110,25 +109,25 @@
         <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph | safe }}</p>
         {% endif %}
         {% elseif fields.caseClosed.value == "true" %}
-        <h2 class="govuk-heading-s" style="max-width: 600px">{{ content.caseClosedHeading | safe }}</h2>
+        <h2 class="govuk-heading-m" style="max-width: 600px">{{ content.caseClosedHeading | safe }}</h2>
         <p class="govuk-body" style="max-width: 600px">{{ content.caseClosedParagraph | safe }}</p>
         {% else %}
-        <h2 class="govuk-heading-s" style="max-width: 600px">{{ content.applicationReviewHeading | safe }}</h2>
+        <h2 class="govuk-heading-m" style="max-width: 600px">{{ content.applicationReviewHeading | safe }}</h2>
         <p class="govuk-body" style="max-width: 600px">{{ content.applicationReviewParagraph | safe }}</p>
         {% endif %}
         {% elseif fields.documentsReceived.value == "true" %}
-        <h2 class="govuk-heading-s" style="max-width: 600px">{{ content.documentsReceivedHeading | safe }}</h2>
+        <h2 class="govuk-heading-m" style="max-width: 600px">{{ content.documentsReceivedHeading | safe }}</h2>
         <p class="govuk-body" style="max-width: 600px">{{ content.documentsReceivedParagraph | safe }}</p>
         {% elseif fields.applicationSubmitted.value == "true" %}
         {% if fields.documentsRequired.value == "true" %}
-        <h2 class="govuk-heading-s" style="max-width: 600px">{{ content.applicationReceivedHeading | safe }}</h2>
+        <h2 class="govuk-heading-m" style="max-width: 600px">{{ content.applicationReceivedHeading | safe }}</h2>
         {% if fields.caseType.value == "intestacy" %}
         <p class="govuk-body" style="max-width: 600px">{{ content.intestacyApplicationReceivedParagraph | safe }}</p>
         {% else %}
         <p class="govuk-body" style="max-width: 600px">{{ content.applicationReceivedParagraph | safe }}</p>
         {% endif %}
         {% else %}
-        <h2 class="govuk-heading-s" style="max-width: 600px">{{ content.applicationReceivedHeading | safe }}</h2>
+        <h2 class="govuk-heading-m" style="max-width: 600px">{{ content.applicationReceivedHeading | safe }}</h2>
         <p class="govuk-body" style="max-width: 600px">{{ content.noDocsRequiredAppReceivedParagraph | safe }}</p>
         {% endif %}
         {% endif %}
