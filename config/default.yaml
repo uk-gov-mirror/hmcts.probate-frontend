@@ -304,6 +304,7 @@ intestacyScreenersDeathCertificateInEnglish:
   domicile: 'optionYes'
   completed: 'optionYes'
   left: 'optionNo'
+  diedAfter: 'optionYes'
   related: 'optionYes'
   otherApplicants: 'optionNo'
 intestacyScreenersDeathCertificateNotInEnglish:
