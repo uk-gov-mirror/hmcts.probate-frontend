@@ -46,7 +46,6 @@ getTestLanguages().forEach(language => {
         if (isEEEnabled) {
             await I.selectEEDeceasedDod(language, optionNo);
             await I.selectIhtCompleted(language, optionYes);
-            await I.selectEEvalue(language);
         } else {
             await I.selectIhtCompleted(language, optionYes);
         }
@@ -149,7 +148,6 @@ getTestLanguages().forEach(language => {
         if (isEEEnabled) {
             await I.selectEEDeceasedDod(language, optionNo);
             await I.selectIhtCompleted(language, optionYes);
-            await I.selectEEvalue(language);
         } else {
             await I.selectIhtCompleted(language, optionYes);
         }
