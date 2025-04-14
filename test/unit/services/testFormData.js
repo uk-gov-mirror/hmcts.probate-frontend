@@ -67,4 +67,34 @@ describe('FormDataService', () => {
             done(err);
         });
     });
+
+    it('should call post() successfully', (done) => {
+        const endpoint = 'http://localhost';
+        const ccdCaseId = 1234567890123456;
+        const lastModifiedDateTime = '2018-01-01T12:12:12.123';
+        const inputForm = {caseType: caseTypes.GOP, deceased: {name: 'test'}};
+        const expectedForm = {type: caseTypes.GOP, caseType: caseTypes.GOP, deceased: {name: 'test'}};
+        const authToken = 'authToken';
+        const serviceAuthorisation = 'serviceAuthorisation';
+        const formData = new FormData(endpoint, 'abc123');
+        let path = formData.replacePlaceholderInPath(config.services.orchestrator.paths.save_forms, 'ccdCaseId', ccdCaseId);
+        path = formData.replacePlaceholderInPath(path, 'lastModifiedDateTime', lastModifiedDateTime);
+        nock(endpoint, {
+            reqheaders: {
+                'Content-Type': 'application/json',
+                Authorization: authToken,
+                ServiceAuthorization: serviceAuthorisation
+            }
+        }).post(path, expectedForm)
+            .reply(409, expectedForm);
+
+        co(function* () {
+            const result = yield formData.post(authToken, serviceAuthorisation, ccdCaseId, lastModifiedDateTime, inputForm);
+            expect(result.name).to.deep.equal('Error');
+            expect(result.message).to.deep.equal('Conflict');
+            done();
+        }).catch(err => {
+            done(err);
+        });
+    });
 });
