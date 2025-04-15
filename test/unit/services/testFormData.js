@@ -68,7 +68,7 @@ describe('FormDataService', () => {
         });
     });
 
-    it('should call post() successfully', (done) => {
+    it('should return 409 Conflict', (done) => {
         const endpoint = 'http://localhost';
         const ccdCaseId = 1234567890123456;
         const lastModifiedDateTime = '2018-01-01T12:12:12.123';
