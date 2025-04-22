@@ -49,6 +49,9 @@ class ExecutorContactDetails extends ValidationStep {
         if (executorsWrapper.executorEmailAlreadyUsed(ctx.email, executor.fullName, formdata.applicantEmail)) {
             errors.push(FieldError('email', 'duplicate', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
+        if (ctx.mobile) {
+            ctx.mobile = this.sanitisePhoneNumber(ctx.mobile);
+        }
         const validationResult = PhoneNumberValidator.validateMobilePhoneNumber(ctx.mobile);
         if (!validationResult.isValid) {
             errors.push(FieldError('mobile', validationResult.errorType, this.resourcePath, this.generateContent({}, {}, session.language), session.language));
@@ -103,6 +106,13 @@ class ExecutorContactDetails extends ValidationStep {
 
     isComplete(ctx) {
         return [every(tail(ctx.list).filter(exec => exec.isApplying === true), exec => exec.email && exec.mobile && exec.address), 'inProgress'];
+    }
+
+    sanitisePhoneNumber(phoneNumber) {
+        phoneNumber = String(phoneNumber).trim();
+        const plusBeforeDigits = (/^\D*\+/).test(phoneNumber);
+        const digitsOnly = phoneNumber.replace(/\D/g, '');
+        return plusBeforeDigits ? '+' + digitsOnly : digitsOnly;
     }
 }
 
