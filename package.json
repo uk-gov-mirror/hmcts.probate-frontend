@@ -92,7 +92,7 @@
     "lint"
   ],
   "dependencies": {
-    "@hmcts/nodejs-healthcheck": "^1.8.0",
+    "@hmcts/nodejs-healthcheck": "^1.8.5",
     "@hmcts/nodejs-logging": "^4.0.4",
     "@hmcts/os-places-client": "^1.1.7",
     "@hmcts/properties-volume": "^1.0.0",
@@ -202,7 +202,7 @@
     "hosted-git-info": "^8.0.0",
     "http-cache-semantics": ">=4.1.1",
     "ip": "^2.0.1",
-    "shelljs": ">=0.8.5",
+    "shelljs": "^0.9.2",
     "minimist": "^1.2.8",
     "async": ">=2.6.4",
     "cookie": "^1.0.1",
@@ -219,7 +219,8 @@
     "import-in-the-middle": "^1.11.2",
     "cross-spawn": "^7.0.5",
     "codeceptjs": "3.6.10",
-    "tar-fs": "^3.0.8"
+    "tar-fs": "^3.0.8",
+    "rimraf": "^6.0.1"
   },
   "packageManager": "yarn@4.9.1"
 }
