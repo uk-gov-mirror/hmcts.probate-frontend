@@ -24,7 +24,7 @@ describe('Pin Creation API Tests', () => {
             request(pinServiceUrl)
                 .post('')
                 .send({PhonePin: {phoneNumber: INVALID_TEST_NUMBER}})
-                .set('Session-Id', VALID_SESSION_ID)
+                .set('Session-Id', VALID_SESSION_ID + '_0')
                 .expect(400)
                 .end((err) => {
                     if (err) {
@@ -62,7 +62,7 @@ describe('Pin Creation API Tests', () => {
             request(pinServiceUrl)
                 .post('')
                 .send({PhonePin: {phoneNumber: VALID_INTERNATIONAL_TEST_NUMBER}})
-                .set('Session-Id', VALID_SESSION_ID)
+                .set('Session-Id', VALID_SESSION_ID + '_1')
                 .expect(200)
                 .end((err, res) => {
                     if (err) {
@@ -84,7 +84,7 @@ describe('Pin Creation API Tests', () => {
             request(pinServiceUrl)
                 .post('')
                 .send({PhonePin: {phoneNumber: VALID_UK_WITH_PREFIX_TEST_NUMBER}})
-                .set('Session-Id', VALID_SESSION_ID)
+                .set('Session-Id', VALID_SESSION_ID + '_2')
                 .expect(200)
                 .end((err, res) => {
                     if (err) {
@@ -106,7 +106,7 @@ describe('Pin Creation API Tests', () => {
             request(pinServiceUrl)
                 .post('')
                 .send({PhonePin: {phoneNumber: VALID_UK_LOCAL_TEST_NUMBER}})
-                .set('Session-Id', VALID_SESSION_ID)
+                .set('Session-Id', VALID_SESSION_ID + '_3')
                 .expect(200)
                 .end((err, res) => {
                     if (err) {
