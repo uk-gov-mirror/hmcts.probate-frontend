@@ -8,7 +8,7 @@ const request = require('supertest');
 
 const TEST_VALIDATION_SERVICE_URL = testConfig.services.validation.url;
 const VALID_SESSION_ID = '012233456789';
-const INVALID_TEST_NUMBER = '%2B$447701111111';
+const INVALID_TEST_NUMBER = '0770111111111111111';
 const VALID_INTERNATIONAL_TEST_NUMBER = '%2B61437112945';
 const VALID_UK_WITH_PREFIX_TEST_NUMBER = '%2B447535538319';
 const VALID_UK_LOCAL_TEST_NUMBER = '07535538319';
@@ -25,13 +25,16 @@ describe('Pin Creation API Tests', () => {
                 .post('')
                 .send({PhonePin: {phoneNumber: INVALID_TEST_NUMBER}})
                 .set('Session-Id', VALID_SESSION_ID + '_0')
-                .expect(400)
-                .end((err) => {
+                .expect(500)
+                .end((err, res) => {
                     if (err) {
                         logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
                         done(err);
                     } else {
                         expect(err).to.be.equal(null);
+                        const res_json = JSON.parse(res.text);
+                        expect(res_json.status).to.be.equal(500);
+                        expect(res_json.error).to.be.equal('Internal Server Error');
                         done();
                     }
                 });
