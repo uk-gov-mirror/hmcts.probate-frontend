@@ -51,15 +51,11 @@ nodejs:
           alias: webchat-avaya-service
 
 redis:
+  enabled: true
   serviceAccount:
     create: false
     name: "probate"
     automountServiceAccountToken: true
-  enabled: true
-  image:
-    registry: hmctspublic.azurecr.io
-    repository: imported/bitnami/redis
-    tag: '6.2.7'
 
 idam-pr:
   enabled: true
