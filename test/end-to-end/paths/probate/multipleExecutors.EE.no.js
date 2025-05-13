@@ -107,7 +107,7 @@ getTestLanguages().forEach(language => {
         //const totalExecutors = '7';
         const totalExecutors = '4';
         await I.enterExecutorNames(language, totalExecutors, optionYes);
-        await I.selectExecutorsAllAlive(language, optionYes);
+        await I.selectAnyExecutorsDied(language, optionYes);
 
         //const executorsWhoDiedList = ['2', '7']; // exec2 and exec7
         const executorsWhoDiedList = ['2']; // exec2
@@ -234,8 +234,6 @@ getTestLanguages().forEach(language => {
             await I.seeGovUkPaymentPage(language);
             await I.seeGovUkConfirmPage(language);
         }
-
-        await I.seePaymentStatusPage(language);
 
         // Thank You
         await I.seeThankYouPage(language);

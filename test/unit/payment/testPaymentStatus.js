@@ -120,6 +120,31 @@ describe('PaymentStatus', () => {
         });
     });
 
+    describe('getContextData()', () => {
+        it('should return the context with the deceased name', (done) => {
+            const req = {
+                session: {
+                    form: {
+                        payment: {
+                            total: 5001,
+                            reference: 1
+                        },
+                    },
+                    regId: '123456',
+                    id: '1234567890',
+                },
+                userId: '12345',
+                authToken: 'XXXXX'
+            };
+            const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
+
+            const ctx = paymentStatus.getContextData(req);
+            expect(ctx.paymentNotRequired).to.equal(false);
+            expect(ctx.paymentBreakdownSkipped).to.equal(false);
+            expect(ctx.paymentDue).to.equal(true);
+            done();
+        });
+    });
     describe('runnerOptions', () => {
         it('redirect if there is an authorise failure', (done) => {
             revertSubmitData(expectedFormData);
@@ -152,7 +177,7 @@ describe('PaymentStatus', () => {
             });
         });
 
-        it('should set redirect to false if payment is successful', (done) => {
+        it('should set redirect to /thank-you if payment is successful', (done) => {
             revertSubmitData(expectedFormData);
 
             const revert = PaymentStatus.__set__({
@@ -171,7 +196,8 @@ describe('PaymentStatus', () => {
 
             co(function* () {
                 const options = yield paymentStatus.runnerOptions(ctx, session);
-                expect(options.redirect).to.equal(false);
+                expect(options.redirect).to.equal(true);
+                expect(options.url).to.equal('/thank-you');
                 expect(session.form).to.deep.equal(expectedFormData);
                 revert();
                 done();
@@ -180,7 +206,37 @@ describe('PaymentStatus', () => {
             });
         });
 
-        it('should set redirect to true and payment status to failure if payment is not successful', (done) => {
+        it('should set redirect to /payment-breakdown if state is not CasePrinted', (done) => {
+            expectedFormData.ccdCase.state = 'PAAppCreated';
+            revertSubmitData(expectedFormData);
+
+            const revert = PaymentStatus.__set__({
+                Payment: class {
+                    get() {
+                        return Promise.resolve(successfulPaymentResponse);
+                    }
+                }
+            });
+            const session = {
+                form: {
+                    payment: {}
+                }
+            };
+            const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
+
+            co(function* () {
+                const options = yield paymentStatus.runnerOptions(ctx, session);
+                expect(options.redirect).to.equal(true);
+                expect(options.url).to.equal('/payment-breakdown');
+                expect(session.form).to.deep.equal(expectedFormData);
+                revert();
+                done();
+            }).catch(err => {
+                done(err);
+            });
+        });
+
+        it('should set redirect to /payment-breakdown and payment status to failure if payment is not successful', (done) => {
             revertSubmitData(expectedFormData);
 
             expectedFormData.payment.status = 'Failed';
@@ -218,7 +274,7 @@ describe('PaymentStatus', () => {
             });
         });
 
-        it('should set payment status to not_required and redirect to false when paymentDue is false and paymentNotRequired is true', (done) => {
+        it('should set payment status to not_required and redirect to true when paymentDue is false and paymentNotRequired is true', (done) => {
             const expectedFormData = {
                 caseType: 'gop',
                 ccdCase: {
@@ -260,7 +316,8 @@ describe('PaymentStatus', () => {
 
             co(function* () {
                 const options = yield paymentStatus.runnerOptions(ctx, session);
-                expect(options.redirect).to.equal(false);
+                expect(options.redirect).to.equal(true);
+                expect(options.url).to.equal('/thank-you');
                 expect(session.form).to.deep.equal(expectedFormData);
                 done();
             }).catch(err => {
@@ -292,7 +349,8 @@ describe('PaymentStatus', () => {
             co(function* () {
                 const options = yield paymentStatus.runnerOptions(ctx, session);
                 expect(session.form).to.deep.equal(expectedFormData);
-                expect(options.redirect).to.equal(false);
+                expect(options.redirect).to.equal(true);
+                expect(options.url).to.equal('/payment-breakdown');
                 expect(options.errors).to.deep.equal([{
                     field: 'update',
                     href: '#update',
@@ -341,7 +399,7 @@ describe('PaymentStatus', () => {
             });
         });
 
-        it('should set redirect to true  payment status to success if payment is successful with no case created', (done) => {
+        it('should set redirect to true and payment status to success if payment is successful with no case created', (done) => {
             delete expectedFormData.ccdCase;
             revertSubmitData(expectedFormData);
             expectedFormData.payment.status = 'Initiated';
@@ -363,6 +421,7 @@ describe('PaymentStatus', () => {
             co(function* () {
                 const options = yield paymentStatus.runnerOptions(ctx, session);
                 expect(options.redirect).to.equal(true);
+                expect(options.url).to.equal('/payment-breakdown');
                 revert();
                 done();
             }).catch(err => {
