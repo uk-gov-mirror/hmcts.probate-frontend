@@ -45,13 +45,13 @@
               {% set aria_content = content.progressBarStep3Done %}
               <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
             {% elseif fields.caseClosed.value == "true" %}
-              {% set aria_content = "Application is not in review" %}
+              {% set aria_content = content.progressBarStep3NotDone %}
               <span class="hmcts-progress-bar__icon"></span>
             {% elseif fields.applicationInReview.value == "true" or fields.documentsRequired.value != "true"%}
               {% set aria_content = content.progressBarStep3NotDone %}
               <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--inprogress"></span>
             {% else %}
-              {% set aria_content = "Application is in review" %}
+              {% set aria_content = content.progressBarStep3Done %}
               <span class="hmcts-progress-bar__icon"></span>
             {% endif %}
             {% if (fields.applicationInReview.value == "true" and fields.grantIssued.value != "true" and fields.caseClosed.value != "true") or fields.documentsRequired.value != "true"%}
