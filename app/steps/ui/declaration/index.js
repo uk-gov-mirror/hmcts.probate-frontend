@@ -107,16 +107,18 @@ class Declaration extends ValidationStep {
     }
 
     collectOtherNames(formdataDeceased) {
-        const caseDataDeceasedNames = get(formdataDeceased, 'otherNames', {});
-        const otherNames = structuredClone(caseDataDeceasedNames);
-        const nameSameOnWill = get(formdataDeceased, 'nameAsOnTheWill', 'optionYes');
-
-        if (nameSameOnWill === 'optionNo') {
-            const nameOnWill = {
-                firstName: formdataDeceased.aliasFirstNameOnWill,
-                lastName: formdataDeceased.aliasLastNameOnWill
-            };
-            otherNames.willAlias = nameOnWill;
+        const otherNames = structuredClone(get(formdataDeceased, 'otherNames', {}));
+        if (get(formdataDeceased, 'nameAsOnTheWill', 'optionYes') === 'optionNo') {
+            const aliasExists = Object.values(otherNames).some(entry =>
+                entry.firstName === formdataDeceased.aliasFirstNameOnWill &&
+                entry.lastName === formdataDeceased.aliasLastNameOnWill
+            );
+            if (!aliasExists) {
+                otherNames.willAlias = {
+                    firstName: formdataDeceased.aliasFirstNameOnWill,
+                    lastName: formdataDeceased.aliasLastNameOnWill
+                };
+            }
         }
         return otherNames;
     }
