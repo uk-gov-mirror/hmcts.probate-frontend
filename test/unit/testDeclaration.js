@@ -366,6 +366,30 @@ describe('Declaration', () => {
             done();
         });
 
+        it('should return an object matching otherNames when otherNames present and nameSameOnWill but aliases set', (done) => {
+            const otherNamesObj = {fakeKey: {}};
+            const aliasFN = 'FName';
+            const aliasLN = 'LName';
+            const aliasNameObj = {
+                firstName: aliasFN,
+                lastName: aliasLN
+            };
+            const formdataDeceased = {
+                otherNames: otherNamesObj,
+                nameAsOnTheWill: 'optionNo',
+                aliasFirstNameOnWill: aliasFN,
+                aliasLastNameOnWill: aliasLN
+            };
+            const declaration = new Declaration(steps, section, templatePath, i18next, schema);
+            const actualResults = declaration.collectOtherNames(formdataDeceased);
+            const expected = {
+                ...otherNamesObj,
+                willAlias: aliasNameObj
+            };
+            expect(actualResults).to.deep.equal(expected);
+            done();
+        });
+
         it('should return an object with both Other Name & will Name if will Name not Exit', (done) => {
             const otherNamesObj = {
                 'name_0': {
@@ -402,6 +426,7 @@ describe('Declaration', () => {
             expect(actualResults).to.deep.equal(expected);
             done();
         });
+
         it('should return an object with both Other Name if will Name Exit', (done) => {
             const otherNamesObj = {
                 'name_0': {
