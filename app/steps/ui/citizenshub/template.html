@@ -57,14 +57,12 @@
               {% set aria_content = content.progressBarStep3NotDone %}
               <span class="hmcts-progress-bar__icon"></span>
             {% endif %}
-            {% if (fields.applicationInReview.value == "true" and fields.grantIssued.value != "true" and fields.caseClosed.value != "true") or fields.documentsRequired.value != "true"%}
-              {% set aria_content = content.progressBarStep3NotDone %}
               <span class="govuk-visually-hidden">{{aria_content | safe}}</span>
+            {% if (fields.applicationInReview.value == "true" and fields.grantIssued.value != "true" and fields.caseClosed.value != "true") or fields.documentsRequired.value != "true"%}
               <span class="hmcts-progress-bar__label  hmcts-progress-bar__label--inprogress" aria-hidden="true">
                 {{ content.progressBarStep3 | safe }}
               </span>
             {% else %}
-              <span class="govuk-visually-hidden">{{aria_content | safe}}</span>
               <span class="hmcts-progress-bar__label" aria-hidden="true">
                 {{ content.progressBarStep3 | safe }}
               </span>
