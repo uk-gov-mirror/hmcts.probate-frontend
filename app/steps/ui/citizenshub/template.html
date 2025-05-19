@@ -51,7 +51,7 @@
               {% set aria_content = content.progressBarStep3NotDone %}
               <span class="hmcts-progress-bar__icon"></span>
             {% elseif fields.applicationInReview.value == "true" or fields.documentsRequired.value != "true"%}
-              {% set aria_content = content.progressBarStep3NotDone %}
+              {% set aria_content = content.progressBarStep3Done %}
               <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--inprogress"></span>
             {% else %}
               {% set aria_content = content.progressBarStep3NotDone %}
