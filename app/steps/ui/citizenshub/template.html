@@ -45,7 +45,7 @@
           {% endif %}
           <li class="hmcts-progress-bar__list-item" style="width:120px">
             {% if fields.grantIssued.value == "true" %}
-              {% set aria_content = content.progressBarStep3Done %}
+              {% set aria_content = content.progressBarStep3Reviewed %}
               <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
             {% elseif fields.caseClosed.value == "true" %}
               {% set aria_content = content.progressBarStep3NotDone %}

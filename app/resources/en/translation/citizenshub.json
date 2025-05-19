@@ -9,6 +9,7 @@
   "progressBarStep1Done": "Application has been received",
   "progressBarStep2Done": "Documents have been received",
   "progressBarStep3Done": "Application is in review",
+  "progressBarStep3Reviewed": "Application has been reviewed",
   "progressBarStep4Done": "Grant has been issued",
   "progressBarStep2NotDone": "Documents have not yet been received",
   "progressBarStep3NotDone": "Application is not yet in review",

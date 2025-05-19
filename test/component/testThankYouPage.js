@@ -49,7 +49,7 @@ describe('thank-you', () => {
                 'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
                 'checklist-item11-spouse-giving-up-admin-rights-PA16', 'progressBarStep1Done', 'progressBarStep2Done',
                 'progressBarStep3Done', 'progressBarStep4Done', 'progressBarStep2NotDone', 'progressBarStep3NotDone',
-                'progressBarStep4NotDone'];
+                'progressBarStep4NotDone', 'progressBarStep3Reviewed'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -87,7 +87,7 @@ describe('thank-you', () => {
                 'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
                 'checklist-item11-spouse-giving-up-admin-rights-PA16', 'progressBarStep1Done', 'progressBarStep2Done',
                 'progressBarStep3Done', 'progressBarStep4Done', 'progressBarStep2NotDone', 'progressBarStep3NotDone',
-                'progressBarStep4NotDone'];
+                'progressBarStep4NotDone', 'progressBarStep3Reviewed'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -144,7 +144,7 @@ describe('thank-you', () => {
                 'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
                 'checklist-item11-spouse-giving-up-admin-rights-PA16', 'progressBarStep1Done', 'progressBarStep2Done',
                 'progressBarStep3Done', 'progressBarStep4Done', 'progressBarStep2NotDone', 'progressBarStep3NotDone',
-                'progressBarStep4NotDone'];
+                'progressBarStep4NotDone', 'progressBarStep3Reviewed'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -203,7 +203,7 @@ describe('thank-you', () => {
                 'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
                 'checklist-item11-spouse-giving-up-admin-rights-PA16', 'progressBarStep1Done', 'progressBarStep2Done',
                 'progressBarStep3Done', 'progressBarStep4Done', 'progressBarStep2NotDone', 'progressBarStep3NotDone',
-                'progressBarStep4NotDone'];
+                'progressBarStep4NotDone', 'progressBarStep3Reviewed'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -240,7 +240,7 @@ describe('thank-you', () => {
                 'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
                 'checklist-item11-spouse-giving-up-admin-rights-PA16', 'progressBarStep1Done', 'progressBarStep2Done',
                 'progressBarStep3Done', 'progressBarStep4Done', 'progressBarStep2NotDone', 'progressBarStep3NotDone',
-                'progressBarStep4NotDone'];
+                'progressBarStep4NotDone', 'progressBarStep3Reviewed'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -280,7 +280,7 @@ describe('thank-you', () => {
                 'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
                 'checklist-item11-spouse-giving-up-admin-rights-PA16', 'progressBarStep1Done', 'progressBarStep2Done',
                 'progressBarStep3Done', 'progressBarStep4Done', 'progressBarStep2NotDone', 'progressBarStep3NotDone',
-                'progressBarStep4NotDone'];
+                'progressBarStep4NotDone', 'progressBarStep3Reviewed'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
