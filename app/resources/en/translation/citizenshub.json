@@ -14,6 +14,8 @@
   "progressBarStep2NotDone": "Documents have not yet been received",
   "progressBarStep3NotDone": "Application is not yet in review",
   "progressBarStep4NotDone": "Grant has not yet been issued",
+  "applicationProgressBar": "Application progress bar",
+  "applicationProgressBarListItems": "Application progress bar list items",
   "latestInfo": "Latest information",
   "provideInfo": "Provide information",
   "applicationReceivedHeading": "We’ve received your application.",

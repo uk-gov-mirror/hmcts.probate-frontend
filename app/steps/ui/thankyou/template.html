@@ -21,8 +21,8 @@
                 titleText: content.header | safe,
                 html: referenceNumberHtml
             }) }}
-            <div class="hmcts-progress-bar-vertical">
-                <ol class="hmcts-progress-bar__list">
+                <div class="hmcts-progress-bar-vertical" aria-label="{{ content.applicationProgressBar | safe }}">
+                  <ol class="hmcts-progress-bar__list" aria-label="{{ content.applicationProgressBarListItems | safe }}">
                     <li class="hmcts-progress-bar__list-item">
                         <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
                         <span class="govuk-visually-hidden">{{content.progressBarStep1Done | safe }}</span>
