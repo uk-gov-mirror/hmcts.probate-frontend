@@ -20,13 +20,15 @@
   "heading3": "Adborth a gwybodaeth gyswllt",
   "paragraph7": "Os ydych angen gwybodaeth sydd ar y wefan hon mewn fformat gwahanol fel PDF hygyrch, print bras, fersiwn hawdd ei ddarllen neu Braille; cysylltwch â",
   "list3-item1": "anfonwch e-bost i:<a href=\"mailto:HMCTSforms@justice.gov.uk\" class=\"govuk-link\">HMCTSforms@justice.gov.uk</a>",
-  "list3-item2": "ffoniwch: {helpLineNumber}<br>{helpLineHours}",
+  "list3-item2": "ffôn: {helpLineNumber}<br>{helpLineHours}",
   "paragraph8": "Byddwn yn ystyried eich cais ac yn ymateb o fewn 10 diwrnod gwaith.",
 
+  "heading3a": "Cysylltu â ni dros y ffôn neu ymweld â ni’n bersonol",
+  "paragraph8a": "Rydym yn darparu gwasanaeth cyfnewid negeseuon testun ar gyfer pobl fyddar, pobl sydd â nam ar eu clyw a phobl sydd â nam ar eu lleferydd.",
+  "list3a-item1": "Cysylltwch â ni:<br>Rhif ffôn: {helpLineNumber}<br>{helpLineHours}",
+
   "heading4": "Riportio problemau hygyrchedd gyda&rsquo;r wefan hon",
-  "paragraph9": "Rydym wastad yn ceisio gwella hygyrchedd y wefan hon. Os byddwch yn cael unrhyw broblemau sydd heb eu rhestru ar y dudalen hon, neu&rsquo;n credu nad ydym yn bodloni&rsquo;r gofynion o ran hygyrchedd:",
-  "list4-item1": "anfonwch e-bost i <a href=\"mailto:HMCTSforms@justice.gov.uk\" class=\"govuk-link\">HMCTSforms@justice.gov.uk</a> neu ffoniwch:",
-  "list4-item2": "<strong>Llinell Gymorth Profiant:</strong><br>{helpLineNumber}<br>{helpLineHours}",
+  "paragraph9": "Rydym wastad yn ceisio gwella hygyrchedd y wefan hon. Os byddwch yn cael unrhyw broblemau nad ydynt wedi’u cynnwys ar y dudalen hon, neu’n credu nad ydym yn bodloni’r gofynion o ran hygyrchedd, cysylltwch â ni gan ddefnyddio’r rhif ffôn uchod.",
   "paragraph10": "Byddwn yn ystyried eich cais ac yn ymateb o fewn 10 diwrnod gwaith.",
 
   "heading5": "Y Weithdrefn Orfodi",
