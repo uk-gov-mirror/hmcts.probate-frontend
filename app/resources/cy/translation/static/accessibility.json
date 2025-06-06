@@ -1,9 +1,9 @@
 {
   "title": "Datganiad Hygyrchedd",
   "heading1": "Datganiad hygyrchedd ar gyfer y gwasanaeth &lsquo;Gwneud cais am brofiant&rsquo;",
-  "paragraph1": "Mae&rsquo;r datganiad hygyrchedd hwn yn berthnasol i gynnwys a gyhoeddir ar <a href=\"{applyForProbateFrontpageWelsh}\"class=\"govuk-link\" rel=\"external noopener\"\">https://www.gov.uk/gwneud-cais-am-brofiant/gwneud-cais-am-brofiant</a>",
+  "paragraph1": "TMae’r datganiad hygyrchedd hwn yn berthnasol i <a href=\"{applyForProbateFrontpage}\"class=\"govuk-link\" rel=\"external noopener\"\">gwneud cais am brofiant - GOV.UK (agor mewn tab newydd)</a>",
   "paragraph2": "Mae&rsquo;r gwasanaeth hwn yn galluogi defnyddwyr i wneud cais am grant cynrychiolaeth ar-lein (a elwir hefyd yn profiant).",
-  "paragraph3": "Gwasanaeth Llysoedd a Thribiwnlysoedd EF sy&rsquo;n gyfrifol am y wefan hon, Rydym eisiau i gymaint o bobl â phosibl allu defnyddio&rsquo;r wefan hon, felly rydym wedi ceisio ei gwneud mor hygyrch â phosibl. Er enghraifft, golyga hyn y dylech allu:",
+  "paragraph3": "Gwasanaeth Llysoedd a Thribiwnlysoedd EF (GLlTEF) sy’n gyfrifol am y wefan hon. Rydym eisiau i gymaint o bobl â phosibl allu defnyddio'r wefan hon, felly rydym wedi ceisio ei gwneud mor hygyrch â phosibl. Er enghraifft, golyga hyn y dylech allu:",
   "list1-item1": "newid y lliwiau, y lefelau cyferbyniad a&rsquo;r ffontiau",
   "list1-item2": "gwneud y testun hyd at 300% yn fwy heb iddo ddiflannu oddi ar y sgrin",
   "list1-item3": "mynd drwy&rsquo;r rhan fwyaf o&rsquo;r wefan gan ddefnyddio bysellfwrdd yn unig",

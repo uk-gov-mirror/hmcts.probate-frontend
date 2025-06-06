@@ -219,7 +219,7 @@ links:
   willIsLegal: 'https://www.gov.uk/make-will/make-sure-your-will-is-legal'
   solicitorsRegulationAuthority: 'https://www.sra.org.uk'
   findOriginalWill: 'https://www.gov.uk/applying-for-probate/if-theres-a-will#find-the-original-will'
-  applyForProbateFrontpage: 'https://www.gov.uk/applying-for-probate/apply-for-probate'
+  applyForProbateFrontpage: 'https://www.apply-for-probate.service.gov.uk/start-eligibility'
   applyForProbateFrontpageWelsh: 'https://www.gov.uk/gwneud-cais-am-brofiant/gwneud-cais-am-brofiant'
   paymentsAccessibilityStatement: 'https://www.payments.service.gov.uk/accessibility-statement/'
 utils:
