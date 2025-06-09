@@ -69,7 +69,7 @@
   "list7-item5": "instruction pages on GOV.UK, for example <a href=\"{deathReportedToCoroner}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"When a death is reported to a coroner - GOV.UK (opens in a new tab)\">When a death is reported to a coroner - GOV.UK  (opens in a new tab)</a>",
   "list7-item6": "The webchat application which provides live service support for users",
 
-  "heading11": "What we&rsquo;re doing to improve accessibility",
+  "heading11": "What we are doing to improve accessibility",
   "paragraph20": "We continually run automated accessibility testing as part of our development practices and resolve issues before websites and new functionality is released. We use Pa11y and Axe with our quality assurance processes.<br><br>This website is continually tested using accessibility software. Any new features which are introduced will also be tested internally or with the Digital Accessibility Centre (DAC).",
 
   "heading12": "Preparation of this Accessibility Statement",
