@@ -25,6 +25,7 @@
 
           <h2 class="govuk-heading-m">{{ content.heading3a | safe }}</h2>
           <p class="govuk-body">{{ content.paragraph8a | safe }}</p>
+          <p class="govuk-body">{{ content.paragraph8b | safe }}</p>
           {{ unorderedList([content["list3a-item1"] | replace("{helpLineNumber}", common.helpTelephoneNumber) | replace("{helpLineHours}", common.helpTelephoneOpeningHours)]) }}
 
             <h2 class="govuk-heading-m">{{ content.heading4 | safe }}</h2>
