@@ -14,12 +14,12 @@
 
   "heading2": "How accessible this website is",
   "paragraph6": "We know some parts of this website are not fully accessible:",
-  "list2-item1": "The address lookup tool’s results do not magnify on some devices - This a constraint within some browsers.",
+  "list2-item1": "The address lookup tool’s results do not magnify on some tablets - This a constraint within some browsers.",
   "list2-item2": "There are outstanding accessibility issues outside of this service, in the government payments service  GOV.UK Pay, which may result in accessible technology users having difficulties using this area.",
 
   "heading3": "Feedback and contact information",
   "paragraph7": "If you need information on this website in a different format like accessible PDF, large print, easy read or braille, contact:",
-  "list3-item1": "Email <a href=\"mailto:HMCTSforms@justice.gov.uk\" class=\"govuk-link\">HMCTSforms@justice.gov.uk</a>",
+  "list3-item1": "email <a href=\"mailto:HMCTSforms@justice.gov.uk\" class=\"govuk-link\">HMCTSforms@justice.gov.uk</a>",
   "list3-item2": "phone: {helpLineNumber}<br>{helpLineHours}",
   "paragraph8": "We will consider your request and get back to you within 10 working days.",
 
@@ -45,34 +45,34 @@
 
 
   "heading7": "Technical information about this website&rsquo;s accessibility",
-  "paragraph15": "HMCTS is committed to making its websites accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.",
+  "paragraph15": "HMCTS is committed to making its websites accessible in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.",
 
   "heading8": "Compliance Status",
   "paragraph16": "The website is partially compliant with the <a href=\"{wcag21Link}\" target=\"_blank\" rel=\"external noopener\" class=\"govuk-link\" aria-label=\"Web Content Accessibility Guidelines version 2.1 AA standard (opens in a new tab)\">Web Content Accessibility Guidelines version 2.1 AA standard (opens in a new tab)</a> due to the non-compliances listed below.",
 
   "heading9": "Non-accessible content",
-  "paragraph17": "The content listed below is non-accessible for the following reasons. We haven&rsquo;t been able to verify that we are fully compliant in the following areas, due to constraints with our internal testing tools:",
+  "paragraph17": "The content listed below is non-accessible for the following reasons. We have not been able to verify that we are fully compliant in the following areas, due to constraints with our internal testing tools:",
   "list6-item1": "1.1.1: Non-text Content (Level A):",
   "list6-item2": "\tThere are images in a PDF with no alternative text.",
   "list6-item3": "2.4.3: Focus Order (Level A):",
   "list6-item4": "\tThe focus order in some PDFs is incorrect.",
 
-  "heading10": "Content that&rsquo;s not within the scope of the accessibility regulations",
+  "heading10": "Content that is not within the scope of the accessibility regulations",
   "heading10-1": "PDFs and other documents",
-  "paragraph18": "PDFs, documents and attachments to email notifications published before 23 September 2018 may not meet accessibility standards. For example, they may not be structured so they&rsquo;re accessible to a screen reader.",
-  "heading10-2": "Third party content that&rsquo;s under someone else&rsquo;s control",
+  "paragraph18": "PDFs, documents and attachments to email notifications published before 23 September 2018 may not meet accessibility standards. For example, they may not be structured so they are accessible to a screen reader.",
+  "heading10-2": "Third party content that is under someone else&rsquo;s control",
   "paragraph19": "Pages and websites that are linked to and from the probate service may not be fully accessible. These include:",
-  "list7-item1": "External pages hosting PDF documents for example <a href=\"{applicationFormPA15}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"Form PA15 (opens in a new tab)\">Form PA15 (opens in a new tab)</a>",
+  "list7-item1": "External pages hosting PDF documents, for example <a href=\"{applicationFormPA15}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"Form PA15 (opens in a new tab)\">Form PA15 (opens in a new tab)</a>",
   "list7-item2": "the login pages – check the <a href=\"{hmctAccessAccessibilityStatement}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"HMCTS Access accessibility statement (opens in a new tab)\">HMCTS Access accessibility statement (opens in a new tab)</a> for more information ",
   "list7-item3": "payment pages – check the <a href=\"{payAccessibilityStatement}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"GOV.UK Pay accessibility statement (opens in a new tab)\">GOV.UK Pay accessibility statement (opens in a new tab)</a> for more information ",
   "list7-item4": "emails sent by GOV.UK Notify – check the <a href=\"{notifyAccessibilityStatement}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"GOV.UK Notify accessibility statement (opens in a new tab)\">GOV.UK Notify accessibility statement (opens in a new tab)</a> for more information ",
   "list7-item5": "instruction pages on GOV.UK, for example <a href=\"{deathReportedToCoroner}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"When a death is reported to a coroner - GOV.UK (opens in a new tab)\">When a death is reported to a coroner - GOV.UK  (opens in a new tab)</a>",
-  "list7-item6": "The webchat application which provides live service support for users",
+  "list7-item6": "the webchat application which provides live service support for users",
 
   "heading11": "What we are doing to improve accessibility",
   "paragraph20": "We continually run automated accessibility testing as part of our development practices and resolve issues before websites and new functionality is released. We use Pa11y and Axe with our quality assurance processes.<br><br>This website is continually tested using accessibility software. Any new features which are introduced will also be tested internally or with the Digital Accessibility Centre (DAC).",
 
   "heading12": "Preparation of this Accessibility Statement",
   "paragraph21": "This statement was prepared in March 2025. It was last updated on 7 April 2025",
-  "paragraph22": "The &lsquo;Apply for probate&rsquo; was last tested by the internal Accessibility Testing Centre of Excellence (ATCoE) team in September 2024."
+  "paragraph22": "The &lsquo;Apply for probate&rsquo; service was last tested by the internal Accessibility Testing Centre of Excellence (ATCoE) team in September 2024."
 }

@@ -35,12 +35,6 @@
             <h2 class="govuk-heading-m">{{ content.heading5 | safe }}</h2>
             <p class="govuk-body">{{ content.paragraph11 | replace("{equalityAdvisorLink}", globals.links.equalityAdvisorLink) | safe }}</p>
 
-            <h2 class="govuk-heading-m">{{ content.heading6 | safe }}</h2>
-            <p class="govuk-body">{{ content.paragraph12 | safe }}</p>
-            <p class="govuk-body">{{ content.paragraph13 | safe }}</p>
-            <p class="govuk-body">{{ content.paragraph14 | safe }}</p>
-            {{ unorderedList([content["list5-item1"] | safe , content["list5-item2"] | replace("{helpLineNumber}", common.helpTelephoneNumber) | replace("{helpLineHours}", common.helpTelephoneOpeningHours) | safe ]) }}
-
             <h2 class="govuk-heading-m">{{ content.heading7 | safe }}</h2>
             <p class="govuk-body">{{ content.paragraph15 | safe }}</p>
 
