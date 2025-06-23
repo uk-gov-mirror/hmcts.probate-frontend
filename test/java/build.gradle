@@ -3,8 +3,11 @@ plugins {
     id 'application'
 }
 
-sourceCompatibility = 17
-targetCompatibility = 17
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(21)
+  }
+}
 
 // tag::repositories[]
 repositories {
@@ -18,13 +21,13 @@ repositories {
 
 // tag::dependencies[]
 dependencies {
-    testImplementation 'com.github.hmcts:fortify-client:1.4.9:all'
-    testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.13'
+    testImplementation group: 'com.github.hmcts', name: 'fortify-client', version: '1.4.9', classifier: 'all'
+    testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.17'
 }
 //end::dependencies[]
 
-task fortifyScan(type: JavaExec)  {
-    main = "uk.gov.hmcts.fortifyclient.FortifyClientMainApp"
-    classpath += sourceSets.test.runtimeClasspath
-    jvmArgs = ['--add-opens=java.base/java.lang.reflect=ALL-UNNAMED']
+tasks.register('fortifyScan', JavaExec) {
+  main = "uk.gov.hmcts.fortifyclient.FortifyClientMainApp"
+  classpath += sourceSets.test.runtimeClasspath
+  jvmArgs = ['--add-opens=java.base/java.lang.reflect=ALL-UNNAMED']
 }
