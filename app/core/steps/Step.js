@@ -60,7 +60,7 @@ class Step {
     getContextData(req) {
         const session = req.session;
         let ctx = {};
-        merge(ctx, this.sanitizeInput(session.form[this.section] || {}));
+        merge(ctx, session.form[this.section] || {});
         ctx.sessionID = req.sessionID;
         ctx.caseType = caseTypes.getCaseType(session);
         ctx.userLoggedIn = false;
