@@ -150,15 +150,6 @@ class Step {
         );
         return formData.post(req.authToken, req.session.serviceAuthorization, ccdCaseId, formdata);
     }
-    sanitizeInput(input) {
-        const sanitized = {};
-        for (const key in input) {
-            if (!['__proto__', 'constructor', 'prototype'].includes(key)) {
-                sanitized[key] = input[key];
-            }
-        }
-        return sanitized;
-    }
 
     action(ctx, formdata) {
         delete ctx.sessionID;
