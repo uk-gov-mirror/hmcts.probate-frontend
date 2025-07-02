@@ -11,6 +11,7 @@ const FeatureToggle = require('app/utils/FeatureToggle');
 const caseTypes = require('app/utils/CaseTypes');
 const utils = require('app/components/step-utils');
 const moment = require('moment');
+const Sanitize = require('app/utils/Sanitize');
 
 class Step {
 
@@ -60,7 +61,7 @@ class Step {
     getContextData(req) {
         const session = req.session;
         let ctx = {};
-        const safeSectionData = this.sanitizeInput(session.form[this.section] || {});
+        const safeSectionData = Sanitize.sanitizeInput(session.form[this.section] || {});
         ctx = merge(ctx, safeSectionData);
         ctx.sessionID = req.sessionID;
         ctx.caseType = caseTypes.getCaseType(session);
@@ -70,7 +71,7 @@ class Step {
         if (typeof session.form.userLoggedIn === 'boolean') {
             ctx.userLoggedIn = session.form.userLoggedIn;
         }
-        ctx = merge(ctx, this.sanitizeInput(req.body));
+        ctx = merge(ctx, Sanitize.sanitizeInput(req.body));
         ctx = FeatureToggle.appwideToggles(req, ctx, config.featureToggles.appwideToggles);
         ctx.isAvayaWebChatEnabled = ctx.featureToggles && ctx.featureToggles.ft_avaya_webchat && ctx.featureToggles.ft_avaya_webchat === 'true';
         ctx.isWebChatEnabled = config.configFeatureToggles.webchatEnabled;
@@ -101,7 +102,12 @@ class Step {
         if (!this.content) {
             throw new ReferenceError(`Step ${this.name} has no content.json in its resource folder`);
         }
-        const contentCtx = Object.assign({}, formdata, ctx, this.commonProps);
+        const contentCtx = merge(
+            {},
+            Sanitize.sanitizeInput(formdata),
+            Sanitize.sanitizeInput(ctx),
+            this.commonProps
+        );
         this.i18next.changeLanguage(language);
 
         return mapValues(this.content, (value, key) => this.i18next.t(`${this.resourcePath.replace(/\//g, '.')}.${key}`, contentCtx));
