@@ -118,7 +118,7 @@ class UIStepRunner {
                             errorOccurred = true;
                             req.log.error('Could not persist user data', result.message);
                         } else if (result) {
-                            session.form = Object.assign(session.form, sanitizeInput(result));
+                            session.form = sanitizeInput(result);
                             req.log.info('Successfully persisted user data');
                         }
                     }
