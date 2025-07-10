@@ -8,7 +8,7 @@
 
   "errors": {
     "estateValueCompleted": {
-      "required": "Rhaid i chi ddewis opsiwn i barhau"
+      "required": "Dewiswch 'Nac oedd' os nad oedd angen i chi gyflwyno ffurflen i HMRC"
     }
   }
 }
