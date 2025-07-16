@@ -5,8 +5,6 @@ const FormatName = require('app/utils/FormatName');
 const logger = require('app/components/logger')('Init');
 const InviteLink = require('app/services/InviteLink');
 const config = require('config');
-const {sanitizeInput} = require('./Sanitize');
-const {merge} = require('lodash');
 
 class AdditionalExecutorInvite {
     static invite(req) {
@@ -43,10 +41,7 @@ class AdditionalExecutorInvite {
                                 inviteId: execResult.inviteId,
                                 emailSent: true
                             };
-                            merge(
-                                formdata.executors.list.find(execList => execList.id === parseInt(execResult.id)),
-                                sanitizeInput(result)
-                            );
+                            Object.assign(formdata.executors.list.find(execList => execList.id === parseInt(execResult.id)), result);
                         });
 
                         executorsToNotifyList.forEach((executor) => {

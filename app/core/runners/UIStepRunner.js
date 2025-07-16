@@ -7,7 +7,6 @@ const FormatUrl = require('app/utils/FormatUrl');
 const {get} = require('lodash');
 const config = require('config');
 const FieldError = require('../../components/error');
-const {sanitizeInput} = require('../../utils/Sanitize');
 
 class UIStepRunner {
 
@@ -113,7 +112,7 @@ class UIStepRunner {
                             errorOccurred = true;
                             req.log.error('Could not persist user data', result.message);
                         } else if (result) {
-                            session.form = sanitizeInput(result);
+                            session.form = Object.assign(session.form, result);
                             req.log.info('Successfully persisted user data');
                         }
                     }

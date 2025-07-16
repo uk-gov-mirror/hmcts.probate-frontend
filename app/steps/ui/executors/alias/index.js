@@ -1,10 +1,9 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const {findIndex, merge} = require('lodash');
+const {findIndex} = require('lodash');
 const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const {sanitizeInput} = require('../../../../utils/Sanitize');
 const pageUrl = '/executors-alias';
 
 class ExecutorsAlias extends ValidationStep {
@@ -39,7 +38,7 @@ class ExecutorsAlias extends ValidationStep {
                 }
                 return executor;
             });
-            return merge(ctx, {list: sanitizeInput(list)});
+            return Object.assign(ctx, {list});
         }
         return ctx;
     }

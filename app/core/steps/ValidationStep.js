@@ -1,9 +1,8 @@
 'use strict';
 
-const {mapValues, reduce, merge} = require('lodash');
+const {mapValues, reduce} = require('lodash');
 const Ajv = require('ajv');
 const Step = require('app/core/steps/Step');
-const {sanitizeInput} = require('../../utils/Sanitize');
 const generateErrors = require('app/components/error').generateErrors;
 const validator = new Ajv({allErrors: true, v5: true});
 require('ajv-keywords')(validator);
@@ -33,7 +32,7 @@ class ValidationStep extends Step {
         if (schema.oneOf) {
 
             const properties = reduce(schema.oneOf, (acc, s) => {
-                merge(acc, sanitizeInput(s.properties));
+                Object.assign(acc, s.properties);
                 return acc;
             }, {});
 

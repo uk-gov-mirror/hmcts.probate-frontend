@@ -7,8 +7,7 @@ const FieldError = require('app/components/error');
 const Security = require('app/services/Security');
 const Authorise = require('app/services/Authorise');
 const logger = require('app/components/logger')('Init');
-const {mapValues, get, merge} = require('lodash');
-const Sanitize = require('app/utils/Sanitize');
+const {mapValues, get} = require('lodash');
 
 class CoApplicantDeclaration extends ValidationStep {
 
@@ -25,12 +24,7 @@ class CoApplicantDeclaration extends ValidationStep {
     }
 
     generateContent(ctx, formdata) {
-        const contentCtx = merge(
-            {},
-            Sanitize.sanitizeInput(formdata),
-            Sanitize.sanitizeInput(ctx),
-            this.commonProps
-        );
+        const contentCtx = Object.assign({}, formdata, ctx, this.commonProps);
 
         mapValues(this.content.en, (value, key) => this.i18next.t(`${this.resourcePath.replace(/\//g, '.')}.${key}`, contentCtx));
         mapValues(this.content.cy, (value, key) => this.i18next.t(`${this.resourcePath.replace(/\//g, '.')}.${key}`, contentCtx));
@@ -48,7 +42,7 @@ class CoApplicantDeclaration extends ValidationStep {
         ctx.applicant = formdata.applicant;
         ctx.authToken = req.authToken;
         ctx.serviceAuthorization = req.session.serviceAuthorization;
-        merge(ctx, Sanitize.sanitizeInput(formdata.declaration));
+        Object.assign(ctx, formdata.declaration);
         return ctx;
     }
 
