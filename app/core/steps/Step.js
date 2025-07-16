@@ -62,7 +62,7 @@ class Step {
         const session = req.session;
         let ctx = {};
         const safeSectionData = Sanitize.sanitizeInput(session.form[this.section] || {});
-        ctx = merge(ctx, safeSectionData);
+        Object.assign((ctx, safeSectionData));
         ctx.sessionID = req.sessionID;
         ctx.caseType = caseTypes.getCaseType(session);
         ctx.userLoggedIn = false;
