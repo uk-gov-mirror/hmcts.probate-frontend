@@ -1,12 +1,11 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const {findIndex, get, startsWith, merge} = require('lodash');
+const {findIndex, get, startsWith} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const AliasData = require('app/utils/AliasData.js');
 const FieldError = require('../../../../components/error');
 const WillWrapper = require('../../../../wrappers/Will');
-const {sanitizeInput} = require('../../../../utils/Sanitize');
 
 const path = '/executor-name-reason/';
 
@@ -43,7 +42,7 @@ class ExecutorCurrentNameReason extends ValidationStep {
                 }
                 return executor;
             });
-            return merge(ctx, {list: sanitizeInput(list)});
+            return Object.assign(ctx, {list});
         }
         return ctx;
     }

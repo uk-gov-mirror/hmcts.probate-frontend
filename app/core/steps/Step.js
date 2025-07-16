@@ -42,13 +42,7 @@ class Step {
         this.content = require(`app/resources/${language}/translation/${resourcePath}`);
         this.i18next = i18next;
     }
-    previousStepUrl(req, res, ctx) {
-        utils.getPreviousUrl(ctx, req, res, this.steps, this.name);
-    }
 
-    previousScrennerStepUrl(req, res, ctx) {
-        utils.getScrennersPreviousUrl(ctx, req, res, this.steps, this.name);
-    }
     next(req, ctx) {
         const journeyMap = new JourneyMap(req.session.journey);
         return journeyMap.nextStep(this, ctx);
@@ -56,6 +50,10 @@ class Step {
 
     nextStepUrl(req, ctx) {
         return this.next(req, ctx).constructor.getUrl();
+    }
+
+    shouldHaveBackLink() {
+        return true;
     }
 
     getContextData(req) {
@@ -71,13 +69,14 @@ class Step {
         if (typeof session.form.userLoggedIn === 'boolean') {
             ctx.userLoggedIn = session.form.userLoggedIn;
         }
-        ctx = merge(ctx, Sanitize.sanitizeInput(req.body));
+        ctx = Object.assign(ctx, req.body);
         ctx = FeatureToggle.appwideToggles(req, ctx, config.featureToggles.appwideToggles);
         ctx.isAvayaWebChatEnabled = ctx.featureToggles && ctx.featureToggles.ft_avaya_webchat && ctx.featureToggles.ft_avaya_webchat === 'true';
         ctx.isWebChatEnabled = config.configFeatureToggles.webchatEnabled;
         ctx.isGaEnabled = config.configFeatureToggles.gaEnabled; // this is a boolean type
         return ctx;
     }
+
     handleGet(ctx) {
         return [ctx];
     }
@@ -102,12 +101,7 @@ class Step {
         if (!this.content) {
             throw new ReferenceError(`Step ${this.name} has no content.json in its resource folder`);
         }
-        const contentCtx = merge(
-            {},
-            Sanitize.sanitizeInput(formdata),
-            Sanitize.sanitizeInput(ctx),
-            this.commonProps
-        );
+        const contentCtx = Object.assign({}, formdata, ctx, this.commonProps);
         this.i18next.changeLanguage(language);
 
         return mapValues(this.content, (value, key) => this.i18next.t(`${this.resourcePath.replace(/\//g, '.')}.${key}`, contentCtx));

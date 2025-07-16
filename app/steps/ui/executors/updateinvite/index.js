@@ -6,8 +6,6 @@ const FormatName = require('app/utils/FormatName');
 const logger = require('app/components/logger')('Init');
 const InviteLink = require('app/services/InviteLink');
 const config = require('config');
-const {sanitizeInput} = require('../../../../utils/Sanitize');
-const {merge} = require('lodash');
 
 class ExecutorsUpdateInvite extends ValidationStep {
 
@@ -57,11 +55,7 @@ class ExecutorsUpdateInvite extends ValidationStep {
                             const result = {
                                 inviteId: execResult.inviteId
                             };
-                            merge(
-                                formdata.executors.list.find(execList => execList.email === execResult.email &&
-                                    execList.fullName === execResult.executorName),
-                                sanitizeInput(result)
-                            );
+                            Object.assign(formdata.executors.list.find(execList => execList.email === execResult.email && execList.fullName === execResult.executorName), result);
                         });
                         formdata.executors.list = executorsWrapper.removeExecutorsEmailChangedFlag();
                     }
