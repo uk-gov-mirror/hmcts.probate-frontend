@@ -58,7 +58,8 @@ class ExecutorsUpdateInvite extends ValidationStep {
                                 inviteId: execResult.inviteId
                             };
                             merge(
-                                ctx.list.find(execList => execList.email === execResult.email && execList.fullName === execResult.executorName),
+                                formdata.executors.list.find(execList => execList.email === execResult.email &&
+                                    execList.fullName === execResult.executorName),
                                 sanitizeInput(result)
                             );
                         });
