@@ -59,8 +59,7 @@ class Step {
     getContextData(req) {
         const session = req.session;
         let ctx = {};
-        const safeSectionData = Sanitize.sanitizeInput(session.form[this.section] || {});
-        ctx = {...ctx, ...safeSectionData};
+        ctx = Sanitize.sanitizeInput(session.form[this.section] || {});
         ctx.sessionID = req.sessionID;
         ctx.caseType = caseTypes.getCaseType(session);
         ctx.userLoggedIn = false;
