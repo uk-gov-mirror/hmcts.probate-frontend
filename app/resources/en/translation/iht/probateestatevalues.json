@@ -24,7 +24,7 @@
   "netHint205": "Net value of the estate for probate",
   "netHint207": "Net value of the estate for probate in the UK in &pound;",
   "netHint421": "Net value of the estate for probate",
-  "netHint400": "Net value for probate",
+  "netHint400": "Net value of the estate for probate",
   "netHintNoIHT": "<strong>Net value for probate</strong><br><br>To work this out, start with the gross value for probate you calculated above and take away the total value of any funeral expenses and all debts, owed by the person who died at the time of their death.<br><br>Do not include debts owed jointly with other people, such as a mortgage on a jointly owned property.<br><br>",
   "poundSymbol": "&pound;",
   "grossValueSummary": "Gross value for probate in &pound;",
