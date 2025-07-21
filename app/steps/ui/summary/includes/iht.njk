@@ -79,7 +79,7 @@
 {{checkanswer(
     items = [
         {
-            question: content.DeceasedHadLateSpouseOrCivilPartner.question,
+            question: fields.summary.deceasedHadLateSpouseOrCivilPartnerQuestion.value,
             answer: content.DeceasedHadLateSpouseOrCivilPartner[fields.iht.deceasedHadLateSpouseOrCivilPartner.value],
             visible: fields.iht.deceasedHadLateSpouseOrCivilPartner.value and fields.summary.exceptedEstateDodAfterThreshold.value == "true" and fields.iht.estateValueCompleted.value == "optionNo" and fields.summary.withinNetQualifyingRange.value == "true"
         }
@@ -92,7 +92,7 @@
 {{checkanswer(
     items = [
         {
-            question: content.IhtUnusedAllowanceClaimed.question,
+            question: fields.summary.ihtUnusedAllowanceClaimedQuestion.value,
             answer: content.IhtUnusedAllowanceClaimed[fields.iht.unusedAllowanceClaimed.value],
             visible: fields.iht.unusedAllowanceClaimed.value and fields.summary.exceptedEstateDodAfterThreshold.value == "true" and fields.iht.estateValueCompleted.value == "optionNo" and fields.iht.deceasedHadLateSpouseOrCivilPartner.value == "optionYes" and fields.summary.withinNetQualifyingRange.value == "true"
         }
