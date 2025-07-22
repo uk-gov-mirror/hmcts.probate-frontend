@@ -4,7 +4,7 @@
   "optionIHT400": "IHT400",
   "optionIHT205": "IHT205",
   "errors": {
-    "ihtEstateId": {
+    "ihtFormId": {
       "required": "Dewiswch pa ffurflenni IHT wnaethoch chi eu llenwi i adrodd am werth yr ystad"
     }
   }
