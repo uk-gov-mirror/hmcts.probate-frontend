@@ -1,6 +1,6 @@
 {
-  "title": "Nodwch y cod profiant unigryw a anfonodd CThEF atoch",
-  "heading1": "Nodwch y cod profiant unigryw a anfonodd CThEF atoch",
+  "title": "Nodwch y cod profiant unigryw a anfonodd HMRC atoch",
+  "heading1": "Nodwch y cod profiant unigryw a anfonodd HMRC atoch",
   "label": "Cod CThEF",
   "hint" : "Mae’r cod profiant unigryw yn edrych fel hyn: CTS 0405231104 3tpp s8e9 ac mae wedi’i nodi ar dudalen gyntaf y llythyr neu’r e-bost.",
   "errors" : {
