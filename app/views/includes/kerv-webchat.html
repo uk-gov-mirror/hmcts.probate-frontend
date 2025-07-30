@@ -157,7 +157,7 @@
 
     function renderClosedWidget(reason) {
         return `
-        <p class="govuk-body">{{ common.helpChatClosed }}</p>`;
+        <p class="govuk-body">{{ common.helpChatClosed | replace("\n", "\\n") | replace("{chatOpeningHours}", common.helpChatOpeningHours) }}</p>`;
     }
 
     function renderErrorWidget() {
@@ -207,7 +207,7 @@
         } catch (err) {
             console.error('Error checking availability:', err);
             chatContent.innerHTML = `
-          <p class="govuk-body">{{ common.helpChatMaintainance }}</p>`;
+          <p class="govuk-body">{{ common.helpChatMaintenance }}</p>`;
         }
     });
 </script>
