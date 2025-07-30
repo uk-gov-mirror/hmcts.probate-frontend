@@ -1,42 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Availability Widget</title>
-    <style>
-        body {
-            color: #0b0c0c;
-            font-family: "GDS Transport", arial, sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            font-weight: 400;
-        }
-        .spinner {
-            display: inline-block;
-            width: 24px;
-            height: 24px;
-            border: 3px solid rgba(0, 0, 0, 0.1);
-            border-left-color: #1d70b8;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-right: 10px;
-            vertical-align: middle;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-    </style>
-</head>
-<body class="govuk-template__body">
-<div class="govuk-width-container">
-    <main class="govuk-main-wrapper">
-        <div class="govuk-!-margin-bottom-6" id="chatWidget">
-            <div id="chatContent" class="govuk-body">
-                <p>{{ common.helpChatNeedsJavascript }}</p>
-            </div>
-        </div>
-    </main>
+<div id="chatContent" class="govuk-body">
+    <p>{{ common.helpChatNeedsJavascript }}</p>
 </div>
 
 <script nonce="{{ globals.nonce }}">
@@ -248,5 +211,3 @@
         }
     });
 </script>
-</body>
-</html>
