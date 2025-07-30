@@ -67,7 +67,7 @@
             e.preventDefault();
             const popup = window.open('', 'GenesysChatWindow', 'width=420,height=600');
             if (!popup) {
-                alert('Popup blocked. Please allow pop‑ups for this site.');
+                alert('{{ common.helpChatNeedsPopups }}');
                 return;
             }
 

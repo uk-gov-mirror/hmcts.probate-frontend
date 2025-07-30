@@ -94,6 +94,7 @@
   "helpChatMaintenance": "Sorry, we’re having technical difficulties. Try email or telephone instead.",
   "helpChatCheckingAvail": "Checking availability…",
   "helpChatNeedsJavascript": "Webchat needs javascript enabling.",
+  "helpChatNeedsPopups": "Popup blocked. Please allow pop-ups for this site.",
 
   "errors": {
     "formSubmissionUnsuccessful": {
