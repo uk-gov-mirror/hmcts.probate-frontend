@@ -20,7 +20,7 @@
   "grossHint205": "Gross value of assets for probate",
   "grossHint421": "Gross value of assets for probate",
   "grossHint400": "Gross value of assets for probate",
-  "grossHintNoIHT": "<strong>Gross value for probate</strong><br><br>This is the total value of the assets the person who died held in their name, not including assets held jointly with anyone else.<br><br>To work out the gross value for probate, start with the gross value of the estate for Inheritance Tax then take away the values of any:<br><br><ul class=\"govuk-list govuk-list--bullet\"><li>joint assets passing to the other joint owner</li><li>foreign assets</li><li><a target=\"_blank\" rel=\"external noopener\" href={ihtGifts} class=\"govuk-link\" aria-label=\"gifts made in the last 7 years\">gifts made in the last 7 years</a></li><li>assets held in trust</li></ul>",
+  "grossHintNoIHT": "<strong>Gross value for probate</strong><br><br>This is the total value of the assets the person who died held in their name, not including assets held jointly with anyone else.<br><br>To work out the gross value for probate, start with the gross value of the estate for Inheritance Tax then take away the values of any:<br><br><ul class=\"govuk-list govuk-list--bullet\"><li>joint assets passing to the other joint owner</li><li>foreign assets</li><li><a target=\"_blank\" rel=\"external noopener\" href={ihtGifts} class=\"govuk-link\" aria-label=\"gifts made in the last 7 years (opens in a new tab)\">gifts made in the last 7 years (opens in a new tab)</a></li><li>assets held in trust</li></ul>",
   "netHint205": "Net value of the estate for probate",
   "netHint207": "Net value of the estate for probate in the UK in &pound;",
   "netHint421": "Net value of the estate for probate",
