@@ -8,7 +8,7 @@ const caseTypes = require('app/utils/CaseTypes');
 const ThankYou = require('app/steps/ui/thankyou');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 
-describe.only('documents', () => {
+describe('documents', () => {
     let testWrapper;
     const expectedNextUrlForThankYouPage = ThankYou.getUrl();
     let sessionData;
