@@ -8,7 +8,7 @@ const caseTypes = require('app/utils/CaseTypes');
 const ThankYou = require('app/steps/ui/thankyou');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 
-describe('documents', () => {
+describe.only('documents', () => {
     let testWrapper;
     const expectedNextUrlForThankYouPage = ThankYou.getUrl();
     let sessionData;
@@ -170,7 +170,8 @@ describe('documents', () => {
                             'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
-                        contentData.renunciationFormLink = config.links.renunciationForm;
+                        contentData.applicationFormPA15 = config.links.applicationFormPA15;
+                        contentData.applicationFormPA17 = config.links.applicationFormPA17;
 
                         testWrapper.testContent(done, contentData, contentToExclude);
                     });
