@@ -157,7 +157,7 @@ class DocumentPageUtil {
                 const linkText = splitContentItem[i].replace(/<a\s+[^>]*>([^<]*)<\/a>/i, '$1');
                 result.push({
                     text: linkText,
-                    type: 'textWithLink',
+                    type: 'textWithMultipleLinks',
                     url: links[linkIndex],
                     beforeLinkText: splitContentItem[i - 1] || '',
                     afterLinkText: splitContentItem[i + 1] || ''
