@@ -172,37 +172,6 @@ class DocumentPageUtil {
         console.log('CheckListItemTextWithLinks result:', JSON.stringify(result));
         return result.map(item => item.text).join('');
     }
-
-    static getCheckListItemTextWithLinksMerged(contentCheckListItem, links) {
-        if (!Array.isArray(links) || links.length === 0) {
-            throw new Error('please pass at least one valid url');
-        }
-
-        const splitContentItem = contentCheckListItem.split(/(<a.*?<\/a>)/g).filter(Boolean);
-        let linkIndex = 0;
-        let mergedText = '';
-
-        for (let i = 0; i < splitContentItem.length; i++) {
-            if (splitContentItem[i].includes('<a')) {
-                if (!links[linkIndex]) {
-                    throw new Error('Not enough links provided for the number of anchors in content');
-                }
-                const linkText = splitContentItem[i].replace(/<a.*?>(.*?)<\/a>/, '$1');
-                mergedText += `<a href="${links[linkIndex]}" target="_blank" aria-label="${linkText}">${linkText}</a>`;
-                // eslint-disable-next-line no-plusplus
-                linkIndex++;
-            } else {
-                mergedText += splitContentItem[i];
-            }
-        }
-
-        return {
-            type: 'textWithLink',
-            beforeLinkText: mergedText, // send everything as one string
-            url: '',
-            text: ''
-        };
-    }
     static noDocsRequired(formdata) {
         const documentsWrapper = new DocumentsWrapper(formdata);
         return !documentsWrapper.documentsRequired();
