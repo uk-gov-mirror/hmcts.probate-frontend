@@ -154,7 +154,7 @@ class DocumentPageUtil {
                 if (!links[linkIndex]) {
                     throw new Error('Not enough links provided for the number of anchors in content');
                 }
-                const linkText = splitContentItem[i].replace(/<a.*?>(.*?)<\/a>/, '$1');
+                const linkText = splitContentItem[i].replace(/<a\s+[^>]*>([^<]*)<\/a>/i, '$1');
                 result.push({
                     text: linkText,
                     type: 'textWithLink',
