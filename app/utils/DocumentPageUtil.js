@@ -151,8 +151,9 @@ class DocumentPageUtil {
 
         for (const part of splitContentItem) {
             if (part.includes('<a') && links[linkIndex]) {
-                const linkTextMatch = part.match(/>([^<]*)<\/a>/);
-                const linkText = linkTextMatch ? linkTextMatch[1] : '';
+                const start = part.indexOf('>') + 1;
+                const end = part.indexOf('</a>', start);
+                const linkText = (start > 0 && end > start) ? part.substring(start, end) : '';
                 segments.push({text: linkText, link: links[linkIndex]});
                 // eslint-disable-next-line no-plusplus
                 linkIndex++;
