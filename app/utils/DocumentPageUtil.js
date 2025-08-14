@@ -103,7 +103,7 @@ class DocumentPageUtil {
             checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item10-iht207']));
         }
         if (executorsWrapper.hasRenunciated()) {
-            checkListItems.push(this.getCheckListItemTextWithLinks(content['checklist-item8-renunciated'],
+            checkListItems.push(this.getCheckListItemTextWithMultipleLinks(content['checklist-item8-renunciated'],
                 [config.links.applicationFormPA15, config.links.applicationFormPA17]));
         }
         if (executorsWrapper.executorsNameChangedByDeedPoll() && executorsWrapper.executorsNameChangedByDeedPoll().length > 0) {
@@ -140,37 +140,31 @@ class DocumentPageUtil {
         }
         throw new Error(`there is no link in content item: "${contentCheckListItem}"`);
     }
-    static getCheckListItemTextWithLinks(contentCheckListItem, links) {
+    static getCheckListItemTextWithMultipleLinks(contentCheckListItem, links) {
         if (!Array.isArray(links) || links.length === 0) {
-            throw new Error('please pass at least one valid url');
+            throw new Error('Please pass in a valid array of URLs');
         }
 
-        const splitContentItem = contentCheckListItem.split(/(<a.*?<\/a>)/g).filter(Boolean);
-        const result = [];
+        const splitContentItem = contentCheckListItem.split(/(<a.*?<\/a>)/g);
+        const segments = [];
         let linkIndex = 0;
 
-        for (let i = 0; i < splitContentItem.length; i++) {
-            if (splitContentItem[i].includes('<a')) {
-                if (!links[linkIndex]) {
-                    throw new Error('Not enough links provided for the number of anchors in content');
-                }
-                const linkText = splitContentItem[i].replace(/<a\s+[^>]*>([^<]*)<\/a>/i, '$1');
-                result.push({
-                    text: linkText,
-                    type: 'textWithMultipleLinks',
-                    url: links[linkIndex],
-                    beforeLinkText: splitContentItem[i - 1] || '',
-                    afterLinkText: splitContentItem[i + 1] || ''
-                });
+        for (const part of splitContentItem) {
+            if (part.includes('<a') && links[linkIndex]) {
+                const linkTextMatch = part.match(/>(.*?)<\/a>/);
+                const linkText = linkTextMatch ? linkTextMatch[1] : '';
+                segments.push({text: linkText, link: links[linkIndex]});
                 // eslint-disable-next-line no-plusplus
                 linkIndex++;
+            } else if (part.trim() !== '') {
+                segments.push({text: part, link: null});
             }
         }
-        if (!result.length) {
-            throw new Error(`there is no link in content item: "${contentCheckListItem}"`);
-        }
-        console.log('CheckListItemTextWithLinks result:', JSON.stringify(result));
-        return result.map(item => item.text).join('');
+
+        return {
+            type: 'textWithMultipleLinks',
+            segments: segments
+        };
     }
     static noDocsRequired(formdata) {
         const documentsWrapper = new DocumentsWrapper(formdata);
