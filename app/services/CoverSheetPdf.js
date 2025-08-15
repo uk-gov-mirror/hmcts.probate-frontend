@@ -21,6 +21,7 @@ class CoverSheetPdf extends Pdf {
             noDocumentsRequiredText: DocumentPageUtil.getNoDocsRequiredText(formdata, req.session.language)
         };
         const logMessage = 'Post cover sheet pdf';
+        console.log(body);
         return super.post(pdfTemplate, body, logMessage, req);
     }
 }
