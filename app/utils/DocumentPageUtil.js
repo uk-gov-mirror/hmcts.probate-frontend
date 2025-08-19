@@ -162,12 +162,10 @@ class DocumentPageUtil {
             }
         }
 
-        const result = {
+        return {
             type: 'textWithMultipleLinks',
             segments: segments
         };
-        console.log('getCheckListItemTextWithMultipleLinks result:', JSON.stringify(result));
-        return result;
     }
     static noDocsRequired(formdata) {
         const documentsWrapper = new DocumentsWrapper(formdata);
