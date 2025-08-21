@@ -225,6 +225,9 @@ describe('PaymentBreakdown', () => {
             let ctx = {total: 0};
             let errors = [];
             const formdata = {
+                ccdCase: {
+                    id: 1,
+                },
                 fees: {
                     total: 0,
                     ukcopiesfee: 0,
