@@ -173,6 +173,7 @@ class PaymentBreakdown extends Step {
                     const formDataResult = yield this.submitForm(ctx, errors, formdata, notReqPayment, serviceAuthResult, session.language);
                     set(formdata, 'ccdCase', formDataResult.ccdCase);
                     set(formdata, 'payment', formDataResult.payment);
+                    delete this.nextStepUrl;
                 }
             } else {
                 delete this.nextStepUrl;
