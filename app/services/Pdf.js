@@ -15,7 +15,6 @@ class Pdf extends Service {
         };
         const businessDocumentUrl = this.formatUrl.format(this.endpoint, this.config.pdf.path);
         const url = `${businessDocumentUrl}/${pdfTemplate}`;
-        console.log('BS URL', url);
         this.log(logMessage);
         const authorise = new Authorise(this.config.services.idam.s2s_url, this.sessionId);
         return authorise
