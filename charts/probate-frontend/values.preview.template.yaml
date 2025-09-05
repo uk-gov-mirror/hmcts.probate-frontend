@@ -13,6 +13,7 @@ nodejs:
     REDIS_USE_TLS: false
     LAUNCHDARKLY_ENABLED: true
     DYNATRACE_URL: /public/javascripts/document-upload.js
+    NODE_OPTIONS: '--max-old-space-size=2048'
   keyVaults:
     probate:
       resourceGroup: probate
