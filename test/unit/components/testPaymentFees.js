@@ -162,7 +162,7 @@ describe('payment-data.js', () => {
 
         it('should return all fees when there is an application fee, uk copies and overseas copies', (done) => {
             const data = {
-                amount: 490.00,
+                amount: 498.00,
                 description: 'Ffioedd Profiant',
                 ccdCaseId: '123',
                 applicationFee: 450,
