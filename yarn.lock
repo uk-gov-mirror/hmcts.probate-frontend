@@ -2650,11 +2650,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@puppeteer/browsers@npm:2.10.8":
-  version: 2.10.8
-  resolution: "@puppeteer/browsers@npm:2.10.8"
+"@puppeteer/browsers@npm:2.10.10":
+  version: 2.10.10
+  resolution: "@puppeteer/browsers@npm:2.10.10"
   dependencies:
-    debug: "npm:^4.4.1"
+    debug: "npm:^4.4.3"
     extract-zip: "npm:^2.0.1"
     progress: "npm:^2.0.3"
     proxy-agent: "npm:^6.5.0"
@@ -2663,7 +2663,7 @@ __metadata:
     yargs: "npm:^17.7.2"
   bin:
     browsers: lib/cjs/main-cli.js
-  checksum: 10/f73e5a6c68159b19d332b6367e8b5ff26602d44cb334da9726c974300eb27d0bdbd868e42eabaa3713e68c4ff974a5a2a9f8563760208632125bafb3ad27ef63
+  checksum: 10/6e9763a567252faf88ba3a699d76b9651cc4355be7602feb6dd21eab1c826cc7616e22f50d584a5727a1cab420ee0c2f232da22704fe25903f7a41c96470a227
   languageName: node
   linkType: hard
 
@@ -4252,7 +4252,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.8.2, axios@npm:^1.8.4":
+"axios@npm:^1.12.2":
+  version: 1.12.2
+  resolution: "axios@npm:1.12.2"
+  dependencies:
+    follow-redirects: "npm:^1.15.6"
+    form-data: "npm:^4.0.4"
+    proxy-from-env: "npm:^1.1.0"
+  checksum: 10/886a79770594eaad76493fecf90344b567bd956240609b5dcd09bd0afe8d3e6f1ad6d3257a93a483b6192b409d4b673d9515a34619e3e3ed1b2c0ec2a83b20ba
+  languageName: node
+  linkType: hard
+
+"axios@npm:^1.8.4":
   version: 1.11.0
   resolution: "axios@npm:1.11.0"
   dependencies:
@@ -6247,14 +6258,14 @@ __metadata:
   linkType: hard
 
 "debug@npm:4, debug@npm:^4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.4, debug@npm:^4.3.5, debug@npm:^4.3.7, debug@npm:^4.4.0, debug@npm:^4.4.1":
-  version: 4.4.1
-  resolution: "debug@npm:4.4.1"
+  version: 4.4.3
+  resolution: "debug@npm:4.4.3"
   dependencies:
     ms: "npm:^2.1.3"
   peerDependenciesMeta:
     supports-color:
       optional: true
-  checksum: 10/8e2709b2144f03c7950f8804d01ccb3786373df01e406a0f66928e47001cf2d336cbed9ee137261d4f90d68d8679468c755e3548ed83ddacdc82b194d2468afe
+  checksum: 10/9ada3434ea2993800bd9a1e320bd4aa7af69659fb51cca685d390949434bc0a8873c21ed7c9b852af6f2455a55c6d050aa3937d52b3c69f796dab666f762acad
   languageName: node
   linkType: hard
 
@@ -6264,6 +6275,18 @@ __metadata:
   dependencies:
     ms: "npm:^2.1.1"
   checksum: 10/d86fd7be2b85462297ea16f1934dc219335e802f629ca9a69b63ed8ed041dda492389bb2ee039217c02e5b54792b1c51aa96ae954cf28634d363a2360c7a1639
+  languageName: node
+  linkType: hard
+
+"debug@npm:^4.4.3":
+  version: 4.4.3
+  resolution: "debug@npm:4.4.3"
+  dependencies:
+    ms: "npm:^2.1.3"
+  peerDependenciesMeta:
+    supports-color:
+      optional: true
+  checksum: 10/9ada3434ea2993800bd9a1e320bd4aa7af69659fb51cca685d390949434bc0a8873c21ed7c9b852af6f2455a55c6d050aa3937d52b3c69f796dab666f762acad
   languageName: node
   linkType: hard
 
@@ -10827,9 +10850,9 @@ __metadata:
   linkType: hard
 
 "libphonenumber-js@npm:^1.11.17":
-  version: 1.12.15
-  resolution: "libphonenumber-js@npm:1.12.15"
-  checksum: 10/0641a7534015352dfb7c898b4b5ae1527791220d5603bb51055ac8506a739fb19e5d2c724ce4aaaaecac1fa19a673f90655a44215c0271700f1b710475952f06
+  version: 1.12.17
+  resolution: "libphonenumber-js@npm:1.12.17"
+  checksum: 10/4931cd769e90b1f40d84259578a2d4ef07bbfc500cab7029150bec418c262785e1534eaf2d5f3c94c9ffcd164e0f540a129dcd80da72d7483019cf8959902d2e
   languageName: node
   linkType: hard
 
@@ -13702,7 +13725,7 @@ __metadata:
     ajv: "npm:^6.12.6"
     ajv-keywords: "npm:^3.5.2"
     applicationinsights: "npm:^2.5.0"
-    axios: "npm:^1.8.2"
+    axios: "npm:^1.12.2"
     basic-auth: "npm:^2.0.1"
     body-parser: "npm:^2.0.0"
     chai: "npm:^4.3.7"
@@ -14058,33 +14081,34 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:24.19.0":
-  version: 24.19.0
-  resolution: "puppeteer-core@npm:24.19.0"
+"puppeteer-core@npm:24.21.0":
+  version: 24.21.0
+  resolution: "puppeteer-core@npm:24.21.0"
   dependencies:
-    "@puppeteer/browsers": "npm:2.10.8"
+    "@puppeteer/browsers": "npm:2.10.10"
     chromium-bidi: "npm:8.0.0"
-    debug: "npm:^4.4.1"
+    debug: "npm:^4.4.3"
     devtools-protocol: "npm:0.0.1495869"
     typed-query-selector: "npm:^2.12.0"
+    webdriver-bidi-protocol: "npm:0.2.11"
     ws: "npm:^8.18.3"
-  checksum: 10/52c8a559a2a7ce4a20c881fa840aef0ce97d832d28bc77e0f89b17a8735ccdfbd4dda1e2523987bfd90b6ff552cc1f9554e1858259a64d140c3e9a73f71ee1b1
+  checksum: 10/f50afe0fbfeea44d44db5f8e5d3ccb03c41ccb728f128ab49e31cc19802d8091b004f36e1ec062274680d6e34f40fa4efbf37e4753d9772b7729eee757325bba
   languageName: node
   linkType: hard
 
 "puppeteer@npm:^24.10.2":
-  version: 24.19.0
-  resolution: "puppeteer@npm:24.19.0"
+  version: 24.21.0
+  resolution: "puppeteer@npm:24.21.0"
   dependencies:
-    "@puppeteer/browsers": "npm:2.10.8"
+    "@puppeteer/browsers": "npm:2.10.10"
     chromium-bidi: "npm:8.0.0"
     cosmiconfig: "npm:^9.0.0"
     devtools-protocol: "npm:0.0.1495869"
-    puppeteer-core: "npm:24.19.0"
+    puppeteer-core: "npm:24.21.0"
     typed-query-selector: "npm:^2.12.0"
   bin:
     puppeteer: lib/cjs/puppeteer/node/cli.js
-  checksum: 10/60c034efa5572c223b76e23cd3ce5641e92b7e9a5e63713f3df41ea586d38c45207a6ff33d51de147b989cc4392c680e1d96968a2d9b28ca9333e85f4b727568
+  checksum: 10/f895efe6077400ce835ddbf9e81761bff4d4e5ca61de10101893b0b8bf37a585f6e62647628f1d9b76afdbac031705407d6de3abda5c4e4953113e1596f760ac
   languageName: node
   linkType: hard
 
@@ -17368,6 +17392,13 @@ __metadata:
   version: 3.3.3
   resolution: "web-streams-polyfill@npm:3.3.3"
   checksum: 10/8e7e13501b3834094a50abe7c0b6456155a55d7571312b89570012ef47ec2a46d766934768c50aabad10a9c30dd764a407623e8bfcc74fcb58495c29130edea9
+  languageName: node
+  linkType: hard
+
+"webdriver-bidi-protocol@npm:0.2.11":
+  version: 0.2.11
+  resolution: "webdriver-bidi-protocol@npm:0.2.11"
+  checksum: 10/aa62ef13579900c24502326725a8e1284e6ccae0dca26ab6009f65a6efea2ea4b9dee21dfb3de004f4dfd0b7d73c83e9137a842519c98b97a02b843dbc537c35
   languageName: node
   linkType: hard
 
