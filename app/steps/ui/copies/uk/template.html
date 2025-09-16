@@ -9,7 +9,7 @@
 {% block form_content %}
     {% call govukFieldset({
         legend: {
-            text: (content.question if fields.isFeesApiToggleEnabled.value == "true" else content.questionOld) | safe,
+            text: content.question | safe,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
@@ -37,7 +37,7 @@
 
         {{ govukInput({
             label: {
-                text: (content.copies if fields.isFeesApiToggleEnabled.value == "true" else content.copiesOld) | safe
+                text: content.copies | safe
             },
             id: "uk",
             name: "uk",

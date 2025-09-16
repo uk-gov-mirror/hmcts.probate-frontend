@@ -25,8 +25,8 @@ describe('copies-uk', () => {
     });
 
     describe('Verify Content, Errors and Redirection - Feature toggles', () => {
-        it('test right content loaded on the page with the ft_fees_api toggle ON', (done) => {
-            testWrapper = new TestWrapper('CopiesUk', {ft_fees_api: true});
+        it('test right content loaded on the page with the ft_probate_fee_increase_2025 toggle ON', (done) => {
+            testWrapper = new TestWrapper('CopiesUk', {ft_probate_fee_increase_2025: true});
 
             invitesAllAgreedNock();
 
@@ -41,18 +41,14 @@ describe('copies-uk', () => {
                 .end(() => {
                     delete require.cache[require.resolve('test/data/copiesUk')];
                     const contentToExclude = [
-                        'questionOld',
-                        'paragraph1Old',
-                        'paragraph2Old',
-                        'paragraph3Old',
-                        'copiesOld'
+                        'paragraph3'
                     ];
                     testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 
-        it('test right content loaded on the page with the ft_fees_api toggle OFF', (done) => {
-            testWrapper = new TestWrapper('CopiesUk', {ft_fees_api: false});
+        it('test right content loaded on the page with the ft_probate_fee_increase_2025 toggle OFF', (done) => {
+            testWrapper = new TestWrapper('CopiesUk', {ft_probate_fee_increase_2025: false});
 
             invitesAllAgreedNock();
 
@@ -67,13 +63,7 @@ describe('copies-uk', () => {
                 .end(() => {
                     delete require.cache[require.resolve('test/data/copiesUk')];
                     const contentToExclude = [
-                        'question',
-                        'paragraph1',
-                        'paragraph2',
-                        'paragraph3',
-                        'bullet1',
-                        'bullet2',
-                        'copies',
+                        'paragraph3Fee2025',
                     ];
                     testWrapper.testContent(done, {}, contentToExclude);
                 });

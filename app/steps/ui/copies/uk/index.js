@@ -16,7 +16,7 @@ class CopiesUk extends ValidationStep {
     }
 
     handleGet(ctx, formdata, featureToggles) {
-        ctx.isFtFeesIncrease2025 = featureToggle.isEnabled(featureToggles, 'ft_probate-fee-increase-2025');
+        ctx.isFtFeesIncrease2025 = featureToggle.isEnabled(featureToggles, 'ft_probate_fee_increase_2025');
         return [ctx];
     }
 
