@@ -10,7 +10,6 @@ featureToggles:
     firstName: 'Probate'
     lastName: 'Frontend'
     key: 'LAUNCHDARKLY_USER_KEY'
-  ft_fees_api: 'probate-fees-api'
   ft_pcq: 'probate-pcq'
   ft_pcq_token: 'probate-pcq-token'
   ft_avaya_webchat: 'probate-avaya-webchat'
@@ -19,6 +18,7 @@ featureToggles:
   ft_will_condition : 'probate-will-condition'
   ft_stop_ihtonline : 'probate-stop-ihtonline'
   ft_use_new_webchat : 'probate-use-new-webchat'
+  ft_probate-fee-increase-2025 : 'probate-fee-increase-2025'
   appwideToggles: ['ft_avaya_webchat', 'ft_use_new_webchat']
 # overrides featureToggles to e.g. switch off in pipeline/locally
 configFeatureToggles:

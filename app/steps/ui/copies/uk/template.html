@@ -14,15 +14,13 @@
             isPageHeading: true
         }
     }) %}
-        {% if fields.isFeesApiToggleEnabled.value == "true" %}
+
             <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
             <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
-            <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
-           
+       {% if fields.isFtFeesIncrease2025.value == "true" %}
+            <p class="govuk-body">{{ content.paragraph3Fee2025 | safe }}</p>
         {% else %}
-            <p class="govuk-body">{{ content.paragraph1Old | safe }}</p>
-            <p class="govuk-body">{{ content.paragraph2Old | safe }}</p>
-            <p class="govuk-body">{{ content.paragraph3Old | safe }}</p>
+           <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
         {% endif %}
 
         <details class="govuk-details" data-module="govuk-details">
