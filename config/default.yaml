@@ -425,3 +425,6 @@ disposal:
   switchDate: '2025-03-04'
   inactivityDaysThreshold: 90
   deletionDaysThreshold: 90
+fee:
+  copiesUKFee: '1.50'
+  copiesUKFee2025: '16.00'

@@ -17,11 +17,7 @@
 
             <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
             <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
-       {% if fields.isFtFeesIncrease2025.value == "true" %}
-            <p class="govuk-body">{{ content.paragraph3Fee2025 | safe }}</p>
-        {% else %}
-           <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
-        {% endif %}
+            <p class="govuk-body">{{ content.paragraph3 | replace("{copiesUKFee}", fields.copiesUKFee.value) | safe }}</p>
 
         <details class="govuk-details" data-module="govuk-details">
         <summary class="govuk-details__summary">
