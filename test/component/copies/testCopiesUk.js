@@ -40,10 +40,8 @@ describe('copies-uk', () => {
                 .send(sessionData)
                 .end(() => {
                     delete require.cache[require.resolve('test/data/copiesUk')];
-                    const contentToExclude = [
-                        'paragraph3'
-                    ];
-                    testWrapper.testContent(done, {}, contentToExclude);
+                    const contentData = {copiesUKFee: '16.00'};
+                    testWrapper.testContent(done, contentData);
                 });
         });
 
@@ -62,10 +60,8 @@ describe('copies-uk', () => {
                 .send(sessionData)
                 .end(() => {
                     delete require.cache[require.resolve('test/data/copiesUk')];
-                    const contentToExclude = [
-                        'paragraph3Fee2025',
-                    ];
-                    testWrapper.testContent(done, {}, contentToExclude);
+                    const contentData = {copiesUKFee: '1.50'};
+                    testWrapper.testContent(done, contentData);
                 });
         });
     });
