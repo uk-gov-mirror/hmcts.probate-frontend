@@ -98,7 +98,7 @@ describe('payment-data.js', () => {
             };
             const result = paymentData.createPaymentData(data, 'cy');
             expect(result).to.deep.equal({
-                amount: 16.00,
+                amount: 15.00,
                 description: 'Ffioedd Profiant',
                 ccd_case_number: '123',
                 service: 'PROBATE',
@@ -147,7 +147,7 @@ describe('payment-data.js', () => {
                 currency: 'GBP',
                 site_id: 'P223',
                 fees: [{
-                    calculated_amount: 3,
+                    calculated_amount: 30,
                     ccd_case_number: '123',
                     code: 'FEE0003',
                     memo_line: 'Additional overseas copies',

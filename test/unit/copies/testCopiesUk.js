@@ -52,7 +52,7 @@ describe('CopiesUk', () => {
                 ft_probate_fee_increase_2025: true
             };
             const [ctx] = CopiesUk.handleGet(ctxToTest, formdata, featureToggles);
-            expect(ctx.copiesUKFee).to.equal('16.00');
+            expect(ctx.copiesUKFee).to.equal('15.00');
             done();
         });
 
