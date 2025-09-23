@@ -29,16 +29,16 @@ describe('payment-breakdown', () => {
             applicationfee: 450,
             applicationvalue: 6000,
             ukcopies: 1,
-            ukcopiesfee: 15.00,
+            ukcopiesfee: 16.00,
             overseascopies: 2,
-            overseascopiesfee: 30,
+            overseascopiesfee: 32,
             applicationversion: 0,
             applicationcode: 'FEE0226',
             ukcopiesversion: 2,
             ukcopiescode: 'FEE0003',
             overseascopiesversion: 3,
             overseascopiescode: 'FEE0003',
-            total: 495.00
+            total: 498.00
         }));
     });
 
@@ -67,10 +67,10 @@ describe('payment-breakdown', () => {
                     applicationfee: 450,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 15.00,
+                    ukcopiesfee: 16.00,
                     overseascopies: 2,
-                    overseascopiesfee: 30,
-                    total: 495.00
+                    overseascopiesfee: 32,
+                    total: 498.00
                 },
                 declaration: {
                     declarationCheckbox: 'true'
@@ -149,10 +149,10 @@ describe('payment-breakdown', () => {
                     applicationfee: 450,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 15.00,
+                    ukcopiesfee: 16.00,
                     overseascopies: 2,
-                    overseascopiesfee: 30,
-                    total: 495.00
+                    overseascopiesfee: 32,
+                    total: 498.00
                 },
                 declaration: {
                     declarationCheckbox: 'true'

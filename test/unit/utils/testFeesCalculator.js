@@ -91,13 +91,13 @@ describe('FeesCalculator', () => {
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
-                'fee_amount': 15
+                'fee_amount': 16
             }));
             feesLookupStub.onCall(2).returns(Promise.resolve({
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
-                'fee_amount': 30
+                'fee_amount': 32
             }));
 
             const expectedResponse = {
@@ -105,10 +105,10 @@ describe('FeesCalculator', () => {
                 applicationfee: 450,
                 applicationvalue: 6000,
                 ukcopies: 1,
-                ukcopiesfee: 15.00,
+                ukcopiesfee: 16.00,
                 overseascopies: 2,
-                overseascopiesfee: 30,
-                total: 495.00,
+                overseascopiesfee: 32,
+                total: 498.00,
                 applicationcode: 'FEE0219',
                 applicationversion: 3,
                 ukcopiescode: 'FEE0003',
@@ -142,13 +142,13 @@ describe('FeesCalculator', () => {
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
-                'fee_amount': 15.00
+                'fee_amount': 16.00
             }));
             feesLookupStub.onCall(1).returns(Promise.resolve({
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
-                'fee_amount': 30
+                'fee_amount': 32
             }));
 
             const expectedResponse = {
@@ -156,12 +156,12 @@ describe('FeesCalculator', () => {
                 applicationfee: 0,
                 applicationvalue: 4000,
                 ukcopies: 1,
-                ukcopiesfee: 15.00,
+                ukcopiesfee: 16.00,
                 overseascopies: 2,
-                overseascopiesfee: 30,
+                overseascopiesfee: 32,
                 applicationcode: '',
                 applicationversion: 0,
-                total: 45.00,
+                total: 48.00,
                 ukcopiescode: 'FEE0003',
                 ukcopiesversion: 3,
                 overseascopiescode: 'FEE0003',
@@ -249,7 +249,7 @@ describe('FeesCalculator', () => {
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
-                'fee_amount': 30
+                'fee_amount': 32
             }));
 
             const expectedResponse = {
@@ -259,8 +259,8 @@ describe('FeesCalculator', () => {
                 ukcopies: 1,
                 ukcopiesfee: 0,
                 overseascopies: 2,
-                overseascopiesfee: 30,
-                total: 480.00,
+                overseascopiesfee: 32,
+                total: 482.00,
                 applicationcode: 'FEE0219',
                 applicationversion: 3,
                 ukcopiescode: '',
@@ -296,13 +296,13 @@ describe('FeesCalculator', () => {
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
-                'fee_amount': 15.00
+                'fee_amount': 16.00
             }));
             feesLookupStub.onCall(2).returns(Promise.resolve({
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
-                'fee_amount': 30
+                'fee_amount': 32
             }));
 
             const expectedResponse = {
@@ -310,10 +310,10 @@ describe('FeesCalculator', () => {
                 applicationfee: 0,
                 applicationvalue: 6000,
                 ukcopies: 1,
-                ukcopiesfee: 15.00,
+                ukcopiesfee: 16.00,
                 overseascopies: 2,
-                overseascopiesfee: 30,
-                total: 45.00,
+                overseascopiesfee: 32,
+                total: 48.00,
                 applicationcode: '',
                 applicationversion: 0,
                 ukcopiescode: 'FEE0003',

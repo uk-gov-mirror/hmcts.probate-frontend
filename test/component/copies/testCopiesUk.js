@@ -40,7 +40,7 @@ describe('copies-uk', () => {
                 .send(sessionData)
                 .end(() => {
                     delete require.cache[require.resolve('test/data/copiesUk')];
-                    const contentData = {copiesUKFee: '15.00'};
+                    const contentData = {copiesUKFee: '16.00'};
                     testWrapper.testContent(done, contentData);
                 });
         });
