@@ -68,4 +68,71 @@ describe('DocumentPageUtil.js', () => {
             done();
         });
     });
+    describe('getCheckListItemTextWithMultipleLinks()', () => {
+        it('should return correctly formatted segments with multiple links', (done) => {
+            const content = 'Text before <a href="{link1}">Link1</a> middle <a href="{link2}">Link2</a> after';
+            const links = ['http://link1.com', 'http://link2.com'];
+            expect(DocumentPageUtil.getCheckListItemTextWithMultipleLinks(content, links)).to.deep.equal({
+                type: 'textWithMultipleLinks',
+                segments: [
+                    {text: 'Text before ', link: null},
+                    {text: 'Link1', link: 'http://link1.com'},
+                    {text: ' middle ', link: null},
+                    {text: 'Link2', link: 'http://link2.com'},
+                    {text: ' after', link: null}
+                ]
+            });
+            done();
+        });
+
+        it('should handle content with only links', (done) => {
+            const content = '<a href="{link1}">Link1</a><a href="{link2}">Link2</a>';
+            const links = ['http://link1.com', 'http://link2.com'];
+            expect(DocumentPageUtil.getCheckListItemTextWithMultipleLinks(content, links)).to.deep.equal({
+                type: 'textWithMultipleLinks',
+                segments: [
+                    {text: 'Link1', link: 'http://link1.com'},
+                    {text: 'Link2', link: 'http://link2.com'}
+                ]
+            });
+            done();
+        });
+
+        it('should throw error if links array is empty', (done) => {
+            const content = 'Text <a href="{link1}">Link1</a>';
+            expect(() => DocumentPageUtil.getCheckListItemTextWithMultipleLinks(content, [])).to.throw('Please pass in a valid array of URLs');
+            done();
+        });
+
+        it('should throw error if links is not an array', (done) => {
+            const content = 'Text <a href="{link1}">Link1</a>';
+            expect(() => DocumentPageUtil.getCheckListItemTextWithMultipleLinks(content, null)).to.throw('Please pass in a valid array of URLs');
+            done();
+        });
+
+        it('should handle content with no links', (done) => {
+            const content = 'Text with no links';
+            const links = ['http://link1.com'];
+            expect(DocumentPageUtil.getCheckListItemTextWithMultipleLinks(content, links)).to.deep.equal({
+                type: 'textWithMultipleLinks',
+                segments: [
+                    {text: 'Text with no links', link: null}
+                ]
+            });
+            done();
+        });
+
+        it('should ignore extra links if more links than anchors', (done) => {
+            const content = 'Text <a href="{link1}">Link1</a>';
+            const links = ['http://link1.com', 'http://extra.com'];
+            expect(DocumentPageUtil.getCheckListItemTextWithMultipleLinks(content, links)).to.deep.equal({
+                type: 'textWithMultipleLinks',
+                segments: [
+                    {text: 'Text ', link: null},
+                    {text: 'Link1', link: 'http://link1.com'}
+                ]
+            });
+            done();
+        });
+    });
 });

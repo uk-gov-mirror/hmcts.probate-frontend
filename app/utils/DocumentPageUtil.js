@@ -47,7 +47,7 @@ class DocumentPageUtil {
             checkListItems.push(content['checklist-item10-iht207']);
         }
         if (ctx.hasRenunciated) {
-            checkListItems.push(content['checklist-item8-renunciated'].replace('{renunciationFormLink}', config.links.renunciationForm));
+            checkListItems.push(content['checklist-item8-renunciated'].replace('{applicationFormPA15}', config.links.applicationFormPA15).replace('{applicationFormPA17}', config.links.applicationFormPA17));
         }
         if (ctx.executorsNameChangedByDeedPollList && ctx.executorsNameChangedByDeedPollList.length > 0) {
             ctx.executorsNameChangedByDeedPollList.forEach(executor => {
@@ -103,7 +103,8 @@ class DocumentPageUtil {
             checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item10-iht207']));
         }
         if (executorsWrapper.hasRenunciated()) {
-            checkListItems.push(this.getCheckListItemTextWithLink(content['checklist-item8-renunciated'], config.links.renunciationForm));
+            checkListItems.push(this.getCheckListItemTextWithMultipleLinks(content['checklist-item8-renunciated'],
+                [config.links.applicationFormPA15, config.links.applicationFormPA17]));
         }
         if (executorsWrapper.executorsNameChangedByDeedPoll() && executorsWrapper.executorsNameChangedByDeedPoll().length > 0) {
             executorsWrapper.executorsNameChangedByDeedPoll().forEach(executor => {
@@ -139,7 +140,33 @@ class DocumentPageUtil {
         }
         throw new Error(`there is no link in content item: "${contentCheckListItem}"`);
     }
+    static getCheckListItemTextWithMultipleLinks(contentCheckListItem, links) {
+        if (!Array.isArray(links) || links.length === 0) {
+            throw new Error('Please pass in a valid array of URLs');
+        }
 
+        const splitContentItem = contentCheckListItem.split(/(<a.*?<\/a>)/g);
+        const segments = [];
+        let linkIndex = 0;
+
+        for (const part of splitContentItem) {
+            if (part.includes('<a') && links[linkIndex]) {
+                const start = part.indexOf('>') + 1;
+                const end = part.indexOf('</a>', start);
+                const linkText = (start > 0 && end > start) ? part.substring(start, end) : '';
+                segments.push({text: linkText, link: links[linkIndex]});
+                // eslint-disable-next-line no-plusplus
+                linkIndex++;
+            } else if (part.trim() !== '') {
+                segments.push({text: part, link: null});
+            }
+        }
+
+        return {
+            type: 'textWithMultipleLinks',
+            segments: segments
+        };
+    }
     static noDocsRequired(formdata) {
         const documentsWrapper = new DocumentsWrapper(formdata);
         return !documentsWrapper.documentsRequired();

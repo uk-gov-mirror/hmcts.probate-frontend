@@ -35,6 +35,8 @@ const sanitizeRequestBody = require('app/middleware/sanitizeRequestBody');
 const setSessionLanguage = require('app/middleware/setSessionLanguage');
 const isEmpty = require('lodash').isEmpty;
 const setupHealthCheck = require('app/utils/setupHealthCheck');
+const {sanitizeInput} = require('./app/utils/Sanitize');
+const {merge} = require('lodash');
 
 exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const app = express();
@@ -72,7 +74,17 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         webchat: {
             avayaUrl: config.webchat.avayaUrl,
             avayaClientUrl: config.webchat.avayaClientUrl,
-            avayaService: config.webchat.avayaService
+            avayaService: config.webchat.avayaService,
+            kerv: {
+                deploymentId: {
+                    en: config.webchat.kerv.deploymentId.en,
+                    cy: config.webchat.kerv.deploymentId.cy,
+                },
+                genesysBaseUrl: config.webchat.kerv.genesysBaseUrl,
+                environment: config.webchat.kerv.environment,
+                kervBaseUrl: config.webchat.kerv.kervBaseUrl,
+                apiKey: config.webchat.kerv.apiKey,
+            },
         },
         caseTypes: {
             gop: caseTypes.GOP,
@@ -129,7 +141,8 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'webchat-client.pp.ctsc.hmcts.net',
                 'webchat-client.ctsc.hmcts.net',
                 `'nonce-${nonce}'`,
-                'tagmanager.google.com'
+                'tagmanager.google.com',
+                config.webchat.kerv.genesysBaseUrl,
             ],
             connectSrc: [
                 '\'self\'',
@@ -143,7 +156,12 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'https://webchat.pp.ctsc.hmcts.net',
                 'https://webchat-client.pp.ctsc.hmcts.net',
                 '*.g.doubleclick.net',
-                'tagmanager.google.com'
+                'tagmanager.google.com',
+                config.webchat.kerv.kervBaseUrl,
+                // these being fixed values here seems like it's going to fail at some point
+                'https://api.euw2.pure.cloud',
+                'https://api-cdn.euw2.pure.cloud',
+                'wss://webmessaging.euw2.pure.cloud',
             ],
             mediaSrc: [
                 '\'self\''
@@ -171,7 +189,11 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 '\'self\'',
                 config.services.equalityAndDiversity.url,
                 config.services.payment.externalUrl
-            ]
+            ],
+            frameSrc: [
+                '\'self\'',
+                config.webchat.kerv.genesysBaseUrl,
+            ],
         },
         browserSniff: true,
         setAllHeaders: true
@@ -247,7 +269,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         }
 
         if (isA11yTest && !isEmpty(a11yTestSession)) {
-            req.session = Object.assign(req.session, a11yTestSession);
+            req.session = merge(req.session, sanitizeInput(a11yTestSession));
         }
 
         next();
@@ -257,7 +279,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
 
     app.use((req, res, next) => {
         if (isA11yTest && !isEmpty(a11yTestSession)) {
-            req.session = Object.assign(req.session, a11yTestSession);
+            req.session = merge(req.session, sanitizeInput(a11yTestSession));
         }
 
         req.session.uuid = uuidv4();
@@ -392,6 +414,34 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             userLoggedIn: req.userLoggedIn
         });
     });
+
+    const environment = config.environment;
+    const memlogEnvironments = ['aat'];
+    if (memlogEnvironments.includes(environment)) {
+        const v8 = require('node:v8');
+
+        const inMb = (v) => (v / 1024 / 1024).toFixed(2);
+        const doLogMem = () => {
+            const heapStat = v8.getHeapStatistics();
+
+            const logMsg = 'Current memory usage (in mb): ' +
+                `totalHeapSize=${inMb(heapStat.total_heap_size)} ` +
+                `totalHeapSizeExec=${inMb(heapStat.total_heap_size_executable)} ` +
+                `totalPhysicalSize=${inMb(heapStat.total_physical_size)} ` +
+                `totalAvailableSize=${inMb(heapStat.total_available_size)} ` +
+                `usedHeapSize=${inMb(heapStat.used_heap_size)} ` +
+                `heapSizeLimit=${inMb(heapStat.heap_size_limit)}`;
+
+            logger('MemUsage').info(logMsg);
+        };
+
+        logger('MemUsage')
+            .info(`Scheduling memory reporting every 60 seconds in config.environment: ${environment}`);
+        const logMem = setInterval(doLogMem, 60000);
+    } else {
+        logger('MemUsage')
+            .info(`Not triggering regular memory logging for config.environment: ${environment}`);
+    }
 
     return {app, http};
 };

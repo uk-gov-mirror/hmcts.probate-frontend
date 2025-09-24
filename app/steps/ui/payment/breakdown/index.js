@@ -110,52 +110,68 @@ class PaymentBreakdown extends Step {
                 }
             }
 
-            if (ctx.total > 0 && canCreatePayment) {
-                session.save();
+            if (canCreatePayment) {
+                if (ctx.total > 0) {
+                    session.save();
 
-                const serviceAuthResult = yield authorise.post();
-                if (serviceAuthResult.name === 'Error') {
-                    logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
-                    const keyword = 'failure';
-                    errors.push(FieldError('authorisation', keyword, this.resourcePath, this.generateContent(ctx, formdata, session.language), session.language));
-                    return [ctx, errors];
-                }
+                    const serviceAuthResult = yield authorise.post();
+                    if (serviceAuthResult.name === 'Error') {
+                        logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
+                        const keyword = 'failure';
+                        errors.push(FieldError('authorisation', keyword, this.resourcePath, this.generateContent(ctx, formdata, session.language), session.language));
+                        return [ctx, errors];
+                    }
 
-                const data = {
-                    amount: parseFloat(ctx.total),
-                    authToken: ctx.authToken,
-                    serviceAuthToken: serviceAuthResult,
-                    userId: ctx.userId,
-                    applicationFee: ctx.applicationFee,
-                    copies: ctx.copies,
-                    deceasedLastName: ctx.deceasedLastName,
-                    ccdCaseId: formdata.ccdCase.id,
-                    applicationversion: ctx.applicationversion,
-                    applicationcode: ctx.applicationcode,
-                    ukcopiesversion: ctx.ukcopiesversion,
-                    ukcopiescode: ctx.ukcopiescode,
-                    overseascopiesversion: ctx.overseascopiesversion,
-                    overseascopiescode: ctx.overseascopiescode
-                };
+                    const data = {
+                        amount: parseFloat(ctx.total),
+                        authToken: ctx.authToken,
+                        serviceAuthToken: serviceAuthResult,
+                        userId: ctx.userId,
+                        applicationFee: ctx.applicationFee,
+                        copies: ctx.copies,
+                        deceasedLastName: ctx.deceasedLastName,
+                        ccdCaseId: formdata.ccdCase.id,
+                        applicationversion: ctx.applicationversion,
+                        applicationcode: ctx.applicationcode,
+                        ukcopiesversion: ctx.ukcopiesversion,
+                        ukcopiescode: ctx.ukcopiescode,
+                        overseascopiesversion: ctx.overseascopiesversion,
+                        overseascopiescode: ctx.overseascopiescode
+                    };
 
-                const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
-                const payment = new Payment(paymentCreateServiceUrl, ctx.sessionID);
-                const paymentResponse = yield payment.post(data, hostname, session.language);
-                logger.info(`Payment creation in breakdown for ccdCaseId = ${formdata.ccdCase.id} with response = ${JSON.stringify(paymentResponse)}`);
-                if (paymentResponse.name === 'Error') {
-                    errors.push(FieldError('payment', 'failure', this.resourcePath, this.generateContent(ctx, formdata, session.language), session.language));
-                    return [ctx, errors];
+                    const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
+                    const payment = new Payment(paymentCreateServiceUrl, ctx.sessionID);
+                    const paymentResponse = yield payment.post(data, hostname, session.language);
+                    logger.info(`Payment creation in breakdown for ccdCaseId = ${formdata.ccdCase.id} with response = ${JSON.stringify(paymentResponse)}`);
+                    if (paymentResponse.name === 'Error') {
+                        errors.push(FieldError('payment', 'failure', this.resourcePath, this.generateContent(ctx, formdata, session.language), session.language));
+                        return [ctx, errors];
+                    }
+                    const formDataResult = yield this.submitForm(ctx, errors, formdata, paymentResponse, serviceAuthResult, session.language);
+                    set(formdata, 'ccdCase', formDataResult.ccdCase);
+                    set(formdata, 'payment', formDataResult.payment);
+                    if (errors.length > 0) {
+                        logger.error('Failed to create case in CCD.', errors);
+                        return [ctx, errors];
+                    }
+                    ctx.reference = paymentResponse.reference;
+                    ctx.paymentCreatedDate = paymentResponse.date_created;
+                    this.nextStepUrl = () => paymentResponse._links.next_url.href;
+                } else {
+                    logger.info(`setting payment.status -> not_required for case: ${formdata.ccdCase.id}.`);
+                    const notReqPayment = {
+                        date: null,
+                        amount: null,
+                        total: null,
+                        method: null,
+                        siteId: null,
+                        reference: null,
+                        transactionId: null,
+                        status: 'not_required',
+                    };
+                    set(formdata, 'payment', notReqPayment);
+                    delete this.nextStepUrl;
                 }
-                const formDataResult = yield this.submitForm(ctx, errors, formdata, paymentResponse, serviceAuthResult, session.language);
-                set(formdata, 'ccdCase', formDataResult.ccdCase);
-                set(formdata, 'payment', formDataResult.payment);
-                if (errors.length > 0) {
-                    logger.error('Failed to create case in CCD.', errors);
-                    return [ctx, errors];
-                }
-                ctx.reference = paymentResponse.reference;
-                ctx.paymentCreatedDate = paymentResponse.date_created;
-                this.nextStepUrl = () => paymentResponse._links.next_url.href;
             } else {
                 delete this.nextStepUrl;
             }
@@ -194,6 +210,19 @@ class PaymentBreakdown extends Step {
         delete ctx.paymentError;
         delete ctx.deceasedLastName;
         delete formdata.fees;
+
+        if (formdata?.payment?.status) {
+            // this is a mess of a workaround
+            // - UIStepRunner will set formdata.payment = ctx after this has been called
+            // - the redirect handling in routes.js checks ctx.payment.status to determine
+            //   when a payment is not needed
+            // - we set ctx.status here so the overriding of payment above results in
+            //   ctx.payment.status having the expected value at that point in time
+            // without this we redirect to /task-list which means the GET handling of
+            // /payment-status is never called - this is where the case submission is done
+            // which then redirects to the /thank-you page
+            ctx.status = formdata.payment.status;
+        }
         return [ctx, formdata];
     }
 
