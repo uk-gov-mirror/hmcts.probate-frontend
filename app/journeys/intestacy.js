@@ -82,8 +82,6 @@ const stepList = {
     },
     NewSubmittedToHmrc: {
         optionIHT400: 'HmrcLetter',
-        optionIHT400421: 'ProbateEstateValues',
-        optionNA: 'IhtEstateValues',
         otherwise: 'IhtEstateValues'
     },
     ReportEstateValues: 'CalcCheck',
@@ -93,7 +91,6 @@ const stepList = {
     },
     IhtEstateForm: {
         optionIHT400: 'HmrcLetter',
-        optionIHT400421: 'ProbateEstateValues',
         optionIHT205: 'ProbateEstateValues',
         otherwise: 'ProbateEstateValues'
     },
