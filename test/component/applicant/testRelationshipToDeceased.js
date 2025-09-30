@@ -17,7 +17,8 @@ describe('relationship-to-deceased', () => {
     const expectedNextUrlForAnyOtherChildren = AnyOtherChildren.getUrl();
     const expectedNextUrlForAdoptionPlace = AdoptionPlace.getUrl();
     const expectedNextUrlForApplicantName = ApplicantName.getUrl();
-    const expectedNextUrlForStopPage = StopPage.getUrl('otherRelationship');
+    const expectedNextUrlForMarriedOtherRel = StopPage.getUrl('relToDecMarriedOther');
+    const expectedNextUrlForUnmarriedOtherRel = StopPage.getUrl('relToDecUnmarriedOther');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('RelationshipToDeceased');
@@ -221,15 +222,37 @@ describe('relationship-to-deceased', () => {
                 });
         });
 
-        it(`test it redirects to Stop page if relationship is Other: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to Stop page if relationship is Other and deceased married: ${expectedNextUrlForMarriedOtherRel}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send({
+                    caseType: caseTypes.INTESTACY,
+                    deceased: {
+                        maritalStatus: 'optionMarried',
+                    },
+                })
                 .end(() => {
                     const data = {
-                        relationshipToDeceased: 'optionOther'
+                        relationshipToDeceased: 'optionOther',
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForMarriedOtherRel);
+                });
+        });
+
+        it(`test it redirects to Stop page if relationship is Other and deceased not married: ${expectedNextUrlForUnmarriedOtherRel}`, (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send({
+                    caseType: caseTypes.INTESTACY,
+                    deceased: {
+                        maritalStatus: 'optionDivorced',
+                    },
+                })
+                .end(() => {
+                    const data = {
+                        relationshipToDeceased: 'optionOther',
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForUnmarriedOtherRel);
                 });
         });
     });
