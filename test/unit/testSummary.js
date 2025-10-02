@@ -200,7 +200,7 @@ describe('Summary', () => {
                 deceasedAnyChildrenQuestion: 'Did Dee Ceased have any children?',
                 deceasedAnyDeceasedChildrenQuestion: 'Did any of Dee Ceased&rsquo;s children die before 2 February 2015?',
                 deceasedAnyOtherChildrenQuestion: 'Did Dee Ceased have any other children?',
-                deceasedDivorcePlaceQuestion: 'Did the separation take place in England or Wales?',
+                deceasedDivorcePlaceQuestion: 'Did the legal separation take place in England or Wales?',
                 deceasedHadLateSpouseOrCivilPartnerQuestion: 'Did Dee Ceased have a husband, wife or civil partner who died before them?',
                 deceasedDivorceDate: 'Date of legal separation',
                 deceasedDivorceDateKnownQuestion: 'Do you know the date the legal separation took place?',
