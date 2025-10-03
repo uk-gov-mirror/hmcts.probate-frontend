@@ -79,8 +79,8 @@ class StopPage extends Step {
         case 'mentalCapacity':
             pageHeader = 'applyByPostHeader';
             break;
-        case 'relToDecMarriedOther':
-            pageHeader = 'relToDecMarriedOtherHeader';
+        case 'deceasedHadLegalPartnerAndRelationshipOther':
+            pageHeader = 'deceasedHadLegalPartnerAndRelationshipOtherHeader';
             break;
         case 'relToDecUnmarriedOther':
             pageHeader = 'relToDecUnmarriedOtherHeader';

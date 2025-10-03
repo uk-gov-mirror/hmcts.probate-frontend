@@ -17,7 +17,7 @@ describe('relationship-to-deceased', () => {
     const expectedNextUrlForAnyOtherChildren = AnyOtherChildren.getUrl();
     const expectedNextUrlForAdoptionPlace = AdoptionPlace.getUrl();
     const expectedNextUrlForApplicantName = ApplicantName.getUrl();
-    const expectedNextUrlForMarriedOtherRel = StopPage.getUrl('relToDecMarriedOther');
+    const expectedNextUrlForMarriedOtherRel = StopPage.getUrl('deceasedHadLegalPartnerAndRelationshipOther');
     const expectedNextUrlForUnmarriedOtherRel = StopPage.getUrl('relToDecUnmarriedOther');
 
     beforeEach(() => {
