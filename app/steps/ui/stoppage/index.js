@@ -82,8 +82,8 @@ class StopPage extends Step {
         case 'deceasedHadLegalPartnerAndRelationshipOther':
             pageHeader = 'deceasedHadLegalPartnerAndRelationshipOtherHeader';
             break;
-        case 'relToDecUnmarriedOther':
-            pageHeader = 'relToDecUnmarriedOtherHeader';
+        case 'deceasedNoLegalPartnerAndRelationshipOther':
+            pageHeader = 'deceasedNoLegalPartnerAndRelationshipOtherHeader';
             break;
         case 'divorcePlace':
         case 'separationPlace':

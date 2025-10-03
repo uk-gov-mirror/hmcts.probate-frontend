@@ -18,7 +18,7 @@ describe('relationship-to-deceased', () => {
     const expectedNextUrlForAdoptionPlace = AdoptionPlace.getUrl();
     const expectedNextUrlForApplicantName = ApplicantName.getUrl();
     const expectedNextUrlForMarriedOtherRel = StopPage.getUrl('deceasedHadLegalPartnerAndRelationshipOther');
-    const expectedNextUrlForUnmarriedOtherRel = StopPage.getUrl('relToDecUnmarriedOther');
+    const expectedNextUrlForUnmarriedOtherRel = StopPage.getUrl('deceasedNoLegalPartnerAndRelationshipOther');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('RelationshipToDeceased');
