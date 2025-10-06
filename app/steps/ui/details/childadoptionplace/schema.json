@@ -1,14 +1,13 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "died-eng-or-wales",
+  "$id": "child-adoption-place",
   "type": "object",
   "properties": {
-    "diedEngOrWales": {
-      "type": "string",
-      "minLength": 1
+    "childAdoptionPlace": {
+      "type": "string"
     }
   },
   "required": [
-    "diedEngOrWales"
+    "childAdoptionPlace"
   ]
 }

@@ -1,13 +1,13 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "co-applicant-relationship-to-deceased",
+  "$id": "any-surviving-grandchildren",
   "type": "object",
   "properties": {
-    "relationshipToDeceased": {
+    "anySurvivingGrandchildren": {
       "type": "string"
     }
   },
   "required": [
-    "coApplicantRelationshipToDeceased"
+    "anySurvivingGrandchildren"
   ]
 }
