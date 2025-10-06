@@ -197,6 +197,9 @@ const stepList = {
         optionGrandchild: 'ParentDieBefore',
         otherwise: 'StopPage'
     },
+    CoApplicantName: 'OtherApplicantName',
+    OtherApplicantsName: 'AdoptedIn',
+    AdoptedIn: 'ApplicantName',
     ApplicantName: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',
     ApplicantAddress: 'Equality',
