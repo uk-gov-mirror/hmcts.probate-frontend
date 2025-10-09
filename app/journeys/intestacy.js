@@ -160,10 +160,15 @@ const stepList = {
         adoptedChild: 'AdoptionPlace',
         spousePartnerLessThanIhtThreshold: 'ApplicantName',
         spousePartnerMoreThanIhtThreshold: 'AnyChildren',
+        grandchildOnly: 'ChildAlive',
         otherwise: 'StopPage'
     },
     SpouseNotApplyingReason: {
         renouncing: 'ChildAdoptedIn',
+        otherwise: 'StopPage'
+    },
+    ChildAlive: {
+        childAlive: 'ChildAdoptedIn',
         otherwise: 'StopPage'
     },
     ChildAdoptedIn: {
