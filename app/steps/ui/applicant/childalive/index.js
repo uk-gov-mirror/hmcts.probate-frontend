@@ -3,10 +3,10 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
 
-class SpouseNotApplyingReason extends ValidationStep {
+class ChildAlive extends ValidationStep {
 
     static getUrl() {
-        return '/spouse-not-applying-reason';
+        return '/child-alive';
     }
 
     getContextData(req) {
@@ -17,13 +17,13 @@ class SpouseNotApplyingReason extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('spouseNotApplying');
+        return this.next(req, ctx).constructor.getUrl('adoptedIn');
     }
 
     nextStepOptions() {
         return {
             options: [
-                {key: 'spouseNotApplyingReason', value: 'optionRenouncing', choice: 'renouncing'},
+                {key: 'childAlive', value: 'optionYes', choice: 'childAlive'},
             ]
         };
     }
@@ -37,4 +37,4 @@ class SpouseNotApplyingReason extends ValidationStep {
     }
 }
 
-module.exports = SpouseNotApplyingReason;
+module.exports = ChildAlive;
