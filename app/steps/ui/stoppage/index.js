@@ -86,6 +86,9 @@ class StopPage extends Step {
         case 'grandchildrenUnder18':
             pageHeader = 'cannotApplyByOnlineHeader';
             break;
+        case 'otherCoApplicantRelationship':
+            pageHeader = 'personCannotApplyByOnlineHeader';
+            break;
         default:
             pageHeader = 'defaultHeader';
         }

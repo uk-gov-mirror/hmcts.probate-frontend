@@ -215,6 +215,7 @@ const stepList = {
         optionGrandchild: 'ParentDieBefore',
         otherwise: 'StopPage'
     },
+    RemoveCoApplicant: 'JointApplication',
     CoApplicantName: 'CoApplicantAdoptedIn',
     CoApplicantAdoptedIn: {
         adoptedIn: 'CoApplicantAdoptionPlace',
