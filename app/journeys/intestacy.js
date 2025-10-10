@@ -209,7 +209,10 @@ const stepList = {
         allGrandchildrenOver18AndAllPredeceasedChildren: 'ApplicantName',
         otherwise: 'StopPage'
     },
-    JointApplication: 'CoApplicantRelationshipToDeceased',
+    JointApplication: {
+        hasCoApplicant: 'CoApplicantRelationshipToDeceased',
+        hasNoCoApplicant: 'Equality',
+    },
     CoApplicantRelationshipToDeceased: {
         optionChild: 'CoApplicantName',
         optionGrandchild: 'ParentDieBefore',
