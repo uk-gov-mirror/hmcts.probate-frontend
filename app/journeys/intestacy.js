@@ -229,11 +229,13 @@ const stepList = {
         otherwise: 'StopPage'
     },
     CoApplicantAdoptionPlace: {
-        adoptionPlace: 'ParentAdoptedIn',
+        childAdoptedInEnglandOrWales: 'CoApplicantEmail',
+        grandChildAdoptedInEnglandOrWales: 'ParentAdoptedIn',
         otherwise: 'StopPage'
     },
     CoApplicantAdoptedOut: {
-        notAdoptedOut: 'ParentAdoptedIn',
+        childNotAdoptedOut: 'CoApplicantEmail',
+        grandchildNotAdoptedOut: 'ParentAdoptedIn',
         otherwise: 'StopPage'
     },
     ParentAdoptedIn: {
@@ -248,6 +250,7 @@ const stepList = {
         parentAdoptedOutEnglandOrWales: 'ExecutorContactDetails',
         otherwise: 'StopPage'
     },
+    CoApplicantEmail: 'ExecutorAddress',
     ExecutorContactDetails: 'ExecutorAddress',
     ExecutorAddress: 'JointApplication',
     ApplicantName: 'ApplicantPhone',
