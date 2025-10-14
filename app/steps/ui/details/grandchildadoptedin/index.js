@@ -3,10 +3,10 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('../../../../utils/FormatName');
 
-class ChildAdoptedIn extends ValidationStep {
+class GrandchildAdoptedIn extends ValidationStep {
 
     static getUrl() {
-        return '/child-adopted-in';
+        return '/grandchild-adopted-in';
     }
 
     getContextData(req) {
@@ -28,8 +28,8 @@ class ChildAdoptedIn extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'childAdoptedIn', value: 'optionYes', choice: 'childAdoptedIn'},
-                {key: 'childAdoptedIn', value: 'optionNo', choice: 'childNotAdoptedIn'},
+                {key: 'grandchildAdoptedIn', value: 'optionYes', choice: 'grandchildAdoptionEngWales'},
+                {key: 'grandchildAdoptedIn', value: 'optionNo', choice: 'grandchildAdoptedOut'}
             ]
         };
     }
@@ -41,4 +41,4 @@ class ChildAdoptedIn extends ValidationStep {
     }
 }
 
-module.exports = ChildAdoptedIn;
+module.exports = GrandchildAdoptedIn;

@@ -20,12 +20,13 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        {% if relationship == "child" %}
-        errorMessage: { text: fields.childAdoptedIn.errorMessage
-            | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.childAdoptedIn.errorMessage,
-        {% else %}
-        errorMessage: { text: fields.childAdoptedIn.errorMessage
-            | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.childAdoptedIn.errorMessage,
+      {% if relationship == "child" %}
+          errorMessage: { text: fields.childAdoptedIn.errorMessage
+              | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.childAdoptedIn.errorMessage,
+      {% else %}
+          errorMessage: { text: fields.grandchildAdoptedIn.errorMessage
+              | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.grandchildAdoptedIn.errorMessage,
+      {% endif %}
         items: [
             {
                 value: "optionYes",
