@@ -224,11 +224,11 @@ __metadata:
   linkType: hard
 
 "@azure/msal-browser@npm:^4.13.2":
-  version: 4.24.1
-  resolution: "@azure/msal-browser@npm:4.24.1"
+  version: 4.25.0
+  resolution: "@azure/msal-browser@npm:4.25.0"
   dependencies:
     "@azure/msal-common": "npm:15.13.0"
-  checksum: 10/b2dce52d8c93b37b2ff0674cc757dda49e4803efa2c06d617a2f926b3d93bb28f06f9b0ab25eb9e98b41749f8fbebdd3a05400b6adbea00559690d757dbae4bc
+  checksum: 10/26406a0c505f82a9bdd41383888dbea0e5c517b0961fd4da43c09dba8b7b8c06778066d7efb1d58d5c39f15c7911e5599e6de62ba72d2498748a77f17243dfb1
   languageName: node
   linkType: hard
 
@@ -2229,7 +2229,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@puppeteer/browsers@npm:2.10.10, @puppeteer/browsers@npm:^2.2.0":
+"@puppeteer/browsers@npm:2.10.11":
+  version: 2.10.11
+  resolution: "@puppeteer/browsers@npm:2.10.11"
+  dependencies:
+    debug: "npm:^4.4.3"
+    extract-zip: "npm:^2.0.1"
+    progress: "npm:^2.0.3"
+    proxy-agent: "npm:^6.5.0"
+    semver: "npm:^7.7.2"
+    tar-fs: "npm:^3.1.1"
+    yargs: "npm:^17.7.2"
+  bin:
+    browsers: lib/cjs/main-cli.js
+  checksum: 10/b508fe45196e2cada609c3f93ecff8a1bd9139370e2c8141c9d5094bffe455e4b0fbb45e7aedeb071575ecd57178831e214dce0d8de30c7ddedd03009ec21f57
+  languageName: node
+  linkType: hard
+
+"@puppeteer/browsers@npm:^2.2.0":
   version: 2.10.10
   resolution: "@puppeteer/browsers@npm:2.10.10"
   dependencies:
@@ -2601,29 +2618,29 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 24.7.0
-  resolution: "@types/node@npm:24.7.0"
+  version: 24.7.2
+  resolution: "@types/node@npm:24.7.2"
   dependencies:
     undici-types: "npm:~7.14.0"
-  checksum: 10/db0b77e9b132906cdf0350661df660c970e924093ccaa781472d61bc5c448f3d15514b15f55b4df6827254a041aad2418339fe00d45ef10687557ffc0f026d47
+  checksum: 10/62073022f7fc11363683e6ce82332193129c3053e7f973127a83b0daa5d755ecf5806d310f5a7c78375e6c3d309aa15b4ae87c4c1797a9eec091425d36098b60
   languageName: node
   linkType: hard
 
 "@types/node@npm:^20.1.0, @types/node@npm:^20.11.30":
-  version: 20.19.19
-  resolution: "@types/node@npm:20.19.19"
+  version: 20.19.21
+  resolution: "@types/node@npm:20.19.21"
   dependencies:
     undici-types: "npm:~6.21.0"
-  checksum: 10/0230dadfe83f1aa6a5e4aad5e00a6ee3501bd539f19024b40ac198afcb4e21e3ab8b8f47c4765e5c537a1da1e53dcb41cd5549aa48efc686c9542cc9841663bb
+  checksum: 10/5e460265afe6b08e40a60b7b353bfe03836a9f73f5fae9ef90d5fa746f2173cbb4b20874adb611c711d4246f905d92f409339f4e5268048307306c7ecf5a16a7
   languageName: node
   linkType: hard
 
 "@types/node@npm:^22.0.0":
-  version: 22.18.8
-  resolution: "@types/node@npm:22.18.8"
+  version: 22.18.10
+  resolution: "@types/node@npm:22.18.10"
   dependencies:
     undici-types: "npm:~6.21.0"
-  checksum: 10/dc8e883680993bebf45ac641af6648fd88a8d6ec0e375ff737221eef6c93b6a4d20311dfc070bb595095adbf9a2a411a9b3d9230a763eb744bb1d8ca831c331c
+  checksum: 10/07e9ce07767c48fc4860c78d2d9c90a87ef6fa30fa065beb2fd838ae1ba6fe787218f344a01cb14b4bf0a97cdfea5488fcbfbd343ccd07ab97154bceeb394f2f
   languageName: node
   linkType: hard
 
@@ -7861,9 +7878,9 @@ __metadata:
   linkType: hard
 
 "govuk-frontend@npm:^5.8.0":
-  version: 5.12.0
-  resolution: "govuk-frontend@npm:5.12.0"
-  checksum: 10/966974213fc243327217112d6113cc07957dbd55496e8e3beecac74dc92b243b0fa7d5368a17ea6e4f3dd7066f3cb969f5891f278b3aada0541c37dde5aa8054
+  version: 5.13.0
+  resolution: "govuk-frontend@npm:5.13.0"
+  checksum: 10/6eca01260e4eb8740c805c58a7bac034041e0190226c7ef200e49a715f630f304a5816dfea3c0c6b0cfabe30995b05b024df2824546e8dd00066059c0f8d1bdb
   languageName: node
   linkType: hard
 
@@ -8080,11 +8097,11 @@ __metadata:
   linkType: hard
 
 "hosted-git-info@npm:^9.0.0":
-  version: 9.0.1
-  resolution: "hosted-git-info@npm:9.0.1"
+  version: 9.0.2
+  resolution: "hosted-git-info@npm:9.0.2"
   dependencies:
     lru-cache: "npm:^11.1.0"
-  checksum: 10/6a08c9fade8e36d17f52cd1875d497eef9a7ca57cf42ae1278203a2f90152725257ac47a4e21f67372c1bd0a24ade1832c69c4c29395803ae2be432dd548b5e9
+  checksum: 10/0619c284ca7fc35322735e03fece90ed3ded67a2cf68e855e688d1bffd47078515d98ab8dff4bd08fb78d68d1a72ab8892180e15c7f23f24c922a6dfa601dbad
   languageName: node
   linkType: hard
 
@@ -8313,8 +8330,8 @@ __metadata:
   linkType: hard
 
 "i18next@npm:^25.0.0":
-  version: 25.5.3
-  resolution: "i18next@npm:25.5.3"
+  version: 25.6.0
+  resolution: "i18next@npm:25.6.0"
   dependencies:
     "@babel/runtime": "npm:^7.27.6"
   peerDependencies:
@@ -8322,7 +8339,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10/eb7312b3261af4477b7e4d09ec1636372a79a8f81bb5ac9531bbb9aa498ca07f337f9ec2c89507f0d895ce6c0b1352a2ea4fbe47f665ab4feba3df2de79cbeab
+  checksum: 10/3eaa354f7028ff6051e4294c09bf518183c6653c019cfeed73fc4504786b3a474c3b55ed6b9832e122ba2538167b3eb85ae71fdd6423fb9ec9ebe2156b061d66
   languageName: node
   linkType: hard
 
@@ -8421,14 +8438,14 @@ __metadata:
   linkType: hard
 
 "import-in-the-middle@npm:^1.14.2":
-  version: 1.14.4
-  resolution: "import-in-the-middle@npm:1.14.4"
+  version: 1.15.0
+  resolution: "import-in-the-middle@npm:1.15.0"
   dependencies:
     acorn: "npm:^8.14.0"
     acorn-import-attributes: "npm:^1.9.5"
     cjs-module-lexer: "npm:^1.2.2"
     module-details-from-path: "npm:^1.0.3"
-  checksum: 10/96b657cfe33dda86cc1160446039b1ff115154a0242ff26b275177621e12f88ba2b23df5f15e1fa8e5cba57ee8f8d02d353df0d2ec1b08d3a3503e3e4e987ab3
+  checksum: 10/a1ff65ea557ffe67e63dd67b411255fedd8622b324ff22ba99f4436b8fcf74da0333e62b4e8142f447e5db64a42ec9e65f926d50fa55e89c4e4d64626d8cf5f8
   languageName: node
   linkType: hard
 
@@ -9830,9 +9847,9 @@ __metadata:
   linkType: hard
 
 "libphonenumber-js@npm:^1.11.17":
-  version: 1.12.23
-  resolution: "libphonenumber-js@npm:1.12.23"
-  checksum: 10/74b00fa8dd51f3b99d3d0be2c108186aa260fbf832f7d29b8d79a1eed4e874a542e9fced315477c5f57e6c6958e4c93f1ea7267873248bd1ad83d04b852ba553
+  version: 1.12.24
+  resolution: "libphonenumber-js@npm:1.12.24"
+  checksum: 10/7aee739a7ad348eebe23e9f1cfd244c083bd1a3c0eba62e04e99585e52f2feb35bc72c2b88076e6bf167417e694e5e5f6f322ffba879a64ccc924746d3803655
   languageName: node
   linkType: hard
 
@@ -12919,34 +12936,34 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:24.23.0":
-  version: 24.23.0
-  resolution: "puppeteer-core@npm:24.23.0"
+"puppeteer-core@npm:24.24.0":
+  version: 24.24.0
+  resolution: "puppeteer-core@npm:24.24.0"
   dependencies:
-    "@puppeteer/browsers": "npm:2.10.10"
+    "@puppeteer/browsers": "npm:2.10.11"
     chromium-bidi: "npm:9.1.0"
     debug: "npm:^4.4.3"
     devtools-protocol: "npm:0.0.1508733"
     typed-query-selector: "npm:^2.12.0"
     webdriver-bidi-protocol: "npm:0.3.6"
     ws: "npm:^8.18.3"
-  checksum: 10/0d7c271f2b0f434027f1124d13c20b1d63b17f2d56be19ae538e7d5c870e5cdf49ed7cc030ed474ba873d477957daf3ee5f31832e8f925f46c6ff79e61217412
+  checksum: 10/62a0e666a7655f9815679af2dac49f43c903d18549aae6f2a4bc0ad97d3fe6ff1eefa2b442c9df5e731db4ead219b066f6fcf16cb5d8caf4041f5a3c4f5e4d65
   languageName: node
   linkType: hard
 
 "puppeteer@npm:^24.10.2":
-  version: 24.23.0
-  resolution: "puppeteer@npm:24.23.0"
+  version: 24.24.0
+  resolution: "puppeteer@npm:24.24.0"
   dependencies:
-    "@puppeteer/browsers": "npm:2.10.10"
+    "@puppeteer/browsers": "npm:2.10.11"
     chromium-bidi: "npm:9.1.0"
     cosmiconfig: "npm:^9.0.0"
     devtools-protocol: "npm:0.0.1508733"
-    puppeteer-core: "npm:24.23.0"
+    puppeteer-core: "npm:24.24.0"
     typed-query-selector: "npm:^2.12.0"
   bin:
     puppeteer: lib/cjs/puppeteer/node/cli.js
-  checksum: 10/d544a61fc8c9c7e315ab932190c45daa41cbfd3f8a4a025838fd18e3c486560abfd25e67c4243b5109baa5d571fe7826c3bed260dec0c751bdf059accb42f2b5
+  checksum: 10/053125291a91cfbcfe143f8414efbfdfe79242257fd504dfcc0d3722be952cd61058cfaad15dd267cbe745412ce5153e8f11d489ae31d76d62d0417e9738b616
   languageName: node
   linkType: hard
 
