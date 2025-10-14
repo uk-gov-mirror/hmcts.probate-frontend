@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "child-adopted-out",
+  "$id": "grandchild-adopted-out",
   "type": "object",
   "properties": {
     "childAdoptedOut": {
@@ -8,6 +8,6 @@
     }
   },
   "required": [
-    "childAdoptedOut"
+    "grandchildAdoptedOut"
   ]
 }

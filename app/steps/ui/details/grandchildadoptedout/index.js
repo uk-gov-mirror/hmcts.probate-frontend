@@ -6,7 +6,7 @@ const FormatName = require('../../../../utils/FormatName');
 class ChildAdoptedOut extends ValidationStep {
 
     static getUrl() {
-        return '/child-adopted-out';
+        return '/grandchild-adopted-out';
     }
 
     getContextData(req) {
@@ -26,7 +26,7 @@ class ChildAdoptedOut extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('adoptedOut');
+        return this.next(req, ctx).constructor.getUrl('AnyOtherChildren');
     }
 
     nextStepOptions() {
