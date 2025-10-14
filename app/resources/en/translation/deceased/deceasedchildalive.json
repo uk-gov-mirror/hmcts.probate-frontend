@@ -1,6 +1,6 @@
 {
   "title": "Child Alive",
-  "question": "Is your parent ({deceasedName}'s child) legally alive?",
+  "question": "Is your parent ({deceasedName}'s child) alive?",
   "optionYes": "Yes",
   "optionNo": "No",
 
