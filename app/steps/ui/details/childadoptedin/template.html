@@ -4,17 +4,26 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block form_content %}
+  {% set relationship = fields.relationshipToDeceased.value %}
     {{ govukRadios({
         classes: "govuk-radios--inline",
         idPrefix: "childAdoptedIn",
         name: "childAdoptedIn",
         fieldset: {
             legend: {
-                text: content.question | replace("{deceasedName}", fields.deceasedName.value) | safe,
+                {% if relationship == "child" %}
+                    text: content.childQuestion | replace("{deceasedName}", fields.deceasedName.value) | safe,
+                {% else %}
+                    text: content.grandchildQuestion | replace("{deceasedName}", fields.deceasedName.value) | safe,
+                {% endif %}
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
         },
+        {% if relationship == "child" %}
+        errorMessage: { text: fields.childAdoptedIn.errorMessage
+            | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.childAdoptedIn.errorMessage,
+        {% else %}
         errorMessage: { text: fields.childAdoptedIn.errorMessage
             | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.childAdoptedIn.errorMessage,
         items: [
