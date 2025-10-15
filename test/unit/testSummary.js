@@ -204,7 +204,6 @@ describe('Summary', () => {
                 deceasedDivorcePlaceQuestion: 'Did the legal separation take place in England or Wales?',
                 deceasedDobQuestion: 'What was Dee Ceased’s date of birth?',
                 deceasedDodQuestion: 'What was the date that Dee Ceased died?',
-                deceasedDivorcePlaceQuestion: 'Did the separation take place in England or Wales?',
                 deceasedHadLateSpouseOrCivilPartnerQuestion: 'Did Dee Ceased have a husband, wife or civil partner who died before them?',
                 deceasedMaritalStatusQuestion: 'What was Dee Ceased&rsquo;s marital status?',
                 deceasedSpouseNotApplyingReasonQuestion: 'Why is Dee Ceased&rsquo;s husband, wife or civil partner not applying?',
