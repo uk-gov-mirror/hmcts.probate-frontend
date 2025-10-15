@@ -178,11 +178,15 @@ const stepList = {
         otherwise: 'StopPage'
     },
     GrandchildAdoptedIn: {
-        grandchildAdoptedIn: 'ChildAdoptionPlace',
+        grandchildAdoptedIn: 'GrandchildAdoptionPlace',
         grandchildNotAdoptedIn: 'GrandchildAdoptedOut',
     },
     GrandchildAdoptedOut: {
         GrandchildAdoptedOut: 'AnyOtherChildren',
+        otherwise: 'StopPage'
+    },
+    GrandchildAdoptionPlace: {
+        grandchildAdoptedInEnglandOrWales: 'AnyOtherChildren',
         otherwise: 'StopPage'
     },
     ChildAdoptionPlace: {
