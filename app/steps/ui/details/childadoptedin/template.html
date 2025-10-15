@@ -25,7 +25,7 @@
             | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.childAdoptedIn.errorMessage,
         {% else %}
         errorMessage: { text: fields.childAdoptedIn.errorMessage
-            | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.childAdoptedIn.errorMessage,
+            | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.grandchildAdoptedIn.errorMessage,
         items: [
             {
                 value: "optionYes",
