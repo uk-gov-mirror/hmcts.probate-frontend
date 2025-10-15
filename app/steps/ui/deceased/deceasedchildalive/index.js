@@ -3,7 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
 
-class Deceasedchildalive extends ValidationStep {
+class DeceasedChildAlive extends ValidationStep {
 
     static getUrl() {
         return '/child-alive';
@@ -37,4 +37,4 @@ class Deceasedchildalive extends ValidationStep {
     }
 }
 
-module.exports = Deceasedchildalive;
+module.exports = DeceasedChildAlive;
