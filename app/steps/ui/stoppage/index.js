@@ -1,7 +1,7 @@
 'use strict';
 
 const Step = require('app/core/steps/Step');
-const FormatName = require('../../../utils/FormatName');
+const {format} = require('../../../utils/FormatName');
 
 class StopPage extends Step {
 
@@ -17,7 +17,7 @@ class StopPage extends Step {
 
         ctx.stoppageHeader = this.returnStopPageHeader(ctx.stopReason);
 
-        ctx.deceasedName = FormatName.format(formdata.deceased);
+        ctx.deceasedName = format(formdata.deceased);
 
         const templateContent = this.generateContent(ctx, formdata, req.session.language)[ctx.stopReason];
 
@@ -88,6 +88,13 @@ class StopPage extends Step {
         case 'divorcePlace':
         case 'separationPlace':
             pageHeader = 'postHeader';
+            break;
+        case 'spouseNotApplying':
+        case 'adoptionNotEnglandOrWales':
+        case 'adoptedOut':
+        case 'childrenUnder18':
+        case 'grandchildrenUnder18':
+            pageHeader = 'cannotApplyByOnlineHeader';
             break;
         default:
             pageHeader = 'defaultHeader';

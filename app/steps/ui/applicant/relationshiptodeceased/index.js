@@ -35,15 +35,15 @@ class RelationshipToDeceased extends ValidationStep {
     nextStepOptions(ctx) {
         ctx.spousePartnerLessThanIhtThreshold = ctx.relationshipToDeceased === 'optionSpousePartner' && ctx.assetsValue <= ctx.ihtThreshold;
         ctx.spousePartnerMoreThanIhtThreshold = ctx.relationshipToDeceased === 'optionSpousePartner' && ctx.assetsValue > ctx.ihtThreshold;
-        ctx.childDeceasedMarried = ctx.relationshipToDeceased === 'optionChild' && ctx.deceasedMaritalStatus === 'optionMarried';
-        ctx.childDeceasedNotMarried = ctx.relationshipToDeceased === 'optionChild' && ctx.deceasedMaritalStatus !== 'optionMarried';
+        ctx.childOrGrandchildDeceasedMarried = (ctx.relationshipToDeceased === 'optionChild' || ctx.relationshipToDeceased === 'optionGrandchild') && ctx.deceasedMaritalStatus === 'optionMarried';
+        ctx.childOrGrandchildDeceasedNotMarried = (ctx.relationshipToDeceased === 'optionChild' || ctx.relationshipToDeceased === 'optionGrandchild') && ctx.deceasedMaritalStatus !== 'optionMarried';
 
         return {
             options: [
                 {key: 'spousePartnerLessThanIhtThreshold', value: true, choice: 'spousePartnerLessThanIhtThreshold'},
                 {key: 'spousePartnerMoreThanIhtThreshold', value: true, choice: 'spousePartnerMoreThanIhtThreshold'},
-                {key: 'childDeceasedMarried', value: true, choice: 'childDeceasedMarried'},
-                {key: 'childDeceasedNotMarried', value: true, choice: 'childDeceasedNotMarried'},
+                {key: 'childOrGrandchildDeceasedMarried', value: true, choice: 'childOrGrandchildDeceasedMarried'},
+                {key: 'childOrGrandchildDeceasedNotMarried', value: true, choice: 'childOrGrandchildDeceasedNotMarried'},
                 {key: 'relationshipToDeceased', value: 'optionAdoptedChild', choice: 'adoptedChild'},
             ]
         };
@@ -82,7 +82,8 @@ class RelationshipToDeceased extends ValidationStep {
                 delete formdata.deceased.anyChildren;
                 delete formdata.deceased.anyOtherChildren;
                 delete formdata.deceased.allChildrenOver18;
-                delete formdata.deceased.anyDeceasedChildren;
+                delete formdata.deceased.anyPredeceasedChildren;
+                delete formdata.deceased.anySurvivingGrandchildren;
                 delete formdata.deceased.anyGrandchildrenUnder18;
             }
         }
