@@ -47,6 +47,7 @@ class StopPage extends Step {
         return [];
     }
 
+    // eslint-disable-next-line complexity
     returnStopPageHeader(stopReason) {
         let pageHeader;
         switch (stopReason) {
@@ -79,6 +80,16 @@ class StopPage extends Step {
             break;
         case 'mentalCapacity':
             pageHeader = 'applyByPostHeader';
+            break;
+        case 'deceasedHadLegalPartnerAndRelationshipOther':
+            pageHeader = 'deceasedHadLegalPartnerAndRelationshipOtherHeader';
+            break;
+        case 'deceasedNoLegalPartnerAndRelationshipOther':
+            pageHeader = 'deceasedNoLegalPartnerAndRelationshipOtherHeader';
+            break;
+        case 'divorcePlace':
+        case 'separationPlace':
+            pageHeader = 'postHeader';
             break;
         case 'spouseNotApplying':
         case 'adoptionNotEnglandOrWales':
