@@ -5,11 +5,11 @@ const caseTypes = require('app/utils/CaseTypes');
 const journeyCheck = require('app/middleware/journeyCheck');
 
 const intestacyOnlyPages = [
-    '/deceased-details',
     '/assets-outside-england-wales',
     '/value-assets-outside-england-wales',
     '/deceased-marital-status',
     '/deceased-divorce-or-separation-place',
+    '/deceased-divorce-date',
     '/relationship-to-deceased',
     '/child-adopted-in',
     '/child-adoption-place',
@@ -25,9 +25,6 @@ const intestacyOnlyPages = [
 ];
 
 const gopOnlyPages = [
-    '/deceased-name',
-    '/deceased-dob',
-    '/deceased-dod',
     '/will-codicils',
     '/codicils-number',
     '/deceased-married',

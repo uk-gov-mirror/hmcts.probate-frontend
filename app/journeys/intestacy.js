@@ -64,8 +64,10 @@ const stepList = {
         otherwise: 'StopPage'
     },
     StartApply: 'TaskList',
-    BilingualGOP: 'DeceasedDetails',
-    DeceasedDetails: {
+    BilingualGOP: 'DeceasedName',
+    DeceasedName: 'DeceasedDob',
+    DeceasedDob: 'DeceasedDod',
+    DeceasedDod: {
         diedAfter: 'DeceasedAddress',
         otherwise: 'StopPage'
     },
@@ -82,8 +84,6 @@ const stepList = {
     },
     NewSubmittedToHmrc: {
         optionIHT400: 'HmrcLetter',
-        optionIHT400421: 'ProbateEstateValues',
-        optionNA: 'IhtEstateValues',
         otherwise: 'IhtEstateValues'
     },
     ReportEstateValues: 'CalcCheck',
@@ -93,7 +93,6 @@ const stepList = {
     },
     IhtEstateForm: {
         optionIHT400: 'HmrcLetter',
-        optionIHT400421: 'ProbateEstateValues',
         optionIHT205: 'ProbateEstateValues',
         otherwise: 'ProbateEstateValues'
     },
@@ -148,9 +147,10 @@ const stepList = {
         otherwise: 'TaskList'
     },
     DivorcePlace: {
-        inEnglandOrWales: 'TaskList',
+        inEnglandOrWales: 'DivorceDate',
         otherwise: 'StopPage'
     },
+    DivorceDate: 'TaskList',
     RelationshipToDeceased: {
         childOrGrandchildDeceasedMarried: 'SpouseNotApplyingReason',
         childOrGrandchildDeceasedNotMarried: 'ChildAdoptedIn',
