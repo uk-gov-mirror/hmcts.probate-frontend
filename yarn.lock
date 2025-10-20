@@ -2230,7 +2230,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@puppeteer/browsers@npm:2.10.12":
+"@puppeteer/browsers@npm:2.10.12, @puppeteer/browsers@npm:^2.2.0":
   version: 2.10.12
   resolution: "@puppeteer/browsers@npm:2.10.12"
   dependencies:
@@ -2244,23 +2244,6 @@ __metadata:
   bin:
     browsers: lib/cjs/main-cli.js
   checksum: 10/39cc7ba8b4a3be4beec81e2a046c3421ea640e503a4e4af962bbe85cc548dc2639589b24e3657fd77fdc51df3ecf6130e9c0dc27fc35051fd30bf98b92467f7d
-  languageName: node
-  linkType: hard
-
-"@puppeteer/browsers@npm:^2.2.0":
-  version: 2.10.10
-  resolution: "@puppeteer/browsers@npm:2.10.10"
-  dependencies:
-    debug: "npm:^4.4.3"
-    extract-zip: "npm:^2.0.1"
-    progress: "npm:^2.0.3"
-    proxy-agent: "npm:^6.5.0"
-    semver: "npm:^7.7.2"
-    tar-fs: "npm:^3.1.0"
-    yargs: "npm:^17.7.2"
-  bin:
-    browsers: lib/cjs/main-cli.js
-  checksum: 10/6e9763a567252faf88ba3a699d76b9651cc4355be7602feb6dd21eab1c826cc7616e22f50d584a5727a1cab420ee0c2f232da22704fe25903f7a41c96470a227
   languageName: node
   linkType: hard
 
@@ -8438,15 +8421,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"import-in-the-middle@npm:^1.14.2":
-  version: 1.15.0
-  resolution: "import-in-the-middle@npm:1.15.0"
+"import-in-the-middle@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "import-in-the-middle@npm:2.0.0"
   dependencies:
     acorn: "npm:^8.14.0"
     acorn-import-attributes: "npm:^1.9.5"
     cjs-module-lexer: "npm:^1.2.2"
     module-details-from-path: "npm:^1.0.3"
-  checksum: 10/a1ff65ea557ffe67e63dd67b411255fedd8622b324ff22ba99f4436b8fcf74da0333e62b4e8142f447e5db64a42ec9e65f926d50fa55e89c4e4d64626d8cf5f8
+  checksum: 10/badb8359552f1e9fedc8569299dd1937e802256ce0fe6aa9cb348bca6f217f06e16a3ca46f889bfcb66028a096a1956674d257de9e809db4271ca0e508521c30
   languageName: node
   linkType: hard
 
@@ -13978,7 +13961,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:7.7.2, semver@npm:^7.0.0, semver@npm:^7.1.3, semver@npm:^7.3.5, semver@npm:^7.3.8, semver@npm:^7.5.1, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.3, semver@npm:^7.7.2, semver@npm:~7.7.1":
+"semver@npm:7.7.2":
   version: 7.7.2
   resolution: "semver@npm:7.7.2"
   bin:
@@ -14005,7 +13988,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.7.3":
+"semver@npm:^7.0.0, semver@npm:^7.1.3, semver@npm:^7.3.5, semver@npm:^7.3.8, semver@npm:^7.5.1, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.3, semver@npm:^7.7.3, semver@npm:~7.7.1":
   version: 7.7.3
   resolution: "semver@npm:7.7.3"
   bin:
