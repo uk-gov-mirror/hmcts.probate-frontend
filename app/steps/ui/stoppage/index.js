@@ -96,6 +96,7 @@ class StopPage extends Step {
         case 'childrenUnder18':
         case 'coApplicantAdoptionPlaceStop':
         case 'coApplicantAdoptedOutStop':
+        case 'coApplicantParentAdoptedOutStop':
         case 'grandchildrenUnder18':
             pageHeader = 'cannotApplyByOnlineHeader';
             break;
