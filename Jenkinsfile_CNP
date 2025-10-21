@@ -105,6 +105,13 @@ withPipeline("nodejs", product, component) {
   syncBranchesWithMaster(branchesToSync)
 
   afterSuccess('functionalTest:preview') {
+    if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
+      env.DONT_TEST_WELSH = true
+      yarnBuilder.yarn('test:fullfunctional-pr');
+    } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
+      yarnBuilder.yarn('test:fullfunctional-pr');
+    }
+
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
     publishHTML target: [
       allowMissing: true,
@@ -114,13 +121,6 @@ withPipeline("nodejs", product, component) {
       reportFiles          : "mochawesome.html",
       reportName           : "Preview Functional Tests"
     ]
-
-    if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
-      env.DONT_TEST_WELSH = true
-      yarnBuilder.yarn('test:fullfunctional-pr');
-    } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
-      yarnBuilder.yarn('test:fullfunctional-pr');
-    }
   }
 
   afterSuccess('functionalTest:aat') {
