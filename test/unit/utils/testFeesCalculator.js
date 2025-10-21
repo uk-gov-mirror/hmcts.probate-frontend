@@ -85,7 +85,7 @@ describe('FeesCalculator', () => {
                 'code': 'FEE0219',
                 'description': 'Application for a grant of probate (Estate over £5000)',
                 'version': 3,
-                'fee_amount': 450
+                'fee_amount': 300
             }));
             feesLookupStub.onCall(1).returns(Promise.resolve({
                 'code': 'FEE0003',
@@ -102,13 +102,13 @@ describe('FeesCalculator', () => {
 
             const expectedResponse = {
                 status: 'success',
-                applicationfee: 450,
+                applicationfee: 300,
                 applicationvalue: 6000,
                 ukcopies: 1,
                 ukcopiesfee: 16.00,
                 overseascopies: 2,
                 overseascopiesfee: 32,
-                total: 498.00,
+                total: 348.00,
                 applicationcode: 'FEE0219',
                 applicationversion: 3,
                 ukcopiescode: 'FEE0003',
@@ -240,7 +240,7 @@ describe('FeesCalculator', () => {
                 'code': 'FEE0219',
                 'description': 'Application for a grant of probate (Estate over £5000)',
                 'version': 3,
-                'fee_amount': 450
+                'fee_amount': 300
             }));
             feesLookupStub.onCall(1).returns(Promise.resolve(
                 'Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=1&applicant_type=all&channel=default&event=copies&jurisdiction1=family&jurisdiction2=probate+registry&service=probate failed, reason: connect ECONNREFUSED 127.0.0.1:80'
@@ -254,13 +254,13 @@ describe('FeesCalculator', () => {
 
             const expectedResponse = {
                 status: 'failed',
-                applicationfee: 450,
+                applicationfee: 300,
                 applicationvalue: 6000,
                 ukcopies: 1,
                 ukcopiesfee: 0,
                 overseascopies: 2,
                 overseascopiesfee: 32,
-                total: 482.00,
+                total: 332.00,
                 applicationcode: 'FEE0219',
                 applicationversion: 3,
                 ukcopiescode: '',
