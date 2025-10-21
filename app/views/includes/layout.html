@@ -112,7 +112,7 @@ html: (common.feedback + common.languageToggle) | replace("{smartSurveyFeedbackU
 
 
     {% if showBackLink %}
-    <span class="govuk-back-link govuk-visually-hidden" id="backLink">{{common.back }}</span>
+    <span class="govuk-back-link govuk-visually-hidden" id="backLink">{{common.back | safe}}</span>
     {% endif %}
 
 {% endblock %}

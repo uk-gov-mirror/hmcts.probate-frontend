@@ -13,7 +13,6 @@ const spouseOfDeceased = ihtDataConfig.spouseOfDeceased;
 const relationshipChildOfDeceased = ihtDataConfig.relationshipChildOfDeceased;
 const optionRenouncing = ihtDataConfig.optionRenouncing;
 const bilingualGOP = false;
-const ihtOptionNotSubmitted = ihtDataConfig.ihtOptionNotSubmitted;
 
 Feature('GOP Intestacy E2E - EE No Journey');
 
@@ -42,13 +41,8 @@ getTestLanguages().forEach(language => {
         await I.selectDeathCertificateTranslation(language, optionYes);
 
         await I.selectDeceasedDomicile(language);
-        const isEEEnabled = await TestConfigurator.checkFeatureToggle('probate-excepted-estates');
-        if (isEEEnabled) {
-            await I.selectEEDeceasedDod(language, optionYes);
-            await I.selectEEvalue(language);
-        } else {
-            await I.selectIhtCompleted(language, optionYes);
-        }
+        await I.selectEEDeceasedDod(language, optionYes);
+        await I.selectEEvalue(language);
         await I.selectPersonWhoDiedLeftAWill(language, optionNo);
 
         // Intestacy Sceeners
@@ -75,7 +69,7 @@ getTestLanguages().forEach(language => {
         await I.selectForeignDeathCertTranslation(language, optionYes);
 
         await I.selectEEComplete(language, optionYes);
-        await I.selectSubmittedToHmrc(language, ihtOptionNotSubmitted);
+        await I.selectSubmittedToHmrc(language, optionNo);
         await I.enterEEValue(language, 500000, 400000, 400000);
         await I.selectLateSpouseCivilPartner(language, optionYes);
         await I.selectUnusedAllowance(language, optionYes);
@@ -173,7 +167,7 @@ getTestLanguages().forEach(language => {
         await I.selectForeignDeathCertTranslation(language, optionYes);
 
         await I.selectEEComplete(language, optionYes);
-        await I.selectSubmittedToHmrc(language, ihtOptionNotSubmitted);
+        await I.selectSubmittedToHmrc(language, optionNo);
         await I.enterEEValue(language, 500000, 400000, 400000);
         await I.selectLateSpouseCivilPartner(language, optionYes);
         await I.selectUnusedAllowance(language, optionYes);

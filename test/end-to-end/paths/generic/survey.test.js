@@ -1,11 +1,9 @@
 'use strict';
 
-const ihtDataConfig = require('../../pages/ee/ihtData.json');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const optionYes = '';
 const optionNo = '-2';
 const bilingualGOP = false;
-const ihtOptionNotSubmitted = ihtDataConfig.ihtOptionNotSubmitted;
 
 Feature('Survey');
 
@@ -30,13 +28,8 @@ Scenario('Check survey link works', async ({I}) => {
     await I.selectDeathCertificateInEnglish(language, optionNo);
     await I.selectDeathCertificateTranslation(language, optionYes);
     await I.selectDeceasedDomicile(language);
-    const isEEEnabled = await TestConfigurator.checkFeatureToggle('probate-excepted-estates');
-    if (isEEEnabled) {
-        await I.selectEEDeceasedDod(language, optionYes);
-        await I.selectEEvalue(language);
-    } else {
-        await I.selectIhtCompleted(language, optionYes);
-    }
+    await I.selectEEDeceasedDod(language, optionYes);
+    await I.selectEEvalue(language);
     await I.selectPersonWhoDiedLeftAWill(language, optionYes);
     await I.selectOriginalWill(language, optionYes);
     await I.selectApplicantIsExecutor(language, optionYes);
@@ -75,33 +68,26 @@ Scenario('Check survey link works', async ({I}) => {
     await I.selectForeignDeathCertTranslation(language, optionYes);
 
     await I.selectEEComplete(language, optionYes);
-    await I.selectSubmittedToHmrc(language, ihtOptionNotSubmitted);
-    await I.enterEEValue(language, 500000, 400000, 400000);
-    await I.selectLateSpouseCivilPartner(language, optionYes);
-    await I.selectUnusedAllowance(language, optionYes);
-    await I.enterProbateEstateValues(language, 400000, 400000);
+    await I.selectSubmittedToHmrc(language, optionNo);
+    await I.enterEEValue(language, 500, 400, 400);
+    await I.enterProbateEstateValues(language, 400, 400);
 
     await I.selectDeceasedAliasGop(language, optionNo);
     await I.selectDeceasedMarriedAfterDateOnWill(language, optionNo);
 
-    const isWillConditionEnabled = await TestConfigurator.checkFeatureToggle('probate-will-condition');
-    if (isWillConditionEnabled) {
-        await I.selectWillDamage(language, optionYes, 'test');
-        await I.selectWillDamageReason(language, optionYes, 'test');
-        await I.selectWillDamageWho(language, optionYes, 'test', 'test');
-        await I.selectWillDamageDate(language, optionYes, 2017);
-    }
+    await I.selectWillDamage(language, optionYes, 'test');
+    await I.selectWillDamageReason(language, optionYes, 'test');
+    await I.selectWillDamageWho(language, optionYes, 'test', 'test');
+    await I.selectWillDamageDate(language, optionYes, 2017);
 
     await I.selectWillCodicils(language, optionYes);
     await I.selectWillNoOfCodicils(language, 1);
 
-    if (isWillConditionEnabled) {
-        await I.selectCodicilsDamage(language, optionYes, 'test');
-        await I.selectCodicilsReason(language, optionYes, 'test');
-        await I.selectCodicilsWho(language, optionYes, 'test', 'test');
-        await I.selectCodicilsDate(language, optionYes, 2000);
-        await I.selectWrittenWishes(language, optionYes, 'test');
-    }
+    await I.selectCodicilsDamage(language, optionYes, 'test');
+    await I.selectCodicilsReason(language, optionYes, 'test');
+    await I.selectCodicilsWho(language, optionYes, 'test', 'test');
+    await I.selectCodicilsDate(language, optionYes, 2000);
+    await I.selectWrittenWishes(language, optionYes, 'test');
 
     // ExecutorsTask
     await I.selectATask(language, 'executorsTask', taskListContent.taskNotStarted);
@@ -129,23 +115,12 @@ Scenario('Check survey link works', async ({I}) => {
     // Payment Task
     await I.selectATask(language, 'paymentTask', taskListContent.taskNotStarted);
 
-    if (TestConfigurator.getUseGovPay() === 'true') {
-        await I.enterUkCopies(language, '5');
-        await I.selectOverseasAssets(language, optionYes);
-        await I.enterOverseasCopies(language, '7');
-    } else {
-        await I.enterUkCopies(language, '0');
-        await I.selectOverseasAssets(language, optionYes);
-        await I.enterOverseasCopies(language, '0');
-    }
+    await I.enterUkCopies(language, '0');
+    await I.selectOverseasAssets(language, optionYes);
+    await I.enterOverseasCopies(language, '0');
 
     await I.seeCopiesSummary(language);
-    await I.seePaymentBreakdownPage(language);
-
-    if (TestConfigurator.getUseGovPay() === 'true') {
-        await I.seeGovUkPaymentPage(language);
-        await I.seeGovUkConfirmPage(language);
-    }
+    await I.seePaymentBreakdownPage(language, false);
 
     // Thank You
     await I.seeThankYouPage(language, true);
