@@ -105,11 +105,14 @@ withPipeline("nodejs", product, component) {
   syncBranchesWithMaster(branchesToSync)
 
   afterSuccess('functionalTest:preview') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
     publishHTML target: [
-      reportDir            : "functional-output/",
+      allowMissing: true,
+      alwaysLinkToLastBuild: true,
+      keepAll: true,
+      reportDir            : "functional-output/merged/",
       reportFiles          : "mochawesome.html",
-      reportName           : "Preview Functional Tests",
-      alwaysLinkToLastBuild: true
+      reportName           : "Preview Functional Tests"
     ]
 
     if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
