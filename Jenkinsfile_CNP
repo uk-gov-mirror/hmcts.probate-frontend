@@ -116,7 +116,7 @@ withPipeline("nodejs", product, component) {
       allowMissing: true,
       alwaysLinkToLastBuild: true,
       keepAll: true,
-      reportDir            : "./functional-output/merged/",
+      reportDir            : "functional-output/merged/",
       reportFiles          : "mochawesome.html",
       reportName           : "Preview Functional Tests"
     ]
