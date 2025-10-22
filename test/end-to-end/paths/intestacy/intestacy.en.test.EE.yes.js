@@ -207,6 +207,7 @@ getTestLanguages().forEach(language => {
 
         // Thank You
         await I.seeThankYouPage(language);
-    }).tag('@noJenkine2e')
+    }).tag('@e2enightly')
+        .tag('@e2enightly-pr')
         .retry(TestConfigurator.getRetryScenarios());
 });
