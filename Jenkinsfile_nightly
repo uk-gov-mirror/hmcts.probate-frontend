@@ -83,14 +83,6 @@ withNightlyPipeline("nodejs", product, component) {
   }
 
   afterAlways('crossBrowserTest') {
-    publishHTML target: [
-      allowMissing: false,
-      alwaysLinkToLastBuild: true,
-      keepAll: true,
-      reportDir: "functional-output/merged",
-      reportFiles: "mochawesome.html",
-      reportName: "Cross Browser Tests"
-    ]
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
   }
 
