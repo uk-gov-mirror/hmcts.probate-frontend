@@ -57,7 +57,7 @@ exports.config = {
         },
     },
     mocha: {
-        timeout: 120000,
+        timeout: 60000,
         reporter: 'mochawesome',
         reporterOptions: {
             reportDir: './functional-output',
