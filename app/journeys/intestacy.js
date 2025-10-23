@@ -161,11 +161,12 @@ const stepList = {
         otherwise: 'StopPage'
     },
     SpouseNotApplyingReason: {
-        renouncing: 'ChildAdoptedIn',
+        childAndSpouseNotApplying: 'ChildAdoptedIn',
+        grandchildAndSpouseNotApplying: 'DeceasedChildAlive',
         otherwise: 'StopPage'
     },
     DeceasedChildAlive: {
-        childAlive: 'ChildAdoptedIn',
+        childNotAlive: 'ChildAdoptedIn',
         otherwise: 'StopPage'
     },
     ChildAdoptedIn: {

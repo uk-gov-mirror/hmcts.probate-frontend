@@ -7,7 +7,8 @@
 
   "errors": {
     "childAdoptedIn": {
-      "required": "Dewiswch &lsquo;Do&rsquo; os wnaeth {deceasedName} eich mabwysiadu&rsquo;n gyfreithlon"
+      "requiredChild": "Dewiswch &lsquo;Do&rsquo; os wnaeth {deceasedName} eich mabwysiadu&rsquo;n gyfreithlon",
+      "requiredGrandchild": "Select &lsquo;Yes&rsquo; if {deceasedName} legally adopted your parent"
     }
   }
 }

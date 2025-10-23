@@ -11,21 +11,12 @@
         name: "childAdoptedIn",
         fieldset: {
             legend: {
-                {% if relationship == "child" %}
-                    text: content.childQuestion | replace("{deceasedName}", fields.deceasedName.value) | safe,
-                {% else %}
-                    text: content.grandchildQuestion | replace("{deceasedName}", fields.deceasedName.value) | safe,
-                {% endif %}
+                text: (content.childQuestion if relationship == "optionChild" else content.grandchildQuestion)
+                    | replace("{deceasedName}", fields.deceasedName.value) | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        {% if relationship == "child" %}
-        errorMessage: { text: fields.childAdoptedIn.errorMessage
-            | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.childAdoptedIn.errorMessage,
-        {% else %}
-        errorMessage: { text: fields.childAdoptedIn.errorMessage
-            | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.grandchildAdoptedIn.errorMessage,
         items: [
             {
                 value: "optionYes",

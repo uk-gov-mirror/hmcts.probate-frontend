@@ -17,13 +17,13 @@ class DeceasedChildAlive extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('adoptedIn');
+        return this.next(req, ctx).constructor.getUrl('deceasedChildNotAlive');
     }
 
     nextStepOptions() {
         return {
             options: [
-                {key: 'childAlive', value: 'optionYes', choice: 'childAlive'},
+                {key: 'childAlive', value: 'optionNo', choice: 'childNotAlive'},
             ]
         };
     }
