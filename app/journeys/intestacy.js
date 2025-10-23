@@ -157,10 +157,16 @@ const stepList = {
         adoptedChild: 'AdoptionPlace',
         spousePartnerLessThanIhtThreshold: 'ApplicantName',
         spousePartnerMoreThanIhtThreshold: 'AnyChildren',
+        grandchildOnly: 'DeceasedChildAlive',
         otherwise: 'StopPage'
     },
     SpouseNotApplyingReason: {
-        renouncing: 'ChildAdoptedIn',
+        childAndSpouseNotApplying: 'ChildAdoptedIn',
+        grandchildAndSpouseNotApplying: 'DeceasedChildAlive',
+        otherwise: 'StopPage'
+    },
+    DeceasedChildAlive: {
+        childNotAlive: 'ChildAdoptedIn',
         otherwise: 'StopPage'
     },
     ChildAdoptedIn: {
@@ -169,6 +175,19 @@ const stepList = {
     },
     ChildAdoptedOut: {
         childAdoptedOut: 'AnyOtherChildren',
+        grandchildAdoptedOut: 'GrandchildAdoptedIn',
+        otherwise: 'StopPage'
+    },
+    GrandchildAdoptedIn: {
+        grandchildAdoptedIn: 'GrandchildAdoptionPlace',
+        grandchildNotAdoptedIn: 'GrandchildAdoptedOut',
+    },
+    GrandchildAdoptedOut: {
+        GrandchildAdoptedOut: 'AnyOtherChildren',
+        otherwise: 'StopPage'
+    },
+    GrandchildAdoptionPlace: {
+        grandchildAdoptedInEnglandOrWales: 'AnyOtherChildren',
         otherwise: 'StopPage'
     },
     ChildAdoptionPlace: {

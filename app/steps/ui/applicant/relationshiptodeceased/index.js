@@ -73,6 +73,8 @@ class RelationshipToDeceased extends ValidationStep {
         delete ctx.childDeceasedNotMarried;
         delete ctx.deceasedMaritalStatus;
         delete ctx.ihtThreshold;
+        delete ctx.childAdoptedIn;
+        delete ctx.grandchildParentAdoptedIn;
 
         if (formdata.applicant && formdata.applicant.relationshipToDeceased && ctx.relationshipToDeceased !== formdata.applicant.relationshipToDeceased) {
             delete ctx.adoptionPlace;
@@ -85,6 +87,10 @@ class RelationshipToDeceased extends ValidationStep {
                 delete formdata.deceased.anyPredeceasedChildren;
                 delete formdata.deceased.anySurvivingGrandchildren;
                 delete formdata.deceased.anyGrandchildrenUnder18;
+            }
+            if (formdata.details) {
+                delete formdata.details.childAdoptedIn;
+                delete formdata.details.grandchildParentAdoptedIn;
             }
         }
 
