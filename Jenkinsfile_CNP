@@ -105,15 +105,15 @@ withPipeline("nodejs", product, component) {
   syncBranchesWithMaster(branchesToSync)
 
   afterSuccess('functionalTest:preview') {
-    def testsRan = false
+    def testsRan = true
     try {
       if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
         env.DONT_TEST_WELSH = true
         yarnBuilder.yarn('test:fullfunctional-pr');
-        testsRan = true
       } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
         yarnBuilder.yarn('test:fullfunctional-pr');
-        testsRan = true
+      } else {
+        testsRan = false;
       }
     } finally {
       // Only publish if tests ran AND report exists
