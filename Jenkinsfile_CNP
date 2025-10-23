@@ -124,7 +124,7 @@ withPipeline("nodejs", product, component) {
           keepAll: true,
           reportDir: "functional-output/merged",
           reportFiles: "mochawesome.html",
-          reportName: "Preview Functional Tests"
+          reportName: "Preview Functional Test Report"
         ]
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
       } else {
