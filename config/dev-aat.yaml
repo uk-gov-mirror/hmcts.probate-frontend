@@ -20,7 +20,7 @@ services:
   validation:
     url: http://probate-business-service-aat.service.core-compute-aat.internal/validate
   payment:
-    url: http://payment-api-aat.service.core-compute-aat.intßernal
+    url: http://payment-api-aat.service.core-compute-aat.internal
   feesRegister:
     url: http://fees-register-api-aat.service.core-compute-aat.internal/fees-register
 redis:

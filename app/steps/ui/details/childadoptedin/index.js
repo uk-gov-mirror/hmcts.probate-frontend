@@ -16,15 +16,17 @@ class ChildAdoptedIn extends ValidationStep {
         const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(formdata.deceased);
         ctx.relationshipToDeceased = formdata.applicant && formdata.applicant.relationshipToDeceased;
+        ctx.details = formdata.details || {};
         return ctx;
     }
 
-    generateFields(language, ctx, errors) {
-        const fields = super.generateFields(language, ctx, errors);
-        if (fields.deceasedName && errors) {
-            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
+    handleGet(ctx) {
+        if (ctx.relationshipToDeceased === 'optionGrandchild') {
+            ctx.childAdoptedIn = ctx.details?.grandchildParentAdoptedIn;
+        } else {
+            ctx.childAdoptedIn = ctx.details?.childAdoptedIn;
         }
-        return fields;
+        return [ctx];
     }
 
     nextStepOptions() {
