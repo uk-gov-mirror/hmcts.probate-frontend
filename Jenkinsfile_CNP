@@ -105,18 +105,24 @@ withPipeline("nodejs", product, component) {
   syncBranchesWithMaster(branchesToSync)
 
   afterSuccess('functionalTest:preview') {
-    publishHTML target: [
-      reportDir            : "functional-output/",
-      reportFiles          : "mochawesome.html",
-      reportName           : "Preview Functional Tests",
-      alwaysLinkToLastBuild: true
-    ]
-
-    if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
-      env.DONT_TEST_WELSH = true
-      yarnBuilder.yarn('test:fullfunctional-pr');
-    } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
-      yarnBuilder.yarn('test:fullfunctional-pr');
+    try {
+      if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
+        env.DONT_TEST_WELSH = true
+        yarnBuilder.yarn('test:fullfunctional-pr');
+      } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
+        yarnBuilder.yarn('test:fullfunctional-pr');
+      }
+    } finally {
+      // Always publish reports, even on failure
+      publishHTML target: [
+        allowMissing: false,
+        alwaysLinkToLastBuild: true,
+        keepAll: true,
+        reportDir: "functional-output/merged",
+        reportFiles: "mochawesome.html",
+        reportName: "Preview Functional Tests"
+      ]
+      steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
     }
   }
 
