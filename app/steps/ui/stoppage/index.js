@@ -79,6 +79,16 @@ class StopPage extends Step {
         case 'mentalCapacity':
             pageHeader = 'applyByPostHeader';
             break;
+        case 'deceasedHadLegalPartnerAndRelationshipOther':
+            pageHeader = 'deceasedHadLegalPartnerAndRelationshipOtherHeader';
+            break;
+        case 'deceasedNoLegalPartnerAndRelationshipOther':
+            pageHeader = 'deceasedNoLegalPartnerAndRelationshipOtherHeader';
+            break;
+        case 'divorcePlace':
+        case 'separationPlace':
+            pageHeader = 'postHeader';
+            break;
         case 'spouseNotApplying':
         case 'adoptionNotEnglandOrWales':
         case 'adoptedOut':

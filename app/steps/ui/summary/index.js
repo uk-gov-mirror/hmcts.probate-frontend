@@ -102,9 +102,9 @@ class Summary extends Step {
         ctx.deceasedAliasQuestion = content.DeceasedAlias.question
             .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedAlias.theDeceased);
         ctx.deceasedDobQuestion = content.DeceasedDob.question
-            .replace('{deceasedName}', deceasedName ? deceasedName : content.DiedEnglandOrWales.theDeceased);
+            .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedDob.theDeceased);
         ctx.deceasedDodQuestion = content.DeceasedDod.question
-            .replace('{deceasedName}', deceasedName ? deceasedName : content.DiedEnglandOrWales.theDeceased);
+            .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedDod.theDeceased);
         ctx.diedEnglandOrWalesQuestion = content.DiedEnglandOrWales.question
             .replace('{deceasedName}', deceasedName ? deceasedName : content.DiedEnglandOrWales.theDeceased);
         ctx.deceasedAddressQuestion = content.DeceasedAddress.question
@@ -114,6 +114,8 @@ class Summary extends Step {
         ctx.ihtUnusedAllowanceClaimedQuestion = content.IhtUnusedAllowanceClaimed.question
             .replace('{deceasedName}', deceasedName || content.DeceasedAlias.theDeceased);
         ctx.deceasedHadLateSpouseOrCivilPartnerQuestion = content.DeceasedHadLateSpouseOrCivilPartner.question
+            .replace('{deceasedName}', deceasedName || content.DeceasedAlias.theDeceased);
+        ctx.relationshipToDeceasedQuestion = content.RelationshipToDeceased.question
             .replace('{deceasedName}', deceasedName || content.DeceasedAlias.theDeceased);
         if (ctx.caseType === caseTypes.GOP) {
             ctx.deceasedMarriedQuestion = (hasCodicils ? content.DeceasedMarried.questionWithCodicil : content.DeceasedMarried.question)
