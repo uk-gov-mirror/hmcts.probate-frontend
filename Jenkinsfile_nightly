@@ -71,6 +71,14 @@ withNightlyPipeline("nodejs", product, component) {
     yarnBuilder.yarn('setup')
   }
   afterAlways('fullFunctionalTest') {
+    publishHTML target: [
+      allowMissing: false,
+      alwaysLinkToLastBuild: true,
+      keepAll: true,
+      reportDir: "functional-output/merged",
+      reportFiles: "mochawesome.html",
+      reportName: "Preview Functional Tests"
+    ]
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
   }
 
