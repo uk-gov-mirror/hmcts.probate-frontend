@@ -153,28 +153,28 @@ const stepList = {
     DivorceDate: 'TaskList',
     RelationshipToDeceased: {
         childOrGrandchildDeceasedMarried: 'SpouseNotApplyingReason',
-        childOrGrandchildDeceasedNotMarried: 'ChildAdoptedIn',
+        childAndDeceasedNotMarried: 'AdoptedIn',
+        grandchildAndDeceasedNotMarried: 'DeceasedChildAlive',
         adoptedChild: 'AdoptionPlace',
         spousePartnerLessThanIhtThreshold: 'ApplicantName',
         spousePartnerMoreThanIhtThreshold: 'AnyChildren',
-        grandchildOnly: 'DeceasedChildAlive',
         otherwise: 'StopPage'
     },
     SpouseNotApplyingReason: {
-        childAndSpouseNotApplying: 'ChildAdoptedIn',
+        childAndSpouseNotApplying: 'AdoptedIn',
         grandchildAndSpouseNotApplying: 'DeceasedChildAlive',
         otherwise: 'StopPage'
     },
     DeceasedChildAlive: {
-        childNotAlive: 'ChildAdoptedIn',
+        childNotAlive: 'AdoptedIn',
         otherwise: 'StopPage'
     },
-    ChildAdoptedIn: {
-        childAdoptedIn: 'ChildAdoptionPlace',
-        childNotAdoptedIn: 'ChildAdoptedOut'
+    AdoptedIn: {
+        adoptedIn: 'PlaceOfAdoption',
+        notAdoptedIn: 'AdoptedOut'
     },
-    ChildAdoptedOut: {
-        childAdoptedOut: 'AnyOtherChildren',
+    AdoptedOut: {
+        notAdoptedOut: 'AnyOtherChildren',
         grandchildAdoptedOut: 'GrandchildAdoptedIn',
         otherwise: 'StopPage'
     },
@@ -190,8 +190,8 @@ const stepList = {
         grandchildAdoptedInEnglandOrWales: 'AnyOtherChildren',
         otherwise: 'StopPage'
     },
-    ChildAdoptionPlace: {
-        childAdoptedInEnglandOrWales: 'AnyOtherChildren',
+    PlaceOfAdoption: {
+        adoptedInEnglandOrWales: 'AnyOtherChildren',
         otherwise: 'StopPage'
     },
     AdoptionPlace: {
