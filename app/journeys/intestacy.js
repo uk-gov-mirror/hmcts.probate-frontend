@@ -157,6 +157,11 @@ const stepList = {
         adoptedChild: 'AdoptionPlace',
         spousePartnerLessThanIhtThreshold: 'ApplicantName',
         spousePartnerMoreThanIhtThreshold: 'AnyChildren',
+        parentSiblingNotMarried: 'AnyLivingDescendants',
+        otherwise: 'StopPage'
+    },
+    AnyLivingDescendants: {
+        hadLivingDescendants: 'AnyOtherParentAlive',
         otherwise: 'StopPage'
     },
     SpouseNotApplyingReason: {
@@ -206,8 +211,10 @@ const stepList = {
         allGrandchildrenOver18AndAllPredeceasedChildren: 'ApplicantName',
         otherwise: 'StopPage'
     },
+    AnyOtherParentAlive: 'ApplicantName',
     JointApplication: {
-        hasCoApplicant: 'CoApplicantRelationshipToDeceased',
+        hasChildCoApplicant: 'CoApplicantRelationshipToDeceased',
+        hasParentCoApplicant: 'CoApplicantName',
         hasNoCoApplicant: 'Equality',
     },
     CoApplicantRelationshipToDeceased: {
@@ -216,7 +223,10 @@ const stepList = {
         otherwise: 'StopPage'
     },
     RemoveCoApplicant: 'JointApplication',
-    CoApplicantName: 'CoApplicantAdoptedIn',
+    CoApplicantName: {
+        isChildJointApplication: 'CoApplicantAdoptedIn',
+        isParentJointApplication: 'CoApplicantEmail'
+    },
     CoApplicantAdoptedIn: {
         adoptedIn: 'CoApplicantAdoptionPlace',
         notAdoptedIn: 'CoApplicantAdoptedOut'
@@ -249,12 +259,16 @@ const stepList = {
     },
     CoApplicantEmail: 'ExecutorAddress',
     ExecutorContactDetails: 'ExecutorAddress',
-    ExecutorAddress: 'JointApplication',
+    ExecutorAddress: {
+        isChildJointApplication: 'JointApplication',
+        isParentJointApplication: 'Equality'
+    },
     ApplicantName: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',
     ApplicantAddress: {
         hasCoApplicant: 'JointApplication',
         hasNoCoApplicant: 'Equality',
+        isIntestacyParent: 'JointApplication',
         otherwise: 'Equality'
     },
     Equality: 'Summary',

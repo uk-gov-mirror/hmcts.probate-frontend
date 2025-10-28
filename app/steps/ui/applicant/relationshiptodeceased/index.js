@@ -37,6 +37,7 @@ class RelationshipToDeceased extends ValidationStep {
         ctx.spousePartnerMoreThanIhtThreshold = ctx.relationshipToDeceased === 'optionSpousePartner' && ctx.assetsValue > ctx.ihtThreshold;
         ctx.childOrGrandchildDeceasedMarried = (ctx.relationshipToDeceased === 'optionChild' || ctx.relationshipToDeceased === 'optionGrandchild') && ctx.deceasedMaritalStatus === 'optionMarried';
         ctx.childOrGrandchildDeceasedNotMarried = (ctx.relationshipToDeceased === 'optionChild' || ctx.relationshipToDeceased === 'optionGrandchild') && ctx.deceasedMaritalStatus !== 'optionMarried';
+        ctx.parentSiblingNotMarried = (ctx.relationshipToDeceased === 'optionParent' || ctx.relationshipToDeceased === 'optionSibling') && ctx.deceasedMaritalStatus === 'optionNotMarried';
 
         return {
             options: [
@@ -44,7 +45,8 @@ class RelationshipToDeceased extends ValidationStep {
                 {key: 'spousePartnerMoreThanIhtThreshold', value: true, choice: 'spousePartnerMoreThanIhtThreshold'},
                 {key: 'childOrGrandchildDeceasedMarried', value: true, choice: 'childOrGrandchildDeceasedMarried'},
                 {key: 'childOrGrandchildDeceasedNotMarried', value: true, choice: 'childOrGrandchildDeceasedNotMarried'},
-                {key: 'relationshipToDeceased', value: 'optionAdoptedChild', choice: 'adoptedChild'},
+                {key: 'parentSiblingNotMarried', value: true, choice: 'parentSiblingNotMarried'},
+                {key: 'relationshipToDeceased', value: 'optionAdoptedChild', choice: 'adoptedChild'}
             ]
         };
     }
