@@ -174,8 +174,8 @@ const stepList = {
         notAdoptedIn: 'AdoptedOut'
     },
     AdoptedOut: {
-        notAdoptedOut: 'AnyOtherChildren',
-        grandchildAdoptedOut: 'GrandchildAdoptedIn',
+        childNotAdoptedOut: 'AnyOtherChildren',
+        grandchildNotAdoptedOut: 'GrandchildAdoptedIn',
         otherwise: 'StopPage'
     },
     GrandchildAdoptedIn: {
@@ -183,7 +183,7 @@ const stepList = {
         grandchildNotAdoptedIn: 'GrandchildAdoptedOut',
     },
     GrandchildAdoptedOut: {
-        GrandchildAdoptedOut: 'AnyOtherChildren',
+        grandchildNotAdoptedOut: 'AnyOtherChildren',
         otherwise: 'StopPage'
     },
     GrandchildAdoptionPlace: {
@@ -191,7 +191,8 @@ const stepList = {
         otherwise: 'StopPage'
     },
     PlaceOfAdoption: {
-        adoptedInEnglandOrWales: 'AnyOtherChildren',
+        childAndAdoptedInEnglandOrWales: 'AnyOtherChildren',
+        grandchildAndAdoptedInEnglandOrWales: 'GrandchildAdoptedIn',
         otherwise: 'StopPage'
     },
     AdoptionPlace: {
