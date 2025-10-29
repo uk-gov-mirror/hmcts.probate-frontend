@@ -153,7 +153,8 @@ const stepList = {
     DivorceDate: 'TaskList',
     RelationshipToDeceased: {
         childOrGrandchildDeceasedMarried: 'SpouseNotApplyingReason',
-        childOrGrandchildDeceasedNotMarried: 'ChildAdoptedIn',
+        childAndDeceasedNotMarried: 'AdoptedIn',
+        grandchildAndDeceasedNotMarried: 'DeceasedChildAlive',
         adoptedChild: 'AdoptionPlace',
         spousePartnerLessThanIhtThreshold: 'ApplicantName',
         spousePartnerMoreThanIhtThreshold: 'AnyChildren',
@@ -161,23 +162,42 @@ const stepList = {
         otherwise: 'StopPage'
     },
     AnyLivingDescendants: {
-        hadLivingDescendants: 'AnyOtherParentAlive',
+        noLivingDescendants: 'AnyOtherParentAlive',
         otherwise: 'StopPage'
     },
     SpouseNotApplyingReason: {
-        renouncing: 'ChildAdoptedIn',
+        childAndSpouseNotApplying: 'AdoptedIn',
+        grandchildAndSpouseNotApplying: 'DeceasedChildAlive',
         otherwise: 'StopPage'
     },
-    ChildAdoptedIn: {
-        childAdoptedIn: 'ChildAdoptionPlace',
-        childNotAdoptedIn: 'ChildAdoptedOut'
-    },
-    ChildAdoptedOut: {
-        childAdoptedOut: 'AnyOtherChildren',
+    DeceasedChildAlive: {
+        childNotAlive: 'AdoptedIn',
         otherwise: 'StopPage'
     },
-    ChildAdoptionPlace: {
-        childAdoptedInEnglandOrWales: 'AnyOtherChildren',
+    AdoptedIn: {
+        adoptedIn: 'PlaceOfAdoption',
+        notAdoptedIn: 'AdoptedOut'
+    },
+    AdoptedOut: {
+        childNotAdoptedOut: 'AnyOtherChildren',
+        grandchildNotAdoptedOut: 'GrandchildAdoptedIn',
+        otherwise: 'StopPage'
+    },
+    GrandchildAdoptedIn: {
+        grandchildAdoptedIn: 'GrandchildAdoptionPlace',
+        grandchildNotAdoptedIn: 'GrandchildAdoptedOut',
+    },
+    GrandchildAdoptedOut: {
+        grandchildNotAdoptedOut: 'AnyOtherChildren',
+        otherwise: 'StopPage'
+    },
+    GrandchildAdoptionPlace: {
+        grandchildAdoptedInEnglandOrWales: 'AnyOtherChildren',
+        otherwise: 'StopPage'
+    },
+    PlaceOfAdoption: {
+        childAndAdoptedInEnglandOrWales: 'AnyOtherChildren',
+        grandchildAndAdoptedInEnglandOrWales: 'GrandchildAdoptedIn',
         otherwise: 'StopPage'
     },
     AdoptionPlace: {

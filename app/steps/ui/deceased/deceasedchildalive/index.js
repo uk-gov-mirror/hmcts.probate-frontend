@@ -3,10 +3,10 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
 
-class AnyLivingDescendants extends ValidationStep {
+class DeceasedChildAlive extends ValidationStep {
 
     static getUrl() {
-        return '/any-living-descendants';
+        return '/mainapplicantsparent-alive';
     }
 
     getContextData(req) {
@@ -17,13 +17,13 @@ class AnyLivingDescendants extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('hadLivingDescendants');
+        return this.next(req, ctx).constructor.getUrl('parentIsAlive');
     }
 
     nextStepOptions() {
         return {
             options: [
-                {key: 'anyLivingDescendants', value: 'optionNo', choice: 'noLivingDescendants'}
+                {key: 'childAlive', value: 'optionNo', choice: 'childNotAlive'},
             ]
         };
     }
@@ -35,12 +35,6 @@ class AnyLivingDescendants extends ValidationStep {
         }
         return fields;
     }
-
-    action(ctx, formdata) {
-        super.action(ctx, formdata);
-
-        return [ctx, formdata];
-    }
 }
 
-module.exports = AnyLivingDescendants;
+module.exports = DeceasedChildAlive;

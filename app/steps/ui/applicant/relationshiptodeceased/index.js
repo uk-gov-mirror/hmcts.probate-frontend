@@ -36,17 +36,20 @@ class RelationshipToDeceased extends ValidationStep {
         ctx.spousePartnerLessThanIhtThreshold = ctx.relationshipToDeceased === 'optionSpousePartner' && ctx.assetsValue <= ctx.ihtThreshold;
         ctx.spousePartnerMoreThanIhtThreshold = ctx.relationshipToDeceased === 'optionSpousePartner' && ctx.assetsValue > ctx.ihtThreshold;
         ctx.childOrGrandchildDeceasedMarried = (ctx.relationshipToDeceased === 'optionChild' || ctx.relationshipToDeceased === 'optionGrandchild') && ctx.deceasedMaritalStatus === 'optionMarried';
-        ctx.childOrGrandchildDeceasedNotMarried = (ctx.relationshipToDeceased === 'optionChild' || ctx.relationshipToDeceased === 'optionGrandchild') && ctx.deceasedMaritalStatus !== 'optionMarried';
         ctx.parentSiblingNotMarried = (ctx.relationshipToDeceased === 'optionParent' || ctx.relationshipToDeceased === 'optionSibling') && ctx.deceasedMaritalStatus === 'optionNotMarried';
+        ctx.childAndDeceasedNotMarried = ctx.relationshipToDeceased === 'optionChild' && ctx.deceasedMaritalStatus !== 'optionMarried';
+        ctx.grandchildAndDeceasedNotMarried = ctx.relationshipToDeceased === 'optionGrandchild' && ctx.deceasedMaritalStatus !== 'optionMarried';
 
         return {
             options: [
                 {key: 'spousePartnerLessThanIhtThreshold', value: true, choice: 'spousePartnerLessThanIhtThreshold'},
                 {key: 'spousePartnerMoreThanIhtThreshold', value: true, choice: 'spousePartnerMoreThanIhtThreshold'},
                 {key: 'childOrGrandchildDeceasedMarried', value: true, choice: 'childOrGrandchildDeceasedMarried'},
-                {key: 'childOrGrandchildDeceasedNotMarried', value: true, choice: 'childOrGrandchildDeceasedNotMarried'},
                 {key: 'parentSiblingNotMarried', value: true, choice: 'parentSiblingNotMarried'},
-                {key: 'relationshipToDeceased', value: 'optionAdoptedChild', choice: 'adoptedChild'}
+                {key: 'relationshipToDeceased', value: 'optionAdoptedChild', choice: 'adoptedChild'},
+                {key: 'childAndDeceasedNotMarried', value: true, choice: 'childAndDeceasedNotMarried'},
+                {key: 'grandchildAndDeceasedNotMarried', value: true, choice: 'grandchildAndDeceasedNotMarried'},
+                {key: 'relationshipToDeceased', value: 'optionAdoptedChild', choice: 'adoptedChild'},
             ]
         };
     }

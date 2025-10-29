@@ -316,6 +316,14 @@ module.exports = {
             'never'
         ]
     },
+    'overrides': [
+        {
+            'files': ['app/journeys/intestacy.js'],
+            'rules': {
+                'max-lines': 'off'
+            }
+        }
+    ],
     'globals': {
         'actor': true,
         'Feature': true,

@@ -1,12 +1,12 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const FormatName = require('app/utils/FormatName');
+const FormatName = require('../../../../utils/FormatName');
 
-class AnyLivingDescendants extends ValidationStep {
+class GrandchildAdoptedIn extends ValidationStep {
 
     static getUrl() {
-        return '/any-living-descendants';
+        return '/mainapplicantsparent-adopted-you-in';
     }
 
     getContextData(req) {
@@ -14,18 +14,6 @@ class AnyLivingDescendants extends ValidationStep {
         const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
-    }
-
-    nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('hadLivingDescendants');
-    }
-
-    nextStepOptions() {
-        return {
-            options: [
-                {key: 'anyLivingDescendants', value: 'optionNo', choice: 'noLivingDescendants'}
-            ]
-        };
     }
 
     generateFields(language, ctx, errors) {
@@ -36,11 +24,14 @@ class AnyLivingDescendants extends ValidationStep {
         return fields;
     }
 
-    action(ctx, formdata) {
-        super.action(ctx, formdata);
-
-        return [ctx, formdata];
+    nextStepOptions() {
+        return {
+            options: [
+                {key: 'grandchildAdoptedIn', value: 'optionYes', choice: 'grandchildAdoptedIn'},
+                {key: 'grandchildAdoptedIn', value: 'optionNo', choice: 'grandchildNotAdoptedIn'}
+            ]
+        };
     }
 }
 
-module.exports = AnyLivingDescendants;
+module.exports = GrandchildAdoptedIn;
