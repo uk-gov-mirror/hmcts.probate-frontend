@@ -181,6 +181,7 @@ const stepList = {
     AdoptedOut: {
         childNotAdoptedOut: 'AnyOtherChildren',
         grandchildNotAdoptedOut: 'GrandchildAdoptedIn',
+        deceasedNotAdoptedOut: 'AnyOtherParentAlive',
         otherwise: 'StopPage'
     },
     GrandchildAdoptedIn: {
@@ -198,6 +199,7 @@ const stepList = {
     PlaceOfAdoption: {
         childAndAdoptedInEnglandOrWales: 'AnyOtherChildren',
         grandchildAndAdoptedInEnglandOrWales: 'GrandchildAdoptedIn',
+        deceasedAdoptedInEnglandOrWales: 'AnyOtherParentAlive',
         otherwise: 'StopPage'
     },
     AdoptionPlace: {
