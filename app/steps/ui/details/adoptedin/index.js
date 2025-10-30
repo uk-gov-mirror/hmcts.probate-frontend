@@ -19,14 +19,6 @@ class AdoptedIn extends ValidationStep {
         ctx.details = formdata.details || {};
         return ctx;
     }
-    handleGet(ctx) {
-        if (ctx.relationshipToDeceased === 'optionGrandchild') {
-            ctx.adoptedIn = ctx.details?.grandchildParentAdoptedIn;
-        } else {
-            ctx.adoptedIn = ctx.details?.childAdoptedIn;
-        }
-        return [ctx];
-    }
     nextStepOptions() {
         return {
             options: [
@@ -34,6 +26,10 @@ class AdoptedIn extends ValidationStep {
                 {key: 'adoptedIn', value: 'optionNo', choice: 'notAdoptedIn'},
             ]
         };
+    }
+
+    isComplete(ctx) {
+        return [ctx.adoptedIn==='optionYes' || ctx.adoptedIn==='optionNo', 'inProgress'];
     }
 
     handlePost(ctx, errors, formdata, session) {

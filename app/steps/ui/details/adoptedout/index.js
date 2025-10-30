@@ -20,15 +20,6 @@ class AdoptedOut extends ValidationStep {
         return ctx;
     }
 
-    handleGet(ctx) {
-        if (ctx.relationshipToDeceased === 'optionGrandchild') {
-            ctx.adoptedOut = ctx.details?.grandchildParentAdoptedOut;
-        } else {
-            ctx.adoptedOut = ctx.details?.childAdoptedOut;
-        }
-        return [ctx];
-    }
-
     nextStepUrl(req, ctx) {
         if (ctx.relationshipToDeceased === 'optionGrandchild' && ctx.adoptedOut === 'optionYes') {
             return this.next(req, ctx).constructor.getUrl('grandchildParentAdoptedOut');

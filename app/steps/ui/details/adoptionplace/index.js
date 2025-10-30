@@ -16,15 +16,6 @@ class PlaceOfAdoption extends ValidationStep {
         return ctx;
     }
 
-    handleGet(ctx) {
-        if (ctx.relationshipToDeceased === 'optionGrandchild') {
-            ctx.adoptionPlace = ctx.details?.grandchildParentAdoptionInEnglandOrWales;
-        } else {
-            ctx.adoptionPlace = ctx.details?.childAdoptionInEnglandOrWales;
-        }
-        return [ctx];
-    }
-
     handlePost(ctx, errors) {
         if (ctx.relationshipToDeceased === 'optionGrandchild') {
             ctx.grandchildParentAdoptionPlace = ctx.adoptionPlace;
