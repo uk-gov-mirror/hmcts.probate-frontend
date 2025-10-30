@@ -2,7 +2,7 @@
 {
   "title": "A wnaeth yr unigolyn sydd wedi marw eich mabwysiadu&rsquo;n gyfreithlon allan o&rsquo;u teulu nhw (eich rhoi i ffwrdd i gael eich mabwysiadu)?",
   "childQuestion": "A wnaeth {deceasedName} eich mabwysiadu&rsquo;n gyfreithlon allan o&rsquo;u teulu nhw (eich rhoi i ffwrdd i gael eich mabwysiadu)?",
-  "grandchildQuestion": "A wnaeth {deceased name} fabwysiadu eich rhiant ({deceased name} yn gyfreithlon allan o&rsquo;u teulu nhw (eu rhoi i ffwrdd i gael eu mabwysiadu)",
+  "grandchildQuestion": "A wnaeth {deceasedName} fabwysiadu eich rhiant ({deceasedName} yn gyfreithlon allan o&rsquo;u teulu nhw (eu rhoi i ffwrdd i gael eu mabwysiadu)",
   "optionYes": "Do",
   "optionNo": "Naddo",
 
