@@ -162,7 +162,7 @@ const stepList = {
         otherwise: 'StopPage'
     },
     AnyLivingDescendants: {
-        noLivingDescendants: 'AnyOtherParentAlive',
+        noLivingDescendants: 'AdoptedIn',
         otherwise: 'StopPage'
     },
     SpouseNotApplyingReason: {
@@ -235,7 +235,7 @@ const stepList = {
     },
     AnyOtherParentAlive: 'ApplicantName',
     JointApplication: {
-        hasChildCoApplicant: 'CoApplicantRelationshipToDeceased',
+        hasCoApplicant: 'CoApplicantRelationshipToDeceased',
         hasParentCoApplicant: 'CoApplicantName',
         hasNoCoApplicant: 'Equality',
     },
@@ -290,7 +290,8 @@ const stepList = {
     ApplicantAddress: {
         hasCoApplicant: 'JointApplication',
         hasNoCoApplicant: 'Equality',
-        isIntestacyParent: 'JointApplication',
+        isIntestacyWithOtherParent: 'JointApplication',
+        isIntestacyNoOtherParent: 'Equality',
         otherwise: 'Equality'
     },
     Equality: 'Summary',
