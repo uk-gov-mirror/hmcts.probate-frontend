@@ -46,7 +46,6 @@ class RelationshipToDeceased extends ValidationStep {
                 {key: 'spousePartnerMoreThanIhtThreshold', value: true, choice: 'spousePartnerMoreThanIhtThreshold'},
                 {key: 'childOrGrandchildDeceasedMarried', value: true, choice: 'childOrGrandchildDeceasedMarried'},
                 {key: 'parentSiblingNotMarried', value: true, choice: 'parentSiblingNotMarried'},
-                {key: 'relationshipToDeceased', value: 'optionAdoptedChild', choice: 'adoptedChild'},
                 {key: 'childAndDeceasedNotMarried', value: true, choice: 'childAndDeceasedNotMarried'},
                 {key: 'grandchildAndDeceasedNotMarried', value: true, choice: 'grandchildAndDeceasedNotMarried'},
                 {key: 'relationshipToDeceased', value: 'optionAdoptedChild', choice: 'adoptedChild'},
@@ -78,6 +77,15 @@ class RelationshipToDeceased extends ValidationStep {
         delete ctx.childDeceasedNotMarried;
         delete ctx.deceasedMaritalStatus;
         delete ctx.ihtThreshold;
+        if (ctx.relationshipToDeceased === 'optionChild') {
+            delete ctx.grandchildParentAdoptedIn;
+            delete ctx.grandchildParentAdoptedOut;
+            delete ctx.grandchildParentAdoptionPlace;
+        } else if (ctx.relationshipToDeceased === 'optionGrandchild') {
+            delete ctx.childAdoptedIn;
+            delete ctx.childAdoptedOut;
+            delete ctx.childAdoptionPlace;
+        }
 
         if (formdata.applicant && formdata.applicant.relationshipToDeceased && ctx.relationshipToDeceased !== formdata.applicant.relationshipToDeceased) {
             delete ctx.adoptionPlace;
@@ -90,6 +98,14 @@ class RelationshipToDeceased extends ValidationStep {
                 delete formdata.deceased.anyPredeceasedChildren;
                 delete formdata.deceased.anySurvivingGrandchildren;
                 delete formdata.deceased.anyGrandchildrenUnder18;
+            }
+            if (formdata.details) {
+                delete formdata.details.childAdoptedIn;
+                delete formdata.details.grandchildParentAdoptedIn;
+                delete formdata.details.childAdoptedOut;
+                delete formdata.details.grandchildParentAdoptedOut;
+                delete formdata.details.childAdoptionPlace;
+                delete formdata.details.grandchildParentAdoptionPlace;
             }
         }
 

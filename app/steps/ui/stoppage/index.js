@@ -66,25 +66,17 @@ class StopPage extends Step {
             pageHeader = 'eeEstateValuedHeader';
             break;
         case 'notDiedAfterOctober2014':
-            pageHeader = 'applyByPostHeader';
-            break;
         case 'notRelated':
+        case 'notExecutor':
+        case 'mentalCapacity':
             pageHeader = 'applyByPostHeader';
             break;
         case 'notOriginal':
             pageHeader = 'notOriginalHeader';
             break;
-        case 'notExecutor':
-            pageHeader = 'applyByPostHeader';
-            break;
-        case 'mentalCapacity':
-            pageHeader = 'applyByPostHeader';
-            break;
         case 'deceasedHadLegalPartnerAndRelationshipOther':
-            pageHeader = 'deceasedHadLegalPartnerAndRelationshipOtherHeader';
-            break;
-        case 'deceasedNoLegalPartnerAndRelationshipOther':
-            pageHeader = 'deceasedNoLegalPartnerAndRelationshipOtherHeader';
+        case 'parentIsAlive':
+            pageHeader = 'notEntitledHeader';
             break;
         case 'divorcePlace':
         case 'separationPlace':
@@ -93,11 +85,13 @@ class StopPage extends Step {
         case 'spouseNotApplying':
         case 'adoptionNotEnglandOrWales':
         case 'adoptedOut':
+        case 'grandchildParentAdoptedOut':
         case 'childrenUnder18':
         case 'coApplicantAdoptionPlaceStop':
         case 'coApplicantAdoptedOutStop':
         case 'coApplicantParentAdoptedOutStop':
         case 'grandchildrenUnder18':
+        case 'deceasedNoLegalPartnerAndRelationshipOther':
             pageHeader = 'cannotApplyByOnlineHeader';
             break;
         case 'otherCoApplicantRelationship':

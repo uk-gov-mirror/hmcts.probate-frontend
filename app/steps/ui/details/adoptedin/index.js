@@ -19,7 +19,6 @@ class AdoptedIn extends ValidationStep {
         ctx.details = formdata.details || {};
         return ctx;
     }
-
     nextStepOptions() {
         return {
             options: [
