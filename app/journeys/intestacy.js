@@ -235,9 +235,9 @@ const stepList = {
     },
     AnyOtherParentAlive: 'ApplicantName',
     JointApplication: {
-        hasCoApplicant: 'CoApplicantRelationshipToDeceased',
-        hasParentCoApplicant: 'CoApplicantName',
-        hasNoCoApplicant: 'Equality',
+        isJointApplication: 'CoApplicantRelationshipToDeceased',
+        isParentJointApplication: 'CoApplicantName',
+        notJointApplication: 'Equality',
     },
     CoApplicantRelationshipToDeceased: {
         optionChild: 'CoApplicantName',
