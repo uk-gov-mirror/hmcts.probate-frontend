@@ -37,6 +37,7 @@ const isEmpty = require('lodash').isEmpty;
 const setupHealthCheck = require('app/utils/setupHealthCheck');
 const {sanitizeInput} = require('./app/utils/Sanitize');
 const {merge} = require('lodash');
+const normalizeNonIdamPages = require('app/utils/configNormalisers');
 
 exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const app = express();
@@ -346,7 +347,8 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     app.use(featureToggles);
 
     if (useIDAM === 'true') {
-        const idamPages = new RegExp(`/((?!${config.nonIdamPages.join('|')}).)*`);
+        const nonIdamPages = normalizeNonIdamPages(config.nonIdamPages);
+        const idamPages = new RegExp(`/((?!${nonIdamPages.join('|')}).)*`);
         app.use(idamPages, security.protect(config.services.idam.roles));
         app.use('/', routes);
     } else {
