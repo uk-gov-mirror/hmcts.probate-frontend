@@ -9,7 +9,6 @@
   "notOriginalHeader": "Mae angen yr ewyllys wreiddiol arnoch ac unrhyw godisiliau",
   "applyByPostHeader": "Rhaid i chi wneud cais am brofiant drwy'r post",
   "cannotApplyByOnlineHeader": "Ni allwch wneud cais am brofiant ar-lein",
-  "hadLivingDescendantsHeader": "Nid oes gennych hawl i wneud cais",
   "defaultReason": "Ni allwch barhau",
   "postHeader": "Rhaid i chi wneud cais am brofiant drwy’r post",
   "deathCertificate": "Rhaid <a target=\"_blank\" rel=\"external noopener\" href=\"{deathReportedToCoroner}\" class=\"govuk-link\" aria-label=\"i chi gael y dystysgrif marwolaeth wreiddiol neu dystysgrif marwolaeth interim (yn agor mewn tab newydd)\">i chi gael y dystysgrif marwolaeth wreiddiol neu dystysgrif marwolaeth interim (yn agor mewn tab newydd)</a> gan y crwner cyn i chi wneud cais am brofiant.",

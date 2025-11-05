@@ -9,7 +9,6 @@
   "notOriginalHeader": "You need the original will and any codicils",
   "applyByPostHeader": "You cannot apply for probate online",
   "cannotApplyByOnlineHeader": "You cannot apply for probate online",
-  "hadLivingDescendantsHeader": "You are not entitled to apply",
   "defaultReason": "Unable to proceed",
   "postHeader": "You must apply for probate by post",
   "deathCertificate": "You must <a target=\"_blank\" rel=\"external noopener\" href=\"{deathReportedToCoroner}\" class=\"govuk-link\">get the original death certificate or an interim death certificate (opens in a new tab)</a> from the coroner before you apply for probate.",
