@@ -4,8 +4,7 @@ const {expect} = require('chai');
 const normalizeNonIdamPages = require('app/utils/configNormalisers.js');
 
 describe('normalizeNonIdamPages', () => {
-
-    it('returns the array as-is when input is an array', () => {
+    it('returns the same array instance when input is an array', () => {
         const arr = ['health/*', 'error'];
         const result = normalizeNonIdamPages(arr);
         expect(result).to.equal(arr);
@@ -17,42 +16,44 @@ describe('normalizeNonIdamPages', () => {
         expect(result).to.deep.equal(['health/*', 'error', 'pin']);
     });
 
-    it('returns [] for an empty string', () => {
-        const result = normalizeNonIdamPages('');
-        expect(result).to.deep.equal([]);
-    });
-
-    it('returns [] for a whitespace-only string', () => {
-        const result = normalizeNonIdamPages('   ');
-        expect(result).to.deep.equal([]);
-    });
-
-    it('returns [] for undefined', () => {
-        // eslint-disable-next-line no-undefined
-        const result = normalizeNonIdamPages(undefined);
-        expect(result).to.deep.equal([]);
-    });
-
-    it('returns [] and warns when JSON is invalid', () => {
+    it('throws with clear message for invalid JSON', () => {
         const input = '[\'health/*\',\'error\']';
-        const result = normalizeNonIdamPages(input);
-        expect(result).to.deep.equal([]);
+        expect(() => normalizeNonIdamPages(input))
+            .to.throw('NON_IDAM_PAGES is not valid JSON');
     });
 
-    it('returns [] and warns when JSON parses but is not an array (object)', () => {
+    it('throws when JSON parses but is not an array (object)', () => {
         const input = '{"a":1}';
-        const result = normalizeNonIdamPages(input);
-        expect(result).to.deep.equal([]);
+        expect(() => normalizeNonIdamPages(input))
+            .to.throw('Missing or invalid NON_IDAM_PAGES configuration. Aborting startup.');
     });
 
-    it('returns [] and warns when JSON parses but is not an array (string)', () => {
+    it('throws when JSON parses but is not an array (string)', () => {
         const input = '"health/*,error"';
-        const result = normalizeNonIdamPages(input);
-        expect(result).to.deep.equal([]);
+        expect(() => normalizeNonIdamPages(input))
+            .to.throw('Missing or invalid NON_IDAM_PAGES configuration. Aborting startup.');
     });
 
-    it('returns [] for non-string primitives (numbers/booleans)', () => {
-        expect(normalizeNonIdamPages(42)).to.deep.equal([]);
-        expect(normalizeNonIdamPages(true)).to.deep.equal([]);
+    it('throws when input is an empty string', () => {
+        expect(() => normalizeNonIdamPages(''))
+            .to.throw('Missing or invalid NON_IDAM_PAGES configuration. Aborting startup.');
+    });
+
+    it('throws when input is whitespace only', () => {
+        expect(() => normalizeNonIdamPages('   '))
+            .to.throw('Missing or invalid NON_IDAM_PAGES configuration. Aborting startup.');
+    });
+
+    it('throws when input is undefined', () => {
+        // eslint-disable-next-line no-undefined
+        expect(() => normalizeNonIdamPages(undefined))
+            .to.throw('Missing or invalid NON_IDAM_PAGES configuration. Aborting startup.');
+    });
+
+    it('throws when input is a non-string primitive (number/boolean)', () => {
+        expect(() => normalizeNonIdamPages(42))
+            .to.throw('Missing or invalid NON_IDAM_PAGES configuration. Aborting startup.');
+        expect(() => normalizeNonIdamPages(false))
+            .to.throw('Missing or invalid NON_IDAM_PAGES configuration. Aborting startup.');
     });
 });

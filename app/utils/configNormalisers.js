@@ -15,10 +15,11 @@ function normalizeNonIdamPages(input) {
             }
         } catch (err) {
             logger.warn({err}, 'Error parsing NON_IDAM_PAGES');
+            throw new Error('NON_IDAM_PAGES is not valid JSON');
         }
     }
-    logger.warn('NON_IDAM_PAGES is not valid array or JSON; falling back to []');
-    return [];
+    logger.warn('NON_IDAM_PAGES is not valid array or JSON. Aborting startup');
+    throw new Error('Missing or invalid NON_IDAM_PAGES configuration. Aborting startup.');
 }
 
 module.exports = normalizeNonIdamPages;
