@@ -13,9 +13,8 @@ function normalizeNonIdamPages(input) {
             if (Array.isArray(parsed)) {
                 return parsed;
             }
-        } catch (e) {
-            logger.warn('Error parsing NON_IDAM_PAGES');
-            return [];
+        } catch (err) {
+            logger.warn({err}, 'Error parsing NON_IDAM_PAGES');
         }
     }
     logger.warn('NON_IDAM_PAGES is not valid array or JSON; falling back to []');
