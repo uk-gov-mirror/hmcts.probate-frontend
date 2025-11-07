@@ -250,6 +250,7 @@ const stepList = {
         isJointApplication: 'CoApplicantRelationshipToDeceased',
         isParentJointApplication: 'CoApplicantName',
         notJointApplication: 'Equality',
+        otherwise: 'TaskList'
     },
     CoApplicantRelationshipToDeceased: {
         optionChild: 'CoApplicantName',
