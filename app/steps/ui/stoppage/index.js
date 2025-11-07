@@ -87,6 +87,7 @@ class StopPage extends Step {
         case 'adoptionNotEnglandOrWales':
         case 'adoptedOut':
         case 'grandchildParentAdoptedOut':
+        case 'deceasedAdoptedOut':
         case 'childrenUnder18':
         case 'coApplicantAdoptionPlaceStop':
         case 'coApplicantAdoptedOutStop':

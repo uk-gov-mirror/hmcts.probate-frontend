@@ -318,7 +318,9 @@ module.exports = {
     },
     'overrides': [
         {
-            'files': ['app/journeys/intestacy.js', 'test/unit/testRelationshipToDeceased.js'],
+            'files': ['app/journeys/intestacy.js',
+                'test/unit/testRelationshipToDeceased.js',
+                'test/component/testStopPage.js'],
             'rules': {
                 'max-lines': 'off'
             }
