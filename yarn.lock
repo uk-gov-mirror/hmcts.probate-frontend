@@ -232,11 +232,11 @@ __metadata:
   linkType: hard
 
 "@azure/msal-browser@npm:^4.13.2":
-  version: 4.26.0
-  resolution: "@azure/msal-browser@npm:4.26.0"
+  version: 4.26.1
+  resolution: "@azure/msal-browser@npm:4.26.1"
   dependencies:
     "@azure/msal-common": "npm:15.13.1"
-  checksum: 10/6fbfc0a6ae4bdff1db24e56003d5fd88b4da11843c4d7f8084805b498aaff76bfcbea93f68d4232137adc27f43bc8f5b8b2224876d033a9d542162b6f75568ca
+  checksum: 10/843b63b5555eb972e80ea0ed2611680220992ac7c92af5575031fa2c9c094c6fe8ed3e7b554d4968de4724510c3686cbc0333764c35c311d71868a5e70e5c8dc
   languageName: node
   linkType: hard
 
@@ -8337,8 +8337,8 @@ __metadata:
   linkType: hard
 
 "i18next@npm:^25.0.0":
-  version: 25.6.0
-  resolution: "i18next@npm:25.6.0"
+  version: 25.6.2
+  resolution: "i18next@npm:25.6.2"
   dependencies:
     "@babel/runtime": "npm:^7.27.6"
   peerDependencies:
@@ -8346,7 +8346,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10/3eaa354f7028ff6051e4294c09bf518183c6653c019cfeed73fc4504786b3a474c3b55ed6b9832e122ba2538167b3eb85ae71fdd6423fb9ec9ebe2156b061d66
+  checksum: 10/bb7f3e200caac72bacaead766287dbad5ed5945430bd9f2be1c14fbccd49cf78ab751f78cf53cd0be3ec063bc4c40837d7d771f7b14d50fcb9022e1ed5d6e72f
   languageName: node
   linkType: hard
 
@@ -9854,9 +9854,9 @@ __metadata:
   linkType: hard
 
 "libphonenumber-js@npm:^1.11.17":
-  version: 1.12.25
-  resolution: "libphonenumber-js@npm:1.12.25"
-  checksum: 10/19d5e37dca82de41d5ebfe0240869f0c0268d03b1a612a5c9846b109c2ba0e1be0a6f35517ed0df13cb6ba4a2a518dd1398ccb45498896233e38fbb38839bf59
+  version: 1.12.26
+  resolution: "libphonenumber-js@npm:1.12.26"
+  checksum: 10/7009043eafbc239c1c7ad019ade886605c456cfb207f16d6c276608eb3ab49383431023842fb60329f0884cbf88af79aaffba212337854516e903ca40a64f4ff
   languageName: node
   linkType: hard
 
@@ -10996,8 +10996,8 @@ __metadata:
   linkType: hard
 
 "mochawesome-report-generator@npm:^6.2.0, mochawesome-report-generator@npm:^6.3.0":
-  version: 6.3.0
-  resolution: "mochawesome-report-generator@npm:6.3.0"
+  version: 6.3.2
+  resolution: "mochawesome-report-generator@npm:6.3.2"
   dependencies:
     chalk: "npm:^4.1.2"
     dateformat: "npm:^4.5.1"
@@ -11009,11 +11009,10 @@ __metadata:
     prop-types: "npm:^15.7.2"
     tcomb: "npm:^3.2.17"
     tcomb-validation: "npm:^3.3.0"
-    validator: "npm:^13.6.0"
     yargs: "npm:^17.2.1"
   bin:
     marge: bin/cli.js
-  checksum: 10/d634e93edaad0827c638858566d32a0b96fb86a4a35833afe6d86720c119293a870af8ed0ed8f7d73d84619b349fe7e96be8ca2bddcd2c0eedd8b5fb7d08316d
+  checksum: 10/7c2c81d9512a1c005a62da020b6749af08c1e6930604db2bf3ed1c9b125cce77bb4037d7e280837f536be0b6083bfb86ebea0bf3448868ad2c8d427b261ab00b
   languageName: node
   linkType: hard
 
@@ -12960,9 +12959,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:24.28.0":
-  version: 24.28.0
-  resolution: "puppeteer-core@npm:24.28.0"
+"puppeteer-core@npm:24.29.1":
+  version: 24.29.1
+  resolution: "puppeteer-core@npm:24.29.1"
   dependencies:
     "@puppeteer/browsers": "npm:2.10.13"
     chromium-bidi: "npm:10.5.1"
@@ -12971,23 +12970,23 @@ __metadata:
     typed-query-selector: "npm:^2.12.0"
     webdriver-bidi-protocol: "npm:0.3.8"
     ws: "npm:^8.18.3"
-  checksum: 10/fb220e54888b49447ea00f689fef21966b500dd818e30f56df0e9c698b078d7555817be6e317f99df69b8dc696334c71b7c5e3175190de6bfa85fb56b22c4446
+  checksum: 10/1c58789463084716c26d5ff1adc4fe76fb9357b868d3896e65b32cb5b70bf239b4ea28da74c0a56dba3b90f0d2b8cfca17a9aa1bbb8a904034933b050de6d2a0
   languageName: node
   linkType: hard
 
 "puppeteer@npm:^24.10.2":
-  version: 24.28.0
-  resolution: "puppeteer@npm:24.28.0"
+  version: 24.29.1
+  resolution: "puppeteer@npm:24.29.1"
   dependencies:
     "@puppeteer/browsers": "npm:2.10.13"
     chromium-bidi: "npm:10.5.1"
     cosmiconfig: "npm:^9.0.0"
     devtools-protocol: "npm:0.0.1521046"
-    puppeteer-core: "npm:24.28.0"
+    puppeteer-core: "npm:24.29.1"
     typed-query-selector: "npm:^2.12.0"
   bin:
     puppeteer: lib/cjs/puppeteer/node/cli.js
-  checksum: 10/93e33d8df98b72dd3e5887ad4108c9be1dcebaaeeb395d17c842af10e7bfd4bc213a80b8ddc35d1570edfe0bcc294c244308a98757ad2c5344bd167b90235294
+  checksum: 10/a4bbd3f1178f3197767d9bf01c1cb12727520bdc834a19aac17e1850b9ee2b7f4184166dc407865a0d75e2c46010342cc9aad979d4898e274e8777df8dfac3dd
   languageName: node
   linkType: hard
 
@@ -13869,8 +13868,8 @@ __metadata:
   linkType: hard
 
 "sass@npm:^1.89.2":
-  version: 1.93.3
-  resolution: "sass@npm:1.93.3"
+  version: 1.94.0
+  resolution: "sass@npm:1.94.0"
   dependencies:
     "@parcel/watcher": "npm:^2.4.1"
     chokidar: "npm:^4.0.0"
@@ -13881,7 +13880,7 @@ __metadata:
       optional: true
   bin:
     sass: sass.js
-  checksum: 10/41f23b10bb203ee46b82b880e566edc3264cd00b0424bb7293c6aedb66fd4d6b9b7a217e91f98fb4653eee6538150bbe1a663abde03ad69cd5172beebf108ae0
+  checksum: 10/625b4d56758544f30a7f955fbc6590366ffb285042a68c09512b2890f23720c2c28d86cf9773a000d8bde2191d9decc8873f3529e7d91d8ba5f0ef204fd243db
   languageName: node
   linkType: hard
 
@@ -15869,10 +15868,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"validator@npm:^13.15.20, validator@npm:^13.6.0":
-  version: 13.15.20
-  resolution: "validator@npm:13.15.20"
-  checksum: 10/498f9b201dda7b09207bbc13606e6f90595987eab9e3a60fc5b8d8d96141c9351192aea56d392c78640e2462770eedccf545cf13b2ef43e87d73a755ba485c5d
+"validator@npm:^13.15.20":
+  version: 13.15.23
+  resolution: "validator@npm:13.15.23"
+  checksum: 10/03e4a37c04c4e8337b0c91e529bdb6376de6b52ef683616e2e909276be73903e6054203d274ed35e88e3498ec68764125b194338dd2ee893818d3008fbad1ba7
   languageName: node
   linkType: hard
 
