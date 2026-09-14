@@ -1,6 +1,7 @@
 {
   "title": "Deceased adopted in",
   "parentQuestion": "Did you legally adopt {deceasedName} into your family?",
+  "parentCoApplicantQuestion": "Did {applicantName} legally adopt {deceasedName} in to their family?",
   "siblingQuestion": "Did {deceasedName}’s parents legally adopt them into their family?",
   "optionYes": "Yes",
   "optionNo": "No",

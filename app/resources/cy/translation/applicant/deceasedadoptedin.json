@@ -1,6 +1,7 @@
 {
   "title": "A wnaethoch chi fabwysiadu yr unigolyn sydd wedi marw yn gyfreithiol i&rsquo;ch teulu?",
   "parentQuestion": "A wnaethoch chi fabwysiadu {deceasedName} yn gyfreithiol i&rsquo;ch teulu?",
+  "parentCoApplicantQuestion": "A wnaeth {applicantName} fabwysiadu {deceasedName} yn gyfreithlon i mewn i'w teulu?",
   "siblingQuestion": "A wnaeth rhieni {deceasedName} ei fabwysiadu/mabwysiadau&rsquo;n gyfreithlon i mewn i&rsquo;w teulu nhw?",
   "optionYes": "Do",
   "optionNo": "Naddo",

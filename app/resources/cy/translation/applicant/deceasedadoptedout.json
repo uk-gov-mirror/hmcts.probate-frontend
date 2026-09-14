@@ -2,6 +2,7 @@
 {
   "title": "A wnaethoch chi fabwysiadu yr unigolyn sydd wedi marw yn gyfreithlon allan o’ch teulu (eu rhoi i ffwrdd i gael eu mabwysiadu)?",
   "parentQuestion": "A wnaethoch chi fabwysiadu {deceasedName} yn gyfreithlon allan o&rsquo;ch teulu (eu rhoi i ffwrdd i gael eu mabwysiadu)?",
+  "parentCoApplicantQuestion": "A wnaeth {applicantName} fabwysiadu {deceasedName} yn gyfreithlon allan o'u teulu (ei roi i fyny i'w fabwysiadu/mabwysiadu)?",
   "siblingQuestion": "A wnaeth rhieni {deceasedName} eu mabwysiadu&rsquo;n gyfreithlon allan o&rsquo;u teulu nhw (eu rhoi i ffwrdd i gael eu mabwysiadu)?",
   "optionYes": "Do",
   "optionNo": "Naddo",

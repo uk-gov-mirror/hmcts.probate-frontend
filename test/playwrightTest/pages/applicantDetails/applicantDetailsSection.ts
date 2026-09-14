@@ -433,6 +433,44 @@ export class ApplicantDetailsSection extends BasePage {
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
+  async coApplicantDeceasedAdoptedIn(language, answer = null, coApplicantNumber, journey) {
+    const coApplicantDeceasedAdoptedInContent = getContent(`app/resources/${language}/translation/applicant/deceasedadoptedin.json`);
+    await this.checkInUrl(`/intestacy/coapplicant-adopted-deceased-in/${coApplicantNumber}`);
+    await expect(this.page.getByText(await decodeHTML(coApplicantDeceasedAdoptedInContent[`${journey}Question`])
+      .replace('{applicantName}',applicantDetailsConfig.firstCoApplicantName)
+      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
+      .toBeVisible();
+    await expect(this.page.locator(`#coApplicantAdoptedDeceasedIn${answer}`)).toBeEnabled();
+    await this.page.locator(`#coApplicantAdoptedDeceasedIn${answer}`).click();
+    await this.runAccessibilityTest();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async coApplicantDeceasedAdoptedOut(language, answer = null, coApplicantNumber, journey) {
+    const coApplicantDeceasedAdoptedOutContent = getContent(`app/resources/${language}/translation/applicant/deceasedadoptedout.json`);
+    await this.checkInUrl(`/intestacy/coapplicant-adopted-deceased-out/${coApplicantNumber}`);
+    await expect(this.page.getByText(await decodeHTML(coApplicantDeceasedAdoptedOutContent[`${journey}Question`])
+      .replace('{applicantName}',applicantDetailsConfig.firstCoApplicantName)
+      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
+      .toBeVisible();
+    await expect(this.page.locator(`#coApplicantAdoptedDeceasedOut${answer}`)).toBeEnabled();
+    await this.page.locator(`#coApplicantAdoptedDeceasedOut${answer}`).click();
+    await this.runAccessibilityTest();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async coApplicantDeceasedAdoptionPlace(language = 'en', answer = null, coApplicantNumber = null) {
+    const deceasedAdoptionPlaceContent = getContent(`app/resources/${language}/translation/applicant/deceasedadoptionplace.json`);
+    await this.checkInUrl(`/intestacy/coapplicant-adoption-deceased-place/${coApplicantNumber}`);
+    await expect(this.page.getByText(await decodeHTML(deceasedAdoptionPlaceContent.question)
+      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
+      .toBeVisible();
+    await expect(this.page.locator(`#coApplicantAdoptionDeceasedPlace${answer}`)).toBeEnabled();
+    await this.page.locator(`#coApplicantAdoptionDeceasedPlace${answer}`).click();
+    await this.runAccessibilityTest();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
   async deceasedOtherParentAlive(language = 'en', answer = null) {
     const otherParentAliveContent = getContent(`app/resources/${language}/translation/deceased/anyotherparentalive.json`);
     await this.checkInUrl('/intestacy/any-other-parent-alive');
