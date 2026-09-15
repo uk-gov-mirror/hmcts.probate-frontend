@@ -2,14 +2,14 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const CoApplicantAdoptedIn = require('app/steps/ui/executors/adoptedin');
-const CoApplicantEmail = require('app/steps/ui/executors/coapplicantemail');
+const CoApplicantAdoptedDeceasedIn = require('app/steps/ui/executors/coapplicantadopteddeceasedin');
 const caseTypes = require('app/utils/CaseTypes');
 const commonContent = require('../../../app/resources/en/translation/common.json');
 
 describe('coapplicant-name', () => {
     let testWrapper, sessionData;
     const expectedNextUrlForCoApplicantAdoptedIn = CoApplicantAdoptedIn.getUrl(1);
-    const expectedNextUrlForCoApplicantEmail = CoApplicantEmail.getUrl(1);
+    const expectedNextUrlForCoApplicantAdoptedDeceasedIn = CoApplicantAdoptedDeceasedIn.getUrl(1);
 
     beforeEach(() => {
         testWrapper = new TestWrapper('CoApplicantName');
@@ -88,6 +88,34 @@ describe('coapplicant-name', () => {
                 });
         });
 
+        [
+            {label: 'whole-blood niece/nephew', relationship: 'optionWholeBloodNieceOrNephew'},
+            {label: 'half-blood niece/nephew', relationship: 'optionHalfBloodNieceOrNephew'}
+        ].forEach(({label, relationship}) => {
+            it(`test redirection to Adopted in page when co applicant is ${label} and name is provided`, (done) => {
+                testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
+                const sessionData = {
+                    caseType: caseTypes.INTESTACY,
+                    applicant: {
+                        relationshipToDeceased: 'optionSibling'
+                    }
+                };
+
+                testWrapper.agent.post('/prepare-session/form')
+                    .send(sessionData)
+                    .end(() => {
+                        const data = {
+                            fullName: 'CoApplicant',
+                            list: [
+                                {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
+                                {coApplicantRelationshipToDeceased: relationship, isApplying: true}
+                            ]};
+
+                        testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCoApplicantAdoptedIn}`);
+                    });
+            });
+        });
+
         it('test redirection to co-applicant email in page when co applicant name is provided and is Parent', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
             const sessionData = {
@@ -97,7 +125,7 @@ describe('coapplicant-name', () => {
                 },
                 executors: {
                     list: [{fullName: 'Bobby Applicant', isApplying: true, isApplicant: true},
-                        {coApplicantRelationshipToDeceased: 'optionChild', isApplying: true}]
+                        {isApplying: true}]
                 }
             };
             testWrapper.agent.post('/prepare-session/form')
@@ -106,7 +134,7 @@ describe('coapplicant-name', () => {
                     const data = {
                         fullName: 'CoApplicant'
                     };
-                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCoApplicantEmail}`);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCoApplicantAdoptedDeceasedIn}`);
                 });
         });
 

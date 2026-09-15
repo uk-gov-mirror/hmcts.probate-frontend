@@ -1018,6 +1018,58 @@ describe('Executors.js', () => {
         });
     });
 
+    describe('hasStopCondition()', () => {
+        it('returns true for whole and half niece-nephew disqualifying saved states', () => {
+            const scenarios = [
+                {
+                    relationship: 'optionWholeBloodNieceOrNephew',
+                    invalidParentStates: [
+                        {field: 'wholeNieceOrNephewParentDieBeforeDeceased', value: 'optionNo'},
+                        {field: 'wholeNieceOrNephewParentAdoptionInEnglandOrWales', value: 'optionNo'},
+                        {field: 'wholeNieceOrNephewParentAdoptedOut', value: 'optionYes'}
+                    ],
+                    invalidOwnStates: [
+                        {field: 'wholeBloodNieceOrNephewAdoptionInEnglandOrWales', value: 'optionNo'},
+                        {field: 'wholeBloodNieceOrNephewAdoptedOut', value: 'optionYes'}
+                    ]
+                },
+                {
+                    relationship: 'optionHalfBloodNieceOrNephew',
+                    invalidParentStates: [
+                        {field: 'halfNieceOrNephewParentDieBeforeDeceased', value: 'optionNo'},
+                        {field: 'halfNieceOrNephewParentAdoptionInEnglandOrWales', value: 'optionNo'},
+                        {field: 'halfNieceOrNephewParentAdoptedOut', value: 'optionYes'}
+                    ],
+                    invalidOwnStates: [
+                        {field: 'halfBloodNieceOrNephewAdoptionInEnglandOrWales', value: 'optionNo'},
+                        {field: 'halfBloodNieceOrNephewAdoptedOut', value: 'optionYes'}
+                    ]
+                }
+            ];
+
+            scenarios.forEach(({relationship, invalidParentStates, invalidOwnStates}) => {
+                [...invalidParentStates, ...invalidOwnStates].forEach(({field, value}) => {
+                    const executor = {
+                        coApplicantRelationshipToDeceased: relationship,
+                        wholeNieceOrNephewParentDieBeforeDeceased: 'optionYes',
+                        wholeNieceOrNephewParentAdoptionInEnglandOrWales: 'optionYes',
+                        wholeNieceOrNephewParentAdoptedOut: 'optionNo',
+                        halfNieceOrNephewParentDieBeforeDeceased: 'optionYes',
+                        halfNieceOrNephewParentAdoptionInEnglandOrWales: 'optionYes',
+                        halfNieceOrNephewParentAdoptedOut: 'optionNo',
+                        wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionYes',
+                        wholeBloodNieceOrNephewAdoptedOut: 'optionNo',
+                        halfBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionYes',
+                        halfBloodNieceOrNephewAdoptedOut: 'optionNo'
+                    };
+                    executor[field] = value;
+                    const executorsWrapper = new ExecutorsWrapper({list: []});
+                    expect(executorsWrapper.hasStopCondition(executor)).to.equal(true);
+                });
+            });
+        });
+    });
+
     describe('haveAllExecutorsDeclared()', () => {
         it('should return true if the all executors have declared', (done) => {
             const data = 'true';

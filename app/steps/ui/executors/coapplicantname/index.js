@@ -43,11 +43,17 @@ class CoApplicantName extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.isChildJointApplication = ctx.applicantRelationshipToDeceased === 'optionChild' || ctx.applicantRelationshipToDeceased === 'optionGrandchild' || ctx.applicantRelationshipToDeceased === 'optionSibling';
+        // Parent eligibility for WB/HB niece-nephew is completed before name; after this page, run the co-applicant's own adoption checks.
+        ctx.isChildJointApplication = (
+            ctx.applicantRelationshipToDeceased === 'optionChild' ||
+            ctx.applicantRelationshipToDeceased === 'optionGrandchild' ||
+            ctx.applicantRelationshipToDeceased === 'optionSibling'
+        );
         ctx.isParentJointApplication = ctx.applicantRelationshipToDeceased === 'optionParent';
         return {
             options: [
                 {key: 'isChildJointApplication', value: true, choice: 'isChildJointApplication'},
+                {key: 'isParentJointApplication', value: true, choice: 'isParentJointApplication'},
             ],
         };
     }

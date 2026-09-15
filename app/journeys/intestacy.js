@@ -329,6 +329,19 @@ const stepList = {
     RemoveCoApplicant: 'JointApplication',
     CoApplicantName: {
         isChildJointApplication: 'CoApplicantAdoptedIn',
+        isParentJointApplication: 'CoApplicantAdoptedDeceasedIn',
+        otherwise: 'CoApplicantEmail'
+    },
+    CoApplicantAdoptedDeceasedIn: {
+        coAppAdoptedDeceasedIn: 'CoApplicantAdoptionDeceasedPlace',
+        otherwise: 'CoApplicantAdoptedDeceasedOut'
+    },
+    CoApplicantAdoptionDeceasedPlace: {
+        coAppDeceasedInEnglandOrWales: 'CoApplicantEmail',
+        otherwise: 'StopPage'
+    },
+    CoApplicantAdoptedDeceasedOut: {
+        coAppAdoptedDeceasedOut: 'StopPage',
         otherwise: 'CoApplicantEmail'
     },
     CoApplicantAdoptedIn: {
@@ -336,6 +349,8 @@ const stepList = {
         otherwise: 'CoApplicantAdoptedOut'
     },
     ParentDieBefore: {
+        wholeBloodNieceOrNephewParentDieBefore: 'CoApplicantParentAdoptedIn',
+        halfBloodNieceOrNephewParentDieBefore: 'CoApplicantParentAdoptedIn',
         parentDieBefore: 'CoApplicantName',
         otherwise: 'StopPage'
     },
@@ -351,13 +366,19 @@ const stepList = {
     },
     CoApplicantParentAdoptedIn: {
         parentAdoptedIn: 'CoApplicantParentAdoptionPlace',
+        wholeBloodNieceOrNephewParentAdoptedIn: 'CoApplicantParentAdoptionPlace',
+        halfBloodNieceOrNephewParentAdoptedIn: 'CoApplicantParentAdoptionPlace',
         otherwise: 'CoApplicantParentAdoptedOut'
     },
     CoApplicantParentAdoptedOut: {
+        wholeBloodNieceOrNephewParentNotAdoptedOut: 'CoApplicantName',
+        halfBloodNieceOrNephewParentNotAdoptedOut: 'CoApplicantName',
         parentNotAdoptedOut: 'CoApplicantEmail',
         otherwise: 'StopPage'
     },
     CoApplicantParentAdoptionPlace: {
+        wholeBloodNieceOrNephewParentAdoptedInEnglandOrWales: 'CoApplicantName',
+        halfBloodNieceOrNephewParentAdoptedInEnglandOrWales: 'CoApplicantName',
         parentAdoptedOutEnglandOrWales: 'CoApplicantEmail',
         otherwise: 'StopPage'
     },
