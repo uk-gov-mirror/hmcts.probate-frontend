@@ -124,7 +124,7 @@ getTestLanguages().forEach(language => {
       const coApplicantNumber = "1";
       await applicantDetailsPage.jointApplication(language, optionYes, 'Parent');
       await applicantDetailsPage.enterCoapplicantName(coApplicantNumber, applicantDetailConfig.firstCoApplicantName);
-      await applicantDetailsPage.coApplicantDeceasedAdoptedIn(language, optionYes, coApplicantNumber, 'parentCoApplicant');
+      await applicantDetailsPage.coApplicantDeceasedAdoptedIn(language, optionYes, coApplicantNumber);
       await applicantDetailsPage.coApplicantDeceasedAdoptionPlace(language, optionYes, coApplicantNumber);
       await applicantDetailsPage.enterCoApplicantEmail(coApplicantNumber, applicantDetailConfig.firstCoApplicantEmail);
       await applicantDetailsPage.enterCoApplicantAddress(coApplicantNumber);
