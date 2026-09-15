@@ -433,10 +433,10 @@ export class ApplicantDetailsSection extends BasePage {
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
-  async coApplicantDeceasedAdoptedIn(language, answer = null, coApplicantNumber, journey) {
-    const coApplicantDeceasedAdoptedInContent = getContent(`app/resources/${language}/translation/applicant/deceasedadoptedin.json`);
+  async coApplicantDeceasedAdoptedIn(language, answer = null, coApplicantNumber) {
+    const coApplicantDeceasedAdoptedInContent = getContent(`app/resources/${language}/translation/executors/coapplicantadopteddeceasedin.json`);
     await this.checkInUrl(`/intestacy/coapplicant-adopted-deceased-in/${coApplicantNumber}`);
-    await expect(this.page.getByText(await decodeHTML(coApplicantDeceasedAdoptedInContent[`${journey}Question`])
+    await expect(this.page.getByText(await decodeHTML(coApplicantDeceasedAdoptedInContent[`question`])
       .replace('{applicantName}',applicantDetailsConfig.firstCoApplicantName)
       .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
       .toBeVisible();
@@ -446,10 +446,10 @@ export class ApplicantDetailsSection extends BasePage {
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
-  async coApplicantDeceasedAdoptedOut(language, answer = null, coApplicantNumber, journey) {
-    const coApplicantDeceasedAdoptedOutContent = getContent(`app/resources/${language}/translation/applicant/deceasedadoptedout.json`);
+  async coApplicantDeceasedAdoptedOut(language, answer = null, coApplicantNumber) {
+    const coApplicantDeceasedAdoptedOutContent = getContent(`app/resources/${language}/translation/executors/coapplicantadopteddeceasedout.json`);
     await this.checkInUrl(`/intestacy/coapplicant-adopted-deceased-out/${coApplicantNumber}`);
-    await expect(this.page.getByText(await decodeHTML(coApplicantDeceasedAdoptedOutContent[`${journey}Question`])
+    await expect(this.page.getByText(await decodeHTML(coApplicantDeceasedAdoptedOutContent[`question`])
       .replace('{applicantName}',applicantDetailsConfig.firstCoApplicantName)
       .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
       .toBeVisible();
