@@ -74,14 +74,14 @@ withPipeline("nodejs", product, component) {
     def testsRan = true
     if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
       env.DONT_TEST_WELSH = true
-      env.TEST_URL = "https://probate.ithc.platform.hmcts.net"
+      env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
       env.BROWSER_NAME = "chromium"
       sh 'yarn install'
       catchError(stageResult: 'UNSTABLE') {
         sh 'yarn test:fullfunctional-pr'
       }
     } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
-      env.TEST_URL = "https://probate.ithc.platform.hmcts.net"
+      env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
       env.BROWSER_NAME = "chromium"
       sh 'yarn install'
       catchError(stageResult: 'UNSTABLE') {
