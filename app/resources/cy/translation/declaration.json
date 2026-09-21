@@ -104,8 +104,8 @@
   "saveThisPage": "Arbed y dudalen hon",
   "peopleApplyingHeader": "Pobl yn gwneud cais am brofiant",
   "intestacyPersonApplying": "Yr wyf i, {applicantName} {relationshipToDeceased} {deceasedName}, yn gwneud cais am brofiant.",
-  "intestacyPeopleApplying": "Mae {applicantName}, {relationshipToDeceased} {deceasedName}, yn gwneud cais am brofiant.",
-  "intestacyFurtherPeopleApplying": "Mae {applicantName}, {relationshipToDeceased} {deceasedName}, hefyd yn gwneud cais am brofiant.",
+  "intestacyPeopleApplying": "Mae {applicantName}, {relationshipToDeceased} i {deceasedName}, yn gwneud cais am brofiant.",
+  "intestacyFurtherPeopleApplying": "Mae {applicantName}, {relationshipToDeceased} i {deceasedName}, hefyd yn gwneud cais am brofiant.",
   "errors": {
     "declarationCheckbox": {
       "required": "Ticiwch y blwch i gytuno i&rsquo;r datganiad"
