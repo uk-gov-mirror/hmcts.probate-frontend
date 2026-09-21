@@ -68,9 +68,9 @@ class RelationshipToTheDeceasedEnum {
                 case 'optionSibling':
                     return 'brawd/chwaer';
                 case 'optionWholeBloodSibling':
-                    return 'brawd neu chwaer gwaed cyfan';
+                    return 'brawd neu chwaer cyflawn';
                 case 'optionHalfBloodSibling':
-                    return 'hanner brawd/chwaer';
+                    return 'hanner brawd neu chwaer';
                 case 'optionAdoptedChild':
                     return 'plentyn mabwysiedig';
                 case 'optionParent':

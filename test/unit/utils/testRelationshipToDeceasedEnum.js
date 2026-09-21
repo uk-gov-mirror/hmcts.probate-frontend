@@ -30,7 +30,7 @@ describe('RelationshipToDeceasedEnum.js', () => {
             done();
         });
         it('should return optionWholeBloodSibling welsh value', (done) => {
-            expect(RelationshipToDeceasedEnum.mapOptionToValue('optionWholeBloodSibling')).to.equal('brawd neu chwaer gwaed cyfan');
+            expect(RelationshipToDeceasedEnum.mapOptionToValue('optionWholeBloodSibling')).to.equal('brawd neu chwaer cyflawn');
             done();
         });
         it('should return optionHalfBloodSibling value', (done) => {
@@ -38,7 +38,7 @@ describe('RelationshipToDeceasedEnum.js', () => {
             done();
         });
         it('should return optionHalfBloodSibling welsh value', (done) => {
-            expect(RelationshipToDeceasedEnum.mapOptionToValue('optionHalfBloodSibling')).to.equal('hanner brawd/chwaer');
+            expect(RelationshipToDeceasedEnum.mapOptionToValue('optionHalfBloodSibling')).to.equal('hanner brawd neu chwaer');
             done();
         });
     });
