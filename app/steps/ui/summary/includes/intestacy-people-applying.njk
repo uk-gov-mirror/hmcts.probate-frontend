@@ -126,7 +126,7 @@
             {
                 question: fields.summary.executorSummary.value[loop.index0].adoptedInQuestion,
                 answer: content.CoApplicantAdoptedIn[executor[rel.adoptedIn]],
-                visible: true
+                visible: executor.fullName
             }
         ],
         url = content.CoApplicantAdoptedIn.url | replace("*", loop.index0 ),
@@ -138,7 +138,10 @@
             {
                 question: content.CoApplicantAdoptionPlace.question,
                 answer: content.CoApplicantAdoptionPlace[executor[rel.adoptionPlace]],
-                visible: executor[rel.adoptedIn] == "optionYes"
+                visible:
+                    executor.fullName
+                    and
+                    executor[rel.adoptedIn] == "optionYes"
             }
         ],
         url = content.CoApplicantAdoptionPlace.url | replace("*", loop.index0 ),
@@ -150,7 +153,10 @@
             {
                 question: fields.summary.executorSummary.value[loop.index0].adoptedOutQuestion,
                 answer: content.CoApplicantAdoptedOut[executor[rel.adoptedOut]],
-                visible: executor[rel.adoptedIn] == "optionNo"
+                visible:
+                    executor.fullName
+                    and
+                    executor[rel.adoptedIn] == "optionNo"
             }
         ],
         url = content.CoApplicantAdoptedOut.url | replace("*", loop.index0 ),
@@ -159,13 +165,60 @@
     )}}
 {% endif %}
 
+{% if executor.coApplicantRelationshipToDeceased === "optionGrandchild" %}
+  {{checkanswer(
+      items = [
+          {
+              question: fields.summary.executorSummary.value[loop.index0].grandchildParentAdoptedInQuestion,
+              answer: content.CoApplicantParentAdoptedIn[executor.grandchildParentAdoptedIn],
+              visible: executor.fullName
+          }
+      ],
+      url = content.CoApplicantParentAdoptedIn.url | replace("*", loop.index0 ),
+      common = common,
+      alreadyDeclared = fields.summary.alreadyDeclared.value
+  )}}
+
+  {{checkanswer(
+      items = [
+          {
+              question: fields.summary.executorSummary.value[loop.index0].grandchildParentAdoptedOutQuestion,
+              answer: content.CoApplicantParentAdoptedOut[executor.grandchildParentAdoptedOut],
+              visible:
+                    executor.fullName
+                    and
+                    executor.grandchildParentAdoptedIn == "optionNo"
+          }
+      ],
+      url = content.CoApplicantParentAdoptedOut.url | replace("*", loop.index0 ),
+      common = common,
+      alreadyDeclared = fields.summary.alreadyDeclared.value
+  )}}
+
+  {{checkanswer(
+      items = [
+          {
+              question: fields.summary.executorSummary.value[loop.index0].grandchildParentAdoptionPlaceQuestion,
+              answer: content.CoApplicantParentAdoptionPlace[executor.grandchildParentAdoptionInEnglandOrWales],
+              visible:
+                    executor.fullName
+                    and
+                    executor.grandchildParentAdoptedIn == "optionYes"
+          }
+      ],
+      url = content.CoApplicantParentAdoptionPlace.url | replace("*", loop.index0 ),
+      common = common,
+      alreadyDeclared = fields.summary.alreadyDeclared.value
+  )}}
+{% endif %}
+
 {% if relationship === "optionParent" %}
   {{checkanswer(
       items = [
           {
               question: fields.summary.executorSummary.value[loop.index0].coApplicantAdoptedDeceasedInQuestion,
               answer: fields.summary.executorSummary.value[loop.index0].coApplicantAdoptedDeceasedInAnswer,
-              visible: true
+              visible: executor.fullName
           }
       ],
       url = content.CoApplicantAdoptedDeceasedIn.url  | replace("*", loop.index0 ),
@@ -177,7 +230,10 @@
             {
                 question: fields.summary.executorSummary.value[loop.index0].coApplicantAdoptionDeceasedInEnglandOrWalesQuestion,
                 answer: fields.summary.executorSummary.value[loop.index0].coApplicantAdoptionDeceasedInEnglandOrWalesAnswer,
-                visible: executor.coApplicantAdoptedDeceasedIn === 'optionYes'
+                visible:
+                    executor.fullName
+                    and
+                    executor.coApplicantAdoptedDeceasedIn === 'optionYes'
             }
         ],
         url = content.CoApplicantAdoptionDeceasedInEnglandOrWales.url  | replace("*", loop.index0 ),
@@ -190,7 +246,10 @@
             {
                 question: fields.summary.executorSummary.value[loop.index0].coApplicantAdoptedDeceasedOutQuestion,
                 answer: fields.summary.executorSummary.value[loop.index0].coApplicantAdoptedDeceasedOutAnswer,
-                visible: executor.coApplicantAdoptedDeceasedIn === 'optionNo'
+                visible:
+                    executor.fullName
+                    and
+                    executor.coApplicantAdoptedDeceasedIn === 'optionNo'
             }
         ],
         url = content.CoApplicantAdoptedDeceasedOut.url  | replace("*", loop.index0 ),
@@ -204,7 +263,7 @@
         {
             question: fields.summary.executorSummary.value[loop.index0].emailQuestion,
             answer: executor.email,
-            visible: true
+            visible: executor.fullName
         }
     ],
     url = content.CoApplicantEmail.url | replace("*", loop.index0 ),
@@ -217,7 +276,7 @@
         {
             question: fields.summary.executorSummary.value[loop.index0].addressQuestion,
             answer: executor.address.formattedAddress,
-            visible: true
+            visible: executor.fullName
         }
     ],
     url = content.ExecutorAddress.url | replace("*", loop.index0 ),
