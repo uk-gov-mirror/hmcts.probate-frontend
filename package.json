@@ -248,6 +248,7 @@
     "cross-spawn": "^7.0.6",
     "diff": "^9.0.0",
     "deepmerge-ts": "^8.0.0",
+    "encoding-sniffer": "^1.0.2",
     "express": "^4.21.2",
     "flatted": "^3.4.2",
     "fast-xml-parser": "^5.7.1",
