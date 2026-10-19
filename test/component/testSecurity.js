@@ -115,6 +115,7 @@ describe('security', () => {
         config.app.useIDAM = 'true';
         const browserAToken = 'dummyTokenA';
         const browserBToken = 'dummyTokenB';
+        const browserAReauthToken = 'dummyTokenA-reauth';
 
         const activeSessionByUser = {};
         const canManageSessionStub = sinon.stub(SessionConcurrency.prototype, 'canManageSession').returns(true);
@@ -135,10 +136,13 @@ describe('security', () => {
         nock(config.services.idam.apiUrl)
             .post(oAuth2TokenUrl)
             .reply(200, {access_token: browserBToken});
+        nock(config.services.idam.apiUrl)
+            .post(oAuth2TokenUrl)
+            .reply(200, {access_token: browserAReauthToken});
 
         nock(config.services.idam.apiUrl)
             .get('/details')
-            .times(4)
+            .times(5)
             .reply(200, {email: 'same-user@example.com', id: 'idam-user-id', roles: ['probate-private-beta', 'citizen']});
         nock(config.services.idam.apiUrl)
             .delete(/\/session\/.*/)
@@ -173,15 +177,23 @@ describe('security', () => {
                 .expect(302);
 
             expect(resProtected.headers.location).to.contain(LOGIN_URL);
-            const reauthenticatedSessionCookieA = getCookieValueFromSetCookie(resProtected.headers['set-cookie'], 'connect.sid');
-            expect(reauthenticatedSessionCookieA).to.not.equal(supersededSessionCookieA);
-
             const resSessionB = await agentB.get(expectedNextUrlForTaskList)
                 .set('Cookie', `${authCookieB}; ${sessionCookieB}`)
                 .expect(200);
 
             expect(resSessionB.headers.location).to.equal(undefined);
             expect(resSessionB.error).to.equal(false);
+
+            const reauthState = new URL(resProtected.headers.location).searchParams.get('state');
+            const reauthRedirectCookie = getCookieValueFromSetCookie(resProtected.headers['set-cookie'], '__redirect');
+            expect(reauthRedirectCookie).to.be.a('string');
+            const reauthCallback = await agentA.get(oAuth2CallbackUrl)
+                .set('Cookie', reauthRedirectCookie)
+                .query({code: 33333, state: reauthState})
+                .expect(302);
+            const reauthenticatedSessionCookieA = getCookieValueFromSetCookie(reauthCallback.headers['set-cookie'], 'connect.sid');
+            expect(reauthenticatedSessionCookieA).to.be.a('string');
+            expect(reauthenticatedSessionCookieA).to.not.equal(supersededSessionCookieA);
         } finally {
             canManageSessionStub.restore();
             activateStub.restore();

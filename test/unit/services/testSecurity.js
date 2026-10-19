@@ -21,6 +21,7 @@ describe('Security component', () => {
     const token = 'dummyToken';
     const appConfig = require('config');
     const securityCookie = `__auth-token-${appConfig.payloadVersion}`;
+    const expressSessionCookie = appConfig.redis?.cookie?.name || 'connect.sid';
     const expiresTime = new Date() + 999999;
     const expiresTimeInThePast = Date.now() - 1;
 
@@ -283,13 +284,18 @@ describe('Security component', () => {
                 sinon.assert.calledOnce(destroyStub);
                 sinon.assert.calledOnce(deleteStub);
                 sinon.assert.calledWith(deleteStub, token);
-                sinon.assert.calledOnce(res.clearCookie);
+                sinon.assert.calledTwice(res.clearCookie);
+                sinon.assert.calledWith(res.clearCookie.firstCall, securityCookie);
+                sinon.assert.calledWith(res.clearCookie.secondCall, expressSessionCookie);
+                expect(req.cookies).to.equal(undefined);
                 expect(req.session).to.equal(undefined);
                 expect(req.sessionID).to.equal(undefined);
                 expect(req.sessionStore).to.equal(undefined);
                 expect(req.authToken).to.equal(undefined);
                 expect(req.userId).to.equal(undefined);
                 sinon.assert.calledOnce(res.redirect);
+                expect(res.clearCookie.firstCall.callId).to.be.lessThan(res.redirect.firstCall.callId);
+                expect(res.clearCookie.secondCall.callId).to.be.lessThan(res.redirect.firstCall.callId);
                 expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
                 sinon.assert.notCalled(next);
                 revert();
@@ -344,13 +350,80 @@ describe('Security component', () => {
             checkAsync(() => {
                 sinon.assert.calledOnce(destroyStub);
                 sinon.assert.calledOnce(deleteStub);
-                sinon.assert.calledOnce(res.clearCookie);
+                sinon.assert.calledTwice(res.clearCookie);
+                sinon.assert.calledWith(res.clearCookie.firstCall, securityCookie);
+                sinon.assert.calledWith(res.clearCookie.secondCall, expressSessionCookie);
+                expect(req.cookies).to.equal(undefined);
                 expect(req.session).to.equal(undefined);
                 expect(req.sessionID).to.equal(undefined);
                 expect(req.sessionStore).to.equal(undefined);
                 expect(req.authToken).to.equal(undefined);
                 expect(req.userId).to.equal(undefined);
                 sinon.assert.calledOnce(res.redirect);
+                expect(res.clearCookie.firstCall.callId).to.be.lessThan(res.redirect.firstCall.callId);
+                expect(res.clearCookie.secondCall.callId).to.be.lessThan(res.redirect.firstCall.callId);
+                expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
+                sinon.assert.notCalled(next);
+                revert();
+                done();
+            });
+        });
+
+        it('should clear auth and session cookies and continue login when lost-session destroy fails', (done) => {
+            let settleDelete;
+            const deleteStub = sinon.stub().returns(new Promise(resolve => {
+                settleDelete = resolve;
+            }));
+            const destroyStub = sinon.stub().callsFake(callback => {
+                callback(new Error('session destroy failed'));
+            });
+            const revert = Security.__set__('IdamSession', class {
+                get() {
+                    return Promise.resolve({name: 'Success'});
+                }
+
+                delete(accessToken) {
+                    return deleteStub(accessToken);
+                }
+            });
+
+            req.session = {
+                language: 'cy',
+                form: {caseType: 'gop'},
+                idamUserId: 'immutable-idam-user-id',
+                destroy: destroyStub
+            };
+            req.sessionStore = {};
+            req.sessionID = 'lost-session-id';
+            req.cookies[securityCookie] = token;
+            req.protocol = 'http';
+            req.baseUrl = '/';
+            req.originalUrl = '/';
+            req.authToken = token;
+            req.userId = 'immutable-idam-user-id';
+
+            protect(req, res, next);
+
+            checkAsync(() => {
+                sinon.assert.notCalled(res.redirect);
+                settleDelete({});
+            });
+
+            checkAsync(() => {
+                sinon.assert.calledOnce(destroyStub);
+                sinon.assert.calledOnce(deleteStub);
+                sinon.assert.calledTwice(res.clearCookie);
+                sinon.assert.calledWith(res.clearCookie.firstCall, securityCookie);
+                sinon.assert.calledWith(res.clearCookie.secondCall, expressSessionCookie);
+                expect(req.cookies).to.equal(undefined);
+                expect(req.session).to.equal(undefined);
+                expect(req.sessionID).to.equal(undefined);
+                expect(req.sessionStore).to.equal(undefined);
+                expect(req.authToken).to.equal(undefined);
+                expect(req.userId).to.equal(undefined);
+                sinon.assert.calledOnce(res.redirect);
+                expect(res.clearCookie.firstCall.callId).to.be.lessThan(res.redirect.firstCall.callId);
+                expect(res.clearCookie.secondCall.callId).to.be.lessThan(res.redirect.firstCall.callId);
                 expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
                 sinon.assert.notCalled(next);
                 revert();
@@ -438,8 +511,12 @@ describe('Security component', () => {
                 sinon.assert.calledOnce(destroyStub);
                 sinon.assert.calledOnce(deleteStub);
                 sinon.assert.calledWith(deleteStub, token);
-                sinon.assert.calledOnce(res.clearCookie);
+                sinon.assert.calledTwice(res.clearCookie);
+                sinon.assert.calledWith(res.clearCookie.firstCall, securityCookie);
+                sinon.assert.calledWith(res.clearCookie.secondCall, expressSessionCookie);
                 sinon.assert.calledOnce(res.redirect);
+                expect(res.clearCookie.firstCall.callId).to.be.lessThan(res.redirect.firstCall.callId);
+                expect(res.clearCookie.secondCall.callId).to.be.lessThan(res.redirect.firstCall.callId);
                 expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
                 expect(req.session).to.equal(undefined);
                 expect(req.sessionID).to.equal(undefined);

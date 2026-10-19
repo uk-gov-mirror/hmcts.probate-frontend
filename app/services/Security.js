@@ -13,6 +13,7 @@ const Oauth2Token = require('app/services/Oauth2Token');
 const SessionConcurrency = require('app/services/SessionConcurrency');
 const SessionStatusEnum = require('app/utils/SessionStatusEnum');
 const SECURITY_COOKIE = `__auth-token-${config.payloadVersion}`;
+const EXPRESS_SESSION_COOKIE = config.redis?.cookie?.name || 'connect.sid';
 const REDIRECT_COOKIE = '__redirect';
 const ACCESS_TOKEN_OAUTH2 = 'access_token';
 const NodeCache = require('node-cache');
@@ -150,6 +151,7 @@ class Security {
 
         const cleanupLocalAuthenticationState = () => {
             res.clearCookie(SECURITY_COOKIE);
+            res.clearCookie(EXPRESS_SESSION_COOKIE);
             delete req.authToken;
             delete req.userId;
             delete req.cookies;

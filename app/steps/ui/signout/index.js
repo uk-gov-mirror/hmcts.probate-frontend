@@ -4,6 +4,7 @@ const Step = require('app/core/steps/Step');
 const config = require('config');
 const logger = require('app/components/logger')('Init');
 const SECURITY_COOKIE = `__auth-token-${config.payloadVersion}`;
+const EXPRESS_SESSION_COOKIE = config.redis?.cookie?.name || 'connect.sid';
 const IdamSession = require('app/services/IdamSession');
 const SessionConcurrency = require('app/services/SessionConcurrency');
 
@@ -45,6 +46,7 @@ class SignOut extends Step {
                 }))
                 .finally(() => {
                     res.clearCookie(SECURITY_COOKIE);
+                    res.clearCookie(EXPRESS_SESSION_COOKIE);
                     delete req.cookies;
                     delete req.sessionID;
                     delete req.session;

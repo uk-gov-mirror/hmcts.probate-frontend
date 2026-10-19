@@ -5,9 +5,12 @@ const assert = require('chai').assert;
 const rewire = require('rewire');
 const SignOut = rewire('app/steps/ui/signout');
 const sinon = require('sinon');
+const appConfig = require('config');
 
 describe('Sign-Out', () => {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
+    const securityCookie = `__auth-token-${appConfig.payloadVersion}`;
+    const expressSessionCookie = appConfig.redis?.cookie?.name || 'connect.sid';
     let section;
     let templatePath;
     let i18next;
@@ -65,6 +68,9 @@ describe('Sign-Out', () => {
 
         signOut.getContextData(req, res).then(() => {
             sinon.assert.calledWith(clearIfCurrentStub, sessionStore, 'immutable-idam-user-id', 'current-session-id');
+            sinon.assert.calledTwice(res.clearCookie);
+            sinon.assert.calledWith(res.clearCookie.firstCall, securityCookie);
+            sinon.assert.calledWith(res.clearCookie.secondCall, expressSessionCookie);
             assert.isUndefined(req.cookies);
             assert.isUndefined(req.sessionID);
             assert.isUndefined(req.session);
@@ -111,7 +117,9 @@ describe('Sign-Out', () => {
             assert.isUndefined(req.sessionID);
             assert.isUndefined(req.session);
             assert.isUndefined(req.sessionStore);
-            sinon.assert.calledOnce(res.clearCookie);
+            sinon.assert.calledTwice(res.clearCookie);
+            sinon.assert.calledWith(res.clearCookie.firstCall, securityCookie);
+            sinon.assert.calledWith(res.clearCookie.secondCall, expressSessionCookie);
             revert();
             revertSessionConcurrency();
             done();
@@ -133,7 +141,7 @@ describe('Sign-Out', () => {
 
         const sessionStore = {};
         const req = {
-            cookies: {[`__auth-token-${require('config').payloadVersion}`]: 'token-A'},
+            cookies: {[securityCookie]: 'token-A'},
             session: {
                 idamUserId: 'immutable-idam-user-id',
                 form: {caseType: 'gop'},
@@ -153,7 +161,55 @@ describe('Sign-Out', () => {
 
         signOut.getContextData(req, res).then(() => {
             sinon.assert.calledWith(clearIfCurrentStub, sessionStore, 'immutable-idam-user-id', 'current-session-id');
-            sinon.assert.calledOnce(res.clearCookie);
+            sinon.assert.calledTwice(res.clearCookie);
+            sinon.assert.calledWith(res.clearCookie.firstCall, securityCookie);
+            sinon.assert.calledWith(res.clearCookie.secondCall, expressSessionCookie);
+            assert.isUndefined(req.cookies);
+            assert.isUndefined(req.sessionID);
+            assert.isUndefined(req.session);
+            assert.isUndefined(req.sessionStore);
+            revert();
+            revertSessionConcurrency();
+            done();
+        });
+    });
+
+    it('continues local logout when session destroy fails', (done) => {
+        const revert = SignOut.__set__('IdamSession', class {
+            delete() {
+                return Promise.resolve(200);
+            }
+        });
+        const clearIfCurrentStub = sinon.stub().resolves();
+        const revertSessionConcurrency = SignOut.__set__('SessionConcurrency', class {
+            clearIfCurrent(...args) {
+                return clearIfCurrentStub(...args);
+            }
+        });
+
+        const sessionStore = {};
+        const req = {
+            cookies: {[securityCookie]: 'token-A'},
+            session: {
+                idamUserId: 'immutable-idam-user-id',
+                form: {caseType: 'gop'},
+                destroy: callback => {
+                    callback(new Error('store unavailable'));
+                }
+            },
+            sessionStore,
+            sessionID: 'current-session-id'
+        };
+        const res = {
+            clearCookie: sinon.spy()
+        };
+        const signOut = new SignOut(steps, 'applicant', 'addressLookup', {}, {properties: {}});
+
+        signOut.getContextData(req, res).then(() => {
+            sinon.assert.calledWith(clearIfCurrentStub, sessionStore, 'immutable-idam-user-id', 'current-session-id');
+            sinon.assert.calledTwice(res.clearCookie);
+            sinon.assert.calledWith(res.clearCookie.firstCall, securityCookie);
+            sinon.assert.calledWith(res.clearCookie.secondCall, expressSessionCookie);
             assert.isUndefined(req.cookies);
             assert.isUndefined(req.sessionID);
             assert.isUndefined(req.session);
