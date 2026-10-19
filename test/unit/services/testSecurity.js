@@ -236,7 +236,17 @@ describe('Security component', () => {
         });
 
         it('should invalidate stale auth and redirect to login when session is lost', (done) => {
-            const deleteStub = sinon.stub().resolves({});
+            let settleDelete;
+            const deleteStub = sinon.stub().returns(new Promise(resolve => {
+                settleDelete = resolve;
+            }));
+            const destroyStub = sinon.stub().callsFake(callback => {
+                delete req.session;
+                delete req.sessionStore;
+                if (callback) {
+                    callback();
+                }
+            });
             const revert = Security.__set__('IdamSession', class {
                 get() {
                     return promise;
@@ -247,22 +257,99 @@ describe('Security component', () => {
                 }
             });
 
-            req.session = {language: 'cy'};
+            req.session = {
+                language: 'cy',
+                form: {caseType: 'gop'},
+                idamUserId: 'immutable-idam-user-id',
+                destroy: destroyStub
+            };
+            req.sessionStore = {};
+            req.sessionID = 'lost-session-id';
             req.cookies[securityCookie] = token;
             req.protocol = 'http';
             req.baseUrl = '/';
             req.originalUrl = '/';
-            const promise = when({name: 'Success'});
+            req.authToken = token;
+            req.userId = 'immutable-idam-user-id';
 
             protect(req, res, next);
 
             checkAsync(() => {
+                sinon.assert.notCalled(res.redirect);
+                settleDelete({});
+            });
+
+            checkAsync(() => {
+                sinon.assert.calledOnce(destroyStub);
                 sinon.assert.calledOnce(deleteStub);
                 sinon.assert.calledWith(deleteStub, token);
                 sinon.assert.calledOnce(res.clearCookie);
-                expect(req.session.language).to.equal('cy');
-                expect(req.session.expires).to.equal(undefined);
-                expect(req.session.authToken).to.equal(undefined);
+                expect(req.session).to.equal(undefined);
+                expect(req.sessionID).to.equal(undefined);
+                expect(req.sessionStore).to.equal(undefined);
+                expect(req.authToken).to.equal(undefined);
+                expect(req.userId).to.equal(undefined);
+                sinon.assert.calledOnce(res.redirect);
+                expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
+                sinon.assert.notCalled(next);
+                revert();
+                done();
+            });
+        });
+
+        it('should clear stale local auth and continue login when IDAM token invalidation fails', (done) => {
+            let rejectDelete;
+            const deleteStub = sinon.stub().returns(new Promise((resolve, reject) => {
+                rejectDelete = reject;
+            }));
+            const destroyStub = sinon.stub().callsFake(callback => {
+                delete req.session;
+                delete req.sessionStore;
+                if (callback) {
+                    callback();
+                }
+            });
+            const revert = Security.__set__('IdamSession', class {
+                get() {
+                    return Promise.resolve({name: 'Success'});
+                }
+
+                delete(accessToken) {
+                    return deleteStub(accessToken);
+                }
+            });
+
+            req.session = {
+                language: 'cy',
+                form: {caseType: 'gop'},
+                idamUserId: 'immutable-idam-user-id',
+                destroy: destroyStub
+            };
+            req.sessionStore = {};
+            req.sessionID = 'lost-session-id';
+            req.cookies[securityCookie] = token;
+            req.protocol = 'http';
+            req.baseUrl = '/';
+            req.originalUrl = '/';
+            req.authToken = token;
+            req.userId = 'immutable-idam-user-id';
+
+            protect(req, res, next);
+
+            checkAsync(() => {
+                sinon.assert.notCalled(res.redirect);
+                rejectDelete(new Error('idam failure'));
+            });
+
+            checkAsync(() => {
+                sinon.assert.calledOnce(destroyStub);
+                sinon.assert.calledOnce(deleteStub);
+                sinon.assert.calledOnce(res.clearCookie);
+                expect(req.session).to.equal(undefined);
+                expect(req.sessionID).to.equal(undefined);
+                expect(req.sessionStore).to.equal(undefined);
+                expect(req.authToken).to.equal(undefined);
+                expect(req.userId).to.equal(undefined);
                 sinon.assert.calledOnce(res.redirect);
                 expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
                 sinon.assert.notCalled(next);
@@ -299,7 +386,20 @@ describe('Security component', () => {
 
         it('should invalidate stale auth and redirect to login when the session is superseded by a newer login', (done) => {
             const deleteStub = sinon.stub().resolves({});
-            req.session = {expires: expiresTime, regId: 'regid123', language: 'cy'};
+            const destroyStub = sinon.stub().callsFake(callback => {
+                delete req.session;
+                delete req.sessionStore;
+                if (callback) {
+                    callback();
+                }
+            });
+            req.session = {
+                expires: expiresTime,
+                regId: 'regid123',
+                language: 'cy',
+                form: {caseType: 'gop'},
+                destroy: destroyStub
+            };
             req.sessionID = 'stale-session-id';
             const sessionStore = {destroy: sinon.stub()};
             req.sessionStore = sessionStore;
@@ -307,6 +407,8 @@ describe('Security component', () => {
             req.protocol = 'http';
             req.baseUrl = '/';
             req.originalUrl = '/';
+            req.authToken = token;
+            req.userId = 'immutable-idam-user-id';
 
             const revert = Security.__set__('IdamSession', class {
                 get() {
@@ -333,16 +435,17 @@ describe('Security component', () => {
             checkAsync(() => {
                 sinon.assert.calledWith(security.sessionConcurrency.assertAndTouch, sessionStore, 'immutable-idam-user-id', 'stale-session-id');
                 sinon.assert.notCalled(security.sessionConcurrency.activateLatest);
+                sinon.assert.calledOnce(destroyStub);
                 sinon.assert.calledOnce(deleteStub);
                 sinon.assert.calledWith(deleteStub, token);
                 sinon.assert.calledOnce(res.clearCookie);
                 sinon.assert.calledOnce(res.redirect);
                 expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
-                expect(req.session.expires).to.equal(undefined);
-                expect(req.session.regId).to.equal(undefined);
-                expect(req.session.idamUserId).to.equal(undefined);
-                expect(req.session.authToken).to.equal(undefined);
-                expect(req.session.language).to.equal('cy');
+                expect(req.session).to.equal(undefined);
+                expect(req.sessionID).to.equal(undefined);
+                expect(req.sessionStore).to.equal(undefined);
+                expect(req.authToken).to.equal(undefined);
+                expect(req.userId).to.equal(undefined);
                 sinon.assert.notCalled(next);
                 revert();
                 done();
@@ -416,8 +519,15 @@ describe('Security component', () => {
             });
         });
 
-        it('redirects to login when ownership validation rejects and cannot fall through to authorisation', (done) => {
-            req.session = {expires: expiresTime, language: 'cy'};
+        it('redirects to time-out when ownership validation rejects and cannot fall through to authorisation', (done) => {
+            const destroyStub = sinon.stub().callsFake(callback => {
+                delete req.session;
+                delete req.sessionStore;
+                if (callback) {
+                    callback();
+                }
+            });
+            req.session = {expires: expiresTime, language: 'cy', destroy: destroyStub};
             req.sessionID = 'current-session-id';
             req.sessionStore = {};
             req.cookies[securityCookie] = token;
@@ -434,7 +544,11 @@ describe('Security component', () => {
 
             checkAsync(() => {
                 sinon.assert.calledOnce(res.redirect);
-                expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
+                expect(res.redirect).to.have.been.calledWith(timeoutUrl);
+                sinon.assert.calledOnce(destroyStub);
+                expect(req.session).to.equal(undefined);
+                expect(req.sessionID).to.equal(undefined);
+                expect(req.sessionStore).to.equal(undefined);
                 sinon.assert.notCalled(next);
                 done();
             });

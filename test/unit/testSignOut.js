@@ -49,9 +49,10 @@ describe('Sign-Out', () => {
                     payloadVersion: '4.1.0',
                     applicantEmail: 'test@email.com'
                 },
-                destroy: () => {
+                destroy: callback => {
                     delete req.session;
                     delete req.sessionStore;
+                    callback();
                 }
             },
             sessionStore,
@@ -91,9 +92,10 @@ describe('Sign-Out', () => {
             session: {
                 idamUserId: 'immutable-idam-user-id',
                 form: {},
-                destroy: () => {
+                destroy: callback => {
                     delete req.session;
                     delete req.sessionStore;
+                    callback();
                 }
             },
             sessionStore: {},
@@ -110,6 +112,52 @@ describe('Sign-Out', () => {
             assert.isUndefined(req.session);
             assert.isUndefined(req.sessionStore);
             sinon.assert.calledOnce(res.clearCookie);
+            revert();
+            revertSessionConcurrency();
+            done();
+        });
+    });
+
+    it('continues local logout when IDAM sign-out fails', (done) => {
+        const revert = SignOut.__set__('IdamSession', class {
+            delete() {
+                return Promise.reject(new Error('idam unavailable'));
+            }
+        });
+        const clearIfCurrentStub = sinon.stub().resolves();
+        const revertSessionConcurrency = SignOut.__set__('SessionConcurrency', class {
+            clearIfCurrent(...args) {
+                return clearIfCurrentStub(...args);
+            }
+        });
+
+        const sessionStore = {};
+        const req = {
+            cookies: {[`__auth-token-${require('config').payloadVersion}`]: 'token-A'},
+            session: {
+                idamUserId: 'immutable-idam-user-id',
+                form: {caseType: 'gop'},
+                destroy: callback => {
+                    delete req.session;
+                    delete req.sessionStore;
+                    callback();
+                }
+            },
+            sessionStore,
+            sessionID: 'current-session-id'
+        };
+        const res = {
+            clearCookie: sinon.spy()
+        };
+        const signOut = new SignOut(steps, 'applicant', 'addressLookup', {}, {properties: {}});
+
+        signOut.getContextData(req, res).then(() => {
+            sinon.assert.calledWith(clearIfCurrentStub, sessionStore, 'immutable-idam-user-id', 'current-session-id');
+            sinon.assert.calledOnce(res.clearCookie);
+            assert.isUndefined(req.cookies);
+            assert.isUndefined(req.sessionID);
+            assert.isUndefined(req.session);
+            assert.isUndefined(req.sessionStore);
             revert();
             revertSessionConcurrency();
             done();

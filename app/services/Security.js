@@ -135,40 +135,48 @@ class Security {
         const language = req.session && req.session.language ? req.session.language : 'en';
         const accessToken = req.cookies && req.cookies[SECURITY_COOKIE];
         const idamSession = new IdamSession(config.services.idam.apiUrl, req.sessionID);
+        const destroySessionPromise = () => new Promise(resolve => {
+            if (req.session && typeof req.session.destroy === 'function') {
+                req.session.destroy(err => {
+                    if (err) {
+                        req.log.error(`Unable to destroy superseded local session: ${err}`);
+                    }
+                    resolve();
+                });
+                return;
+            }
+            resolve();
+        });
 
-        const cleanupAndLogin = () => {
+        const cleanupLocalAuthenticationState = () => {
             res.clearCookie(SECURITY_COOKIE);
             delete req.authToken;
             delete req.userId;
-
-            if (!req.session) {
-                req.session = {language};
-            } else {
-                delete req.session.expires;
-                delete req.session.regId;
-                delete req.session.idamUserId;
-                delete req.session.authToken;
-                req.session.language = language;
-            }
-
-            this._login(req, res);
+            delete req.cookies;
+            delete req.sessionID;
+            delete req.session;
+            delete req.sessionStore;
         };
 
-        if (!accessToken) {
-            cleanupAndLogin();
-            return Promise.resolve(false);
-        }
+        const idamDeletion = accessToken
+            ? idamSession.delete(accessToken)
+                .catch(err => {
+                    req.log.error(`Unable to invalidate stale IDAM session token: ${err}`);
+                })
+            : Promise.resolve();
 
-        idamSession.delete(accessToken)
-            .catch(err => {
-                req.log.error(`Unable to invalidate stale IDAM session token: ${err}`);
+        return idamDeletion
+            .finally(() => destroySessionPromise()
+                .finally(() => {
+                    cleanupLocalAuthenticationState();
+                }))
+            .then(() => {
+                this._login(req, res, language);
+                return false;
             });
-
-        cleanupAndLogin();
-        return Promise.resolve(false);
     }
 
-    _login(req, res) {
+    _login(req, res, language = req.session && req.session.language ? req.session.language : 'en') {
         const state = this._generateState();
         let returnUrl = FormatUrl.createHostname(req);
         if (req.baseUrl.indexOf('get-case') > 0) {
@@ -179,7 +187,7 @@ class Security {
 
         const callbackUrl = FormatUrl.format(returnUrl, idamConfig.probate_oauth_callback_path);
         const redirectUrl = URL.parse(this.loginUrl, true);
-        redirectUrl.query.ui_locales = req.session.language;
+        redirectUrl.query.ui_locales = language;
         redirectUrl.query.response_type = 'code';
         redirectUrl.query.state = state;
         redirectUrl.query.client_id = idamConfig.probate_oauth2_client;
@@ -306,11 +314,15 @@ class Security {
                 })
                 .catch(err => {
                     req.log.error(`Unable to validate active session mapping: ${err}`);
-                    return this._reauthenticateUser(req, res);
+                    this.handleLostOrExpiredSession(req, res);
+                    res.redirect('/time-out');
+                    return false;
                 });
         } catch (err) {
             req.log.error(`Unable to validate active session mapping: ${err}`);
-            return this._reauthenticateUser(req, res);
+            this.handleLostOrExpiredSession(req, res);
+            res.redirect('/time-out');
+            return false;
         }
     }
 

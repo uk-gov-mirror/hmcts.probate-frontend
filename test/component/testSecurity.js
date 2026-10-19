@@ -113,6 +113,8 @@ describe('security', () => {
 
     it('invalidates session A after session B logs in for the same user', async () => {
         config.app.useIDAM = 'true';
+        const browserAToken = 'dummyTokenA';
+        const browserBToken = 'dummyTokenB';
 
         const activeSessionByUser = {};
         const canManageSessionStub = sinon.stub(SessionConcurrency.prototype, 'canManageSession').returns(true);
@@ -129,8 +131,10 @@ describe('security', () => {
 
         nock(config.services.idam.apiUrl)
             .post(oAuth2TokenUrl)
-            .times(2)
-            .reply(200, {access_token: 'dummyToken'});
+            .reply(200, {access_token: browserAToken});
+        nock(config.services.idam.apiUrl)
+            .post(oAuth2TokenUrl)
+            .reply(200, {access_token: browserBToken});
 
         nock(config.services.idam.apiUrl)
             .get('/details')
@@ -144,24 +148,36 @@ describe('security', () => {
         const agentA = request.agent(server.app);
         const agentB = request.agent(server.app);
         try {
-            await agentA.get(oAuth2CallbackUrl)
+            const callbackA = await agentA.get(oAuth2CallbackUrl)
                 .set('Cookie', `__redirect=${JSON.stringify({state: 'state-A', continue_url: expectedNextUrlForTaskList})}`)
                 .query({code: 11111, state: 'state-A'})
                 .expect(302);
+            const supersededSessionCookieA = getCookieValueFromSetCookie(callbackA.headers['set-cookie'], 'connect.sid');
+            const authCookieA = getCookieValueFromSetCookie(callbackA.headers['set-cookie'], SECURITY_COOKIE);
+            expect(supersededSessionCookieA).to.be.a('string');
+            expect(authCookieA).to.be.a('string');
 
-            await agentB.get(oAuth2CallbackUrl)
+            const callbackB = await agentB.get(oAuth2CallbackUrl)
                 .set('Cookie', `__redirect=${JSON.stringify({state: 'state-B', continue_url: expectedNextUrlForTaskList})}`)
                 .query({code: 22222, state: 'state-B'})
                 .expect(302);
+            const sessionCookieB = getCookieValueFromSetCookie(callbackB.headers['set-cookie'], 'connect.sid');
+            const authCookieB = getCookieValueFromSetCookie(callbackB.headers['set-cookie'], SECURITY_COOKIE);
+            expect(sessionCookieB).to.be.a('string');
+            expect(authCookieB).to.be.a('string');
+            expect(authCookieA).to.not.equal(authCookieB);
+            expect(supersededSessionCookieA).to.not.equal(sessionCookieB);
 
             const resProtected = await agentA.get(expectedNextUrlForTaskList)
-                .set('Cookie', `${SECURITY_COOKIE}=dummyToken`)
+                .set('Cookie', `${authCookieA}; ${supersededSessionCookieA}`)
                 .expect(302);
 
             expect(resProtected.headers.location).to.contain(LOGIN_URL);
+            const reauthenticatedSessionCookieA = getCookieValueFromSetCookie(resProtected.headers['set-cookie'], 'connect.sid');
+            expect(reauthenticatedSessionCookieA).to.not.equal(supersededSessionCookieA);
 
             const resSessionB = await agentB.get(expectedNextUrlForTaskList)
-                .set('Cookie', `${SECURITY_COOKIE}=dummyToken`)
+                .set('Cookie', `${authCookieB}; ${sessionCookieB}`)
                 .expect(200);
 
             expect(resSessionB.headers.location).to.equal(undefined);
@@ -178,6 +194,8 @@ describe('security', () => {
 
     it('prevents an in-flight protected request from reactivating itself after a newer login wins', async () => {
         config.app.useIDAM = 'true';
+        const browserAToken = 'dummyTokenA';
+        const browserBToken = 'dummyTokenB';
 
         const activeSessionByUser = {};
         let pendingValidation;
@@ -202,8 +220,10 @@ describe('security', () => {
 
         nock(config.services.idam.apiUrl)
             .post(oAuth2TokenUrl)
-            .times(2)
-            .reply(200, {access_token: 'dummyToken'});
+            .reply(200, {access_token: browserAToken});
+        nock(config.services.idam.apiUrl)
+            .post(oAuth2TokenUrl)
+            .reply(200, {access_token: browserBToken});
 
         nock(config.services.idam.apiUrl)
             .get('/details')
@@ -217,13 +237,15 @@ describe('security', () => {
         const agentA = request.agent(server.app);
         const agentB = request.agent(server.app);
         try {
-            await agentA.get(oAuth2CallbackUrl)
+            const callbackA = await agentA.get(oAuth2CallbackUrl)
                 .set('Cookie', `__redirect=${JSON.stringify({state: 'state-A', continue_url: expectedNextUrlForTaskList})}`)
                 .query({code: 11111, state: 'state-A'})
                 .expect(302);
+            const authCookieA = getCookieValueFromSetCookie(callbackA.headers['set-cookie'], SECURITY_COOKIE);
+            expect(authCookieA).to.be.a('string');
 
             const protectedA = agentA.get(expectedNextUrlForTaskList)
-                .set('Cookie', `${SECURITY_COOKIE}=dummyToken`)
+                .set('Cookie', authCookieA)
                 .expect(302)
                 .then(res => res);
 
@@ -231,10 +253,12 @@ describe('security', () => {
                 await new Promise(resolve => setTimeout(resolve, 10));
             }
 
-            await agentB.get(oAuth2CallbackUrl)
+            const callbackB = await agentB.get(oAuth2CallbackUrl)
                 .set('Cookie', `__redirect=${JSON.stringify({state: 'state-B', continue_url: expectedNextUrlForTaskList})}`)
                 .query({code: 22222, state: 'state-B'})
                 .expect(302);
+            const authCookieB = getCookieValueFromSetCookie(callbackB.headers['set-cookie'], SECURITY_COOKIE);
+            expect(authCookieB).to.be.a('string');
 
             releaseValidation();
             const resProtectedA = await protectedA;
@@ -243,7 +267,7 @@ describe('security', () => {
             expect(activateStub.callCount).to.equal(2);
 
             const resSessionB = await agentB.get(expectedNextUrlForTaskList)
-                .set('Cookie', `${SECURITY_COOKIE}=dummyToken`)
+                .set('Cookie', authCookieB)
                 .expect(200);
 
             expect(resSessionB.headers.location).to.equal(undefined);
@@ -299,4 +323,10 @@ describe('security', () => {
         expect(sessionStore.client.eval).to.equal(undefined);
         sinon.assert.called(rawRedisClient.eval);
     });
+
+    function getCookieValueFromSetCookie(setCookieHeader, cookieName) {
+        const cookieEntries = Array.isArray(setCookieHeader) ? setCookieHeader : [];
+        const cookie = cookieEntries.find(entry => entry.startsWith(`${cookieName}=`));
+        return cookie ? cookie.split(';')[0] : undefined;
+    }
 });

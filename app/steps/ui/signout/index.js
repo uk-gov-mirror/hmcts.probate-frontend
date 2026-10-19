@@ -25,31 +25,44 @@ class SignOut extends Step {
         });
         const userKey = req.session && req.session.idamUserId;
         const sessionId = req.sessionID;
+        const finalizeLocalSignOut = () => {
+            return sessionConcurrency
+                .clearIfCurrent(req.sessionStore, userKey, sessionId)
+                .catch(err => {
+                    logger.error(`Unable to clear active session mapping on sign-out: ${err}`);
+                })
+                .then(() => new Promise(resolve => {
+                    if (req.session && typeof req.session.destroy === 'function') {
+                        req.session.destroy(err => {
+                            if (err) {
+                                logger.error(`Unable to destroy local session on sign-out: ${err}`);
+                            }
+                            resolve();
+                        });
+                        return;
+                    }
+                    resolve();
+                }))
+                .finally(() => {
+                    res.clearCookie(SECURITY_COOKIE);
+                    delete req.cookies;
+                    delete req.sessionID;
+                    delete req.session;
+                    delete req.sessionStore;
+                });
+        };
 
         return idamSession.delete(access_token)
             .then(result => {
                 if (errorCodes.includes(result)) {
                     throw new Error('Error while attempting to sign out of IDAM.');
                 }
-
-                return sessionConcurrency
-                    .clearIfCurrent(req.sessionStore, userKey, sessionId)
-                    .catch(err => {
-                        logger.error(`Unable to clear active session mapping on sign-out: ${err}`);
-                    })
-                    .finally(() => {
-                        req.session.destroy();
-                        res.clearCookie(SECURITY_COOKIE);
-                        delete req.cookies;
-                        delete req.sessionID;
-                        delete req.session;
-                        delete req.sessionStore;
-                    })
-                    .then(() => ctx);
             })
             .catch(err => {
                 logger.error(`Error while calling IDAM: ${err}`);
-            });
+            })
+            .finally(() => finalizeLocalSignOut())
+            .then(() => ctx);
     }
 
     shouldHaveBackLink() {
