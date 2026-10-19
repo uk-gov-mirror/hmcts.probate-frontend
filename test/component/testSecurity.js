@@ -8,14 +8,12 @@ const config = require('config');
 const oAuth2CallbackUrl = config.services.idam.probate_oauth_callback_path;
 const oAuth2TokenUrl = config.services.idam.probate_oauth_token_path;
 const TaskList = require('app/steps/ui/tasklist');
-const TimeoutPage = require('app/steps/ui/timeout/index');
 const SessionConcurrency = require('app/services/SessionConcurrency');
 const nock = require('nock');
 
 describe('security', () => {
     const LOGIN_URL = 'http://localhost:3501/login';
     const expectedNextUrlForTaskList = TaskList.getUrl();
-    const expectedUrlForTimeoutPage = TimeoutPage.getUrl();
     const SECURITY_COOKIE = '__auth-token-' + config.payloadVersion;
 
     it(`Redirects to login when idam returns 401 from Oauth2Token.post() request: ${LOGIN_URL}`, (done) => {
@@ -84,9 +82,12 @@ describe('security', () => {
             });
     }).timeout(5000);
 
-    it(`Redirects to timeout if no session is available: ${expectedUrlForTimeoutPage}`, (done) => {
+    it(`Redirects to normal sign-in if no session is available: ${LOGIN_URL}`, (done) => {
         nock(config.services.idam.apiUrl)
             .get('/details')
+            .reply(200, {name: 'Success'});
+        nock(config.services.idam.apiUrl)
+            .delete(/\/session\/.*/)
             .reply(200, {name: 'Success'});
 
         config.app.useIDAM = 'true';
@@ -103,7 +104,7 @@ describe('security', () => {
                     nock.cleanAll();
                     done(err);
                 } else {
-                    expect(res.headers.location).to.contain(expectedUrlForTimeoutPage);
+                    expect(res.headers.location).to.contain(LOGIN_URL);
                     nock.cleanAll();
                     done();
                 }
@@ -135,6 +136,9 @@ describe('security', () => {
             .get('/details')
             .times(4)
             .reply(200, {email: 'same-user@example.com', id: 'idam-user-id', roles: ['probate-private-beta', 'citizen']});
+        nock(config.services.idam.apiUrl)
+            .delete(/\/session\/.*/)
+            .reply(200, {name: 'Success'});
 
         const server = app.init();
         const agentA = request.agent(server.app);
@@ -154,7 +158,7 @@ describe('security', () => {
                 .set('Cookie', `${SECURITY_COOKIE}=dummyToken`)
                 .expect(302);
 
-            expect(resProtected.headers.location).to.contain(expectedUrlForTimeoutPage);
+            expect(resProtected.headers.location).to.contain(LOGIN_URL);
 
             const resSessionB = await agentB.get(expectedNextUrlForTaskList)
                 .set('Cookie', `${SECURITY_COOKIE}=dummyToken`)
@@ -205,6 +209,9 @@ describe('security', () => {
             .get('/details')
             .times(4)
             .reply(200, {email: 'same-user@example.com', id: 'idam-user-id', roles: ['probate-private-beta', 'citizen']});
+        nock(config.services.idam.apiUrl)
+            .delete(/\/session\/.*/)
+            .reply(200, {name: 'Success'});
 
         const server = app.init();
         const agentA = request.agent(server.app);
@@ -232,7 +239,7 @@ describe('security', () => {
             releaseValidation();
             const resProtectedA = await protectedA;
 
-            expect(resProtectedA.headers.location).to.contain(expectedUrlForTimeoutPage);
+            expect(resProtectedA.headers.location).to.contain(LOGIN_URL);
             expect(activateStub.callCount).to.equal(2);
 
             const resSessionB = await agentB.get(expectedNextUrlForTaskList)

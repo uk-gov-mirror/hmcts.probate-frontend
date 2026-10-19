@@ -141,6 +141,10 @@ describe('Security component', () => {
                         roles: [role, 'citizen']
                     });
                 }
+
+                delete() {
+                    return Promise.resolve({});
+                }
             });
 
             security = new Security(loginUrl);
@@ -231,30 +235,40 @@ describe('Security component', () => {
                 });
         });
 
-        it('should redirect to time-out page when session is lost', (done) => {
+        it('should invalidate stale auth and redirect to login when session is lost', (done) => {
+            const deleteStub = sinon.stub().resolves({});
             const revert = Security.__set__('IdamSession', class {
                 get() {
                     return promise;
                 }
+
+                delete(accessToken) {
+                    return deleteStub(accessToken);
+                }
             });
 
-            req.session = {};
+            req.session = {language: 'cy'};
             req.cookies[securityCookie] = token;
             req.protocol = 'http';
+            req.baseUrl = '/';
+            req.originalUrl = '/';
             const promise = when({name: 'Success'});
 
             protect(req, res, next);
 
-            promise
-                .then(() => {
-                    sinon.assert.calledOnce(res.redirect);
-                    expect(res.redirect).to.have.been.calledWith(timeoutUrl);
-                    revert();
-                    done();
-                })
-                .catch((err) => {
-                    done(err);
-                });
+            checkAsync(() => {
+                sinon.assert.calledOnce(deleteStub);
+                sinon.assert.calledWith(deleteStub, token);
+                sinon.assert.calledOnce(res.clearCookie);
+                expect(req.session.language).to.equal('cy');
+                expect(req.session.expires).to.equal(undefined);
+                expect(req.session.authToken).to.equal(undefined);
+                sinon.assert.calledOnce(res.redirect);
+                expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
+                sinon.assert.notCalled(next);
+                revert();
+                done();
+            });
         });
 
         it('should redirect to time-out page when session has expired', (done) => {
@@ -283,13 +297,30 @@ describe('Security component', () => {
                 });
         });
 
-        it('should redirect to time-out page when the session is superseded by a newer login', (done) => {
-            req.session = {expires: expiresTime, regId: 'regid123'};
+        it('should invalidate stale auth and redirect to login when the session is superseded by a newer login', (done) => {
+            const deleteStub = sinon.stub().resolves({});
+            req.session = {expires: expiresTime, regId: 'regid123', language: 'cy'};
             req.sessionID = 'stale-session-id';
             const sessionStore = {destroy: sinon.stub()};
             req.sessionStore = sessionStore;
             req.cookies[securityCookie] = token;
             req.protocol = 'http';
+            req.baseUrl = '/';
+            req.originalUrl = '/';
+
+            const revert = Security.__set__('IdamSession', class {
+                get() {
+                    return Promise.resolve({
+                        email: 'user@example.com',
+                        id: 'immutable-idam-user-id',
+                        roles: [role, 'citizen']
+                    });
+                }
+
+                delete(accessToken) {
+                    return deleteStub(accessToken);
+                }
+            });
 
             security.sessionConcurrency = {
                 canManageSession: sinon.stub().returns(true),
@@ -302,10 +333,18 @@ describe('Security component', () => {
             checkAsync(() => {
                 sinon.assert.calledWith(security.sessionConcurrency.assertAndTouch, sessionStore, 'immutable-idam-user-id', 'stale-session-id');
                 sinon.assert.notCalled(security.sessionConcurrency.activateLatest);
+                sinon.assert.calledOnce(deleteStub);
+                sinon.assert.calledWith(deleteStub, token);
                 sinon.assert.calledOnce(res.clearCookie);
                 sinon.assert.calledOnce(res.redirect);
-                expect(res.redirect).to.have.been.calledWith(timeoutUrl);
+                expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
+                expect(req.session.expires).to.equal(undefined);
+                expect(req.session.regId).to.equal(undefined);
+                expect(req.session.idamUserId).to.equal(undefined);
+                expect(req.session.authToken).to.equal(undefined);
+                expect(req.session.language).to.equal('cy');
                 sinon.assert.notCalled(next);
+                revert();
                 done();
             });
         });
@@ -377,12 +416,14 @@ describe('Security component', () => {
             });
         });
 
-        it('redirects to time-out when ownership validation rejects and cannot fall through to authorisation', (done) => {
-            req.session = {expires: expiresTime, language: 'en'};
+        it('redirects to login when ownership validation rejects and cannot fall through to authorisation', (done) => {
+            req.session = {expires: expiresTime, language: 'cy'};
             req.sessionID = 'current-session-id';
             req.sessionStore = {};
             req.cookies[securityCookie] = token;
             req.protocol = 'http';
+            req.baseUrl = '/';
+            req.originalUrl = '/';
             security.sessionConcurrency = {
                 canManageSession: sinon.stub().returns(true),
                 assertAndTouch: sinon.stub().rejects(new Error('redis failed')),
@@ -393,7 +434,7 @@ describe('Security component', () => {
 
             checkAsync(() => {
                 sinon.assert.calledOnce(res.redirect);
-                expect(res.redirect).to.have.been.calledWith(timeoutUrl);
+                expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
                 sinon.assert.notCalled(next);
                 done();
             });

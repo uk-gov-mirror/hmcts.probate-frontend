@@ -41,10 +41,15 @@ class Security {
             }
 
             if (securityCookie) {
-                if ([SessionStatusEnum.getExpired(), SessionStatusEnum.getLost()].includes(this.getSessionStatus(req))) {
-                    req.log.error(`The current user session is ${this.getSessionStatus(req)}, redirecting user to the time-out page.`);
+                const sessionStatus = this.getSessionStatus(req);
+                if (sessionStatus === SessionStatusEnum.getExpired()) {
+                    req.log.error('The current user session is EXPIRED, redirecting user to the time-out page.');
                     this.handleLostOrExpiredSession(req, res);
                     return res.redirect('/time-out');
+                }
+                if (sessionStatus === SessionStatusEnum.getLost()) {
+                    req.log.error('The current user session is LOST, redirecting user to login for reauthentication.');
+                    return this._reauthenticateUser(req, res);
                 }
 
                 const authorizeAfterActiveSessionValidation = idamResponse => {
@@ -124,6 +129,43 @@ class Security {
         delete req.sessionID;
         delete req.session;
         delete req.sessionStore;
+    }
+
+    _reauthenticateUser(req, res) {
+        const language = req.session && req.session.language ? req.session.language : 'en';
+        const accessToken = req.cookies && req.cookies[SECURITY_COOKIE];
+        const idamSession = new IdamSession(config.services.idam.apiUrl, req.sessionID);
+
+        const cleanupAndLogin = () => {
+            res.clearCookie(SECURITY_COOKIE);
+            delete req.authToken;
+            delete req.userId;
+
+            if (!req.session) {
+                req.session = {language};
+            } else {
+                delete req.session.expires;
+                delete req.session.regId;
+                delete req.session.idamUserId;
+                delete req.session.authToken;
+                req.session.language = language;
+            }
+
+            this._login(req, res);
+        };
+
+        if (!accessToken) {
+            cleanupAndLogin();
+            return Promise.resolve(false);
+        }
+
+        idamSession.delete(accessToken)
+            .catch(err => {
+                req.log.error(`Unable to invalidate stale IDAM session token: ${err}`);
+            });
+
+        cleanupAndLogin();
+        return Promise.resolve(false);
     }
 
     _login(req, res) {
@@ -248,34 +290,27 @@ class Security {
             }
 
             if (!req.session.idamUserId || !req.sessionID) {
-                req.log.error('Active-session ownership data is missing, redirecting user to the time-out page.');
-                this.handleLostOrExpiredSession(req, res);
-                res.redirect('/time-out');
-                return false;
+                req.log.error('Active-session ownership data is missing, redirecting user to login for reauthentication.');
+                return this._reauthenticateUser(req, res);
             }
 
             return this.sessionConcurrency
                 .assertAndTouch(req.sessionStore, req.session.idamUserId, req.sessionID)
                 .then(sessionIsActive => {
                     if (!sessionIsActive) {
-                        req.log.error('Active-session mismatch detected, redirecting user to the time-out page.');
-                        this.handleLostOrExpiredSession(req, res);
-                        res.redirect('/time-out');
+                        req.log.error('Active-session mismatch detected, redirecting user to login for reauthentication.');
+                        return this._reauthenticateUser(req, res);
                     }
 
                     return sessionIsActive;
                 })
                 .catch(err => {
                     req.log.error(`Unable to validate active session mapping: ${err}`);
-                    this.handleLostOrExpiredSession(req, res);
-                    res.redirect('/time-out');
-                    return false;
+                    return this._reauthenticateUser(req, res);
                 });
         } catch (err) {
             req.log.error(`Unable to validate active session mapping: ${err}`);
-            this.handleLostOrExpiredSession(req, res);
-            res.redirect('/time-out');
-            return false;
+            return this._reauthenticateUser(req, res);
         }
     }
 
