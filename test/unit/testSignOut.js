@@ -127,9 +127,14 @@ describe('Sign-Out', () => {
     });
 
     it('continues local logout when IDAM sign-out fails', (done) => {
+        const sentinelUrl = 'https://idam.example/session/abc123token';
+        const loggerErrorSpy = sinon.spy();
+        const revertLogger = SignOut.__set__('logger', {error: loggerErrorSpy});
         const revert = SignOut.__set__('IdamSession', class {
             delete() {
-                return Promise.reject(new Error('idam unavailable'));
+                const err = new Error(`idam unavailable ${sentinelUrl}`);
+                err.name = 'IdamDeleteError';
+                return Promise.reject(err);
             }
         });
         const clearIfCurrentStub = sinon.stub().resolves();
@@ -168,13 +173,20 @@ describe('Sign-Out', () => {
             assert.isUndefined(req.sessionID);
             assert.isUndefined(req.session);
             assert.isUndefined(req.sessionStore);
+            const messages = loggerErrorSpy.getCalls().map(call => call.args.join(' ')).join('\n');
+            assert.include(messages, 'Error while calling IDAM (IdamDeleteError).');
+            assert.notInclude(messages, sentinelUrl);
             revert();
             revertSessionConcurrency();
+            revertLogger();
             done();
         });
     });
 
     it('continues local logout when session destroy fails', (done) => {
+        const sentinelUrl = 'https://idam.example/session/token-98765';
+        const loggerErrorSpy = sinon.spy();
+        const revertLogger = SignOut.__set__('logger', {error: loggerErrorSpy});
         const revert = SignOut.__set__('IdamSession', class {
             delete() {
                 return Promise.resolve(200);
@@ -194,7 +206,9 @@ describe('Sign-Out', () => {
                 idamUserId: 'immutable-idam-user-id',
                 form: {caseType: 'gop'},
                 destroy: callback => {
-                    callback(new Error('store unavailable'));
+                    const err = new Error(`store unavailable ${sentinelUrl}`);
+                    err.name = 'SessionStoreError';
+                    callback(err);
                 }
             },
             sessionStore,
@@ -214,8 +228,12 @@ describe('Sign-Out', () => {
             assert.isUndefined(req.sessionID);
             assert.isUndefined(req.session);
             assert.isUndefined(req.sessionStore);
+            const messages = loggerErrorSpy.getCalls().map(call => call.args.join(' ')).join('\n');
+            assert.include(messages, 'Unable to destroy local session on sign-out (SessionStoreError).');
+            assert.notInclude(messages, sentinelUrl);
             revert();
             revertSessionConcurrency();
+            revertLogger();
             done();
         });
     });

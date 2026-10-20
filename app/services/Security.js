@@ -54,16 +54,14 @@ class Security {
                 }
 
                 const authorizeAfterActiveSessionValidation = idamResponse => {
-                    const validationResult = this._validateActiveSession(req, res);
-                    if (validationResult && typeof validationResult.then === 'function') {
-                        validationResult.then(sessionIsActive => {
-                            if (sessionIsActive) {
-                                this._authorize(req, res, next, idamResponse.roles, authorisedRoles);
+                    return Promise.resolve(this._validateActiveSession(req, res))
+                        .then(sessionIsActive => {
+                            if (sessionIsActive !== true) {
+                                return false;
                             }
+                            this._authorize(req, res, next, idamResponse.roles, authorisedRoles);
+                            return true;
                         });
-                    } else if (validationResult) {
-                        this._authorize(req, res, next, idamResponse.roles, authorisedRoles);
-                    }
                 };
 
                 const isIdamDetailsCached = this.idamDetailsCache && req.session.regId && this.idamDetailsCache.get(req.session.regId);
@@ -71,20 +69,20 @@ class Security {
                     console.log('Using cache...');
                     const cachedResponse = this.idamDetailsCache.get(req.session.regId);
                     this.handleSuccessfulIdamDetailsResponse(req, cachedResponse);
-                    authorizeAfterActiveSessionValidation(cachedResponse);
+                    return authorizeAfterActiveSessionValidation(cachedResponse).catch(next);
                 } else {
                     const idamSession = new IdamSession(config.services.idam.apiUrl, req.sessionID);
-                    idamSession
+                    return idamSession
                         .get(securityCookie)
                         .then(response => {
                             if (response.name !== 'Error') {
                                 req.log.debug('Extending session for active user.');
                                 this.handleSuccessfulIdamDetailsResponse(req, response);
-                                authorizeAfterActiveSessionValidation(response);
                                 if (this.idamDetailsCache) {
                                     console.log('Setting cache...');
                                     this.idamDetailsCache.set(req.session.regId, response);
                                 }
+                                return authorizeAfterActiveSessionValidation(response);
                             } else {
                                 req.log.error('Error authorising user');
                                 req.log.error(`Error ${JSON.stringify(response)} \n`);
@@ -93,11 +91,14 @@ class Security {
                                 } else {
                                     this._denyAccess(req, res);
                                 }
+                                return false;
                             }
-                        });
+                        })
+                        .catch(next);
                 }
             } else {
                 this._login(req, res);
+                return false;
             }
         };
     }
@@ -140,7 +141,7 @@ class Security {
             if (req.session && typeof req.session.destroy === 'function') {
                 req.session.destroy(err => {
                     if (err) {
-                        req.log.error(`Unable to destroy superseded local session: ${err}`);
+                        req.log.error(`Unable to destroy superseded local session (${this._safeErrorType(err)}).`);
                     }
                     resolve();
                 });
@@ -163,7 +164,7 @@ class Security {
         const idamDeletion = accessToken
             ? idamSession.delete(accessToken)
                 .catch(err => {
-                    req.log.error(`Unable to invalidate stale IDAM session token: ${err}`);
+                    req.log.error(`Unable to invalidate stale IDAM session token (${this._safeErrorType(err)}).`);
                 })
             : Promise.resolve();
 
@@ -287,7 +288,7 @@ class Security {
             .then(result => {
                 req.log.debug('Active session mapping updated for authenticated user.');
                 if (result && result.destroyError) {
-                    req.log.error(`Unable to destroy previous active session: ${result.destroyError}`);
+                    req.log.error(`Unable to destroy previous active session (${this._safeErrorType(result.destroyError)}).`);
                 }
                 return result;
             });
@@ -315,17 +316,24 @@ class Security {
                     return sessionIsActive;
                 })
                 .catch(err => {
-                    req.log.error(`Unable to validate active session mapping: ${err}`);
+                    req.log.error(`Unable to validate active session mapping (${this._safeErrorType(err)}).`);
                     this.handleLostOrExpiredSession(req, res);
                     res.redirect('/time-out');
                     return false;
                 });
         } catch (err) {
-            req.log.error(`Unable to validate active session mapping: ${err}`);
+            req.log.error(`Unable to validate active session mapping (${this._safeErrorType(err)}).`);
             this.handleLostOrExpiredSession(req, res);
             res.redirect('/time-out');
             return false;
         }
+    }
+
+    _safeErrorType(err) {
+        if (err && typeof err === 'object' && err.name) {
+            return err.name;
+        }
+        return 'Error';
     }
 
     _getTokenFromCode(req) {

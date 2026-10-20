@@ -30,13 +30,13 @@ class SignOut extends Step {
             return sessionConcurrency
                 .clearIfCurrent(req.sessionStore, userKey, sessionId)
                 .catch(err => {
-                    logger.error(`Unable to clear active session mapping on sign-out: ${err}`);
+                    logger.error(`Unable to clear active session mapping on sign-out (${this._safeErrorType(err)}).`);
                 })
                 .then(() => new Promise(resolve => {
                     if (req.session && typeof req.session.destroy === 'function') {
                         req.session.destroy(err => {
                             if (err) {
-                                logger.error(`Unable to destroy local session on sign-out: ${err}`);
+                                logger.error(`Unable to destroy local session on sign-out (${this._safeErrorType(err)}).`);
                             }
                             resolve();
                         });
@@ -61,10 +61,17 @@ class SignOut extends Step {
                 }
             })
             .catch(err => {
-                logger.error(`Error while calling IDAM: ${err}`);
+                logger.error(`Error while calling IDAM (${this._safeErrorType(err)}).`);
             })
             .finally(() => finalizeLocalSignOut())
             .then(() => ctx);
+    }
+
+    _safeErrorType(err) {
+        if (err && typeof err === 'object' && err.name) {
+            return err.name;
+        }
+        return 'Error';
     }
 
     shouldHaveBackLink() {

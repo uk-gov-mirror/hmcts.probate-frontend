@@ -66,7 +66,7 @@ describe('Security component', () => {
             expect(security.idamDetailsCache instanceof NodeCache).to.equal(true);
         });
 
-        it('should handle successful IDAM response when cached', () => {
+        it('should handle successful IDAM response when cached', (done) => {
             const nodeCacheGetStub = sinon.stub().returns({roles: ['citizen']});
             const SecurityStub = proxyquire('app/services/Security', {
                 'config': {'services': {'idam': {'caching': 'true'}}},
@@ -83,8 +83,11 @@ describe('Security component', () => {
 
             protect = security.protect(role);
             protect(req, res, next);
-            expect(handleSuccessfulIdamDetailsResponseStub.calledOnce).to.equal(true);
-            expect(_authorizeStub.calledOnce).to.equal(true);
+            checkAsync(() => {
+                expect(handleSuccessfulIdamDetailsResponseStub.calledOnce).to.equal(true);
+                expect(_authorizeStub.calledOnce).to.equal(true);
+                done();
+            });
         });
 
         it('should cache IDAM response if not already cached', (done) => {
@@ -272,6 +275,9 @@ describe('Security component', () => {
             req.originalUrl = '/';
             req.authToken = token;
             req.userId = 'immutable-idam-user-id';
+            security.sessionConcurrency = {
+                canManageSession: sinon.stub().throws(new Error('should not be called'))
+            };
 
             protect(req, res, next);
 
@@ -298,6 +304,7 @@ describe('Security component', () => {
                 expect(res.clearCookie.secondCall.callId).to.be.lessThan(res.redirect.firstCall.callId);
                 expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
                 sinon.assert.notCalled(next);
+                sinon.assert.notCalled(security.sessionConcurrency.canManageSession);
                 revert();
                 done();
             });
@@ -339,6 +346,9 @@ describe('Security component', () => {
             req.originalUrl = '/';
             req.authToken = token;
             req.userId = 'immutable-idam-user-id';
+            security.sessionConcurrency = {
+                canManageSession: sinon.stub().throws(new Error('should not be called'))
+            };
 
             protect(req, res, next);
 
@@ -364,6 +374,7 @@ describe('Security component', () => {
                 expect(res.clearCookie.secondCall.callId).to.be.lessThan(res.redirect.firstCall.callId);
                 expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
                 sinon.assert.notCalled(next);
+                sinon.assert.notCalled(security.sessionConcurrency.canManageSession);
                 revert();
                 done();
             });
@@ -401,6 +412,9 @@ describe('Security component', () => {
             req.originalUrl = '/';
             req.authToken = token;
             req.userId = 'immutable-idam-user-id';
+            security.sessionConcurrency = {
+                canManageSession: sinon.stub().throws(new Error('should not be called'))
+            };
 
             protect(req, res, next);
 
@@ -426,6 +440,7 @@ describe('Security component', () => {
                 expect(res.clearCookie.secondCall.callId).to.be.lessThan(res.redirect.firstCall.callId);
                 expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
                 sinon.assert.notCalled(next);
+                sinon.assert.notCalled(security.sessionConcurrency.canManageSession);
                 revert();
                 done();
             });
@@ -631,6 +646,203 @@ describe('Security component', () => {
             });
         });
 
+        it('passes _authorize errors to next once after ownership validation succeeds', (done) => {
+            const authorizeError = new Error('authorize failed');
+            req.session = {expires: expiresTime, language: 'en'};
+            req.sessionID = 'current-session-id';
+            req.sessionStore = {};
+            req.cookies[securityCookie] = token;
+            req.protocol = 'http';
+            security.sessionConcurrency = {
+                canManageSession: sinon.stub().returns(true),
+                assertAndTouch: sinon.stub().resolves(true),
+                activateLatest: sinon.stub().resolves()
+            };
+            security._authorize = sinon.stub().throws(authorizeError);
+
+            protect(req, res, next);
+
+            checkAsync(() => {
+                sinon.assert.calledOnce(next);
+                sinon.assert.calledWithExactly(next, authorizeError);
+                sinon.assert.notCalled(res.render);
+                sinon.assert.notCalled(res.redirect);
+                done();
+            });
+        });
+
+        it('passes IdamSession.get rejections to next once without extra redirects', (done) => {
+            const getError = new Error('idam get failed');
+            const revert = Security.__set__('IdamSession', class {
+                get() {
+                    return Promise.reject(getError);
+                }
+            });
+
+            req.session = {expires: expiresTime, language: 'en'};
+            req.sessionID = 'current-session-id';
+            req.sessionStore = {};
+            req.cookies[securityCookie] = token;
+            req.protocol = 'http';
+
+            protect(req, res, next);
+
+            checkAsync(() => {
+                sinon.assert.calledOnce(next);
+                sinon.assert.calledWithExactly(next, getError);
+                sinon.assert.notCalled(res.render);
+                sinon.assert.notCalled(res.redirect);
+                revert();
+                done();
+            });
+        });
+
+        it('passes validation-chain rejections to next once and does not authorise', (done) => {
+            const chainError = new Error('reauth chain failed');
+            req.session = {expires: expiresTime, language: 'en'};
+            req.sessionID = 'current-session-id';
+            req.sessionStore = {};
+            req.cookies[securityCookie] = token;
+            req.protocol = 'http';
+
+            security._authorize = sinon.stub();
+            security._validateActiveSession = sinon.stub().rejects(chainError);
+
+            protect(req, res, next);
+
+            checkAsync(() => {
+                sinon.assert.calledOnce(next);
+                sinon.assert.calledWithExactly(next, chainError);
+                sinon.assert.notCalled(security._authorize);
+                sinon.assert.notCalled(res.render);
+                sinon.assert.notCalled(res.redirect);
+                done();
+            });
+        });
+
+        it('logs redacted error type when stale-token invalidation fails', (done) => {
+            const sentinel = 'https://idam.local/session/token-secret-123';
+            const loggerErrorSpy = sinon.spy();
+            const revertLogger = Security.__set__('loggerRaw', () => ({error: loggerErrorSpy, debug: sinon.stub()}));
+            const revert = Security.__set__('IdamSession', class {
+                delete() {
+                    const err = new Error(`contains ${sentinel}`);
+                    err.name = 'IdamDeleteError';
+                    return Promise.reject(err);
+                }
+            });
+
+            req.session = {
+                language: 'cy',
+                destroy: callback => callback()
+            };
+            req.cookies[securityCookie] = token;
+            req.log = {error: loggerErrorSpy, debug: sinon.stub()};
+            req.baseUrl = '/';
+            req.originalUrl = '/';
+            req.protocol = 'http';
+
+            security._reauthenticateUser(req, res).then(() => {
+                const messages = loggerErrorSpy.getCalls().map(call => call.args.join(' ')).join('\n');
+                expect(messages).to.contain('Unable to invalidate stale IDAM session token (IdamDeleteError).');
+                expect(messages).to.not.contain(sentinel);
+                revert();
+                revertLogger();
+                done();
+            }).catch(done);
+        });
+
+        it('logs redacted error type when ownership validation fails', (done) => {
+            const sentinel = 'redis://user:token@localhost:6379/0';
+            const validationError = new Error(`boom ${sentinel}`);
+            validationError.name = 'RedisConnectionError';
+            const loggerErrorSpy = sinon.spy();
+            const revertLogger = Security.__set__('loggerRaw', () => ({error: loggerErrorSpy, debug: sinon.stub()}));
+
+            req.session = {
+                expires: expiresTime,
+                idamUserId: 'immutable-idam-user-id',
+                language: 'cy',
+                destroy: callback => callback()
+            };
+            req.sessionID = 'current-session-id';
+            req.sessionStore = {};
+            req.cookies[securityCookie] = token;
+            req.protocol = 'http';
+            req.baseUrl = '/';
+            req.originalUrl = '/';
+            security.sessionConcurrency = {
+                canManageSession: sinon.stub().returns(true),
+                assertAndTouch: sinon.stub().rejects(validationError),
+                activateLatest: sinon.stub().resolves()
+            };
+
+            protect(req, res, next);
+
+            checkAsync(() => {
+                const messages = loggerErrorSpy.getCalls().map(call => call.args.join(' ')).join('\n');
+                expect(messages).to.contain('Unable to validate active session mapping (RedisConnectionError).');
+                expect(messages).to.not.contain(sentinel);
+                revertLogger();
+                done();
+            });
+        });
+
+        it('logs redacted error type when superseded-session destruction fails', (done) => {
+            const sentinel = 'token-secret-redirect-url';
+            const loggerErrorSpy = sinon.spy();
+            const revertLogger = Security.__set__('loggerRaw', () => ({error: loggerErrorSpy, debug: sinon.stub()}));
+            const revert = Security.__set__('IdamSession', class {
+                delete() {
+                    return Promise.resolve({});
+                }
+            });
+
+            req.session = {
+                language: 'cy',
+                destroy: callback => {
+                    const err = new Error(`contains ${sentinel}`);
+                    err.name = 'SessionStoreError';
+                    callback(err);
+                }
+            };
+            req.cookies[securityCookie] = token;
+            req.log = {error: loggerErrorSpy, debug: sinon.stub()};
+            req.baseUrl = '/';
+            req.originalUrl = '/';
+            req.protocol = 'http';
+
+            security._reauthenticateUser(req, res).then(() => {
+                const messages = loggerErrorSpy.getCalls().map(call => call.args.join(' ')).join('\n');
+                expect(messages).to.contain('Unable to destroy superseded local session (SessionStoreError).');
+                expect(messages).to.not.contain(sentinel);
+                revert();
+                revertLogger();
+                done();
+            }).catch(done);
+        });
+
+        it('logs redacted error type when previous session destruction fails during activation', (done) => {
+            const sentinel = 'https://idam.local?token=sensitive';
+            const loggerErrorSpy = sinon.spy();
+            const revertLogger = Security.__set__('loggerRaw', () => ({error: loggerErrorSpy, debug: sinon.stub()}));
+            req.log = {error: loggerErrorSpy, debug: sinon.stub()};
+            security.sessionConcurrency = {
+                activateLatest: sinon.stub().resolves({destroyError: new Error(`oops ${sentinel}`)})
+            };
+            req.session = {idamUserId: 'immutable-idam-user-id'};
+            req.sessionID = 'session-id';
+            req.sessionStore = {};
+
+            security._activateLatestSession(req).then(() => {
+                const messages = loggerErrorSpy.getCalls().map(call => call.args.join(' ')).join('\n');
+                expect(messages).to.contain('Unable to destroy previous active session (Error).');
+                expect(messages).to.not.contain(sentinel);
+                revertLogger();
+                done();
+            }).catch(done);
+        });
+
         it('should retrieve user details when auth token provided', () => {
             const revert = Security.__set__('IdamSession', class {
                 get() {
@@ -663,10 +875,12 @@ describe('Security component', () => {
 
             promise
                 .then(() => {
-                    expect(res.status).to.have.been.calledWith(403);
-                    expect(res.render).to.have.been.calledWith('errors/error');
-                    revert();
-                    done();
+                    checkAsync(() => {
+                        expect(res.status).to.have.been.calledWith(403);
+                        expect(res.render).to.have.been.calledWith('errors/error');
+                        revert();
+                        done();
+                    });
                 })
                 .catch((err) => {
                     done(err);
@@ -692,9 +906,11 @@ describe('Security component', () => {
 
             promise
                 .then(() => {
-                    expect(next).to.have.been.calledWithExactly();
-                    revert();
-                    done();
+                    checkAsync(() => {
+                        expect(next).to.have.been.calledWithExactly();
+                        revert();
+                        done();
+                    });
                 })
                 .catch((err) => {
                     done(err);
