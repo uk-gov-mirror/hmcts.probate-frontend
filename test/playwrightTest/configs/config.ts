@@ -13,6 +13,7 @@ export const testConfig = {
     gaEnabled: false
   },
 
+
   TestCitizenDomain: '/@probateTest.com',
   TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png',
   TestE2EFrontendUrl: process.env.TEST_URL || 'http://localhost:3001',
