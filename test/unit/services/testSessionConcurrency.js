@@ -188,6 +188,48 @@ describe('SessionConcurrency service', () => {
         expect(activationResult.previousSessionId).to.equal(null);
     });
 
+    it('uses the retained raw Redis client for ownership operations when the store client has no eval', async () => {
+        const state = {};
+        const rawRedisClient = {
+            eval: sinon.stub().callsFake((script, keyCount, key, sessionId) => {
+                if (script.includes('local previous')) {
+                    const previousSessionId = state[key] || null;
+                    state[key] = sessionId;
+                    return Promise.resolve(previousSessionId);
+                }
+                if (state[key] === sessionId) {
+                    return Promise.resolve(1);
+                }
+                if (!state[key] && script.includes('NX')) {
+                    state[key] = sessionId;
+                    return Promise.resolve(1);
+                }
+                return Promise.resolve(0);
+            })
+        };
+        const sessionStore = {
+            client: {
+                get: sinon.stub(),
+                set: sinon.stub(),
+                del: sinon.stub()
+            },
+            redisClient: rawRedisClient,
+            destroy: sinon.stub().callsFake((sessionId, callback) => callback())
+        };
+        const sessionConcurrency = new SessionConcurrency({redisEnabled: true, sessionTtl: 300});
+
+        await sessionConcurrency.activateLatest(sessionStore, 'idam-user-id', 'session-A');
+        await sessionConcurrency.activateLatest(sessionStore, 'idam-user-id', 'session-B');
+        const delayedAStillActive = await sessionConcurrency.assertAndTouch(sessionStore, 'idam-user-id', 'session-A');
+        const sessionBStillActive = await sessionConcurrency.assertAndTouch(sessionStore, 'idam-user-id', 'session-B');
+
+        expect(delayedAStillActive).to.equal(false);
+        expect(sessionBStillActive).to.equal(true);
+        expect(state['session:active:user:idam-user-id']).to.equal('session-B');
+        expect(sessionStore.client.eval).to.equal(undefined);
+        sinon.assert.called(rawRedisClient.eval);
+    });
+
     it('throws when Redis enforcement is enabled but session management is unavailable', async () => {
         const sessionConcurrency = new SessionConcurrency({redisEnabled: true});
 

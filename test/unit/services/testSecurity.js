@@ -380,6 +380,79 @@ describe('Security component', () => {
             });
         });
 
+        it('should clear stale local auth and continue login when IDAM token invalidation resolves with an error payload', (done) => {
+            let settleDelete;
+            const deleteStub = sinon.stub().returns(new Promise(resolve => {
+                settleDelete = resolve;
+            }));
+            const destroyStub = sinon.stub().callsFake(callback => {
+                delete req.session;
+                delete req.sessionStore;
+                if (callback) {
+                    callback();
+                }
+            });
+            const revert = Security.__set__('IdamSession', class {
+                get() {
+                    return Promise.resolve({name: 'Success'});
+                }
+
+                delete(accessToken) {
+                    return deleteStub(accessToken);
+                }
+            });
+
+            req.session = {
+                language: 'cy',
+                form: {caseType: 'gop'},
+                idamUserId: 'immutable-idam-user-id',
+                destroy: destroyStub
+            };
+            req.sessionStore = {};
+            req.sessionID = 'lost-session-id';
+            req.cookies[securityCookie] = token;
+            req.protocol = 'http';
+            req.baseUrl = '/';
+            req.originalUrl = '/';
+            req.authToken = token;
+            req.userId = 'immutable-idam-user-id';
+            security.sessionConcurrency = {
+                canManageSession: sinon.stub().throws(new Error('should not be called'))
+            };
+            security._authorize = sinon.stub().throws(new Error('should not be called'));
+
+            protect(req, res, next);
+
+            checkAsync(() => {
+                sinon.assert.notCalled(res.redirect);
+                settleDelete(new Error('IDAM 401 empty response'));
+            });
+
+            checkAsync(() => {
+                sinon.assert.calledOnce(destroyStub);
+                sinon.assert.calledOnce(deleteStub);
+                sinon.assert.calledTwice(res.clearCookie);
+                sinon.assert.calledWith(res.clearCookie.firstCall, securityCookie);
+                sinon.assert.calledWith(res.clearCookie.secondCall, expressSessionCookie);
+                expect(req.cookies).to.equal(undefined);
+                expect(req.session).to.equal(undefined);
+                expect(req.sessionID).to.equal(undefined);
+                expect(req.sessionStore).to.equal(undefined);
+                expect(req.authToken).to.equal(undefined);
+                expect(req.userId).to.equal(undefined);
+                sinon.assert.calledOnce(res.redirect);
+                expect(res.clearCookie.firstCall.callId).to.be.lessThan(res.redirect.firstCall.callId);
+                expect(res.clearCookie.secondCall.callId).to.be.lessThan(res.redirect.firstCall.callId);
+                expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
+                expect(res.redirect.firstCall.args[0]).to.not.equal(timeoutUrl);
+                sinon.assert.notCalled(next);
+                sinon.assert.notCalled(security.sessionConcurrency.canManageSession);
+                sinon.assert.notCalled(security._authorize);
+                revert();
+                done();
+            });
+        });
+
         it('should clear auth and session cookies and continue login when lost-session destroy fails', (done) => {
             let settleDelete;
             const deleteStub = sinon.stub().returns(new Promise(resolve => {
